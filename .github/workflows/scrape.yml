@@ -57,8 +57,13 @@ jobs:
           if [ "${{ inputs.skip_check }}" = "true" ]; then args+=(--no-check); fi
           python scripts/scraper.py "${args[@]}"
 
-      - name: Commit updated playlists
+      - name: Commit updated playlists to the run's branch
         run: |
+          # --no-check must never replace the checked player URL with untested links.
+          # The all-links list, caches and status may still be refreshed.
+          if [ "${{ inputs.skip_check }}" = "true" ]; then
+            git restore -- playlists/PremiumTV.m3u
+          fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add playlists/
@@ -67,8 +72,10 @@ jobs:
             exit 0
           fi
           git commit -m "Update playlists: ${{ steps.label.outputs.label }} ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          # Scheduled runs always use main; a manually dispatched run on a test
+          # branch must never accidentally publish its result to main.
           for i in 1 2 3; do
-            git pull --rebase --autostash && git push && exit 0
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
             sleep 5
           done
           exit 1
