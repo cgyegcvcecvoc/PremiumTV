@@ -1,0 +1,44 @@
+{
+  "_comment": "Playlist sources the scraper pulls from. Add/remove entries or flip 'enabled'. type = m3u | w3u. For w3u (Wiseplay JSON) sources, nested groups are followed up to max_depth; include_groups/exclude_groups match group names case-insensitively.",
+  "sources": [
+    {
+      "name": "aria",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/aria-tv/aria/main/aria.m3u",
+      "github": { "repo": "aria-tv/aria", "path": "aria.m3u", "ref": "main" }
+    },
+    {
+      "name": "doms9",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8",
+      "github": { "repo": "doms9/iptv", "path": "M3U8/TV.m3u8", "ref": "default" }
+    },
+    {
+      "name": "xtemus",
+      "type": "w3u",
+      "enabled": true,
+      "url": "https://playlist.xtemus.com/?playlist=t256y454t41554",
+      "max_depth": 2,
+      "include_groups": [
+        "Digital TV",
+        "Online TV",
+        "DLTV",
+        "Global TV",
+        "Sport",
+        "Discovery",
+        "Kids TV",
+        "Music"
+      ],
+      "exclude_groups": [
+        "Movie Zone",
+        "Series Zone",
+        "Cinema City",
+        "Radio",
+        "XTEMUS Link",
+        "HL 20"
+      ]
+    }
+  ]
+}
