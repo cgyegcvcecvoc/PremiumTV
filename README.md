@@ -1,48 +1,73 @@
 # PremiumTV1
 
+A playlist builder for publicly listed TV streams. The scraper combines enabled sources, removes duplicate URLs, checks HTTP streams, and publishes the checked player playlist when the run passes its safety threshold.
+
 ## Load the playlist
 
-After the playlist changes are merged into `main`, open this URL in an M3U-compatible player:
+Load this URL in an M3U-compatible player (VLC, TiviMate, IPTV Smarters, Kodi PVR IPTV Simple, etc.):
 
 ```text
 https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u
 ```
 
-**Before the merge, the `main` URL can still return 404.** A file on a pull-request branch is not a file on `main`. Open [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) in this branch to inspect the starter playlist.
-
 | File | Purpose |
 |---|---|
-| [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Player URL. Initially a **not-checked** source snapshot; replaced with link-checked results after a successful scheduled/manual checked run. |
-| [`playlists/PremiumTV_all.m3u`](playlists/PremiumTV_all.m3u) | All unique source entries, including unverified/dead links. |
-| [`playlists/STATUS.md`](playlists/STATUS.md) | Snapshot note, then the last successful run's summary. |
-| `playlists/report.json` | Created on a successful scraper run; link-check results and per-source counts. |
-| `playlists/sources/*.m3u` | Normalized source snapshots, used by the scraper if an upstream fetch fails. |
+| [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Confirmed working links from the latest successful checked run. |
+| [`playlists/PremiumTV_all.m3u`](playlists/PremiumTV_all.m3u) | All unique links found, including dead or unverified links. |
+| [`playlists/STATUS.md`](playlists/STATUS.md) | Latest run outcome, source counts, additions/removals, and diagnostics. |
+| [`playlists/report.json`](playlists/report.json) | Detailed latest report, including failed sources and dead/unverified URLs. |
+| [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
+| `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 
-The initial snapshot was assembled from the publicly available **aria** and **doms9** M3U sources on 2026-09-27 with the existing scraper's parser and formatter. It has **not** been link-checked. **xtemus** is configured but could not be reached from the snapshot environment; a successful scraper run will add its allowed live-TV groups when available. Some links may expire, be geo-restricted, require authorization, or not actually play; even a passing HTTP check does not guarantee playback or rights to view a stream.
+Each report compares the newly discovered links with the previous all-links playlist and records added/removed counts. A failed source refresh or a link-check run below the minimum working ratio is recorded, but does not replace the last good `PremiumTV.m3u`.
 
-## Update automatically
+## Automatic checks and logs
 
-The existing [scraper](scripts/scraper.py) downloads the sources in [`sources.json`](sources.json), parses/merges/deduplicates them, checks stream responses, and writes the playlist files. The [GitHub Actions workflow](.github/workflows/scrape.yml) schedules it daily at **3:00 AM**, **6:00 AM**, and **4:15 PM America/New_York** (daylight saving time is handled by GitHub).
+The [GitHub Actions workflow](.github/workflows/scrape.yml) runs three times a day in `America/New_York`:
 
-1. Merge this branch's playlist and workflow into `main` to make the raw URL available. Scheduled runs only use the default branch (`main`); they cannot publish an unmerged pull request.
-2. To run immediately, open **Actions → Scrape playlists → Run workflow**, select **main**, leave **Skip link checking** off, and start the run. Check its logs and `playlists/STATUS.md` / `playlists/report.json` on `main` afterwards. No runs had been recorded when this starter playlist was created; workflow configuration alone is not evidence a scheduled run has succeeded.
-3. The workflow commits changed `playlists/` files back to the branch it ran on. On a scheduled run this is `main`; a manually dispatched run on a feature branch only updates that feature branch. Repository Actions must have permission to write contents; branch protection may require allowing the Actions bot to push or using a PR instead.
+| Time | Run label |
+|---|---|
+| 3:00 AM | Regular daily scrape |
+| 6:00 AM | Recheck |
+| 4:15 PM | Final daily check |
 
-The checked run keeps the previous player playlist if too few links pass (the scraper returns an error). The optional **Skip link checking** dispatch refreshes the all-links list and caches but **does not replace** the player playlist with untested links. Scheduled runs may start late under load.
+An offline regression suite runs before the scrape. All scheduled runs fetch every configured playlist source, deduplicate channels, and check every unique HTTP stream URL. The workflow adds the human-readable status to the Actions run summary and commits `STATUS.md`, `report.json`, source caches, and `run-history.jsonl` even if a failed health check prevents playlist publication. A failed scraper run still ends the Actions job as failed after its diagnostics have been saved.
 
-## Update sources or run locally
+Statuses distinguish **dead** responses from **unverified** results. For example, 401/403 access restrictions, rate limits, server errors, timeouts, and non-HTTP schemes are not represented as confirmed-working links; their reasons and next-step guidance are in `STATUS.md` and `report.json`. Per-host request limits and retries help reduce avoidable rate limiting. HTTP checks are only a reachability signal: they cannot guarantee playback from every region or that a stream is authorized for every viewer.
 
-Edit [`sources.json`](sources.json) to enable/disable a source or add one with `name`, `type` (`m3u` or `w3u`), and `url`. W3U sources support `include_groups`, `exclude_groups`, and `max_depth`; the xtemus movie, series, radio, and highlight folders are excluded by the current settings. Review permissions and source quality before publishing new links.
+To run immediately, open **Actions → Scrape playlists → Run workflow**. Leave **Skip link checking** off for a verified refresh. Scheduled workflows run from the default branch (`main`); a manual run on another branch only updates that branch. GitHub may start scheduled runs a few minutes late.
 
-Python 3.9+ is sufficient; no third-party packages are needed:
+## Sources
+
+Playlist sources are configured in [`sources.json`](sources.json). Active M3U/W3U feeds are fetched and their unique stream URLs are checked on every scheduled run.
+
+| Source | Format | Integration |
+|---|---|---|
+| [aria](https://github.com/aria-tv/aria/blob/main/aria.m3u) | M3U | Direct raw playlist; enabled. |
+| [doms9/iptv](https://github.com/doms9/iptv) | M3U8 | `M3U8/TV.m3u8`; enabled. |
+| [xtemus](https://xtemus.com/) | W3U | Enabled; only the selected live-TV groups are followed. Movie, series, radio, and highlight folders are excluded. |
+| [iptv-org/iptv](https://github.com/iptv-org/iptv) | M3U | Added global playlist `https://iptv-org.github.io/iptv/index.m3u`. |
+| [Free-TV/IPTV](https://github.com/Free-TV/IPTV) | M3U8 | Added `playlist.m3u8`. |
+| [eja.tv](https://eja.tv/) | Website audit | The site is probed for reachability, but it is not treated as a static playlist. No direct M3U export was verified. It is not counted as imported channels unless a direct playlist URL is configured. |
+| [StepDaddyLiveHD](https://github.com/gookie-dev/StepDaddyLiveHD) | Repository audit / optional instance playlist | The repository tree is checked for a static M3U. Its documented playlist is generated by a self-hosted app, so the repository itself is not a channel feed. |
+
+`aria` and `doms9` were already active sources; the scraper now also scans `iptv-org` and `Free-TV/IPTV`. The eja.tv and StepDaddyLiveHD references are checked and reported separately rather than falsely counted as channel feeds. To ingest an authorized direct M3U URL for either, add repository Actions secrets named `EJA_M3U_URL` or `STEPDADDYLIVEHD_PLAYLIST_URL`. The StepDaddy secret should point to a running instance's `/playlist.m3u8`; without it, the repository audit still runs and the instance source is shown as `not_configured`.
+
+To add another feed, add a `sources` entry with `name`, `type` (`m3u` or `w3u`), and `url`. For an optional URL supplied by an environment variable, use `url_env` and `optional: true`; the workflow's optional secrets are wired in `.github/workflows/scrape.yml`. W3U sources also support `include_groups`, `exclude_groups`, and `max_depth`. Playlist files and caches are committed to this repository, so only configure feeds whose resulting stream URLs are safe to publish—an Actions secret protects the feed URL from logs, but does not make output links private. Review source quality and permissions before publishing.
+
+## Run locally
+
+Python 3.9+ is required; there are no third-party dependencies.
 
 ```bash
-python scripts/scraper.py --help
-python scripts/scraper.py                          # fetch, merge, link-check, and write playlists/
-python scripts/scraper.py --no-check               # local unchecked merge (also overwrites local PremiumTV.m3u)
-python -m unittest discover -s tests -v           # offline integration tests
+python scripts/scraper.py                         # fetch, merge, check, and write reports
+python scripts/scraper.py --no-check              # merge without checks; keep the checked player file untouched
+python scripts/scraper.py --help                   # workers, timeout, retries, and other options
+python -m unittest discover -s tests -v            # offline integration tests
 ```
 
-Inspect the diff and the status report before committing. To publish changes, push them on a branch, open a pull request, and merge into `main`. For an immediate checked refresh after merging, dispatch the workflow on `main` as above. Do not publish a local `--no-check` result as if it were link-checked.
+Inspect `playlists/STATUS.md` and `playlists/report.json` after a run. `--no-check` leaves `PremiumTV.m3u` untouched, and the workflow has a second restore safeguard before committing.
 
-This repository does not host video. Verify that you are permitted to use and redistribute source links in your region.
+## Disclaimer
+
+This repository does not host video. It only collects and checks links published elsewhere. Verify that a stream is authorized for you to access and redistribute in your location before using it.

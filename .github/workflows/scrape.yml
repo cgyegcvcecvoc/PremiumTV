@@ -1,11 +1,11 @@
 name: Scrape playlists
 
-# Runs three times a day on New York time (EDT in summer, EST in winter;
-# GitHub adjusts for daylight saving automatically via `timezone`):
-#   03:00  daily scrape
-#   06:00  recheck (3 hours later)
+# Runs three times a day on New York time (EDT/EST changes are handled by
+# GitHub's timezone-aware schedule):
+#   03:00  regular daily scrape
+#   06:00  recheck
 #   16:15  final daily check
-# Every run does the same full job: fetch all sources, merge, dedupe, test links.
+# Every scheduled check fetches all configured playlist sources and tests links.
 on:
   schedule:
     - cron: "0 3 * * *"
@@ -31,13 +31,16 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Run offline scraper tests
+        run: python -m unittest discover -s tests -v
 
       - name: Pick run label
         id: label
@@ -50,32 +53,59 @@ jobs:
           esac
 
       - name: Run scraper
+        id: scraper
+        # Keep going long enough to publish STATUS.md/report.json/run-history.jsonl
+        # even when the scraper correctly refuses to replace a bad playlist.
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EJA_M3U_URL: ${{ secrets.EJA_M3U_URL }}
+          STEPDADDYLIVEHD_PLAYLIST_URL: ${{ secrets.STEPDADDYLIVEHD_PLAYLIST_URL }}
+          SCRAPER_LABEL: ${{ steps.label.outputs.label }}
+          SKIP_CHECK: ${{ inputs.skip_check }}
         run: |
-          args=(--label "${{ steps.label.outputs.label }}")
-          if [ "${{ inputs.skip_check }}" = "true" ]; then args+=(--no-check); fi
+          args=(--label "$SCRAPER_LABEL")
+          if [ "$SKIP_CHECK" = "true" ]; then args+=(--no-check); fi
           python scripts/scraper.py "${args[@]}"
 
-      - name: Commit updated playlists to the run's branch
+      - name: Add scraper status to the Actions summary
+        if: always() && steps.scraper.outcome != 'skipped'
         run: |
-          # --no-check must never replace the checked player URL with untested links.
-          # The all-links list, caches and status may still be refreshed.
-          if [ "${{ inputs.skip_check }}" = "true" ]; then
-            git restore -- playlists/PremiumTV.m3u
+          if [ -f playlists/STATUS.md ]; then
+            cat playlists/STATUS.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "The scraper did not write playlists/STATUS.md." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit playlists and run diagnostics
+        if: always() && steps.scraper.outcome != 'skipped'
+        env:
+          SKIP_CHECK: ${{ inputs.skip_check }}
+          SCRAPER_LABEL: ${{ steps.label.outputs.label }}
+        run: |
+          # An unchecked manual merge must never publish unverified player links.
+          if [ "$SKIP_CHECK" = "true" ]; then
+            if git ls-files --error-unmatch playlists/PremiumTV.m3u >/dev/null 2>&1; then
+              git restore --source=HEAD --worktree -- playlists/PremiumTV.m3u
+            else
+              rm -f playlists/PremiumTV.m3u
+            fi
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add playlists/
           if git diff --cached --quiet; then
-            echo "No changes."
+            echo "No playlist or diagnostic changes to commit."
             exit 0
           fi
-          git commit -m "Update playlists: ${{ steps.label.outputs.label }} ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
-          # Scheduled runs always use main; a manually dispatched run on a test
-          # branch must never accidentally publish its result to main.
+          git commit -m "Scraper run: $SCRAPER_LABEL ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          # Scheduled runs update main. Manual runs update only the selected branch.
           for i in 1 2 3; do
             git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
             sleep 5
           done
           exit 1
+
+      - name: Fail the workflow if the scraper reported failure
+        if: steps.scraper.outcome != 'success'
+        run: exit 1
