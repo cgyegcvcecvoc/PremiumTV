@@ -1,21 +1,20 @@
 # Playlist status
 
-- **Last run:** 2026-09-27 07:03 PM EDT (2026-09-27 23:03 UTC) — _4:15 PM final check_
-- **Working links:** 672 / 1431 unique
+- **Last run:** 2026-09-28 11:04 AM EDT (2026-09-28 15:04 UTC) — _3:00 AM daily scrape_
+- **Working links:** 510 / 1082 unique
 
 | Source | Fetched | Entries | Unique | Working | Dead |
 |---|---|---:|---:|---:|---:|
-| aria | yes | 413 | 407 | 333 | 74 |
-| doms9 | yes | 731 | 707 | 306 | 401 |
+| aria | yes | 409 | 403 | 330 | 73 |
+| doms9 | yes | 375 | 362 | 147 | 215 |
 | xtemus | yes | 317 | 317 | 33 | 284 |
 
 ## Working links by group
 
 | Group | Links |
 |---|---:|
-| TV | 181 |
-| Live Events | 125 |
-| United States 🇺🇸 | 39 |
+| TV | 137 |
+| United States 🇺🇸 | 36 |
 | Latin America 🌎 | 34 |
 | Iran 🇮🇷 | 26 |
 | India 🇮🇳 | 17 |
@@ -25,6 +24,7 @@
 | Finland 🇫🇮 | 15 |
 | Hungary 🇭🇺 | 13 |
 | Estonia 🇪🇪 | 11 |
+| Live Events | 10 |
 | Latvia | 9 |
 | South Korea 🇰🇷 | 9 |
 | Guyana 🇬🇾 | 8 |
