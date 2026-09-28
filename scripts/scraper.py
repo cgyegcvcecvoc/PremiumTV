@@ -179,7 +179,7 @@ def fetch_source_text(src: dict) -> str:
         return text
     except Exception as exc:  # noqa: BLE001
         github = src.get("github")
-        if not github:
+        if not github or not github.get("repo") or not github.get("path"):
             raise
         direct_error = error_text(exc, src["url"])
         src["_fetch_method"] = "github_api_fallback"
@@ -605,6 +605,8 @@ def now_strings(when: dt.datetime | None = None) -> tuple[str, str]:
 
 def classify_run(label: str) -> str:
     low = label.lower()
+    if "monthly" in low or "discovery" in low:
+        return "monthly_discovery"
     if "recheck" in low:
         return "recheck"
     if "final" in low:
@@ -627,6 +629,41 @@ def resolve_source_url(src: dict) -> str:
         if env_value:
             return env_value
     return str(src.get("url") or "").strip()
+
+
+def load_approved_sources(approved_path: str, source_items: list) -> tuple[list, list[dict]]:
+    """Merge sources vetted by the monthly discovery engine into the source list.
+
+    The file is written by scripts/discover.py. Entries are additive: anything
+    already configured in sources.json wins, and a promoted entry can be rolled
+    back by removing it or setting "enabled": false in approved-sources.json.
+    """
+    path = Path(approved_path)
+    if not path.exists():
+        return source_items, []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        log(f"[discover] ignoring unreadable {path}: {error_text(exc)}")
+        return source_items, []
+    if not isinstance(data, dict) or not isinstance(data.get("sources"), list):
+        return source_items, []
+
+    known = {str(item.get("name")) for item in source_items if isinstance(item, dict)}
+    merged = list(source_items)
+    promoted: list[dict] = []
+    for entry in data["sources"]:
+        if not isinstance(entry, dict):
+            continue
+        name = str(entry.get("name") or "").strip()
+        if not name or name in known or not entry.get("enabled", True):
+            continue
+        if not str(entry.get("url") or "").strip() and not entry.get("url_env"):
+            continue
+        known.add(name)
+        merged.append({**entry, "promoted_by_discovery": True})
+        promoted.append(entry)
+    return merged, promoted
 
 
 def previous_playlist_index(out_dir: Path) -> tuple[dict[str, Channel], str]:
@@ -768,11 +805,19 @@ def make_status_markdown(report: dict) -> str:
         "|---|---|---:|---:|---:|---:|---:|---:|",
     ]
     for name, stat in report["sources"].items():
+        label = f"{name} 🌱" if stat.get("promoted_by_discovery") else name
         lines.append(
-            f"| {name} | {stat.get('status', 'unknown')} | {stat.get('found', 0)} | "
+            f"| {label} | {stat.get('status', 'unknown')} | {stat.get('found', 0)} | "
             f"{stat.get('unique', 0)} | {stat.get('overlap', 0)} | {stat.get('alive', 0)} | "
             f"{stat.get('dead', 0)} | {stat.get('unverified', 0)} |"
         )
+    promoted = [name for name, stat in report["sources"].items() if stat.get("promoted_by_discovery")]
+    if promoted:
+        lines += [
+            "",
+            f"🌱 = source added automatically by the monthly discovery engine: {', '.join(promoted)}. "
+            "Set `\"enabled\": false` for it in `discovery/approved-sources.json` to roll it back.",
+        ]
     lines += [
         "",
         "## Reference-source checks (not automatically imported)",
@@ -826,6 +871,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--sources", default=str(ROOT / "sources.json"))
     ap.add_argument("--out", default=str(ROOT / "playlists"))
+    ap.add_argument("--approved-sources", default=None,
+                    help="vetted sources from monthly discovery "
+                         "(default: <out>/discovery/approved-sources.json when it exists)")
     ap.add_argument("--no-check", action="store_true", help="skip link checking")
     ap.add_argument("--workers", type=int, default=48, help="maximum concurrent link checks")
     ap.add_argument("--per-host-workers", type=int, default=4, help="maximum concurrent checks per host")
@@ -842,6 +890,8 @@ def main() -> int:
 
     out_dir = Path(args.out)
     cache_dir = out_dir / "sources"
+    if args.approved_sources is None:
+        args.approved_sources = str(out_dir / "discovery" / "approved-sources.json")
     started = dt.datetime.now(dt.timezone.utc)
     started_utc_iso = started.isoformat(timespec="seconds").replace("+00:00", "Z")
     run_id = f"{started.strftime('%Y%m%dT%H%M%S')}Z-{os.getpid()}"
@@ -876,6 +926,11 @@ def main() -> int:
         if not isinstance(source_items, list):
             raise ValueError("'sources' must be a JSON array")
 
+        source_items, promoted = load_approved_sources(args.approved_sources, source_items)
+        for item in promoted:
+            log(f"[discover] merged promoted source '{item['name']}' "
+                f"({item.get('new_links', '?')} new links, score {item.get('score', '?')})")
+
         for index, src in enumerate(source_items, 1):
             if not isinstance(src, dict):
                 source_issues.append(f"Source entry {index} is not an object; skipped.")
@@ -884,6 +939,8 @@ def main() -> int:
             source_stats[name] = {
                 "type": src.get("type", "m3u"),
                 "url": source_display_url(src),
+                "promoted_by_discovery": bool(src.get("promoted_by_discovery")),
+                "discovery_note": src.get("note", "") if src.get("promoted_by_discovery") else "",
                 "fetched": False,
                 "from_cache": False,
                 "status": "pending",
@@ -1129,6 +1186,7 @@ def main() -> int:
         "all_playlist_written": all_playlist_written,
         "duration_seconds": round((finished - started).total_seconds(), 2),
         "changes": changes,
+        "promoted_sources": [name for name, stat in source_stats.items() if stat.get("promoted_by_discovery")],
         "sources": source_stats,
         "reference_checks": reference_checks,
         "issues": issue_messages,
@@ -1157,10 +1215,12 @@ def main() -> int:
         "unverified": status_counts.get("unverified", 0),
         "added": changes.get("added_count", 0),
         "removed": changes.get("removed_count", 0),
+        "promoted_sources": [name for name, stat in source_stats.items() if stat.get("promoted_by_discovery")],
         "sources": {
             name: {
                 key: stat.get(key)
-                for key in ("status", "found", "unique", "alive", "dead", "unverified", "error")
+                for key in ("status", "found", "unique", "alive", "dead", "unverified", "error",
+                            "promoted_by_discovery")
                 if key in stat
             }
             for name, stat in source_stats.items()

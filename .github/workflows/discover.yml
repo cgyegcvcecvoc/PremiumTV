@@ -1,0 +1,130 @@
+name: Monthly discovery
+
+# Once a month the repository hunts for new channels: candidate playlists are
+# fetched, measured against the current playlist, and sample-checked. Sources
+# that clear the thresholds are added to discovery/approved-sources.json and are
+# merged into the next regular scrape, where every link is checked again before
+# it can appear in PremiumTV.m3u.
+on:
+  schedule:
+    # 04:30 on the 1st of every month, New York time.
+    - cron: "30 4 1 * *"
+      timezone: "America/New_York"
+  workflow_dispatch:
+    inputs:
+      max_candidates:
+        description: "Evaluate at most this many candidates (0 = all)"
+        type: string
+        default: "0"
+      skip_search:
+        description: "Skip GitHub search (seeded candidates only)"
+        type: boolean
+        default: false
+      dry_run:
+        description: "Report only; never promote a source"
+        type: boolean
+        default: false
+  # On-demand monthly hunt without opening the Actions tab, e.g.
+  #   gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=discover-now
+  repository_dispatch:
+    types: [discover-now]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discover-channels
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run offline tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Pick run label
+        id: label
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          DISPATCH_LABEL: ${{ github.event.client_payload.label }}
+        run: |
+          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
+            label="$(printf '%s' "${DISPATCH_LABEL:-manual discovery run}" | tr -d '\n\r' | cut -c1-80)"
+            echo "label=${label:-manual discovery run}" >> "$GITHUB_OUTPUT"
+          else
+            case "$SCHEDULE" in
+              "30 4 1 * *") echo "label=monthly new-channel discovery" >> "$GITHUB_OUTPUT" ;;
+              *)            echo "label=manual discovery run"         >> "$GITHUB_OUTPUT" ;;
+            esac
+          fi
+
+      - name: Run discovery
+        id: discover
+        continue-on-error: true
+        env:
+          # A token only raises the GitHub search rate limit; unauthenticated
+          # search still works, it is just slower.
+          DISCOVERY_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SCRAPER_LABEL: ${{ steps.label.outputs.label }}
+          MAX_CANDIDATES: ${{ inputs.max_candidates }}
+          SKIP_SEARCH: ${{ inputs.skip_search }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          args=(--label "$SCRAPER_LABEL")
+          [ "$MAX_CANDIDATES" != "" ] && [ "$MAX_CANDIDATES" != "0" ] && args+=(--max-candidates "$MAX_CANDIDATES")
+          [ "$SKIP_SEARCH" = "true" ] && args+=(--no-search)
+          [ "$DRY_RUN" = "true" ] && args+=(--dry-run --no-promote)
+          python scripts/discover.py "${args[@]}"
+
+      - name: Add discovery report to the Actions summary
+        if: always() && steps.discover.outcome != 'skipped'
+        run: |
+          if [ -f playlists/discovery/REPORT.md ]; then
+            cat playlists/discovery/REPORT.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "The discovery engine did not write playlists/discovery/REPORT.md." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Integrate promoted sources into the playlists
+        if: always() && steps.discover.outcome != 'skipped' && inputs.dry_run != true
+        id: scrape
+        continue-on-error: true
+        run: |
+          # `git status --porcelain` also catches a file that is new or untracked,
+          # which `git diff` would miss on the first monthly run.
+          if [ -n "$(git status --porcelain -- playlists/discovery/approved-sources.json)" ]; then
+            echo "Approved sources changed; running a full checked scrape."
+            python scripts/scraper.py --label "monthly discovery integration scrape"
+          else
+            echo "No newly approved sources; the regular daily scrape will pick them up."
+          fi
+
+      - name: Commit discovery results
+        if: always() && steps.discover.outcome != 'skipped'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add playlists/
+          if git diff --cached --quiet; then
+            echo "No discovery changes to commit."
+            exit 0
+          fi
+          git commit -m "Monthly discovery: ${{ steps.label.outputs.label }} ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep 5
+          done
+          exit 1
+
+      - name: Fail the workflow if discovery reported a fatal error
+        if: steps.discover.outcome != 'success'
+        run: exit 1
