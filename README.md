@@ -17,6 +17,9 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/STATUS.md`](playlists/STATUS.md) | Latest run outcome, source counts, additions/removals, and diagnostics. |
 | [`playlists/report.json`](playlists/report.json) | Detailed latest report, including failed sources and dead/unverified URLs. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
+| [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
+| [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
+| [`playlists/discovery/new-channels.m3u`](playlists/discovery/new-channels.m3u) | New working links found by the last monthly run, ready to try in a player. |
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 
 Each report compares the newly discovered links with the previous all-links playlist and records added/removed counts. A failed source refresh or a link-check run below the minimum working ratio is recorded, but does not replace the last good `PremiumTV.m3u`.
@@ -31,11 +34,32 @@ The [GitHub Actions workflow](.github/workflows/scrape.yml) runs three times a d
 | 6:00 AM | Recheck |
 | 4:15 PM | Final daily check |
 
+A separate [monthly workflow](.github/workflows/discover.yml) hunts for new channels on the 1st of each month at 4:30 AM; see [Monthly new-channel discovery](#monthly-new-channel-discovery).
+
 An offline regression suite runs before the scrape. All scheduled runs fetch every configured playlist source, deduplicate channels, and check every unique HTTP stream URL. The workflow adds the human-readable status to the Actions run summary and commits `STATUS.md`, `report.json`, source caches, and `run-history.jsonl` even if a failed health check prevents playlist publication. A failed scraper run still ends the Actions job as failed after its diagnostics have been saved.
 
 Statuses distinguish **dead** responses from **unverified** results. For example, 401/403 access restrictions, rate limits, server errors, timeouts, and non-HTTP schemes are not represented as confirmed-working links; their reasons and next-step guidance are in `STATUS.md` and `report.json`. Per-host request limits and retries help reduce avoidable rate limiting. HTTP checks are only a reachability signal: they cannot guarantee playback from every region or that a stream is authorized for every viewer.
 
 To run immediately, open **Actions → Scrape playlists → Run workflow**. Leave **Skip link checking** off for a verified refresh. Scheduled workflows run from the default branch (`main`); a manual run on another branch only updates that branch. GitHub may start scheduled runs a few minutes late.
+
+## Monthly new-channel discovery
+
+The daily schedule only refreshes the sources that are already configured, so new channels need their own hunt. The [monthly workflow](.github/workflows/discover.yml) runs [`scripts/discover.py`](scripts/discover.py) at **4:30 AM on the 1st of every month** (New York time) and can also be started manually from **Actions → Monthly discovery → Run workflow**.
+
+Each monthly run:
+
+1. Builds the corpus from the published `PremiumTV_all.m3u`, so "new" means "not in the playlist yet".
+2. Collects candidates: the seeded repositories in `sources.json` plus public GitHub repositories found through repository search (`topic:iptv-m3u`, `#EXTM3U` in the README, and similar). For each repository the engine reads the file tree and picks the most likely static TV playlist, skipping series/movie/VOD/radio files.
+3. Fetches and parses each candidate, then measures how many links it would actually **add**, how many are duplicates, and how many channel names are new.
+4. Link-checks a host-balanced sample of those new links — 12 by default, spread across providers so one host cannot skew the result — and scores the candidate on working ratio, new-link volume, and freshness.
+5. Reviews the already-configured sources the same way, so the report also shows new channels arriving from sources you already have.
+6. Re-checks the health of previously promoted sources and flags any that have gone stale.
+
+A candidate is promoted only when it clears every threshold in `sources.json` → `discovery.thresholds` (at least 25 new links, at least 3 of the sampled links working, a working ratio of at least 30%, and a score of at least 55). Promotions are capped at `max_promote_per_run` (2) per month and are written to `playlists/discovery/approved-sources.json`. The monthly workflow then runs a normal checked scrape so the new sources are integrated with every link verified, exactly like a regular run; otherwise the next daily scrape picks them up.
+
+Promotion is not publication. A promoted source is still fetched, deduplicated, and link-checked by the regular scraper before anything can reach `PremiumTV.m3u`, promoted sources are marked 🌱 in `STATUS.md`, and the minimum-working-ratio safeguard still protects the last good playlist. To roll one back, set `"enabled": false` for it in `approved-sources.json` or delete the entry.
+
+Candidates that were already measured and rejected are remembered in `playlists/discovery/state.json` and are not re-fetched until `recheck_after_days` (90) has passed, so a month of dead sources costs one fetch each. `--force` overrides this.
 
 ## Sources
 
@@ -63,6 +87,9 @@ Python 3.9+ is required; there are no third-party dependencies.
 python scripts/scraper.py                         # fetch, merge, check, and write reports
 python scripts/scraper.py --no-check              # merge without checks; keep the checked player file untouched
 python scripts/scraper.py --help                   # workers, timeout, retries, and other options
+python scripts/discover.py                        # monthly new-channel hunt
+python scripts/discover.py --no-search --max-candidates 3   # quick, seeded-only trial run
+python scripts/discover.py --dry-run              # report only; never promote a source
 python -m unittest discover -s tests -v            # offline integration tests
 ```
 

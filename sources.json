@@ -6,14 +6,22 @@
       "type": "m3u",
       "enabled": true,
       "url": "https://raw.githubusercontent.com/aria-tv/aria/main/aria.m3u",
-      "github": { "repo": "aria-tv/aria", "path": "aria.m3u", "ref": "main" }
+      "github": {
+        "repo": "aria-tv/aria",
+        "path": "aria.m3u",
+        "ref": "main"
+      }
     },
     {
       "name": "doms9",
       "type": "m3u",
       "enabled": true,
       "url": "https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8",
-      "github": { "repo": "doms9/iptv", "path": "M3U8/TV.m3u8", "ref": "default" }
+      "github": {
+        "repo": "doms9/iptv",
+        "path": "M3U8/TV.m3u8",
+        "ref": "default"
+      }
     },
     {
       "name": "xtemus",
@@ -52,7 +60,11 @@
       "type": "m3u",
       "enabled": true,
       "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8",
-      "github": { "repo": "Free-TV/IPTV", "path": "playlist.m3u8", "ref": "master" }
+      "github": {
+        "repo": "Free-TV/IPTV",
+        "path": "playlist.m3u8",
+        "ref": "master"
+      }
     },
     {
       "name": "eja-tv-feed",
@@ -85,5 +97,67 @@
       "ref": "master",
       "note": "Repository tree is checked for static M3U files. The project describes a self-hosted proxy whose playlist is generated at an instance URL; configure STEPDADDYLIVEHD_PLAYLIST_URL to check a hosted instance."
     }
-  ]
+  ],
+  "discovery": {
+    "_comment": "Used by scripts/discover.py on the monthly schedule. Candidates are fetched, measured against the published playlist, and sample-checked. Anything that clears the thresholds is written to playlists/discovery/approved-sources.json and merged into the next regular scrape. Nothing is published without the daily link check.",
+    "enabled": true,
+    "corpus_playlist": "playlists/PremiumTV_all.m3u",
+    "candidates": [
+      {
+        "name": "Fanmingming-Live",
+        "enabled": true,
+        "type": "m3u",
+        "github": {
+          "repo": "fanmingming/live"
+        },
+        "note": "Large daily-updated public live-TV list. The best TV M3U in the repository tree is selected each month."
+      },
+      {
+        "name": "Akiraleal-IPTV",
+        "enabled": true,
+        "type": "m3u",
+        "github": {
+          "repo": "akiralereal/iptv"
+        },
+        "note": "Public IPTV playlist repository; the largest static M3U in the tree is selected automatically."
+      },
+      {
+        "name": "TianmuTNT-IPTV",
+        "enabled": true,
+        "type": "m3u",
+        "github": {
+          "repo": "TianmuTNT/iptv"
+        },
+        "note": "Public IPTV playlist repository, refreshed frequently."
+      }
+    ],
+    "github_search": {
+      "enabled": true,
+      "queries": [
+        "topic:iptv-m3u",
+        "\"#EXTM3U\" in:readme topic:iptv",
+        "m3u playlist in:readme topic:iptv",
+        "topic:iptv",
+        "topic:m3u"
+      ],
+      "max_results_per_query": 10,
+      "max_repositories": 20,
+      "sort": "updated",
+      "min_playlist_bytes": 4096,
+      "exclude_owners": []
+    },
+    "thresholds": {
+      "sample_size": 12,
+      "active_source_sample_size": 8,
+      "min_new_links": 25,
+      "min_working_checked": 3,
+      "min_working_ratio": 0.3,
+      "min_score": 55.0
+    },
+    "auto_promote": true,
+    "max_promote_per_run": 2,
+    "recheck_after_days": 90,
+    "max_new_channels_export": 300,
+    "playlist_path_exclude_regex": "(?i)(series|movie|vod|adult|xxx|radio|podcast|music|trailer)"
+  }
 }
