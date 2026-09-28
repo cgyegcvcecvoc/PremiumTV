@@ -24,6 +24,10 @@ on:
         description: "Report only; never promote a source"
         type: boolean
         default: false
+  # On-demand monthly hunt without opening the Actions tab, e.g.
+  #   gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=discover-now
+  repository_dispatch:
+    types: [discover-now]
 
 permissions:
   contents: write
@@ -48,11 +52,20 @@ jobs:
 
       - name: Pick run label
         id: label
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          DISPATCH_LABEL: ${{ github.event.client_payload.label }}
         run: |
-          case "${{ github.event.schedule }}" in
-            "30 4 1 * *") echo "label=monthly new-channel discovery" >> "$GITHUB_OUTPUT" ;;
-            *)            echo "label=manual discovery run"         >> "$GITHUB_OUTPUT" ;;
-          esac
+          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
+            label="$(printf '%s' "${DISPATCH_LABEL:-manual discovery run}" | tr -d '\n\r' | cut -c1-80)"
+            echo "label=${label:-manual discovery run}" >> "$GITHUB_OUTPUT"
+          else
+            case "$SCHEDULE" in
+              "30 4 1 * *") echo "label=monthly new-channel discovery" >> "$GITHUB_OUTPUT" ;;
+              *)            echo "label=manual discovery run"         >> "$GITHUB_OUTPUT" ;;
+            esac
+          fi
 
       - name: Run discovery
         id: discover
