@@ -1,5 +1,5 @@
 {
-  "_comment": "Playlist sources the scraper pulls from. Add/remove entries or flip 'enabled'. type = m3u | w3u. For w3u (Wiseplay JSON) sources, nested groups are followed up to max_depth; include_groups/exclude_groups match group names case-insensitively.",
+  "_comment": "Playlist sources with direct M3U/W3U feeds are listed under sources. Optional url_env entries are skipped and explicitly reported until configured. reference_checks probe sites/repos that do not publish a static playlist; they are not imported as channels.",
   "sources": [
     {
       "name": "aria",
@@ -39,6 +39,51 @@
         "XTEMUS Link",
         "HL 20"
       ]
+    },
+    {
+      "name": "iptv-org",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://iptv-org.github.io/iptv/index.m3u",
+      "note": "Public worldwide channel index from iptv-org/iptv."
+    },
+    {
+      "name": "free-tv",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8",
+      "github": { "repo": "Free-TV/IPTV", "path": "playlist.m3u8", "ref": "master" }
+    },
+    {
+      "name": "eja-tv-feed",
+      "type": "m3u",
+      "enabled": true,
+      "optional": true,
+      "url_env": "EJA_M3U_URL"
+    },
+    {
+      "name": "stepdaddylivehd-instance",
+      "type": "m3u",
+      "enabled": true,
+      "optional": true,
+      "url_env": "STEPDADDYLIVEHD_PLAYLIST_URL"
+    }
+  ],
+  "reference_checks": [
+    {
+      "name": "eja.tv",
+      "type": "website",
+      "enabled": true,
+      "url": "https://eja.tv/",
+      "note": "The site is checked for reachability only. No static M3U export was verified; it is not scraped/imported as channels. Configure EJA_M3U_URL only if you have an authorized direct playlist URL."
+    },
+    {
+      "name": "StepDaddyLiveHD",
+      "type": "github_repo",
+      "enabled": true,
+      "repo": "gookie-dev/StepDaddyLiveHD",
+      "ref": "master",
+      "note": "Repository tree is checked for static M3U files. The project describes a self-hosted proxy whose playlist is generated at an instance URL; configure STEPDADDYLIVEHD_PLAYLIST_URL to check a hosted instance."
     }
   ]
 }
