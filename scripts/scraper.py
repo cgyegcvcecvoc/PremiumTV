@@ -29,6 +29,7 @@ import collections
 import concurrent.futures as cf
 import datetime as dt
 import email.utils
+import html
 import json
 import os
 import re
@@ -66,6 +67,19 @@ SENSITIVE_QUERY_KEYS = {
     "access_token", "api_key", "apikey", "auth", "authorization", "key",
     "password", "pass", "secret", "signature", "sig", "token", "username",
 }
+
+# A scheduled run that starts this many minutes after its slot is reported as
+# late. GitHub's scheduler is not punctual; schedule-guard.yml catches up.
+LATE_START_MINUTES = 15
+# How many channel names a website channel-index audit keeps as a sample.
+CHANNEL_SAMPLE_LIMIT = 12
+
+ANCHOR_RE = re.compile(r"<a\b[^>]*?href\s*=\s*[\"']([^\"']+)[\"'][^>]*>(.*?)</a>",
+                       re.IGNORECASE | re.DOTALL)
+TAG_RE = re.compile(r"<[^>]+>")
+WHITESPACE_RE = re.compile(r"\s+")
+CHANNEL_ID_RE = re.compile(r"[?&](?:id|channel_id|channel|ch)\s*=\s*([A-Za-z0-9_-]+)", re.IGNORECASE)
+PLAYLIST_HREF_RE = re.compile(r"(?:\.m3u8?(?:[?#]|$)|[?&/._-](?:playlist|m3u))", re.IGNORECASE)
 
 # Lenient TLS context: some public stream hosts have broken/expired certificates.
 # This is only for availability checks; it does not change how a player connects.
@@ -329,6 +343,73 @@ def parse_w3u(src: dict, root_text: str, issues: list[str] | None = None) -> lis
 # --------------------------------------------------------------------------- #
 # Reference-source audits
 # --------------------------------------------------------------------------- #
+def clean_channel_name(raw: str) -> str:
+    """Turn the inner HTML of a channel link into a readable channel name."""
+    text = html.unescape(TAG_RE.sub(" ", raw or ""))
+    # Index pages often repeat the numeric id inside the link text ("ID: 51").
+    text = re.sub(r"(?i)\bid\s*[:#]?\s*\d+\b", " ", text)
+    return WHITESPACE_RE.sub(" ", text).strip(" \t-–—|·:,")
+
+
+def parse_channel_index(text: str, href_regex: str, base_url: str = "") -> dict:
+    """Extract the catalogue an HTML channel-index page links to.
+
+    Only the catalogue is read: nothing found here is treated as a playable
+    stream. Sites such as DaddyLiveHD publish their channels as HTML player
+    pages whose stream address is resolved by JavaScript at run time, so
+    importing those links would add hundreds of entries that the link checker
+    can only report as "html page, not a stream".
+    """
+    try:
+        pattern = re.compile(href_regex, re.IGNORECASE)
+    except re.error as exc:
+        raise ValueError(f"invalid channel_href_regex {href_regex!r}: {exc}") from exc
+
+    channels: list[dict] = []
+    by_key: dict[str, dict] = {}
+    for href, inner in ANCHOR_RE.findall(text or ""):
+        href = html.unescape(href.strip())
+        if not href or href.startswith(("#", "javascript:", "mailto:")):
+            continue
+        if not pattern.search(href):
+            continue
+        url = urllib.parse.urljoin(base_url, href) if base_url else href
+        match = CHANNEL_ID_RE.search(url)
+        ident = match.group(1) if match else ""
+        key = ident or url
+        name = clean_channel_name(inner)
+        entry = by_key.get(key)
+        if entry is None:
+            entry = {"id": ident, "name": name or f"Channel {ident or len(by_key) + 1}",
+                     "url": safe_url(url)}
+            by_key[key] = entry
+            channels.append(entry)
+        elif name and (not entry["name"] or entry["name"].startswith("Channel ")):
+            # The same channel is often linked twice (logo + text); keep a name.
+            entry["name"] = name
+    return {
+        "count": len(channels),
+        "with_id": sum(1 for c in channels if c["id"]),
+        "channels": channels,
+        "sample": [c["name"] for c in channels[:CHANNEL_SAMPLE_LIMIT]],
+    }
+
+
+def find_playlist_links(text: str, base_url: str = "") -> list[str]:
+    """Every .m3u/.m3u8 or playlist-looking href on a page, made absolute."""
+    found: list[str] = []
+    for href, _ in ANCHOR_RE.findall(text or ""):
+        href = html.unescape(href.strip())
+        if not href or href.startswith(("#", "javascript:", "mailto:")):
+            continue
+        if not PLAYLIST_HREF_RE.search(href):
+            continue
+        url = urllib.parse.urljoin(base_url, href) if base_url else href
+        if url not in found:
+            found.append(url)
+    return [safe_url(url) for url in found[:10]]
+
+
 def audit_reference_source(item: dict) -> dict:
     """Check a directory/repository that is not itself a static playlist source."""
     name = item.get("name", "unnamed reference")
@@ -352,6 +433,37 @@ def audit_reference_source(item: dict) -> dict:
             "response_bytes": len(text.encode("utf-8")),
             "playlist_detected": text.lstrip().startswith("#EXTM3U"),
             "ingest_status": "not_imported",
+        })
+        return result
+
+    if kind == "website_channel_index":
+        # An HTML page that lists channels but publishes no playlist file. The
+        # catalogue is counted so the report shows what the site offers; the
+        # links themselves are HTML player pages and are never imported.
+        url = item.get("url", "")
+        result["url"] = safe_url(url)
+        text = http_get(url, timeout=float(item.get("timeout", 25)), retries=0)
+        href_regex = str(item.get("channel_href_regex") or r"watch\.php\?id=\d+")
+        index = parse_channel_index(text, href_regex, url)
+        playlist_links = find_playlist_links(text, url)
+        is_playlist = text.lstrip().startswith("#EXTM3U")
+        if is_playlist or playlist_links:
+            ingest_status = "static_playlist_found_not_configured"
+        elif index["count"]:
+            ingest_status = "player_pages_only"
+        else:
+            ingest_status = "no_channels_found"
+        result.update({
+            "status": "reachable",
+            "reachable": True,
+            "response_bytes": len(text.encode("utf-8")),
+            "playlist_detected": is_playlist,
+            "channel_count": index["count"],
+            "channels_with_id": index["with_id"],
+            "sample_channels": index["sample"],
+            "playlist_links": playlist_links,
+            "player_url_template": str(item.get("player_url_template", "")),
+            "ingest_status": ingest_status,
         })
         return result
 
@@ -410,6 +522,10 @@ def audit_reference_sources(items: list[dict], issues: list[str]) -> dict[str, d
                 if summary is not None:
                     archived = "; repository is archived" if result.get("archived") else ""
                     log(f"[audit:{name}] repository reachable; static playlists found: {len(summary)}{archived}")
+                elif result.get("channel_count") is not None:
+                    log(f"[audit:{name}] channel index reachable; channels listed={result['channel_count']}; "
+                        f"playlist links={len(result.get('playlist_links') or [])}; "
+                        f"ingest={result.get('ingest_status')}; channels imported=no")
                 else:
                     detected = result.get("playlist_detected", False)
                     log(f"[audit:{name}] website reachable; static_m3u_detected={detected}; channels imported=no")
@@ -601,6 +717,30 @@ def now_strings(when: dt.datetime | None = None) -> tuple[str, str]:
     utc = utc.astimezone(dt.timezone.utc)
     local = utc.astimezone(NY_TZ) if NY_TZ else utc
     return utc.strftime("%Y-%m-%d %H:%M UTC"), local.strftime("%Y-%m-%d %I:%M %p %Z")
+
+
+def parse_utc_iso(value: str) -> dt.datetime | None:
+    """Parse an ISO-8601 timestamp into an aware UTC datetime."""
+    text = str(value or "").strip().replace("Z", "+00:00")
+    if not text:
+        return None
+    try:
+        moment = dt.datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    return (moment if moment.tzinfo else moment.replace(tzinfo=dt.timezone.utc)).astimezone(dt.timezone.utc)
+
+
+def format_delay(minutes: float | None) -> str:
+    """Render a delay in minutes as e.g. '+6h 51m' or '+4m'."""
+    if minutes is None:
+        return "-"
+    if minutes < 0:
+        return f"-{format_delay(-minutes).lstrip('+')}"
+    total = int(round(minutes))
+    hours, mins = divmod(total, 60)
+    return f"+{hours}h {mins:02d}m" if hours else f"+{mins}m"
+
 
 
 def classify_run(label: str) -> str:
@@ -799,8 +939,7 @@ def make_status_markdown(report: dict) -> str:
         f"- **Player playlist updated:** {'yes' if report['final_playlist_written'] else 'no (previous good copy preserved or no output)'}",
         f"- **Run history:** [`run-history.jsonl`](run-history.jsonl) (append-only; one entry per run)",
         "",
-        "## Playlist sources",
-        "",
+        "## Playlist sources",        "",
         "| Source | Fetch | Entries | Unique URLs | Overlap | Working | Dead | Unverified |",
         "|---|---|---:|---:|---:|---:|---:|---:|",
     ]
@@ -822,17 +961,24 @@ def make_status_markdown(report: dict) -> str:
         "",
         "## Reference-source checks (not automatically imported)",
         "",
-        "| Reference | Check | Playlist files | Note |",
-        "|---|---|---:|---|",
+        "| Reference | Check | Channels seen | Playlist links | Ingest status | Note |",
+        "|---|---|---:|---:|---|---|",
     ]
     for name, result in report["reference_checks"].items():
-        playlists = result.get("static_playlist_files", [])
+        files = result.get("static_playlist_files")
+        links = result.get("playlist_links")
+        playlist_count = len(files) if files is not None else (len(links) if links is not None else 0)
+        channels = result.get("channel_count")
         note = result.get("note", "").replace("|", "\\|")
         if result.get("archived"):
             note = f"{note} (repository is archived)".strip()
         if result.get("error"):
             note = f"{note} — {result['error']}".strip(" —")
-        lines.append(f"| {name} | {result.get('status', 'unknown')} | {len(playlists)} | {note} |")
+        lines.append(
+            f"| {name} | {result.get('status', 'unknown')} | "
+            f"{'-' if channels is None else channels} | {playlist_count} | "
+            f"{result.get('ingest_status', 'not_imported')} | {note} |"
+        )
     lines += ["", "## Diagnostics", ""]
     if report["diagnostics"]:
         lines += [
@@ -855,6 +1001,12 @@ def make_status_markdown(report: dict) -> str:
             lines.append(f"- …and {len(report['issues']) - 30} more; see `report.json`.")
     else:
         lines.append("None.")
+    if report.get("scheduled_for_utc"):
+        delay = report.get("schedule_delay_minutes")
+        verdict = ("on time" if isinstance(delay, (int, float)) and delay < LATE_START_MINUTES
+                   else f"late by {format_delay(delay)}")
+        # Directly under the "Run:" bullet: punctuality is the first thing to see.
+        lines.insert(4, f"- **Scheduled for:** {report['scheduled_for_utc']} — started {verdict}")
     return "\n".join(lines) + "\n"
 
 
@@ -882,6 +1034,9 @@ def main() -> int:
     ap.add_argument("--min-working-ratio", type=float, default=0.03,
                     help="abort publishing if fewer than this share of links are confirmed working")
     ap.add_argument("--label", default="manual run", help="run label shown in reports")
+    ap.add_argument("--scheduled-for", default="",
+                    help="ISO-8601 UTC instant this run was scheduled for; used to report "
+                         "how late GitHub's scheduler started it")
     args = ap.parse_args()
     if args.workers < 1 or args.per_host_workers < 1 or args.timeout <= 0 or args.retries < 0:
         ap.error("workers, per-host-workers and timeout must be positive; retries cannot be negative")
@@ -896,6 +1051,17 @@ def main() -> int:
     started_utc_iso = started.isoformat(timespec="seconds").replace("+00:00", "Z")
     run_id = f"{started.strftime('%Y%m%dT%H%M%S')}Z-{os.getpid()}"
     run_type = classify_run(args.label)
+    scheduled_moment = parse_utc_iso(args.scheduled_for)
+    scheduled_for_utc = ""
+    schedule_delay_minutes: float | None = None
+    if args.scheduled_for and scheduled_moment is None:
+        log(f"[schedule] ignoring unparsable --scheduled-for value {args.scheduled_for!r}")
+    elif scheduled_moment is not None:
+        scheduled_for_utc = scheduled_moment.isoformat(timespec="seconds").replace("+00:00", "Z")
+        schedule_delay_minutes = round((started - scheduled_moment).total_seconds() / 60.0, 1)
+        _, scheduled_local = now_strings(scheduled_moment)
+        log(f"[schedule] due {scheduled_for_utc} ({scheduled_local}); "
+            f"started {started_utc_iso}; delay {format_delay(schedule_delay_minutes)}")
 
     source_stats: dict[str, dict] = {}
     reference_checks: dict[str, dict] = {}
@@ -1160,6 +1326,12 @@ def main() -> int:
         )
     if status_counts.get("dead", 0):
         issue_messages.append(f"{status_counts['dead']} links returned a confirmed failure (see dead details).")
+    if schedule_delay_minutes is not None and schedule_delay_minutes >= LATE_START_MINUTES:
+        issue_messages.append(
+            f"This run started {format_delay(schedule_delay_minutes)} after its scheduled time "
+            f"({scheduled_for_utc}); GitHub's scheduler delayed it. The schedule guard "
+            f"(.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots."
+        )
     issue_messages = list(dict.fromkeys(issue_messages))
 
     report = {
@@ -1171,6 +1343,8 @@ def main() -> int:
         "updated_local": updated_local,
         "label": args.label,
         "run_type": run_type,
+        "scheduled_for_utc": scheduled_for_utc or None,
+        "schedule_delay_minutes": schedule_delay_minutes,
         "status": status,
         "checked": checked,
         "check_started": started_check,
@@ -1202,6 +1376,8 @@ def main() -> int:
         "updated_local": updated_local,
         "label": args.label,
         "run_type": run_type,
+        "scheduled_for_utc": scheduled_for_utc or None,
+        "schedule_delay_minutes": schedule_delay_minutes,
         "status": status,
         "exit_code": exit_code,
         "checked": checked,
@@ -1228,7 +1404,8 @@ def main() -> int:
         "reference_checks": {
             name: {
                 key: result.get(key)
-                for key in ("status", "reachable", "playlist_detected", "static_playlist_files", "ingest_status")
+                for key in ("status", "reachable", "playlist_detected", "static_playlist_files",
+                            "playlist_links", "channel_count", "ingest_status")
                 if key in result
             }
             for name, result in reference_checks.items()

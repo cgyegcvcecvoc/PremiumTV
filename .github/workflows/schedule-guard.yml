@@ -1,0 +1,73 @@
+name: Schedule guard
+
+# Safety net for the scrape schedule.
+#
+# GitHub does not guarantee that a `schedule:` cron starts on time. Measured on
+# this repository (2026-09-27 to 2026-09-29), every scheduled scrape started
+# 2.8-8.1 hours after its intended New York time and three of nine slots never
+# produced a run at all - so the playlist could go a whole day without a refresh
+# while the Actions tab still showed "success".
+#
+# This workflow starts every 20 minutes and asks scripts/schedule_guard.py
+# whether any slot that has already come due is still uncovered in
+# playlists/run-history.jsonl. If one is, it fires the `scrape-now`
+# repository_dispatch that scrape.yml already listens for, labelled with the
+# slot it is catching up on. It never scrapes or commits anything itself, so
+# there is still exactly one code path that publishes playlists.
+#
+# The job is idempotent: a slot stops being overdue as soon as the scrape it
+# triggered records itself in run-history.jsonl, and it will not dispatch while a
+# scrape is queued, running, or finished within the last 25 minutes.
+#
+# One accepted trade-off: if GitHub's own delayed run for that slot eventually
+# arrives hours later, the slot is scraped a second time. That costs ~20 minutes
+# of runner time and refreshes the playlist again; it is preferable to the
+# alternative, which is a day with no verified refresh at all.
+on:
+  schedule:
+    # Every 20 minutes, off the top of the hour for the same reason as
+    # scrape.yml: GitHub's scheduler is busiest at minute 0.
+    - cron: "4,24,44 * * * *"
+      timezone: "America/New_York"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Report coverage only; do not dispatch a catch-up scrape"
+        type: boolean
+        default: true
+
+permissions:
+  # Needed to create the repository_dispatch event that starts the catch-up run.
+  contents: write
+
+concurrency:
+  group: schedule-guard
+  # A stale guard run is useless once a newer one has started.
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run offline schedule guard tests
+        run: python -m unittest discover -s tests -p "test_schedule_guard.py" -v
+
+      - name: Check the scrape schedule and catch up if needed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          # Global options must come before the sub-command.
+          args=(--summary-file "$GITHUB_STEP_SUMMARY")
+          # A manual run defaults to reporting only, so pressing "Run workflow"
+          # cannot accidentally start a 20-minute scrape.
+          if [ "${DRY_RUN:-true}" = "true" ]; then args+=(--dry-run); fi
+          args+=(check)
+          python scripts/schedule_guard.py "${args[@]}"
