@@ -28,9 +28,9 @@ def at(text: str) -> dt.datetime:
 
 
 def run_entry(started: str, run_type: str, status: str = "warning", exit_code: int = 0,
-              run_id: str = "run-1") -> dict:
+              run_id: str = "run-1", checked: bool = True) -> dict:
     return {"run_id": run_id, "started_utc": started, "run_type": run_type,
-            "status": status, "exit_code": exit_code}
+            "status": status, "exit_code": exit_code, "checked": checked}
 
 
 class CronParsingTest(unittest.TestCase):
@@ -252,8 +252,50 @@ class CoverageTest(unittest.TestCase):
         self.assertEqual(slot.state, "overdue")
 
     def test_run_of_a_different_type_does_not_cover_the_slot(self):
-        [slot] = self.states([self.slot()], [run_entry("2026-09-29T08:00:00Z", "recheck")])
+        # Far enough away that the freshness rule cannot apply either.
+        [slot] = self.states([self.slot()], [run_entry("2026-09-29T09:00:00Z", "recheck")])
         self.assertEqual(slot.state, "overdue")
+
+    def test_fresh_checked_run_of_any_type_covers_the_slot(self):
+        # A manual re-scrape at 07:45 makes a 07:07 catch-up pointless.
+        [slot] = self.states([self.slot()], [run_entry("2026-09-29T07:45:00Z", "manual")])
+        self.assertEqual(slot.state, "covered")
+
+    def test_manual_run_just_before_the_slot_covers_it(self):
+        [slot] = self.states([self.slot()], [run_entry("2026-09-29T06:40:00Z", "manual")])
+        self.assertEqual(slot.state, "covered")
+        self.assertLess(slot.delay_minutes, 0)  # started before the slot
+
+    def test_freshness_boundary(self):
+        inside = self.states([self.slot()], [run_entry("2026-09-29T07:51:00Z", "manual")])
+        outside = self.states([self.slot()], [run_entry("2026-09-29T07:53:00Z", "manual")])
+        self.assertEqual(inside[0].state, "covered")    # 44 min after the slot
+        self.assertEqual(outside[0].state, "overdue")   # 46 min after the slot
+
+    def test_stale_manual_run_does_not_cover_a_later_slot(self):
+        # An 08:00 manual run must not stand in for the 16:41 final check.
+        evening = self.slot(cron="41 16 * * *", label="4:41 PM final check")
+        [slot] = self.states([evening], [run_entry("2026-09-29T12:00:00Z", "manual")])
+        self.assertEqual(slot.state, "overdue")
+
+    def test_fresh_unchecked_run_does_not_cover_the_slot(self):
+        [slot] = self.states([self.slot()],
+                             [run_entry("2026-09-29T07:30:00Z", "manual", status="unchecked",
+                                        checked=False)])
+        self.assertEqual(slot.state, "overdue")
+
+    def test_fresh_failed_run_does_not_cover_the_slot(self):
+        [slot] = self.states([self.slot()],
+                             [run_entry("2026-09-29T07:30:00Z", "manual", status="failed",
+                                        exit_code=1)])
+        self.assertEqual(slot.state, "overdue")
+
+    def test_freshness_window_is_configurable(self):
+        runs = [run_entry("2026-09-29T08:30:00Z", "manual")]
+        wide = self.states([self.slot()], runs, freshness_minutes=120)
+        narrow = self.states([self.slot()], runs, freshness_minutes=10)
+        self.assertEqual(wide[0].state, "covered")
+        self.assertEqual(narrow[0].state, "overdue")
 
     def test_run_from_the_previous_day_does_not_cover_the_slot(self):
         [slot] = self.states([self.slot()], [run_entry("2026-09-28T07:20:00Z", "regular_check")])

@@ -70,6 +70,11 @@ GRACE_MINUTES = 12
 # A full scrape needs ~20 minutes. Dispatching again while one is running, or
 # straight after one finished, would only duplicate work.
 COOLDOWN_MINUTES = 25
+# A successful *checked* run this close to a slot counts as covering it, whatever
+# its run type. Without this, a manual re-scrape at 4:37 PM would be followed 4
+# minutes later by a catch-up scrape for the 4:41 PM slot - the same playlist,
+# verified twice, for no benefit.
+FRESHNESS_MINUTES = 45
 # Run outcomes that count as covering a slot. "failed" covered nothing, and an
 # "unchecked" merge never publishes PremiumTV.m3u, so it cannot satisfy a slot
 # whose whole purpose is a verified link check.
@@ -347,23 +352,38 @@ def load_run_history(path: Path = DEFAULT_HISTORY) -> list[dict]:
     return runs
 
 
-def covering_run(slot: Slot, runs: list[dict]) -> dict | None:
-    """A recorded run that already did this slot's job."""
+def covering_run(slot: Slot, runs: list[dict],
+                 freshness_minutes: int = FRESHNESS_MINUTES) -> dict | None:
+    """A recorded run that already did this slot's job.
+
+    A run covers a slot in either of two ways:
+
+    * it has the slot's own run type and started in the 24 hours after the slot
+      came due - this is what lets a catch-up that lands hours late still count;
+    * or it is any successful **checked** run that started within
+      `freshness_minutes` of the slot, so a manual re-scrape just before or just
+      after a slot is not immediately repeated by the guard.
+
+    An unchecked `--no-check` merge never publishes `PremiumTV.m3u`, so it cannot
+    stand in for a scheduled check however fresh it is; the same goes for a run
+    that failed.
+    """
     if slot.start_utc is None:
         return None
     window_end = slot.start_utc + dt.timedelta(hours=24)
+    early_tolerance = slot.start_utc - dt.timedelta(minutes=5)
+    fresh_from = slot.start_utc - dt.timedelta(minutes=freshness_minutes)
+    fresh_to = slot.start_utc + dt.timedelta(minutes=freshness_minutes)
     for run in runs:
         started = parse_iso(run.get("started_utc", ""))
         if started is None:
             continue
-        # Small negative tolerance: a runner that started a minute early still counts.
-        if started < slot.start_utc - dt.timedelta(minutes=5) or started >= window_end:
-            continue
-        if run.get("run_type") != slot.run_type:
-            continue
         if run.get("status") not in COVERING_STATUSES or run.get("exit_code", 1) != 0:
             continue
-        return run
+        if run.get("run_type") == slot.run_type and early_tolerance <= started < window_end:
+            return run
+        if run.get("checked") and fresh_from <= started <= fresh_to:
+            return run
     return None
 
 
@@ -417,7 +437,8 @@ def dispatch_scrape(repo: str, token: str, label: str, scheduled_for: str) -> No
 # Evaluation
 # --------------------------------------------------------------------------- #
 def evaluate(slots: list[Slot], runs: list[dict], now: dt.datetime,
-             grace_minutes: int = GRACE_MINUTES, lookback_days: int = LOOKBACK_DAYS) -> list[Slot]:
+             grace_minutes: int = GRACE_MINUTES, lookback_days: int = LOOKBACK_DAYS,
+             freshness_minutes: int = FRESHNESS_MINUTES) -> list[Slot]:
     """Attach today's (and yesterday's late) start time and coverage to each slot."""
     horizon = now - dt.timedelta(days=lookback_days)
     for slot in slots:
@@ -431,7 +452,7 @@ def evaluate(slots: list[Slot], runs: list[dict], now: dt.datetime,
             slot.state = "not-due"
             continue
         slot.start_utc = start
-        run = covering_run(slot, runs)
+        run = covering_run(slot, runs, freshness_minutes)
         if run is not None:
             covered_at = parse_iso(run.get("started_utc", ""))
             slot.covered_by = str(run.get("run_id", ""))
@@ -505,7 +526,8 @@ def cmd_check(args: argparse.Namespace) -> int:
         log(f"[guard] workflow file not found: {workflow}")
         return 1
     slots = evaluate(load_schedule(workflow), load_run_history(Path(args.history)), now,
-                     grace_minutes=args.grace, lookback_days=args.lookback_days)
+                     grace_minutes=args.grace, lookback_days=args.lookback_days,
+                     freshness_minutes=args.freshness)
     for slot in slots:
         log(f"[guard] {slot.label:<26} cron='{slot.cron}' tz={slot.timezone} "
             f"state={slot.state} delay={format_delay(slot.delay_minutes)}")
@@ -554,7 +576,8 @@ def cmd_check(args: argparse.Namespace) -> int:
 def cmd_report(args: argparse.Namespace) -> int:
     now = dt.datetime.now(dt.timezone.utc)
     slots = evaluate(load_schedule(Path(args.workflow)), load_run_history(Path(args.history)), now,
-                     grace_minutes=args.grace, lookback_days=args.lookback_days)
+                     grace_minutes=args.grace, lookback_days=args.lookback_days,
+                     freshness_minutes=args.freshness)
     sys.stdout.write(make_report_markdown(slots, now, False, "not checked (--report)"))
     return 0
 
@@ -595,6 +618,9 @@ def main(argv: list[str] | None = None) -> int:
                     help="minutes after a scrape started before another may be dispatched")
     ap.add_argument("--lookback-days", type=int, default=LOOKBACK_DAYS,
                     help="how many days back to look for uncovered slots")
+    ap.add_argument("--freshness", type=int, default=FRESHNESS_MINUTES,
+                    help="a successful checked run within this many minutes of a slot "
+                         "covers it, whatever its run type")
     ap.add_argument("--summary-file", default="", help="write the markdown report here")
     ap.add_argument("--dry-run", action="store_true", help="report only; never dispatch")
     ap.add_argument("--no-api", action="store_true", help="do not query the GitHub API")

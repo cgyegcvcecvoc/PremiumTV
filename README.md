@@ -72,7 +72,8 @@ publishes playlists. It is idempotent: a slot stops being overdue the moment the
 records itself in `run-history.jsonl`, and it will not dispatch while a scrape is queued, running, or
 finished within the last 25 minutes. Only runs with outcome `success` or `warning` count as covering
 a slot — a failed run, or an unchecked `--no-check` merge that never publishes `PremiumTV.m3u`,
-leaves the slot open.
+leaves the slot open. A successful *checked* run within 45 minutes of a slot also covers it whatever
+its run type, so a manual re-scrape next to a slot is not immediately repeated by a catch-up.
 
 The trade-off is that a slot GitHub delays by many hours may end up scraped twice: once by the
 guard's catch-up and once when GitHub's own run finally arrives. That costs about 20 minutes of

@@ -17,7 +17,9 @@ name: Schedule guard
 #
 # The job is idempotent: a slot stops being overdue as soon as the scrape it
 # triggered records itself in run-history.jsonl, and it will not dispatch while a
-# scrape is queued, running, or finished within the last 25 minutes.
+# scrape is queued, running, or finished within the last 25 minutes. A successful
+# checked run within 45 minutes of a slot also counts as covering it, so a manual
+# re-scrape next to a slot is not immediately repeated.
 #
 # One accepted trade-off: if GitHub's own delayed run for that slot eventually
 # arrives hours later, the slot is scraped a second time. That costs ~20 minutes
