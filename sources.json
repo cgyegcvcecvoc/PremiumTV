@@ -2,6 +2,19 @@
   "_comment": "Playlist sources with direct M3U/W3U feeds are listed under sources. Optional url_env entries are skipped and explicitly reported until configured. reference_checks probe sites/repos that do not publish a static playlist; they are not imported as channels.",
   "sources": [
     {
+      "name": "ae-networks",
+      "type": "m3u",
+      "enabled": true,
+      "local_path": "playlists/sources/ae-networks.m3u",
+      "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/sources/ae-networks.m3u",
+      "github": {
+        "repo": "cgyegcvcecvoc/PremiumTV1",
+        "path": "playlists/sources/ae-networks.m3u",
+        "ref": "main"
+      },
+      "note": "Curated A&E and A+E Networks linear and FAST M3U8 feeds (checked on every scrape)."
+    },
+    {
       "name": "aria",
       "type": "m3u",
       "enabled": true,

@@ -30,6 +30,7 @@ import concurrent.futures as cf
 import datetime as dt
 import email.utils
 import html
+import http.client
 import json
 import os
 import re
@@ -143,6 +144,10 @@ class Channel:
     def group(self) -> str:
         return self.attrs.get("group-title", "") or "Other"
 
+    @property
+    def country(self) -> str:
+        return resolve_country(self)
+
     def headers(self) -> dict:
         """HTTP headers a player would send, derived from #EXTVLCOPT / #EXTHTTP lines."""
         headers = {"User-Agent": DEFAULT_UA}
@@ -167,6 +172,480 @@ class Channel:
 
 
 # --------------------------------------------------------------------------- #
+# Country and A&E classification
+# --------------------------------------------------------------------------- #
+COUNTRY_CODE_MAP: dict[str, str] = {
+    "ad": "Andorra",
+    "ae": "United Arab Emirates",
+    "af": "Afghanistan",
+    "ag": "Antigua and Barbuda",
+    "al": "Albania",
+    "am": "Armenia",
+    "ao": "Angola",
+    "ar": "Argentina",
+    "at": "Austria",
+    "au": "Australia",
+    "aw": "Aruba",
+    "az": "Azerbaijan",
+    "ba": "Bosnia and Herzegovina",
+    "bb": "Barbados",
+    "bd": "Bangladesh",
+    "be": "Belgium",
+    "bf": "Burkina Faso",
+    "bg": "Bulgaria",
+    "bh": "Bahrain",
+    "bi": "Burundi",
+    "bj": "Benin",
+    "bm": "Bermuda",
+    "bn": "Brunei",
+    "bo": "Bolivia",
+    "bq": "Caribbean Netherlands",
+    "br": "Brazil",
+    "bs": "Bahamas",
+    "bt": "Bhutan",
+    "bw": "Botswana",
+    "by": "Belarus",
+    "bz": "Belize",
+    "ca": "Canada",
+    "ca2": "Canada",
+    "cd": "DR Congo",
+    "cf": "Central African Republic",
+    "cg": "Republic of the Congo",
+    "ch": "Switzerland",
+    "ci": "Ivory Coast",
+    "cl": "Chile",
+    "cm": "Cameroon",
+    "cn": "China",
+    "co": "Colombia",
+    "cr": "Costa Rica",
+    "cu": "Cuba",
+    "cv": "Cape Verde",
+    "cw": "Curacao",
+    "cy": "Cyprus",
+    "cz": "Czechia",
+    "de": "Germany",
+    "dj": "Djibouti",
+    "dk": "Denmark",
+    "dm": "Dominica",
+    "do": "Dominican Republic",
+    "dz": "Algeria",
+    "ec": "Ecuador",
+    "ee": "Estonia",
+    "eg": "Egypt",
+    "eh": "Western Sahara",
+    "er": "Eritrea",
+    "es": "Spain",
+    "et": "Ethiopia",
+    "fi": "Finland",
+    "fj": "Fiji",
+    "fo": "Faroe Islands",
+    "fr": "France",
+    "ga": "Gabon",
+    "gb": "UK",
+    "gd": "Grenada",
+    "ge": "Georgia",
+    "gf": "French Guiana",
+    "gh": "Ghana",
+    "gi": "Gibraltar",
+    "gl": "Greenland",
+    "gm": "Gambia",
+    "gn": "Guinea",
+    "gp": "Guadeloupe",
+    "gq": "Equatorial Guinea",
+    "gr": "Greece",
+    "gt": "Guatemala",
+    "gu": "Guam",
+    "gw": "Guinea-Bissau",
+    "gy": "Guyana",
+    "hk": "Hong Kong",
+    "hn": "Honduras",
+    "hr": "Croatia",
+    "ht": "Haiti",
+    "hu": "Hungary",
+    "id": "Indonesia",
+    "ie": "Ireland",
+    "il": "Israel",
+    "in": "India",
+    "iq": "Iraq",
+    "ir": "Iran",
+    "is": "Iceland",
+    "it": "Italy",
+    "jm": "Jamaica",
+    "jo": "Jordan",
+    "jp": "Japan",
+    "ke": "Kenya",
+    "kg": "Kyrgyzstan",
+    "kh": "Cambodia",
+    "kn": "Saint Kitts and Nevis",
+    "kp": "North Korea",
+    "kr": "South Korea",
+    "kw": "Kuwait",
+    "ky": "Cayman Islands",
+    "kz": "Kazakhstan",
+    "la": "Laos",
+    "lb": "Lebanon",
+    "lc": "Saint Lucia",
+    "li": "Liechtenstein",
+    "lk": "Sri Lanka",
+    "lr": "Liberia",
+    "ls": "Lesotho",
+    "lt": "Lithuania",
+    "lu": "Luxembourg",
+    "lv": "Latvia",
+    "ly": "Libya",
+    "ma": "Morocco",
+    "mc": "Monaco",
+    "md": "Moldova",
+    "me": "Montenegro",
+    "mg": "Madagascar",
+    "mk": "North Macedonia",
+    "ml": "Mali",
+    "mm": "Myanmar",
+    "mn": "Mongolia",
+    "mo": "Macau",
+    "mq": "Martinique",
+    "mr": "Mauritania",
+    "mt": "Malta",
+    "mu": "Mauritius",
+    "mv": "Maldives",
+    "mw": "Malawi",
+    "mx": "Mexico",
+    "my": "Malaysia",
+    "mz": "Mozambique",
+    "na": "Namibia",
+    "ne": "Niger",
+    "ng": "Nigeria",
+    "ni": "Nicaragua",
+    "nl": "Netherlands",
+    "no": "Norway",
+    "np": "Nepal",
+    "nz": "New Zealand",
+    "om": "Oman",
+    "pa": "Panama",
+    "pe": "Peru",
+    "peacock": "USA",
+    "pf": "French Polynesia",
+    "pg": "Papua New Guinea",
+    "ph": "Philippines",
+    "pk": "Pakistan",
+    "pl": "Poland",
+    "plex": "USA",
+    "pr": "Puerto Rico",
+    "ps": "Palestine",
+    "pt": "Portugal",
+    "py": "Paraguay",
+    "qa": "Qatar",
+    "re": "Reunion",
+    "ro": "Romania",
+    "rs": "Serbia",
+    "ru": "Russia",
+    "rw": "Rwanda",
+    "sa": "Saudi Arabia",
+    "sd": "Sudan",
+    "se": "Sweden",
+    "sg": "Singapore",
+    "si": "Slovenia",
+    "sk": "Slovakia",
+    "sl": "Sierra Leone",
+    "sm": "San Marino",
+    "sn": "Senegal",
+    "so": "Somalia",
+    "sr": "Suriname",
+    "ss": "South Sudan",
+    "sv": "El Salvador",
+    "sx": "Sint Maarten",
+    "sy": "Syria",
+    "sz": "Eswatini",
+    "td": "Chad",
+    "tg": "Togo",
+    "th": "Thailand",
+    "tj": "Tajikistan",
+    "tl": "Timor-Leste",
+    "tm": "Turkmenistan",
+    "tn": "Tunisia",
+    "tr": "Turkey",
+    "tt": "Trinidad and Tobago",
+    "tw": "Taiwan",
+    "tz": "Tanzania",
+    "ua": "Ukraine",
+    "ug": "Uganda",
+    "uk": "UK",
+    "us": "USA",
+    "us2": "USA",
+    "us_locals1": "USA",
+    "uy": "Uruguay",
+    "uz": "Uzbekistan",
+    "va": "Vatican City",
+    "vc": "Saint Vincent and the Grenadines",
+    "ve": "Venezuela",
+    "vg": "British Virgin Islands",
+    "vi": "US Virgin Islands",
+    "vn": "Vietnam",
+    "vu": "Vanuatu",
+    "ws": "Samoa",
+    "xk": "Kosovo",
+    "ye": "Yemen",
+    "za": "South Africa",
+    "zm": "Zambia",
+    "zw": "Zimbabwe",
+}
+
+GROUP_COUNTRY_PATTERNS: list[tuple[str, str]] = [
+    ("united states", "USA"),
+    ("usa", "USA"),
+    ("u.s.", "USA"),
+    ("vod movies (en)", "USA"),
+    ("united kingdom", "UK"),
+    ("uk", "UK"),
+    ("china", "China"),
+    ("italia", "Italy"),
+    ("italy", "Italy"),
+    ("czech", "Czechia"),
+    ("türkyie", "Turkey"),
+    ("türkiye", "Turkey"),
+    ("turkey", "Turkey"),
+    ("columbia", "Colombia"),
+    ("colombia", "Colombia"),
+    ("united arab emirates", "United Arab Emirates"),
+    ("south korea", "South Korea"),
+    ("north korea", "North Korea"),
+    ("north macedonia", "North Macedonia"),
+    ("bosnia", "Bosnia and Herzegovina"),
+    ("new zealand", "New Zealand"),
+    ("costa rica", "Costa Rica"),
+    ("dominican republic", "Dominican Republic"),
+    ("el salvador", "El Salvador"),
+    ("puerto rico", "Puerto Rico"),
+    ("saudi arabia", "Saudi Arabia"),
+    ("south africa", "South Africa"),
+    ("sri lanka", "Sri Lanka"),
+    ("hong kong", "Hong Kong"),
+    ("trinidad", "Trinidad and Tobago"),
+    ("latin america", "Latin America"),
+    ("arab world", "Arab World"),
+    ("albania", "Albania"),
+    ("algeria", "Algeria"),
+    ("argentina", "Argentina"),
+    ("armenia", "Armenia"),
+    ("australia", "Australia"),
+    ("austria", "Austria"),
+    ("azerbaijan", "Azerbaijan"),
+    ("bahrain", "Bahrain"),
+    ("bangladesh", "Bangladesh"),
+    ("belarus", "Belarus"),
+    ("belgium", "Belgium"),
+    ("bolivia", "Bolivia"),
+    ("brazil", "Brazil"),
+    ("bulgaria", "Bulgaria"),
+    ("cambodia", "Cambodia"),
+    ("cameroon", "Cameroon"),
+    ("canada", "Canada"),
+    ("chile", "Chile"),
+    ("croatia", "Croatia"),
+    ("cuba", "Cuba"),
+    ("cyprus", "Cyprus"),
+    ("denmark", "Denmark"),
+    ("ecuador", "Ecuador"),
+    ("egypt", "Egypt"),
+    ("estonia", "Estonia"),
+    ("ethiopia", "Ethiopia"),
+    ("finland", "Finland"),
+    ("france", "France"),
+    ("georgia", "Georgia"),
+    ("germany", "Germany"),
+    ("ghana", "Ghana"),
+    ("greece", "Greece"),
+    ("greenland", "Greenland"),
+    ("guatemala", "Guatemala"),
+    ("guyana", "Guyana"),
+    ("haiti", "Haiti"),
+    ("honduras", "Honduras"),
+    ("hungary", "Hungary"),
+    ("iceland", "Iceland"),
+    ("india", "India"),
+    ("indonesia", "Indonesia"),
+    ("iran", "Iran"),
+    ("iraq", "Iraq"),
+    ("ireland", "Ireland"),
+    ("israel", "Israel"),
+    ("jamaica", "Jamaica"),
+    ("japan", "Japan"),
+    ("jordan", "Jordan"),
+    ("kazakhstan", "Kazakhstan"),
+    ("kenya", "Kenya"),
+    ("kosovo", "Kosovo"),
+    ("kuwait", "Kuwait"),
+    ("kyrgyzstan", "Kyrgyzstan"),
+    ("laos", "Laos"),
+    ("latvia", "Latvia"),
+    ("lebanon", "Lebanon"),
+    ("libya", "Libya"),
+    ("lithuania", "Lithuania"),
+    ("luxembourg", "Luxembourg"),
+    ("macau", "Macau"),
+    ("malaysia", "Malaysia"),
+    ("maldives", "Maldives"),
+    ("mali", "Mali"),
+    ("malta", "Malta"),
+    ("mexico", "Mexico"),
+    ("moldova", "Moldova"),
+    ("monaco", "Monaco"),
+    ("mongolia", "Mongolia"),
+    ("montenegro", "Montenegro"),
+    ("morocco", "Morocco"),
+    ("mozambique", "Mozambique"),
+    ("myanmar", "Myanmar"),
+    ("nepal", "Nepal"),
+    ("netherlands", "Netherlands"),
+    ("nicaragua", "Nicaragua"),
+    ("nigeria", "Nigeria"),
+    ("norway", "Norway"),
+    ("oman", "Oman"),
+    ("pakistan", "Pakistan"),
+    ("palestine", "Palestine"),
+    ("panama", "Panama"),
+    ("paraguay", "Paraguay"),
+    ("peru", "Peru"),
+    ("philippines", "Philippines"),
+    ("poland", "Poland"),
+    ("portugal", "Portugal"),
+    ("qatar", "Qatar"),
+    ("romania", "Romania"),
+    ("russia", "Russia"),
+    ("rwanda", "Rwanda"),
+    ("senegal", "Senegal"),
+    ("serbia", "Serbia"),
+    ("singapore", "Singapore"),
+    ("slovakia", "Slovakia"),
+    ("slovenia", "Slovenia"),
+    ("somalia", "Somalia"),
+    ("spain", "Spain"),
+    ("sudan", "Sudan"),
+    ("sweden", "Sweden"),
+    ("switzerland", "Switzerland"),
+    ("syria", "Syria"),
+    ("taiwan", "Taiwan"),
+    ("tajikistan", "Tajikistan"),
+    ("tanzania", "Tanzania"),
+    ("thailand", "Thailand"),
+    ("tunisia", "Tunisia"),
+    ("turkmenistan", "Turkmenistan"),
+    ("uganda", "Uganda"),
+    ("ukraine", "Ukraine"),
+    ("uruguay", "Uruguay"),
+    ("uzbekistan", "Uzbekistan"),
+    ("venezuela", "Venezuela"),
+    ("vietnam", "Vietnam"),
+    ("yemen", "Yemen"),
+    ("zimbabwe", "Zimbabwe"),
+    ("dltv", "Thailand"),
+    ("สารคดี", "Thailand"),
+    ("songtopia", "Thailand"),
+    ("the watcher documentary", "Thailand"),
+]
+
+AE_TVG_ID_PREFIXES = (
+    "ae.us",
+    "aelatinamerica",
+    "a.and.e.",
+    "aande",
+    "ae-us-",
+    "crime360.us",
+    "thefirst48.us",
+    "plutotvstoragewars.us",
+    "storagewars.us",
+    "coldcasefiles.us",
+    "60daysin.us",
+    "hoarders.us",
+    "chaosoncam.us",
+    "crimescultskillers.us",
+    "crimethrillher.us",
+    "homemadenation.us",
+    "flippingnation.us",
+    "isurvived.us",
+    "witnesstojustice.us",
+    "mysteriesxplored.us",
+    "perform.us",
+    "alonebyhistory.us",
+    "axmen.us",
+    "iceroadtruckers.us",
+    "xtremeoutdoor.us",
+    "crimeplusinvestigation",
+    "crime.and.investigation",
+    "insidecrime.us",
+    "mysterytv.us",
+    "worldwartv.uk",
+    "dogthebountyhunter.us",
+    "duckdynasty.us",
+)
+
+AE_NAME_RE = re.compile(
+    r"(?:"
+    r"\ba\s*&\s*e\b"
+    r"|\ba\s*\+\s*e\s+networks\b"
+    r"|\bby\s+a\s*&\s*e\b"
+    r"|(?<![a-z0-9])a&e(?![a-z0-9])"
+    r"|\bcrime\s*360\b"
+    r"|\bthe\s+first\s+48\b"
+    r"|\bstorage\s+wars\b"
+    r"|\bcold\s+case\s+files\b"
+    r"|\b60\s+days\s+in\b"
+    r"|\bhoarders\b"
+    r"|\bchaos\s+on\s+cam\b"
+    r"|\bcrimes\s+cults\s+killers\b"
+    r"|\bcrime\s+thrillher\b"
+    r"|\bhome\.made\.nation\b"
+    r"|\bcrime\s*[+&]\s*investigation\b"
+    r"|\binside\s+crime\b"
+    r"|\bmystery\s+tv\b"
+    r"|\bdog\s+the\s+bounty\s+hunter\b"
+    r"|\bduck\s+dynasty\b"
+    r")",
+    re.IGNORECASE,
+)
+
+
+def resolve_country(channel: Channel) -> str:
+    """Resolve the country name for a channel from its attributes, ID, or group."""
+    tc = channel.attrs.get("tvg-country", "").strip().lower()
+    if tc in COUNTRY_CODE_MAP:
+        return COUNTRY_CODE_MAP[tc]
+    tid = channel.attrs.get("tvg-id", "").strip()
+    if "." in tid:
+        suf = tid.rsplit(".", 1)[-1].split("@")[0].lower()
+        if suf in COUNTRY_CODE_MAP:
+            return COUNTRY_CODE_MAP[suf]
+    grp = channel.group.lower()
+    for pattern, country in GROUP_COUNTRY_PATTERNS:
+        if pattern in grp:
+            return country
+    if re.search(r"[\u0e00-\u0e7f]", f"{channel.name} {channel.group}"):
+        return "Thailand"
+    return "International"
+
+
+def country_filename(country: str) -> str:
+    """Turn a country display name into a clean M3U filename (e.g. 'USA.m3u', 'South_Korea.m3u')."""
+    slug = re.sub(r"[^A-Za-z0-9]+", "_", country.strip()).strip("_")
+    return f"{slug or 'International'}.m3u"
+
+
+def is_ae_channel(channel: Channel) -> bool:
+    """Return True if a channel belongs to A&E or A+E Networks."""
+    if channel.source == "ae-networks" or "ae-networks" in channel.source_aliases:
+        return True
+    tid = channel.attrs.get("tvg-id", "").strip().lower()
+    if tid and any(tid.startswith(prefix) for prefix in AE_TVG_ID_PREFIXES):
+        return True
+    low_url = channel.url.lower()
+    if "aenetworks" in low_url or "aetelevisionnetworks" in low_url:
+        return True
+    if AE_NAME_RE.search(channel.name) or AE_NAME_RE.search(channel.group):
+        return True
+    return False
+
+
+# --------------------------------------------------------------------------- #
 # Fetching
 # --------------------------------------------------------------------------- #
 def http_get(url: str, headers: dict | None = None, timeout: float = 30, retries: int = 2) -> str:
@@ -186,7 +665,13 @@ def http_get(url: str, headers: dict | None = None, timeout: float = 30, retries
 
 
 def fetch_source_text(src: dict) -> str:
-    """Fetch a source, falling back to the GitHub contents API when configured."""
+    """Fetch a source, reading a curated local_path first when configured, or falling back to GitHub API."""
+    local_rel = str(src.get("local_path") or "").strip()
+    if local_rel:
+        local_file = Path(local_rel) if Path(local_rel).is_absolute() else (ROOT / local_rel)
+        if local_file.exists():
+            src["_fetch_method"] = "local_file"
+            return local_file.read_text(encoding="utf-8")
     try:
         text = http_get(src["url"])
         src["_fetch_method"] = "direct"
@@ -216,14 +701,30 @@ def fetch_source_text(src: dict) -> str:
 # Parsers
 # --------------------------------------------------------------------------- #
 def fix_url(url: str) -> str:
-    """Repair common typos found in upstream lists (e.g. 'ttp://host')."""
+    """Repair common typos found in upstream lists (e.g. 'ttp://host') and percent-encode non-ASCII paths."""
     url = url.strip()
     low = url.lower()
     if low.startswith(("ttp://", "ttps://")):
-        return "h" + url
-    if low.startswith("//"):
-        return "https:" + url
-    return url
+        url = "h" + url
+    elif low.startswith("//"):
+        url = "https:" + url
+    if any(ch.isspace() for ch in url):
+        return url
+    try:
+        url.encode("ascii")
+        return url
+    except UnicodeEncodeError:
+        try:
+            parts = urllib.parse.urlsplit(url)
+            if not parts.scheme or not parts.netloc:
+                return url
+            netloc = parts.netloc.encode("idna").decode("ascii")
+            path = urllib.parse.quote(parts.path, safe="/:@!$&'()*+,;=-._~%")
+            query = urllib.parse.quote(parts.query, safe="=&/:@!$'()*+,;-._~%?[]")
+            fragment = urllib.parse.quote(parts.fragment, safe="")
+            return urllib.parse.urlunsplit((parts.scheme, netloc, path, query, fragment))
+        except Exception:  # noqa: BLE001
+            return url
 
 
 def parse_m3u(text: str, source: str) -> tuple[list[Channel], list[str]]:
@@ -282,6 +783,18 @@ def _match_any(name: str, patterns: list[str], exact: bool) -> bool:
     return False
 
 
+def _loads_w3u_json(raw_text: str) -> dict:
+    """Parse W3U JSON, tolerating trailing commas before closing braces/brackets."""
+    try:
+        data = json.loads(raw_text)
+    except json.JSONDecodeError:
+        cleaned = re.sub(r",(\s*[}\]])", r"\1", raw_text)
+        data = json.loads(cleaned)
+    if not isinstance(data, dict):
+        raise ValueError("W3U JSON root is not an object")
+    return data
+
+
 def parse_w3u(src: dict, root_text: str, issues: list[str] | None = None) -> list[Channel]:
     """Walk a Wiseplay W3U JSON playlist and its selected nested groups."""
     include = src.get("include_groups") or []
@@ -314,17 +827,19 @@ def parse_w3u(src: dict, root_text: str, issues: list[str] | None = None) -> lis
         for group in data.get("groups") or []:
             group_name = (group.get("name") or "").strip()
             group_url = (group.get("url") or "").strip()
-            if not group_url or group_url in seen_urls:
-                continue
             if depth == 0 and include and not _match_any(group_name, include, exact=True):
                 continue
             if exclude and _match_any(group_name, exclude, exact=False):
                 continue
+            if not group_url:
+                if group.get("stations") or group.get("groups"):
+                    walk(group, path + [group_name], depth + 1)
+                continue
+            if group_url in seen_urls:
+                continue
             seen_urls.add(group_url)
             try:
-                child = json.loads(http_get(group_url, retries=1))
-                if not isinstance(child, dict):
-                    raise ValueError("nested W3U response is not a JSON object")
+                child = _loads_w3u_json(http_get(group_url, retries=1))
             except Exception as exc:  # noqa: BLE001
                 message = f"nested group '{group_name}' fetch failed: {error_text(exc, group_url)}"
                 log(f"    ! {message}")
@@ -333,9 +848,7 @@ def parse_w3u(src: dict, root_text: str, issues: list[str] | None = None) -> lis
                 continue
             walk(child, path + [group_name], depth + 1)
 
-    data = json.loads(root_text)
-    if not isinstance(data, dict):
-        raise ValueError("W3U root is not a JSON object")
+    data = _loads_w3u_json(root_text)
     walk(data, [], 0)
     return output
 
@@ -550,21 +1063,62 @@ def audit_reference_sources(items: list[dict], issues: list[str]) -> dict[str, d
 # --------------------------------------------------------------------------- #
 # Link checking
 # --------------------------------------------------------------------------- #
+HIGH_CAPACITY_HOSTS = (
+    "jmp2.uk",
+    "pluto.tv",
+    "cloudfront.net",
+    "akamaized.net",
+    "amagi.tv",
+    "wurl.tv",
+    "uplynk.com",
+    "stream.mcquack.net",
+    "playlist.xtemus.com",
+)
+
+
 class HostLimiter:
-    """Keep a burst of parallel checks from overwhelming any single host."""
+    """Keep a burst of parallel checks from overwhelming any single host, and fast-fail dead hosts."""
     def __init__(self, per_host_workers: int):
         self.per_host_workers = max(1, per_host_workers)
         self._lock = threading.Lock()
         self._semaphores: dict[str, threading.BoundedSemaphore] = {}
+        self._consecutive_failures: collections.Counter = collections.Counter()
+        self._responses: collections.Counter = collections.Counter()
 
-    def semaphore_for(self, url: str) -> threading.BoundedSemaphore:
+    @staticmethod
+    def _host_key(url: str) -> str:
         parsed = urllib.parse.urlsplit(url)
         netloc = parsed.netloc.lower().rsplit("@", 1)[-1]
-        key = f"{parsed.scheme.lower()}://{netloc}"
+        return f"{parsed.scheme.lower()}://{netloc}"
+
+    def _limit_for_key(self, key: str) -> int:
+        host = key.split("://", 1)[-1].split(":", 1)[0]
+        if any(host == suffix or host.endswith("." + suffix) for suffix in HIGH_CAPACITY_HOSTS):
+            return max(self.per_host_workers, 32)
+        return self.per_host_workers
+
+    def semaphore_for(self, url: str) -> threading.BoundedSemaphore:
+        key = self._host_key(url)
         with self._lock:
             if key not in self._semaphores:
-                self._semaphores[key] = threading.BoundedSemaphore(self.per_host_workers)
+                self._semaphores[key] = threading.BoundedSemaphore(self._limit_for_key(key))
             return self._semaphores[key]
+
+    def record_response(self, url: str) -> None:
+        key = self._host_key(url)
+        with self._lock:
+            self._responses[key] += 1
+            self._consecutive_failures[key] = 0
+
+    def record_connection_failure(self, url: str) -> None:
+        key = self._host_key(url)
+        with self._lock:
+            self._consecutive_failures[key] += 1
+
+    def is_unresponsive(self, url: str, threshold: int = 5) -> bool:
+        key = self._host_key(url)
+        with self._lock:
+            return self._responses[key] == 0 and self._consecutive_failures[key] >= threshold
 
 
 def _connection_reason(exc: Exception) -> str:
@@ -591,6 +1145,23 @@ def _retry_delay(error: urllib.error.HTTPError, attempt: int) -> float:
     return min(2 ** attempt, 8)
 
 
+def _classify_stream_body(channel: Channel, body: bytes, content_type: str) -> Channel:
+    head = body.lstrip()[:16]
+    if head.startswith(b"#EXTM3U") or head.startswith(b"#EXT"):
+        channel.status, channel.reason = "alive", "hls"
+    elif body[:1] == b"\x47" or any(
+        marker in content_type for marker in ("video", "mpegurl", "octet-stream", "audio", "dash")
+    ):
+        channel.status, channel.reason = "alive", content_type or "stream"
+    elif head.startswith(b"<") or "html" in content_type:
+        channel.status, channel.reason = "dead", "html page, not a stream"
+    elif body:
+        channel.status, channel.reason = "alive", content_type or "data"
+    else:
+        channel.status, channel.reason = "dead", "empty response"
+    return channel
+
+
 def check_channel(
     channel: Channel,
     timeout: float,
@@ -598,8 +1169,12 @@ def check_channel(
     host_limiter: HostLimiter | None = None,
 ) -> Channel:
     """Check a stream; transient/access failures are kept distinct from confirmed dead links."""
+    if not channel.url or any(ch.isspace() for ch in channel.url):
+        channel.status, channel.reason = "dead", "invalid URL"
+        return channel
     try:
-        scheme = urllib.parse.urlsplit(channel.url).scheme.lower()
+        parsed = urllib.parse.urlsplit(channel.url)
+        scheme = parsed.scheme.lower()
     except ValueError:
         channel.status, channel.reason = "dead", "invalid URL"
         return channel
@@ -608,13 +1183,16 @@ def check_channel(
         # These schemes cannot be probed by an HTTP GET, so do not label them alive.
         channel.status, channel.reason = "unverified", f"not probed: unsupported scheme {scheme}"
         return channel
-    if scheme not in ("http", "https"):
+    if scheme not in ("http", "https") or not parsed.netloc:
         channel.status, channel.reason = "dead", "invalid URL"
         return channel
 
     headers = channel.headers()
     headers.setdefault("Accept", "*/*")
-    attempts = max(0, retries) + 1
+    unresponsive = host_limiter.is_unresponsive(channel.url) if host_limiter else False
+    effective_retries = 0 if unresponsive else max(0, retries)
+    effective_timeout = min(timeout, 2.5) if unresponsive else timeout
+    attempts = effective_retries + 1
 
     for attempt in range(attempts):
         try:
@@ -623,28 +1201,25 @@ def check_channel(
             if semaphore:
                 semaphore.acquire()
             try:
-                with urllib.request.urlopen(request, timeout=timeout, context=INSECURE_CTX) as response:
+                with urllib.request.urlopen(request, timeout=effective_timeout, context=INSECURE_CTX) as response:
                     content_type = (response.headers.get("Content-Type") or "").lower()
-                    body = response.read(4096)
+                    try:
+                        body = response.read(4096)
+                    except http.client.IncompleteRead as inc:
+                        body = inc.partial or b""
             finally:
                 if semaphore:
                     semaphore.release()
 
-            head = body.lstrip()[:16]
-            if head.startswith(b"#EXTM3U") or head.startswith(b"#EXT"):
-                channel.status, channel.reason = "alive", "hls"
-            elif body[:1] == b"\x47" or any(
-                marker in content_type for marker in ("video", "mpegurl", "octet-stream", "audio", "dash")
-            ):
-                channel.status, channel.reason = "alive", content_type or "stream"
-            elif head.startswith(b"<") or "html" in content_type:
-                channel.status, channel.reason = "dead", "html page, not a stream"
-            elif body:
-                channel.status, channel.reason = "alive", content_type or "data"
-            else:
-                channel.status, channel.reason = "dead", "empty response"
+            if host_limiter:
+                host_limiter.record_response(channel.url)
+            return _classify_stream_body(channel, body, content_type)
+        except http.client.InvalidURL:
+            channel.status, channel.reason = "dead", "invalid URL"
             return channel
         except urllib.error.HTTPError as exc:
+            if host_limiter:
+                host_limiter.record_response(channel.url)
             code = exc.code
             try:
                 exc.close()
@@ -660,7 +1235,17 @@ def check_channel(
             channel.status = "unverified" if retryable else "dead"
             channel.reason = f"HTTP {code}"
             return channel
-        except (urllib.error.URLError, socket.timeout, TimeoutError, ConnectionError, ssl.SSLError, OSError) as exc:
+        except (
+            urllib.error.URLError,
+            http.client.HTTPException,
+            socket.timeout,
+            TimeoutError,
+            ConnectionError,
+            ssl.SSLError,
+            OSError,
+        ) as exc:
+            if host_limiter:
+                host_limiter.record_connection_failure(channel.url)
             reason = _connection_reason(exc)
             if attempt + 1 < attempts:
                 time.sleep(min(2 ** attempt, 8))
@@ -693,6 +1278,9 @@ def dedupe(channels: list[Channel]) -> list[Channel]:
             output.append(channel)
         else:
             existing.source_aliases = list(dict.fromkeys(existing.source_aliases + channel.source_aliases))
+            for attr_key, attr_val in channel.attrs.items():
+                if attr_val and not existing.attrs.get(attr_key):
+                    existing.attrs[attr_key] = attr_val
     return output
 
 
@@ -708,6 +1296,104 @@ def write_m3u(path: Path, channels: list[Channel], epg: list[str], title: str) -
     lines = [header, f"# {title}"]
     lines += [channel.to_m3u() for channel in channels]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_country_playlists(
+    out_dir: Path,
+    channels: list[Channel],
+    epg: list[str],
+    utc_s: str,
+    local_s: str,
+    label: str,
+) -> dict[str, dict]:
+    """Separate confirmed working channels by country into playlists/countries/<Country>.m3u."""
+    countries_dir = out_dir / "countries"
+    countries_dir.mkdir(parents=True, exist_ok=True)
+    grouped: dict[str, list[Channel]] = collections.defaultdict(list)
+    for channel in channels:
+        grouped[channel.country].append(channel)
+
+    ordered_countries = sorted(grouped.keys(), key=lambda name: (-len(grouped[name]), name.lower()))
+    active_files: set[str] = set()
+    summary: dict[str, dict] = {}
+
+    for country in ordered_countries:
+        country_channels = sorted(grouped[country], key=sort_key)
+        fname = country_filename(country)
+        active_files.add(fname)
+        write_m3u(
+            countries_dir / fname,
+            country_channels,
+            epg,
+            f"{country} working channels ({len(country_channels)}) - updated {utc_s} ({local_s}) - {label}",
+        )
+        summary[country] = {
+            "file": f"countries/{fname}",
+            "count": len(country_channels),
+        }
+
+    for existing in countries_dir.glob("*.m3u"):
+        if existing.name not in active_files:
+            try:
+                existing.unlink()
+            except OSError:
+                pass
+
+    index_lines = [
+        "# Country Playlists",
+        "",
+        f"Updated: **{local_s}** ({utc_s}) — _{label}_",
+        "",
+        f"Total countries: **{len(summary)}**  |  Total confirmed working channels: **{len(channels)}**",
+        "",
+        "| Country | Working channels | Playlist file | Raw M3U URL |",
+        "|---|---:|---|---|",
+    ]
+    for country, info in summary.items():
+        fname = Path(info["file"]).name
+        raw_url = f"https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/{fname}"
+        index_lines.append(
+            f"| {country} | {info['count']} | [`{fname}`]({fname}) | `{raw_url}` |"
+        )
+    (countries_dir / "README.md").write_text("\n".join(index_lines) + "\n", encoding="utf-8")
+    return summary
+
+
+def summarize_ae_channels(channels: list[Channel]) -> dict:
+    """Summarize A&E / A+E Networks channels and their check statuses."""
+    ae_all = [channel for channel in channels if is_ae_channel(channel)]
+    ae_working = [channel for channel in ae_all if channel.status == "alive"]
+    ae_dead = [channel for channel in ae_all if channel.status == "dead"]
+    ae_unverified = [channel for channel in ae_all if channel.status == "unverified"]
+    return {
+        "file": "AE_Channels.m3u",
+        "total_unique": len(ae_all),
+        "working_count": len(ae_working),
+        "dead_count": len(ae_dead),
+        "unverified_count": len(ae_unverified),
+        "working": [report_channel(channel) for channel in ae_working],
+        "dead": [report_channel(channel) for channel in ae_dead],
+        "unverified": [report_channel(channel) for channel in ae_unverified],
+    }
+
+
+def write_ae_playlist(
+    out_dir: Path,
+    working_channels: list[Channel],
+    epg: list[str],
+    utc_s: str,
+    local_s: str,
+    label: str,
+) -> int:
+    """Write confirmed working A&E / A+E Networks channels to playlists/AE_Channels.m3u."""
+    ae_working = sorted([channel for channel in working_channels if is_ae_channel(channel)], key=sort_key)
+    write_m3u(
+        out_dir / "AE_Channels.m3u",
+        ae_working,
+        epg,
+        f"A&E and A+E Networks working channels ({len(ae_working)}) - updated {utc_s} ({local_s}) - {label}",
+    )
+    return len(ae_working)
 
 
 def now_strings(when: dt.datetime | None = None) -> tuple[str, str]:
@@ -823,18 +1509,18 @@ def summarize_changes(channels: list[Channel], previous: dict[str, Channel], bas
     current = {channel.url: channel for channel in channels}
     added_urls = sorted(set(current) - set(previous))
     removed_urls = sorted(set(previous) - set(current))
-    sample_limit = 20
+    sample_limit = 30
     return {
         "baseline": baseline,
         "added_count": len(added_urls),
         "removed_count": len(removed_urls),
         "added_sample": [
-            {"name": current[url].name, "group": current[url].group,
+            {"name": current[url].name, "country": current[url].country, "group": current[url].group,
              "source": current[url].source, "url": safe_url(url)}
             for url in added_urls[:sample_limit]
         ],
         "removed_sample": [
-            {"name": previous[url].name, "group": previous[url].group,
+            {"name": previous[url].name, "country": previous[url].country, "group": previous[url].group,
              "source": previous[url].source, "url": safe_url(url)}
             for url in removed_urls[:sample_limit]
         ],
@@ -881,6 +1567,7 @@ def reason_diagnostics(channels: list[Channel]) -> list[dict]:
 def report_channel(channel: Channel) -> dict:
     return {
         "name": channel.name,
+        "country": channel.country,
         "group": channel.group,
         "source": channel.source,
         "sources": channel.source_aliases,
@@ -926,6 +1613,9 @@ def make_status_markdown(report: dict) -> str:
             f"- **All-links entries:** {report['total_unique']} (not checked)"
         )
 
+    countries = report.get("countries") or {}
+    ae_info = report.get("ae_channels") or {}
+
     lines = [
         "# Scraper status",
         "",
@@ -937,9 +1627,18 @@ def make_status_markdown(report: dict) -> str:
         f"- **Changes vs. {report['changes'].get('baseline', 'previous playlist')}:** "
         f"+{report['changes'].get('added_count', 0)} added / -{report['changes'].get('removed_count', 0)} removed",
         f"- **Player playlist updated:** {'yes' if report['final_playlist_written'] else 'no (previous good copy preserved or no output)'}",
+        f"- **Country playlists:** [`countries/`](countries/README.md) ({len(countries)} countries separated)",
+        f"- **A&E channels playlist:** [`AE_Channels.m3u`](AE_Channels.m3u) "
+        f"({ae_info.get('working_count', 0)} confirmed working / {ae_info.get('total_unique', 0)} unique A&E links)",
+        "- **Plain-text (.txt) logs:** "
+        "[`logs/scrape-log.txt`](logs/scrape-log.txt) | "
+        "[`logs/log-edits.txt`](logs/log-edits.txt) | "
+        "[`logs/errors.txt`](logs/errors.txt) | "
+        "[`logs/run-history.txt`](logs/run-history.txt)",
         f"- **Run history:** [`run-history.jsonl`](run-history.jsonl) (append-only; one entry per run)",
         "",
-        "## Playlist sources",        "",
+        "## Playlist sources",
+        "",
         "| Source | Fetch | Entries | Unique URLs | Overlap | Working | Dead | Unverified |",
         "|---|---|---:|---:|---:|---:|---:|---:|",
     ]
@@ -957,6 +1656,32 @@ def make_status_markdown(report: dict) -> str:
             f"🌱 = source added automatically by the monthly discovery engine: {', '.join(promoted)}. "
             "Set `\"enabled\": false` for it in `discovery/approved-sources.json` to roll it back.",
         ]
+
+    if countries:
+        lines += [
+            "",
+            f"## Country playlists (`playlists/countries/` — {len(countries)} countries)",
+            "",
+            "All confirmed working channels are separated by country into [`playlists/countries/`](countries/README.md). "
+            "Top 25 countries by working channel count:",
+            "",
+            "| Country | Working channels | Playlist |",
+            "|---|---:|---|",
+        ]
+        for country, info in list(countries.items())[:25]:
+            lines.append(f"| {country} | {info['count']} | [`{info['file']}`]({info['file']}) |")
+        if len(countries) > 25:
+            lines.append(f"| _…and {len(countries) - 25} more countries_ | | [Full country index](countries/README.md) |")
+
+    if ae_info.get("total_unique"):
+        lines += [
+            "",
+            "## A&E and A+E Networks channels (`playlists/AE_Channels.m3u`)",
+            "",
+            f"- **Confirmed working:** {ae_info.get('working_count', 0)} / {ae_info.get('total_unique', 0)} unique links "
+            f"(dead: {ae_info.get('dead_count', 0)}, unverified: {ae_info.get('unverified_count', 0)})",
+        ]
+
     lines += [
         "",
         "## Reference-source checks (not automatically imported)",
@@ -1010,6 +1735,306 @@ def make_status_markdown(report: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _format_edit_block_from_history(entry: dict) -> str:
+    """Format a historical run-history.jsonl record into a plain-text log-edits block."""
+    sep = "=" * 88
+    lines = [
+        sep,
+        f"RUN ID:       {entry.get('run_id', '-')}",
+        f"TIMESTAMP:    {entry.get('updated_local', '-')} ({entry.get('started_utc', '-')} -> {entry.get('finished_utc', '-')})",
+        f"LABEL / TYPE: {entry.get('label', '-')} [{entry.get('run_type', '-')}]",
+        f"STATUS:       {str(entry.get('status', 'unknown')).upper()} (checked={entry.get('checked')}, duration={entry.get('duration_seconds', 0)}s)",
+        f"PLAYLISTS:    working={entry.get('working')} / unique={entry.get('total_unique')} "
+        f"(dead={entry.get('dead', 0)}, unverified={entry.get('unverified', 0)})",
+        f"LOG EDITS:    +{entry.get('added', 0)} channels added / -{entry.get('removed', 0)} channels removed",
+    ]
+    issues = entry.get("issues") or []
+    if issues:
+        lines.append("ISSUES / ERRORS:")
+        for issue in issues:
+            lines.append(f"  * {issue}")
+    else:
+        lines.append("ISSUES / ERRORS: None")
+    lines.append("")
+    return "\n".join(lines)
+
+
+def write_txt_logs(out_dir: Path, report: dict, history_path: Path) -> None:
+    """Write human-readable .txt log files under playlists/logs/ for run logs, log edits, and errors."""
+    logs_dir = out_dir / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    sep = "=" * 88
+    subsep = "-" * 88
+
+    countries = report.get("countries") or {}
+    ae_info = report.get("ae_channels") or {}
+    changes = report.get("changes") or {}
+
+    # 1. playlists/logs/scrape-log.txt (complete latest-run plain-text log)
+    scrape_lines = [
+        sep,
+        "PREMIUMTV1 SCRAPER RUN LOG (.TXT)",
+        sep,
+        f"Run ID:                  {report['run_id']}",
+        f"Run Label:               {report['label']} ({report['run_type']})",
+        f"Started (UTC):           {report['started_utc_iso']}",
+        f"Finished (UTC):          {report['finished_utc_iso']}",
+        f"Local Time (New York):   {report['updated_local']}",
+        f"Duration:                {report['duration_seconds']} seconds",
+        f"Outcome Status:          {report['status'].upper()}",
+        f"Link Check Completed:    {report['check_completed']}",
+        f"Player Playlist Updated: {'YES' if report['final_playlist_written'] else 'NO'}",
+        f"Total Input Entries:     {report['total_input_entries']}",
+        f"Total Unique URLs:       {report['total_unique']}",
+        f"Confirmed Working:       {report['working']}",
+        f"Confirmed Dead:          {report['dead_count']}",
+        f"Unverified:              {report['unverified_count']}",
+        f"Log Edits (vs {changes.get('baseline', 'previous')}): +{changes.get('added_count', 0)} added / -{changes.get('removed_count', 0)} removed",
+        f"Countries Separated:     {len(countries)} country playlists in playlists/countries/",
+        f"A&E Working Channels:    {ae_info.get('working_count', 0)} / {ae_info.get('total_unique', 0)} unique links (playlists/AE_Channels.m3u)",
+        "",
+        subsep,
+        "1. PLAYLIST SOURCES",
+        subsep,
+        f"{'Source':<26} {'Status':<15} {'Entries':>8} {'Unique':>8} {'Overlap':>8} {'Working':>8} {'Dead':>8} {'Unverif':>8}",
+        "-" * 95,
+    ]
+    for name, stat in report["sources"].items():
+        scrape_lines.append(
+            f"{name:<26} {str(stat.get('status', 'unknown')):<15} "
+            f"{stat.get('found', 0):>8} {stat.get('unique', 0):>8} {stat.get('overlap', 0):>8} "
+            f"{stat.get('alive', 0):>8} {stat.get('dead', 0):>8} {stat.get('unverified', 0):>8}"
+        )
+
+    scrape_lines += [
+        "",
+        subsep,
+        f"2. A&E AND A+E NETWORKS CHANNELS ({ae_info.get('working_count', 0)} WORKING / {ae_info.get('total_unique', 0)} UNIQUE)",
+        subsep,
+    ]
+    for item in ae_info.get("working") or []:
+        scrape_lines.append(f"  [WORKING] [{item.get('country', 'USA')}] {item['name']} -> {item['url']}")
+    for item in ae_info.get("dead") or []:
+        scrape_lines.append(f"  [DEAD: {item['reason']}] [{item.get('country', 'USA')}] {item['name']} -> {item['url']}")
+    for item in ae_info.get("unverified") or []:
+        scrape_lines.append(f"  [UNVERIFIED: {item['reason']}] [{item.get('country', 'USA')}] {item['name']} -> {item['url']}")
+    if not ae_info.get("total_unique"):
+        scrape_lines.append("  No A&E channels configured in this run.")
+
+    scrape_lines += [
+        "",
+        subsep,
+        f"3. COUNTRY PLAYLISTS SUMMARY ({len(countries)} COUNTRIES IN playlists/countries/)",
+        subsep,
+        f"{'Country':<34} {'Working':>10}   {'Playlist Path'}",
+        "-" * 80,
+    ]
+    for country, info in countries.items():
+        scrape_lines.append(f"{country:<34} {info['count']:>10}   playlists/{info['file']}")
+
+    scrape_lines += [
+        "",
+        subsep,
+        "4. LOG EDITS IN THIS RUN (ADDED & REMOVED CHANNELS)",
+        subsep,
+        f"Baseline: {changes.get('baseline', 'none')}",
+        f"Added:    +{changes.get('added_count', 0)} channels",
+        f"Removed:  -{changes.get('removed_count', 0)} channels",
+    ]
+    if changes.get("added_sample"):
+        scrape_lines.append("\nAdded Channels (sample):")
+        for item in changes["added_sample"]:
+            scrape_lines.append(
+                f"  + [{item.get('country', 'International')}] {item['name']} "
+                f"(source={item['source']}, group={item['group']}) -> {item['url']}"
+            )
+    if changes.get("removed_sample"):
+        scrape_lines.append("\nRemoved Channels (sample):")
+        for item in changes["removed_sample"]:
+            scrape_lines.append(
+                f"  - [{item.get('country', 'International')}] {item['name']} "
+                f"(source={item['source']}, group={item['group']}) -> {item['url']}"
+            )
+
+    scrape_lines += [
+        "",
+        subsep,
+        "5. DIAGNOSTICS & RUN/SOURCE ISSUES",
+        subsep,
+    ]
+    if report["diagnostics"]:
+        scrape_lines.append(f"{'Reason':<38} {'Dead':>8} {'Unverified':>12}   {'Guidance'}")
+        scrape_lines.append("-" * 100)
+        for diag in report["diagnostics"]:
+            scrape_lines.append(
+                f"{diag['reason']:<38} {diag['dead']:>8} {diag['unverified']:>12}   {diag['guidance']}"
+            )
+    else:
+        scrape_lines.append("No link-check failures or unverified links recorded.")
+
+    scrape_lines.append("\nRun / Source Issues:")
+    if report["issues"]:
+        for issue in report["issues"]:
+            scrape_lines.append(f"  * {issue}")
+    else:
+        scrape_lines.append("  None.")
+
+    (logs_dir / "scrape-log.txt").write_text("\n".join(scrape_lines) + "\n", encoding="utf-8")
+
+    # 2. playlists/logs/log-edits.txt (append-only chronological log of edits across runs)
+    edits_path = logs_dir / "log-edits.txt"
+    history_entries: list[dict] = []
+    if history_path.exists():
+        for raw_line in history_path.read_text(encoding="utf-8").splitlines():
+            raw_line = raw_line.strip()
+            if not raw_line:
+                continue
+            try:
+                history_entries.append(json.loads(raw_line))
+            except json.JSONDecodeError:
+                continue
+
+    if not edits_path.exists():
+        header_lines = [
+            sep,
+            "PREMIUMTV1 CHRONOLOGICAL LOG EDITS (.TXT)",
+            "Tracks every scraper run's playlist edits (+added / -removed channels), country separation,",
+            "A&E channel checks, and any source or link errors.",
+            sep,
+            "",
+        ]
+        # Seed prior runs from run-history.jsonl (all except the current run_id)
+        for past in history_entries:
+            if past.get("run_id") != report["run_id"]:
+                header_lines.append(_format_edit_block_from_history(past))
+        edits_path.write_text("\n".join(header_lines), encoding="utf-8")
+
+    current_edit_lines = [
+        sep,
+        f"RUN ID:       {report['run_id']}",
+        f"TIMESTAMP:    {report['updated_local']} ({report['started_utc_iso']} -> {report['finished_utc_iso']})",
+        f"LABEL / TYPE: {report['label']} [{report['run_type']}]",
+        f"STATUS:       {report['status'].upper()} (checked={report['checked']}, duration={report['duration_seconds']}s)",
+        f"PLAYLISTS:    working={report['working']} / unique={report['total_unique']} "
+        f"(dead={report['dead_count']}, unverified={report['unverified_count']})",
+        f"COUNTRIES:    {len(countries)} country playlists updated in playlists/countries/",
+        f"A&E CHANNELS: {ae_info.get('working_count', 0)} working / {ae_info.get('total_unique', 0)} unique (playlists/AE_Channels.m3u)",
+        f"LOG EDITS:    +{changes.get('added_count', 0)} channels added / -{changes.get('removed_count', 0)} channels removed "
+        f"(baseline: {changes.get('baseline', 'none')})",
+    ]
+    if changes.get("added_sample"):
+        current_edit_lines.append("ADDED CHANNELS (SAMPLE):")
+        for item in changes["added_sample"]:
+            current_edit_lines.append(
+                f"  + [{item.get('country', 'International')}] {item['name']} ({item['source']}) -> {item['url']}"
+            )
+    if changes.get("removed_sample"):
+        current_edit_lines.append("REMOVED CHANNELS (SAMPLE):")
+        for item in changes["removed_sample"]:
+            current_edit_lines.append(
+                f"  - [{item.get('country', 'International')}] {item['name']} ({item['source']}) -> {item['url']}"
+            )
+    if report["issues"]:
+        current_edit_lines.append("ISSUES / ERRORS:")
+        for issue in report["issues"]:
+            current_edit_lines.append(f"  * {issue}")
+    else:
+        current_edit_lines.append("ISSUES / ERRORS: None")
+    current_edit_lines.append("")
+    with edits_path.open("a", encoding="utf-8") as edits_file:
+        edits_file.write("\n".join(current_edit_lines) + "\n")
+
+    # 3. playlists/logs/errors.txt (detailed error & dead/unverified link diagnostics)
+    err_lines = [
+        sep,
+        "PREMIUMTV1 ERRORS & DIAGNOSTICS LOG (.TXT)",
+        sep,
+        f"Run ID:      {report['run_id']}",
+        f"Timestamp:   {report['updated_local']} ({report['updated_utc']})",
+        f"Label:       {report['label']} ({report['run_type']})",
+        f"Outcome:     {report['status'].upper()}",
+        f"Dead Links:  {report['dead_count']}  |  Unverified Links: {report['unverified_count']}",
+        "",
+        subsep,
+        "1. RUN & SOURCE ISSUES",
+        subsep,
+    ]
+    if report["issues"]:
+        for issue in report["issues"]:
+            err_lines.append(f"  * {issue}")
+    else:
+        err_lines.append("  None (all enabled sources and reference audits succeeded without parser/fetch errors).")
+
+    err_lines += [
+        "",
+        subsep,
+        "2. ERROR REASON BREAKDOWN",
+        subsep,
+    ]
+    if report["diagnostics"]:
+        err_lines.append(f"{'Reason':<38} {'Dead':>8} {'Unverified':>12}   {'Total':>8}")
+        err_lines.append("-" * 74)
+        for diag in report["diagnostics"]:
+            err_lines.append(
+                f"{diag['reason']:<38} {diag['dead']:>8} {diag['unverified']:>12}   {diag['count']:>8}"
+            )
+    else:
+        err_lines.append("  No dead or unverified links recorded.")
+
+    err_lines += [
+        "",
+        subsep,
+        f"3. CONFIRMED DEAD LINKS ({len(report['dead'])})",
+        subsep,
+    ]
+    for item in report["dead"][:500]:
+        err_lines.append(
+            f"  [DEAD] [{item['reason']}] [{item.get('country', 'International')}] "
+            f"{item['name']} (source={item['source']}) -> {item['url']}"
+        )
+    if len(report["dead"]) > 500:
+        err_lines.append(f"  ... and {len(report['dead']) - 500} more dead links (see report.json).")
+
+    err_lines += [
+        "",
+        subsep,
+        f"4. UNVERIFIED LINKS ({len(report['unverified'])})",
+        subsep,
+    ]
+    for item in report["unverified"][:500]:
+        err_lines.append(
+            f"  [UNVERIFIED] [{item['reason']}] [{item.get('country', 'International')}] "
+            f"{item['name']} (source={item['source']}) -> {item['url']}"
+        )
+    if len(report["unverified"]) > 500:
+        err_lines.append(f"  ... and {len(report['unverified']) - 500} more unverified links (see report.json).")
+
+    (logs_dir / "errors.txt").write_text("\n".join(err_lines) + "\n", encoding="utf-8")
+
+    # 4. playlists/logs/run-history.txt (plain-text table of all historical runs)
+    hist_lines = [
+        sep,
+        "PREMIUMTV1 RUN HISTORY LOG (.TXT)",
+        sep,
+        f"{'Run ID':<24} {'Local Time':<24} {'Type':<16} {'Status':<10} {'Working':>8} {'Unique':>8} {'Dead':>6} {'Unver':>6} {'+Add':>6} {'-Rem':>6}",
+        "-" * 124,
+    ]
+    for entry in history_entries:
+        hist_lines.append(
+            f"{str(entry.get('run_id', '-')):<24} "
+            f"{str(entry.get('updated_local', '-')):<24} "
+            f"{str(entry.get('run_type', '-')):<16} "
+            f"{str(entry.get('status', '-')).upper():<10} "
+            f"{str(entry.get('working') if entry.get('working') is not None else '-'):>8} "
+            f"{entry.get('total_unique', 0):>8} "
+            f"{entry.get('dead', 0):>6} "
+            f"{entry.get('unverified', 0):>6} "
+            f"{entry.get('added', 0):>6} "
+            f"{entry.get('removed', 0):>6}"
+        )
+    (logs_dir / "run-history.txt").write_text("\n".join(hist_lines) + "\n", encoding="utf-8")
+
+
 def append_run_history(path: Path, entry: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as file:
@@ -1027,10 +2052,10 @@ def main() -> int:
                     help="vetted sources from monthly discovery "
                          "(default: <out>/discovery/approved-sources.json when it exists)")
     ap.add_argument("--no-check", action="store_true", help="skip link checking")
-    ap.add_argument("--workers", type=int, default=48, help="maximum concurrent link checks")
-    ap.add_argument("--per-host-workers", type=int, default=4, help="maximum concurrent checks per host")
-    ap.add_argument("--timeout", type=float, default=12.0, help="per-link timeout in seconds")
-    ap.add_argument("--retries", type=int, default=2, help="retries for transient link-check failures")
+    ap.add_argument("--workers", type=int, default=112, help="maximum concurrent link checks")
+    ap.add_argument("--per-host-workers", type=int, default=8, help="maximum concurrent checks per host")
+    ap.add_argument("--timeout", type=float, default=6.0, help="per-link timeout in seconds")
+    ap.add_argument("--retries", type=int, default=1, help="retries for transient link-check failures")
     ap.add_argument("--min-working-ratio", type=float, default=0.03,
                     help="abort publishing if fewer than this share of links are confirmed working")
     ap.add_argument("--label", default="manual run", help="run label shown in reports")
@@ -1072,6 +2097,7 @@ def main() -> int:
     all_epg: list[str] = []
     changes = {"baseline": "none", "added_count": 0, "removed_count": 0,
                "added_sample": [], "removed_sample": []}
+    countries_summary: dict[str, dict] = {}
     checked = False
     check_completed = False
     final_playlist_written = False
@@ -1188,7 +2214,9 @@ def main() -> int:
                     raise RuntimeError("source returned 0 channels")
                 stat["bytes"] = len(text.encode("utf-8"))
                 stat["issues"].extend(parse_issues)
-                write_m3u(cache, fetched_channels, epg, f"cached copy of source '{name}'")
+                local_src_path = (ROOT / str(src["local_path"])).resolve() if src.get("local_path") else None
+                if local_src_path is None or local_src_path != cache.resolve():
+                    write_m3u(cache, fetched_channels, epg, f"cached copy of source '{name}'")
                 stat["fetched"] = True
                 stat["status"] = "ok"
                 fetched_from = "source"
@@ -1244,6 +2272,19 @@ def main() -> int:
             if args.no_check:
                 # Keep the checked player playlist intact. Unchecked links are
                 # available in PremiumTV_all.m3u instead.
+                if (out_dir / "PremiumTV.m3u").exists():
+                    try:
+                        existing_working, existing_epg = parse_m3u(
+                            (out_dir / "PremiumTV.m3u").read_text(encoding="utf-8"), "PremiumTV"
+                        )
+                        countries_summary = write_country_playlists(
+                            out_dir, existing_working, existing_epg or all_epg, utc_s, local_s, args.label
+                        )
+                        write_ae_playlist(
+                            out_dir, existing_working, existing_epg or all_epg, utc_s, local_s, args.label
+                        )
+                    except Exception as exc:  # noqa: BLE001
+                        log(f"[countries] could not refresh country playlists from PremiumTV.m3u: {exc}")
                 has_source_problem = any(
                     stat.get("status") in ("failed", "from_cache") or stat.get("issues")
                     for stat in source_stats.values()
@@ -1292,6 +2333,14 @@ def main() -> int:
                         out_dir / "PremiumTV.m3u", working, all_epg,
                         f"Working links - updated {utc_s} ({local_s}) - {args.label}",
                     )
+                    countries_summary = write_country_playlists(
+                        out_dir, working, all_epg, utc_s, local_s, args.label
+                    )
+                    ae_written = write_ae_playlist(
+                        out_dir, working, all_epg, utc_s, local_s, args.label
+                    )
+                    log(f"[playlists] separated {len(working)} working channels into "
+                        f"{len(countries_summary)} country playlists and {ae_written} A&E channels")
                     final_playlist_written = True
                     has_source_problem = any(
                         stat.get("status") in ("failed", "from_cache") or stat.get("issues")
@@ -1319,6 +2368,7 @@ def main() -> int:
     count_source_results(source_stats, channels, all_channels)
     reason_details = reason_diagnostics(channels)
     status_counts = collections.Counter(channel.status for channel in channels)
+    ae_summary = summarize_ae_channels(channels)
     issue_messages = list(dict.fromkeys(source_issues))
     if status_counts.get("unverified", 0):
         issue_messages.append(
@@ -1360,6 +2410,9 @@ def main() -> int:
         "all_playlist_written": all_playlist_written,
         "duration_seconds": round((finished - started).total_seconds(), 2),
         "changes": changes,
+        "countries_count": len(countries_summary),
+        "countries": countries_summary,
+        "ae_channels": ae_summary,
         "promoted_sources": [name for name, stat in source_stats.items() if stat.get("promoted_by_discovery")],
         "sources": source_stats,
         "reference_checks": reference_checks,
@@ -1391,6 +2444,8 @@ def main() -> int:
         "unverified": status_counts.get("unverified", 0),
         "added": changes.get("added_count", 0),
         "removed": changes.get("removed_count", 0),
+        "countries_count": len(countries_summary),
+        "ae_working": ae_summary.get("working_count", 0),
         "promoted_sources": [name for name, stat in source_stats.items() if stat.get("promoted_by_discovery")],
         "sources": {
             name: {
@@ -1422,6 +2477,7 @@ def main() -> int:
             json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
         )
         (out_dir / "STATUS.md").write_text(make_status_markdown(report), encoding="utf-8")
+        write_txt_logs(out_dir, report, out_dir / "run-history.jsonl")
     except Exception as exc:  # noqa: BLE001
         log(f"[report] ERROR writing run diagnostics: {error_text(exc)}")
         return 1
