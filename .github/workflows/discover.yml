@@ -7,8 +7,10 @@ name: Monthly discovery
 # it can appear in PremiumTV.m3u.
 on:
   schedule:
-    # 04:30 on the 1st of every month, New York time.
-    - cron: "30 4 1 * *"
+    # 04:37 on the 1st of every month, New York time. The minute is deliberately
+    # not 0 or 30: GitHub's scheduler is congested at those times and this
+    # repository measured multi-hour delays and dropped runs as a result.
+    - cron: "37 4 1 * *"
       timezone: "America/New_York"
   workflow_dispatch:
     inputs:
@@ -60,11 +62,12 @@ jobs:
           if [ "$EVENT_NAME" = "repository_dispatch" ]; then
             label="$(printf '%s' "${DISPATCH_LABEL:-manual discovery run}" | tr -d '\n\r' | cut -c1-80)"
             echo "label=${label:-manual discovery run}" >> "$GITHUB_OUTPUT"
+          elif [ -n "$SCHEDULE" ]; then
+            # Same lookup the schedule guard uses, so the label can never drift
+            # away from the cron that actually fired.
+            echo "label=$(python scripts/schedule_guard.py label-for --cron "$SCHEDULE")" >> "$GITHUB_OUTPUT"
           else
-            case "$SCHEDULE" in
-              "30 4 1 * *") echo "label=monthly new-channel discovery" >> "$GITHUB_OUTPUT" ;;
-              *)            echo "label=manual discovery run"         >> "$GITHUB_OUTPUT" ;;
-            esac
+            echo "label=manual discovery run" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run discovery
