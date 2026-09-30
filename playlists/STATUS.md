@@ -1,28 +1,68 @@
 # Scraper status
 
-- **Last run:** 2026-09-29 08:15 PM EDT (2026-09-30 00:15 UTC)
-- **Run:** _4:41 PM final check_ (`final_check`; ID `20260929T235714Z-2345`)
-- **Scheduled for:** 2026-09-29T20:41:00Z — started late by +3h 16m
+- **Last run:** 2026-09-29 06:16 PM EDT (2026-09-29 22:16 UTC)
+- **Run:** _manual M3U rescrape check_ (`manual`; ID `20260929T221616Z-3636`)
 - **Outcome:** **WARNING**
-- **Confirmed working:** 9410 / 13332 unique links
-- **Dead:** 1393  |  **Unverified:** 2529
-- **Unique links found:** 13332 from 14252 source entries
-- **Changes vs. PremiumTV_all.m3u:** +185 added / -248 removed
+- **Confirmed working:** 9421 / 13394 unique links
+- **Dead:** 1388  |  **Unverified:** 2585
+- **Unique links found:** 13394 from 14323 source entries
+- **Changes vs. PremiumTV_all.m3u:** +88 added / -89 removed
 - **Player playlist updated:** yes
+- **Country playlists:** [`countries/`](countries/README.md) (176 countries separated)
+- **A&E channels playlist:** [`AE_Channels.m3u`](AE_Channels.m3u) (55 confirmed working / 55 unique A&E links)
+- **Plain-text (.txt) logs:** [`logs/scrape-log.txt`](logs/scrape-log.txt) | [`logs/log-edits.txt`](logs/log-edits.txt) | [`logs/errors.txt`](logs/errors.txt) | [`logs/run-history.txt`](logs/run-history.txt)
 - **Run history:** [`run-history.jsonl`](run-history.jsonl) (append-only; one entry per run)
 
 ## Playlist sources
 
 | Source | Fetch | Entries | Unique URLs | Overlap | Working | Dead | Unverified |
 |---|---|---:|---:|---:|---:|---:|---:|
-| aria | ok | 407 | 401 | 121 | 317 | 10 | 74 |
-| doms9 | ok | 454 | 447 | 63 | 228 | 45 | 174 |
-| xtemus | ok | 317 | 317 | 0 | 33 | 213 | 71 |
-| iptv-org | ok | 10994 | 10994 | 835 | 8255 | 845 | 1894 |
-| free-tv | ok | 2080 | 2054 | 711 | 1311 | 317 | 426 |
+| ae-networks | ok | 53 | 53 | 14 | 53 | 0 | 0 |
+| aria | ok | 407 | 401 | 122 | 320 | 10 | 71 |
+| doms9 | ok | 472 | 470 | 63 | 255 | 19 | 196 |
+| xtemus | ok | 317 | 317 | 0 | 32 | 245 | 40 |
+| iptv-org | ok | 10994 | 10994 | 846 | 8215 | 840 | 1939 |
+| free-tv | ok | 2080 | 2054 | 711 | 1293 | 309 | 452 |
 | eja-tv-feed | not_configured | 0 | 0 | 0 | 0 | 0 | 0 |
 | stepdaddylivehd-instance | not_configured | 0 | 0 | 0 | 0 | 0 | 0 |
 | dlive-sx-feed | not_configured | 0 | 0 | 0 | 0 | 0 | 0 |
+
+## Country playlists (`playlists/countries/` — 176 countries)
+
+All confirmed working channels are separated by country into [`playlists/countries/`](countries/README.md). Top 25 countries by working channel count:
+
+| Country | Working channels | Playlist |
+|---|---:|---|
+| USA | 1922 | [`countries/USA.m3u`](countries/USA.m3u) |
+| India | 667 | [`countries/India.m3u`](countries/India.m3u) |
+| Italy | 513 | [`countries/Italy.m3u`](countries/Italy.m3u) |
+| Germany | 389 | [`countries/Germany.m3u`](countries/Germany.m3u) |
+| Russia | 383 | [`countries/Russia.m3u`](countries/Russia.m3u) |
+| Sweden | 379 | [`countries/Sweden.m3u`](countries/Sweden.m3u) |
+| Spain | 223 | [`countries/Spain.m3u`](countries/Spain.m3u) |
+| Dominican Republic | 204 | [`countries/Dominican_Republic.m3u`](countries/Dominican_Republic.m3u) |
+| Chile | 181 | [`countries/Chile.m3u`](countries/Chile.m3u) |
+| Brazil | 177 | [`countries/Brazil.m3u`](countries/Brazil.m3u) |
+| UK | 169 | [`countries/UK.m3u`](countries/UK.m3u) |
+| Ukraine | 164 | [`countries/Ukraine.m3u`](countries/Ukraine.m3u) |
+| Netherlands | 160 | [`countries/Netherlands.m3u`](countries/Netherlands.m3u) |
+| Argentina | 143 | [`countries/Argentina.m3u`](countries/Argentina.m3u) |
+| France | 142 | [`countries/France.m3u`](countries/France.m3u) |
+| Peru | 141 | [`countries/Peru.m3u`](countries/Peru.m3u) |
+| Turkey | 136 | [`countries/Turkey.m3u`](countries/Turkey.m3u) |
+| Iran | 121 | [`countries/Iran.m3u`](countries/Iran.m3u) |
+| Canada | 119 | [`countries/Canada.m3u`](countries/Canada.m3u) |
+| Mexico | 118 | [`countries/Mexico.m3u`](countries/Mexico.m3u) |
+| Romania | 116 | [`countries/Romania.m3u`](countries/Romania.m3u) |
+| Hungary | 113 | [`countries/Hungary.m3u`](countries/Hungary.m3u) |
+| Indonesia | 107 | [`countries/Indonesia.m3u`](countries/Indonesia.m3u) |
+| Colombia | 97 | [`countries/Colombia.m3u`](countries/Colombia.m3u) |
+| Poland | 87 | [`countries/Poland.m3u`](countries/Poland.m3u) |
+| _…and 151 more countries_ | | [Full country index](countries/README.md) |
+
+## A&E and A+E Networks channels (`playlists/AE_Channels.m3u`)
+
+- **Confirmed working:** 55 / 55 unique links (dead: 0, unverified: 0)
 
 ## Reference-source checks (not automatically imported)
 
@@ -36,11 +76,11 @@
 
 | Result | Dead | Unverified | What to check next |
 |---|---:|---:|---|
-| HTTP 403 | 0 | 1131 | Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region. |
-| HTTP 404 | 932 | 0 | The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one. |
-| TimeoutError | 0 | 707 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
-| html page, not a stream | 381 | 0 | The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect. |
-| gaierror | 0 | 295 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
+| HTTP 403 | 0 | 1207 | Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region. |
+| HTTP 404 | 890 | 0 | The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one. |
+| TimeoutError | 0 | 737 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
+| html page, not a stream | 415 | 0 | The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect. |
+| gaierror | 0 | 294 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | ConnectionRefusedError | 0 | 94 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | HTTP 503 | 0 | 49 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | HTTP 400 | 45 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
@@ -50,10 +90,12 @@
 | RemoteDisconnected | 0 | 25 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | SSLError | 0 | 23 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | HTTP 504 | 0 | 19 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
-| empty response | 13 | 0 | The server returned no stream data; check whether the source requires an active session or has expired. |
+| HTTP 429 | 0 | 16 | The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff. |
+| HTTP 502 | 0 | 16 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
+| empty response | 14 | 0 | The server returned no stream data; check whether the source requires an active session or has expired. |
 | OSError | 0 | 12 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | SSLEOFError | 0 | 12 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
-| HTTP 500 | 0 | 11 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
+| HTTP 500 | 0 | 10 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | HTTP 451 | 8 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | not probed: unsupported scheme rtmp | 0 | 8 | This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working. |
 | HTTP 530 | 0 | 7 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
@@ -64,7 +106,8 @@
 | HTTP 521 | 0 | 4 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | HTTP 458 | 3 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | HTTP 523 | 0 | 2 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
-| checker error: UnicodeEncodeError | 0 | 2 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| connection reset (IncompleteRead) | 0 | 2 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
+| invalid URL | 2 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | not probed: unsupported scheme mmsh | 0 | 2 | This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working. |
 | HTTP 302 | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | HTTP 409 | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
@@ -73,14 +116,10 @@
 | HTTP 477 | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | HTTP 511 | 0 | 1 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | HTTP 574 | 0 | 1 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
-| checker error: InvalidURL | 0 | 1 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| invalid URL | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | not probed: unsupported scheme rtsp | 0 | 1 | This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working. |
 | not probed: unsupported scheme srt | 0 | 1 | This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working. |
 
 ### Run/source issues
 
-- [xtemus] nested group 'Youtube Music' fetch failed: Expecting property name enclosed in double quotes: line 8 column 1 (char 239)
-- 2529 links could not be confirmed after retries (see unverified details).
-- 1393 links returned a confirmed failure (see dead details).
-- This run started +3h 16m after its scheduled time (2026-09-29T20:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+- 2585 links could not be confirmed after retries (see unverified details).
+- 1388 links returned a confirmed failure (see dead details).

@@ -13,14 +13,43 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | File | Purpose |
 |---|---|
 | [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Confirmed working links from the latest successful checked run. |
+| [`playlists/countries/`](playlists/countries/README.md) | Confirmed working playlists separated by country (`USA.m3u`, `China.m3u`, `UK.m3u`, `Canada.m3u`, `India.m3u`, etc.). |
+| [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u) | Dedicated playlist of confirmed working A&E and A+E Networks channels (linear & FAST). |
 | [`playlists/PremiumTV_all.m3u`](playlists/PremiumTV_all.m3u) | All unique links found, including dead or unverified links. |
-| [`playlists/STATUS.md`](playlists/STATUS.md) | Latest run outcome, source counts, additions/removals, and diagnostics. |
-| [`playlists/report.json`](playlists/report.json) | Detailed latest report, including failed sources and dead/unverified URLs. |
+| [`playlists/STATUS.md`](playlists/STATUS.md) | Latest run outcome, source counts, country counts, A&E status, additions/removals, and diagnostics. |
+| [`playlists/logs/scrape-log.txt`](playlists/logs/scrape-log.txt) | Complete plain-text (`.txt`) run report with source stats, A&E channels, country counts, and log edits. |
+| [`playlists/logs/log-edits.txt`](playlists/logs/log-edits.txt) | Chronological plain-text (`.txt`) log of playlist edits (`+added` / `-removed` channels) and issues across runs. |
+| [`playlists/logs/errors.txt`](playlists/logs/errors.txt) | Plain-text (`.txt`) error breakdown, source/run issues, and dead/unverified links. |
+| [`playlists/logs/run-history.txt`](playlists/logs/run-history.txt) | Plain-text (`.txt`) tabular summary of all recorded runs. |
+| [`playlists/report.json`](playlists/report.json) | Detailed latest JSON report, including failed sources, country counts, A&E channels, and dead/unverified URLs. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
 | [`playlists/discovery/new-channels.m3u`](playlists/discovery/new-channels.m3u) | New working links found by the last monthly run, ready to try in a player. |
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
+
+### Country-separated playlists & A&E channels
+
+Every checked run automatically classifies all confirmed working channels by country (`tvg-country`, `tvg-id` country suffix, and `group-title` / channel metadata) and writes a separate playlist per country in [`playlists/countries/`](playlists/countries/README.md), plus a dedicated A&E Networks playlist at [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u):
+
+```text
+# USA channels only
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/USA.m3u
+
+# China channels only
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/China.m3u
+
+# UK channels only
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/UK.m3u
+
+# Canada channels only
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Canada.m3u
+
+# A&E and A+E Networks channels only
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/AE_Channels.m3u
+```
+
+See [`playlists/countries/README.md`](playlists/countries/README.md) for the complete table of all ~170+ country playlists.
 
 Each report compares the newly discovered links with the previous all-links playlist and records added/removed counts. A failed source refresh or a link-check run below the minimum working ratio is recorded, but does not replace the last good `PremiumTV.m3u`.
 
@@ -116,6 +145,7 @@ Playlist sources are configured in [`sources.json`](sources.json). Active M3U/W3
 
 | Source | Format | Integration |
 |---|---|---|
+| [`ae-networks`](playlists/sources/ae-networks.m3u) | M3U | Curated A&E and A+E Networks linear & FAST M3U8 streams (`A&E`, `A&E Crime 360`, `The First 48`, `Storage Wars`, `Cold Case Files`, `60 Days In`, `Hoarders`, `Intervention`, `Dog the Bounty Hunter`, `Duck Dynasty`, `Home.Made.Nation`, `Crime + Investigation`, etc.); enabled. |
 | [aria](https://github.com/aria-tv/aria/blob/main/aria.m3u) | M3U | Direct raw playlist; enabled. |
 | [doms9/iptv](https://github.com/doms9/iptv) | M3U8 | `M3U8/TV.m3u8`; enabled. |
 | [xtemus](https://xtemus.com/) | W3U | Enabled; only the selected live-TV groups are followed. Movie, series, radio, and highlight folders are excluded. |

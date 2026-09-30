@@ -1,0 +1,153 @@
+========================================================================================
+PREMIUMTV1 CHRONOLOGICAL LOG EDITS (.TXT)
+Tracks every scraper run's playlist edits (+added / -removed channels), country separation,
+A&E channel checks, and any source or link errors.
+========================================================================================
+
+========================================================================================
+RUN ID:       20260929T002236Z-2322
+TIMESTAMP:    2026-09-28 08:40 PM EDT (2026-09-29T00:22:36Z -> 2026-09-29T00:40:09Z)
+LABEL / TYPE: 4:15 PM final check [final_check]
+STATUS:       WARNING (checked=True, duration=1053.1s)
+PLAYLISTS:    working=9410 / unique=13265 (dead=1403, unverified=2452)
+LOG EDITS:    +12346 channels added / -186 channels removed
+ISSUES / ERRORS:
+  * [xtemus] nested group 'Youtube Music' fetch failed: Expecting property name enclosed in double quotes: line 8 column 1 (char 239)
+  * 2452 links could not be confirmed after retries (see unverified details).
+  * 1403 links returned a confirmed failure (see dead details).
+
+========================================================================================
+RUN ID:       20260929T135109Z-2309
+TIMESTAMP:    2026-09-29 10:10 AM EDT (2026-09-29T13:51:09Z -> 2026-09-29T14:10:00Z)
+LABEL / TYPE: 3:00 AM daily scrape [regular_check]
+STATUS:       WARNING (checked=True, duration=1131.32s)
+PLAYLISTS:    working=9330 / unique=13284 (dead=1417, unverified=2537)
+LOG EDITS:    +202 channels added / -183 channels removed
+ISSUES / ERRORS:
+  * [xtemus] nested group 'Youtube Music' fetch failed: Expecting property name enclosed in double quotes: line 8 column 1 (char 239)
+  * 2537 links could not be confirmed after retries (see unverified details).
+  * 1417 links returned a confirmed failure (see dead details).
+
+========================================================================================
+RUN ID:       20260929T162720Z-2228
+TIMESTAMP:    2026-09-29 12:46 PM EDT (2026-09-29T16:27:20Z -> 2026-09-29T16:46:59Z)
+LABEL / TYPE: 6:00 AM recheck [recheck]
+STATUS:       WARNING (checked=True, duration=1178.98s)
+PLAYLISTS:    working=9407 / unique=13316 (dead=1387, unverified=2522)
+LOG EDITS:    +68 channels added / -36 channels removed
+ISSUES / ERRORS:
+  * [xtemus] nested group 'Youtube Music' fetch failed: Expecting property name enclosed in double quotes: line 8 column 1 (char 239)
+  * 2522 links could not be confirmed after retries (see unverified details).
+  * 1387 links returned a confirmed failure (see dead details).
+
+========================================================================================
+RUN ID:       20260929T200731Z-2331
+TIMESTAMP:    2026-09-29 04:26 PM EDT (2026-09-29T20:07:31Z -> 2026-09-29T20:26:24Z)
+LABEL / TYPE: probe [manual]
+STATUS:       WARNING (checked=True, duration=1133.1s)
+PLAYLISTS:    working=9449 / unique=13389 (dead=1382, unverified=2558)
+LOG EDITS:    +284 channels added / -211 channels removed
+ISSUES / ERRORS:
+  * [xtemus] nested group 'Youtube Music' fetch failed: Expecting property name enclosed in double quotes: line 8 column 1 (char 239)
+  * 2558 links could not be confirmed after retries (see unverified details).
+  * 1382 links returned a confirmed failure (see dead details).
+
+========================================================================================
+RUN ID:       20260929T203953Z-2308
+TIMESTAMP:    2026-09-29 04:57 PM EDT (2026-09-29T20:39:53Z -> 2026-09-29T20:57:44Z)
+LABEL / TYPE: manual re-scrape [manual]
+STATUS:       WARNING (checked=True, duration=1070.57s)
+PLAYLISTS:    working=9378 / unique=13395 (dead=1427, unverified=2590)
+LOG EDITS:    +19 channels added / -13 channels removed
+ISSUES / ERRORS:
+  * [xtemus] nested group 'Youtube Music' fetch failed: Expecting property name enclosed in double quotes: line 8 column 1 (char 239)
+  * 2590 links could not be confirmed after retries (see unverified details).
+  * 1427 links returned a confirmed failure (see dead details).
+
+========================================================================================
+RUN ID:       20260929T235714Z-2345
+TIMESTAMP:    2026-09-29 08:15 PM EDT (2026-09-29T23:57:14Z -> 2026-09-30T00:15:01Z)
+LABEL / TYPE: 4:41 PM final check [final_check]
+STATUS:       WARNING (checked=True, duration=1066.82s)
+PLAYLISTS:    working=9410 / unique=13332 (dead=1393, unverified=2529)
+LOG EDITS:    +185 channels added / -248 channels removed
+ISSUES / ERRORS:
+  * [xtemus] nested group 'Youtube Music' fetch failed: Expecting property name enclosed in double quotes: line 8 column 1 (char 239)
+  * 2529 links could not be confirmed after retries (see unverified details).
+  * 1393 links returned a confirmed failure (see dead details).
+  * This run started +3h 16m after its scheduled time (2026-09-29T20:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+========================================================================================
+RUN ID:       20260929T221616Z-3636
+TIMESTAMP:    2026-09-29 06:16 PM EDT (2026-09-29T22:16:16Z -> 2026-09-29T22:16:34Z)
+LABEL / TYPE: manual M3U rescrape check [manual]
+STATUS:       WARNING (checked=True, duration=17.86s)
+PLAYLISTS:    working=9421 / unique=13394 (dead=1388, unverified=2585)
+COUNTRIES:    176 country playlists updated in playlists/countries/
+A&E CHANNELS: 55 working / 55 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +88 channels added / -89 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [USA] A&E Latin America (Alt) (ae-networks) -> http://190.93.224.42/AYE/index.m3u8
+  + [USA] [Africa Cup of Nations Qualification] Somalia vs Ivory Coast 1 (FAWA) (doms9) -> http://193.47.62.41/hls/BYDDQQQQQQQX.m3u8
+  + [USA] [Darts] Darts World Grand Prix (FAWA) (doms9) -> http://193.47.62.55/hls/ZRRRAAAAAx.m3u8
+  + [USA] Storage Wars by A&E (Vizio) (ae-networks) -> https://4f756c5c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fU3RvcmFnZVdhcnNfSExT/playlist.m3u8
+  + [USA] The First 48 by A&E (Vizio) (ae-networks) -> https://9cf535ad.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fRmlyc3Q0OF9ITFM/playlist.m3u8
+  + [USA] [MLB] Houston Astros vs Chicago White Sox (REED) (doms9) -> https://admin.formaturamaxi.com.br/mlb.m3u8
+  + [USA] [NHL] Carolina Hurricanes vs Florida Panthers (REED) (doms9) -> https://admin2.formaturamaxi.com.br/nhl.m3u8
+  + [UK] World War TV by A+E Networks (Rakuten UK) (ae-networks) -> https://aenetworks-worldwartv-rakuten.amagi.tv/playlist.m3u8
+  + [USA] A&E Crime 360 (LG) (ae-networks) -> https://aenetworks.global.transmit.live/hls/68b76f7c793640e982cd670c/v1/aenetworks_crime360_1/lg_us/latest/main/hls/playlist.m3u8
+  + [USA] Crimes Cults Killers by A&E (LG) (ae-networks) -> https://aenetworks.global.transmit.live/hls/68b779592bcf083f5d656235/v1/aenetworks_kriminal_1/lg_us/latest/main/hls/playlist.m3u8
+  + [USA] Xtreme Outdoor by History / A&E (LG) (ae-networks) -> https://aenetworks.global.transmit.live/hls/68b77e2b2119c010f1166488/v1/aenetworks_skills_thrills_1/lg_us/latest/main/hls/playlist.m3u8
+  + [USA] Crime ThrillHer by A&E (LG) (ae-networks) -> https://aenetworks.global.transmit.live/hls/68b77f472119c010f116648d/v1/aenetworks_thrillher_1/lg_us/latest/main/hls/playlist.m3u8
+  + [USA] Chaos on Cam by A&E (LG) (ae-networks) -> https://amg00276-aenetwork-amg00276c25-lg-us-7267.playouts.now.amagi.tv/playlist/amg00276-aetelevisionnetworksfast-chaoscam-lgus/playlist.m3u8
+  + [USA] Cold Case Files by A&E (Vizio) (ae-networks) -> https://amg00276-amg00276c3-vizio-us-4063.playouts.now.amagi.tv/playlist/amg00276-aetelevisionnetworksfast-coldcasefiles-vizious/playlist.m3u8
+  + [UK] Inside Crime by A+E Networks (Samsung UK) (ae-networks) -> https://amg00841-aenetworksukane-insidecrime-samsunguk-o968i.amagi.tv/playlist/amg00841-aenetworksukane-insidecrime-samsunguk/playlist.m3u8
+  + [UK] Mystery TV by A+E Networks (Samsung UK) (ae-networks) -> https://amg00841-aenetworksukane-mysterytv-samsunguk-mggb7.amagi.tv/playlist/amg00841-aenetworksukane-mysterytv-samsunguk/playlist.m3u8
+  + [UK] World War TV by A+E Networks (Samsung UK) (ae-networks) -> https://amg00841-aenetworksukane-worldwartv-samsunguk-fiod1.amagi.tv/playlist/amg00841-aenetworksukane-worldwartv-samsunguk/playlist.m3u8
+  + [USA] [NHL] Carolina Hurricanes vs Florida Panthers (iSTRMEAST) (doms9) -> https://chatgpt.hereisman.net/playlist/57359/load-playlist
+  + [USA] [MLB] Houston Astros vs Chicago White Sox (iSTRMEAST) (doms9) -> https://chatgpt.hereisman.net/playlist/57360/load-playlist
+  + [USA] I Survived... by A&E (720p) (ae-networks) -> https://d1ewp56x5c748d.cloudfront.net/v1/aenetworks_i_survived_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Home.Made.Nation by A&E (Samsung) (ae-networks) -> https://d1kgo9l74vimu0.cloudfront.net/v1/aenetworks_ae_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Hoarders by A&E (720p) (ae-networks) -> https://d1klo92zvoj2of.cloudfront.net/v1/aenetworks_hoarders_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Crime ThrillHer by A&E (720p) (ae-networks) -> https://d1x6vwh5kyhcyb.cloudfront.net/v1/aenetworks_thrillher_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Flipping Nation by A&E (720p) (ae-networks) -> https://d21mkcgtx2frod.cloudfront.net/v1/aenetworks_flippingnation_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Ice Road Truckers by History / A&E (720p) (ae-networks) -> https://d27c7ivrw07fxl.cloudfront.net/v1/aenetworks_iceroadtruckers_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] 60 Days In by A&E (720p) (ae-networks) -> https://d2b8jic9gadlvy.cloudfront.net/v1/aenetworks_60daysin_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Alone by History / A&E (720p) (ae-networks) -> https://d3181anftsyl2u.cloudfront.net/v1/aenetworks_alone_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Ax Men by History / A&E (720p) (ae-networks) -> https://d3kx0b11i5yg0n.cloudfront.net/v1/aenetworks_axmen_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Crimes Cults Killers by A&E (720p) (ae-networks) -> https://d3ox1t0pcya837.cloudfront.net/v1/aenetworks_kriminal_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  + [USA] Perform by A&E (720p) (ae-networks) -> https://d3shpb2wdlx9qj.cloudfront.net/v1/aenetworks_perform_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+REMOVED CHANNELS (SAMPLE):
+  - [USA] [UEFA Nations League] Scotland vs Switzerland (FAWA) (previous) -> http://193.47.62.41/hls/BYDD.m3u8
+  - [USA] [UEFA Nations League] Slovenia vs North Macedonia (FAWA) (previous) -> http://193.47.62.41/hls/BYDDQ.m3u8
+  - [USA] [UEFA Nations League] Czech Republic vs England (FAWA) (previous) -> http://193.47.62.41/hls/BYDDQQ.m3u8
+  - [USA] [UEFA Nations League] Spain vs Croatia (FAWA) (previous) -> http://193.47.62.41/hls/BYDDQQQ.m3u8
+  - [USA] [Africa Cup of Nations Qualification] Congo vs Cameroon (FAWA) (previous) -> http://193.47.62.41/hls/BYDDQQQQ.m3u8
+  - [USA] [Africa Cup of Nations Qualification] Somalia vs Ivory Coast (FAWA) (previous) -> http://193.47.62.41/hls/BYDDQQQQQQQ.m3u8
+  - [USA] [UEFA Nations League] Scotland vs Switzerland 1 (FAWA) (previous) -> http://193.47.62.41/hls/BYDDX.m3u8
+  - [USA] [Basketball Euroleague] Olimpia Milano vs Virtus Bologna 1 (FAWA) (previous) -> http://193.47.62.55/hls/NYYY.m3u8
+  - [USA] [Basketball Euroleague] Valencia vs Baskonia 1 (FAWA) (previous) -> http://193.47.62.55/hls/NYYYA.m3u8
+  - [USA] [Basketball Euroleague] Paris vs Partizan 1 (FAWA) (previous) -> http://193.47.62.55/hls/NYYYAA.m3u8
+  - [USA] [English National League] AFC Fylde vs Carlisle (FAWA) (previous) -> http://193.47.62.55/hls/OFFF.m3u8
+  - [USA] [English National League] Barrow vs Scunthorpe (FAWA) (previous) -> http://193.47.62.55/hls/OFFFA.m3u8
+  - [USA] [English National League] FC Halifax vs Boston Utd (FAWA) (previous) -> http://193.47.62.55/hls/OFFFAA.m3u8
+  - [USA] [English National League] Forest Green vs Wealdstone (FAWA) (previous) -> http://193.47.62.55/hls/OFFFAAA.m3u8
+  - [USA] [English National League] Gateshead vs Altrincham (FAWA) (previous) -> http://193.47.62.55/hls/OFFFAAAA.m3u8
+  - [USA] [English National League] Hartlepool vs Harrogate (FAWA) (previous) -> http://193.47.62.55/hls/OFFFAAAAA.m3u8
+  - [USA] [English National League] Hornchurch vs Aldershot (FAWA) (previous) -> http://193.47.62.55/hls/OFFFAAAAAA.m3u8
+  - [USA] [English National League] Woking vs Solihull Moors (FAWA) (previous) -> http://193.47.62.55/hls/OFFFAAAAAAA.m3u8
+  - [USA] [English National League] Yeovil vs Worthing (FAWA) (previous) -> http://193.47.62.55/hls/OFFFAAAAAAAQ.m3u8
+  - [USA] [UEFA Nations League] UEFA Nations League Simulcast (FAWA) (previous) -> http://193.47.62.55/hls/TPPP.m3u8
+  - [USA] [UEFA Nations League] Bulgaria vs Estonia (FAWA) (previous) -> http://193.47.62.55/hls/TPPPA.m3u8
+  - [USA] [UEFA Nations League] San Marino vs Albania (FAWA) (previous) -> http://193.47.62.55/hls/TPPPAA.m3u8
+  - [USA] [UEFA Nations League] Luxembourg vs Iceland (FAWA) (previous) -> http://193.47.62.55/hls/TPPPAAA.m3u8
+  - [USA] [UEFA Nations League] Slovakia vs Kazakhstan (FAWA) (previous) -> http://193.47.62.55/hls/TPPPAAAA.m3u8
+  - [USA] [Africa Cup of Nations Qualification] Benin vs Mauritania 1 (FAWA) (previous) -> http://193.47.62.55/hls/UDDDA.m3u8
+  - [USA] [Sweden Hockey SHL] Brynas vs Timra (FAWA) (previous) -> http://193.47.62.55/hls/ZRRR.m3u8
+  - [USA] [Sweden Hockey SHL] IF Bjorkloven vs HV 71 (FAWA) (previous) -> http://193.47.62.55/hls/ZRRRA.m3u8
+  - [USA] [Sweden Hockey SHL] Skelleftea vs Lulea (FAWA) (previous) -> http://193.47.62.55/hls/ZRRRAA.m3u8
+  - [USA] [Basketball Euroleague] Anadolu Efes vs Real Madrid 1 (FAWA) (previous) -> http://193.47.62.55/hls/ZRRRAAA.m3u8
+  - [USA] [Darts] Darts World Grand Prix (FAWA) (previous) -> http://193.47.62.55/hls/ZRRRAAAAA.m3u8
+ISSUES / ERRORS:
+  * 2585 links could not be confirmed after retries (see unverified details).
+  * 1388 links returned a confirmed failure (see dead details).
+
