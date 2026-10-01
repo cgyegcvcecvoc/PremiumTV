@@ -1,82 +1,82 @@
 # Country Playlists
 
-Updated: **2026-09-30 12:27 PM EDT** (2026-09-30 16:27 UTC) — _6:23 AM recheck_
+Updated: **2026-09-30 08:10 PM EDT** (2026-10-01 00:10 UTC) — _4:41 PM final check_
 
-Total countries: **176**  |  Total confirmed working channels: **9415**
+Total countries: **175**  |  Total confirmed working channels: **9466**
 
 | Country | Working channels | Playlist file | Raw M3U URL |
 |---|---:|---|---|
-| USA | 1870 | [`USA.m3u`](USA.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/USA.m3u` |
-| India | 664 | [`India.m3u`](India.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/India.m3u` |
-| Italy | 521 | [`Italy.m3u`](Italy.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Italy.m3u` |
-| Russia | 390 | [`Russia.m3u`](Russia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Russia.m3u` |
+| USA | 1903 | [`USA.m3u`](USA.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/USA.m3u` |
+| India | 669 | [`India.m3u`](India.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/India.m3u` |
+| Italy | 518 | [`Italy.m3u`](Italy.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Italy.m3u` |
+| Russia | 392 | [`Russia.m3u`](Russia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Russia.m3u` |
 | Germany | 389 | [`Germany.m3u`](Germany.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Germany.m3u` |
 | Sweden | 379 | [`Sweden.m3u`](Sweden.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sweden.m3u` |
-| Spain | 222 | [`Spain.m3u`](Spain.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Spain.m3u` |
-| Dominican Republic | 198 | [`Dominican_Republic.m3u`](Dominican_Republic.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Dominican_Republic.m3u` |
+| Spain | 219 | [`Spain.m3u`](Spain.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Spain.m3u` |
+| Dominican Republic | 201 | [`Dominican_Republic.m3u`](Dominican_Republic.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Dominican_Republic.m3u` |
 | Chile | 186 | [`Chile.m3u`](Chile.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Chile.m3u` |
-| UK | 175 | [`UK.m3u`](UK.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/UK.m3u` |
-| Brazil | 174 | [`Brazil.m3u`](Brazil.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Brazil.m3u` |
-| Ukraine | 165 | [`Ukraine.m3u`](Ukraine.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ukraine.m3u` |
+| Brazil | 179 | [`Brazil.m3u`](Brazil.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Brazil.m3u` |
+| UK | 176 | [`UK.m3u`](UK.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/UK.m3u` |
+| Ukraine | 167 | [`Ukraine.m3u`](Ukraine.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ukraine.m3u` |
 | Netherlands | 160 | [`Netherlands.m3u`](Netherlands.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Netherlands.m3u` |
-| Argentina | 147 | [`Argentina.m3u`](Argentina.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Argentina.m3u` |
-| France | 142 | [`France.m3u`](France.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/France.m3u` |
-| Peru | 141 | [`Peru.m3u`](Peru.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Peru.m3u` |
+| Argentina | 143 | [`Argentina.m3u`](Argentina.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Argentina.m3u` |
+| France | 143 | [`France.m3u`](France.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/France.m3u` |
+| Peru | 143 | [`Peru.m3u`](Peru.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Peru.m3u` |
 | Turkey | 137 | [`Turkey.m3u`](Turkey.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Turkey.m3u` |
-| Canada | 122 | [`Canada.m3u`](Canada.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Canada.m3u` |
-| Iran | 121 | [`Iran.m3u`](Iran.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Iran.m3u` |
-| Romania | 117 | [`Romania.m3u`](Romania.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Romania.m3u` |
-| Mexico | 116 | [`Mexico.m3u`](Mexico.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mexico.m3u` |
-| Hungary | 112 | [`Hungary.m3u`](Hungary.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Hungary.m3u` |
-| Indonesia | 108 | [`Indonesia.m3u`](Indonesia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Indonesia.m3u` |
-| Colombia | 97 | [`Colombia.m3u`](Colombia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Colombia.m3u` |
-| Poland | 93 | [`Poland.m3u`](Poland.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Poland.m3u` |
-| Greece | 83 | [`Greece.m3u`](Greece.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Greece.m3u` |
-| China | 81 | [`China.m3u`](China.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/China.m3u` |
+| Canada | 120 | [`Canada.m3u`](Canada.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Canada.m3u` |
+| Iran | 119 | [`Iran.m3u`](Iran.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Iran.m3u` |
+| Mexico | 118 | [`Mexico.m3u`](Mexico.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mexico.m3u` |
+| Romania | 118 | [`Romania.m3u`](Romania.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Romania.m3u` |
+| Hungary | 113 | [`Hungary.m3u`](Hungary.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Hungary.m3u` |
+| Indonesia | 111 | [`Indonesia.m3u`](Indonesia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Indonesia.m3u` |
+| Colombia | 99 | [`Colombia.m3u`](Colombia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Colombia.m3u` |
+| Poland | 92 | [`Poland.m3u`](Poland.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Poland.m3u` |
+| Czechia | 84 | [`Czechia.m3u`](Czechia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Czechia.m3u` |
+| Greece | 84 | [`Greece.m3u`](Greece.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Greece.m3u` |
+| China | 82 | [`China.m3u`](China.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/China.m3u` |
 | Mongolia | 75 | [`Mongolia.m3u`](Mongolia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mongolia.m3u` |
 | Thailand | 74 | [`Thailand.m3u`](Thailand.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Thailand.m3u` |
-| Czechia | 73 | [`Czechia.m3u`](Czechia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Czechia.m3u` |
-| Vietnam | 64 | [`Vietnam.m3u`](Vietnam.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Vietnam.m3u` |
-| South Korea | 62 | [`South_Korea.m3u`](South_Korea.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/South_Korea.m3u` |
+| Vietnam | 67 | [`Vietnam.m3u`](Vietnam.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Vietnam.m3u` |
+| South Korea | 63 | [`South_Korea.m3u`](South_Korea.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/South_Korea.m3u` |
 | Paraguay | 59 | [`Paraguay.m3u`](Paraguay.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Paraguay.m3u` |
-| Pakistan | 58 | [`Pakistan.m3u`](Pakistan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Pakistan.m3u` |
-| Iraq | 56 | [`Iraq.m3u`](Iraq.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Iraq.m3u` |
+| Pakistan | 57 | [`Pakistan.m3u`](Pakistan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Pakistan.m3u` |
 | Ecuador | 55 | [`Ecuador.m3u`](Ecuador.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ecuador.m3u` |
-| Venezuela | 53 | [`Venezuela.m3u`](Venezuela.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Venezuela.m3u` |
-| Costa Rica | 51 | [`Costa_Rica.m3u`](Costa_Rica.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Costa_Rica.m3u` |
-| Honduras | 50 | [`Honduras.m3u`](Honduras.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Honduras.m3u` |
-| Portugal | 48 | [`Portugal.m3u`](Portugal.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Portugal.m3u` |
+| Iraq | 55 | [`Iraq.m3u`](Iraq.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Iraq.m3u` |
+| Costa Rica | 53 | [`Costa_Rica.m3u`](Costa_Rica.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Costa_Rica.m3u` |
+| Honduras | 52 | [`Honduras.m3u`](Honduras.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Honduras.m3u` |
+| Venezuela | 52 | [`Venezuela.m3u`](Venezuela.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Venezuela.m3u` |
+| Portugal | 47 | [`Portugal.m3u`](Portugal.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Portugal.m3u` |
 | Saudi Arabia | 46 | [`Saudi_Arabia.m3u`](Saudi_Arabia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Saudi_Arabia.m3u` |
-| Slovakia | 46 | [`Slovakia.m3u`](Slovakia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Slovakia.m3u` |
-| Finland | 44 | [`Finland.m3u`](Finland.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Finland.m3u` |
-| Bolivia | 42 | [`Bolivia.m3u`](Bolivia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bolivia.m3u` |
+| Slovakia | 44 | [`Slovakia.m3u`](Slovakia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Slovakia.m3u` |
+| Bolivia | 43 | [`Bolivia.m3u`](Bolivia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bolivia.m3u` |
+| Finland | 42 | [`Finland.m3u`](Finland.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Finland.m3u` |
 | United Arab Emirates | 40 | [`United_Arab_Emirates.m3u`](United_Arab_Emirates.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/United_Arab_Emirates.m3u` |
 | Australia | 39 | [`Australia.m3u`](Australia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Australia.m3u` |
 | Austria | 36 | [`Austria.m3u`](Austria.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Austria.m3u` |
-| Estonia | 35 | [`Estonia.m3u`](Estonia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Estonia.m3u` |
-| Kazakhstan | 35 | [`Kazakhstan.m3u`](Kazakhstan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kazakhstan.m3u` |
-| Nigeria | 35 | [`Nigeria.m3u`](Nigeria.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Nigeria.m3u` |
+| Nigeria | 36 | [`Nigeria.m3u`](Nigeria.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Nigeria.m3u` |
+| Estonia | 34 | [`Estonia.m3u`](Estonia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Estonia.m3u` |
+| Kazakhstan | 34 | [`Kazakhstan.m3u`](Kazakhstan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kazakhstan.m3u` |
 | Latin America | 33 | [`Latin_America.m3u`](Latin_America.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Latin_America.m3u` |
-| Uzbekistan | 33 | [`Uzbekistan.m3u`](Uzbekistan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Uzbekistan.m3u` |
-| Israel | 31 | [`Israel.m3u`](Israel.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Israel.m3u` |
-| Guatemala | 30 | [`Guatemala.m3u`](Guatemala.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guatemala.m3u` |
-| Lebanon | 30 | [`Lebanon.m3u`](Lebanon.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Lebanon.m3u` |
+| Guatemala | 32 | [`Guatemala.m3u`](Guatemala.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guatemala.m3u` |
+| Lebanon | 31 | [`Lebanon.m3u`](Lebanon.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Lebanon.m3u` |
+| Israel | 30 | [`Israel.m3u`](Israel.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Israel.m3u` |
 | Bulgaria | 28 | [`Bulgaria.m3u`](Bulgaria.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bulgaria.m3u` |
+| Belarus | 27 | [`Belarus.m3u`](Belarus.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Belarus.m3u` |
+| Uzbekistan | 26 | [`Uzbekistan.m3u`](Uzbekistan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Uzbekistan.m3u` |
+| El Salvador | 25 | [`El_Salvador.m3u`](El_Salvador.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/El_Salvador.m3u` |
 | Moldova | 25 | [`Moldova.m3u`](Moldova.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Moldova.m3u` |
-| Belarus | 24 | [`Belarus.m3u`](Belarus.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Belarus.m3u` |
 | International | 24 | [`International.m3u`](International.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/International.m3u` |
 | Ireland | 24 | [`Ireland.m3u`](Ireland.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ireland.m3u` |
-| Bangladesh | 23 | [`Bangladesh.m3u`](Bangladesh.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bangladesh.m3u` |
-| North Macedonia | 23 | [`North_Macedonia.m3u`](North_Macedonia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/North_Macedonia.m3u` |
 | Serbia | 23 | [`Serbia.m3u`](Serbia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Serbia.m3u` |
-| El Salvador | 22 | [`El_Salvador.m3u`](El_Salvador.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/El_Salvador.m3u` |
+| Bangladesh | 22 | [`Bangladesh.m3u`](Bangladesh.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bangladesh.m3u` |
 | Puerto Rico | 21 | [`Puerto_Rico.m3u`](Puerto_Rico.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Puerto_Rico.m3u` |
+| Switzerland | 21 | [`Switzerland.m3u`](Switzerland.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Switzerland.m3u` |
 | Qatar | 20 | [`Qatar.m3u`](Qatar.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Qatar.m3u` |
-| Switzerland | 20 | [`Switzerland.m3u`](Switzerland.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Switzerland.m3u` |
 | Belgium | 19 | [`Belgium.m3u`](Belgium.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Belgium.m3u` |
-| Jordan | 19 | [`Jordan.m3u`](Jordan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Jordan.m3u` |
+| North Macedonia | 19 | [`North_Macedonia.m3u`](North_Macedonia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/North_Macedonia.m3u` |
 | Cyprus | 18 | [`Cyprus.m3u`](Cyprus.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cyprus.m3u` |
 | Japan | 18 | [`Japan.m3u`](Japan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Japan.m3u` |
+| Jordan | 18 | [`Jordan.m3u`](Jordan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Jordan.m3u` |
 | Latvia | 18 | [`Latvia.m3u`](Latvia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Latvia.m3u` |
 | Singapore | 18 | [`Singapore.m3u`](Singapore.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Singapore.m3u` |
 | Croatia | 17 | [`Croatia.m3u`](Croatia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Croatia.m3u` |
@@ -84,23 +84,23 @@ Total countries: **176**  |  Total confirmed working channels: **9415**
 | Lithuania | 16 | [`Lithuania.m3u`](Lithuania.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Lithuania.m3u` |
 | Albania | 15 | [`Albania.m3u`](Albania.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Albania.m3u` |
 | Arab World | 15 | [`Arab_World.m3u`](Arab_World.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Arab_World.m3u` |
-| Cambodia | 15 | [`Cambodia.m3u`](Cambodia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cambodia.m3u` |
 | South Africa | 15 | [`South_Africa.m3u`](South_Africa.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/South_Africa.m3u` |
 | Azerbaijan | 14 | [`Azerbaijan.m3u`](Azerbaijan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Azerbaijan.m3u` |
+| Cambodia | 14 | [`Cambodia.m3u`](Cambodia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cambodia.m3u` |
 | Egypt | 14 | [`Egypt.m3u`](Egypt.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Egypt.m3u` |
 | Ivory Coast | 14 | [`Ivory_Coast.m3u`](Ivory_Coast.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ivory_Coast.m3u` |
 | Panama | 14 | [`Panama.m3u`](Panama.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Panama.m3u` |
-| Bosnia and Herzegovina | 12 | [`Bosnia_and_Herzegovina.m3u`](Bosnia_and_Herzegovina.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bosnia_and_Herzegovina.m3u` |
-| Uganda | 12 | [`Uganda.m3u`](Uganda.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Uganda.m3u` |
+| Uganda | 13 | [`Uganda.m3u`](Uganda.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Uganda.m3u` |
+| Bosnia and Herzegovina | 11 | [`Bosnia_and_Herzegovina.m3u`](Bosnia_and_Herzegovina.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bosnia_and_Herzegovina.m3u` |
 | Cameroon | 11 | [`Cameroon.m3u`](Cameroon.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cameroon.m3u` |
-| Denmark | 11 | [`Denmark.m3u`](Denmark.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Denmark.m3u` |
 | Georgia | 11 | [`Georgia.m3u`](Georgia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Georgia.m3u` |
 | Guyana | 11 | [`Guyana.m3u`](Guyana.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guyana.m3u` |
 | Kuwait | 11 | [`Kuwait.m3u`](Kuwait.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kuwait.m3u` |
 | Luxembourg | 11 | [`Luxembourg.m3u`](Luxembourg.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Luxembourg.m3u` |
+| Philippines | 11 | [`Philippines.m3u`](Philippines.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Philippines.m3u` |
 | Afghanistan | 10 | [`Afghanistan.m3u`](Afghanistan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Afghanistan.m3u` |
+| Denmark | 10 | [`Denmark.m3u`](Denmark.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Denmark.m3u` |
 | Morocco | 10 | [`Morocco.m3u`](Morocco.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Morocco.m3u` |
-| Philippines | 10 | [`Philippines.m3u`](Philippines.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Philippines.m3u` |
 | Armenia | 9 | [`Armenia.m3u`](Armenia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Armenia.m3u` |
 | Laos | 9 | [`Laos.m3u`](Laos.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Laos.m3u` |
 | Nepal | 9 | [`Nepal.m3u`](Nepal.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Nepal.m3u` |
@@ -110,18 +110,17 @@ Total countries: **176**  |  Total confirmed working channels: **9415**
 | Hong Kong | 8 | [`Hong_Kong.m3u`](Hong_Kong.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Hong_Kong.m3u` |
 | Kenya | 8 | [`Kenya.m3u`](Kenya.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kenya.m3u` |
 | Turkmenistan | 8 | [`Turkmenistan.m3u`](Turkmenistan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Turkmenistan.m3u` |
+| Algeria | 7 | [`Algeria.m3u`](Algeria.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Algeria.m3u` |
 | Aruba | 7 | [`Aruba.m3u`](Aruba.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Aruba.m3u` |
-| Myanmar | 7 | [`Myanmar.m3u`](Myanmar.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Myanmar.m3u` |
+| Kosovo | 7 | [`Kosovo.m3u`](Kosovo.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kosovo.m3u` |
 | Rwanda | 7 | [`Rwanda.m3u`](Rwanda.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Rwanda.m3u` |
-| Senegal | 7 | [`Senegal.m3u`](Senegal.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Senegal.m3u` |
-| Algeria | 6 | [`Algeria.m3u`](Algeria.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Algeria.m3u` |
-| Benin | 6 | [`Benin.m3u`](Benin.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Benin.m3u` |
-| Kosovo | 6 | [`Kosovo.m3u`](Kosovo.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kosovo.m3u` |
+| Ghana | 6 | [`Ghana.m3u`](Ghana.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ghana.m3u` |
 | Maldives | 6 | [`Maldives.m3u`](Maldives.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Maldives.m3u` |
+| Myanmar | 6 | [`Myanmar.m3u`](Myanmar.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Myanmar.m3u` |
+| Senegal | 6 | [`Senegal.m3u`](Senegal.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Senegal.m3u` |
 | Slovenia | 6 | [`Slovenia.m3u`](Slovenia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Slovenia.m3u` |
 | Sri Lanka | 6 | [`Sri_Lanka.m3u`](Sri_Lanka.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sri_Lanka.m3u` |
-| Bahrain | 5 | [`Bahrain.m3u`](Bahrain.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bahrain.m3u` |
-| Ghana | 5 | [`Ghana.m3u`](Ghana.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ghana.m3u` |
+| Benin | 5 | [`Benin.m3u`](Benin.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Benin.m3u` |
 | Guadeloupe | 5 | [`Guadeloupe.m3u`](Guadeloupe.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guadeloupe.m3u` |
 | Martinique | 5 | [`Martinique.m3u`](Martinique.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Martinique.m3u` |
 | New Zealand | 5 | [`New_Zealand.m3u`](New_Zealand.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/New_Zealand.m3u` |
@@ -137,26 +136,27 @@ Total countries: **176**  |  Total confirmed working channels: **9415**
 | Nicaragua | 4 | [`Nicaragua.m3u`](Nicaragua.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Nicaragua.m3u` |
 | Somalia | 4 | [`Somalia.m3u`](Somalia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Somalia.m3u` |
 | Yemen | 4 | [`Yemen.m3u`](Yemen.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Yemen.m3u` |
-| Angola | 3 | [`Angola.m3u`](Angola.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Angola.m3u` |
 | Cuba | 3 | [`Cuba.m3u`](Cuba.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cuba.m3u` |
 | Curacao | 3 | [`Curacao.m3u`](Curacao.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Curacao.m3u` |
+| DR Congo | 3 | [`DR_Congo.m3u`](DR_Congo.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/DR_Congo.m3u` |
 | Guinea | 3 | [`Guinea.m3u`](Guinea.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guinea.m3u` |
 | Monaco | 3 | [`Monaco.m3u`](Monaco.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Monaco.m3u` |
 | Montenegro | 3 | [`Montenegro.m3u`](Montenegro.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Montenegro.m3u` |
 | Mozambique | 3 | [`Mozambique.m3u`](Mozambique.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mozambique.m3u` |
 | Norway | 3 | [`Norway.m3u`](Norway.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Norway.m3u` |
-| Republic of the Congo | 3 | [`Republic_of_the_Congo.m3u`](Republic_of_the_Congo.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Republic_of_the_Congo.m3u` |
 | Saint Kitts and Nevis | 3 | [`Saint_Kitts_and_Nevis.m3u`](Saint_Kitts_and_Nevis.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Saint_Kitts_and_Nevis.m3u` |
 | Sudan | 3 | [`Sudan.m3u`](Sudan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sudan.m3u` |
 | Togo | 3 | [`Togo.m3u`](Togo.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Togo.m3u` |
 | Tunisia | 3 | [`Tunisia.m3u`](Tunisia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Tunisia.m3u` |
+| Angola | 2 | [`Angola.m3u`](Angola.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Angola.m3u` |
 | Bahamas | 2 | [`Bahamas.m3u`](Bahamas.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bahamas.m3u` |
+| Bahrain | 2 | [`Bahrain.m3u`](Bahrain.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bahrain.m3u` |
 | British Virgin Islands | 2 | [`British_Virgin_Islands.m3u`](British_Virgin_Islands.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/British_Virgin_Islands.m3u` |
-| DR Congo | 2 | [`DR_Congo.m3u`](DR_Congo.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/DR_Congo.m3u` |
 | Faroe Islands | 2 | [`Faroe_Islands.m3u`](Faroe_Islands.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Faroe_Islands.m3u` |
 | Kyrgyzstan | 2 | [`Kyrgyzstan.m3u`](Kyrgyzstan.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kyrgyzstan.m3u` |
 | Malta | 2 | [`Malta.m3u`](Malta.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Malta.m3u` |
 | Niger | 2 | [`Niger.m3u`](Niger.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Niger.m3u` |
+| Republic of the Congo | 2 | [`Republic_of_the_Congo.m3u`](Republic_of_the_Congo.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Republic_of_the_Congo.m3u` |
 | Saint Lucia | 2 | [`Saint_Lucia.m3u`](Saint_Lucia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Saint_Lucia.m3u` |
 | San Marino | 2 | [`San_Marino.m3u`](San_Marino.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/San_Marino.m3u` |
 | Suriname | 2 | [`Suriname.m3u`](Suriname.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Suriname.m3u` |
@@ -174,7 +174,6 @@ Total countries: **176**  |  Total confirmed working channels: **9415**
 | Macau | 1 | [`Macau.m3u`](Macau.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Macau.m3u` |
 | Malaysia | 1 | [`Malaysia.m3u`](Malaysia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Malaysia.m3u` |
 | Mali | 1 | [`Mali.m3u`](Mali.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mali.m3u` |
-| Mauritania | 1 | [`Mauritania.m3u`](Mauritania.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mauritania.m3u` |
 | Namibia | 1 | [`Namibia.m3u`](Namibia.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Namibia.m3u` |
 | North Korea | 1 | [`North_Korea.m3u`](North_Korea.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/North_Korea.m3u` |
 | Papua New Guinea | 1 | [`Papua_New_Guinea.m3u`](Papua_New_Guinea.m3u) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Papua_New_Guinea.m3u` |
