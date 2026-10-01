@@ -1,0 +1,9 @@
+HOW TO REFRESH THIS MAINTENANCE SNAPSHOT
+=========================================
+
+From the repository root, run:
+
+  python scripts/usa_playlist_diagnostic.py
+
+The script rewrites diagnostic.txt and channel-presence.txt. It does not alter
+the playlist. The scheduled scraper remains responsible for live link checks.
