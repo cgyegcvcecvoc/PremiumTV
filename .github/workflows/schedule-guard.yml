@@ -8,7 +8,7 @@ name: Schedule guard
 # produced a run at all - so the playlist could go a whole day without a refresh
 # while the Actions tab still showed "success".
 #
-# This workflow starts every 20 minutes and asks scripts/schedule_guard.py
+# This workflow starts every 10 minutes and asks scripts/schedule_guard.py
 # whether any slot that has already come due is still uncovered in
 # playlists/run-history.jsonl. If one is, it fires the `scrape-now`
 # repository_dispatch that scrape.yml already listens for, labelled with the
@@ -27,9 +27,12 @@ name: Schedule guard
 # alternative, which is a day with no verified refresh at all.
 on:
   schedule:
-    # Every 20 minutes, off the top of the hour for the same reason as
-    # scrape.yml: GitHub's scheduler is busiest at minute 0.
-    - cron: "4,24,44 * * * *"
+    # Every 10 minutes, off the top of the hour for the same reason as
+    # scrape.yml: GitHub's scheduler is busiest at minute 0. The shorter
+    # interval limits catch-up starts to roughly ten minutes after a missed
+    # slot instead of allowing the old 20-minute guard cadence to add a large
+    # and visible delay.
+    - cron: "2,12,22,32,42,52 * * * *"
       timezone: "America/New_York"
   workflow_dispatch:
     inputs:

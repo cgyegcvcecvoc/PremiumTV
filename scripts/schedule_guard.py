@@ -66,7 +66,9 @@ DEFAULT_TZ = "America/New_York"
 # A slot is only "overdue" once it is this far past its intended start. Without
 # the grace period the guard would race the real cron, which is usually a few
 # minutes late all by itself.
-GRACE_MINUTES = 12
+# The guard runs every ten minutes; a six-minute grace period leaves room for
+# GitHub's normal schedule jitter while catching dropped slots promptly.
+GRACE_MINUTES = 6
 # A full scrape needs ~20 minutes. Dispatching again while one is running, or
 # straight after one finished, would only duplicate work.
 COOLDOWN_MINUTES = 25
