@@ -24,6 +24,9 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/report.json`](playlists/report.json) | Detailed latest JSON report, including failed sources, country counts, A&E channels, and dead/unverified URLs. |
 | [`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md) | Nightly deep check: which published links are working, offline, unreachable, blocked, and what was patched out. |
 | [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md) | TV guide check: every advertised guide URL with its status, channel/programme counts, and dead guides removed. |
+| [`playlists/epg/PremiumTV.xml`](playlists/epg/PremiumTV.xml) | **One merged, filtered TV guide** for every channel in the published playlists — load this `.xml` link in your player. |
+| [`playlists/epg/PremiumTV.xml.gz`](playlists/epg/PremiumTV.xml.gz) | The same guide gzipped (about 10x smaller, same content). |
+| [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: which upstream guides merged, how many channels matched, events kept/merged/dropped, and the file size. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
 | [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons) and the same guides as the main playlist. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
@@ -57,6 +60,72 @@ See [`playlists/countries/README.md`](playlists/countries/README.md) for the com
 
 Each report compares the newly discovered links with the previous all-links playlist and records added/removed counts. A failed source refresh or a link-check run below the minimum working ratio is recorded, but does not replace the last good `PremiumTV.m3u`.
 
+## TV guide (EPG) — one merged `.xml` file
+
+Every playlist header advertises 90+ upstream guides, and a player downloads all of them on each
+refresh. Those guides each use their own channel-id namespace, so most of the channels in these
+playlists match nothing, and the events that *do* load belong to channels nobody can play. That is
+what makes a guide grid useless for filtering.
+
+This repository therefore publishes **one** guide, built from exactly those upstream guides and
+reduced to exactly the channels the playlists carry:
+
+```text
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml
+```
+
+| Guide | Use it when |
+|---|---|
+| [`playlists/epg/PremiumTV.xml`](playlists/epg/PremiumTV.xml) | Your player wants a plain `.xml` URL (TiviMate, IPTV Smarters, Kodi PVR IPTV Simple, VLC). |
+| [`playlists/epg/PremiumTV.xml.gz`](playlists/epg/PremiumTV.xml.gz) | You would rather download ~10x less; identical content, gzipped. |
+
+[`scripts/epg_build.py`](scripts/epg_build.py) builds it. "Filtered" is literal:
+
+* **Only published channels.** A guide channel survives only when its id matches a `tvg-id` in
+  `PremiumTV.m3u`, `AE_Channels.m3u`, `Priority_Channels.m3u` or a country playlist — after
+  normalising the `@variant` suffix (`AE.us@East`, `AE.us@West` and a guide's `AE.us` are the same
+  channel), or, when the ids disagree entirely, by unambiguous display name. Everything else is
+  discarded, so a player is not indexing events for channels it cannot play.
+* **Aliases share one listing.** Both A&E feeds get the same events, and each channel carries the
+  playlist's own name first in its `<display-name>` list, which is what name-matching players
+  compare against.
+* **UTC everywhere.** Every `start`/`stop` is rewritten to `YYYYMMDDHHMMSS +0000`, so time filtering
+  behaves the same no matter which source an event came from.
+* **A bounded window.** By default the next 48 hours plus the last 6, which is what a guide grid
+  actually shows; `--ahead`/`--keep-past` change it.
+* **No junk events.** Placeholder titles ("No Information", "Sign Off", "-", …) are dropped, and
+  HTML entities and markup are cleaned out of titles and descriptions.
+* **One track per channel.** Identical events from different guides are merged (the longest
+  description and the union of the categories win), and events that overlap a better-sourced event
+  are dropped — "better" means better described first, then from the guide that matched more of our
+  channels.
+* **Filterable metadata kept.** `sub-title`, `desc`, `category`, `episode-num`, `credits`, `icon`,
+  `rating`, `star-rating` and the `new` / `live` / `premiere` / `previously-shown` flags are copied
+  through, so genre and "new episode" filters keep working.
+
+### Keeping the guide in step with the scrapes
+
+| Trigger | What it does |
+|---|---|
+| [`epg-build.yml`](.github/workflows/epg-build.yml) — 5:47 AM and 5:47 PM (New York) | Full rebuild from the guides the nightly check verified, then advertises the merged guide first in every playlist's `x-tvg-url`. |
+| [`link-check.yml`](.github/workflows/link-check.yml) — 1:13 AM, after the guide check | `--force` rebuild, so the guide is cut from the same verified guide list and covers the channels that survived the deep link check. |
+| [`scrape.yml`](.github/workflows/scrape.yml) — every scrape slot | Freshness-guarded (`--max-age-hours 12`): most slots skip in under a second, and the guide is rebuilt only when it has gone stale, so it always covers whatever the automatic scrapes just published. |
+
+Run it by hand any time — from **Actions → Build the merged TV guide → Run workflow**, or:
+
+```bash
+python scripts/epg_build.py --patch --force     # rebuild and advertise it in the playlists
+python scripts/epg_build.py --ahead 24          # a shorter window, a smaller file
+gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=epg-build-now   # trigger the workflow
+```
+
+A build that comes back hollow refuses to publish: fewer than `--min-channels` (25) or
+`--min-programmes` (1000) matched channels, or fewer than `--min-previous-ratio` (25%) of the
+channels in the guide it would replace, leaves the previously published guide untouched and fails
+the step. A bad network hour cannot wipe the guide. If the merged file would exceed `--max-mb`
+(40 MB), the window is trimmed first, then events per channel, and every trim is recorded in
+[`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md).
+
 ## Automatic checks and logs
 
 The [GitHub Actions workflow](.github/workflows/scrape.yml) runs **seven times a day** in `America/New_York` — roughly every three hours, so a link that dies in the morning is out of the player playlist by the afternoon:
@@ -72,6 +141,8 @@ The [GitHub Actions workflow](.github/workflows/scrape.yml) runs **seven times a
 | 11:29 PM | `29 23 * * *` | Overnight recheck |
 
 A separate [nightly workflow](.github/workflows/link-check.yml) runs the intensive deep check at 1:13 AM: it re-verifies every published link end to end, verifies every TV guide, and hunts for the priority channels. See [Deep link check, guide check and priority channels](#deep-link-check-guide-check-and-priority-channels).
+
+A separate [guide workflow](.github/workflows/epg-build.yml) rebuilds the merged TV guide twice a day at 5:47 AM and 5:47 PM; see [TV guide (EPG) — one merged `.xml` file](#tv-guide-epg--one-merged-xml-file).
 
 A separate [monthly workflow](.github/workflows/discover.yml) hunts for new channels on the 1st of each month at 4:37 AM; see [Monthly new-channel discovery](#monthly-new-channel-discovery).
 
@@ -182,6 +253,17 @@ while `unreachable` and `blocked` guides are kept because they may recover. Resu
 and the newest programme date are in
 [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md).
 
+### `scripts/epg_build.py` — the merged guide
+
+Verification tells you which guides are alive; it does not make them usable. This script downloads
+the guides that survived the check, streams them (they are often 100 MB+ gzipped, so nothing is ever
+held in memory whole), and folds the channels that match the published playlists into the single
+`playlists/epg/PremiumTV.xml` described in
+[TV guide (EPG) — one merged `.xml` file](#tv-guide-epg--one-merged-xml-file). What each upstream
+guide contributed — channels seen, channels matched by id and by name, events kept and dropped,
+bytes read, and the reason a guide contributed nothing — is in
+[`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md).
+
 ### `scripts/channel_hunt.py` — priority channels
 
 Coverage scrapes are good for volume and bad for a specific channel: if the index entry rots, the
@@ -289,6 +371,9 @@ python scripts/scraper.py --help                   # workers, timeout, retries, 
 python scripts/discover.py                        # monthly new-channel hunt
 python scripts/discover.py --no-search --max-candidates 3   # quick, seeded-only trial run
 python scripts/discover.py --dry-run              # report only; never promote a source
+python scripts/epg_check.py --all                  # verify every advertised TV guide
+python scripts/epg_build.py --dry-run              # build the merged guide without publishing it
+python scripts/epg_build.py --patch --force        # rebuild it and advertise it in the playlists
 python scripts/schedule_guard.py report            # schedule coverage table, no side effects
 python scripts/schedule_guard.py --dry-run check   # what the 20-minute guard would do right now
 python -m unittest discover -s tests -v            # offline integration tests

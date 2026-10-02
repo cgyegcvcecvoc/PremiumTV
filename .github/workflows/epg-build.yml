@@ -1,0 +1,130 @@
+name: Build the merged TV guide
+
+# Publishes ONE XMLTV file for the whole library, in this repository:
+#
+#   playlists/epg/PremiumTV.xml      the whole merged guide (plain XML)
+#   playlists/epg/PremiumTV.xml.gz   the same guide gzipped
+#
+# Players normally load the 90+ guides listed in each playlist's x-tvg-url
+# header. Those guides use their own channel-id namespaces, so most of the
+# channels in the playlists match nothing and the events that do load belong to
+# channels nobody can play - which is exactly what makes a guide grid
+# impossible to filter.
+#
+# scripts/epg_build.py downloads the guides that playlists/checks/EPG-CHECK.md
+# verified, keeps only the channels the published playlists actually advertise
+# (by tvg-id, or by display name when the ids disagree), normalises every
+# timestamp to UTC, drops events outside the window and placeholder titles,
+# merges duplicates and collapses overlaps into a single track per channel, and
+# writes the result here. Because the file is in the repository it is a stable
+# .xml link that is versioned with the playlists it describes.
+#
+# Twice a day is enough for a guide (listings change far less often than stream
+# links), and the freshness guard means the copies of this script that scrape.yml
+# and link-check.yml also run will skip the work when the published guide is
+# still young.
+on:
+  # "Run it now" switch, the same pattern link-check.yml uses: appending a line
+  # to playlists/logs/run-epg-build.txt and pushing rebuilds the guide on that
+  # branch. The workflow never writes to that file, so it cannot trigger itself.
+  push:
+    paths:
+      - "playlists/logs/run-epg-build.txt"
+  schedule:
+    # 05:47 and 17:47 New York time. Off-peak minutes for the same reason as
+    # scrape.yml: GitHub's scheduler is busiest at the top of the hour.
+    - cron: "47 5 * * *"
+      timezone: "America/New_York"
+    - cron: "47 17 * * *"
+      timezone: "America/New_York"
+  workflow_dispatch:
+    inputs:
+      patch:
+        description: "Advertise the merged guide first in the playlists' x-tvg-url"
+        type: boolean
+        default: true
+      ahead:
+        description: "Hours of future listings to keep"
+        type: string
+        default: "48"
+      max_mb:
+        description: "Size budget for the plain .xml file (MB)"
+        type: string
+        default: "40"
+      force:
+        description: "Rebuild even if the published guide is recent"
+        type: boolean
+        default: true
+  # On-demand rebuild without opening the Actions tab, e.g.
+  #   gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=epg-build-now
+  repository_dispatch:
+    types: [epg-build-now]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: epg-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run offline EPG builder tests
+        run: python -m unittest discover -s tests -p "test_epg_build.py" -v
+
+      - name: Build the merged guide
+        id: build
+        continue-on-error: true
+        env:
+          PATCH: ${{ inputs.patch }}
+          AHEAD: ${{ inputs.ahead }}
+          MAX_MB: ${{ inputs.max_mb }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          args=(--workers 4 --timeout 120 --label "scheduled guide build")
+          # Scheduled and dispatched runs always advertise the guide and always
+          # rebuild; a manual run can hold back.
+          if [ "${PATCH:-true}" != "false" ]; then args+=(--patch); fi
+          if [ -n "$AHEAD" ]; then args+=(--ahead "$AHEAD"); fi
+          if [ -n "$MAX_MB" ]; then args+=(--max-mb "$MAX_MB"); fi
+          if [ "${FORCE:-true}" != "false" ]; then args+=(--force); fi
+          python scripts/epg_build.py "${args[@]}"
+
+      - name: Add the guide report to the Actions summary
+        if: always()
+        run: |
+          if [ -f playlists/checks/EPG-BUILD.md ]; then
+            cat playlists/checks/EPG-BUILD.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "The guide build did not write playlists/checks/EPG-BUILD.md." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit the guide and its reports
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add playlists/
+          if git diff --cached --quiet; then
+            echo "No guide or report changes to commit."
+            exit 0
+          fi
+          git commit -m "Guide build: merged EPG refreshed ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep 5
+          done
+          exit 1
+
+      - name: Fail the workflow if the build crashed
+        if: steps.build.outcome == 'failure'
+        run: exit 1

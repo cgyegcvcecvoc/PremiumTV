@@ -94,6 +94,18 @@ jobs:
           if [ "$PATCH" != "false" ]; then args+=(--patch); fi
           python scripts/epg_check.py "${args[@]}"
 
+      - name: Rebuild the merged TV guide
+        # Runs straight after the guide check so the merge uses the guide list
+        # this run just verified, and straight after the link check so the guide
+        # covers the channels that survived it. --force because the point of the
+        # nightly run is a guaranteed fresh guide.
+        if: always()
+        id: epgbuild
+        continue-on-error: true
+        run: |
+          python scripts/epg_build.py --force --patch --workers 4 --timeout 120 \
+            --label "nightly merged guide build"
+
       - name: Hunt for priority channels
         id: hunt
         continue-on-error: true
@@ -114,7 +126,7 @@ jobs:
         if: always()
         run: |
           for file in playlists/checks/LINK-CHECK.md playlists/checks/EPG-CHECK.md \
-                      playlists/checks/CHANNEL-HUNT.md; do
+                      playlists/checks/EPG-BUILD.md playlists/checks/CHANNEL-HUNT.md; do
             if [ -f "$file" ]; then
               echo "-----" >> "$GITHUB_STEP_SUMMARY"
               cat "$file" >> "$GITHUB_STEP_SUMMARY"
@@ -139,5 +151,7 @@ jobs:
           exit 1
 
       - name: Fail the workflow if a check crashed
-        if: steps.links.outcome == 'failure' || steps.epg.outcome == 'failure'
+        if: >-
+          steps.links.outcome == 'failure' || steps.epg.outcome == 'failure' ||
+          steps.epgbuild.outcome == 'failure'
         run: exit 1
