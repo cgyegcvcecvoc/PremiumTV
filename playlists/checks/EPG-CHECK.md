@@ -1,15 +1,14 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261002T201438Z-2654`)
-- **Started:** 2026-10-02T20:14:38Z | **Finished:** 2026-10-02T20:14:42Z | **Duration:** 3.9s
-- **Guides checked:** 108 across 179 playlists
-- **Working share:** 87.0%
+- **Run:** nightly guide check (`20261002T202438Z-2682`)
+- **Started:** 2026-10-02T20:24:38Z | **Finished:** 2026-10-02T20:24:42Z | **Duration:** 4.3s
+- **Guides checked:** 94 across 179 playlists
+- **Working share:** 100.0%
 
 | Result | Guides |
 |---|---:|
 | ok | 86 |
 | empty | 8 |
-| offline | 14 |
 
 ## Working guides (kept)
 
@@ -99,68 +98,9 @@
 | `epg_ripper_viva-russia.ru.xml.gz` | 1 | 222 | 2026-10-11 23:59 UTC | 3 KB |
 | `guide.xml.gz` | 343 | 11674 | 2026-10-07 04:30 UTC | 2487 KB |
 | `all.xml.gz` | 427 | 4895 | 2026-10-03 16:00 UTC | 4096 KB |
-| `all.xml.gz` | 730 | 6484 | 2026-10-03 06:48 UTC | 2745 KB |
+| `all.xml.gz` | 738 | 6485 | 2026-10-03 06:48 UTC | 2714 KB |
 | `za.xml` | 161 | 6785 | 2026-10-05 05:00 UTC | 4096 KB |
-
-## Guides that failed
-
-| Guide | Status | Reason |
-|---|---|---|
-| `https://epgshare01.online/epgshare01/epg_ripper_CA1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_PAC-12.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_POWERNATION1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_DE1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_EN1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_ES1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_FR1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_IT1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_NL1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_PL1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_US_LOCALS2.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/locomotiontv.xml.gz` | offline | HTTP 404 |
-| `https://i.mjh.nz/Stirr/all.xml.gz` | offline | HTTP 404 |
 
 ## Patch
 
-- Removed **2506** dead guides, added **0** verified guides across **179** playlists.
-  - `-epg_ripper_CA1.xml.gz` (HTTP 404)
-  - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
-  - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_DE1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_EN1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_ES1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_FR1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_IT1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_NL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_PL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
-  - `-locomotiontv.xml.gz` (HTTP 404)
-  - `-all.xml.gz` (HTTP 404)
-  - `-epg_ripper_CA1.xml.gz` (HTTP 404)
-  - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
-  - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_DE1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_EN1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_ES1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_FR1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_IT1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_NL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_PL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
-  - `-locomotiontv.xml.gz` (HTTP 404)
-  - `-all.xml.gz` (HTTP 404)
-  - `-epg_ripper_CA1.xml.gz` (HTTP 404)
-  - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
-  - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_DE1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_EN1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_ES1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_FR1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_IT1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_NL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_PL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
+- Removed **0** dead guides, added **0** verified guides across **0** playlists.
