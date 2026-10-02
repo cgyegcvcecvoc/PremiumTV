@@ -223,6 +223,21 @@ class ChannelHuntTest(unittest.TestCase):
         channels, _ = scraper.parse_m3u(text, "curated")
         self.assertEqual(len(channels), 2)  # MeTV Toons + Nickelodeon, both verified
 
+    def test_hunt_writes_a_ready_to_load_playlist_with_guides(self):
+        (self.out / "PremiumTV.m3u").write_text(
+            '#EXTM3U x-tvg-url="https://example.invalid/guide.xml.gz"\n'
+            "#EXTINF:-1,X\nhttps://example.invalid/x.m3u8\n", encoding="utf-8")
+        with redirect_stdout(StringIO()):
+            channel_hunt.main(["--out", str(self.out), "--sources", str(self.config_path),
+                               "--no-upstream", "--workers", "8", "--timeout", "5"])
+        playlist = self.out / "Priority_Channels.m3u"
+        self.assertTrue(playlist.exists())
+        text = playlist.read_text()
+        self.assertIn('x-tvg-url="https://example.invalid/guide.xml.gz"', text.splitlines()[0])
+        self.assertIn("MeTV Toons (720p)", text)
+        channels, _ = scraper.parse_m3u(text, "priority")
+        self.assertTrue(all(channel.url for channel in channels))
+
     def test_hunt_report_only_writes_reports_without_publishing(self):
         buffer = StringIO()
         with redirect_stdout(buffer):

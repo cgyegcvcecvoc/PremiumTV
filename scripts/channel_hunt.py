@@ -50,6 +50,7 @@ import scraper  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CORPUS = ["playlists/PremiumTV_all.m3u", "playlists/sources/*.m3u"]
 DEFAULT_OUTPUT = "playlists/sources/priority-channels.m3u"
+DEFAULT_PLAYLIST = "playlists/Priority_Channels.m3u"
 GITHUB_API = "https://api.github.com"
 MAX_SEARCH_FILES = 12
 MAX_CANDIDATES_PER_CHANNEL = 40
@@ -57,6 +58,14 @@ MAX_CANDIDATES_PER_CHANNEL = 40
 
 def log(msg: str) -> None:
     print(msg, flush=True)
+
+
+def display_path(path: Path) -> str:
+    """Repo-relative path for reports; absolute when the path lives elsewhere."""
+    try:
+        return str(Path(path).relative_to(ROOT))
+    except ValueError:
+        return str(path)
 
 
 def normalize(value: str) -> str:
@@ -353,10 +362,24 @@ def rank(result: dict) -> tuple:
             result.get("elapsed") or 99.0)
 
 
+def guide_header(out_dir: Path) -> str:
+    """Reuse the published playlist's guide list so the player gets EPG data."""
+    published = out_dir / "PremiumTV.m3u"
+    if not published.exists():
+        return "#EXTM3U"
+    with published.open("r", encoding="utf-8", errors="replace") as handle:
+        for line in handle:
+            if line.startswith("#EXTM3U"):
+                return line.rstrip("\n")
+            if line.strip() and not line.startswith("#"):
+                break
+    return "#EXTM3U"
+
+
 def write_curated_playlist(path: Path, entries: list, label: str,
-                           utc_s: str, local_s: str) -> None:
+                           utc_s: str, local_s: str, header: str = "#EXTM3U") -> None:
     """Write the verified priority channels as a normal M3U source playlist."""
-    lines = ["#EXTM3U",
+    lines = [header,
              f"# Priority channels verified by channel_hunt.py - {utc_s} ({local_s}) - {label}",
              "# Every link here was re-verified (HLS variant + media segment) during the "
              "hunt; the daily scrape re-checks them like any other source."]
@@ -526,9 +549,21 @@ def main(argv=None) -> int:
         if relative.startswith("playlists/"):
             relative = relative[len("playlists/"):]
         output = out_dir / relative
+    header = guide_header(out_dir)
+    playlist_path = Path(config.get("playlist") or DEFAULT_PLAYLIST)
+    if not playlist_path.is_absolute():
+        relative = str(playlist_path)
+        if relative.startswith("playlists/"):
+            relative = relative[len("playlists/"):]
+        playlist_path = out_dir / relative
     if published and not args.report_only:
         write_curated_playlist(output, published, args.label, utc_s, local_s)
         log(f"[hunt] wrote {output} ({len(published)} verified links)")
+        # The same links as a ready-to-load playlist, with the published guide
+        # list attached so a player shows programme data for them.
+        write_curated_playlist(playlist_path, published, args.label, utc_s, local_s,
+                               header=header)
+        log(f"[hunt] wrote {playlist_path} ({len(published)} verified links)")
     elif not published:
         log("[hunt] no verified links this run; curated playlist left untouched")
 
@@ -538,7 +573,8 @@ def main(argv=None) -> int:
         "started_utc": started.isoformat(timespec="seconds").replace("+00:00", "Z"),
         "finished_utc": utc_s,
         "duration_seconds": round((finished - started).total_seconds(), 1),
-        "output": str(output.relative_to(ROOT)) if str(output).startswith(str(ROOT)) else str(output),
+        "output": display_path(output),
+        "playlist": display_path(playlist_path),
         "published_count": len(published) if not args.report_only else 0,
         "github_search": bool(args.github_search),
         "targets": target_reports,
