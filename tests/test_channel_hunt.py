@@ -114,6 +114,42 @@ class ChannelHuntTest(unittest.TestCase):
         self.assertIn("MeTV Toons (720p)", names)
         self.assertNotIn("Something Else", names)
 
+    def test_shorter_alias_does_not_empty_a_longer_target(self):
+        # "MeTV" belongs to the MeTV target, but it also matches every "MeTV
+        # Toons" entry - using it as an exclusion would leave that target with
+        # no candidates at all.
+        targets = [
+            {"name": "MeTV Toons", "aliases": ["MeTVToons", "MeTV Toons US"],
+             "max_links": 2, "country": "us"},
+            {"name": "MeTV", "aliases": ["MeTV US", "MeTV.us@SD", "MeTV.us@East"],
+             "max_links": 4, "country": "us"},
+        ]
+        metv_toons, metv = targets
+        excludes = channel_hunt.build_excludes(metv_toons, targets)
+        self.assertTrue(channel_hunt.entry_matches(
+            "MeTV Toons (720p)", "MeTVToons.us@SD",
+            [metv_toons["name"]] + metv_toons["aliases"], excludes))
+        # ...while the MeTV target still refuses MeTV Toons links.
+        metv_excludes = channel_hunt.build_excludes(metv, targets)
+        self.assertFalse(channel_hunt.entry_matches(
+            "MeTV Toons (720p)", "MeTVToons.us@SD",
+            [metv["name"]] + metv["aliases"], metv_excludes))
+        self.assertTrue(channel_hunt.entry_matches(
+            "MeTV (720p)", "MeTV.us@SD", [metv["name"]] + metv["aliases"], metv_excludes))
+
+    def test_preference_follows_the_configured_country(self):
+        target = {"name": "Nickelodeon", "aliases": ["Nickelodeon"], "country": "us"}
+        us = scraper.Channel(name="Nickelodeon (United States) (720p)", url="u",
+                             source="s", attrs={"tvg-id": "Nickelodeon.us@East"})
+        br = scraper.Channel(name="Nickelodeon (Brazil) (480p)", url="u", source="s",
+                             attrs={"tvg-id": "Nickelodeon.br@SD"})
+        named = scraper.Channel(name="Nickelodeon (United States)", url="u", source="s")
+        self.assertTrue(channel_hunt.is_preferred(us, target))
+        self.assertTrue(channel_hunt.is_preferred(named, target))
+        self.assertFalse(channel_hunt.is_preferred(br, target))
+        self.assertEqual(channel_hunt.stream_country(us), "us")
+        self.assertEqual(channel_hunt.stream_country(br), "br")
+
     def test_local_candidates_search_the_corpus(self):
         found = channel_hunt.local_candidates(self.out, ["MeTV Toons", "MeTVToons"])
         self.assertEqual(len(found), 3)

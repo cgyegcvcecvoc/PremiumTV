@@ -134,23 +134,38 @@ def local_candidates(out_dir: Path, aliases: list, excludes: list = None) -> lis
 
 
 def upstream_candidates(sources: list, aliases: list, timeout: float,
-                     excludes: list = None) -> list:
-    """Fetch the configured index playlists and mine them for the channel."""
+                     excludes: list = None) -> tuple:
+    """Mine the configured index playlists for the channel. Returns (channels, notes)."""
     found = []
     seen = set()
+    notes: list = []
     for item in sources:
-        url = scraper.resolve_source_url(item)
-        if not url or not item.get("enabled", True):
+        if not item.get("enabled", True):
             continue
         if str(item.get("type") or "m3u").lower() != "m3u":
             continue
         name = str(item.get("name") or "source")
-        try:
-            text = scraper.fetch_source_text({"url": url, "type": "m3u",
-                                              "timeout": timeout, "retries": 1})
-        except Exception as exc:  # noqa: BLE001 - one bad index is not fatal
-            log(f"[hunt] upstream {name}: {scraper.error_text(exc)}")
-            continue
+        local = item.get("local_path")
+        text = ""
+        if local and (ROOT / local).exists():
+            # A source that ships its own cache in the repo (ae-networks, the
+            # curated priority list) is read locally instead of re-fetched.
+            try:
+                text = (ROOT / local).read_text(encoding="utf-8", errors="replace")
+            except OSError as exc:
+                notes.append(f"{name}: could not read {local} ({exc})")
+        if not text:
+            url = scraper.resolve_source_url(item)
+            if not url:
+                continue
+            try:
+                text = scraper.fetch_source_text({"url": url, "type": "m3u",
+                                                  "timeout": timeout, "retries": 1})
+            except Exception as exc:  # noqa: BLE001 - one bad index is not fatal
+                message = f"{name}: {scraper.error_text(exc)}"
+                log(f"[hunt] upstream {message}")
+                notes.append(message)
+                continue
         hits = candidates_from_text(text, name, aliases, excludes)
         for channel in hits:
             if channel.url in seen:
@@ -160,7 +175,7 @@ def upstream_candidates(sources: list, aliases: list, timeout: float,
             found.append(channel)
         if hits:
             log(f"[hunt] upstream {name}: {len(hits)} candidate entries")
-    return found
+    return found, notes
 
 
 def github_api(path: str, token: str, params: dict | None = None, timeout: float = 30) -> dict:
@@ -177,11 +192,13 @@ def github_api(path: str, token: str, params: dict | None = None, timeout: float
 
 
 def github_candidates(aliases: list, token: str, limit: int = MAX_SEARCH_FILES,
-                   excludes: list = None) -> list:
+                   excludes: list = None) -> tuple:
     """Mine public M3U files on GitHub that mention the channel."""
+    notes: list = []
     if not token:
-        log("[hunt] GITHUB_TOKEN not set - skipping GitHub code search")
-        return []
+        message = "GITHUB_TOKEN not set - skipped GitHub code search"
+        log(f"[hunt] {message}")
+        return [], [message]
     found = []
     seen_files = set()
     for alias in aliases[:3]:
@@ -189,10 +206,14 @@ def github_candidates(aliases: list, token: str, limit: int = MAX_SEARCH_FILES,
         try:
             data = github_api("/search/code", token, {"q": query, "per_page": limit})
         except urllib.error.HTTPError as exc:
-            log(f"[hunt] GitHub search failed for {alias!r}: HTTP {exc.code}")
+            message = f"GitHub code search HTTP {exc.code} for {alias!r}"
+            log(f"[hunt] {message}")
+            notes.append(message)
             continue
         except Exception as exc:  # noqa: BLE001
-            log(f"[hunt] GitHub search failed for {alias!r}: {scraper.error_text(exc)}")
+            message = f"GitHub code search failed for {alias!r}: {scraper.error_text(exc)}"
+            log(f"[hunt] {message}")
+            notes.append(message)
             continue
         for item in (data.get("items") or [])[:limit]:
             repo = (item.get("repository") or {}).get("full_name")
@@ -203,7 +224,9 @@ def github_candidates(aliases: list, token: str, limit: int = MAX_SEARCH_FILES,
             try:
                 blob = github_api(f"/repos/{repo}/contents/{urllib.parse.quote(path)}", token)
             except Exception as exc:  # noqa: BLE001
-                log(f"[hunt] {repo}/{path}: {scraper.error_text(exc)}")
+                message = f"{repo}/{path}: {scraper.error_text(exc)}"
+                log(f"[hunt] {message}")
+                notes.append(message)
                 continue
             if blob.get("encoding") != "base64" or not blob.get("content"):
                 continue
@@ -218,7 +241,9 @@ def github_candidates(aliases: list, token: str, limit: int = MAX_SEARCH_FILES,
             if hits:
                 log(f"[hunt] github {repo}/{path}: {len(hits)} candidate entries")
         time.sleep(2)  # stay well inside the code-search rate limit
-    return found
+    if not found and not notes:
+        notes.append("GitHub code search returned no M3U file mentioning this channel")
+    return found, notes
 
 
 def dedupe(channels: list) -> list:
@@ -256,6 +281,61 @@ def verify_all(channels: list, workers: int, timeout: float, retries: int) -> li
             result["tvg_id"] = channel.attrs.get("tvg-id", "")
             results.append((channel, result))
     return results
+
+
+def build_excludes(item: dict, targets: list) -> list:
+    """Aliases of the *other* targets that must not be collected for this one.
+
+    A shorter alias is skipped when it is a prefix of the channel it would
+    exclude: "MeTV" belongs to the MeTV target, but it also matches every
+    "MeTV Toons" entry, and using it would empty that target's candidate pool.
+    """
+    aliases = [str(item.get("name") or "")] + list(item.get("aliases") or [])
+    own_keys = {normalize(alias) for alias in aliases}
+    excludes = []
+    for other in targets:
+        if other is item:
+            continue
+        for alias in [str(other.get("name") or "")] + list(other.get("aliases") or []):
+            alias_key = normalize(alias)
+            if alias_key and any(key.startswith(alias_key) for key in own_keys):
+                continue
+            regex = alias_regex(alias)
+            if regex:
+                excludes.append(regex)
+    return excludes
+
+
+def stream_country(channel: scraper.Channel) -> str:
+    """Country of a channel as its tvg-id states it ("MeTV.us@SD" -> "us")."""
+    match = re.match(r"^[A-Za-z0-9._-]+\.([A-Za-z]{2})(?:@|$)",
+                     str(channel.attrs.get("tvg-id") or "").strip())
+    if match:
+        return match.group(1).lower()
+    return str(channel.attrs.get("tvg-country") or "").strip().lower()
+
+
+def is_preferred(channel: scraper.Channel, target: dict) -> bool:
+    """True when a candidate belongs to the region the target asks for.
+
+    Without this the Nickelodeon target happily publishes the Brazilian or Czech
+    feed, because every regional variant is a legitimate name match.
+    """
+    wanted = str(target.get("country") or "").strip().lower()
+    if not wanted:
+        return True
+    if stream_country(channel) == wanted:
+        return True
+    if re.search(rf"(?<![a-z]){re.escape(wanted)}(?![a-z])",
+                 channel.name or "", re.IGNORECASE):
+        return True
+    # Name-only matches such as "Nickelodeon (United States) (720p)".
+    wanted_names = {"us": ("united states", "usa"), "uk": ("united kingdom",),
+                    "ca": ("canada",), "au": ("australia",)}
+    for alias in wanted_names.get(wanted, ()):
+        if alias in (channel.name or "").lower():
+            return True
+    return False
 
 
 def rank(result: dict) -> tuple:
@@ -371,24 +451,27 @@ def main(argv=None) -> int:
             + list(item.get("aliases") or [])
         # "MeTV" must not collect "MeTV Toons" links, so every other target's
         # aliases act as exclusions for this one.
-        excludes = [regex
-                    for other in targets
-                    if other is not item
-                    for regex in ([alias_regex(str(other.get("name") or ""))]
-                                  + [alias_regex(alias) for alias in (other.get("aliases") or [])])
-                    if regex]
+        excludes = build_excludes(item, targets)
         log(f"[hunt] {name}: collecting candidates")
+        notes: list = []
         candidates = local_candidates(out_dir, aliases, excludes)
         if not args.no_upstream:
-            candidates += upstream_candidates(source_items, aliases, args.timeout, excludes)
+            upstream, upstream_notes = upstream_candidates(source_items, aliases,
+                                                           args.timeout, excludes)
+            candidates += upstream
+            notes += upstream_notes
         if args.github_search:
-            candidates += github_candidates(aliases, token, MAX_SEARCH_FILES, excludes)
+            github, github_notes = github_candidates(aliases, token,
+                                                     MAX_SEARCH_FILES, excludes)
+            candidates += github
+            notes += github_notes
         candidates = dedupe(candidates)[:MAX_CANDIDATES_PER_CHANNEL]
         log(f"[hunt] {name}: {len(candidates)} unique candidates - verifying")
         verified = verify_all(candidates, args.workers, args.timeout, args.retries)
         # Prefer an exact name/tvg-id match, then the deep-check ranking.
         target_keys = {normalize(alias) for alias in aliases}
         verified.sort(key=lambda pair: (
+            not is_preferred(pair[0], item),
             not (normalize(pair[0].name) in target_keys
                  or normalize(pair[0].attrs.get("tvg-id", "")).startswith(normalize(name))),
             *rank(pair[1])))
@@ -403,7 +486,9 @@ def main(argv=None) -> int:
             published.append(channel)
         target_reports.append({
             "name": name,
+            "country": str(item.get("country") or "").lower(),
             "candidates": len(candidates),
+            "notes": notes,
             "working": len(working),
             "published": min(len(working), keep_count) if publish_now else 0,
             "results": [{"name": channel.name, "url": channel.url,
