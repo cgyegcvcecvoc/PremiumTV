@@ -21,6 +21,13 @@ name: Deep link and guide check
 #
 # Everything it finds is published under playlists/checks/.
 on:
+  # "Run it now" switch: appending a line to playlists/logs/run-deep-check.txt
+  # and pushing starts this workflow on the current branch, which is handy when
+  # GitHub's scheduler is late or a link needs checking right away. The workflow
+  # never writes to that file, so it cannot trigger itself.
+  push:
+    paths:
+      - "playlists/logs/run-deep-check.txt"
   schedule:
     # Nightly, after the last scrape of the day and before the first one.
     - cron: "13 1 * * *"
