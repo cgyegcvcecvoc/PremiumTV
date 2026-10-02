@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261002T211406Z-2800`)
-- **Started:** 2026-10-02T21:14:06Z | **Finished:** 2026-10-02T21:14:10Z | **Duration:** 4.1s
+- **Run:** nightly guide check (`20261002T213125Z-2683`)
+- **Started:** 2026-10-02T21:31:25Z | **Finished:** 2026-10-02T21:31:29Z | **Duration:** 4.0s
 - **Guides checked:** 94 across 179 playlists
 - **Working share:** 100.0%
 
