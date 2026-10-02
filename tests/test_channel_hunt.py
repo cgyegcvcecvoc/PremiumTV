@@ -176,6 +176,30 @@ class ChannelHuntTest(unittest.TestCase):
         self.assertEqual(channel_hunt.stream_country(us), "us")
         self.assertEqual(channel_hunt.stream_country(br), "br")
 
+    def test_stream_country_handles_every_tvg_id_flavour(self):
+        cases = {"MeTV.us@SD": "us", "Nicktoons.us2": "us", "Me.TV.Network.us2": "us",
+                 "MeTVToons.us@KMBYLD": "us", "Nickelodeon.br@SD": "br",
+                 "ChamameTV.ar@SD": "ar", "AwesomeTV.my@SD": "my"}
+        for tvg_id, expected in cases.items():
+            channel = scraper.Channel(name="x", url="u", source="s",
+                                      attrs={"tvg-id": tvg_id})
+            with self.subTest(tvg_id=tvg_id):
+                self.assertEqual(channel_hunt.stream_country(channel), expected)
+
+    def test_tokenised_links_rank_below_stable_ones(self):
+        stable = scraper.Channel(name="Nicktoons", url="http://host/nick.m3u8", source="s",
+                                 attrs={"tvg-id": "Nicktoons.us2"})
+        tokenised = scraper.Channel(
+            name="Nicktoons", source="s", attrs={"tvg-id": "Nicktoons.us@East"},
+            url="https://host/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTA5NzEy&expires=1")
+        self.assertTrue(channel_hunt.has_temporary_token(tokenised))
+        self.assertFalse(channel_hunt.has_temporary_token(stable))
+        target = {"name": "NickToons", "aliases": ["NickToons"], "country": "us"}
+        ranked = [(not channel_hunt.is_preferred(channel, target),
+                   channel_hunt.has_temporary_token(channel))
+                  for channel in (tokenised, stable)]
+        self.assertEqual(ranked, [(False, True), (False, False)])
+
     def test_local_candidates_search_the_corpus(self):
         found = channel_hunt.local_candidates(self.out, ["MeTV Toons", "MeTVToons"])
         self.assertEqual(len(found), 3)

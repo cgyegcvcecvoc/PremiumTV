@@ -323,13 +323,34 @@ def build_excludes(item: dict, targets: list) -> list:
     return excludes
 
 
+TEMPORARY_QUERY_KEYS = ("token", "expires", "expire", "exp", "auth", "sig",
+                        "signature", "session", "st", "e", "hdnea")
+
+
 def stream_country(channel: scraper.Channel) -> str:
-    """Country of a channel as its tvg-id states it ("MeTV.us@SD" -> "us")."""
-    match = re.match(r"^[A-Za-z0-9._-]+\.([A-Za-z]{2})(?:@|$)",
+    """Country of a channel as its tvg-id states it.
+
+    Handles every flavour found in public indexes: "MeTV.us@SD", "Nicktoons.us2"
+    and "Me.TV.Network.us2" all report "us".
+    """
+    match = re.match(r"^[A-Za-z0-9._-]*?\.([A-Za-z]{2})[0-9]*(?:@|$)",
                      str(channel.attrs.get("tvg-id") or "").strip())
     if match:
         return match.group(1).lower()
     return str(channel.attrs.get("tvg-country") or "").strip().lower()
+
+
+def has_temporary_token(channel: scraper.Channel) -> bool:
+    """True for links carrying a token/expiry in the query string.
+
+    Those play today and rot overnight, so a stable URL of the same channel is
+    always the better link to publish.
+    """
+    query = urllib.parse.urlsplit(channel.url or "").query.lower()
+    if not query:
+        return False
+    keys = {key.lower() for key, _ in urllib.parse.parse_qsl(query, keep_blank_values=True)}
+    return any(key in TEMPORARY_QUERY_KEYS for key in keys)
 
 
 def is_preferred(channel: scraper.Channel, target: dict) -> bool:
@@ -510,6 +531,7 @@ def main(argv=None) -> int:
             not is_preferred(pair[0], item),
             not (normalize(pair[0].name) in target_keys
                  or normalize(pair[0].attrs.get("tvg-id", "")).startswith(normalize(name))),
+            has_temporary_token(pair[0]),
             *rank(pair[1])))
         working = [(channel, result) for channel, result in verified
                    if result.get("status") == "working"]
