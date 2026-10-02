@@ -30,7 +30,9 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(body)
 
     def do_GET(self):
-        if self.path == "/metvtoons.m3u8":
+        # Query strings are ignored, like a real streaming server would.
+        path = self.path.split("?", 1)[0]
+        if path == "/metvtoons.m3u8":
             self._send(200, MEDIA_PLAYLIST.encode())
         elif self.path == "/seg1.ts":
             self._send(200, TS_SEGMENT, "video/mp2t")
@@ -246,6 +248,33 @@ class ChannelHuntTest(unittest.TestCase):
         self.assertNotIn("/stub.m3u8", text)
         channels, _ = scraper.parse_m3u(text, "curated")
         self.assertEqual(len(channels), 2)  # MeTV Toons + Nickelodeon, both verified
+
+    def test_tokenised_links_are_only_kept_when_nothing_stable_plays(self):
+        (self.out / "PremiumTV_all.m3u").write_text("\n".join([
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="MeTV.us@SD" group-title="TV",MeTV (United States) (720p)',
+            f"{self.base}/metvtoons.m3u8",
+            '#EXTINF:-1 tvg-id="MeTV.us2" group-title="TV",MeTV signed',
+            f"{self.base}/metvtoons.m3u8?token=abc123&expires=1790971236",
+            "",
+        ]), encoding="utf-8")
+        config = {"sources": [], "priority_channels": {
+            "output": "playlists/sources/priority-channels.m3u",
+            "targets": [{"name": "MeTV", "aliases": ["MeTV US", "MeTV.us@SD"],
+                         "group": "Classic TV", "max_links": 2, "country": "us"}]}}
+        config_path = self.out / "metv-sources.json"
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+        with redirect_stdout(StringIO()):
+            channel_hunt.main(["--out", str(self.out), "--sources", str(config_path),
+                               "--no-upstream", "--channel", "MeTV"])
+        report = json.loads((self.out / "checks" / "channel-hunt.json").read_text())
+        target = report["targets"][0]
+        self.assertEqual(target["working"], 2)
+        self.assertEqual(target["dropped_temporary"], 1)
+        self.assertEqual(target["published"], 1)
+        published_urls = [item["url"] for item in target["results"]
+                          if item["status"] == "working"][:1]
+        self.assertNotIn("token=", (self.out / "sources" / "priority-channels.m3u").read_text())
 
     def test_hunt_writes_a_ready_to_load_playlist_with_guides(self):
         (self.out / "PremiumTV.m3u").write_text(

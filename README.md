@@ -204,8 +204,9 @@ public link is visible rather than silently missing.
 
 Ranking favours the links worth keeping: the configured **`country`** first (`"us"` for all four
 targets today, taken from the `tvg-id`/`tvg-name`), then an exact name match, then links **without**
-a token or expiry in the URL — a signed link that plays today and 404s tomorrow is demoted below a
-stable one. `blocklist` in the same config holds URL fragments that must never be collected, which is
+a token or expiry in the URL. A signed link that plays today and 404s tomorrow is dropped entirely
+whenever a stable link for the same channel plays (set `"allow_temporary": true` on a target to keep
+them as a last resort). `blocklist` in the same config holds URL fragments that must never be collected, which is
 how a feed several indexes list as "MeTV Toons" but which actually carries a different network stays
 out. GitHub code search is best effort: it is rate limited (429) when the hunt runs more than about
 once an hour, and every failure is recorded in the report's `notes` instead of being hidden.

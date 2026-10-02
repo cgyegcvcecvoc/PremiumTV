@@ -543,9 +543,16 @@ def main(argv=None) -> int:
             *rank(pair[1])))
         working = [(channel, result) for channel, result in verified
                    if result.get("status") == "working"]
+        # A signed link that expires is only worth publishing when nothing
+        # stable plays, so drop the tokenised ones whenever a stable link exists.
+        selected = working
+        if not item.get("allow_temporary", False):
+            stable = [pair for pair in working if not has_temporary_token(pair[0])]
+            if stable:
+                selected = stable
         keep_count = int(item.get("max_links") or args.max_per_channel)
         publish_now = bool(working) and not args.report_only
-        for channel, _ in working[:keep_count]:
+        for channel, _ in selected[:keep_count]:
             if "group-title" not in channel.attrs:
                 channel.attrs["group-title"] = str(item.get("group") or "Priority")
             channel.source = f"priority:{name}"
@@ -556,7 +563,8 @@ def main(argv=None) -> int:
             "candidates": len(candidates),
             "notes": notes,
             "working": len(working),
-            "published": min(len(working), keep_count) if publish_now else 0,
+            "dropped_temporary": len(working) - len(selected),
+            "published": min(len(selected), keep_count) if publish_now else 0,
             "results": [{"name": channel.name, "url": channel.url,
                          "status": result.get("status", ""),
                          "reason": result.get("reason", ""),
@@ -566,7 +574,9 @@ def main(argv=None) -> int:
                         for channel, result in verified],
         })
         log(f"[hunt] {name}: {len(working)} working of {len(candidates)} candidates; "
-            f"keeping {min(len(working), keep_count)}")
+            f"publishing {min(len(selected), keep_count)}"
+            + (f" ({len(working) - len(selected)} dropped for expiring tokens)"
+               if len(working) != len(selected) else ""))
 
     finished = dt.datetime.now(dt.timezone.utc)
     _, local_s = scraper.now_strings(finished)
