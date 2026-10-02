@@ -1,52 +1,52 @@
 ========================================================================================
 PREMIUMTV1 ERRORS & DIAGNOSTICS LOG (.TXT)
 ========================================================================================
-Run ID:      20261002T000942Z-2384
-Timestamp:   2026-10-01 08:13 PM EDT (2026-10-02 00:13 UTC)
-Label:       4:41 PM final check (final_check)
+Run ID:      20261002T134850Z-2295
+Timestamp:   2026-10-02 09:52 AM EDT (2026-10-02 13:52 UTC)
+Label:       3:07 AM daily scrape (regular_check)
 Outcome:     WARNING
-Dead Links:  1461  |  Unverified Links: 2704
+Dead Links:  1479  |  Unverified Links: 2782
 
 ----------------------------------------------------------------------------------------
 1. RUN & SOURCE ISSUES
 ----------------------------------------------------------------------------------------
-  * 2704 links could not be confirmed after retries (see unverified details).
-  * 1461 links returned a confirmed failure (see dead details).
-  * This run started +3h 29m after its scheduled time (2026-10-01T20:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+  * 2782 links could not be confirmed after retries (see unverified details).
+  * 1479 links returned a confirmed failure (see dead details).
+  * This run started +6h 42m after its scheduled time (2026-10-02T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
 ----------------------------------------------------------------------------------------
 2. ERROR REASON BREAKDOWN
 ----------------------------------------------------------------------------------------
 Reason                                     Dead   Unverified      Total
 --------------------------------------------------------------------------
-HTTP 403                                      0         1138       1138
-HTTP 404                                    875            0        875
-TimeoutError                                  0          858        858
-html page, not a stream                     419            0        419
-gaierror                                      0          332        332
-ConnectionRefusedError                        0           96         96
+HTTP 403                                      0         1195       1195
+HTTP 404                                    897            0        897
+TimeoutError                                  0          886        886
+html page, not a stream                     415            0        415
+gaierror                                      0          333        333
+ConnectionRefusedError                        0           94         94
 invalid URL                                  79            0         79
-HTTP 503                                      0           68         68
+HTTP 503                                      0           69         69
 HTTP 400                                     56            0         56
-HTTP 401                                      0           44         44
-HTTP 502                                      0           25         25
-SSLError                                      0           23         23
+HTTP 401                                      0           47         47
 HTTP 504                                      0           22         22
+SSLError                                      0           22         22
+HTTP 502                                      0           20         20
 RemoteDisconnected                            0           20         20
 empty response                               13            0         13
 OSError                                       0           12         12
-SSLEOFError                                   0           12         12
 HTTP 500                                      0           11         11
+SSLEOFError                                   0           11         11
 HTTP 451                                      8            0          8
 not probed: unsupported scheme rtmp           0            8          8
-HTTP 429                                      0            6          6
 HTTP 530                                      0            6          6
+ConnectionResetError                          0            5          5
 HTTP 406                                      5            0          5
 HTTP 567                                      0            5          5
-ConnectionResetError                          0            4          4
+HTTP 429                                      0            4          4
 HTTP 521                                      0            3          3
-HTTP 523                                      0            3          3
 HTTP 520                                      0            2          2
+HTTP 523                                      0            2          2
 not probed: unsupported scheme mmsh           0            2          2
 HTTP 302                                      1            0          1
 HTTP 409                                      1            0          1
@@ -54,13 +54,12 @@ HTTP 410                                      1            0          1
 HTTP 421                                      1            0          1
 HTTP 458                                      1            0          1
 HTTP 477                                      1            0          1
-HTTP 512                                      0            1          1
 HTTP 574                                      0            1          1
 not probed: unsupported scheme rtsp           0            1          1
 not probed: unsupported scheme srt            0            1          1
 
 ----------------------------------------------------------------------------------------
-3. CONFIRMED DEAD LINKS (1461)
+3. CONFIRMED DEAD LINKS (1479)
 ----------------------------------------------------------------------------------------
   [DEAD] [html page, not a stream] [Albania] ABC News Albania Ⓣ (source=free-tv) -> https://www.twitch.tv/abcnewsal
   [DEAD] [html page, not a stream] [Albania] Euronews Albania Ⓨ (source=free-tv) -> https://www.youtube.com/@EuronewsAlbania/live
@@ -104,6 +103,7 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [html page, not a stream] [Azerbaijan] Real TV Ⓨ (source=free-tv) -> https://www.youtube.com/channel/UCjpoTfA8TXO6QfAWiAB67eA/live
   [DEAD] [html page, not a stream] [Bosnia and Herzegovina] RTV USK Ⓨ (source=free-tv) -> https://www.youtube.com/@rtvusk/live
   [DEAD] [HTTP 404] [Bosnia and Herzegovina] Sevdah Ⓢ (source=free-tv) -> https://restreamer2.tnt.ba/hls/stream.m3u8
+  [DEAD] [HTTP 404] [Brazil] ISTV (source=free-tv) -> https://video08.logicahost.com.br/istvnacional/srt.stream/istvnacional.m3u8
   [DEAD] [html page, not a stream] [Brazil] RBC Ⓨ (source=free-tv) -> https://www.youtube.com/watch?v=oUdd3CsxYaE
   [DEAD] [html page, not a stream] [Brazil] SBT Ⓨ (source=free-tv) -> https://www.youtube.com/watch?v=ABVQXgr2LW4
   [DEAD] [html page, not a stream] [Brazil] Canal Rural (source=aria) -> https://607d2a1a47b1f.streamlock.net/crur/smil:canalrural.smil/playlist.m3u8
@@ -149,23 +149,20 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Peru] Diaspora TV (source=iptv-org) -> https://s1.tvdatta.com:3978/live/diasporatvlive.m3u8
   [DEAD] [HTTP 404] [Canada] EET TV (1080p) [Not 24/7] (source=iptv-org) -> https://eu.streamjo.com/eetlive/eettv.m3u8
   [DEAD] [HTTP 404] [UK] Garshom TV (360p) [Not 24/7] (source=iptv-org) -> https://og2qd3aal7an-hls-live.5centscdn.com/garshomtv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
+  [DEAD] [HTTP 404] [Dominican Republic] Guaymate TV (720p) [Not 24/7] (source=iptv-org) -> https://live20.bozztv.com/akamaissh101/ssh101/guaymatetv/playlist.m3u8
   [DEAD] [HTTP 404] [Taiwan] Hakka TV (source=iptv-org) -> https://h5cul1yar48um3t.wcetv.com/hls/hakkatv.m3u8
   [DEAD] [HTTP 404] [Pakistan] HarPal Geo (360p) (source=iptv-org) -> https://jk3lz82elw79-hls-live.5centscdn.com/harPalGeo/955ad3298db330b5ee880c2c9e6f23a0.sdp/playlist.m3u8
+  [DEAD] [HTTP 404] [Sri Lanka] Imai TV (1080p) (source=iptv-org) -> https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8
   [DEAD] [HTTP 404] [Cameroon] Kemet TV (source=iptv-org) -> https://kemettv.cm/memfs/4e7fb105-9f92-4e8d-a7cd-09923f17a577.m3u8
   [DEAD] [HTTP 404] [Australia] MIS Televizija (720p) [Not 24/7] (source=iptv-org) -> https://5afd52b55ff79.streamlock.net/MISTV/myStream/playlist.m3u8
   [DEAD] [HTTP 404] [Senegal] One Nation TV (720p) [Not 24/7] (source=iptv-org) -> https://endour.net/hls/One_nationtv/index.m3u8
   [DEAD] [HTTP 404] [Italy] Teatro TV (720p) (source=iptv-org) -> https://m.iostream.it/hls/teatrotv/teatrotv.m3u8
   [DEAD] [HTTP 404] [Croatia] HRT 3 HD (720p) [Geo-blocked] (source=iptv-org) -> https://bpcdnmanprod.nexttv.ht.hr/bpk-tv/HRT3/default/index.mpd
+  [DEAD] [HTTP 404] [Brazil] Unisul TV (720p) (source=iptv-org) -> https://sitetv.brasilstream.com.br/hls/sitetv/index.m3u8?token=%5Bredacted%5D
   [DEAD] [empty response] [Maldives] YES (source=iptv-org) -> https://customer-ujex1meek7koqd9x.cloudflarestream.com/4f0b316cdb0fbb7f8ca93860ed11d38b/manifest/video.m3u8
+  [DEAD] [HTTP 404] [Argentina] Somos Entre Rios (360p) (source=iptv-org) -> https://live20.bozztv.com/akamaissh101/ssh101/somosentrerios/playlist.m3u8
   [DEAD] [HTTP 404] [Indonesia] Online TV Nusantara (720p) [Not 24/7] (source=iptv-org) -> https://5bf7b725107e5.streamlock.net/onlinetvnusantara/onlinetvnusantara/playlist.m3u8
   [DEAD] [html page, not a stream] [Cyprus] TV 2020 Ⓨ (source=free-tv) -> https://www.youtube.com/@TV2020KIBRIS/live
-  [DEAD] [html page, not a stream] [Czechia] CNN Prima News (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaNews
-  [DEAD] [HTTP 404] [Czechia] CS Mystery (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+Mystery
-  [DEAD] [html page, not a stream] [Czechia] JOJ Cinema (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Cinema
-  [DEAD] [html page, not a stream] [Czechia] JOJ Family Ⓢ (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Family
-  [DEAD] [html page, not a stream] [Czechia] Nova Cinema (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaCinema
-  [DEAD] [HTTP 404] [Czechia] Prima Krimi (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaKrimi
-  [DEAD] [HTTP 404] [Czechia] Prima MAX (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaMax
   [DEAD] [html page, not a stream] [International] 3HD (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2z2
   [DEAD] [html page, not a stream] [International] 7HD (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586v2t2
   [DEAD] [html page, not a stream] [International] Amarin TV (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u213
@@ -298,6 +295,7 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Bulgaria] H2 (source=iptv-org) -> http://213.91.179.28:8000/play/a03r
   [DEAD] [HTTP 404] [Ukraine] History2 Ukraine (360p) (source=iptv-org) -> http://dtv.vol.net.ua/H2-HD/index.m3u8
   [DEAD] [HTTP 404] [Bulgaria] History (Bulgaria) (source=iptv-org) -> http://213.91.179.28:8000/play/a0c1
+  [DEAD] [HTTP 404] [India] History TV18 (576p) (source=iptv-org) -> http://51.75.127.199:3141/historytv18/index.m3u8
   [DEAD] [HTTP 404] [Ukraine] History Ukraine (source=iptv-org) -> http://dtv.vol.net.ua/History_HD/index.m3u8
   [DEAD] [HTTP 404] [Bulgaria] ID (source=iptv-org) -> http://213.91.179.28:8000/play/a0cf
   [DEAD] [HTTP 451] [Finland] National Geographic (Finland) (720p) [Geo-blocked] (source=iptv-org) -> https://live-fi.tvkaista.net/national-geographic/live.m3u8?hd=true
@@ -307,6 +305,7 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Ukraine] National Geographic Wild (Ukraine) (1080p) (source=iptv-org) -> http://dtv.vol.net.ua:80/Nat-Geo-Wild_HD/index.m3u8
   [DEAD] [HTTP 404] [USA] Pluto TV Mi Obsesion Favorita (source=iptv-org) -> https://jmp2.uk/plu-6109ab25b84d6a0007504886.m3u8
   [DEAD] [HTTP 404] [USA] Reelz (720p) (source=iptv-org) -> http://23.237.104.106:8080/USA_REELZ/index.m3u8
+  [DEAD] [html page, not a stream] [DR Congo] RL PRO TV (source=iptv-org) -> https://stream.berosat.live:19360/rlpro-tv/rlpro-tv.m3u8
   [DEAD] [HTTP 404] [UK] Sky Nature (576p) (source=iptv-org) -> https://tvsen6.aynaott.com/skynature/index.m3u8
   [DEAD] [html page, not a stream] [Turkey] Viasat History (Turkiye) (720p) (source=iptv-org) -> https://nord.ayakkabiparti.lol/viasathistory/index.m3u8
   [DEAD] [HTTP 404] [Turkey] GZT (1080p) (source=iptv-org) -> https://gzttv-live.lg.mncdn.com/gzttv/gzttv/playlist.m3u8
@@ -318,6 +317,7 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [empty response] [USA] PBS KUON-TV (1080p) [Geo-blocked] (source=iptv-org) -> https://kuondt.lls.pbs.org/out/v1/91d8b5ffc5c1453c8a621508a07749a6/index.m3u8
   [DEAD] [empty response] [USA] PBS WNJT (1080p) [Not 24/7] (source=iptv-org) -> https://wnjtdt.lls.pbs.org/out/v1/e62efd8d4f92403996425fc389df0ffd/index.m3u8
   [DEAD] [HTTP 404] [USA] Pluto TV Minha Obsessao Favorita (source=iptv-org) -> https://jmp2.uk/plu-61843f5e491af10007f7eefa.m3u8
+  [DEAD] [HTTP 404] [Mexico] Tele UV [Not 24/7] (source=iptv-org) -> https://58fe359775f31.streamlock.net/tvuv/myStream/playlist.m3u8
   [DEAD] [HTTP 404] [Brazil] TV UFG (720p) [Not 24/7] (source=iptv-org) -> http://flash.softhost.com.br:1935/ufg/tvufgweb/playlist.m3u8
   [DEAD] [HTTP 404] [Mexico] UACJ-TV [Not 24/7] (source=iptv-org) -> https://5ca3e84a76d30.streamlock.net/uacj/videouacj/playlist.m3u8
   [DEAD] [HTTP 404] [Egypt] Al Ghad Plus (source=free-tv) -> https://playlist.fasttvcdn.com/pl/ykvm3f2fhokwxqsurp9xcg/alghad-plus/playlist.m3u8
@@ -325,17 +325,20 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Italy] 7 Gold (1080p) (source=iptv-org) -> https://streamcdnr6-dddfac816632463dac50b21109dc1bb3.msvdn.net/live/S58803518/OOZape6Nxp4H/playlist.m3u8
   [DEAD] [html page, not a stream] [Malaysia] 8TV (source=iptv-org) -> http://cdn6.163189.xyz/163189/8tv
   [DEAD] [HTTP 400] [Australia] 9Gem (720p) [Geo-blocked] (source=iptv-org) -> https://9now-livestreams.akamaized.net/hls/live/2008311/gem-syd/master.m3u8
-  [DEAD] [HTTP 404] [Paraguay] Alt Media TV (source=iptv-org) -> https://video.hostingcaaguazu.com:19360/altmedia/altmedia.m3u8
+  [DEAD] [HTTP 404] [Venezuela] AbejalesTV (720p) (source=iptv-org) -> https://183.bozztv.com/giatv/giatv-AbejalesTV/AbejalesTV/playlist.m3u8
   [DEAD] [HTTP 404] [Bangladesh] Ananda TV (480p) (source=iptv-org) -> http://103.99.249.139/anandatv/index.m3u8
   [DEAD] [HTTP 404] [Aruba] ArubaTV + (source=iptv-org) -> https://rtmpcontrol.com:1936/atvplus/ngrp:atvplus_all/playlist.m3u8
   [DEAD] [HTTP 404] [Hungary] AXN Spin Poland (source=iptv-org) -> https://polska.hach.workers.dev/14847.m3u8
-  [DEAD] [HTTP 404] [Colombia] Canal Nets (720p) [Not 24/7] (source=iptv-org) -> https://movil.ejeserver.com/live/nets.m3u8
-  [DEAD] [HTTP 404] [India] Darshana TV (576p) (source=iptv-org) -> https://mumt04.tangotv.in/m18aqlK4DARSHANATV/index.m3u8
+  [DEAD] [HTTP 404] [Curacao] Bonce TV (480p) [Not 24/7] (source=iptv-org) -> https://seswa.bonce.tv/hls/bonceswa.m3u8
+  [DEAD] [HTTP 404] [Colombia] Canal 14 Codazzi (720p) [Not 24/7] (source=iptv-org) -> https://eu1.servers10.com:8081/8056/index.m3u8
   [DEAD] [HTTP 404] [Sweden] Det sene show med Christian Fuhlendorff (source=iptv-org) -> https://jmp2.uk/plu-660d6bc10cd4630008f4a25a.m3u8
   [DEAD] [HTTP 404] [Sweden] De unge modre (source=iptv-org) -> https://jmp2.uk/plu-69172a4fcf4a1101befdd894.m3u8
   [DEAD] [HTTP 400] [USA] El Rey (source=iptv-org) -> https://stream.ads.ottera.tv/playlist.m3u8?network_id=1544
   [DEAD] [HTTP 404] [Indonesia] Ficom Channel (720p) (source=iptv-org) -> https://v3.siar.us/ficomchannel/live/playlist.m3u8
+  [DEAD] [HTTP 404] [Uganda] FORT TV (480p) (source=iptv-org) -> https://fort.co-works.org/memfs/87017643-274a-4bc0-a786-7767a0d159c2.m3u8
   [DEAD] [HTTP 404] [Guatemala] Gardenias TV (720p) [Not 24/7] (source=iptv-org) -> https://stream.oursnetworktv.com/latin/gardeniasTv/playlist.m3u8
+  [DEAD] [HTTP 404] [Italy] Gold TV (576p) (source=iptv-org) -> https://streaming.softwarecreation.it/GoldTv/GoldTv/playlist.m3u8
+  [DEAD] [HTTP 404] [Italy] Gold TV Sat (576p) (source=iptv-org) -> https://streaming.softwarecreation.it/GoldTvSat/GoldTvSat/playlist.m3u8
   [DEAD] [HTTP 404] [Hungary] Golya TV (480p) [Geo-blocked] (source=iptv-org) -> https://stream.streaming4u.hu/GolyaTV/index.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] HTV Live (1080p) [Not 24/7] (source=iptv-org) -> https://fox.hostlagarto.com:8081/canalhtv/tracks-v1a1/mono.m3u8
   [DEAD] [HTTP 404] [Cambodia] iTV HD (source=iptv-org) -> https://ip.pdtvhd.com/Khmer/streams/ITVHD.m3u8
@@ -346,30 +349,35 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Germany] MTV Geordies (source=iptv-org) -> https://jmp2.uk/plu-627d3176d7dfa500077042f1.m3u8
   [DEAD] [HTTP 404] [Cambodia] My TV (Cambodia) (576p) (source=iptv-org) -> https://live.happywatch99.com/mytvhdtv/c83cc584a878608f6b36a9717bd7a8ab.sdp/playlist.m3u8
   [DEAD] [HTTP 404] [Sri Lanka] NDTV LANKA (1080p) (source=iptv-org) -> https://g4wlkqqwl23a-hls-live.5centscdn.com/NDTVLANKA/1ff5fa54d14c3ff6c6bd3918bbb7db5d.sdp/playlist.m3u8
+  [DEAD] [HTTP 404] [Peru] Neo TV (Peru) (720p) (source=iptv-org) -> http://bantel-cdn1.iptvperu.tv:1935/btnscrtn/DigitalTV/playlist.m3u8
+  [DEAD] [HTTP 404] [Curacao] Nos Pais (720p) [Not 24/7] (source=iptv-org) -> https://5f86a49aedff6.streamlock.net/nos_pais_24_7/nos_pais_24_7/playlist.m3u8
+  [DEAD] [HTTP 404] [Cameroon] PLEX TV (source=iptv-org) -> http://connectiktv.ddns.net:5000/plextv/@plextv/playlist.m3u8
   [DEAD] [HTTP 404] [Canada] Prime Canada TV (720p) [Not 24/7] (source=iptv-org) -> http://cdn27.live247stream.com/primecanada/247/primecanada/stream1/playlist.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] Pula TV (1080p) [Not 24/7] (source=iptv-org) -> https://fox.hostlagarto.com:8081/pulatv/index.m3u8
+  [DEAD] [HTTP 404] [Honduras] Radio Omega TV (720p) [Not 24/7] (source=iptv-org) -> https://5caf24a595d94.streamlock.net:1937/8142/8142/playlist.m3u8
   [DEAD] [HTTP 404] [Pakistan] SAB TV (1080p) (source=iptv-org) -> https://ml-pull-dvc-myco.io:2096/SAB_ENTERTAINMENT/tracks-v1a1/mono.ts.m3u8
-  [DEAD] [HTTP 404] [Guatemala] SAS TV (720p) (source=iptv-org) -> https://cdn.streamhispanatv.net:3390/live/sastvgtlive.m3u8
   [DEAD] [HTTP 404] [Afghanistan] Shamshad TV [Not 24/7] (source=iptv-org) -> https://5a1178b42cc03.streamlock.net/shamshadtelevision/shamshadtelevision/playlist.m3u8
+  [DEAD] [HTTP 451] [India] Sony SAB HD (1080p) (source=iptv-org) -> https://cloudplay-sonyliv.pages.dev/sabhd.m3u8
   [DEAD] [HTTP 404] [Russia] TNT HD (1080p) (source=iptv-org) -> http://45.153.24.78/TNT/index.m3u8
   [DEAD] [HTTP 404] [Russia] TNT International SD (480p) (source=iptv-org) -> https://cdn4.skygo.mn/live/disk1/THT/HLSv3-FTA/THT.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] TV Canal Sur (720p) [Not 24/7] (source=iptv-org) -> https://streamtvs.tvcanalsur.com.do/hls/index_720.m3u8
   [DEAD] [HTTP 404] [Sint Maarten] TVCARiB (720p) [Not 24/7] (source=iptv-org) -> https://cdn.mycloudstream.io/hls/live/broadcast/s6nitpvn/index.m3u8
   [DEAD] [HTTP 404] [Peru] TV Kaliente (720p) (source=iptv-org) -> https://lbgo.bozztv.com/ssh101/ssh101/kalientecusco/playlist.m3u8
+  [DEAD] [HTTP 404] [Brazil] TV Vicosa (480p) (source=iptv-org) -> http://wz4.dnip.com.br/fratevitv/fratevitv.sdp/playlist.m3u8
   [DEAD] [HTTP 404] [Mozambique] TV Vitoria (720p) (source=iptv-org) -> https://stmv1.srvif.com/tvvitoriamz/tvvitoriamz/playlist.m3u8
+  [DEAD] [HTTP 404] [India] Zee Keralam HD (1080p) (source=iptv-org) -> http://51.75.127.199:3141/zeekeralamhd/index.m3u8
   [DEAD] [HTTP 404] [Brazil] TV Paraense (720p) (source=iptv-org) -> https://video09.logicahost.com.br/tvparaense/tvparaense/playlist.m3u
   [DEAD] [HTTP 404] [Ukraine] Super+ (360p) (source=iptv-org) -> http://dtv.vol.net.ua/super_plus/index.m3u8
   [DEAD] [HTTP 400] [Australia] 9Go! (720p) [Geo-blocked] (source=iptv-org) -> https://9now-livestreams.akamaized.net/hls/live/2008312/go-syd/master.m3u8
-  [DEAD] [HTTP 404] [Spain] Radio Carnaval TV (720p) [Not 24/7] (source=iptv-org) -> https://eu1.servers10.com:8081/8116/index.m3u8
   [DEAD] [HTTP 404] [Bulgaria] Diema Family (source=iptv-org) -> http://213.91.179.28:8000/play/a047
   [DEAD] [HTTP 404] [USA] Hallmark Channel (1080p) (source=iptv-org) -> http://23.237.104.106:8080/USA_HALLMARK/index.m3u8
   [DEAD] [HTTP 404] [Honduras] Talanga TV Canal 39 (480p) [Not 24/7] (source=iptv-org) -> https://stream.oursnetworktv.com/latin/Tv39Talanga/playlist.m3u8
+  [DEAD] [HTTP 404] [USA] ☆ Filmrise Horror₂ 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-6a0629e467b5502c906136dadac290a0.m3u8
   [DEAD] [invalid URL] [International] ☆ Nightmare Network 🇺🇸 (source=m3u) -> +https://d2xkj205tzzw4y.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/STIRR-MuxIP-NightmareNetwork/478.m3u8
   [DEAD] [invalid URL] [International] ☆ CineMonde (💬🔊 🇧🇷) (source=m3u) -> +https://video01.soultv.com.br/cinemonde/cinemonde/playlist.m3u8?@iprtlk
   [DEAD] [invalid URL] [International] ☆ DarkFlix (💬 🇧🇷) (source=m3u) -> +https://video01.soultv.com.br/darkflix/darkflix/index.m3u8?@iprtlk
   [DEAD] [HTTP 400] [USA] ☆ Dark Matter (💬 🇧🇷) (source=m3u) -> https://d29h829bjuxghm.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_lgchannels-cdp-publica/ea98b139-7ef5-43a3-9b1f-2917cf4417fb/.m3u8
   [DEAD] [invalid URL] [International] ☆ Europa+ 🇧🇷 (source=m3u) -> +https://app.viloud.tv/hls/channel/053140e08adc29e3eac61eb05ff12f51/hi_mid.m3u8
-  [DEAD] [HTTP 404] [Finland] Hero (source=free-tv) -> https://live-fi.tvkaista.net/hero/live.m3u8?src=freetv
   [DEAD] [HTTP 451] [Finland] National Geographic Finland Ⓖ (source=free-tv) -> https://live-fi.tvkaista.net/national-geographic/live.m3u8?src=freetv
   [DEAD] [HTTP 404] [Finland] Star Channel Finland (source=free-tv) -> https://live-fi.tvkaista.net/star-channel/live.m3u8?src=freetv
   [DEAD] [html page, not a stream] [Finland] Sundom TV Ⓨ (source=free-tv) -> https://www.youtube.com/@SundomTV/live
@@ -387,18 +395,16 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [html page, not a stream] [France] L'Équipe Ⓨ (source=free-tv) -> https://www.youtube.com/@lequipe/live
   [DEAD] [html page, not a stream] [France] Public Sénat (source=free-tv) -> https://www.publicsenat.fr/direct
   [DEAD] [HTTP 404] [Spain] 101tv Cadiz (1080p) (source=iptv-org) -> https://streaming101tv.es:19360/cadiz/cadiz.m3u8
-  [DEAD] [HTTP 404] [Spain] 101tv Sevilla (source=iptv-org) -> https://liveingesta318.cdnmedia.tv/101weblive/smil:sevilla.smil/playlist.m3u8
   [DEAD] [HTTP 404] [Kenya] 3 Stones TV (240p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/64d21e682fd26/index.m3u8
+  [DEAD] [HTTP 404] [Peru] ABC Teleshow (720p) (source=iptv-org) -> https://live-evg10.tv360.bitel.com.pe/bitel/abctv/playlist.m3u8
   [DEAD] [HTTP 404] [Peru] ABTelevision (720p) (source=iptv-org) -> https://live-evg8.tv360.bitel.com.pe/bitel/abctelevisionSRT/playlist.m3u8
   [DEAD] [HTTP 404] [Bolivia] Abya Yala TV (720p) (source=iptv-org) -> http://15.204.246.24:8080/AbyaYalaTvHD/index.m3u8
-  [DEAD] [HTTP 404] [Greece] Aeolos TV (1080p) (source=iptv-org) -> https://cdn.istoikona.com/aeolostv/live/playlist.m3u8
   [DEAD] [HTTP 404] [Indonesia] AFBTV Kupang (1080p) [Not 24/7] (source=iptv-org) -> https://afbtv.siar.us/live/afbtv.m3u8
   [DEAD] [HTTP 404] [Indonesia] Ajwa TV (1080p) (source=iptv-org) -> http://ikitv.sqn.at:8000/play/a00j/index.m3u8
   [DEAD] [HTTP 400] [Colombia] Alerta Bogota (720p) [Geo-blocked] (source=iptv-org) -> https://mdstrm.com/live-stream-playlist/69b2cdf98815b9b6c48c2532.m3u8
   [DEAD] [HTTP 404] [Peru] Altura TV (720p) (source=iptv-org) -> https://live-evg10.tv360.bitel.com.pe/bitel/urbanatv/playlist.m3u8
   [DEAD] [HTTP 404] [Azerbaijan] Alvin Channel TV (360p) [Not 24/7] (source=iptv-org) -> https://cdn10-alvinchannel.yayin.com.tr/alvinchannel/alvinchannel/playlist.m3u8
   [DEAD] [HTTP 404] [Peru] America Television (1080p) (source=iptv-org) -> http://45.171.108.253:8888/AMERICA/index.m3u8
-  [DEAD] [HTTP 404] [Venezuela] Anzoategui TV (360p) [Not 24/7] (source=iptv-org) -> https://vcp2.myplaytv.com/anzoateguitv/anzoateguitv/playlist.m3u8
   [DEAD] [HTTP 404] [Chile] Arica TV (source=iptv-org) -> https://envivo.arica.tv/hls/Live2025AricaTV.m3u8
   [DEAD] [HTTP 404] [Peru] Arpegio TV (720p) (source=iptv-org) -> https://live-evg8.tv360.bitel.com.pe/bitel/arpegioSRT/playlist.m3u8
   [DEAD] [HTTP 404] [Mexico] Asi Sucede Guanajuato (720p) [Not 24/7] (source=iptv-org) -> https://stream.oursnetworktv.com/latin/encoder13/playlist.m3u8
@@ -406,8 +412,7 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Malaysia] Awesome TV [Geo-blocked] (source=iptv-org) -> https://488b9e074624.ap-south-1.playback.live-video.net/api/video/v1/ap-south-1.533267421985.channel.B7bB1wHJRCnw.m3u8
   [DEAD] [HTTP 404] [Bolivia] AYNI TV (1080p) (source=iptv-org) -> http://15.204.246.24:8080/AyniTVHD/index.m3u8
   [DEAD] [HTTP 404] [Afghanistan] Bahar TV (720p) [Not 24/7] (source=iptv-org) -> https://59d39900ebfb8.streamlock.net/bahartv/bahartv/playlist.m3u8
-  [DEAD] [HTTP 404] [Indonesia] Batam TV (480p) [Not 24/7] (source=iptv-org) -> http://122.248.43.242:1935/BATAMTV/_definst_/myStream/playlist.m3u8
-  [DEAD] [HTTP 404] [Argentina] Bayres TV (720p) (source=iptv-org) -> https://streaming01.mikrolive.tv/bayrestv/live/playlist.m3u8
+  [DEAD] [HTTP 404] [Guatemala] Barbe TV (720p) [Not 24/7] (source=iptv-org) -> https://cdn.streamhispanatv.net:3549/live/barbetvlive.m3u8
   [DEAD] [html page, not a stream] [UK] BBC UHD 2 (1080p) (source=iptv-org) -> https://xemzi.short.gy/1000002
   [DEAD] [html page, not a stream] [UK] BBC UHD 3 (720p) (source=iptv-org) -> http://45.14.84.37/bbc3/index.m3u8
   [DEAD] [html page, not a stream] [UK] BBC UHD 4 (720p) (source=iptv-org) -> http://45.14.84.37/bbc4/index.m3u8
@@ -418,8 +423,8 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Panama] BTV Panama (720p) [Not 24/7] (source=iptv-org) -> https://stream.oursnetworktv.com/latin/btvpanama/playlist.m3u8
   [DEAD] [HTTP 404] [Uganda] Bukedde TV 1 (576p) (source=iptv-org) -> https://stream.hydeinnovations.com/bukedde1flussonic/index.m3u8
   [DEAD] [HTTP 404] [Uganda] Bukedde TV 2 (576p) [Not 24/7] (source=iptv-org) -> https://stream.hydeinnovations.com/bukedde2flussonic/index.m3u8
-  [DEAD] [HTTP 404] [Mexico] California Medios TV (720p) (source=iptv-org) -> https://s5.mexside.net:1936/medios/medios/playlist.m3u8
   [DEAD] [html page, not a stream] [Nicaragua] Canal 10 (Nicaragua) (360p) (source=iptv-org) -> https://www.canal10.com.ni/envivo
+  [DEAD] [HTTP 404] [El Salvador] Canal 12 (576p) (source=iptv-org) -> http://186.33.26.18:8000/play/a0nw/index.m3u8
   [DEAD] [HTTP 404] [Mexico] Canal 13 Bajio (720p) [Not 24/7] (source=iptv-org) -> https://stream-207963.castr.net/65313d270e749722b6474684/live_1c690d40dfb711eeabd66ba1b9ba93a1/index.fmp4.m3u8
   [DEAD] [HTTP 404] [Mexico] Canal 13 Campeche (720p) [Not 24/7] (source=iptv-org) -> https://stream-207963.castr.net/65313d270e749722b6474684/live_38c14fb0dfbd11ee8847c303f3096501/index.fmp4.m3u8
   [DEAD] [HTTP 404] [Mexico] Canal 13 Chiapas (720p) [Not 24/7] (source=iptv-org) -> https://stream-207963.castr.net/65313d270e749722b6474684/live_55784330f36711ee97a7a19a8448730c/index.fmp4.m3u8
@@ -430,7 +435,6 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Mexico] Canal 13 Puebla (720p) [Not 24/7] (source=iptv-org) -> https://stream-207963.castr.net/65313d270e749722b6474684/live_19c1e870dfbf11eeadd41749c3286f4a/index.fmp4.m3u8
   [DEAD] [HTTP 404] [Mexico] Canal 13 Tabasco (720p) [Not 24/7] (source=iptv-org) -> https://stream-207963.castr.net/65313d270e749722b6474684/live_185f5f10888711ee83e2f144889e3879/index.fmp4.m3u8
   [DEAD] [HTTP 404] [Mexico] Canal 13 Tapachula (720p) [Not 24/7] (source=iptv-org) -> https://stream-207963.castr.net/65313d270e749722b6474684/live_2b589fc0dfbf11ee9ce13534ca2a46c3/index.fmp4.m3u8
-  [DEAD] [HTTP 404] [El Salvador] Canal 15 El Zamorano [Not 24/7] (source=iptv-org) -> https://vdo.tecnoservix.stream:3007/live/canal15zamoranolive.m3u8
   [DEAD] [HTTP 404] [Bolivia] Canal 15 Teleor (720p) (source=iptv-org) -> https://ares.disfrutaenlared.com:1936/activatv/activatv/playlist.m3u8
   [DEAD] [HTTP 404] [Mexico] Canal 28 (720p) [Not 24/7] (source=iptv-org) -> https://stream.castr.com/653d77dcde70014f52ad1e19/live_bf24d4208d8611eeb116dbe87aa63be0/rewind-3600.m3u8
   [DEAD] [HTTP 404] [Mexico] Canal 30 Cintalapa (720p) [Not 24/7] (source=iptv-org) -> https://rpn3.bozztv.com/ssh101/ssh101/canal30mx/playlist.m3u8
@@ -440,15 +444,18 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Nicaragua] Canal 6 (Nicaragua) (480p) [Not 24/7] (source=iptv-org) -> http://138.117.4.70:8075/Canal06_CooTel/playlist.m3u8
   [DEAD] [HTTP 404] [Argentina] Canal 7 Neuquen (1080p) (source=iptv-org) -> https://stream.arcast.com.ar/c7nq/ngrp:c7nq_all/playlist.m3u8
   [DEAD] [HTTP 404] [Colombia] Canal 9 Cosespu (source=iptv-org) -> https://video2.lhdserver.es/canal9cosespu/live.m3u8
+  [DEAD] [HTTP 404] [Colombia] Canal Calima TV (720p) (source=iptv-org) -> https://movil.ejeserver.com/live/calimatv.m3u8
+  [DEAD] [HTTP 404] [Colombia] Canal CHD (source=iptv-org) -> https://vs20.live.opencaster.com/canalchd2025_8d99626c/index.m3u8
   [DEAD] [HTTP 400] [Brazil] Canal Libras (720p) (source=iptv-org) -> https://canallibras-stream.ebc.com.br/mux_video_ts/index-1.m3u8
   [DEAD] [HTTP 404] [Spain] Canal Luz Television (1080p) (source=iptv-org) -> https://5d8d85cf2c308.streamlock.net:1936/CanalLuz/enDirecto/playlist.m3u8
   [DEAD] [HTTP 404] [Colombia] Canal Mundo Vision (720p) [Not 24/7] (source=iptv-org) -> https://movil.ejeserver.com/live/mundovisiontv.m3u8
-  [DEAD] [HTTP 404] [Spain] Canal Reus TV (720p) (source=iptv-org) -> https://liveingesta318.cdnmedia.tv/canalreustvlive/smil:live.smil/playlist.m3u8
+  [DEAD] [HTTP 404] [El Salvador] Canal TRV (576p) (source=iptv-org) -> https://stream.ontvmx.com/ontv/CNMLXR0Z6FPtGdjcI4/playlist.m3u8
   [DEAD] [HTTP 404] [Guatemala] Canal Visof (720p) (source=iptv-org) -> https://stream.oursnetworktv.com/latin/Visof/playlist.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] Cana TV Digital (720p) [Not 24/7] (source=iptv-org) -> https://stream.hostuis.com:19360/canatvdigital/canatvdigital.m3u8
   [DEAD] [html page, not a stream] [China] CCTV-1 HD (1080p) (source=iptv-org) -> http://69.30.245.50/live/cctv1.m3u8
   [DEAD] [html page, not a stream] [China] CCTV-4K HD (1080p) (source=iptv-org) -> http://198.204.240.250:82/live/cctv4k.m3u8
   [DEAD] [HTTP 404] [Turkey] Cekmekoy TV (1080p) (source=iptv-org) -> https://cdn-cekmekoybeltv.yayin.com.tr/cekmekoybeltv/cekmekoybeltv_1080p/playlist.m3u8
+  [DEAD] [HTTP 404] [Dominican Republic] Cenovision HD (720p) (source=iptv-org) -> https://5790d294af2dc.streamlock.net/cenovision/cenovision/playlist.m3u8
   [DEAD] [HTTP 404] [Russia] Channel-16 (406p) [Not 24/7] (source=iptv-org) -> http://serv25.vintera.tv:8081/test/k16/playlist.m3u8
   [DEAD] [html page, not a stream] [Australia] Channel 9 (Australia) (720p) [Geo-blocked] (source=iptv-org) -> https://9now-livestreams-fhd-t.akamaized.net/u/prod/simulcast/syd/ch9/hls/r1/index.m3u8
   [DEAD] [html page, not a stream] [Australia] Channel 9 (Australia) Adelaide (720p) [Geo-blocked] (source=iptv-org) -> https://9now-livestreams-fhd-t.akamaized.net/u/prod/simulcast/adl/ch9/hls/r1/index.m3u8
@@ -456,24 +463,24 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [html page, not a stream] [Australia] Channel 9 (Australia) Perth (720p) [Geo-blocked] (source=iptv-org) -> https://9now-livestreams-fhd-t.akamaized.net/u/prod/simulcast/per/ch9/hls/r1/index.m3u8
   [DEAD] [HTTP 404] [Philippines] CLTV 36 (720p) [Not 24/7] (source=iptv-org) -> https://live.cltv36.tv:5443/LiveApp/streams/cltvlive.m3u8
   [DEAD] [HTTP 404] [Kenya] CMTv Kenya (576p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/64ede813cfe1a/index.m3u8
+  [DEAD] [HTTP 404] [Colombia] CNC Bugavision (720p) (source=iptv-org) -> https://movil.ejeserver.com/live/cncbuga.m3u8
   [DEAD] [HTTP 404] [Senegal] CNM TV (720p) [Not 24/7] (source=iptv-org) -> https://stream.sen-gt.com/cnmtv/myStream/playlist.m3u8
-  [DEAD] [HTTP 404] [Dominican Republic] Color Vision (1280p) [Not 24/7] (source=iptv-org) -> https://hls.tvabierta.net/hls/009.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] Coral 39 (1080p) [Not 24/7] (source=iptv-org) -> https://hls.tvabierta.net/hls/039.m3u8
   [DEAD] [html page, not a stream] [Guyana] CTV19 (720p) (source=iptv-org) -> https://twitch-m3u8.bastypro112.workers.dev/ctv19live/index.m3u8
   [DEAD] [HTTP 404] [Bolivia] CTV (Bolivia) (1080p) (source=iptv-org) -> http://15.204.246.24:8080/CTVHD/index.m3u8
   [DEAD] [HTTP 404] [Cuba] Cubavision Internacional (720p) [Not 24/7] (source=iptv-org) -> https://cdn.teveo.cu/live/video/A36pWmuWvZBQskuZ/ngrp:gppfydfzpSUn9Udy.stream/playlist.m3u8
   [DEAD] [HTTP 404] [Spain] Cugat TV (1080p) (source=iptv-org) -> https://liveingesta318.cdnmedia.tv/cugatcatlive/smil:rtmp01.smil/playlist.m3u8
   [DEAD] [HTTP 404] [Ecuador] Curiquingue TV (720p) (source=iptv-org) -> https://video2.lhdserver.es/pjtv/live.m3u8
-  [DEAD] [HTTP 404] [Mexico] Despierta TV (1080p) [Not 24/7] (source=iptv-org) -> https://video2.lhdserver.es/despiertatv/live.m3u8
-  [DEAD] [HTTP 404] [Indonesia] Dhoho TV (720p) (source=iptv-org) -> https://dhohotv.siar.us/dhohotv/live/playlist.m3u8
   [DEAD] [html page, not a stream] [Bolivia] Dialogo La Red Educativa (720p) (source=iptv-org) -> https://twitch-m3u8.bastypro112.workers.dev/dialogolarededucativacbba/index.m3u8
   [DEAD] [HTTP 404] [Saudi Arabia] Dr Pal TV (720p) (source=iptv-org) -> https://stream.cisk.tech/drpal/index.m3u8
+  [DEAD] [HTTP 404] [Republic of the Congo] DRTV International (source=iptv-org) -> https://vps122407.serveur-vps.net/hls/drtv.m3u8
   [DEAD] [HTTP 404] [Ecuador] Duran TV (480p) [Not 24/7] (source=iptv-org) -> https://cloudvideo.servers10.com:8081/8074/index.m3u8
   [DEAD] [HTTP 404] [Peru] ECO Television (720p) (source=iptv-org) -> https://live-evg11.tv360.bitel.com.pe/bitel/ecotv/playlist.m3u8
   [DEAD] [HTTP 404] [Ecuador] Ecuavisa (1080p) (source=iptv-org) -> http://45.171.108.253:8888/ECUAVISA/index.m3u8
   [DEAD] [HTTP 404] [Spain] El 9 TV (1080p) (source=iptv-org) -> https://liveingesta318.cdnmedia.tv/9tvlive/smil:live.smil/playlist.m3u8?DVR=
   [DEAD] [HTTP 404] [Argentina] El Trece (1080p) (source=iptv-org) -> http://15.204.246.24:8080/eltreceHD/index.m3u8
-  [DEAD] [HTTP 404] [Brazil] EUTV (720p) (source=iptv-org) -> https://cdn.jmvstream.com/w/LVW-8719/LVW8719_AcLVAxWy5J/playlist.m3u8
+  [DEAD] [HTTP 404] [Dominican Republic] Enterate RD [Not 24/7] (source=iptv-org) -> https://5790d294af2dc.streamlock.net/enteraterd/enteraterd/playlist.m3u8
+  [DEAD] [HTTP 404] [Chile] EPA! TV (720p) (source=iptv-org) -> https://live-evg10.tv360.bitel.com.pe/bitel/epatv/playlist.m3u8
   [DEAD] [HTTP 404] [Finland] Eveo (720p) [Not 24/7] (source=iptv-org) -> https://live-fi.tvkaista.net/eveo/live.m3u8?hd=true
   [DEAD] [HTTP 404] [Bolivia] F10 HD (720p) (source=iptv-org) -> http://15.204.246.24:8080/F10HD/index.m3u8
   [DEAD] [HTTP 404] [Italy] Fano TV (1080p) (source=iptv-org) -> https://5cbd3bc28341f.streamlock.net:444/fanotv_live/_definst_/43DA-3923-9C72-4E9F/playlist.m3u8
@@ -488,30 +495,30 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Italy] GO-TV Canale 163 (720p) (source=iptv-org) -> https://6zklxkbbdw9b-hls-live.mariatvcdn.it/msmotor/2f759512164fc6fe4acbed6a5648993a.sdp/playlist.m3u8
   [DEAD] [HTTP 404] [Kenya] GTN TV (1080p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/644e07abdc1d3/index.m3u8
   [DEAD] [HTTP 404] [Indonesia] GTV (Indonesia) HD (source=iptv-org) -> https://mncmedia.malingtv.workers.dev/gtv.m3u8
-  [DEAD] [HTTP 404] [South Korea] HLAT-DTV (1080p) [Not 24/7] (source=iptv-org) -> https://5c3639aa99149.streamlock.net/live_TV/tv/playlist.m3u8
+  [DEAD] [HTTP 404] [South Korea] HLAJ-DTV (352p) [Not 24/7] (source=iptv-org) -> https://wowza.jejumbc.com/live/tv_jejumbc/playlist.m3u8
   [DEAD] [HTTP 404] [South Korea] HLCT-DTV (480p) [Not 24/7] (source=iptv-org) -> https://5ee1ec6f32118.streamlock.net/live/livetv/playlist.m3u8
   [DEAD] [HTTP 404] [Kenya] HLC TV (480p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/627d06e001aaf/index.m3u8
-  [DEAD] [HTTP 404] [South Korea] HLDH-DTV (1080p) [Not 24/7] (source=iptv-org) -> https://vod.ikbc.co.kr/KBCTV/tv/playlist.m3u8
-  [DEAD] [HTTP 404] [South Korea] HLDQ-DTV (406p) [Not 24/7] (source=iptv-org) -> http://61.85.197.53:1935/jtv_live/myStream/playlist.m3u8
   [DEAD] [HTTP 404] [Croatia] HRT 1 HD (1080p) [Geo-blocked] (source=iptv-org) -> https://bpcdnmanprod.nexttv.ht.hr/bpk-tv/HRT1/default/index.mpd
   [DEAD] [HTTP 404] [Croatia] HRT 2 HD (1080p) [Geo-blocked] (source=iptv-org) -> https://bpcdnmanprod.nexttv.ht.hr/bpk-tv/HRT2/default/index.mpd
   [DEAD] [HTTP 404] [Spain] Huelva TV (720p) (source=iptv-org) -> https://5d8d85cf2c308.streamlock.net:1936/huelvatv/htvdirecto/playlist.m3u8
   [DEAD] [HTTP 404] [Romania] Hunedoara 1 (480p) [Not 24/7] (source=iptv-org) -> https://netstreaming.eu/hd1.m3u8
+  [DEAD] [HTTP 404] [Spain] Imas TV (1080p) [Not 24/7] (source=iptv-org) -> https://secure3.todostreaming.es/live/imastv-livestream.m3u8
   [DEAD] [HTTP 404] [Chile] Interactiva TV (720p) (source=iptv-org) -> https://unlimited2-cl-isp.dps.live/radiointeractiva/radiointeractiva.smil/playlist.m3u8
   [DEAD] [HTTP 404] [Peru] Intuitiva TV (720p) (source=iptv-org) -> https://video2.lhdserver.es/cableperu/live.m3u8
   [DEAD] [html page, not a stream] [UK] ITV2 HD (1080p) (source=iptv-org) -> https://xemzi.short.gy/1000012
   [DEAD] [HTTP 404] [Guatemala] Jacal Canal 5 (720p) [Not 24/7] (source=iptv-org) -> https://stream.oursnetworktv.com/latin/jacaltv/playlist.m3u8
-  [DEAD] [HTTP 404] [Indonesia] Jogja TV (720p) [Not 24/7] (source=iptv-org) -> https://stream.jogjatv.co.id/jtvlive/stream/index.m3u8
   [DEAD] [HTTP 404] [Indonesia] JTV Madura (480p) [Not 24/7] (source=iptv-org) -> http://122.248.43.242:1935/JTVMADURA/_definst_/myStream/playlist.m3u8
-  [DEAD] [HTTP 404] [India] Kairali TV (576p) (source=iptv-org) -> https://mumt01.tangotv.in/O5aw8Zn3KAIRALI/index.m3u8
   [DEAD] [HTTP 404] [Romania] Kapital TV (1080p) (source=iptv-org) -> https://1a-1791.com/live/qt9k24wa/live-hls/41w5-c26y/chunklist_i1_DVR.m3u8
   [DEAD] [HTTP 404] [Kenya] Kass TV (720p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/62f643cdca8cf/index.m3u8
   [DEAD] [HTTP 404] [Ecuador] KCHTV (1080p) (source=iptv-org) -> http://iptv.kchtv.video.makrodigital.com:8081/kchtv/iptv/playlist.m3u8
+  [DEAD] [HTTP 404] [Vietnam] Khanh Hoa TV (1080p) (source=iptv-org) -> https://cdnbaokhanhhoa.com/live/1332e3a79e27.m3u8?vhost=video
   [DEAD] [HTTP 404] [Indonesia] KTV (Indonesia) (720p) (source=iptv-org) -> https://flv.intechmedia.net/live/ch118.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] La Sultana del Este TV (720p) [Not 24/7] (source=iptv-org) -> https://micanal.ovh/livestreams/544.EP3QGO4KPL66.m3u8
   [DEAD] [HTTP 404] [Belgium] La Trois (1080p) (source=iptv-org) -> http://145.239.5.177/330/index.m3u8
   [DEAD] [html page, not a stream] [Russia] LenTV24 (source=iptv-org) -> https://player.smotrim.ru/iframe/stream/live_id/3e95d201-f87d-4ac1-8897-db2c66bb9657
   [DEAD] [HTTP 404] [USA] Littleton 8 TV (1080p) (source=iptv-org) -> https://ch8.littletongov.org/live-2/live/live.m3u8
+  [DEAD] [HTTP 404] [Costa Rica] Los Santos TV (1080i) (source=iptv-org) -> https://tiquiciatv.com/hls/lstv.m3u8
+  [DEAD] [HTTP 404] [Latvia] LTV1 (1080p) (source=iptv-org) -> http://stream.mcquack.net/34/index.m3u8
   [DEAD] [HTTP 404] [Honduras] LTV (Honduras) (720p) [Not 24/7] (source=iptv-org) -> https://5e85d90130e77.streamlock.net/6022/6022/playlist.m3u8
   [DEAD] [HTTP 404] [Kenya] Luyaa TV (480p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/659e7c6432815/index.m3u8
   [DEAD] [HTTP 404] [Ecuador] Majestad Television (720p) (source=iptv-org) -> https://videoserver.tmcreativos.com:19360/majestadtv/majestadtv.m3u8
@@ -519,31 +526,30 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Dominican Republic] Marla Vision (576p) [Not 24/7] (source=iptv-org) -> https://soportedvb.click:3877/live/merlavisionlive.m3u8
   [DEAD] [HTTP 404] [Kenya] Mashariki TV (720p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/634adc0806f2b/index.m3u8
   [DEAD] [html page, not a stream] [Bolivia] Megavision (720p) (source=iptv-org) -> https://twitch-m3u8.bastypro112.workers.dev/megavisionbo/index.m3u8
-  [DEAD] [HTTP 404] [Indonesia] MGSTV (360p) [Not 24/7] (source=iptv-org) -> https://mgstv.siar.us/live/mgstv.m3u8
   [DEAD] [HTTP 404] [Brazil] MKK Web TV (720p) [Not 24/7] (source=iptv-org) -> https://video01.logicahost.com.br/mkkwebtv/mkkwebtv/playlist.m3u8
   [DEAD] [HTTP 404] [Indonesia] MNCTV HD (720p) (source=iptv-org) -> https://mncmedia.malingtv.workers.dev/mnctv.m3u8
   [DEAD] [html page, not a stream] [North Macedonia] M-Net HD (720p) (source=iptv-org) -> http://ares.mnet.mk/hls/mnet.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] Moca Vision Canal 48 (720p) [Not 24/7] (source=iptv-org) -> https://stream.castr.com/5da89a909db964293ad13301/live_aa3888e0926511f1af7f414b985a2475/index.fmp4.m3u8
   [DEAD] [HTTP 404] [Venezuela] Monagas Vision (720p) [Not 24/7] (source=iptv-org) -> https://cloud2.streaminglivehd.com:1936/monagasvision-2/monagasvision-2/playlist.m3u8
   [DEAD] [HTTP 404] [Nicaragua] MTV Chontales (720p) [Not 24/7] (source=iptv-org) -> https://altair.hostingnica.net/hls/mtv_stream/index.m3u8
-  [DEAD] [HTTP 404] [Dominican Republic] Musavision (1080p) (source=iptv-org) -> https://cnn.hostlagarto.com/musavisiontv/tracks-v1a1/mono.m3u8
   [DEAD] [HTTP 404] [USA] NBC WLIO (720p) [Not 24/7] (source=iptv-org) -> https://live.field59.com/wlio/wlio1/playlist.m3u8
   [DEAD] [HTTP 404] [USA] NBC WRDE-LD (720p) [Not 24/7] (source=iptv-org) -> https://live.field59.com/wrde/wrde1/playlist.m3u8
   [DEAD] [HTTP 406] [Malta] NET (1080p) (source=iptv-org) -> https://stream.smashmalta.com:25463/live/webplayer/livestream/22.m3u8
   [DEAD] [HTTP 404] [Panama] Nex TV Canal 21 (source=iptv-org) -> https://movil.ejeserver.com/live/nextv.m3u8
   [DEAD] [HTTP 404] [Kenya] Nice TV Kenya (720p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/64ada04aa7678/index.m3u8
   [DEAD] [HTTP 404] [Guatemala] Nim TV (720p) [Not 24/7] (source=iptv-org) -> https://cdn.streamhispanatv.net:3210/live/nimtvgtlive.m3u8
+  [DEAD] [HTTP 404] [Vietnam] Ninh Thuan TV (1080p) (source=iptv-org) -> https://cdnbaokhanhhoa.com/live/90405a889081.m3u8?vhost=video
   [DEAD] [HTTP 404] [Kenya] Njata TV (576p) [Not 24/7] (source=iptv-org) -> https://goliveafrica.media:9998/live/625816e585a2b/index.m3u8
   [DEAD] [html page, not a stream] [Argentina] Norte TV (720p) [Not 24/7] (source=iptv-org) -> https://ntvcanal7.com.ar:81/dash/stream.mpd
   [DEAD] [HTTP 404] [Bulgaria] Nova (Bulgaria) (source=iptv-org) -> http://213.91.179.28:8000/play/a03l
+  [DEAD] [HTTP 404] [Netherlands] NPO 1 HD (720p) [Geo-blocked] (source=iptv-org) -> https://bpm.tv.delta.nl/hls/combined/1/mobile.m3u8
+  [DEAD] [HTTP 404] [Netherlands] NPO 2 HD (720p) [Geo-blocked] (source=iptv-org) -> https://bpm.tv.delta.nl/hls/combined/2/mobile.m3u8
   [DEAD] [HTTP 404] [Netherlands] NPO 3 HD (720p) [Geo-blocked] (source=iptv-org) -> https://bpm.tv.delta.nl/hls/combined/3/mobile.m3u8
-  [DEAD] [HTTP 404] [USA] NTD TV (1080p) (source=iptv-org) -> https://ntd02.akamaized.net/HD-NY/index.m3u8
-  [DEAD] [HTTP 404] [USA] NTD TV West (720p) (source=iptv-org) -> https://ntd02.akamaized.net/HD-LA/index.m3u8
   [DEAD] [HTTP 400] [Malaysia] NTV7 (source=iptv-org) -> https://tonton-live-switch-ssar.akamaized.net/stream-ntv7/master.m3u8?bpkio_serviceid=6c0958d82a830a02ca0936d9cfab8311
   [DEAD] [HTTP 404] [Russia] NTV (Russia) (576p) (source=iptv-org) -> http://45.153.24.78/NTV/index.m3u8
   [DEAD] [HTTP 404] [Chile] Nublevision (720p) (source=iptv-org) -> https://tv.arkeo.cl:1936/nublevision/nublevision/playlist.m3u8
   [DEAD] [HTTP 404] [Dominican Republic] Nueva Vision 14 (1080p) [Not 24/7] (source=iptv-org) -> https://live20.bozztv.com/akamaissh101/ssh101/nuevavisionhd/playlist.m3u8
-  [DEAD] [HTTP 404] [Indonesia] Nusantara TV (1080p) (source=iptv-org) -> https://nusantaratv.siar.us/nusantaratv/live/playlist.m3u8
+  [DEAD] [HTTP 404] [Mexico] Nueve TV (720p) (source=iptv-org) -> https://5ca9af4645e15.streamlock.net/nuevetv/videonuevetv/.m3u8
   [DEAD] [HTTP 404] [Peru] NZK Television (720p) (source=iptv-org) -> https://eu1.servers10.com:8081/8258/index.m3u8
   [DEAD] [HTTP 404] [Venezuela] Oasis Television (720p) [Not 24/7] (source=iptv-org) -> http://vcp1.myplaytv.com/oasistv/oasistv/playlist.m3u8
   [DEAD] [HTTP 404] [Germany] OF-TV Offenbach (720p) (source=iptv-org) -> https://5864df9ceac85.streamlock.net/germanpictures-live/_definst_/mp4:streamschedule/playlist.m3u8
@@ -554,18 +560,11 @@ not probed: unsupported scheme srt            0            1          1
   [DEAD] [HTTP 404] [Turkey] On4 TV (1080p) (source=iptv-org) -> https://edge1.socialsmart.tv/on4/bant1/playlist.m3u8
   [DEAD] [HTTP 404] [Chile] Osorno TV (720p) (source=iptv-org) -> https://videostream.chileservidores.com:8081/osornotv/index.m3u8
   [DEAD] [HTTP 404] [USA] Overcomers TV (720p) (source=iptv-org) -> https://glorystartv.live/Overcomers/index.m3u8
-  [DEAD] [HTTP 404] [Peru] Ozono TV (720p) (source=iptv-org) -> https://live-evg8.tv360.bitel.com.pe/bitel/ozonotv/playlist.m3u8
-  [DEAD] [HTTP 404] [Indonesia] Padang TV (720p) [Not 24/7] (source=iptv-org) -> http://122.248.43.242:1935/PADANGTV/_definst_/myStream/playlist.m3u8
-  [DEAD] [HTTP 404] [Bolivia] Palenque TV (576p) (source=iptv-org) -> http://15.204.246.24:8080/PalenqueTVSD/index.m3u8
-  [DEAD] [HTTP 404] [Argentina] Panc TV (720p) [Not 24/7] (source=iptv-org) -> https://panel.host-live.com:19360/20004/20004.m3u8
-  [DEAD] [HTTP 404] [Serbia] Pannon TV (648p) (source=iptv-org) -> https://stream.nmih.hu:4102/live.m3u8
-  [DEAD] [HTTP 404] [Spain] Pirineus TV (1080p) (source=iptv-org) -> https://s153.ipcamlive.com/streams/99pic5fsknh2gnvhx/stream.m3u8
-  [DEAD] [html page, not a stream] [Bolivia] PLUS Television (720p) (source=iptv-org) -> https://twitch-m3u8.bastypro112.workers.dev/plustelevisionbolivia/index.m3u8
-  [DEAD] [HTTP 404] [Antigua and Barbuda] Pointe TV (source=iptv-org) -> https://tv.pointville.ag/hls/mystream.m3u8
-  ... and 961 more dead links (see report.json).
+  [DEAD] [HTTP 404] [Paraguay] Oviedo TV (source=iptv-org) -> https://video.wilohosting.com:19360/oviedotv/oviedotv.m3u8
+  ... and 979 more dead links (see report.json).
 
 ----------------------------------------------------------------------------------------
-4. UNVERIFIED LINKS (2704)
+4. UNVERIFIED LINKS (2782)
 ----------------------------------------------------------------------------------------
   [UNVERIFIED] [gaierror] [USA] A&E US Eastern Feed (HD) (source=ae-networks) -> https://tvpass.org/live/AEEast/hd
   [UNVERIFIED] [gaierror] [USA] A&E US Eastern Feed (SD) (source=ae-networks) -> https://tvpass.org/live/AEEast/sd
@@ -629,7 +628,10 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [not probed: unsupported scheme rtsp] [Bosnia and Herzegovina] Neon TV (source=free-tv) -> rtsp://185.50.56.16:554/neontelvizija
   [UNVERIFIED] [TimeoutError] [Bosnia and Herzegovina] TV BPK Ⓢ (source=free-tv) -> http://94.250.2.6:7374/play/a02u/index.m3u8
   [UNVERIFIED] [HTTP 403] [Bosnia and Herzegovina] BHT 1 HD (source=aria) -> https://mob.webtvstream.bhtelecom.ba/hls13/bhrtportal_hd_1200.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] Adult Swim (source=aria) -> http://45.185.11.126:8000/play/a06m/index.m3u8
   [UNVERIFIED] [HTTP 403] [Brazil] Canal Saude (source=aria) -> https://eitv7.cdn.broadpeak.io/account351-i1495/event/canalsaude/format720p.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] Discovery Science (source=aria) -> http://45.185.11.126:8000/play/a077/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] TNT Novelas (source=aria) -> http://45.185.11.126:8000/play/a088/index.m3u8
   [UNVERIFIED] [HTTP 403] [Turkey] Bloomberg HT (720p) (source=iptv-org) -> https://ciner-live.daioncdn.net/bloomberght/bloomberght.m3u8
   [UNVERIFIED] [HTTP 403] [Belgium] Canal Z (1080p) (source=iptv-org) -> https://d1hz1p2gea2zy4.cloudfront.net/live/rmgtv/RMG-TRENDSZFR-LIVE/index.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [Singapore] CNBC Asia (720p) (source=iptv-org) -> http://nmk.ioapk.com:5050/4gtv-live130/index.m3u8
@@ -702,6 +704,7 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [ConnectionRefusedError] [Croatia] Sportska televizija Ⓖ (source=free-tv) -> https://stream.agatin.hr:3087/live/sptvlive.m3u8
   [UNVERIFIED] [gaierror] [Croatia] Televizija Zapad (source=free-tv) -> http://webtv.zapad.tv:8080/memfs/1ad23803-84c3-41c7-aa91-fce4c7eac52e.m3u8
   [UNVERIFIED] [TimeoutError] [Senegal] Amani TV (1080p) [Not 24/7] (source=iptv-org) -> https://goccn.cloud/hls/amanitv/index.m3u8
+  [UNVERIFIED] [HTTP 504] [Ukraine] ATR (1080p) (source=iptv-org) -> http://stream.mcquack.net/244/index.m3u8
   [UNVERIFIED] [TimeoutError] [Belgium] BAM-TV (source=iptv-org) -> https://belafrikamediatv.vedge.infomaniak.com/livecast/ik:belafrikamediatv/manifest.m3u8
   [UNVERIFIED] [HTTP 403] [USA] BX Arts (720p) (source=iptv-org) -> https://reflect-stream-bronxnet.cablecast.tv/live-19/live/stream-2/live.m3u8
   [UNVERIFIED] [HTTP 403] [USA] BX Culture (720p) (source=iptv-org) -> https://reflect-stream-bronxnet.cablecast.tv/live-7/live/stream-3/live.m3u8
@@ -712,6 +715,8 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [TimeoutError] [USA] Jus Punjabi (1080p) (source=iptv-org) -> http://103.154.3.101:5001/live/959.m3u8
   [UNVERIFIED] [TimeoutError] [UK] Kalsan TV (576p) (source=iptv-org) -> https://ap02.iqplay.tv:8082/iqb8002/ka1s0n/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Pakistan] Mehran TV (576p) (source=iptv-org) -> http://103.250.28.74:8000/play/a00m/index.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Midpen Media Center Channel 30 (720p) (source=iptv-org) -> https://5c2974786200d.streamlock.net/live-chan30/ngrp:ch30_all/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Midpen Media Center Channel 75 (720p) (source=iptv-org) -> https://5c2974786200d.streamlock.net/live-chan75/ngrp:ch75_all/playlist.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [North Macedonia] MRT 2 [Geo-blocked] (source=iptv-org) -> https://vipottbpkstream.vip.hr/Content/onevip-hls/Live/Channel(MRT_2)/index.m3u8
   [UNVERIFIED] [gaierror] [France] Museum TV French [Geo-blocked] (source=iptv-org) -> https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01492-secomsasmediart-museumtv-eng-samsungit/playlist.m3u8
   [UNVERIFIED] [OSError] [Turkey] Natural TV (720p) [Not 24/7] (source=iptv-org) -> http://broadcasttr.com:1935/naturaltv/bant1/playlist.m3u8
@@ -730,10 +735,27 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [TimeoutError] [India] Shiksha TV (576p) (source=iptv-org) -> http://51.75.127.199:3141/shikshatv/index.m3u8
   [UNVERIFIED] [TimeoutError] [India] Jaya Plus (576p) (source=iptv-org) -> https://mumbai-edge.smartplaytv.in/JayaPLus/index.m3u8
   [UNVERIFIED] [HTTP 403] [Vietnam] Vinh Long TV 2 (1080p) (source=iptv-org) -> https://1011154949.vnns.net/CDN-FPT02/THVL2-HD-1080p/playlist.m3u8
-  [UNVERIFIED] [HTTP 502] [Argentina] Somos Entre Rios (360p) (source=iptv-org) -> https://live20.bozztv.com/akamaissh101/ssh101/somosentrerios/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Colombia] Ondambiental TV (360p) (source=iptv-org) -> https://stmv4.voxtvhd.com.br/ondastereo/ondastereo/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Chile] Radio Suyai TV (1080p) (source=iptv-org) -> https://cl-2.backend.energeek.cl/RadioSuyai-Neo/index.m3u8
   [UNVERIFIED] [TimeoutError] [Germany] Ost West (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/OstWest/video.m3u8
   [UNVERIFIED] [HTTP 403] [Spain] El 33 (1080p) [Geo-blocked] (source=iptv-org) -> https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
+  [UNVERIFIED] [TimeoutError] [Czechia] CNN Prima News (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaNews
+  [UNVERIFIED] [TimeoutError] [Czechia] CS Film (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+Film
+  [UNVERIFIED] [TimeoutError] [Czechia] CS History (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+History
+  [UNVERIFIED] [TimeoutError] [Czechia] CS Mystery (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+Mystery
+  [UNVERIFIED] [TimeoutError] [Czechia] JOJ Cinema (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Cinema
+  [UNVERIFIED] [TimeoutError] [Czechia] JOJ Family Ⓢ (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Family
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Action (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaAction
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Cinema (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaCinema
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Fun (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaFun
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Gold (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaGold
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Lady (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaLady
+  [UNVERIFIED] [TimeoutError] [Czechia] Prima Krimi (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaKrimi
+  [UNVERIFIED] [TimeoutError] [Czechia] Prima MAX (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaMax
+  [UNVERIFIED] [TimeoutError] [Czechia] TN Live (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=Nova+TN+Live
+  [UNVERIFIED] [TimeoutError] [Czechia] TV Nova Ⓢ (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=Nova
+  [UNVERIFIED] [TimeoutError] [Czechia] ČT :D (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CT_D
+  [UNVERIFIED] [TimeoutError] [Czechia] ČT sport Plus (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=%C4%8CT+sport+Plus
   [UNVERIFIED] [OSError] [Czechia] Šlágr Premium Ⓢ (source=free-tv) -> https://stream-15.mazana.tv/slagrpremium.m3u
   [UNVERIFIED] [HTTP 403] [Czechia] AMC (source=aria) -> http://185.236.230.212:9981/play/a0bb
   [UNVERIFIED] [HTTP 403] [Czechia] CANAL+ ACTION HD (source=aria) -> http://185.236.230.212:9981/play/a0bw
@@ -844,6 +866,7 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [HTTP 403] [Russia] Kto est kto (576p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/kto_est_kto/index.m3u8
   [UNVERIFIED] [HTTP 403] [Sweden] Kunskapskanalen HD (1080p) [Geo-blocked] (source=iptv-org) -> https://svt-live-channel.akamaized.net/l6/se/svtk/master-fmp4.m3u8?defaultSubLang=1&format=hls
   [UNVERIFIED] [HTTP 403] [USA] LA36 (1080p) (source=iptv-org) -> https://reflect-channel36-la.cablecast.tv/live-3/live/stream-1/live.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Midpen Media Center Channel 28 (720p) (source=iptv-org) -> https://5c2974786200d.streamlock.net/live-chan28/ngrp:ch28_all/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [USA] Monroe Community Media Education Channel (source=iptv-org) -> https://reflect-monroe-public-access.cablecast.tv/live-4/live/live.m3u8
   [UNVERIFIED] [HTTP 403] [USA] MSTV (1080p) (source=iptv-org) -> https://reflect-mcsb-vod.cablecast.tv/live-16/live/live.m3u8
   [UNVERIFIED] [HTTP 403] [USA] PSD TV (720p) (source=iptv-org) -> https://reflect-broadcast-psdschools.cablecast.tv/live-6/live/live.m3u8
@@ -871,7 +894,6 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [gaierror] [USA] AMC en Espanol (source=iptv-org) -> https://amc-amcespanol-1-us.lg.wurl.tv/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Germany] Anixe + (360p) (source=iptv-org) -> https://ma.anixa.tv/clips/stream/anixesd/index.m3u8
   [UNVERIFIED] [HTTP 403] [Germany] Anixe HD Serie (360p) (source=iptv-org) -> https://ma.anixa.tv/clips/stream/anixehd/index.m3u8
-  [UNVERIFIED] [ConnectionRefusedError] [India] Anjan TV (720p) (source=iptv-org) -> https://anjan.vstream.online/anjanorg/ngrp:anjan_hdall/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Greece] ANT1 (1080p) [Geo-blocked] (source=iptv-org) -> https://mcdn.antennaplus.gr/live/media0/Ant1/HLS/Ant1.m3u8
   [UNVERIFIED] [gaierror] [Dominican Republic] Antena 21 (480p) (source=iptv-org) -> https://alba-do-antena7-c21.stream.mediatiquestream.com/index.m3u8
   [UNVERIFIED] [TimeoutError] [Pakistan] A-Plus TV (576p) (source=iptv-org) -> http://115.42.65.142:9981/stream/channelid/113328724
@@ -882,13 +904,13 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [TimeoutError] [Pakistan] AVT Khyber (1080p) (source=iptv-org) -> http://115.42.65.142:9981/stream/channelid/1380586642
   [UNVERIFIED] [SSLEOFError] [USA] AXN White (source=iptv-org) -> https://onyx1.mofta1.cfd/axwhite/usergenx23rnd.m3u8
   [UNVERIFIED] [TimeoutError] [USA] AXN White Bulgaria (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_AXN_White/video.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] AXN White Portugal (480p) (source=iptv-org) -> http://50.7.120.34:8080/AXN_WHITE/index.m3u8
   [UNVERIFIED] [SSLEOFError] [UK] BBC First Romania (source=iptv-org) -> https://onyx1.mofta1.cfd/bibi1/usergendxn09l2s6cek.m3u8
+  [UNVERIFIED] [RemoteDisconnected] [Belarus] Belarus-2 HD (1080p) (source=iptv-org) -> https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2.smil/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Mexico] bitMe (1080p) (source=iptv-org) -> https://cablered.iptvperu.tv:1936/cablered/bitme-srt_new/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Mexico] bitMe Latin America (1080p) (source=iptv-org) -> https://cablered.iptvperu.tv:1936/cablered/bitme_new/playlist.m3u8
-  [UNVERIFIED] [TimeoutError] [Uzbekistan] BIZ TV (1080p) (source=iptv-org) -> https://fl.biztv.media/biz_tv_720_uni8jhub4h8fub4idejswh8dh3j94finbu4nidj39inwsj92in3d/index.m3u8
   [UNVERIFIED] [HTTP 403] [UK] Blaze (576p) [Geo-blocked] (source=iptv-org) -> https://live-blaze-ssai.simplestreamcdn.com/v1/master/774d979dd66704abea7c5b62cb34c6815fda0d35/blaze-live-broadcast-scte/index.m3u8
   [UNVERIFIED] [RemoteDisconnected] [Brazil] Blitstv (source=iptv-org) -> https://stmv1.transmissaodigital.com/blitstv/blitstv/playlist.m3u8
-  [UNVERIFIED] [TimeoutError] [Uganda] BTV (Uganda) (480p) (source=iptv-org) -> https://streamfi-alphadgtl1.zettawiseroutes.com:8181/hls/stream.m3u8
   [UNVERIFIED] [TimeoutError] [Brazil] Cabo Frio TV (720p) (source=iptv-org) -> https://59f2354c05961.streamlock.net:1443/ararutv/_definst_/ararutv/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Argentina] Canal 10 Mar del Plata (source=iptv-org) -> https://g1.mc-hor.transport.edge-access.net/a12/ngrp:canal10mdq-100044_all/Playlist.m3u8?sense=true
   [UNVERIFIED] [gaierror] [Italy] Canale 5 [Geo-blocked] (source=iptv-org) -> https://live3-mediaset-it.akamaized.net/Content/hls_h0_clr_vos/live/channel(C5)/index.m3u8
@@ -897,7 +919,6 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [HTTP 403] [Switzerland] Carac 1 (1080p) (source=iptv-org) -> http://145.239.5.177/371/index.m3u8
   [UNVERIFIED] [HTTP 403] [New Zealand] Channel 200 (540p) (source=iptv-org) -> https://d1jlnqid3sfc6m.cloudfront.net/out/v1/3fc2254c865a457c8d7fbbce227a2aae/index.m3u8
   [UNVERIFIED] [HTTP 530] [Myanmar] Channel K (720p) (source=iptv-org) -> https://mmtvs.exliatycl.online/channelk/stream.m3u8
-  [UNVERIFIED] [TimeoutError] [Uzbekistan] Cheksiz TV (source=iptv-org) -> https://fl.biztv.media/cheksiz_tv_480_unif7hujidth7f4du83jrhuid3k94j8hfj8d93eubych8eju93n4ubt/tracks-v1a1/mono.m3u8
   [UNVERIFIED] [TimeoutError] [India] Colors Bangla (576p) (source=iptv-org) -> http://51.75.127.199:3141/colorsbanglasd/index.m3u8
   [UNVERIFIED] [TimeoutError] [India] Colors Bangla HD (1080p) (source=iptv-org) -> http://103.165.93.31:8095/colorsBangla/index.m3u8
   [UNVERIFIED] [TimeoutError] [India] Colors HD (1080p) (source=iptv-org) -> http://66.102.126.10:8000/play/a00a/index.m3u8
@@ -919,8 +940,6 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [HTTP 403] [Turkey] GEM Entertainment (source=iptv-org) -> https://ca-rt.onetv.app/gementertainment/index-0.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [Turkey] GEM River (source=iptv-org) -> https://ca-rt.onetv.app/gemriver/index-0.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [Turkey] GEM River + (source=iptv-org) -> https://ca-rt.onetv.app/gemriverplus/index-0.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [TimeoutError] [Italy] Gold TV (576p) (source=iptv-org) -> https://streaming.softwarecreation.it/GoldTv/GoldTv/playlist.m3u8
-  [UNVERIFIED] [TimeoutError] [Italy] Gold TV Sat (576p) (source=iptv-org) -> https://streaming.softwarecreation.it/GoldTvSat/GoldTvSat/playlist.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [Guatemala] GTV (Guatemala) (768p) [Not 24/7] (source=iptv-org) -> https://cdn.streamhispanatv.net:3126/live/genesistvlive.m3u8
   [UNVERIFIED] [gaierror] [Italy] Iris [Geo-blocked] (source=iptv-org) -> https://live3-mediaset-it.akamaized.net/Content/hls_h0_clr_vos/live/channel(ki)/index.m3u8
   [UNVERIFIED] [HTTP 403] [Italy] Iris HD (1080p) (source=iptv-org) -> https://live02-seg.msf.cdn.mediaset.net/live/ch-ki/ki-clr.isml/index.m3u8
@@ -938,32 +957,30 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [TimeoutError] [Colombia] MaxTV [Not 24/7] (source=iptv-org) -> https://inliveserver.com:1936/8078/8078/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Thailand] Maya Channel (source=iptv-org) -> http://146.88.62.69:1935/Transcoder/%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%B2HD.stream_576p/playlist.m3u8
   [UNVERIFIED] [HTTP 530] [Myanmar] M Entertainment Channel (720p) (source=iptv-org) -> https://mmtvs.exliatycl.online/mchannel/stream.m3u8
-  [UNVERIFIED] [TimeoutError] [Paraguay] MiTV (720p) (source=iptv-org) -> https://rds3.desdeparaguay.net/mitv/mitv/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Thailand] MONO 29 (source=iptv-org) -> https://lb1-live-mv.v2h-cdn.com/hls/ffbc/ffolvgdhk/ffolvgdhk.m3u8
   [UNVERIFIED] [TimeoutError] [Peru] Movistar Plus (576p) (source=iptv-org) -> http://45.4.1.201:8000/play/a19y/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Myanmar] MRTV Entertainment (source=iptv-org) -> https://mrtvott.com/cache/MRTV-Ent-HD/master.m3u8
   [UNVERIFIED] [TimeoutError] [France] MTV (France) (source=iptv-org) -> http://99.27.51.147:8080/MTV/index.m3u8
   [UNVERIFIED] [HTTP 403] [UK] MTV Global (720p) (source=iptv-org) -> http://dvr2.kablova.tv/MTV/index.m3u8
   [UNVERIFIED] [TimeoutError] [India] Nakshatra Digital TV (576p) (source=iptv-org) -> http://51.75.127.199:3141/nakshatradigitaltv/index.m3u8
   [UNVERIFIED] [TimeoutError] [USA] NBC Universo West (720p) (source=iptv-org) -> http://190.11.225.124:5000/live/universo_hd/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [China] Ningxia Satellite Channel (576p) (source=iptv-org) -> http://39.134.115.163:8080/PLTV/88888910/224/3221225726/index.m3u8
   [UNVERIFIED] [HTTP 503] [Aruba] Nos Isla TV (1080p) [Not 24/7] (source=iptv-org) -> https://backend-server-dot-telearuba-app.appspot.com/media/livestream23/playlist.m3u8
-  [UNVERIFIED] [TimeoutError] [Curacao] Nos Pais (720p) [Not 24/7] (source=iptv-org) -> https://5f86a49aedff6.streamlock.net/nos_pais_24_7/nos_pais_24_7/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Norway] NRK3 (1080i) [Geo-blocked] (source=iptv-org) -> https://nrk-live-no.akamaized.net/nrk3/muxed.m3u8
   [UNVERIFIED] [HTTP 403] [Togo] NW Magazine (576p) (source=iptv-org) -> https://hls.newworldtv.com/nw-magazine/video/live.m3u8
   [UNVERIFIED] [HTTP 403] [Costa Rica] ¡OPA! (720p) (source=iptv-org) -> https://5f1af61612fb5.streamlock.net/genteopa/videogenteopa_720p/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Pakistan] Pashto 1 (1080p) (source=iptv-org) -> http://103.250.28.74:8000/play/a00t/index.m3u8
   [UNVERIFIED] [TimeoutError] [Italy] Passione Lotto (300p) (source=iptv-org) -> http://185.63.52.103:8080/hls/passionelotto/1_2/index.m3u8
   [UNVERIFIED] [TimeoutError] [Pakistan] Play Entertainment (576p) (source=iptv-org) -> http://103.250.28.74:8000/play/a050/index.m3u8
-  [UNVERIFIED] [TimeoutError] [Poland] Polsat Reality (720p) (source=iptv-org) -> https://lon1-y7p7cyzc7vdh.lolokoko.tv/f_PolsatReality.stream/playlist.m3u8
   [UNVERIFIED] [gaierror] [USA] Popstar! TV (1080p) [Not 24/7] (source=iptv-org) -> https://linear-10.frequency.stream/dist/plex/10/hls/master/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Kazakhstan] Qonaev Media (source=iptv-org) -> https://s.qonaevtv.kz/live/qonaev/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] .red (576p) (source=iptv-org) -> http://5.188.159.128:8070/RED/index.m3u8
   [UNVERIFIED] [gaierror] [Brazil] Rede Premium TV (720p) (source=iptv-org) -> https://cdn-tiva-stmv2-samcast-com-br.smartbit.co/leonardo9878/leonardo9878/playlist.m3u8
-  [UNVERIFIED] [HTTP 503] [Peru] Riku TV (1080p) (source=iptv-org) -> https://amixtv.com:8081/rikutv/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Peru] Riku TV (1080p) (source=iptv-org) -> https://amixtv.com:8081/rikutv/index.m3u8
   [UNVERIFIED] [HTTP 503] [USA] Roar WKEF (1080p) (source=iptv-org) -> https://linear-690.frequency.stream/dist/stirr/690/hls/master/playlist.m3u8
   [UNVERIFIED] [HTTP 503] [USA] Roar WSBT-TV (1080p) (source=iptv-org) -> https://linear-693.frequency.stream/dist/stirr/693/hls/master/playlist.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [Singapore] ROCK Action (1080p) (source=iptv-org) -> http://nmk.ioapk.com:5050/4gtv-live138/index.m3u8
   [UNVERIFIED] [HTTP 403] [Luxembourg] RTL9 (720p) (source=iptv-org) -> http://145.239.5.177/308/index.m3u8
-  [UNVERIFIED] [TimeoutError] [Bangladesh] Rupashi Bangla TV (720p) (source=iptv-org) -> https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/ruposhibangla.stream/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Netherlands] SBS6 Classics (1080p) [Geo-blocked] (source=iptv-org) -> https://sbs6classic.prd1.talpatvcdn.nl/v1/master/8ada1ed2ae3b9c3db6fc5e604cfa78fc7d2d745e/sbs6classic_ssai/fea54560ba684701a2143f33a9cf4489/index.m3u8
   [UNVERIFIED] [HTTP 504] [Brazil] Show do Milhao (1080p) [Geo-blocked] (source=iptv-org) -> https://d38s7rrdbnh4oy.cloudfront.net/v1/master/215c0da80606fed29372070168106400a6ca7e1a/SSAI-Saudades/index.m3u8
   [UNVERIFIED] [TimeoutError] [Portugal] Star Channel (Portugal) (source=iptv-org) -> http://znty.dyndns.org:5010/hls/fox.m3u8
@@ -994,6 +1011,7 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [HTTP 521] [Sri Lanka] Asia TV (720p) (source=iptv-org) -> https://stream.asiatvnet.com/1/live/master.m3u8
   [UNVERIFIED] [HTTP 403] [France] RMC Life (1080p) (source=iptv-org) -> http://145.239.5.177/333/index.m3u8
   [UNVERIFIED] [TimeoutError] [Chile] PRIDEtv LATAM (1080p) (source=iptv-org) -> https://backend.energeek.cl/webtv/pridetvweb/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [TimeoutError] [Paraguay] GO TV (720p) (source=iptv-org) -> https://rds3.desdeparaguay.net/gotv/gotv/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Poehali! (1080p) (source=iptv-org) -> http://31.148.48.15/Poehali/index.m3u8
   [UNVERIFIED] [gaierror] [USA] Rakuten Viki (1080p) (source=iptv-org) -> https://newidco-rakutenviki-2-eu.xiaomi.wurl.tv/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Peru] Canal IPe (720p) (source=iptv-org) -> http://187.102.210.46/IPE/index.m3u8
@@ -1023,6 +1041,7 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [HTTP 403] [France] TV5 Monde Info (source=free-tv) -> https://ott.tv5monde.com/Content/HLS/Live/channel(info)/index.m3u8
   [UNVERIFIED] [HTTP 403] [France] W9 (source=free-tv) -> http://145.239.5.177/331a/index.m3u8
   [UNVERIFIED] [HTTP 403] [France] BFM TV (source=aria) -> https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TV/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Spain] 101tv Sevilla (source=iptv-org) -> https://liveingesta318.cdnmedia.tv/101weblive/smil:sevilla.smil/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Ukraine] 1+1 International (source=iptv-org) -> http://158.101.222.193:88/georgia_play.php?id=1plus1international
   [UNVERIFIED] [HTTP 403] [Spain] 9 la Loma TV (1080p) [Geo-blocked] (source=iptv-org) -> https://9laloma.tv/live.m3u8
   [UNVERIFIED] [HTTP 503] [USA] ABC WJLA-TV (1080p) (source=iptv-org) -> https://linear-681.frequency.stream/dist/stirr/681/hls/master/playlist.m3u8
@@ -1043,28 +1062,8 @@ not probed: unsupported scheme srt            0            1          1
   [UNVERIFIED] [HTTP 403] [Albania] Alpo TV (source=iptv-org) -> https://vs.sednastream.com:1936/alportv/alportv/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [North Macedonia] Alsat (576p) (source=iptv-org) -> http://5.254.89.106/8713/index.m3u8
   [UNVERIFIED] [TimeoutError] [Germany] Altenburg TV (1080p) (source=iptv-org) -> https://58de7a369a9c4.streamlock.net/abgtv/abgtv_1080p/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Antena 3 (source=iptv-org) -> https://cdn.stmify.com/zapitv/stream/ANTENA_3/test.mpd
   [UNVERIFIED] [gaierror] [Dominican Republic] Antena 7 (480p) (source=iptv-org) -> https://alba-do-antena7-antena7.stream.mediatiquestream.com/index.m3u8
   [UNVERIFIED] [TimeoutError] [Italy] Antenna Sud (720p) (source=iptv-org) -> https://live.antennasudwebtv.it:9443/hls/vod.m3u8
   [UNVERIFIED] [TimeoutError] [Italy] Antenna Sud Extra (720p) (source=iptv-org) -> https://live.antennasudwebtv.it:9443/hls/vod92.m3u8
-  [UNVERIFIED] [TimeoutError] [Italy] Antenna Tre (480p) [Geo-blocked] (source=iptv-org) -> https://59d8c0cee6f3d.streamlock.net/antennatreveneto/antennatreveneto.stream/playlist.m3u8
-  [UNVERIFIED] [TimeoutError] [DR Congo] Antenne A (source=iptv-org) -> http://51.254.199.122:8080/antenne_a-plus/index.m3u8
-  [UNVERIFIED] [HTTP 401] [Indonesia] ANTV (Indonesia) (720p) (source=iptv-org) -> http://103.58.160.157:8278/720-ANTV/playlist.m3u8
-  [UNVERIFIED] [TimeoutError] [Pakistan] Apna Channel (576p) (source=iptv-org) -> http://115.42.65.142:9981/stream/channelid/1273966657
-  [UNVERIFIED] [HTTP 403] [Kazakhstan] Aqjaiyq (576p) (source=iptv-org) -> https://stream.kaztrk.kz/regional/oraltv/index.m3u8
-  [UNVERIFIED] [HTTP 403] [Kazakhstan] Aqtobe (576p) (source=iptv-org) -> https://stream.kaztrk.kz/regional/aktobetv/index.m3u8
-  [UNVERIFIED] [gaierror] [Russia] Arktika 24 (1080p) (source=iptv-org) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/arhangelsk/arktika24-hd/index.m3u8
-  [UNVERIFIED] [TimeoutError] [Somalia] Arlaadi TV (source=iptv-org) -> https://ap02.iqplay.tv:8082/iqb8002/alr114iapp/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [Armenia] Armenia 1 (1080p) (source=iptv-org) -> https://ifl01eu-new.bozztv.com/am1abr/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] ARTN TV (1080p) [Not 24/7] (source=iptv-org) -> https://streamer1.connectto.com/ARTN_mobile/index.m3u8
-  [UNVERIFIED] [HTTP 500] [Greece] ART TV (source=iptv-org) -> https://rtmp.win:3696/live/arttvgrlive.m3u8
-  [UNVERIFIED] [TimeoutError] [Bolivia] As Contenidos (720p) (source=iptv-org) -> https://master.tucableip.com/ascontenido/index.m3u8
-  [UNVERIFIED] [TimeoutError] [Austria] ATV (Austria) HD (1080p) (source=iptv-org) -> http://212.186.45.34:9981/stream/channelid/692531719?profile=pass
-  [UNVERIFIED] [TimeoutError] [Hungary] ATV (Hungary) (160p) (source=iptv-org) -> https://streamservers.atv.hu/atvlive/atvstream_1_aac/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [Kazakhstan] Atyray (720p) (source=iptv-org) -> https://stream.kaztrk.kz/regional/atyrautv/index.m3u8
-  [UNVERIFIED] [gaierror] [Brazil] Auge TV (720p) (source=iptv-org) -> https://cdn-tiva-video01-logicahost-com-br.smartbit.co/canalaugetv/canalaugetv/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] AuroraTV (720p) (source=iptv-org) -> https://reflect-aurora.cablecast.tv/live-8/live/live.m3u8
-  [UNVERIFIED] [TimeoutError] [Tajikistan] Badakhshon (576p) (source=iptv-org) -> https://live.teleradiocom.tj/11/3m.m3u8
-  [UNVERIFIED] [TimeoutError] [Germany] Baden TV (1080p) [Not 24/7] (source=iptv-org) -> http://badentv-stream2.siebnich.info/rtplive/btv.stream/live.m3u8
-  [UNVERIFIED] [TimeoutError] [Ukraine] Balta TV (768p) (source=iptv-org) -> http://194.50.51.34/playlist.m3u8
-  [UNVERIFIED] [ConnectionRefusedError] [Moldova] Balti TV (1080p) [Geo-blocked] (source=iptv-org) -> http://77.89.199.174:8000/play/1024/index.m3u8
-  ... and 2204 more unverified links (see report.json).
+  ... and 2282 more unverified links (see report.json).

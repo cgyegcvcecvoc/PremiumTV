@@ -832,3 +832,79 @@ ISSUES / ERRORS:
   * 1461 links returned a confirmed failure (see dead details).
   * This run started +3h 29m after its scheduled time (2026-10-01T20:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261002T134850Z-2295
+TIMESTAMP:    2026-10-02 09:52 AM EDT (2026-10-02T13:48:50Z -> 2026-10-02T13:52:37Z)
+LABEL / TYPE: 3:07 AM daily scrape [regular_check]
+STATUS:       WARNING (checked=True, duration=227.28s)
+PLAYLISTS:    working=12225 / unique=16486 (dead=1479, unverified=2782)
+COUNTRIES:    177 country playlists updated in playlists/countries/
+A&E CHANNELS: 68 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +317 channels added / -296 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [Mexico] Claro Cinema (1080p) (iptv-org) -> http://158.172.217.18:8000/play/a00d/index.m3u8
+  + [Guatemala] Vea Canal (720p) (iptv-org) -> http://181.78.106.127:5000/play/ca090/index.m3u8
+  + [USA] ESNE TV (1080p) (iptv-org) -> http://190.217.66.92:8000/play/a0fp/index.m3u8
+  + [Spain] AXN (Spain) (1080p) (iptv-org) -> http://193.254.245.162/AXN/index.m3u8
+  + [France] MCM Pop (576p) (iptv-org) -> http://193.254.245.162/MCM/index.m3u8
+  + [USA] Paramount Network (432p) (iptv-org) -> http://193.254.245.162/PARAMOUNT-CHANNEL/index.m3u8
+  + [France] Paris Premiere (720p) (iptv-org) -> http://193.254.245.162/PARIS-PREMIERE/index.m3u8
+  + [USA] VH1 (432p) (iptv-org) -> http://193.254.245.162/VH1/index.m3u8
+  + [USA] [UAE League Cup] Al Ain vs Ajman (FAWA) (doms9) -> http://193.47.62.50/hls/RIII.m3u8
+  + [USA] [UAE League Cup] Al Wasl vs Ittihad Kalba (FAWA) (doms9) -> http://193.47.62.50/hls/RIIIA.m3u8
+  + [USA] [UEFA Nations League] Kazakhstan vs Moldova 1 (FAWA) (doms9) -> http://193.47.62.50/hls/RIIIAA.m3u8
+  + [Mexico] Az Corazon (720p) (iptv-org) -> http://200.115.120.1:8000/play/ca020/index.m3u8
+  + [Guatemala] Guatevision (1080p) (iptv-org) -> http://200.115.120.1:8000/play/ca066/index.m3u8
+  + [India] UP NOW (720p) (iptv-org) -> http://45.122.122.61:8080/UPNOW/video.m3u8
+  + [Colombia] Claro Musica TV (1080p) (iptv-org) -> http://45.171.64.30:6060/play/a010
+  + [Brazil] Telecine Action (1080p) (iptv-org) -> http://46.151.196.223:14326/
+  + [Poland] TVC (Poland) (1080p) (iptv-org) -> http://57.128.231.171:8080/214/index.m3u8
+  + [Poland] MTV (Poland) (1080p) (iptv-org) -> http://57.128.231.171:8080/227/index.m3u8
+  + [Romania] PRO TV International (iptv-org) -> http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-ro-protv-international/live_fullhd?offsetSeconds=0
+  + [Romania] PRO TV HD (1080p) (iptv-org) -> http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-ro-protv/live_fullhd?offsetSeconds=0
+  + [France] TMC HD (1080p) [Geo-blocked] (iptv-org) -> http://tv.streambox.fr/live/testlivestream/testlivestream/13.m3u8
+  + [France] Canal+ Sport (1080p) [Geo-blocked] (iptv-org) -> http://tv.streambox.fr/live/testlivestream/testlivestream/31.m3u8
+  + [France] Golf + (1080p) [Geo-blocked] (iptv-org) -> http://tv.streambox.fr/live/testlivestream/testlivestream/49.m3u8
+  + [USA] [Golf] Alfred Dunhill Links Championship – Segunda Vuelta | Disney+ (TVF90) (doms9) -> https://10.ftlly.com:443/disney21/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Eerste Divisie] Helmond Sport vs Heracles | ESPN NL | OP3 (TVF90) (doms9) -> https://10.ftlly.com:443/espn1_nl/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Eerste Divisie] Helmond Sport vs Heracles | ESPN NL | OP2 (TVF90) (doms9) -> https://10.ftlly.com:443/espn1_nl/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [UEFA Nations League] Bosnia-Herzegovina vs Suecia | ESPN 2 | OP2 (TVF90) (doms9) -> https://10.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [NHL] Detroit Red Wings vs New York Rangers | ESPN 3 | OP2 (TVF90) (doms9) -> https://10.ftlly.com:443/espn3/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Copa de la División Profesional] San Antonio Bulo Bulo vs ABB | Entel TV PLUS+ (TVF90) (doms9) -> https://10.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga MX Femenil] Monterrey vs América | TUDN USA (TVF90) (doms9) -> https://10.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
+REMOVED CHANNELS (SAMPLE):
+  - [USA] ESNE TV (720p) (previous) -> http://168.196.127.137:6001/play/a071/index.m3u8
+  - [USA] [Golf PGA] Golf PGA Bank of Utah Championship (FAWA) (previous) -> http://193.47.62.41/hls/zfffAA.m3u8
+  - [USA] [Bolivia Copa] Blooming vs Independiente (FAWA) (previous) -> http://193.47.62.44/hls/USSSS.m3u8
+  - [USA] [Colombia Primera A] Inter Bogota vs Once Caldas (FAWA) (previous) -> http://193.47.62.44/hls/USSSSA.m3u8
+  - [USA] [WNBA Basketball] Las Vegas Aces W vs Indiana Fever W (FAWA) (previous) -> http://193.47.62.44/hls/USSSSAA.m3u8
+  - [USA] [NCAA American Football] Tulsa vs North Texas (FAWA) (previous) -> http://193.47.62.44/hls/USSSSAAA.m3u8
+  - [USA] [Rugby NZ NPC] Southland vs Northland (FAWA) (previous) -> http://193.47.62.44/hls/USSSSAAAAA.m3u8
+  - [USA] [NCAA American Football] New Mexico State vs Western Kentucky (FAWA) (previous) -> http://193.47.62.50/hls/QRRRQ.m3u8
+  - [USA] [MLB Baseball] Atlanta Braves vs Philadelphia Phillies (FAWA) (previous) -> http://193.47.62.50/hls/QRRRQQ.m3u8
+  - [USA] [Argentina Liga Profesional] Platense vs Estudiantes LP (FAWA) (previous) -> http://193.47.62.50/hls/QRRRQQQ.m3u8
+  - [USA] [CONCACAF Nations League] British Virgin Islands vs Montserrat (FAWA) (previous) -> http://193.47.62.55/hls/AIIIAAAA.m3u8
+  - [USA] [CONCACAF Nations League] United States Virgin Islands vs Saint Martin (FAWA) (previous) -> http://193.47.62.55/hls/AIIIAAAAA.m3u8
+  - [USA] [Colombia Primera B] Envigado vs Orsomarso (FAWA) (previous) -> http://193.47.62.55/hls/BBBBA.m3u8
+  - [USA] [CONCACAF Nations League] Dominica vs Guyana (FAWA) (previous) -> http://193.47.62.55/hls/BBBBAA.m3u8
+  - [USA] [Paraguay Copa] Olimpia Asuncion vs Sp Luqueno (FAWA) (previous) -> http://193.47.62.55/hls/BBBBAAAA.m3u8
+  - [USA] [Bolivia Copa] Bolivar vs GV San Jose (FAWA) (previous) -> http://193.47.62.55/hls/BBBBAAAAA.m3u8
+  - [USA] [CONCACAF Nations League] Anguilla vs Antigua and Barbuda (FAWA) (previous) -> http://193.47.62.55/hls/BBBBAAAAAA.m3u8
+  - [USA] [Brazil Serie B] Athletic Club vs Sport Recife (FAWA) (previous) -> http://193.47.62.55/hls/BBBBAAAAAAA.m3u8
+  - [USA] [Brazil Serie B] Novorizontino vs Goias (FAWA) (previous) -> http://193.47.62.55/hls/BBBBAAAAAAAQ.m3u8
+  - [USA] [CONCACAF Nations League] Curacao vs Trinidad and Tobago (FAWA) (previous) -> http://193.47.62.55/hls/BBBBAAAAAAAQQ.m3u8
+  - [USA] [CONCACAF Nations League] Cayman Islands vs Puerto Rico (FAWA) (previous) -> http://193.47.62.55/hls/QRRR.m3u8
+  - [USA] [NFL American Football] Cleveland Browns vs Pittsburgh Steelers 1 (FAWA) (previous) -> http://193.47.62.59/hls/QRRRQQQQ.m3u8
+  - [USA] [NFL American Football] Cleveland Browns vs Pittsburgh Steelers 2 (FAWA) (previous) -> http://193.47.62.59/hls/QRRRQQQQR.m3u8
+  - [USA] Disney Channel (United States) HD East (720p) (previous) -> http://4.30.180.36:8420/disneychannel/index.m3u8?token=%5Bredacted%5D
+  - [USA] Disney Jr. (previous) -> http://95.143.42.59:1234/stream/rocketchannels/rocket_1493/master.m3u8
+  - [Romania] PRO TV HD (previous) -> http://eb4b8dcf.kablakaka.ru/iptv/3KZ2W9GEEY49ZV/6997/index.m3u8
+  - [USA] [Hockey] Buffalo Sabres vs. Columbus Blue Jackets | Disney+ (TVF90) (previous) -> https://10.ftlly.com:443/disney23/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Inter Bogotá vs Once Caldas | Win Sports + | OP2 (TVF90) (previous) -> https://10.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NFL] Cleveland Browns vs. Pittsburgh Steelers | ESPN 5 | OP3 (TVF90) (previous) -> https://11.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NFL] Cleveland Browns vs. Pittsburgh Steelers | ESPN 5 | OP2 (TVF90) (previous) -> https://11.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+ISSUES / ERRORS:
+  * 2782 links could not be confirmed after retries (see unverified details).
+  * 1479 links returned a confirmed failure (see dead details).
+  * This run started +6h 42m after its scheduled time (2026-10-02T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+
