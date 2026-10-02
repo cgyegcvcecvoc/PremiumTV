@@ -25,7 +25,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md) | Nightly deep check: which published links are working, offline, unreachable, blocked, and what was patched out. |
 | [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md) | TV guide check: every advertised guide URL with its status, channel/programme counts, and dead guides removed. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
-| [`playlists/sources/priority-channels.m3u`](playlists/sources/priority-channels.m3u) | Verified links for the priority channels, re-checked on every scrape. |
+| [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons) and the same guides as the main playlist. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
@@ -197,6 +197,14 @@ Nothing is guessed: a link is only written after a media segment downloaded succ
 reports every candidate it tested and the reason each one failed in
 [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md), so a channel with no working
 public link is visible rather than silently missing.
+
+Ranking favours the links worth keeping: the configured **`country`** first (`"us"` for all four
+targets today, taken from the `tvg-id`/`tvg-name`), then an exact name match, then links **without**
+a token or expiry in the URL — a signed link that plays today and 404s tomorrow is demoted below a
+stable one. `blocklist` in the same config holds URL fragments that must never be collected, which is
+how a feed several indexes list as "MeTV Toons" but which actually carries a different network stays
+out. GitHub code search is best effort: it is rate limited (429) when the hunt runs more than about
+once an hour, and every failure is recorded in the report's `notes` instead of being hidden.
 
 ## Monthly new-channel discovery
 
