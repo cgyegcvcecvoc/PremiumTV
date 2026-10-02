@@ -984,3 +984,78 @@ ISSUES / ERRORS:
   * 1491 links returned a confirmed failure (see dead details).
   * This run started +5h 55m after its scheduled time (2026-10-02T10:23:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261002T195758Z-2383
+TIMESTAMP:    2026-10-02 04:01 PM EDT (2026-10-02T19:57:58Z -> 2026-10-02T20:01:34Z)
+LABEL / TYPE: manual re-scrape (channel + link audit) [manual]
+STATUS:       WARNING (checked=True, duration=216.77s)
+PLAYLISTS:    working=12286 / unique=16627 (dead=1509, unverified=2832)
+COUNTRIES:    177 country playlists updated in playlists/countries/
+A&E CHANNELS: 68 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +385 channels added / -320 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [USA] [UEFA Nations League] Faroe Islands vs Slovakia 1 (FAWA) (doms9) -> http://193.47.62.41/hls/OIII.m3u8
+  + [USA] [UEFA Nations League] Bosnia-Herzegovina vs Sweden 1 (FAWA) (doms9) -> http://193.47.62.41/hls/OIIIQ.m3u8
+  + [USA] [UEFA Nations League] Hungary vs Georgia 1 (FAWA) (doms9) -> http://193.47.62.41/hls/OIIIQQ.m3u8
+  + [USA] [UEFA Nations League] Poland vs Romania 1 (FAWA) (doms9) -> http://193.47.62.41/hls/OIIIQQQ.m3u8
+  + [USA] [UEFA Nations League] Ukraine vs Northern Ireland 1 (FAWA) (doms9) -> http://193.47.62.41/hls/OIIIQQQQ.m3u8
+  + [USA] [UEFA Nations League] Belgium vs Turkey 1 (FAWA) (doms9) -> http://193.47.62.41/hls/OIIIQQQQQ.m3u8
+  + [USA] [UEFA Nations League] France vs Italy 1 (FAWA) (doms9) -> http://193.47.62.41/hls/OIIIQQQQQQ.m3u8
+  + [USA] [UEFA Nations League] Bosnia-Herzegovina vs Sweden (FAWA) (doms9) -> http://193.47.62.41/hls/OIIIQX.m3u8
+  + [USA] [English Premiership Rugby] Bath vs Exeter Chiefs (FAWA) (doms9) -> http://193.47.62.55/hls/AYYY.m3u8
+  + [USA] [United Rugby Championship] Benetton vs Connacht (FAWA) (doms9) -> http://193.47.62.55/hls/AYYYA.m3u8
+  + [USA] [United Rugby Championship] Cardiff Rugby vs Zebre (FAWA) (doms9) -> http://193.47.62.55/hls/AYYYAA.m3u8
+  + [USA] [United Rugby Championship] Edinburgh vs Stormers (FAWA) (doms9) -> http://193.47.62.55/hls/AYYYAAA.m3u8
+  + [USA] [Ireland Premier Division] Dundalk vs Bohemians (FAWA) (doms9) -> http://193.47.62.55/hls/AYYYAAAA.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] Nybro vs AIK (FAWA) (doms9) -> http://193.47.62.55/hls/FAAADD.m3u8
+  + [USA] [Boxing] Boxing Primetime Fight Night Vol 10 (FAWA) (doms9) -> http://193.47.62.55/hls/GAGAGA.m3u8
+  + [USA] [Euro U21 Qualification] Andorra U21 vs Moldova U21 (FAWA) (doms9) -> http://193.47.62.55/hls/VAAA.m3u8
+  + [USA] [Basketball Euroleague] Fenerbahce vs Dubai (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQ.m3u8
+  + [USA] [Basketball Euroleague] Bayern Munchen vs Partizan 1 (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQa.m3u8
+  + [USA] [Basketball Euroleague] Lyon-Villeurbanne vs Valencia 1 (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQaa.m3u8
+  + [USA] [Basketball Euroleague] Panathinaikos vs Maccabi Tel Aviv 1 (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQaaa.m3u8
+  + [USA] [Basketball Euroleague] Baskonia vs Olimpia Milano 1 (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQaaaa.m3u8
+  + [USA] [Friendly Match] Sevilla vs Aston Villa (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQaaaaa.m3u8
+  + [USA] [Spanish Segunda Liga] Eldense vs Oviedo (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQaaaaaA.m3u8
+  + [USA] [Euro U21 Qualification] England U21 vs Slovakia U21 (FAWA) (doms9) -> http://193.47.62.55/hls/VAAAQaaaaaAA.m3u8
+  + [USA] [UEFA Nations League] UEFA Nations League Simulcast (FAWA) (doms9) -> http://193.47.62.55/hls/YLLL.m3u8
+  + [USA] [Bolivia Copa] SA Bulo Bulo vs Academia del Balompie (FAWA) (doms9) -> http://193.47.62.55/hls/YLLLQ.m3u8
+  + [USA] [Dutch Eerste Divisie] Helmond vs Heracles (FAWA) (doms9) -> http://193.47.62.55/hls/YLLLQQ.m3u8
+  + [USA] [CONCACAF Nations League] Saint Lucia vs Guadeloupe (FAWA) (doms9) -> http://193.47.62.55/hls/YLLLQQQ.m3u8
+  + [USA] [Darts] Darts World Grand Prix (FAWA) (doms9) -> http://193.47.62.55/hls/ZRRRAAAAAx.m3u8
+  + [USA] [Live Event] China Open / HSBC Moon (Doubles Quarterfinals) | Disney+ (TVF90) (doms9) -> https://10.ftlly.com:443/disney26/mono.m3u8?token=%5Bredacted%5D
+REMOVED CHANNELS (SAMPLE):
+  - [USA] [Friendly Match] Aarau vs Young Boys (FAWA) (previous) -> http://193.47.62.50/hls/HOOO.m3u8
+  - [USA] [Friendly Match] FC Twente vs Werder Bremen (FAWA) (previous) -> http://193.47.62.50/hls/HOOOA.m3u8
+  - [USA] [UEFA Nations League] Kazakhstan vs Moldova 1 (FAWA) (previous) -> http://193.47.62.50/hls/RIIIAA.m3u8
+  - [USA] [AFL Aussie Rules] Richmond W vs Geelong Cats W (FAWA) (previous) -> http://193.47.62.50/hls/URRR.m3u8
+  - [USA] [Volleyabll Asian Games] Japan vs China (FAWA) (previous) -> http://193.47.62.50/hls/URRRA.m3u8
+  - [USA] [Friendly Match] South Korea vs Venezuela 1 (FAWA) (previous) -> http://193.47.62.50/hls/URRRAA.m3u8
+  - [USA] [Friendly Match] China vs Palestine 1 (FAWA) (previous) -> http://193.47.62.50/hls/URRRAAA.m3u8
+  - [USA] [Basketball NBL] Perth vs South East Melbourne (FAWA) (previous) -> http://193.47.62.50/hls/URRRAAAa.m3u8
+  - [USA] [MMA Fighting] MMA One Championship (FAWA) (previous) -> http://193.47.62.50/hls/ooooa.m3u8
+  - [USA] [Football Asian Games] North Korea W vs Japan W (FAWA) (previous) -> http://193.47.62.55/hls/TATATA.m3u8
+  - [USA] [Friendly Match] Nurnberg vs Ingolstadt (FAWA) (previous) -> http://193.47.62.55/hls/TATATAa.m3u8
+  - [USA] [ASEAN Championship] Thailand vs Philippines (FAWA) (previous) -> http://193.47.62.55/hls/TTTTTX.m3u8
+  - [USA] [Friendly Match] Lugano vs Hellas Verona (FAWA) (previous) -> http://193.47.62.55/hls/hyhyhy.m3u8
+  - [USA] [Friendly Match] Hacken vs Elfsborg (FAWA) (previous) -> http://193.47.62.55/hls/hyhyhya.m3u8
+  - [USA] [UEFA Nations League] Cyprus vs Armenia 1 (FAWA) (previous) -> http://193.47.62.59/hls/RRUUUA.m3u8
+  - [USA] [UEFA Nations League] Latvia vs Montenegro 1 (FAWA) (previous) -> http://193.47.62.59/hls/RRUUUAA.m3u8
+  - [USA] [Liga de Naciones de la CONCACAF] Martinica vs Honduras | Fox Sports 2 USA | OP2 (TVF90) (previous) -> https://10.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Golf] Alfred Dunhill Links Championship – Segunda Vuelta | Disney+ (TVF90) (previous) -> https://11.ftlly.com:443/disney21/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN 5 | OP2 (TVF90) (previous) -> https://11.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN Premium┃OP2 (TVF90) (previous) -> https://11.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Copa de la División Profesional] San Antonio Bulo Bulo vs ABB | Entel TV PLUS+ (TVF90) (previous) -> https://11.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Chipre vs Armenia | ESPN 2 | OP2 (TVF90) (previous) -> https://2.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Chipre vs Armenia | ESPN 2 | OP3 (TVF90) (previous) -> https://2.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN 5 | OP3 (TVF90) (previous) -> https://2.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [World Rugby U20] Rumania vs Brazil | Disney+ (TVF90) (previous) -> https://3.ftlly.com:443/disney27/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Eerste Divisie] Helmond Sport vs Heracles | ESPN NL | OP2 (TVF90) (previous) -> https://3.ftlly.com:443/espn1_nl/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Live Event] China Open / Capital Group Diamond | | Disney+ (TVF90) (previous) -> https://4.ftlly.com:443/disney22/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [ATP] INDIVIDUALES - Pekín, dura - 1/8 de final: Bu Y. vs Djokovic N. | Disney+ (TVF90) (previous) -> https://4.ftlly.com:443/disney28/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Bosnia-Herzegovina vs Suecia | ESPN 2 | OP3 (TVF90) (previous) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Kazajstán vs Moldavia | ESPN 2 | OP3 (TVF90) (previous) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+ISSUES / ERRORS:
+  * 2832 links could not be confirmed after retries (see unverified details).
+  * 1509 links returned a confirmed failure (see dead details).
+
