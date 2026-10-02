@@ -212,21 +212,29 @@ def github_candidates(aliases: list, token: str, limit: int = MAX_SEARCH_FILES,
         return [], [message]
     found = []
     seen_files = set()
-    for alias in aliases[:3]:
+    for alias in aliases[:2]:
         query = f'"{alias}" extension:m3u'
-        try:
-            data = github_api("/search/code", token, {"q": query, "per_page": limit})
-        except urllib.error.HTTPError as exc:
-            message = f"GitHub code search HTTP {exc.code} for {alias!r}"
-            log(f"[hunt] {message}")
-            notes.append(message)
-            continue
+        data = None
+        for attempt in range(3):
+            try:
+                data = github_api("/search/code", token, {"q": query, "per_page": limit})
+                break
+            except urllib.error.HTTPError as exc:
+                if exc.code == 429 and attempt < 2:
+                    # Code search allows far fewer requests per minute than the
+                    # rest of the API; back off instead of losing the candidate.
+                    time.sleep(20 * (attempt + 1))
+                    continue
+                message = f"GitHub code search HTTP {exc.code} for {alias!r}"
+                log(f"[hunt] {message}")
+                notes.append(message)
+                break
         except Exception as exc:  # noqa: BLE001
             message = f"GitHub code search failed for {alias!r}: {scraper.error_text(exc)}"
             log(f"[hunt] {message}")
             notes.append(message)
             continue
-        for item in (data.get("items") or [])[:limit]:
+        for item in ((data or {}).get("items") or [])[:limit]:
             repo = (item.get("repository") or {}).get("full_name")
             path = item.get("path")
             if not repo or not path or f"{repo}:{path}" in seen_files:
