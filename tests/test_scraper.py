@@ -45,6 +45,23 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
+class WriteM3uTest(unittest.TestCase):
+    """The header every playlist is published with."""
+
+    def test_merged_guide_is_advertised_first(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "p.m3u"
+            scraper.write_m3u(path, [], ["https://upstream/guide.xml.gz"], "title")
+            self.assertEqual(
+                path.read_text(encoding="utf-8").splitlines()[0],
+                f'#EXTM3U x-tvg-url="{scraper.SELF_EPG_URL},https://upstream/guide.xml.gz"')
+            # The source caches mirror an upstream file, so they leave it out.
+            scraper.write_m3u(path, [], ["https://upstream/guide.xml.gz"], "title",
+                              advertise_self=False)
+            self.assertEqual(path.read_text(encoding="utf-8").splitlines()[0],
+                             '#EXTM3U x-tvg-url="https://upstream/guide.xml.gz"')
+
+
 class ScraperIntegrationTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -76,7 +93,12 @@ class ScraperIntegrationTest(unittest.TestCase):
             verified = (out / "PremiumTV.m3u").read_text(encoding="utf-8")
             all_links = (out / "PremiumTV_all.m3u").read_text(encoding="utf-8")
             report = json.loads((out / "report.json").read_text(encoding="utf-8"))
-            self.assertTrue(verified.startswith("#EXTM3U\n"))
+            # No upstream guide in these fixtures, so the header advertises only
+            # this repository's own merged guide - every playlist always does.
+            self.assertEqual(verified.splitlines()[0],
+                             f'#EXTM3U x-tvg-url="{scraper.SELF_EPG_URL}"')
+            self.assertEqual((out / "sources" / "m3u.m3u").read_text(
+                encoding="utf-8").splitlines()[0], "#EXTM3U")
             self.assertEqual(verified.count("#EXTINF"), 2)
             self.assertEqual(all_links.count("#EXTINF"), 3)
             self.assertIn("#EXTVLCOPT:http-referrer=https://example.org/", verified)
