@@ -1,5 +1,6 @@
 """Offline tests for the deep link checker; a local HTTP server stands in for streams."""
 import gzip
+import datetime as dt
 import json
 import sys
 import tempfile
@@ -311,6 +312,53 @@ class LinkCheckTest(unittest.TestCase):
         edit_log = self.out / "logs" / "link-check-edits.txt"
         self.assertTrue(edit_log.exists())
         self.assertIn("-removed", edit_log.read_text())
+
+    def test_patch_records_a_quarantine_for_the_next_scrape(self):
+        path = self.write_playlist()
+        with redirect_stdout(StringIO()):
+            link_check.main(["--out", str(self.out), "--playlist", str(path),
+                             "--workers", "8", "--timeout", "5", "--retries", "0",
+                             "--patch", "--min-working-ratio", "0.1",
+                             "--max-remove-ratio", "0.9"])
+        quarantine = json.loads((self.out / "checks" / "quarantine.json").read_text())
+        dead_url = f"{self.base}/gone.m3u8"
+        self.assertIn(dead_url, quarantine["entries"])
+        entry = quarantine["entries"][dead_url]
+        self.assertEqual(entry["hits"], 1)
+        self.assertEqual(entry["status"], "offline")
+        self.assertNotIn(f"{self.base}/master.m3u8", quarantine["entries"])
+        # The scraper holds quarantined links back so a shallow check cannot
+        # publish them again a few hours later. It sees the link again because
+        # the index it comes from still lists it - the patched playlist does not.
+        reimported = self.write_playlist(name="reimported.m3u")
+        channels, _ = scraper.parse_m3u(reimported.read_text(), "unit")
+        held = scraper.apply_quarantine(channels, self.out / "checks" / "quarantine.json", 7.0)
+        self.assertGreaterEqual(held, 1)
+        statuses = {channel.url: channel.status for channel in channels}
+        self.assertEqual(statuses[dead_url], "dead")
+        self.assertNotEqual(statuses[f"{self.base}/master.m3u8"], "dead")
+
+    def test_quarantine_entries_expire(self):
+        stale = {
+            "entries": {
+                "http://dead.invalid/x.m3u8": {
+                    "name": "x", "first_seen_utc": "2020-01-01T00:00:00Z",
+                    "last_seen_utc": "2020-01-01T00:00:00Z",
+                    "reason": "HTTP 404", "status": "offline", "hits": 3,
+                }
+            }
+        }
+        path = self.out / "checks" / "quarantine.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(stale), encoding="utf-8")
+        self.assertEqual(
+            scraper.load_quarantine(path, 7.0), {})
+        fresh = dict(stale["entries"])
+        fresh["http://dead.invalid/x.m3u8"] = dict(
+            fresh["http://dead.invalid/x.m3u8"],
+            last_seen_utc=dt.datetime.now(dt.timezone.utc).isoformat())
+        path.write_text(json.dumps({"entries": fresh}), encoding="utf-8")
+        self.assertIn("http://dead.invalid/x.m3u8", scraper.load_quarantine(path, 7.0))
 
     def test_main_without_playlists_fails_cleanly(self):
         with redirect_stdout(StringIO()):

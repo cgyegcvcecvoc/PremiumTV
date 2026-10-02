@@ -1162,6 +1162,63 @@ def _classify_stream_body(channel: Channel, body: bytes, content_type: str) -> C
     return channel
 
 
+# --------------------------------------------------------------------------- #
+# Dead-link quarantine
+# --------------------------------------------------------------------------- #
+# The daily check only proves a server answered. scripts/link_check.py proves a
+# stream actually plays, and records the links that answered but served no media
+# in playlists/checks/quarantine.json. Those links are held back here for a few
+# days so a shallow scrape cannot put a known-dead link back in the player
+# playlist between two deep checks.
+QUARANTINE_FILENAME = "quarantine.json"
+
+
+def load_quarantine(path: Path, days: float) -> dict:
+    """Read the quarantine file, dropping entries older than `days`."""
+    if days <= 0 or not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    entries = data.get("entries") if isinstance(data, dict) else None
+    if not isinstance(entries, dict):
+        return {}
+    if days <= 0:
+        return entries
+    cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)
+    fresh = {}
+    for url, entry in entries.items():
+        if not isinstance(entry, dict) or not url:
+            continue
+        last_seen = parse_utc_iso(str(entry.get("last_seen_utc") or ""))
+        if last_seen is None or last_seen.replace(tzinfo=None) >= cutoff.replace(tzinfo=None):
+            fresh[url] = entry
+    return fresh
+
+
+def apply_quarantine(channels: list, path: Path, days: float = 7.0) -> int:
+    """Mark quarantined links dead so they cannot be published. Returns the count."""
+    entries = load_quarantine(path, days)
+    if not entries:
+        return 0
+    held = 0
+    for channel in channels:
+        entry = entries.get(channel.url or "")
+        if not entry:
+            continue
+        if channel.status not in ("alive", "unverified", "unchecked"):
+            continue
+        hits = entry.get("hits", 1)
+        channel.status = "dead"
+        channel.reason = (
+            f"quarantined: {entry.get('reason') or 'served no media on the deep check'} "
+            f"(failed the deep check {hits}x, last {entry.get('last_seen_utc', 'recently')})"
+        )
+        held += 1
+    return held
+
+
 def check_channel(
     channel: Channel,
     timeout: float,
@@ -2058,6 +2115,9 @@ def main() -> int:
     ap.add_argument("--retries", type=int, default=1, help="retries for transient link-check failures")
     ap.add_argument("--min-working-ratio", type=float, default=0.03,
                     help="abort publishing if fewer than this share of links are confirmed working")
+    ap.add_argument("--quarantine-days", type=float, default=7.0,
+                    help="hold back links the deep check found dead for this many days "
+                         "(0 disables the quarantine)")
     ap.add_argument("--label", default="manual run", help="run label shown in reports")
     ap.add_argument("--scheduled-for", default="",
                     help="ISO-8601 UTC instant this run was scheduled for; used to report "
@@ -2318,6 +2378,12 @@ def main() -> int:
                 check_completed = True
                 checked = True
                 log(f"[links] checks completed in {time.monotonic() - check_start:.1f}s")
+                quarantine_path = out_dir / "checks" / QUARANTINE_FILENAME
+                quarantined = apply_quarantine(channels, quarantine_path,
+                                               args.quarantine_days)
+                if quarantined:
+                    log(f"[links] {quarantined} links held back by the deep-check "
+                        f"quarantine ({quarantine_path.name})")
                 working = [channel for channel in channels if channel.status == "alive"]
                 minimum_working = max(1, args.min_working_ratio * len(channels))
                 if len(working) < minimum_working:

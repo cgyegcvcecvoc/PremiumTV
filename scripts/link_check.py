@@ -735,6 +735,53 @@ def write_reports(out_dir: Path, report: dict) -> list:
     return [checks_dir / "link-check.json", checks_dir / "LINK-CHECK.md"]
 
 
+def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float) -> Path:
+    """Remember the links that answered but served no media.
+
+    The daily scrape re-imports everything the indexes list, so without this a
+    link that only fails the deep check would be published again a few hours
+    later. `scraper.py` reads this file and holds those links back for `days`.
+    """
+    checks_dir = out_dir / "checks"
+    checks_dir.mkdir(parents=True, exist_ok=True)
+    path = checks_dir / "quarantine.json"
+    entries: dict = {}
+    if path.exists():
+        try:
+            entries = (json.loads(path.read_text(encoding="utf-8")) or {}).get("entries") or {}
+        except (OSError, ValueError):
+            entries = {}
+    cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=max(days, 0))
+    pruned = {}
+    for url, entry in entries.items():
+        if not isinstance(entry, dict):
+            continue
+        last_seen = scraper.parse_utc_iso(str(entry.get("last_seen_utc") or ""))
+        if last_seen is None or last_seen.replace(tzinfo=None) >= cutoff.replace(tzinfo=None):
+            pruned[url] = entry
+    entries = pruned
+    for item in patch.get("removed", []):
+        url = item.get("url") or ""
+        if not url:
+            continue
+        existing = entries.get(url) or {}
+        entries[url] = {
+            "name": item.get("name") or existing.get("name") or "",
+            "first_seen_utc": existing.get("first_seen_utc") or report["finished_utc"],
+            "last_seen_utc": report["finished_utc"],
+            "reason": item.get("reason") or existing.get("reason") or "served no media",
+            "status": item.get("status") or "offline",
+            "hits": int(existing.get("hits") or 0) + 1,
+        }
+    path.write_text(json.dumps({
+        "updated_utc": report["finished_utc"],
+        "expires_after_days": days,
+        "count": len(entries),
+        "entries": entries,
+    }, indent=2), encoding="utf-8")
+    return path
+
+
 def append_edit_log(out_dir: Path, report: dict, patch: dict) -> Path:
     logs_dir = out_dir / "logs"
     logs_dir.mkdir(parents=True, exist_ok=True)
@@ -788,6 +835,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="abort patching when fewer than this share of links work")
     ap.add_argument("--max-remove-ratio", type=float, default=DEFAULT_MAX_REMOVE_RATIO,
                     help="skip patching a playlist that would lose more than this share")
+    ap.add_argument("--quarantine-days", type=float, default=7.0,
+                    help="with --patch: remember dead links for this many days so the "
+                         "daily scrape cannot publish them again (0 disables)")
     ap.add_argument("--label", default="deep link check", help="run label for the reports")
     return ap
 
@@ -828,6 +878,14 @@ def main(argv=None) -> int:
         report["patch"] = patch_playlists(loaded, results, args.min_working_ratio,
                                           args.max_remove_ratio, args.dry_run)
         if not args.dry_run:
+            quarantine = update_quarantine(out_dir, report, report["patch"],
+                                           args.quarantine_days)
+            report["patch"]["quarantine"] = {
+                "file": display_path(quarantine),
+                "count": (json.loads(quarantine.read_text(encoding="utf-8")) or {})
+                         .get("count", 0) if quarantine.exists() else 0,
+                "days": args.quarantine_days,
+            }
             report["patch"]["edit_log"] = str(
                 display_path(append_edit_log(out_dir, report, report["patch"])))
     written = write_reports(out_dir, report)

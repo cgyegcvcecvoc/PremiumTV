@@ -160,6 +160,10 @@ payload. That distinguishes the two cases a shallow check cannot tell apart:
 | `unsupported` | non-HTTP scheme (rtmp, acestream, …) that cannot be probed | keep |
 | `invalid` | malformed or non-HTTP URL | **removed** |
 
+Removals are also written to `playlists/checks/quarantine.json`, and `scraper.py` reads that file on
+every run: a link that only fails the deep check is held back for 7 days, so the next shallow scrape
+cannot put it straight back into the player playlist.
+
 Only the two confirmed-dead buckets are ever removed, and two safety nets stop a bad network day
 from gutting a good playlist: `--min-working-ratio` (default 20%) aborts the patch when too few
 links worked overall, and `--max-remove-ratio` (default 35%) skips any single playlist that would
