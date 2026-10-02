@@ -92,7 +92,7 @@ GUIDE_NAME = "PremiumTV"
 DEFAULT_PLAYLISTS = ("PremiumTV.m3u", "AE_Channels.m3u", "Priority_Channels.m3u")
 AHEAD_HOURS = 48
 KEEP_PAST_HOURS = 6
-MAX_PLAIN_MB = 40
+MAX_PLAIN_MB = 45
 MAX_GUIDE_MB = 400
 MAX_PROGRAMMES = 1_500_000
 MIN_CHANNELS = 25
@@ -914,7 +914,11 @@ def write_reports(checks_dir: Path, report: dict, epg_dir: Path, name: str,
         f"- **Guide link (`.xml`):** `{raw_url}`",
         f"- **Gzipped:** `{raw_url}.gz`",
         f"- **Window:** {report['window']['start']} to {report['window']['end']} UTC "
-        f"({report['window']['ahead_hours']}h ahead, {report['window']['keep_past_hours']}h back)",
+        f"({report['window']['ahead_hours']:g}h ahead, "
+        f"{report['window']['keep_past_hours']:g}h back"
+        + (f"; trimmed from {report['window']['requested_ahead_hours']:g}h to fit the size budget)"
+           if report["window"]["ahead_hours"] < report["window"]["requested_ahead_hours"]
+           else ")"),
         "",
         "| Result | Value |",
         "|---|---:|",
@@ -1082,6 +1086,7 @@ def build(args) -> dict:
         "window": {
             "start": format_xmltv_time(window_start),
             "end": format_xmltv_time(window_end),
+            "requested_ahead_hours": args.ahead,
             "ahead_hours": args.ahead,
             "keep_past_hours": args.keep_past,
         },
@@ -1138,6 +1143,7 @@ def build(args) -> dict:
     trimmed_order = order
     size = 0
     channels_written = programmes_written = 0
+    size_at_last_cut = None
     while True:
         size, channels_written, programmes_written = serialize(
             tmp_path, channels, merged, trimmed_order, attempt_window_end, cap,
@@ -1145,13 +1151,21 @@ def build(args) -> dict:
         if size <= max_bytes_out:
             break
         ahead_left = (attempt_window_end - started).total_seconds() / 3600
-        if ahead_left > args.min_ahead:
-            attempt_window_end = started + dt.timedelta(
-                hours=max(args.min_ahead, ahead_left - 6))
-            report["trim"].append(
-                f"{size // 1024 // 1024} MB over the {args.max_mb:.0f} MB budget: "
-                f"window cut to {ahead_left - 6:.0f}h ahead")
-            continue
+        # Cutting the window only helps while it actually removes events; when a
+        # shorter window produced the same file, stop trading coverage for
+        # nothing and move on to the next lever.
+        if ahead_left > args.min_ahead and (size_at_last_cut is None or size < size_at_last_cut):
+            # Cut proportionally to the overshoot instead of in fixed steps: a
+            # file 5% over budget should lose an hour, not six.
+            target = ahead_left * (max_bytes_out / size) * 0.98
+            new_ahead = max(args.min_ahead, min(ahead_left - 1, target))
+            if new_ahead < ahead_left:
+                size_at_last_cut = size
+                attempt_window_end = started + dt.timedelta(hours=new_ahead)
+                report["trim"].append(
+                    f"{size / 1048576:.1f} MB over the {args.max_mb:g} MB budget: "
+                    f"window cut from {ahead_left:.0f}h to {new_ahead:.1f}h ahead")
+                continue
         if cap == 0 or cap > 12:
             cap = max(12, (cap or 64) // 2)
             report["trim"].append(
@@ -1175,7 +1189,7 @@ def build(args) -> dict:
         report["size_bytes"] = size
         report["channels_with_guide"] = channels_written
         report["programmes"] = programmes_written
-        report["window"]["end"] = format_xmltv_time(attempt_window_end)
+        note_window(report, started, attempt_window_end)
         report["previous_channels"] = previous_channels
         report["finished_utc"] = utc_now().isoformat(timespec="seconds").replace("+00:00", "Z")
         report["duration_seconds"] = round((utc_now() - started).total_seconds(), 1)
@@ -1186,7 +1200,7 @@ def build(args) -> dict:
     report["size_bytes"] = size
     report["channels_with_guide"] = channels_written
     report["programmes"] = programmes_written
-    report["window"]["end"] = format_xmltv_time(attempt_window_end)
+    note_window(report, started, attempt_window_end)
     report["previous_channels"] = previous_channels
     report["published"] = True
     report["publish_reason"] = ""
@@ -1198,6 +1212,13 @@ def build(args) -> dict:
     log(f"[epg-build] wrote {display_path(gz_path)} "
         f"({report['gz_bytes'] // 1024} KB)")
     return report
+
+
+def note_window(report: dict, started: dt.datetime, window_end: dt.datetime) -> None:
+    """Record the window the guide actually covers after any size trimming."""
+    report["window"]["end"] = format_xmltv_time(window_end)
+    report["window"]["ahead_hours"] = round(
+        (window_end - started).total_seconds() / 3600, 2)
 
 
 def count_channels(xml_path: Path) -> int:

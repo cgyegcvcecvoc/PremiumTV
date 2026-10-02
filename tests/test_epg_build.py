@@ -360,6 +360,26 @@ class BuildTest(unittest.TestCase):
         self.assertLessEqual(report["size_bytes"], 0.0004 * 1024 * 1024 + 2048)
         self.assertTrue(report["trim"], "the size budget should have recorded a trim")
 
+    def test_window_trim_is_proportional_to_the_overshoot(self):
+        """A file 5% over budget loses an hour of window, not the whole day."""
+        code, output = self.run_build()
+        self.assertEqual(code, 0, output)
+        report = json.loads((self.out / "checks" / "epg-build.json").read_text())
+        natural = report["size_bytes"]
+        self.assertEqual(report["trim"], [])
+
+        budget_mb = natural * 0.95 / (1024 * 1024)
+        code, output = self.run_build(["--force", "--max-mb", f"{budget_mb:.6f}"])
+        self.assertEqual(code, 0, output)
+        report = json.loads((self.out / "checks" / "epg-build.json").read_text())
+        self.assertLessEqual(report["size_bytes"], budget_mb * 1024 * 1024)
+        self.assertTrue(report["trim"])
+        # 48h ahead minus the 6h already in the past leaves 42h of future
+        # listings; a 5% overshoot must not collapse that to the 12h floor.
+        ahead = report["window"]["ahead_hours"]
+        self.assertGreater(ahead, 40, report["trim"])
+        self.assertLess(ahead, 48)
+
     def test_guide_list_prefers_the_verified_report(self):
         checks = self.out / "checks"
         checks.mkdir(exist_ok=True)
