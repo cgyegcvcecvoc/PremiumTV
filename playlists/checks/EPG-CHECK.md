@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261002T205847Z-2707`)
-- **Started:** 2026-10-02T20:58:47Z | **Finished:** 2026-10-02T20:58:52Z | **Duration:** 4.8s
+- **Run:** nightly guide check (`20261002T211406Z-2800`)
+- **Started:** 2026-10-02T21:14:06Z | **Finished:** 2026-10-02T21:14:10Z | **Duration:** 4.1s
 - **Guides checked:** 94 across 179 playlists
 - **Working share:** 100.0%
 
@@ -15,7 +15,7 @@
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
 | `TV.xml` | 231 | 7242 | 2026-10-06 08:00 UTC | 4096 KB |
-| `guide.xml.gz` | 2 | 99 | 2026-10-03 00:30 UTC | 2 KB |
+| `guide.xml.gz` | 2 | 105 | 2026-10-04 02:15 UTC | 3 KB |
 | `epg_ripper_AL1.xml.gz` | 178 | 9869 | 2026-10-05 06:00 UTC | 399 KB |
 | `epg_ripper_ALJAZEERA1.xml.gz` | 2 | 148 | 2026-10-06 00:00 UTC | 3 KB |
 | `epg_ripper_AR1.xml.gz` | 82 | 10737 | 2026-10-06 04:45 UTC | 249 KB |
