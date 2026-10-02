@@ -229,11 +229,11 @@ def github_candidates(aliases: list, token: str, limit: int = MAX_SEARCH_FILES,
                 log(f"[hunt] {message}")
                 notes.append(message)
                 break
-        except Exception as exc:  # noqa: BLE001
-            message = f"GitHub code search failed for {alias!r}: {scraper.error_text(exc)}"
-            log(f"[hunt] {message}")
-            notes.append(message)
-            continue
+            except Exception as exc:  # noqa: BLE001
+                message = f"GitHub code search failed for {alias!r}: {scraper.error_text(exc)}"
+                log(f"[hunt] {message}")
+                notes.append(message)
+                break
         for item in ((data or {}).get("items") or [])[:limit]:
             repo = (item.get("repository") or {}).get("full_name")
             path = item.get("path")
