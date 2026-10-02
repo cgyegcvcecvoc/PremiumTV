@@ -188,6 +188,18 @@ class ChannelHuntTest(unittest.TestCase):
             with self.subTest(tvg_id=tvg_id):
                 self.assertEqual(channel_hunt.stream_country(channel), expected)
 
+    def test_a_short_static_token_is_not_treated_as_expiring(self):
+        make = lambda url: channel_hunt.scraper.Channel(name="MeTV", url=url, source="s")
+        self.assertFalse(channel_hunt.has_temporary_token(
+            make("http://4.30.180.36:8420/metv/index.m3u8?token=test")))
+        self.assertFalse(channel_hunt.has_temporary_token(
+            make("https://host/p.m3u8?appName=web&deviceId=abc")))
+        self.assertTrue(channel_hunt.has_temporary_token(
+            make("https://host/secure/api/v1/6a288d27/playlist.m3u8"
+                 "?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTA5ODc0MzUxNTk6Y2Ru")))
+        self.assertTrue(channel_hunt.has_temporary_token(
+            make("https://host/p.m3u8?expires=1790973561")))
+
     def test_tokenised_links_rank_below_stable_ones(self):
         stable = scraper.Channel(name="Nicktoons", url="http://host/nick.m3u8", source="s",
                                  attrs={"tvg-id": "Nicktoons.us2"})

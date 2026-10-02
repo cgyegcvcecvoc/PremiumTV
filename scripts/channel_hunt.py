@@ -331,10 +331,6 @@ def build_excludes(item: dict, targets: list) -> list:
     return excludes
 
 
-TEMPORARY_QUERY_KEYS = ("token", "expires", "expire", "exp", "auth", "sig",
-                        "signature", "session", "st", "e", "hdnea")
-
-
 def stream_country(channel: scraper.Channel) -> str:
     """Country of a channel as its tvg-id states it.
 
@@ -349,16 +345,25 @@ def stream_country(channel: scraper.Channel) -> str:
 
 
 def has_temporary_token(channel: scraper.Channel) -> bool:
-    """True for links carrying a token/expiry in the query string.
+    """True for links carrying a signed, expiring token in the query string.
 
     Those play today and rot overnight, so a stable URL of the same channel is
-    always the better link to publish.
+    always the better link to publish. A short static value such as
+    `?token=test` - common on servers that ignore the query - is not a signed
+    link and is left alone.
     """
-    query = urllib.parse.urlsplit(channel.url or "").query.lower()
+    query = urllib.parse.urlsplit(channel.url or "").query
     if not query:
         return False
-    keys = {key.lower() for key, _ in urllib.parse.parse_qsl(query, keep_blank_values=True)}
-    return any(key in TEMPORARY_QUERY_KEYS for key in keys)
+    for key, value in urllib.parse.parse_qsl(query, keep_blank_values=True):
+        name = key.lower()
+        if name in ("expires", "expire", "exp", "e", "hdnea", "auth", "sig",
+                    "signature", "session", "st"):
+            return True
+        if name in ("token", "key", "password", "pwd", "secret"):
+            if len(value) > 24 or re.search(r"\d{10,13}", value):
+                return True
+    return False
 
 
 def is_preferred(channel: scraper.Channel, target: dict) -> bool:
