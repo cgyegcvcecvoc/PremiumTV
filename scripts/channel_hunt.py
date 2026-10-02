@@ -73,9 +73,11 @@ def alias_regex(alias: str):
     if not words:
         return None
     # Words may be separated by spaces, dots, dashes or the "@region" suffixes
-    # used in tvg-ids ("Nickelodeon.us@East").
-    return re.compile(r"[\s._@-]*".join(re.escape(word) for word in words) + r"(?![a-z0-9])",
-                      re.IGNORECASE)
+    # used in tvg-ids ("Nickelodeon.us@East"). The leading boundary matters as
+    # much as the trailing one: without it, "Chamame TV" and "Awesome TV" would
+    # both match the alias "MeTV".
+    pattern = r"[\s._@-]*".join(re.escape(word) for word in words)
+    return re.compile(r"(?<![a-z0-9])" + pattern + r"(?![a-z0-9])", re.IGNORECASE)
 
 
 def entry_matches(name: str, tvg_id: str, aliases: list, excludes: list = None) -> bool:
@@ -283,6 +285,12 @@ def verify_all(channels: list, workers: int, timeout: float, retries: int) -> li
     return results
 
 
+def is_blocked(channel: scraper.Channel, blocklist: list) -> bool:
+    """True for URLs known to be mislabelled (a channel that is not this one)."""
+    url = (channel.url or "").lower()
+    return any(str(entry).strip().lower() in url for entry in blocklist if str(entry).strip())
+
+
 def build_excludes(item: dict, targets: list) -> list:
     """Aliases of the *other* targets that must not be collected for this one.
 
@@ -436,6 +444,9 @@ def main(argv=None) -> int:
         log("[hunt] no priority channels configured (sources.json -> priority_channels)")
         return 2
 
+    blocklist = [str(entry) for entry in (config.get("blocklist") or [])]
+    if blocklist:
+        log(f"[hunt] {len(blocklist)} blocklisted URL fragment(s) in effect")
     token = os.environ.get("GITHUB_TOKEN", "").strip()
     source_items = json.loads(Path(args.sources).read_text(encoding="utf-8")).get("sources", [])
     started = dt.datetime.now(dt.timezone.utc)
@@ -465,7 +476,9 @@ def main(argv=None) -> int:
                                                      MAX_SEARCH_FILES, excludes)
             candidates += github
             notes += github_notes
-        candidates = dedupe(candidates)[:MAX_CANDIDATES_PER_CHANNEL]
+        candidates = [channel for channel in dedupe(candidates)
+                      if not is_blocked(channel, blocklist)]
+        candidates = candidates[:MAX_CANDIDATES_PER_CHANNEL]
         log(f"[hunt] {name}: {len(candidates)} unique candidates - verifying")
         verified = verify_all(candidates, args.workers, args.timeout, args.retries)
         # Prefer an exact name/tvg-id match, then the deep-check ranking.

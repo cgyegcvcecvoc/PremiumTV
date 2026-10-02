@@ -106,6 +106,32 @@ class ChannelHuntTest(unittest.TestCase):
         self.assertFalse(channel_hunt.entry_matches("MeTV", "MeTV.us", aliases))
         self.assertFalse(channel_hunt.entry_matches("ToonsTV", "ToonsTV.us", aliases))
 
+    def test_alias_matching_respects_word_boundaries(self):
+        # "Chamame TV" and "Awesome TV" both contain the letters of "MeTV".
+        aliases = ["MeTV", "MeTV US", "MeTV.us@SD"]
+        self.assertFalse(channel_hunt.entry_matches("Chamame TV", "ChamameTV.ar@SD", aliases))
+        self.assertFalse(channel_hunt.entry_matches("Awesome TV", "AwesomeTV.my@SD", aliases))
+        self.assertTrue(channel_hunt.entry_matches("MeTV (720p)", "MeTV.us@SD", aliases))
+        self.assertTrue(channel_hunt.entry_matches("US: MeTV HD", "MeTV.us", aliases))
+
+    def test_blocklist_drops_mislabelled_feeds(self):
+        blocked = scraper.Channel(
+            name="MeTV Toons KMBY-LD", source="unit",
+            url="https://2-fss-2.streamhoster.com/pl_138/205510-3094608-1/playlist.m3u8")
+        fine = scraper.Channel(name="MeTV Toons", source="unit",
+                               url="https://example.invalid/metvtoons.m3u8")
+        blocklist = ["2-fss-2.streamhoster.com/pl_138/205510-3094608-1"]
+        self.assertTrue(channel_hunt.is_blocked(blocked, blocklist))
+        self.assertFalse(channel_hunt.is_blocked(fine, blocklist))
+
+    def test_blocklisted_urls_are_not_published(self):
+        blocklist = ["2-fss-2.streamhoster.com/pl_138/205510-3094608-1"]
+        self.assertNotIn(
+            "https://2-fss-2.streamhoster.com/pl_138/205510-3094608-1/playlist.m3u8",
+            [channel.url for channel in channel_hunt.local_candidates(
+                self.out, ["MeTV Toons", "MeTVToons"])
+             if not channel_hunt.is_blocked(channel, blocklist)])
+
     def test_candidates_from_text_filters_to_the_channel(self):
         text = (self.out / "PremiumTV_all.m3u").read_text()
         found = channel_hunt.candidates_from_text(text, "unit", ["MeTV Toons", "MeTVToons"])
