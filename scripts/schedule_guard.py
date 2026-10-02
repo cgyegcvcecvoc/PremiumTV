@@ -85,7 +85,11 @@ LOOKBACK_DAYS = 1
 SLOT_LABELS = {
     "7 3 * * *": "3:07 AM daily scrape",
     "23 6 * * *": "6:23 AM recheck",
+    "41 9 * * *": "9:41 AM recheck",
+    "53 12 * * *": "12:53 PM recheck",
     "41 16 * * *": "4:41 PM final check",
+    "17 20 * * *": "8:17 PM recheck",
+    "29 23 * * *": "11:29 PM overnight recheck",
     # discover.yml asks for its label here too, so a monthly run is still
     # classified as monthly_discovery rather than falling back to a guess.
     "37 4 1 * *": "monthly new-channel discovery",

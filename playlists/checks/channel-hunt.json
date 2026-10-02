@@ -1,0 +1,598 @@
+{
+  "run_id": "20261002T213129Z-2694",
+  "label": "nightly priority channel hunt",
+  "started_utc": "2026-10-02T21:31:29Z",
+  "finished_utc": "2026-10-02T21:39:01Z",
+  "duration_seconds": 451.7,
+  "output": "playlists/sources/priority-channels.m3u",
+  "playlist": "playlists/Priority_Channels.m3u",
+  "published_count": 9,
+  "github_search": true,
+  "targets": [
+    {
+      "name": "Nickelodeon",
+      "country": "us",
+      "candidates": 40,
+      "notes": [
+        "GitHub code search HTTP 429 for 'Nickelodeon US'"
+      ],
+      "working": 14,
+      "dropped_temporary": 0,
+      "published": 4,
+      "results": [
+        {
+          "name": "Nickelodeon (United States) (720p)",
+          "url": "http://198.58.104.90:8989/nickelodeon/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.065
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "https://cache0.wonvt.st/live/1ewxgzu023dos60vlh62k/master.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.558
+        },
+        {
+          "name": "Nickelodeon Latin America (1080p)",
+          "url": "http://15.204.246.24:8080/NickHD/index.m3u8",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.015
+        },
+        {
+          "name": "Nickelodeon Clasico (720p)",
+          "url": "https://jmp2.uk/plu-6824cda00101510f9eeaa011.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.098
+        },
+        {
+          "name": "Nickelodeon Teen LatAm (720p)",
+          "url": "https://jmp2.uk/plu-5fab09a8749b1a00077d35d2.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.131
+        },
+        {
+          "name": "Nickelodeon en espanol",
+          "url": "https://jmp2.uk/plu-5d8d08395f39465da6fb3ec4.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.14
+        },
+        {
+          "name": "Nickelodeon Pluto TV (720p)",
+          "url": "https://jmp2.uk/plu-5ca673e0d0bd6c2689c94ce3.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.147
+        },
+        {
+          "name": "Nickelodeon Toons (720p)",
+          "url": "https://jmp2.uk/plu-645951c0e94c38000802d2cb.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.15
+        },
+        {
+          "name": "Nickelodeon Classico (720p)",
+          "url": "https://jmp2.uk/plu-6824ce10c5d53e1351ceb8d1.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.169
+        },
+        {
+          "name": "Nickelodeon Toons LatAm (720p)",
+          "url": "https://jmp2.uk/plu-645952687cb4b100084ed52e.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.184
+        },
+        {
+          "name": "Nickelodeon Teen (720p)",
+          "url": "https://jmp2.uk/plu-60f5fabf0721880007cd50e3.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.747
+        },
+        {
+          "name": "Nickelodeon en Espa\u00f1ol",
+          "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5d8d08395f39465da6fb3ec4/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2a5107-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=919bc5fd-6cce-44a6-bb39-2894dea1c988",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "upstream:priority-channels",
+          "segment_ok": true,
+          "elapsed": 0.128
+        },
+        {
+          "name": "Nickelodeon (Brazil) (480p)",
+          "url": "https://stmv2.srvif.com/gafeab/gafeab/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.081
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "http://209.61.12.77:9000/play/a09a/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.165
+        },
+        {
+          "name": "Nickelodeon Junior (1080p)",
+          "url": "http://151.80.18.177:86/Nickelodeon_Junior/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.186
+        },
+        {
+          "name": "Nickelodeon (Croatia) (1080p)",
+          "url": "http://176.61.157.250/Nickelodeon/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.215
+        },
+        {
+          "name": "Nickelodeon (Hungary)",
+          "url": "http://88.212.15.19/live/test_nickelodeon_hu_1200_atk/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.271
+        },
+        {
+          "name": "Nickelodeon (Russia) (576p)",
+          "url": "http://stream.mcquack.net/443/index.m3u8",
+          "status": "working",
+          "reason": "hls playlist",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.275
+        },
+        {
+          "name": "Nickelodeon (Czech Republic)",
+          "url": "http://88.212.15.19/live/test_nickelodeon_hevc_25p/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.315
+        },
+        {
+          "name": "Nickelodeon (India) (576p)",
+          "url": "http://103.185.24.134:3001/NICK/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.506
+        },
+        {
+          "name": "Nickelodeon (Germany)",
+          "url": "https://ma.anixa.tv/clips/stream/nickelodeon/playlist.php",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.586
+        },
+        {
+          "name": "Nickelodeon CIS (1080p)",
+          "url": "https://stream8.cinerama.uz/1500/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.833
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "http://aktv-stream.m16tv.cfd/stream/aktv3/nickelodeon/AKTV.m3u8",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:suxuang/myIPTV/ipv6.m3u",
+          "segment_ok": null,
+          "elapsed": 0.021
+        },
+        {
+          "name": "Nickelodeon Classics (720p)",
+          "url": "https://jmp2.uk/plu-67f3eb800a1beb98767ca748.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.196
+        },
+        {
+          "name": "Nickelodeon Asia (1080p)",
+          "url": "http://nmk.ioapk.com:5050/4gtv-live105/index.m3u8",
+          "status": "offline",
+          "reason": "connection refused",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.216
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "http://team-tv.co:81/nick/index.m3u8",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.29
+        },
+        {
+          "name": "Nickelodeon UK (1080p)",
+          "url": "https://d20opqftbkv2z0.cloudfront.net/live12/nickelodeon/bitrate1-clear.isml/live.m3u8",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "github:kilirushi/iptv/uk.m3u",
+          "segment_ok": null,
+          "elapsed": 0.318
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "http://fm1077.serv00.net/Smart.php?id=Nickelodeon",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "source": "github:jk2024988/TV2024/tw2.m3u",
+          "segment_ok": null,
+          "elapsed": 0.569
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "https://iptv.852851.xyz/live/stream-6fbd6fad-d0f2-4e07-872e-f8e7f1e19ede/index.m3u8",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "source": "github:judy-gotv/iptv/ceshi.m3u",
+          "segment_ok": null,
+          "elapsed": 0.763
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "http://106.107.177.216:5000/4gtv/185",
+          "status": "unreachable",
+          "reason": "TimeoutError",
+          "source": "github:jk2024988/TV2024/tw2.m3u",
+          "segment_ok": null,
+          "elapsed": 12.013
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "https://smt.goiptv.us.ci/Nickelodeon/playlist.m3u8",
+          "status": "unreachable",
+          "reason": "timeout",
+          "source": "github:judy-gotv/iptv/smart.m3u",
+          "segment_ok": null,
+          "elapsed": 12.019
+        },
+        {
+          "name": "Nickelodeon (Bulgaria) (576p)",
+          "url": "http://hls127.freeott.top:8080/BG_Nickelodeon/video.m3u8",
+          "status": "unreachable",
+          "reason": "timeout",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 12.02
+        },
+        {
+          "name": "Nickelodeon (Romania)",
+          "url": "https://onyx1.mofta1.cfd/nike/usergenm24qrnd.m3u8",
+          "status": "unreachable",
+          "reason": "SSLEOFError",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 12.15
+        },
+        {
+          "name": "Nickelodeon (United Kingdom) (576p)",
+          "url": "http://tvsen7.aynascope.net/nicklodean/index.m3u8",
+          "status": "unreachable",
+          "reason": "timeout",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 12.281
+        },
+        {
+          "name": "Nickelodeon",
+          "url": "plugin://plugin.video.joyn/?mode=play_video&video_id=nickelodeon-de-hd&stream_type=LIVE",
+          "status": "invalid",
+          "reason": "not an http(s) URL",
+          "source": "github:michaz1988/michaz1988.github.io/tv.m3u",
+          "segment_ok": null,
+          "elapsed": 0.0
+        },
+        {
+          "name": "Nickelodeon Pluto TV",
+          "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5ca673e0d0bd6c2689c94ce3/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2a5108-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=5730720c-9e54-41d9-b73d-eab8fdac7291",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.131
+        },
+        {
+          "name": "\u2606 Nickelodeon iCarly \ud83c\udde7\ud83c\uddf7",
+          "url": "https://jmp2.uk/plu-620ff46e0a576e0007dc2f89.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:m3u.m3u",
+          "segment_ok": null,
+          "elapsed": 0.669
+        },
+        {
+          "name": "\u2606 Nickelodeon Bob Esponja \ud83c\udde7\ud83c\uddf7",
+          "url": "https://jmp2.uk/plu-62545c0b002f4b0007688b61.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:m3u.m3u",
+          "segment_ok": null,
+          "elapsed": 0.707
+        },
+        {
+          "name": "\u2606 Nickelodeon Rocker Power TV \ud83c\udde7\ud83c\uddf7",
+          "url": "+https://jmp2.uk/plu-6202a7fcfb1b100008811f54.m3u8",
+          "status": "invalid",
+          "reason": "not an http(s) URL",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.0
+        },
+        {
+          "name": "Nickelodeon-Asia",
+          "url": "p2p://61.221.233.81:9000/56068a190003ecea009b80d561580316&link=wvw.f0rcetech.c0m",
+          "status": "invalid",
+          "reason": "not an http(s) URL",
+          "source": "github:yuanxin69/m3u/cctv.m3u",
+          "segment_ok": null,
+          "elapsed": 0.0
+        }
+      ]
+    },
+    {
+      "name": "NickToons",
+      "country": "us",
+      "candidates": 10,
+      "notes": [
+        "GitHub code search HTTP 429 for 'NickToons'",
+        "GitHub code search HTTP 429 for 'NickToons US'"
+      ],
+      "working": 8,
+      "dropped_temporary": 0,
+      "published": 4,
+      "results": [
+        {
+          "name": "Nicktoons",
+          "url": "http://41.205.93.154/NICKTOONS/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.4
+        },
+        {
+          "name": "Nicktoons (United States) CA",
+          "url": "https://jmp2.uk/plu-654ca7f92c1d3300086b608c.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.352
+        },
+        {
+          "name": "Nicktoons (United States) (1080p)",
+          "url": "https://sra72yz.s.gy/NICKTOONS_HD.m3u8",
+          "status": "offline",
+          "reason": "playlist only, HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": false,
+          "elapsed": 1.035
+        },
+        {
+          "name": "Nicktoons (Romania)",
+          "url": "https://atlantida1.aquax1.cfd/niktuun/usergendxt7r9CxGrnd.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.065
+        },
+        {
+          "name": "NickToons Brasil (480p)",
+          "url": "https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.092
+        },
+        {
+          "name": "Nicktoons (720p)",
+          "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/654ca7f92c1d3300086b608c/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7b6610-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=359ee837-a829-4fe0-9d99-8dc36018ced2",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "upstream:priority-channels",
+          "segment_ok": true,
+          "elapsed": 0.163
+        },
+        {
+          "name": "Nicktoons (Hungary)",
+          "url": "http://88.212.15.19/live/nicktoons_hungary/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.263
+        },
+        {
+          "name": "Nicktoons (Czech Republic)",
+          "url": "http://88.212.15.19/live/test_nicktoons/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.295
+        },
+        {
+          "name": "Nicktoons Scandinavia",
+          "url": "http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/PE7C639D6VY8TCQQ4BYRZT7X/12059/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.563
+        },
+        {
+          "name": "Nicktoons CIS (1080p)",
+          "url": "https://stream8.cinerama.uz/1502/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.803
+        }
+      ]
+    },
+    {
+      "name": "MeTV",
+      "country": "us",
+      "candidates": 5,
+      "notes": [
+        "GitHub code search HTTP 429 for 'MeTV'",
+        "GitHub code search HTTP 429 for 'MeTV US'"
+      ],
+      "working": 4,
+      "dropped_temporary": 3,
+      "published": 1,
+      "results": [
+        {
+          "name": "MeTV (United States) (720p)",
+          "url": "http://4.30.180.36:8420/metv/index.m3u8?token=test",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:priority-channels.m3u",
+          "segment_ok": true,
+          "elapsed": 0.121
+        },
+        {
+          "name": "MeTV",
+          "url": "https://82934cf9c8696bd2.mediapackage.us-east-1.amazonaws.com/out/v1/23685237ffbb4047a8143ac2166ead44/index.m3u8",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.088
+        },
+        {
+          "name": "MeTV",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTA5ODIwMzUyMTA6Y2RubGl2ZXR2LnR2OmQzN2YzMWI0MWFjN2ExY2UuMmJjYTZkZWYwZjk0ZDJiYTM5NjA3YmI5OGZlOWI0YjhiNTUxNTNlNWVlN2UxZDJhNGRjN2QyMDUwNTg1Y2ZhYQ",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.346
+        },
+        {
+          "name": "MeTV",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTA5NzEyMzYxOTE6Y2RubGl2ZXR2LnR2OjYzNmZhMWU2ZDAxZjhjOWMuOTMxMWRhZTk2OTkxZTI1OGRkODY3ODI3ZTU1NjdmYzc2MTJjMGU2MDA4OWJjMGUzZjVkM2FlNmQ5NjJlZTZlOQ",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:priority-channels.m3u",
+          "segment_ok": true,
+          "elapsed": 0.352
+        },
+        {
+          "name": "MeTV",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTA5ODc0MzUxNTk6Y2RubGl2ZXR2LnR2OjljNjIzOTNjNGRiYmMzODcuOTI4YWI3ZGExOGMyOGUzNjU5YTRlYjA2ZWQ5N2QxZDg2YzYzMTIzM2JlYTE0ODU1YWMxMWJhZWE5NDQ1YzE1Mw",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:priority-channels.m3u",
+          "segment_ok": true,
+          "elapsed": 0.356
+        }
+      ]
+    },
+    {
+      "name": "MeTV Toons",
+      "country": "us",
+      "candidates": 4,
+      "notes": [
+        "GitHub code search HTTP 429 for 'MeTV Toons'"
+      ],
+      "working": 0,
+      "dropped_temporary": 0,
+      "published": 0,
+      "results": [
+        {
+          "name": "USA: METV TOONS",
+          "url": "http://wheremyslimesat.hopto.org:2096/Kentynes/0176324859/814408",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:ShanZaiTV/global-broadcast/playlist.m3u",
+          "segment_ok": null,
+          "elapsed": 0.017
+        },
+        {
+          "name": "MeTV Toons",
+          "url": "https://live.realms.pub/live/01aec3bf-b9bb-4c3f-93e8-fc76542016f4/index.m3u8",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "source": "github:InsolenceWillow/insolencetvgo/insolencetvgo.m3u",
+          "segment_ok": null,
+          "elapsed": 0.128
+        },
+        {
+          "name": "MeTV Toons (720p)",
+          "url": "http://206.212.244.63/112/index.m3u8",
+          "status": "unreachable",
+          "reason": "TimeoutError",
+          "source": "github:cihan53/chyz-iptv/US/index.m3u",
+          "segment_ok": null,
+          "elapsed": 12.013
+        },
+        {
+          "name": "MeTV Toons",
+          "url": "https://tvpass.org/live/metv-toons/sd",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:iptvspace/live/sd.m3u",
+          "segment_ok": null,
+          "elapsed": 0.151
+        }
+      ]
+    }
+  ]
+}

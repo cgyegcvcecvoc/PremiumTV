@@ -131,13 +131,31 @@ class OccurrenceTest(unittest.TestCase):
 class WorkflowParsingTest(unittest.TestCase):
     def test_reads_the_real_scrape_workflow(self):
         slots = guard.load_schedule(REPO / ".github" / "workflows" / "scrape.yml")
-        self.assertEqual([slot.cron for slot in slots], ["7 3 * * *", "23 6 * * *", "41 16 * * *"])
+        # Seven slots a day, roughly every three hours, so a link that dies in
+        # the morning is out of the player playlist by the afternoon.
+        self.assertEqual([slot.cron for slot in slots],
+                         ["7 3 * * *", "23 6 * * *", "41 9 * * *", "53 12 * * *",
+                          "41 16 * * *", "17 20 * * *", "29 23 * * *"])
         for slot in slots:
             self.assertEqual(slot.timezone, "America/New_York")
         self.assertEqual([slot.label for slot in slots],
-                         ["3:07 AM daily scrape", "6:23 AM recheck", "4:41 PM final check"])
+                         ["3:07 AM daily scrape", "6:23 AM recheck", "9:41 AM recheck",
+                          "12:53 PM recheck", "4:41 PM final check", "8:17 PM recheck",
+                          "11:29 PM overnight recheck"])
         self.assertEqual([slot.run_type for slot in slots],
-                         ["regular_check", "recheck", "final_check"])
+                         ["regular_check", "recheck", "recheck", "recheck",
+                          "final_check", "recheck", "recheck"])
+
+    def test_slots_are_spread_through_the_day(self):
+        # The point of the extra slots is that no gap between two consecutive
+        # scrapes is much longer than three hours.
+        slots = guard.load_schedule(REPO / ".github" / "workflows" / "scrape.yml")
+        minutes = sorted(sorted(slot.spec.hours)[0] * 60 + sorted(slot.spec.minutes)[0]
+                         for slot in slots)
+        gaps = [minutes[index + 1] - minutes[index] for index in range(len(minutes) - 1)]
+        gaps.append(24 * 60 - minutes[-1] + minutes[0])
+        self.assertEqual(len(slots), 7)
+        self.assertLessEqual(max(gaps), 4 * 60 + 30)
 
     def test_no_cron_sits_on_a_busy_minute(self):
         # GitHub's scheduler is most congested at minute 0; the whole point of

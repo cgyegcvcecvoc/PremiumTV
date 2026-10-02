@@ -2,6 +2,19 @@
   "_comment": "Playlist sources with direct M3U/W3U feeds are listed under sources. Optional url_env entries are skipped and explicitly reported until configured. reference_checks probe sites/repos that do not publish a static playlist; they are not imported as channels.",
   "sources": [
     {
+      "name": "priority-channels",
+      "type": "m3u",
+      "enabled": true,
+      "local_path": "playlists/sources/priority-channels.m3u",
+      "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/sources/priority-channels.m3u",
+      "github": {
+        "repo": "cgyegcvcecvoc/PremiumTV1",
+        "path": "playlists/sources/priority-channels.m3u",
+        "ref": "main"
+      },
+      "note": "Curated links for the channels that matter most (Nickelodeon, NickToons, MeTV, MeTV Toons). Written by scripts/channel_hunt.py, which only keeps links it verified end to end; re-checked on every scrape like any other source."
+    },
+    {
       "name": "ae-networks",
       "type": "m3u",
       "enabled": true,
@@ -101,6 +114,70 @@
       "url_env": "DLIVE_M3U_URL"
     }
   ],
+  "priority_channels": {
+    "_comment": "Used by scripts/channel_hunt.py. Each target is hunted for by name and tvg-id across the local corpus, the configured upstream indexes and (with --github-search) public M3U files on GitHub. Every candidate is verified end to end - HLS variant plus a real media segment - before it is written to the curated playlist. A target whose aliases are also matched by another target is not collected by the shorter one, so MeTV never picks up MeTV Toons links.",
+    "enabled": true,
+    "output": "playlists/sources/priority-channels.m3u",
+    "targets": [
+      {
+        "name": "Nickelodeon",
+        "enabled": true,
+        "group": "Kids",
+        "max_links": 4,
+        "aliases": [
+          "Nickelodeon US",
+          "Nickelodeon.us@East",
+          "NickelodeonEast.us",
+          "Nickelodeon (United States)"
+        ],
+        "country": "us"
+      },
+      {
+        "name": "NickToons",
+        "enabled": true,
+        "group": "Kids",
+        "max_links": 4,
+        "aliases": [
+          "NickToons US",
+          "Nicktoons.us@East",
+          "Nicktoons.us@West",
+          "NicktoonsEast.us"
+        ],
+        "country": "us"
+      },
+      {
+        "name": "MeTV",
+        "enabled": true,
+        "group": "Classic TV",
+        "max_links": 4,
+        "aliases": [
+          "MeTV US",
+          "MeTV.us@SD",
+          "MeTV.us@East"
+        ],
+        "country": "us"
+      },
+      {
+        "name": "MeTV Toons",
+        "enabled": true,
+        "group": "Classic TV",
+        "max_links": 4,
+        "aliases": [
+          "MeTVToons",
+          "MeTVToons.us@SD",
+          "MeTVToons.us@East",
+          "MeTVToons.us@West",
+          "MeTV Toons US"
+        ],
+        "country": "us"
+      }
+    ],
+    "_blocklist_comment": "URL fragments that must never be collected: feeds that are publicly listed under a channel they do not actually carry.",
+    "blocklist": [
+      "2-fss-2.streamhoster.com/pl_138/205510-3094608-1"
+    ],
+    "playlist": "playlists/Priority_Channels.m3u"
+  },
   "reference_checks": [
     {
       "name": "eja.tv",

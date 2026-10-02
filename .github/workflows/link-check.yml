@@ -1,0 +1,143 @@
+name: Deep link and guide check
+
+# The daily scraper reads only the first few KB of each URL: enough to know a
+# server answered, not enough to know a player can play the stream. This
+# workflow is the intensive pass that the free-codecs style M3U checkers do by
+# hand:
+#
+#   1. scripts/link_check.py re-checks every published link end to end - it
+#      resolves HLS master playlists to a variant and downloads a real media
+#      segment, so a playlist that answers but serves no video is caught. Only
+#      confirmed-dead links (404/410, DNS failure, refused, HTML, empty) are
+#      removed from the published playlists, and only under the working-ratio
+#      and max-remove safety limits.
+#   2. scripts/epg_check.py verifies every TV guide in the x-tvg-url header and
+#      drops the guides that are gone or that are not XMLTV at all, so players
+#      stop waiting on dead guides.
+#   3. scripts/channel_hunt.py hunts for the priority channels (Nickelodeon,
+#      NickToons, MeTV, MeTV Toons), verifies each candidate end to end, and
+#      writes the survivors to playlists/sources/priority-channels.m3u, which
+#      the daily scrape re-checks like any other source.
+#
+# Everything it finds is published under playlists/checks/.
+on:
+  # "Run it now" switch: appending a line to playlists/logs/run-deep-check.txt
+  # and pushing starts this workflow on the current branch, which is handy when
+  # GitHub's scheduler is late or a link needs checking right away. The workflow
+  # never writes to that file, so it cannot trigger itself.
+  push:
+    paths:
+      - "playlists/logs/run-deep-check.txt"
+  schedule:
+    # Nightly, after the last scrape of the day and before the first one.
+    - cron: "13 1 * * *"
+      timezone: "America/New_York"
+  workflow_dispatch:
+    inputs:
+      patch:
+        description: "Remove confirmed-dead links and dead guides"
+        type: boolean
+        default: true
+      deep:
+        description: "Deep check (resolve HLS variants and probe media segments)"
+        type: boolean
+        default: true
+      hunt:
+        description: "Hunt for priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: link-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run offline tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Deep-check every published link
+        id: links
+        continue-on-error: true
+        env:
+          PATCH: ${{ inputs.patch }}
+          DEEP: ${{ inputs.deep }}
+        run: |
+          args=(--all --workers 96 --per-host-workers 8 --timeout 10 --retries 1
+                --min-working-ratio 0.25 --max-remove-ratio 0.35
+                --label "nightly deep link check")
+          if [ "$DEEP" != "false" ]; then args+=(--deep); fi
+          # A scheduled run always patches; a manual run can report only.
+          if [ "$PATCH" != "false" ]; then args+=(--patch); fi
+          python scripts/link_check.py "${args[@]}"
+
+      - name: Verify the TV guides
+        id: epg
+        continue-on-error: true
+        env:
+          PATCH: ${{ inputs.patch }}
+        run: |
+          args=(--all --workers 8 --timeout 60 --min-working-ratio 0.25
+                --label "nightly guide check")
+          if [ "$PATCH" != "false" ]; then args+=(--patch); fi
+          python scripts/epg_check.py "${args[@]}"
+
+      - name: Hunt for priority channels
+        id: hunt
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUNT: ${{ inputs.hunt }}
+        run: |
+          if [ "$HUNT" = "false" ]; then
+            echo "Priority-channel hunt disabled for this run."
+            exit 0
+          fi
+          # --github-search also mines public M3U files on GitHub; it is best
+          # effort, so a missing working link for a channel must not fail the run.
+          python scripts/channel_hunt.py --github-search --workers 24 --timeout 12 \
+            --label "nightly priority channel hunt" || true
+
+      - name: Add the check reports to the Actions summary
+        if: always()
+        run: |
+          for file in playlists/checks/LINK-CHECK.md playlists/checks/EPG-CHECK.md \
+                      playlists/checks/CHANNEL-HUNT.md; do
+            if [ -f "$file" ]; then
+              echo "-----" >> "$GITHUB_STEP_SUMMARY"
+              cat "$file" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          done
+
+      - name: Commit the patches and reports
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add playlists/
+          if git diff --cached --quiet; then
+            echo "No link, guide or channel changes to commit."
+            exit 0
+          fi
+          git commit -m "Deep check: dead links patched, guides verified, priority channels hunted ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep 5
+          done
+          exit 1
+
+      - name: Fail the workflow if a check crashed
+        if: steps.links.outcome == 'failure' || steps.epg.outcome == 'failure'
+        run: exit 1
