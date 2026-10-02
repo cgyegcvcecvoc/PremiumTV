@@ -1,0 +1,15 @@
+#EXTM3U
+# Priority channels - curated links for Nickelodeon, NickToons, MeTV and MeTV Toons.
+# Seeded from public channel indexes; scripts/channel_hunt.py rewrites this file on
+# every hunt and keeps only links it verified end to end (HLS variant + a real media
+# segment), and the daily scrape re-checks every entry here like any other source.
+#EXTINF:-1 tvg-id="Nickelodeon.us@East" tvg-country="US" group-title="Kids;Priority",Nickelodeon (United States) (720p)
+http://198.58.104.90:8989/nickelodeon/index.m3u8
+#EXTINF:-1 tvg-id="Nicktoons.us@East" tvg-country="US" group-title="Kids;Priority",Nicktoons (United States) (1080p)
+http://41.205.93.154/NICKTOONS/index.m3u8
+#EXTINF:-1 tvg-id="Nicktoons.us@East" tvg-country="US" group-title="Kids;Priority",Nicktoons (United States) HD
+https://sra72yz.s.gy/NICKTOONS_HD.m3u8
+#EXTINF:-1 tvg-id="MeTV.us@SD" tvg-country="US" group-title="Classic TV;Priority",MeTV (United States) (720p)
+http://4.30.180.36:8420/metv/index.m3u8?token=test
+#EXTINF:-1 tvg-id="MeTVToons.us@SD" tvg-country="US" group-title="Classic TV;Priority",MeTV Toons (720p)
+https://d3m10mlzdolmch.cloudfront.net/v1/master/840a24ccd7c75076211d060179b3ad0c64fdc6ca/metv_toon_nr/0d1dbf29e64e47bc991796cc24fbeb97/index.m3u8

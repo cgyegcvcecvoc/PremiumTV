@@ -22,6 +22,10 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/logs/errors.txt`](playlists/logs/errors.txt) | Plain-text (`.txt`) error breakdown, source/run issues, and dead/unverified links. |
 | [`playlists/logs/run-history.txt`](playlists/logs/run-history.txt) | Plain-text (`.txt`) tabular summary of all recorded runs. |
 | [`playlists/report.json`](playlists/report.json) | Detailed latest JSON report, including failed sources, country counts, A&E channels, and dead/unverified URLs. |
+| [`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md) | Nightly deep check: which published links are working, offline, unreachable, blocked, and what was patched out. |
+| [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md) | TV guide check: every advertised guide URL with its status, channel/programme counts, and dead guides removed. |
+| [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
+| [`playlists/sources/priority-channels.m3u`](playlists/sources/priority-channels.m3u) | Verified links for the priority channels, re-checked on every scrape. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
@@ -55,13 +59,19 @@ Each report compares the newly discovered links with the previous all-links play
 
 ## Automatic checks and logs
 
-The [GitHub Actions workflow](.github/workflows/scrape.yml) runs three times a day in `America/New_York`:
+The [GitHub Actions workflow](.github/workflows/scrape.yml) runs **seven times a day** in `America/New_York` — roughly every three hours, so a link that dies in the morning is out of the player playlist by the afternoon:
 
 | Time | Cron | Run label |
 |---|---|---|
 | 3:07 AM | `7 3 * * *` | Regular daily scrape |
 | 6:23 AM | `23 6 * * *` | Recheck |
+| 9:41 AM | `41 9 * * *` | Recheck |
+| 12:53 PM | `53 12 * * *` | Recheck |
 | 4:41 PM | `41 16 * * *` | Final daily check |
+| 8:17 PM | `17 20 * * *` | Recheck |
+| 11:29 PM | `29 23 * * *` | Overnight recheck |
+
+A separate [nightly workflow](.github/workflows/link-check.yml) runs the intensive deep check at 1:13 AM: it re-verifies every published link end to end, verifies every TV guide, and hunts for the priority channels. See [Deep link check, guide check and priority channels](#deep-link-check-guide-check-and-priority-channels).
 
 A separate [monthly workflow](.github/workflows/discover.yml) hunts for new channels on the 1st of each month at 4:37 AM; see [Monthly new-channel discovery](#monthly-new-channel-discovery).
 
@@ -119,6 +129,74 @@ An offline regression suite runs before the scrape. All scheduled runs fetch eve
 Statuses distinguish **dead** responses from **unverified** results. For example, 401/403 access restrictions, rate limits, server errors, timeouts, and non-HTTP schemes are not represented as confirmed-working links; their reasons and next-step guidance are in `STATUS.md` and `report.json`. Per-host request limits and retries help reduce avoidable rate limiting. HTTP checks are only a reachability signal: they cannot guarantee playback from every region or that a stream is authorized for every viewer.
 
 To run immediately, open **Actions → Scrape playlists → Run workflow**. Leave **Skip link checking** off for a verified refresh. Scheduled workflows run from the default branch (`main`); a manual run on another branch only updates that branch. To see the current schedule coverage without starting anything, run **Actions → Schedule guard → Run workflow** (dry run by default) or `python scripts/schedule_guard.py report`.
+
+## Deep link check, guide check and priority channels
+
+The daily scrape is deliberately shallow: it reads the first few KB of a URL, which proves a server
+answered but not that a player can play the stream. Three scripts cover the gap, and
+[`.github/workflows/link-check.yml`](.github/workflows/link-check.yml) runs all three nightly at
+**1:13 AM** (New York time). Each can also be run by hand from **Actions → Deep link and guide check
+→ Run workflow**, or locally:
+
+```bash
+python scripts/link_check.py --all --patch     # re-verify every published link, drop dead ones
+python scripts/epg_check.py  --all --patch     # verify every TV guide, drop dead ones
+python scripts/channel_hunt.py --github-search # hunt Nickelodeon, NickToons, MeTV, MeTV Toons
+```
+
+### `scripts/link_check.py` — the intensive M3U check
+
+For every published link it fetches the URL with the headers a player would send, resolves an HLS
+master playlist to its best variant, downloads a real media segment and checks it is media (TS sync
+byte, fMP4 box, or enough bytes), checks DASH manifests are populated, and classifies the rest by
+payload. That distinguishes the two cases a shallow check cannot tell apart:
+
+| Result | Meaning | Patched? |
+|---|---|---|
+| `working` | answered **and** produced playable media | keep |
+| `offline` | confirmed dead: 404/410, DNS failure, refused, HTML page, empty body | **removed** |
+| `unreachable` | timeout, 5xx, connection reset — may recover | keep |
+| `blocked` | 401 / 403 / 451 — needs auth or is geo-blocked | keep |
+| `unsupported` | non-HTTP scheme (rtmp, acestream, …) that cannot be probed | keep |
+| `invalid` | malformed or non-HTTP URL | **removed** |
+
+Only the two confirmed-dead buckets are ever removed, and two safety nets stop a bad network day
+from gutting a good playlist: `--min-working-ratio` (default 20%) aborts the patch when too few
+links worked overall, and `--max-remove-ratio` (default 35%) skips any single playlist that would
+lose more than that share of its entries. Every removal is logged to
+`playlists/logs/link-check-edits.txt` and summarised in
+[`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md).
+
+### `scripts/epg_check.py` — TV guide verification
+
+Players download every guide in the playlist's `x-tvg-url` header on each refresh, so one dead guide
+slows all of them down. This script fetches each guide the way a player does — decompressing
+`.xml.gz` on the fly and only reading the first slice of what are often 100 MB files — and confirms
+it is real XMLTV with channels and programmes in it. Guides that answer with an HTML error page,
+JSON, or an empty body are `invalid`; guides that 404 are `offline`; both are dropped by `--patch`,
+while `unreachable` and `blocked` guides are kept because they may recover. Results, channel counts
+and the newest programme date are in
+[`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md).
+
+### `scripts/channel_hunt.py` — priority channels
+
+Coverage scrapes are good for volume and bad for a specific channel: if the index entry rots, the
+channel silently disappears. This script inverts the process for the channels configured in
+`sources.json` → `priority_channels` (Nickelodeon, NickToons, MeTV, MeTV Toons):
+
+1. **Collect** every candidate whose name or `tvg-id` matches a target — from the local corpus, from
+   the configured upstream indexes, and (with `--github-search`) from public M3U files found by
+   GitHub code search. A target whose name is a prefix of another target is excluded from it, so
+   *MeTV* never collects *MeTV Toons* links.
+2. **Verify** each candidate end to end with the deep checker.
+3. **Publish** the survivors to `playlists/sources/priority-channels.m3u`, which `sources.json`
+   enables as a normal source — so every scheduled scrape re-checks them, and a channel can only
+   stay listed while it keeps playing.
+
+Nothing is guessed: a link is only written after a media segment downloaded successfully. The hunt
+reports every candidate it tested and the reason each one failed in
+[`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md), so a channel with no working
+public link is visible rather than silently missing.
 
 ## Monthly new-channel discovery
 

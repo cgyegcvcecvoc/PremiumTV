@@ -1,10 +1,15 @@
 name: Scrape playlists
 
-# Runs three times a day on New York time (EDT/EST changes are handled by
-# GitHub's timezone-aware schedule):
+# Runs seven times a day on New York time (EDT/EST changes are handled by
+# GitHub's timezone-aware schedule) - roughly every three hours, so a link that
+# dies in the morning is out of the player playlist by the afternoon:
 #   03:07  regular daily scrape
 #   06:23  recheck
+#   09:41  recheck
+#   12:53  recheck
 #   16:41  final daily check
+#   20:17  recheck
+#   23:29  overnight recheck
 #
 # The minutes are deliberately not 0 or 15. GitHub starts scheduled runs late
 # under load and the top of the hour is its busiest moment: on this repository
@@ -20,7 +25,15 @@ on:
       timezone: "America/New_York"
     - cron: "23 6 * * *"
       timezone: "America/New_York"
+    - cron: "41 9 * * *"
+      timezone: "America/New_York"
+    - cron: "53 12 * * *"
+      timezone: "America/New_York"
     - cron: "41 16 * * *"
+      timezone: "America/New_York"
+    - cron: "17 20 * * *"
+      timezone: "America/New_York"
+    - cron: "29 23 * * *"
       timezone: "America/New_York"
   workflow_dispatch:
     inputs:
