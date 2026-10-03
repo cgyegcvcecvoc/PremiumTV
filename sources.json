@@ -2,6 +2,19 @@
   "_comment": "Playlist sources with direct M3U/W3U feeds are listed under sources. Optional url_env entries are skipped and explicitly reported until configured. reference_checks probe sites/repos that do not publish a static playlist; they are not imported as channels.",
   "sources": [
     {
+      "name": "local-channels",
+      "type": "m3u",
+      "enabled": true,
+      "local_path": "playlists/sources/local-channels.m3u",
+      "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/sources/local-channels.m3u",
+      "github": {
+        "repo": "cgyegcvcecvoc/PremiumTV1",
+        "path": "playlists/sources/local-channels.m3u",
+        "ref": "main"
+      },
+      "note": "Curated local channels for the Lancaster / Harrisburg / Lebanon / York market (Susquehanna Valley, PA): WGAL 8 (NBC, Lancaster), CBS 21 (WHP, Harrisburg), Fox 29 (WTXF, Philadelphia) and NBC 6 (WJAC, Johnstown). Re-checked on every scrape like any other source."
+    },
+    {
       "name": "priority-channels",
       "type": "m3u",
       "enabled": true,

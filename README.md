@@ -58,6 +58,24 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/AE_Cha
 
 See [`playlists/countries/README.md`](playlists/countries/README.md) for the complete table of all ~170+ country playlists.
 
+### Local channels (Lancaster / Harrisburg, PA)
+
+[`playlists/sources/local-channels.m3u`](playlists/sources/local-channels.m3u) is a curated source for the
+Susquehanna Valley market, so the local stations are published in `PremiumTV.m3u` and
+`playlists/countries/USA.m3u` like any other channel and re-checked on every scrape:
+
+| Channel | Market | Feed |
+|---|---|---|
+| WGAL 8 (NBC) | Lancaster, PA | public Tubi feed |
+| CBS 21 (WHP) | Harrisburg, PA | public Stirr feed |
+| Fox 29 (WTXF) | Philadelphia, PA | Fox's public FAST feed |
+| NBC 6 (WJAC) | Johnstown, PA | public Stirr feed |
+
+WHTM 27 (ABC) and WPMT 43 (Fox) are the market's other stations, but they publish no free 24/7 stream —
+abc27 and fox43 stream newscasts only inside their own sites and apps — so they are not listed. Add a line
+to the file and the next scrape publishes and checks it; a feed that stops answering is dropped
+automatically.
+
 Each report compares the newly discovered links with the previous all-links playlist and records added/removed counts. A failed source refresh or a link-check run below the minimum working ratio is recorded, but does not replace the last good `PremiumTV.m3u`.
 
 ## TV guide (EPG) — one merged `.xml` file
@@ -340,6 +358,7 @@ Playlist sources are configured in [`sources.json`](sources.json). Active M3U/W3
 
 | Source | Format | Integration |
 |---|---|---|
+| [`local-channels`](playlists/sources/local-channels.m3u) | M3U | Curated local channels for the Lancaster / Harrisburg / Lebanon / York market (`WGAL 8`, `CBS 21 (WHP)`, `Fox 29 (WTXF)`, `NBC 6 (WJAC)`); enabled and re-checked on every scrape. |
 | [`ae-networks`](playlists/sources/ae-networks.m3u) | M3U | Curated A&E and A+E Networks linear & FAST M3U8 streams (`A&E`, `A&E Crime 360`, `The First 48`, `Storage Wars`, `Cold Case Files`, `60 Days In`, `Hoarders`, `Intervention`, `Dog the Bounty Hunter`, `Duck Dynasty`, `Home.Made.Nation`, `Crime + Investigation`, etc.); enabled. |
 | [aria](https://github.com/aria-tv/aria/blob/main/aria.m3u) | M3U | Direct raw playlist; enabled. |
 | [doms9/iptv](https://github.com/doms9/iptv) | M3U8 | `M3U8/TV.m3u8`; enabled. |
