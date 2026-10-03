@@ -1,21 +1,21 @@
 ========================================================================================
 PREMIUMTV1 SCRAPER RUN LOG (.TXT)
 ========================================================================================
-Run ID:                  20261002T195758Z-2383
-Run Label:               manual re-scrape (channel + link audit) (manual)
-Started (UTC):           2026-10-02T19:57:58Z
-Finished (UTC):          2026-10-02T20:01:34Z
-Local Time (New York):   2026-10-02 04:01 PM EDT
-Duration:                216.77 seconds
+Run ID:                  20261002T235928Z-2556
+Run Label:               4:41 PM final check (final_check)
+Started (UTC):           2026-10-02T23:59:28Z
+Finished (UTC):          2026-10-03T00:03:03Z
+Local Time (New York):   2026-10-02 08:03 PM EDT
+Duration:                215.43 seconds
 Outcome Status:          WARNING
 Link Check Completed:    True
 Player Playlist Updated: YES
-Total Input Entries:     20936
-Total Unique URLs:       16627
-Confirmed Working:       12286
-Confirmed Dead:          1509
-Unverified:              2832
-Log Edits (vs PremiumTV_all.m3u): +385 added / -320 removed
+Total Input Entries:     20845
+Total Unique URLs:       16528
+Confirmed Working:       12089
+Confirmed Dead:          1577
+Unverified:              2862
+Log Edits (vs PremiumTV_all.m3u): +265 added / -364 removed
 Countries Separated:     177 country playlists in playlists/countries/
 A&E Working Channels:    68 / 71 unique links (playlists/AE_Channels.m3u)
 
@@ -24,17 +24,18 @@ A&E Working Channels:    68 / 71 unique links (playlists/AE_Channels.m3u)
 ----------------------------------------------------------------------------------------
 Source                     Status           Entries   Unique  Overlap  Working     Dead  Unverif
 -----------------------------------------------------------------------------------------------
+priority-channels          ok                     9        9        8        9        0        0
 ae-networks                ok                    53       53       17       51        0        2
-aria                       ok                   398      392      122      290        9       93
-doms9                      ok                   599      595       68      293       43      259
-xtemus                     ok                   317      317        0       32      232       53
-iptv-org                   ok                 11152    11152     3679     8297      817     2038
-free-tv                    ok                  2080     2054      832     1301      312      441
+aria                       ok                   398      392      122      292        9       91
+doms9                      ok                   499      495       70      233       22      240
+xtemus                     ok                   317      317        0       33      231       53
+iptv-org                   ok                 11152    11152     3683     8194      881     2077
+free-tv                    ok                  2080     2054      832     1285      324      445
 eja-tv-feed                not_configured         0        0        0        0        0        0
 stepdaddylivehd-instance   not_configured         0        0        0        0        0        0
 dlive-sx-feed              not_configured         0        0        0        0        0        0
-m3u                        ok                   831      827      174      640      127       60
-openstream                 ok                  5506     5506     3215     5452       36       18
+m3u                        ok                   831      827      174      636      131       60
+openstream                 ok                  5506     5506     3217     5409       72       25
 
 ----------------------------------------------------------------------------------------
 2. A&E AND A+E NETWORKS CHANNELS (68 WORKING / 71 UNIQUE)
@@ -116,83 +117,82 @@ openstream                 ok                  5506     5506     3215     5452  
 ----------------------------------------------------------------------------------------
 Country                               Working   Playlist Path
 --------------------------------------------------------------------------------
-USA                                      2810   playlists/countries/USA.m3u
-International                            1198   playlists/countries/International.m3u
-India                                     791   playlists/countries/India.m3u
-Italy                                     527   playlists/countries/Italy.m3u
-Russia                                    441   playlists/countries/Russia.m3u
-Germany                                   406   playlists/countries/Germany.m3u
+USA                                      2722   playlists/countries/USA.m3u
+International                            1191   playlists/countries/International.m3u
+India                                     777   playlists/countries/India.m3u
+Italy                                     507   playlists/countries/Italy.m3u
+Russia                                    439   playlists/countries/Russia.m3u
+Germany                                   405   playlists/countries/Germany.m3u
 Sweden                                    378   playlists/countries/Sweden.m3u
-Spain                                     239   playlists/countries/Spain.m3u
 UK                                        239   playlists/countries/UK.m3u
-Chile                                     204   playlists/countries/Chile.m3u
-France                                    203   playlists/countries/France.m3u
-Dominican Republic                        202   playlists/countries/Dominican_Republic.m3u
-Brazil                                    190   playlists/countries/Brazil.m3u
-Ukraine                                   177   playlists/countries/Ukraine.m3u
-Netherlands                               172   playlists/countries/Netherlands.m3u
-Argentina                                 158   playlists/countries/Argentina.m3u
-Peru                                      153   playlists/countries/Peru.m3u
+Spain                                     236   playlists/countries/Spain.m3u
+Dominican Republic                        205   playlists/countries/Dominican_Republic.m3u
+France                                    201   playlists/countries/France.m3u
+Brazil                                    196   playlists/countries/Brazil.m3u
+Chile                                     192   playlists/countries/Chile.m3u
+Ukraine                                   174   playlists/countries/Ukraine.m3u
+Netherlands                               168   playlists/countries/Netherlands.m3u
+Argentina                                 156   playlists/countries/Argentina.m3u
+Peru                                      154   playlists/countries/Peru.m3u
 Turkey                                    151   playlists/countries/Turkey.m3u
 Canada                                    143   playlists/countries/Canada.m3u
-Mexico                                    132   playlists/countries/Mexico.m3u
-Romania                                   127   playlists/countries/Romania.m3u
-Poland                                    121   playlists/countries/Poland.m3u
-Indonesia                                 120   playlists/countries/Indonesia.m3u
-Iran                                      120   playlists/countries/Iran.m3u
+Mexico                                    130   playlists/countries/Mexico.m3u
+Romania                                   128   playlists/countries/Romania.m3u
+Iran                                      119   playlists/countries/Iran.m3u
+Poland                                    119   playlists/countries/Poland.m3u
+Indonesia                                 117   playlists/countries/Indonesia.m3u
 Hungary                                   112   playlists/countries/Hungary.m3u
 Colombia                                  108   playlists/countries/Colombia.m3u
-China                                      94   playlists/countries/China.m3u
-Czechia                                    88   playlists/countries/Czechia.m3u
-Greece                                     88   playlists/countries/Greece.m3u
-Mongolia                                   77   playlists/countries/Mongolia.m3u
+China                                      91   playlists/countries/China.m3u
+Czechia                                    87   playlists/countries/Czechia.m3u
+Greece                                     86   playlists/countries/Greece.m3u
+Mongolia                                   79   playlists/countries/Mongolia.m3u
 Thailand                                   77   playlists/countries/Thailand.m3u
-South Korea                                76   playlists/countries/South_Korea.m3u
-Paraguay                                   63   playlists/countries/Paraguay.m3u
-Vietnam                                    63   playlists/countries/Vietnam.m3u
-Iraq                                       62   playlists/countries/Iraq.m3u
-Pakistan                                   61   playlists/countries/Pakistan.m3u
-Venezuela                                  59   playlists/countries/Venezuela.m3u
-Ecuador                                    57   playlists/countries/Ecuador.m3u
+South Korea                                74   playlists/countries/South_Korea.m3u
+Vietnam                                    64   playlists/countries/Vietnam.m3u
+Iraq                                       60   playlists/countries/Iraq.m3u
+Pakistan                                   58   playlists/countries/Pakistan.m3u
+Paraguay                                   58   playlists/countries/Paraguay.m3u
 Saudi Arabia                               57   playlists/countries/Saudi_Arabia.m3u
-Costa Rica                                 56   playlists/countries/Costa_Rica.m3u
-Slovakia                                   56   playlists/countries/Slovakia.m3u
-Honduras                                   50   playlists/countries/Honduras.m3u
-Bolivia                                    49   playlists/countries/Bolivia.m3u
-Portugal                                   48   playlists/countries/Portugal.m3u
+Slovakia                                   57   playlists/countries/Slovakia.m3u
+Ecuador                                    56   playlists/countries/Ecuador.m3u
+Venezuela                                  55   playlists/countries/Venezuela.m3u
+Costa Rica                                 53   playlists/countries/Costa_Rica.m3u
+Portugal                                   49   playlists/countries/Portugal.m3u
+Bolivia                                    48   playlists/countries/Bolivia.m3u
+Honduras                                   48   playlists/countries/Honduras.m3u
+Austria                                    40   playlists/countries/Austria.m3u
 United Arab Emirates                       40   playlists/countries/United_Arab_Emirates.m3u
 Australia                                  39   playlists/countries/Australia.m3u
 Kazakhstan                                 39   playlists/countries/Kazakhstan.m3u
-Austria                                    38   playlists/countries/Austria.m3u
 Qatar                                      38   playlists/countries/Qatar.m3u
-Nigeria                                    37   playlists/countries/Nigeria.m3u
+Nigeria                                    36   playlists/countries/Nigeria.m3u
 Uzbekistan                                 34   playlists/countries/Uzbekistan.m3u
-Finland                                    33   playlists/countries/Finland.m3u
 Latin America                              33   playlists/countries/Latin_America.m3u
 Guatemala                                  31   playlists/countries/Guatemala.m3u
-Israel                                     31   playlists/countries/Israel.m3u
-Lebanon                                    30   playlists/countries/Lebanon.m3u
+Lebanon                                    31   playlists/countries/Lebanon.m3u
+Belarus                                    30   playlists/countries/Belarus.m3u
+Israel                                     30   playlists/countries/Israel.m3u
 Belgium                                    29   playlists/countries/Belgium.m3u
-Belarus                                    28   playlists/countries/Belarus.m3u
-Bulgaria                                   28   playlists/countries/Bulgaria.m3u
-El Salvador                                28   playlists/countries/El_Salvador.m3u
+Finland                                    28   playlists/countries/Finland.m3u
 Puerto Rico                                28   playlists/countries/Puerto_Rico.m3u
-Ireland                                    26   playlists/countries/Ireland.m3u
+Bulgaria                                   27   playlists/countries/Bulgaria.m3u
 Switzerland                                26   playlists/countries/Switzerland.m3u
-Moldova                                    25   playlists/countries/Moldova.m3u
+El Salvador                                24   playlists/countries/El_Salvador.m3u
+Ireland                                    24   playlists/countries/Ireland.m3u
 Japan                                      24   playlists/countries/Japan.m3u
-Serbia                                     24   playlists/countries/Serbia.m3u
-Bangladesh                                 23   playlists/countries/Bangladesh.m3u
+Moldova                                    24   playlists/countries/Moldova.m3u
+Bangladesh                                 22   playlists/countries/Bangladesh.m3u
 Estonia                                    22   playlists/countries/Estonia.m3u
+Serbia                                     22   playlists/countries/Serbia.m3u
+Cambodia                                   21   playlists/countries/Cambodia.m3u
 Cyprus                                     21   playlists/countries/Cyprus.m3u
-Palestine                                  21   playlists/countries/Palestine.m3u
-Singapore                                  21   playlists/countries/Singapore.m3u
-Cambodia                                   19   playlists/countries/Cambodia.m3u
-Croatia                                    18   playlists/countries/Croatia.m3u
+Palestine                                  20   playlists/countries/Palestine.m3u
+Singapore                                  20   playlists/countries/Singapore.m3u
+Ivory Coast                                18   playlists/countries/Ivory_Coast.m3u
 Jordan                                     18   playlists/countries/Jordan.m3u
+Latvia                                     18   playlists/countries/Latvia.m3u
 North Macedonia                            18   playlists/countries/North_Macedonia.m3u
-Ivory Coast                                17   playlists/countries/Ivory_Coast.m3u
-Latvia                                     17   playlists/countries/Latvia.m3u
 Lithuania                                  17   playlists/countries/Lithuania.m3u
 Albania                                    16   playlists/countries/Albania.m3u
 Egypt                                      16   playlists/countries/Egypt.m3u
@@ -201,45 +201,47 @@ Turkmenistan                               16   playlists/countries/Turkmenistan
 Arab World                                 15   playlists/countries/Arab_World.m3u
 Kuwait                                     15   playlists/countries/Kuwait.m3u
 Luxembourg                                 15   playlists/countries/Luxembourg.m3u
-Uganda                                     15   playlists/countries/Uganda.m3u
 Azerbaijan                                 14   playlists/countries/Azerbaijan.m3u
+Georgia                                    14   playlists/countries/Georgia.m3u
 Panama                                     14   playlists/countries/Panama.m3u
 Taiwan                                     14   playlists/countries/Taiwan.m3u
-Georgia                                    12   playlists/countries/Georgia.m3u
+Uganda                                     14   playlists/countries/Uganda.m3u
+Croatia                                    13   playlists/countries/Croatia.m3u
 Morocco                                    12   playlists/countries/Morocco.m3u
+Philippines                                12   playlists/countries/Philippines.m3u
 Bosnia and Herzegovina                     11   playlists/countries/Bosnia_and_Herzegovina.m3u
+Cameroon                                   11   playlists/countries/Cameroon.m3u
 Denmark                                    11   playlists/countries/Denmark.m3u
-Guyana                                     11   playlists/countries/Guyana.m3u
-Philippines                                11   playlists/countries/Philippines.m3u
 Syria                                      11   playlists/countries/Syria.m3u
 Afghanistan                                10   playlists/countries/Afghanistan.m3u
 Armenia                                    10   playlists/countries/Armenia.m3u
-Cameroon                                   10   playlists/countries/Cameroon.m3u
+Guyana                                     10   playlists/countries/Guyana.m3u
 Aruba                                       9   playlists/countries/Aruba.m3u
-Haiti                                       9   playlists/countries/Haiti.m3u
 Hong Kong                                   9   playlists/countries/Hong_Kong.m3u
 Kosovo                                      9   playlists/countries/Kosovo.m3u
 Laos                                        9   playlists/countries/Laos.m3u
 Nepal                                       9   playlists/countries/Nepal.m3u
+Rwanda                                      9   playlists/countries/Rwanda.m3u
 Ghana                                       8   playlists/countries/Ghana.m3u
-Kenya                                       8   playlists/countries/Kenya.m3u
-Rwanda                                      8   playlists/countries/Rwanda.m3u
+Haiti                                       8   playlists/countries/Haiti.m3u
+Kenya                                       7   playlists/countries/Kenya.m3u
 New Zealand                                 7   playlists/countries/New_Zealand.m3u
-Algeria                                     6   playlists/countries/Algeria.m3u
+Senegal                                     7   playlists/countries/Senegal.m3u
 Maldives                                    6   playlists/countries/Maldives.m3u
+Myanmar                                     6   playlists/countries/Myanmar.m3u
 Nicaragua                                   6   playlists/countries/Nicaragua.m3u
 Norway                                      6   playlists/countries/Norway.m3u
 Oman                                        6   playlists/countries/Oman.m3u
-Senegal                                     6   playlists/countries/Senegal.m3u
 Slovenia                                    6   playlists/countries/Slovenia.m3u
-Sri Lanka                                   6   playlists/countries/Sri_Lanka.m3u
-Bahrain                                     5   playlists/countries/Bahrain.m3u
-Benin                                       5   playlists/countries/Benin.m3u
+Algeria                                     5   playlists/countries/Algeria.m3u
 Guadeloupe                                  5   playlists/countries/Guadeloupe.m3u
 Martinique                                  5   playlists/countries/Martinique.m3u
-Myanmar                                     5   playlists/countries/Myanmar.m3u
 Sint Maarten                                5   playlists/countries/Sint_Maarten.m3u
+Sri Lanka                                   5   playlists/countries/Sri_Lanka.m3u
 Tanzania                                    5   playlists/countries/Tanzania.m3u
+Trinidad and Tobago                         5   playlists/countries/Trinidad_and_Tobago.m3u
+Bahrain                                     4   playlists/countries/Bahrain.m3u
+Benin                                       4   playlists/countries/Benin.m3u
 Burkina Faso                                4   playlists/countries/Burkina_Faso.m3u
 Caribbean Netherlands                       4   playlists/countries/Caribbean_Netherlands.m3u
 DR Congo                                    4   playlists/countries/DR_Congo.m3u
@@ -248,9 +250,7 @@ Jamaica                                     4   playlists/countries/Jamaica.m3u
 Libya                                       4   playlists/countries/Libya.m3u
 North Korea                                 4   playlists/countries/North_Korea.m3u
 Somalia                                     4   playlists/countries/Somalia.m3u
-Trinidad and Tobago                         4   playlists/countries/Trinidad_and_Tobago.m3u
 Yemen                                       4   playlists/countries/Yemen.m3u
-Cuba                                        3   playlists/countries/Cuba.m3u
 Guinea                                      3   playlists/countries/Guinea.m3u
 Monaco                                      3   playlists/countries/Monaco.m3u
 Montenegro                                  3   playlists/countries/Montenegro.m3u
@@ -263,8 +263,8 @@ Tunisia                                     3   playlists/countries/Tunisia.m3u
 Western Sahara                              3   playlists/countries/Western_Sahara.m3u
 Angola                                      2   playlists/countries/Angola.m3u
 Bahamas                                     2   playlists/countries/Bahamas.m3u
-Belize                                      2   playlists/countries/Belize.m3u
 British Virgin Islands                      2   playlists/countries/British_Virgin_Islands.m3u
+Cuba                                        2   playlists/countries/Cuba.m3u
 Curacao                                     2   playlists/countries/Curacao.m3u
 Faroe Islands                               2   playlists/countries/Faroe_Islands.m3u
 Kyrgyzstan                                  2   playlists/countries/Kyrgyzstan.m3u
@@ -277,6 +277,7 @@ Suriname                                    2   playlists/countries/Suriname.m3u
 Uruguay                                     2   playlists/countries/Uruguay.m3u
 Andorra                                     1   playlists/countries/Andorra.m3u
 Barbados                                    1   playlists/countries/Barbados.m3u
+Belize                                      1   playlists/countries/Belize.m3u
 Bermuda                                     1   playlists/countries/Bermuda.m3u
 Cape Verde                                  1   playlists/countries/Cape_Verde.m3u
 Chad                                        1   playlists/countries/Chad.m3u
@@ -298,118 +299,147 @@ Zimbabwe                                    1   playlists/countries/Zimbabwe.m3u
 4. LOG EDITS IN THIS RUN (ADDED & REMOVED CHANNELS)
 ----------------------------------------------------------------------------------------
 Baseline: PremiumTV_all.m3u
-Added:    +385 channels
-Removed:  -320 channels
+Added:    +265 channels
+Removed:  -364 channels
 
 Added Channels (sample):
-  + [USA] [UEFA Nations League] Faroe Islands vs Slovakia 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIII.m3u8
-  + [USA] [UEFA Nations League] Bosnia-Herzegovina vs Sweden 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIIIQ.m3u8
-  + [USA] [UEFA Nations League] Hungary vs Georgia 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIIIQQ.m3u8
-  + [USA] [UEFA Nations League] Poland vs Romania 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQ.m3u8
-  + [USA] [UEFA Nations League] Ukraine vs Northern Ireland 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQQ.m3u8
-  + [USA] [UEFA Nations League] Belgium vs Turkey 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQQQ.m3u8
-  + [USA] [UEFA Nations League] France vs Italy 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQQQQ.m3u8
-  + [USA] [UEFA Nations League] Bosnia-Herzegovina vs Sweden (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/OIIIQX.m3u8
-  + [USA] [English Premiership Rugby] Bath vs Exeter Chiefs (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/AYYY.m3u8
-  + [USA] [United Rugby Championship] Benetton vs Connacht (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/AYYYA.m3u8
-  + [USA] [United Rugby Championship] Cardiff Rugby vs Zebre (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/AYYYAA.m3u8
-  + [USA] [United Rugby Championship] Edinburgh vs Stormers (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/AYYYAAA.m3u8
-  + [USA] [Ireland Premier Division] Dundalk vs Bohemians (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/AYYYAAAA.m3u8
-  + [USA] [Sweden HockeyAllsvenskan] Nybro vs AIK (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/FAAADD.m3u8
-  + [USA] [Boxing] Boxing Primetime Fight Night Vol 10 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/GAGAGA.m3u8
-  + [USA] [Euro U21 Qualification] Andorra U21 vs Moldova U21 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAA.m3u8
-  + [USA] [Basketball Euroleague] Fenerbahce vs Dubai (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQ.m3u8
-  + [USA] [Basketball Euroleague] Bayern Munchen vs Partizan 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQa.m3u8
-  + [USA] [Basketball Euroleague] Lyon-Villeurbanne vs Valencia 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQaa.m3u8
-  + [USA] [Basketball Euroleague] Panathinaikos vs Maccabi Tel Aviv 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQaaa.m3u8
-  + [USA] [Basketball Euroleague] Baskonia vs Olimpia Milano 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQaaaa.m3u8
-  + [USA] [Friendly Match] Sevilla vs Aston Villa (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQaaaaa.m3u8
-  + [USA] [Spanish Segunda Liga] Eldense vs Oviedo (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQaaaaaA.m3u8
-  + [USA] [Euro U21 Qualification] England U21 vs Slovakia U21 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/VAAAQaaaaaAA.m3u8
-  + [USA] [UEFA Nations League] UEFA Nations League Simulcast (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/YLLL.m3u8
-  + [USA] [Bolivia Copa] SA Bulo Bulo vs Academia del Balompie (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/YLLLQ.m3u8
-  + [USA] [Dutch Eerste Divisie] Helmond vs Heracles (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/YLLLQQ.m3u8
-  + [USA] [CONCACAF Nations League] Saint Lucia vs Guadeloupe (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/YLLLQQQ.m3u8
-  + [USA] [Darts] Darts World Grand Prix (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/ZRRRAAAAAx.m3u8
-  + [USA] [Live Event] China Open / HSBC Moon (Doubles Quarterfinals) | Disney+ (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/disney26/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [CONCACAF Nations League] Saint Kitts and Nevis vs Cuba (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/GTGTGT.m3u8
+  + [USA] [CONCACAF Nations League] Suriname vs Guatemala (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/GTGTGTA.m3u8
+  + [USA] [Colombia Primera B] Atletico FC vs Real Cundinamarca (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/GTGTGTAA.m3u8
+  + [USA] [Argentina Liga Profesional] Independiente vs Instituto (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/GTGTGTAAA.m3u8
+  + [USA] [Brazil Serie B] Sao Bernardo vs CRB (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/GTGTGTAAAA.m3u8
+  + [USA] [CFL Canadian Football] Ottawa Redblacks vs Hamilton Tiger-Cats (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuu.m3u8
+  + [USA] [NCAA American Football] Delaware Fightin vs Liberty Flames (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuuA.m3u8
+  + [USA] [NCAA American Football] Virginia Tech vs Pittsburgh (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuuAA.m3u8
+  + [USA] [Chile Liga de Primera] U De Concepcion vs Huachipato (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuuAAA.m3u8
+  + [USA] [Brazil Serie A] Sao Paulo vs Santos (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuuAAAA.m3u8
+  + [USA] [Brazil Serie B] Londrina vs Criciuma (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuuAAAAA.m3u8
+  + [USA] [MotoGP] MotoGP Grand Prix of Japan (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuuAAAAAA.m3u8
+  + [USA] [Brazil Serie B] Juventude vs Operario-PR (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/duuuAAAAAAA.m3u8
+  + [USA] MeTV (United States) (720p) (source=priority-channels, group=Classic TV;Priority) -> http://4.30.180.36:8420/metv/index.m3u8?token=%5Bredacted%5D
+  + [USA] [NHL] Detroit Red Wings vs New York Rangers | ESPN 3 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/espn3/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN 5 | OP3 (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN Premium┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [NCAA Women's Hockey] James Madison vs. Longwood | | Disney+ (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/disney29/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Independiente vs Instituto | ESPN Premium┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga de Naciones de la CONCACAF] Martinica vs Honduras | Fox Sports 2 USA | OP2 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga de Naciones de la CONCACAF] Surinam vs Guatemala | Fox Sports 2 USA | OP2 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Independiente Rivadavia vs Gimnasia La Plata | TNT Sports (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga MX Femenil] Pumas UNAM vs Tigres UANL | TUDN USA (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN Premium┃OP2 (TVF90) (source=doms9, group=Live Events) -> https://2.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Primera A] Deportivo Cali vs Alianza | Win Sports + | OP2 (TVF90) (source=doms9, group=Live Events) -> https://2.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [NHL] Detroit Red Wings vs New York Rangers | ESPN 3 | OP3 (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/espn3/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Independiente vs Instituto | ESPN Premium┃OP2 (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Brasileirão] São Paulo vs Santos | Liga1Max | OP3 (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/liga1max/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga MX Femenil] Monterrey vs América | TUDN USA (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [NCAA Women's Hockey] Delaware vs. Temple | Disney+ (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/disney26/mono.m3u8?token=%5Bredacted%5D
 
 Removed Channels (sample):
-  - [USA] [Friendly Match] Aarau vs Young Boys (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/HOOO.m3u8
-  - [USA] [Friendly Match] FC Twente vs Werder Bremen (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/HOOOA.m3u8
-  - [USA] [UEFA Nations League] Kazakhstan vs Moldova 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/RIIIAA.m3u8
-  - [USA] [AFL Aussie Rules] Richmond W vs Geelong Cats W (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/URRR.m3u8
-  - [USA] [Volleyabll Asian Games] Japan vs China (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/URRRA.m3u8
-  - [USA] [Friendly Match] South Korea vs Venezuela 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/URRRAA.m3u8
-  - [USA] [Friendly Match] China vs Palestine 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/URRRAAA.m3u8
-  - [USA] [Basketball NBL] Perth vs South East Melbourne (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/URRRAAAa.m3u8
-  - [USA] [MMA Fighting] MMA One Championship (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/ooooa.m3u8
-  - [USA] [Football Asian Games] North Korea W vs Japan W (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/TATATA.m3u8
-  - [USA] [Friendly Match] Nurnberg vs Ingolstadt (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/TATATAa.m3u8
-  - [USA] [ASEAN Championship] Thailand vs Philippines (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/TTTTTX.m3u8
-  - [USA] [Friendly Match] Lugano vs Hellas Verona (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/hyhyhy.m3u8
-  - [USA] [Friendly Match] Hacken vs Elfsborg (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/hyhyhya.m3u8
-  - [USA] [UEFA Nations League] Cyprus vs Armenia 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.59/hls/RRUUUA.m3u8
-  - [USA] [UEFA Nations League] Latvia vs Montenegro 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.59/hls/RRUUUAA.m3u8
-  - [USA] [Liga de Naciones de la CONCACAF] Martinica vs Honduras | Fox Sports 2 USA | OP2 (TVF90) (source=previous, group=Live Events) -> https://10.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Golf] Alfred Dunhill Links Championship – Segunda Vuelta | Disney+ (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/disney21/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN 5 | OP2 (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN Premium┃OP2 (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Copa de la División Profesional] San Antonio Bulo Bulo vs ABB | Entel TV PLUS+ (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [UEFA Nations League] Chipre vs Armenia | ESPN 2 | OP2 (TVF90) (source=previous, group=Live Events) -> https://2.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [UEFA Nations League] Chipre vs Armenia | ESPN 2 | OP3 (TVF90) (source=previous, group=Live Events) -> https://2.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Liga Profesional] Boca Juniors vs Unión Santa Fe | ESPN 5 | OP3 (TVF90) (source=previous, group=Live Events) -> https://2.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [World Rugby U20] Rumania vs Brazil | Disney+ (TVF90) (source=previous, group=Live Events) -> https://3.ftlly.com:443/disney27/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Eerste Divisie] Helmond Sport vs Heracles | ESPN NL | OP2 (TVF90) (source=previous, group=Live Events) -> https://3.ftlly.com:443/espn1_nl/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Live Event] China Open / Capital Group Diamond | | Disney+ (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/disney22/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [ATP] INDIVIDUALES - Pekín, dura - 1/8 de final: Bu Y. vs Djokovic N. | Disney+ (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/disney28/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [UEFA Nations League] Bosnia-Herzegovina vs Suecia | ESPN 2 | OP3 (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [UEFA Nations League] Kazajstán vs Moldavia | ESPN 2 | OP3 (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Horse Racing] Horse Racing 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.194/hls/vavavava.m3u8
+  - [USA] [Horse Racing] Horse Racing 2 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.194/hls/vavavavaq.m3u8
+  - [USA] [UEFA Nations League] Faroe Islands vs Slovakia 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIII.m3u8
+  - [USA] [UEFA Nations League] Bosnia-Herzegovina vs Sweden 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIIIQ.m3u8
+  - [USA] [UEFA Nations League] Hungary vs Georgia 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIIIQQ.m3u8
+  - [USA] [UEFA Nations League] Poland vs Romania 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQ.m3u8
+  - [USA] [UEFA Nations League] Ukraine vs Northern Ireland 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQQ.m3u8
+  - [USA] [UEFA Nations League] Belgium vs Turkey 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQQQ.m3u8
+  - [USA] [UEFA Nations League] France vs Italy 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIIIQQQQQQ.m3u8
+  - [USA] [UEFA Nations League] Bosnia-Herzegovina vs Sweden (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/OIIIQX.m3u8
+  - [USA] [Snooker] Snooker Shenzhen Opene 2 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/grrrAA.m3u8
+  - [USA] [Snooker] Snooker Shenzhen Opene 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/grrrAAA.m3u8
+  - [USA] [Golf] Golf Alfred Dunhill Links Championship (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/iiiiaA.m3u8
+  - [USA] [UAE League Cup] Khorfakkan vs Al Jazira (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMM.m3u8
+  - [USA] [UAE League Cup] Shabab Al-Ahli Dubai vs Al Nasr (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMMQ.m3u8
+  - [USA] [Euro U21 Qualification] Austria U21 vs Denmark U21 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMMQQ.m3u8
+  - [USA] [Euro U21 Qualification] Slovenia U21 vs Netherlands U21 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMMQQQ.m3u8
+  - [USA] [Euro U21 Qualification] Ukraine U21 vs Croatia U21 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMMQQQQ.m3u8
+  - [USA] [Friendly Match] Serbia U21 vs Russia U21 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMMQQQQQ.m3u8
+  - [USA] [Czech MOL Cup] Dukla Prague vs Jablonec (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMMQQQQQQ.m3u8
+  - [USA] [German Women Bundesliga] Bayer Leverkusen W vs Werder Bremen W (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/EMMMQQQQQQQ.m3u8
+  - [USA] [UAE League Cup] Al Ain vs Ajman (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/RIII.m3u8
+  - [USA] [UAE League Cup] Al Wasl vs Ittihad Kalba (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/RIIIA.m3u8
+  - [USA] [MMA PFL] MMA PFL : Neda vs Saidy (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/oooo.m3u8
+  - [USA] [English Premiership Rugby] Bath vs Exeter Chiefs (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/AYYY.m3u8
+  - [USA] [United Rugby Championship] Benetton vs Connacht (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/AYYYA.m3u8
+  - [USA] [United Rugby Championship] Cardiff Rugby vs Zebre (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/AYYYAA.m3u8
+  - [USA] [United Rugby Championship] Edinburgh vs Stormers (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/AYYYAAA.m3u8
+  - [USA] [Ireland Premier Division] Dundalk vs Bohemians (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/AYYYAAAA.m3u8
+  - [USA] [Sweden HockeyAllsvenskan] BIK Karlskoga vs Leksand (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/FAAA.m3u8
 
 ----------------------------------------------------------------------------------------
 5. DIAGNOSTICS & RUN/SOURCE ISSUES
 ----------------------------------------------------------------------------------------
 Reason                                     Dead   Unverified   Guidance
 ----------------------------------------------------------------------------------------------------
-HTTP 403                                      0         1231   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
-HTTP 404                                    921            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
-TimeoutError                                  0          864   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-html page, not a stream                     415            0   The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect.
+HTTP 403                                      0         1225   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
+HTTP 404                                    908            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
+TimeoutError                                  0          892   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+html page, not a stream                     417            0   The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect.
 gaierror                                      0          333   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-ConnectionRefusedError                        0          123   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+ConnectionRefusedError                        0          120   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 invalid URL                                  79            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 503                                      0           64   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 400                                     61            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 401                                      0           46   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
-HTTP 502                                      0           26   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 504                                      0           23   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-SSLError                                      0           21   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-RemoteDisconnected                            0           20   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 503                                      0           69   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+HTTP 400                                     59            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 401                                      0           49   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
+HTTP 502                                      0           29   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+HTTP 504                                      0           22   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+SSLError                                      0           22   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+RemoteDisconnected                            0           19   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+OSError                                       0           15   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 empty response                               13            0   The server returned no stream data; check whether the source requires an active session or has expired.
-OSError                                       0           12   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 500                                      0           11   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 SSLEOFError                                   0           11   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 429                                      0            9   The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff.
-HTTP 451                                      8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 451                                      9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 429                                      0            8   The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff.
 not probed: unsupported scheme rtmp           0            8   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
-HTTP 530                                      0            7   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 530                                      0            6   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z)        6            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 ConnectionResetError                          0            5   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 HTTP 406                                      5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 567                                      0            5   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 408                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T20:58:47Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 521                                      0            3   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 477                                      2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 520                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 521                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 HTTP 523                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 not probed: unsupported scheme mmsh           0            2   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 HTTP 302                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 408                                      0            1   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 HTTP 409                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 410                                      1            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
 HTTP 421                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 458                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 574                                      0            1   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 not probed: unsupported scheme rtsp           0            1   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
 not probed: unsupported scheme srt            0            1   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
+quarantined: playlist only, ConnectionResetError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, InvalidURL (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, timeout (failed the deep check 1x, last 2026-10-02T21:14:06Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: playlist only, timeout (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-02T20:58:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-02T21:46:31Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 
 Run / Source Issues:
-  * 2832 links could not be confirmed after retries (see unverified details).
-  * 1509 links returned a confirmed failure (see dead details).
+  * 2862 links could not be confirmed after retries (see unverified details).
+  * 1577 links returned a confirmed failure (see dead details).
+  * This run started +3h 18m after its scheduled time (2026-10-02T20:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
