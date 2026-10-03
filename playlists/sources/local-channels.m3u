@@ -1,0 +1,22 @@
+#EXTM3U
+# Curated local channels for the Lancaster / Harrisburg / Lebanon / York market
+# (the Susquehanna Valley in south-central Pennsylvania), starting with WGAL 8,
+# the NBC affiliate licensed to Lancaster.
+#
+# Every URL in this file is a publicly listed feed that is re-checked end to end by
+# scripts/scraper.py on every run, exactly like playlists/sources/ae-networks.m3u and
+# playlists/sources/priority-channels.m3u: a feed that stops answering is dropped from
+# the published playlists automatically, and one that answers without media is caught
+# by the nightly deep check (playlists/checks/LINK-CHECK.md).
+#
+# Adding a channel here also adds it to PremiumTV.m3u, PremiumTV_all.m3u and
+# playlists/countries/USA.m3u on the next scrape, and its tvg-id is what the merged
+# guide build (playlists/epg/PremiumTV.xml) matches against the upstream guides.
+#EXTINF:-1 tvg-chno="8" tvg-country="US" tvg-id="NBC.us@WGAL" tvg-name="WGAL" tvg-logo="https://i.imgur.com/nxY84W5.png" group-title="Local;USA",WGAL 8 (NBC) - Lancaster PA (720p)
+https://aegis-cloudfront-1.tubi.video/5d314174-0110-42af-8811-feaae073ea1e/playlist.m3u8
+#EXTINF:-1 tvg-chno="21" tvg-country="US" tvg-id="WHPDT1.us@SD" tvg-name="WHP-TV" group-title="Local;USA",CBS 21 (WHP) - Harrisburg PA (1080p)
+https://linear-697.frequency.stream/dist/stirr/697/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-chno="29" tvg-country="US" tvg-id="Fox.us@WTXFTV" tvg-name="WTXF-TV" group-title="Local;USA",Fox 29 (WTXF) - Philadelphia PA (1080p)
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00488-foxdigital-fox29philadelphiawtx-vizious/playlist.m3u8
+#EXTINF:-1 tvg-chno="6" tvg-country="US" tvg-id="NBC.us@WJACTV" tvg-name="WJAC-TV" tvg-logo="https://i.imgur.com/nxY84W5.png" group-title="Local;USA",NBC 6 (WJAC) - Johnstown PA (1080p)
+https://linear-698.frequency.stream/dist/stirr/698/hls/master/playlist.m3u8

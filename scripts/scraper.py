@@ -57,6 +57,14 @@ DEFAULT_UA = (
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
+# The merged guide this repository publishes (scripts/epg_build.py). Advertised
+# first in every playlist so a player loads a guide whose channel ids match
+# these playlists before it falls back to the upstream guides.
+SELF_EPG_URL = os.environ.get("SELF_EPG_URL") or (
+    "https://raw.githubusercontent.com/"
+    f"{os.environ.get('GITHUB_REPOSITORY') or 'cgyegcvcecvoc/PremiumTV1'}/main"
+    "/playlists/epg/PremiumTV.xml"
+)
 VLC_OPT_MAP = {
     "http-user-agent": "User-Agent",
     "http-referrer": "Referer",
@@ -1345,11 +1353,22 @@ def sort_key(channel: Channel):
     return (channel.group.lower(), re.sub(r"\W+", "", channel.name.lower()), channel.source)
 
 
-def write_m3u(path: Path, channels: list[Channel], epg: list[str], title: str) -> None:
+def write_m3u(path: Path, channels: list[Channel], epg: list[str], title: str,
+              advertise_self: bool = True) -> None:
+    """Write a playlist, advertising this repository's merged guide first.
+
+    ``SELF_EPG_URL`` is the guide ``scripts/epg_build.py`` publishes into
+    ``playlists/epg/``. It is cut from exactly the channels in these playlists,
+    so it is the only advertised guide whose ids actually match; the upstream
+    guides stay behind it as fallbacks. ``advertise_self=False`` is for the
+    source caches, which mirror an upstream file rather than describe ours.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     header = "#EXTM3U"
-    if epg:
-        header += f' x-tvg-url="{",".join(dict.fromkeys(epg))}"'
+    guides = list(dict.fromkeys(
+        ([SELF_EPG_URL] if advertise_self and SELF_EPG_URL else []) + list(epg)))
+    if guides:
+        header += f' x-tvg-url="{",".join(guides)}"'
     lines = [header, f"# {title}"]
     lines += [channel.to_m3u() for channel in channels]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -2276,7 +2295,8 @@ def main() -> int:
                 stat["issues"].extend(parse_issues)
                 local_src_path = (ROOT / str(src["local_path"])).resolve() if src.get("local_path") else None
                 if local_src_path is None or local_src_path != cache.resolve():
-                    write_m3u(cache, fetched_channels, epg, f"cached copy of source '{name}'")
+                    write_m3u(cache, fetched_channels, epg, f"cached copy of source '{name}'",
+                              advertise_self=False)
                 stat["fetched"] = True
                 stat["status"] = "ok"
                 fetched_from = "source"
