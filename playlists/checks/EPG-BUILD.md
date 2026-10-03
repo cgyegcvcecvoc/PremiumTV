@@ -18,7 +18,7 @@
 | XML size | 60229 KB |
 | Gzipped size | 7169 KB |
 
-Published [`playlists/epg/PremiumTV.xml`](../../epg/PremiumTV.xml) and [`playlists/epg/PremiumTV.xml.gz`](../../epg/PremiumTV.xml.gz).
+Published [`playlists/epg/PremiumTV.xml`](../epg/PremiumTV.xml) and [`playlists/epg/PremiumTV.xml.gz`](../epg/PremiumTV.xml.gz).
 
 ## Size trimming
 

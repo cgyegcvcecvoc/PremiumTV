@@ -81,14 +81,14 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/Pr
 
 **What the last build produced** (from
 [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md), rebuilt 2026-10-02 23:58 UTC in
-99 s): **2,283** of the **7,997** channels the playlists publish (**28.6%**) have a guide, carrying
+99 s): **2,283** of the **7,997** channels the playlists publish (**28.5%**) have a guide, carrying
 **92,916** events — 6 h back and ~30 h ahead, trimmed from 48 h to fit the size budget — in
 **58.8 MB** of XML (**7.0 MB** gzipped). 82 of the 94 advertised upstream guides contributed; the
 other 12 answered but had no channel in common with these playlists, and every one is listed with
 its reason in the report. Of those events, 74,586 carry a genre, 31,605 an episode number, 17,490
 credits, 19,085 a `premiere` flag and 12,599 `previously-shown` — the metadata the filters run on.
 
-The remaining 71% are mostly channels no public guide covers at all (regional and FAST channels
+The remaining 71.5% are mostly channels no public guide covers at all (regional and FAST channels
 listed by an index but never in a listings feed). The build report names every guide that
 contributed nothing, so the gap is visible rather than silent.
 

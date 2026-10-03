@@ -936,9 +936,9 @@ def write_reports(checks_dir: Path, report: dict, epg_dir: Path, name: str,
     ]
     if report.get("published"):
         lines += [f"Published [`playlists/{EPG_DIR_NAME}/{name}.xml`]"
-                  f"(../../{EPG_DIR_NAME}/{name}.xml) and "
+                  f"(../{EPG_DIR_NAME}/{name}.xml) and "
                   f"[`playlists/{EPG_DIR_NAME}/{name}.xml.gz`]"
-                  f"(../../{EPG_DIR_NAME}/{name}.xml.gz).", ""]
+                  f"(../{EPG_DIR_NAME}/{name}.xml.gz).", ""]
     else:
         lines += [f"**Not published:** {report.get('publish_reason', 'unknown reason')} "
                   "The previously published guide was left in place.", ""]
