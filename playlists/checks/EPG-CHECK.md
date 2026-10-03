@@ -1,15 +1,15 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261003T150001Z-2782`)
-- **Started:** 2026-10-03T15:00:01Z | **Finished:** 2026-10-03T15:00:05Z | **Duration:** 3.8s
-- **Guides checked:** 109 across 176 playlists
-- **Working share:** 86.2%
+- **Run:** nightly guide check (`20261003T151012Z-2694`)
+- **Started:** 2026-10-03T15:10:12Z | **Finished:** 2026-10-03T15:10:15Z | **Duration:** 3.0s
+- **Guides checked:** 95 across 176 playlists
+- **Working share:** 99.0%
 
 | Result | Guides |
 |---|---:|
 | ok | 86 |
 | empty | 8 |
-| offline | 15 |
+| offline | 1 |
 
 ## Working guides (kept)
 
@@ -107,61 +107,47 @@
 | Guide | Status | Reason |
 |---|---|---|
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_CA1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_PAC-12.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_POWERNATION1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_DE1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_EN1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_ES1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_FR1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_IT1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_NL1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN_PL1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/epg_ripper_US_LOCALS2.xml.gz` | offline | HTTP 404 |
-| `https://epgshare01.online/epgshare01/locomotiontv.xml.gz` | offline | HTTP 404 |
-| `https://i.mjh.nz/Stirr/all.xml.gz` | offline | HTTP 404 |
 
 ## Patch
 
-- Removed **2640** dead guides, added **0** verified guides across **176** playlists.
+- Removed **176** dead guides, added **0** verified guides across **176** playlists.
   - `-PremiumTV.xml` (HTTP 404)
-  - `-epg_ripper_CA1.xml.gz` (HTTP 404)
-  - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
-  - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_DE1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_EN1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_ES1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_FR1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_IT1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_NL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_PL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
-  - `-locomotiontv.xml.gz` (HTTP 404)
-  - `-all.xml.gz` (HTTP 404)
   - `-PremiumTV.xml` (HTTP 404)
-  - `-epg_ripper_CA1.xml.gz` (HTTP 404)
-  - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
-  - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_DE1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_EN1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_ES1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_FR1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_IT1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_NL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_PL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
-  - `-locomotiontv.xml.gz` (HTTP 404)
-  - `-all.xml.gz` (HTTP 404)
   - `-PremiumTV.xml` (HTTP 404)
-  - `-epg_ripper_CA1.xml.gz` (HTTP 404)
-  - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
-  - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_DE1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_EN1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_ES1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_FR1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_IT1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_NL1.xml.gz` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
