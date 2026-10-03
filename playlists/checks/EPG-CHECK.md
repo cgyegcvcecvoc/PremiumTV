@@ -1,15 +1,15 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261003T102520Z-2610`)
-- **Started:** 2026-10-03T10:25:20Z | **Finished:** 2026-10-03T10:25:26Z | **Duration:** 5.8s
-- **Guides checked:** 108 across 179 playlists
-- **Working share:** 87.0%
+- **Run:** nightly guide check (`20261003T150001Z-2782`)
+- **Started:** 2026-10-03T15:00:01Z | **Finished:** 2026-10-03T15:00:05Z | **Duration:** 3.8s
+- **Guides checked:** 109 across 176 playlists
+- **Working share:** 86.2%
 
 | Result | Guides |
 |---|---:|
 | ok | 86 |
 | empty | 8 |
-| offline | 14 |
+| offline | 15 |
 
 ## Working guides (kept)
 
@@ -18,7 +18,7 @@
 | `TV.xml` | 231 | 7316 | 2026-10-07 08:00 UTC | 4096 KB |
 | `guide.xml.gz` | 2 | 105 | 2026-10-04 02:15 UTC | 3 KB |
 | `epg_ripper_AL1.xml.gz` | 178 | 9728 | 2026-10-06 06:00 UTC | 427 KB |
-| `epg_ripper_ALJAZEERA1.xml.gz` | 2 | 148 | 2026-10-06 00:00 UTC | 3 KB |
+| `epg_ripper_ALJAZEERA1.xml.gz` | 2 | 148 | 2026-10-07 00:00 UTC | 3 KB |
 | `epg_ripper_AR1.xml.gz` | 82 | 10616 | 2026-10-07 04:45 UTC | 247 KB |
 | `epg_ripper_ASIANTELEVISION1.xml.gz` | 54 | 6742 | 2026-10-06 06:00 UTC | 107 KB |
 | `epg_ripper_AT1.xml.gz` | 144 | 3655 | 2026-10-06 20:15 UTC | 3790 KB |
@@ -27,7 +27,7 @@
 | `epg_ripper_BE2.xml.gz` | 571 | 3695 | 2026-10-06 09:30 UTC | 4096 KB |
 | `epg_ripper_BEIN1.xml.gz` | 80 | 3124 | 2026-10-06 12:00 UTC | 33 KB |
 | `epg_ripper_BG1.xml.gz` | 86 | 4257 | 2026-10-05 23:50 UTC | 147 KB |
-| `epg_ripper_BR1.xml.gz` | 266 | 10090 | 2026-10-06 08:20 UTC | 663 KB |
+| `epg_ripper_BR1.xml.gz` | 266 | 10038 | 2026-10-07 08:20 UTC | 672 KB |
 | `epg_ripper_CH1.xml.gz` | 751 | 5665 | 2026-10-06 08:00 UTC | 4096 KB |
 | `epg_ripper_CL1.xml.gz` | 90 | 9132 | 2026-10-06 05:00 UTC | 251 KB |
 | `epg_ripper_CO1.xml.gz` | 138 | 8506 | 2026-10-06 02:00 UTC | 587 KB |
@@ -48,12 +48,12 @@
 | `epg_ripper_FI1.xml.gz` | 110 | 6428 | 2026-10-07 00:00 UTC | 1068 KB |
 | `epg_ripper_FR1.xml.gz` | 574 | 4284 | 2026-10-07 03:53 UTC | 4096 KB |
 | `epg_ripper_GR1.xml.gz` | 318 | 3753 | 2026-10-07 01:00 UTC | 1765 KB |
-| `epg_ripper_HK1.xml.gz` | 143 | 6786 | 2026-10-06 05:30 UTC | 661 KB |
+| `epg_ripper_HK1.xml.gz` | 143 | 6779 | 2026-10-07 05:30 UTC | 640 KB |
 | `epg_ripper_HR1.xml.gz` | 213 | 5535 | 2026-10-06 05:57 UTC | 1878 KB |
 | `epg_ripper_HU1.xml.gz` | 193 | 8919 | 2026-10-06 04:15 UTC | 1906 KB |
 | `epg_ripper_ID1.xml.gz` | 269 | 12577 | 2026-10-07 09:00 UTC | 125 KB |
-| `epg_ripper_IE1.xml.gz` | 175 | 4434 | 2026-10-06 01:45 UTC | 2476 KB |
-| `epg_ripper_IL1.xml.gz` | 119 | 6613 | 2026-10-05 05:05 UTC | 615 KB |
+| `epg_ripper_IE1.xml.gz` | 175 | 4443 | 2026-10-07 01:00 UTC | 2438 KB |
+| `epg_ripper_IL1.xml.gz` | 119 | 6854 | 2026-10-06 04:58 UTC | 580 KB |
 | `epg_ripper_IN1.xml.gz` | 1166 | 5006 | 2026-10-06 23:59 UTC | 4072 KB |
 | `epg_ripper_IN4.xml.gz` | 557 | 7122 | 2026-10-06 23:59 UTC | 979 KB |
 | `epg_ripper_IT1.xml.gz` | 193 | 5856 | 2026-10-06 05:30 UTC | 1641 KB |
@@ -92,20 +92,21 @@
 | `epg_ripper_TR1.xml.gz` | 178 | 15222 | 2026-10-06 23:47 UTC | 166 KB |
 | `epg_ripper_TR3.xml.gz` | 287 | 6064 | 2026-10-07 04:30 UTC | 1685 KB |
 | `epg_ripper_UK1.xml.gz` | 486 | 7100 | 2026-10-06 05:00 UTC | 2875 KB |
-| `epg_ripper_US_SPORTS1.xml.gz` | 267 | 8921 | 2026-11-29 20:00 UTC | 226 KB |
+| `epg_ripper_US_SPORTS1.xml.gz` | 267 | 8922 | 2026-11-29 20:00 UTC | 225 KB |
 | `epg_ripper_UY1.xml.gz` | 521 | 5534 | 2026-10-06 17:30 UTC | 2406 KB |
 | `epg_ripper_VN1.xml.gz` | 151 | 12195 | 2026-10-03 23:59 UTC | 220 KB |
 | `epg_ripper_ZA1.xml.gz` | 145 | 17106 | 2026-10-07 11:00 UTC | 186 KB |
 | `epg_ripper_viva-russia.ru.xml.gz` | 1 | 222 | 2026-10-11 23:59 UTC | 3 KB |
 | `guide.xml.gz` | 343 | 11674 | 2026-10-07 04:30 UTC | 2487 KB |
-| `all.xml.gz` | 427 | 4875 | 2026-10-04 06:00 UTC | 4096 KB |
-| `all.xml.gz` | 739 | 6549 | 2026-10-03 22:00 UTC | 2750 KB |
+| `all.xml.gz` | 427 | 4873 | 2026-10-04 10:40 UTC | 4096 KB |
+| `all.xml.gz` | 754 | 6574 | 2026-10-04 01:00 UTC | 2735 KB |
 | `za.xml` | 161 | 6793 | 2026-10-06 02:00 UTC | 4096 KB |
 
 ## Guides that failed
 
 | Guide | Status | Reason |
 |---|---|---|
+| `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml` | offline | HTTP 404 |
 | `https://epgshare01.online/epgshare01/epg_ripper_CA1.xml.gz` | offline | HTTP 404 |
 | `https://epgshare01.online/epgshare01/epg_ripper_PAC-12.xml.gz` | offline | HTTP 404 |
 | `https://epgshare01.online/epgshare01/epg_ripper_POWERNATION1.xml.gz` | offline | HTTP 404 |
@@ -123,7 +124,8 @@
 
 ## Patch
 
-- Removed **2506** dead guides, added **0** verified guides across **179** playlists.
+- Removed **2640** dead guides, added **0** verified guides across **176** playlists.
+  - `-PremiumTV.xml` (HTTP 404)
   - `-epg_ripper_CA1.xml.gz` (HTTP 404)
   - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
   - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
@@ -138,6 +140,7 @@
   - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
   - `-locomotiontv.xml.gz` (HTTP 404)
   - `-all.xml.gz` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
   - `-epg_ripper_CA1.xml.gz` (HTTP 404)
   - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
   - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
@@ -152,6 +155,7 @@
   - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
   - `-locomotiontv.xml.gz` (HTTP 404)
   - `-all.xml.gz` (HTTP 404)
+  - `-PremiumTV.xml` (HTTP 404)
   - `-epg_ripper_CA1.xml.gz` (HTTP 404)
   - `-epg_ripper_PAC-12.xml.gz` (HTTP 404)
   - `-epg_ripper_POWERNATION1.xml.gz` (HTTP 404)
@@ -161,6 +165,3 @@
   - `-epg_ripper_RAKUTEN_FR1.xml.gz` (HTTP 404)
   - `-epg_ripper_RAKUTEN_IT1.xml.gz` (HTTP 404)
   - `-epg_ripper_RAKUTEN_NL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_RAKUTEN_PL1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US1.xml.gz` (HTTP 404)
-  - `-epg_ripper_US_LOCALS2.xml.gz` (HTTP 404)
