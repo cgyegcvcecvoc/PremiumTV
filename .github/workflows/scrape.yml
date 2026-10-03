@@ -136,7 +136,7 @@ jobs:
         if: always() && steps.scraper.outcome != 'skipped'
         continue-on-error: true
         run: |
-          python scripts/epg_build.py --patch --max-age-hours 12 \
+          python scripts/epg_build.py --patch --countries --max-age-hours 12 \
             --label "guide refresh with the scrape"
 
       - name: Commit playlists and run diagnostics

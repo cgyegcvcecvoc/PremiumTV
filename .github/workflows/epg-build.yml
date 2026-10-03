@@ -90,7 +90,10 @@ jobs:
           MAX_MB: ${{ inputs.max_mb }}
           FORCE: ${{ inputs.force }}
         run: |
-          args=(--workers 4 --timeout 120 --label "scheduled guide build")
+          # --countries: the ~180 country playlists advertise the guide too.
+          # The scraper keeps it in place between builds; this restores it if a
+          # playlist was ever rewritten without it.
+          args=(--countries --workers 4 --timeout 120 --label "scheduled guide build")
           # Scheduled and dispatched runs always advertise the guide and always
           # rebuild; a manual run can hold back.
           if [ "${PATCH:-true}" != "false" ]; then args+=(--patch); fi

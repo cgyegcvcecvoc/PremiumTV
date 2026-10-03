@@ -77,12 +77,26 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/Pr
 | Guide | Use it when |
 |---|---|
 | [`playlists/epg/PremiumTV.xml`](playlists/epg/PremiumTV.xml) | Your player wants a plain `.xml` URL (TiviMate, IPTV Smarters, Kodi PVR IPTV Simple, VLC). |
-| [`playlists/epg/PremiumTV.xml.gz`](playlists/epg/PremiumTV.xml.gz) | You would rather download ~10x less; identical content, gzipped. |
+| [`playlists/epg/PremiumTV.xml.gz`](playlists/epg/PremiumTV.xml.gz) | You would rather download 8x less (7.0 MB instead of 58.8 MB); identical content, gzipped. |
+
+**What the last build produced** (from
+[`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md), rebuilt 2026-10-02 23:58 UTC in
+99 s): **2,283** of the **7,997** channels the playlists publish (**28.6%**) have a guide, carrying
+**92,916** events — 6 h back and ~30 h ahead, trimmed from 48 h to fit the size budget — in
+**58.8 MB** of XML (**7.0 MB** gzipped). 82 of the 94 advertised upstream guides contributed; the
+other 12 answered but had no channel in common with these playlists, and every one is listed with
+its reason in the report. Of those events, 74,586 carry a genre, 31,605 an episode number, 17,490
+credits, 19,085 a `premiere` flag and 12,599 `previously-shown` — the metadata the filters run on.
+
+The remaining 71% are mostly channels no public guide covers at all (regional and FAST channels
+listed by an index but never in a listings feed). The build report names every guide that
+contributed nothing, so the gap is visible rather than silent.
 
 [`scripts/epg_build.py`](scripts/epg_build.py) builds it. "Filtered" is literal:
 
 * **Only published channels.** A guide channel survives only when its id matches a `tvg-id` in
-  `PremiumTV.m3u`, `AE_Channels.m3u`, `Priority_Channels.m3u` or a country playlist — after
+  `PremiumTV.m3u`, `AE_Channels.m3u` or `Priority_Channels.m3u` (plus the country playlists with
+  `--countries`) — after
   normalising the `@variant` suffix (`AE.us@East`, `AE.us@West` and a guide's `AE.us` are the same
   channel), or, when the ids disagree entirely, by unambiguous display name. Everything else is
   discarded, so a player is not indexing events for channels it cannot play.
@@ -123,8 +137,16 @@ A build that comes back hollow refuses to publish: fewer than `--min-channels` (
 `--min-programmes` (1000) matched channels, or fewer than `--min-previous-ratio` (25%) of the
 channels in the guide it would replace, leaves the previously published guide untouched and fails
 the step. A bad network hour cannot wipe the guide. If the merged file would exceed `--max-mb`
-(40 MB), the window is trimmed first, then events per channel, and every trim is recorded in
-[`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md).
+(60 MB), the window is trimmed first — proportionally to the overshoot, and only for as long as
+trimming still removes events — then events per channel, and every trim is recorded in
+[`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md). `--max-mb` is the size/window
+dial: 45 MB buys about 19 hours of listings, 60 MB about 30, 90 MB the full 48.
+
+Every playlist the scraper writes — the three main ones and the ~180 country files — advertises
+this guide **first** in its `x-tvg-url`, ahead of the upstream guides, so a player loads the guide
+whose ids actually match and only falls back to the others for whatever it misses. Appending a line
+to [`playlists/logs/run-epg-build.txt`](playlists/logs/run-epg-build.txt) and pushing rebuilds it on
+that branch without opening the Actions tab.
 
 ## Automatic checks and logs
 

@@ -103,8 +103,8 @@ jobs:
         id: epgbuild
         continue-on-error: true
         run: |
-          python scripts/epg_build.py --force --patch --workers 4 --timeout 120 \
-            --label "nightly merged guide build"
+          python scripts/epg_build.py --force --patch --countries --workers 4 \
+            --timeout 120 --label "nightly merged guide build"
 
       - name: Hunt for priority channels
         id: hunt
