@@ -1287,3 +1287,79 @@ ISSUES / ERRORS:
   * 1672 links returned a confirmed failure (see dead details).
   * This run started +5h 50m after its scheduled time (2026-10-03T03:29:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261003T122810Z-2577
+TIMESTAMP:    2026-10-03 08:31 AM EDT (2026-10-03T12:28:10Z -> 2026-10-03T12:31:48Z)
+LABEL / TYPE: 3:07 AM daily scrape [regular_check]
+STATUS:       WARNING (checked=True, duration=218.13s)
+PLAYLISTS:    working=10073 / unique=16627 (dead=3694, unverified=2860)
+COUNTRIES:    174 country playlists updated in playlists/countries/
+A&E CHANNELS: 59 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +445 channels added / -374 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [USA] [Horse Racing] Horse Racing UK (FAWA) (doms9) -> http://193.47.62.194/hls/vavavava.m3u8
+  + [USA] [Friendly Match] Orebro vs Nordic United (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPP.m3u8
+  + [USA] [Sweden Division 1] Angelholm vs Rosengard (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQ.m3u8
+  + [USA] [Sweden Division 1] Tvaaker vs Hassleholms IF (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQQ.m3u8
+  + [USA] [Sweden Division 1] Enkoping SK vs Gefle (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQQQ.m3u8
+  + [USA] [Sweden Division 1] Stockholm Internazionale vs Assyriska FF (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQQQQ.m3u8
+  + [USA] [Sweden Women Allsvenskan] Pitea W vs Norrkoping W (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQQQQQ.m3u8
+  + [USA] [Sweden Women Allsvenskan] Vittsjo W vs Eskilstuna Utd W (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQQQQQQ.m3u8
+  + [USA] [English League Two] Chesterfield vs Tranmere (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQQQQQQQ.m3u8
+  + [USA] [United Rugby Championship] Lions vs Ospreys (FAWA) (doms9) -> http://193.47.62.41/hls/EPPPPQQQQQQQQ.m3u8
+  + [USA] [Basketball NBL] Melbourne United vs Cairns Taipans (FAWA) (doms9) -> http://193.47.62.41/hls/HOOO.m3u8
+  + [USA] [Spanish Liga F Women] Espanyol W vs Alaves W (FAWA) (doms9) -> http://193.47.62.41/hls/HOOOQ.m3u8
+  + [USA] [Spanish Liga F Women] Sevilla FC W vs Badalona W (FAWA) (doms9) -> http://193.47.62.41/hls/HOOOQQ.m3u8
+  + [USA] [Ukraine Premier League] Veres-Rivne vs Kudrivka (FAWA) (doms9) -> http://193.47.62.41/hls/HOOOQQQ.m3u8
+  + [USA] [ASEAN Championship] Hong Kong vs Cambodia (FAWA) (doms9) -> http://193.47.62.41/hls/HOOOQQQQ.m3u8
+  + [USA] [Japan J League Cup] Kashiwa Reysol vs Gamba Osaka (FAWA) (doms9) -> http://193.47.62.41/hls/HOOOQQQQQ.m3u8
+  + [USA] [Italy Women Serie A] Parma W vs Ternana W (FAWA) (doms9) -> http://193.47.62.41/hls/HOOOQQQQQA.m3u8
+  + [USA] [Asian Games] South Korea U23 vs Japan U23 (FAWA) (doms9) -> http://193.47.62.41/hls/HOOOQQQQQAA.m3u8
+  + [USA] [Scottish Premiership] SPFL Tennents Sixes (FAWA) (doms9) -> http://193.47.62.41/hls/shhhh.m3u8
+  + [USA] [AFL Aussie Rules] Port Adelaide W vs Adelaide Crows W (FAWA) (doms9) -> http://193.47.62.44/hls/QAQAQAQQqq.m3u8
+  + [USA] [Sweden Hockey SHL] Frolunda vs Djurgarden (FAWA) (doms9) -> http://193.47.62.44/hls/TRTRTR.m3u8
+  + [USA] [Sweden Hockey SHL] Malmo vs Brynas (FAWA) (doms9) -> http://193.47.62.44/hls/TRTRTRA.m3u8
+  + [USA] [Sweden Hockey SHL] Timra vs Skelleftea (FAWA) (doms9) -> http://193.47.62.44/hls/TRTRTRAA.m3u8
+  + [USA] [Sweden Hockey SHL] Vaxjo vs Rogle (FAWA) (doms9) -> http://193.47.62.44/hls/TRTRTRAAA.m3u8
+  + [USA] [UEFA Nations League] Finland vs Albania (FAWA) (doms9) -> http://193.47.62.44/hls/ZOOO.m3u8
+  + [USA] [Golf] Golf Alfred Dunhill Links Championship (FAWA) (doms9) -> http://193.47.62.44/hls/iiiiaA.m3u8
+  + [USA] [Tanzania Women League] Simba Queens vs YJTK Queens (FAWA) (doms9) -> http://193.47.62.44/hls/shhhha.m3u8
+  + [USA] [German Women Bundesliga] RB Leipzig W vs Mainz W (FAWA) (doms9) -> http://193.47.62.44/hls/shhhhaA.m3u8
+  + [USA] [Spanish Segunda Liga] Albacete vs Eibar (FAWA) (doms9) -> http://193.47.62.44/hls/shhhhaAA.m3u8
+  + [USA] [Norway OBOS-ligaen] Strommen vs Sandnes (FAWA) (doms9) -> http://193.47.62.44/hls/shhhhaAAA.m3u8
+REMOVED CHANNELS (SAMPLE):
+  - [USA] [Brazil Serie B] Sao Bernardo vs CRB (FAWA) (previous) -> http://193.47.62.41/hls/GTGTGTAAAA.m3u8
+  - [USA] [Mexico Liga MX] Monterrey W vs Club America W (FAWA) (previous) -> http://193.47.62.41/hls/ZRRR.m3u8
+  - [USA] [CFL Canadian Football] Ottawa Redblacks vs Hamilton Tiger-Cats (FAWA) (previous) -> http://193.47.62.41/hls/duuu.m3u8
+  - [USA] [NCAA American Football] Delaware Fightin vs Liberty Flames (FAWA) (previous) -> http://193.47.62.41/hls/duuuA.m3u8
+  - [USA] [NCAA American Football] Virginia Tech vs Pittsburgh (FAWA) (previous) -> http://193.47.62.41/hls/duuuAA.m3u8
+  - [USA] [Chile Liga de Primera] U De Concepcion vs Huachipato (FAWA) (previous) -> http://193.47.62.41/hls/duuuAAA.m3u8
+  - [USA] [Brazil Serie A] Sao Paulo vs Santos (FAWA) (previous) -> http://193.47.62.41/hls/duuuAAAA.m3u8
+  - [USA] [Brazil Serie B] Londrina vs Criciuma (FAWA) (previous) -> http://193.47.62.41/hls/duuuAAAAA.m3u8
+  - [USA] [MotoGP] MotoGP Grand Prix of Japan (FAWA) (previous) -> http://193.47.62.41/hls/duuuAAAAAA.m3u8
+  - [USA] [Brazil Serie B] Juventude vs Operario-PR (FAWA) (previous) -> http://193.47.62.41/hls/duuuAAAAAAA.m3u8
+  - [USA] [Golf PGA] Golf LPGA Lotte Championship (FAWA) (previous) -> http://193.47.62.41/hls/zfffAA.m3u8
+  - [USA] [Bolivia Copa] Real Potosi vs Aurora (FAWA) (previous) -> http://193.47.62.44/hls/cacaca.m3u8
+  - [USA] [USA NWSL Women] Orlando Pride W vs San Diego Wave W (FAWA) (previous) -> http://193.47.62.44/hls/cacacaA.m3u8
+  - [USA] [CONCACAF Nations League] Barbados vs Bermuda (FAWA) (previous) -> http://193.47.62.44/hls/cacacaAA.m3u8
+  - [USA] [CONCACAF Nations League] Bonaire vs Grenada (FAWA) (previous) -> http://193.47.62.44/hls/cacacaAAA.m3u8
+  - [USA] [CONCACAF Nations League] Martinique vs Honduras (FAWA) (previous) -> http://193.47.62.44/hls/cacacaAAAA.m3u8
+  - [USA] [Friendly Match] Colombia vs Paraguay 1 (FAWA) (previous) -> http://193.47.62.44/hls/cacacaAAAAA.m3u8
+  - [USA] [NCAA American Football] Northwestern vs Penn State (FAWA) (previous) -> http://193.47.62.44/hls/cacacaAAAAAA.m3u8
+  - [USA] [WWE Wrestling] WWE Friday Night Smackdown (FAWA) (previous) -> http://193.47.62.44/hls/cacacaAAAAAAA.m3u8
+  - [USA] [WNBA Basketball] Golden State Valkyries W vs Dallas Wings W 1 (FAWA) (previous) -> http://193.47.62.50/hls/RARARA.m3u8
+  - [USA] [CFL Canadian Football] Saskatchewan Roughriders vs Calgary Stampeders (FAWA) (previous) -> http://193.47.62.50/hls/RARARAQ.m3u8
+  - [USA] [USA NWSL Women] Seattle Reign W vs North Carolina Courage W (FAWA) (previous) -> http://193.47.62.50/hls/RARARAQQ.m3u8
+  - [USA] [CONCACAF Nations League] El Salvador vs Jamaica (FAWA) (previous) -> http://193.47.62.50/hls/RARARAQQQ.m3u8
+  - [USA] [Cricket Asian Cup] Bangladesh vs Sri Lanka (FAWA) (previous) -> http://193.47.62.55/hls/AAAA.m3u8
+  - [USA] [Rugby NZ NPC] Manawatu vs Canterbury (FAWA) (previous) -> http://193.47.62.55/hls/AAAAqqq.m3u8
+  - [USA] [Argentina Liga Profesional] Boca Juniors vs Union de Santa Fe (FAWA) (previous) -> http://193.47.62.59/hls/DADADA.m3u8
+  - [USA] [Argentina Liga Profesional] Ind Rivadavia vs Gimnasia LP (FAWA) (previous) -> http://193.47.62.59/hls/DADADAQ.m3u8
+  - [USA] [Brazil Serie B] Fortaleza vs Nautico (FAWA) (previous) -> http://193.47.62.59/hls/DADADAQQ.m3u8
+  - [USA] [Colombia Primera A] Dep Cali vs Alianza (FAWA) (previous) -> http://193.47.62.59/hls/DADADAQQQ.m3u8
+  - [USA] [NHL] Detroit Red Wings vs New York Rangers | ESPN 3 | OP2 (TVF90) (previous) -> https://10.ftlly.com:443/espn3/mono.m3u8?token=%5Bredacted%5D
+ISSUES / ERRORS:
+  * 2860 links could not be confirmed after retries (see unverified details).
+  * 3694 links returned a confirmed failure (see dead details).
+  * This run started +5h 21m after its scheduled time (2026-10-03T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+
