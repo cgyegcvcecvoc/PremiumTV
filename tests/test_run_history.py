@@ -134,7 +134,13 @@ class ScraperIntegrationTest(unittest.TestCase):
             history = (out / "run-history.jsonl").read_text(encoding="utf-8").splitlines()
             status = (out / "STATUS.md").read_text(encoding="utf-8")
 
-            self.assertTrue(verified.startswith("#EXTM3U\n"))
+            # The published playlist always advertises the repository's own
+            # merged guide first, even when no source carried a guide.
+            self.assertTrue(
+                verified.splitlines()[0].startswith('#EXTM3U x-tvg-url="https://raw.'
+                                                    'githubusercontent.com/'),
+                verified.splitlines()[0])
+            self.assertIn("/playlists/epg/PremiumTV.xml", verified.splitlines()[0])
             self.assertEqual(verified.count("#EXTINF"), 2)
             self.assertEqual(all_links.count("#EXTINF"), 3)
             self.assertIn("#EXTVLCOPT:http-referrer=https://example.org/", verified)
