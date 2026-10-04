@@ -29,6 +29,7 @@ import collections
 import concurrent.futures as cf
 import datetime as dt
 import email.utils
+import hashlib
 import html
 import http.client
 import json
@@ -39,6 +40,7 @@ import ssl
 import sys
 import threading
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -57,14 +59,15 @@ DEFAULT_UA = (
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
-# The merged guide this repository publishes (scripts/epg_build.py). Advertised
-# first in every playlist so a player loads a guide whose channel ids match
-# these playlists before it falls back to the upstream guides.
+# The merged guide this repository publishes (scripts/epg_build.py). General
+# playlists advertise it before their source guides; each country playlist uses
+# its own root-level EPG/<Country>.xml once that verified file is available.
 SELF_EPG_URL = os.environ.get("SELF_EPG_URL") or (
     "https://raw.githubusercontent.com/"
     f"{os.environ.get('GITHUB_REPOSITORY') or 'cgyegcvcecvoc/PremiumTV1'}/main"
-    "/playlists/epg/PremiumTV.xml"
+    "/EPG/PremiumTV.xml"
 )
+EPG_DIR = ROOT / "EPG"
 VLC_OPT_MAP = {
     "http-user-agent": "User-Agent",
     "http-referrer": "Referer",
@@ -636,6 +639,12 @@ def country_filename(country: str) -> str:
     """Turn a country display name into a clean M3U filename (e.g. 'USA.m3u', 'South_Korea.m3u')."""
     slug = re.sub(r"[^A-Za-z0-9]+", "_", country.strip()).strip("_")
     return f"{slug or 'International'}.m3u"
+
+
+def country_epg_url(country: str) -> str:
+    """Raw URL for this country's independently generated XMLTV guide."""
+    stem = Path(country_filename(country)).stem
+    return f"{SELF_EPG_URL.rsplit('/', 1)[0]}/{stem}.xml"
 
 
 def is_ae_channel(channel: Channel) -> bool:
@@ -1353,17 +1362,41 @@ def sort_key(channel: Channel):
     return (channel.group.lower(), re.sub(r"\W+", "", channel.name.lower()), channel.source)
 
 
-def write_m3u(path: Path, channels: list[Channel], epg: list[str], title: str,
-              advertise_self: bool = True) -> None:
-    """Write a playlist, advertising this repository's merged guide first.
+def synthetic_tvg_id(channel: Channel) -> str:
+    """Stable repo-scoped id for a published channel whose source has no tvg-id."""
+    country = channel.country or "International"
+    def slug(value: str, fallback: str) -> str:
+        ascii_value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
+        result = re.sub(r"[^a-z0-9]+", "_", ascii_value.lower()).strip("_")
+        if not result:
+            result = fallback
+        if len(result) > 72:
+            digest = hashlib.sha1(value.encode("utf-8", errors="replace")).hexdigest()[:10]
+            result = f"{result[:61].rstrip('_')}_{digest}"
+        return result
 
-    ``SELF_EPG_URL`` is the guide ``scripts/epg_build.py`` publishes into
-    ``playlists/epg/``. It is cut from exactly the channels in these playlists,
-    so it is the only advertised guide whose ids actually match; the upstream
-    guides stay behind it as fallbacks. ``advertise_self=False`` is for the
-    source caches, which mirror an upstream file rather than describe ours.
+    name = channel.name.strip() or channel.url
+    country_slug = slug(country, "international")
+    name_slug = slug(name, "channel_" + hashlib.sha1(name.encode("utf-8", errors="replace")).hexdigest()[:10])
+    return f"premiumtv.{country_slug}.{name_slug}"
+
+
+def write_m3u(path: Path, channels: list[Channel], epg: list[str], title: str,
+              advertise_self: bool = True, synthesize_missing_ids: bool = False) -> None:
+    """Write a playlist, advertising the repository's matching XMLTV first.
+
+    General playlists use ``SELF_EPG_URL`` and may retain verified upstream
+    guides behind it as fallbacks. Country playlists pass their one country
+    guide with ``advertise_self=False``. Source caches also use that flag and
+    keep their upstream metadata unchanged. Published player playlists can set
+    ``synthesize_missing_ids`` so channels without a source ``tvg-id`` receive
+    stable repo-scoped ids that the generated XMLTV can declare and match.
     """
     path.parent.mkdir(parents=True, exist_ok=True)
+    if synthesize_missing_ids:
+        for channel in channels:
+            if not channel.attrs.get("tvg-id", "").strip():
+                channel.attrs["tvg-id"] = synthetic_tvg_id(channel)
     header = "#EXTM3U"
     guides = list(dict.fromkeys(
         ([SELF_EPG_URL] if advertise_self and SELF_EPG_URL else []) + list(epg)))
@@ -1397,11 +1430,19 @@ def write_country_playlists(
         country_channels = sorted(grouped[country], key=sort_key)
         fname = country_filename(country)
         active_files.add(fname)
+        # Use a country-scoped guide on its own. If this is a newly added
+        # country whose XMLTV has not been built yet, retain the merged guide
+        # and source fallbacks until the immediately-following EPG build runs.
+        country_guide = EPG_DIR / f"{Path(fname).stem}.xml"
+        guides = ([country_epg_url(country)] if country_guide.is_file()
+                  else ([SELF_EPG_URL] if SELF_EPG_URL else []) + list(epg))
         write_m3u(
             countries_dir / fname,
             country_channels,
-            epg,
+            guides,
             f"{country} working channels ({len(country_channels)}) - updated {utc_s} ({local_s}) - {label}",
+            advertise_self=False,
+            synthesize_missing_ids=True,
         )
         summary[country] = {
             "file": f"countries/{fname}",
@@ -1422,14 +1463,17 @@ def write_country_playlists(
         "",
         f"Total countries: **{len(summary)}**  |  Total confirmed working channels: **{len(channels)}**",
         "",
-        "| Country | Working channels | Playlist file | Raw M3U URL |",
-        "|---|---:|---|---|",
+        "| Country | Working channels | Playlist file | Country EPG (`.xml`) | Raw M3U URL | Raw EPG URL |",
+        "|---|---:|---|---|---|---|",
     ]
     for country, info in summary.items():
         fname = Path(info["file"]).name
         raw_url = f"https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/{fname}"
+        epg_url = country_epg_url(country)
+        epg_file = f"../../EPG/{Path(fname).stem}.xml"
         index_lines.append(
-            f"| {country} | {info['count']} | [`{fname}`]({fname}) | `{raw_url}` |"
+            f"| {country} | {info['count']} | [`{fname}`]({fname}) | "
+            f"[`{Path(fname).stem}.xml`]({epg_file}) | `{raw_url}` | `{epg_url}` |"
         )
     (countries_dir / "README.md").write_text("\n".join(index_lines) + "\n", encoding="utf-8")
     return summary
@@ -1468,6 +1512,7 @@ def write_ae_playlist(
         ae_working,
         epg,
         f"A&E and A+E Networks working channels ({len(ae_working)}) - updated {utc_s} ({local_s}) - {label}",
+        synthesize_missing_ids=True,
     )
     return len(ae_working)
 
@@ -2346,6 +2391,7 @@ def main() -> int:
             write_m3u(
                 out_dir / "PremiumTV_all.m3u", channels, all_epg,
                 f"All links (unchecked) - updated {utc_s} ({local_s}) - {args.label}",
+                synthesize_missing_ids=True,
             )
             all_playlist_written = True
 
@@ -2418,6 +2464,7 @@ def main() -> int:
                     write_m3u(
                         out_dir / "PremiumTV.m3u", working, all_epg,
                         f"Working links - updated {utc_s} ({local_s}) - {args.label}",
+                        synthesize_missing_ids=True,
                     )
                     countries_summary = write_country_playlists(
                         out_dir, working, all_epg, utc_s, local_s, args.label

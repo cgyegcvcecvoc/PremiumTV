@@ -1971,3 +1971,108 @@ ISSUES / ERRORS:
   * 3790 links returned a confirmed failure (see dead details).
   * This run started +5h 02m after its scheduled time (2026-10-04T10:23:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261004T163517Z-3038
+TIMESTAMP:    2026-10-04 12:37 PM EDT (2026-10-04T16:35:17Z -> 2026-10-04T16:37:28Z)
+LABEL / TYPE: manual verified rescrape for country EPG [manual]
+STATUS:       FAILED (checked=True, duration=130.62s)
+PLAYLISTS:    working=0 / unique=16686 (dead=2382, unverified=14304)
+COUNTRIES:    0 country playlists updated in playlists/countries/
+A&E CHANNELS: 0 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +101 channels added / -64 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [USA] [Uruguay Liga AUF] Boston River vs Juventud (FAWA) (doms9) -> http://193.47.62.41/hls/BFFF.m3u8
+  + [USA] [Italy Women Serie A] Como W vs Inter W (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFA.m3u8
+  + [USA] [UEFA Nations League] Malta vs Andorra 1 (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAA.m3u8
+  + [USA] [UEFA Nations League] Kosovo vs Austria 1 (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAA.m3u8
+  + [USA] [German Women Bundesliga] FC Nurnberg W vs Hoffenheim W (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAAA.m3u8
+  + [USA] [Spanish Segunda Liga] Castellon vs Ceuta (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAAAA.m3u8
+  + [USA] [Spanish Segunda Liga] Las Palmas vs Valladolid (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAAAAA.m3u8
+  + [USA] [Spanish Liga F Women] Barcelona W vs Real Madrid W (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAAAAAQ.m3u8
+  + [USA] [USA NWSL Women] Gotham W vs Angel City W (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAAAAAQQ.m3u8
+  + [USA] [Spanish Liga F Women] Valencia W vs Real Sociedad W (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAAAAAQQQ.m3u8
+  + [USA] [Argentina Liga Profesional] Huracan vs Aldosivi (FAWA) (doms9) -> http://193.47.62.41/hls/BFFFAAAAAAQQQQ.m3u8
+  + [USA] [Scottish Premiership] Partick Thistle W vs Rangers W (FAWA) (doms9) -> http://193.47.62.41/hls/rarara.m3u8
+  + [USA] [NFL American Football] Baltimore Ravens vs Tennessee Titans (FAWA) (doms9) -> http://193.47.62.44/hls/WAWAWA.m3u8
+  + [USA] [NFL American Football] Chicago Bears vs New York Jets (FAWA) (doms9) -> http://193.47.62.44/hls/WAWAWAQ.m3u8
+  + [USA] [NFL American Football] Houston Texans vs Dallas Cowboys (FAWA) (doms9) -> http://193.47.62.44/hls/WAWAWAQQ.m3u8
+  + [USA] [NFL American Football] Philadelphia Eagles vs Los Angeles Rams (FAWA) (doms9) -> http://193.47.62.44/hls/WAWAWAQQQ.m3u8
+  + [USA] [NFL American Football] NFL Red Zone (FAWA) (doms9) -> http://193.47.62.44/hls/WAWAWAQQQQ.m3u8
+  + [USA] [NFL American Football] Buffalo Bills vs New England Patriots (FAWA) (doms9) -> http://193.47.62.50/hls/zccc.m3u8
+  + [USA] [NFL American Football] Cincinnati Bengals vs Jacksonville Jaguars (FAWA) (doms9) -> http://193.47.62.50/hls/zcccq.m3u8
+  + [USA] [NFL American Football] New York Giants vs Arizona Cardinals (FAWA) (doms9) -> http://193.47.62.50/hls/zcccqq.m3u8
+  + [USA] [NFL American Football] Tampa Bay Buccaneers vs Green Bay Packers (FAWA) (doms9) -> http://193.47.62.50/hls/zcccqqq.m3u8
+  + [USA] beIN Sports USA (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca97e/playlist.m3u8?token=%5Bredacted%5D
+  + [France] beIN Sports 1 France (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca9a2/playlist.m3u8?token=%5Bredacted%5D
+  + [USA] Travel Channel (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76cab13/playlist.m3u8?token=%5Bredacted%5D
+  + [USA] TLC (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cacc6/playlist.m3u8?token=%5Bredacted%5D
+  + [USA] Fox Business (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cae6c/playlist.m3u8?token=%5Bredacted%5D
+  + [USA] CBS (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb205/playlist.m3u8?token=%5Bredacted%5D
+  + [USA] Comedy Central (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb213/playlist.m3u8?token=%5Bredacted%5D
+  + [USA] FX Movie Channel (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb22b/playlist.m3u8?token=%5Bredacted%5D
+  + [USA] FXX (doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb22c/playlist.m3u8?token=%5Bredacted%5D
+REMOVED CHANNELS (SAMPLE):
+  - [USA] beIN Sports USA (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca97e/playlist.m3u8?token=%5Bredacted%5D
+  - [France] beIN Sports 1 France (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca9a2/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Travel Channel (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76cab13/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] TLC (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cacc6/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Fox Business (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cae6c/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] CBS (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb205/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Comedy Central (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb213/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] FX Movie Channel (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb22b/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] FXX (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb22c/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] FYI TV (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb22d/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Golf Channel (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb230/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Hallmark Channel (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb232/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] INSP (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb245/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Lifetime (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb247/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] MeTV (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] NESN (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb25b/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Oxygen True Crime (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb266/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Pop TV (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb269/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Showtime Extreme (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb275/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Showtime 2 (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb275/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Smithsonian Channel (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb27d/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz Edge (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb284/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz Encore Action (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb285/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz Encore Black (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb286/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz Encore Classic (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb287/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz Encore Family (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb288/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz Encore Suspense (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb289/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz Encore Westerns (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb28c/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Starz In Black (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb28d/playlist.m3u8?token=%5Bredacted%5D
+  - [USA] Sundance (previous) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb292/playlist.m3u8?token=%5Bredacted%5D
+ISSUES / ERRORS:
+  * Reference check 'eja.tv' failed: GET https://eja.tv/ failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [aria] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/aria-tv/aria/main/aria.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [doms9] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [xtemus] fetch/parse failed: GET https://playlist.xtemus.com/?playlist=t256y454t41554 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [iptv-org] fetch/parse failed: GET https://iptv-org.github.io/iptv/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [free-tv] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [m3u] fetch/parse failed: GET https://api.github.com/repos/iprtl/m3u/contents/Pluto.m3u?ref=main failed: HTTP Error 404: Not Found
+  * [openstream] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/SajadTroy/openstream/main/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * Only 0 of 16686 links passed; the minimum is 500.6. Keeping the previous PremiumTV.m3u.
+  * 14304 links could not be confirmed after retries (see unverified details).
+  * 2382 links returned a confirmed failure (see dead details).
+
+========================================================================================
+RUN ID:       20261004T163805Z-3222
+TIMESTAMP:    2026-10-04 12:38 PM EDT (2026-10-04T16:38:05Z -> 2026-10-04T16:38:33Z)
+LABEL / TYPE: manual source rescrape; checks blocked by network [manual]
+STATUS:       WARNING (checked=False, duration=27.59s)
+PLAYLISTS:    working=None / unique=16686 (dead=0, unverified=0)
+COUNTRIES:    173 country playlists updated in playlists/countries/
+A&E CHANNELS: 0 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +0 channels added / -0 channels removed (baseline: PremiumTV_all.m3u)
+ISSUES / ERRORS:
+  * Reference check 'eja.tv' failed: GET https://eja.tv/ failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [aria] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/aria-tv/aria/main/aria.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [doms9] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [xtemus] fetch/parse failed: GET https://playlist.xtemus.com/?playlist=t256y454t41554 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [iptv-org] fetch/parse failed: GET https://iptv-org.github.io/iptv/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [free-tv] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [m3u] fetch/parse failed: GET https://api.github.com/repos/iprtl/m3u/contents/Pluto.m3u?ref=main failed: HTTP Error 404: Not Found
+  * [openstream] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/SajadTroy/openstream/main/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+

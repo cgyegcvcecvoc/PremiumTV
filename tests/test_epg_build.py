@@ -170,6 +170,7 @@ class BuildTest(unittest.TestCase):
         self.tmp = Path(tempfile.mkdtemp(prefix="epg-build-"))
         self.out = self.tmp / "playlists"
         self.out.mkdir()
+        self.epg = self.tmp / "EPG"
         self.guides = [f"http://127.0.0.1:{self.port}/a.xml.gz",
                        f"http://127.0.0.1:{self.port}/b.xml"]
         (self.out / "PremiumTV.m3u").write_text(
@@ -180,7 +181,7 @@ class BuildTest(unittest.TestCase):
 
     # ------------------------------------------------------------------ #
     def run_build(self, extra=()):
-        args = ["--out", str(self.out), "--label", "test build",
+        args = ["--out", str(self.out), "--epg-dir", str(self.epg), "--label", "test build",
                 "--guides-from", "checks/epg-check.json", "--workers", "2",
                 "--timeout", "10", "--min-channels", "2", "--min-programmes", "2",
                 *extra]
@@ -190,7 +191,7 @@ class BuildTest(unittest.TestCase):
         return code, buffer.getvalue()
 
     def load_guide(self):
-        path = self.out / "epg" / "PremiumTV.xml"
+        path = self.epg / "PremiumTV.xml"
         self.assertTrue(path.exists(), "the guide was not written")
         root = ET.parse(path).getroot()
         channels = {channel.get("id"): channel for channel in root.findall("channel")}
@@ -266,9 +267,14 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(len(starts), 7)
 
     def test_report_and_files(self):
+        playlist = self.out / "PremiumTV.m3u"
+        lines = playlist.read_text(encoding="utf-8").splitlines()
+        legacy = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml"
+        lines[0] = lines[0].replace(self.guides[0], f"{legacy},{self.guides[0]}")
+        playlist.write_text("\n".join(lines) + "\n", encoding="utf-8")
         code, output = self.run_build(["--patch"])
         self.assertEqual(code, 0, output)
-        self.assertTrue((self.out / "epg" / "PremiumTV.xml.gz").exists())
+        self.assertTrue((self.epg / "PremiumTV.xml.gz").exists())
         report = json.loads((self.out / "checks" / "epg-build.json").read_text())
         self.assertTrue(report["published"])
         self.assertEqual(report["totals"]["guides"], 2)
@@ -280,17 +286,150 @@ class BuildTest(unittest.TestCase):
         self.assertGreaterEqual(report["merge"]["overlaps_dropped"], 1)
         self.assertEqual(report["playlist_entries_without_id"], 1)
         self.assertIn("raw_url", report)
-        self.assertTrue(report["raw_url"].endswith("playlists/epg/PremiumTV.xml"))
+        self.assertTrue(report["raw_url"].endswith("/EPG/PremiumTV.xml"))
+        self.assertEqual(report["patch"]["advertised"], 1)
         self.assertTrue((self.out / "checks" / "EPG-BUILD.md").exists())
         self.assertTrue((self.out / "logs" / "epg-build-edits.txt").exists())
         # The gzipped copy decompresses to the same document.
-        packed = gzip.decompress((self.out / "epg" / "PremiumTV.xml.gz").read_bytes())
-        self.assertEqual(packed, (self.out / "epg" / "PremiumTV.xml").read_bytes())
+        packed = gzip.decompress((self.epg / "PremiumTV.xml.gz").read_bytes())
+        self.assertEqual(packed, (self.epg / "PremiumTV.xml").read_bytes())
         # --patch advertises the merged guide first and keeps the upstreams.
         header = (self.out / "PremiumTV.m3u").read_text().splitlines()[0]
         guides = [part for part in header.split('x-tvg-url="')[1].rstrip('"').split(",")]
         self.assertEqual(guides[0], report["raw_url"])
         self.assertIn(self.guides[0], guides)
+        self.assertNotIn(legacy, guides)
+
+    def test_country_guides_are_xmltv_scoped_and_advertised(self):
+        countries = self.out / "countries"
+        countries.mkdir()
+        usa = [
+            ('AE.us@East', 'US', 'A&E (US East)'),
+            ('AE.us@West', 'US', 'A&E (US West)'),
+            ('MeTV.us', 'US', 'MeTV'),
+        ]
+        uk = [('BBCOne.uk', 'UK', 'BBC One (UK)')]
+        for filename, entries in (("USA.m3u", usa), ("UK.m3u", uk)):
+            lines = [f'#EXTM3U x-tvg-url="{",".join(self.guides)}"']
+            for index, (tvg_id, country, name) in enumerate(entries):
+                lines.extend([
+                    f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-country="{country}",'
+                    f'{name}',
+                    f"https://example.com/{filename}-{index}.m3u8",
+                ])
+            (countries / filename).write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+        code, output = self.run_build(["--countries", "--patch"])
+        self.assertEqual(code, 0, output)
+        report = json.loads((self.out / "checks" / "epg-build.json").read_text())
+        self.assertTrue(report["country_guides_complete"])
+        self.assertEqual(report["country_patch"]["advertised"], 2)
+        by_country = {item["country"]: item for item in report["country_guides"]}
+        self.assertEqual(set(by_country), {"USA", "UK"})
+        self.assertTrue(by_country["USA"]["valid_xmltv"])
+        self.assertEqual(by_country["USA"]["playlist_channels"], 3)
+        self.assertEqual(by_country["UK"]["playlist_channels"], 1)
+
+        usa_root = ET.parse(self.epg / "USA.xml").getroot()
+        usa_channels = {item.get("id") for item in usa_root.findall("channel")}
+        self.assertEqual(usa_channels, {"AE.us@East", "AE.us@West", "MeTV.us"})
+        usa_programmes = usa_root.findall("programme")
+        self.assertTrue(usa_programmes)
+        self.assertTrue(all(item.get("channel") in usa_channels for item in usa_programmes))
+        uk_root = ET.parse(self.epg / "UK.xml").getroot()
+        self.assertEqual({item.get("id") for item in uk_root.findall("channel")},
+                         {"BBCOne.uk"})
+        self.assertTrue(all(item.get("channel") == "BBCOne.uk"
+                            for item in uk_root.findall("programme")))
+
+        for country, url in (("USA", by_country["USA"]["url"]),
+                             ("UK", by_country["UK"]["url"])):
+            header = (countries / f"{country}.m3u").read_text().splitlines()[0]
+            self.assertEqual(epg_build.epg_check.extract_guides(countries / f"{country}.m3u"),
+                             [url])
+            self.assertIn("x-tvg-url=", header)
+
+        # A channel-set change rebuilds immediately even while the prior report
+        # is inside the normal freshness window, and the unmatched station is
+        # still represented as a declared XMLTV channel without fake events.
+        usa_path = countries / "USA.m3u"
+        with usa_path.open("a", encoding="utf-8") as handle:
+            handle.write('#EXTINF:-1 tvg-id="NewStation.us" tvg-country="US",New Station\n'
+                         'https://example.com/new-station.m3u8\n')
+        code, output = self.run_build(["--countries"])
+        self.assertEqual(code, 0, output)
+        self.assertIn("channel set or expected EPG files changed; rebuilding", output)
+        refreshed = ET.parse(self.epg / "USA.xml").getroot()
+        self.assertIn("NewStation.us", {item.get("id") for item in refreshed.findall("channel")})
+        self.assertFalse(any(item.get("channel") == "NewStation.us"
+                             for item in refreshed.findall("programme")))
+
+    def test_country_guides_reuse_a_recent_verified_build_when_feeds_are_unreachable(self):
+        # First publish a normal merged guide from verified fixture feeds.
+        code, output = self.run_build()
+        self.assertEqual(code, 0, output)
+        published = self.epg / "PremiumTV.xml"
+        previous_xml = published.read_bytes()
+
+        countries = self.out / "countries"
+        countries.mkdir()
+        (countries / "USA.m3u").write_text(
+            '#EXTM3U\n'
+            '#EXTINF:-1 tvg-id="AE.us@East" tvg-country="US",A&E East\n'
+            'https://example.com/ae.m3u8\n'
+            '#EXTINF:-1 tvg-id="MeTV.us" tvg-country="US",MeTV\n'
+            'https://example.com/metv.m3u8\n', encoding="utf-8")
+        (countries / "UK.m3u").write_text(
+            '#EXTM3U\n'
+            '#EXTINF:-1 tvg-id="BBCOne.uk" tvg-country="UK",BBC One\n'
+            'https://example.com/bbc.m3u8\n', encoding="utf-8")
+        # Simulate every current upstream feed being unavailable.
+        playlist = self.out / "PremiumTV.m3u"
+        playlist.write_text(playlist.read_text(encoding="utf-8").replace(
+            playlist.read_text(encoding="utf-8").splitlines()[0], "#EXTM3U", 1),
+            encoding="utf-8")
+
+        code, output = self.run_build(["--countries", "--patch", "--force"])
+        self.assertEqual(code, 1, output)  # the merged-guide safety gate still fails
+        self.assertEqual(published.read_bytes(), previous_xml)
+        report = json.loads((self.out / "checks" / "epg-build.json").read_text())
+        self.assertFalse(report["published"])
+        self.assertTrue(report["country_guides_complete"])
+        self.assertGreater(report["previous_verified_guide"]["programmes_reused"], 0)
+        by_country = {item["country"]: item for item in report["country_guides"]}
+        self.assertIn("last successfully published guide",
+                      by_country["USA"]["programme_data_source"])
+        self.assertTrue(ET.parse(self.epg / "USA.xml").getroot().findall("programme"))
+        self.assertTrue(ET.parse(self.epg / "UK.xml").getroot().findall("programme"))
+        self.assertEqual(epg_build.epg_check.extract_guides(countries / "USA.m3u"),
+                         [by_country["USA"]["url"]])
+        build_report = (self.out / "checks" / "EPG-BUILD.md").read_text()
+        self.assertIn("reused", build_report)
+        self.assertIn("Retained guide", build_report)
+
+    def test_country_catalogue_is_published_without_fabricated_programmes(self):
+        countries = self.out / "countries"
+        countries.mkdir()
+        (countries / "USA.m3u").write_text(
+            '#EXTM3U\n'
+            '#EXTINF:-1 tvg-id="NewStation.us" tvg-country="US",New Station\n'
+            'https://example.com/new-station.m3u8\n', encoding="utf-8")
+        playlist = self.out / "PremiumTV.m3u"
+        playlist.write_text(playlist.read_text(encoding="utf-8").replace(
+            playlist.read_text(encoding="utf-8").splitlines()[0], "#EXTM3U", 1),
+            encoding="utf-8")
+
+        code, output = self.run_build(["--countries", "--patch", "--force"])
+        self.assertEqual(code, 1, output)  # there was no verified programming feed
+        report = json.loads((self.out / "checks" / "epg-build.json").read_text())
+        self.assertTrue(report["country_guides_complete"])
+        self.assertEqual(report["country_guides"][0]["programme_data_source"],
+                         "channel catalogue only; no verified programme data available")
+        root = ET.parse(self.epg / "USA.xml").getroot()
+        self.assertEqual({item.get("id") for item in root.findall("channel")}, {"NewStation.us"})
+        self.assertEqual(root.findall("programme"), [])
+        self.assertEqual(epg_build.epg_check.extract_guides(countries / "USA.m3u"),
+                         [report["country_guides"][0]["url"]])
 
     def test_truncated_guide_keeps_what_it_parsed(self):
         checks = self.out / "checks"
@@ -313,11 +452,11 @@ class BuildTest(unittest.TestCase):
     def test_freshness_guard_skips_a_recent_build(self):
         code, _ = self.run_build()
         self.assertEqual(code, 0)
-        first = (self.out / "epg" / "PremiumTV.xml").stat().st_mtime_ns
+        first = (self.epg / "PremiumTV.xml").stat().st_mtime_ns
         code, output = self.run_build()
         self.assertEqual(code, 0)
         self.assertIn("nothing to do", output)
-        self.assertEqual((self.out / "epg" / "PremiumTV.xml").stat().st_mtime_ns, first)
+        self.assertEqual((self.epg / "PremiumTV.xml").stat().st_mtime_ns, first)
         code, output = self.run_build(["--force"])
         self.assertEqual(code, 0)
         self.assertNotIn("nothing to do", output)
@@ -337,7 +476,7 @@ class BuildTest(unittest.TestCase):
     def test_hollow_build_keeps_the_published_guide(self):
         code, _ = self.run_build()
         self.assertEqual(code, 0)
-        published = self.out / "epg" / "PremiumTV.xml"
+        published = self.epg / "PremiumTV.xml"
         before = published.read_bytes()
         # Restrict the run to a dead guide: the published guide must stay put.
         checks = self.out / "checks"
@@ -404,11 +543,57 @@ class BuildTest(unittest.TestCase):
 class HelperTest(unittest.TestCase):
     """Unit tests for the parsing helpers the merge depends on."""
 
+    def test_recent_dead_guide_report_prunes_only_confirmed_dead_urls(self):
+        now = dt.datetime.now(UTC)
+        dead = "https://feeds.example/dead.xml"
+        invalid = "https://feeds.example/invalid.xml"
+        transient = "https://feeds.example/transient.xml"
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            report_path = root / "epg-check.json"
+            report_path.write_text(json.dumps({
+                "finished_utc": now.isoformat().replace("+00:00", "Z"),
+                "guides": [
+                    {"url": dead, "status": "offline"},
+                    {"url": invalid, "status": "invalid"},
+                    {"url": transient, "status": "unreachable"},
+                ],
+            }), encoding="utf-8")
+            dead_urls = epg_build.recently_dead_guide_urls(report_path, now)
+            self.assertEqual(dead_urls, {dead, invalid})
+
+            raw = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml"
+            legacy = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml"
+            playlist = root / "channels.m3u"
+            playlist.write_text(
+                f'#EXTM3U x-tvg-url="{raw},{legacy},{dead},{transient}"\n',
+                encoding="utf-8")
+            patch = epg_build.patch_playlists([playlist], raw, dead_urls)
+            self.assertEqual(epg_build.epg_check.extract_guides(playlist),
+                             [raw, transient])
+            self.assertEqual(patch["removed_guides"], 2)
+
+            old = now - dt.timedelta(hours=epg_build.MAX_EP_CHECK_AGE_HOURS + 1)
+            report_path.write_text(json.dumps({
+                "finished_utc": old.isoformat().replace("+00:00", "Z"),
+                "guides": [{"url": dead, "status": "offline"}],
+            }), encoding="utf-8")
+            self.assertEqual(epg_build.recently_dead_guide_urls(report_path, now), set())
+
     def test_norm_id_drops_the_variant_suffix(self):
         self.assertEqual(epg_build.norm_id("AE.us@East"), "aeus")
         self.assertEqual(epg_build.norm_id("ae.us"), "aeus")
         self.assertEqual(epg_build.norm_id("BBC One HD.uk"), "bbconehduk")
         self.assertEqual(epg_build.norm_id("MeTV.us@SD"), epg_build.norm_id("MeTV.us"))
+
+    def test_generic_network_guide_does_not_fan_out_to_local_affiliates(self):
+        wanted = epg_build.Wanted()
+        wanted.add("NBC.us@WGAL", "WGAL 8 (NBC) - Lancaster PA", "US", "",
+                   "General")
+        wanted.add("NBC.us@WJACTV", "NBC 6 (WJAC) - Johnstown PA", "US", "",
+                   "General")
+        self.assertEqual(wanted.ids_for_guide_id("NBC.us"), [])
+        self.assertEqual(wanted.ids_for_guide_id("NBC.us@WGAL"), ["NBC.us@WGAL"])
 
     def test_norm_name_ignres_quality_and_brackets(self):
         self.assertEqual(epg_build.norm_name("A&E (720p)"), "ae")

@@ -1,28 +1,22 @@
-name: Build the merged TV guide
+name: Build merged and country EPG guides
 
-# Publishes ONE XMLTV file for the whole library, in this repository:
+# Publishes the all-country guide and one country-scoped XMLTV guide per M3U,
+# all in the repository-root EPG/ folder (not under playlists/):
 #
-#   playlists/epg/PremiumTV.xml      the whole merged guide (plain XML)
-#   playlists/epg/PremiumTV.xml.gz   the same guide gzipped
+#   EPG/PremiumTV.xml          whole-library guide (plain XML)
+#   EPG/PremiumTV.xml.gz       compact copy of the whole-library guide
+#   EPG/USA.xml, EPG/UK.xml…   exact channel sets from playlists/countries/*.m3u
 #
-# Players normally load the 90+ guides listed in each playlist's x-tvg-url
-# header. Those guides use their own channel-id namespaces, so most of the
-# channels in the playlists match nothing and the events that do load belong to
-# channels nobody can play - which is exactly what makes a guide grid
-# impossible to filter.
+# scripts/epg_build.py uses only verified upstream XMLTV sources, normalises
+# timestamps to UTC, removes placeholders, merges duplicates and resolves
+# overlaps. Every country file is a standalone, valid XMLTV document, contains
+# only that country's channel IDs, and is checked before publication. Country
+# M3Us advertise their own one-file guide rather than asking IPTV players to
+# download every country's schedule.
 #
-# scripts/epg_build.py downloads the guides that playlists/checks/EPG-CHECK.md
-# verified, keeps only the channels the published playlists actually advertise
-# (by tvg-id, or by display name when the ids disagree), normalises every
-# timestamp to UTC, drops events outside the window and placeholder titles,
-# merges duplicates and collapses overlaps into a single track per channel, and
-# writes the result here. Because the file is in the repository it is a stable
-# .xml link that is versioned with the playlists it describes.
-#
-# Twice a day is enough for a guide (listings change far less often than stream
-# links), and the freshness guard means the copies of this script that scrape.yml
-# and link-check.yml also run will skip the work when the published guide is
-# still young.
+# Twice a day refreshes listings; freshness is additionally keyed to the
+# guide-relevant channel metadata, so a changed M3U channel set is rebuilt even
+# while the previous guide is young.
 on:
   # "Run it now" switch, the same pattern link-check.yml uses: appending a line
   # to playlists/logs/run-epg-build.txt and pushing rebuilds the guide on that
@@ -40,7 +34,7 @@ on:
   workflow_dispatch:
     inputs:
       patch:
-        description: "Advertise the merged guide first in the playlists' x-tvg-url"
+        description: "Advertise the merged guide and country-specific guides in playlist headers"
         type: boolean
         default: true
       ahead:
@@ -116,7 +110,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add playlists/
+          git add EPG playlists/
           if git diff --cached --quiet; then
             echo "No guide or report changes to commit."
             exit 0

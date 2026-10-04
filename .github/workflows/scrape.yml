@@ -128,11 +128,11 @@ jobs:
             echo "The scraper did not write playlists/STATUS.md." >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Refresh the merged TV guide
-        # Keeps the published guide in step with the channels this scrape just
-        # published. --max-age-hours is the throttle: the guide only needs
-        # rebuilding a couple of times a day, so most scrape slots skip it in
-        # under a second instead of re-downloading 90+ guides.
+      - name: Refresh the merged and country-specific TV guides
+        # Keeps all published XMLTV files in step with the channels this scrape
+        # just published. The builder's freshness check also compares the
+        # guide-relevant M3U channel set, so a changed channel list rebuilds now;
+        # unchanged inputs keep the 12-hour throttle.
         if: always() && steps.scraper.outcome != 'skipped'
         continue-on-error: true
         run: |
@@ -155,7 +155,7 @@ jobs:
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add playlists/
+          git add EPG playlists/
           if git diff --cached --quiet; then
             echo "No playlist or diagnostic changes to commit."
             exit 0
