@@ -140,7 +140,7 @@ class ScraperIntegrationTest(unittest.TestCase):
                 verified.splitlines()[0].startswith('#EXTM3U x-tvg-url="https://raw.'
                                                     'githubusercontent.com/'),
                 verified.splitlines()[0])
-            self.assertIn("/playlists/epg/PremiumTV.xml", verified.splitlines()[0])
+            self.assertIn("/EPG/PremiumTV.xml", verified.splitlines()[0])
             self.assertEqual(verified.count("#EXTINF"), 2)
             self.assertEqual(all_links.count("#EXTINF"), 3)
             self.assertIn("#EXTVLCOPT:http-referrer=https://example.org/", verified)

@@ -23,10 +23,11 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/logs/run-history.txt`](playlists/logs/run-history.txt) | Plain-text (`.txt`) tabular summary of all recorded runs. |
 | [`playlists/report.json`](playlists/report.json) | Detailed latest JSON report, including failed sources, country counts, A&E channels, and dead/unverified URLs. |
 | [`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md) | Nightly deep check: which published links are working, offline, unreachable, blocked, and what was patched out. |
-| [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md) | TV guide check: every advertised guide URL with its status, channel/programme counts, and dead guides removed. |
-| [`playlists/epg/PremiumTV.xml`](playlists/epg/PremiumTV.xml) | **One merged, filtered TV guide** for every channel in the published playlists — load this `.xml` link in your player. |
-| [`playlists/epg/PremiumTV.xml.gz`](playlists/epg/PremiumTV.xml.gz) | The same guide gzipped (about 10x smaller, same content). |
-| [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: which upstream guides merged, how many channels matched, events kept/merged/dropped, and the file size. |
+| [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md) | Last remote EPG URL/status check (nightly); the checked-in snapshot predates the root-guide migration, while current country XML coverage is in EPG-BUILD. |
+| [`EPG/PremiumTV.xml`](EPG/PremiumTV.xml) | **One merged, filtered XMLTV guide** for the whole library — load this `.xml` in an IPTV player. |
+| [`EPG/`](EPG/README.md) | Separate, verified `.xml` EPG per country playlist (`EPG/USA.xml`, `EPG/UK.xml`, etc.). Each country M3U advertises only its own guide. |
+| [`EPG/PremiumTV.xml.gz`](EPG/PremiumTV.xml.gz) | Gzipped copy of the all-country guide (for players that accept `.xml.gz`). |
+| [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: verified source guides, per-country channel/programme coverage, XML sizes and validation results. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
 | [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons) and the same guides as the main playlist. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
@@ -78,93 +79,94 @@ automatically.
 
 Each report compares the newly discovered links with the previous all-links playlist and records added/removed counts. A failed source refresh or a link-check run below the minimum working ratio is recorded, but does not replace the last good `PremiumTV.m3u`.
 
-## TV guide (EPG) — one merged `.xml` file
+## TV guide (EPG) — root-level, country-specific XMLTV
 
-Every playlist header advertises 90+ upstream guides, and a player downloads all of them on each
-refresh. Those guides each use their own channel-id namespace, so most of the channels in these
-playlists match nothing, and the events that *do* load belong to channels nobody can play. That is
-what makes a guide grid useless for filtering.
+The generated guides live in the repository-root [`EPG/`](EPG/README.md) folder, **not** inside
+`playlists/`. There is one verified, filtered all-library file and a separate XMLTV `.xml` for each
+country playlist. The channel-specific country M3Us automatically point to their matching country
+guide, so an IPTV player can load one compact, relevant guide instead of downloading every upstream
+country feed.
 
-This repository therefore publishes **one** guide, built from exactly those upstream guides and
-reduced to exactly the channels the playlists carry:
+**All-library guide:**
 
 ```text
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml
 ```
 
-| Guide | Use it when |
+Examples for country playlists:
+
+| Playlist | Country XMLTV guide |
 |---|---|
-| [`playlists/epg/PremiumTV.xml`](playlists/epg/PremiumTV.xml) | Your player wants a plain `.xml` URL (TiviMate, IPTV Smarters, Kodi PVR IPTV Simple, VLC). |
-| [`playlists/epg/PremiumTV.xml.gz`](playlists/epg/PremiumTV.xml.gz) | You would rather download 8x less (7.0 MB instead of 58.8 MB); identical content, gzipped. |
+| `playlists/countries/USA.m3u` | [`EPG/USA.xml`](EPG/USA.xml) |
+| `playlists/countries/UK.m3u` | [`EPG/UK.xml`](EPG/UK.xml) |
+| `playlists/countries/Canada.m3u` | [`EPG/Canada.xml`](EPG/Canada.xml) |
+| Other country playlists | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/<Country>.xml` |
 
-**What the last build produced** (from
-[`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md), rebuilt 2026-10-02 23:58 UTC in
-99 s): **2,283** of the **7,997** channels the playlists publish (**28.5%**) have a guide, carrying
-**92,916** events — 6 h back and ~30 h ahead, trimmed from 48 h to fit the size budget — in
-**58.8 MB** of XML (**7.0 MB** gzipped). 82 of the 94 advertised upstream guides contributed; the
-other 12 answered but had no channel in common with these playlists, and every one is listed with
-its reason in the report. Of those events, 74,586 carry a genre, 31,605 an episode number, 17,490
-credits, 19,085 a `premiere` flag and 12,599 `previously-shown` — the metadata the filters run on.
+For manual setup, use the plain `.xml` raw URL in TiviMate, IPTV Smarters, Kodi PVR IPTV Simple,
+VLC, or another XMLTV-capable player. The playlist's `x-tvg-url` already contains the right URL:
+country playlist headers contain only their own country guide; the main/A&E/priority playlists put
+`EPG/PremiumTV.xml` first and retain verified source guides as fallback. `EPG/PremiumTV.xml.gz` is
+also available when a player accepts gzip. For published playlists, channels missing a source
+`tvg-id` receive a stable `premiumtv.<country>.<channel>` ID so their XMLTV channel entries can
+still be addressed consistently; normalized source caches keep their upstream metadata unchanged.
 
-The remaining 71.5% are mostly channels no public guide covers at all (regional and FAST channels
-listed by an index but never in a listings feed). The build report names every guide that
-contributed nothing, so the gap is visible rather than silent.
+[`scripts/epg_build.py`](scripts/epg_build.py) streams the upstream XMLTV sources that the nightly
+guide check verified, matches channel IDs to the published M3Us, and writes all root-level EPG
+files in the same run. Each country guide:
 
-[`scripts/epg_build.py`](scripts/epg_build.py) builds it. "Filtered" is literal:
+* declares only the `tvg-id` values present in its country playlist (including channels that have no
+  public schedule, so missing guide coverage is visible rather than silently mis-mapped);
+* includes programme entries only when a verified source matched that channel by ID or an
+  unambiguous display name;
+* preserves programme titles, descriptions, genres, episode numbers and ratings; merges duplicates,
+  discards placeholders/poor overlaps, and uses explicit UTC timestamps in XMLTV format;
+* is streamed and validated before publication. Reports list per-country channel counts, matched
+  channels, programme totals, XML sizes and any build/validation failures.
 
-* **Only published channels.** A guide channel survives only when its id matches a `tvg-id` in
-  `PremiumTV.m3u`, `AE_Channels.m3u` or `Priority_Channels.m3u` (plus the country playlists with
-  `--countries`) — after
-  normalising the `@variant` suffix (`AE.us@East`, `AE.us@West` and a guide's `AE.us` are the same
-  channel), or, when the ids disagree entirely, by unambiguous display name. Everything else is
-  discarded, so a player is not indexing events for channels it cannot play.
-* **Aliases share one listing.** Both A&E feeds get the same events, and each channel carries the
-  playlist's own name first in its `<display-name>` list, which is what name-matching players
-  compare against.
-* **UTC everywhere.** Every `start`/`stop` is rewritten to `YYYYMMDDHHMMSS +0000`, so time filtering
-  behaves the same no matter which source an event came from.
-* **A bounded window.** By default the next 48 hours plus the last 6, which is what a guide grid
-  actually shows; `--ahead`/`--keep-past` change it.
-* **No junk events.** Placeholder titles ("No Information", "Sign Off", "-", …) are dropped, and
-  HTML entities and markup are cleaned out of titles and descriptions.
-* **One track per channel.** Identical events from different guides are merged (the longest
-  description and the union of the categories win), and events that overlap a better-sourced event
-  are dropped — "better" means better described first, then from the guide that matched more of our
-  channels.
-* **Filterable metadata kept.** `sub-title`, `desc`, `category`, `episode-num`, `credits`, `icon`,
-  `rating`, `star-rating` and the `new` / `live` / `premiere` / `previously-shown` flags are copied
-  through, so genre and "new episode" filters keep working.
+**Local stations are treated conservatively.** The curated Lancaster/Harrisburg/Johnstown/Philadelphia
+feeds are in the USA playlist and are link-checked with the rest. A generic national `NBC.us` guide
+is not copied onto WGAL and WJAC just because they share a network; the source must identify the
+local affiliate or have a unique station-name match. When no public station-level listing is
+available, the channel remains in the M3U and XMLTV channel catalogue but correctly has no fabricated
+programme data. See [`playlists/sources/local-channels.m3u`](playlists/sources/local-channels.m3u) and
+the per-country build table in [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md).
 
-### Keeping the guide in step with the scrapes
+When upstream EPG feeds are temporarily unreachable, the builder keeps the last good all-library
+XMLTV in place and may reuse a successfully published, previously verified guide for country outputs
+for up to 36 hours. If no recent verified guide is available, it publishes channel catalogues with no
+programme entries rather than inventing schedules; the report clearly labels that fallback.
 
-| Trigger | What it does |
-|---|---|
-| [`epg-build.yml`](.github/workflows/epg-build.yml) — 5:47 AM and 5:47 PM (New York) | Full rebuild from the guides the nightly check verified, then advertises the merged guide first in every playlist's `x-tvg-url`. |
-| [`link-check.yml`](.github/workflows/link-check.yml) — 1:13 AM, after the guide check | `--force` rebuild, so the guide is cut from the same verified guide list and covers the channels that survived the deep link check. |
-| [`scrape.yml`](.github/workflows/scrape.yml) — every scrape slot | Freshness-guarded (`--max-age-hours 12`): most slots skip in under a second, and the guide is rebuilt only when it has gone stale, so it always covers whatever the automatic scrapes just published. |
+### Constant playlist and guide refresh
 
-Run it by hand any time — from **Actions → Build the merged TV guide → Run workflow**, or:
+The scraper already checks and updates the M3U sources **seven times a day**, with a schedule guard
+for delayed/dropped GitHub runs; the nightly deep check verifies streams end-to-end. EPG generation
+runs twice daily, after nightly verification, and after scraper runs when the country-channel set has
+changed. A guide freshness skip is allowed only when the guide-relevant M3U fingerprint and all
+expected country XML files still match, so newly added/renamed channels trigger an immediate rebuild.
+
+Run a manual checked refresh at any time:
 
 ```bash
-python scripts/epg_build.py --patch --force     # rebuild and advertise it in the playlists
-python scripts/epg_build.py --ahead 24          # a shorter window, a smaller file
-gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=epg-build-now   # trigger the workflow
+python scripts/scraper.py --label "manual verified rescrape"  # refresh and check source streams
+python scripts/epg_build.py --countries --patch --force         # rebuild every country XMLTV + playlist headers
 ```
 
-A build that comes back hollow refuses to publish: fewer than `--min-channels` (25) or
-`--min-programmes` (1000) matched channels, or fewer than `--min-previous-ratio` (25%) of the
-channels in the guide it would replace, leaves the previously published guide untouched and fails
-the step. A bad network hour cannot wipe the guide. If the merged file would exceed `--max-mb`
-(60 MB), the window is trimmed first — proportionally to the overshoot, and only for as long as
-trimming still removes events — then events per channel, and every trim is recorded in
-[`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md). `--max-mb` is the size/window
-dial: 45 MB buys about 19 hours of listings, 60 MB about 30, 90 MB the full 48.
+The standard scrape safety threshold preserves the last good `PremiumTV.m3u` if a source/network
+failure leaves too few confirmed working links. The XMLTV builder likewise leaves the previous
+all-library file untouched if the verified harvest is implausibly small; every country output is
+well-formed XMLTV and failures are shown in the build report. To request a workflow-run refresh
+without opening Actions, use:
 
-Every playlist the scraper writes — the three main ones and the ~180 country files — advertises
-this guide **first** in its `x-tvg-url`, ahead of the upstream guides, so a player loads the guide
-whose ids actually match and only falls back to the others for whatever it misses. Appending a line
-to [`playlists/logs/run-epg-build.txt`](playlists/logs/run-epg-build.txt) and pushing rebuilds it on
-that branch without opening the Actions tab.
+```bash
+gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=scrape-now \
+  -f 'client_payload[label]=manual verified rescrape'
+gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=epg-build-now
+```
+
+See [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) for current verified coverage,
+source health and output metrics. Appending a line to
+[`playlists/logs/run-epg-build.txt`](playlists/logs/run-epg-build.txt) and pushing also triggers a
+build on that branch.
 
 ## Automatic checks and logs
 
@@ -182,7 +184,7 @@ The [GitHub Actions workflow](.github/workflows/scrape.yml) runs **seven times a
 
 A separate [nightly workflow](.github/workflows/link-check.yml) runs the intensive deep check at 1:13 AM: it re-verifies every published link end to end, verifies every TV guide, and hunts for the priority channels. See [Deep link check, guide check and priority channels](#deep-link-check-guide-check-and-priority-channels).
 
-A separate [guide workflow](.github/workflows/epg-build.yml) rebuilds the merged TV guide twice a day at 5:47 AM and 5:47 PM; see [TV guide (EPG) — one merged `.xml` file](#tv-guide-epg--one-merged-xml-file).
+A separate [guide workflow](.github/workflows/epg-build.yml) rebuilds the merged and country-specific XMLTV files twice a day at 5:47 AM and 5:47 PM; see [TV guide (EPG) — root-level, country-specific XMLTV](#tv-guide-epg--root-level-country-specific-xmltv).
 
 A separate [monthly workflow](.github/workflows/discover.yml) hunts for new channels on the 1st of each month at 4:37 AM; see [Monthly new-channel discovery](#monthly-new-channel-discovery).
 
@@ -293,15 +295,14 @@ while `unreachable` and `blocked` guides are kept because they may recover. Resu
 and the newest programme date are in
 [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md).
 
-### `scripts/epg_build.py` — the merged guide
+### `scripts/epg_build.py` — merged and country-specific XMLTV
 
-Verification tells you which guides are alive; it does not make them usable. This script downloads
-the guides that survived the check, streams them (they are often 100 MB+ gzipped, so nothing is ever
-held in memory whole), and folds the channels that match the published playlists into the single
-`playlists/epg/PremiumTV.xml` described in
-[TV guide (EPG) — one merged `.xml` file](#tv-guide-epg--one-merged-xml-file). What each upstream
-guide contributed — channels seen, channels matched by id and by name, events kept and dropped,
-bytes read, and the reason a guide contributed nothing — is in
+Verification tells you which upstream guides are alive; the builder turns the verified ones into
+player-ready outputs. It streams even very large compressed guides, matches channels to the current
+M3Us, and writes the all-library `EPG/PremiumTV.xml` plus one `EPG/<Country>.xml` per
+`playlists/countries/<Country>.m3u`. Country XMLs contain only their playlist's channel IDs and the
+programmes verified for those channels. The detailed report lists source contributions, country
+coverage, emitted programme counts, sizes, and XMLTV validation results in
 [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md).
 
 ### `scripts/channel_hunt.py` — priority channels

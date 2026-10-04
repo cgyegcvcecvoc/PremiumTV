@@ -1,55 +1,27 @@
 #!/usr/bin/env python3
-"""Build one merged, filtered XMLTV guide for the published playlists.
+"""Build a verified XMLTV guide for the published playlists.
 
-Players load every URL in a playlist's ``x-tvg-url`` header - today that is
-90+ separate guides, each with its own channel-id namespace, most of which do
-not match the ids the playlists actually use. The result is a guide grid that
-is mostly empty and impossible to filter, because the events that *do* load
-belong to channels that are not in the playlist.
+One complete guide is published at ``EPG/PremiumTV.xml`` (plus a gzip copy).
+When ``--countries`` is enabled, this same verified harvest is split into a
+separate XMLTV file for every country playlist, for example ``EPG/USA.xml`` and
+``EPG/UK.xml``. These files live at the repository root, outside ``playlists/``.
 
-This script fixes that by publishing **one** guide, in this repository, that is
-built from exactly those upstream guides and reduced to exactly the channels in
-the published playlists:
+The harvest is built from verified upstream guides and filtered to the exact
+``tvg-id`` values in the player playlists. Country guides contain only channel
+IDs from their corresponding country M3U. They include channel declarations
+for every playlist channel (even when no upstream schedule exists), while
+programme entries are emitted only for verified matches. Country-specific
+local stations are not given a generic network schedule when the source only
+identifies the network, avoiding misleading affiliate listings.
 
-    playlists/epg/PremiumTV.xml       the whole merged guide (plain XMLTV)
-    playlists/epg/PremiumTV.xml.gz    the same guide gzipped (~10x smaller)
+All outputs use XMLTV, explicit UTC offsets (``YYYYMMDDHHMMSS +0000``), escaped
+text, and standard channel/programme metadata. Duplicate events are merged,
+poor overlapping listings are dropped, placeholder events are removed, and
+normal safety gates preserve the last good guide if an upstream outage returns
+an implausibly small harvest. The builder is used by the twice-daily EPG
+workflow and by the checked playlist refresh/deep-check workflows.
 
-Load it in a player with:
-
-    https://raw.githubusercontent.com/<owner>/PremiumTV1/main/playlists/epg/PremiumTV.xml
-
-Because the file lives in the repository it is a stable ``.xml`` link, it is
-versioned with the playlists it describes, and it is rebuilt by the workflows
-(``.github/workflows/epg-build.yml``, plus a freshness-guarded step in
-``scrape.yml`` and the nightly deep check), so the guide always covers the
-channels the last automatic scrape published.
-
-What "filtered" means, concretely:
-
-* only channels whose ``tvg-id`` (or, failing that, display name) appears in a
-  published playlist survive - typically a few thousand instead of tens of
-  thousands, so a player is not indexing events for channels it cannot play;
-* every ``start``/``stop`` is rewritten to UTC (``YYYYMMDDHHMMSS +0000``), so
-  time filtering behaves the same no matter which source a programme came from;
-* programmes that already ended more than ``--keep-past`` hours ago, or that
-  start more than ``--ahead`` hours from now, are dropped;
-* placeholder events with no usable title are dropped;
-* identical events (same channel, start, stop, title) are merged, and events
-  that overlap a better-sourced event on the same channel are dropped, so each
-  channel has exactly one continuous programme track;
-* titles, sub-titles, descriptions, categories, episode numbers, credits,
-  icons, ratings and the ``new``/``live``/``premiere`` flags are preserved, so
-  genre and "new episode" filters keep working.
-
-Safety, in the style of the rest of this repository: a build that comes back
-suspiciously small (``--min-channels``, ``--min-programmes``, or fewer than
-``--min-previous-ratio`` of the channels in the guide it would replace) leaves
-the previously published guide untouched and exits non-zero, so a bad network
-hour cannot wipe the guide.
-
-    python scripts/epg_build.py                       # build + reports
-    python scripts/epg_build.py --patch               # + advertise it in the playlists
-    python scripts/epg_build.py --force               # ignore --max-age-hours
+    python scripts/epg_build.py --countries --force --patch
     python scripts/epg_build.py --ahead 24 --max-mb 40
 """
 from __future__ import annotations
@@ -58,6 +30,7 @@ import argparse
 import concurrent.futures as cf
 import datetime as dt
 import gzip
+import hashlib
 import html
 import io
 import json
@@ -84,7 +57,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # --------------------------------------------------------------------------- #
 # Defaults
 # --------------------------------------------------------------------------- #
-EPG_DIR_NAME = "epg"
+EPG_DIR_NAME = "EPG"
 GUIDE_NAME = "PremiumTV"
 # Playlists whose channels define the guide. The country playlists are subsets
 # of PremiumTV.m3u, but they are cheap to read and they catch anything the
@@ -99,6 +72,10 @@ MIN_CHANNELS = 25
 MIN_PROGRAMMES = 1_000
 MIN_PREVIOUS_RATIO = 0.25
 MAX_AGE_HOURS = 6
+# If a verified upstream harvest is temporarily unreachable, use the last
+# successfully published guide for country-scope filtering for at most 36h.
+MAX_CACHED_GUIDE_AGE_HOURS = 36
+MAX_EP_CHECK_AGE_HOURS = 48
 WORKERS = 4
 TIMEOUT = 90.0
 RETRIES = 1
@@ -134,6 +111,15 @@ HTML_TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
 GENERATOR = "PremiumTV1 epg_build.py"
 TAG_RE = re.compile(r"<\s*([\w:.-]+)")
+# Well-known platform/quality/feed variants are aliases, not station call signs.
+NON_STATION_VARIANTS = {
+    "4K", "8K", "SD", "HD", "FHD", "UHD", "EAST", "WEST", "CENTRAL",
+    "NORTH", "SOUTH", "PANREGIONAL", "INTERNATIONAL", "GLOBAL", "LG",
+    "VIZIO", "XUMO", "TUBI", "ROKU", "SAMSUNG", "PLUTO", "FIRETV",
+    "NBC", "CBS", "ABC", "FOX", "PBS", "USA", "CAN", "AUS", "INTL",
+    "BR", "MX", "UK", "NZ", "ZA", "SG", "AE", "IN", "JP", "KR",
+    "CN", "DE", "FR", "IT", "ES", "PT", "PL", "RO", "NL", "CH", "AT",
+}
 
 STATUSES_OK = ("ok", "empty")
 
@@ -163,13 +149,21 @@ def utc_now() -> dt.datetime:
 # Normalisation / matching keys
 # --------------------------------------------------------------------------- #
 def norm_id(value: str) -> str:
-    """Comparable form of a channel id: ``AE.us@East`` -> ``aeus``.
-
-    The ``@variant`` suffix is dropped because the playlists carry one id per
-    feed (``AE.us@East``, ``AE.us@West``) while guides normally publish a single
-    id for the network (``AE.us``).
-    """
+    """Base comparison key for a channel id, excluding its ``@variant`` suffix."""
     return NON_ALNUM_RE.sub("", value.split("@", 1)[0].lower())
+
+
+def norm_id_exact(value: str) -> str:
+    """Comparison key retaining ``@variant`` data, e.g. an affiliate call sign."""
+    return NON_ALNUM_RE.sub("", value.lower())
+
+
+def has_station_variant(tvg_id: str) -> bool:
+    """Treat call-sign-like ``@variants`` as local station IDs, not network aliases."""
+    _, separator, variant = (tvg_id or "").partition("@")
+    token = re.sub(r"[^A-Z0-9]", "", variant.upper())
+    return bool(separator and 3 <= len(token) <= 8 and token not in NON_STATION_VARIANTS
+                and variant.upper() == variant)
 
 
 def norm_name(value: str) -> str:
@@ -234,21 +228,25 @@ class Wanted:
     """The channels the published playlists advertise, indexed for matching."""
 
     def __init__(self) -> None:
-        self.by_id: dict = {}      # playlist tvg-id -> record
-        self.by_key: dict = {}     # norm_id(tvg-id) -> [tvg-id, ...]
-        self.by_name: dict = {}    # norm_name(display name) -> [tvg-id, ...]
+        self.by_id: dict = {}          # playlist tvg-id -> record
+        self.by_key: dict = {}         # base norm_id(tvg-id) -> [tvg-id, ...]
+        self.by_exact_key: dict = {}   # norm_id_exact(tvg-id) -> [tvg-id, ...]
+        self.by_name: dict = {}        # norm_name(display name) -> [tvg-id, ...]
         self.entries = 0
         self.without_id = 0
 
-    def add(self, tvg_id: str, name: str, country: str, logo: str) -> None:
+    def add(self, tvg_id: str, name: str, country: str, logo: str,
+            group: str = "") -> None:
         self.entries += 1
         tvg_id = (tvg_id or "").strip()
         if not tvg_id:
             self.without_id += 1
             return
+        is_local = "local" in (group or "").lower() or has_station_variant(tvg_id)
         record = self.by_id.setdefault(
             tvg_id, {"id": tvg_id, "name": clean_text(name), "country": (country or "").strip().upper(),
-                     "logo": (logo or "").strip(), "key": norm_id(tvg_id), "names": []})
+                     "logo": (logo or "").strip(), "key": norm_id(tvg_id), "names": [],
+                     "local": is_local})
         name = clean_text(name)
         if name and name not in record["names"]:
             record["names"].append(name)
@@ -256,15 +254,35 @@ class Wanted:
             record["logo"] = logo.strip()
         if not record["country"] and country:
             record["country"] = country.strip().upper()
+        # If the same id appears in both a general playlist and a local
+        # station list, prefer the conservative local matching rule.
+        record["local"] = record["local"] or is_local
         self.by_key.setdefault(record["key"], [])
         if tvg_id not in self.by_key[record["key"]]:
             self.by_key[record["key"]].append(tvg_id)
+        exact_key = norm_id_exact(tvg_id)
+        self.by_exact_key.setdefault(exact_key, [])
+        if tvg_id not in self.by_exact_key[exact_key]:
+            self.by_exact_key[exact_key].append(tvg_id)
         if name:
             key = norm_name(name)
             if len(key) >= 4:
                 self.by_name.setdefault(key, [])
                 if tvg_id not in self.by_name[key]:
                     self.by_name[key].append(tvg_id)
+
+    def ids_for_guide_id(self, guide_id: str) -> list:
+        """Prefer exact IDs; do not fan a generic network schedule into local affiliates."""
+        exact = self.by_exact_key.get(norm_id_exact(guide_id), [])
+        if exact:
+            return list(exact)
+        candidates = self.by_key.get(norm_id(guide_id), [])
+        # A guide that only names ``NBC.us`` cannot tell the difference between
+        # a local affiliate's schedule and the network schedule. Generic
+        # base-ID fan-out remains useful for aliases such as AE.us@East/West,
+        # but local stations must have an exact station-specific ID or a unique
+        # display-name match.
+        return [cid for cid in candidates if not self.by_id[cid].get("local")]
 
     def unique_ids_for_name(self, name: str) -> list:
         """Playlist ids for a display name, only when the name is unambiguous."""
@@ -291,7 +309,8 @@ def playlist_channels(paths: list) -> Wanted:
                 attrs = dict(scraper.ATTR_RE.findall(stripped))
                 name = stripped.split(",", 1)[1] if "," in stripped else ""
                 wanted.add(attrs.get("tvg-id", ""), name,
-                           attrs.get("tvg-country", ""), attrs.get("tvg-logo", ""))
+                           attrs.get("tvg-country", ""), attrs.get("tvg-logo", ""),
+                           attrs.get("group-title", ""))
                 count += 1
         log(f"[epg-build] {display_path(path)}: {count} entries")
     log(f"[epg-build] {wanted.entries} playlist entries, {len(wanted.by_id)} unique "
@@ -577,7 +596,7 @@ def harvest_guide(url: str, index: int, wanted: Wanted, timeout: float, retries:
                 harvest.channels_seen += 1
                 guide_id = (element.get("id") or "").strip()
                 if guide_id:
-                    targets = wanted.by_key.get(norm_id(guide_id)) or []
+                    targets = wanted.ids_for_guide_id(guide_id)
                     kind = "id"
                     if not targets and match_names:
                         names = [clean_text(node.text or "") for node in element
@@ -811,7 +830,8 @@ def channel_order(channels: dict, merged: dict, wanted: Wanted) -> list:
 # Serialising
 # --------------------------------------------------------------------------- #
 def serialize(path: Path, channels: dict, merged: dict, order: list, window_end: dt.datetime,
-              per_channel_cap: int, repo_url: str, label: str) -> tuple:
+              per_channel_cap: int, repo_url: str, label: str,
+              include_empty_channels: bool = False) -> tuple:
     """Write the guide; returns ``(bytes, channels_written, programmes_written)``."""
     written_bytes = 0
     channels_written = 0
@@ -826,8 +846,8 @@ def serialize(path: Path, channels: dict, merged: dict, order: list, window_end:
         emit(f"<tv generator-info-name={quoteattr(GENERATOR)} "
              f"generator-info-url={quoteattr(repo_url)}>\n")
         for cid in order:
-            items = merged[cid]
-            if not items:
+            items = merged.get(cid, [])
+            if not items and not include_empty_channels:
                 continue
             record = channels.get(cid, {"id": cid, "names": [], "icon": ""})
             names: list = []
@@ -846,7 +866,8 @@ def serialize(path: Path, channels: dict, merged: dict, order: list, window_end:
             emit("  </channel>\n")
             channels_written += 1
         for cid in order:
-            items = merged[cid][:per_channel_cap] if per_channel_cap else merged[cid]
+            channel_items = merged.get(cid, [])
+            items = channel_items[:per_channel_cap] if per_channel_cap else channel_items
             for programme in items:
                 if programme.start >= window_end:
                     continue
@@ -895,6 +916,196 @@ def gzip_file(source: Path, target: Path) -> int:
     return target.stat().st_size
 
 
+def input_playlist_paths(args, out_dir: Path) -> tuple[list[Path], list[Path]]:
+    """Resolve guide-defining playlists and, separately, the country M3Us."""
+    paths = []
+    for item in args.playlist:
+        path = Path(item)
+        paths.append(path if path.is_absolute() else ROOT / path)
+    country_paths = sorted((out_dir / "countries").glob("*.m3u")) if args.countries else []
+    paths.extend(country_paths)
+    seen, ordered = set(), []
+    for path in paths:
+        key = str(path.resolve())
+        if key not in seen:
+            seen.add(key)
+            ordered.append(path)
+    return ordered, country_paths
+
+
+def country_playlist_ids(path: Path) -> list[str]:
+    """Unique non-empty ``tvg-id`` values in a country playlist, in playlist order."""
+    ids, seen = [], set()
+    if not path.exists():
+        return ids
+    with path.open("r", encoding="utf-8", errors="replace") as handle:
+        for line in handle:
+            stripped = line.strip()
+            if not stripped.startswith("#EXTINF"):
+                continue
+            tvg_id = dict(scraper.ATTR_RE.findall(stripped)).get("tvg-id", "").strip()
+            if tvg_id and tvg_id not in seen:
+                seen.add(tvg_id)
+                ids.append(tvg_id)
+    return ids
+
+
+def playlist_fingerprint(paths: list[Path]) -> str:
+    """Hash only guide-relevant M3U fields, ignoring URLs/comments/header timestamps."""
+    digest = hashlib.sha256()
+    for path in paths:
+        digest.update(path.name.encode("utf-8", "replace"))
+        digest.update(b"\0")
+        if not path.exists():
+            digest.update(b"missing\0")
+            continue
+        with path.open("r", encoding="utf-8", errors="replace") as handle:
+            for line in handle:
+                stripped = line.strip()
+                if not stripped.startswith("#EXTINF"):
+                    continue
+                attrs = dict(scraper.ATTR_RE.findall(stripped))
+                name = stripped.split(",", 1)[1] if "," in stripped else ""
+                fields = (attrs.get("tvg-id", ""), name, attrs.get("tvg-country", ""),
+                          attrs.get("tvg-logo", ""), attrs.get("group-title", ""))
+                digest.update("\x1f".join(fields).encode("utf-8", "replace"))
+                digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def validate_xmltv(path: Path) -> tuple[int, int]:
+    """Stream-validate XMLTV structure and count its top-level channel/programme nodes."""
+    depth = 0
+    root_tag = ""
+    channels = programmes = 0
+    for event, element in ET.iterparse(path, events=("start", "end")):
+        if event == "start":
+            if depth == 0:
+                root_tag = element.tag
+            depth += 1
+            continue
+        if depth == 2 and element.tag == "channel":
+            if not element.get("id"):
+                raise ValueError("XMLTV channel is missing its id")
+            channels += 1
+        elif depth == 2 and element.tag == "programme":
+            if not all(element.get(key) for key in ("channel", "start", "stop")):
+                raise ValueError("XMLTV programme is missing channel/start/stop")
+            if parse_xmltv_time(element.get("start", "")) is None \
+                    or parse_xmltv_time(element.get("stop", "")) is None:
+                raise ValueError("XMLTV programme has an invalid start/stop time")
+            programmes += 1
+        depth -= 1
+        element.clear()
+    if root_tag != "tv":
+        raise ValueError(f"XMLTV root is <{root_tag or 'missing'}>, expected <tv>")
+    return channels, programmes
+
+
+def previous_verified_guide(report_path: Path, xml_path: Path,
+                            now: dt.datetime) -> dict | None:
+    """Return recent success metadata suitable for an offline country fallback."""
+    if not xml_path.is_file() or xml_path.stat().st_size == 0:
+        return None
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        finished_text = report.get("finished_utc", "")
+        finished = dt.datetime.fromisoformat(finished_text.replace("Z", "+00:00"))
+        age_hours = (now - finished).total_seconds() / 3600
+        totals = report.get("totals", {})
+        if not report.get("published") or totals.get("guides_ok", 0) < 1 \
+                or report.get("programmes", 0) < 1 \
+                or not 0 <= age_hours <= MAX_CACHED_GUIDE_AGE_HOURS:
+            return None
+        return {
+            "path": display_path(xml_path),
+            "finished_utc": finished_text,
+            "age_hours": round(age_hours, 2),
+            "guides_ok": totals.get("guides_ok", 0),
+            "programmes": report.get("programmes", 0),
+        }
+    except (json.JSONDecodeError, OSError, TypeError, ValueError):
+        return None
+
+
+def write_country_guides(epg_dir: Path, country_playlists: list[Path], channels: dict,
+                         merged: dict, wanted: Wanted, window_end: dt.datetime,
+                         repo: str, branch: str, label: str,
+                         programme_data_source: str = "current verified upstream feeds") -> list[dict]:
+    """Write one standalone, playlist-scoped XMLTV guide for each country M3U."""
+    results = []
+    for playlist_path in country_playlists:
+        country = playlist_path.stem
+        url = raw_url_for(repo, branch, epg_dir, country)
+        target = epg_dir / f"{country}.xml"
+        tmp = epg_dir / f".{country}.xml.tmp"
+        ids = country_playlist_ids(playlist_path)
+        country_channels = {}
+        country_programmes = {}
+        for cid in ids:
+            harvested = channels.get(cid, {})
+            playlist = wanted.by_id.get(cid, {})
+            names = list(harvested.get("names", []))
+            for name in playlist.get("names", []):
+                if name and name not in names:
+                    names.append(name)
+            country_channels[cid] = {
+                "id": cid,
+                "names": names,
+                "icon": harvested.get("icon") or playlist.get("logo", ""),
+                "country": playlist.get("country", ""),
+            }
+            country_programmes[cid] = merged.get(cid, [])
+
+        channels_with_programmes = sum(bool(country_programmes[cid]) for cid in ids)
+        programme_count = sum(len(country_programmes[cid]) for cid in ids)
+        try:
+            size, _, _ = serialize(
+                tmp, country_channels, country_programmes, ids, window_end, 0,
+                url, label, include_empty_channels=True)
+            verified_channels, verified_programmes = validate_xmltv(tmp)
+            if verified_channels != len(ids) or verified_programmes != programme_count:
+                raise ValueError("XMLTV node counts did not match the build counts")
+            tmp.replace(target)
+            result = {
+                "country": country,
+                "playlist": display_path(playlist_path),
+                "file": display_path(target),
+                "url": url,
+                "playlist_channels": len(ids),
+                "channels_with_programmes": channels_with_programmes,
+                "programmes": programme_count,
+                "size_bytes": size,
+                "published": True,
+                "valid_xmltv": True,
+                "programme_data_source": programme_data_source,
+                "publish_reason": "",
+            }
+            log(f"[epg-build] country {country}: {channels_with_programmes}/"
+                f"{len(ids)} channels with programmes, {programme_count} programmes, "
+                f"{size // 1024} KB")
+        except Exception as exc:  # noqa: BLE001 - keep the last valid file on write errors
+            tmp.unlink(missing_ok=True)
+            result = {
+                "country": country,
+                "playlist": display_path(playlist_path),
+                "file": display_path(target),
+                "url": url,
+                "playlist_channels": len(ids),
+                "channels_with_programmes": channels_with_programmes,
+                "programmes": programme_count,
+                "size_bytes": 0,
+                "published": False,
+                "valid_xmltv": False,
+                "programme_data_source": programme_data_source,
+                "publish_reason": f"{type(exc).__name__}: {str(exc)[:160]}",
+            }
+            log(f"[epg-build] country {country}: NOT PUBLISHED - "
+                f"{result['publish_reason']}")
+        results.append(result)
+    return results
+
+
 # --------------------------------------------------------------------------- #
 # Reports
 # --------------------------------------------------------------------------- #
@@ -935,13 +1146,37 @@ def write_reports(checks_dir: Path, report: dict, epg_dir: Path, name: str,
         "",
     ]
     if report.get("published"):
-        lines += [f"Published [`playlists/{EPG_DIR_NAME}/{name}.xml`]"
-                  f"(../{EPG_DIR_NAME}/{name}.xml) and "
-                  f"[`playlists/{EPG_DIR_NAME}/{name}.xml.gz`]"
-                  f"(../{EPG_DIR_NAME}/{name}.xml.gz).", ""]
+        xml_path = epg_dir / f"{name}.xml"
+        gz_path = epg_dir / f"{name}.xml.gz"
+        xml_link = Path(os.path.relpath(xml_path, checks_dir)).as_posix()
+        gz_link = Path(os.path.relpath(gz_path, checks_dir)).as_posix()
+        lines += [f"Published [`{display_path(xml_path)}`]({xml_link}) and "
+                  f"[`{display_path(gz_path)}`]({gz_link}).", ""]
     else:
         lines += [f"**Not published:** {report.get('publish_reason', 'unknown reason')} "
                   "The previously published guide was left in place.", ""]
+        previous = report.get("previous_verified_guide")
+        if previous:
+            lines += [f"- **Retained guide:** {previous.get('programmes', 0):,} programmes "
+                      f"from the last successful build ({previous.get('age_hours', 0):.1f}h old; "
+                      f"{previous.get('guides_ok', 0)} verified upstream feeds).", ""]
+    country_guides = report.get("country_guides", [])
+    if country_guides:
+        lines += ["## Country-specific XMLTV guides", "",
+                  "Each guide is a valid XMLTV file scoped to the matching country playlist. "
+                  "Channel rows are retained even when no programme listing was found.", "",
+                  "| Country | Playlist channels | With programmes | Programmes | XML size | Guide | Status |",
+                  "|---|---:|---:|---:|---:|---|---|"]
+        for country in country_guides:
+            guide_link = f"[`{country['country']}.xml`]({country['url']})"
+            status = (f"valid XML; {country.get('programme_data_source', 'verified source data')}"
+                      if country.get("published") and country.get("valid_xmltv")
+                      else f"not published: {country.get('publish_reason', 'unknown')}")
+            lines.append(
+                f"| {country['country']} | {country['playlist_channels']} | "
+                f"{country['channels_with_programmes']} | {country['programmes']} | "
+                f"{country['size_bytes'] // 1024} KB | {guide_link} | {status} |")
+        lines.append("")
     if report.get("trim"):
         lines += ["## Size trimming", ""]
         lines += [f"- {step}" for step in report["trim"]] + [""]
@@ -964,10 +1199,19 @@ def write_reports(checks_dir: Path, report: dict, epg_dir: Path, name: str,
             short = scraper.safe_url(guide["url"])
             lines.append(f"| `{short}` | {guide['status']} | {guide['reason']} |")
     patch = report.get("patch") or {}
-    if patch:
-        lines += ["", "## Playlist headers", "",
-                  f"- Advertised the merged guide first in **{len(patch.get('files', []))}** "
-                  f"playlists."]
+    country_patch = report.get("country_patch") or {}
+    if patch or country_patch:
+        lines += ["", "## Playlist headers", ""]
+        if patch:
+            lines.append(f"- Advertised the all-library guide first in **{patch.get('advertised', len(patch.get('files', [])))}** "
+                         "general playlists.")
+            if patch.get("removed_guides"):
+                lines.append(f"- Removed **{patch['removed_guides']}** retired or recently verified-dead "
+                             "guide URL entries from general playlists.")
+        if country_patch:
+            lines.append(f"- Advertised country-specific XMLTV in **{country_patch.get('advertised', len(country_patch.get('files', [])))}** "
+                         f"country playlists; skipped {len(country_patch.get('skipped', []))} "
+                         "whose XML was not published.")
     lines.append("")
     md_path = checks_dir / "EPG-BUILD.md"
     md_path.write_text("\n".join(lines), encoding="utf-8")
@@ -996,11 +1240,18 @@ def append_edit_log(out_dir: Path, report: dict) -> Path:
 
 
 def raw_url_for(repo: str, branch: str, epg_dir: Path, name: str) -> str:
+    """Raw URL for a guide path, including root-level ``EPG/`` outputs."""
+    directory = Path(epg_dir)
+    if not directory.is_absolute():
+        directory = (ROOT / directory).resolve()
     try:
-        relative = epg_dir.relative_to(ROOT / "playlists")
+        relative = directory.relative_to(ROOT)
     except ValueError:
-        relative = Path(epg_dir.name)
-    return f"https://raw.githubusercontent.com/{repo}/{branch}/playlists/{relative}/{name}.xml"
+        # Tests and local one-off builds can use an external EPG directory; the
+        # deployed path remains stable and mirrors its leaf folder name.
+        relative = Path(directory.name)
+    return (f"https://raw.githubusercontent.com/{repo}/{branch}/"
+            f"{relative.as_posix().strip('/')}/{name}.xml")
 
 
 # --------------------------------------------------------------------------- #
@@ -1009,26 +1260,34 @@ def raw_url_for(repo: str, branch: str, epg_dir: Path, name: str) -> str:
 def build(args) -> dict:
     started = utc_now()
     out_dir = Path(args.out)
-    epg_dir = Path(args.epg_dir) if args.epg_dir else out_dir / EPG_DIR_NAME
+    epg_dir = Path(args.epg_dir) if args.epg_dir else ROOT / EPG_DIR_NAME
+    if not epg_dir.is_absolute():
+        epg_dir = ROOT / epg_dir
     epg_dir.mkdir(parents=True, exist_ok=True)
     checks_dir = out_dir / "checks"
     repo = args.repo or os.environ.get("GITHUB_REPOSITORY") or DEFAULT_REPO
     branch = args.branch or DEFAULT_BRANCH
     raw_url = raw_url_for(repo, branch, epg_dir, args.name)
 
-    playlist_paths: list = []
-    for item in args.playlist:
-        path = Path(item)
-        playlist_paths.append(path if path.is_absolute() else ROOT / path)
-    if args.countries:
-        playlist_paths.extend(sorted((out_dir / "countries").glob("*.m3u")))
-
+    playlist_paths, country_paths = input_playlist_paths(args, out_dir)
+    fingerprint = playlist_fingerprint(playlist_paths)
     wanted = playlist_channels(playlist_paths)
     global _WANTED_NAMES
     _WANTED_NAMES = {cid: record["name"] for cid, record in wanted.by_id.items()}
 
     guides = guide_list(out_dir, list(dict.fromkeys(args.guide)), args.guides_from,
                         playlist_paths, not args.include_unverified)
+    # Never re-ingest this repository's generated XMLTV outputs. They are
+    # checked as public URLs for players, but feeding them back into the harvest
+    # would make each build depend on yesterday's copy and add all country files
+    # as redundant upstream sources.
+    own_raw_prefix = f"https://raw.githubusercontent.com/{repo}/{branch}/"
+    legacy_epg_prefix = own_raw_prefix + "playlists/epg/"
+    generated_epg_prefix = own_raw_prefix + f"{epg_dir.relative_to(ROOT).as_posix()}/" \
+        if epg_dir.is_relative_to(ROOT) else ""
+    guides = [url for url in guides
+              if not url.startswith(legacy_epg_prefix)
+              and not (generated_epg_prefix and url.startswith(generated_epg_prefix))]
     if args.max_guides:
         guides = guides[:args.max_guides]
     log(f"[epg-build] merging {len(guides)} upstream guides")
@@ -1083,6 +1342,10 @@ def build(args) -> dict:
         "duration_seconds": 0.0,
         "raw_url": raw_url,
         "gz_url": raw_url + ".gz",
+        "epg_dir": display_path(epg_dir),
+        "playlist_fingerprint": fingerprint,
+        "country_guides": [],
+        "country_guides_complete": not bool(country_paths),
         "window": {
             "start": format_xmltv_time(window_start),
             "end": format_xmltv_time(window_end),
@@ -1130,6 +1393,71 @@ def build(args) -> dict:
     if report["publish_reason"]:
         log(f"[epg-build] NOT PUBLISHED: {report['publish_reason']}")
         report["previous_channels"] = previous_channels
+        if country_paths:
+            country_channels_data = {
+                cid: {**record, "names": list(record.get("names", []))}
+                for cid, record in channels.items()
+            }
+            country_merged = merged
+            country_data_source = (
+                "current verified feeds; all-library safety gate kept the previous guide"
+                if report["programmes"] else
+                "channel catalogue only; no verified programme data available"
+            )
+            previous_success = previous_verified_guide(
+                checks_dir / "epg-build.json", xml_path, started)
+            if previous_success:
+                cached_channels: dict = {}
+                cached_per_channel: dict = {}
+                cached_counters = {"programmes": 0, "capped": False}
+                cached = harvest_guide(
+                    xml_path.resolve().as_uri(), -1, wanted, args.timeout, 0, max_bytes,
+                    window_start, window_end, not args.no_names, not args.no_fanout,
+                    cached_counters, threading.Lock(), cached_channels, cached_per_channel)
+                if cached.status == "ok" and cached.programmes_kept:
+                    for cid, cached_record in cached_channels.items():
+                        record = country_channels_data.setdefault(cid, {
+                            "id": cid, "names": [], "icon": "", "country": ""})
+                        for name in cached_record.get("names", []):
+                            if name and name not in record["names"]:
+                                record["names"].append(name)
+                        if cached_record.get("icon") and not record.get("icon"):
+                            record["icon"] = cached_record["icon"]
+                        if cached_record.get("country") and not record.get("country"):
+                            record["country"] = cached_record["country"]
+                    combined_per_channel = {
+                        cid: list(entries) for cid, entries in per_channel.items()
+                    }
+                    for cid, entries in cached_per_channel.items():
+                        combined_per_channel.setdefault(cid, []).extend(entries)
+                    combined_matches = dict(source_matches)
+                    combined_matches[cached.index] = cached.channels_matched
+                    country_merged, _ = merge_programmes(
+                        combined_per_channel, combined_matches, not args.keep_overlaps)
+                    country_data_source = (
+                        "current verified feeds plus reused last successfully published guide"
+                        if report["programmes"] else
+                        "reused last successfully published guide from verified upstream feeds"
+                    )
+                    report["previous_verified_guide"] = {
+                        **previous_success,
+                        "channels_matched": cached.channels_matched,
+                        "programmes_reused": cached.programmes_kept,
+                    }
+                    log(f"[epg-build] reusing the last verified guide for country outputs "
+                        f"({previous_success['age_hours']:.1f}h old; "
+                        f"{cached.programmes_kept} programmes matched)")
+                else:
+                    log("[epg-build] previous verified guide could not be reused for programmes: "
+                        f"{cached.reason}")
+            report["country_guides"] = write_country_guides(
+                epg_dir, country_paths, country_channels_data, country_merged, wanted,
+                window_end, repo, branch, args.label, country_data_source)
+            report["country_guides_complete"] = all(
+                item.get("published") and item.get("valid_xmltv")
+                for item in report["country_guides"])
+            report["files"] = [item["file"] for item in report["country_guides"]
+                               if item.get("published")]
         report["finished_utc"] = utc_now().isoformat(timespec="seconds").replace("+00:00", "Z")
         report["duration_seconds"] = round(
             (utc_now() - started).total_seconds(), 1)
@@ -1205,12 +1533,24 @@ def build(args) -> dict:
     report["published"] = True
     report["publish_reason"] = ""
     report["files"] = [display_path(xml_path), display_path(gz_path)]
-    report["finished_utc"] = utc_now().isoformat(timespec="seconds").replace("+00:00", "Z")
-    report["duration_seconds"] = round((utc_now() - started).total_seconds(), 1)
     log(f"[epg-build] wrote {display_path(xml_path)} ({size // 1024} KB, "
         f"{channels_written} channels, {programmes_written} programmes)")
     log(f"[epg-build] wrote {display_path(gz_path)} "
         f"({report['gz_bytes'] // 1024} KB)")
+
+    if country_paths:
+        report["country_guides"] = write_country_guides(
+            epg_dir, country_paths, channels, merged, wanted, window_end,
+            repo, branch, args.label)
+        report["country_guides_complete"] = all(
+            item.get("published") and item.get("valid_xmltv")
+            for item in report["country_guides"])
+        report["files"].extend(item["file"] for item in report["country_guides"]
+                               if item.get("published"))
+    else:
+        report["country_guides_complete"] = True
+    report["finished_utc"] = utc_now().isoformat(timespec="seconds").replace("+00:00", "Z")
+    report["duration_seconds"] = round((utc_now() - started).total_seconds(), 1)
     return report
 
 
@@ -1238,21 +1578,78 @@ def count_channels(xml_path: Path) -> int:
     return count
 
 
-def patch_playlists(targets: list, raw_url: str) -> dict:
-    """Put the merged guide first in each playlist's x-tvg-url header."""
+def recently_dead_guide_urls(report_path: Path,
+                             now: dt.datetime | None = None) -> set[str]:
+    """Dead/invalid upstream guide URLs from a recent verifier run, never transient failures."""
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        finished = dt.datetime.fromisoformat(
+            report.get("finished_utc", "").replace("Z", "+00:00"))
+        age_hours = ((now or utc_now()) - finished).total_seconds() / 3600
+        if not 0 <= age_hours <= MAX_EP_CHECK_AGE_HOURS:
+            return set()
+        return {
+            guide.get("url", "") for guide in report.get("guides", [])
+            if guide.get("status") in ("offline", "invalid") and guide.get("url")
+        }
+    except (json.JSONDecodeError, OSError, TypeError, ValueError):
+        return set()
+
+
+def patch_playlists(targets: list, raw_url: str,
+                    dead_urls: set[str] | None = None) -> dict:
+    """Put the root merged guide first and remove retired/recently dead EPG URLs."""
+    dead_urls = dead_urls or set()
     files = []
+    removed_count = 0
+    advertised_count = 0
+    repo_branch = raw_url.rsplit("/EPG/", 1)[0]
+    generated_prefix = repo_branch + "/EPG/"
+    legacy_prefix = repo_branch + "/playlists/epg/"
     for path in targets:
         if not path.exists():
             continue
         current = epg_check.extract_guides(path)
-        if current and current[0] == raw_url:
+        removed = [url for url in current if url != raw_url and (
+            url in dead_urls or url.startswith(generated_prefix) or url.startswith(legacy_prefix))]
+        final = [raw_url] + [url for url in current
+                             if url != raw_url and url not in removed]
+        if current == final:
+            advertised_count += 1
             continue
-        final = [raw_url] + [url for url in current if url != raw_url]
         if epg_check.rewrite_header(path, final):
-            files.append({"file": display_path(path), "guides": len(final)})
+            advertised_count += 1
+            removed_count += len(removed)
+            files.append({"file": display_path(path), "guides": len(final),
+                          "removed": removed})
             log(f"[epg-build] {path.name}: advertising the merged guide first "
-                f"({len(final)} guides)")
-    return {"files": files}
+                f"({len(final)} guides; removed {len(removed)} retired/dead self or upstream URLs)")
+    return {"files": files, "removed_guides": removed_count,
+            "advertised": advertised_count}
+
+
+def patch_country_playlists(targets: list[Path], epg_dir: Path,
+                            repo: str, branch: str) -> dict:
+    """Point each country M3U only at its matching, published XMLTV guide."""
+    files, skipped = [], []
+    advertised = 0
+    for path in targets:
+        if not path.exists():
+            continue
+        guide_path = epg_dir / f"{path.stem}.xml"
+        if not guide_path.exists():
+            skipped.append(display_path(path))
+            continue
+        url = raw_url_for(repo, branch, epg_dir, path.stem)
+        current = epg_check.extract_guides(path)
+        if current == [url]:
+            advertised += 1
+            continue
+        if epg_check.rewrite_header(path, [url]):
+            advertised += 1
+            files.append({"file": display_path(path), "guide": url})
+            log(f"[epg-build] {path.name}: advertising only {path.stem}.xml")
+    return {"files": files, "skipped": skipped, "advertised": advertised}
 
 
 def previous_report_age(out_dir: Path) -> float | None:
@@ -1275,6 +1672,31 @@ def previous_report_age(out_dir: Path) -> float | None:
     return (utc_now() - moment).total_seconds() / 3600
 
 
+def previous_outputs_match(out_dir: Path, epg_dir: Path, name: str,
+                           country_paths: list[Path], fingerprint: str) -> bool:
+    """A young EPG is reusable only if its channel inputs and outputs are current."""
+    report_path = out_dir / "checks" / "epg-build.json"
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return False
+    if report.get("playlist_fingerprint") != fingerprint:
+        return False
+    if not (epg_dir / f"{name}.xml").is_file() \
+            or not (epg_dir / f"{name}.xml.gz").is_file():
+        return False
+    expected_countries = {path.stem for path in country_paths}
+    if expected_countries:
+        published = {item.get("country") for item in report.get("country_guides", [])
+                     if item.get("published") and item.get("valid_xmltv")}
+        if not expected_countries.issubset(published):
+            return False
+        if any(not (epg_dir / f"{country}.xml").is_file()
+               for country in expected_countries):
+            return False
+    return True
+
+
 # --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
@@ -1282,14 +1704,14 @@ def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=str(ROOT / "playlists"), help="playlists directory")
-    ap.add_argument("--epg-dir", default="", help="where to write the guide "
-                    "(default: <out>/epg)")
+    ap.add_argument("--epg-dir", default="", help="where to write the guides "
+                    "(default: repository-root EPG/)")
     ap.add_argument("--name", default=GUIDE_NAME, help="guide file name without extension")
     ap.add_argument("--playlist", action="append", default=[],
                     help="playlist whose channels define the guide (repeatable; "
                          "default: the published working playlists)")
     ap.add_argument("--countries", action="store_true",
-                    help="also read playlists/countries/*.m3u")
+                    help="read country playlists and write one XMLTV guide per country")
     ap.add_argument("--guide", action="append", default=[],
                     help="extra guide URL to merge first (repeatable)")
     ap.add_argument("--guides-from", default="checks/epg-check.json",
@@ -1341,24 +1763,38 @@ def main(argv=None) -> int:
     out_dir = Path(args.out)
     if not args.playlist:
         args.playlist = [str(out_dir / name) for name in DEFAULT_PLAYLISTS]
+    epg_dir = Path(args.epg_dir) if args.epg_dir else ROOT / EPG_DIR_NAME
+    if not epg_dir.is_absolute():
+        epg_dir = ROOT / epg_dir
+    playlist_paths, country_paths = input_playlist_paths(args, out_dir)
+    fingerprint = playlist_fingerprint(playlist_paths)
 
     if not args.force and args.max_age_hours > 0:
         age = previous_report_age(out_dir)
         if age is not None and age < args.max_age_hours:
-            log(f"[epg-build] published guide is {age:.1f}h old "
-                f"(< {args.max_age_hours:g}h); nothing to do")
-            return 0
+            if previous_outputs_match(out_dir, epg_dir, args.name, country_paths, fingerprint):
+                log(f"[epg-build] published guide and channel set are current; "
+                    f"{age:.1f}h old (< {args.max_age_hours:g}h); nothing to do")
+                return 0
+            log("[epg-build] guide is recent, but the channel set or expected EPG "
+                "files changed; rebuilding")
 
     report = build(args)
-    if args.patch and report.get("published") and not args.dry_run:
-        targets = [Path(item) if Path(item).is_absolute() else ROOT / item
-                   for item in args.playlist]
+    published_xml_exists = (epg_dir / f"{args.name}.xml").is_file()
+    if args.patch and not args.dry_run:
+        if report.get("published") or published_xml_exists:
+            targets = [Path(item) if Path(item).is_absolute() else ROOT / item
+                       for item in args.playlist]
+            all_links = out_dir / "PremiumTV_all.m3u"
+            if all_links.exists():
+                targets.append(all_links)
+            dead_urls = recently_dead_guide_urls(out_dir / "checks" / "epg-check.json")
+            report["patch"] = patch_playlists(targets, report["raw_url"], dead_urls)
         if args.countries:
-            targets.extend(sorted((out_dir / "countries").glob("*.m3u")))
-        report["patch"] = patch_playlists(targets, report["raw_url"])
-    written = write_reports(out_dir / "checks", report,
-                            Path(args.epg_dir) if args.epg_dir else out_dir / EPG_DIR_NAME,
-                            args.name, report["raw_url"])
+            report["country_patch"] = patch_country_playlists(
+                country_paths, epg_dir, args.repo or os.environ.get("GITHUB_REPOSITORY") or DEFAULT_REPO,
+                args.branch or DEFAULT_BRANCH)
+    written = write_reports(out_dir / "checks", report, epg_dir, args.name, report["raw_url"])
     report["edit_log"] = display_path(append_edit_log(out_dir, report))
     (out_dir / "checks" / "epg-build.json").write_text(json.dumps(report, indent=2),
                                                        encoding="utf-8")
@@ -1366,10 +1802,16 @@ def main(argv=None) -> int:
         f"playlist channels have a guide ({report['coverage']:.1%}), "
         f"{report['programmes']} programmes, "
         f"{report['totals']['guides_ok']}/{report['totals']['guides']} guides merged")
+    if report.get("country_guides"):
+        log(f"[epg-build] country guides published: "
+            f"{sum(item.get('published', False) for item in report['country_guides'])}/"
+            f"{len(report['country_guides'])}")
     log(f"[epg-build] link: {report['raw_url']}")
     for path in written:
         log(f"[epg-build] wrote {display_path(path)}")
-    return 0 if report.get("published") or args.dry_run else 1
+    if args.dry_run:
+        return 0
+    return 0 if report.get("published") and report.get("country_guides_complete", True) else 1
 
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+import epg_check  # noqa: E402
 import scraper  # noqa: E402
 
 
@@ -60,6 +61,29 @@ class WriteM3uTest(unittest.TestCase):
                               advertise_self=False)
             self.assertEqual(path.read_text(encoding="utf-8").splitlines()[0],
                              '#EXTM3U x-tvg-url="https://upstream/guide.xml.gz"')
+
+    def test_published_playlist_assigns_stable_ids_only_when_requested(self):
+        channel = scraper.Channel(
+            name="Tést Channel", url="https://example.org/live.m3u8", source="fixture",
+            attrs={"tvg-country": "us", "group-title": "News"},
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            published = Path(tmp) / "published.m3u"
+            scraper.write_m3u(published, [channel], [], "published",
+                              advertise_self=False, synthesize_missing_ids=True)
+            self.assertEqual(channel.attrs["tvg-id"],
+                             "premiumtv.usa.test_channel")
+            self.assertIn('tvg-id="premiumtv.usa.test_channel"',
+                          published.read_text(encoding="utf-8"))
+
+            source_copy = scraper.Channel(
+                name="No ID", url="https://example.org/no-id.m3u8", source="fixture",
+            )
+            cache = Path(tmp) / "cache.m3u"
+            scraper.write_m3u(cache, [source_copy], [], "source cache",
+                              advertise_self=False)
+            self.assertNotIn("tvg-id", source_copy.attrs)
+            self.assertIn("#EXTINF:-1,No ID", cache.read_text(encoding="utf-8"))
 
 
 class ScraperIntegrationTest(unittest.TestCase):
@@ -141,9 +165,15 @@ class ScraperIntegrationTest(unittest.TestCase):
                  "local_path": str(local_m3u)},
             ]}), encoding="utf-8")
             out = root / "playlists"
+            epg_dir = root / "EPG"
+            epg_dir.mkdir()
+            for country in ("USA", "China"):
+                (epg_dir / f"{country}.xml").write_text(
+                    '<?xml version="1.0" encoding="UTF-8"?><tv/>', encoding="utf-8")
             args = ["scraper.py", "--sources", str(cfg), "--out", str(out),
                     "--workers", "2", "--timeout", "2", "--label", "manual rescrape check"]
-            with patch.object(sys, "argv", args), redirect_stdout(StringIO()):
+            with patch.object(sys, "argv", args), patch.object(scraper, "EPG_DIR", epg_dir), \
+                    redirect_stdout(StringIO()):
                 self.assertEqual(scraper.main(), 0)
 
             self.assertTrue((out / "countries" / "USA.m3u").exists())
@@ -151,6 +181,17 @@ class ScraperIntegrationTest(unittest.TestCase):
             self.assertTrue((out / "countries" / "README.md").exists())
             self.assertIn("A&E HD (East)", (out / "countries" / "USA.m3u").read_text(encoding="utf-8"))
             self.assertIn("CCTV-1 HD", (out / "countries" / "China.m3u").read_text(encoding="utf-8"))
+            self.assertEqual(
+                epg_check.extract_guides(out / "countries" / "USA.m3u"),
+                [scraper.country_epg_url("USA")],
+            )
+            self.assertEqual(
+                epg_check.extract_guides(out / "countries" / "China.m3u"),
+                [scraper.country_epg_url("China")],
+            )
+            index = (out / "countries" / "README.md").read_text(encoding="utf-8")
+            self.assertIn("USA.xml", index)
+            self.assertIn("Raw EPG URL", index)
 
             self.assertTrue((out / "AE_Channels.m3u").exists())
             ae_text = (out / "AE_Channels.m3u").read_text(encoding="utf-8")

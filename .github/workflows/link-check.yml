@@ -94,11 +94,11 @@ jobs:
           if [ "$PATCH" != "false" ]; then args+=(--patch); fi
           python scripts/epg_check.py "${args[@]}"
 
-      - name: Rebuild the merged TV guide
+      - name: Rebuild the merged and country-specific TV guides
         # Runs straight after the guide check so the merge uses the guide list
-        # this run just verified, and straight after the link check so the guide
-        # covers the channels that survived it. --force because the point of the
-        # nightly run is a guaranteed fresh guide.
+        # this run just verified, and straight after the link check so every
+        # country file covers the channels that survived it. --force guarantees
+        # a fresh checked guide set on this nightly run.
         if: always()
         id: epgbuild
         continue-on-error: true
@@ -138,7 +138,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add playlists/
+          git add EPG playlists/
           if git diff --cached --quiet; then
             echo "No link, guide or channel changes to commit."
             exit 0

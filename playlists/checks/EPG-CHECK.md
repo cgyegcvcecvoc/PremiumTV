@@ -1,5 +1,12 @@
 # TV guide (EPG) check
 
+> Historical remote-verification snapshot from 2026-10-04 11:07 UTC, before the root-level EPG
+> migration. Its old `playlists/epg/PremiumTV.xml` 404 and the reported bulk patch describe that
+> earlier playlist state. Root and country XMLTV files were subsequently validated locally and are
+> summarized in [`EPG-BUILD.md`](EPG-BUILD.md). Later upstream download attempts in this sandbox
+> failed with TLS EOF errors, so this report is preserved rather than replaced by an unverified run;
+> GitHub Actions will refresh live URL status after the branch is published.
+
 - **Run:** nightly guide check (`20261004T110747Z-2729`)
 - **Started:** 2026-10-04T11:07:47Z | **Finished:** 2026-10-04T11:07:51Z | **Duration:** 3.9s
 - **Guides checked:** 109 across 175 playlists

@@ -1,117 +1,46 @@
 ========================================================================================
 PREMIUMTV1 SCRAPER RUN LOG (.TXT)
 ========================================================================================
-Run ID:                  20261004T152520Z-2611
-Run Label:               6:23 AM recheck (recheck)
-Started (UTC):           2026-10-04T15:25:20Z
-Finished (UTC):          2026-10-04T15:29:06Z
-Local Time (New York):   2026-10-04 11:29 AM EDT
-Duration:                225.91 seconds
+Run ID:                  20261004T163805Z-3222
+Run Label:               manual source rescrape; checks blocked by network (manual)
+Started (UTC):           2026-10-04T16:38:05Z
+Finished (UTC):          2026-10-04T16:38:33Z
+Local Time (New York):   2026-10-04 12:38 PM EDT
+Duration:                27.59 seconds
 Outcome Status:          WARNING
-Link Check Completed:    True
-Player Playlist Updated: YES
-Total Input Entries:     20978
-Total Unique URLs:       16649
-Confirmed Working:       9972
-Confirmed Dead:          3790
-Unverified:              2887
-Log Edits (vs PremiumTV_all.m3u): +536 added / -583 removed
+Link Check Completed:    False
+Player Playlist Updated: NO
+Total Input Entries:     21018
+Total Unique URLs:       16686
+Confirmed Working:       None
+Confirmed Dead:          0
+Unverified:              0
+Log Edits (vs PremiumTV_all.m3u): +0 added / -0 removed
 Countries Separated:     173 country playlists in playlists/countries/
-A&E Working Channels:    59 / 71 unique links (playlists/AE_Channels.m3u)
+A&E Working Channels:    0 / 71 unique links (playlists/AE_Channels.m3u)
 
 ----------------------------------------------------------------------------------------
 1. PLAYLIST SOURCES
 ----------------------------------------------------------------------------------------
 Source                     Status           Entries   Unique  Overlap  Working     Dead  Unverif
 -----------------------------------------------------------------------------------------------
-local-channels             ok                     4        4        3        2        0        2
-priority-channels          ok                     9        9        8        9        0        0
-ae-networks                ok                    53       53       17       42        9        2
-aria                       ok                   366      361      120      261       33       67
-doms9                      ok                   678      667       69      254       53      360
-xtemus                     ok                   317      317        0        2      262       53
-iptv-org                   ok                 11138    11138     3687     6525     2620     1993
-free-tv                    ok                  2080     2054      833     1114      476      464
+local-channels             ok                     4        4        3        0        0        0
+priority-channels          ok                     9        9        8        0        0        0
+ae-networks                ok                    53       53       17        0        0        0
+aria                       ok                   366      361      120        0        0        0
+doms9                      ok                   718      704       69        0        0        0
+xtemus                     from_cache           317      317        0        0        0        0
+iptv-org                   from_cache         11138    11138     3687        0        0        0
+free-tv                    ok                  2080     2054      833        0        0        0
 eja-tv-feed                not_configured         0        0        0        0        0        0
 stepdaddylivehd-instance   not_configured         0        0        0        0        0        0
 dlive-sx-feed              not_configured         0        0        0        0        0        0
-m3u                        ok                   831      827      174      323      443       61
-openstream                 ok                  5502     5502     3222     5112      382        8
+m3u                        from_cache           831      827      174        0        0        0
+openstream                 ok                  5502     5502     3222        0        0        0
 
 ----------------------------------------------------------------------------------------
-2. A&E AND A+E NETWORKS CHANNELS (59 WORKING / 71 UNIQUE)
+2. A&E AND A+E NETWORKS CHANNELS (0 WORKING / 71 UNIQUE)
 ----------------------------------------------------------------------------------------
-  [WORKING] [USA] 60 Days In by A&E (720p) -> https://d2b8jic9gadlvy.cloudfront.net/v1/aenetworks_60daysin_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] A&E Crime 360 (LG) -> https://aenetworks.global.transmit.live/hls/68b76f7c793640e982cd670c/v1/aenetworks_crime360_1/lg_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] A&E Crime 360 (Vizio) -> https://f82e592c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQ3JpbWUzNjBfSExT/playlist.m3u8
-  [WORKING] [USA] A&E Crime 360 (Xumo) -> https://dbrb49pjoymg4.cloudfront.net/10001/99951471/hls/playlist.m3u8?ads.xumo_channelId=99951471&ads.xumo_streamId=99951471&ads.channelId=99951471&ads.channelName=AECrime360byAE_us&ads.caid=AECrime360byAE&ads.csid=xumo_%5BPLATFORM%5D_AECrime360byAE_ssai&ads._fw_coppa=0&ads.xumo_contentId=4317&ads.xumo_contentName=AECrime360byAE&ads.xumo_providerId=4317&ads.xumo_providerName=AECrime360byAE&ads.appName=XumoPlay
-  [WORKING] [USA] A&E Latin America (1080p) -> http://138.121.15.230:9002/A&E/index.m3u8
-  [WORKING] [USA] A&E Latin America (Alt) -> http://190.93.224.42/AYE/index.m3u8
-  [WORKING] [Brazil] A&E Latin America Brazil (720p) -> http://170.83.16.50/AeE/index.m3u8
-  [WORKING] [USA] A&E Latin America (Feed 2) -> http://209.61.12.77:9000/play/a08l/index.m3u8
-  [WORKING] [USA] A&E (US East) -> http://23.239.31.26:8989/aande/index.m3u8
-  [WORKING] [USA] Alone by History / A&E (720p) -> https://d3181anftsyl2u.cloudfront.net/v1/aenetworks_alone_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Ax Men by History / A&E (720p) -> https://d3kx0b11i5yg0n.cloudfront.net/v1/aenetworks_axmen_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Chaos on Cam by A&E (LG) -> https://amg00276-aenetwork-amg00276c25-lg-us-7267.playouts.now.amagi.tv/playlist/amg00276-aetelevisionnetworksfast-chaoscam-lgus/playlist.m3u8
-  [WORKING] [USA] Cold Case Files by A&E (Tubi) -> https://aegis-cloudfront-1.tubi.video/1e764712-0649-4946-bd7e-f1bbba3be6fa/playlist.m3u8
-  [WORKING] [USA] Cold Case Files by A&E (Vizio) -> https://amg00276-amg00276c3-vizio-us-4063.playouts.now.amagi.tv/playlist/amg00276-aetelevisionnetworksfast-coldcasefiles-vizious/playlist.m3u8
-  [WORKING] [UK] Crime + Investigation CEE -> http://88.212.15.19/live/test_cai_hevc/playlist.m3u8
-  [WORKING] [USA] Crime & Investigation Network (US) -> http://23.237.104.106:8080/USA_CRIME_INVESTIGATION/index.m3u8
-  [WORKING] [USA] Crimes Cults Killers by A&E (720p) -> https://d3ox1t0pcya837.cloudfront.net/v1/aenetworks_kriminal_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Crimes Cults Killers by A&E (LG) -> https://aenetworks.global.transmit.live/hls/68b779592bcf083f5d656235/v1/aenetworks_kriminal_1/lg_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Crime ThrillHer by A&E (720p) -> https://d1x6vwh5kyhcyb.cloudfront.net/v1/aenetworks_thrillher_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Crime ThrillHer by A&E (LG) -> https://aenetworks.global.transmit.live/hls/68b77f472119c010f116648d/v1/aenetworks_thrillher_1/lg_us/latest/main/hls/playlist.m3u8
-  [WORKING] [UK] Dog the Bounty Hunter by A&E (1080p) -> https://amg00276-amg00276c11-rakuten-uk-3446.playouts.now.amagi.tv/playlist/amg00276-aetelevisionnetworksfast-dogthebountyhunterall-rakutenuk/playlist.m3u8
-  [WORKING] [UK] Duck Dynasty by A&E (1080p) -> https://amg00276-amg00276c2-rakuten-uk-3449.playouts.now.amagi.tv/playlist.m3u8
-  [WORKING] [USA] Flipping Nation by A&E (720p) -> https://d21mkcgtx2frod.cloudfront.net/v1/aenetworks_flippingnation_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Hoarders by A&E (720p) -> https://d1klo92zvoj2of.cloudfront.net/v1/aenetworks_hoarders_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Home.Made.Nation by A&E (Samsung) -> https://d1kgo9l74vimu0.cloudfront.net/v1/aenetworks_ae_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Ice Road Truckers by History / A&E (720p) -> https://d27c7ivrw07fxl.cloudfront.net/v1/aenetworks_iceroadtruckers_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [UK] Inside Crime by A+E Networks (Rakuten UK) -> https://aenetworks-insidecrime-rakuten.amagi.tv/playlist.m3u8
-  [WORKING] [UK] Inside Crime by A+E Networks (Samsung UK) -> https://amg00841-aenetworksukane-insidecrime-samsunguk-o968i.amagi.tv/playlist/amg00841-aenetworksukane-insidecrime-samsunguk/playlist.m3u8
-  [WORKING] [USA] I Survived... by A&E (720p) -> https://d1ewp56x5c748d.cloudfront.net/v1/aenetworks_i_survived_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Mysteries Xplored by A&E (720p) -> https://dwqz6akge0ila.cloudfront.net/v1/aenetworks_mysteriesxplored_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [UK] Mystery TV by A+E Networks (Rakuten UK) -> https://aenetworks-mysterytv-rakuten.amagi.tv/playlist.m3u8
-  [WORKING] [UK] Mystery TV by A+E Networks (Samsung UK) -> https://amg00841-aenetworksukane-mysterytv-samsunguk-mggb7.amagi.tv/playlist/amg00841-aenetworksukane-mysterytv-samsunguk/playlist.m3u8
-  [WORKING] [USA] Perform by A&E (720p) -> https://d3shpb2wdlx9qj.cloudfront.net/v1/aenetworks_perform_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Storage Wars by A&E (Vizio) -> https://4f756c5c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fU3RvcmFnZVdhcnNfSExT/playlist.m3u8
-  [WORKING] [USA] Storage Wars by A&E (Xumo) -> https://dbrb49pjoymg4.cloudfront.net/10001/99951475/hls/playlist.m3u8?ads.xumo_channelId=99951475&ads.xumo_streamId=99951475&ads.channelId=99951475&ads.channelName=AEStorageWars_us&ads.caid=AEStorageWars&ads.csid=xumo_%5BPLATFORM%5D_AEStorageWars_ssai&ads._fw_coppa=0&ads.xumo_contentId=4321&ads.xumo_contentName=AEStorageWars&ads.xumo_providerId=4321&ads.xumo_providerName=AEStorageWars&ads.appName=XumoPlay
-  [WORKING] [USA] The First 48 by A&E (Vizio) -> https://9cf535ad.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fRmlyc3Q0OF9ITFM/playlist.m3u8
-  [WORKING] [USA] The First 48 by A&E (Xumo) -> https://dbrb49pjoymg4.cloudfront.net/10001/99951490/hls/playlist.m3u8?ads.xumo_channelId=99951490&ads.xumo_streamId=99951490&ads.channelId=99951490&ads.channelName=AETheFirst48_us&ads.caid=AETheFirst48&ads.csid=xumo_%5BPLATFORM%5D_AETheFirst48_ssai&ads._fw_coppa=0&ads.xumo_contentId=4330&ads.xumo_contentName=AETheFirst48&ads.xumo_providerId=4330&ads.xumo_providerName=AETheFirst48&ads.appName=XumoPlay
-  [WORKING] [USA] Witness to Justice by A&E (720p) -> https://dxwldsv8fdzik.cloudfront.net/v1/aenetworks_witnesstojustice_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [UK] World War TV by A+E Networks (Rakuten UK) -> https://aenetworks-worldwartv-rakuten.amagi.tv/playlist.m3u8
-  [WORKING] [UK] World War TV by A+E Networks (Samsung UK) -> https://amg00841-aenetworksukane-worldwartv-samsunguk-fiod1.amagi.tv/playlist/amg00841-aenetworksukane-worldwartv-samsunguk/playlist.m3u8
-  [WORKING] [USA] Xtreme Outdoor by History / A&E (720p) -> https://dxagbr7yc4m1d.cloudfront.net/v1/aenetworks_skills_thrills_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [USA] Xtreme Outdoor by History / A&E (LG) -> https://aenetworks.global.transmit.live/hls/68b77e2b2119c010f1166488/v1/aenetworks_skills_thrills_1/lg_us/latest/main/hls/playlist.m3u8
-  [WORKING] [International] ☆ Inside Crime 🇺🇸 -> https://is.gd/QiuX5Q?GBBD500002R4.m3u8=
-  [WORKING] [International] ☆ I Survived… 🇺🇸 -> https://d1ewp56x5c748d.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-h8q4vtuq45uml/v1/aenetworks_i_survived_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [WORKING] [International] ☆ Intervention by A&E 🇺🇸 -> https://amg00276-aenetwork-amg00276c17-lg-ca-7271.playouts.now.amagi.tv/playlist/amg00276-aetelevisionnetworksfast-interventionsubfeedall-lgca/playlist.m3u8?ads.deviceid=%5BDEVICE_ID%5D&ads.ifa=%5BIFA%5D&ads.ifatype=%5BIFA_TYPE%5D&ads.lat=%5BLMT%5D&ads.donotsell=%5BDNS%5D&ads.ua=%5BUA%5D&ads.ip=%5BIP%5D&ads.gdpr=%5BGDPR%5D&ads.gdprconsent=%5BGDPR_CONSENT%5D&ads.country=%5BCOUNTRY%5D&ads.usprivacy=%5BUS_PRIVACY%5D&ads.appstoreurl=%5BAPP_STOREURL%5D&ads.bundleid=%5BAPP_BUNDLE%5D&ads.appname=%5BAPP_NAME%5D&ads.appversion=%5BAPP_VERSION%5D&ads.devicetype=%5BDEVICE_TYPE%5D&ads.devicemake=%5BDEVICE_MAKE%5D&ads.devicemodel=%5BDEVICE_MODEL%5D&ads.targetad=%5BTARGETAD_ALLOWED%5D
-  [WORKING] [Singapore] Crime + Investigation Asia (720p) [Geo-blocked] -> https://cdn09jtedge.indihometv.com/joss/133/crimeinvestigation/index.m3u8
-  [WORKING] [Poland] Crime + Investigation Polsat (1080p) -> http://57.128.231.171:8080/285/index.m3u8
-  [WORKING] [International] Cold Case Files by A&E -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5c37d6712de254456f7ec340/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c280715-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=fd8b3bcc-fbd9-4795-b86b-dfb2b2c8addd
-  [WORKING] [USA] Crime 360 (720p) -> https://94a3e237.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0NyaW1lMzYwX0hMUw/playlist.m3u8
-  [WORKING] [International] Crime 360 by A&E -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6000a5a9e767980007b497ca/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c282e25-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=1cf4fab4-d242-4d08-9427-74ba9cdd33c5
-  [WORKING] [USA] Dog The Bounty Hunter -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6540fee72cf13100085d5a18/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7a0686-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=a785777c-53e9-4fa5-bf8d-22125f05159a
-  [WORKING] [USA] Dog the Bounty Hunter -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5bee1a7359ee03633e780238/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c287c47-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=ca19e89b-4eb2-4f32-b300-8e26501d6dd2
-  [WORKING] [USA] Duck Dynasty -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6540fe6fbfbaec0008a583ae/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7a2d90-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=b2414064-7363-4d88-b917-86f379a71ce9
-  [WORKING] [International] Hoarders (720p) -> https://8f2546fe.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0hvYXJkZXJzX0hMUw/playlist.m3u8
-  [WORKING] [USA] Home.Made.Nation -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5dc1cb279c91420009db261d/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c293f93-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=5d04cbed-3ba0-4e3b-9baf-dc4eb838fa1c
-  [WORKING] [USA] Dog the Bounty Hunter (1080p) -> https://aegis-cloudfront-1.tubi.video/ff0ad399-75ed-42ba-8c60-75bb6cb8c929/playlist.m3u8
-  [WORKING] [International] ☆ Mystery TV 🇺🇸 -> https://is.gd/ereebi?GBBD50000320.m3u8=
-  [WORKING] [International] ☆ Storage Wars by A&E 🇺🇸 -> https://94f5bf6a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfU3RvcmFnZVdhcnNfSExT/playlist.m3u8
-  [WORKING] [USA] ☆ Crime ThrillHer by Lifetime 🇺🇸 -> https://28caa756.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ3JpbWVUaHJpbGxIZXJfSExT/playlist.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] A&E Crime 360 (Pluto TV) -> https://jmp2.uk/plu-6000a5a9e767980007b497ca.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] A&E Crime 360 (Pluto TV Alt) -> https://jmp2.uk/plu-657880c46e4f6a00087404d0.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Chaos on Cam by A&E (Roku) -> https://jmp2.uk/rok-99e44ea6699928b32c444dce774b9b32.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Cold Case Files by A&E (Pluto TV) -> https://jmp2.uk/plu-5c37d6712de254456f7ec340.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Home.Made.Nation by A&E (Pluto TV) -> https://jmp2.uk/plu-5dc1cb279c91420009db261d.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Storage Wars by A&E (Pluto TV) -> https://jmp2.uk/plu-6887aaf4e3703b7d42b71a1e.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Storage Wars by A&E (Roku) -> https://jmp2.uk/rok-091bf303c7fd2bc2ec6683b1dbbadae1.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] The First 48 by A&E (Pluto TV) -> https://jmp2.uk/plu-6887aaade3703b7d42b64be8.m3u8
-  [DEAD: quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] The First 48 by A&E (Roku) -> https://jmp2.uk/rok-add7a09bd437e6598057a7c7fc55a81d.m3u8
-  [UNVERIFIED: gaierror] [USA] A&E US Eastern Feed (HD) -> https://tvpass.org/live/AEEast/hd
-  [UNVERIFIED: gaierror] [USA] A&E US Eastern Feed (SD) -> https://tvpass.org/live/AEEast/sd
-  [UNVERIFIED: gaierror] [International] ☆ The First 48 🇺🇸 -> https://d3ja4g4lkxnrni.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gxn5naeo1b698/v1/ae_networks_first48_1/samsungheadend_us/latest/main/hls/playlist.m3u8
 
 ----------------------------------------------------------------------------------------
 3. COUNTRY PLAYLISTS SUMMARY (173 COUNTRIES IN playlists/countries/)
@@ -296,251 +225,21 @@ Zimbabwe                                    1   playlists/countries/Zimbabwe.m3u
 4. LOG EDITS IN THIS RUN (ADDED & REMOVED CHANNELS)
 ----------------------------------------------------------------------------------------
 Baseline: PremiumTV_all.m3u
-Added:    +536 channels
-Removed:  -583 channels
-
-Added Channels (sample):
-  + [Indonesia] Timor TV (1080p) (source=openstream, group=Other) -> http://122.248.43.242:1935/TIMORTV/_definst_/myStream/playlist.m3u8
-  + [USA] [Horse Racing] Horse Racing 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.194/hls/vavavava.m3u8
-  + [USA] [Horse Racing] Horse Racing 2 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.194/hls/vavavavaq.m3u8
-  + [USA] [Norway OBOS-ligaen] Bryne vs Lyn (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/TGGG.m3u8
-  + [USA] [Superbikes] British Superbike Championship (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/TGGGA.m3u8
-  + [USA] [Dutch Eerste Divisie] VVV Venlo vs Roda JC (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/VMMMAAAAAA.m3u8
-  + [USA] [Cycling] Cycling European Championship (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/VMMMAAAAAAQQ.m3u8
-  + [USA] [Friendly Match] Kyrgyzstan vs Lebanon (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEE.m3u8
-  + [USA] [German Women Bundesliga] Stuttgart W vs Union Berlin W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEA.m3u8
-  + [USA] [Croatia Cup] Vukovar 1991 vs Dinamo Zagreb (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAA.m3u8
-  + [USA] [English Premiership Rugby] Saracens vs Sale Sharks (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAAA.m3u8
-  + [USA] [UAE Presidents Cup] Al Arabi vs Al Urooba (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAAAQ.m3u8
-  + [USA] [UAE Presidents Cup] Al Fujairah vs Dibba Al Hisn (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAAAQQ.m3u8
-  + [USA] [Basketball Greece League] Iraklis vs Olympiacos (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAAAQQQ.m3u8
-  + [USA] [Sweden Division 1] Umea FC vs Hammarby TFF (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAAAQQQA.m3u8
-  + [USA] [English Women Super League] Manchester City W vs Arsenal W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAAAQQQAA.m3u8
-  + [USA] [Denmark Women Liga] Nordsjaelland W vs Koge W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/ZEEEAAAQQQAAA.m3u8
-  + [USA] [German Women Bundesliga] Wolfsburg W vs Hamburger SV W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/rlllQQ.m3u8
-  + [USA] [Sweden Women Allsvenskan] Djurgarden W vs AIK W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/rlllQQQ.m3u8
-  + [USA] [Spanish Segunda Liga] Gijon vs Celta Vigo B (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/rlllQQQQ.m3u8
-  + [USA] [Sweden Women Allsvenskan] Hacken W vs Uppsala W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTT.m3u8
-  + [USA] [Sweden Women Allsvenskan] Hammarby W vs IF Brommapojkarna W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQ.m3u8
-  + [USA] [Sweden Women Allsvenskan] Malmo FF W vs Rosengard W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQ.m3u8
-  + [USA] [Italy Women Serie A] AC Milan W vs Juventus W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQQ.m3u8
-  + [USA] [English Women Super League] Aston Villa W vs Crystal Palace W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQQA.m3u8
-  + [USA] [English Women Super League] Brighton W vs Charlton W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQQAA.m3u8
-  + [USA] [English Women Super League] Everton W vs Birmingham W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQQAAA.m3u8
-  + [USA] [English Women Super League] Tottenham W vs London City Lionesses W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQQAAAA.m3u8
-  + [USA] [English Women Super League] West Ham W vs Chelsea W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQQAAAAA.m3u8
-  + [USA] [France Premiere Ligue Women] Fleury 91 W vs PSG W (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/LTTTQQQAAAAAA.m3u8
-
-Removed Channels (sample):
-  - [USA] [Rugby NZ NPC] Taranaki vs Wellington (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/GNNNNaq.m3u8
-  - [USA] [Friendly Match] Argentina vs Burkina Faso 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/UWWWAAAAAAAA.m3u8
-  - [USA] [CFL Canadian Football] Montreal Alouettes vs Winnipeg Blue Bombers (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/ZKKKAAAAA.m3u8
-  - [USA] [Basketball NBL] South East Melbourne vs Illawarra Hawks (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/ZQQQ.m3u8
-  - [USA] [Japan J League] Hokkaido Consadole Sapporo vs Iwaki (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/ZQQQA.m3u8
-  - [USA] [Japan J League] Vanraure vs Yokohama FC (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/ZQQQAA.m3u8
-  - [USA] [Japan J League] Blaublitz vs Sagan Tosu (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/ZQQQAAA.m3u8
-  - [USA] [Japan J League] Vegalta Sendai vs Iwata (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/ZQQQAAAA.m3u8
-  - [USA] [Basketball NBL] Adelaide vs New Zealand Breakers (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/ZQQQAAAAA.m3u8
-  - [USA] [MotoGP] MotoGP Grand Prix of Japan (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/duuuAAAAAA.m3u8
-  - [USA] [Friendly Match] USA vs Mexico 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/tllllQQQQ.m3u8
-  - [USA] [Mexico Liga MX] Necaxa W vs Cruz Azul W (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/tllllQQQQQ.m3u8
-  - [USA] [NCAA American Football] San Diego State vs Texas State Bobcats (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/OVVVAA.m3u8
-  - [USA] [NCAA American Football] Hawaii vs San Jose State (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/OVVVAAAA.m3u8
-  - [USA] [NCAA American Football] Clemson vs Miami FL (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWW.m3u8
-  - [USA] [NCAA American Football] Arizona vs Cincinnati Bearcats (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWWA.m3u8
-  - [USA] [NCAA American Football] Louisiana Tech vs Army (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWWAA.m3u8
-  - [USA] [NCAA American Football] South Florida vs Temple (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWWAAA.m3u8
-  - [USA] [NCAA American Football] USC vs Washington Huskies (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWWAAAA.m3u8
-  - [USA] [NCAA American Football] LSU vs McNeese State (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWWAAAAA.m3u8
-  - [USA] [NCAA American Football] Louisiana-Lafayette vs Arkansas State (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWWAAAAAA.m3u8
-  - [USA] [NCAA American Football] Rutgers vs Indiana (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/UWWWAAAAAAA.m3u8
-  - [USA] [NCAA American Football] Coastal Carolina vs Georgia Southern (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQ.m3u8
-  - [USA] [NCAA American Football] Rice vs UTSA (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQQ.m3u8
-  - [USA] [NCAA American Football] South Alabama vs Louisiana-Monroe (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQQQ.m3u8
-  - [USA] [NCAA American Football] Arizona State vs Baylor (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQQQQ.m3u8
-  - [USA] [NCAA American Football] Texas A-M vs Arkansas (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQQQQQ.m3u8
-  - [USA] [Colombia Primera A] Barranquilla vs Millonarios (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQQQQQQ.m3u8
-  - [USA] [NCAA American Football] Boise State vs Utah State (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQQQQQQQ.m3u8
-  - [USA] [Bolivia Copa] The Strongest vs Universitario de Vinto (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/ZFFFQQQQQQQQA.m3u8
+Added:    +0 channels
+Removed:  -0 channels
 
 ----------------------------------------------------------------------------------------
 5. DIAGNOSTICS & RUN/SOURCE ISSUES
 ----------------------------------------------------------------------------------------
-Reason                                     Dead   Unverified   Guidance
-----------------------------------------------------------------------------------------------------
-HTTP 403                                      0         1320   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)      979            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 404                                    938            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
-TimeoutError                                  0          857   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)      621            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-html page, not a stream                     415            0   The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect.
-gaierror                                      0          334   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-ConnectionRefusedError                        0          105   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       96            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-invalid URL                                  79            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 503                                      0           70   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       65            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 400                                     61            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       51            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 401                                      0           46   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
-quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       30            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       29            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 504                                      0           24   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-SSLError                                      0           22   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)       21            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 502                                      0           20   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-RemoteDisconnected                            0           20   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)       14            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-OSError                                       0           13   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-empty response                               13            0   The server returned no stream data; check whether the source requires an active session or has expired.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       13            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 500                                      0           11   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-SSLEOFError                                   0           11   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       11            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)       10            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 451                                      9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)        9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-not probed: unsupported scheme rtmp           0            8   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
-quarantined: playlist only, HTTP 403 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 302 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 530                                      0            6   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z)        6            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        6            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP dns lookup failed (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-ConnectionResetError                          0            5   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 406                                      5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 567                                      0            5   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-quarantined: playlist only, HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T20:58:47Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 302 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 477                                      3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: connection refused (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-04T11:07:47Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP TimeoutError (failed the deep check 4x, last 2026-10-03T15:00:01Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP timeout (failed the deep check 1x, last 2026-10-03T10:25:19Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 521                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 523                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-not probed: unsupported scheme mmsh           0            2   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
-quarantined: empty response (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: empty response (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, SSLEOFError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, TimeoutError (failed the deep check 4x, last 2026-10-03T15:00:01Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP SSLEOFError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 302                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 409                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 410                                      1            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
-HTTP 421                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 429                                      0            1   The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff.
-HTTP 574                                      0            1   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-not probed: unsupported scheme rtsp           0            1   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
-not probed: unsupported scheme srt            0            1   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
-quarantined: HTTP 404 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: connection refused (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: connection refused (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: empty response (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: empty response (failed the deep check 4x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, ConnectionResetError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, HTTP 302 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 302 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 304 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 401 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 429 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, InvalidURL (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, RemoteDisconnected (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, segment too small (214 bytes) (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, segment too small (94 bytes) (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, timeout (failed the deep check 1x, last 2026-10-02T21:14:06Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, timeout (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, timeout (failed the deep check 4x, last 2026-10-03T15:00:01Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 410 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 503 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 504 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP ConnectionResetError (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP ConnectionResetError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-02T20:58:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP TimeoutError (failed the deep check 1x, last 2026-10-03T10:25:19Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP connection refused (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-02T21:46:31Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+No link-check failures or unverified links recorded.
 
 Run / Source Issues:
-  * 2887 links could not be confirmed after retries (see unverified details).
-  * 3790 links returned a confirmed failure (see dead details).
-  * This run started +5h 02m after its scheduled time (2026-10-04T10:23:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+  * Reference check 'eja.tv' failed: GET https://eja.tv/ failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [aria] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/aria-tv/aria/main/aria.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [doms9] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [xtemus] fetch/parse failed: GET https://playlist.xtemus.com/?playlist=t256y454t41554 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [iptv-org] fetch/parse failed: GET https://iptv-org.github.io/iptv/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [free-tv] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * [m3u] fetch/parse failed: GET https://api.github.com/repos/iprtl/m3u/contents/Pluto.m3u?ref=main failed: HTTP Error 404: Not Found
+  * [openstream] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/SajadTroy/openstream/main/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
