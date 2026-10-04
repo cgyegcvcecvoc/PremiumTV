@@ -13,6 +13,8 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | File | Purpose |
 |---|---|
 | [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Confirmed working links from the latest successful checked run. |
+| [`playlists/categories/`](playlists/categories/README.md) | The same channels split into one playlist per category — `Sports.m3u`, `Cartoons.m3u`, `PBS.m3u`, `Game_Shows.m3u`, `Fox_Channels.m3u`, … each with its own `*_Backups.m3u`. |
+| [`playlists/checks/CATEGORIES.md`](playlists/checks/CATEGORIES.md) | Category audit: the published group order, how many channels each holds, and which ones have guide data. |
 | [`playlists/countries/`](playlists/countries/README.md) | Confirmed working playlists separated by country (`USA.m3u`, `China.m3u`, `UK.m3u`, `Canada.m3u`, `India.m3u`, etc.). |
 | [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u) | Dedicated playlist of confirmed working A&E and A+E Networks channels (linear & FAST). |
 | [`playlists/PremiumTV_all.m3u`](playlists/PremiumTV_all.m3u) | All unique links found, including dead or unverified links. |
@@ -29,7 +31,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`EPG/PremiumTV.xml.gz`](EPG/PremiumTV.xml.gz) | Gzipped copy of the all-country guide (for players that accept `.xml.gz`). |
 | [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: verified source guides, per-country channel/programme coverage, XML sizes and validation results. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
-| [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons) and the same guides as the main playlist. |
+| [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons, NFL Network, NFL RedZone) and the same guides as the main playlist. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
@@ -58,6 +60,40 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/AE_Cha
 ```
 
 See [`playlists/countries/README.md`](playlists/countries/README.md) for the complete table of all ~170+ country playlists.
+
+### Channel categories and the published order
+
+Every published playlist uses one fixed taxonomy, defined in
+[`scripts/categorize.py`](scripts/categorize.py). The order below is the order
+the groups appear in the file — change `CURATED_CATEGORIES` there and every
+playlist follows:
+
+| # | Category | What goes in it |
+|---|---|---|
+| 1 | **Sports** | NFL Network, NFL RedZone, ESPN, FS1, CBS Sports, beIN, league and event feeds — identified by the channel, not by the group the index shipped it in. |
+| 2 | **Lifestyle** | HGTV, Food Network, TLC, Travel, Hallmark, home/food/travel/outdoor channels. |
+| 3 | **Fox Channels** | Fox, Fox News, Fox Business, Fox Weather, Fox Soul and the Fox local stations. |
+| 4 | **CBS** | CBS, CBS News 24/7, the CBS local stations. |
+| 5 | **NBC** | NBC, CNBC, MSNBC, Bravo, USA, Syfy, Telemundo and the NBC local stations. |
+| 6 | **NBC Sports Channels** | NBC Sports, the NBC Sports regional feeds, Golf Channel. |
+| 7 | **Cartoons** | Cartoon Network, Boomerang, Adult Swim, Nicktoons, MeTV Toons, animation channels. |
+| 8 | **PBS** | PBS, PBS Kids, PBS member stations. |
+| 9 | **Game Shows** | Game Show Network, Buzzr, Family Feud, The Price Is Right. |
+| — | **`<category> Backups`** | Every category is followed by its own backup group. A channel keeps one main link; the spare links that were previously scattered through the listing are named `… (Backup 1)`, `… (Backup 2)` and moved into that group, so a dead link has somewhere to fail over to. |
+| — | *(then the rest)* | Music, News, Movies, Religious, Entertainment, Documentary, Kids, … sorted by size, with `Other` last. |
+
+Two rules keep the listing usable:
+
+* **the channel name decides the category**, not the group-title the public
+  index happened to publish. That is why NFL Network is in Sports instead of the
+  `TV` bucket it arrived in, and why 1647 `General` / 872 `Undefined` entries are
+  gone;
+* **when this index calls a channel `General` and three others call it `Music`,
+  Music wins** — cross-source voting in `categorize.build_group_votes()`.
+
+Anything still unidentifiable lands in a world region (`Europe`, `Asia`, …) or
+in `Other`, and the whole library is kept — nothing is dropped to make the
+category list short.
 
 ### Local channels (Lancaster / Harrisburg, PA)
 
@@ -243,6 +279,48 @@ Statuses distinguish **dead** responses from **unverified** results. For example
 
 To run immediately, open **Actions → Scrape playlists → Run workflow**. Leave **Skip link checking** off for a verified refresh. Scheduled workflows run from the default branch (`main`); a manual run on another branch only updates that branch. To see the current schedule coverage without starting anything, run **Actions → Schedule guard → Run workflow** (dry run by default) or `python scripts/schedule_guard.py report`.
 
+## Quick updates to playlists you already have
+
+[`scripts/update_m3u.py`](scripts/update_m3u.py) is the fast path: point it at
+any M3U file on disk — the one published here, one you downloaded, or a folder
+full of them — and it re-checks every link concurrently, repairs what broke and
+re-publishes the file in the curated category order.
+
+```bash
+python scripts/update_m3u.py my-list.m3u                       # check, repair, rewrite
+python scripts/update_m3u.py my-list.m3u --dry-run             # report only
+python scripts/update_m3u.py playlists/*.m3u \
+    --pool playlists/PremiumTV_all.m3u "playlists/sources/*.m3u"
+python scripts/update_m3u.py my-list.m3u --offline             # tidy categories only
+python scripts/update_m3u.py my-list.m3u --deep                # prove a segment plays
+```
+
+What it does with a broken link, in order:
+
+1. **a backup of the same channel in the same file** is promoted (the entry you
+   see as `… (Backup 1)` in the `… Backups` group);
+2. **a working candidate from `--pool`** is pulled in and tested first;
+3. **only then** is the entry removed — and only when the run would not delete
+   more than `--max-remove-ratio` (35% by default) of the file.
+
+Links the deep check already quarantined (the "loads but never plays" ones) are
+treated as broken too, so a shallow "server answered" never protects a dead
+stream. Transient failures — timeouts, 5xx, 401/403 — are always kept.
+[`.github/workflows/quick-update.yml`](.github/workflows/quick-update.yml) runs
+it four times a day between the regular scrapes.
+
+[`scripts/rebuild_playlists.py`](scripts/rebuild_playlists.py) is the offline
+half: it never touches the network, re-classifies a playlist that is already on
+disk, splits it into [`playlists/categories/`](playlists/categories/README.md)
+and writes the [category audit](playlists/checks/CATEGORIES.md). The scraper
+calls the same taxonomy, so a scrape cannot undo the order.
+
+[`scripts/epg_match.py`](scripts/epg_match.py) fixes the "channel is missing
+from the guide" problem: it reads the published XMLTV once and re-points every
+channel at an id the guide actually declares — exact id first, then the base id
+(`AE.us@East` → `AE.us`), then an unambiguous display-name match — so a channel
+that had a guide entry under a different id now picks up its schedule.
+
 ## Deep link check, guide check and priority channels
 
 The daily scrape is deliberately shallow: it reads the first few KB of a URL, which proves a server
@@ -254,7 +332,7 @@ answered but not that a player can play the stream. Three scripts cover the gap,
 ```bash
 python scripts/link_check.py --all --patch     # re-verify every published link, drop dead ones
 python scripts/epg_check.py  --all --patch     # verify every TV guide, drop dead ones
-python scripts/channel_hunt.py --github-search # hunt Nickelodeon, NickToons, MeTV, MeTV Toons
+python scripts/channel_hunt.py --github-search # hunt the priority channels, NFL Network included
 ```
 
 ### `scripts/link_check.py` — the intensive M3U check
@@ -309,7 +387,13 @@ coverage, emitted programme counts, sizes, and XMLTV validation results in
 
 Coverage scrapes are good for volume and bad for a specific channel: if the index entry rots, the
 channel silently disappears. This script inverts the process for the channels configured in
-`sources.json` → `priority_channels` (Nickelodeon, NickToons, MeTV, MeTV Toons):
+`sources.json` → `priority_channels` — Nickelodeon, NickToons, MeTV, MeTV Toons, and, since the
+NFL Network kept breaking, **NFL Network** and **NFL RedZone**:
+
+**NFL Network** is kept with up to six verified links and **NFL RedZone** with up to four. One
+becomes the main link in **Sports**; the rest are published as `NFL Network (Backup 1…n)` in
+**Sports Backups**, and `scripts/update_m3u.py` swaps a working one in automatically when the main
+link stops playing. Every candidate is still verified end to end before anything is written.
 
 1. **Collect** every candidate whose name or `tvg-id` matches a target — from the local corpus, from
    the configured upstream indexes, and (with `--github-search`) from public M3U files found by
@@ -418,6 +502,10 @@ python scripts/epg_build.py --dry-run              # build the merged guide with
 python scripts/epg_build.py --patch --force        # rebuild it and advertise it in the playlists
 python scripts/schedule_guard.py report            # schedule coverage table, no side effects
 python scripts/schedule_guard.py --dry-run check   # what the 20-minute guard would do right now
+python scripts/categorize.py playlists/PremiumTV.m3u --show 0   # audit the category order
+python scripts/rebuild_playlists.py --dry-run --report -        # same, plus the per-category split
+python scripts/update_m3u.py my-list.m3u --dry-run              # re-check a file you already have
+python scripts/epg_match.py --playlist playlists/PremiumTV.m3u  # guide coverage for a playlist
 python -m unittest discover -s tests -v            # offline integration tests
 ```
 

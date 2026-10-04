@@ -128,6 +128,18 @@ jobs:
             echo "The scraper did not write playlists/STATUS.md." >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Rebuild the category order and per-category playlists
+        # The scraper already publishes in the curated category order; this pass
+        # adds the guide-id corrections and writes playlists/categories/*.m3u
+        # (Sports, Cartoons, PBS, Game Shows, ... each on its own URL).
+        if: always() && steps.scraper.outcome != 'skipped'
+        id: categories
+        continue-on-error: true
+        env:
+          SCRAPER_LABEL: ${{ steps.label.outputs.label }}
+        run: |
+          python scripts/rebuild_playlists.py --label "$SCRAPER_LABEL"
+
       - name: Refresh the merged and country-specific TV guides
         # Keeps all published XMLTV files in step with the channels this scrape
         # just published. The builder's freshness check also compares the
