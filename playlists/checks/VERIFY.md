@@ -1,9 +1,9 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-04T17:33:41+00:00 UTC
+- **Generated:** 2026-10-04T17:35:36+00:00 UTC
 - **Playlists checked:** 176 (20012 entries)
 - **Playlists with problems:** 0
-- **Playlists with guide-coverage notes:** 74
+- **Playlists with guide-coverage notes:** 73
 - **Links published that the deep check called dead:** 0
 - **Canonical categories:** TV, Local TV, Cartoons, Sports, News, Movies, Series, Documentary, Entertainment, Music, Lifestyle, Religious, Education, Shopping, Weather, Other
 
@@ -11,9 +11,9 @@
 
 | Playlist | Entries | Categories in use | Out of order | Non-canonical groups | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 9972 | TV, Local TV, Cartoons, Sports, News, Movies, Series, Documentary, Entertainment, Music, Lifestyle, Religious, Education, Shopping, Weather | 0 | 0 | 0 | 2197/9013 (24.4%) | 2197 (24.4%) |
-| `playlists/AE_Channels.m3u` | 59 | TV, Series, Documentary, Entertainment | 0 | 0 | 0 | 13/56 (23.2%) | 13 (23.2%) |
-| `playlists/Priority_Channels.m3u` | 9 | TV, Cartoons | 0 | 0 | 0 | 4/9 (44.4%) | 4 (44.4%) |
+| `playlists/PremiumTV.m3u` | 9972 | TV, Local TV, Cartoons, Sports, News, Movies, Series, Documentary, Entertainment, Music, Lifestyle, Religious, Education, Shopping, Weather | 0 | 0 | 0 | 9013/9013 (100.0%) | 2197 (24.4%) |
+| `playlists/AE_Channels.m3u` | 59 | TV, Series, Documentary, Entertainment | 0 | 0 | 0 | 56/56 (100.0%) | 13 (23.2%) |
+| `playlists/Priority_Channels.m3u` | 9 | TV, Cartoons | 0 | 0 | 0 | 9/9 (100.0%) | 4 (44.4%) |
 | `playlists/countries/Afghanistan.m3u` | 10 | TV, News, Entertainment, Music, Religious, Education | 0 | 0 | 0 | 10/10 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Albania.m3u` | 16 | TV, News, Music | 0 | 0 | 0 | 16/16 (100.0%) | 3 (18.8%) |
 | `playlists/countries/Algeria.m3u` | 4 | TV, Cartoons, Sports, News | 0 | 0 | 0 | 4/4 (100.0%) | 1 (25.0%) |
@@ -194,7 +194,6 @@ None: every playlist is canonical, in order, and free of links the deep check co
 
 ## Guide coverage notes
 
-- `playlists/PremiumTV.m3u`: the advertised guide declares 2220 of 9013 playlist ids; the next EPG build adds the rest
 - `playlists/countries/Afghanistan.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Andorra.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Angola.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
