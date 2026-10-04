@@ -175,6 +175,45 @@ def blocks_to_text(header: list, blocks: list) -> str:
     return "\n".join(out) + "\n"
 
 
+EXTINF_GROUP_RE = re.compile(r'\s*group-title="[^"]*"')
+
+
+def set_block_group(block: Block, group: str) -> bool:
+    """Rewrite one block's ``group-title`` in place. Returns True when changed."""
+    for index, line in enumerate(block.lines):
+        if not line.startswith("#EXTINF"):
+            continue
+        if EXTINF_GROUP_RE.search(line):
+            updated = EXTINF_GROUP_RE.sub(f' group-title="{group}"', line, count=1)
+        else:
+            head, separator, rest = line.partition(",")
+            updated = (f'{head} group-title="{group}"{separator}{rest}'
+                       if separator else f'{line} group-title="{group}"')
+        if updated == line:
+            return False
+        block.lines[index] = updated
+        return True
+    return False
+
+
+def tidy_blocks(blocks: list, source: str) -> tuple[list, int]:
+    """Put blocks back into the repository's canonical category order.
+
+    After the deep check removes dead entries the remaining blocks are re-sorted
+    and their ``group-title`` values are normalised to the canonical categories,
+    so a patched playlist has exactly the same order the scraper would publish.
+    Returns (blocks, changed_group_count).
+    """
+    pairs = [(block, channel_from_block(block, source)) for block in blocks]
+    scraper.canonicalize_channels([channel for _, channel in pairs])
+    pairs.sort(key=lambda pair: scraper.sort_key(pair[1]))
+    changed = 0
+    for block, channel in pairs:
+        if set_block_group(block, channel.attrs.get("group-title") or "TV"):
+            changed += 1
+    return [block for block, _ in pairs], changed
+
+
 def channel_from_block(block: Block, source: str) -> scraper.Channel:
     """Reuse the scraper's M3U parser so attributes/headers stay consistent."""
     text = "\n".join(["#EXTM3U", *block.lines]) + "\n"
@@ -638,8 +677,13 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
             log(f"[patch] skipped {path.name}: would remove {len(removed)}/{entries} "
                 f"({remove_ratio:.0%}) - over the safety limit")
             continue
+        # Re-sort the survivors into the canonical category order and make sure
+        # every group title is one of the fixed categories, so a patched file
+        # matches what the next scrape would publish.
+        kept, regrouped = tidy_blocks(kept, path.name)
         if not dry_run:
             path.write_text(blocks_to_text(data["header"], kept), encoding="utf-8")
+        patch_report["regrouped"] = patch_report.get("regrouped", 0) + regrouped
         patch_report["removed_total"] += len(removed)
         patch_report["removed"].extend(removed)
         patch_report["patched_files"].append({

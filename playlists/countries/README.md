@@ -1,6 +1,6 @@
 # Country Playlists
 
-Updated: **2026-10-04 12:38 PM EDT** (2026-10-04 16:38 UTC) — _manual source rescrape; checks blocked by network_
+Updated: **2026-10-04 01:33 PM EDT** (2026-10-04 17:33 UTC) — _canonical category re-sort_
 
 Total countries: **173**  |  Total confirmed working channels: **9972**
 

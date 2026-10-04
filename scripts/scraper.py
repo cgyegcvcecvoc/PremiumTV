@@ -53,6 +53,9 @@ try:
 except Exception:  # pragma: no cover - zoneinfo missing on very old Pythons
     NY_TZ = None
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import channel_categories  # noqa: E402  (canonical categories + playlist ordering)
+
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -83,6 +86,11 @@ SENSITIVE_QUERY_KEYS = {
 # A scheduled run that starts this many minutes after its slot is reported as
 # late. GitHub's scheduler is not punctual; schedule-guard.yml catches up.
 LATE_START_MINUTES = 15
+# How many verified upstream guides a published playlist keeps as fallbacks
+# behind the repository's own merged guide (-1 keeps every one the sources
+# advertise). scripts/epg_build.py applies the same limit when it patches
+# headers after a guide build.
+MAX_HEADER_GUIDES = 2
 # How many channel names a website channel-index audit keeps as a sample.
 CHANNEL_SAMPLE_LIMIT = 12
 
@@ -616,12 +624,56 @@ AE_NAME_RE = re.compile(
 )
 
 
+# Country name -> the shortest standard code, used to keep a channel's country
+# explicit once its upstream group-title is replaced by a canonical category.
+COUNTRY_NAME_TO_CODE: dict[str, str] = {}
+for _code, _name in sorted(COUNTRY_CODE_MAP.items(), key=lambda item: (len(item[0]), item[0])):
+    COUNTRY_NAME_TO_CODE.setdefault(_name, _code)
+# Lowercase country names, so tvg-country="USA" / "United Kingdom" works too.
+# Regional groupings a source can put in group-title ("Arab World",
+# "Latin America") are included even when they have no country code, so the
+# classification survives the group-title rewrite for those channels too.
+COUNTRY_NAME_LOOKUP: dict[str, str] = {
+    _name.lower(): _name for _name in set(COUNTRY_CODE_MAP.values())
+}
+for _pattern, _country in GROUP_COUNTRY_PATTERNS:
+    COUNTRY_NAME_LOOKUP.setdefault(_country.lower(), _country)
+
+
+def country_slug(country: str) -> str:
+    """ASCII, lowercase, underscore form of a country name (``Curaçao`` -> ``curacao``)."""
+    ascii_value = unicodedata.normalize("NFKD", country or "").encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", "_", ascii_value.lower()).strip("_") or "international"
+
+
+# Synthetic ids look like ``premiumtv.<country_slug>.<channel>``; the trailing
+# channel slug must never be read as a country code (``...international.et`` is
+# an unknown channel named "ET", not an Ethiopian id).
+SYNTHETIC_ID_PREFIX = "premiumtv."
+SYNTHETIC_COUNTRY_SLUGS: dict[str, str] = {}
+for _country in set(COUNTRY_CODE_MAP.values()):
+    SYNTHETIC_COUNTRY_SLUGS.setdefault(country_slug(_country), _country)
+SYNTHETIC_COUNTRY_SLUGS.setdefault("international", "International")
+
+
 def resolve_country(channel: Channel) -> str:
     """Resolve the country name for a channel from its attributes, ID, or group."""
     tc = channel.attrs.get("tvg-country", "").strip().lower()
     if tc in COUNTRY_CODE_MAP:
         return COUNTRY_CODE_MAP[tc]
+    # Some playlists write the country name (or "USA") instead of a code.
+    if tc:
+        spelled = COUNTRY_NAME_LOOKUP.get(tc)
+        if spelled:
+            return spelled
     tid = channel.attrs.get("tvg-id", "").strip()
+    if tid.lower().startswith(SYNTHETIC_ID_PREFIX):
+        parts = tid.split(".")
+        if len(parts) > 2:
+            country = SYNTHETIC_COUNTRY_SLUGS.get(parts[1].lower())
+            if country:
+                return country
+        return "International"
     if "." in tid:
         suf = tid.rsplit(".", 1)[-1].split("@")[0].lower()
         if suf in COUNTRY_CODE_MAP:
@@ -1236,6 +1288,71 @@ def apply_quarantine(channels: list, path: Path, days: float = 7.0) -> int:
     return held
 
 
+def load_deep_check_dead(checks_dir: Path,
+                         max_age_hours: float = 72.0) -> dict[str, str]:
+    """Confirmed-dead URLs recorded by the last deep link check, if it is fresh.
+
+    The nightly ``scripts/link_check.py`` run resolves HLS variants and downloads
+    a real media segment, so it catches streams that answer a shallow request but
+    serve nothing. Treating its confirmed-dead list as evidence keeps such a link
+    out of the published playlist even when the shallow six-second check happens
+    to pass on the same day.
+    """
+    if max_age_hours <= 0:
+        return {}
+    path = checks_dir / "link-check.json"
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    finished = parse_utc_iso(str(data.get("finished_utc") or data.get("started_utc") or ""))
+    if finished is not None:
+        age_hours = (dt.datetime.now(dt.timezone.utc) - finished).total_seconds() / 3600.0
+        if age_hours > max_age_hours:
+            return {}
+    dead: dict[str, str] = {}
+    groups = []
+    per_playlist = data.get("per_playlist")
+    if isinstance(per_playlist, dict):
+        groups.extend(per_playlist.values())
+    groups.append(data)
+    for group in groups:
+        if not isinstance(group, dict):
+            continue
+        for entry in group.get("dead") or []:
+            if not isinstance(entry, dict):
+                continue
+            url = str(entry.get("url") or "").strip()
+            if not url:
+                continue
+            status = str(entry.get("status") or "dead")
+            if status not in ("offline", "invalid"):
+                continue
+            reason = str(entry.get("reason") or "").strip()
+            dead[url] = f"deep check: {status}" + (f" ({reason})" if reason else "")
+    return dead
+
+
+def apply_deep_check_evidence(channels: list, checks_dir: Path,
+                              max_age_hours: float = 72.0) -> int:
+    """Mark channels dead when the last deep check confirmed their link is gone."""
+    dead = load_deep_check_dead(checks_dir, max_age_hours)
+    if not dead:
+        return 0
+    held = 0
+    for channel in channels:
+        reason = dead.get(channel.url or "")
+        if not reason or channel.status == "dead":
+            continue
+        channel.status, channel.reason = "dead", reason
+        held += 1
+    return held
+
+
 def check_channel(
     channel: Channel,
     timeout: float,
@@ -1359,15 +1476,56 @@ def dedupe(channels: list[Channel]) -> list[Channel]:
 
 
 def sort_key(channel: Channel):
-    return (channel.group.lower(), re.sub(r"\W+", "", channel.name.lower()), channel.source)
+    """Deterministic playlist order (canonical category, country, name, quality, source).
+
+    Delegates to ``channel_categories`` so published playlists, the deep link
+    checker and the offline re-sort tool all agree on one order.
+    """
+    return channel_categories.channel_sort_key(channel)
+
+
+def canonicalize_channels(channels: list[Channel], max_feeds: int = 0) -> dict[str, int]:
+    """Rewrite group titles to canonical categories and sort a published set.
+
+    ``group-title`` becomes one of the small fixed categories in
+    ``channel_categories.CATEGORY_ORDER`` (TV, Cartoons, Sports, ...), including
+    US channels first inside each category. ``max_feeds`` > 0 keeps only that
+    many feeds per channel (best quality first); 0 keeps every working stream.
+    Returns the per-category counts.
+    """
+    # Upstream groups often carry the only country signal ("Italy", "United States
+    # 🇺🇸"). Persist it as tvg-country before the group is replaced by a
+    # category, so country playlists, the US-first ordering and the next run's
+    # classification all keep the same answer.
+    for channel in channels:
+        current = channel.attrs.get("tvg-country", "").strip()
+        if current:
+            if len(current) == 2 and current.lower() in COUNTRY_CODE_MAP:
+                channel.attrs["tvg-country"] = current.upper()
+            continue
+        country = channel.country
+        if country in ("", "International", "Other", "Unknown"):
+            continue  # no country to preserve
+        code = COUNTRY_NAME_TO_CODE.get(country)
+        # A two-letter code when one exists, otherwise the resolved name - the
+        # point is that the next run resolves the same country again.
+        channel.attrs["tvg-country"] = code.upper() if code else country
+    counts = channel_categories.apply_categories(channels)
+    if max_feeds > 0:
+        kept = channel_categories.cap_feeds(channels, max_feeds)
+        if len(kept) != len(channels):
+            log(f"[sort] keeping {len(kept)}/{len(channels)} feeds "
+                f"(max {max_feeds} per channel, best quality first)")
+        channels[:] = kept
+        counts = channel_categories.category_counts(channels)
+    return counts
 
 
 def synthetic_tvg_id(channel: Channel) -> str:
     """Stable repo-scoped id for a published channel whose source has no tvg-id."""
     country = channel.country or "International"
     def slug(value: str, fallback: str) -> str:
-        ascii_value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
-        result = re.sub(r"[^a-z0-9]+", "_", ascii_value.lower()).strip("_")
+        result = country_slug(value)
         if not result:
             result = fallback
         if len(result) > 72:
@@ -1376,19 +1534,22 @@ def synthetic_tvg_id(channel: Channel) -> str:
         return result
 
     name = channel.name.strip() or channel.url
-    country_slug = slug(country, "international")
+    country_part = country_slug(country)
     name_slug = slug(name, "channel_" + hashlib.sha1(name.encode("utf-8", errors="replace")).hexdigest()[:10])
-    return f"premiumtv.{country_slug}.{name_slug}"
+    return f"premiumtv.{country_part}.{name_slug}"
 
 
 def write_m3u(path: Path, channels: list[Channel], epg: list[str], title: str,
               advertise_self: bool = True, synthesize_missing_ids: bool = False) -> None:
     """Write a playlist, advertising the repository's matching XMLTV first.
 
-    General playlists use ``SELF_EPG_URL`` and may retain verified upstream
-    guides behind it as fallbacks. Country playlists pass their one country
-    guide with ``advertise_self=False``. Source caches also use that flag and
-    keep their upstream metadata unchanged. Published player playlists can set
+    General playlists use ``SELF_EPG_URL`` and keep at most
+    ``MAX_HEADER_GUIDES`` verified upstream guides behind it as fallbacks: the
+    merged guide already contains their programmes, and a header with a hundred
+    URLs makes a player download a hundred guides before showing anything.
+    Country playlists pass their one country guide with ``advertise_self=False``.
+    Source caches also use that flag and keep their upstream metadata unchanged
+    (their full guide list is preserved). Published player playlists can set
     ``synthesize_missing_ids`` so channels without a source ``tvg-id`` receive
     stable repo-scoped ids that the generated XMLTV can declare and match.
     """
@@ -1400,6 +1561,8 @@ def write_m3u(path: Path, channels: list[Channel], epg: list[str], title: str,
     header = "#EXTM3U"
     guides = list(dict.fromkeys(
         ([SELF_EPG_URL] if advertise_self and SELF_EPG_URL else []) + list(epg)))
+    if advertise_self and MAX_HEADER_GUIDES >= 0:
+        guides = guides[:1 + MAX_HEADER_GUIDES]
     if guides:
         header += f' x-tvg-url="{",".join(guides)}"'
     lines = [header, f"# {title}"]
@@ -1777,6 +1940,25 @@ def make_status_markdown(report: dict) -> str:
             f"🌱 = source added automatically by the monthly discovery engine: {', '.join(promoted)}. "
             "Set `\"enabled\": false` for it in `discovery/approved-sources.json` to roll it back.",
         ]
+
+    categories = report.get("categories") or {}
+    if categories:
+        total_categorised = sum(categories.values())
+        lines += [
+            "",
+            "## Channel categories (published player playlists)",
+            "",
+            "Every published channel is grouped into one fixed category (no more "
+            "upstream `General`/`Undefined`/country groups), with US channels first "
+            "inside each category and each channel's feeds side by side. "
+            f"Categories across **{total_categorised}** channels:",
+            "",
+            "| Category | Channels | Share |",
+            "|---|---:|---:|",
+        ]
+        for name, count in categories.items():
+            share = f"{count / total_categorised:.1%}" if total_categorised else "-"
+            lines.append(f"| {name} | {count} | {share} |")
 
     if countries:
         lines += [
@@ -2182,6 +2364,12 @@ def main() -> int:
     ap.add_argument("--quarantine-days", type=float, default=7.0,
                     help="hold back links the deep check found dead for this many days "
                          "(0 disables the quarantine)")
+    ap.add_argument("--deep-check-days", type=float, default=3.0,
+                    help="also hold back links the last deep link check confirmed dead "
+                         "(offline/invalid) within this many days (0 disables)")
+    ap.add_argument("--max-feeds-per-channel", type=int, default=0,
+                    help="keep at most this many feeds of one channel in the published "
+                         "player playlist, best quality first (0 = keep every working stream)")
     ap.add_argument("--label", default="manual run", help="run label shown in reports")
     ap.add_argument("--scheduled-for", default="",
                     help="ISO-8601 UTC instant this run was scheduled for; used to report "
@@ -2222,6 +2410,8 @@ def main() -> int:
     changes = {"baseline": "none", "added_count": 0, "removed_count": 0,
                "added_sample": [], "removed_sample": []}
     countries_summary: dict[str, dict] = {}
+    category_counts: dict[str, int] = {}
+    published_categories: dict[str, int] = {}
     checked = False
     check_completed = False
     final_playlist_written = False
@@ -2378,6 +2568,10 @@ def main() -> int:
 
         channels = sorted(dedupe(all_channels), key=sort_key)
         log(f"[sources] {len(channels)} unique links from {len(all_channels)} entries")
+        category_counts = canonicalize_channels(channels, args.max_feeds_per_channel)
+        if category_counts:
+            log("[sort] " + " | ".join(f"{name}: {count}"
+                                       for name, count in category_counts.items()))
 
         if not channels:
             fatal_error = "No channels found from any configured playlist source; existing playlists were left untouched."
@@ -2403,6 +2597,7 @@ def main() -> int:
                         existing_working, existing_epg = parse_m3u(
                             (out_dir / "PremiumTV.m3u").read_text(encoding="utf-8"), "PremiumTV"
                         )
+                        published_categories = canonicalize_channels(existing_working)
                         countries_summary = write_country_playlists(
                             out_dir, existing_working, existing_epg or all_epg, utc_s, local_s, args.label
                         )
@@ -2450,7 +2645,14 @@ def main() -> int:
                 if quarantined:
                     log(f"[links] {quarantined} links held back by the deep-check "
                         f"quarantine ({quarantine_path.name})")
+                deep_evidence = apply_deep_check_evidence(
+                    channels, out_dir / "checks", args.deep_check_days * 24.0)
+                if deep_evidence:
+                    log(f"[links] {deep_evidence} links held back by confirmed-dead "
+                        f"results from the last deep check (link-check.json)")
                 working = [channel for channel in channels if channel.status == "alive"]
+                published_categories = canonicalize_channels(
+                    working, args.max_feeds_per_channel)
                 minimum_working = max(1, args.min_working_ratio * len(channels))
                 if len(working) < minimum_working:
                     fatal_error = (
@@ -2543,6 +2745,7 @@ def main() -> int:
         "all_playlist_written": all_playlist_written,
         "duration_seconds": round((finished - started).total_seconds(), 2),
         "changes": changes,
+        "categories": published_categories or category_counts,
         "countries_count": len(countries_summary),
         "countries": countries_summary,
         "ae_channels": ae_summary,
@@ -2577,6 +2780,7 @@ def main() -> int:
         "unverified": status_counts.get("unverified", 0),
         "added": changes.get("added_count", 0),
         "removed": changes.get("removed_count", 0),
+        "categories": published_categories or category_counts,
         "countries_count": len(countries_summary),
         "ae_working": ae_summary.get("working_count", 0),
         "promoted_sources": [name for name, stat in source_stats.items() if stat.get("promoted_by_discovery")],
