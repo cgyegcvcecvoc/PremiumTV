@@ -1,34 +1,1203 @@
 ========================================================================================
 PREMIUMTV1 ERRORS & DIAGNOSTICS LOG (.TXT)
 ========================================================================================
-Run ID:      20261004T163805Z-3222
-Timestamp:   2026-10-04 12:38 PM EDT (2026-10-04 16:38 UTC)
-Label:       manual source rescrape; checks blocked by network (manual)
+Run ID:      20261004T175102Z-2539
+Timestamp:   2026-10-04 01:54 PM EDT (2026-10-04 17:54 UTC)
+Label:       9:41 AM recheck (recheck)
 Outcome:     WARNING
-Dead Links:  0  |  Unverified Links: 0
+Dead Links:  3806  |  Unverified Links: 2961
 
 ----------------------------------------------------------------------------------------
 1. RUN & SOURCE ISSUES
 ----------------------------------------------------------------------------------------
-  * Reference check 'eja.tv' failed: GET https://eja.tv/ failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
-  * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
-  * [aria] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/aria-tv/aria/main/aria.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
-  * [doms9] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
-  * [xtemus] fetch/parse failed: GET https://playlist.xtemus.com/?playlist=t256y454t41554 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
-  * [iptv-org] fetch/parse failed: GET https://iptv-org.github.io/iptv/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
-  * [free-tv] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8 failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
-  * [m3u] fetch/parse failed: GET https://api.github.com/repos/iprtl/m3u/contents/Pluto.m3u?ref=main failed: HTTP Error 404: Not Found
-  * [openstream] Direct URL fetch failed; GitHub API fallback succeeded: GET https://raw.githubusercontent.com/SajadTroy/openstream/main/index.m3u failed: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>
+  * 2961 links could not be confirmed after retries (see unverified details).
+  * 3806 links returned a confirmed failure (see dead details).
+  * This run started +4h 10m after its scheduled time (2026-10-04T13:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
 ----------------------------------------------------------------------------------------
 2. ERROR REASON BREAKDOWN
 ----------------------------------------------------------------------------------------
-  No dead or unverified links recorded.
+Reason                                     Dead   Unverified      Total
+--------------------------------------------------------------------------
+HTTP 403                                      0         1316       1316
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)      979            0        979
+HTTP 404                                    945            0        945
+TimeoutError                                  0          926        926
+quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)      621            0        621
+html page, not a stream                     417            0        417
+gaierror                                      0          334        334
+ConnectionRefusedError                        0          106        106
+quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       96            0         96
+HTTP 503                                      0           81         81
+invalid URL                                  79            0         79
+quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       65            0         65
+HTTP 400                                     61            0         61
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       52            0         52
+HTTP 401                                      0           45         45
+quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       34            0         34
+quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       29            0         29
+SSLError                                      0           22         22
+HTTP 504                                      0           21         21
+HTTP 502                                      0           20         20
+RemoteDisconnected                            0           20         20
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)       19            0         19
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       15            0         15
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)       14            0         14
+OSError                                       0           13         13
+empty response                               13            0         13
+HTTP 500                                      0           11         11
+SSLEOFError                                   0           11         11
+quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       11            0         11
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)       10            0         10
+HTTP 451                                      9            0          9
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        9            0          9
+quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)        9            0          9
+not probed: unsupported scheme rtmp           0            8          8
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        8            0          8
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        8            0          8
+quarantined: playlist only, HTTP 403 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        8            0          8
+quarantined: variant HTTP 302 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        8            0          8
+quarantined: variant HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        8            0          8
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        7            0          7
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0          7
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0          7
+quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        7            0          7
+HTTP 530                                      0            6          6
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        6            0          6
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        6            0          6
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z)        6            0          6
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        6            0          6
+quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        6            0          6
+quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0          6
+quarantined: variant HTTP dns lookup failed (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0          6
+ConnectionResetError                          0            5          5
+HTTP 406                                      5            0          5
+HTTP 567                                      0            5          5
+quarantined: playlist only, HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        5            0          5
+quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0          5
+quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)        5            0          5
+quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T20:58:47Z)        5            0          5
+quarantined: variant HTTP 302 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0          5
+quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        5            0          5
+quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0          5
+quarantined: variant HTTP dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)        5            0          5
+quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0          4
+quarantined: playlist only, HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0          4
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0          4
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-04T11:07:47Z)        4            0          4
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0          4
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        4            0          4
+quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0          4
+quarantined: connection refused (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0          3
+quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0          3
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        3            0          3
+quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0          3
+quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        3            0          3
+quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0          3
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        3            0          3
+quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        3            0          3
+quarantined: variant HTTP TimeoutError (failed the deep check 4x, last 2026-10-03T15:00:01Z)        3            0          3
+quarantined: variant HTTP timeout (failed the deep check 1x, last 2026-10-03T10:25:19Z)        3            0          3
+HTTP 429                                      0            2          2
+HTTP 521                                      0            2          2
+HTTP 523                                      0            2          2
+not probed: unsupported scheme mmsh           0            2          2
+quarantined: empty response (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0          2
+quarantined: empty response (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
+quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
+quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0          2
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        2            0          2
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
+quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        2            0          2
+quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0          2
+quarantined: playlist only, SSLEOFError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0          2
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0          2
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
+quarantined: playlist only, TimeoutError (failed the deep check 4x, last 2026-10-03T15:00:01Z)        2            0          2
+quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
+quarantined: variant HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        2            0          2
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
+quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
+quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
+quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
+quarantined: variant HTTP SSLEOFError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0          2
+HTTP 302                                      1            0          1
+HTTP 409                                      1            0          1
+HTTP 410                                      1            0          1
+HTTP 421                                      1            0          1
+HTTP 458                                      1            0          1
+HTTP 477                                      1            0          1
+HTTP 574                                      0            1          1
+not probed: unsupported scheme rtsp           0            1          1
+not probed: unsupported scheme srt            0            1          1
+quarantined: HTTP 404 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: connection refused (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
+quarantined: connection refused (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: empty response (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: empty response (failed the deep check 4x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: playlist only, ConnectionResetError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        1            0          1
+quarantined: playlist only, HTTP 302 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: playlist only, HTTP 302 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: playlist only, HTTP 304 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: playlist only, HTTP 401 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0          1
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0          1
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: playlist only, HTTP 429 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0          1
+quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: playlist only, InvalidURL (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0          1
+quarantined: playlist only, RemoteDisconnected (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0          1
+quarantined: playlist only, segment too small (214 bytes) (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: playlist only, segment too small (94 bytes) (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: playlist only, timeout (failed the deep check 1x, last 2026-10-02T21:14:06Z)        1            0          1
+quarantined: playlist only, timeout (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0          1
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0          1
+quarantined: playlist only, timeout (failed the deep check 4x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0          1
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: variant HTTP 410 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
+quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0          1
+quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: variant HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: variant HTTP 503 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: variant HTTP 504 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: variant HTTP ConnectionResetError (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: variant HTTP ConnectionResetError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-02T20:58:47Z)        1            0          1
+quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
+quarantined: variant HTTP TimeoutError (failed the deep check 1x, last 2026-10-03T10:25:19Z)        1            0          1
+quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
+quarantined: variant HTTP connection refused (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-02T21:46:31Z)        1            0          1
+quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
+quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
 
 ----------------------------------------------------------------------------------------
-3. CONFIRMED DEAD LINKS (0)
+3. CONFIRMED DEAD LINKS (3806)
 ----------------------------------------------------------------------------------------
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] A&E Crime 360 (Pluto TV) (source=ae-networks) -> https://jmp2.uk/plu-6000a5a9e767980007b497ca.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] A&E Crime 360 (Pluto TV Alt) (source=ae-networks) -> https://jmp2.uk/plu-657880c46e4f6a00087404d0.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Chaos on Cam by A&E (Roku) (source=ae-networks) -> https://jmp2.uk/rok-99e44ea6699928b32c444dce774b9b32.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Cold Case Files by A&E (Pluto TV) (source=ae-networks) -> https://jmp2.uk/plu-5c37d6712de254456f7ec340.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Home.Made.Nation by A&E (Pluto TV) (source=ae-networks) -> https://jmp2.uk/plu-5dc1cb279c91420009db261d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Storage Wars by A&E (Pluto TV) (source=ae-networks) -> https://jmp2.uk/plu-6887aaf4e3703b7d42b71a1e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] Storage Wars by A&E (Roku) (source=ae-networks) -> https://jmp2.uk/rok-091bf303c7fd2bc2ec6683b1dbbadae1.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] The First 48 by A&E (Pluto TV) (source=ae-networks) -> https://jmp2.uk/plu-6887aaade3703b7d42b64be8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)] [USA] The First 48 by A&E (Roku) (source=ae-networks) -> https://jmp2.uk/rok-add7a09bd437e6598057a7c7fc55a81d.m3u8
+  [DEAD] [html page, not a stream] [Albania] ABC News Albania Ⓣ (source=free-tv) -> https://www.twitch.tv/abcnewsal
+  [DEAD] [html page, not a stream] [Albania] Euronews Albania Ⓨ (source=free-tv) -> https://www.youtube.com/@EuronewsAlbania/live
+  [DEAD] [HTTP 404] [Albania] Kanali 7 Ⓢ (source=free-tv) -> https://fe.tring.al/delta/105/out/u/1200_1.m3u8
+  [DEAD] [HTTP 404] [Albania] Panorama TV Ⓢ (source=free-tv) -> http://198.244.188.94/panorama/livestream/playlist.m3u8
+  [DEAD] [html page, not a stream] [Albania] Top News Ⓣ (source=free-tv) -> https://www.twitch.tv/topnewsal
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Anime x HIDIVE (source=iptv-org) -> https://jmp2.uk/plu-6793eaa4bc03978b9bc63db1.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Crunchyroll (720p) (source=iptv-org) -> https://jmp2.uk/plu-65652f7fc0fc88000883537a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Las Tortugas Ninja (720p) (source=iptv-org) -> https://jmp2.uk/plu-63dd5d7a4e83e700088fbca8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Naruto Brazil (source=iptv-org) -> https://jmp2.uk/plu-5f6df5a173d7340007c559f7.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Naruto en espanol (source=iptv-org) -> https://jmp2.uk/plu-5ee92e72fb286e0007285fec.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Naruto Germany (720p) (source=iptv-org) -> https://jmp2.uk/plu-65d5fc39a25d5e00082895c4.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Naruto Shippuden (source=iptv-org) -> https://jmp2.uk/plu-64c92f965580090008084968.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] One Piece (source=iptv-org) -> https://jmp2.uk/plu-69affcad8940750a23a7231a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] One Piece BR (source=iptv-org) -> https://jmp2.uk/plu-624b1c8d4321e200073ee421.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] One Piece CA (source=iptv-org) -> https://jmp2.uk/plu-62e94ec74823db0007277a8f.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] One Piece FR (source=iptv-org) -> https://jmp2.uk/plu-6380c94947c72b0007ee9a13.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] One Piece LatAm (source=iptv-org) -> https://jmp2.uk/plu-5ff4b9ccf938f8000779eb99.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] One Piece Spain (source=iptv-org) -> https://jmp2.uk/plu-680ba8992472a7200a183eb5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Anime (source=iptv-org) -> https://jmp2.uk/plu-5812b7d3249444e05d09cc49.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Anime Acao (source=iptv-org) -> https://jmp2.uk/plu-604b79c558393100078faeef.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Anime BR (source=iptv-org) -> https://jmp2.uk/plu-5f12136385bccc00070142ed.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Anime CA (source=iptv-org) -> https://jmp2.uk/plu-68d25b620a0f3829b116bb6f.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Anime LatAm (source=iptv-org) -> https://jmp2.uk/plu-5dcde17bf6591d0009839e02.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Anime Movies (source=iptv-org) -> https://jmp2.uk/plu-67ed8f7e443f0671bc2b2368.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Star Trek: Animation (source=iptv-org) -> https://jmp2.uk/plu-69492467ae33e24d916e56cf.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Tokusato (source=iptv-org) -> https://jmp2.uk/plu-5ff609de50ab210008025c1b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central South Park (source=iptv-org) -> https://jmp2.uk/plu-609ae66b359b270007869ff1.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central South Park LatAm (source=iptv-org) -> https://jmp2.uk/plu-609ae5cd48d3200007b0a98e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Adult Animation (source=iptv-org) -> https://jmp2.uk/plu-67f68bd2135aeda9ddf0ef54.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Animation (source=iptv-org) -> https://jmp2.uk/plu-612f761008a9e50007984ba0.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Armageddon (source=iptv-org) -> https://jmp2.uk/plu-660bff7dc8311c0008b4bdb4.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Armageddon DK (source=iptv-org) -> https://jmp2.uk/plu-660bff28516d260008479e23.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Armageddon NO (source=iptv-org) -> https://jmp2.uk/plu-660bff5724e1d000085b7c07.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park: Butters Collection (Germany) (source=iptv-org) -> https://jmp2.uk/plu-646b14a0e94c3800082a8d3a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Butters Collection (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-65d881d566eec8000887f6bb.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Butters Collection (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-65d87a66ec9fda0008a5ac11.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Butters Collection (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-65d87fcb66eec8000887f4aa.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park: Cartman Collection (Germany) (source=iptv-org) -> https://jmp2.uk/plu-646b14747cb4b1000875724d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Cartman Collection (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-65d881b1332fec000833a122.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Cartman Collection (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-65d87a058145cb0008265c2e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Cartman Collection (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-65d87fa0f7f0af0008b2358b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Cartman Collection (United States) (source=iptv-org) -> https://jmp2.uk/plu-65df4934f7f0af0008c32545.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Colecao Cartman (source=iptv-org) -> https://jmp2.uk/plu-65df71008b24c80008f04281.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Colecao Kenny (source=iptv-org) -> https://jmp2.uk/plu-65df704366eec8000898e32f.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Colecao Kyle (source=iptv-org) -> https://jmp2.uk/plu-65df713dec9fda0008b7a81d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Colecao Stan (source=iptv-org) -> https://jmp2.uk/plu-65df70b0f7f0af0008c3b316.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Coleccion Cartman (source=iptv-org) -> https://jmp2.uk/plu-65df731cec9fda0008b7aa8d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Coleccion Kenny (source=iptv-org) -> https://jmp2.uk/plu-65df7272ec9fda0008b7a970.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Coleccion Kyle (source=iptv-org) -> https://jmp2.uk/plu-65df73520d4561000817c29b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Coleccion Stan (source=iptv-org) -> https://jmp2.uk/plu-65df72db18036500081a8292.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park En Francais (source=iptv-org) -> https://jmp2.uk/plu-62bdb919d36cbd0007e6ab8a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park (Germany) (source=iptv-org) -> https://jmp2.uk/plu-628751bb7154a40007168843.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park (Germany) GB (source=iptv-org) -> https://jmp2.uk/plu-64edf6eaa7ec0d000812f58c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park (Germany) IT (source=iptv-org) -> https://jmp2.uk/plu-62bc1f502b70e3000706298e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Into the Stars (source=iptv-org) -> https://jmp2.uk/plu-664f0eea0120f40008bf97d6.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Into the Stars DK (source=iptv-org) -> https://jmp2.uk/plu-664f0eaa8ce31100088036bd.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Into the Stars NO (source=iptv-org) -> https://jmp2.uk/plu-664f0ecc41af640008e37b43.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park: Kenny Collection (Germany) (source=iptv-org) -> https://jmp2.uk/plu-646b1404ee6a2f00082b5d66.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Kenny Collection (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-65d880cea25d5e0008315b0a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Kenny Collection (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-65d879bd0d4561000805d190.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Kenny Collection (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-65d87f53ec9fda0008a5b810.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Kenny Collection (United States) (source=iptv-org) -> https://jmp2.uk/plu-65df47f428730900089f83ac.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park: Kyle Collection (Germany) (source=iptv-org) -> https://jmp2.uk/plu-646b14d0e1979c0008915a09.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Kyle Collection (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-65d882394e01740008a36768.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Kyle Collection (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-65d87a908145cb0008265c6d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Kyle Collection (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-65d88004ec9fda0008a5b8b3.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Kyle Collection (United States) (source=iptv-org) -> https://jmp2.uk/plu-65df49b30d45610008172c5b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park: Original Version (source=iptv-org) -> https://jmp2.uk/plu-646b150a15939400089e2702.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Rockin' Out (source=iptv-org) -> https://jmp2.uk/plu-664f13aff9992200084a3532.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Rockin' Out DK (source=iptv-org) -> https://jmp2.uk/plu-664f132c8ea5560008ce4d86.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Rockin' Out NO (source=iptv-org) -> https://jmp2.uk/plu-664f1370f78a8500092df452.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park: Stan Collection (Germany) (source=iptv-org) -> https://jmp2.uk/plu-646b1438e94c3800082a8cff.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Stan Collection (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-65d881914e01740008a36603.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Stan Collection (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-65d879e266eec8000887e91b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Stan Collection (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-65d87f7a28730900088e7fbf.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Stan Collection (United States) (source=iptv-org) -> https://jmp2.uk/plu-65df48ba28730900089f8480.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-61c0b627e3ed94000793c18a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-61c098df897b9d00070375c8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-61c1e88cd168ea0007068133.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park (United States) (source=iptv-org) -> https://jmp2.uk/plu-62bdb1c5e25122000798ac79.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park Version Original (source=iptv-org) -> https://jmp2.uk/plu-63d7a8e5a9957100086bfc23.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Welcome to Canada! (source=iptv-org) -> https://jmp2.uk/plu-663115d923e24f000843b49c.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Poland] Cartoon Classics (source=iptv-org) -> https://daiconnect.com/live/hls/tvup/rk-cartoonclassics/578f4b7eb725168349ec0af81b21d388/index.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Detective Conan (source=iptv-org) -> https://jmp2.uk/plu-629a066860ef810008267b70.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Detective Conan France (720p) (source=iptv-org) -> https://jmp2.uk/plu-62f3e8ad2a8e8000077b013d.m3u8
+  [DEAD] [HTTP 404] [Argentina] Disney Jr. Latin America North HD (1080p) (source=iptv-org) -> http://181.78.14.26:4000/play/a073/index.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Nickelodeon Pluto TV (720p) (source=iptv-org) -> https://jmp2.uk/plu-5ca673e0d0bd6c2689c94ce3.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Poland] Pixel TV (Poland) (720p) (source=iptv-org) -> https://jmp2.uk/plu-66bb374ba4ee27000841a62c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Retro Toons (source=iptv-org) -> https://jmp2.uk/plu-611e6a9b4bb5790007a6f0f8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Retro Toons GB (source=iptv-org) -> https://jmp2.uk/plu-5c5c2b9d8002db3c3e0b1c6d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Teenage Mutant Ninja Turtles (720p) (source=iptv-org) -> https://jmp2.uk/plu-62619405c733e8000732d1fe.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Avatar (Germany) (source=iptv-org) -> https://jmp2.uk/plu-656df599c0fc8800089c75ab.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Avatar (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-61c09b48d6d97900076e91c5.m3u8
+  [DEAD] [HTTP 404] [International] ☆ Anime Max 🇪🇸 (source=m3u) -> https://streamlov.alsolnet.com/maxanime/live/playlist.m3u8
+  [DEAD] [HTTP 400] [International] ☆ Anime Onegai₁ 🇧🇷 (source=m3u) -> https://stream.ads.ottera.tv/playlist.m3u8?network_id=11777
+  [DEAD] [HTTP 400] [International] ☆ Anime Onegai₂ 🇧🇷 (source=m3u) -> https://stream.ads.ottera.tv/playlist.m3u8?network_id=11776
+  [DEAD] [HTTP 400] [International] ☆ Anime Onegai₃ 🇧🇷 (source=m3u) -> https://stream.ads.ottera.tv/playlist.m3u8?network_id=11775
+  [DEAD] [HTTP 400] [International] ☆ Anime Onegai₄ 🇧🇷 (source=m3u) -> https://stream.ads.ottera.tv/playlist.m3u8?network_id=11774
+  [DEAD] [HTTP 400] [International] ☆ Anime Onegai₅ 🇧🇷 (source=m3u) -> https://stream.ads.ottera.tv/playlist.m3u8?network_id=11773
+  [DEAD] [invalid URL] [International] ☆ loading tv 🇧🇷 (source=m3u) -> +https://stmv1.srvif.com/loadingtv/loadingtv/playlist.m3u8
+  [DEAD] [invalid URL] [International] ☆ Locomotion 🇪🇸 (source=m3u) -> +http://51.222.85.85:81/hls/loco/index.m3u8
+  [DEAD] [HTTP 404] [International] ☆ Ztv 🇨🇱 (source=m3u) -> https://mitv.zplay.cl/Ztv/index.m3u8
+  [DEAD] [html page, not a stream] [Argentina] A24 Ⓨ (source=free-tv) -> https://www.youtube.com/c/A24com/live
+  [DEAD] [html page, not a stream] [Argentina] Argentina 12 Ⓨ (source=free-tv) -> https://www.youtube.com/c/IPNoticiasEnVivo/live
+  [DEAD] [HTTP 404] [Argentina] Aunar (source=free-tv) -> https://5fb24b460df87.streamlock.net/live-cont.ar/mirador/playlist.m3u8
+  [DEAD] [html page, not a stream] [Argentina] Barricada TV (source=free-tv) -> https://www.youtube.com/channel/UC6YundoLrEuBJaPp_oEPWaA/live
+  [DEAD] [html page, not a stream] [Argentina] C5N Ⓨ (source=free-tv) -> https://www.youtube.com/c/c5n/live
+  [DEAD] [HTTP 404] [Argentina] Cine.AR (source=free-tv) -> https://5fb24b460df87.streamlock.net/live-cont.ar/cinear/playlist.m3u8
+  [DEAD] [html page, not a stream] [Argentina] Comarca TV (source=free-tv) -> https://www.youtube.com/c/ComarcaTV/live
+  [DEAD] [html page, not a stream] [Argentina] Crónica TV Ⓨ (source=free-tv) -> https://www.youtube.com/c/cronicatv/live
+  [DEAD] [HTTP 404] [Argentina] DeporTV (source=free-tv) -> https://5fb24b460df87.streamlock.net/live-cont.ar/deportv/playlist.m3u8
+  [DEAD] [html page, not a stream] [Argentina] El Destape Ⓨ (source=free-tv) -> https://www.youtube.com/c/eldestapetv/live
+  [DEAD] [html page, not a stream] [Argentina] Encuentro Ⓨ Ⓖ (source=free-tv) -> https://www.youtube.com/user/encuentro/live
+  [DEAD] [html page, not a stream] [Argentina] LN+ Ⓨ (source=free-tv) -> https://www.youtube.com/c/LaNacionMas/live
+  [DEAD] [html page, not a stream] [Argentina] Pakapaka Ⓨ Ⓖ (source=free-tv) -> https://www.youtube.com/user/CanalPakapaka/live
+  [DEAD] [html page, not a stream] [Argentina] Televisión Pública Ⓨ (source=free-tv) -> https://www.youtube.com/user/TVPublicaArgentina/live
+  [DEAD] [html page, not a stream] [Argentina] TN Todo Noticias Ⓨ (source=free-tv) -> https://www.youtube.com/c/todonoticias/live
+  [DEAD] [html page, not a stream] [Argentina] Urbana Tevé (source=free-tv) -> https://www.youtube.com/channel/UCTnbbQUGmWEKeCq9wWoyN0g/live
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] 10 HD (source=free-tv) -> https://i.mjh.nz/.r/10-nsw.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 4x, last 2026-10-03T15:00:01Z)] [Australia] 10 Peach (source=free-tv) -> https://i.mjh.nz/.r/10peach-nsw.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] 7flix (source=free-tv) -> https://i.mjh.nz/.r/7flix-syd.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] 7mate (source=free-tv) -> https://i.mjh.nz/.r/7mate-syd.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] 7two (source=free-tv) -> https://i.mjh.nz/.r/7two-syd.m3u8
+  [DEAD] [html page, not a stream] [Australia] 9Gem Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/gem-nsw.m3u8
+  [DEAD] [html page, not a stream] [Australia] 9Go! Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/go-nsw.m3u8
+  [DEAD] [html page, not a stream] [Australia] 9Life Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/life-nsw.m3u8
+  [DEAD] [html page, not a stream] [Australia] 9Rush Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/rush-nsw.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] ABC News (source=free-tv) -> https://c.mjh.nz/abc-news.m3u8
+  [DEAD] [html page, not a stream] [Australia] Nine (source=free-tv) -> https://i.mjh.nz/.r/channel-9-nsw.m3u8
+  [DEAD] [HTTP 400] [Australia] Racing.com (source=free-tv) -> https://racingvic-i.akamaized.net/hls/live/598695/racingvic/1500.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] Seven (source=free-tv) -> https://i.mjh.nz/.r/seven-syd.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] TVSN (source=aria) -> https://tvsnhlslivetest.akamaized.net/hls/live/2034711/TVSN-MSL4/master.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Austria] oe24 (source=free-tv) -> https://oe24.mdn.ors.at/live/eds/oe24tv_hd/hls_nodrm/oe24tv_hd-nodrm.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Austria] Servus TV Ⓖ (source=free-tv) -> https://rbmn-live.akamaized.net/hls/live/2002825/geoSTVATweb/master.m3u8
+  [DEAD] [quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-02T20:58:47Z)] [USA] 30A We Love Cars (720p) (source=iptv-org) -> https://30a-tv.com/feeds/vidaa/cars.m3u8
+  [DEAD] [quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Russia] City Eden AutoGid [Not 24/7] (source=iptv-org) -> https://cityeden.catcast.tv/content/47515/index.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Cars (source=iptv-org) -> https://jmp2.uk/plu-5812b3a4249444e05d09cc46.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Cars CA (source=iptv-org) -> https://jmp2.uk/plu-69c592dff0f1a7d732dc6e36.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Motor (Germany) (source=iptv-org) -> https://jmp2.uk/plu-6080345ebb49b90007ce0baf.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Pluto TV Motor (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-68ac52fac9b5923e0585578b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Pluto TV Motor (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-68ac51dede4a734954b5a67a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Pluto TV Motor (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-68ac52b05190a45dc990ee39.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Turbo (source=iptv-org) -> https://jmp2.uk/plu-6014761dfb91870008ea6463.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [UK] Top Gear (720p) (source=iptv-org) -> https://jmp2.uk/plu-636adc255bcf470007d6e0e2.m3u8
+  [DEAD] [html page, not a stream] [Azerbaijan] MTV Azerbaijan Ⓢ Ⓨ (source=free-tv) -> https://www.youtube.com/@MTVAzerbaijan/live
+  [DEAD] [html page, not a stream] [Azerbaijan] Muz TV Ⓨ (source=free-tv) -> https://www.youtube.com/channel/UCgHYcHd2SuX0ees5q0OWicQ/live
+  [DEAD] [html page, not a stream] [Azerbaijan] Real TV Ⓨ (source=free-tv) -> https://www.youtube.com/channel/UCjpoTfA8TXO6QfAWiAB67eA/live
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Belarus] Belros Ⓢ (source=free-tv) -> https://live2.mediacdn.ru/sr1/tro/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Belarus] Беларусь 5 Интернет (source=free-tv) -> https://edge55.dc.beltelecom.by/ngtrk/smil:belarus5int.smil/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 504 (failed the deep check 4x, last 2026-10-03T15:10:12Z)] [Belarus] ОНТ Ⓢ (source=free-tv) -> https://ngtrk.dc.beltelecom.by/ngtrk/smil:ont.smil/playlist.m3u8
+  [DEAD] [html page, not a stream] [Bosnia and Herzegovina] RTV USK Ⓨ (source=free-tv) -> https://www.youtube.com/@rtvusk/live
+  [DEAD] [HTTP 404] [Bosnia and Herzegovina] Sevdah Ⓢ (source=free-tv) -> https://restreamer2.tnt.ba/hls/stream.m3u8
+  [DEAD] [HTTP 404] [Brazil] ISTV (source=free-tv) -> https://video08.logicahost.com.br/istvnacional/srt.stream/istvnacional.m3u8
+  [DEAD] [html page, not a stream] [Brazil] RBC Ⓨ (source=free-tv) -> https://www.youtube.com/watch?v=oUdd3CsxYaE
+  [DEAD] [html page, not a stream] [Brazil] SBT Ⓨ (source=free-tv) -> https://www.youtube.com/watch?v=ABVQXgr2LW4
+  [DEAD] [html page, not a stream] [Brazil] Canal Rural (source=aria) -> https://607d2a1a47b1f.streamlock.net/crur/smil:canalrural.smil/playlist.m3u8
+  [DEAD] [html page, not a stream] [Bulgaria] Euronews Bulgaria Ⓨ (source=free-tv) -> https://www.youtube.com/channel/UCU1i6qBMjY9El6q5L2OK8hA/live
+  [DEAD] [quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-04T11:07:47Z)] [USA] 30A Investment Pitch (720p) (source=iptv-org) -> https://30a-tv.com/feeds/xodglobal/30atv.m3u8
+  [DEAD] [HTTP 404] [Bulgaria] Bloomberg TV Bulgaria (source=iptv-org) -> http://213.91.179.28:8000/play/a04m
+  [DEAD] [HTTP 400] [Canada] BNN Bloomberg (source=iptv-org) -> https://pe-ak-lp01a-9c9media.akamaized.net/live/News1BNNDigi/p/dash/00000001/1bba52dc66e4c68e/manifest.mpd
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-2 (720p) (source=iptv-org) -> http://74.91.26.218:82/live/cctv2hd.m3u8
+  [DEAD] [quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)] [USA] CNBC (720p) [Geo-blocked] (source=iptv-org) -> http://41.205.93.154/CNBC/index.m3u8
+  [DEAD] [HTTP 404] [Qatar] QBC (1080p) (source=iptv-org) -> https://googlecdn1.alkassdigital.net/livestream/qbc4/main.m3u8
+  [DEAD] [HTTP 404] [Canada] CBC News (source=free-tv) -> https://cbcnewshd-f.akamaihd.net/i/cbcnews_1@8981/index_2500_av-p.m3u8
+  [DEAD] [HTTP 404] [Canada] CPAC (FR) (source=free-tv) -> https://bcsecurelivehls-i.akamaihd.net/hls/live/680604/1242843915001_3/master.m3u8
+  [DEAD] [html page, not a stream] [Canada] CTV News Ⓨ (source=free-tv) -> https://www.youtube.com/c/CTVNews/live
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Canada] Global News (source=free-tv) -> https://jmp2.uk/plu-62cbef9ebb857100072fc187.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Canada] Global News Saskatoon (source=free-tv) -> https://jmp2.uk/plu-62cc00359cb58900088dc840.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Canada] Global News Winnipeg (source=free-tv) -> https://jmp2.uk/plu-62cc0120880c890007191016.m3u8
+  [DEAD] [HTTP 400] [Canada] Noovo (source=free-tv) -> https://pe-ak-lp04a-9c9media.akamaized.net/live/NOOVO/p/dash/00000001/f481c583dbd06b6c/manifest.mpd
+  [DEAD] [quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Chile] Bio Bio TV (source=free-tv) -> https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/bbtv/bbtv.smil/playlist.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Chile] Canal 13 (source=free-tv) -> https://redirector.dps.live/hls/13cl/playlist.m3u8
+  [DEAD] [HTTP 404] [Chile] Deportes13 Ⓖ (source=free-tv) -> https://redirector.rudo.video/hls-video/ey6283je82983je9823je8jowowiekldk9838274/13d/13d.smil/playlist.m3u8
+  [DEAD] [quarantined: playlist only, timeout (failed the deep check 4x, last 2026-10-03T15:00:01Z)] [Chile] El Pingüino TV (source=free-tv) -> https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/pinguinotv/pinguinotv.smil/playlist.m3u8
+  [DEAD] [quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Chile] T13 en vivo (source=free-tv) -> https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8
+  [DEAD] [HTTP 400] [Chile] TVN Ⓖ (source=free-tv) -> https://iptv2.intersurtv.cl/TVN/index.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)] [Chile] UCL (source=free-tv) -> https://redirector.rudo.video/hls-video/c54ac2799874375c81c1672abb700870537c5223/ucl/ucl.smil/playlist.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-15 音乐 (source=free-tv) -> http://74.91.26.218:82/live/cctv15hd.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-02T21:46:31Z)] [China] CCTV-9 纪录 (source=free-tv) -> http://74.91.26.218:82/live/cctv9hd.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Beverly Hillbillies (source=iptv-org) -> https://jmp2.uk/plu-5f7796e470510900070d4e3d.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-Nostalgia Theater (1080p) (source=iptv-org) -> http://38.75.136.137:98/gslb/dsdqpub/hjjc.m3u8?auth=%5Bredacted%5D
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Classic TV Crime Drama (source=iptv-org) -> https://jmp2.uk/plu-61325c4f982acd000723287e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Classic TV Drama (source=iptv-org) -> https://jmp2.uk/plu-5f15e3cccf49290007053c67.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Classic TV: Families (source=iptv-org) -> https://jmp2.uk/plu-61325d18f5166c00081b84e0.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Classic TV: Families CA (source=iptv-org) -> https://jmp2.uk/plu-62e91af00c43540007f2bb43.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Hogan's Heroes (source=iptv-org) -> https://jmp2.uk/plu-68939e206727ec919bb39061.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] MacGyver (United States) (source=iptv-org) -> https://jmp2.uk/plu-63eb9dc84e83e70008abea92.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] MacGyver (United States) LatAm (source=iptv-org) -> https://jmp2.uk/plu-63eb95baa99571000898a078.m3u8
+  [DEAD] [HTTP 404] [Bulgaria] Nostalgia (Bulgaria) (source=iptv-org) -> http://213.91.179.28:8000/play/a03q
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Classic TV (source=iptv-org) -> https://jmp2.uk/plu-5d134a74ca91eedee1630faa.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Classic TV Variety (source=iptv-org) -> https://jmp2.uk/plu-68d25c623175a2780d051d3a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Desenhos Classicos (source=iptv-org) -> https://jmp2.uk/plu-655e5c4d2c46f3000877a54b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Retro Crime Action (source=iptv-org) -> https://jmp2.uk/plu-69aee8a1acb7eb0bb68df641.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Retro Crime Drama (source=iptv-org) -> https://jmp2.uk/plu-630f1e6073bd1800082107f0.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Series Retro (source=iptv-org) -> https://jmp2.uk/plu-5de802659167b10009e7deba.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Sherlock (source=iptv-org) -> https://jmp2.uk/plu-5dc2c00abfed110009d97243.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Puto TV Classic TV Crime Drama (source=iptv-org) -> https://jmp2.uk/plu-696e61287d2afdec4ff2cb75.m3u8
+  [DEAD] [HTTP 404] [Costa Rica] Retrox TV (720p) [Not 24/7] (source=iptv-org) -> https://lbgo.bozztv.com/ssh101/ssh101/retyroxtv/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] The Andy Griffith Show (source=iptv-org) -> https://jmp2.uk/plu-60f75178e7f8aa0007e9c259.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] The Andy Griffith Show CA (source=iptv-org) -> https://jmp2.uk/plu-62e9145ec07f2a00070e68dc.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] The Carol Burnett Show (1080p) (source=iptv-org) -> https://carolburnett-vizio.amagi.tv/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] The Love Boat (source=iptv-org) -> https://jmp2.uk/plu-5f7794a788d29000079d2f07.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Western TV (source=iptv-org) -> https://jmp2.uk/plu-5e8df4bc16e34700077e77d3.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] I Love Lucy (source=iptv-org) -> https://jmp2.uk/plu-634f3011f4fff20007431641.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] I Love Lucy CA (source=iptv-org) -> https://jmp2.uk/plu-63a2f1dda0d69700078b7cba.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] The Beverly Hillbillies (source=iptv-org) -> https://jmp2.uk/plu-6565fefdc917a50008485cc6.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Pluto TV Danske klassikere (source=iptv-org) -> https://jmp2.uk/plu-67d2b814fe36d6e7b1d2318a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Retro Action Movies (source=iptv-org) -> https://jmp2.uk/plu-69a9ae4d3bd16a4ed04240d7.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Russia] Smotrim 100% Klassika (720p) (source=iptv-org) -> https://stream.smotrim.ru/hls/fasttv03/playlist_3.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Becker (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-672e16f5daad7f0008929a0d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Becker (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-672e157d7d5da5000812872d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Becker (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-672e1634e482950008c759a5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Cin Cin (source=iptv-org) -> https://jmp2.uk/plu-65cb78b83a116800079e2e35.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Diagnosis Murder (source=iptv-org) -> https://jmp2.uk/plu-668bf9be0642e5000815102d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Diagnosis Murder DK (source=iptv-org) -> https://jmp2.uk/plu-668bf7dd74f5ec000817e6d1.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Diagnosis Murder NO (source=iptv-org) -> https://jmp2.uk/plu-668bf91208d5490008065ffd.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Happy Days (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-654a52254d6d8f00084eacfc.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Happy Days (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-654a4e29ab05240008a18625.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Happy Days (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-654a508d986ad20008a456a5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] JAG (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-654a515f986ad20008a4593b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] JAG (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-654a4ab92c1d330008657ae5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] JAG (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-654a4fc753fc9700083ae79f.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] MacGyver (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-63a19eceb3d0eb0007439c34.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] MacGyver (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-654a59742c1d33000865a797.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] MacGyver (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-654a59d483595c0008187514.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Matlock (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-66290c12801af8000850c1a9.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Matlock (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-66290a779e68c20008a18cf3.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Matlock (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-66290b7523e24f000832cc17.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Mission Impossible (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-639b4f14be012600070fe1be.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Mission Impossible (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-6478a9e4f77b61000817034b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Mission Impossible (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-639b4eb4da3fda0008036f6e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV The Twilight Zone (source=iptv-org) -> https://jmp2.uk/plu-67352ed93a61d4000881f9fa.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Rawhide (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-6964bb3640c8de392514a0c6.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Rawhide (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-6964ba787e92438c2754e924.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Rawhide (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-6964baa63dfd98e10945ac51.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] The Wild Wild West (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-6964bcf9ae33e24d911d7e1c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] The Wild Wild West (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-6964bc3806d76f50db3e315e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] The Wild Wild West (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-6964bca2a6c400fd418854a2.m3u8
+  [DEAD] [HTTP 404] [USA] Timeless TV (source=iptv-org) -> https://timelesstv1-301f.kxcdn.com/hls/TimelessTV.m3u8
+  [DEAD] [quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)] [Chile] 13 Humor (1080p) (source=iptv-org) -> https://origin.dpsgo.com/ssai/event/cKWySXKgSK-SzlJmESkOWw/master.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] AFV (720p) (source=iptv-org) -> https://linear-12.frequency.stream/dist/plex/12/hls/master/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Alle hassen Chris (source=iptv-org) -> https://jmp2.uk/plu-622f6e1e2792150007e0b2ff.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Awkward (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-61c0925c738ecd000882450a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Beavis and Butt-Head (source=iptv-org) -> https://jmp2.uk/plu-6486e8b48e3c0a0008e56914.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Beavis and Butt-Head DK (source=iptv-org) -> https://jmp2.uk/plu-6486e8984cfc2c0008b6844e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Beavis and Butt-Head NO (source=iptv-org) -> https://jmp2.uk/plu-6486e8328e3c0a0008e5686c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Becker (Germany) (source=iptv-org) -> https://jmp2.uk/plu-630348a54c48ce00077eb6c7.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] BET Throwbacks (source=iptv-org) -> https://jmp2.uk/plu-61326275b3c86a00078e4833.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Black Family Sitcoms (source=iptv-org) -> https://jmp2.uk/plu-686d61503484d6073283059d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] British Comedy (source=iptv-org) -> https://jmp2.uk/plu-638e11951177840007fdd6b2.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Broad City (source=iptv-org) -> https://jmp2.uk/plu-65cba7b1ec452d0008acbed8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Broad City DK (source=iptv-org) -> https://jmp2.uk/plu-65cba73611ced700082123bc.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Broad City NO (source=iptv-org) -> https://jmp2.uk/plu-65cba778ec452d0008acbe86.m3u8
+  [DEAD] [HTTP 404] [Bulgaria] bTV Comedy (source=iptv-org) -> http://213.91.179.28:8000/play/a04k
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Caroline in the City (source=iptv-org) -> https://jmp2.uk/plu-66a7ab4dcd0d3100084395b4.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Caroline in the City DK (source=iptv-org) -> https://jmp2.uk/plu-66a7aa44cd0d31000843942b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Caroline in the City NO (source=iptv-org) -> https://jmp2.uk/plu-66a7aac9d512590008ab2dcb.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] CC Pluto TV (source=iptv-org) -> https://jmp2.uk/plu-5d4947590ba40f75dc29c26b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Chappelle's Show (source=iptv-org) -> https://jmp2.uk/plu-65e9783b0d456100082d9e05.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Chappelle's Show DK (source=iptv-org) -> https://jmp2.uk/plu-65e976ad0d456100082d9b74.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Chappelle's Show NO (source=iptv-org) -> https://jmp2.uk/plu-65e977a618036500082ec972.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Cheers + Frasier (source=iptv-org) -> https://jmp2.uk/plu-66ba495ffe11e5000881f049.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Cheers (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-63e389dcc111bc0008ee5b8c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Classic TV Comedy (source=iptv-org) -> https://jmp2.uk/plu-5f15e32b297f96000768f928.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Comedia a lo bestia de Pluto TV (source=iptv-org) -> https://jmp2.uk/plu-68de3db35fc0afe85de0b843.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central Animation (source=iptv-org) -> https://jmp2.uk/plu-64f8a949f5b5e4000862467c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central en Espanol (source=iptv-org) -> https://jmp2.uk/plu-5cf96dad1652631e36d43320.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central Pluto TV (source=iptv-org) -> https://jmp2.uk/plu-5ca671f215a62078d2ec0abf.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central Pluto TV BR (source=iptv-org) -> https://jmp2.uk/plu-5f357e91b18f0b00073583d2.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central Pluto TV LatAm (source=iptv-org) -> https://jmp2.uk/plu-5ffcc21a432945000762d06b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Comedy Central Roast (source=iptv-org) -> https://jmp2.uk/plu-6641fd41b18d700008e7e2b8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Comedy Central (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-61c0b550e0d3a700072b6a2a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Comedy Central (Sweden) DK (720p) (source=iptv-org) -> https://jmp2.uk/plu-61c0989431084d0007eab12d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Comedy Central (United States) CA (source=iptv-org) -> https://jmp2.uk/plu-64f8a408bd341e000818fcda.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Crazy Ex-Girlfriend (source=iptv-org) -> https://jmp2.uk/plu-693ae5b792fad2e93412a2c7.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Crazy Ex-Girlfriend DK (source=iptv-org) -> https://jmp2.uk/plu-693ae5660eedebc8d5db6579.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Crazy Ex-Girlfriend NO (source=iptv-org) -> https://jmp2.uk/plu-693ae58fc2d0f38be38df821.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Daria (source=iptv-org) -> https://jmp2.uk/plu-62d0895ebe7a970008785244.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Everybody Hates Chris (source=iptv-org) -> https://jmp2.uk/plu-697b5be36dc3c71eb14d728a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Everybody Hates Chris DK (source=iptv-org) -> https://jmp2.uk/plu-63a1cab19ab2df0007bf1c8b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Everybody Hates Chris NO (source=iptv-org) -> https://jmp2.uk/plu-697b5a6c9567bf7b5f71a350.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] FailArmy Brazil (source=iptv-org) -> https://jmp2.uk/plu-5f5141c1605ddf000748eb1b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Family Ties (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-654a510d986ad20008a45874.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Family Ties (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-654a4a3ef91d250008ac089b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Family Ties (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-654a4f7bf9cc8200086877d5.m3u8
+  [DEAD] [HTTP 404] [Germany] Frasier: Beruhmte Gaste (source=iptv-org) -> https://jmp2.uk/plu-6790fa9e1cfc4aa96dfadcef.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Funny AF (source=iptv-org) -> https://jmp2.uk/plu-580e87ff497c73ba2f321dd3.m3u8
+  [DEAD] [HTTP 404] [USA] Humor Mill (1080p) (source=iptv-org) -> https://damkf751d85s1.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/HumorMill-DistroTV/152.m3u8?ads.vf=3I7CXmxz7vK
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Key & Peele (source=iptv-org) -> https://jmp2.uk/plu-65cba798d77d450008d056e5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Key & Peele DK (source=iptv-org) -> https://jmp2.uk/plu-65cba715dc10a40008034917.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Key & Peele NO (source=iptv-org) -> https://jmp2.uk/plu-65cba7573ba51e00084d76e1.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Klovn (source=iptv-org) -> https://jmp2.uk/plu-65a63ff00d9ab400080b101c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Man with a Plan (source=iptv-org) -> https://jmp2.uk/plu-6825efbb9eed174f7ffbe5b0.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Man with a Plan DK (source=iptv-org) -> https://jmp2.uk/plu-678f88bb272ded16b1558c5e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Man with a Plan NO (source=iptv-org) -> https://jmp2.uk/plu-6825eeeeb19ce6d4a34ebb2a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] More Pluto TV Comedy (source=iptv-org) -> https://jmp2.uk/plu-62e91c3add66e00007eeb24c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] More TV Sitcoms (source=iptv-org) -> https://jmp2.uk/plu-6132619f9ddaa50007e7dd86.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Comedia made in Spain (source=iptv-org) -> https://jmp2.uk/plu-5f1abce155a03d0007718834.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Comedie (source=iptv-org) -> https://jmp2.uk/plu-5f8eb91bb9b9e7000817e67f.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Comedy (source=iptv-org) -> https://jmp2.uk/plu-5a4d3a00ad95e4718ae8d8db.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Comedy CA (source=iptv-org) -> https://jmp2.uk/plu-62e92178946c8000079a3160.m3u8
+  [DEAD] [HTTP 404] [Germany] Pluto TV Comedy Therapie (source=iptv-org) -> https://jmp2.uk/plu-69b968ba255fecb01f602257.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Deutsche Comedy (source=iptv-org) -> https://jmp2.uk/plu-6672f49f61a39900089db68e.m3u8
+  [DEAD] [HTTP 404] [Germany] Pluto TV Fran: Beste Mama-Momente (source=iptv-org) -> https://jmp2.uk/plu-69b968e011fc7b9e27c0d958.m3u8
+  [DEAD] [HTTP 404] [Germany] Pluto TV Laughs in Spanish (source=iptv-org) -> https://jmp2.uk/plu-69a554179a3f3bb488c7d2be.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Scherzi e risate (source=iptv-org) -> https://jmp2.uk/plu-609404b0a8ec810007d8de9d.m3u8
+  [DEAD] [HTTP 404] [Germany] Pluto TV Worst of Bundy (source=iptv-org) -> https://jmp2.uk/plu-69b968ca1c36025fd0a3d92d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Reno 911 (source=iptv-org) -> https://jmp2.uk/plu-65e9781a2873090008b48d8a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Reno 911 DK (source=iptv-org) -> https://jmp2.uk/plu-65e9766eec9fda0008cb418a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Reno 911 NO (source=iptv-org) -> https://jmp2.uk/plu-65e977874e01740008c9fb4c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Ridiculousness (Germany) (720p) (source=iptv-org) -> https://jmp2.uk/plu-5f8eb8a8b2619a000710605c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Ridiculousness (United States) (source=iptv-org) -> https://jmp2.uk/plu-6996296087742204bff43147.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Sabrina The Teenage Witch (source=iptv-org) -> https://jmp2.uk/plu-66276091cee0d900085fe053.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Sabrina the Teenage Witch (source=iptv-org) -> https://jmp2.uk/plu-6512d72b473a540008592be5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Sabrina the Teenage Witch DK (source=iptv-org) -> https://jmp2.uk/plu-6512ecf63a0d700008db506a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Sabrina the Teenage Witch NO (source=iptv-org) -> https://jmp2.uk/plu-6512d3c96a84140008513ff5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Sabrina: Total verhext! (source=iptv-org) -> https://jmp2.uk/plu-622f40c901d4b70007ad7609.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Sitcom Legends (source=iptv-org) -> https://jmp2.uk/plu-633354b63df9700007f6a1b7.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Sketchy AF (source=iptv-org) -> https://jmp2.uk/plu-67882c1c7b11714b795c2008.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Takeshi's Castle (source=iptv-org) -> https://jmp2.uk/plu-6054a9f4bc8a5f000771504c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Tosh.0 (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-65e97856ec9fda0008cb453c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Tosh.0 (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-65e977042873090008b48be9.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Tosh.0 (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-65e977c48b24c8000805b9ef.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] TV Land Sitcoms (source=iptv-org) -> https://jmp2.uk/plu-5c2d64ffbdf11b71587184b8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Vaya semanita (source=iptv-org) -> https://jmp2.uk/plu-5f28009b150b2500077766b8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Comedias Romanticas (source=iptv-org) -> https://jmp2.uk/plu-655b5d865812e80008843bd1.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Comedies Cultes (source=iptv-org) -> https://jmp2.uk/plu-67b4b2d976a934282e92d71c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Comedy Movies (source=iptv-org) -> https://jmp2.uk/plu-62ea3d24b8e02600071fa296.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Pluto TV Humor (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-61c0974945b45d0007aaa5ac.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Pluto TV Komedi (source=iptv-org) -> https://jmp2.uk/plu-61c0b36d18447e000717d686.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Pluto TV Komedie (source=iptv-org) -> https://jmp2.uk/plu-61c1e3a679a4390007c78136.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Kult Comedies (source=iptv-org) -> https://jmp2.uk/plu-66337de656fc840008ff7a65.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV Series Comedia (source=iptv-org) -> https://jmp2.uk/plu-655e5bc94261ca000810cb17.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Sitcoms (source=iptv-org) -> https://jmp2.uk/plu-5d767ab2b456c8cf265ce921.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Sitcoms GB (source=iptv-org) -> https://jmp2.uk/plu-62f53dc6ee9a0400071dc22b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] The Conners (source=iptv-org) -> https://jmp2.uk/plu-66e2a94d167a8b000813485d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] America's Test Kitchen (720p) (source=iptv-org) -> https://jmp2.uk/plu-5e84f54a82f05300080e6746.m3u8
+  [DEAD] [HTTP 410] [Romania] Hello Taste (source=iptv-org) -> https://dai.google.com/linear/hls/pa/event/YeG0_KbLRjGeYKU2qVhl_Q/stream/30ddffe9-87f0-4dc7-b0fe-8f0e12044f3e:GRQ/variant/c209b0d3694ace6f439e2179fdad8e66/bandwidth/2628000.m3u8
+  [DEAD] [HTTP 404] [Serbia] Kitchen TV (source=iptv-org) -> http://213.91.179.28:8000/play/a03n
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Tastemade Brasil (720p) (source=iptv-org) -> https://jmp2.uk/plu-5fd1419a3b4f4b000773ba85.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Russia] Telecafe (Russia) (720p) (source=iptv-org) -> https://cdn4.skygo.mn/live/disk1/Telecafe/HLSv3-FTA/Telecafe.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Food (source=iptv-org) -> https://jmp2.uk/plu-5dc280c9aa218c0009724b4b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Food GB (source=iptv-org) -> https://jmp2.uk/plu-5ddf930548ff9b00090d5686.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Boligkjop i blinde (source=iptv-org) -> https://jmp2.uk/plu-63c6a1c46d126a000760b91c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Boligkob i blinde (source=iptv-org) -> https://jmp2.uk/plu-63c6a27a4faf1c0007b48f7b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Buying Blind Denmark (source=iptv-org) -> https://jmp2.uk/plu-63c6a7544faf1c0007b496d7.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Italy] Gambero Rosso Channel (720p) (source=iptv-org) -> https://jmp2.uk/plu-6971fc07c945e6e4e5bc46bf.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Koch'en pa toppen (source=iptv-org) -> https://jmp2.uk/plu-660d667519ca71000849a1e1.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] MasterChef Danmarks storste madtalenter (source=iptv-org) -> https://jmp2.uk/plu-61c19edbf535220007075c4e.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Med kniven for struben (source=iptv-org) -> https://jmp2.uk/plu-63e3b33e8795f300087e6a46.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Cocina (source=iptv-org) -> https://jmp2.uk/plu-5f1acdaa8ba90f0007d5e760.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Cucina (source=iptv-org) -> https://jmp2.uk/plu-608aa718a8ec810007d87fee.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Pluto TV Cuisine (source=iptv-org) -> https://jmp2.uk/plu-5f8ed48146ba9e00078424b6.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Pluto TV KFOOD (source=iptv-org) -> https://jmp2.uk/plu-633ee9ba83c08f00076b60a6.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Skonne ombygninger (source=iptv-org) -> https://jmp2.uk/plu-61c19d329b8260000744331b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Stugfixarna Norge (source=iptv-org) -> https://jmp2.uk/plu-61c18ec6ac860c0007684981.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Til Middag Hos (source=iptv-org) -> https://jmp2.uk/plu-61c1a05ef30f5d0007e562f3.m3u8
+  [DEAD] [HTTP 404] [International] ☆ Aftershock 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-62e9184439d80c00076e166d.m3u8
+  [DEAD] [HTTP 404] [International] ☆ Aftershock Real Crime 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-63e36b374e83e70008987c58.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ American Crimes 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-65492fc7056b9700088560b5.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ COPS 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-661cf62d24e1d000087dae0d.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Court tv 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-5dae0b4841a7d0000938ddbd.m3u8
+  [DEAD] [HTTP 404] [International] ☆ Crime Investigation 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-5ea18cd42ee5410007e349dc.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Crime & Justice 🇬🇧 (source=m3u) -> https://jmp2.uk/plu-6601948129adfd0008a1c0ba.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Crime Scene Tv 🇺🇸 (source=m3u) -> https://jmp2.uk/stvp-IN24000030L
+  [DEAD] [invalid URL] [USA] ☆ FilmRise Evil Killers 🇺🇸 (source=m3u) -> +https://apollo.production-public.tubi.io/live/ac-worlds-most-evil-killers.m3u8
+  [DEAD] [invalid URL] [International] ☆ Filmrise Forensic Files 🇺🇸 (source=m3u) -> +https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Forensic-Files.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] ☆ FilmRise Mysteries (source=m3u) -> https://jmp2.uk/rok-16722bc43ef05012afa2297def830266.m3u8
+  [DEAD] [invalid URL] [International] ☆ FilmRise Unsolved Mysteries 🇺🇸 (source=m3u) -> +https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Unsolved-Mysteries.m3u8
+  [DEAD] [HTTP 404] [USA] ☆ JAIL 🇺🇸 (source=m3u) -> https://jmp2.uk/plex-5e20b730f2f8d5003d739db7-6448ba1baf92c31f4a190c27.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Living With Evil by WBtv 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-68bb164fb3900870ec368759.m3u8
+  [DEAD] [HTTP 404] [USA] ☆ Mysteria 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-79b8b2c24f6a5680b7670bf2d832bc2b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Oxygen True Crime Archives 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-654930a8346f420008d3b0b8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ The FBI Files 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-5cb6f6f9a461406ffe4022cf.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ True Crime UK 🇬🇧 (source=m3u) -> https://jmp2.uk/plu-6304fb268bd95300072d2198.m3u8
+  [DEAD] [invalid URL] [International] ☆ TV One Crime & Justice 🇺🇸 (source=m3u) -> +https://apollo.production-public.tubi.io/live/ac-tv-one.m3u8
+  [DEAD] [html page, not a stream] [Croatia] N1 Hrvatska Ⓨ (source=free-tv) -> https://www.youtube.com/@N1_Hrvatska/live
+  [DEAD] [html page, not a stream] [Croatia] TV Dalmacija Ⓨ (source=free-tv) -> https://www.youtube.com/channel/UCvNIJIY4CM-T28UQgbUE4rQ/live
+  [DEAD] [html page, not a stream] [Croatia] Z1 Ⓨ (source=free-tv) -> https://www.youtube.com/@z1televizija/live
+  [DEAD] [HTTP 404] [Greece] ART (Greece) (1080p) (source=iptv-org) -> https://rumble.com/live-hls-dvr/78ixwi/playlist.m3u8
+  [DEAD] [HTTP 404] [Peru] AsiriTV (720p) [Not 24/7] (source=iptv-org) -> https://video2.lhdserver.es/asiritv/live.m3u8
+  [DEAD] [quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)] [Dominican Republic] Canal 17 RTVD (1080p) (source=iptv-org) -> https://cdn.protvradiostream.com/rtvd17/ngrp:rtvd17_all/playlist.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-8 (720p) (source=iptv-org) -> http://74.91.26.218:82/live/cctv8hd.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-04T11:07:47Z)] [Bangladesh] Channel S (Bangladesh) (source=iptv-org) -> https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/channels.stream/live-orgin/channels.stream/playlist.m3u8
+  [DEAD] [HTTP 404] [Spain] Condavision (1080p) [Not 24/7] (source=iptv-org) -> https://5d8d85cf2c308.streamlock.net:1936/Condavision/endirecto/playlist.m3u8
+  [DEAD] [HTTP 404] [Peru] Diaspora TV (source=iptv-org) -> https://s1.tvdatta.com:3978/live/diasporatvlive.m3u8
+  [DEAD] [HTTP 404] [Canada] EET TV (1080p) [Not 24/7] (source=iptv-org) -> https://eu.streamjo.com/eetlive/eettv.m3u8
+  [DEAD] [quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)] [Argentina] Encuentro (720p) (source=iptv-org) -> http://138.59.227.20:8000/play/a05s/index.m3u8
+  [DEAD] [HTTP 404] [UK] Garshom TV (360p) [Not 24/7] (source=iptv-org) -> https://og2qd3aal7an-hls-live.5centscdn.com/garshomtv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
+  [DEAD] [HTTP 404] [Taiwan] Hakka TV (source=iptv-org) -> https://h5cul1yar48um3t.wcetv.com/hls/hakkatv.m3u8
+  [DEAD] [HTTP 404] [Pakistan] HarPal Geo (360p) (source=iptv-org) -> https://jk3lz82elw79-hls-live.5centscdn.com/harPalGeo/955ad3298db330b5ee880c2c9e6f23a0.sdp/playlist.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Iran] IRIB 4 (source=iptv-org) -> https://ncdn.telewebion.ir/tv4/live/playlist.m3u8
+  [DEAD] [HTTP 404] [Cameroon] Kemet TV (source=iptv-org) -> https://kemettv.cm/memfs/4e7fb105-9f92-4e8d-a7cd-09923f17a577.m3u8
+  [DEAD] [HTTP 404] [Australia] MIS Televizija (720p) [Not 24/7] (source=iptv-org) -> https://5afd52b55ff79.streamlock.net/MISTV/myStream/playlist.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Iran] Ofogh TV (source=iptv-org) -> https://ncdn.telewebion.ir/ofogh/live/playlist.m3u8
+  [DEAD] [HTTP 404] [Senegal] One Nation TV (720p) [Not 24/7] (source=iptv-org) -> https://endour.net/hls/One_nationtv/index.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Mexico] Presumiendo Mexico (720p) (source=iptv-org) -> https://60417ddeaf0d9.streamlock.net/telemetrika/smil:telemetrika.smil/playlist.m3u8
+  [DEAD] [HTTP 404] [Italy] Teatro TV (720p) (source=iptv-org) -> https://m.iostream.it/hls/teatrotv/teatrotv.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)] [Colombia] Tele Amiga (480p) [Not 24/7] (source=iptv-org) -> https://liveingesta118.cdnmedia.tv/teleamigatvlive/smil:dvrlive.smil/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)] [Mexico] TV Cuatro 4.2 (1080p) (source=iptv-org) -> https://5f2c1b0d880e5.streamlock.net/tv42/tv42.smil/.m3u8
+  [DEAD] [quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Croatia] HRT 3 (720p) (source=iptv-org) -> https://webtvstream.bhtelecom.ba/hrt3.m3u8
+  [DEAD] [HTTP 404] [Croatia] HRT 3 HD (720p) [Geo-blocked] (source=iptv-org) -> https://bpcdnmanprod.nexttv.ht.hr/bpk-tv/HRT3/default/index.mpd
+  [DEAD] [empty response] [Maldives] YES (source=iptv-org) -> https://customer-ujex1meek7koqd9x.cloudflarestream.com/4f0b316cdb0fbb7f8ca93860ed11d38b/manifest/video.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Vietnam] Vinh Long TV 4 (720p) (source=iptv-org) -> https://dethich.pw/thvl4/index.m3u8
+  [DEAD] [HTTP 404] [Indonesia] Online TV Nusantara (720p) [Not 24/7] (source=iptv-org) -> https://5bf7b725107e5.streamlock.net/onlinetvnusantara/onlinetvnusantara/playlist.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)] [Turkey] Sercem TV (1080p) (source=iptv-org) -> https://canli.sercemtv.com.tr/hls/0/stream.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Spain] El 33 Originals (1080p) [Not 24/7] (source=iptv-org) -> https://directes-tv-int.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
+  [DEAD] [quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [India] JTBS Classic (source=iptv-org) -> https://jtbsclassic.dpdns.org/live.m3u8
+  [DEAD] [html page, not a stream] [Cyprus] TV 2020 Ⓨ (source=free-tv) -> https://www.youtube.com/@TV2020KIBRIS/live
+  [DEAD] [quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Czechia] CNN Prima News (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaNews
+  [DEAD] [quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Czechia] CS History (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+History
+  [DEAD] [quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Czechia] JOJ Cinema (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Cinema
+  [DEAD] [quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Denmark] TV 2/Nord (source=free-tv) -> http://grevsen.dk/live/catchuptv/catchuptv/14.m3u8
+  [DEAD] [quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Denmark] TV 2/Øst (source=free-tv) -> http://grevsen.dk/live/catchuptv/catchuptv/16.m3u8
+  [DEAD] [quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Denmark] TV 2/Østjylland (source=free-tv) -> http://grevsen.dk/live/catchuptv/catchuptv/17.m3u8
+  [DEAD] [quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Denmark] TV/Midt-Vest (source=free-tv) -> http://grevsen.dk/live/catchuptv/catchuptv/13.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Denmark] TV Syd+ (source=free-tv) -> https://cdn.jwplayer.com/live/broadcast/bcZFHqNK.m3u8
+  [DEAD] [html page, not a stream] [International] 3HD (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2z2
+  [DEAD] [html page, not a stream] [International] 7HD (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586v2t2
+  [DEAD] [html page, not a stream] [International] Amarin TV (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u213
+  [DEAD] [html page, not a stream] [International] CH8 (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2z2
+  [DEAD] [html page, not a stream] [International] GMM25 (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2x2
+  [DEAD] [html page, not a stream] [International] JKN 18 (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s2y2
+  [DEAD] [html page, not a stream] [International] JKN 18 (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s2z2
+  [DEAD] [html page, not a stream] [International] Mcot (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2t2
+  [DEAD] [html page, not a stream] [International] Mono 29 (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t213
+  [DEAD] [html page, not a stream] [International] Nation TV (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s213
+  [DEAD] [html page, not a stream] [International] NBT (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586x2
+  [DEAD] [html page, not a stream] [International] One31 (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2u2
+  [DEAD] [html page, not a stream] [International] One31 (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2v2
+  [DEAD] [html page, not a stream] [International] PPTV (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586v2v2
+  [DEAD] [html page, not a stream] [International] Thairath TV (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2x2
+  [DEAD] [html page, not a stream] [International] TNN (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s2w2
+  [DEAD] [html page, not a stream] [International] TNN (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s2x2
+  [DEAD] [html page, not a stream] [International] TPBS (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586z2
+  [DEAD] [HTTP 404] [International] TPTV (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s2u2
+  [DEAD] [html page, not a stream] [International] TPTV (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s2v2
+  [DEAD] [html page, not a stream] [International] True4u (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2u2
+  [DEAD] [html page, not a stream] [International] True4u (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2v2
+  [DEAD] [html page, not a stream] [International] Workpoint (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s223
+  [DEAD] [html page, not a stream] [International] Workpoint (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2t2
+  [DEAD] [html page, not a stream] [Thailand] ททบ.5 (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2
+  [DEAD] [html page, not a stream] [Thailand] 3 ผู้นำฝ่ายอักษะใน WW2 - Hirohito Mussolini Hitler (source=xtemus) -> https://youtu.be/dPiqpiISXJY
+  [DEAD] [html page, not a stream] [Thailand] Adolf Hitler - ช่วงชีวิตวัยหนุ่ม Part 1 (source=xtemus) -> https://youtu.be/nX3DUDN5tXY
+  [DEAD] [html page, not a stream] [Thailand] Benito Mussolini - ลาออกจากครูเพื่อยึดประเทศ (source=xtemus) -> https://youtu.be/lpzyhi0pKRw
+  [DEAD] [html page, not a stream] [Thailand] Charlie Chaplin - ชีวิตที่(ไม่)ตลกของราชาตลก (source=xtemus) -> https://youtu.be/u3E1lSuDPIw
+  [DEAD] [html page, not a stream] [Thailand] Che Guevara จากหมอสู่นักปฏิวัติ (source=xtemus) -> https://youtu.be/JeCpEsY14UM
+  [DEAD] [html page, not a stream] [Thailand] Communist Leader - รวมผู้นำโลกคอมมิวนิสต์ตอนที่ 1 (source=xtemus) -> https://youtu.be/PAR5n0Ha62g
+  [DEAD] [html page, not a stream] [Thailand] George Orwell - สู้เผด็จการด้วยปลายปากกา (source=xtemus) -> https://youtu.be/nXeXBLG2sLA
+  [DEAD] [html page, not a stream] [Thailand] Hirohito - เส้นทางชีวิตจักรพรรดิและบทบาทในสงครามโลกครั้งที่ 2 (source=xtemus) -> https://youtu.be/qzT393p6DZg
+  [DEAD] [html page, not a stream] [Thailand] Hitler Rise to Power - วิธีสร้างอาณาจักรไรซ์ที่ 3 (source=xtemus) -> https://youtu.be/PYtzogoRD3w
+  [DEAD] [html page, not a stream] [Thailand] Joseph Goebbels จอมวางแผนแห่งนาซี (source=xtemus) -> https://youtu.be/M9t0NmQjSz0
+  [DEAD] [html page, not a stream] [Thailand] Karl Marx - ชีวิต อุดมการณ์ และความตาย (source=xtemus) -> https://youtu.be/y1z-o_RpWCQ
+  [DEAD] [html page, not a stream] [Thailand] Korean War ปี 1945-1953 สงครามที่ถูกลืม (source=xtemus) -> https://youtu.be/gBk5Q3KKwUA
+  [DEAD] [html page, not a stream] [Thailand] Michael Faraday - จากลูกจ้างเย็บหนังสือสู่นักวิทยาศาสตร์ผู้ยิ่งใหญ่ (source=xtemus) -> https://youtu.be/rhOZ4zt7biY
+  [DEAD] [html page, not a stream] [Thailand] Oppenheimer - ชีวิตแสนอาภัพของบิดาปรมาณู (source=xtemus) -> https://youtu.be/G5-7A7ZpA4g
+  [DEAD] [html page, not a stream] [Thailand] Podcast เจ้าแห่งการโฆษณาชวนเชื่อ เกิบเบิล (source=xtemus) -> https://youtu.be/DO-vFMIgjic
+  [DEAD] [html page, not a stream] [Thailand] Pol Pot - กำเนิดพลพต และเขมรแดง Part 1/2 (source=xtemus) -> https://youtu.be/OC4XM7Lz1u0
+  [DEAD] [html page, not a stream] [Thailand] Pol Pot - อวสานเขมรแดง Part 2/2 (source=xtemus) -> https://youtu.be/rb2FT7kXs_o
+  [DEAD] [html page, not a stream] [Thailand] Saigo Takamori - The Last True Samurai (source=xtemus) -> https://youtu.be/g8IF2HANOgs
+  [DEAD] [html page, not a stream] [Thailand] Sigmund Freud - ชายผู้ค้นพบจักรวาลแห่งจิตใต้สำนึก (source=xtemus) -> https://youtu.be/DrG8_YtOma4
+  [DEAD] [html page, not a stream] [Thailand] Space Race - เมื่อนักวิทย์นาซีกลายเป็นผู้ก่อตั้งนาซ่า (1946-1969) (source=xtemus) -> https://youtu.be/UyW13x1I_28
+  [DEAD] [html page, not a stream] [Thailand] The Iran - Iraq War(1979 - 1988) อิหร่านและอิรัก Vol. 1 (source=xtemus) -> https://youtu.be/AWFean2L34Q
+  [DEAD] [html page, not a stream] [Thailand] The Iran - Iraq War(1979-1989) - จุดจบสงครามอิหร่าน อิรัก Vol. 2 (source=xtemus) -> https://youtu.be/HrPcFtg8wVQ
+  [DEAD] [html page, not a stream] [Thailand] Tommaso Buscetta - ชายผู้ล้มอาณาจักร Cosa Nostra แห่งซิซิลี (source=xtemus) -> https://youtu.be/JxB3VWoVuw8
+  [DEAD] [html page, not a stream] [Thailand] Vietnam War 1858-1975 - สงครามเวียดนาม (source=xtemus) -> https://youtu.be/LIgKC3Z5P-0
+  [DEAD] [html page, not a stream] [Thailand] Winston Churchill - ฮีโร่ หรือวายร้าย (source=xtemus) -> https://youtu.be/nFcbdl1N6MM
+  [DEAD] [html page, not a stream] [Thailand] ค้นหาแง่มุม 2001 a Space Odyssey (source=xtemus) -> https://youtu.be/J1rebYoYrqY
+  [DEAD] [html page, not a stream] [Thailand] ค้นหาแง่มุม Fight Club - มนุษย์ ถูกพิพากษาให้มีเสรีภาพ (source=xtemus) -> https://youtu.be/jLKRW3pYPkg
+  [DEAD] [html page, not a stream] [Thailand] ค้นหาแง่มุม Taxi Driver(1976) (source=xtemus) -> https://youtu.be/f7nJd4vBtWg
+  [DEAD] [html page, not a stream] [Thailand] ค้นหาแง่มุม The Curious Case of Benjamin Button (source=xtemus) -> https://youtu.be/x4bblA2wARA
+  [DEAD] [html page, not a stream] [Thailand] ค้นหาแง่มุม The Dark Knight - นี่คือหนังซุปเปอร์ฮีโร่ที่ดีที่สุด ? (source=xtemus) -> https://youtu.be/s4hqxRMH3Lw
+  [DEAD] [html page, not a stream] [Thailand] ค้นหาแง่มุม The Green Mile (source=xtemus) -> https://youtu.be/CpoFUBsRwoI
+  [DEAD] [html page, not a stream] [Thailand] ค้นหาแง่มุม Walter Mitty - วิธีสร้างคุณค่าให้ตัวเอง (source=xtemus) -> https://youtu.be/w0ggPKRStbM
+  [DEAD] [html page, not a stream] [Thailand] ชีวิต(ไม่)ลับของอัลเบิร์ต ไอน์สไตน์ (1879 – 1955) (source=xtemus) -> https://youtu.be/8MsZNhxwLs8
+  [DEAD] [html page, not a stream] [Thailand] นิโคลา เทสล่า - ชีวิตน่าเศร้าของชายที่ชื่อเทสลา (source=xtemus) -> https://youtu.be/cQsufGtEFLw
+  [DEAD] [html page, not a stream] [Thailand] ยูเครน - รัสเซีย เหตุการณ์ขัดแย้ง 1,000 ปี (source=xtemus) -> https://youtu.be/IrA4fNgd8Hk
+  [DEAD] [html page, not a stream] [Thailand] สงครามอิรัก - อิหร่าน ปฐมบทสงครามอ่าวเปอร์เซีย (source=xtemus) -> https://youtu.be/mjIUqAb-Xc8
+  [DEAD] [html page, not a stream] [Thailand] สงครามเย็น ปี 1945 - 1991 (source=xtemus) -> https://youtu.be/0NIom_KOQ-E
+  [DEAD] [html page, not a stream] [Thailand] สงครามโทรจัน - เมื่อกรุงทรอยต้องล่มสลายเพราะแอปเปิ้ลลูกเดียว (source=xtemus) -> https://youtu.be/JQxe3rv5DPA
+  [DEAD] [invalid URL] [Thailand] เพราะความหวังของคนไม่มีวันหมดอายุ The Shawshank Redemtion (source=xtemus) -> https://img.youtube.com/vi/css1RDMDZkA/mqdefault.jpg https://youtu.be/css1RDMDZkA
+  [DEAD] [html page, not a stream] [Thailand] เหมา เจ๋อตง - จากจุดเริ่มต้นถึงจุดจบ (source=xtemus) -> https://youtu.be/lKxwi16Jtgw
+  [DEAD] [html page, not a stream] [Thailand] โจเซฟ สตาลิน - จากคนธรรมดาสู่ผู้นำสหภาพโซเวียต (source=xtemus) -> https://youtu.be/vpilWX5NdtQ
+  [DEAD] [html page, not a stream] [Thailand] การต่อสู้บนเกาะมิดเวย์ (source=xtemus) -> https://youtu.be/xvtUQUtTYP4
+  [DEAD] [html page, not a stream] [Thailand] ขุมทรัพย์เรือโจรสลัด (source=xtemus) -> https://youtu.be/oxp3iqCysBE
+  [DEAD] [html page, not a stream] [Thailand] ความลับใต้เปลือกโลก (source=xtemus) -> https://youtu.be/Q5zrzMEZdQ4
+  [DEAD] [html page, not a stream] [Thailand] คำสาปแห่งตุตันคาเมน (source=xtemus) -> https://youtu.be/Gx7aJCXYixc
+  [DEAD] [html page, not a stream] [Thailand] จักรพรรดิแห่งท้องทะเล (source=xtemus) -> https://youtu.be/dkwJoos7oCs
+  [DEAD] [html page, not a stream] [Thailand] ฉลามนักจู่โจม (source=xtemus) -> https://youtu.be/UZlvSQwvw8o
+  [DEAD] [html page, not a stream] [Thailand] ตะลุยอาร์กติก (source=xtemus) -> https://youtu.be/j9BKsXLwnpw
+  [DEAD] [html page, not a stream] [Thailand] ตามล่าพายุฝุ่น (source=xtemus) -> https://youtu.be/I_aAVMmb9IA
+  ... and 3306 more dead links (see report.json).
 
 ----------------------------------------------------------------------------------------
-4. UNVERIFIED LINKS (0)
+4. UNVERIFIED LINKS (2961)
 ----------------------------------------------------------------------------------------
+  [UNVERIFIED] [gaierror] [USA] A&E US Eastern Feed (HD) (source=ae-networks) -> https://tvpass.org/live/AEEast/hd
+  [UNVERIFIED] [gaierror] [USA] A&E US Eastern Feed (SD) (source=ae-networks) -> https://tvpass.org/live/AEEast/sd
+  [UNVERIFIED] [SSLError] [Albania] Alpo TV (source=free-tv) -> https://5d00db0e0fcd5.streamlock.net/7236/7236/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Albania] Cufo (source=aria) -> https://ranapkz.site/RANAPK33k/TVD/play.php?id=194
+  [UNVERIFIED] [HTTP 403] [Albania] Tring Kids (source=aria) -> https://ranapkz.site/RANAPK33k/TVD/play.php?id=196
+  [UNVERIFIED] [HTTP 403] [Albania] Tring Tring (source=aria) -> https://ranapkz.site/RANAPK33k/TVD/play.php?id=195
+  [UNVERIFIED] [HTTP 504] [Spain] Anime Vision (1080p) (source=iptv-org) -> https://d1ujfw1zyymzyd.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-a6fukwkbxmex8/live/fast-channel-animevision-64527ec0/fast-channel-animevision-64527ec0.m3u8
+  [UNVERIFIED] [HTTP 504] [Spain] Anime Vision Classics (1080p) (source=iptv-org) -> https://d82pyvmcw2kdc.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-swfivzrzwamaq/live/fast-channel-animevisionclassics-efc8dc6d/fast-channel-animevisionclassics-efc8dc6d.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] DreamWorks Channel Asia (1080p) (source=iptv-org) -> https://cdn12.178.indevs.in/163189/dreamworks
+  [UNVERIFIED] [TimeoutError] [Chile] EnerGeek FAN (1080p) (source=iptv-org) -> https://backend.energeek.cl/webtv/egfanweb/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [TimeoutError] [Chile] ETC TV (1080p) (source=iptv-org) -> http://cdn1tlinkgo.tlink.cl/etc/mono.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Pro100TV (576p) (source=iptv-org) -> https://sirius.greenhosting.ru/Pro100tvRu/video.m3u8
+  [UNVERIFIED] [HTTP 403] [UK] BBC Three/CBBC (720p) (source=iptv-org) -> http://193.46.58.239:8080/CBBCHD/index.m3u8
+  [UNVERIFIED] [SSLError] [Russia] Detvora+ (1080p) (source=iptv-org) -> https://cdn.rostelekom-tv.xyz/live/WAYU4PTJ_VVz4wAQ.m3u8
+  [UNVERIFIED] [HTTP 403] [UK] BBC Four/CBeebies (720p) (source=iptv-org) -> http://193.46.58.239:8080/CbeebiesHD/index.m3u8
+  [UNVERIFIED] [HTTP 401] [Turkey] Disney Jr. (Turkiye) (1080p) [Geo-blocked] (source=iptv-org) -> https://saran-live.ercdn.net/disneyjunior/index.m3u8
+  [UNVERIFIED] [TimeoutError] [China] Golden Eagle Cartoon (576p) (source=iptv-org) -> http://223.110.245.145/ott.js.chinamobile.com/PLTV/3/224/3221226303/index.m3u8
+  [UNVERIFIED] [HTTP 403] [China] Jiangxi Children's Channel (source=iptv-org) -> https://play-live-hls.jxtvcn.com.cn/live-city/tv_jxtv6.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] KidOO (1080p) [Geo-blocked] (source=iptv-org) -> http://15.204.246.24:8080/KidooHD/index.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Multimania (576p) (source=iptv-org) -> https://sirius.greenhosting.ru/MultimaniaRu/tracks-v1a1/mono.m3u8
+  [UNVERIFIED] [gaierror] [Latvia] Pingviins (720p) (source=iptv-org) -> https://sirius.greenhosting.ru/PingvinRu/video.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Solnce (576p) (source=iptv-org) -> http://31.148.48.15/Solnce/index.m3u8
+  [UNVERIFIED] [HTTP 403] [United Arab Emirates] Spacetoon Arabic (576p) (source=iptv-org) -> https://live-uae-next.spacetoongo.com/ST_MENA_NEXT/hls/r9p2hjipmw2kl.m3u8
+  [UNVERIFIED] [HTTP 403] [South Korea] Tooniverse [Geo-blocked] (source=iptv-org) -> https://xyktmobile00.s.gy/PPV939_TOONCAST
+  [UNVERIFIED] [TimeoutError] [China] You Man Cartoon Channel (576p) (source=iptv-org) -> http://183.207.249.15/PLTV/4/224/3221225933/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] SX3 (1080p) [Geo-blocked] (source=iptv-org) -> https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] FAN (1080p) (source=iptv-org) -> http://31.148.48.15/Fan/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Hong Kong] ☆ Animax (source=m3u) -> https://tglmp01.akamaized.net/out/v1/de55fad9216e4fe7ad8d2eed456ba1ec/manifest.mpd
+  [UNVERIFIED] [TimeoutError] [International] ☆ Hallo! Anime 🇧🇷 (source=m3u) -> https://cdn-3.nxplay.com.br/HALLOANIME/tracks-v1a1/mono.m3u8
+  [UNVERIFIED] [HTTP 403] [Argentina] El Nueve (source=free-tv) -> http://45.226.28.9:8085/Live/18e292ea93b66c65c76707f07c489d61/local-canal9.playlist.m3u8
+  [UNVERIFIED] [gaierror] [Argentina] Tec TV (source=free-tv) -> https://tv.initium.net.ar:3939/live/tectvmainlive.m3u8
+  [UNVERIFIED] [HTTP 403] [Australia] 10 Shake (source=free-tv) -> https://i.mjh.nz/.r/10shake-nsw.m3u8
+  [UNVERIFIED] [TimeoutError] [Australia] M4TV (source=free-tv) -> https://5a32c05065c79.streamlock.net/live/stream/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Australia] NITV Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/sbs-5nsw.m3u8
+  [UNVERIFIED] [HTTP 403] [Australia] SBS Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/sbs-sbst.m3u8
+  [UNVERIFIED] [HTTP 403] [Australia] SBS Food Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/sbs-3syd.m3u8
+  [UNVERIFIED] [HTTP 403] [Australia] SBS Viceland Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/sbs-2syd.m3u8
+  [UNVERIFIED] [HTTP 403] [Australia] SBS World Movies Ⓖ (source=free-tv) -> https://i.mjh.nz/.r/sbs-4syd.m3u8
+  [UNVERIFIED] [HTTP 403] [Austria] ORF 1 Ⓖ (source=free-tv) -> https://orf1.mdn.ors.at/out/u/orf1/q8c/manifest.m3u8
+  [UNVERIFIED] [HTTP 403] [Austria] ORF 2 Ⓖ (source=free-tv) -> https://orf2.mdn.ors.at/out/u/orf2/q8c/manifest.m3u8
+  [UNVERIFIED] [HTTP 403] [Austria] ORF III Ⓖ (source=free-tv) -> https://orf3.mdn.ors.at/out/u/orf3/q8c/manifest.m3u8
+  [UNVERIFIED] [HTTP 403] [Austria] ORF Sport + Ⓖ (source=free-tv) -> https://orfs.mdn.ors.at/out/u/orfs/q8c/manifest.m3u8
+  [UNVERIFIED] [TimeoutError] [Austria] P3TV (source=free-tv) -> http://p3-6.mov.at:1935/live/weekstream/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Austria] RTS Ⓖ (source=free-tv) -> https://58b42f6c8c9bf.streamlock.net:8080/live/RTS2015/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Austria] ORF Kids (source=aria) -> https://web12.mdn.ors.at/orf/web12/qxb/manifest.m3u8
+  [UNVERIFIED] [gaierror] [Bulgaria] 100% Auto Moto TV (406p) [Not 24/7] (source=iptv-org) -> http://100automoto.tv:1935/bgtv1/autotv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Auto Plus (576p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Avto_Plyus/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Avto24 (1080i) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Avto_24/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Belarus] 8 Kanal Vitebsk Ⓢ (source=free-tv) -> http://95.46.208.8:24433/art
+  [UNVERIFIED] [TimeoutError] [Belarus] Hawe TV Vitebsk Ⓢ (source=free-tv) -> http://95.46.208.8:26259/nashe
+  [UNVERIFIED] [gaierror] [Belarus] Planeta RTR Ⓢ (source=free-tv) -> https://a3569455801-s26881.cdn.ngenix.net/live/smil:rtrp.smil/chunklist_b1600000.m3u8
+  [UNVERIFIED] [RemoteDisconnected] [Belarus] Radio HIT Orsk (source=free-tv) -> http://hithd.camsh.orsk.ru/hls/hithd.m3u8
+  [UNVERIFIED] [TimeoutError] [Belarus] Vitebsk Telekanal (source=free-tv) -> https://flu.vtv.by/tvt-non-by/tracks-v1a1/mono.m3u8
+  [UNVERIFIED] [HTTP 403] [Belgium] Arte Belgique Ⓖ (source=free-tv) -> https://artesimulcast.akamaized.net/hls/live/2031003/artelive_fr/index.m3u8
+  [UNVERIFIED] [gaierror] [Belgium] EEN (source=free-tv) -> https://live-vrt.rabah.net/groupc/live/8edf3bdf-7db3-41c3-a318-72cb7f82de66/live_aes.isml/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Belgium] LN24 (source=free-tv) -> https://live.cdn.ln24.be/out/v1/b191621c8b9a436cad37bb36a82d2e1c/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Belgium] TV5 Monde (source=free-tv) -> https://ott.tv5monde.com/Content/HLS/Live/channel(fbs)/variant.m3u8
+  [UNVERIFIED] [TimeoutError] [Bosnia and Herzegovina] BHT 1 (source=free-tv) -> https://bhrtstream.bhtelecom.ba/bhrtportal_hd.m3u8
+  [UNVERIFIED] [TimeoutError] [Bosnia and Herzegovina] Federalna televizija (FTV) Ⓢ (source=free-tv) -> http://94.250.2.6:7374/play/a02s/index.m3u8
+  [UNVERIFIED] [not probed: unsupported scheme rtsp] [Bosnia and Herzegovina] Neon TV (source=free-tv) -> rtsp://185.50.56.16:554/neontelvizija
+  [UNVERIFIED] [TimeoutError] [Bosnia and Herzegovina] TV BPK Ⓢ (source=free-tv) -> http://94.250.2.6:7374/play/a02u/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Bosnia and Herzegovina] BHT 1 HD (source=aria) -> https://mob.webtvstream.bhtelecom.ba/hls13/bhrtportal_hd_1200.m3u8
+  [UNVERIFIED] [HTTP 403] [Brazil] Canal Saude (source=aria) -> https://eitv7.cdn.broadpeak.io/account351-i1495/event/canalsaude/format720p.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] Discovery Science (source=aria) -> http://45.185.11.126:8000/play/a077/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Turkey] Bloomberg HT (720p) (source=iptv-org) -> https://ciner-live.daioncdn.net/bloomberght/bloomberght.m3u8
+  [UNVERIFIED] [HTTP 403] [Belgium] Canal Z (1080p) (source=iptv-org) -> https://d1hz1p2gea2zy4.cloudfront.net/live/rmgtv/RMG-TRENDSZFR-LIVE/index.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Singapore] CNBC Asia (720p) (source=iptv-org) -> http://nmk.ioapk.com:5050/4gtv-live130/index.m3u8
+  [UNVERIFIED] [RemoteDisconnected] [Indonesia] CNBC Indonesia (source=free-tv) -> https://live.cnbcindonesia.com/livecnbc/smil:cnbctv.smil/playlist.m3u8
+  [UNVERIFIED] [RemoteDisconnected] [Bangladesh] Ekhon TV (1080p) (source=iptv-org) -> https://tplay.live/out/bangladesh/ekhontv.index.m3u8
+  [UNVERIFIED] [HTTP 403] [India] ET Now (720p) [Geo-blocked] (source=iptv-org) -> https://dztlhgid9me95.cloudfront.net/live-tv/Vidgyor/etnow/etnow_master.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Fox Business Network (576p) (source=iptv-org) -> https://tvsen6.aynaott.com/foxbusiness/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Hong Kong] Hong Kong International Business Channel (1080p) [Geo-blocked] (source=iptv-org) -> https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
+  [UNVERIFIED] [HTTP 403] [China] Jiangxi Economy & Life Channel (source=iptv-org) -> https://play-live-hls.jxtvcn.com.cn/live-city/tv_jxtv3.m3u8
+  [UNVERIFIED] [HTTP 403] [Belgium] Kanaal Z (1080p) (source=iptv-org) -> https://d1hz1p2gea2zy4.cloudfront.net/live/rmgtv/RMG-TRENDSZNL-LIVE/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Togo] NW Economie (576p) (source=iptv-org) -> https://hls.newworldtv.com/nw-economie/video/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] RBK-TV (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/RBK/video.m3u8
+  [UNVERIFIED] [gaierror] [China] Xi'an Business Information Channel (180p) [Not 24/7] (source=iptv-org) -> http://stream2.xiancity.cn/xatv3/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [China] Xuzhou Economic Life Channel (1080p) (source=iptv-org) -> http://223.110.245.167/ott.js.chinamobile.com/PLTV/3/224/3221225947/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] BFM Business (1080p) (source=iptv-org) -> https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_BUSINESS/index.m3u8?end=END&start=LIVE
+  [UNVERIFIED] [TimeoutError] [Canada] CHCH (source=free-tv) -> http://152.89.62.111:8080/nXyAiP3DNp/QgOuvocpGv/222841
+  [UNVERIFIED] [TimeoutError] [Canada] NTV (source=free-tv) -> http://152.89.62.111:8080/nXyAiP3DNp/QgOuvocpGv/223012
+  [UNVERIFIED] [HTTP 503] [Canada] Télé Québec (source=free-tv) -> https://bcovlive-a.akamaihd.net/575d86160eb143458d51f7ab187a4e68/us-east-1/6101674910001/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Chad] Tchad 24 (source=free-tv) -> http://102.131.58.110/out_1/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] 24 horas (source=free-tv) -> https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] Chilevisión Ⓖ (source=free-tv) -> https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] Chilevisión Noticias (source=free-tv) -> https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvn/chvn.smil/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Chile] NTV Ⓖ (source=free-tv) -> https://cdn1tlinkgo.tlink.cl/ntvhd/mono.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] TV Chile Ⓖ (source=free-tv) -> https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] UChile TV (source=free-tv) -> https://unlimited1-us.dps.live/uchiletv/uchiletv.smil/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Chile] 13Rec (576p) (source=iptv-org) -> http://45.4.1.201:8000/play/a11i/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Turkey] GEM Classic (source=iptv-org) -> https://ca-rt.onetv.app/gemclassic/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [TimeoutError] [Russia] Nostalgia (Russia) (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Nostalgiya/video.m3u8
+  [UNVERIFIED] [HTTP 403] [Saudi Arabia] Rotana Classic (1080p) [Geo-blocked] (source=iptv-org) -> https://rotana.hibridcdn.net/rotananet/classical_net-7Y83PP5adWixDF93/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Chile] TVN3 (1080p) (source=iptv-org) -> http://cdn1tlinkgo.tlink.cl/tvn3/mono.m3u8
+  [UNVERIFIED] [HTTP 403] [India] Zee Cine Classic (1080p) (source=iptv-org) -> https://amg00862-amg00862c8-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c8-amgplt0173/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Latvia] Movify Kino (576p) (source=iptv-org) -> https://void.greenhosting.ru/MovifyKino_Mpeg4/index.m3u8
+  [UNVERIFIED] [SSLError] [Russia] Velvet. Golden Collection (1080p) (source=iptv-org) -> https://cdn.rostelekom-tv.xyz/live/v804qFZr0QVQ1s9Z.m3u8
+  [UNVERIFIED] [SSLError] [Russia] Velvet. Sovetskoe Kino (1080p) (source=iptv-org) -> https://cdn.rostelekom-tv.xyz/live/nF4sFCa49nFPHSF_.m3u8
+  [UNVERIFIED] [gaierror] [USA] AFV Espanol (720p) [Not 24/7] (source=iptv-org) -> https://linear-46.frequency.stream/dist/plex/46/hls/master/playlist.m3u8
+  [UNVERIFIED] [SSLEOFError] [Romania] Comedy Central (Romania) (source=iptv-org) -> https://saruman1.tharen1.cfd/comedi/usergenrx7zo1kr.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] Comedy Dynamics (1080p) (source=iptv-org) -> https://comedydynamics-plex-ingest.cinedigm.com/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Georgia] Comedy TV (source=iptv-org) -> http://31.146.5.178:8087/play/a00b/index.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Gagsnetwork (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Gagsnetwork/video.m3u8
+  [UNVERIFIED] [HTTP 403] [Turkey] GEM Comedy (source=iptv-org) -> https://ca-rt.onetv.app/gemcomedy/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [Russia] Kamedi HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Kinopokaz_HD2/index.m3u8
+  [UNVERIFIED] [HTTP 502] [USA] Kevin Hart's LOL! Network (720p) (source=iptv-org) -> https://d1kt53vrikzr5o.cloudfront.net/v1/lol_lolnetwork_5/samsungheadend_us/latest/main/hls/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Laff (576p) (source=iptv-org) -> http://tvsen7.aynascope.net/laff/index.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] Planet Fun (1080p) (source=iptv-org) -> http://66.102.126.10:8000/play/a02k/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Saudi Arabia] Rotana Comedy (1080p) [Geo-blocked] (source=iptv-org) -> https://rotana.hibridcdn.net/rotananet/comedy_net-7Y83PP5adWixDF93/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Portugal] Star Comedy (source=iptv-org) -> http://znty.dyndns.org:5010/hls/foxcomedy.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] TVMatic Comedy (720p) (source=iptv-org) -> http://cdn.tvmatic.net/comedy.m3u8
+  [UNVERIFIED] [HTTP 403] [India] Zee Comedy Nation (1080p) (source=iptv-org) -> https://amg00862-amg00862c5-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c5-amgplt0173/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Russia] alpha Cinema (1080p) (source=iptv-org) -> https://live.15plusmg.ru/memfs/b389173a-df4e-4171-8904-e249893e71eb.m3u8
+  [UNVERIFIED] [SSLError] [Russia] Velvet. Series Hits (1080p) (source=iptv-org) -> https://cdn.rostelekom-tv.xyz/live/DeWr3Sgw1Aj2lJd0.m3u8
+  [UNVERIFIED] [SSLError] [Russia] Velvet. World Series (1080p) (source=iptv-org) -> https://cdn.rostelekom-tv.xyz/live/2RR44py-yGlIWQIp.m3u8
+  [UNVERIFIED] [HTTP 403] [Israel] HOT Comedy (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/HOTComedy/index.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] 24Kitchen Bulgary (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_24_Kitchen/video.m3u8
+  [UNVERIFIED] [gaierror] [Indonesia] Dens Food Channel [Geo-blocked] (source=iptv-org) -> https://op-group1-swiftservehd-1.dens.tv/h/h221/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Israel] Food Channel (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/FoodChannel/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] FoodTime (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Eda/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Turkey] GEM Food (source=iptv-org) -> https://ca-rt.onetv.app/gemfood/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [TimeoutError] [Pakistan] Masala TV (576p) (source=iptv-org) -> http://103.250.28.74:8000/play/a02x/index.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] Master Chefs Academy TV (720p) (source=iptv-org) -> https://platform-iuoamc.uk/iptv/mca-tv/index.m3u8
+  [UNVERIFIED] [gaierror] [Costa Rica] Canal 2 CDR (source=free-tv) -> https://d3bgcstab9qhdz.cloudfront.net/hls/canal2.m3u8
+  [UNVERIFIED] [HTTP 401] [Costa Rica] Canal 8 (source=aria) -> http://201.237.193.180:9981/stream/channelid/2109973730?profile=pass
+  [UNVERIFIED] [HTTP 401] [Costa Rica] Repretel 11 (source=aria) -> http://201.237.193.180:9981/stream/channelid/220443661?profile=pass
+  [UNVERIFIED] [HTTP 401] [Costa Rica] Repretel 6 (source=aria) -> http://201.237.193.180:9981/stream/channelid/1914694040?profile=pass
+  [UNVERIFIED] [HTTP 401] [Costa Rica] Teletica (source=aria) -> http://201.237.193.180:9981/stream/channelid/2039568413?profile=pass
+  [UNVERIFIED] [gaierror] [International] ☆ The First 48 🇺🇸 (source=m3u) -> https://d3ja4g4lkxnrni.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gxn5naeo1b698/v1/ae_networks_first48_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Croatia] Al Jazeera Balkans (source=free-tv) -> https://live-hls-web-ajb.getaj.net/AJB/index.m3u8
+  [UNVERIFIED] [gaierror] [Croatia] Osječka televizija (OSTV) Ⓢ (source=free-tv) -> https://player-api.new.livestream.com/accounts/27681961/events/8347875/broadcasts/237202062.secure.m3u8
+  [UNVERIFIED] [gaierror] [Croatia] Plava Vinkovačka (source=free-tv) -> https://player-api.new.livestream.com/accounts/26611954/events/7977299/broadcasts/237205435.secure.m3u8
+  [UNVERIFIED] [gaierror] [Croatia] RTL (source=free-tv) -> https://d1cs5tlhj75jxe.cloudfront.net/rtl/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Croatia] RTL 2 (source=free-tv) -> https://d1um9c09e0t5ag.cloudfront.net/rtl2/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Croatia] RTL Kockica (source=free-tv) -> https://d1rzyyum8t0q1e.cloudfront.net/rtl-kockica/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Croatia] Sportska televizija Ⓖ (source=free-tv) -> https://stream.agatin.hr:3087/live/sptvlive.m3u8
+  [UNVERIFIED] [gaierror] [Croatia] Televizija Zapad (source=free-tv) -> http://webtv.zapad.tv:8080/memfs/1ad23803-84c3-41c7-aa91-fce4c7eac52e.m3u8
+  [UNVERIFIED] [TimeoutError] [Ivory Coast] Afro Magic Channel (source=iptv-org) -> https://video1.getstreamhosting.com:1936/8306/8306/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Senegal] Amani TV (1080p) [Not 24/7] (source=iptv-org) -> https://goccn.cloud/hls/amanitv/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Belgium] BAM-TV (source=iptv-org) -> https://belafrikamediatv.vedge.infomaniak.com/livecast/ik:belafrikamediatv/manifest.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] BX Arts (720p) (source=iptv-org) -> https://reflect-stream-bronxnet.cablecast.tv/live-19/live/stream-2/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] BX Culture (720p) (source=iptv-org) -> https://reflect-stream-bronxnet.cablecast.tv/live-7/live/stream-3/live.m3u8
+  [UNVERIFIED] [HTTP 403] [Denmark] DR2 (1080p) [Geo-blocked] (source=iptv-org) -> https://drlivedr2hls.akamaized.net/hls/live/2113623/drlivedr2/master.m3u8
+  [UNVERIFIED] [TimeoutError] [Republic of the Congo] Ev-tele (720p) (source=iptv-org) -> https://playtv4k.live/live/EVTELE/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Taiwan] Indigenous TV (720p) (source=iptv-org) -> http://streamipcf.akamaized.net/live/_definst_/smil:liveabr.smil/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Jus Hindi (1080p) (source=iptv-org) -> http://103.154.3.101:5001/live/960.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Jus One (1080p) (source=iptv-org) -> http://103.154.3.101:5001/live/961.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Jus Punjabi (1080p) (source=iptv-org) -> http://103.154.3.101:5001/live/959.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Kajou TV (720p) [Not 24/7] (source=iptv-org) -> https://video1.getstreamhosting.com:1936/8055/8055/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] Kalsan TV (576p) (source=iptv-org) -> https://ap02.iqplay.tv:8082/iqb8002/ka1s0n/playlist.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] KIIO-LD 10.4 (480p) (source=iptv-org) -> https://streamer1.connectto.com/AABC_WEB_1201/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Pakistan] Mehran TV (576p) (source=iptv-org) -> http://103.250.28.74:8000/play/a00m/index.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Midpen Media Center Channel 30 (720p) (source=iptv-org) -> https://5c2974786200d.streamlock.net/live-chan30/ngrp:ch30_all/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Midpen Media Center Channel 75 (720p) (source=iptv-org) -> https://5c2974786200d.streamlock.net/live-chan75/ngrp:ch75_all/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [North Macedonia] MRT 2 [Geo-blocked] (source=iptv-org) -> https://vipottbpkstream.vip.hr/Content/onevip-hls/Live/Channel(MRT_2)/index.m3u8
+  [UNVERIFIED] [gaierror] [France] Museum TV French [Geo-blocked] (source=iptv-org) -> https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01492-secomsasmediart-museumtv-eng-samsungit/playlist.m3u8
+  [UNVERIFIED] [OSError] [Turkey] Natural TV (720p) [Not 24/7] (source=iptv-org) -> http://broadcasttr.com:1935/naturaltv/bant1/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [China] Nei Monggol TV 2 Mongolian Culture Channel (source=iptv-org) -> http://1.24.190.98:10080/hls/40/index.m3u8
+  [UNVERIFIED] [OSError] [Nigeria] NTA International (576p) [Not 24/7] (source=iptv-org) -> https://api.visionip.tv/live/ASHTTP/visiontvuk-entertainment-ntai-hsslive-25f-4x3-MB/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] NYXT (1080p) (source=iptv-org) -> https://reflect-stream-bronxnet.cablecast.tv/live-10/live/live.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Russia-K +2 (1080p) (source=iptv-org) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/2/kultura-hd/index.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Russia-K +4 (1080p) (source=iptv-org) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/4/kultura-hd/index.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Russia-K +7 (1080p) (source=iptv-org) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/7/kultura-hd/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Teatr (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Teatr/video.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] TV das Artes (360p) (source=iptv-org) -> http://tv02.logicahost.com.br:1935/tvdasartes/tvdasartes/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Chile] UCV TV (1080p) (source=iptv-org) -> http://cdn1tlinkgo.tlink.cl/ucvhd/mono.m3u8
+  [UNVERIFIED] [TimeoutError] [Italy] Wedding TV (source=iptv-org) -> https://stream.cp.ets-sistemi.it:1936/profservtv/profservtv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [UK] BBC Four (source=iptv-org) -> https://cdn.stmify.com/bbc/stream/BBC_FOUR/hevc_iptv_mse_v0.mpd
+  [UNVERIFIED] [TimeoutError] [Chile] NTV (Chile) (1080p) (source=iptv-org) -> http://cdn1tlinkgo.tlink.cl/ntvhd/mono.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Shiksha TV (576p) (source=iptv-org) -> http://51.75.127.199:3141/shikshatv/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Jaya Plus (576p) (source=iptv-org) -> https://mumbai-edge.smartplaytv.in/JayaPLus/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Vietnam] Vinh Long TV 2 (1080p) (source=iptv-org) -> https://1011154949.vnns.net/CDN-FPT02/THVL2-HD-1080p/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Nigeria] Superscreen TV (412p) (source=iptv-org) -> https://video1.getstreamhosting.com:1936/8398/8398/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Turkey] TRT Genc (1440p) [Geo-blocked] (source=iptv-org) -> https://tv-trtgenc.medya.trt.com.tr/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Colombia] Ondambiental TV (360p) (source=iptv-org) -> https://stmv4.voxtvhd.com.br/ondastereo/ondastereo/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Germany] Ost West (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/OstWest/video.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] El 33 (1080p) [Geo-blocked] (source=iptv-org) -> https://directes-tv-cat.3catdirectes.cat/live-content/c33-super3-hls/master.m3u8
+  [UNVERIFIED] [TimeoutError] [Czechia] CS Film (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+Film
+  [UNVERIFIED] [TimeoutError] [Czechia] CS Mystery (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+Mystery
+  [UNVERIFIED] [TimeoutError] [Czechia] JOJ Family Ⓢ (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Family
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Action (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaAction
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Cinema (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaCinema
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Fun (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaFun
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Gold (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaGold
+  [UNVERIFIED] [TimeoutError] [Czechia] Nova Lady (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=NovaLady
+  [UNVERIFIED] [TimeoutError] [Czechia] Prima Krimi (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaKrimi
+  [UNVERIFIED] [TimeoutError] [Czechia] Prima MAX (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=PrimaMax
+  [UNVERIFIED] [TimeoutError] [Czechia] TN Live (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=Nova+TN+Live
+  [UNVERIFIED] [TimeoutError] [Czechia] TV Nova Ⓢ (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=Nova
+  [UNVERIFIED] [TimeoutError] [Czechia] ČT :D (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=CT_D
+  [UNVERIFIED] [TimeoutError] [Czechia] ČT sport Plus (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=%C4%8CT+sport+Plus
+  [UNVERIFIED] [OSError] [Czechia] Šlágr Premium Ⓢ (source=free-tv) -> https://stream-15.mazana.tv/slagrpremium.m3u
+  [UNVERIFIED] [HTTP 403] [Czechia] AMC (source=aria) -> http://185.236.230.212:9981/play/a0bb
+  [UNVERIFIED] [HTTP 403] [Czechia] CANAL+ ACTION HD (source=aria) -> http://185.236.230.212:9981/play/a0bw
+  [UNVERIFIED] [HTTP 403] [Czechia] CANAL+ SPORT (source=aria) -> http://185.236.230.212:9981/play/a0bu
+  [UNVERIFIED] [HTTP 403] [Czechia] CARTOON NETWORK (source=aria) -> http://185.236.230.212:9981/play/a0b7
+  [UNVERIFIED] [HTTP 403] [Czechia] CINEMAX HD (source=aria) -> http://185.236.230.212:9981/play/a0c0
+  [UNVERIFIED] [HTTP 403] [Czechia] CNN PRIMA NEWS HD (source=aria) -> http://185.236.230.212:9981/play/a0bf
+  [UNVERIFIED] [HTTP 403] [Czechia] CS FILM (source=aria) -> http://185.236.230.212:9981/play/a0ay
+  [UNVERIFIED] [HTTP 403] [Czechia] CS HISTORY (source=aria) -> http://185.236.230.212:9981/play/a0cm
+  [UNVERIFIED] [HTTP 403] [Czechia] CS MYSTERY (source=aria) -> http://185.236.230.212:9981/play/a0ch
+  [UNVERIFIED] [HTTP 403] [Czechia] EPIC DRAMA HD CZ/HU/VO (source=aria) -> http://185.236.230.212:9981/play/a0bg
+  [UNVERIFIED] [HTTP 403] [Czechia] FILMBOX EXTRA HD (source=aria) -> http://185.236.230.212:9981/play/a0c2
+  [UNVERIFIED] [HTTP 403] [Czechia] FILMBOX FAMILY (source=aria) -> http://185.236.230.212:9981/play/a0c5
+  [UNVERIFIED] [HTTP 403] [Czechia] FILMBOX HD (source=aria) -> http://185.236.230.212:9981/play/a0ax
+  [UNVERIFIED] [HTTP 403] [Czechia] FILM EUROPE HD (source=aria) -> http://185.236.230.212:9981/play/a0c1
+  [UNVERIFIED] [HTTP 403] [Czechia] JIMJAM (source=aria) -> http://185.236.230.212:9981/play/a0c6
+  [UNVERIFIED] [HTTP 403] [Czechia] JOJ CINEMA HD (source=aria) -> http://185.236.230.212:9981/play/a0cl
+  [UNVERIFIED] [HTTP 403] [Czechia] LALA TV (source=aria) -> http://185.236.230.212:9981/play/a0by
+  [UNVERIFIED] [HTTP 403] [Czechia] NOVA LADY (source=aria) -> http://185.236.230.212:9981/play/a0bl
+  [UNVERIFIED] [HTTP 403] [Denmark] DR1 Ⓖ (source=free-tv) -> https://drlive01texthls.akamaized.net/hls/live/2014186/drlive01text/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Denmark] DR2 Ⓖ (source=free-tv) -> https://drlive02texthls.akamaized.net/hls/live/2014188/drlive02text/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Denmark] DR Ramasjang Ⓖ (source=free-tv) -> https://drlive03texthls.akamaized.net/hls/live/2014191/drlive03text/master.m3u8
+  [UNVERIFIED] [HTTP 403] [International] 3HD (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2y2
+  [UNVERIFIED] [HTTP 403] [International] 7HD (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u223
+  [UNVERIFIED] [HTTP 403] [International] ALTV (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564158603
+  [UNVERIFIED] [HTTP 403] [International] ALTV (2) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s2t2
+  [UNVERIFIED] [HTTP 403] [International] Amarin TV (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u203
+  [UNVERIFIED] [HTTP 403] [International] CH8 (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2y2
+  [UNVERIFIED] [HTTP 403] [International] GMM25 (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2w2
+  [UNVERIFIED] [HTTP 403] [International] Mcot (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t223
+  [UNVERIFIED] [HTTP 403] [International] Mono 29 (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t203
+  [UNVERIFIED] [HTTP 403] [International] Nation TV (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586s203
+  [UNVERIFIED] [HTTP 403] [International] NBT (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586w2
+  [UNVERIFIED] [HTTP 403] [International] PPTV (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586v2u2
+  [UNVERIFIED] [HTTP 403] [International] Thairath TV (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586u2w2
+  [UNVERIFIED] [HTTP 403] [International] TPBS (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586y2
+  [UNVERIFIED] [HTTP 403] [Thailand] ททบ.5 (1) (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415641586t2
+  [UNVERIFIED] [gaierror] [International] XPlore (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415b41586031323
+  [UNVERIFIED] [HTTP 403] [International] ☆ Discovery 🇮🇹 (source=m3u) -> https://jmp2.uk/stvp-IT31000026G
+  [UNVERIFIED] [HTTP 401] [USA] ☆ True History 🇺🇸 (source=m3u) -> https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-614398a08f30fa61e0da7c97.m3u8?X-Plex-Client-Identifier=xgkz9ui5tipdsflhzmh1ar3h&X-Plex-Client-Platform=Chrome&X-Plex-Token=pAYwv6yWYjbLp7fkRvGU
+  [UNVERIFIED] [HTTP 403] [Qatar] Al Jazeera Documentary Ⓖ (source=free-tv) -> https://live-hls-web-ajd.getaj.net/AJD/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Qatar] Al Jazeera Documentary (1080p) [Geo-blocked] (source=iptv-org) -> https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8
+  [UNVERIFIED] [HTTP 403] [UK] BBC Earth Romania (source=iptv-org) -> https://iron1.jarvisx1.cfd/ert/usergenrx8ofzq1kr.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] BBC Earth Romania HD (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_The_World/video.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Cap Terre (1080p) (source=iptv-org) -> http://145.239.5.177/359a/index.m3u8
+  [UNVERIFIED] [TimeoutError] [China] CND Film Discovery Channel (576p) (source=iptv-org) -> http://125.210.152.18:9090/live/FXZL_750.m3u8
+  [UNVERIFIED] [HTTP 403] [Netherlands] DocuBox Russia (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/DocuBoxHD/index.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] Docurama (1080p) (source=iptv-org) -> https://docurama-plex-ingest.cinedigm.com/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Turkey] GEM Nature (source=iptv-org) -> https://ca-rt.onetv.app/gemnature/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [gaierror] [Slovenia] H2 HD (source=iptv-org) -> https://lb.dstvmultimedia.com/HistoryChannel2/index.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] History 2 Latin America Brazil (720p) (source=iptv-org) -> http://45.177.114.114/HISTORY_2/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] History 2 (Russia) (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/H2_HD/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] History (Brazil) (720p) (source=iptv-org) -> http://45.177.114.114/HISTORY/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Slovenia] History (Slovenia) (1080p) (source=iptv-org) -> https://streamer12.xploretv.si/__cl/cg:prod/__c/A1_SI_HISTORYHD_ott/__op/dash-default/__dci/__f/index.m3u8?admin=xploreTv_test_user&redirect=true
+  [UNVERIFIED] [TimeoutError] [Russia] Istoriya (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Istoriya/video.m3u8
+  [UNVERIFIED] [RemoteDisconnected] [Germany] kabel eins Doku (source=iptv-org) -> http://178.27.12.3:9981/stream/channelid/1958526590?profile=pass
+  [UNVERIFIED] [HTTP 403] [Spain] Love The Planet DE (1080p) [Geo-blocked] (source=iptv-org) -> https://amg01821-amg01821c12-rlaxx-gb-10461.playouts.now.amagi.tv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Love The Planet ES (1080p) [Geo-blocked] (source=iptv-org) -> https://amg01821-lovetv-amg01821c9-rlaxx-gb-10458.playouts.now.amagi.tv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Love The Planet IT (1080p) [Geo-blocked] (source=iptv-org) -> https://amg01821-amg01821c11-rlaxx-gb-10459.playouts.now.amagi.tv/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Bulgaria] National Geographic (Bulgaria) (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_Nat_Geo_HD/video.m3u8
+  [UNVERIFIED] [TimeoutError] [Netherlands] National Geographic (Netherlands) HD (1080p) (source=iptv-org) -> http://46.32.176.50/NationalGeographicHD/index.m3u8
+  [UNVERIFIED] [SSLEOFError] [Romania] National Geographic (Romania) (source=iptv-org) -> https://onyx1.mofta1.cfd/ngeo/usergenrnd84oeigt.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] National Geographic (Russia) HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/National_Geo_HD/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Bulgaria] National Geographic Wild (Bulgaria) (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_NG_Wild_HD/video.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] National Geographic Wild (Russia) (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/Nat_Geo_Wild_SD/video.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] National Geographic Wild (Russia) HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Nat_Geo_Wild_HD/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Nauka (Russia) (1080p) (source=iptv-org) -> http://31.148.48.15/Nauka_2.0/index.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] Sky Nature (576p) (source=iptv-org) -> https://tvsen6.aynaott.com/skynature/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] TERRA (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/TERRA_HD/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Top Secret (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Sovershenno_Sekretno/video.m3u8
+  [UNVERIFIED] [TimeoutError] [Turkey] TRT Belgesel (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/TRT_BELGESEL_TR/video.m3u8
+  [UNVERIFIED] [SSLEOFError] [Romania] Viasat Explore (Romania) (source=iptv-org) -> https://arwen1.panaka1.cfd/vexplr/usergenrnd7ke5lgt.m3u8
+  [UNVERIFIED] [gaierror] [Slovenia] Viasat Explore (Slovenia) (source=iptv-org) -> https://lb.dstvmultimedia.com/ViasatExplore/index.m3u8
+  [UNVERIFIED] [SSLEOFError] [Romania] Viasat History (Romania) (source=iptv-org) -> https://arwen1.panaka1.cfd/vhis/usergenrnd4v6g8eigt.m3u8
+  [UNVERIFIED] [gaierror] [Slovenia] Viasat History (Slovenia) (source=iptv-org) -> https://lb.dstvmultimedia.com/ViasatHistory/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Ukraine] Viasat History (Ukraine) (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/VIASAT_EXPLORE_HD_CEE/video.m3u8
+  [UNVERIFIED] [SSLEOFError] [Romania] Viasat Nature (Romania) (source=iptv-org) -> https://arwen1.panaka1.cfd/vnature/usergenrnd2g9eqk.m3u8
+  [UNVERIFIED] [gaierror] [Slovenia] Viasat Nature (Slovenia) (source=iptv-org) -> https://lb.dstvmultimedia.com/ViasatNature/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] viju Nature HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Viasat_Nature_HD/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Tochka.rf (576p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/HD_Life/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Thailand] ALTV (1080p) (source=iptv-org) -> https://thaipbs-ujxrch.cdn.byteark.com/live/playlist_1080p/index.m3u8
+  [UNVERIFIED] [TimeoutError] [China] CETV-1 (576p) (source=iptv-org) -> http://117.161.133.51:81/gitv_live/G_CETV-1/G_CETV-1.m3u8?p=GITV
+  [UNVERIFIED] [TimeoutError] [China] CETV-2 (576p) (source=iptv-org) -> http://117.161.133.51:81/gitv_live/G_CETV-2/G_CETV-2.m3u8?p=GITV
+  [UNVERIFIED] [HTTP 403] [USA] CMAC 2 (720p) (source=iptv-org) -> https://reflect-vod-cmac.cablecast.tv/live-11/live/stream-2/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] CreaTV Channel 28 (720p) (source=iptv-org) -> https://reflect-creatv.cablecast.tv/live-14/live/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Da Vinci (Russia) (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Da_Vinci_Learning/video.m3u8
+  [UNVERIFIED] [gaierror] [Indonesia] Dens Knowledge [Geo-blocked] (source=iptv-org) -> https://op-group1-swiftservehd-1.dens.tv/h/h236/index.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] Detroit Channel 22 (source=iptv-org) -> https://reflect-detroit-vod.cablecast.tv/live-3/live/stream-3/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Serbia] EDU TV (576p) [Not 24/7] (source=iptv-org) -> https://5aa64ca8b95b8.streamlock.net:4443/edutv/edutelevizija/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] English Class (1080p) (source=iptv-org) -> http://31.148.48.15/English_club_TV_HD/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 10 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/411.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 11 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/1410.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 12 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/1532.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 4 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/406.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 5 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/407.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 6 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/408.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 7 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/404.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 8 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/409.m3u8
+  [UNVERIFIED] [TimeoutError] [India] E-Vidya 9 (576p) (source=iptv-org) -> http://103.72.101.252:8080/live/410.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] HCTV Educational Access Channel (source=iptv-org) -> https://reflect-hudsonctv.cablecast.tv/live-26/live/stream-1/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] HKTV (1080p) [Geo-blocked] (source=iptv-org) -> https://reflect-hktv.cablecast.tv/live-3/live/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Ecuador] Inti TV (1080p) [Not 24/7] (source=iptv-org) -> https://5e2f36bc1c433.streamlock.net/inti/inti-network.stream/.m3u8
+  [UNVERIFIED] [TimeoutError] [China] Jiangsu Educational Channel (576p) (source=iptv-org) -> http://223.110.245.151/ott.js.chinamobile.com/PLTV/3/224/3221225923/index.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] KBEV (1080p) (source=iptv-org) -> https://s3-us-west-2.amazonaws.com/beverly-hills-high-school.castus-vod/live/ch1/video.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] KCAT (1080p) (source=iptv-org) -> https://reflect-kcat-live.cablecast.tv/live-2/live/live.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Kite Victers (576p) (source=iptv-org) -> http://51.75.127.199:3141/kitevicters/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Kto est kto (576p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/kto_est_kto/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Sweden] Kunskapskanalen HD (1080p) [Geo-blocked] (source=iptv-org) -> https://svt-live-channel.akamaized.net/l6/se/svtk/master-fmp4.m3u8?defaultSubLang=1&format=hls
+  [UNVERIFIED] [HTTP 403] [USA] LA36 (1080p) (source=iptv-org) -> https://reflect-channel36-la.cablecast.tv/live-3/live/stream-1/live.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] Midpen Media Center Channel 28 (720p) (source=iptv-org) -> https://5c2974786200d.streamlock.net/live-chan28/ngrp:ch28_all/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] Monroe Community Media Education Channel (source=iptv-org) -> https://reflect-monroe-public-access.cablecast.tv/live-4/live/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] MSTV (1080p) (source=iptv-org) -> https://reflect-mcsb-vod.cablecast.tv/live-16/live/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] PSD TV (720p) (source=iptv-org) -> https://reflect-broadcast-psdschools.cablecast.tv/live-6/live/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] Santa Cecilia TV (1080p) (source=iptv-org) -> https://5fb29de4928ea.streamlock.net/2063/2063/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] St Lucie Public Schools (source=iptv-org) -> https://reflect-stlucie-ps-fl.cablecast.tv/live-1/live/stream-1/WIFI-1896k-720p.m3u8
+  [UNVERIFIED] [HTTP 403] [Mexico] TV BUAP (1080p) (source=iptv-org) -> https://tvenvivo.buap.mx/livestream/stream/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] TV Mackenzie (480p) (source=iptv-org) -> https://player.internetaovivo.com:8443/live_tvmackenzieabr/tvmackenzieabr/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Mexico] TV UJAT (720p) [Not 24/7] (source=iptv-org) -> https://5e50264bd6766.streamlock.net/ujat/videoujat/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Ecuador] UEBI TV Online (720p) [Not 24/7] (source=iptv-org) -> https://ventaxtv.com:3575/live/uebilive.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] UniTV Porto Alegre (480p) (source=iptv-org) -> http://unitvaovivo.ufrgs.br:8080/live.ogg
+  [UNVERIFIED] [TimeoutError] [Sri Lanka] Charana TV (360p) (source=iptv-org) -> https://edge3-moblive.yuppcdn.net/transhd2/smil:chtv05.smil/index.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] NCM Educational & Kids Channel (source=iptv-org) -> https://reflect-npa.cablecast.tv/live-9/live/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Doctor (1080p) (source=iptv-org) -> http://31.148.48.15/Doktor/index.m3u8
+  [UNVERIFIED] [HTTP 567] [China] Jilin Rural Channel (source=iptv-org) -> https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/3ffc4824dce54b92be185555923ce382/index.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Pakistan] Paighan TV (1080p) (source=iptv-org) -> http://116.90.120.151:8000/play/a00h/index.m3u8
+  [UNVERIFIED] [OSError] [China] Chuzhou Science & Education Channel (400p) (source=iptv-org) -> http://live.cztv.cc:85/live/sjpd.m3u8
+  [UNVERIFIED] [HTTP 503] [Egypt] Al Qahera News (source=free-tv) -> https://bcovlive-a.akamaihd.net/d30cbb3350af4cb7a6e05b9eb1bfd850/eu-west-1/6057955906001/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Italy] 20 [Geo-blocked] (source=iptv-org) -> https://live3-mediaset-it.akamaized.net/Content/hls_h0_clr_vos/live/channel(lb)/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Kyrgyzstan] 312 TV (406p) (source=iptv-org) -> http://176.126.166.43:1935/live/312musik/playlist.m3u8
+  [UNVERIFIED] [HTTP 530] [Myanmar] 5 Plus (720p) (source=iptv-org) -> https://mmtvs.exliatycl.online/5plus/stream.m3u8
+  [UNVERIFIED] [HTTP 403] [France] 6ter (1080p) (source=iptv-org) -> http://145.239.5.177/314/index.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] Aathavan TV (720p) [Not 24/7] (source=iptv-org) -> http://45.77.66.224:1935/athavantv/live/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [France] AB1 (720p) (source=iptv-org) -> http://145.239.5.177/332/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Thailand] Amarin TV (source=iptv-org) -> https://lb1-live-mv.v2h-cdn.com/hls/ffad/vibomi/vibomi.m3u8
+  [UNVERIFIED] [gaierror] [USA] AMC en Espanol (source=iptv-org) -> https://amc-amcespanol-1-us.lg.wurl.tv/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Bangladesh] Ananda TV (480p) (source=iptv-org) -> http://103.99.249.139/anandatv/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Germany] Anixe + (360p) (source=iptv-org) -> https://ma.anixa.tv/clips/stream/anixesd/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Germany] Anixe HD Serie (360p) (source=iptv-org) -> https://ma.anixa.tv/clips/stream/anixehd/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Greece] ANT1 (1080p) [Geo-blocked] (source=iptv-org) -> https://mcdn.antennaplus.gr/live/media0/Ant1/HLS/Ant1.m3u8
+  [UNVERIFIED] [gaierror] [Dominican Republic] Antena 21 (480p) (source=iptv-org) -> https://alba-do-antena7-c21.stream.mediatiquestream.com/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] arte (France) (720p) (source=iptv-org) -> http://145.239.5.177/300/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Germany] arte (Germany) (720p) [Geo-blocked] (source=iptv-org) -> https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Hong Kong] Asian Drama (1080p) (source=iptv-org) -> http://103.172.187.30:12000/stream/mytv/null-11/master.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Asianet (576p) (source=iptv-org) -> http://51.75.127.199:3141/asianet/index.m3u8
+  [UNVERIFIED] [SSLEOFError] [USA] AXN White (source=iptv-org) -> https://onyx1.mofta1.cfd/axwhite/usergenx23rnd.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] AXN White Bulgaria (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_AXN_White/video.m3u8
+  [UNVERIFIED] [SSLEOFError] [UK] BBC First Romania (source=iptv-org) -> https://onyx1.mofta1.cfd/bibi1/usergendxn09l2s6cek.m3u8
+  [UNVERIFIED] [RemoteDisconnected] [Belarus] Belarus-2 HD (1080p) (source=iptv-org) -> https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Mexico] bitMe (1080p) (source=iptv-org) -> https://cablered.iptvperu.tv:1936/cablered/bitme-srt_new/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Mexico] bitMe Latin America (1080p) (source=iptv-org) -> https://cablered.iptvperu.tv:1936/cablered/bitme_new/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [UK] Blaze (576p) [Geo-blocked] (source=iptv-org) -> https://live-blaze-ssai.simplestreamcdn.com/v1/master/774d979dd66704abea7c5b62cb34c6815fda0d35/blaze-live-broadcast-scte/index.m3u8
+  [UNVERIFIED] [RemoteDisconnected] [Brazil] Blitstv (source=iptv-org) -> https://stmv1.transmissaodigital.com/blitstv/blitstv/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] Cabo Frio TV (720p) (source=iptv-org) -> https://59f2354c05961.streamlock.net:1443/ararutv/_definst_/ararutv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Argentina] Canal 10 Mar del Plata (source=iptv-org) -> https://g1.mc-hor.transport.edge-access.net/a12/ngrp:canal10mdq-100044_all/Playlist.m3u8?sense=true
+  [UNVERIFIED] [gaierror] [Italy] Canale 5 [Geo-blocked] (source=iptv-org) -> https://live3-mediaset-it.akamaized.net/Content/hls_h0_clr_vos/live/channel(C5)/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] Canale 5 HD (source=iptv-org) -> https://live02-seg.msf.cdn.mediaset.net/live/ch-c5/c5-clr.isml/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Argentina] Canal Pulpo TV (source=iptv-org) -> https://vs20.live.opencaster.com/canalpulpotv_bdeee6e2/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Captain (576p) (source=iptv-org) -> https://mumbai-edge.smartplaytv.in/captain/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Switzerland] Carac 1 (1080p) (source=iptv-org) -> http://145.239.5.177/371/index.m3u8
+  [UNVERIFIED] [HTTP 403] [New Zealand] Channel 200 (540p) (source=iptv-org) -> https://d1jlnqid3sfc6m.cloudfront.net/out/v1/3fc2254c865a457c8d7fbbce227a2aae/index.m3u8
+  [UNVERIFIED] [HTTP 530] [Myanmar] Channel K (720p) (source=iptv-org) -> https://mmtvs.exliatycl.online/channelk/stream.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Colors Bangla (576p) (source=iptv-org) -> http://51.75.127.199:3141/colorsbanglasd/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Colors Bangla HD (1080p) (source=iptv-org) -> http://103.165.93.31:8095/colorsBangla/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Colors HD (1080p) (source=iptv-org) -> http://66.102.126.10:8000/play/a00a/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Colors Infinity (576p) (source=iptv-org) -> http://51.75.127.199:3141/colorsinfinitysd/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Colors Kannada (576p) (source=iptv-org) -> http://51.75.127.199:3141/colorskannadasd/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Colors Marathi (576p) (source=iptv-org) -> http://51.75.127.199:3141/colorsmarathisd/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Colors Tamil (576p) (source=iptv-org) -> http://51.75.127.199:3141/colorstamil/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] C Star (1080p) (source=iptv-org) -> http://145.239.5.177/361/index.m3u8
+  [UNVERIFIED] [gaierror] [Indonesia] Dens ShowBiz [Geo-blocked] (source=iptv-org) -> https://op-group1-swiftservehd-1.dens.tv/h/h203/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] Elemental Channel (1080p) (source=iptv-org) -> https://5d82644094cc0.streamlock.net/8116/8116/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] ENT Channel (720p) (source=iptv-org) -> https://cdn.global.elektamedia.com/live/c7eds/ENT_Channel/SA_LIVE_hls_enc/master.m3u8
+  [UNVERIFIED] [TimeoutError] [UK] ENT Family (720p) (source=iptv-org) -> https://cdn.global.elektamedia.com/live/c7eds/ENT_Family/SA_LIVE_hls_enc/master.m3u8
+  [UNVERIFIED] [HTTP 401] [Greece] ERT3 (1080p) (source=iptv-org) -> https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERT3/default/index.m3u8
+  [UNVERIFIED] [gaierror] [India] ETV Plus HD (1080p) (source=iptv-org) -> https://d12ee3o8yfkkhd.cloudfront.net/c6a4b411295f47f48c908d2ac0605bad/index.m3u8
+  [UNVERIFIED] [gaierror] [India] ETV Telugu HD (1080p) (source=iptv-org) -> https://d27zlkxhgwrfgo.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_HD_H264_cloud_in/index.m3u8
+  [UNVERIFIED] [gaierror] [Canada] FEVA TV (1080p) (source=iptv-org) -> https://d21x3vavxu7p2x.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/DistroTV-MuxIP-FEVATV/416.m3u8?ads.vf=nn5CUAdOxVu
+  [UNVERIFIED] [HTTP 504] [USA] Freebie TV (720p) [Not 24/7] (source=iptv-org) -> https://d1h1d6qoy9vnra.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/Freebie-Plex/187.m3u8
+  [UNVERIFIED] [HTTP 403] [United Arab Emirates] Fujairah TV (720p) (source=iptv-org) -> https://live.kwikmotion.com/fujairahlive/fujairah.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] FX (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/FOX_HD/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Turkey] GEM Entertainment (source=iptv-org) -> https://ca-rt.onetv.app/gementertainment/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [Turkey] GEM River (source=iptv-org) -> https://ca-rt.onetv.app/gemriver/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [Turkey] GEM River + (source=iptv-org) -> https://ca-rt.onetv.app/gemriverplus/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [ConnectionRefusedError] [Guatemala] GTV (Guatemala) (768p) [Not 24/7] (source=iptv-org) -> https://cdn.streamhispanatv.net:3126/live/genesistvlive.m3u8
+  [UNVERIFIED] [gaierror] [Italy] Iris [Geo-blocked] (source=iptv-org) -> https://live3-mediaset-it.akamaized.net/Content/hls_h0_clr_vos/live/channel(ki)/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] Iris HD (1080p) (source=iptv-org) -> https://live02-seg.msf.cdn.mediaset.net/live/ch-ki/ki-clr.isml/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Bahamas] Island Luck TV (source=iptv-org) -> https://cdn3.wowza.com/5/dFA0TmRpeFdNVXhT/NetUp/ILTV.stream/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Hong Kong] Jade (1080p) (source=iptv-org) -> http://103.172.187.30:12000/stream/mytv/null-1/master.m3u8
+  [UNVERIFIED] [TimeoutError] [China] Jiangsu Variety Channel (576p) [Not 24/7] (source=iptv-org) -> http://183.207.248.71/gitv/live1/G_JSZY/G_JSZY
+  [UNVERIFIED] [HTTP 503] [Nigeria] Kingsview TV (1080p) (source=iptv-org) -> https://j78dp6reyq5r-hls-live.5centscdn.com/4896_push_1963_001/00cb1f2e4ff89048f2e77e26940c00e6.sdp/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Hong Kong] KIX (source=iptv-org) -> https://liveh34.vtvprime.vn/hls/KIX/04.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Kluch (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Kluch/video.m3u8
+  [UNVERIFIED] [TimeoutError] [Ukraine] Kvartal TV (source=iptv-org) -> http://158.101.222.193:88/georgia_play.php?id=kvartal95
+  [UNVERIFIED] [gaierror] [Italy] La5 [Geo-blocked] (source=iptv-org) -> https://live3-mediaset-it.akamaized.net/Content/hls_h0_clr_vos/live/channel(ka)/index.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Venezuela] Lara en Redes (source=iptv-org) -> https://streamtv.laraenredes.com:3020/hybrid/play.m3u8
+  [UNVERIFIED] [TimeoutError] [Venezuela] La Tele Tuya (576p) (source=iptv-org) -> http://181.78.8.199:8000/play/a0fs/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Belgium] La Une (720p) (source=iptv-org) -> http://145.239.5.177/329/index.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [USA] Lifetime Asia (1080p) (source=iptv-org) -> http://nmk.ioapk.com:5050/4gtv-live029/index.m3u8
+  [UNVERIFIED] [HTTP 403] [UK] Manoto (source=iptv-org) -> https://ca-rt.onetv.app/manototv/index-0.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [TimeoutError] [Colombia] MaxTV [Not 24/7] (source=iptv-org) -> https://inliveserver.com:1936/8078/8078/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Thailand] Maya Channel (source=iptv-org) -> http://146.88.62.69:1935/Transcoder/%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%B2HD.stream_576p/playlist.m3u8
+  [UNVERIFIED] [HTTP 530] [Myanmar] M Entertainment Channel (720p) (source=iptv-org) -> https://mmtvs.exliatycl.online/mchannel/stream.m3u8
+  [UNVERIFIED] [HTTP 403] [Thailand] MONO 29 (source=iptv-org) -> https://lb1-live-mv.v2h-cdn.com/hls/ffbc/ffolvgdhk/ffolvgdhk.m3u8
+  [UNVERIFIED] [TimeoutError] [Peru] Movistar Plus (576p) (source=iptv-org) -> http://45.4.1.201:8000/play/a19y/index.m3u8
+  [UNVERIFIED] [TimeoutError] [France] MTV (France) (source=iptv-org) -> http://99.27.51.147:8080/MTV/index.m3u8
+  [UNVERIFIED] [HTTP 403] [UK] MTV Global (720p) (source=iptv-org) -> http://dvr2.kablova.tv/MTV/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Nakshatra Digital TV (576p) (source=iptv-org) -> http://51.75.127.199:3141/nakshatradigitaltv/index.m3u8
+  [UNVERIFIED] [TimeoutError] [USA] NBC Universo West (720p) (source=iptv-org) -> http://190.11.225.124:5000/live/universo_hd/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [China] Ningxia Satellite Channel (576p) (source=iptv-org) -> http://39.134.115.163:8080/PLTV/88888910/224/3221225726/index.m3u8
+  [UNVERIFIED] [HTTP 503] [Aruba] Nos Isla TV (1080p) [Not 24/7] (source=iptv-org) -> https://backend-server-dot-telearuba-app.appspot.com/media/livestream23/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Norway] NRK3 (1080i) [Geo-blocked] (source=iptv-org) -> https://nrk-live-no.akamaized.net/nrk3/muxed.m3u8
+  [UNVERIFIED] [HTTP 403] [Togo] NW Magazine (576p) (source=iptv-org) -> https://hls.newworldtv.com/nw-magazine/video/live.m3u8
+  [UNVERIFIED] [HTTP 403] [Costa Rica] ¡OPA! (720p) (source=iptv-org) -> https://5f1af61612fb5.streamlock.net/genteopa/videogenteopa_720p/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Pakistan] Pashto 1 (1080p) (source=iptv-org) -> http://103.250.28.74:8000/play/a00t/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Italy] Passione Lotto (300p) (source=iptv-org) -> http://185.63.52.103:8080/hls/passionelotto/1_2/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Pakistan] Play Entertainment (576p) (source=iptv-org) -> http://103.250.28.74:8000/play/a050/index.m3u8
+  [UNVERIFIED] [gaierror] [USA] Popstar! TV (1080p) [Not 24/7] (source=iptv-org) -> https://linear-10.frequency.stream/dist/plex/10/hls/master/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Kazakhstan] Qonaev Media (source=iptv-org) -> https://s.qonaevtv.kz/live/qonaev/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] .red (576p) (source=iptv-org) -> http://5.188.159.128:8070/RED/index.m3u8
+  [UNVERIFIED] [gaierror] [Brazil] Rede Premium TV (720p) (source=iptv-org) -> https://cdn-tiva-stmv2-samcast-com-br.smartbit.co/leonardo9878/leonardo9878/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Peru] Riku TV (1080p) (source=iptv-org) -> https://amixtv.com:8081/rikutv/index.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] Roar WKEF (1080p) (source=iptv-org) -> https://linear-690.frequency.stream/dist/stirr/690/hls/master/playlist.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] Roar WSBT-TV (1080p) (source=iptv-org) -> https://linear-693.frequency.stream/dist/stirr/693/hls/master/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Singapore] ROCK Action (1080p) (source=iptv-org) -> http://nmk.ioapk.com:5050/4gtv-live138/index.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Singapore] ROCK Entertainment HD (720p) (source=iptv-org) -> http://58.8.186.128:10006/bysid/2612
+  [UNVERIFIED] [ConnectionRefusedError] [Singapore] ROCK X Stream (720p) (source=iptv-org) -> http://58.8.186.128:10007/bysid/2811
+  [UNVERIFIED] [HTTP 403] [Luxembourg] RTL9 (720p) (source=iptv-org) -> http://145.239.5.177/308/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Netherlands] SBS6 Classics (1080p) [Geo-blocked] (source=iptv-org) -> https://sbs6classic.prd1.talpatvcdn.nl/v1/master/8ada1ed2ae3b9c3db6fc5e604cfa78fc7d2d745e/sbs6classic_ssai/fea54560ba684701a2143f33a9cf4489/index.m3u8
+  [UNVERIFIED] [HTTP 504] [Brazil] Show do Milhao (1080p) [Geo-blocked] (source=iptv-org) -> https://d38s7rrdbnh4oy.cloudfront.net/v1/master/215c0da80606fed29372070168106400a6ca7e1a/SSAI-Saudades/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Portugal] Star Channel (Portugal) (source=iptv-org) -> http://znty.dyndns.org:5010/hls/fox.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Star Jalsha (576p) (source=iptv-org) -> http://51.75.127.199:3141/starjalsha/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Star Maa (576p) (source=iptv-org) -> http://51.75.127.199:3141/starmaa/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] StarPlus (India) (576p) (source=iptv-org) -> http://51.75.127.199:3141/starplus/index.m3u8
+  [UNVERIFIED] [HTTP 403] [India] StarPlus (India) HD (1080i) (source=iptv-org) -> http://202.70.146.135:8000/play/a009/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Star Pravah (576p) (source=iptv-org) -> http://51.75.127.199:3141/starpravah/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Star Vijay (576p) (source=iptv-org) -> http://51.75.127.199:3141/starvijay/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Dominican Republic] Super7FM (720p) (source=iptv-org) -> https://tv.livestreaminggroup.info:3295/live/super7tvlive.m3u8
+  [UNVERIFIED] [TimeoutError] [Macau] TDM Entertainment (720p) (source=iptv-org) -> https://live3.tdm.com.mo/ch6/hd_ch6.live/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [France] TF1 (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/TF1/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] TNT4 HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/TNT_4/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] TNT International (480p) (source=iptv-org) -> http://91.228.35.249:8001/1:0:1:6a7:3138:13e:820000:0:0:0:
+  [UNVERIFIED] [TimeoutError] [Brazil] TV Digital Birigui (640p) (source=iptv-org) -> http://wse01.logicahost.com.br:1935/tvdigitalbirigui/_definst_/tvdigitalbirigui/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] TV Empire (720p) (source=iptv-org) -> https://5d82644094cc0.streamlock.net/empiremagazinetv/empiremagazinetv/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [North Macedonia] TV ERA [Geo-blocked] (source=iptv-org) -> https://vipottbpkstream.vip.hr/Content/onevip-hls/Live/Channel(ERA)/index.m3u8
+  [UNVERIFIED] [HTTP 503] [Panama] TVMax (720p) (source=iptv-org) -> https://bcovlive-a.akamaihd.net/74f665e9ff8447639d4de4b8b458d8ae/us-east-1/6058004209001/playlist_dvr.m3u8
+  [UNVERIFIED] [TimeoutError] [Caribbean Netherlands] Voz Di Bonaire TV (720p) (source=iptv-org) -> https://tv.westream.cloud/VozdiBonaireTV/VozdiBonaireTV.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] VRT Channel (720p) (source=iptv-org) -> https://sistemavrt.vrtchannel.tv.br:3473/stream/play.m3u8
+  [UNVERIFIED] [HTTP 403] [France] W9 (1080p) (source=iptv-org) -> https://origin-m6web.live.6cloud.fr/out/v1/6play/6play-w9/cmaf_q2hyb21h/hls-short-hd.m3u8
+  [UNVERIFIED] [HTTP 403] [Peru] WEST (1080p) (source=iptv-org) -> https://cablered.iptvperu.tv:1936/cablered/west/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [India] YET TV (720p) (source=iptv-org) -> https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
+  [UNVERIFIED] [TimeoutError] [Iran] YourTime TV (source=iptv-org) -> https://hls.yourtime.live/hls/stream.m3u8
+  [UNVERIFIED] [HTTP 403] [India] Zee Dil Se (1080p) (source=iptv-org) -> https://amg00862-amg00862c6-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c6-amgplt0173/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [India] Zee Horror Nights (1080p) (source=iptv-org) -> https://amg00862-amg00862c7-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c7-amgplt0173/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Zee Marathi HD (1080p) (source=iptv-org) -> http://51.75.127.199:3141/zeemarathihd/index.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Zee Telugu HD (1080p) (source=iptv-org) -> http://51.75.127.199:3141/zeeteluguhd/index.m3u8
+  [UNVERIFIED] [HTTP 521] [Sri Lanka] Asia TV (720p) (source=iptv-org) -> https://stream.asiatvnet.com/1/live/master.m3u8
+  [UNVERIFIED] [HTTP 403] [France] RMC Life (1080p) (source=iptv-org) -> http://145.239.5.177/333/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Chile] PRIDEtv LATAM (1080p) (source=iptv-org) -> https://backend.energeek.cl/webtv/pridetvweb/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [TimeoutError] [Russia] Poehali! (1080p) (source=iptv-org) -> http://31.148.48.15/Poehali/index.m3u8
+  [UNVERIFIED] [gaierror] [USA] Rakuten Viki (1080p) (source=iptv-org) -> https://newidco-rakutenviki-2-eu.xiaomi.wurl.tv/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Peru] Canal IPe (720p) (source=iptv-org) -> http://187.102.210.46/IPE/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Pakistan] LTN Family SD (576p) (source=iptv-org) -> http://103.250.28.74:8000/play/a02j/index.m3u8
+  [UNVERIFIED] [gaierror] [Indonesia] My Family [Geo-blocked] (source=iptv-org) -> https://op-group1-swiftservehd-1.dens.tv/h/h194/index.m3u8
+  [UNVERIFIED] [gaierror] [China] Sichuan TV Women and Children Channel (720p) [Not 24/7] (source=iptv-org) -> http://scgctvshow.sctv.com/hdlive/sctv7/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Venezuela] TV Familia (720p) (source=iptv-org) -> https://cloudusa.streamingconnect.com/tvfamiliatvbox/tvfamiliaweb.m3u8
+  [UNVERIFIED] [HTTP 504] [Spain] Rakuten TV Family Movies Austria (720p) (source=iptv-org) -> https://9fa8baba055e4a52b0a8d1ae7d78bed8.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-at_RakutenFamily-1/playlist.m3u8
+  [UNVERIFIED] [HTTP 504] [Spain] Rakuten TV Family Movies Switzerland (720p) (source=iptv-org) -> https://a24daf1125344b9cab66eed2fcff8821.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Samsung-ch_RakutenFamily-1/playlist.m3u8
+  [UNVERIFIED] [SSLError] [Russia] Velvet. European Movies (1080p) (source=iptv-org) -> https://cdn.rostelekom-tv.xyz/live/LQ3j0n7j0Kq4OQm8.m3u8
+  [UNVERIFIED] [SSLError] [Russia] Velvet. Svaty (1080p) (source=iptv-org) -> https://cdn.rostelekom-tv.xyz/live/HSxyMqDlSVR54UTN.m3u8
+  [UNVERIFIED] [HTTP 504] [USA] ☆ Non-Stop '90s 🇺🇸 (source=m3u) -> https://s9host3.localnow.api.cms.amdvids.com/v1/master/c189661feba961c19bc5fb60b57879ee9b84548a/config11/dist/localnow/744/hls/master/playlist.m3u8?ads.cdnhost=s9host3.localnow.api.cms.amdvids.com&ads.playbackid=E2B93420-EB36-4052-B789-2AD8286E402B&ads.n1=rule_id&ads.v1=E7BB7BA1-D932-4E65-BD9F-93731E6E87C5-1714063241&ads.n3=qp_content_id&ads.v3=E2B93420-EB36-4052-B789-2AD8286E402B
+  [UNVERIFIED] [gaierror] [USA] ☆ Samuel Goldwyn Classics 🇺🇸 (source=m3u) -> https://samuelgoldwyn-classics-1-us.roku.wurl.tv/playlist.m3u8
+  [UNVERIFIED] [HTTP 401] [USA] ☆ Horror Stories by WB  (vᴘɴ 🇺🇸) (source=m3u) -> https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-66b136d2a9ef8c41ec0841ae/?X-Plex-Token=xePfG98DiSxDoEPoY91x
+  [UNVERIFIED] [gaierror] [USA] ☆ FreeTv Crime (💬 🇧🇷) (source=m3u) -> https://oly-ftvcbr.otteravision.com/oly/ftvcbr/ftvcbr.m3u8?%40iprtlk=
+  [UNVERIFIED] [gaierror] [USA] ☆ FreeTv Drama (💬 🇧🇷) (source=m3u) -> https://oly-ftvdrbr.otteravision.com/oly/ftvdrbr/ftvdrbr.m3u8?%40iprtlk=
+  [UNVERIFIED] [HTTP 403] [USA] ☆ Movies! 🇺🇸 (source=m3u) -> https://dvrfl03.bozztv.com/hdirect/hdirect-ovair1-movies!/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Saudi Arabia] ☆ Movies Action 🇺🇸 (source=m3u) -> https://shls-live-enc.edgenextcdn.net/out/v1/46079e838e65490c8299f902a7731168/index.m3u8
+  [UNVERIFIED] [HTTP 403] [International] ☆ Movies Thriller 🇺🇸 (source=m3u) -> https://shls-live-enc.edgenextcdn.net/out/v1/f6d718e841f8442f8374de47f18c93a7/index.m3u8
+  [UNVERIFIED] [gaierror] [USA] ☆ Samuel Goldwyn Films 🇺🇸 (source=m3u) -> https://samuelgoldwyn-films-1-us.roku.wurl.tv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Finland] Yle Teema Fem Ⓖ (source=free-tv) -> https://yletv.akamaized.net/hls/live/622367/yletvteemafemfin/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Finland] Yle TV1 Ⓖ (source=free-tv) -> https://yletv.akamaized.net/hls/live/622365/yletv1fin/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Finland] Yle TV2 Ⓖ (source=free-tv) -> https://yletv.akamaized.net/hls/live/622366/yletv2fin/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] TV5 Monde Europe (source=free-tv) -> https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] TV5 Monde FBS (source=free-tv) -> https://ott.tv5monde.com/Content/HLS/Live/channel(fbs)/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] TV5 Monde Info (source=free-tv) -> https://ott.tv5monde.com/Content/HLS/Live/channel(info)/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] W9 (source=free-tv) -> http://145.239.5.177/331a/index.m3u8
+  [UNVERIFIED] [HTTP 403] [France] BFM TV (source=aria) -> https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TV/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Spain] 101tv Sevilla (source=iptv-org) -> https://liveingesta318.cdnmedia.tv/101weblive/smil:sevilla.smil/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Ukraine] 1+1 International (source=iptv-org) -> http://158.101.222.193:88/georgia_play.php?id=1plus1international
+  [UNVERIFIED] [TimeoutError] [Russia] 6 TV Gorlovka (720p) [Geo-blocked] (source=iptv-org) -> http://91.214.48.158:4022/udp/224.2.2.4:10000
+  [UNVERIFIED] [HTTP 403] [Spain] 9 la Loma TV (1080p) [Geo-blocked] (source=iptv-org) -> https://9laloma.tv/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Ivory Coast] A12 TV (source=iptv-org) -> https://video1.getstreamhosting.com:1936/8250/8250/manifest.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] ABC WJLA-TV (1080p) (source=iptv-org) -> https://linear-681.frequency.stream/dist/stirr/681/hls/master/playlist.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] ABC WLOS (1080p) (source=iptv-org) -> https://linear-695.frequency.stream/dist/stirr/695/hls/master/playlist.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] ABC WPDE-TV (1080p) (source=iptv-org) -> https://linear-696.frequency.stream/dist/stirr/696/hls/master/playlist.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] ABC WSYX (1080p) (source=iptv-org) -> https://linear-689.frequency.stream/dist/stirr/689/hls/master/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] Access 19 (source=iptv-org) -> https://reflect-montgomerycommunitymedia.cablecast.tv/live-8/live/stream-3/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] Access 4 PAC (source=iptv-org) -> https://reflect-channel18vod-springfield-il-us.cablecast.tv/live-16/live/stream-4/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] Access Sacramento Channel 17 (source=iptv-org) -> https://reflect-access-sacramento.cablecast.tv/live-7/live/live.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] Access Tuolumne (720p) (source=iptv-org) -> https://reflect-tuolumne.cablecast.tv/live-3/live/stream-1/live.m3u8
+  [UNVERIFIED] [TimeoutError] [Ethiopia] Addis TV (720p) (source=iptv-org) -> https://rrsatrtmp.tulix.tv/addis1/addis1multi.smil/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Iraq] Afaq TV (source=iptv-org) -> https://stream.afaq.iq/live/channel/afaqtv/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Indonesia] AFBTV Kupang (1080p) [Not 24/7] (source=iptv-org) -> https://afbtv.siar.us/live/afbtv.m3u8
+  [UNVERIFIED] [TimeoutError] [Canada] Afghan Nobel TV (720p) (source=iptv-org) -> https://live.relentlessinnovations.net:1936/afghannobeltv/afghannobeltv/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Honduras] Alfa & Omega Vision (480p) [Not 24/7] (source=iptv-org) -> https://srv.panelcast.net/dorian/dorian/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Brazil] Alpha Channel (720p) (source=iptv-org) -> https://5b01a3d32b65c.streamlock.net:1936/tvalpha/tvalpha/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Albania] Alpo TV (source=iptv-org) -> https://vs.sednastream.com:1936/alportv/alportv/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [North Macedonia] Alsat [Geo-blocked] (source=iptv-org) -> https://vipottbpkstream.vip.hr/Content/onevip-hls/Live/Channel(Alsat_M)/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Germany] Altenburg TV (1080p) (source=iptv-org) -> https://58de7a369a9c4.streamlock.net/abgtv/abgtv_1080p/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Antena 3 (source=iptv-org) -> https://cdn.stmify.com/zapitv/stream/ANTENA_3/test.mpd
+  ... and 2461 more unverified links (see report.json).
