@@ -14,6 +14,88 @@
 - **Plain-text (.txt) logs:** [`logs/scrape-log.txt`](logs/scrape-log.txt) | [`logs/log-edits.txt`](logs/log-edits.txt) | [`logs/errors.txt`](logs/errors.txt) | [`logs/run-history.txt`](logs/run-history.txt)
 - **Run history:** [`run-history.jsonl`](run-history.jsonl) (append-only; one entry per run)
 
+## Published categories
+
+The order below is the order of the groups in `PremiumTV.m3u`. Every category is
+followed by its own Backups group; see [`checks/CATEGORIES.md`](checks/CATEGORIES.md)
+for the full audit.
+
+| # | Category | Channels |
+|---|---|---:|
+| 1 | Sports | 520 |
+| 2 | Sports Backups | 91 |
+| 3 | Lifestyle | 370 |
+| 4 | Lifestyle Backups | 79 |
+| 5 | Fox Channels | 30 |
+| 6 | CBS | 31 |
+| 7 | CBS Backups | 13 |
+| 8 | NBC | 70 |
+| 9 | NBC Backups | 9 |
+| 10 | NBC Sports Channels | 6 |
+| 11 | Cartoons | 85 |
+| 12 | Cartoons Backups | 21 |
+| 13 | PBS | 34 |
+| 14 | PBS Backups | 7 |
+| 15 | Game Shows | 11 |
+| 16 | Game Shows Backups | 12 |
+| 17 | Music | 757 |
+| 18 | Music Backups | 73 |
+| 19 | News | 735 |
+| 20 | News Backups | 159 |
+| 21 | Europe | 697 |
+| 22 | Europe Backups | 70 |
+| 23 | International | 635 |
+| 24 | International Backups | 96 |
+| 25 | Movies | 634 |
+| 26 | Movies Backups | 71 |
+| 27 | Religious | 567 |
+| 28 | Religious Backups | 38 |
+| 29 | Entertainment | 508 |
+| 30 | Entertainment Backups | 60 |
+| 31 | South America | 447 |
+| 32 | South America Backups | 19 |
+| 33 | Asia | 419 |
+| 34 | Asia Backups | 23 |
+| 35 | United States | 302 |
+| 36 | United States Backups | 49 |
+| 37 | North America | 278 |
+| 38 | North America Backups | 4 |
+| 39 | Documentary | 254 |
+| 40 | Documentary Backups | 62 |
+| 41 | Kids | 205 |
+| 42 | Kids Backups | 37 |
+| 43 | Series | 139 |
+| 44 | Series Backups | 73 |
+| 45 | Education | 111 |
+| 46 | Education Backups | 5 |
+| 47 | Culture | 110 |
+| 48 | Culture Backups | 7 |
+| 49 | Legislative | 95 |
+| 50 | India | 86 |
+| 51 | India Backups | 5 |
+| 52 | Africa | 67 |
+| 53 | Business | 45 |
+| 54 | Business Backups | 10 |
+| 55 | Comedy | 38 |
+| 56 | Comedy Backups | 23 |
+| 57 | Classic TV | 30 |
+| 58 | Classic TV Backups | 4 |
+| 59 | UK | 29 |
+| 60 | UK Backups | 4 |
+| 61 | Family | 26 |
+| 62 | Family Backups | 3 |
+| 63 | A&E Networks | 23 |
+| 64 | Canada | 20 |
+| 65 | Weather | 9 |
+| 66 | Animals & Nature | 5 |
+| 67 | Aria Web Channels | 5 |
+| 68 | Online TV | 4 |
+| 69 | Australia | 3 |
+| 70 | Relax | 3 |
+| 71 | Tv Paranormal | 3 |
+| 72 | Other | 271 |
+| 73 | Other Backups | 133 |
+
 ## Playlist sources
 
 | Source | Fetch | Entries | Unique URLs | Overlap | Working | Dead | Unverified |

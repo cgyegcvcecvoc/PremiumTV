@@ -128,7 +128,7 @@
     }
   ],
   "priority_channels": {
-    "_comment": "Used by scripts/channel_hunt.py. Each target is hunted for by name and tvg-id across the local corpus, the configured upstream indexes and (with --github-search) public M3U files on GitHub. Every candidate is verified end to end - HLS variant plus a real media segment - before it is written to the curated playlist. A target whose aliases are also matched by another target is not collected by the shorter one, so MeTV never picks up MeTV Toons links.",
+    "_comment": "Used by scripts/channel_hunt.py. Each target is hunted for by name and tvg-id across the local corpus, the configured upstream indexes and (with --github-search) public M3U files on GitHub. Every candidate is verified end to end - HLS variant plus a real media segment - before it is written to the curated playlist. A target whose aliases are also matched by another target is not collected by the shorter one, so MeTV never picks up MeTV Toons links. The 'group' is the category scripts/categorize.py publishes the channel in; hunt targets use the curated category names so a freshly hunted link lands in the right group immediately.",
     "enabled": true,
     "output": "playlists/sources/priority-channels.m3u",
     "targets": [
@@ -183,6 +183,36 @@
           "MeTV Toons US"
         ],
         "country": "us"
+      },
+      {
+        "name": "NFL Network",
+        "enabled": true,
+        "group": "Sports",
+        "max_links": 6,
+        "aliases": [
+          "NFL Network US",
+          "NFLNetwork.us",
+          "NFL Network HD",
+          "NFL.Network.HD.us2",
+          "NFLN",
+          "NFL Network (United States)"
+        ],
+        "country": "us",
+        "note": "The 24/7 league channel. It is categorised into Sports by scripts/categorize.py; up to six verified links are kept so the player always has a backup in 'Sports Backups'."
+      },
+      {
+        "name": "NFL RedZone",
+        "enabled": true,
+        "group": "Sports",
+        "max_links": 4,
+        "aliases": [
+          "NFL RedZone US",
+          "NFL Red Zone",
+          "NFLRedZone.us",
+          "NFL RedZone (DAMITV)"
+        ],
+        "country": "us",
+        "note": "Sunday whip-around feed. Kept separate from the game-by-game event feeds; verified links land in Sports with backups."
       }
     ],
     "_blocklist_comment": "URL fragments that must never be collected: feeds that are publicly listed under a channel they do not actually carry.",

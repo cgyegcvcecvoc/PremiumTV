@@ -1,0 +1,130 @@
+name: Quick playlist update
+
+# Four times a day, between the regular scrapes: re-check the playlists that are
+# already published, repair the links that died since the last scrape, and
+# re-publish them in the curated category order.
+#
+#   scripts/update_m3u.py    re-checks every link, promotes a channel's own
+#                            backup when the main link died, pulls a working
+#                            replacement out of the pool when it has none, and
+#                            only removes an entry when nothing else plays;
+#   scripts/rebuild_playlists.py
+#                            re-runs the taxonomy (Sports, Lifestyle, Fox
+#                            Channels, CBS, NBC, NBC Sports Channels, Cartoons,
+#                            PBS, Game Shows - each with its own Backups group),
+#                            points channels at guide ids that carry schedules,
+#                            and writes one playlist per category.
+#
+# Both are safe to re-run: a file is never rewritten when too few of its links
+# answer, and never loses more than --max-remove-ratio in one run.
+on:
+  schedule:
+    # 01:19, 07:31, 13:47, 19:23 New York time. Off-peak minutes for the same
+    # reason as scrape.yml: GitHub's scheduler is busiest at the top of the hour.
+    - cron: "19 1 * * *"
+      timezone: "America/New_York"
+    - cron: "31 7 * * *"
+      timezone: "America/New_York"
+    - cron: "47 13 * * *"
+      timezone: "America/New_York"
+    - cron: "23 19 * * *"
+      timezone: "America/New_York"
+  workflow_dispatch:
+    inputs:
+      deep:
+        description: "Deep check (prove a media segment plays, slower)"
+        type: boolean
+        default: false
+      write:
+        description: "Write the repaired playlists back (untick for a report only)"
+        type: boolean
+        default: true
+  # On-demand run without opening the Actions tab, e.g.
+  #   gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=quick-update-now
+  repository_dispatch:
+    types: [quick-update-now]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quick-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run offline tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Re-check and repair the published playlists
+        id: update
+        continue-on-error: true
+        env:
+          DEEP: ${{ inputs.deep }}
+          WRITE: ${{ inputs.write }}
+        run: |
+          args=(--pool playlists/PremiumTV_all.m3u "playlists/sources/*.m3u"
+                --workers 96 --per-host-workers 6 --timeout 10 --retries 1
+                --min-working-ratio 0.25 --max-remove-ratio 0.20
+                --report playlists/checks/quick-update.json)
+          if [ "$DEEP" = "true" ]; then args+=(--deep); fi
+          if [ "$WRITE" = "false" ]; then args+=(--dry-run); fi
+          python scripts/update_m3u.py playlists/PremiumTV.m3u playlists/Priority_Channels.m3u "${args[@]}"
+
+      - name: Rebuild the category order and per-category playlists
+        id: rebuild
+        continue-on-error: true
+        env:
+          WRITE: ${{ inputs.write }}
+        run: |
+          args=()
+          if [ "$WRITE" = "false" ]; then args+=(--dry-run); fi
+          python scripts/rebuild_playlists.py "${args[@]}"
+
+      - name: Refresh the merged and country-specific TV guides
+        # Keeps the guide in step with the ids the rebuild just corrected.
+        if: always() && steps.rebuild.outcome == 'success' && inputs.write != false
+        continue-on-error: true
+        run: |
+          python scripts/epg_build.py --patch --countries --max-age-hours 12 \
+            --label "guide refresh after quick update"
+
+      - name: Add the reports to the Actions summary
+        if: always()
+        run: |
+          for file in playlists/checks/CATEGORIES.md; do
+            if [ -f "$file" ]; then
+              echo "-----" >> "$GITHUB_STEP_SUMMARY"
+              cat "$file" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          done
+
+      - name: Commit the repaired playlists
+        if: always() && inputs.write != false
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EPG playlists/
+          if git diff --cached --quiet; then
+            echo "No playlist changes to commit."
+            exit 0
+          fi
+          git commit -m "Quick update: repaired links, curated category order ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep 5
+          done
+          exit 1
+
+      - name: Fail the workflow if the update crashed
+        if: steps.update.outcome == 'failure' || steps.rebuild.outcome == 'failure'
+        run: exit 1

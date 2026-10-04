@@ -54,6 +54,9 @@ except Exception:  # pragma: no cover - zoneinfo missing on very old Pythons
     NY_TZ = None
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import categorize  # noqa: E402  (the shared category taxonomy; loads no scraper code)
+
 DEFAULT_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
@@ -1427,7 +1430,7 @@ def write_country_playlists(
     summary: dict[str, dict] = {}
 
     for country in ordered_countries:
-        country_channels = sorted(grouped[country], key=sort_key)
+        country_channels = sorted(grouped[country], key=categorize.sort_key)
         fname = country_filename(country)
         active_files.add(fname)
         # Use a country-scoped guide on its own. If this is a newly added
@@ -1506,7 +1509,8 @@ def write_ae_playlist(
     label: str,
 ) -> int:
     """Write confirmed working A&E / A+E Networks channels to playlists/AE_Channels.m3u."""
-    ae_working = sorted([channel for channel in working_channels if is_ae_channel(channel)], key=sort_key)
+    ae_working = sorted([channel for channel in working_channels if is_ae_channel(channel)],
+                        key=categorize.sort_key)
     write_m3u(
         out_dir / "AE_Channels.m3u",
         ae_working,
@@ -1721,6 +1725,27 @@ def count_source_results(source_stats: dict[str, dict], channels: list[Channel],
         stat["checked"] = stat["alive"] + stat["dead"] + stat["unverified"]
 
 
+def category_block(report: dict) -> str:
+    """The published category order, as a short table in STATUS.md."""
+    counts = report.get("categories") or {}
+    if not counts:
+        return ""
+    lines = [
+        "## Published categories",
+        "",
+        "The order below is the order of the groups in `PremiumTV.m3u`. Every category is",
+        "followed by its own Backups group; see [`checks/CATEGORIES.md`](checks/CATEGORIES.md)",
+        "for the full audit.",
+        "",
+        "| # | Category | Channels |",
+        "|---|---|---:|",
+    ]
+    for index, category in enumerate(categorize.order_categories(collections.Counter(counts)), 1):
+        lines.append(f"| {index} | {category} | {counts.get(category, 0)} |")
+    lines.append("")
+    return "\n".join(lines)
+
+
 def make_status_markdown(report: dict) -> str:
     checked = report["checked"]
     if checked:
@@ -1758,6 +1783,7 @@ def make_status_markdown(report: dict) -> str:
         "[`logs/run-history.txt`](logs/run-history.txt)",
         f"- **Run history:** [`run-history.jsonl`](run-history.jsonl) (append-only; one entry per run)",
         "",
+        category_block(report),
         "## Playlist sources",
         "",
         "| Source | Fetch | Entries | Unique URLs | Overlap | Working | Dead | Unverified |",
@@ -2218,6 +2244,7 @@ def main() -> int:
     all_channels: list[Channel] = []
     channels: list[Channel] = []
     working: list[Channel] = []
+    published: list[Channel] = []          # working links in curated category order
     all_epg: list[str] = []
     changes = {"baseline": "none", "added_count": 0, "removed_count": 0,
                "added_sample": [], "removed_sample": []}
@@ -2461,18 +2488,30 @@ def main() -> int:
                     log(f"[run] WARNING: {fatal_error}")
                     status, exit_code = "failed", 1
                 else:
+                    # Learn the genre of a channel from every index that publishes
+                    # it, then publish in the curated category order with one
+                    # entry per channel and the spare links in "<category> Backups".
+                    try:
+                        categorize.set_group_votes(categorize.build_group_votes(all_channels))
+                        published = categorize.build_main_order(working)
+                        log(f"[categories] {len(published)} channels in "
+                            f"{len(categorize.category_counts(published))} groups "
+                            f"({sum(1 for channel in published if categorize.is_backup_group(channel.attrs.get('group-title', '')))} backups)")
+                    except Exception as exc:  # noqa: BLE001 - never lose a good scrape
+                        log(f"[categories] categorisation failed ({exc}); publishing unsorted")
+                        published = sorted(working, key=sort_key)
                     write_m3u(
-                        out_dir / "PremiumTV.m3u", working, all_epg,
+                        out_dir / "PremiumTV.m3u", published, all_epg,
                         f"Working links - updated {utc_s} ({local_s}) - {args.label}",
                         synthesize_missing_ids=True,
                     )
                     countries_summary = write_country_playlists(
-                        out_dir, working, all_epg, utc_s, local_s, args.label
+                        out_dir, published, all_epg, utc_s, local_s, args.label
                     )
                     ae_written = write_ae_playlist(
-                        out_dir, working, all_epg, utc_s, local_s, args.label
+                        out_dir, published, all_epg, utc_s, local_s, args.label
                     )
-                    log(f"[playlists] separated {len(working)} working channels into "
+                    log(f"[playlists] separated {len(published)} working channels into "
                         f"{len(countries_summary)} country playlists and {ae_written} A&E channels")
                     final_playlist_written = True
                     has_source_problem = any(
@@ -2538,7 +2577,7 @@ def main() -> int:
         "dead_count": status_counts.get("dead", 0),
         "unverified_count": status_counts.get("unverified", 0),
         "unchecked_count": status_counts.get("unchecked", 0),
-        "published": len(working) if final_playlist_written else None,
+        "published": len(published) if final_playlist_written else None,
         "final_playlist_written": final_playlist_written,
         "all_playlist_written": all_playlist_written,
         "duration_seconds": round((finished - started).total_seconds(), 2),
@@ -2546,6 +2585,7 @@ def main() -> int:
         "countries_count": len(countries_summary),
         "countries": countries_summary,
         "ae_channels": ae_summary,
+        "categories": dict(categorize.category_counts(published)) if published else {},
         "promoted_sources": [name for name, stat in source_stats.items() if stat.get("promoted_by_discovery")],
         "sources": source_stats,
         "reference_checks": reference_checks,
