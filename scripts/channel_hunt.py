@@ -601,6 +601,10 @@ def main(argv=None) -> int:
         if relative.startswith("playlists/"):
             relative = relative[len("playlists/"):]
         playlist_path = out_dir / relative
+    if published:
+        # Same canonical categories and ordering as every other published
+        # playlist: Nickelodeon/NickToons -> Cartoons, MeTV -> TV, US first.
+        scraper.canonicalize_channels(published)
     if published and not args.report_only:
         write_curated_playlist(output, published, args.label, utc_s, local_s)
         log(f"[hunt] wrote {output} ({len(published)} verified links)")

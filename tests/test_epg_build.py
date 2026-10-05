@@ -445,7 +445,13 @@ class BuildTest(unittest.TestCase):
         self.assertGreater(guide["programmes_kept"], 10)
         self.assertLess(guide["programmes_kept"], 400)
         root, channels, programmes = self.load_guide()
-        self.assertEqual(set(channels), {"MeTV.us"})
+        # Every playlist channel is declared (catalogue entries for the ones no
+        # verified guide had a schedule for); only MeTV.us had parsable listings.
+        self.assertEqual(set(channels),
+                         {"AE.us@East", "AE.us@West", "MeTV.us", "BBCOne.uk"})
+        self.assertEqual({element.get("channel") for element in programmes}, {"MeTV.us"})
+        self.assertEqual(report["channels_with_guide"], 1)
+        self.assertEqual(report["channels_declared"], 4)
         # The document it wrote is still well formed and complete.
         self.assertEqual(root.tag, "tv")
 

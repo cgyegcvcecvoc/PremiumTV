@@ -63,6 +63,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import categorize  # noqa: E402  (the taxonomy the patched files must match)
 import scraper  # noqa: E402  (reuses Channel parsing, host limiting, helpers)
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -173,6 +174,50 @@ def blocks_to_text(header: list, blocks: list) -> str:
     for block in blocks:
         out.extend(block.lines)
     return "\n".join(out) + "\n"
+
+
+EXTINF_GROUP_RE = re.compile(r'\s*group-title="[^"]*"')
+
+
+def set_block_group(block: Block, group: str) -> bool:
+    """Rewrite one block's ``group-title`` in place. Returns True when changed."""
+    for index, line in enumerate(block.lines):
+        if not line.startswith("#EXTINF"):
+            continue
+        if EXTINF_GROUP_RE.search(line):
+            updated = EXTINF_GROUP_RE.sub(f' group-title="{group}"', line, count=1)
+        else:
+            head, separator, rest = line.partition(",")
+            updated = (f'{head} group-title="{group}"{separator}{rest}'
+                       if separator else f'{line} group-title="{group}"')
+        if updated == line:
+            return False
+        block.lines[index] = updated
+        return True
+    return False
+
+
+def tidy_blocks(blocks: list, source: str) -> tuple[list, int]:
+    """Put blocks back into the repository's published category order.
+
+    After the deep check removes dead entries the remaining blocks are re-sorted
+    and any ``group-title`` the taxonomy would not have written is normalised, so
+    a patched playlist is in exactly the order and grouping the next scrape
+    publishes - otherwise the file drifts until the next full run. The order is
+    taken from the channels themselves (``scraper.canonicalize_channels`` applies
+    ``categorize.order_channels``), so no second ordering rule exists.
+    Returns (blocks, changed_group_count).
+    """
+    pairs = [(block, channel_from_block(block, source)) for block in blocks]
+    channels = [channel for _, channel in pairs]
+    scraper.canonicalize_channels(channels)
+    position = {id(channel): index for index, channel in enumerate(channels)}
+    pairs.sort(key=lambda pair: (position.get(id(pair[1]), len(position)), pair[1].name))
+    changed = 0
+    for block, channel in pairs:
+        if set_block_group(block, channel.attrs.get("group-title") or categorize.OTHER):
+            changed += 1
+    return [block for block, _ in pairs], changed
 
 
 def channel_from_block(block: Block, source: str) -> scraper.Channel:
@@ -638,8 +683,13 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
             log(f"[patch] skipped {path.name}: would remove {len(removed)}/{entries} "
                 f"({remove_ratio:.0%}) - over the safety limit")
             continue
+        # Re-sort the survivors into the canonical category order and make sure
+        # every group title is one of the fixed categories, so a patched file
+        # matches what the next scrape would publish.
+        kept, regrouped = tidy_blocks(kept, path.name)
         if not dry_run:
             path.write_text(blocks_to_text(data["header"], kept), encoding="utf-8")
+        patch_report["regrouped"] = patch_report.get("regrouped", 0) + regrouped
         patch_report["removed_total"] += len(removed)
         patch_report["removed"].extend(removed)
         patch_report["patched_files"].append({
