@@ -6,15 +6,24 @@
     <display-name>plex.tv.Asian.Drama.plex</display-name>
     <icon src="https://image.xumo.com/v1/assets/asset/XM0Z0AAXJW4WHF/720x1080.jpg?fb=https%3A%2F%2Fimage.xumo.com%2Fv1%2Fchannels%2Fchannel%2F88889495%2F720x1080.jpg%3Ftype%3DtrcChannelTile2x3" />
   </channel>
-  <channel id="GoldenJade.hk@SD">
-    <display-name>Golden Jade (1080p)</display-name>
-    <icon src="https://i.imgur.com/lPYxsUr.png" />
-  </channel>
   <channel id="Jade.hk@SD">
     <display-name>Jade (1080p)</display-name>
     <display-name>Jade</display-name>
     <display-name>Jade.hk</display-name>
     <icon src="https://raw.githubusercontent.com/wanglindl/TVlogo/main/img/TVB1.png" />
+  </channel>
+  <channel id="PetClubTV.hk@SD">
+    <display-name>Pet Club TV (1080p)</display-name>
+    <display-name>Pet Club TV (Backup 1)</display-name>
+    <icon src="https://i.imgur.com/ykPNNwQ.png" />
+  </channel>
+  <channel id="tvNAsia.hk@HD">
+    <display-name>tvN Asia HD (720p)</display-name>
+    <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Logo_tvN.svg/960px-Logo_tvN.svg.png" />
+  </channel>
+  <channel id="GoldenJade.hk@SD">
+    <display-name>Golden Jade (1080p)</display-name>
+    <icon src="https://i.imgur.com/lPYxsUr.png" />
   </channel>
   <channel id="MeiAhMovieChannel.hk@SD">
     <display-name>Mei Ah Movie Channel (1080p)</display-name>
@@ -24,53 +33,6 @@
     <display-name>NewsWorld (1080p)</display-name>
     <icon src="https://provider-static.plex.tv/epg/cms/production/2e3bf0d9-3ca6-4f65-b1d4-f180ef725d96/NewsWorld_logo_dark_-_Angela_Chan.png" />
   </channel>
-  <channel id="PetClubTV.hk@SD">
-    <display-name>Pet Club TV (1080p)</display-name>
-    <display-name>Pet Club TV (Backup 1)</display-name>
-    <icon src="https://i.imgur.com/ykPNNwQ.png" />
-  </channel>
-  <channel id="RTHKTV31.hk@SD">
-    <display-name>RTHK TV 31 (1080p) [Geo-blocked]</display-name>
-    <display-name>RTHK TV 31 (港台電視31) (360p) [Geo-blocked]</display-name>
-    <icon src="https://i.imgur.com/kf818kM.png" />
-  </channel>
-  <channel id="tvNAsia.hk@HD">
-    <display-name>tvN Asia HD (720p)</display-name>
-    <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Logo_tvN.svg/960px-Logo_tvN.svg.png" />
-  </channel>
-  <programme start="20261005124400 +0000" stop="20261005132700 +0000" channel="AsianDrama.hk@SD">
-    <title>Last Madame</title>
-    <sub-title>Cure For The Troubled Heart</sub-title>
-    <desc>The House of Phoenix is a flurry of activities in the mornings, showing the other side of things.</desc>
-    <category lang="en">Global</category>
-    <episode-num system="onscreen">S1 E4</episode-num>
-    <icon src="https://provider-static.plex.tv/epg/cms/production/7f49d4b9-23f8-4b2e-9690-4dc27bb5448a/Asian_drama_rectangular_imgRDX.jpg" />
-    <rating system="US">
-      <value>Adult</value>
-    </rating>
-  </programme>
-  <programme start="20261005132700 +0000" stop="20261005140500 +0000" channel="AsianDrama.hk@SD">
-    <title>Last Madame</title>
-    <sub-title>Dark Impulses And Empty Desires</sub-title>
-    <desc>Chi Ling's past is further unveiled through a series of discovered stories.</desc>
-    <category lang="en">Global</category>
-    <episode-num system="onscreen">S1 E5</episode-num>
-    <icon src="https://provider-static.plex.tv/epg/cms/production/7f49d4b9-23f8-4b2e-9690-4dc27bb5448a/Asian_drama_rectangular_imgRDX.jpg" />
-    <rating system="US">
-      <value>TV-MA</value>
-    </rating>
-  </programme>
-  <programme start="20261005140500 +0000" stop="20261005144800 +0000" channel="AsianDrama.hk@SD">
-    <title>Last Madame</title>
-    <sub-title>The Hidden Gem</sub-title>
-    <desc>Inspector Mak strives to uncover more information about the Madame.</desc>
-    <category lang="en">Global</category>
-    <episode-num system="onscreen">S1 E7</episode-num>
-    <icon src="https://provider-static.plex.tv/epg/cms/production/7f49d4b9-23f8-4b2e-9690-4dc27bb5448a/Asian_drama_rectangular_imgRDX.jpg" />
-    <rating system="US">
-      <value>TV-14</value>
-    </rating>
-  </programme>
   <programme start="20261005144800 +0000" stop="20261005152500 +0000" channel="AsianDrama.hk@SD">
     <title>Last Madame</title>
     <sub-title>Illusions Unveiled</sub-title>
@@ -726,21 +688,25 @@
       <value>Adult</value>
     </rating>
   </programme>
-  <programme start="20261005123000 +0000" stop="20261005133000 +0000" channel="Jade.hk@SD">
-    <title>死有對証#21[粵][PG]</title>
-    <desc>馮瑜於佩嘉陪同覆診後不適入院，柏宇誤會佩嘉照顧不周。佩嘉氣沖沖離開，柏宇知道真相後向她道歉，更察覺自己心動。高俊根據白骨殘留的衣物來到一法國餐廳調查，老闆胡力孝似有隱瞞。警方公佈骸骨的面容重塑圖，柏宇竟發現與父親樣貌相似。柏宇遇車禍，昏迷時憶起父親畫面，故決意做親子鑑定，終證實骸骨死者的身分是其父親詹信基。馮瑜向警方交代信基的往事，指信基曾拖欠舊同事力孝賭債。高俊再往餐廳查問，力孝突然襲擊高俊…….</desc>
+  <programme start="20261007195900 +0000" stop="20261007205900 +0000" channel="AsianDrama.hk@SD">
+    <title>Faculty</title>
+    <desc>David worries that he has crossed the line with Victoria and feels cornered when he grades her work.</desc>
+    <category lang="en">Global</category>
+    <episode-num system="onscreen">S1 E12</episode-num>
+    <icon src="https://provider-static.plex.tv/epg/cms/production/7f49d4b9-23f8-4b2e-9690-4dc27bb5448a/Asian_drama_rectangular_imgRDX.jpg" />
+    <rating system="US">
+      <value>Adult</value>
+    </rating>
   </programme>
-  <programme start="20261005133000 +0000" stop="20261005140000 +0000" channel="Jade.hk@SD">
-    <title>醫生，你有病？[粵]</title>
-    <desc>喜歡讀書寫字，偏偏讀寫障礙；口水多多，但不幸患口吃、抽動症。中英文字怎寫都錯，高考中英文僅僅及格。輸在起跑線的丁錫全，如何跨過重重障礙，考入醫科？讀醫期間，他又如何克服艱深的醫學術語，最終成為精神科醫生？.</desc>
-  </programme>
-  <programme start="20261005140000 +0000" stop="20261005150000 +0000" channel="Jade.hk@SD">
-    <title>百花殺#23[粵/普][PG]</title>
-    <desc>汐和懷孕，華雍和汐和二人高興不已，華雍更為孩兒起名為鈞樞。華雍體內奇毒復發，自知命不久矣，遂託付韞懷和正顥日後好好教導其孩兒。皇宮眾人為太后賀壽期間，長泰率兵闖入意圖謀反，汐和帶領後宮女眷製香自保。.</desc>
-  </programme>
-  <programme start="20261005150000 +0000" stop="20261005151500 +0000" channel="Jade.hk@SD">
-    <title>娛樂頭條[粵] 及 環球新聞檔案[粵]</title>
-    <desc>節目主要以當日的娛樂新聞作重點，讓你瞬間掌握影視娛樂圈動態和最新消息，並以「娛樂大事件」、「搶閘頭條」、「出爐猛料」等為主題作頭條新聞式報道。.</desc>
+  <programme start="20261007205900 +0000" stop="20261007215800 +0000" channel="AsianDrama.hk@SD">
+    <title>Faculty</title>
+    <desc>Students and faculty are back in school; everyone is worried about CK and his recovery.</desc>
+    <category lang="en">Global</category>
+    <episode-num system="onscreen">S1 E13</episode-num>
+    <icon src="https://provider-static.plex.tv/epg/cms/production/7f49d4b9-23f8-4b2e-9690-4dc27bb5448a/Asian_drama_rectangular_imgRDX.jpg" />
+    <rating system="US">
+      <value>Adult</value>
+    </rating>
   </programme>
   <programme start="20261005151500 +0000" stop="20261005154500 +0000" channel="Jade.hk@SD">
     <title>晚間新聞[粵]</title>
@@ -1094,5 +1060,17 @@
   <programme start="20261007185000 +0000" stop="20261007194500 +0000" channel="Jade.hk@SD">
     <title>老表，你好hea！#5[粵][PG]</title>
     <desc>牧師馬拉高出現於優富超市，利亞以為龍豹向拉高洩露了他的行蹤。拉高救炳哥一命而廉價租下拳館開教會。秋水得悉女性生育後或有助醫治敏感症，便着手籌備郭寶與靜雯的婚禮。靜雯被逼與郭寶親吻，卻因此當眾出醜…….</desc>
+  </programme>
+  <programme start="20261007194500 +0000" stop="20261007201000 +0000" channel="Jade.hk@SD">
+    <title>高朋滿座#201[粵]</title>
+    <desc>亨與麗拍拖後愛上到處享受人生，又發現養育下一代需花費巨額金錢。亨一心想賺多些錢，為與麗的未來作出準備，更欲為瑜珈中心開設分店。本來，麗對亨的舉動也心存讚賞，但亨因過分投入搵錢大計而冷落麗。.</desc>
+  </programme>
+  <programme start="20261007201000 +0000" stop="20261007210500 +0000" channel="Jade.hk@SD">
+    <title>玉樓春#15[粵/普][PG]</title>
+    <desc>玉樓被強盜綁架，少春隻身赴會贖人，用巧計救出玉樓。玉樓求得皇上賜婚。孫遜私下約見少春，被她的言行打動，不再反對婚事。賈逢源模仿孫遜字跡偽造書信，告訴少春是孫遜害死其父。大婚日孫遜喝下少春敬的茶後昏迷。.</desc>
+  </programme>
+  <programme start="20261007210500 +0000" stop="20261007220000 +0000" channel="Jade.hk@SD">
+    <title>Sunday好戲王[粵][PG]</title>
+    <desc>「阿姐」汪明荃華麗駕臨，擔任「星級」評判，就着嘉賓藝員唐詩詠、沈震軒、何遠東、楊秀惠的「鬥戲」發揮，評選各個回合的贏家。究竟四位「好戲王」怎樣互拼演技兼發放「笑彈」？.</desc>
   </programme>
 </tv>
