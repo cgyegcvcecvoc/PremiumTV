@@ -1631,7 +1631,7 @@ def recently_dead_guide_urls(report_path: Path,
 
 def patch_playlists(targets: list, raw_url: str,
                     dead_urls: set[str] | None = None,
-                    max_fallbacks: int = 2) -> dict:
+                    max_fallbacks: int = scraper.MAX_HEADER_GUIDES) -> dict:
     """Put the root merged guide first and keep only a few fallback guides.
 
     The merged guide already contains every programme the verified upstream
@@ -1794,7 +1794,7 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--force", action="store_true", help="ignore --max-age-hours")
     ap.add_argument("--patch", action="store_true",
                     help="advertise the merged guide first in the playlists' x-tvg-url")
-    ap.add_argument("--max-header-guides", type=int, default=2,
+    ap.add_argument("--max-header-guides", type=int, default=scraper.MAX_HEADER_GUIDES,
                     help="keep at most this many fallback guide URLs after the merged "
                          "guide in a playlist header (-1 = keep every verified fallback)")
     ap.add_argument("--dry-run", action="store_true", help="build to a temp file only")

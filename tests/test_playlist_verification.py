@@ -299,6 +299,26 @@ class VerifyPlaylistTest(unittest.TestCase):
             self.assertIn("curated_categories", payload)
 
 
+class EpgBuildHeaderPatchTest(unittest.TestCase):
+    """The guide build patches headers too, and must honour the same allowance."""
+
+    def test_patch_keeps_the_merged_guide_plus_the_shared_allowance(self):
+        import epg_build
+        raw = "https://raw.githubusercontent.com/o/r/main/EPG/PremiumTV.xml"
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "PremiumTV.m3u"
+            guides = ",".join([raw] + [f"https://u.test/{i}.xml" for i in range(40)])
+            path.write_text(f'#EXTM3U x-tvg-url="{guides}"\n# a playlist\n', encoding="utf-8")
+            epg_build.patch_playlists([path], raw, set(),
+                                       max_fallbacks=scraper.MAX_HEADER_GUIDES)
+            import re
+            advertised = re.search(r'x-tvg-url="([^"]*)"', path.read_text()).group(1).split(",")
+            self.assertEqual(advertised[0], raw)
+            self.assertEqual(len(advertised), 1 + scraper.MAX_HEADER_GUIDES)
+            # the two parsers agree on the default, so neither can widen the header back up
+            self.assertEqual(epg_build.patch_playlists.__defaults__[1], scraper.MAX_HEADER_GUIDES)
+
+
 class CommittedPlaylistsTest(unittest.TestCase):
     """The repository's own published files have to satisfy the same contract."""
 
