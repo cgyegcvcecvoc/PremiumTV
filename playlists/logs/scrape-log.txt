@@ -1,22 +1,22 @@
 ========================================================================================
 PREMIUMTV1 SCRAPER RUN LOG (.TXT)
 ========================================================================================
-Run ID:                  20261005T155606Z-2527
-Run Label:               3:07 AM daily scrape (regular_check)
-Started (UTC):           2026-10-05T15:56:06Z
-Finished (UTC):          2026-10-05T16:00:18Z
-Local Time (New York):   2026-10-05 12:00 PM EDT
-Duration:                251.38 seconds
+Run ID:                  20261005T191959Z-2624
+Run Label:               6:23 AM recheck (recheck)
+Started (UTC):           2026-10-05T19:19:59Z
+Finished (UTC):          2026-10-05T19:24:09Z
+Local Time (New York):   2026-10-05 03:24 PM EDT
+Duration:                249.44 seconds
 Outcome Status:          WARNING
 Link Check Completed:    True
 Player Playlist Updated: YES
-Total Input Entries:     20691
-Total Unique URLs:       16368
-Confirmed Working:       9865
-Confirmed Dead:          3806
-Unverified:              2697
-Log Edits (vs PremiumTV_all.m3u): +227 added / -385 removed
-Countries Separated:     170 country playlists in playlists/countries/
+Total Input Entries:     20775
+Total Unique URLs:       16465
+Confirmed Working:       9863
+Confirmed Dead:          3821
+Unverified:              2781
+Log Edits (vs PremiumTV_all.m3u): +351 added / -254 removed
+Countries Separated:     171 country playlists in playlists/countries/
 A&E Working Channels:    59 / 71 unique links (playlists/AE_Channels.m3u)
 
 ----------------------------------------------------------------------------------------
@@ -25,18 +25,18 @@ A&E Working Channels:    59 / 71 unique links (playlists/AE_Channels.m3u)
 Source                     Status           Entries   Unique  Overlap  Working     Dead  Unverif
 -----------------------------------------------------------------------------------------------
 local-channels             ok                     4        4        3        2        0        2
-priority-channels          ok                    12       12       10       12        0        0
+priority-channels          ok                    12       12        8       11        0        1
 ae-networks                ok                    53       53       17       42        9        2
-aria                       ok                   359      354      118      256       30       68
-doms9                      ok                   395      386       68      190       30      166
-xtemus                     ok                   317      317        0        2      261       54
-iptv-org                   ok                 11138    11138     3679     6491     2633     2014
-free-tv                    ok                  2080     2054      833     1108      496      450
+aria                       ok                   359      354      118      255       31       68
+doms9                      ok                   480      480       67      226       61      193
+xtemus                     ok                   317      317        0        2      253       62
+iptv-org                   ok                 11138    11138     3679     6459     2643     2036
+free-tv                    ok                  2080     2054      830     1098      496      460
 eja-tv-feed                not_configured         0        0        0        0        0        0
 stepdaddylivehd-instance   not_configured         0        0        0        0        0        0
 dlive-sx-feed              not_configured         0        0        0        0        0        0
-m3u                        ok                   831      827      174      325      443       59
-openstream                 ok                  5502     5502     3222     5058      424       20
+m3u                        ok                   831      827      174      321      437       69
+openstream                 ok                  5501     5501     3219     5071      406       24
 
 ----------------------------------------------------------------------------------------
 2. A&E AND A+E NETWORKS CHANNELS (59 WORKING / 71 UNIQUE)
@@ -114,138 +114,138 @@ openstream                 ok                  5502     5502     3222     5058  
   [UNVERIFIED: gaierror] [International] ☆ The First 48 🇺🇸 -> https://d3ja4g4lkxnrni.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gxn5naeo1b698/v1/ae_networks_first48_1/samsungheadend_us/latest/main/hls/playlist.m3u8
 
 ----------------------------------------------------------------------------------------
-3. COUNTRY PLAYLISTS SUMMARY (170 COUNTRIES IN playlists/countries/)
+3. COUNTRY PLAYLISTS SUMMARY (171 COUNTRIES IN playlists/countries/)
 ----------------------------------------------------------------------------------------
 Country                               Working   Playlist Path
 --------------------------------------------------------------------------------
-USA                                      2014   playlists/countries/USA.m3u
-International                            1225   playlists/countries/International.m3u
-India                                     698   playlists/countries/India.m3u
-Russia                                    399   playlists/countries/Russia.m3u
-Italy                                     378   playlists/countries/Italy.m3u
+USA                                      2018   playlists/countries/USA.m3u
+International                            1228   playlists/countries/International.m3u
+India                                     704   playlists/countries/India.m3u
+Russia                                    401   playlists/countries/Russia.m3u
+Italy                                     373   playlists/countries/Italy.m3u
 UK                                        216   playlists/countries/UK.m3u
-Dominican Republic                        193   playlists/countries/Dominican_Republic.m3u
-Spain                                     193   playlists/countries/Spain.m3u
-France                                    192   playlists/countries/France.m3u
-Brazil                                    179   playlists/countries/Brazil.m3u
-Chile                                     174   playlists/countries/Chile.m3u
-Germany                                   170   playlists/countries/Germany.m3u
-Ukraine                                   168   playlists/countries/Ukraine.m3u
-Argentina                                 157   playlists/countries/Argentina.m3u
-Peru                                      146   playlists/countries/Peru.m3u
-Netherlands                               135   playlists/countries/Netherlands.m3u
-Canada                                    133   playlists/countries/Canada.m3u
-Mexico                                    123   playlists/countries/Mexico.m3u
+Dominican Republic                        195   playlists/countries/Dominican_Republic.m3u
+Spain                                     194   playlists/countries/Spain.m3u
+France                                    193   playlists/countries/France.m3u
+Brazil                                    181   playlists/countries/Brazil.m3u
+Germany                                   173   playlists/countries/Germany.m3u
+Chile                                     172   playlists/countries/Chile.m3u
+Ukraine                                   166   playlists/countries/Ukraine.m3u
+Argentina                                 151   playlists/countries/Argentina.m3u
+Peru                                      145   playlists/countries/Peru.m3u
+Netherlands                               136   playlists/countries/Netherlands.m3u
+Canada                                    131   playlists/countries/Canada.m3u
+Mexico                                    125   playlists/countries/Mexico.m3u
 Turkey                                    121   playlists/countries/Turkey.m3u
 Romania                                   117   playlists/countries/Romania.m3u
-Poland                                    114   playlists/countries/Poland.m3u
-Indonesia                                 108   playlists/countries/Indonesia.m3u
+Poland                                    115   playlists/countries/Poland.m3u
 Hungary                                   106   playlists/countries/Hungary.m3u
-Colombia                                   98   playlists/countries/Colombia.m3u
+Indonesia                                 102   playlists/countries/Indonesia.m3u
+Colombia                                   99   playlists/countries/Colombia.m3u
 Greece                                     85   playlists/countries/Greece.m3u
-Mongolia                                   78   playlists/countries/Mongolia.m3u
 Czechia                                    76   playlists/countries/Czechia.m3u
+Mongolia                                   76   playlists/countries/Mongolia.m3u
 South Korea                                66   playlists/countries/South_Korea.m3u
 Iraq                                       57   playlists/countries/Iraq.m3u
+Thailand                                   53   playlists/countries/Thailand.m3u
 China                                      52   playlists/countries/China.m3u
-Venezuela                                  52   playlists/countries/Venezuela.m3u
-Costa Rica                                 51   playlists/countries/Costa_Rica.m3u
+Costa Rica                                 52   playlists/countries/Costa_Rica.m3u
+Honduras                                   52   playlists/countries/Honduras.m3u
 Ecuador                                    51   playlists/countries/Ecuador.m3u
 Pakistan                                   51   playlists/countries/Pakistan.m3u
-Honduras                                   50   playlists/countries/Honduras.m3u
-Saudi Arabia                               50   playlists/countries/Saudi_Arabia.m3u
-Thailand                                   50   playlists/countries/Thailand.m3u
+Saudi Arabia                               51   playlists/countries/Saudi_Arabia.m3u
+Bolivia                                    50   playlists/countries/Bolivia.m3u
 Vietnam                                    50   playlists/countries/Vietnam.m3u
-Bolivia                                    49   playlists/countries/Bolivia.m3u
 Paraguay                                   49   playlists/countries/Paraguay.m3u
-Slovakia                                   49   playlists/countries/Slovakia.m3u
+Venezuela                                  49   playlists/countries/Venezuela.m3u
 Iran                                       47   playlists/countries/Iran.m3u
 Portugal                                   42   playlists/countries/Portugal.m3u
+Slovakia                                   42   playlists/countries/Slovakia.m3u
 United Arab Emirates                       41   playlists/countries/United_Arab_Emirates.m3u
 Kazakhstan                                 39   playlists/countries/Kazakhstan.m3u
 Qatar                                      36   playlists/countries/Qatar.m3u
-Austria                                    35   playlists/countries/Austria.m3u
+Austria                                    34   playlists/countries/Austria.m3u
 Nigeria                                    32   playlists/countries/Nigeria.m3u
 Uzbekistan                                 32   playlists/countries/Uzbekistan.m3u
 Guatemala                                  30   playlists/countries/Guatemala.m3u
 Bulgaria                                   28   playlists/countries/Bulgaria.m3u
 Israel                                     28   playlists/countries/Israel.m3u
+Lebanon                                    28   playlists/countries/Lebanon.m3u
 Belgium                                    27   playlists/countries/Belgium.m3u
-Lebanon                                    27   playlists/countries/Lebanon.m3u
-Finland                                    26   playlists/countries/Finland.m3u
+Finland                                    25   playlists/countries/Finland.m3u
 Puerto Rico                                25   playlists/countries/Puerto_Rico.m3u
-Belarus                                    24   playlists/countries/Belarus.m3u
-El Salvador                                22   playlists/countries/El_Salvador.m3u
+El Salvador                                24   playlists/countries/El_Salvador.m3u
+Belarus                                    23   playlists/countries/Belarus.m3u
 Japan                                      19   playlists/countries/Japan.m3u
 Moldova                                    19   playlists/countries/Moldova.m3u
 Serbia                                     19   playlists/countries/Serbia.m3u
-Cambodia                                   17   playlists/countries/Cambodia.m3u
+Singapore                                  19   playlists/countries/Singapore.m3u
+Cyprus                                     17   playlists/countries/Cyprus.m3u
 Estonia                                    17   playlists/countries/Estonia.m3u
-Jordan                                     17   playlists/countries/Jordan.m3u
+Ivory Coast                                17   playlists/countries/Ivory_Coast.m3u
 Lithuania                                  17   playlists/countries/Lithuania.m3u
 Palestine                                  17   playlists/countries/Palestine.m3u
 Albania                                    16   playlists/countries/Albania.m3u
 Bangladesh                                 16   playlists/countries/Bangladesh.m3u
-Cyprus                                     16   playlists/countries/Cyprus.m3u
+Cambodia                                   16   playlists/countries/Cambodia.m3u
 Ireland                                    16   playlists/countries/Ireland.m3u
-Ivory Coast                                16   playlists/countries/Ivory_Coast.m3u
-North Macedonia                            16   playlists/countries/North_Macedonia.m3u
+Jordan                                     16   playlists/countries/Jordan.m3u
 Switzerland                                16   playlists/countries/Switzerland.m3u
 Turkmenistan                               16   playlists/countries/Turkmenistan.m3u
 Australia                                  15   playlists/countries/Australia.m3u
 Egypt                                      15   playlists/countries/Egypt.m3u
-Singapore                                  15   playlists/countries/Singapore.m3u
 South Africa                               15   playlists/countries/South_Africa.m3u
 Azerbaijan                                 14   playlists/countries/Azerbaijan.m3u
-Croatia                                    14   playlists/countries/Croatia.m3u
 Georgia                                    14   playlists/countries/Georgia.m3u
 Panama                                     14   playlists/countries/Panama.m3u
 Taiwan                                     14   playlists/countries/Taiwan.m3u
 Kuwait                                     13   playlists/countries/Kuwait.m3u
 Luxembourg                                 13   playlists/countries/Luxembourg.m3u
-Sweden                                     12   playlists/countries/Sweden.m3u
+North Macedonia                            13   playlists/countries/North_Macedonia.m3u
 Syria                                      12   playlists/countries/Syria.m3u
 Bosnia and Herzegovina                     11   playlists/countries/Bosnia_and_Herzegovina.m3u
-Cameroon                                   11   playlists/countries/Cameroon.m3u
+Sweden                                     11   playlists/countries/Sweden.m3u
 Afghanistan                                10   playlists/countries/Afghanistan.m3u
 Armenia                                    10   playlists/countries/Armenia.m3u
+Cameroon                                   10   playlists/countries/Cameroon.m3u
+Croatia                                    10   playlists/countries/Croatia.m3u
+Hong Kong                                  10   playlists/countries/Hong_Kong.m3u
 Philippines                                10   playlists/countries/Philippines.m3u
+Uganda                                     10   playlists/countries/Uganda.m3u
 Aruba                                       9   playlists/countries/Aruba.m3u
-Haiti                                       9   playlists/countries/Haiti.m3u
 Kosovo                                      9   playlists/countries/Kosovo.m3u
 Laos                                        9   playlists/countries/Laos.m3u
-Uganda                                      9   playlists/countries/Uganda.m3u
-Hong Kong                                   8   playlists/countries/Hong_Kong.m3u
-Latvia                                      8   playlists/countries/Latvia.m3u
+Haiti                                       8   playlists/countries/Haiti.m3u
 Morocco                                     8   playlists/countries/Morocco.m3u
 Nepal                                       8   playlists/countries/Nepal.m3u
 Rwanda                                      8   playlists/countries/Rwanda.m3u
-Denmark                                     6   playlists/countries/Denmark.m3u
-Ghana                                       6   playlists/countries/Ghana.m3u
-Kenya                                       6   playlists/countries/Kenya.m3u
+Denmark                                     7   playlists/countries/Denmark.m3u
+Kenya                                       7   playlists/countries/Kenya.m3u
+Latvia                                      7   playlists/countries/Latvia.m3u
 Maldives                                    6   playlists/countries/Maldives.m3u
 Myanmar                                     6   playlists/countries/Myanmar.m3u
 Nicaragua                                   6   playlists/countries/Nicaragua.m3u
 Oman                                        6   playlists/countries/Oman.m3u
+Senegal                                     6   playlists/countries/Senegal.m3u
+Algeria                                     5   playlists/countries/Algeria.m3u
 Bahrain                                     5   playlists/countries/Bahrain.m3u
 Benin                                       5   playlists/countries/Benin.m3u
-DR Congo                                    5   playlists/countries/DR_Congo.m3u
+Ghana                                       5   playlists/countries/Ghana.m3u
 Guadeloupe                                  5   playlists/countries/Guadeloupe.m3u
 Martinique                                  5   playlists/countries/Martinique.m3u
 New Zealand                                 5   playlists/countries/New_Zealand.m3u
 Norway                                      5   playlists/countries/Norway.m3u
-Senegal                                     5   playlists/countries/Senegal.m3u
 Sint Maarten                                5   playlists/countries/Sint_Maarten.m3u
-Sri Lanka                                   5   playlists/countries/Sri_Lanka.m3u
 Trinidad and Tobago                         5   playlists/countries/Trinidad_and_Tobago.m3u
-Algeria                                     4   playlists/countries/Algeria.m3u
 Burkina Faso                                4   playlists/countries/Burkina_Faso.m3u
 Caribbean Netherlands                       4   playlists/countries/Caribbean_Netherlands.m3u
+DR Congo                                    4   playlists/countries/DR_Congo.m3u
 Iceland                                     4   playlists/countries/Iceland.m3u
 Jamaica                                     4   playlists/countries/Jamaica.m3u
 Libya                                       4   playlists/countries/Libya.m3u
 North Korea                                 4   playlists/countries/North_Korea.m3u
 Somalia                                     4   playlists/countries/Somalia.m3u
+Sri Lanka                                   4   playlists/countries/Sri_Lanka.m3u
 Tanzania                                    4   playlists/countries/Tanzania.m3u
 Yemen                                       4   playlists/countries/Yemen.m3u
 Curacao                                     3   playlists/countries/Curacao.m3u
@@ -254,7 +254,6 @@ Guyana                                      3   playlists/countries/Guyana.m3u
 Monaco                                      3   playlists/countries/Monaco.m3u
 Montenegro                                  3   playlists/countries/Montenegro.m3u
 Mozambique                                  3   playlists/countries/Mozambique.m3u
-Republic of the Congo                       3   playlists/countries/Republic_of_the_Congo.m3u
 Saint Kitts and Nevis                       3   playlists/countries/Saint_Kitts_and_Nevis.m3u
 Slovenia                                    3   playlists/countries/Slovenia.m3u
 Togo                                        3   playlists/countries/Togo.m3u
@@ -269,6 +268,7 @@ Faroe Islands                               2   playlists/countries/Faroe_Island
 Mali                                        2   playlists/countries/Mali.m3u
 Malta                                       2   playlists/countries/Malta.m3u
 Niger                                       2   playlists/countries/Niger.m3u
+Republic of the Congo                       2   playlists/countries/Republic_of_the_Congo.m3u
 Saint Lucia                                 2   playlists/countries/Saint_Lucia.m3u
 Sudan                                       2   playlists/countries/Sudan.m3u
 Suriname                                    2   playlists/countries/Suriname.m3u
@@ -281,6 +281,7 @@ Chad                                        1   playlists/countries/Chad.m3u
 Cuba                                        1   playlists/countries/Cuba.m3u
 Equatorial Guinea                           1   playlists/countries/Equatorial_Guinea.m3u
 Eritrea                                     1   playlists/countries/Eritrea.m3u
+Gambia                                      1   playlists/countries/Gambia.m3u
 Guam                                        1   playlists/countries/Guam.m3u
 Kyrgyzstan                                  1   playlists/countries/Kyrgyzstan.m3u
 Malaysia                                    1   playlists/countries/Malaysia.m3u
@@ -293,167 +294,166 @@ Zimbabwe                                    1   playlists/countries/Zimbabwe.m3u
 4. LOG EDITS IN THIS RUN (ADDED & REMOVED CHANNELS)
 ----------------------------------------------------------------------------------------
 Baseline: PremiumTV_all.m3u
-Added:    +227 channels
-Removed:  -385 channels
+Added:    +351 channels
+Removed:  -254 channels
 
 Added Channels (sample):
-  + [USA] [Horse Racing] Horse Racing 1 (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.194/hls/vavavava.m3u8
-  + [USA] [ASEAN Championship] Indonesia vs Thailand (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/ekkkkAAX.m3u8
-  + [USA] [Friendly Match] DR Congo vs Uganda (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.55/hls/vvvv.m3u8
-  + [USA] Animal Planet (source=doms9, group=TV) -> http://23.239.31.26:8989/animalplanet/index.m3u8
-  + [International] MeTV 7 720p (source=priority-channels, group=MeTV) -> http://fivetv.org:25461/luis710/lcalderon9625/91327
-  + [USA] [Live Event] Kinoshita Group Japan Open (Semifinals) | Disney+ (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/disney21/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [UEFA Nations League] Chipre vs Letonia | ESPN 2 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN Premium┃OP2 (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [UEFA Nations League] Rumania vs Suecia | ESPN 2 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [UEFA Nations League] Rumania vs Suecia | ESPN 2 | OP3 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Liga Profesional: | ESPN Premium┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Primera A] Medellín vs Santa Fe | Win Sports (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/winsports/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [UEFA Nations League] Francia vs Bélgica | ESPN AR┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://2.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga de Naciones de la CONCACAF] Martinica vs El Salvador | Fox Sports 2 USA | OP2 (TVF90) (source=doms9, group=Live Events) -> https://2.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Primera A] Medellín vs Santa Fe | Win Sports + | OP3 (TVF90) (source=doms9, group=Live Events) -> https://2.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [ATP] INDIVIDUALES - Pekín, dura - Semifinales: Djokovic N. vs Medvedev D. | Disney+ (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/disney24/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN 5 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [UEFA Nations League] Ukraine vs Hungary (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/SZSZSZ.m3u8
+  + [USA] [UEFA Nations League] Romania vs Sweden (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/SZSZSZQ.m3u8
+  + [USA] [UEFA Nations League] France vs Belgium (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/SZSZSZQQ.m3u8
+  + [USA] [UEFA Nations League] Italy vs Turkey (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/SZSZSZQQQ.m3u8
+  + [USA] [UEFA Nations League] Bosnia and Herzegovina vs Poland (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.41/hls/SZSZSZQQQQ.m3u8
+  + [USA] [UEFA Nations League] Cyprus vs Latvia (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.44/hls/CACACAAAAQQQQX.m3u8
+  + [USA] [Norway OBOS-ligaen] Moss vs Kongsvinger (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.50/hls/CACACAAAAQQ.m3u8
+  + [USA] [Spanish Segunda Liga] Cordoba vs Tenerife (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.50/hls/CACACAAAAQQQ.m3u8
+  + [USA] [CONCACAF Nations League] Guadeloupe vs Saint Lucia (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.50/hls/OKOKOK.m3u8
+  + [USA] [Friendly Match] Liechtenstein vs Gibraltar (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.50/hls/grrrA.m3u8
+  + [USA] [UEFA Nations League] Montenegro vs Armenia (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.50/hls/grrrAA.m3u8
+  + [USA] [UEFA Nations League] Northern Ireland vs Georgia (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.50/hls/grrrAAA.m3u8
+  + [USA] [UEFA Nations League] UEFA Nations League Simulcast (FAWA) (source=doms9, group=Live Events) -> http://193.47.62.50/hls/grrrAAAA.m3u8
+  + [International] 宿州公共 (1080p) [Not 24/7] (source=openstream, group=Other) -> http://live.ahsz.tv/video/s10001-ggpd/index.m3u8
+  + [Russia] РБК-ТВ (source=openstream, group=Other) -> http://online-video.rbc.ru/online2/rbctv.m3u8
+  + [USA] [UEFA Nations League] Chipre vs Letonia | Fox Sports 2 USA | OP2 (TVF90) (source=doms9, group=Live Events) -> https://10.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Liga Profesional: | ESPN Premium┃OP2 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga de Naciones de la CONCACAF] Martinica vs El Salvador | Fox Sports 2 USA | OP2 (TVF90) (source=doms9, group=Live Events) -> https://11.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Liga Profesional: | ESPN Premium┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://2.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Deportivo Riestra vs Central Córdoba SdE | TNT Sports | OP3 (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
   + [USA] [Liga Profesional] Vélez Sarsfield vs Platense | TNT Sports (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Live Event] WTA China Open (Third Round) | Disney+ (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/disney22/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [UEFA Nations League] Francia vs Bélgica | ESPN AR┃OP2 (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN Premium┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Vélez Sarsfield vs Platense | TNT Sports | OP3 (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [UEFA Nations League] Chipre vs Letonia | Fox Sports 2 USA | OP2 (TVF90) (source=doms9, group=Live Events) -> https://5.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Deportivo Riestra vs Central Córdoba SdE | TNT Sports (TVF90) (source=doms9, group=Live Events) -> https://5.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [NFL] New Orleans Saints vs. Atlanta Falcons | ESPN 2 | OP3 (TVF90) (source=doms9, group=Live Events) -> https://7.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Liga Profesional: | ESPN Premium┃OP2 (TVF90) (source=doms9, group=Live Events) -> https://7.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN 5 | OP3 (TVF90) (source=doms9, group=Live Events) -> https://8.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Primera A] Medellín vs Santa Fe | Win Sports + | OP2 (TVF90) (source=doms9, group=Live Events) -> https://8.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [Live Event] China Open / Brad Drewett (Doubles Semifinals) | Disney+ (TVF90) (source=doms9, group=Live Events) -> https://9.ftlly.com:443/disney23/mono.m3u8?token=%5Bredacted%5D
-  + [USA] [NFL] New Orleans Saints vs. Atlanta Falcons | ESPN 2 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://9.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Primera A] Medellín vs Santa Fe | Win Sports + | OP2 (TVF90) (source=doms9, group=Live Events) -> https://3.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [UEFA Nations League] Francia vs Bélgica | ESPN AR┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [UEFA Nations League] Chipre vs Letonia | ESPN 2 | OP3 (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [NFL] New Orleans Saints vs. Atlanta Falcons | ESPN 2 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [UEFA Nations League] Chipre vs Letonia | ESPN 2 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [UEFA Nations League] Rumania vs Suecia | ESPN 2 | OP2 (TVF90) (source=doms9, group=Live Events) -> https://5.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN 5 | OP3 (TVF90) (source=doms9, group=Live Events) -> https://5.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN Premium┃OP2 (TVF90) (source=doms9, group=Live Events) -> https://5.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN Premium┃OP3 (TVF90) (source=doms9, group=Live Events) -> https://5.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
 
 Removed Channels (sample):
-  - [USA] [Mexico Liga MX] Guadalajara Chivas W vs Juarez W (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/FYYY.m3u8
-  - [USA] [USA NWSL Women] Houston Dash W vs Washington Spirit W (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/FYYYA.m3u8
-  - [USA] [CONCACAF Nations League] Aruba vs Anguilla (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/FYYYAA.m3u8
-  - [USA] [NBA Basketball] Denver Nuggets vs Utah Jazz 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/FYYYAAA.m3u8
-  - [USA] [NBA Basketball] Los Angeles Clippers vs Golden State Warriors 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/FYYYAAAA.m3u8
-  - [USA] [Colombia Primera A] Bucaramanga vs Junior (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/FYYYAAAAA.m3u8
-  - [USA] [Bolivia Copa] Independiente vs Bolivar (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/FYYYAAAAAA.m3u8
-  - [USA] [CONCACAF Nations League] Costa Rica vs Haiti (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/IRRR.m3u8
-  - [USA] [Argentina Liga Profesional] Estudiantes Rio Cuarto vs Racing Club (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/IRRRA.m3u8
-  - [USA] [Mexico Liga MX] Pachuca W vs Toluca W (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/IRRRAA.m3u8
-  - [USA] [Golf PGA] Golf PGA Bank of Utah Championship (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/odddd.m3u8
-  - [USA] [Uruguay Liga AUF] Racing Montevideo vs Penarol (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/oddddQQQQQ.m3u8
-  - [USA] [Argentina Liga Profesional] Argentinos Jrs vs Tigre (FAWA) (source=previous, group=Live Events) -> http://193.47.62.41/hls/oddddQQQQQQQQ.m3u8
-  - [USA] [MLB Baseball] Los Angeles Dodgers vs Atlanta Braves (FAWA) (source=previous, group=Live Events) -> http://193.47.62.44/hls/YBBB.m3u8
-  - [USA] [NFL American Football] Carolina Panthers vs Detroit Lions 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/LOLOLO.m3u8
-  - [USA] [NFL American Football] Carolina Panthers vs Detroit Lions 2 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.50/hls/LOLOLOA.m3u8
-  - [USA] ACC Network (source=previous, group=TV) -> http://23.237.104.106:8080/USA_ACCN/index.m3u8
-  - [USA] Animal Planet (source=previous, group=TV) -> http://23.237.104.106:8080/USA_ANIMAL_PLANET/index.m3u8
-  - [USA] BBC America (source=previous, group=TV) -> http://23.237.104.106:8080/USA_BBC_AMERICA/index.m3u8
-  - [USA] Boomerang (source=previous, group=TV) -> http://23.237.104.106:8080/USA_BOOMERANG/index.m3u8
-  - [USA] Destination America (source=previous, group=TV) -> http://23.237.104.106:8080/USA_DESTINATION_AMERICA/index.m3u8
-  - [USA] HLN TV (source=previous, group=TV) -> http://23.237.104.106:8080/USA_HLN/index.m3u8
-  - [USA] Nat Geo Wild (source=previous, group=TV) -> http://23.237.104.106:8080/USA_NAT_GEO_WILD/index.m3u8
-  - [USA] VH1 (source=previous, group=TV) -> http://23.237.104.106:8080/USA_VH1/index.m3u8
-  - [USA] [NHL] Utah Mammoth vs. New York Rangers | Disney+ (TVF90) (source=previous, group=Live Events) -> https://10.ftlly.com:443/disney28/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Liga Profesional] Estudiantes Río Cuarto vs Racing Club | TyC Sports | OP2 (TVF90) (source=previous, group=Live Events) -> https://10.ftlly.com:443/tycsports/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Primera A] Atlético Bucaramanga vs Junior | Win Sports + | OP2 (TVF90) (source=previous, group=Live Events) -> https://10.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Liga Profesional] Talleres Córdoba vs Belgrano | ESPN Premium┃OP2 (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Copa de la División Profesional] Guabirá vs Oriente Petrolero | Entel TV PLUS+ (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
-  - [USA] [Liga de Naciones CONCACAF] Costa Rica vs Haiti | TUDN USA (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
+  - [Indonesia] Timor TV (1080p) (source=previous, group=Other) -> http://122.248.43.242:1935/TIMORTV/_definst_/myStream/playlist.m3u8
+  - [Paraguay] Farra Play (720p) [Not 24/7] (source=previous, group=Other) -> http://159.203.148.226/live/farra.m3u8
+  - [USA] [Horse Racing] Horse Racing 1 (FAWA) (source=previous, group=Live Events) -> http://193.47.62.194/hls/vavavava.m3u8
+  - [USA] [ASEAN Championship] Indonesia vs Thailand (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/ekkkkAAX.m3u8
+  - [USA] [Friendly Match] DR Congo vs Uganda (FAWA) (source=previous, group=Live Events) -> http://193.47.62.55/hls/vvvv.m3u8
+  - [International] 奇妙電視 (720p) (source=previous, group=Other) -> http://media.fantv.hk/m3u8/archive/channel2_stream1.m3u8
+  - [USA] [Live Event] Kinoshita Group Japan Open (Semifinals) | Disney+ (TVF90) (source=previous, group=Live Events) -> https://10.ftlly.com:443/disney21/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Chipre vs Letonia | ESPN 2 | OP2 (TVF90) (source=previous, group=Live Events) -> https://10.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN Premium┃OP2 (TVF90) (source=previous, group=Live Events) -> https://10.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Rumania vs Suecia | ESPN 2 | OP2 (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Rumania vs Suecia | ESPN 2 | OP3 (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Liga Profesional: | ESPN Premium┃OP3 (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Medellín vs Santa Fe | Win Sports (TVF90) (source=previous, group=Live Events) -> https://11.ftlly.com:443/winsports/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Francia vs Bélgica | ESPN AR┃OP3 (TVF90) (source=previous, group=Live Events) -> https://2.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga de Naciones de la CONCACAF] Martinica vs El Salvador | Fox Sports 2 USA | OP2 (TVF90) (source=previous, group=Live Events) -> https://2.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Medellín vs Santa Fe | Win Sports + | OP3 (TVF90) (source=previous, group=Live Events) -> https://2.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [ATP] INDIVIDUALES - Pekín, dura - Semifinales: Djokovic N. vs Medvedev D. | Disney+ (TVF90) (source=previous, group=Live Events) -> https://3.ftlly.com:443/disney24/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN 5 | OP2 (TVF90) (source=previous, group=Live Events) -> https://3.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Vélez Sarsfield vs Platense | TNT Sports (TVF90) (source=previous, group=Live Events) -> https://3.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Live Event] WTA China Open (Third Round) | Disney+ (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/disney22/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Francia vs Bélgica | ESPN AR┃OP2 (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN Premium┃OP3 (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Vélez Sarsfield vs Platense | TNT Sports | OP3 (TVF90) (source=previous, group=Live Events) -> https://4.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Nations League] Chipre vs Letonia | Fox Sports 2 USA | OP2 (TVF90) (source=previous, group=Live Events) -> https://5.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Deportivo Riestra vs Central Córdoba SdE | TNT Sports (TVF90) (source=previous, group=Live Events) -> https://5.ftlly.com:443/tntsports/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NFL] New Orleans Saints vs. Atlanta Falcons | ESPN 2 | OP3 (TVF90) (source=previous, group=Live Events) -> https://7.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Liga Profesional: | ESPN Premium┃OP2 (TVF90) (source=previous, group=Live Events) -> https://7.ftlly.com:443/espnpremium/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Estudiantes vs Gimnasia Mendoza | ESPN 5 | OP3 (TVF90) (source=previous, group=Live Events) -> https://8.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Medellín vs Santa Fe | Win Sports + | OP2 (TVF90) (source=previous, group=Live Events) -> https://8.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Live Event] China Open / Brad Drewett (Doubles Semifinals) | Disney+ (TVF90) (source=previous, group=Live Events) -> https://9.ftlly.com:443/disney23/mono.m3u8?token=%5Bredacted%5D
 
 ----------------------------------------------------------------------------------------
 5. DIAGNOSTICS & RUN/SOURCE ISSUES
 ----------------------------------------------------------------------------------------
 Reason                                     Dead   Unverified   Guidance
 ----------------------------------------------------------------------------------------------------
-HTTP 403                                      0         1125   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)      973            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 404                                    953            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
-TimeoutError                                  0          845   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)      600            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-html page, not a stream                     406            0   The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect.
-gaierror                                      0          354   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-ConnectionRefusedError                        0          109   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+HTTP 403                                      0         1191   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)      979            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 404                                    948            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
+TimeoutError                                  0          881   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)      620            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+html page, not a stream                     398            0   The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect.
+gaierror                                      0          352   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+ConnectionRefusedError                        0           98   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       96            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 invalid URL                                  79            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 503                                      0           69   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+HTTP 503                                      0           65   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       65            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 400                                     63            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       51            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 401                                      0           42   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
+HTTP 400                                     61            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       52            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 401                                      0           45   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
 quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       29            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 504                                      0           22   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-RemoteDisconnected                            0           22   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 504                                      0           23   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 SSLError                                      0           22   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+RemoteDisconnected                            0           21   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 502                                      0           20   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)       20            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 502                                      0           16   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)       16            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       15            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       15            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       14            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+OSError                                       0           13   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 empty response                               13            0   The server returned no stream data; check whether the source requires an active session or has expired.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)       13            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-OSError                                       0           12   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)       12            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 500                                      0           11   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-SSLEOFError                                   0           11   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       11            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)       10            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)       11            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 HTTP 451                                      9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)        9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 530                                      0            8   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 not probed: unsupported scheme rtmp           0            8   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 403 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 302 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-05T12:17:17Z)        8            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 530                                      0            7   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-ConnectionResetError                          0            6   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z)        6            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        6            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: variant HTTP dns lookup failed (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+ConnectionResetError                          0            5   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 HTTP 406                                      5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 567                                      0            5   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T20:58:47Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 302 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z)        5            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-05T12:17:17Z)        4            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-04T11:07:47Z)        4            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+HTTP 429                                      0            3   The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff.
+HTTP 521                                      0            3   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: connection refused (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:31:25Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: variant HTTP TimeoutError (failed the deep check 4x, last 2026-10-03T15:00:01Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: variant HTTP timeout (failed the deep check 1x, last 2026-10-03T10:25:19Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 429                                      0            2   The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff.
-HTTP 521                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+HTTP 477                                      2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 523                                      0            2   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 not probed: unsupported scheme mmsh           0            2   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
 quarantined: empty response (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
@@ -468,6 +468,7 @@ quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-04T
 quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, SSLEOFError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, TimeoutError (failed the deep check 4x, last 2026-10-03T15:00:01Z)        2            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
@@ -481,8 +482,6 @@ HTTP 302                                      1            0   Inspect the chann
 HTTP 409                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 410                                      1            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
 HTTP 421                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 458                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 477                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 574                                      0            1   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 not probed: unsupported scheme rtsp           0            1   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
 not probed: unsupported scheme srt            0            1   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
@@ -500,7 +499,6 @@ quarantined: playlist only, HTTP 304 (failed the deep check 2x, last 2026-10-04T
 quarantined: playlist only, HTTP 401 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
@@ -510,7 +508,6 @@ quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-04T
 quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 429 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, InvalidURL (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
@@ -527,7 +524,6 @@ quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T2
 quarantined: playlist only, timeout (failed the deep check 4x, last 2026-10-03T15:00:01Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 410 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
@@ -552,6 +548,6 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T14:
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 
 Run / Source Issues:
-  * 2697 links could not be confirmed after retries (see unverified details).
-  * 3806 links returned a confirmed failure (see dead details).
-  * This run started +8h 49m after its scheduled time (2026-10-05T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+  * 2781 links could not be confirmed after retries (see unverified details).
+  * 3821 links returned a confirmed failure (see dead details).
+  * This run started +8h 57m after its scheduled time (2026-10-05T10:23:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
