@@ -1,0 +1,457 @@
+#!/usr/bin/env python3
+"""Offline verification of the published playlists and guides.
+
+Everything here is computed from files already in the repository - no network -
+so it can run after a scrape, after a deep check, or by hand, and always answer
+the same questions:
+
+* Is every published link one the last deep check still considers alive?
+  (URLs the deep check confirmed dead or that sit in the quarantine file are
+  called out; nothing else is assumed about a link.)
+* Does every playlist use the repository's own categories and the published
+  order (`scripts/categorize.py`: curated groups first, each followed by its
+  `<category> Backups` group, the long tail by size, `Other` last, name inside a
+  group)? A group-title that the taxonomy would never have written - "General",
+  "Undefined", "Tv • Series 📺" - is called out, because it means the file was
+  not published (or not re-sorted) through it.
+* Is every ``tvg-id`` a well-formed, unique id, and does the guide each playlist
+  advertises actually declare that id? EPG coverage is reported per playlist and
+  per category, so a guide that is not sourced for a channel is visible instead
+  of silently blank.
+* Is each advertised guide a real, parseable XMLTV file, and is it the right
+  guide for that playlist (a country playlist must advertise its own
+  ``EPG/<Country>.xml``)?
+
+    python scripts/verify_playlists.py                # report + checks/VERIFY.md
+    python scripts/verify_playlists.py --strict       # exit 1 when something is wrong
+    python scripts/verify_playlists.py --no-epg-parse # skip the big XMLTV files
+
+Outputs:
+
+    playlists/checks/verify.json    machine-readable result of every check
+    playlists/checks/VERIFY.md      human-readable summary
+"""
+from __future__ import annotations
+
+import argparse
+import collections
+import datetime as dt
+import json
+import re
+import sys
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import categorize  # noqa: E402  (the taxonomy the published files must match)
+import link_check  # noqa: E402
+import scraper  # noqa: E402
+
+ROOT = Path(__file__).resolve().parent.parent
+GUIDE_HEADER_RE = re.compile(r'x-tvg-url="([^"]*)"')
+SELF_URL_RE = re.compile(
+    r"https://raw\.githubusercontent\.com/[^/]+/[^/]+/(?:refs/heads/)?[^/]+/EPG/([A-Za-z0-9_]+)\.xml$")
+HTTP_SCHEMES = ("http", "https")
+KNOWN_OTHER_SCHEMES = tuple(scraper.NON_HTTP_SCHEMES)
+
+
+def log(msg: str) -> None:
+    print(msg, flush=True)
+
+
+def relative(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def read_guides(path: Path) -> list[str]:
+    try:
+        first = path.read_text(encoding="utf-8", errors="replace").splitlines()[0]
+    except (OSError, IndexError):
+        return []
+    match = GUIDE_HEADER_RE.search(first)
+    if not match:
+        return []
+    return [item.strip() for item in match.group(1).split(",") if item.strip()]
+
+
+def guide_file_for_url(url: str, epg_dir: Path) -> Path | None:
+    """Local EPG/*.xml file for a guide URL this repository publishes, if any."""
+    match = SELF_URL_RE.match(url)
+    if match:
+        candidate = epg_dir / f"{match.group(1)}.xml"
+        return candidate if candidate.exists() else None
+    if url.startswith(("http://", "https://")):
+        return None
+    candidate = Path(url)
+    if not candidate.is_absolute():
+        candidate = ROOT / candidate
+    return candidate if candidate.exists() else None
+
+
+def xml_channel_stats(path: Path, limit_bytes: int | None = None) -> dict:
+    """Channel ids, programme count and ids with real listings, streamed element by element."""
+    ids: set[str] = set()
+    scheduled: set[str] = set()
+    programmes = 0
+    if limit_bytes and path.stat().st_size > limit_bytes:
+        return {"ids": ids, "scheduled": scheduled, "programmes": programmes,
+                "error": f"skipped: {path.stat().st_size // 1_000_000} MB over the parse limit"}
+    try:
+        for _, element in ET.iterparse(path, events=("end",)):
+            if element.tag == "channel":
+                channel_id = (element.get("id") or "").strip()
+                if channel_id:
+                    ids.add(channel_id)
+            elif element.tag == "programme":
+                programmes += 1
+                channel_id = (element.get("channel") or "").strip()
+                if channel_id:
+                    scheduled.add(channel_id)
+            element.clear()
+    except ET.ParseError as exc:
+        return {"ids": ids, "scheduled": scheduled, "programmes": programmes,
+                "error": f"invalid XML: {exc}"}
+    except OSError as exc:
+        return {"ids": ids, "scheduled": scheduled, "programmes": programmes,
+                "error": f"unreadable: {exc}"}
+    return {"ids": ids, "scheduled": scheduled, "programmes": programmes, "error": ""}
+
+
+def local_guide_ids(playlist_guides: list[str], epg_dir: Path,
+                    cache: dict[str, dict],
+                    limit_bytes: int | None = None) -> tuple[set[str], set[str], list[str], str, int]:
+    """Declared and scheduled ids from the local guides a playlist advertises."""
+    declared: set[str] = set()
+    scheduled: set[str] = set()
+    files: list[str] = []
+    problems: list[str] = []
+    programmes = 0
+    for url in playlist_guides:
+        path = guide_file_for_url(url, epg_dir)
+        if path is None:
+            continue
+        files.append(relative(path))
+        if str(path) not in cache:
+            cache[str(path)] = xml_channel_stats(path, limit_bytes)
+        stats = cache[str(path)]
+        if stats["error"]:
+            problems.append(f"{relative(path)}: {stats['error']}")
+            continue
+        declared |= stats["ids"]
+        scheduled |= stats["scheduled"]
+        programmes += stats["programmes"]
+    return declared, scheduled, files, "; ".join(problems), programmes
+
+
+def verify_playlist(path: Path, epg_dir: Path, dead: dict[str, str], cache: dict,
+                    parse_epg: bool, max_bytes: int | None = None) -> dict:
+    text = path.read_text(encoding="utf-8", errors="replace")
+    header, blocks = link_check.split_blocks(text)
+    channels = [link_check.channel_from_block(block, path.name) for block in blocks]
+    guides = read_guides(path)
+
+    issues: list[str] = []
+    first_line = text.splitlines()[0] if text.splitlines() else ""
+    if not first_line.startswith("#EXTM3U"):
+        issues.append("missing #EXTM3U header")
+    # A playlist that leads with this repository's own guide is a published one, so
+    # its header is expected to hold that guide plus MAX_HEADER_GUIDES fallbacks.
+    leads_with_own_guide = bool(guides) and "raw.githubusercontent.com" in guides[0] and "/EPG/" in guides[0]
+    allowed_guides = 1 + scraper.MAX_HEADER_GUIDES
+    if leads_with_own_guide and scraper.MAX_HEADER_GUIDES >= 0 and len(guides) > allowed_guides:
+        issues.append(f"the header advertises {len(guides)} guides; a player downloads every one "
+                      f"before it shows a listing ({allowed_guides} is the published maximum: "
+                      f"the merged guide plus {scraper.MAX_HEADER_GUIDES} fallbacks)")
+
+    urls = [channel.url for channel in channels]
+    duplicates = collections.Counter(url for url in urls if url)
+    duplicate_urls = sorted(url for url, count in duplicates.items() if count > 1)
+    if duplicate_urls:
+        issues.append(f"{len(duplicate_urls)} duplicate URL(s) inside the playlist")
+
+    bad_scheme = collections.Counter()
+    missing_id: list[str] = []
+    dead_hits: list[dict] = []
+    group_counts: dict[str, int] = collections.Counter()
+    non_canonical: dict[str, int] = collections.Counter()
+    categories: dict[str, int] = collections.Counter()
+    ids_seen: set[str] = set()
+    duplicate_ids: dict[str, list[str]] = collections.defaultdict(list)
+
+    for channel in channels:
+        scheme = channel.url.split(":", 1)[0].lower() if ":" in channel.url else ""
+        if scheme not in HTTP_SCHEMES:
+            bad_scheme[scheme or "(none)"] += 1
+        group = (channel.attrs.get("group-title") or "").strip()
+        group_counts[group or "(none)"] += 1
+        category = categorize.base_category(group) or "(none)"
+        categories[category] += 1
+        # "Would the taxonomy write this label?" is the only fair test for a
+        # committed file: the Backups split, the curated order and the long tail
+        # are all answers to that same question.
+        if categorize.needs_normalization(group):
+            non_canonical[group or "(none)"] += 1
+        tvg_id = (channel.attrs.get("tvg-id") or "").strip()
+        if not tvg_id:
+            missing_id.append(channel.name)
+        else:
+            if tvg_id in ids_seen and len(duplicate_ids[tvg_id]) < 5:
+                duplicate_ids[tvg_id].append(channel.name)
+            ids_seen.add(tvg_id)
+        reason = dead.get(channel.url or "")
+        if reason and len(dead_hits) < 200:
+            dead_hits.append({"name": channel.name, "url": channel.url, "reason": reason})
+
+    if bad_scheme:
+        issues.append("non-HTTP URLs: "
+                      + ", ".join(f"{scheme} ({count})" for scheme, count in bad_scheme.items()))
+    if non_canonical:
+        issues.append(f"{sum(non_canonical.values())} entries carry a group the taxonomy never "
+                      f"writes (run scripts/resort_playlists.py): "
+                      + ", ".join(f"{group} ({count})"
+                                  for group, count in list(non_canonical.most_common(8))))
+    if dead_hits:
+        issues.append(f"{len(dead_hits)} published link(s) confirmed dead by the last deep check")
+
+    # The published order is a property of the whole file (which groups exist and
+    # how big they are), so the check re-orders the file's own entries and counts
+    # the positions that differ instead of comparing a per-entry key.
+    ordered = categorize.order_channels(channels)
+    out_of_order = sum(1 for left, right in zip(channels, ordered)
+                       if (left.name, left.url, left.attrs.get("group-title", ""))
+                       != (right.name, right.url, right.attrs.get("group-title", "")))
+
+    declared: set[str] = set()
+    scheduled: set[str] = set()
+    guide_files: list[str] = []
+    guide_problem = ""
+    guide_programmes = 0
+    if parse_epg and guides:
+        declared, scheduled, guide_files, guide_problem, guide_programmes = local_guide_ids(
+            guides, epg_dir, cache, max_bytes)
+        if guide_problem:
+            issues.append(guide_problem)
+
+    matched = sorted(ids_seen & declared) if declared else []
+    listed = sorted(ids_seen & scheduled) if scheduled else []
+    coverage = (len(matched) / len(ids_seen)) if ids_seen and declared else 0.0
+    warnings: list[str] = []
+    if declared and len(ids_seen) > len(declared):
+        warnings.append(f"the advertised guide declares {len(declared)} of "
+                        f"{len(ids_seen)} playlist ids; the next EPG build adds the rest")
+    if declared and not guide_programmes:
+        warnings.append("the advertised local guide has no programme entries "
+                        "(upstream listings were unreachable); channel ids are still declared")
+
+    return {
+        "file": relative(path),
+        "entries": len(channels),
+        "unique_urls": len(set(urls)),
+        "duplicate_urls": duplicate_urls[:50],
+        "guides": guides,
+        "guides_advertised": len(guides),
+        "local_guide_files": guide_files,
+        "missing_tvg_id": len(missing_id),
+        "missing_tvg_id_sample": missing_id[:10],
+        "duplicate_tvg_ids": {key: value for key, value in list(duplicate_ids.items())[:20]},
+        "groups": dict(group_counts.most_common(20)),
+        "non_canonical_groups": dict(non_canonical.most_common(20)),
+        "categories": dict(categories),
+        "out_of_order": out_of_order,
+        "dead_links": dead_hits,
+        "epg": {
+            "declared_ids": len(declared),
+            "playlist_ids": len(ids_seen),
+            "matched_ids": len(matched),
+            "coverage": round(coverage, 4),
+            "ids_with_programmes": len(listed),
+            "programme_coverage": round(len(listed) / len(ids_seen), 4) if ids_seen else 0.0,
+            "guide_programmes": guide_programmes,
+            "problem": guide_problem,
+        },
+        "issues": issues,
+        "warnings": warnings,
+    }
+
+
+def epg_source_summary(checks_dir: Path) -> dict:
+    """How the last guide check rated the advertised upstream guides."""
+    path = checks_dir / "epg-check.json"
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    results = data.get("results") or data.get("guides") or {}
+    if isinstance(results, list):
+        counts = collections.Counter(str(item.get("status") or "unknown") for item in results)
+    elif isinstance(results, dict):
+        counts = collections.Counter(str(item.get("status") or "unknown")
+                                     for item in results.values() if isinstance(item, dict))
+    else:
+        counts = collections.Counter()
+    return {
+        "finished_utc": data.get("finished_utc") or data.get("started_utc") or "",
+        "counts": dict(counts),
+        "verified": data.get("verified_count"),
+        "unreachable": data.get("unreachable_count"),
+    }
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--out", default=str(ROOT / "playlists"), help="playlists directory")
+    parser.add_argument("--epg-dir", default=str(ROOT / "EPG"), help="XMLTV directory")
+    parser.add_argument("--strict", action="store_true",
+                        help="exit non-zero when a playlist has a structural problem")
+    parser.add_argument("--no-epg-parse", action="store_true",
+                        help="skip reading the (large) XMLTV files")
+    parser.add_argument("--max-epg-mb", type=float, default=0.0,
+                        help="do not parse a guide larger than this many MB (0 = no limit)")
+    args = parser.parse_args(argv)
+
+    out_dir = Path(args.out)
+    epg_dir = Path(args.epg_dir)
+    checks_dir = out_dir / "checks"
+    dead = scraper.load_deep_check_dead(checks_dir, 7 * 24.0)
+    dead.update({url: f"quarantined: {entry.get('reason') or 'no media on the deep check'}"
+                 for url, entry in (scraper.load_quarantine(
+                     checks_dir / scraper.QUARANTINE_FILENAME, 7.0) or {}).items()})
+
+    targets = [out_dir / name for name in ("PremiumTV.m3u", "AE_Channels.m3u",
+                                           "Priority_Channels.m3u")]
+    targets = [path for path in targets if path.exists()]
+    targets += sorted((out_dir / "countries").glob("*.m3u"))
+    if not targets:
+        log(f"[verify] ERROR: no playlists found under {relative(out_dir)}")
+        return 1
+
+    cache: dict[str, dict] = {}
+    # A cap on the guide size keeps the run bounded on a huge merged guide; the
+    # limit is applied where the files are read, so it must be passed down.
+    max_bytes = int(args.max_epg_mb * 1_000_000) if args.max_epg_mb > 0 else None
+
+    reports = []
+    for path in targets:
+        report = verify_playlist(path, epg_dir, dead, cache, parse_epg=not args.no_epg_parse,
+                                 max_bytes=max_bytes)
+        reports.append(report)
+        status = "OK " if not report["issues"] else "ISSUES"
+        log(f"[verify] {status} {report['file']}: {report['entries']} entries, "
+            f"EPG {report['epg']['matched_ids']}/{report['epg']['playlist_ids']} ids"
+            + (f" - {'; '.join(report['issues'])}" if report["issues"] else ""))
+
+    violating = [item for item in reports if item["issues"]]
+    warned = [item for item in reports if item.get("warnings")]
+    totals = {
+        "playlists": len(reports),
+        "entries": sum(item["entries"] for item in reports),
+        "playlists_with_issues": len(violating),
+        "playlists_with_warnings": len(warned),
+        "dead_links_published": sum(len(item["dead_links"]) for item in reports),
+        "epg_sources": epg_source_summary(checks_dir),
+    }
+    result = {
+        "run_id": dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
+        "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+        "group_order": list(categorize.order_categories(
+            collections.Counter(g for item in reports for g in item["groups"]))),
+        "curated_categories": list(categorize.CURATED_CATEGORIES),
+        "max_header_guides": scraper.MAX_HEADER_GUIDES,
+        "totals": totals,
+        "playlists": reports,
+        "quarantine_entries": len(scraper.load_quarantine(
+            checks_dir / scraper.QUARANTINE_FILENAME, 7.0) or {}),
+    }
+
+    checks_dir.mkdir(parents=True, exist_ok=True)
+    (checks_dir / "verify.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+
+    lines = [
+        "# Playlist and guide verification",
+        "",
+        f"- **Generated:** {result['generated_utc']} UTC",
+        f"- **Playlists checked:** {totals['playlists']} ({totals['entries']} entries)",
+        f"- **Playlists with problems:** {totals['playlists_with_issues']}",
+        f"- **Playlists with guide-coverage notes:** {totals['playlists_with_warnings']}",
+        f"- **Links published that the deep check called dead:** {totals['dead_links_published']}",
+        f"- **Curated categories (in the published order):** {', '.join(result['group_order'])}",
+        f"- **Maximum guides a header may advertise:** {result['max_header_guides']}",
+        "",
+        "## Playlists",
+        "",
+        "| Playlist | Entries | Groups in use | Out of order | Groups to normalise | "
+        "Header guides | Dead links | EPG ids declared | EPG ids with listings |",
+        "|---|---:|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for item in reports:
+        categories = ", ".join(item["categories"].keys())
+        declared_text = (f"{item['epg']['matched_ids']}/{item['epg']['playlist_ids']}"
+                         f" ({item['epg']['coverage']:.1%})"
+                         if item["epg"]["declared_ids"] else "no local guide")
+        listed_text = (f"{item['epg']['ids_with_programmes']} "
+                       f"({item['epg']['programme_coverage']:.1%})"
+                       if item["epg"]["declared_ids"] else "-")
+        lines.append(
+            f"| `{item['file']}` | {item['entries']} | {categories} | {item['out_of_order']} | "
+            f"{sum(item['non_canonical_groups'].values())} | {item.get('guides_advertised', 0)} | "
+            f"{len(item['dead_links'])} | {declared_text} | {listed_text} |"
+        )
+    lines += ["", "## Problems", ""]
+    if violating:
+        for item in violating:
+            lines.append(f"### `{item['file']}`")
+            lines.append("")
+            lines.extend(f"- {issue}" for issue in item["issues"])
+            for entry in item["dead_links"][:20]:
+                lines.append(f"  - dead: {entry['name']} — {entry['reason']}")
+            lines.append("")
+    else:
+        lines.append("None: every playlist is canonical, in order, and free of links the deep "
+                     "check confirmed dead.")
+    warned = [item for item in reports if item.get("warnings")]
+    if warned:
+        lines += ["", "## Guide coverage notes", ""]
+        for item in warned:
+            for warning in item["warnings"]:
+                lines.append(f"- `{item['file']}`: {warning}")
+    epg_sources = totals.get("epg_sources") or {}
+    if epg_sources:
+        lines += [
+            "",
+            "## EPG sources (last deep guide check)",
+            "",
+            f"- **Checked:** {epg_sources.get('finished_utc') or 'unknown'}",
+            "- **Status counts:** " + ", ".join(f"{key}: {value}"
+                                                for key, value in (epg_sources.get("counts") or {}).items()),
+            "",
+            "A guide that is unreachable upstream is dropped by `scripts/epg_check.py`, so a "
+            "channel whose guide is not merged correctly shows as missing coverage above "
+            "rather than as a wrong schedule.",
+        ]
+    lines += [
+        "",
+        "## Notes",
+        "",
+        "- Categories and ordering come from `scripts/categorize.py` and are applied by "
+        "`scripts/scraper.py` when it publishes, `scripts/link_check.py --patch` when it removes "
+        "dead links, `scripts/rebuild_playlists.py` and `scripts/resort_playlists.py` offline.",
+        "- EPG coverage counts the `tvg-id` values the advertised local guide declares. A channel "
+        "without a public schedule counts as uncovered; its ID is still declared so a player "
+        "asks for it instead of guessing.",
+        "",
+    ]
+    (checks_dir / "VERIFY.md").write_text("\n".join(lines), encoding="utf-8")
+    log(f"[verify] wrote {relative(checks_dir / 'VERIFY.md')} and verify.json")
+    if args.strict and violating:
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

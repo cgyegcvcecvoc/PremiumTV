@@ -217,6 +217,13 @@ def norm_key(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", norm_text(value))
 
 
+# ``normalize_group`` compares a cleaned group against GENERIC_GROUPS through
+# norm_key, which squeezes spaces out ("Buy Me a Coffee" -> "buymeacoffee"). The
+# set is squeezed the same way, otherwise a dumping ground written with spaces
+# ("buy me a coffee", "donate", "buy me a coffee") never matches and gets published.
+GENERIC_GROUP_KEYS = frozenset(norm_key(item) for item in GENERIC_GROUPS)
+
+
 def _compile(fragments) -> re.Pattern:
     """Build one case-insensitive regex from fragments with safe word edges."""
     return re.compile(r"(?<![a-z0-9])(?:" + "|".join(fragments) + r")(?![a-z0-9])", re.IGNORECASE)
@@ -527,7 +534,7 @@ def normalize_group(raw: str) -> str:
     if not cleaned:
         return ""
     key = norm_key(cleaned)
-    if key in GENERIC_GROUPS:
+    if key in GENERIC_GROUP_KEYS:
         return ""
     if is_country_group(cleaned):
         return INTERNATIONAL
@@ -701,6 +708,38 @@ def base_category(category: str) -> str:
     return category[: -len(BACKUP_SUFFIX)] if is_backup_group(category) else category
 
 
+def is_canonical_group(raw: str) -> bool:
+    """True when ``raw`` is a label this module itself would write.
+
+    Used by the offline tools (``rebuild_playlists.py``, ``resort_playlists.py``,
+    ``verify_playlists.py``) to tell "already published in the taxonomy" from
+    "still carrying an upstream dumping ground". ``General``, ``Undefined``,
+    ``Tv • Series 📺`` and ``Italy 🇮🇹`` are not canonical; ``Sports``,
+    ``Sports Backups``, ``United States`` and ``Other`` are.
+
+    The test runs on the base of the label, because ``normalize_group`` folds a
+    compound group onto its first recognised token (``"Kids Backups"`` would
+    normalise to ``"Kids"``) - the `` Backups`` half is this module's own doing,
+    so it is taken apart before the label is judged.
+    """
+    group = (raw or "").strip()
+    if not group:
+        return False
+    base = base_category(group)
+    if is_backup_group(group) and backup_group(base) != group:
+        return False  # "Sports Backups Extra" is not a group this module writes
+    if base in CURATED_CATEGORIES or base in {OTHER, INTERNATIONAL}:
+        return True
+    if base in region_labels():
+        return True
+    return normalize_group(base) == base
+
+
+def needs_normalization(raw: str) -> bool:
+    """True when a group-title has to be re-classified before it is published."""
+    return not is_canonical_group(raw)
+
+
 # --------------------------------------------------------------------------- #
 # Applying the taxonomy to channels
 # --------------------------------------------------------------------------- #
@@ -821,19 +860,36 @@ def order_categories(counts: collections.Counter) -> list[str]:
     return order
 
 
-def order_channels(channels: list) -> list:
-    """Sort channels into the published group order, then by name within a group."""
+def order_key_for(channels: list):
+    """The published order as a key function for ``channels`` and its siblings.
+
+    ``order_channels`` is the contract every playlist is written in: the groups
+    of *this* set in ``order_categories`` order (curated categories first, each
+    followed by its own Backups group, then the long tail by size, ``Other``
+    last), then the channel name, then the URL. Exposing the key separately lets
+    a caller keep a second list in step with the channels - the block lists of
+    ``link_check.py`` and ``resort_playlists.py`` are exactly that - without
+    inventing a second, subtly different order.
+    """
     counts = category_counts(channels)
     order = order_categories(counts)
     rank = {category: index for index, category in enumerate(order)}
-    return sorted(
-        channels,
-        key=lambda ch: (
-            rank.get(ch.attrs.get("group-title", OTHER), len(rank)),
-            norm_text(_get(ch, "name")),
-            _get(ch, "url"),
-        ),
-    )
+
+    def key(channel) -> tuple:
+        attrs = getattr(channel, "attrs", None)
+        # Exactly the value category_counts() keys on, so every group present in
+        # the playlist has a rank in order_categories() and nothing sorts adrift.
+        group = attrs.get("group-title", OTHER) if isinstance(attrs, dict) else OTHER
+        return (rank.get(group, len(rank)),
+                norm_text(_get(channel, "name")),
+                _get(channel, "url"))
+
+    return key
+
+
+def order_channels(channels: list) -> list:
+    """Sort channels into the published group order, then by name within a group."""
+    return sorted(channels, key=order_key_for(channels))
 
 
 def sort_key(channel):

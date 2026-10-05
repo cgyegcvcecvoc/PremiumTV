@@ -361,7 +361,8 @@ def main(argv=None) -> int:
             ordered, main_result["header"], out_dir, guide, utc_s, local_s, args.dry_run,
             min_size=args.min_category_size)
         write_categories_index(summary, out_dir, main_result["file"], utc_s, args.dry_run)
-        log(f"[rebuild] wrote {len(summary)} category playlists to {out_dir}")
+        log(f"[rebuild] {'wrote' if not args.dry_run else 'would write'} "
+            f"{len(summary)} category playlists to {out_dir}")
 
     report = build_report(results, summary, guide, utc_s, local_s)
     if args.report == "-":

@@ -14,6 +14,11 @@ programme entries are emitted only for verified matches. Country-specific
 local stations are not given a generic network schedule when the source only
 identifies the network, avoiding misleading affiliate listings.
 
+The merged guide declares every ``tvg-id`` in the published playlists: channels with
+verified listings carry their programmes, and channels no verified guide has a
+schedule for keep their catalogue entry (with no fabricated events), so coverage
+is reported as "declared" vs "with listings" instead of silently dropping ids.
+
 All outputs use XMLTV, explicit UTC offsets (``YYYYMMDDHHMMSS +0000``), escaped
 text, and standard channel/programme metadata. Duplicate events are merged,
 poor overlapping listings are dropped, placeholder events are removed, and
@@ -1135,6 +1140,8 @@ def write_reports(checks_dir: Path, report: dict, epg_dir: Path, name: str,
         "|---|---:|",
         f"| Guides merged | {totals['guides_ok']} of {totals['guides']} |",
         f"| Playlist channels | {report['playlist_channels']} |",
+        f"| Channels declared in the guide | "
+        f"{report.get('channels_declared', report['channels_with_guide'])} (every playlist channel) |",
         f"| Channels with a guide | {report['channels_with_guide']} "
         f"({report['coverage']:.1%}) |",
         f"| Programmes in the guide | {report['programmes']} |",
@@ -1377,7 +1384,7 @@ def build(args) -> dict:
     # ---- safety gate: never replace a good guide with a hollow one ---------- #
     xml_path = epg_dir / f"{args.name}.xml"
     gz_path = epg_dir / f"{args.name}.xml.gz"
-    previous_channels = count_channels(xml_path)
+    previous_channels = previous_programme_channels(out_dir, xml_path)
     if not order:
         report["publish_reason"] = "no playlist channel matched any upstream guide"
     elif len(order) < args.min_channels:
@@ -1465,6 +1472,11 @@ def build(args) -> dict:
 
     # ---- serialise, trimming until it fits the size budget ------------------ #
     max_bytes_out = int(args.max_mb * 1024 * 1024)
+    # Every playlist channel is declared, including the ones no verified guide
+    # has a schedule for: a player then sees the channel in the guide instead of
+    # a blank row, and the coverage numbers stay honest ("declared" vs "with
+    # listings" are reported separately).
+    catalogue_ids = [cid for cid in wanted.ids if not merged.get(cid)]
     tmp_path = epg_dir / f".{args.name}.xml.tmp"
     attempt_window_end = window_end
     cap = 0
@@ -1474,8 +1486,9 @@ def build(args) -> dict:
     size_at_last_cut = None
     while True:
         size, channels_written, programmes_written = serialize(
-            tmp_path, channels, merged, trimmed_order, attempt_window_end, cap,
-            raw_url, args.label)
+            tmp_path, channels, merged, trimmed_order + catalogue_ids, attempt_window_end,
+            cap, raw_url, args.label, include_empty_channels=True)
+        data_channels_written = sum(1 for cid in trimmed_order if merged.get(cid))
         if size <= max_bytes_out:
             break
         ahead_left = (attempt_window_end - started).total_seconds() / 3600
@@ -1515,7 +1528,8 @@ def build(args) -> dict:
         report["published"] = False
         report["publish_reason"] = "dry run"
         report["size_bytes"] = size
-        report["channels_with_guide"] = channels_written
+        report["channels_with_guide"] = data_channels_written
+        report["channels_declared"] = channels_written
         report["programmes"] = programmes_written
         note_window(report, started, attempt_window_end)
         report["previous_channels"] = previous_channels
@@ -1526,7 +1540,8 @@ def build(args) -> dict:
     tmp_path.replace(xml_path)
     report["gz_bytes"] = gzip_file(xml_path, gz_path)
     report["size_bytes"] = size
-    report["channels_with_guide"] = channels_written
+    report["channels_with_guide"] = data_channels_written
+    report["channels_declared"] = channels_written
     report["programmes"] = programmes_written
     note_window(report, started, attempt_window_end)
     report["previous_channels"] = previous_channels
@@ -1559,6 +1574,24 @@ def note_window(report: dict, started: dt.datetime, window_end: dt.datetime) -> 
     report["window"]["end"] = format_xmltv_time(window_end)
     report["window"]["ahead_hours"] = round(
         (window_end - started).total_seconds() / 3600, 2)
+
+
+def previous_programme_channels(out_dir: Path, xml_path: Path) -> int:
+    """Channels with programmes in the last published build, falling back to the file.
+
+    The merged guide now declares every playlist channel (programme channels and
+    empty catalogue entries), so counting ``<channel>`` elements in the file would
+    make the "don't replace a good guide" gate compare against the catalogue size
+    instead of the last real coverage.
+    """
+    report_path = out_dir / "checks" / "epg-build.json"
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        report = {}
+    if report.get("published") and isinstance(report.get("channels_with_guide"), int):
+        return int(report["channels_with_guide"])
+    return count_channels(xml_path)
 
 
 def count_channels(xml_path: Path) -> int:
@@ -1597,8 +1630,15 @@ def recently_dead_guide_urls(report_path: Path,
 
 
 def patch_playlists(targets: list, raw_url: str,
-                    dead_urls: set[str] | None = None) -> dict:
-    """Put the root merged guide first and remove retired/recently dead EPG URLs."""
+                    dead_urls: set[str] | None = None,
+                    max_fallbacks: int = 2) -> dict:
+    """Put the root merged guide first and keep only a few fallback guides.
+
+    The merged guide already contains every programme the verified upstream
+    guides have, so a header with 100 URLs only makes a player download (and
+    wait on) 100 guides before it shows anything. ``max_fallbacks`` keeps the
+    merged guide plus at most that many verified fallbacks; -1 keeps them all.
+    """
     dead_urls = dead_urls or set()
     files = []
     removed_count = 0
@@ -1610,10 +1650,13 @@ def patch_playlists(targets: list, raw_url: str,
         if not path.exists():
             continue
         current = epg_check.extract_guides(path)
-        removed = [url for url in current if url != raw_url and (
+        retired = [url for url in current if url != raw_url and (
             url in dead_urls or url.startswith(generated_prefix) or url.startswith(legacy_prefix))]
-        final = [raw_url] + [url for url in current
-                             if url != raw_url and url not in removed]
+        fallbacks = [url for url in current if url != raw_url and url not in retired]
+        if max_fallbacks >= 0:
+            fallbacks = fallbacks[:max_fallbacks]
+        final = [raw_url] + fallbacks
+        removed = [url for url in current if url not in final]
         if current == final:
             advertised_count += 1
             continue
@@ -1623,7 +1666,7 @@ def patch_playlists(targets: list, raw_url: str,
             files.append({"file": display_path(path), "guides": len(final),
                           "removed": removed})
             log(f"[epg-build] {path.name}: advertising the merged guide first "
-                f"({len(final)} guides; removed {len(removed)} retired/dead self or upstream URLs)")
+                f"({len(final)} guides; removed {len(removed)} retired/dead/extra URLs)")
     return {"files": files, "removed_guides": removed_count,
             "advertised": advertised_count}
 
@@ -1751,6 +1794,9 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--force", action="store_true", help="ignore --max-age-hours")
     ap.add_argument("--patch", action="store_true",
                     help="advertise the merged guide first in the playlists' x-tvg-url")
+    ap.add_argument("--max-header-guides", type=int, default=2,
+                    help="keep at most this many fallback guide URLs after the merged "
+                         "guide in a playlist header (-1 = keep every verified fallback)")
     ap.add_argument("--dry-run", action="store_true", help="build to a temp file only")
     ap.add_argument("--repo", default="", help="owner/repo for the published link")
     ap.add_argument("--branch", default=DEFAULT_BRANCH, help="branch for the published link")
@@ -1789,7 +1835,8 @@ def main(argv=None) -> int:
             if all_links.exists():
                 targets.append(all_links)
             dead_urls = recently_dead_guide_urls(out_dir / "checks" / "epg-check.json")
-            report["patch"] = patch_playlists(targets, report["raw_url"], dead_urls)
+            report["patch"] = patch_playlists(targets, report["raw_url"], dead_urls,
+                                              args.max_header_guides)
         if args.countries:
             report["country_patch"] = patch_country_playlists(
                 country_paths, epg_dir, args.repo or os.environ.get("GITHUB_REPOSITORY") or DEFAULT_REPO,

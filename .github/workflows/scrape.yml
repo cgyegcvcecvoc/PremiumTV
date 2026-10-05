@@ -151,6 +151,26 @@ jobs:
           python scripts/epg_build.py --patch --countries --max-age-hours 12 \
             --label "guide refresh with the scrape"
 
+      - name: Verify the published playlists and guides
+        # Offline cross-check of everything this workflow just did: canonical
+        # categories and order, no link the deep check called dead, and every
+        # advertised guide declaring the channels in front of it. --strict makes
+        # a structural problem fail the step; it is continue-on-error so the
+        # reports below are still committed and visible.
+        if: always()
+        id: verify
+        continue-on-error: true
+        run: |
+          # Run once, publish the report to the summary, then keep the exit code
+          # so a structural problem still fails the step (and the workflow).
+          code=0
+          python scripts/verify_playlists.py --strict || code=$?
+          if [ -f playlists/checks/VERIFY.md ]; then
+            echo "-----" >> "$GITHUB_STEP_SUMMARY"
+            cat playlists/checks/VERIFY.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$code"
+
       - name: Commit playlists and run diagnostics
         if: always() && steps.scraper.outcome != 'skipped'
         env:

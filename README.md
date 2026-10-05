@@ -25,6 +25,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/logs/run-history.txt`](playlists/logs/run-history.txt) | Plain-text (`.txt`) tabular summary of all recorded runs. |
 | [`playlists/report.json`](playlists/report.json) | Detailed latest JSON report, including failed sources, country counts, A&E channels, and dead/unverified URLs. |
 | [`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md) | Nightly deep check: which published links are working, offline, unreachable, blocked, and what was patched out. |
+| [`playlists/checks/VERIFY.md`](playlists/checks/VERIFY.md) | Offline verification of every playlist: the published categories and order, links the deep check called dead, header guide counts, and per-playlist EPG coverage. |
 | [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md) | Last remote EPG URL/status check (nightly); the checked-in snapshot predates the root-guide migration, while current country XML coverage is in EPG-BUILD. |
 | [`EPG/PremiumTV.xml`](EPG/PremiumTV.xml) | **One merged, filtered XMLTV guide** for the whole library — load this `.xml` in an IPTV player. |
 | [`EPG/`](EPG/README.md) | Separate, verified `.xml` EPG per country playlist (`EPG/USA.xml`, `EPG/UK.xml`, etc.). Each country M3U advertises only its own guide. |
@@ -37,6 +38,34 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
 | [`playlists/discovery/new-channels.m3u`](playlists/discovery/new-channels.m3u) | New working links found by the last monthly run, ready to try in a player. |
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
+| [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
+
+### Keeping the categories and the order honest
+
+The taxonomy below is not only applied at scrape time: `scripts/link_check.py --patch`
+re-groups and re-orders a playlist after it removes dead links, and two offline tools exist
+for the hours a nightly run cannot be waited for (neither needs the network):
+
+```bash
+python scripts/resort_playlists.py --dry-run   # report what would move, file by file
+python scripts/resort_playlists.py             # re-group, re-order, prune deep-checked-dead links
+python scripts/resort_playlists.py --max-feeds 3   # keep at most 3 feeds per channel, best first
+python scripts/verify_playlists.py --strict    # audit every published playlist and its guide
+```
+
+`resort_playlists.py` never edits a URL: every link in a file before the run is still in it
+afterwards - only a link the last deep check confirmed dead (`offline`/`invalid`, or in the
+quarantine) is dropped - so tidying a playlist cannot break it. Before an upstream group such
+as `Italy 🇮🇹` is replaced by a category, the country it carried is written back as
+`tvg-country`, so the next run resolves the same country and the same category again.
+
+`verify_playlists.py` answers, per playlist: is every group-title one the taxonomy would have
+written, is the file in the published order, does it publish a link the deep check called dead,
+how many guides does its header make a player download, and how many of its `tvg-id` values does
+the advertised guide actually declare - and schedule. The result is published as
+[`playlists/checks/VERIFY.md`](playlists/checks/VERIFY.md), and all three scheduled workflows run
+it with `--strict`, so a playlist that drifts out of the taxonomy fails the run instead of quietly
+staying wrong.
 
 ### Country-separated playlists & A&E channels
 
@@ -141,14 +170,23 @@ Examples for country playlists:
 For manual setup, use the plain `.xml` raw URL in TiviMate, IPTV Smarters, Kodi PVR IPTV Simple,
 VLC, or another XMLTV-capable player. The playlist's `x-tvg-url` already contains the right URL:
 country playlist headers contain only their own country guide; the main/A&E/priority playlists put
-`EPG/PremiumTV.xml` first and retain verified source guides as fallback. `EPG/PremiumTV.xml.gz` is
+`EPG/PremiumTV.xml` first and keep at most two verified source guides behind it as fallbacks
+(`--max-header-guides`, `MAX_HEADER_GUIDES` in `scripts/scraper.py`). The merged guide already holds
+every programme those fallbacks have, so trimming them from ~100 URLs stops a player from
+downloading a hundred guides before it shows a single listing. `EPG/PremiumTV.xml.gz` is
 also available when a player accepts gzip. For published playlists, channels missing a source
 `tvg-id` receive a stable `premiumtv.<country>.<channel>` ID so their XMLTV channel entries can
 still be addressed consistently; normalized source caches keep their upstream metadata unchanged.
 
 [`scripts/epg_build.py`](scripts/epg_build.py) streams the upstream XMLTV sources that the nightly
 guide check verified, matches channel IDs to the published M3Us, and writes all root-level EPG
-files in the same run. Each country guide:
+files in the same run. The merged all-library guide declares **every** `tvg-id` in the
+published playlists - channels with verified listings and channels that only have a catalogue
+entry - so a channel is never missing from the guide, and coverage is reported honestly as
+"declared" versus "with listings"
+([`playlists/checks/VERIFY.md`](playlists/checks/VERIFY.md) shows both per playlist; the committed
+`EPG/PremiumTV.xml` catches up on the next `epg-build` run, which is what writes the
+declarations). Each country guide:
 
 * declares only the `tvg-id` values present in its country playlist (including channels that have no
   public schedule, so missing guide coverage is visible rather than silently mis-mapped);
@@ -185,6 +223,8 @@ Run a manual checked refresh at any time:
 ```bash
 python scripts/scraper.py --label "manual verified rescrape"  # refresh and check source streams
 python scripts/epg_build.py --countries --patch --force         # rebuild every country XMLTV + playlist headers
+python scripts/resort_playlists.py                              # re-sort the committed playlists into categories
+python scripts/verify_playlists.py --strict                     # offline check: categories, order, dead links, EPG coverage
 ```
 
 The standard scrape safety threshold preserves the last good `PremiumTV.m3u` if a source/network
@@ -498,6 +538,8 @@ python scripts/discover.py                        # monthly new-channel hunt
 python scripts/discover.py --no-search --max-candidates 3   # quick, seeded-only trial run
 python scripts/discover.py --dry-run              # report only; never promote a source
 python scripts/epg_check.py --all                  # verify every advertised TV guide
+python scripts/resort_playlists.py --dry-run       # show the category re-sort without writing
+python scripts/verify_playlists.py                 # offline playlist + EPG coverage report
 python scripts/epg_build.py --dry-run              # build the merged guide without publishing it
 python scripts/epg_build.py --patch --force        # rebuild it and advertise it in the playlists
 python scripts/schedule_guard.py report            # schedule coverage table, no side effects

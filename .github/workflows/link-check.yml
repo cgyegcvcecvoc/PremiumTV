@@ -106,6 +106,17 @@ jobs:
           python scripts/epg_build.py --force --patch --countries --workers 4 \
             --timeout 120 --label "nightly merged guide build"
 
+      - name: Verify the published playlists and guides
+        # Offline cross-check of everything this workflow just did: canonical
+        # categories and order, no link the deep check called dead, and every
+        # advertised guide declaring the channels in front of it. --strict makes
+        # a structural problem fail the step; it is continue-on-error so the
+        # reports below are still committed and visible.
+        if: always()
+        id: verify
+        continue-on-error: true
+        run: python scripts/verify_playlists.py --strict
+
       - name: Hunt for priority channels
         id: hunt
         continue-on-error: true
@@ -126,7 +137,8 @@ jobs:
         if: always()
         run: |
           for file in playlists/checks/LINK-CHECK.md playlists/checks/EPG-CHECK.md \
-                      playlists/checks/EPG-BUILD.md playlists/checks/CHANNEL-HUNT.md; do
+                      playlists/checks/EPG-BUILD.md playlists/checks/CHANNEL-HUNT.md \
+                      playlists/checks/VERIFY.md; do
             if [ -f "$file" ]; then
               echo "-----" >> "$GITHUB_STEP_SUMMARY"
               cat "$file" >> "$GITHUB_STEP_SUMMARY"
@@ -153,5 +165,5 @@ jobs:
       - name: Fail the workflow if a check crashed
         if: >-
           steps.links.outcome == 'failure' || steps.epg.outcome == 'failure' ||
-          steps.epgbuild.outcome == 'failure'
+          steps.epgbuild.outcome == 'failure' || steps.verify.outcome == 'failure'
         run: exit 1
