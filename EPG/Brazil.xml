@@ -272,6 +272,10 @@
     <display-name>IMPD TV Worldwide (1080p)</display-name>
     <icon src="https://i.imgur.com/9dW3AUQ.png" />
   </channel>
+  <channel id="ISTVHD.br">
+    <display-name>ISTV</display-name>
+    <icon src="https://upload.wikimedia.org/wikipedia/pt/b/b5/Logotipo_da_ISTV.png" />
+  </channel>
   <channel id="ISTV.br@SD">
     <display-name>ISTV (Brazil) (720p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/RUKVrOH.png" />
@@ -485,10 +489,6 @@
     <display-name>Times Brasil (720p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Times_Brasil_CNBC_logo_2025.svg/960px-Times_Brasil_CNBC_logo_2025.svg.png" />
   </channel>
-  <channel id="TVACritica.br@SD">
-    <display-name>TV A Critica</display-name>
-    <icon src="https://i.imgur.com/j51rBro.png" />
-  </channel>
   <channel id="TVAFolha.br@SD">
     <display-name>TV A Folha (720p)</display-name>
     <icon src="https://i.imgur.com/I7XGMhj.png" />
@@ -671,6 +671,9 @@
     <display-name>TV Petropolis (720p)</display-name>
     <icon src="https://web2.petropolis.rj.gov.br/imc/film-commission/uploads/profissional/perfil/785b645d9c574b4d88504a85dbd6ef37.png" />
   </channel>
+  <channel id="TVPlan.br@SD">
+    <display-name>TV Plan (720p)</display-name>
+  </channel>
   <channel id="TVRioPreto.br@SD">
     <display-name>TV Rio Preto (720p)</display-name>
   </channel>
@@ -693,13 +696,13 @@
     <display-name>TV Show Fortaleza (720p)</display-name>
     <icon src="https://static.wixstatic.com/media/9af6b8_e963e864c8fb40d3954f5c1c8cab1b40~mv2.png" />
   </channel>
-  <channel id="TVSimCachoeiro.br@SD">
-    <display-name>TV Sim Cachoeiro (720p)</display-name>
-    <icon src="https://i.imgur.com/t5oUK3C.png" />
-  </channel>
   <channel id="TVSimSaoMateus.br@SD">
     <display-name>TV Sim Sao Mateus (720p)</display-name>
     <icon src="https://i.imgur.com/t5oUK3C.png" />
+  </channel>
+  <channel id="TVSulBahia.br@SD">
+    <display-name>TV Sul Bahia (320p)</display-name>
+    <icon src="https://i.imgur.com/qM6nMWm.png" />
   </channel>
   <channel id="TVTerceiroAnjo.br@SD">
     <display-name>TV Terceiro Anjo (360p)</display-name>
@@ -717,6 +720,10 @@
     <display-name>Universal.au</display-name>
     <display-name>Universal TV</display-name>
     <icon src="https://www.foxtel.com.au/content/dam/foxtel/shared/channel/HAL/HAL_425x243.png" />
+  </channel>
+  <channel id="TVVicosa.br@SD">
+    <display-name>TV Vicosa (480p)</display-name>
+    <icon src="https://i.imgur.com/TZF55f9.png" />
   </channel>
   <channel id="TVVilaReal.br@SD">
     <display-name>TV Vila Real (720p)</display-name>
@@ -1055,6 +1062,11 @@
     <title>Sala do Esporte</title>
     <desc>2019. Veja tudo o que aconteceu em rodadas esportivas mundo afora, de maneira descontraída e bem-humorada.</desc>
     <date>2019</date>
+  </programme>
+  <programme start="20261007190000 +0000" stop="20261007193000 +0000" channel="Band.Sports.br">
+    <title>The Golf Brasil</title>
+    <desc>2021. O programa traz os atletas e o mundo que rodeia o golfe, como o seu círculo de tomadores de decisão, empresários, executivos, empreendedores e personalidades. Além, é claro, de cobrir os eventos e os fãs do esporte.</desc>
+    <date>2021</date>
   </programme>
   <programme start="20261005120000 +0000" stop="20261005140000 +0000" channel="ESPN.br@SD">
     <title>VT - Jogos Históricos da Premier League 2019: Liverpool x Manchester City</title>
@@ -1520,10 +1532,10 @@
     <category lang="pt">Esporte</category>
     <category lang="pt">Futebol</category>
   </programme>
-  <programme start="20261005113000 +0000" stop="20261005130000 +0000" channel="SporTV.br@SD">
-    <title>SporTV News</title>
-    <desc>2026. As últimas notícias esportivas do Brasil e do mundo.</desc>
-    <date>2026</date>
+  <programme start="20261007190000 +0000" stop="20261007210000 +0000" channel="ESPN4.br@SD">
+    <title>VT - Escócia x Eslovênia</title>
+    <category lang="pt">Esporte</category>
+    <category lang="pt">Futebol</category>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005151500 +0000" channel="SporTV.br@SD">
     <title>Redação SporTV</title>
@@ -1752,13 +1764,6 @@
     <title>Copa do Brasil de Futebol Sub-20</title>
     <category lang="pt">Esporte</category>
     <category lang="pt">Diversos</category>
-  </programme>
-  <programme start="20261005123000 +0000" stop="20261005130000 +0000" channel="FishTV.br@SD">
-    <title>Alta Performance - T04E06</title>
-    <sub-title>Tucunarés e Muita Emoção em...</sub-title>
-    <desc>2026. Conheça o estilo de vida e a trajetória de vida e carreira de um pescador profissional.</desc>
-    <episode-num system="xmltv_ns">3.5</episode-num>
-    <date>2026</date>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005133000 +0000" channel="FishTV.br@SD">
     <title>Alma de Gigante - T03E05</title>
@@ -2359,20 +2364,6 @@
     <title>TV Shopping Brasil</title>
     <desc>2007. Acompanhe a venda de artigos de beleza, acessórios e joias pela televisão.</desc>
     <date>2007</date>
-  </programme>
-  <programme start="20261005124500 +0000" stop="20261005130000 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Viaje na Melhor Idade</title>
-    <desc>2024. Incentivo aos aposentados e pensionistas a viajarem, com condições de financiamento diferenciado.</desc>
-    <category lang="pt">Séries</category>
-    <category lang="pt">Viagem</category>
-    <date>2024</date>
-  </programme>
-  <programme start="20261005130000 +0000" stop="20261005131500 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Viaje na Melhor Idade</title>
-    <desc>2024. Incentivo aos aposentados e pensionistas a viajarem, com condições de financiamento diferenciado.</desc>
-    <category lang="pt">Séries</category>
-    <category lang="pt">Viagem</category>
-    <date>2024</date>
   </programme>
   <programme start="20261005131500 +0000" stop="20261005134500 +0000" channel="TravelBoxBrazil.br@SD">
     <title>No Barco pelo Mundo - T02E08</title>
@@ -4034,10 +4025,10 @@
     <desc>2013. Um olhar biográfico do imponente artista da arte moderna, que teve uma vida familiar conturbada e um conflituoso quadro psicológico. O pintor estudou artes plásticas na Noruega, e foi especialmente atraído pela arte de Gauguin, na França.</desc>
     <date>2013</date>
   </programme>
-  <programme start="20261005122000 +0000" stop="20261005131000 +0000" channel="AXN.br@SD">
-    <title>S.W.A.T.</title>
-    <category lang="pt">Séries</category>
-    <category lang="pt">Ação</category>
+  <programme start="20261007190000 +0000" stop="20261007200000 +0000" channel="Arte1.br@SD">
+    <title>Paulo Autran 100 Anos</title>
+    <desc>2022. Homenagem a Paulo Autran, nascido em 1922 e falecido em 2007, com entrevistas históricas e materiais de arquivo do ator, incluindo depoimentos inéditos de artistas que trabalharam com ele.</desc>
+    <date>2022</date>
   </programme>
   <programme start="20261005131000 +0000" stop="20261005140000 +0000" channel="AXN.br@SD">
     <title>NCIS</title>
@@ -4354,11 +4345,10 @@
     <category lang="pt">Séries</category>
     <category lang="pt">Suspense</category>
   </programme>
-  <programme start="20261005124500 +0000" stop="20261005130000 +0000" channel="CanaldoBoi.br@SD">
-    <title>Terralmo Negócios Rurais</title>
-    <desc>A Terralmo Negócios Rurais conecta investidores às melhores propriedades rurais do mercado, com curadoria especializada, descrições detalhadas e negociações transparentes.</desc>
-    <category lang="pt">Variedades</category>
-    <category lang="pt">Diversos</category>
+  <programme start="20261007192000 +0000" stop="20261007201000 +0000" channel="AXN.br@SD">
+    <title>Criminal Minds</title>
+    <category lang="pt">Séries</category>
+    <category lang="pt">Suspense</category>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005133000 +0000" channel="CanaldoBoi.br@SD">
     <title>Grandes Criatórios - T10E278</title>
@@ -4933,6 +4923,11 @@
     <category lang="pt">Variedades</category>
     <category lang="pt">Diversos</category>
   </programme>
+  <programme start="20261007190000 +0000" stop="20261007193000 +0000" channel="CanaldoBoi.br@SD">
+    <title>Agricultura BR 3ª Edição - T16E280</title>
+    <desc>Mais informações sobre o mercado físico dos produtos agrícolas, com enfoque em soja, milho, trigo, café, algodão e outros produtos essenciais para o agronegócio.</desc>
+    <episode-num system="xmltv_ns">15.279</episode-num>
+  </programme>
   <programme start="20261005120000 +0000" stop="20261005153000 +0000" channel="CanalUOL.br@SD">
     <title>UOL News - 1ª Edição</title>
     <desc>2026. Fabíola Cidral e Diego Sarza trazem as notícias mais importantes do Brasil e do mundo em tempo real, com análises sobre os fatos assim que eles acontecem, de um jeito fácil de entender, ajudando o espectador a formar sua própria opinião.</desc>
@@ -5168,60 +5163,10 @@
     <desc>2026. A escritora e roteirista Tati Bernardi instiga os entrevistados, com toda sua irreverência, a dizer tudo o que nunca falariam na frente das câmeras, sem medo de cancelamentos.</desc>
     <date>2026</date>
   </programme>
-  <programme start="20261005124900 +0000" stop="20261005125400 +0000" channel="DumDum.br@SD">
-    <title>Vamos Incluir - T02E11</title>
-    <sub-title>Videoclipe - O Parque dos Sentidos</sub-title>
-    <desc>2026. Vamos cantar e brincar com o clipe da exploração do parque dos sentidos.</desc>
-    <episode-num system="xmltv_ns">1.10</episode-num>
+  <programme start="20261007190000 +0000" stop="20261007210000 +0000" channel="CanalUOL.br@SD">
+    <title>UOL News - 2ª Edição</title>
+    <desc>2026. Fabíola Cidral e Diego Sarza trazem as notícias mais importantes do Brasil e do mundo em tempo real, com análises sobre os fatos assim que eles acontecem, de um jeito fácil de entender ajudando o espectador a formar sua própria opinião.</desc>
     <date>2026</date>
-  </programme>
-  <programme start="20261005125400 +0000" stop="20261005125700 +0000" channel="DumDum.br@SD">
-    <title>Vamos Incluir - T01E05</title>
-    <sub-title>Um Amigo com Deficiência Física</sub-title>
-    <desc>2025. A pequena Aninha brinca e aprende com Pedrinho, seu amigo com deficiência física.</desc>
-    <episode-num system="xmltv_ns">0.4</episode-num>
-    <date>2025</date>
-  </programme>
-  <programme start="20261005125700 +0000" stop="20261005130100 +0000" channel="DumDum.br@SD">
-    <title>Vamos Incluir - T01E13</title>
-    <sub-title>Videoclipe - O Amigo com Deficiência Física</sub-title>
-    <desc>2025. Muita cantoria e brincadeiras com o videoclipe de Pedrinho, um amigo com deficiência física.</desc>
-    <episode-num system="xmltv_ns">0.12</episode-num>
-    <date>2025</date>
-  </programme>
-  <programme start="20261005130100 +0000" stop="20261005130400 +0000" channel="DumDum.br@SD">
-    <title>Gabu, o Panda Azul - T01E05</title>
-    <sub-title>Gabu Não Quer Rir</sub-title>
-    <desc>2024. Gabu está bravo e não quer rir, mas Titi vai tentar a todo custo fazer o irmão sorrir.</desc>
-    <episode-num system="xmltv_ns">0.4</episode-num>
-    <date>2024</date>
-  </programme>
-  <programme start="20261005130400 +0000" stop="20261005131000 +0000" channel="DumDum.br@SD">
-    <title>Gabu, o Panda Azul - T01E17</title>
-    <sub-title>Videoclipe - Gabu Não Quer Rir</sub-title>
-    <desc>2024. Neste videoclipe, Titi vai fazer de tudo para Gabu sorrir.</desc>
-    <episode-num system="xmltv_ns">0.16</episode-num>
-    <date>2024</date>
-  </programme>
-  <programme start="20261005131000 +0000" stop="20261005131100 +0000" channel="DumDum.br@SD">
-    <title>Auts - T02E16</title>
-    <sub-title>DJ Auts</sub-title>
-    <desc>2026. Stella tem uma ideia: ela desenha um pouquinho, depois outro desenha mais, até completar a pintura.</desc>
-    <episode-num system="xmltv_ns">1.15</episode-num>
-    <date>2026</date>
-  </programme>
-  <programme start="20261005131100 +0000" stop="20261005131500 +0000" channel="DumDum.br@SD">
-    <title>Auts</title>
-    <sub-title>Vem Cá Minhoquinha</sub-title>
-    <desc>2026. Uma minhoquinha aparece no chão. Auts tenta pegá-la, mas ela volta para o buraco, e aparece em outro lugar. De novo Auts tenta pegá-la e ela foge para dentro da terra. Stella aparece e a minhoquinha vai com ela.</desc>
-    <date>2026</date>
-  </programme>
-  <programme start="20261005131500 +0000" stop="20261005132400 +0000" channel="DumDum.br@SD">
-    <title>Min e as Mãozinhas - T01E03</title>
-    <sub-title>Presente Surpresa</sub-title>
-    <desc>2021. Min recebe uma visita muito especial e quer comprar um presente para seu amigo mais querido.</desc>
-    <episode-num system="xmltv_ns">0.2</episode-num>
-    <date>2021</date>
   </programme>
   <programme start="20261005132400 +0000" stop="20261005132700 +0000" channel="DumDum.br@SD">
     <title>Educadinho</title>
@@ -8554,12 +8499,25 @@
     <episode-num system="xmltv_ns">0.1</episode-num>
     <date>2025</date>
   </programme>
-  <programme start="20261005120000 +0000" stop="20261005130000 +0000" channel="Futura.br@SD">
-    <title>Tac Tacs - Uma Aventura Ambiental</title>
-    <desc>2025. Tati, Bio e Ian vivem uma aventura para salvar o planeta. Em um mundo onde o lúdico encontra a natureza, o trio desvenda mistérios provando que cuidar do futuro começa em casa.</desc>
-    <category lang="pt">Filme</category>
-    <category lang="pt">Infantil</category>
+  <programme start="20261007190000 +0000" stop="20261007191400 +0000" channel="DumDum.br@SD">
+    <title>As Novas Aventuras de Peixonauta</title>
+    <sub-title>O Caso do Barulho Misterioso</sub-title>
+    <desc>2025. Peixonauta e Marina escutam uma buzina muito esquisita. Eles pedem ajuda a Zico para descobrir que barulho é aquele, mas o macaco anda nervoso e um tanto estranho.</desc>
     <date>2025</date>
+  </programme>
+  <programme start="20261007191400 +0000" stop="20261007192200 +0000" channel="DumDum.br@SD">
+    <title>Os Chocolix - T02E07</title>
+    <sub-title>O Anel de Âmbar</sub-title>
+    <desc>2020. Tio Show aparece na casa dos Chocolix com um lindo e especial anel de âmbar caramelado. É um presente para a Rainha do Reino de Dourado.</desc>
+    <episode-num system="xmltv_ns">1.6</episode-num>
+    <date>2020</date>
+  </programme>
+  <programme start="20261007192200 +0000" stop="20261007193000 +0000" channel="DumDum.br@SD">
+    <title>Os Chocolix - T03E03</title>
+    <sub-title>O Dragão Coração</sub-title>
+    <desc>2021. Tio Show leva Chocolyne, Chocomark e Docecookie para o grande campeonato de assar sonhos no Reino da Sonholândia. A final se dá entre o Dragão Coração e a Bruxa Azeda.</desc>
+    <episode-num system="xmltv_ns">2.2</episode-num>
+    <date>2021</date>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005133000 +0000" channel="Futura.br@SD">
     <title>Tem Clima pra Isso? - T2026E17</title>
@@ -9544,12 +9502,12 @@
     <category lang="pt">Documentário</category>
     <date>2023</date>
   </programme>
-  <programme start="20261005120000 +0000" stop="20261005130000 +0000" channel="JovemPanNews.br@SD">
-    <title>Jovem Pan News</title>
-    <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
-    <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
+  <programme start="20261007190000 +0000" stop="20261007193000 +0000" channel="Futura.br@SD">
+    <title>Da Nascente à Foz - T01E03</title>
+    <sub-title>Rio Doce</sub-title>
+    <desc>2019. Palco de uma das maiores catástrofes ambientais do Brasil, o rio doce segue, barrento, seco e sem vida. É impossível saber quando, mas, um dia, ele voltará a ser rio.</desc>
+    <episode-num system="xmltv_ns">0.2</episode-num>
+    <date>2019</date>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005140000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
@@ -9568,41 +9526,29 @@
   <programme start="20261005150000 +0000" stop="20261005160000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
-    <category>News &amp; Information</category>
-    <episode-num system="original-air-date">20261005150000 +0000</episode-num>
-    <live />
-    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
+    <date>1970</date>
     <credits />
+    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261005160000 +0000" stop="20261005170000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
-    <category>News &amp; Information</category>
-    <episode-num system="original-air-date">20261005160000 +0000</episode-num>
-    <live />
-    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
+    <date>1970</date>
     <credits />
+    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261005170000 +0000" stop="20261005180000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
-    <category>News &amp; Information</category>
-    <episode-num system="original-air-date">20261005170000 +0000</episode-num>
-    <live />
-    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
+    <date>1970</date>
     <credits />
+    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261005180000 +0000" stop="20261005190000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261005180000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9612,36 +9558,52 @@
   <programme start="20261005190000 +0000" stop="20261005200000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
+    <category>News &amp; Information</category>
+    <category>Series</category>
+    <episode-num system="original-air-date">20261005190000 +0000</episode-num>
+    <live />
+    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
     <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261005200000 +0000" stop="20261005210000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
+    <category>News &amp; Information</category>
+    <category>Series</category>
+    <episode-num system="original-air-date">20261005200000 +0000</episode-num>
+    <live />
+    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
     <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261005210000 +0000" stop="20261005220000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
+    <category>News &amp; Information</category>
+    <category>Series</category>
+    <episode-num system="original-air-date">20261005210000 +0000</episode-num>
+    <live />
+    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
     <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261005220000 +0000" stop="20261005230000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
+    <category>News &amp; Information</category>
+    <category>Series</category>
+    <episode-num system="original-air-date">20261005220000 +0000</episode-num>
+    <live />
+    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
     <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261005230000 +0000" stop="20261006000000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261005230000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9651,8 +9613,8 @@
   <programme start="20261006000000 +0000" stop="20261006010000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006000000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9662,8 +9624,8 @@
   <programme start="20261006010000 +0000" stop="20261006020000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006010000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9673,8 +9635,8 @@
   <programme start="20261006020000 +0000" stop="20261006030000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006020000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9684,8 +9646,8 @@
   <programme start="20261006030000 +0000" stop="20261006040000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006030000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9695,8 +9657,8 @@
   <programme start="20261006040000 +0000" stop="20261006050000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006040000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9706,8 +9668,8 @@
   <programme start="20261006050000 +0000" stop="20261006060000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006050000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9717,8 +9679,8 @@
   <programme start="20261006060000 +0000" stop="20261006070000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006060000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9728,8 +9690,8 @@
   <programme start="20261006070000 +0000" stop="20261006080000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <category>Series</category>
     <category>News &amp; Information</category>
+    <category>Series</category>
     <episode-num system="original-air-date">20261006070000 +0000</episode-num>
     <live />
     <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
@@ -9739,23 +9701,35 @@
   <programme start="20261006080000 +0000" stop="20261006090000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
+    <category>News &amp; Information</category>
+    <category>Series</category>
+    <episode-num system="original-air-date">20261006080000 +0000</episode-num>
+    <live />
+    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
     <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261006090000 +0000" stop="20261006100000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
+    <category>News &amp; Information</category>
+    <category>Series</category>
+    <episode-num system="original-air-date">20261006090000 +0000</episode-num>
+    <live />
+    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
     <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261006100000 +0000" stop="20261006110000 +0000" channel="JovemPanNews.br@SD">
     <title>Jovem Pan News</title>
     <desc>1970. Jovem Pan News é o canal de programação jornalística todos os dias, além de transmissões esportivas e de entretenimento. Mantenha-se por dentro com a boa informação. Gêneros: News &amp; Information</desc>
-    <date>1970</date>
+    <category>News &amp; Information</category>
+    <category>Series</category>
+    <episode-num system="original-air-date">20261006100000 +0000</episode-num>
+    <live />
+    <icon src="https://images.pluto.tv/series/650dc3cd1105450008613f42/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
     <credits />
-    <icon src="https://images.pluto.tv/episodes/650dc3eea1217e0009243f02/thumbnail.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
   </programme>
   <programme start="20261006130000 +0000" stop="20261006150000 +0000" channel="JovemPanNews.br@SD">
     <title>Morning Show</title>
@@ -9863,11 +9837,6 @@
     <desc>As principais notícias do momento, com informação rápida, atualização e análise dos acontecimentos que movimentam o Brasil e o mundo.</desc>
     <episode-num system="onscreen">S85 E280</episode-num>
     <icon src="https://fh1i2j3k4l5mdgr.clarocdn.com.br/images_epg/420_236/00000000117074_epg.jpg" />
-  </programme>
-  <programme start="20261005115500 +0000" stop="20261005130000 +0000" channel="MusicBoxBrazil.br@SD">
-    <title>Murilo Muraah - Live Session ao Vivo no Gugastro Estúdio</title>
-    <desc>2026. Gravada no Gugastro Estúdio, a sessão integra o ciclo Inquieto Caminhante e marca a retomada artística de Murilo Muraah, criando um espaço de diálogo entre música, espiritualidade e política.</desc>
-    <date>2026</date>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005132500 +0000" channel="MusicBoxBrazil.br@SD">
     <title>Festival Criatura</title>
@@ -11579,12 +11548,6 @@
     <desc>2007. Acompanhe as vendas de especialidades em joias, tapetes persas, obras de arte e artesanato iraniano.</desc>
     <date>2007</date>
   </programme>
-  <programme start="20261005123000 +0000" stop="20261005130000 +0000" channel="NovoTempo.br@SD">
-    <title>Arena do Futuro - T26E35</title>
-    <desc>2026. O programa esclarece um dos assuntos mais polêmicos do mundo religioso: as profecias. Entenda como a Bíblia retrata acontecimentos históricos e saiba o que podemos esperar para o futuro.</desc>
-    <episode-num system="xmltv_ns">25.34</episode-num>
-    <date>2026</date>
-  </programme>
   <programme start="20261005130000 +0000" stop="20261005140000 +0000" channel="NovoTempo.br@SD">
     <title>Caixa de Música - T26E197</title>
     <desc>2026. Um programa interativo e descontraído que mostra o que há de melhor em música gospel e repleto de clipes, além de cantores e músicos.</desc>
@@ -12090,17 +12053,10 @@
     <desc>2019. Um balanço de todos os temas que interessam à família brasileira com muita descontração, bom-humor e espiritualidade.</desc>
     <date>2019</date>
   </programme>
-  <programme start="20261005124500 +0000" stop="20261005130000 +0000" channel="RedeBrasil.br@SD">
-    <title>Infomercial</title>
-    <desc>Espaço publicitário destinado à comercialização de produtos e serviços.</desc>
-    <category lang="pt">Consumer</category>
-    <category lang="pt">Shopping</category>
-    <category lang="pt">Variety</category>
-    <icon src="http://dtil.tmsimg.com/assets/p33012572_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>AL</value>
-    </rating>
+  <programme start="20261007190000 +0000" stop="20261007203000 +0000" channel="NovoTempo.br@SD">
+    <title>Vida e Saúde</title>
+    <desc>2009. O programa traz informações essenciais para um melhor estilo de vida. Acompanhe dicas sobre alimentação saudável, atividade física, receitas, prevenção, mudança de hábitos, nutrição e outras temáticas envolvendo bem-estar físico, mental e espiritual.</desc>
+    <date>2009</date>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005133000 +0000" channel="RedeBrasil.br@SD">
     <title>Ateliê na TV</title>
@@ -14355,11 +14311,34 @@
       <value>AL</value>
     </rating>
   </programme>
-  <programme start="20261005120000 +0000" stop="20261005130000 +0000" channel="RedeVida.br@SD">
-    <title>Missa Por Cura e Libertação Com Pe. Alberto Gambarini</title>
-    <desc>Missa Por Cura e Libertação.</desc>
-    <category lang="pt">Variedades</category>
-    <category lang="pt">Religião</category>
+  <programme start="20261007185500 +0000" stop="20261007190000 +0000" channel="RedeBrasil.br@SD">
+    <title>Infomercial</title>
+    <desc>Espaço publicitário destinado à comercialização de produtos e serviços.</desc>
+    <category lang="pt">Consumer</category>
+    <category lang="pt">Shopping</category>
+    <category lang="pt">Variety</category>
+    <icon src="http://dtil.tmsimg.com/assets/p33012572_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+  </programme>
+  <programme start="20261007190000 +0000" stop="20261007203000 +0000" channel="RedeBrasil.br@SD">
+    <title>Papo em Dia</title>
+    <desc>2018. Com um clima descontraído, o programa traz entrevistas exclusivas, convidados especiais, música, gastronomia, saúde e variedades.</desc>
+    <category lang="pt">Entertainment</category>
+    <category lang="pt">Interview</category>
+    <category lang="pt">Cooking</category>
+    <category lang="pt">Variety</category>
+    <credits>
+      <actor>Gisele Alves</actor>
+    </credits>
+    <date>2018</date>
+    <icon src="http://dtil.tmsimg.com/assets/p15415934_b_h8_ac.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005133000 +0000" channel="RedeVida.br@SD">
     <title>Terço de Nossa Senhora</title>
@@ -14874,6 +14853,11 @@
     <desc>Apresentado por Padre Juarez de Castro e Padre Marcos Roberto Pires, o programa "Bendita Hora" é ao vivo e veio para agitar a programação da REDEVIDA!</desc>
     <episode-num system="xmltv_ns">14.279</episode-num>
   </programme>
+  <programme start="20261007191500 +0000" stop="20261007200000 +0000" channel="RedeVida.br@SD">
+    <title>Escolhas da Vida - T16E280</title>
+    <desc>Para quem vive com pressa, que se sente aflito com as notícias do mundo. Para quem não sabe qual caminho escolher. Dalcides Biscalquim apresenta de segunda a sexta-feira o programa "Escolhas da Vida".</desc>
+    <episode-num system="xmltv_ns">15.279</episode-num>
+  </programme>
   <programme start="20261005113000 +0000" stop="20261005140000 +0000" channel="SBTNews.br@SD">
     <title>News Manhã</title>
     <desc>2025. As primeiras notícias do dia, bastidores políticos e movimentações no Brasil e no mundo.</desc>
@@ -14999,17 +14983,10 @@
     <desc>2025. Aprofundamento dos principais debates do Brasil, focando em política, economia e atualidades, com entrevistas de autoridades, especialistas e análises exclusivas.</desc>
     <date>2025</date>
   </programme>
-  <programme start="20261005124000 +0000" stop="20261005130500 +0000" channel="TelecineAction.br@SD">
-    <title>Contra-Filé</title>
-    <desc>2019. Um homem corre contra o tempo na tentativa de salvar sua própria vida. Mas sua única esperança se encontra em um açougue. Gêneros: Comédia, Terror Elenco: Almir Martins, Gustavo Ottoni, Antonio Gonzales Diretor: Pedro Iuá</desc>
-    <date>2019</date>
-    <credits>
-			<actor>Almir Martins</actor>
-			<actor>Gustavo Ottoni</actor>
-			<actor>Antonio Gonzales</actor>
-			<director>Pedro Iuá</director>
-		</credits>
-    <icon src="https://spotlight-br.cdn.telefonica.com/customer/v1/source?width=256&amp;resize=CROP&amp;format=jpg&amp;image=http%3A%2F%2Fmedia.gvp.telefonica.com%2FstorageArea0%2FIMAGES%2F00%2F22%2F34%2F22347476_f7840be117729dba6f178fd299dc447a.jpg" />
+  <programme start="20261007190000 +0000" stop="20261007213000 +0000" channel="SBTNews.br@SD">
+    <title>Poder Expresso</title>
+    <desc>2025. Cobertura de política, economia e dos bastidores do poder em Brasília.</desc>
+    <date>2025</date>
   </programme>
   <programme start="20261005130500 +0000" stop="20261005152000 +0000" channel="TelecineAction.br@SD">
     <title>Jurassic Park: O Parque dos Dinossauros</title>
@@ -15395,14 +15372,19 @@
 		</credits>
     <icon src="https://spotlight-br.cdn.telefonica.com/customer/v1/source?width=256&amp;resize=CROP&amp;format=jpg&amp;image=http%3A%2F%2Fmedia.gvp.telefonica.com%2FstorageArea0%2FIMAGES%2F00%2F22%2F88%2F22880889_f914761c65c5028a4c4f31436df7a9ba.jpg" />
   </programme>
-  <programme start="20261005120000 +0000" stop="20261005130000 +0000" channel="TikTokRadioBrasil.br@HD">
-    <title>TikTok Radio Brasil - T01E01</title>
-    <sub-title>TikTok Radio Brasil</sub-title>
-    <desc>1970. TBD Gêneros: Music</desc>
-    <episode-num system="xmltv_ns">0.0</episode-num>
-    <date>1970</date>
-    <credits />
-    <icon src="https://images.pluto.tv/episodes/687024cb2704ca31d8d02719/thumbnail_1752181648103.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
+  <programme start="20261007185500 +0000" stop="20261007214500 +0000" channel="TelecineAction.br@SD">
+    <title>John Wick 4: Baba Yaga</title>
+    <desc>2023. O ex-assassino de aluguel John Wick é procurado pelo mundo todo e a recompensa por sua captura aumenta cada vez mais. Wick descobre um caminho para derrotar a Alta Cúpula, mas antes de conquistar sua liberdade, ele precisa enfrentar um novo inimigo. Gêneros: Ação Elenco: Keanu Reeves, Laurence Fishburne, Lance Reddick Diretor: Chad Stahelski</desc>
+    <category lang="pt">Filme</category>
+    <category lang="pt">Ação</category>
+    <date>2023</date>
+    <credits>
+			<actor>Keanu Reeves</actor>
+			<actor>Laurence Fishburne</actor>
+			<actor>Lance Reddick</actor>
+			<director>Chad Stahelski</director>
+		</credits>
+    <icon src="https://spotlight-br.cdn.telefonica.com/customer/v1/source?width=256&amp;resize=CROP&amp;format=jpg&amp;image=http%3A%2F%2Fmedia.gvp.telefonica.com%2FstorageArea0%2FIMAGES%2F00%2F21%2F51%2F21514534_1012AA4D7C22AE48.jpg" />
   </programme>
   <programme start="20261005130000 +0000" stop="20261005140000 +0000" channel="TikTokRadioBrasil.br@HD">
     <title>TikTok Radio Brasil - T01E01</title>
@@ -15601,11 +15583,6 @@
     <date>1970</date>
     <credits />
     <icon src="https://images.pluto.tv/episodes/687024cb2704ca31d8d02719/thumbnail_1752181648103.jpg?fill=blur&amp;=fill&amp;fm=jpg&amp;h=440&amp;q=75&amp;w=440" />
-  </programme>
-  <programme start="20261005120000 +0000" stop="20261005130000 +0000" channel="TVAparecida.br@SD">
-    <title>Missa de Aparecida - Santuário Nacional - T09E278</title>
-    <desc>Missa de Aparecida, ao vivo, direto do Santuário Nacional de Aparecida.</desc>
-    <episode-num system="xmltv_ns">8.277</episode-num>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005143000 +0000" channel="TVAparecida.br@SD">
     <title>Família dos Devotos - T10E278</title>
@@ -16484,6 +16461,11 @@
     <desc>O Expedições mergulha no norte de Alagoas em busca de formações coralíneas ameaçadas de extinção, em meio à riqueza das piscinas naturais e dos belíssimos recifes de coral de Maragogi.</desc>
     <episode-num system="xmltv_ns">14.279</episode-num>
   </programme>
+  <programme start="20261007190000 +0000" stop="20261007210000 +0000" channel="TVBrasil.br@SD">
+    <title>Sem Censura - T16E280</title>
+    <desc>Cissa Guimarães recebe em sua bancada convidados para conversar sobre os mais variados assuntos: serviço, cultura, saúde, educação, economia e tudo que ajude na representatividade e diversidade do país.</desc>
+    <episode-num system="xmltv_ns">15.279</episode-num>
+  </programme>
   <programme start="20261005090000 +0000" stop="20261005160000 +0000" channel="TVGazeta.br@SD">
     <title>Igreja Universal do Reino de Deus</title>
     <desc>2007. Acompanhe momentos de fé proporcionados pela Igreja Universal do Reino de Deus.</desc>
@@ -16613,11 +16595,6 @@
     <title>Mulheres</title>
     <desc>1980. O programa traz especialistas nas áreas de culinária, moda, beleza, atualidades, lazer e direito do consumidor, entre outros assuntos de grande interesse da mulher.</desc>
     <date>1980</date>
-  </programme>
-  <programme start="20261005124500 +0000" stop="20261005130000 +0000" channel="TVPaiEterno.br@SD">
-    <title>Palavra da Salvação - T09E278</title>
-    <desc>Reflexão do evangelho do dia e oração com Padre João Paulo Santos.</desc>
-    <episode-num system="xmltv_ns">8.277</episode-num>
   </programme>
   <programme start="20261005130000 +0000" stop="20261005133000 +0000" channel="TVPaiEterno.br@SD">
     <title>Novena dos Filhos do Pai Eterno - T10E278</title>
@@ -17288,53 +17265,6 @@
     <title>Sessão Plenária</title>
     <category lang="pt">Variedades</category>
     <category lang="pt">Política</category>
-  </programme>
-  <programme start="20261005122000 +0000" stop="20261005131000 +0000" channel="TVUniversal.br@SD">
-    <title>Chicago Fire</title>
-    <sub-title>2112</sub-title>
-    <desc>Valientes hombres y mujeres bomberos, rescatistas y paramédicos de la Unidad de Bomberos 51 se lanzan de lleno al peligro cuando todos los demás van en dirección contraria. Pero las enormes responsabilidades implican también un precio.</desc>
-    <category lang="en">Drama</category>
-    <category lang="en">Action</category>
-    <episode-num system="onscreen">S4 E6</episode-num>
-    <credits>
-      <director>Reza Tabrizi</director>
-      <director>Joe Chappelle</director>
-      <director>Matt Earl Beesley</director>
-      <director>Sanford Bookstaver</director>
-      <director>Eric Laneuville</director>
-      <director>Lisa Robinson</director>
-      <director>Lisa Demaine</director>
-      <actor>Taylor Kinney</actor>
-      <actor>David Eigenberg</actor>
-      <actor>Joe Minoso</actor>
-    </credits>
-    <date>2012</date>
-    <icon src="http://dtil.tmsimg.com/assets/p33616388_b_h8_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TV14</value>
-    </rating>
-    <rating system="Mediakasvatus- ja kuvaohjelmayksikkö">
-      <value>K12</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>14+</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>MA 15+</value>
-    </rating>
-    <rating system="Dirección General de Radio, Televisión y Cinematografía">
-      <value>B</value>
-    </rating>
-    <rating system="Krajowa Rada Radiofonii i Telewizji">
-      <value>12</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>14</value>
-    </rating>
-    <rating system="방송통신심의위원회">
-      <value>15</value>
-    </rating>
   </programme>
   <programme start="20261005131000 +0000" stop="20261005140000 +0000" channel="TVUniversal.br@SD">
     <title>Chicago Fire</title>
@@ -19941,20 +19871,6 @@
       <value>B</value>
     </rating>
   </programme>
-  <programme start="20261005123000 +0000" stop="20261005130000 +0000" channel="WooHoo.br@SD">
-    <title>Saindo na Trip</title>
-    <desc>2025. Restaurantes, bares, lojas e eventos imperdíveis nas melhores cidades do mundo. Um convite para descobrir culturas fascinantes, curiosidades inusitadas e destinos únicos de forma imersiva e autêntica.</desc>
-    <category lang="pt">Variedades</category>
-    <category lang="pt">Viagem</category>
-    <date>2025</date>
-  </programme>
-  <programme start="20261005130000 +0000" stop="20261005131500 +0000" channel="WooHoo.br@SD">
-    <title>Pipoca no Set</title>
-    <desc>2021. As melhores dicas quando o assunto é entretenimento, reunindo curiosidades e histórias das produções mais aclamadas, além da trajetória de grandes atores e atrizes. Feito para quem adora maratonar em frente à TV.</desc>
-    <category lang="pt">Variedades</category>
-    <category lang="pt">Diversos</category>
-    <date>2021</date>
-  </programme>
   <programme start="20261005131500 +0000" stop="20261005133000 +0000" channel="WooHoo.br@SD">
     <title>Queue</title>
     <desc>2013. Primeiro foi a Internet que se apropriou do conteúdo da TV em benefício próprio. Agora, seguindo uma tendência mundial, a TV dá o troco, exibindo o melhor do conteúdo ultra globalizado da web, com foco no humor, arte, cultura e estilo de vida.</desc>
@@ -21078,5 +20994,29 @@
     <category lang="pt">Séries</category>
     <category lang="pt">Cinema</category>
     <date>2013</date>
+  </programme>
+  <programme start="20261007190000 +0000" stop="20261007191500 +0000" channel="WooHoo.br@SD">
+    <title>Queue</title>
+    <desc>2013. Primeiro foi a Internet que se apropriou do conteúdo da TV em benefício próprio. Agora, seguindo uma tendência mundial, a TV dá o troco, exibindo o melhor do conteúdo ultra globalizado da web, com foco no humor, arte, cultura e estilo de vida.</desc>
+    <category lang="pt">Variedades</category>
+    <category lang="pt">Cultural</category>
+    <date>2013</date>
+  </programme>
+  <programme start="20261007191500 +0000" stop="20261007191900 +0000" channel="WooHoo.br@SD">
+    <title>Surf Kidz</title>
+    <desc>2024. Viajar e surfar é ótimo, e quando junta a família fica ainda melhor. Os irmãos Maria Clara, João Victor e João Lucas preenchem a tela com muita fofura, energia e disposição para surfar as melhores ondas do Brasil.</desc>
+    <category lang="pt">Jornalismo</category>
+    <category lang="pt">Informativo</category>
+    <date>2024</date>
+  </programme>
+  <programme start="20261007191900 +0000" stop="20261007192300 +0000" channel="WooHoo.br@SD">
+    <title>Free Surf</title>
+    <desc>2023. Os melhores surfistas do mundo em sessões livres nos palcos do Circuito Mundial de Surfe.</desc>
+    <date>2023</date>
+  </programme>
+  <programme start="20261007192300 +0000" stop="20261007192500 +0000" channel="WooHoo.br@SD">
+    <title>Queue Staff Picks</title>
+    <desc>2018. Acompanhe alguns acontecimentos selecionados especialmente para o público do canal.</desc>
+    <date>2018</date>
   </programme>
 </tv>
