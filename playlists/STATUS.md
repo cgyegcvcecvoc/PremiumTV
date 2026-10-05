@@ -1,13 +1,13 @@
 # Scraper status
 
-- **Last run:** 2026-10-05 05:18 PM EDT (2026-10-05 21:18 UTC)
-- **Run:** _9:41 AM recheck_ (`recheck`; ID `20261005T211432Z-2625`)
-- **Scheduled for:** 2026-10-05T13:41:00Z — started late by +7h 34m
+- **Last run:** 2026-10-05 07:00 PM EDT (2026-10-05 23:00 UTC)
+- **Run:** _12:53 PM recheck_ (`recheck`; ID `20261005T225654Z-2627`)
+- **Scheduled for:** 2026-10-05T16:53:00Z — started late by +6h 04m
 - **Outcome:** **WARNING**
-- **Confirmed working:** 9890 / 16482 unique links
-- **Dead:** 3843  |  **Unverified:** 2749
-- **Unique links found:** 16482 from 20793 source entries
-- **Changes vs. PremiumTV_all.m3u:** +117 added / -100 removed
+- **Confirmed working:** 9900 / 16481 unique links
+- **Dead:** 3823  |  **Unverified:** 2758
+- **Unique links found:** 16481 from 20793 source entries
+- **Changes vs. PremiumTV_all.m3u:** +115 added / -116 removed
 - **Player playlist updated:** yes
 - **Country playlists:** [`countries/`](countries/README.md) (173 countries separated)
 - **A&E channels playlist:** [`AE_Channels.m3u`](AE_Channels.m3u) (59 confirmed working / 71 unique A&E links)
@@ -22,17 +22,17 @@ for the full audit.
 
 | # | Category | Channels |
 |---|---|---:|
-| 1 | Sports | 427 |
+| 1 | Sports | 426 |
 | 2 | Sports Backups | 69 |
-| 3 | Lifestyle | 376 |
-| 4 | Lifestyle Backups | 65 |
-| 5 | Fox Channels | 30 |
+| 3 | Lifestyle | 381 |
+| 4 | Lifestyle Backups | 68 |
+| 5 | Fox Channels | 31 |
 | 6 | Fox Channels Backups | 1 |
-| 7 | CBS | 30 |
+| 7 | CBS | 31 |
 | 8 | CBS Backups | 13 |
-| 9 | NBC | 71 |
+| 9 | NBC | 72 |
 | 10 | NBC Backups | 9 |
-| 11 | NBC Sports Channels | 6 |
+| 11 | NBC Sports Channels | 7 |
 | 12 | NBC Sports Channels Backups | 1 |
 | 13 | Cartoons | 84 |
 | 14 | Cartoons Backups | 18 |
@@ -43,40 +43,40 @@ for the full audit.
 | 19 | Music | 771 |
 | 20 | Music Backups | 67 |
 | 21 | News | 737 |
-| 22 | News Backups | 151 |
-| 23 | Europe | 688 |
+| 22 | News Backups | 150 |
+| 23 | Europe | 684 |
 | 24 | Europe Backups | 72 |
-| 25 | Movies | 644 |
+| 25 | Movies | 641 |
 | 26 | Movies Backups | 69 |
-| 27 | International | 629 |
-| 28 | International Backups | 100 |
-| 29 | Religious | 570 |
+| 27 | International | 639 |
+| 28 | International Backups | 102 |
+| 29 | Religious | 569 |
 | 30 | Religious Backups | 38 |
-| 31 | Entertainment | 506 |
-| 32 | Entertainment Backups | 52 |
-| 33 | South America | 456 |
-| 34 | South America Backups | 20 |
-| 35 | Asia | 419 |
+| 31 | Entertainment | 508 |
+| 32 | Entertainment Backups | 53 |
+| 33 | South America | 452 |
+| 34 | South America Backups | 19 |
+| 35 | Asia | 421 |
 | 36 | Asia Backups | 23 |
-| 37 | United States | 308 |
+| 37 | United States | 310 |
 | 38 | United States Backups | 47 |
-| 39 | North America | 289 |
+| 39 | North America | 286 |
 | 40 | North America Backups | 5 |
 | 41 | Documentary | 257 |
 | 42 | Documentary Backups | 52 |
-| 43 | Kids | 210 |
+| 43 | Kids | 209 |
 | 44 | Kids Backups | 37 |
-| 45 | Series | 140 |
+| 45 | Series | 141 |
 | 46 | Series Backups | 69 |
 | 47 | Education | 112 |
 | 48 | Education Backups | 5 |
-| 49 | Culture | 108 |
+| 49 | Culture | 107 |
 | 50 | Culture Backups | 8 |
 | 51 | Legislative | 94 |
 | 52 | Legislative Backups | 2 |
 | 53 | India | 86 |
 | 54 | India Backups | 5 |
-| 55 | Africa | 67 |
+| 55 | Africa | 64 |
 | 56 | Business | 45 |
 | 57 | Business Backups | 10 |
 | 58 | Comedy | 38 |
@@ -89,7 +89,7 @@ for the full audit.
 | 65 | Family Backups | 3 |
 | 66 | A&E Networks | 23 |
 | 67 | A&E Networks Backups | 2 |
-| 68 | Canada | 22 |
+| 68 | Canada | 21 |
 | 69 | Weather | 9 |
 | 70 | Weather Backups | 2 |
 | 71 | Animals & Nature | 5 |
@@ -109,48 +109,47 @@ for the full audit.
 | 85 | Relax | 2 |
 | 86 | Relax Backups | 1 |
 | 87 | Tv Shows | 2 |
-| 88 | MeTV | 1 |
-| 89 | United Kingdom | 1 |
-| 90 | Other | 273 |
-| 91 | Other Backups | 132 |
+| 88 | United Kingdom | 1 |
+| 89 | Other | 275 |
+| 90 | Other Backups | 133 |
 
 ## Playlist sources
 
 | Source | Fetch | Entries | Unique URLs | Overlap | Working | Dead | Unverified |
 |---|---|---:|---:|---:|---:|---:|---:|
 | local-channels | ok | 4 | 4 | 3 | 2 | 0 | 2 |
-| priority-channels | ok | 12 | 12 | 8 | 11 | 0 | 1 |
+| priority-channels | ok | 12 | 12 | 8 | 10 | 0 | 2 |
 | ae-networks | ok | 53 | 53 | 17 | 42 | 9 | 2 |
 | aria | ok | 359 | 354 | 118 | 255 | 31 | 68 |
-| doms9 | ok | 498 | 497 | 67 | 208 | 77 | 212 |
+| doms9 | ok | 498 | 496 | 67 | 212 | 66 | 218 |
 | xtemus | ok | 317 | 317 | 0 | 2 | 253 | 62 |
-| iptv-org | ok | 11138 | 11138 | 3679 | 6505 | 2637 | 1996 |
-| free-tv | ok | 2080 | 2054 | 830 | 1097 | 501 | 456 |
+| iptv-org | ok | 11138 | 11138 | 3679 | 6497 | 2622 | 2019 |
+| free-tv | ok | 2080 | 2054 | 830 | 1111 | 501 | 442 |
 | eja-tv-feed | not_configured | 0 | 0 | 0 | 0 | 0 | 0 |
 | stepdaddylivehd-instance | not_configured | 0 | 0 | 0 | 0 | 0 | 0 |
 | dlive-sx-feed | not_configured | 0 | 0 | 0 | 0 | 0 | 0 |
-| m3u 🌱 | ok | 831 | 827 | 174 | 322 | 441 | 64 |
-| openstream 🌱 | ok | 5501 | 5501 | 3219 | 5065 | 412 | 24 |
+| m3u 🌱 | ok | 831 | 827 | 174 | 323 | 443 | 61 |
+| openstream 🌱 | ok | 5501 | 5501 | 3219 | 5076 | 412 | 13 |
 
 🌱 = source added automatically by the monthly discovery engine: m3u, openstream. Set `"enabled": false` for it in `discovery/approved-sources.json` to roll it back.
 
 ## Channel categories (published player playlists)
 
-Every published channel is grouped into one fixed category (no more upstream `General`/`Undefined`/country groups), with US channels first inside each category and each channel's feeds side by side. Categories across **9890** channels:
+Every published channel is grouped into one fixed category (no more upstream `General`/`Undefined`/country groups), with US channels first inside each category and each channel's feeds side by side. Categories across **9900** channels:
 
 | Category | Channels | Share |
 |---|---:|---:|
-| Sports | 427 | 4.3% |
+| Sports | 426 | 4.3% |
 | Sports Backups | 69 | 0.7% |
-| Lifestyle | 376 | 3.8% |
-| Lifestyle Backups | 65 | 0.7% |
-| Fox Channels | 30 | 0.3% |
+| Lifestyle | 381 | 3.8% |
+| Lifestyle Backups | 68 | 0.7% |
+| Fox Channels | 31 | 0.3% |
 | Fox Channels Backups | 1 | 0.0% |
-| CBS | 30 | 0.3% |
+| CBS | 31 | 0.3% |
 | CBS Backups | 13 | 0.1% |
-| NBC | 71 | 0.7% |
+| NBC | 72 | 0.7% |
 | NBC Backups | 9 | 0.1% |
-| NBC Sports Channels | 6 | 0.1% |
+| NBC Sports Channels | 7 | 0.1% |
 | NBC Sports Channels Backups | 1 | 0.0% |
 | Cartoons | 84 | 0.8% |
 | Cartoons Backups | 18 | 0.2% |
@@ -160,41 +159,41 @@ Every published channel is grouped into one fixed category (no more upstream `Ge
 | Game Shows Backups | 12 | 0.1% |
 | Music | 771 | 7.8% |
 | Music Backups | 67 | 0.7% |
-| News | 737 | 7.5% |
-| News Backups | 151 | 1.5% |
-| Europe | 688 | 7.0% |
+| News | 737 | 7.4% |
+| News Backups | 150 | 1.5% |
+| Europe | 684 | 6.9% |
 | Europe Backups | 72 | 0.7% |
-| Movies | 644 | 6.5% |
+| Movies | 641 | 6.5% |
 | Movies Backups | 69 | 0.7% |
-| International | 629 | 6.4% |
-| International Backups | 100 | 1.0% |
-| Religious | 570 | 5.8% |
+| International | 639 | 6.5% |
+| International Backups | 102 | 1.0% |
+| Religious | 569 | 5.7% |
 | Religious Backups | 38 | 0.4% |
-| Entertainment | 506 | 5.1% |
-| Entertainment Backups | 52 | 0.5% |
-| South America | 456 | 4.6% |
-| South America Backups | 20 | 0.2% |
-| Asia | 419 | 4.2% |
+| Entertainment | 508 | 5.1% |
+| Entertainment Backups | 53 | 0.5% |
+| South America | 452 | 4.6% |
+| South America Backups | 19 | 0.2% |
+| Asia | 421 | 4.3% |
 | Asia Backups | 23 | 0.2% |
-| United States | 308 | 3.1% |
+| United States | 310 | 3.1% |
 | United States Backups | 47 | 0.5% |
-| North America | 289 | 2.9% |
+| North America | 286 | 2.9% |
 | North America Backups | 5 | 0.1% |
 | Documentary | 257 | 2.6% |
 | Documentary Backups | 52 | 0.5% |
-| Kids | 210 | 2.1% |
+| Kids | 209 | 2.1% |
 | Kids Backups | 37 | 0.4% |
-| Series | 140 | 1.4% |
+| Series | 141 | 1.4% |
 | Series Backups | 69 | 0.7% |
 | Education | 112 | 1.1% |
 | Education Backups | 5 | 0.1% |
-| Culture | 108 | 1.1% |
+| Culture | 107 | 1.1% |
 | Culture Backups | 8 | 0.1% |
-| Legislative | 94 | 1.0% |
+| Legislative | 94 | 0.9% |
 | Legislative Backups | 2 | 0.0% |
 | India | 86 | 0.9% |
 | India Backups | 5 | 0.1% |
-| Africa | 67 | 0.7% |
+| Africa | 64 | 0.6% |
 | Business | 45 | 0.5% |
 | Business Backups | 10 | 0.1% |
 | Comedy | 38 | 0.4% |
@@ -207,7 +206,7 @@ Every published channel is grouped into one fixed category (no more upstream `Ge
 | Family Backups | 3 | 0.0% |
 | A&E Networks | 23 | 0.2% |
 | A&E Networks Backups | 2 | 0.0% |
-| Canada | 22 | 0.2% |
+| Canada | 21 | 0.2% |
 | Weather | 9 | 0.1% |
 | Weather Backups | 2 | 0.0% |
 | Animals & Nature | 5 | 0.1% |
@@ -227,10 +226,9 @@ Every published channel is grouped into one fixed category (no more upstream `Ge
 | Relax | 2 | 0.0% |
 | Relax Backups | 1 | 0.0% |
 | Tv Shows | 2 | 0.0% |
-| MeTV | 1 | 0.0% |
 | United Kingdom | 1 | 0.0% |
-| Other | 273 | 2.8% |
-| Other Backups | 132 | 1.3% |
+| Other | 275 | 2.8% |
+| Other Backups | 133 | 1.3% |
 
 ## Country playlists (`playlists/countries/` — 173 countries)
 
@@ -238,31 +236,31 @@ All confirmed working channels are separated by country into [`playlists/countri
 
 | Country | Working channels | Playlist |
 |---|---:|---|
-| USA | 2049 | [`countries/USA.m3u`](countries/USA.m3u) |
+| USA | 2067 | [`countries/USA.m3u`](countries/USA.m3u) |
 | International | 970 | [`countries/International.m3u`](countries/International.m3u) |
-| India | 703 | [`countries/India.m3u`](countries/India.m3u) |
-| Italy | 484 | [`countries/Italy.m3u`](countries/Italy.m3u) |
-| Russia | 406 | [`countries/Russia.m3u`](countries/Russia.m3u) |
-| UK | 221 | [`countries/UK.m3u`](countries/UK.m3u) |
-| Dominican Republic | 198 | [`countries/Dominican_Republic.m3u`](countries/Dominican_Republic.m3u) |
-| Spain | 195 | [`countries/Spain.m3u`](countries/Spain.m3u) |
+| India | 697 | [`countries/India.m3u`](countries/India.m3u) |
+| Italy | 488 | [`countries/Italy.m3u`](countries/Italy.m3u) |
+| Russia | 403 | [`countries/Russia.m3u`](countries/Russia.m3u) |
+| UK | 220 | [`countries/UK.m3u`](countries/UK.m3u) |
+| Dominican Republic | 197 | [`countries/Dominican_Republic.m3u`](countries/Dominican_Republic.m3u) |
 | France | 192 | [`countries/France.m3u`](countries/France.m3u) |
-| Brazil | 185 | [`countries/Brazil.m3u`](countries/Brazil.m3u) |
-| Chile | 177 | [`countries/Chile.m3u`](countries/Chile.m3u) |
-| Germany | 174 | [`countries/Germany.m3u`](countries/Germany.m3u) |
-| Ukraine | 168 | [`countries/Ukraine.m3u`](countries/Ukraine.m3u) |
+| Spain | 192 | [`countries/Spain.m3u`](countries/Spain.m3u) |
+| Brazil | 186 | [`countries/Brazil.m3u`](countries/Brazil.m3u) |
+| Chile | 178 | [`countries/Chile.m3u`](countries/Chile.m3u) |
+| Germany | 172 | [`countries/Germany.m3u`](countries/Germany.m3u) |
+| Ukraine | 167 | [`countries/Ukraine.m3u`](countries/Ukraine.m3u) |
 | Argentina | 154 | [`countries/Argentina.m3u`](countries/Argentina.m3u) |
-| Peru | 146 | [`countries/Peru.m3u`](countries/Peru.m3u) |
+| Peru | 145 | [`countries/Peru.m3u`](countries/Peru.m3u) |
 | Netherlands | 136 | [`countries/Netherlands.m3u`](countries/Netherlands.m3u) |
-| Canada | 131 | [`countries/Canada.m3u`](countries/Canada.m3u) |
+| Canada | 132 | [`countries/Canada.m3u`](countries/Canada.m3u) |
 | Turkey | 128 | [`countries/Turkey.m3u`](countries/Turkey.m3u) |
-| Mexico | 126 | [`countries/Mexico.m3u`](countries/Mexico.m3u) |
-| Poland | 116 | [`countries/Poland.m3u`](countries/Poland.m3u) |
-| Romania | 112 | [`countries/Romania.m3u`](countries/Romania.m3u) |
-| Hungary | 105 | [`countries/Hungary.m3u`](countries/Hungary.m3u) |
-| Indonesia | 102 | [`countries/Indonesia.m3u`](countries/Indonesia.m3u) |
-| Colombia | 96 | [`countries/Colombia.m3u`](countries/Colombia.m3u) |
-| Greece | 84 | [`countries/Greece.m3u`](countries/Greece.m3u) |
+| Mexico | 125 | [`countries/Mexico.m3u`](countries/Mexico.m3u) |
+| Poland | 114 | [`countries/Poland.m3u`](countries/Poland.m3u) |
+| Romania | 113 | [`countries/Romania.m3u`](countries/Romania.m3u) |
+| Indonesia | 104 | [`countries/Indonesia.m3u`](countries/Indonesia.m3u) |
+| Hungary | 102 | [`countries/Hungary.m3u`](countries/Hungary.m3u) |
+| Colombia | 94 | [`countries/Colombia.m3u`](countries/Colombia.m3u) |
+| Greece | 85 | [`countries/Greece.m3u`](countries/Greece.m3u) |
 | _…and 148 more countries_ | | [Full country index](countries/README.md) |
 
 ## A&E and A+E Networks channels (`playlists/AE_Channels.m3u`)
@@ -281,56 +279,56 @@ All confirmed working channels are separated by country into [`playlists/countri
 
 | Result | Dead | Unverified | What to check next |
 |---|---:|---:|---|
-| HTTP 403 | 0 | 1168 | Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region. |
-| quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 979 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| HTTP 404 | 966 | 0 | The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one. |
-| TimeoutError | 0 | 851 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
+| HTTP 403 | 0 | 1176 | Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region. |
+| quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 978 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| HTTP 404 | 954 | 0 | The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one. |
+| TimeoutError | 0 | 844 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z) | 620 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| html page, not a stream | 404 | 0 | The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect. |
+| html page, not a stream | 398 | 0 | The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect. |
 | gaierror | 0 | 347 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
-| ConnectionRefusedError | 0 | 98 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
+| ConnectionRefusedError | 0 | 97 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 96 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | invalid URL | 79 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| HTTP 503 | 0 | 70 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
+| HTTP 503 | 0 | 69 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z) | 65 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | HTTP 400 | 60 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 52 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| HTTP 401 | 0 | 42 | Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region. |
+| HTTP 401 | 0 | 44 | Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region. |
+| HTTP 502 | 0 | 33 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z) | 29 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| HTTP 502 | 0 | 26 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | HTTP 504 | 0 | 23 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
 | SSLError | 0 | 22 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z) | 21 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| RemoteDisconnected | 0 | 20 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| RemoteDisconnected | 0 | 19 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | SSLEOFError | 0 | 19 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z) | 16 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 15 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| OSError | 0 | 13 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | empty response | 13 | 0 | The server returned no stream data; check whether the source requires an active session or has expired. |
 | quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 13 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z) | 13 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| OSError | 0 | 12 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| HTTP 500 | 0 | 11 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
+| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z) | 11 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 11 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 11 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
-| HTTP 500 | 0 | 10 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
-| HTTP 451 | 9 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
-| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z) | 9 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z) | 9 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z) | 9 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z) | 9 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | not probed: unsupported scheme rtmp | 0 | 8 | This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working. |
-| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z) | 8 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z) | 8 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, HTTP 403 (failed the deep check 4x, last 2026-10-03T15:00:01Z) | 8 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 302 (failed the deep check 1x, last 2026-10-03T10:25:19Z) | 8 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 8 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-05T12:17:17Z) | 8 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | HTTP 429 | 0 | 7 | The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff. |
+| HTTP 451 | 7 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z) | 7 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z) | 7 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z) | 7 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z) | 7 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:10:12Z) | 7 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z) | 7 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 7 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | HTTP 530 | 0 | 6 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
-| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z) | 6 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z) | 6 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z) | 6 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 6 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
@@ -339,13 +337,14 @@ All confirmed working channels are separated by country into [`playlists/countri
 | ConnectionResetError | 0 | 5 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | HTTP 406 | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | HTTP 567 | 0 | 5 | The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link. |
-| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T20:58:47Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 302 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-02T21:31:25Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z) | 5 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z) | 4 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 4 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 4 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:31:25Z) | 4 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
@@ -432,7 +431,6 @@ All confirmed working channels are separated by country into [`playlists/countri
 | quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 1 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T14:46:53Z) | 1 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-03T15:00:01Z) | 1 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
-| quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-03T10:25:19Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-02T21:31:25Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, segment too small (214 bytes) (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: playlist only, segment too small (94 bytes) (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
@@ -442,6 +440,7 @@ All confirmed working channels are separated by country into [`playlists/countri
 | quarantined: playlist only, timeout (failed the deep check 4x, last 2026-10-03T15:00:01Z) | 1 | 0 | Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network. |
 | quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-05T12:17:17Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
+| quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:10:12Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
 | quarantined: variant HTTP 410 (failed the deep check 2x, last 2026-10-03T10:25:19Z) | 1 | 0 | Inspect the channel URL and source entry in report.json; this result was not confirmed as playable. |
@@ -467,6 +466,6 @@ All confirmed working channels are separated by country into [`playlists/countri
 
 ### Run/source issues
 
-- 2749 links could not be confirmed after retries (see unverified details).
-- 3843 links returned a confirmed failure (see dead details).
-- This run started +7h 34m after its scheduled time (2026-10-05T13:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+- 2758 links could not be confirmed after retries (see unverified details).
+- 3823 links returned a confirmed failure (see dead details).
+- This run started +6h 04m after its scheduled time (2026-10-05T16:53:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
