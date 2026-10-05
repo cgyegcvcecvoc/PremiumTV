@@ -10,6 +10,16 @@ Load this URL in an M3U-compatible player (VLC, TiviMate, IPTV Smarters, Kodi PV
 https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u
 ```
 
+> **These links need a public repository.** Checked on 2026-10-05: while `PremiumTV1` is private,
+> `raw.githubusercontent.com` answers `404 Not Found` for every URL above, in every country
+> playlist, and in the `x-tvg-url` guide headers the playlists advertise - GitHub only serves raw
+> files to readers who can see the repository. Nothing in the build is wrong (the workflows read
+> their own inputs through `local_path` and the authenticated API, and the published links were
+> spot-checked live), but a player can only use them once the files are public: make the
+> repository public, publish it with GitHub Pages
+> (`https://cgyegcvcecvoc.github.io/PremiumTV1/playlists/PremiumTV.m3u`), or mirror the
+> `playlists/` and `EPG/` folders into a public repository. The first option needs no change here.
+
 | File | Purpose |
 |---|---|
 | [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Confirmed working links from the latest successful checked run. |
