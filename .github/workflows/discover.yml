@@ -35,7 +35,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: discover-channels
+  # Per branch: the switches in playlists/logs/*.txt are meant to be pushed on
+  # whatever branch you are working on, and GitHub cancels older *pending* runs in
+  # the same group - with one repository-wide group, a manual run on a branch was
+  # dropped by the next scheduled run on main. Runs on one branch still serialize.
+  group: discover-channels-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
