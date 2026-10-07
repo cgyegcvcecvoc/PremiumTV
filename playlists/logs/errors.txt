@@ -1,75 +1,77 @@
 ========================================================================================
 PREMIUMTV1 ERRORS & DIAGNOSTICS LOG (.TXT)
 ========================================================================================
-Run ID:      20261007T103146Z-2621
-Timestamp:   2026-10-07 06:35 AM EDT (2026-10-07 10:35 UTC)
-Label:       manual re-scrape (run-scrape.txt) (manual)
+Run ID:      20261007T142718Z-3271
+Timestamp:   2026-10-07 10:30 AM EDT (2026-10-07 14:30 UTC)
+Label:       3:07 AM daily scrape (regular_check)
 Outcome:     WARNING
-Dead Links:  3938  |  Unverified Links: 2754
+Dead Links:  3847  |  Unverified Links: 2589
 
 ----------------------------------------------------------------------------------------
 1. RUN & SOURCE ISSUES
 ----------------------------------------------------------------------------------------
-  * 2754 links could not be confirmed after retries (see unverified details).
-  * 3938 links returned a confirmed failure (see dead details).
+  * 2589 links could not be confirmed after retries (see unverified details).
+  * 3847 links returned a confirmed failure (see dead details).
+  * This run started +7h 20m after its scheduled time (2026-10-07T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
 ----------------------------------------------------------------------------------------
 2. ERROR REASON BREAKDOWN
 ----------------------------------------------------------------------------------------
 Reason                                     Dead   Unverified      Total
 --------------------------------------------------------------------------
-HTTP 403                                      0         1200       1200
-HTTP 404                                    984            0        984
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)      974            0        974
-TimeoutError                                  0          814        814
+HTTP 403                                      0         1041       1041
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)      973            0        973
+HTTP 404                                    907            0        907
+TimeoutError                                  0          792        792
 quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)      620            0        620
-html page, not a stream                     395            0        395
-gaierror                                      0          344        344
-ConnectionRefusedError                        0          122        122
+html page, not a stream                     394            0        394
+gaierror                                      0          360        360
+ConnectionRefusedError                        0          116        116
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       97            0         97
+HTTP 503                                      0           80         80
 invalid URL                                  79            0         79
-HTTP 503                                      0           74         74
 quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       65            0         65
 HTTP 400                                     60            0         60
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       52            0         52
-HTTP 401                                      0           45         45
-HTTP 410                                     39            0         39
+HTTP 401                                      0           46         46
 quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)       29            0         29
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)       27            0         27
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)       24            0         24
 HTTP 504                                      0           23         23
 RemoteDisconnected                            0           21         21
 SSLEOFError                                   0           19         19
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-06T12:02:47Z)       18            0         18
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)       17            0         17
-HTTP 502                                      0           16         16
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-06T12:02:47Z)       17            0         17
+HTTP 502                                      0           15         15
+OSError                                       0           15         15
 quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       15            0         15
-OSError                                       0           14         14
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       14            0         14
 SSLError                                      0           13         13
 empty response                               13            0         13
-HTTP 500                                      0           12         12
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)       13            0         13
+HTTP 500                                      0           11         11
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)       11            0         11
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        9            0          9
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        9            0          9
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        9            0          9
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        9            0          9
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-06T12:02:47Z)        9            0          9
 quarantined: variant HTTP 404 (failed the deep check 3x, last 2026-10-03T10:25:19Z)        9            0          9
 HTTP 530                                      0            8          8
 not probed: unsupported scheme rtmp           0            8          8
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        8            0          8
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-07T11:47:42Z)        8            0          8
 quarantined: playlist only, HTTP 403 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        8            0          8
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)        8            0          8
 quarantined: variant HTTP 302 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        8            0          8
 quarantined: variant HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        8            0          8
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-05T12:17:17Z)        8            0          8
 HTTP 451                                      7            0          7
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        7            0          7
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        7            0          7
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        7            0          7
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        7            0          7
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0          7
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:10:12Z)        7            0          7
 quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)        7            0          7
 quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        7            0          7
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        6            0          6
+quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-07T11:47:42Z)        6            0          6
 quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        6            0          6
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z)        6            0          6
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        6            0          6
@@ -90,11 +92,10 @@ quarantined: variant HTTP dns lookup failed (failed the deep check 1x, last 2026
 quarantined: playlist only, HTTP 400 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0          4
 quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0          4
 quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-06T12:02:47Z)        4            0          4
+quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-07T11:47:42Z)        4            0          4
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T21:31:25Z)        4            0          4
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-04T11:07:47Z)        4            0          4
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        4            0          4
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)        4            0          4
-HTTP 477                                      3            0          3
 quarantined: connection refused (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0          3
 quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0          3
 quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0          3
@@ -105,8 +106,10 @@ quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-03T
 quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        3            0          3
 quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0          3
 quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-03T10:25:19Z)        3            0          3
+quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        3            0          3
 quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0          3
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:31:25Z)        3            0          3
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        3            0          3
 quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        3            0          3
 quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-05T12:17:17Z)        3            0          3
 quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-06T12:02:47Z)        3            0          3
@@ -117,9 +120,12 @@ HTTP 429                                      0            2          2
 HTTP 521                                      0            2          2
 HTTP 523                                      0            2          2
 not probed: unsupported scheme mmsh           0            2          2
+quarantined: connection refused (failed the deep check 2x, last 2026-10-07T11:47:42Z)        2            0          2
+quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-07T11:47:42Z)        2            0          2
 quarantined: empty response (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0          2
 quarantined: empty response (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
 quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
+quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-07T11:47:42Z)        2            0          2
 quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0          2
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-02T21:46:31Z)        2            0          2
@@ -132,17 +138,21 @@ quarantined: playlist only, SSLEOFError (failed the deep check 2x, last 2026-10-
 quarantined: playlist only, TimeoutError (failed the deep check 2x, last 2026-10-02T20:58:47Z)        2            0          2
 quarantined: playlist only, TimeoutError (failed the deep check 4x, last 2026-10-03T15:00:01Z)        2            0          2
 quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
-quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
 quarantined: variant HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)        2            0          2
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        2            0          2
+quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-07T11:47:42Z)        2            0          2
 quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
+quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        2            0          2
 quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T14:46:53Z)        2            0          2
 quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-04T11:07:47Z)        2            0          2
 quarantined: variant HTTP SSLEOFError (failed the deep check 2x, last 2026-10-03T10:25:19Z)        2            0          2
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-06T12:02:47Z)        2            0          2
 HTTP 302                                      1            0          1
+HTTP 410                                      1            0          1
 HTTP 421                                      1            0          1
 HTTP 458                                      1            0          1
+HTTP 477                                      1            0          1
 HTTP 574                                      0            1          1
 not probed: unsupported scheme rtsp           0            1          1
 not probed: unsupported scheme srt            0            1          1
@@ -161,6 +171,7 @@ quarantined: playlist only, HTTP 401 (failed the deep check 2x, last 2026-10-03T
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-06T12:02:47Z)        1            0          1
+quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-07T11:47:42Z)        1            0          1
 quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-02T21:46:31Z)        1            0          1
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
@@ -169,8 +180,10 @@ quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-04T
 quarantined: playlist only, HTTP 416 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0          1
 quarantined: playlist only, HTTP 429 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
 quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0          1
+quarantined: playlist only, HTTP 500 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
 quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
 quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0          1
+quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-07T11:47:42Z)        1            0          1
 quarantined: playlist only, HTTP 503 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0          1
 quarantined: playlist only, InvalidURL (failed the deep check 2x, last 2026-10-02T21:31:25Z)        1            0          1
 quarantined: playlist only, RemoteDisconnected (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
@@ -188,7 +201,6 @@ quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T15:00:0
 quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0          1
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-02T21:14:06Z)        1            0          1
 quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)        1            0          1
 quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0          1
 quarantined: variant HTTP 410 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
 quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
@@ -197,8 +209,10 @@ quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-03T10:25:1
 quarantined: variant HTTP 500 (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
 quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
 quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
+quarantined: variant HTTP 502 (failed the deep check 2x, last 2026-10-07T11:47:42Z)        1            0          1
 quarantined: variant HTTP 503 (failed the deep check 2x, last 2026-10-03T10:25:19Z)        1            0          1
 quarantined: variant HTTP 503 (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
+quarantined: variant HTTP 503 (failed the deep check 2x, last 2026-10-07T11:47:42Z)        1            0          1
 quarantined: variant HTTP 504 (failed the deep check 4x, last 2026-10-03T15:10:12Z)        1            0          1
 quarantined: variant HTTP ConnectionResetError (failed the deep check 2x, last 2026-10-03T15:10:12Z)        1            0          1
 quarantined: variant HTTP ConnectionResetError (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
@@ -207,23 +221,21 @@ quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 202
 quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-06T12:02:47Z)        1            0          1
 quarantined: variant HTTP TimeoutError (failed the deep check 1x, last 2026-10-03T10:25:19Z)        1            0          1
 quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
+quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-07T11:47:42Z)        1            0          1
 quarantined: variant HTTP connection refused (failed the deep check 2x, last 2026-10-04T11:07:47Z)        1            0          1
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-02T21:46:31Z)        1            0          1
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T14:46:53Z)        1            0          1
 quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:00:01Z)        1            0          1
 
 ----------------------------------------------------------------------------------------
-3. CONFIRMED DEAD LINKS (3938)
+3. CONFIRMED DEAD LINKS (3847)
 ----------------------------------------------------------------------------------------
   [DEAD] [HTTP 404] [Ukraine] 2+2 Marathon (1080p) (source=iptv-org) -> https://lowa8026-cmyk.github.io/Ukraine/Edyni_Novyny/2Plus2Marafon.m3u8
   [DEAD] [quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] 30A Golf Kingdom (720p) (source=iptv-org) -> https://30a-tv.com/feeds/vidaa/golf.m3u8
   [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Acelerados 🇧🇷 (source=m3u) -> https://cc-afscwj856ih88.akamaized.net/IJKL/Amagi/Offgrid/Acelerados_BR/Acelerados.m3u8
-  [DEAD] [HTTP 404] [USA] [AEW] AEW Grand Slam 2026 (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57695/load-playlist
-  [DEAD] [HTTP 404] [USA] [AEW Wrestling] AEW Dynamite (FAWA) (source=doms9) -> http://193.47.62.41/hls/btttt.m3u8
   [DEAD] [quarantined: variant HTTP 302 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [France] Africa 24 Sport (1080p) (source=iptv-org) -> https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8
   [DEAD] [HTTP 404] [Iraq] Al Iraqia Sport (720p) (source=iptv-org) -> https://imn-live.esite-lab.com/hls/iraqia-sports-1.m3u8
-  [DEAD] [HTTP 404] [USA] [Amistoso] Argentina vs Benín | TYC Sports (TVF90) (source=doms9) -> https://dw5pdgvk.fubo18.com:443/tycsports/mono.m3u8?token=%5Bredacted%5D
-  [DEAD] [HTTP 404] [USA] [Amistoso] EE. UU. vs Canadá | Disney+ (TVF90) (source=doms9) -> https://dw5pdgvk.fubo18.com:443/disney14/mono.m3u8?token=%5Bredacted%5D
+  [DEAD] [HTTP 404] [USA] [American Football] New Mexico State Aggies vs. Florida International Panthers | English (STRMCNTR) (source=doms9) -> https://edgestream4.pro/hls/sfjnzabacah31.m3u8
   [DEAD] [HTTP 404] [Serbia] Arena Sport 5 Premium (source=iptv-org) -> https://nl1.nghk.ai/SK2SRHD/index.m3u8
   [DEAD] [html page, not a stream] [International] Astro Arena (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a4158603x2z2
   [DEAD] [html page, not a stream] [International] Astro Supersport 1 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a4158603x203
@@ -233,12 +245,18 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [html page, not a stream] [International] Astro Supersport 5 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a4158603x243
   [DEAD] [HTTP 400] [El Salvador] Awapa Sports TV (1080p) [Not 24/7] (source=iptv-org) -> https://mgv-awapa.akamaized.net/hls/live/2104282/MGV_CHANNEL15/master.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ AWSN 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-660e7404e8fba8000853abc0.m3u8
+  [DEAD] [HTTP 404] [USA] [Baseball] Cleveland Guardians vs. Chicago White Sox | English (STRMCNTR) (source=doms9) -> https://edgestream4.pro/hls/24SDAZFcsqnj24.m3u8
+  [DEAD] [HTTP 404] [USA] [Baseball] Los Angeles Dodgers vs. Atlanta Braves | English (STRMCNTR) (source=doms9) -> https://edgestream3.pro/hls/eJmauBDCIf.m3u8
+  [DEAD] [HTTP 404] [USA] [Baseball] Milwaukee Brewers vs. San Diego Padres | English (STRMCNTR) (source=doms9) -> https://edgestream3.pro/hls/sqdahach1ax.m3u8
+  [DEAD] [HTTP 404] [USA] [Baseball] Tampa Bay Rays vs. New York Yankees | English (STRMCNTR) (source=doms9) -> https://edgestream6.pro/hls/b0h5fNwDKH.m3u8
+  [DEAD] [HTTP 404] [USA] [Basketball] Golden State Warriors vs. Portland Trail Blazers | English (STRMCNTR) (source=doms9) -> https://edgestream7.pro/hls/zeafwqvhfe69.m3u8
+  [DEAD] [HTTP 404] [USA] [Basketball] Las Vegas Aces vs. Golden State Valkyries | English (STRMCNTR) (source=doms9) -> https://edgestream5.pro/hls/ztyarueaghj71.m3u8
+  [DEAD] [HTTP 404] [USA] [Basketball NBL] Adelaide vs Melbourne United (FAWA) (source=doms9) -> http://193.47.62.41/hls/ZRRR.m3u8
+  [DEAD] [HTTP 404] [USA] [Basketball] New York Liberty vs. Atlanta Dream | English (STRMCNTR) (source=doms9) -> https://edgestream4.pro/hls/bvnsqdfvgha70.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] ☆ Bassmaster 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-9210a8fbeab66e9d1ce20c187804ee7d.m3u8
   [DEAD] [quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Belarus] Belarus-5 Internet (1080p) [Not 24/7] (source=iptv-org) -> https://edge59.dc.beltelecom.by/ngtrk/smil:belarus5int.smil/playlist.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Bellator MMA (source=iptv-org) -> https://jmp2.uk/plu-5ebc8688f3697d00072f7cf8.m3u8
   [DEAD] [invalid URL] [International] ☆ Billiards+ 🇺🇸 (source=m3u) -> +https://lte.wiseplayout.com/WiseM3U8_18/master.m3u8
-  [DEAD] [HTTP 404] [USA] [Bolivia Copa] Aurora vs Academia del Balompie (FAWA) (source=doms9) -> http://193.47.62.41/hls/FIIIAAAAA.m3u8
-  [DEAD] [HTTP 404] [USA] [Brazil Serie B] Ponte Preta vs Juventude (FAWA) (source=doms9) -> http://193.47.62.41/hls/FIIIAAAAAAQQQQ.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] Brondby TV (source=iptv-org) -> https://jmp2.uk/plu-685029cda1e091e16ff57fc8.m3u8
   [DEAD] [HTTP 404] [France] Canal+ Sport 360 (source=iptv-org) -> https://futbol9865.ultratv13.workers.dev/deportivo111/14.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] CBS Sports HQ (720p) (source=iptv-org) -> https://jmp2.uk/plu-5e9f2c05172a0f0007db4786.m3u8
@@ -248,10 +266,9 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-Billiards (1080p) (source=iptv-org) -> http://38.75.136.137:98/gslb/dsdqpub/ystq.m3u8?auth=%5Bredacted%5D
   [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-Golf & Tennis (1080p) (source=iptv-org) -> http://38.75.136.137:98/gslb/dsdqpub/gefwq.m3u8?auth=%5Bredacted%5D
   [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-Storm Football (1080p) (source=iptv-org) -> http://38.75.136.137:98/gslb/dsdqpub/fyzq.m3u8?auth=%5Bredacted%5D
-  [DEAD] [HTTP 404] [USA] [CFB] Troy vs Southern Miss (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57692/load-playlist
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] ☆ Choppertown 🇺🇸 (source=m3u) -> https://linear-11.frequency.stream/dist/plex/11/hls/master/playlist.m3u8
   [DEAD] [quarantined: variant HTTP 429 (failed the deep check 2x, last 2026-10-02T21:46:31Z)] [USA] ☆ Combatv 🇺🇸 (source=m3u) -> https://jmp2.uk/plex-5e20b730f2f8d5003d739db7-63f0ca427b78030ed9990309.m3u8
-  [DEAD] [HTTP 404] [USA] [CONCACAF Nations League] French Guiana vs Belize (FAWA) (source=doms9) -> http://193.47.62.50/hls/DBBBQ.m3u8
+  [DEAD] [HTTP 404] [USA] [Copa Ecuador] Universidad Católica vs LDU Quito | ECDF LigaPRO | HD (TVF90) (source=doms9) -> https://dw5pdgvk.fubo18.com:443/ecdf_ligapro/mono.m3u8?token=%5Bredacted%5D
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Court Sports Network 🇺🇸 🎾 (source=m3u) -> https://is.gd/SwgJ8x?5e20b730f2f8d5003d739db7-652875586425fdb1f32d2169.m3u8=
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Cowboy+ Sports 🇺🇸 (source=m3u) -> https://live-manifest.production-public.tubi.io/live/b92c560a-132b-4f67-a993-94794a9ab904/playlist.m3u8
   [DEAD] [HTTP 404] [International] ☆ DAZN Combat 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-64df7a9a44fe100009b6ac5a.m3u8
@@ -281,22 +298,8 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [HTTP 404] [Russia] Fast&FunBox (Russia) HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/FastFunBoxHD/index.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] FCK Lovinderne (source=iptv-org) -> https://jmp2.uk/plu-68ac5403de4a734954b5ab75.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [UK] FIFA+ (720p) (source=iptv-org) -> https://jmp2.uk/plu-660c29b5aec9680008f5b4a4.m3u8
-  [DEAD] [HTTP 410] [USA] [FIFA FRIENDLY] Benin vs Argentina | English (STRMGATE) (source=doms9) -> https://instreams.pro/live3/tv401921408/index.m3u8?st=ia0YEhU0DUcItL-TdtkfTQ&e=1791347453
-  [DEAD] [HTTP 410] [USA] [FIFA FRIENDLY] Canada vs United States | English (STRMGATE) (source=doms9) -> https://instreams.online/live3/tv401905188/index.m3u8?st=xGwA6Jy7xbrw9Xlthh-YNQ&e=1791351211
-  [DEAD] [HTTP 410] [USA] [FIFA FRIENDLY] Chile vs Mexico | English (STRMGATE) (source=doms9) -> https://instreams.online/live3/tv401903298/index.m3u8?st=OscJLImtEiMxbes9cHHDZw&e=1791349263
-  [DEAD] [HTTP 410] [USA] [FIFA FRIENDLY] Peru vs Colombia | English (STRMGATE) (source=doms9) -> https://instreams.online/live3/tv401905332/index.m3u8?st=zSTOlvYBca7BKarEnDDWqA&e=1791351210
   [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)] [Netherlands] FightBox (source=iptv-org) -> https://webtvstream.bhtelecom.ba/fightbox.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ FloRacing 24/7 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-58e6bfd1c4819af32ead547dbc82e1f8.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Albania vs. San Marino | English (STRMCNTR) (source=doms9) -> https://edgestream6.pro/hls/dza5z8f69.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Argentina vs. Benin | English (STRMCNTR) (source=doms9) -> https://edgestream6.pro/hls/24SDAZFcsqnj24.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Belarus vs. Finland | English (STRMCNTR) (source=doms9) -> https://edgestream7.pro/hls/griogoehvn2.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Croatia vs. Spain | English (STRMCNTR) (source=doms9) -> https://edgestream7.pro/hls/sqdahach1ax.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] England vs. Czechia | English (STRMCNTR) (source=doms9) -> https://edgestream5.pro/hls/24SDAZFcsqnj24.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Estonia vs. Iceland | English (STRMCNTR) (source=doms9) -> https://edgestream4.pro/hls/b0h5fNwDKH.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Luxembourg vs. Bulgaria | English (STRMCNTR) (source=doms9) -> https://edgestream5.pro/hls/ueyeztrazb4.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Moldova vs. Slovakia | English (STRMCNTR) (source=doms9) -> https://edgestream5.pro/hls/syaLqucEne4k.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Scotland vs. Slovenia | English (STRMCNTR) (source=doms9) -> https://edgestream6.pro/hls/eJmauBDCIf.m3u8
-  [DEAD] [HTTP 404] [USA] [Football] Switzerland vs. North Macedonia | English (STRMCNTR) (source=doms9) -> https://edgestream5.pro/hls/377qj1h2727.m3u8
   [DEAD] [HTTP 404] [International] ☆ Fox Deportes 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-63d0269d60bc8f000890facc.m3u8
   [DEAD] [quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-04T11:07:47Z)] [USA] Fox Soccer Plus (source=doms9) -> https://cache0.wonvt.st/live/0rz24u91w9fbp407eceyc/master.m3u8
   [DEAD] [html page, not a stream] [International] FOX Sport 1 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a41586s2u2w294
@@ -304,10 +307,6 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [HTTP 404] [International] FOX Sport 3 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a41586s2u2w2b4
   [DEAD] [HTTP 404] [International] FOX Sport 4 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a41586s2u2w2c4
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Fox Sports 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-0fc01f1136055d89bae495ba92eff445.m3u8
-  [DEAD] [HTTP 404] [USA] [Friendly Match] Mexico vs Chile 1 (FAWA) (source=doms9) -> http://193.47.62.41/hls/DBBBQQQ.m3u8
-  [DEAD] [HTTP 404] [USA] [Friendly Match] Mexico vs Chile 2 (FAWA) (source=doms9) -> https://www.rtmpcdn.com/live/fe0b5b41-bbd4-4ed9-99c0-303f3b4b8c0f.m3u8
-  [DEAD] [HTTP 404] [USA] [Friendly Match] USA vs Canada 1 (FAWA) (source=doms9) -> http://193.47.62.41/hls/FIIIAAAAAA.m3u8
-  [DEAD] [HTTP 404] [USA] [Friendly Match] USA vs Canada 2 (FAWA) (source=doms9) -> https://www.rtmpcdn.com/live/f7a022c0-2874-46aa-88ab-cc421122c02c.m3u8
   [DEAD] [HTTP 404] [International] ☆ Futsalmafer.tv 🇪🇸 (source=m3u) -> https://cloudvideo.servers10.com:8081/8184/index.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:00:01Z)] [Canada] Game+ (720p) (source=iptv-org) -> https://a-cdn.klowdtv.com/live2/fntsy_720p/playlist.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Golazo Network (720p) (source=iptv-org) -> https://jmp2.uk/plu-63a0e33a45264d000850ed7e.m3u8
@@ -317,10 +316,13 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [HTTP 404] [Canada] Hard Knocks (1080p) (source=iptv-org) -> https://d3uyzhwvmemdyf.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/Hard-Knocks-DistroTV/109.m3u8?ads.vf=6pOF6kgy418
   [DEAD] [HTTP 404] [USA] ☆ HBCU GO Sports 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-d5ac470e48d355c19371733b18be8925.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Vietnam] HTV Sports (source=iptv-org) -> https://dethich.pw/htvthethao/index.m3u8
-  [DEAD] [HTTP 404] [USA] [International Friendly Games] Mexico vs Chile (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57696/load-playlist
-  [DEAD] [HTTP 404] [USA] [International Friendly Games] USA vs Canada (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57683/load-playlist
   [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Iran] IRIB 3 (source=iptv-org) -> https://ncdn.telewebion.ir/tv3/live/playlist.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ ITV Deportes (source=m3u) -> https://jmp2.uk/plu-63f7e3f9dff38e00082a57af.m3u8
+  [DEAD] [HTTP 404] [USA] [Japan Emperors Cup] Gainare Tottori vs Tokyo Verdy (FAWA) (source=doms9) -> http://193.47.62.41/hls/bbbbAAAQQ.m3u8
+  [DEAD] [HTTP 404] [USA] [Japan Emperors Cup] Kawasaki Frontale vs Tegevajaro Miyazaki (FAWA) (source=doms9) -> http://193.47.62.41/hls/bbbbAAAQQQ.m3u8
+  [DEAD] [HTTP 404] [USA] [Japan Emperors Cup] Sanfrecce Hiroshima vs Iwaki (FAWA) (source=doms9) -> http://193.47.62.41/hls/bbbbAAA.m3u8
+  [DEAD] [HTTP 404] [USA] [Japan Emperors Cup] Urawa Reds vs Omiya Ardija (FAWA) (source=doms9) -> http://193.47.62.41/hls/bbbb.m3u8
+  [DEAD] [HTTP 404] [Slovakia] JOJ Šport (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+%C5%A0port
   [DEAD] [invalid URL] [Spain] ☆ La Liga tv 🇪🇸 (source=m3u) -> +https://drjpy7suzu4c5.cloudfront.net/out/v1/0c06db0274c04e64ab6ae0450f5fbda8/index.m3u8
   [DEAD] [HTTP 404] [International] LFCTV (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a41586s2t2x274
   [DEAD] [HTTP 404] [International] Live (10) TNT (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564z286v4034364
@@ -328,70 +330,20 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [HTTP 404] [International] Live (9) TNT (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564z286v4u25344
   [DEAD] [html page, not a stream] [North Macedonia] M-Net Sport (720p) (source=iptv-org) -> http://ares.mnet.mk/hls/mnet-sport.m3u8
   [DEAD] [HTTP 404] [Ukraine] Maincast Sport (1080p) (source=iptv-org) -> http://stream.mcquack.net/490/index.m3u8
-  [DEAD] [HTTP 410] [USA] [Major League Baseball] Brewers @ Padres (TIMSTRM) (source=doms9) -> https://justkidding.junksonus.party/main/secure/f6136b1fe935c9f7eb07f62f304b134d27cb805bd26bb945f0e967dd4af702dd/1791351062/mlb-padres.m3u8
-  [DEAD] [HTTP 410] [USA] [Major League Soccer] Chicago Fire vs Vancouver Whitecaps (FLYEMBD) (source=doms9) -> https://justkidding.junksonus.party/main/secure/212ececf9376990731bb85c0385bbdde0ffe27e58cf7c3a536fe62267e383a02/1791347463/mls-761660.m3u8
-  [DEAD] [HTTP 410] [USA] [Major League Soccer] Vancouver Whitecaps @ Chicago Fire FC (TIMSTRM) (source=doms9) -> https://justkidding.junksonus.party/main/secure/9c139d94cf3ab4413ca9793f814a37bab251ca8c483632779ce575e60b804cfe/1791347462/mls-761660.m3u8
   [DEAD] [quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Marquee Sports Network (source=doms9) -> https://cache0.wonvt.st/live/0fw1ltm1y185qp02gtx24/master.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] MLB (720p) (source=iptv-org) -> https://jmp2.uk/plu-5e66968a70f34c0007d050be.m3u8
-  [DEAD] [HTTP 404] [USA] [MLB Baseball] San Diego Padres vs Milwaukee Brewers (FAWA) (source=doms9) -> http://193.47.62.55/hls/roooaaa.m3u8
-  [DEAD] [HTTP 410] [USA] [MLB] Los Angeles Dodgers vs Atlanta Braves | English (STRMGATE) (source=doms9) -> https://instreams.pro/live3/tv401908015/index.m3u8?st=g1sXQq5NRhZsAFA8DzPaHg&e=1791343864
-  [DEAD] [HTTP 410] [USA] [MLB] Milwaukee Brewers vs San Diego Padres | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401908004/index.m3u8?st=hJpa5PWkqQ7Z6HO5-okCjg&e=1791345651
-  [DEAD] [HTTP 410] [USA] [MLB] Milwaukee Brewers vs San Diego Padres (STRMFREE) (source=doms9) -> https://streamfree.top/live-cdn/milwaukee-brewers-vs-san-diego-padres1080p3/index.m3u8?_e=1791367264&_n=ad1efece894d3353&_t=2qUujfqLj2oL11CDW6zImw
-  [DEAD] [HTTP 410] [USA] [MLB] San Diego Padres vs Milwaukee Brewers (FLYEMBD) (source=doms9) -> https://justkidding.junksonus.party/main/secure/50e75922c40b6939b7f777dec76782370f08d3f1ade78a343ecb345bf7d3be02/1791351062/fox-sports-1.m3u8
-  [DEAD] [HTTP 404] [USA] [MLB] San Diego Padres vs Milwaukee Brewers (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57698/load-playlist
-  [DEAD] [HTTP 404] [USA] [MLS] Chicago Fire vs Vancouver Whitecaps (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57693/load-playlist
-  [DEAD] [HTTP 404] [USA] [MLS League] Chicago Fire vs Vancouver Whitecaps (FAWA) (source=doms9) -> http://193.47.62.41/hls/FIIIAAAAAAQQQ.m3u8
-  [DEAD] [HTTP 410] [USA] [MLS] Vancouver Whitecaps vs Chicago Fire FC | English (STRMGATE) (source=doms9) -> https://instreams.pro/live3/tv761660/index.m3u8?st=mj1eMrHdZi-_nTP2t0U74g&e=1791352862
-  [DEAD] [HTTP 404] [USA] [MMA] Dana White's Contender Series: Season 10, Week 9 | English (STRMCNTR) (source=doms9) -> https://edgestream4.pro/hls/zeuryuegn48.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Monster Jam 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-65c69b683ba51e00084534a3.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Monster Jam (720p) (source=iptv-org) -> https://jmp2.uk/plu-65bcc9c8d77d450008b34c6b.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Montagna! 🇮🇹 (source=m3u) -> https://jmp2.uk/stvp-ITBC400005TF
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ MotorTrend Fast TV 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-6400f731d200410008f9b339.m3u8
   [DEAD] [HTTP 404] [Belgium] ☆ Motorvision 🇺🇸 (source=m3u) -> https://jmp2.uk/stvp-INBA4900030PY
   [DEAD] [invalid URL] [International] ☆ N Golf Network 🇯🇵 (source=m3u) -> +https://stream01.willfonk.com/live_playlist.m3u8?cid=CS262&r=HD&ccode=JP&m=d0:20:20:04:35:cc&t=0d6938cb3dcf4b79848bc1753a59daf1
-  [DEAD] [HTTP 410] [USA] [National Basketball League] Los Angeles Lakers @ Golden State Warriors (TIMSTRM) (source=doms9) -> https://justkidding.junksonus.party/main/secure/8b038636af0571acedf29b8cc7e5f05051a9fb07fcc23eb82316d8e746ba4512/1791352820/nba-401898390.m3u8
-  [DEAD] [HTTP 410] [USA] [National Hockey League] Florida Panthers @ Los Angeles Kings (TIMSTRM) (source=doms9) -> https://justkidding.junksonus.party/main/secure/6f53823d81b411f29ae007b446ab38de58d0652c0ae0c415c1fb8cc6158c3345/1791352821/espn-usa.m3u8
-  [DEAD] [HTTP 410] [USA] [National Hockey League] Vegas Golden Knights @ Seattle Kraken (TIMSTRM) (source=doms9) -> https://justkidding.junksonus.party/main/secure/0e8a00634149c2453bcfe31381e9fd12b6e206606b72edc73744ec451d965f02/1791349409/nhl-401892454.m3u8
-  [DEAD] [HTTP 404] [USA] [NBA Basketball] Golden State Warriors vs Los Angeles Lakers 1 (FAWA) (source=doms9) -> http://193.47.62.59/hls/DBBBQQ.m3u8
-  [DEAD] [HTTP 404] [USA] [NBA Basketball] Golden State Warriors vs Los Angeles Lakers 2 (FAWA) (source=doms9) -> https://www.rtmpcdn.com/live/ac9f9d6b-e23c-47bf-baa2-0a118e663e0b.m3u8
-  [DEAD] [HTTP 404] [USA] [NBA Basketball] Oklahoma City Thunder vs New Orleans Pelicans 1 (FAWA) (source=doms9) -> http://193.47.62.41/hls/FIIIAAAAAAQQ.m3u8
-  [DEAD] [HTTP 404] [USA] [NBA Basketball] Oklahoma City Thunder vs New Orleans Pelicans 2 (FAWA) (source=doms9) -> https://www.rtmpcdn.com/live/2d4b808f-93f9-4903-bdb3-600261a67e9c.m3u8
-  [DEAD] [HTTP 404] [USA] [NBA Basketball] Utah Jazz vs Denver Nuggets 1 (FAWA) (source=doms9) -> http://193.47.62.50/hls/DBBB.m3u8
-  [DEAD] [HTTP 404] [USA] [NBA Basketball] Utah Jazz vs Denver Nuggets 2 (FAWA) (source=doms9) -> https://www.rtmpcdn.com/live/5fee4f8d-2fb3-4ca3-a6a5-b75a0a103e53.m3u8
-  [DEAD] [HTTP 410] [USA] [NBA] Brooklyn Nets vs Charlotte Hornets | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401901820/index.m3u8?st=CdqqCMl3dJM-vJAHmfsEMw&e=1791347451
-  [DEAD] [HTTP 410] [USA] [NBA] Denver Nuggets vs Utah Jazz | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401914128/index.m3u8?st=4YyXwt6GPF-yMekkgOxMVQ&e=1791343863
-  [DEAD] [HTTP 410] [USA] [NBA] Denver Nuggets vs Utah Jazz (STRMFREE) (source=doms9) -> https://streamfree.top/live-cdn/denver-nuggets-vs-utah-jazz1080p3/index.m3u8?_e=1791365451&_n=b745d6b96d1c864d&_t=M2GxPOf4LxhO2UwPNVUGfw
-  [DEAD] [HTTP 410] [USA] [NBA] Golden State Warriors vs Los Angeles Lakers (FLYEMBD) (source=doms9) -> https://justkidding.junksonus.party/main/secure/0889b8808dd9293690de6e2b389cbb0f18947da1a8f6e8442e8ec9a3c37154f1/1791352821/nbc-sports-bayarea.m3u8
-  [DEAD] [HTTP 410] [USA] [NBA] Los Angeles Lakers vs Golden State Warriors | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401898390/index.m3u8?st=AV8ZqjAcfwXH11wiz4kMAQ&e=1791347452
-  [DEAD] [HTTP 410] [USA] [NBA] New Orleans Pelicans vs Oklahoma City Thunder | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401898389/index.m3u8?st=-YqzWvrnd-X6vn-ScV7ssg&e=1791351209
-  [DEAD] [HTTP 410] [USA] [NBA] New Orleans Pelicans vs Oklahoma City Thunder (STRMFREE) (source=doms9) -> https://streamfree.top/live-origin/new-orleans-pelicans-vs-oklahoma-city-thunder1080p3/index.m3u8?_e=1791361863&_n=84b51f271d13e4e8&_t=L3Rm6CcZhqM2SL1akTN5YQ
-  [DEAD] [HTTP 404] [USA] [NBA Preseason] Golden State Warriors vs Los Angeles Lakers (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57700/load-playlist
-  [DEAD] [HTTP 404] [USA] [NBA Preseason] Oklahoma City Thunder vs New Orleans Pelicans (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57690/load-playlist
-  [DEAD] [HTTP 404] [USA] [NBA Preseason] Utah Jazz vs Denver Nuggets (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57694/load-playlist
-  [DEAD] [HTTP 410] [USA] [NBA] Utah Jazz vs Denver Nuggets (FLYEMBD) (source=doms9) -> https://justkidding.junksonus.party/main/secure/f7f6b9a661398d98dfe7cfa2fc6aef78c4ff0f3a0b2a904cc115818419602642/1791349409/nba-401914128.m3u8
-  [DEAD] [HTTP 404] [USA] [NCAA American Football] Troy vs Southern Miss (FAWA) (source=doms9) -> http://193.47.62.41/hls/FIIIAAAAAAQ.m3u8
-  [DEAD] [HTTP 410] [USA] [NCAAF] Southern Miss Golden Eagles vs Troy Trojans (STRMFREE) (source=doms9) -> https://streamfree.top/live-origin/southern-miss-golden-eagles-vs-troy-trojans1080p3/index.m3u8?_e=1791361864&_n=8ec12921b443c8f2&_t=_pdvZOS1xJcAaY1jqFg5iw
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] NFL Channel (720p) (source=iptv-org) -> https://jmp2.uk/plu-5ced7d5df64be98e07ed47b6.m3u8
-  [DEAD] [HTTP 410] [USA] [NHL] Carolina Hurricanes vs Montreal Canadiens | English (STRMGATE) (source=doms9) -> https://instreams.online/live3/tv401891815/index.m3u8?st=mW93vMZkwMqOFDmodutzog&e=1791347454
-  [DEAD] [HTTP 404] [USA] [NHL] Chicago Blackhawks vs St. Louis Blues (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57691/load-playlist
-  [DEAD] [HTTP 410] [USA] [NHL] Florida Panthers vs Los Angeles Kings | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401891806/index.m3u8?st=_qmiVq7G8M5ILHLxxUAJ8g&e=1791347458
-  [DEAD] [HTTP 410] [USA] [NHL] Los Angeles Kings vs Florida Panthers (FLYEMBD) (source=doms9) -> https://justkidding.junksonus.party/main/secure/5f5810d6c0545db8e487d06a52fa89437377be87d9345c2a71b171f3a1791c5a/1791352822/espn-usa.m3u8
-  [DEAD] [HTTP 404] [USA] [NHL] Los Angeles Kings vs Florida Panthers (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57701/load-playlist
-  [DEAD] [HTTP 410] [USA] [NHL] Minnesota Wild vs Buffalo Sabres | English (STRMGATE) (source=doms9) -> https://instreams.pro/live3/tv401892453/index.m3u8?st=rDDDElV1kdXNJJ1FkRZvHQ&e=1791347457
-  [DEAD] [HTTP 410] [USA] [NHL] Nashville Predators vs Toronto Maple Leafs | English (STRMGATE) (source=doms9) -> https://instreams.pro/live3/tv401892449/index.m3u8?st=pW9v1bbq8ooiDkBkkjV5tg&e=1791347455
   [DEAD] [quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] NHL Network (source=doms9) -> https://cache0.wonvt.st/live/0nkruul0d8pahi1pz4sjc/master.m3u8
-  [DEAD] [HTTP 410] [USA] [NHL] New York Islanders vs New York Rangers | English (STRMGATE) (source=doms9) -> https://instreams.online/live3/tv401892452/index.m3u8?st=N2Z7fgR122O0PQVYYPfmnw&e=1791349264
-  [DEAD] [HTTP 410] [USA] [NHL] Ottawa Senators vs Detroit Red Wings | English (STRMGATE) (source=doms9) -> https://instreams.online/live3/tv401892450/index.m3u8?st=7_qmtz1uSDj77pf73ohwxQ&e=1791347456
-  [DEAD] [HTTP 410] [USA] [NHL] Seattle Kraken vs Vegas Golden Knights (FLYEMBD) (source=doms9) -> https://justkidding.junksonus.party/main/secure/5a08f8a378f471b6e18bc44ba9eae84d58dd79b8faf2cc4157f394437ed100ac/1791349410/nhl-401892454.m3u8
-  [DEAD] [HTTP 404] [USA] [NHL] Seattle Kraken vs Vegas Golden Knights (iSTRMEAST) (source=doms9) -> https://chatgpt.hereisman.net/playlist/57699/load-playlist
-  [DEAD] [HTTP 410] [USA] [NHL] St. Louis Blues vs Chicago Blackhawks | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401891779/index.m3u8?st=gjAvA6nPDflgepQ9gz9gVw&e=1791351212
-  [DEAD] [HTTP 410] [USA] [NHL] St. Louis Blues vs Chicago Blackhawks (STRMFREE) (source=doms9) -> https://streamfree.top/live-cdn/st-louis-blues-vs-chicago-blackhawks1080p3/index.m3u8?_e=1791361863&_n=8a160d52ade9e95f&_t=y3MjmOyzTxF-CYHAXzA8Mg
-  [DEAD] [HTTP 410] [USA] [NHL] Utah Mammoth vs New Jersey Devils | English (STRMGATE) (source=doms9) -> https://instreams.online/live3/tv401892451/index.m3u8?st=ycdH1zNQnmIy3A1TRkUYyQ&e=1791347456
-  [DEAD] [HTTP 410] [USA] [NHL] Vegas Golden Knights vs Seattle Kraken | English (STRMGATE) (source=doms9) -> https://instreams.live/live3/tv401892454/index.m3u8?st=mlDHzyuaFB3WAU5WQ_9-ZQ&e=1791343865
-  [DEAD] [HTTP 410] [USA] [NHL] Vegas Golden Knights vs Seattle Kraken (STRMFREE) (source=doms9) -> https://streamfree.top/live-cdn/vegas-golden-knights-vs-seattle-kraken1080p3/index.m3u8?_e=1791365451&_n=7686c5e1ae8d634a&_t=SmXU7gPV9C_y-BgIdaRNZg
   [DEAD] [HTTP 404] [International] ☆ One Championship tv 🇧🇷🇺🇸 (source=m3u) -> https://jmp2.uk/plu-668c5d3bfd9eb2000882bb50.m3u8
   [DEAD] [invalid URL] [International] ☆ One Golf 🇺🇸 (source=m3u) -> +http://162.250.201.58:6211/pk/ONEGOLF/index.m3u8
   [DEAD] [invalid URL] [International] ☆ Origin Sports 🇺🇸 (source=m3u) -> +https://d3p5ht7q3twp32.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-8z9wshyryruk3/4c3ac6bb-c329-44f2-a3c6-97bc46c8a82d/3.m3u8
+  [DEAD] [quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-07T11:47:42Z)] [Peru] Ovacion TV (720p) [Not 24/7] (source=iptv-org) -> http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] PBR RidePass (720p) (source=iptv-org) -> https://jmp2.uk/plu-60d39387706fe50007fda8e8.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] PFL MMA (720p) (source=iptv-org) -> https://jmp2.uk/plu-64f6180130ab3300083d896b.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ PGA Tour 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-5de94dacb394a300099fa22a.m3u8
@@ -426,7 +378,7 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Red Bull TV Motorsport 🇺🇸 🏍 (source=m3u) -> https://jmp2.uk/stvp-DE32000079E
   [DEAD] [quarantined: variant HTTP TimeoutError (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Italy] Rete 8 Sport (source=free-tv) -> https://64b16f23efbee.streamlock.net/rete8sport/rete8sport/playlist.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [UK] RugbyPass TV (720p) (source=iptv-org) -> https://jmp2.uk/plu-66f137cb483d460008ece053.m3u8
-  [DEAD] [HTTP 404] [USA] ☆ Ryz Sports Network 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-5f9c59c52f0ad475d90a33fdfd14d651.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] ☆ Ryz Sports Network 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-5f9c59c52f0ad475d90a33fdfd14d651.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [San Marino] San Marino RTV Sport (720p) (source=iptv-org) -> https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch02/smil:ch-02.smil/master.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Scooore 🇩🇪 (source=m3u) -> https://jmp2.uk/stvp-ATBD26000124P
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ SFT Combat 🇧🇷🇺🇸 (source=m3u) -> https://jmp2.uk/plu-6660b636cb3ea10008429c6a.m3u8
@@ -445,6 +397,8 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [HTTP 404] [International] ☆ Speed Sport 1 🇺🇸 🏎️ (source=m3u) -> https://jmp2.uk/rok-f450ca31c0f7dde46cfdccb15d2154cb.m3u8
   [DEAD] [HTTP 400] [USA] ☆ Speedvision 🇺🇸 (source=m3u) -> https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/723decba-5a70-4ea8-85b0-9e4105c47bfa/5.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T15:10:12Z)] [Uzbekistan] Sport (Uzbekistan) (source=iptv-org) -> https://stream8.cinerama.uz/1004/tracks-v1a1/mono.m3u8
+  [DEAD] [HTTP 404] [Italy] Sportitalia 24 (720p) [Geo-blocked] (source=iptv-org) -> https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:silive24.smil/playlist.m3u8
+  [DEAD] [HTTP 404] [Italy] Sportitalia Motori (720p) [Geo-blocked] (source=iptv-org) -> https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:simotori.smil/playlist.m3u8
   [DEAD] [HTTP 404] [International] SporTV Premiere (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a41586s2t2w284
   [DEAD] [quarantined: connection refused (failed the deep check 2x, last 2026-10-06T12:02:47Z)] [Indonesia] SPOTV 2 (720p) (source=iptv-org) -> http://58.8.186.128:10006/bysid/2630
   [DEAD] [quarantined: connection refused (failed the deep check 2x, last 2026-10-06T12:02:47Z)] [Indonesia] SPOTV (720p) (source=iptv-org) -> http://58.8.186.128:10006/bysid/2614
@@ -481,7 +435,6 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [HTTP 406] [Malta] TVMsport+ (1080p) (source=iptv-org) -> https://stream.smashmalta.com:25463/live/webplayer/livestream/29.m3u8
   [DEAD] [HTTP 404] [International] ☆ U&Transport 🇬🇧 (source=m3u) -> https://jmp2.uk/plu-64c0d6765dc1660008a3e033.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ UFC 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-677d9adfa9a51b0008497fa0.m3u8
-  [DEAD] [HTTP 410] [USA] [UFC] Alivia Bierley vs Summer Onley | English (STRMGATE) (source=doms9) -> https://instreams.pro/live3/tv600060740/index.m3u8?st=kj7lWOdsyHA3p8Y2qPlSBw&e=1791347453
   [DEAD] [HTTP 404] [India] Unite8 Sports 2 (576p) (source=iptv-org) -> http://103.151.60.162:2122/play/a01m/index.m3u8?hls=
   [DEAD] [HTTP 404] [Ukraine] UPL.TV (source=iptv-org) -> http://dtv.vol.net.ua/UPL-TV/index.m3u8
   [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Iran] Varzesh TV (source=iptv-org) -> https://ncdn.telewebion.ir/varzesh/live/playlist.m3u8
@@ -492,7 +445,6 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] World Poker Tour Germany (source=iptv-org) -> https://jmp2.uk/plu-5ad9b7aae738977e2c312132.m3u8
   [DEAD] [invalid URL] [International] ☆ WOW Women of Wrestling 🇺🇸 (source=m3u) -> +https://jmp2.uk/plu-66b66b9e14a2bb000872f606.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ WPT 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-6080381ab7c9ea00074ec64c.m3u8
-  [DEAD] [HTTP 404] [USA] [WWE Wrestling] WWE NXT (FAWA) (source=doms9) -> http://193.47.62.41/hls/bttttQ.m3u8
   [DEAD] [HTTP 404] [USA] ☆ X Games Tv 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-0128b5f756acf1e1c488509fd76b0a61.m3u8
   [DEAD] [invalid URL] [USA] ☆ XFC MMA 🇺🇸 (source=m3u) -> +https://b81ea6a237a99f732a8a56c17e6e1733.7wzuvg.channel-assembly.mediatailor.us-east-1.amazonaws.com/v1/channel/XFC_TV/index-xfctv.m3u8
   [DEAD] [empty response] [Maldives] YES (source=iptv-org) -> https://customer-ujex1meek7koqd9x.cloudflarestream.com/4f0b316cdb0fbb7f8ca93860ed11d38b/manifest/video.m3u8
@@ -507,6 +459,7 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] ☆ 5 Minute Crafts 🇺🇸 (source=m3u) -> https://bit.ly/3QLfTvi?profile=inspirationLinks.m3u8
   [DEAD] [HTTP 400] [Australia] 9Life (720p) [Geo-blocked] (source=iptv-org) -> https://9now-livestreams.akamaized.net/hls/live/2008313/life-syd/master.m3u8
   [DEAD] [quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z)] [Chile] Agricultura TV (1080p) (source=iptv-org) -> https://redirector.rudo.video/hls-video/ey6283je82983je9823je8jowowiekldk9838274/921tv/921tv.smil/playlist.m3u8
+  [DEAD] [HTTP 404] [Peru] Agro TV (Peru) (720p) (source=iptv-org) -> https://live-evg8.tv360.bitel.com.pe/bitel/agroSRT/playlist.m3u8
   [DEAD] [HTTP 404] [International] ☆ America's Funniest Home Videos 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-690dc8ed1ee9b6ac66607ce2.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] America's Test Kitchen (720p) (source=iptv-org) -> https://jmp2.uk/plu-5e84f54a82f05300080e6746.m3u8
   [DEAD] [invalid URL] [International] ☆ Architectural Digest 🇺🇸 (source=m3u) -> +https://d3ouy9idpr6kd5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-rxkm8u7dtmx7h/playlist.m3u8
@@ -525,11 +478,11 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-17 HD (1080p) (source=iptv-org) -> http://74.91.26.218:82/live/cctv17hd.m3u8
   [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-Health (1080p) (source=iptv-org) -> http://38.75.136.137:98/gslb/dsdqpub/wsjk.m3u8?auth=%5Bredacted%5D
   [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [China] CCTV-Women's Fashion SD (1080p) (source=iptv-org) -> http://38.75.136.137:98/gslb/dsdqpub/nxss.m3u8?auth=%5Bredacted%5D
-  [DEAD] [HTTP 404] [Bolivia] CEACOM TV (1080p) [Not 24/7] (source=iptv-org) -> https://eu1.servers10.com:8081/ceacom/index.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Celeb Reality 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-6578843432c1b300089a9a98.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Chip & Jo Feels Like Home by Magnolia Network 🇺🇸 (source=m3u) -> https://jmp2.uk/plu-68bb16e7f89c82a68bcc4397.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Come Dine With Me 🇬🇧 (source=m3u) -> https://jmp2.uk/plu-65367e724f123d000877cfe5.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ Complex TV 🇺🇸 (source=m3u) -> https://jmp2.uk/rok-2a243861dea754eabb13a92e1106a4af.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 502 (failed the deep check 2x, last 2026-10-07T11:47:42Z)] [USA] Discovery Life (source=doms9) -> https://cache0.wonvt.st/live/04jtyrz0krzod10e5j0fe/master.m3u8
   [DEAD] [HTTP 404] [Italy] Donna Shopping Tv (source=free-tv) -> https://5f22d76e220e1.streamlock.net/fascinotv/fascinotv/playlist.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Spain] El Mueble (720p) (source=iptv-org) -> https://jmp2.uk/plu-690dd10a37b131228d76d5b1.m3u8
   [DEAD] [quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-05T12:17:17Z)] [Colombia] El Mundo del Campo (720p) (source=iptv-org) -> https://movil.ejeserver.com/live/elmundodelcampo.m3u8
@@ -715,10 +668,72 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Rockin' Out (source=iptv-org) -> https://jmp2.uk/plu-664f13aff9992200084a3532.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Rockin' Out DK (source=iptv-org) -> https://jmp2.uk/plu-664f132c8ea5560008ce4d86.m3u8
   [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park Rockin' Out NO (source=iptv-org) -> https://jmp2.uk/plu-664f1370f78a8500092df452.m3u8
-  ... and 3438 more dead links (see report.json).
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park: Stan Collection (Germany) (source=iptv-org) -> https://jmp2.uk/plu-646b1438e94c3800082a8cff.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Stan Collection (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-65d881914e01740008a36603.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Stan Collection (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-65d879e266eec8000887e91b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park: Stan Collection (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-65d87f7a28730900088e7fbf.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Stan Collection (United States) (source=iptv-org) -> https://jmp2.uk/plu-65df48ba28730900089f8480.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park (Sweden) (source=iptv-org) -> https://jmp2.uk/plu-61c0b627e3ed94000793c18a.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park (Sweden) DK (source=iptv-org) -> https://jmp2.uk/plu-61c098df897b9d00070375c8.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Sweden] South Park (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-61c1e88cd168ea0007068133.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park (United States) (source=iptv-org) -> https://jmp2.uk/plu-62bdb1c5e25122000798ac79.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] South Park Version Original (source=iptv-org) -> https://jmp2.uk/plu-63d7a8e5a9957100086bfc23.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] South Park: Welcome to Canada! (source=iptv-org) -> https://jmp2.uk/plu-663115d923e24f000843b49c.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Germany] Teenage Mutant Ninja Turtles (720p) (source=iptv-org) -> https://jmp2.uk/plu-62619405c733e8000732d1fe.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [USA] Tokusato (source=iptv-org) -> https://jmp2.uk/plu-5ff609de50ab210008025c1b.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [International] ☆ PBS Digital Studios 🇺🇸 (source=m3u) -> https://jmp2.uk/stvp-USBB800001O7
+  [DEAD] [HTTP 404] [International] PBS Kids (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415c41586s21323
+  [DEAD] [quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Russia] Че (source=free-tv) -> https://cdn4.skygo.mn/live/disk1/Che/HLSv3-FTA/Che.m3u8
+  [DEAD] [HTTP 404] [Ukraine] Суспільне Крим (source=free-tv) -> https://ext.cdn.nashnet.tv/228.0.0.71/index.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Russia] Север (source=free-tv) -> https://live.mediacdn.ru/sr1/sever/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 504 (failed the deep check 4x, last 2026-10-03T15:10:12Z)] [Belarus] ОНТ Ⓢ (source=free-tv) -> https://ngtrk.dc.beltelecom.by/ngtrk/smil:ont.smil/playlist.m3u8
+  [DEAD] [html page, not a stream] [Russia] РТР-Планета Ⓢ (source=free-tv) -> https://player.smotrim.ru/iframe/stream/live_id/63251
+  [DEAD] [quarantined: variant HTTP RemoteDisconnected (failed the deep check 2x, last 2026-10-04T11:07:47Z)] [Russia] Муз-ТВ Ⓢ (source=free-tv) -> https://streaming102.interskytech.com/live/618.m3u8
+  [DEAD] [HTTP 404] [North Macedonia] Хуго 2 (source=free-tv) -> http://fta.hugo.mk:1935/live/tvhugo/stream/2.m3u8
+  [DEAD] [HTTP 404] [Ukraine] Київ 24 (source=free-tv) -> https://ext.cdn.nashnet.tv/228.0.0.15/index.m3u8
+  [DEAD] [html page, not a stream] [Russia] Катунь 24 Ⓞ (source=free-tv) -> https://ok.ru/video/1166706155179
+  [DEAD] [html page, not a stream] [Russia] Кубань 24 Ⓞ (source=free-tv) -> https://ok.ru/video/4157442498242
+  [DEAD] [HTTP 404] [Russia] Саратов 24 (source=free-tv) -> https://saratov24.tv/online/playlist.php
+  [DEAD] [quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-02T20:58:47Z)] [Russia] Крым 24 (source=openstream) -> https://streaming.televizor-24-tochka.ru/live/28.m3u8
+  [DEAD] [HTTP 302] [Russia] Арктика 24 Ⓥ (source=free-tv) -> https://vk.com/video-213370539_456239018
+  [DEAD] [quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Russia] Россия 24 (576p) [Not 24/7] (source=openstream) -> https://uiptv.do.am/1ufc/000000006/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Ukraine] 24 Kanal (source=free-tv) -> http://streamvideol1.luxnet.ua/news24/smil:news24.stream.smil/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 4x, last 2026-10-03T15:00:01Z)] [Poland] 4 Fun TV (288p) [Not 24/7] (source=openstream) -> https://stream.4fun.tv:8888/hls/4f.m3u8
+  [DEAD] [quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Belarus] Беларусь 5 Интернет (source=free-tv) -> https://edge55.dc.beltelecom.by/ngtrk/smil:belarus5int.smil/playlist.m3u8
+  [DEAD] [quarantined: variant HTTP 504 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Belarus] Беларусь 5 Интернет (1080p) [Not 24/7] (source=openstream) -> https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5int.smil/playlist.m3u8
+  [DEAD] [HTTP 404] [Russia] Небеса ТВ7 Ⓢ (source=free-tv) -> https://vod.tv7.fi/tv7-ru/tv7-ru.smil/playlist.m3u8
+  [DEAD] [html page, not a stream] [Israel] 9 канал Ⓨ (source=free-tv) -> https://www.youtube.com/@israel9tv/live
+  [DEAD] [html page, not a stream] [Argentina] A24 Ⓨ (source=free-tv) -> https://www.youtube.com/c/A24com/live
+  [DEAD] [HTTP 404] [Italy] AB Channel (source=free-tv) -> https://tsw.streamingwebtv24.it:1936/abchanneltv/abchanneltv/playlist.m3u8
+  [DEAD] [HTTP 404] [Italy] Abc Tv (source=free-tv) -> https://diretta.arcapuglia.it:8080/live/abctv/index.m3u8
+  [DEAD] [html page, not a stream] [Paraguay] ABC TV Ⓨ (source=free-tv) -> https://www.youtube.com/user/canalabctv/live
+  [DEAD] [quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-10-03T10:25:19Z)] [Australia] ABC TV (720p) (source=iptv-org) -> https://c.mjh.nz/abc-nsw.m3u8
+  [DEAD] [html page, not a stream] [France] Africanews Ⓨ (source=free-tv) -> https://www.youtube.com/c/Africanewsfr/live
+  [DEAD] [HTTP 404] [Egypt] Al Ghad Plus (source=free-tv) -> https://playlist.fasttvcdn.com/pl/ykvm3f2fhokwxqsurp9xcg/alghad-plus/playlist.m3u8
+  [DEAD] [HTTP 404] [Iraq] Al-Rasheed (source=free-tv) -> https://media1.livaat.com/AL-RASHEED-HD/tracks-v1a1/playlist.m3u8
+  [DEAD] [html page, not a stream] [South Korea] All the K-Pop Ⓨ (source=free-tv) -> https://www.youtube.com/c/ALLTHEKPOP/live
+  [DEAD] [HTTP 404] [Spain] Antena 3 (source=iptv-org) -> https://cdn.stmify.com/zapitv/stream/ANTENA_3/test.mpd
+  [DEAD] [HTTP 404] [Italy] Antenna 3 Veneto Nord Est (source=free-tv) -> https://59d7d6f47d7fc.streamlock.net/antennatreveneto/antennatreveneto.stream/playlist.m3u8
+  [DEAD] [quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Italy] Antenna Sud (source=free-tv) -> https://live-antennasud.cdn.netrw.it/antennasud/hls/ccr/antennasud/master.m3u8
+  [DEAD] [quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Italy] Antenna Sud Extra (source=free-tv) -> https://live-antennasud.cdn.netrw.it/antennasud/hls/ccr/extra/master.m3u8
+  [DEAD] [html page, not a stream] [Argentina] Argentina 12 Ⓨ (source=free-tv) -> https://www.youtube.com/c/IPNoticiasEnVivo/live
+  [DEAD] [HTTP 404] [Italy] Aristanis SuperTv (source=free-tv) -> https://video2.azotosolutions.com:1936/supertvoristano/supertvoristano/playlist.m3u8
+  [DEAD] [html page, not a stream] [Peru] ATV+ Noticias Ⓨ (source=free-tv) -> https://www.youtube.com/c/ATVNoticiasOficial/live
+  [DEAD] [HTTP 404] [Argentina] Aunar (source=free-tv) -> https://5fb24b460df87.streamlock.net/live-cont.ar/mirador/playlist.m3u8
+  [DEAD] [html page, not a stream] [Somalia] Banaadir TV Ⓨ (source=free-tv) -> https://www.youtube.com/channel/UC_IzgGt0bVMXBR_Eu6AcqRw/live
+  [DEAD] [html page, not a stream] [Argentina] Barricada TV (source=free-tv) -> https://www.youtube.com/channel/UC6YundoLrEuBJaPp_oEPWaA/live
+  [DEAD] [HTTP 404] [Italy] Basilicata 1 Tv (source=free-tv) -> http://77.68.40.210:8888/hls/basilicata1.m3u8
+  [DEAD] [quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Belarus] Belros Ⓢ (source=free-tv) -> https://live2.mediacdn.ru/sr1/tro/playlist.m3u8
+  [DEAD] [quarantined: playlist only, timeout (failed the deep check 2x, last 2026-10-03T10:25:19Z)] [Chile] Bio Bio TV (1080p) (source=iptv-org) -> https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/bbtv/bbtv.smil/playlist.m3u8
+  [DEAD] [html page, not a stream] [Greece] Blue Sky (source=free-tv) -> https://www.youtube.com/channel/UCBuEruzW_f-Qpj_sABmuYSg/live
+  [DEAD] [HTTP 400] [Spain] Boing (source=free-tv) -> https://mdslivehls-i.akamaihd.net/hls/live/571647/boing/bitrate_1.m3u8
+  [DEAD] [HTTP 404] [Bulgaria] bTV (source=iptv-org) -> http://213.91.179.28:8000/play/a03w
+  [DEAD] [quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-07T11:47:42Z)] [Slovakia] BTV (480p) (source=openstream) -> https://fs3.kabelko.sk/9011/index.m3u8?token=%5Bredacted%5D
+  [DEAD] [html page, not a stream] [Somalia] Bulsho TV Ⓨ (source=free-tv) -> https://www.youtube.com/@Bulshotv/live
+  ... and 3347 more dead links (see report.json).
 
 ----------------------------------------------------------------------------------------
-4. UNVERIFIED LINKS (2754)
+4. UNVERIFIED LINKS (2589)
 ----------------------------------------------------------------------------------------
   [UNVERIFIED] [HTTP 403] [Israel] 5Gold (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/sport5gold/index.m3u8
   [UNVERIFIED] [HTTP 403] [Israel] 5Live (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/5live/index.m3u8
@@ -731,106 +746,53 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 403] [Georgia] Adjarasport 1 (source=iptv-org) -> https://live20.bozztv.com/dvrfl05/gin-adjara/index.m3u8
   [UNVERIFIED] [HTTP 403] [Cyprus] Alfa Sport (1080p) [Not 24/7] (source=iptv-org) -> https://dev.aftermind.xyz/edge-hls/unitrust/alfasports/index.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [USA] Altitude Sports (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb57f/playlist.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | Sportv BR HD (TVF90) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/sportv/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | Sportv BR (TVF90) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/sportv/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | Telefe | HD (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/telefe/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | Telefe (TVF90) (source=doms9) -> https://c2f2zq.fubo18.com:443/telefe/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | TUDN USA | HD (TVF90) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | TUDN USA | OP2 (TVF90) (source=doms9) -> https://ewvz.fubo18.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | TUDN USA | OP3 (TVF90) (source=doms9) -> https://9.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | TUDN USA (TVF90) (source=doms9) -> https://4.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Argentina vs Benín | TYC Sports | HD (TVF90) (source=doms9) -> https://yxdlc29tzq.fubo18.com:443/tycsports/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Colombia vs Perú | America TV (TVF90) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/americatv/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Colombia vs Perú | Caracol TV (TVF90) (source=doms9) -> https://a2lja3m.fubo18.com:443/caracol/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Colombia vs Perú | Fox Sports MX (TVF90) (source=doms9) -> https://a2lja3m.fubo18.com:443/foxsportsmx/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] Colombia vs Perú | FOX Sports Premium MX  (TVF90) (source=doms9) -> https://7.ftlly.com:443/foxsportspremium/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] EE. UU. vs Canadá | ESPN 2 MX (TVF90) (source=doms9) -> https://yxdlc29tzq.fubo18.com:443/espn2mx/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] EE. UU. vs Canadá | Telemundo | HD (TVF90) (source=doms9) -> https://a2lja3m.fubo18.com:443/telemundo/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] EE. UU. vs Canadá | Telemundo (TVF90) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/telemundo/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] EE. UU. vs Canadá | Universo | HD (TVF90) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/universo/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] EE. UU. vs Canadá | Universo (TVF90) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/universo/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín 2 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/tyc/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín 3 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/dsports/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín 4 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/vix3/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín 5 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/mligacampeones/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín 6 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/sportv1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | Dsports (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/dsports/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | Español 1 (PLIBRE) (source=doms9) -> https://ym9yzq.fubo18.com:443/dsports_eventos/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | Español 2 (PLIBRE) (source=doms9) -> https://dglvz29s.fubo18.com:443/tycsports/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | Español 3 (PLIBRE) (source=doms9) -> https://a2lja3m.fubo18.com:443/telefe/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | Español 4 (PLIBRE) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/sportv/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | Español 5 (PLIBRE) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | TyC Sports (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/tycsports/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Argentina vs Benín | Vix (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/vix2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Colombia vs Perú 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/eventos2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Colombia vs Perú | América TV (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/americatv/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Colombia vs Perú | Español 1 (PLIBRE) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/americatv/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Colombia vs Perú | Español 2 (PLIBRE) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/caracol/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Colombia vs Perú | Español 3 (PLIBRE) (source=doms9) -> https://a2lja3m.fubo18.com:443/foxsportspremium/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Colombia vs Perú | Español 4 (PLIBRE) (source=doms9) -> https://dglvz29s.fubo18.com:443/foxsportsmx/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] EE. UU. vs Canadá 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/universo/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] EE. UU. vs Canadá 2 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/tsn1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Estados Unidos vs Canadá | Disney + (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/disney11/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Estados Unidos vs Canadá | Español 1 (PLIBRE) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/disney14/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Estados Unidos vs Canadá | Español 2 (PLIBRE) (source=doms9) -> https://ewvz.fubo18.com:443/universo/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Estados Unidos vs Canadá | Español 3 (PLIBRE) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/espn2mx/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Estados Unidos vs Canadá | Universo (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/universo/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] India vs Uruguay 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/mligacampeones/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] Jordania vs Venezuela 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/eventos1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile 2 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/azteca7/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile 3 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/canal5mx/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile 4 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/amazon1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile 5 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/tudnus/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile 6 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/tudnmx/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile 7 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/megacl/index.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile | Azteca 7 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/azteca7/index.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile | Canal 5 MX (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/canal5mx/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile | Español 1 (PLIBRE) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile | Español 2 (PLIBRE) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/univision/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile | Español 3 (PLIBRE) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/azteca7/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso Internacional] México vs Chile | Español 4 (PLIBRE) (source=doms9) -> https://yxdlc29tzq.fubo18.com:443/canal5/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | Azteca 7 | HD (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/azteca7/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | Azteca 7 | OP2 (TVF90) (source=doms9) -> https://c2f2zq.fubo18.com:443/azteca7/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | Azteca 7 | OP3 (TVF90) (source=doms9) -> https://11.ftlly.com:443/azteca7/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | Azteca 7 (TVF90) (source=doms9) -> https://6.ftlly.com:443/azteca7/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | Canal 5 MX (TVF90) (source=doms9) -> https://5.ftlly.com:443/canal5/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | TUDN USA | HD (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | TUDN USA | OP2 (TVF90) (source=doms9) -> https://am91cm5leq.fubo18.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | TUDN USA | OP3 (TVF90) (source=doms9) -> https://11.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Amistoso] México vs Chile | TUDN USA (TVF90) (source=doms9) -> https://11.ftlly.com:443/tudn/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [ATP] INDIVIDUALES - Shanghái, dura - 1/64 de final: Wu Y. vs Zheng M. | Disney+ (TVF90) (source=doms9) -> https://ym9yzq.fubo18.com:443/disney1/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [ATP] INDIVIDUALES - Shanghái, dura - 1/64 de final: Wu Y. vs Zheng M. | ESPN 2 | HD (TVF90) (source=doms9) -> https://ym9yzq.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [ATP] INDIVIDUALES - Shanghái, dura - 1/64 de final: Wu Y. vs Zheng M. | ESPN 2 | OP2 (TVF90) (source=doms9) -> https://4.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [ATP] INDIVIDUALES - Shanghái, dura - 1/64 de final: Wu Y. vs Zheng M. | ESPN 2 | OP3 (TVF90) (source=doms9) -> https://5.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [ATP] INDIVIDUALES - Shanghái, dura - 1/64 de final: Wu Y. vs Zheng M. | ESPN 2 (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [Brazil] Band Sports (1080p) (source=iptv-org) -> https://cdn-5.nxplay.com.br/BAND_SPORTS/index.m3u8
   [UNVERIFIED] [HTTP 403] [Spain] Barca TV (source=iptv-org) -> https://live20.bozztv.com/dvrfl06/astv/astv-barca/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Baseball] Milwaukee Brewers vs San Diego Padres (XYZ) (source=doms9) -> https://hls.fancy-shark151.workers.dev/fs1/mono.ts.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Basketball] Denver Nuggets vs Utah Jazz (XYZ) (source=doms9) -> https://hls.fancy-shark151.workers.dev/nba3h/mono.ts.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Basketball] Los Angeles Lakers vs Golden State Warriors (XYZ) (source=doms9) -> https://hlss2.b-cdn.net/nba4h/mono.ts.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [France] beIN Sports 1 France (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca9a2/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [USA] beIN Sports en Español (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2e81d8192bb76ce5d6/playlist.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 503] [USA] beIN Sports USA (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca97e/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [ConnectionRefusedError] [USA] beIN SPORTS XTRA en Espanol (1080p) (source=iptv-org) -> http://201.190.41.246:9060/play/a03y/index.m3u8
   [UNVERIFIED] [gaierror] [International] ☆ Billiard TV ² 🇺🇸 (source=m3u) -> https://newidco-billiardstv-1-eu.xiaomi.wurl.tv/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Boks TV (720p) (source=iptv-org) -> http://31.148.48.15/Boks_TV/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Botafogo vs Vasco da Gama | Evento 4 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/evento4/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Cruzeiro vs Sao Paulo | L1MAX (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/l1max/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Cruzeiro vs Sao Paulo | Premiere 1 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/premiere1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Internacional vs Corinthians | Premiere 2 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/premiere2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] RB Bragantino vs Mirassol | Premiere 5 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/premiere5/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Remo vs Grêmio | Premiere 4 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/premiere4/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Vitória vs Chapecoense | Premiere 3 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/premiere3/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Botafogo vs Vasco da Gama 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/amazon1/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Cruzeiro vs São Paulo 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/premiere1/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Cruzeiro vs São Paulo 2 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/sportv1/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Cruzeiro vs São Paulo | Español 1 (PLIBRE) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/sportv/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Cruzeiro vs São Paulo | Sportv BR HD (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/sportv/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Cruzeiro vs São Paulo | Sportv BR (TVF90) (source=doms9) -> https://a2lja3m.fubo18.com:443/sportv/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Internacional vs Corinthians 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/premiere2/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] RB Bragantino vs Mirassol 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/premiere5/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Remo vs Grêmio 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/premiere4/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Brasileirão] Vitória vs Chapecoense 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/premiere3/index.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [TimeoutError] [Brazil] Canal do Inter (720p) [Not 24/7] (source=iptv-org) -> https://video01.soultv.com.br/internacional/internacional/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Czechia] CANAL+ SPORT (source=aria) -> http://185.236.230.212:9981/play/a0bu
   [UNVERIFIED] [HTTP 403] [France] Canal+ Sport (1080p) [Geo-blocked] (source=iptv-org) -> http://tv.streambox.fr/live/testlivestream/testlivestream/31.m3u8
   [UNVERIFIED] [RemoteDisconnected] [Azerbaijan] CBC Sport [Geo-blocked] (source=iptv-org) -> https://mn-nl.mncdn.com/cbcsports_live/cbcsports/playlist.m3u8
   [UNVERIFIED] [HTTP 503] [USA] CBS Sports Network (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb597/playlist.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 503] [USA] Chicago Sports Network (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb310/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [ConnectionRefusedError] [Brazil] Combate (720p) (source=iptv-org) -> http://143.14.134.107/167/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Colo-Colo vs D. Puerto Montt | Español 1 (PLIBRE) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/tntsportschile/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Colo-Colo vs Puerto Montt 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/tntsportscl/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Colo-Colo vs Puerto Montt | TNT Sports Chile (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/tntsportschile/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Colo-Colo vs Puerto Montt | TNT Sports Chile (TVF90) (source=doms9) -> https://c2f2zq.fubo18.com:443/tntsportschile/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Colo-Colo vs Puerto Montt | TNT Sports Premiun CL (TVF90) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/tntsportschile/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa de la División Profesional] Real Potosí vs San Antonio Bulo Bulo | Entel TV PLUS+ (TVF90) (source=doms9) -> https://9.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa de la Liga] Alianza Atlético vs Sport Boys A. | Eventos 1 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/evento1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa de Primera] Olimpia vs Nacional Asunción 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/tigopy/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Copa de Primera] Sportivo Ameliano vs Rubio Ñú 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/tigopy/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [TimeoutError] [Czechia] ČT sport Plus (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=%C4%8CT+sport+Plus
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Antofagasta vs Universidad Chile 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/max1/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Coquimbo Unido vs Cobreloa 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/tntsportscl/index.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Coquimbo Unido vs Cobreloa | Español 1 (PLIBRE) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/tntsportschile/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Coquimbo Unido vs Cobreloa | TNT Sports Premiun CL HD (TVF90) (source=doms9) -> https://a2lja3m.fubo18.com:443/tntsportschile/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Coquimbo Unido vs Cobreloa | TNT Sports Premiun CL OP2 (TVF90) (source=doms9) -> https://9.ftlly.com:443/tntsportschile/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Chile] Coquimbo Unido vs Cobreloa | TNT Sports Premiun CL (TVF90) (source=doms9) -> https://dglvz29s.fubo18.com:443/tntsportschile/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa de la División Profesional] Guabirá vs The Strongest | Entel TV PLUS+ (TVF90) (source=doms9) -> https://8.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa de la División Profesional] Independiente Petrolero vs Gualberto Villarroel SJ | Entel TV PLUS+ (TVF90) (source=doms9) -> https://4.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa de la División Profesional] Oriente Petrolero vs Universitario de Vinto | Entel TV PLUS+ (TVF90) (source=doms9) -> https://5.ftlly.com:443/even1/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Ecuador] Universidad Católica vs LDU Quito | ECDF LigaPro | OP2 (TVF90) (source=doms9) -> https://6.ftlly.com:443/ecdf_ligapro/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Ecuador] Universidad Católica vs LDU Quito | ECDF LigaPro | OP3 (TVF90) (source=doms9) -> https://5.ftlly.com:443/ecdf_ligapro/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Ecuador] Universidad Católica vs LDU Quito | ECDF LigaPro (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/ecdf_ligapro/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Ecuador] Universidad Católica vs LDU Quito | ECUAVISA | OP2 (TVF90) (source=doms9) -> https://2.ftlly.com:443/ecdf/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Ecuador] Universidad Católica vs LDU Quito | ECUAVISA | OP3 (TVF90) (source=doms9) -> https://4.ftlly.com:443/ecdf/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Copa Ecuador] Universidad Católica vs LDU Quito | ECUAVISA (TVF90) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/ecdf/mono.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [Germany] DAZN 1 Germany (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2b81d8192bb76ccca0/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [Germany] DAZN 2 Germany (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2b81d8192bb76ccca2/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [Germany] DAZN Darts x Pluto TV (source=iptv-org) -> https://jmp2.uk/plu-64b67f0424ade50008a3be17.m3u8
@@ -853,21 +815,12 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 403] [Spain] Esport3 (1080p) [Geo-blocked] (source=iptv-org) -> https://directes-tv-cat.3catdirectes.cat/live-content/esport3-hls/master.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Extreme Sports Channel (576p) (source=iptv-org) -> http://46.32.176.50/extremesport/index.m3u8
   [UNVERIFIED] [HTTP 403] [Russia] Extreme Sports Channel HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Extreme_Sports/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [FIFA International Friendly] Mexico vs Chile (WATCHFTY) (source=doms9) -> https://lb4.wfty.st/secure/9RUjQvn-udrfRgSbgWaa2w/deluxe/mexico-chile/1/401903298/1791363668/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [FIFA International Friendly] United States vs Canada (WATCHFTY) (source=doms9) -> https://lb5.wfty.st/secure/FKdjSmjvWIjvLzLROyMWEw/prime/united-states-canada/1/401905188/1791354667/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Canada] Fight Network (1080p) (source=iptv-org) -> https://d12a2vxqkkh1bo.cloudfront.net/hls/main.m3u8
   [UNVERIFIED] [HTTP 403] [France] Foot+ (source=iptv-org) -> http://145.239.5.177/556a/index.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Football (720p) (source=iptv-org) -> http://31.148.48.15/Futbol_HD/index.m3u8
   [UNVERIFIED] [HTTP 403] [Mexico] Fox Sports (source=aria) -> https://netplay.sv/multimedia/live/canal-010/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Mexico] Fox Sports 2 (source=aria) -> https://netplay.sv/multimedia/live/canal-031/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Mexico] Fox Sports 3 (source=aria) -> https://netplay.sv/multimedia/live/canal-108/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Friendlies] Argentina vs Benin | Alt Feed 1 En (FUTBOLX) (source=doms9) -> https://futbolxx.b-cdn.net/en/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Friendlies] Argentina vs Benin | Alt Feed 2 Esp (FUTBOLX) (source=doms9) -> https://futbolxx.b-cdn.net/esp/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Friendlies] Argentina vs Benin | Alt Feed 3 Ar (FUTBOLX) (source=doms9) -> https://futbolxx.b-cdn.net/ar/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Friendlies] Argentina vs Benin | Main Feed (FUTBOLX) (source=doms9) -> https://futbolxx.b-cdn.net/tyc/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Friendlies] Mexico vs Chile | Main Feed (FUTBOLX) (source=doms9) -> https://futbolxx.b-cdn.net/mex/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Friendlies] Usa vs Canada | Alt Feed 1 (FUTBOLX) (source=doms9) -> https://fut2.b-cdn.net/can/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Friendlies] Usa vs Canada | Main Feed (FUTBOLX) (source=doms9) -> https://fut2.b-cdn.net/usa/index.m3u8
   [UNVERIFIED] [gaierror] [USA] ☆ FTF Sports 🇩🇪 (source=m3u) -> https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/ftf/FTF_SCTE_B.m3u8?ads.vf=ouqJUqYkzMC
   [UNVERIFIED] [gaierror] [Norway] ☆ Fuel tv 🇺🇸 (source=m3u) -> https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/fuel-tv-au/playlist.m3u8?ads.vf=iT63jDHWYWK
   [UNVERIFIED] [gaierror] [Norway] ☆ Fuel tv 🇧🇷 (source=m3u) -> https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/fuel-tv-br/playlist.m3u8?ads.vf=X4OxXNV2AcK
@@ -879,13 +832,9 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 401] [Lithuania] Go3 Sports 3 (source=aria) -> http://94.130.204.43:1234/stream/tet/go3sport3/master.m3u8
   [UNVERIFIED] [HTTP 401] [Lithuania] Go3 Sports Open (source=aria) -> http://94.130.204.43:1234/stream/tet/go3sportopen/master.m3u8
   [UNVERIFIED] [HTTP 403] [France] Golf + (1080p) [Geo-blocked] (source=iptv-org) -> http://tv.streambox.fr/live/testlivestream/testlivestream/49.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] Golf Channel Latin America (1080p) (source=iptv-org) -> http://15.204.246.24:8080/GolfChannelHD/index.m3u8
   [UNVERIFIED] [HTTP 401] [USA] ☆ Hard Knock 🇺🇸 (source=m3u) -> https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-5fd115bdb7ef8d002dcf1820/?X-Plex-Token=xePfG98DiSxDoEPoY91x
-  [UNVERIFIED] [HTTP 403] [USA] [Hockey] Florida Panthers vs Los Angeles Kings (XYZ) (source=doms9) -> https://us2-hlss2.b-cdn.net/espn/mono.ts.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Hockey] Vegas Golden Knights vs Seattle Kraken (XYZ) (source=doms9) -> https://us2-hlss2.b-cdn.net/nhl8h/mono.ts.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [gaierror] [International] ☆ Horizon Sports 🇺🇸 (source=m3u) -> https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/horizon-sports/master.m3u8?ads.vf=CD4SmoCC_jO
   [UNVERIFIED] [TimeoutError] [China] Jiangsu Sports & Leisure Channel (576p) (source=iptv-org) -> http://183.207.248.71/gitv/live1/G_JSTY/G_JSTY
-  [UNVERIFIED] [TimeoutError] [Slovakia] JOJ Šport (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+%C5%A0port
   [UNVERIFIED] [HTTP 401] [USA] ☆ K-Baseball TV 🇺🇸 (source=m3u) -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-682dff1fdfc9c452b8f9842a/?X-Plex-Token=xePfG98DiSxDoEPoY91x
   [UNVERIFIED] [HTTP 403] [Austria] K19 (source=iptv-org) -> https://1853185335.rsc.cdn77.org/K192/tv/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [India] Kabaddi 24x7 (576p) (source=iptv-org) -> http://180.188.254.253/live/KABADDI24X7.m3u8
@@ -895,37 +844,6 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 504] [International] ☆ La liga Inside 🇪🇸 (source=m3u) -> https://d3bb58xoj568xi.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-don7i7nmbho0q/index.m3u8
   [UNVERIFIED] [HTTP 403] [Italy] Lazio Style Channel HD (720p) (source=iptv-org) -> https://distribution.sportitalialive.it/origin/laziostyle_abr/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Spain] Liga de Campeones por Movistar Plus+ (source=iptv-org) -> https://7nyaler.streamhostingcdn.top/stream/36/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones CONCACAF] Antigua y Barbuda vs Aruba | Español 1 (PLIBRE) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/foxsoccerplus/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones CONCACAF] French Guyana vs Belice | Español 1 (PLIBRE) (source=doms9) -> https://ewvz.fubo18.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones CONCACAF] St. Vincent / Grenadines vs Sint Maarten | Español 1 (PLIBRE) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] Antigua y Barbuda vs Aruba 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/foxsoccerplus/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] Antigua y Barbuda vs Aruba | Fox Soccer Plus (TVF90) (source=doms9) -> https://ewvz.fubo18.com:443/foxsoccerplus/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] Guayana Francesa vs Belice 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/fox2usa/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] Guayana Francesa vs Belice | Fox Sports 2 USA | OP2 (TVF90) (source=doms9) -> https://3.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] Guayana Francesa vs Belice | Fox Sports 2 USA (TVF90) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] San Vicente / Granadinas vs Sint Maarten 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/fox2usa/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] San Vicente / Granadinas vs Sint Maarten | Fox Sports 2 USA | OP2 (TVF90) (source=doms9) -> https://3.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la CONCACAF] San Vicente / Granadinas vs Sint Maarten | Fox Sports 2 USA (TVF90) (source=doms9) -> https://bgvnzw5k.fubo18.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Albania vs San Marino 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/disney6/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Bielorrusia vs Finlandia 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/disney7/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Croacia vs España 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/disney1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Croacia vs España 2 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/vix1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Croacia vs España 3 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/espn/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Escocia vs Eslovenia 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/disney4/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Escocia vs Eslovenia 2 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/foxsoccerplus/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Estonia vs Islandia 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/disney8/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Estonia vs Islandia 2 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/sportv3/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Inglaterra vs República Checa 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/disney2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Inglaterra vs República Checa 2 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/vix2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Inglaterra vs República Checa 3 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/espn2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Inglaterra vs República Checa 4 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/sportv1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Kazajstán vs Islas Feroe 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/espn2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Kazajstán vs Islas Feroe 2 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/fox2usa/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Kazajstán vs Islas Feroe 3 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/sportv2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Luxemburgo vs Bulgaria 1 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/disney3/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Moldavia vs Eslovaquia 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/disney9/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Suiza vs Macedonia del Norte 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/disney5/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Liga de Naciones de la UEFA] Suiza vs Macedonia del Norte 2 (STP) (source=doms9) -> https://s3.envivoslatam99.sbs:443/global/sportv2/index.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [International] Live (1) PL1 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564z286v4u2y294
   [UNVERIFIED] [gaierror] [International] Live (12) EDGE (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564z286v4034384
   [UNVERIFIED] [HTTP 403] [International] Live (13) Digi1 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564z286v4034394
@@ -939,7 +857,6 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 403] [International] Live (7) BI2 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564z286v4u243c4
   [UNVERIFIED] [HTTP 403] [International] Live (8) BI3 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t41564z286v4u25334
   [UNVERIFIED] [TimeoutError] [Hungary] Loverseny kozvetites (420p) (source=iptv-org) -> http://87.229.103.60:1935/liverelay/loverseny2.sdp/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [Major League Baseball] San Diego Padres vs Milwaukee Brewers (REED) (source=doms9) -> https://tedesco.formaturamaxi.com.br/mlbalt.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Match! Arena (720p) (source=iptv-org) -> http://31.148.48.15/Match_Arena_HD/index.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Match! Igra (720p) (source=iptv-org) -> http://31.148.48.15/Match_Igra_HD/index.m3u8
   [UNVERIFIED] [HTTP 403] [Russia] Match! Igra HD (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Match_Igra_HD/index.m3u8
@@ -950,65 +867,22 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [TimeoutError] [Bulgaria] Max Sport 2 (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_MAX_Sport_2_HD/video.m3u8
   [UNVERIFIED] [TimeoutError] [Bulgaria] Max Sport 3 (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_MAX_Sport_3_HD/video.m3u8
   [UNVERIFIED] [TimeoutError] [Bulgaria] Max Sport 4 (1080p) (source=iptv-org) -> http://hls127.freeott.top:8080/BG_MAX_Sport_4_HD/video.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [MLB] Brewers vs Padres (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=AnPxLu_GLwSOw1vJ5k123MWWipe3UiHsjrVdGS0acRQ&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHMyUSRQQg3W_cA0TcnRrne%2F&expires=1791340530/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHMyUSRQQg3W_cA0TcnRrne/126.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [MLB] Dodgers vs Braves (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=RlyAyb0zIU0_foiJIJ3DysQf0lyv7EGSADxj56FgWFs&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHhPK4eaZswKqByclRPxZJv%2F&expires=1791340529/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHhPK4eaZswKqByclRPxZJv/129.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [MLB] Los Angeles Dodgers vs. Atlanta Braves | Disney+ (TVF90) (source=doms9) -> https://7.ftlly.com:443/disney23/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [MLB] Milwaukee Brewers vs San Diego Padres (MP66) (source=doms9) -> https://node-5d763f4c.4587.website/6ac6114d.48f78abdi5c3b601d.11dfd.ee8aa572/free.live.sportsnet/master.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [MLB] San Diego Padres vs Milwaukee Brewers (WATCHFTY) (source=doms9) -> https://lb6.wfty.st/secure/tkzc_srTi3OXsCx4g8hTkQ/pro/san-diego-padres-milwaukee-brewers/2/401908004/1791360068/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [MLS] Chicago Fire FC vs Vancouver Whitecaps (WATCHFTY) (source=doms9) -> https://lb5.wfty.st/secure/p8empx0leQ7I3ndeP3eIlA/platinum/chicago-fire-fc-vancouver-whitecaps/1/761660/1791356456/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [MLS] Chicago Fire vs Vancouver Whitecaps 1 (STP) (source=doms9) -> https://s2.envivoslatam99.sbs:443/global/mls1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [MLS] Chicago Fire vs Vancouver Whitecaps FC | Apple TV Español (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/appletv1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [MLS] Chicago Fire vs Vancouver Whitecaps (WATCHFTY) (source=doms9) -> https://lb2.wfty.st/secure/h5F4UJbwCyLv6i6yT4RnvA/platinum/chicago-fire-fc-vancouver-whitecaps/1/4621506/1791358258/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [MLB] Brewers vs Padres (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=eDGvBOW1nFueNLZwZlge1s7QJoSKY3uKnwmCK9U9pYc&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHMyUSRQQg3W_cA0TcnRrne%2F&expires=1791374527/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHMyUSRQQg3W_cA0TcnRrne/126.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [MLB] Dodgers vs Braves (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=wuYKhbk_3U1RIQgtUSC5YHJF7OYIwifGrXo40lGQj3A&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHhPK4eaZswKqByclRPxZJv%2F&expires=1791374527/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHhPK4eaZswKqByclRPxZJv/129.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [MLB] Guardians vs White Sox (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=rhxIHnm_D3FXbqHXrQ1bfGCZFXFdSy6jkya0Z3W0udQ&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhGGuwvVZSFFwJHHQ2J4srsb%2F&expires=1791374526/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhGGuwvVZSFFwJHHQ2J4srsb/123.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [MLB] Rays vs Yankees (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=JojLwZyG-4PcvhEwPDH8tPUiyEpBM3E8pRe53Y0ZQtI&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFdY_2JwwLMXm_4wld0sOWG%2F&expires=1791374527/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFdY_2JwwLMXm_4wld0sOWG/124.m3u8
   [UNVERIFIED] [TimeoutError] [USA] MMA TV (576p) (source=iptv-org) -> http://31.148.48.15/M1_Global/index.m3u8
   [UNVERIFIED] [TimeoutError] [Peru] Movistar Deportes (1080p) (source=iptv-org) -> http://45.4.1.201:8000/play/a13e/index.m3u8
   [UNVERIFIED] [TimeoutError] [Myanmar] MRTV Sports [Not 24/7] (source=iptv-org) -> https://mrtvott.com/cache/MRTV-SPORT/master.m3u8
   [UNVERIFIED] [HTTP 500] [Guatemala] Multivision Sports (720p) [Not 24/7] (source=iptv-org) -> https://stream.digitalgt.com:3605/live/multivisionsportslive.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NBA] Brooklyn Nets vs Charlotte Hornets | Main Feed (FUTBOLX) (source=doms9) -> https://fut2.b-cdn.net/brook/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NBA] Golden State Warriors vs Los Angeles Lakers (WATCHFTY) (source=doms9) -> https://lb3.wfty.st/secure/h5R2CwfliSnOJEjaMtMSLw/pro/golden-state-warriors-los-angeles-lakers/1/401898390/1791361212/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NBA] Los Angeles Lakers vs Golden State Warriors | Main Feed (FUTBOLX) (source=doms9) -> https://fut2.b-cdn.net/la/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NBA] Los Angeles Lakers vs Golden State Warriors (STRMFREE) (source=doms9) -> https://streamfree.top/live-cdn/los-angeles-lakers-vs-golden-state-warriors1080p3/index.m3u8?_e=1791369209&_n=c8dd95b9de7d5fba&_t=GbM7FdkmP0YueOCrFwak8w
-  [UNVERIFIED] [HTTP 403] [USA] [NBA] New Orleans Pelicans vs Oklahoma City Thunder | Main Feed (FUTBOLX) (source=doms9) -> https://fut2.b-cdn.net/thun/index.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NBA] Oklahoma City Thunder vs New Orleans Pelicans (WATCHFTY) (source=doms9) -> https://lb2.wfty.st/secure/zV2HfSZOjLCcp9YIOmM_3w/pro/oklahoma-city-thunder-new-orleans-pelicans/1/401898389/1791354670/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Brooklyn Nets vs Charlotte Hornets | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Denver Nuggets vs Utah Jazz | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba3/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Golden State Warriors vs Portland Trail Blazers | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba5/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Los Angeles Lakers vs Golden State Warriors | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba4/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Milwaukee Bucks vs Oklahoma City Thunder | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba3/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Minnesota Timberwolves vs Indiana Pacers | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba1/index.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] New Orleans Pelicans vs Oklahoma City Thunder | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Orlando Magic vs Memphis Grizzlies | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba2/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA Pretemporada] Phoenix Suns vs Chicago Bulls | NBA League Pass (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/nba4/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NBA] Utah Jazz vs Denver Nuggets (WATCHFTY) (source=doms9) -> https://lb4.wfty.st/secure/T2-Oy95aEYDjVDsQet135A/pro/utah-jazz-denver-nuggets/1/401914128/1791358255/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NCAA Men's Soccer] Campbell vs. Coastal Carolina | Disney+ (TVF90) (source=doms9) -> https://11.ftlly.com:443/disney22/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NCAAF (FBS)] Troy vs Southern Miss (WATCHFTY) (source=doms9) -> https://lb1.wfty.st/secure/6M1J638E4auedsrTrkTI6w/pro/troy-southern-miss/1/4706547/1791361220/playlist.m3u8
   [UNVERIFIED] [HTTP 503] [USA] NESN (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb25b/playlist.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NFL] Buccaneers vs Cowboys (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=P8FY7r9VQUENnc_s_-VlJwTDNtuvp82yssTMhea-ti4&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFhtfVg4zkFGANf82aAwiwQ%2F&expires=1791340530/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFhtfVg4zkFGANf82aAwiwQ/61.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Blues vs Blackhawks (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=omFznDfu8xzmAJv-Op9JWu5ivMBy-dEV8-mkY2IVznI&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhH9C1B1LYdxZv3QPXKN9R0E%2F&expires=1791340532/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhH9C1B1LYdxZv3QPXKN9R0E/85.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Carolina Hurricanes vs. Montreal Canadiens | Disney+ (TVF90) (source=doms9) -> https://6.ftlly.com:443/disney27/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Chicago Blackhawks vs St. Louis Blues (WATCHFTY) (source=doms9) -> https://lb6.wfty.st/secure/e4cKJTMhu-zOZpslKTsVtA/pro/chicago-blackhawks-st-louis-blues/1/4774394/1791362015/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Florida Panthers vs Los Angeles Kings (MP66) (source=doms9) -> https://node-9b5feb01.4587.website/6ac61860.81a4238ai5c3b601d.11ddd.ec765872/free.live.sportsnet/master.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Florida Panthers vs Los Angeles Kings (STRMFREE) (source=doms9) -> https://streamfree.top/live-cdn/florida-panthers-vs-los-angeles-kings1080p3/index.m3u8?_e=1791369209&_n=8c3c78af435d9eb1&_t=BNrNlTg4FtY4ctgzbXbzOA
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Hurricanes vs Canadiens (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=60pqJcDVklqgf5jo8zcpugXRikVQCJk1YuVPtNye0-M&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFBWOC94dzb7i-NE7xWFx2d%2F&expires=1791340531/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFBWOC94dzb7i-NE7xWFx2d/87.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Islanders vs Rangers (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=v7w6DZK8UDsXwqpTmeAePDnyd9KOZR0eLL7LZKBsIw4&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhGwuZWmyPa1CrRKhIeFNtjM%2F&expires=1791340531/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhGwuZWmyPa1CrRKhIeFNtjM/175.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Knights vs Kraken (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=mDecbcibe8MLDZvR0NN6kCJUVeSqr7tArvA9QL2IxsE&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHmcwn4fVgl1ad2DyVMp0Lv%2F&expires=1791340532/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHmcwn4fVgl1ad2DyVMp0Lv/97.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Los Angeles Kings vs Florida Panthers (REED) (source=doms9) -> https://admin2.formaturamaxi.com.br/nhl.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Los Angeles Kings vs Florida Panthers (WATCHFTY) (source=doms9) -> https://lb2.wfty.st/secure/5RXBPqUgRm00zqXOHzLXew/pro/los-angeles-kings-florida-panthers/2/401891806/1791365426/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Nashville Predators vs. Toronto Maple Leafs | Disney+ (TVF90) (source=doms9) -> https://10.ftlly.com:443/disney24/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] New York Rangers vs. New York Islanders | Español 1 (PLIBRE) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/espn3/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] New York Rangers vs. New York Islanders | Español 2 (PLIBRE) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/disney15/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] New York Rangers vs. New York Islanders | ESPN 3 | HD (TVF90) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/espn3/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] New York Rangers vs. New York Islanders | ESPN 3 | OP3 (TVF90) (source=doms9) -> https://3.ftlly.com:443/espn3/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [NFL] Buccaneers vs Cowboys (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=Ao5MR5hbrm1xC6nG0G-Rye8XRklr3JKjz2FbwBs9aKE&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFhtfVg4zkFGANf82aAwiwQ%2F&expires=1791374528/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFhtfVg4zkFGANf82aAwiwQ/61.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [NHL] Avalanche vs Jets (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=8WcDTNcIQP27jlR7nXd9H4C6-cvqmA53r_D8DHAbClg&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhEqoypxI6RyqjWVn_LKwsBe%2F&expires=1791374528/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhEqoypxI6RyqjWVn_LKwsBe/94.m3u8
   [UNVERIFIED] [HTTP 403] [USA] [NHL] New York Rangers vs New York Islanders | ESPN 3 (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/espn3/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Ottawa Senators vs. Detroit Red Wings | Disney+ (TVF90) (source=doms9) -> https://8.ftlly.com:443/disney28/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Panthers vs Kings (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=XNqgsW0YSuDaPCwOu1jY6UdBRgN5q4lXmZ-gJgIftlk&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhE54m1Q6uMRrrgBGTYU9mKg%2F&expires=1791340532/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhE54m1Q6uMRrrgBGTYU9mKg/95.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Predators vs Maple Leafs (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=E0-gRf-jEk__KXPZvyczjov87IdFmzipsRU-LOqyDWs&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhEA0t2dzgdIdAKOwuMcH845%2F&expires=1791340531/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhEA0t2dzgdIdAKOwuMcH845/167.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Seattle Kraken vs Vegas Golden Knights (REED) (source=doms9) -> https://admin2.formaturamaxi.com.br/nhl8.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Seattle Kraken vs Vegas Golden Knights (WATCHFTY) (source=doms9) -> https://lb2.wfty.st/secure/g1a_dhCpJYR0wzP5-dQlpQ/pro/seattle-kraken-vegas-golden-knights/1/4774396/1791361216/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Senators vs Wings (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=bKyIZX9vTbzYEbHMabMalp1fRORQxrrXlVwqCiN1w4s&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHG3WwZYebQe3wHJKyxkK1b%2F&expires=1791340531/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHG3WwZYebQe3wHJKyxkK1b/178.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Utah Mammoth vs. New Jersey Devils | Disney+ (TVF90) (source=doms9) -> https://7.ftlly.com:443/disney26/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Utah vs Devils (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=h8j9DCN9uouwNihZ8Gf6WpwkdcKKL2RlfxYUxgs0yog&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFjRi4lDr6sakxuTRPVBLFQ%2F&expires=1791340531/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFjRi4lDr6sakxuTRPVBLFQ/174.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Vegas Golden Knights vs Seattle Kraken (MP66) (source=doms9) -> https://node-7a1d2f4c.4587.website/6ac61860.2d5dadf9i5c3b601d.11ddc.bb41f9cc/free.live.sportsnet/master.m3u8
-  [UNVERIFIED] [HTTP 403] [USA] [NHL] Wild vs Sabres (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=vOkt09Q3Qv81fuaSr9L5Pe3RK_-6S_3IorcofxO_Y-Y&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhGDkkeTXzhjueMM4dscPO4G%2F&expires=1791340531/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhGDkkeTXzhjueMM4dscPO4G/101.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [NHL] Oilers vs Ducks (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=JdJlfyfKuhiw7KQWa4zPCnGNlFdxHWy5NNINDFrNkNQ&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHXhYe890PDOxWbYSVBp2zH%2F&expires=1791374528/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhHXhYe890PDOxWbYSVBp2zH/90.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [NHL] Penguins vs Capitals (WEBCAST) (source=doms9) -> https://webcast-origin.b-cdn.net/bcdn_token=_0UsMfGRhka6RH9v9HAVm7H3zeUu-wq2zPlH6YFa-tA&token_path=%2Fplay%2FAtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFGpu-9Sam2jQ9k5hPDLsw9%2F&expires=1791374528/play/AtZ1azAZy6Iwi58XP64ADLesJLryilHoIej8sPT4yhFGpu-9Sam2jQ9k5hPDLsw9/169.m3u8
   [UNVERIFIED] [HTTP 403] [Spain] Olympic Channel (1080p) [Geo-blocked] (source=iptv-org) -> https://ocshls-2-olympicchannel.akamaized.net/ocshls/OCTV_1.m3u8
   [UNVERIFIED] [TimeoutError] [Pakistan] One Golf (720p) (source=iptv-org) -> http://162.250.201.58:6211/pk/ONEGOLF/index.m3u8
   [UNVERIFIED] [HTTP 403] [Austria] ORF Sport + Ⓖ (source=free-tv) -> https://orfs.mdn.ors.at/out/u/orfs/q8c/manifest.m3u8
@@ -1019,12 +893,13 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 403] [Sweden] Pluto TV Sport (Sweden) NO (source=iptv-org) -> https://jmp2.uk/plu-6357f33cb51d2d00077927c6.m3u8
   [UNVERIFIED] [gaierror] [International] ☆ PokerGo 🇺🇸 (source=m3u) -> https://linear-426.frequency.stream/dist/localnow/426/hls/master/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Poland] Polsat Sport 1 (1080p) [Geo-blocked] (source=iptv-org) -> http://cdn-s-lb2.pluscdn.pl/lv/1544303/939/dash/7f74b079/live.mpd
+  [UNVERIFIED] [HTTP 403] [USA] [Premier Padel] Alemania - Centre Court (Primera Ronda) | Disney+ (TVF90) (source=doms9) -> https://4.ftlly.com:443/disney22/mono.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [Ireland] Premier Sports 1 (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc35e/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [Ireland] Premier Sports 2 (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc361/playlist.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Primera División de Paraguay] Olimpia vs Nacional Asunción | Tigo Sports (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/tigo1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Primera División de Paraguay] Sportivo Ameliano vs Rubio Ñú | Tigo Sports (STRMXHD) (source=doms9) -> https://khala.futlivehd.com/global/tigo1/index.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Primera División] Olimpia vs Nacional Asunción | fanatiz 02 (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/fanatiz2/mono.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [HTTP 403] [USA] [Primera División] Sportivo Ameliano vs Rubio Ñú | fanatiz 01 (TVF90) (source=doms9) -> https://ym9yzq.fubo18.com:443/fanatiz1/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Primera A] Atlético Nacional vs Deportes Tolima | Win Sports + | HD (TVF90) (source=doms9) -> https://yxdlc29tzq.fubo18.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Primera A] Atlético Nacional vs Deportes Tolima | Win Sports + | OP2 (TVF90) (source=doms9) -> https://8.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Primera A] Atlético Nacional vs Deportes Tolima | Win Sports + | OP3 (TVF90) (source=doms9) -> https://11.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Primera A] Atlético Nacional vs Deportes Tolima | Win Sports + (TVF90) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [TimeoutError] [Pakistan] PTV Sports (1080p) (source=iptv-org) -> http://103.250.28.74:8000/play/a019/index.m3u8
   [UNVERIFIED] [gaierror] [Costa Rica] Radio Turrialba TV Sports (720p) [Not 24/7] (source=iptv-org) -> https://live-stream.iblups.com/live/a5ae024a1bbc4a05a68debbc9d379db6bb6a6da3.m3u8
   [UNVERIFIED] [HTTP 403] [Italy] Rai Sport (source=iptv-org) -> https://7nyaler.streamhostingcdn.top/stream/2/index.m3u8
@@ -1043,9 +918,10 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 403] [United Arab Emirates] Sharjah Sports (1080p) [Geo-blocked] (source=iptv-org) -> https://svs.itworkscdn.net/smc4sportslive/smc4tv.smil/playlist.m3u8
   [UNVERIFIED] [gaierror] [Switzerland] SKI TV (1080p) [Not 24/7] (source=iptv-org) -> https://d2xeo83q8fcni6.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/SkiTV-SportsTribal/193.m3u8
   [UNVERIFIED] [HTTP 403] [Australia] Sky Racing 2 (720p) [Geo-blocked] (source=iptv-org) -> https://skylivetab-new.akamaized.net/hls/live/2038781/sky2/index.m3u8
+  [UNVERIFIED] [HTTP 503] [UK] Sky Sports Cricket (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc31a/playlist.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 503] [UK] Sky Sports Golf (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc31d/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [USA] Spectrum SportsNet LA Dodgers (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb5ea/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [USA] Spectrum SportsNet Lakers (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb5e9/playlist.m3u8?token=%5Bredacted%5D
-  [UNVERIFIED] [TimeoutError] [Slovakia] Šport (source=free-tv) -> https://sktv.mxnticek.eu/new/stream.php?ch=%C5%A0port
   [UNVERIFIED] [HTTP 403] [Israel] Sport 2 (Israel) (1080p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/Sport_2/index.m3u8
   [UNVERIFIED] [gaierror] [International] ☆ Sport Fishing tv 🇺🇸 (source=m3u) -> https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/sport-fishing-tv/manifest.m3u8?ads.vf=zDqqq_vLG1y
   [UNVERIFIED] [HTTP 403] [Kyrgyzstan] Sport (Kyrgyzstan) (480p) [Not 24/7] (source=iptv-org) -> https://st2.mediabay.tv/KG_KTRK-Sport/index.m3u8
@@ -1057,25 +933,39 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [TimeoutError] [Portugal] Sport TV6 (source=iptv-org) -> http://zntx.dyndns.org:8085/hls/stv6.m3u8
   [UNVERIFIED] [TimeoutError] [Portugal] Sport TV7 (source=iptv-org) -> http://zntx.dyndns.org:8085/hls/stv7.m3u8
   [UNVERIFIED] [HTTP 403] [Germany] Sportdigital FUSSBALL (source=iptv-org) -> https://7nyaler.streamhostingcdn.top/stream/15/index.m3u8
-  [UNVERIFIED] [HTTP 403] [Italy] Sportitalia 24 (720p) [Geo-blocked] (source=iptv-org) -> https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:silive24.smil/playlist.m3u8
-  [UNVERIFIED] [HTTP 403] [Italy] Sportitalia Motori (720p) [Geo-blocked] (source=iptv-org) -> https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:simotori.smil/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [Italy] Sportitalia Solocalcio (1080p) (source=iptv-org) -> https://distribution.sportitalialive.it/sportitalia/sisolocalcio_abr/playlist.m3u8
   [UNVERIFIED] [HTTP 503] [USA] SportsNet New York (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb52e/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [USA] SportsNet Pittsburgh (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb582/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [International] SPOTV 1 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a41586s2233354
   [UNVERIFIED] [HTTP 503] [International] SPOTV 2 (source=xtemus) -> https://playlist.xtemus.com/play.php?ch=t256y454t415a41586s2233364
   [UNVERIFIED] [HTTP 503] [USA] Stadium (source=free-tv) -> https://bcovlive-a.akamaihd.net/e64d564b9275484f85981d8c146fb915/us-east-1/5994000126001/profile_1/976f34cf5a614518b7b539cbf9812080/chunklist_ssaiV.m3u8
+  [UNVERIFIED] [TimeoutError] [India] Star Sports 2 Telugu HD (576p) (source=iptv-org) -> https://real-vk.proxy.nellaiiptv.com/SDMEDIA/index.m3u8
   [UNVERIFIED] [HTTP 403] [Russia] Start Triumf (1080p) (source=iptv-org) -> https://bl.webcaster.pro/media/playlist/free_fe8dc1b768a84b8b0333db826471f17e_hd/33_85479982/1080p/8666c3e935faf6ef47ffd601e8e48868/4821408969.m3u8
   [UNVERIFIED] [HTTP 403] [Malaysia] Sukan RTM (1080p) [Geo-blocked] (source=iptv-org) -> https://d25tgymtnqzu8s.cloudfront.net/smil:sukan/manifest.mpd
   [UNVERIFIED] [HTTP 403] [Italy] SuperTennis (1080p) (source=iptv-org) -> https://live-embed.supertennix.hiway.media/restreamer/supertennix_client/gpu-a-c0-16/restreamer/outgest/aa3673f1-e178-44a9-a947-ef41db73211a/manifest.m3u8
   [UNVERIFIED] [TimeoutError] [Macau] TDM Sports (720p) (source=iptv-org) -> https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [Pakistan] Ten Sports Pakistan (source=iptv-org) -> http://121.91.61.106:8000/play/a04h/index.m3u8
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | Español 1 (PLIBRE) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | Español 2 (PLIBRE) (source=doms9) -> https://y2fzdgxl.fubo18.com:443/disney1/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | Español 3 (PLIBRE) (source=doms9) -> https://ewvz.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | Español 4 (PLIBRE) (source=doms9) -> https://am91cm5leq.fubo18.com:443/disney2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | ESPN 2 | HD (TVF90) (source=doms9) -> https://ewvz.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | ESPN 2 | OP2 (TVF90) (source=doms9) -> https://2.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | ESPN 2 | OP3 (TVF90) (source=doms9) -> https://7.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Tenis] M1000 Shangai – Primera Ronda | ESPN 2 (TVF90) (source=doms9) -> https://b2zmawnpyww.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [TimeoutError] [Austria] The Cycling Channel (source=iptv-org) -> https://cyclingtv.playout.vju.tv/cyclingtv/main.m3u8
   [UNVERIFIED] [HTTP 401] [Latin America] Tigo Sports (source=aria) -> http://201.237.193.180:9981/stream/channelid/333632199?profile=pass
   [UNVERIFIED] [TimeoutError] [Guatemala] Tigo Sports (Guatemala) (1080p) (source=iptv-org) -> http://45.5.119.43:4000/play/a05t/index.m3u8
   [UNVERIFIED] [HTTP 401] [Turkey] TJK TV 2 (1080p) [Not 24/7] (source=iptv-org) -> https://tjktv-live.tjk.org/tjktv2/tjktv2.m3u8
+  [UNVERIFIED] [HTTP 503] [UK] TNT Sports 1 (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc344/playlist.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 503] [UK] TNT Sports 2 (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc347/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [UK] TNT Sports 3 (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc34a/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 503] [UK] TNT Sports 4 (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc34e/playlist.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Torneo de Reserva] Aldosivi vs Tigre | Español 1 (PLIBRE) (source=doms9) -> https://am91cm5leq.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Torneo de Reserva] Aldosivi vs Tigre | ESPN 2 | HD (TVF90) (source=doms9) -> https://c2f2zq.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Torneo de Reserva] Aldosivi vs Tigre | ESPN 2 | OP2 (TVF90) (source=doms9) -> https://11.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Torneo de Reserva] Aldosivi vs Tigre | ESPN 2 | OP3 (TVF90) (source=doms9) -> https://5.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  [UNVERIFIED] [HTTP 403] [USA] [Torneo de Reserva] Aldosivi vs Tigre | ESPN 2 (TVF90) (source=doms9) -> https://bmf0aw9u.fubo18.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [gaierror] [Turkey] TRT Spor (720p) (source=iptv-org) -> https://corestream.siteyaptim.live/trt-spor/index.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [Thailand] True Tennis (720p) (source=iptv-org) -> http://58.8.186.128:10004/bysid/2418
   [UNVERIFIED] [HTTP 503] [Canada] TSN 2 (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc173/playlist.m3u8?token=%5Bredacted%5D
@@ -1092,8 +982,8 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [TimeoutError] [Vietnam] VSBet HD (1080p) (source=iptv-org) -> https://live05.meung.app/live/16226575.m3u8
   [UNVERIFIED] [HTTP 403] [Vietnam] VTV6 (1080p) (source=iptv-org) -> https://live-a.fptplay53.net/live/media/vtv6/live247-hls-avc/index.m3u8
   [UNVERIFIED] [gaierror] [International] ☆ Warner Bros TV Motorheads 🇺🇸 (source=m3u) -> https://mediapackage-azf1-source.fullscreen.nz/index.m3u8
-  [UNVERIFIED] [TimeoutError] [USA] Willow (720p) (source=iptv-org) -> http://tvsen5.aynascope.net/willowhd/index.m3u8
   [UNVERIFIED] [HTTP 401] [USA] ☆ World Surf League 🇺🇸 🏄 (source=m3u) -> https://epg.provider.plex.tv/library/parts/608049aefa2b8ae93c2c3a63-652875586425fdb1f32d2169/?X-Plex-Token=xePfG98DiSxDoEPoY91x
+  [UNVERIFIED] [HTTP 403] [USA] [WTA] INDIVIDUALES - Pekín, dura - 1/8 de final: Charaeva A. vs Zheng Q. | Disney+ (TVF90) (source=doms9) -> https://2.ftlly.com:443/disney30/mono.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [Netherlands] Ziggo Sport (source=iptv-org) -> http://86.87.15.10:8004/play/a02d/index.m3u8
   [UNVERIFIED] [HTTP 403] [Netherlands] Ziggo Sport 2 (source=iptv-org) -> http://86.87.15.10:8004/play/a02b/index.m3u8
   [UNVERIFIED] [HTTP 403] [Netherlands] Ziggo Sport 5 (1080p) (source=iptv-org) -> http://145.239.5.177/349/index.m3u8
@@ -1108,15 +998,12 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [ConnectionRefusedError] [Indonesia] Biznet Lifestyle (1080p) (source=iptv-org) -> http://livestream.biznetvideo.net/biznet_lifestyle/smil:lifestyle.smil/index.m3u8
   [UNVERIFIED] [TimeoutError] [Hong Kong] BSTV (Hong Kong) (576p) (source=iptv-org) -> http://202.69.67.66:443/webcast/bshdlive-pc/playlist.m3u8
   [UNVERIFIED] [TimeoutError] [China] CHC Home Theater (1080p) (source=iptv-org) -> http://39.134.19.153/dbiptv.sn.chinamobile.com/PLTV/88888888/224/3221226462/index.m3u8
-  [UNVERIFIED] [TimeoutError] [Costa Rica] Costa Rica Channel (576p) [Not 24/7] (source=iptv-org) -> https://video0.rogohosting.com:19360/8006/8006.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [Canada] Cottage Life (720p) (source=iptv-org) -> http://185.246.209.113/CottageLife/index.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [Canada] CTV Life Channel (720p) (source=iptv-org) -> http://185.246.209.113/ANIMALPLANETHD/index.m3u8
   [UNVERIFIED] [gaierror] [Indonesia] Dens Life & Style [Geo-blocked] (source=iptv-org) -> https://op-group1-swiftservehd-1.dens.tv/h/h222/index.m3u8
   [UNVERIFIED] [gaierror] [Indonesia] Dens Play [Geo-blocked] (source=iptv-org) -> https://op-group1-swiftservehd-1.dens.tv/h/h225/index.m3u8
-  [UNVERIFIED] [HTTP 503] [USA] Destination America (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb219/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [TimeoutError] [Russia] Dikij (576p) (source=iptv-org) -> http://hls127.freeott.top:8080/Dikiy/video.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Doctor (1080p) (source=iptv-org) -> http://31.148.48.15/Doktor/index.m3u8
-  [UNVERIFIED] [HTTP 403] [Argentina] El Gourmet (1080p) (source=iptv-org) -> http://15.204.246.24:8080/ElGourmetHD/index.m3u8
   [UNVERIFIED] [HTTP 401] [Portugal] ☆ Fashion Paris 🇺🇸 (source=m3u) -> https://epg.provider.plex.tv/library/parts/6430aa45fc3be5947780904e-6490c01f3b3ce9e1aaad95be/?X-Plex-Token=xePfG98DiSxDoEPoY91x
   [UNVERIFIED] [gaierror] [France] Fashion TV (source=free-tv) -> https://fashiontv-fashiontv-3-it.samsung.wurl.com/manifest/playlist.m3u8
   [UNVERIFIED] [HTTP 504] [France] FashionTV Europe (1080p) (source=iptv-org) -> https://68f1accef2154d2195cae87dec183843.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RakutenTV-eu_FashionTV/playlist.m3u8
@@ -1132,7 +1019,7 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [TimeoutError] [Hungary] Hangulat TV (720p) (source=iptv-org) -> https://iptv01.eurocable.co.hu/EC-HANGULATTV/index.m3u8
   [UNVERIFIED] [HTTP 403] [Israel] Health Channel (1080p) (source=iptv-org) -> http://89.33.29.115:8080/Health/index.m3u8
   [UNVERIFIED] [HTTP 403] [Israel] Home + (576p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/home_plus/index.m3u8
-  [UNVERIFIED] [HTTP 403] [China] Hunan Womens Channel [Geo-blocked] (source=iptv-org) -> http://35848.hlsplay.aodianyun.com/guangdianyun_35848/tv_channel_349.m3u8
+  [UNVERIFIED] [TimeoutError] [China] Hunan Womens Channel [Geo-blocked] (source=iptv-org) -> http://35848.hlsplay.aodianyun.com/guangdianyun_35848/tv_channel_349.m3u8
   [UNVERIFIED] [gaierror] [Italy] Italian Fishing TV (source=free-tv) -> https://itftv-italianfishingtv-1-it.samsung.wurl.tv/playlist.m3u8
   [UNVERIFIED] [HTTP 567] [China] Jilin City Channel (source=iptv-org) -> https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/7e8474e6daea44ccaa5aa2300191439e/index.m3u8
   [UNVERIFIED] [HTTP 567] [China] Jilin Lifestyle Channel (source=iptv-org) -> https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/0a76740c72b74fabae611845aa21e06a/index.m3u8
@@ -1162,6 +1049,7 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [gaierror] [Israel] The Shopping Channel (source=free-tv) -> https://shoppingil-rewriter.vidnt.com/index.m3u8
   [UNVERIFIED] [HTTP 403] [Russia] Tochka.rf (576p) (source=iptv-org) -> http://str2.iptvhd.ru:8080/HD_Life/index.m3u8
   [UNVERIFIED] [TimeoutError] [Russia] Travel+Adventure (1080p) (source=iptv-org) -> http://31.148.48.15/Travel_Adventure_HD/index.m3u8
+  [UNVERIFIED] [HTTP 503] [USA] Travel Channel (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76cab13/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [HTTP 403] [India] Travelxp 4K HDR (2160p) [Geo-blocked] (source=iptv-org) -> https://deltatesttatasky.akamaized.net/out/i/968284.m3u8
   [UNVERIFIED] [ConnectionRefusedError] [Dominican Republic] Turismo RDTV (720p) (source=iptv-org) -> https://streamunoapp.com:3086/live/telemileniolive.m3u8
   [UNVERIFIED] [TimeoutError] [Ukraine] TUSO (720p) (source=iptv-org) -> https://tuso.cdn-01.cosmonova.net.ua/hls/tuso_ua.m3u8
@@ -1186,7 +1074,6 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 503] [USA] CBS WWMT (1080p) (source=iptv-org) -> https://linear-701.frequency.stream/dist/stirr/701/hls/master/playlist.m3u8
   [UNVERIFIED] [HTTP 403] [New Zealand] Bravo +1 (source=aria) -> https://i.mjh.nz/.r/bravo-plus1.m3u8
   [UNVERIFIED] [RemoteDisconnected] [Indonesia] CNBC Indonesia (source=free-tv) -> https://live.cnbcindonesia.com/livecnbc/smil:cnbctv.smil/chunklist.m3u8
-  [UNVERIFIED] [HTTP 503] [USA] Cozi TV (source=doms9) -> https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb37f/playlist.m3u8?token=%5Bredacted%5D
   [UNVERIFIED] [gaierror] [Namibia] NBC 1 [Not 24/7] (source=iptv-org) -> https://hls2.nbcplus.na/hls/high_nbc1.m3u8
   [UNVERIFIED] [TimeoutError] [USA] NBC (1080p) (source=iptv-org) -> http://190.11.225.124:5000/live/nbc_hd/playlist.m3u8
   [UNVERIFIED] [HTTP 503] [USA] NBC 6 (WJAC) - Johnstown PA (1080p) (source=local-channels) -> https://linear-698.frequency.stream/dist/stirr/698/hls/master/playlist.m3u8
@@ -1220,4 +1107,132 @@ quarantined: variant HTTP timeout (failed the deep check 2x, last 2026-10-03T15:
   [UNVERIFIED] [HTTP 403] [United Arab Emirates] Spacetoon Arabic (576p) (source=iptv-org) -> https://live-uae-next.spacetoongo.com/ST_MENA_NEXT/hls/r9p2hjipmw2kl.m3u8
   [UNVERIFIED] [HTTP 403] [Spain] SX3 (1080p) [Geo-blocked] (source=iptv-org) -> https://directes-tv-cat.3catdirectes.cat/live-content/super3-hls/master.m3u8
   [UNVERIFIED] [gaierror] [Italy] Yamato Animation (source=free-tv) -> https://yamatovideo-yamatoanimation-1-it.samsung.wurl.tv/playlist.m3u8
-  ... and 2254 more unverified links (see report.json).
+  [UNVERIFIED] [TimeoutError] [China] You Man Cartoon Channel (576p) (source=iptv-org) -> http://183.207.249.15/PLTV/4/224/3221225933/index.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Ukraine] Суспільне Луцьк (source=free-tv) -> http://193.107.168.98:7006/play/508/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Матч! Планета Ⓢ (source=free-tv) -> http://212.0.211.102:9999/play/a00b/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] НТВ Ⓢ (source=free-tv) -> http://ott-cdn.ucom.am/s17/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] ТНТ Ⓢ (source=free-tv) -> http://ott-cdn.ucom.am/s19/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] СТС Ⓢ (source=free-tv) -> http://ott-cdn.ucom.am/s52/04.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] ТВ Центр Ⓢ (source=free-tv) -> http://ott-cdn.ucom.am/s54/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Домашний Ⓢ (source=free-tv) -> http://ott-cdn.ucom.am/s88/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Смотрим: Мелодрамы (source=free-tv) -> https://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-02.smil/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Смотрим: Тайны (source=free-tv) -> https://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-07.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Japan] 日本テレビ (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=hdgd03
+  [UNVERIFIED] [SSLError] [Russia] Спас Ⓢ (source=free-tv) -> https://spas.mediacdn.ru/cdn/spas/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] ОТР Ⓢ (source=free-tv) -> https://streaming.televizor-24-tochka.ru/live/12.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Рен ТВ Ⓢ (source=free-tv) -> https://streaming.televizor-24-tochka.ru/live/14.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Пятница! Ⓢ (source=free-tv) -> https://streaming.televizor-24-tochka.ru/live/19.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Матч ТВ Ⓢ (source=free-tv) -> https://streaming.televizor-24-tochka.ru/live/6.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Пятый канал Ⓢ (source=free-tv) -> https://streaming.televizor-24-tochka.ru/live/8.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] Ю Ⓢ (source=free-tv) -> https://strm.yandex.ru/kal/utv/utv0.m3u8
+  [UNVERIFIED] [TimeoutError] [North Macedonia] ЗОНА М1 ТВ (source=free-tv) -> https://zonam1.ddns.net/hls/stream1.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] 20 Mediaset Ⓖ (source=free-tv) -> https://live02-seg.msf.cdn.mediaset.net/live/ch-lb/lb-clr.isml/index.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Луганск 24 (source=free-tv) -> https://tv.gtrklnr.ru/hls/Lugansk24.m3u8
+  [UNVERIFIED] [TimeoutError] [Russia] Тольятти 24 (source=free-tv) -> https://tvtogliatti24.ru/hls/live1080/index.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Запад 24 (source=free-tv) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/kaliningrad/russia1-hd/index.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Сибирь 24 (source=free-tv) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/novosibirsk/russia1-hd/index.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Россия-24 (1080p) (source=free-tv) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/0/russia24-hd/1080p.m3u8
+  [UNVERIFIED] [gaierror] [Russia] Россия-24 (720p) (source=free-tv) -> https://vgtrkregion-reg.cdnvideo.ru/vgtrk/0/russia24-hd/720p.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] 24 horas (source=free-tv) -> https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] 27 Twentyseven Ⓖ (source=free-tv) -> https://live02-seg.msf.cdn.mediaset.net/live/ch-ts/ts-clr.isml/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Russia] ТВ-3 Ⓢ (source=free-tv) -> https://streaming.televizor-24-tochka.ru/live/18.m3u8
+  [UNVERIFIED] [HTTP 403] [Germany] 3sat Ⓖ (source=free-tv) -> https://zdf-hls-18.akamaized.net/hls/live/2016501/dach/veryhigh/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] 7 Región de Murcia Ⓢ (source=free-tv) -> https://rtv-murcia-live.globalmest.com/principal/smil:principal.smil/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Belarus] 8 Kanal Vitebsk Ⓢ (source=free-tv) -> http://95.46.208.8:24433/art
+  [UNVERIFIED] [HTTP 503] [Spain] À Punt TV (source=free-tv) -> https://bcovlive-a.akamaihd.net/8499d938ef904e39b58a4adec2ddeada/eu-west-1/6057955885001/playlist_dvr.m3u8
+  [UNVERIFIED] [gaierror] [United Arab Emirates] Abu Dhabi TV (source=free-tv) -> http://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/chunklist.m3u8
+  [UNVERIFIED] [HTTP 403] [United Arab Emirates] Al Aan TV (source=free-tv) -> https://shls-live-ak.akamaized.net/out/v1/dfbdea4c1bf149629764e58c6ff314c8/index.m3u8
+  [UNVERIFIED] [HTTP 401] [Iraq] Al-Iraqiya (source=free-tv) -> https://cdn.catiacast.video/abr/8d2ffb0aba244e8d9101a9488a7daa05/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Iraq] Al-Rafidain (source=free-tv) -> https://cdg8.edge.technocdn.com/arrafidaintv/abr_live/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Qatar] Alkass Four (source=free-tv) -> https://liveeu-gcp.alkassdigital.net/alkass4-p/main.m3u8
+  [UNVERIFIED] [HTTP 403] [Qatar] Alkass One (source=free-tv) -> https://liveeu-gcp.alkassdigital.net/alkass1-p/main.m3u8
+  [UNVERIFIED] [HTTP 403] [Qatar] Alkass Three (source=free-tv) -> https://liveeu-gcp.alkassdigital.net/alkass3-p/main.m3u8
+  [UNVERIFIED] [HTTP 403] [Qatar] Alkass Two (source=free-tv) -> https://liveeu-gcp.alkassdigital.net/alkass2-p/main.m3u8
+  [UNVERIFIED] [SSLError] [Albania] Alpo TV (source=free-tv) -> https://5d00db0e0fcd5.streamlock.net/7236/7236/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Albania] Alpo TV (source=iptv-org) -> https://vs.sednastream.com:1936/alportv/alportv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [South Korea] Anibox (source=aria) -> https://live-th10.myjktv.com/watch/live.m3u8?video=childrens_tv_540&sid=wFdJ4QMT2oZBXwymF3VHa465rjFtIHKl4GKeb8tA&secret=%5Bredacted%5D&time=1771648802
+  [UNVERIFIED] [ConnectionRefusedError] [Spain] Antena 3 (source=free-tv) -> http://177.10.184.193:8000/play/a06a/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Italy] Antenna Sud (720p) (source=iptv-org) -> https://live.antennasudwebtv.it:9443/hls/vod.m3u8
+  [UNVERIFIED] [TimeoutError] [Italy] Antenna Sud Extra (720p) (source=iptv-org) -> https://live.antennasudwebtv.it:9443/hls/vod92.m3u8
+  [UNVERIFIED] [HTTP 403] [Armenia] Armenia 1 (1080p) (source=iptv-org) -> https://ifl01eu-new.bozztv.com/am1abr/index.m3u8
+  [UNVERIFIED] [HTTP 500] [Greece] ART TV (source=iptv-org) -> https://rtmp.win:3696/live/arttvgrlive.m3u8
+  [UNVERIFIED] [HTTP 403] [Belgium] Arte Belgique Ⓖ (source=free-tv) -> https://artesimulcast.akamaized.net/hls/live/2031003/artelive_fr/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Sweden] Aryen TV (1080p) [Not 24/7] (source=iptv-org) -> https://aryen.tv/live/tv/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Spain] Atreseries Ⓢ (source=free-tv) -> http://181.78.109.48:8000/play/a00l/index.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Moldova] Balti TV (1080p) [Geo-blocked] (source=iptv-org) -> http://77.89.199.174:8000/play/1024/index.m3u8
+  [UNVERIFIED] [SSLError] [United Arab Emirates] Baynounah TV (source=free-tv) -> https://vo-live.cdb.cdn.orange.com/Content/Channel/Baynounah/HLS/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Be Mad Ⓖ (source=free-tv) -> https://directos.bemad.es/orilinear02/live/linear02/main/main.isml/main-audio_spa=128000-video=1500000.m3u8
+  [UNVERIFIED] [HTTP 403] [Hungary] Berente TV (1080p) (source=iptv-org) -> https://stream.streaming4u.hu/BerenteTV/index.m3u8
+  [UNVERIFIED] [gaierror] [Indonesia] BeritaSatu (source=free-tv) -> https://b1news.beritasatumedia.com/Beritasatu/B1News_1280x720.m3u8
+  [UNVERIFIED] [HTTP 403] [France] BFM TV (source=aria) -> https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TV/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Bosnia and Herzegovina] BHT 1 (source=free-tv) -> https://bhrtstream.bhtelecom.ba/bhrtportal_hd.m3u8
+  [UNVERIFIED] [HTTP 403] [Bosnia and Herzegovina] BHT 1 (720p) (source=iptv-org) -> https://webtvstream.bhtelecom.ba/hls13/bhrtportal_hd_1200.m3u8
+  [UNVERIFIED] [HTTP 403] [Bosnia and Herzegovina] BHT 1 HD (source=aria) -> https://mob.webtvstream.bhtelecom.ba/hls13/bhrtportal_hd_1200.m3u8
+  [UNVERIFIED] [HTTP 403] [Bulgaria] BNT 2 (1080p) (source=iptv-org) -> https://shift03.isp.bg/BNT2_HD/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] BOING   Ⓖ (source=free-tv) -> https://live02-seg.msf.cdn.mediaset.net/live/ch-kb/kb-clr.isml/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] BOM Cine (source=free-tv) -> https://tsw.streamingwebtv24.it:1936/inteccdn3/inteccdn3/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Belgium] Bruzz (720p) (source=iptv-org) -> https://hls-origin01-bruzz.cdn02.rambla.be/main/adliveorigin-bruzz/_definst_/V3n5YY.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Japan] BS日テレ (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=bs03
+  [UNVERIFIED] [HTTP 403] [Japan] BS朝日 (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=bs04
+  [UNVERIFIED] [HTTP 403] [Japan] BSテレ東 (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=bs06
+  [UNVERIFIED] [HTTP 403] [Japan] BSフジ (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=bs11
+  [UNVERIFIED] [HTTP 403] [Japan] BS-TBS (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=bs05
+  [UNVERIFIED] [HTTP 403] [Japan] BS10スターチャンネル (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=bs07
+  [UNVERIFIED] [HTTP 403] [Japan] BS10 (source=free-tv) -> https://naori-test.netgenx.site/pxx.php?shk_cid=bs10
+  [UNVERIFIED] [gaierror] [Italy] ByoBlu (source=free-tv) -> https://09bd1346f7a44cc9ac230cc1cb22ca4f.msvdn.net/live/S39249178/EnTK3KeeN1Eg/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Costa Rica] Canal 2 CDR (source=free-tv) -> https://d3bgcstab9qhdz.cloudfront.net/hls/canal2.m3u8
+  [UNVERIFIED] [HTTP 401] [Costa Rica] Canal 8 (source=aria) -> http://201.237.193.180:9981/stream/channelid/2109973730?profile=pass
+  [UNVERIFIED] [HTTP 403] [Czechia] CANAL+ ACTION HD (source=aria) -> http://185.236.230.212:9981/play/a0bw
+  [UNVERIFIED] [TimeoutError] [Macau] Canal Macau (720p) [Not 24/7] (source=iptv-org) -> https://live3.tdm.com.mo/ch2/ch2.live/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Brazil] Canal Saude (source=aria) -> https://eitv7.cdn.broadpeak.io/account351-i1495/event/canalsaude/format720p.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] Canale 5 (source=aria) -> https://netplus.zappr.stream/canale5.m3u8
+  [UNVERIFIED] [TimeoutError] [Italy] Canale 74 Sicilia (source=free-tv) -> https://stream.cp.ets-sistemi.it:1936/canale74/canale74/playlist.m3u8
+  [UNVERIFIED] [ConnectionRefusedError] [Italy] Carina Tv (source=free-tv) -> https://samson.streamerr.co:8081/carinatv/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Luxembourg] Chamber TV (source=free-tv) -> https://media02.webtvlive.eu/chd-edge/_definst_/smil:chamber_tv_hd.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] Chilevisión Ⓖ (source=free-tv) -> https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Chile] Chilevisión Noticias (source=free-tv) -> https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvn/chvn.smil/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] Cielo Ⓖ (source=free-tv) -> https://hlslive-web-gcdn-skycdn-it.akamaized.net/TACT/11219/cieloweb/master.m3u8?hdnts=st%3D1764666351~exp%3D1829466206~acl%3D%2F%2A~hmac%3Db0e9165b6c55027903ad103c8219f363d8765eb300c0d9a339e9767fc3509556
+  [UNVERIFIED] [TimeoutError] [Kenya] Citizen TV (source=free-tv) -> https://citizentv.co.ke/live
+  [UNVERIFIED] [HTTP 403] [Czechia] CS MYSTERY (source=aria) -> http://185.236.230.212:9981/play/a0ch
+  [UNVERIFIED] [HTTP 403] [International] Cubavision Internacional (source=aria) -> https://dvrfl06.bozztv.com/astv-cubavisionint/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Albania] Cufo (source=aria) -> https://ranapkz.site/RANAPK33k/TVD/play.php?id=194
+  [UNVERIFIED] [TimeoutError] [Iraq] Dijlah Tarab (source=free-tv) -> https://ghaasiflu.online/tarab/tracks-v1a1/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Divinity Ⓖ (source=free-tv) -> https://directos.divinity.es/orilinear04/live/linear04/main/main.isml/main-audio_spa=128000-video=1500000.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] DMAX (source=aria) -> https://cachehsi1a.netplus.ch/live/eds/dmaxitalia/browser-dash/dmaxitalia.mpd
+  [UNVERIFIED] [gaierror] [USA] Docurama (source=free-tv) -> https://cinedigm.vo.llnwd.net/conssui/amagi_hls_data_xumo1234A-docuramaA/CDN/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Denmark] DR Ramasjang Ⓖ (source=free-tv) -> https://drlive03texthls.akamaized.net/hls/live/2014191/drlive03text/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Denmark] DR1 Ⓖ (source=free-tv) -> https://drlive01texthls.akamaized.net/hls/live/2014186/drlive01text/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Denmark] DR1 (1080p) [Geo-blocked] (source=iptv-org) -> https://drlivedr1hls.akamaized.net/hls/live/2113625/drlivedr1/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Denmark] DR2 Ⓖ (source=free-tv) -> https://drlive02texthls.akamaized.net/hls/live/2014188/drlive02text/master.m3u8
+  [UNVERIFIED] [gaierror] [United Arab Emirates] Dubai One (source=free-tv) -> https://dminnvll.cdn.mangomolo.com/dubaione/smil:dubaione.stream.smil/playlist.m3u8
+  [UNVERIFIED] [gaierror] [United Arab Emirates] Dubai TV (source=free-tv) -> https://dmisxthvll.cdn.mgmlcdn.com/dubaitvht/smil:dubaitv.stream.smil/playlist.m3u8
+  [UNVERIFIED] [gaierror] [United Arab Emirates] Dubai Zaman (source=free-tv) -> https://dmiffthvll.cdn.mangomolo.com/dubaizaman/smil:dubaizaman.stream.smil/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Belgium] EEN (source=free-tv) -> https://live-vrt.rabah.net/groupc/live/8edf3bdf-7db3-41c3-a318-72cb7f82de66/live_aes.isml/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] El 33 Ⓖ (source=free-tv) -> https://directes-tv-cat.3catdirectes.cat/live-origin/c33-super3-hls/master.m3u8
+  [UNVERIFIED] [HTTP 403] [Argentina] El Nueve (source=free-tv) -> http://45.226.28.9:8085/Live/18e292ea93b66c65c76707f07c489d61/local-canal9.playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Energy Ⓖ (source=free-tv) -> https://directos.energytv.es/orilinear03/live/linear03/main/main.isml/main-audio_spa=128000-video=1500000.m3u8
+  [UNVERIFIED] [HTTP 500] [Greece] Epirus TV1 (720p) (source=iptv-org) -> https://rtmp.win:3929/live/epiruslive.m3u8
+  [UNVERIFIED] [gaierror] [Italy] Equos Tv (source=free-tv) -> https://dacastmmd.mmdlive.lldns.net/dacastmmd/2824fb123d5e44b797232c7abf8195da/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] EQUtv (source=free-tv) -> https://ippicabetflag-live.morescreens.com/IPPICA_1_003/304p.m3u8
+  [UNVERIFIED] [HTTP 403] [Spain] Esport3 Ⓖ (source=free-tv) -> https://directes-tv-es.3catdirectes.cat/live-origin/esport3-hls/master.m3u8
+  [UNVERIFIED] [HTTP 503] [Lebanon] Falestinona Channel (source=free-tv) -> https://ffs3.gulfsat.com/Falestinona-TV/index.fmp4.m3u8
+  [UNVERIFIED] [TimeoutError] [Bosnia and Herzegovina] Federalna televizija (FTV) Ⓢ (source=free-tv) -> http://94.250.2.6:7374/play/a02s/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Czechia] FILMBOX EXTRA HD (source=aria) -> http://185.236.230.212:9981/play/a0c2
+  [UNVERIFIED] [HTTP 403] [Czechia] FILMBOX FAMILY (source=aria) -> http://185.236.230.212:9981/play/a0c5
+  [UNVERIFIED] [HTTP 403] [Czechia] FILMBOX HD (source=aria) -> http://185.236.230.212:9981/play/a0ax
+  [UNVERIFIED] [TimeoutError] [Italy] FM Tv Marche (source=free-tv) -> https://bbtv.intvstream.net:3988/hybrid/play.m3u8
+  [UNVERIFIED] [HTTP 403] [Italy] Focus Ⓖ (source=free-tv) -> https://live02-seg.msf.cdn.mediaset.net/live/ch-fu/fu-clr.isml/index.m3u8
+  [UNVERIFIED] [TimeoutError] [France] France 3 (source=iptv-org) -> http://85.14.32.26:8800/udp/239.100.10.144:5000
+  [UNVERIFIED] [HTTP 403] [France] France 5 (720p) (source=iptv-org) -> http://145.239.5.177/305/index.m3u8
+  [UNVERIFIED] [TimeoutError] [Ukraine] FREEДOM (source=free-tv) -> http://95.67.106.242/mobile-app/main/freedom/master.m3u8
+  [UNVERIFIED] [gaierror] [Taiwan] FTV One (720p) [Not 24/7] (source=iptv-org) -> http://seb.sason.top/ptv/ftv.php?id=dy
+  [UNVERIFIED] [TimeoutError] [Italy] GarganoTv (source=free-tv) -> https://cdn80-ger.azotosolutions.com:8443/cdnedge3/smil:live3.smil/playlist.m3u8
+  [UNVERIFIED] [gaierror] [Japan] GSTV (source=free-tv) -> https://gstv-tnz-gsmediastreaming.preview-jpea.channel.media.azure.net/dfd06b62-e9d1-4a7f-bcbb-89d2ecbc82ee/preview.ism/manifest(format=mpd-time-csf,audio-only=false)
+  [UNVERIFIED] [TimeoutError] [Belarus] Hawe TV Vitebsk Ⓢ (source=free-tv) -> http://95.46.208.8:26259/nashe
+  [UNVERIFIED] [TimeoutError] [Mexico] Hipodromo de las Americas (source=free-tv) -> http://wms30.tecnoxia.com/soelvi/abr_soelvi/playlist.m3u8
+  [UNVERIFIED] [TimeoutError] [Somalia] Hirshabelle TV (576p) (source=iptv-org) -> http://ap02.iqplay.tv:8081/iqb8002/h1rshbe1iptv/playlist.m3u8
+  [UNVERIFIED] [HTTP 503] [Greece] Hlektra (source=free-tv) -> https://live20.bozztv.com/giatv/giatv-hlektratv/hlektratv/playlist.m3u8
+  [UNVERIFIED] [HTTP 403] [Israel] HOT 3 (source=aria) -> http://str2.iptvhd.ru:8080/hot3HD/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Israel] HOT Senior (source=aria) -> http://str2.iptvhd.ru:8080/HOT_Senior/index.m3u8
+  [UNVERIFIED] [HTTP 403] [Hong Kong] HOY TV Ⓖ (source=free-tv) -> https://hoytv-live-stream.hoy.tv/ch78/index-fhd.m3u8
+  ... and 2089 more unverified links (see report.json).
