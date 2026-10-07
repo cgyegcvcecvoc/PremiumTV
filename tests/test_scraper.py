@@ -206,6 +206,26 @@ class ScraperIntegrationTest(unittest.TestCase):
             self.assertIn("LOG EDITS:", (out / "logs" / "log-edits.txt").read_text(encoding="utf-8"))
             self.assertIn("Nashua ETV", (out / "logs" / "errors.txt").read_text(encoding="utf-8"))
 
+    def test_attribute_values_are_stripped_and_plus_urls_repaired(self):
+        # A padded tvg-id is a literal id a player cannot match against the guide
+        # (the Tastemade Travel entry arrives as "USBD700017WC "), so parsing and
+        # publishing both trim it.
+        channels, _ = scraper.parse_m3u(
+            '#EXTM3U\n#EXTINF:-1 tvg-id="USBD700017WC " tvg-name=" Tastemade Travel " '
+            'group-title="Lifestyle",Tastemade Travel\n'
+            'https://example.com/tastemade.m3u8\n', "m3u")
+        self.assertEqual(channels[0].attrs["tvg-id"], "USBD700017WC")
+        self.assertEqual(channels[0].attrs["tvg-name"], "Tastemade Travel")
+        self.assertIn('tvg-id="USBD700017WC"', channels[0].to_m3u())
+        self.assertNotIn('USBD700017WC "', channels[0].to_m3u())
+        # A leading '+' is not a scheme: the repaired URL has to play.
+        self.assertEqual(scraper.fix_url("+https://host.example/live.m3u8"),
+                         "https://host.example/live.m3u8")
+        self.assertEqual(scraper.fix_url("++https://host.example/live.m3u8"),
+                         "https://host.example/live.m3u8")
+        self.assertEqual(scraper.fix_url(" https://host.example/live.m3u8 "),
+                         "https://host.example/live.m3u8")
+
     def test_iri_percent_encoding_and_w3u_trailing_comma(self):
         encoded = scraper.fix_url("https://stream.example.com/live/มายาHD/index.m3u8")
         self.assertTrue(encoded.isascii())

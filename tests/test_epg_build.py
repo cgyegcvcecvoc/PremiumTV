@@ -364,6 +364,37 @@ class BuildTest(unittest.TestCase):
         self.assertFalse(any(item.get("channel") == "NewStation.us"
                              for item in refreshed.findall("programme")))
 
+    def test_stale_country_guide_is_pruned_only_when_every_country_published(self):
+        countries = self.out / "countries"
+        countries.mkdir()
+        for filename, tvg_id, country, name in (
+                ("USA.m3u", "AE.us@East", "US", "A&E (US East)"),
+                ("UK.m3u", "BBCOne.uk", "UK", "BBC One (UK)")):
+            (countries / filename).write_text(
+                f'#EXTM3U x-tvg-url="{",".join(self.guides)}"\n'
+                f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-country="{country}",{name}\n'
+                f"https://example.com/{filename}.m3u8\n", encoding="utf-8")
+        self.epg.mkdir(parents=True, exist_ok=True)
+        # A guide for a country whose playlist no longer exists, plus the pair of
+        # files a real run always keeps.
+        stale = self.epg / "Papua_New_Guinea.xml"
+        stale.write_text('<tv><channel id="NBCTV.pg@SD" /></tv>', encoding="utf-8")
+        keeper = self.epg / "PremiumTV.xml"
+        keeper.write_text('<tv></tv>', encoding="utf-8")
+        keeper_gz = self.epg / "PremiumTV.xml.gz"
+        keeper_gz.write_bytes(b"stub")
+
+        code, output = self.run_build(["--countries"])
+        self.assertEqual(code, 0, output)
+        self.assertFalse(stale.exists(), "a stale country guide survived the build")
+        self.assertTrue(keeper.exists())
+        self.assertTrue(keeper_gz.exists())
+        self.assertTrue((self.epg / "USA.xml").is_file())
+        self.assertTrue((self.epg / "UK.xml").is_file())
+        report = json.loads((self.out / "checks" / "epg-build.json").read_text())
+        self.assertEqual([Path(item).name for item in report.get("stale_guides_removed", [])],
+                         ["Papua_New_Guinea.xml"])
+
     def test_country_guides_reuse_a_recent_verified_build_when_feeds_are_unreachable(self):
         # First publish a normal merged guide from verified fixture feeds.
         code, output = self.run_build()
@@ -633,6 +664,15 @@ class HelperTest(unittest.TestCase):
             '<programme start="20261002120000 +0000" stop="20261002130000 +0000" '
             'channel="A.us"><title>No Information</title></programme>')
         self.assertIsNone(epg_build.programme_from_element(element, 0))
+        # A zero-length (or reversed, or stop-less) event is not a schedule: it
+        # cannot be shown and must not reach the published guide.
+        for times in ('start="20261002120000 +0000" stop="20261002120000 +0000"',
+                      'start="20261002130000 +0000" stop="20261002120000 +0000"',
+                      'start="20261002120000 +0000"'):
+            zero = ET.fromstring(
+                f'<programme {times} channel="A.us">'
+                '<title>Red Mercury Promo</title></programme>')
+            self.assertIsNone(epg_build.programme_from_element(zero, 0))
         element = ET.fromstring(
             '<programme start="20261002120000 +0000" stop="20261002130000 +0000" '
             'channel="A.us"><title>Real Show</title><desc>d</desc></programme>')

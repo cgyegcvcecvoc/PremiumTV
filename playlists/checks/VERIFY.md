@@ -1,6 +1,6 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-07T19:36:25+00:00 UTC
+- **Generated:** 2026-10-07T19:44:00+00:00 UTC
 - **Playlists checked:** 176 (19857 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 165
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 9892 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Europe, Movies, International, Religious, Entertainment, South America, Asia, United States, North America, Documentary, Kids, Series, Education, Culture, Legislative, India, Africa, Business, Comedy, Classic TV, Family, UK, A&E Networks, Canada, Weather, Animals & Nature, Aria Web Channels, Tv Paranormal, Australia, Global TV, Online TV, Tv Celebrities, Oceania, Relax, Tv Shows, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 8276/8530 (97.0%) | 2376 (27.9%) |
+| `playlists/PremiumTV.m3u` | 9892 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Europe, Movies, International, Religious, Entertainment, South America, Asia, United States, North America, Documentary, Kids, Series, Education, Culture, Legislative, India, Africa, Business, Comedy, Classic TV, Family, UK, A&E Networks, Canada, Weather, Animals & Nature, Aria Web Channels, Tv Paranormal, Australia, Global TV, Online TV, Tv Celebrities, Oceania, Relax, Tv Shows, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 8276/8530 (97.0%) | 2375 (27.8%) |
 | `playlists/AE_Channels.m3u` | 59 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 54/54 (100.0%) | 15 (27.8%) |
 | `playlists/Priority_Channels.m3u` | 14 | Sports, Cartoons, Kids, Classic TV, MeTV | 0 | 0 | 3 | 0 | 9/10 (90.0%) | 5 (50.0%) |
 | `playlists/countries/Afghanistan.m3u` | 10 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 10/10 (100.0%) | 0 (0.0%) |
