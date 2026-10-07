@@ -106,6 +106,17 @@ jobs:
           python scripts/epg_build.py --force --patch --countries --workers 4 \
             --timeout 120 --label "nightly merged guide build"
 
+      - name: Publish the categories/ shelf
+        # The headline file a player is pointed at: categories/USA.m3u (every US
+        # channel, in category order) plus one file per category for the USA and
+        # for the whole library. Each file is a slice of the playlists this run
+        # just patched, so its sorting is theirs; the verify step below re-plans
+        # the shelf and fails when a committed file is stale.
+        if: always() && steps.epgbuild.outcome != 'skipped'
+        id: shelf
+        continue-on-error: true
+        run: python scripts/build_categories.py --label "nightly deep link check"
+
       - name: Verify the published playlists and guides
         # Offline cross-check of everything this workflow just did: canonical
         # categories and order, no link the deep check called dead, and every
@@ -115,7 +126,7 @@ jobs:
         if: always()
         id: verify
         continue-on-error: true
-        run: python scripts/verify_playlists.py --strict
+        run: python scripts/verify_playlists.py --strict --require-shelf
 
       - name: Hunt for priority channels
         id: hunt
@@ -150,7 +161,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add EPG playlists/
+          git add EPG playlists/ categories/
           if git diff --cached --quiet; then
             echo "No link, guide or channel changes to commit."
             exit 0

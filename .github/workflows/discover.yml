@@ -118,12 +118,22 @@ jobs:
           python scripts/epg_build.py --force --patch --countries --workers 4 \
             --timeout 120 --label "monthly discovery integration guide"
 
+      - name: Publish the categories/ shelf
+        # The headline file a player is pointed at: categories/USA.m3u (every US
+        # channel, in category order) plus one file per category for the USA and
+        # for the whole library. Each file is a slice of a published playlist, so
+        # its sorting is theirs; the verify step re-plans it and fails when a
+        # committed file is stale.
+        id: shelf
+        continue-on-error: true
+        run: python scripts/build_categories.py --label "monthly discovery category shelf"
+
       - name: Commit discovery results
         if: always() && steps.discover.outcome != 'skipped'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add EPG playlists/
+          git add EPG playlists/ categories/
           if git diff --cached --quiet; then
             echo "No discovery changes to commit."
             exit 0

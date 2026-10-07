@@ -96,6 +96,16 @@ jobs:
           if [ "${FORCE:-true}" != "false" ]; then args+=(--force); fi
           python scripts/epg_build.py "${args[@]}"
 
+      - name: Publish the categories/ shelf
+        # The headline file a player is pointed at: categories/USA.m3u (every US
+        # channel, in category order) plus one file per category for the USA and
+        # for the whole library. Each file is a slice of a published playlist, so
+        # its sorting is theirs; the verify step re-plans it and fails when a
+        # committed file is stale.
+        id: shelf
+        continue-on-error: true
+        run: python scripts/build_categories.py --label "scheduled guide build"
+
       - name: Verify the published playlists and guides
         # Offline cross-check of everything this workflow just did: canonical
         # categories and order, no link the deep check called dead, and every
@@ -105,7 +115,7 @@ jobs:
         if: always()
         id: verify
         continue-on-error: true
-        run: python scripts/verify_playlists.py --strict
+        run: python scripts/verify_playlists.py --strict --require-shelf
 
       - name: Add the guide report to the Actions summary
         if: always()
@@ -121,7 +131,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add EPG playlists/
+          git add EPG playlists/ categories/
           if git diff --cached --quiet; then
             echo "No guide or report changes to commit."
             exit 0
