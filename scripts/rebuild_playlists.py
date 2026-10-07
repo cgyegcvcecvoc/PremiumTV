@@ -98,6 +98,11 @@ def rebuild_file(path: Path, guide: epg_match.Guide | None, max_backups: int = 0
         return {"file": str(path), "channels": 0, "written": False}
 
     epg_stats = epg_match.remap_channels(channels, guide) if guide else collections.Counter()
+    # A repeated URL is a structural fault the verifier reports, so a re-publish
+    # resolves it here: one entry per stream, keeping the name the URL supports.
+    channels, duplicates = categorize.dedupe_urls(channels)
+    if duplicates:
+        log(f"[rebuild] {path}: dropped {duplicates} duplicate/empty URL(s)")
     ordered = categorize.build_main_order(channels, max_backups=max_backups)
     counts = categorize.category_counts(ordered)
 
@@ -111,6 +116,7 @@ def rebuild_file(path: Path, guide: epg_match.Guide | None, max_backups: int = 0
         "file": str(path),
         "channels": len(ordered),
         "groups": len(counts),
+        "duplicate_urls_removed": duplicates,
         "backups": sum(count for group, count in counts.items()
                        if categorize.is_backup_group(group)),
         "written": not dry_run,

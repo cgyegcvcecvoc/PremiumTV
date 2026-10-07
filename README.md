@@ -70,6 +70,13 @@ quarantine) is dropped - so tidying a playlist cannot break it. Before an upstre
 as `Italy 🇮🇹` is replaced by a category, the country it carried is written back as
 `tvg-country`, so the next run resolves the same country and the same category again.
 
+A re-publish also resolves a repeated URL — the same stream listed twice under two channel
+names. `verify_playlists.py` calls that a structural fault, so `rebuild_playlists.py` and
+`resort_playlists.py` now keep one entry per URL (`categorize.dedupe_urls`), preferring the name
+the URL actually supports and carrying over any metadata the duplicate held. That is the fault
+the deep check found in `playlists/Priority_Channels.m3u`, where one Brazilian stream was
+published as both *NickToons Brasil* and *Nickelodeon (Brazil)*.
+
 `verify_playlists.py` answers, per playlist: is every group-title one the taxonomy would have
 written, is the file in the published order, does it publish a link the deep check called dead,
 how many guides does its header make a player download, and how many of its `tvg-id` values does

@@ -135,6 +135,11 @@ def resort_file(path: Path, dead: dict[str, str], *, prune: bool, max_feeds: int
                 kept_pairs.append((block, channel))
         pairs = kept_pairs
     channels = [channel for _, channel in pairs]
+    survivors, duplicates = categorize.dedupe_urls(channels)
+    if duplicates:
+        keep = {id(channel) for channel in survivors}
+        pairs = [(block, channel) for block, channel in pairs if id(channel) in keep]
+        channels = survivors
     # Persists tvg-country, rewrites only the group titles the taxonomy does not
     # generate itself, caps the feeds of one channel when asked, and puts the
     # list in the published order (categorize.order_channels).
@@ -148,7 +153,7 @@ def resort_file(path: Path, dead: dict[str, str], *, prune: bool, max_feeds: int
             regrouped += 1
     reordered = order_before != [id(block) for block, _ in pairs]
     header, guides_trimmed = trim_guides(header, max_guides)
-    changed = bool(pruned) or reordered or bool(guides_trimmed) or bool(regrouped)
+    changed = bool(pruned) or reordered or bool(guides_trimmed) or bool(regrouped) or bool(duplicates)
     ordered = [block for block, _ in pairs]
     if not dry_run and changed:
         path.write_text(link_check.blocks_to_text(header, ordered), encoding="utf-8")
@@ -157,6 +162,7 @@ def resort_file(path: Path, dead: dict[str, str], *, prune: bool, max_feeds: int
         "entries_before": len(blocks),
         "entries_after": len(ordered),
         "pruned": pruned,
+        "duplicates_dropped": duplicates,
         "categories": categories,
         "reordered": reordered,
         "regrouped": regrouped,
