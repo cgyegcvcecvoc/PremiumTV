@@ -282,6 +282,13 @@ gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=scrape-now \
 gh api -X POST repos/<owner>/<repo>/dispatches -f event_type=epg-build-now
 ```
 
+Appending a line to [`playlists/logs/run-scrape.txt`](playlists/logs/run-scrape.txt) and pushing
+runs a full checked scrape on that branch instead — the same switch the deep check
+([`run-deep-check.txt`](playlists/logs/run-deep-check.txt)) and the guide build
+([`run-epg-build.txt`](playlists/logs/run-epg-build.txt)) already use, and the only one of the
+three that works from a branch other than `main` (a `repository_dispatch` always runs on the
+default branch). None of the workflows writes to those files, so they cannot trigger themselves.
+
 See [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) for current verified coverage,
 source health and output metrics. Appending a line to
 [`playlists/logs/run-epg-build.txt`](playlists/logs/run-epg-build.txt) and pushing also triggers a

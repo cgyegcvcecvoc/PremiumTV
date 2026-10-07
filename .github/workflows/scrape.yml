@@ -35,6 +35,13 @@ on:
       timezone: "America/New_York"
     - cron: "29 23 * * *"
       timezone: "America/New_York"
+  # "Run it now" switch without opening the Actions tab, the same pattern the
+  # deep check and the guide build use: appending a line to
+  # playlists/logs/run-scrape.txt and pushing runs a full checked scrape on that
+  # branch. The workflow never writes to that file, so it cannot trigger itself.
+  push:
+    paths:
+      - "playlists/logs/run-scrape.txt"
   workflow_dispatch:
     inputs:
       skip_check:
@@ -83,6 +90,10 @@ jobs:
             # when that slot was supposed to start.
             label="$(printf '%s' "${DISPATCH_LABEL:-manual run}" | tr -d '\n\r' | cut -c1-80)"
             scheduled_for="$(printf '%s' "$DISPATCH_SCHEDULED_FOR" | tr -d '\n\r' | cut -c1-40)"
+          elif [ "$EVENT_NAME" = "push" ]; then
+            # The "run it now" switch: a push to playlists/logs/run-scrape.txt.
+            label="manual re-scrape (run-scrape.txt)"
+            scheduled_for=""
           elif [ -n "$SCHEDULE" ]; then
             # Derive both from the same schedule the guard reads, so the workflow
             # and the guard can never disagree about what a slot is called or
