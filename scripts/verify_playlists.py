@@ -21,10 +21,16 @@ the same questions:
 * Is each advertised guide a real, parseable XMLTV file, and is it the right
   guide for that playlist (a country playlist must advertise its own
   ``EPG/<Country>.xml``)?
+* Is the ``categories/`` shelf (`scripts/build_categories.py`) still exactly the
+  shelf the published playlists call for? Every file is re-planned from
+  ``playlists/PremiumTV.m3u`` and ``playlists/countries/USA.m3u`` and compared
+  entry by entry, so a folder left behind by an old scrape - or one that lost a
+  channel - is named instead of shipped.
 
     python scripts/verify_playlists.py                # report + checks/VERIFY.md
     python scripts/verify_playlists.py --strict       # exit 1 when something is wrong
     python scripts/verify_playlists.py --no-epg-parse # skip the big XMLTV files
+    python scripts/verify_playlists.py --require-shelf  # a missing shelf is a problem too
 
 Outputs:
 
@@ -43,6 +49,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_categories  # noqa: E402  (the shelf this repository publishes)
 import categorize  # noqa: E402  (the taxonomy the published files must match)
 import link_check  # noqa: E402
 import scraper  # noqa: E402
@@ -277,6 +284,100 @@ def verify_playlist(path: Path, epg_dir: Path, dead: dict[str, str], cache: dict
     }
 
 
+def playlist_entries(path: Path) -> list[tuple[str, str, str]]:
+    """(name, url, group-title) of every entry in a playlist, in file order."""
+    text = path.read_text(encoding="utf-8", errors="replace")
+    _, blocks = link_check.split_blocks(text)
+    entries: list[tuple[str, str, str]] = []
+    for block in blocks:
+        channel = link_check.channel_from_block(block, path.name)
+        entries.append((channel.name, channel.url,
+                        (channel.attrs.get("group-title") or "").strip()))
+    return entries
+
+
+def committed_shelf_files(shelf_dir: Path) -> set[Path]:
+    """Every .m3u a reader could find in the shelf directory."""
+    if not shelf_dir.is_dir():
+        return set()
+    return {path for path in shelf_dir.rglob("*.m3u") if path.is_file()}
+
+
+def verify_category_shelf(shelf_dir: Path, main_path: Path, usa_path: Path,
+                          min_size: int | None = None,
+                          allow_missing: bool = False) -> dict:
+    """Compare the committed ``categories/`` shelf with the shelf in force now.
+
+    The expected layout is re-planned by the same code that writes it
+    (``build_categories.plan_shelf``), so this is an equality check on the
+    channel list and its order - not a heuristic that can drift.
+    """
+    issues: list[str] = []
+    rows: list[dict] = []
+    # The shelf records the group size it was built with, so the comparison uses
+    # the same rule instead of guessing (and flagging every small group as extra).
+    if min_size is None:
+        min_size = build_categories.recorded_min_size(shelf_dir)
+    planned = build_categories.plan_shelf(main_path, usa_path, shelf_dir, min_size=min_size)
+    planned_paths = {item.path for item in planned}
+
+    if not shelf_dir.is_dir() or not planned:
+        if allow_missing:
+            return {"dir": relative(shelf_dir), "skipped": True, "files": [], "issues": [],
+                    "note": "no shelf directory to check (pass --require-shelf to demand one)"}
+        if not planned:
+            return {"dir": relative(shelf_dir), "skipped": True, "files": [], "issues": [],
+                    "note": "no published playlists to plan a shelf from"}
+        issues.append(f"{relative(shelf_dir)}/ is missing: the published playlists call for "
+                      f"{len(planned)} shelf file(s) (run scripts/build_categories.py)")
+
+    for item in planned:
+        entry = {"file": relative(item.path), "scope": item.scope,
+                 "category": item.category, "channels": len(item.channels), "status": "ok"}
+        if not item.path.is_file():
+            entry["status"] = "missing"
+            issues.append(f"{relative(item.path)} is missing (run scripts/build_categories.py)")
+        else:
+            committed = playlist_entries(item.path)
+            expected = [(channel.name, channel.url,
+                         (channel.attrs.get("group-title") or "").strip())
+                        for channel in item.channels]
+            if committed != expected:
+                entry["status"] = "stale"
+                entry["committed"] = len(committed)
+                issue = (f"{relative(item.path)} is stale: {len(committed)} entries committed, "
+                         f"{len(expected)} expected (run scripts/build_categories.py)")
+                committed_names = {name for name, _, _ in committed}
+                missing = next((name for name, _, _ in expected if name not in committed_names),
+                               "")
+                if missing:
+                    issue += f"; e.g. {missing!r} is not in it"
+                issues.append(issue)
+        if item.path.is_file():
+            guides = read_guides(item.path)
+            allowed = 1 + scraper.MAX_HEADER_GUIDES
+            if scraper.MAX_HEADER_GUIDES >= 0 and len(guides) > allowed:
+                entry["status"] = "problem"
+                issues.append(f"{relative(item.path)} advertises {len(guides)} guides; "
+                              f"the published maximum is {allowed}")
+            elif not guides:
+                entry["status"] = "problem"
+                issues.append(f"{relative(item.path)} has no x-tvg-url header")
+        rows.append(entry)
+
+    for extra in sorted(committed_shelf_files(shelf_dir) - planned_paths):
+        issues.append(f"{relative(extra)} is not part of the shelf any more "
+                      f"(remove it or re-run scripts/build_categories.py)")
+    for name in ("README.md", "index.json"):
+        if shelf_dir.is_dir() and not (shelf_dir / name).is_file():
+            issues.append(f"{relative(shelf_dir / name)} is missing "
+                          f"(run scripts/build_categories.py)")
+
+    return {"dir": relative(shelf_dir), "skipped": False, "files": rows,
+            "expected_files": len(planned), "issues": issues,
+            "note": "" if issues else "every shelf file matches the published order"}
+
+
 def epg_source_summary(checks_dir: Path) -> dict:
     """How the last guide check rated the advertised upstream guides."""
     path = checks_dir / "epg-check.json"
@@ -313,6 +414,12 @@ def main(argv=None) -> int:
                         help="skip reading the (large) XMLTV files")
     parser.add_argument("--max-epg-mb", type=float, default=0.0,
                         help="do not parse a guide larger than this many MB (0 = no limit)")
+    parser.add_argument("--shelf-dir", default="auto",
+                        help="categories/ shelf to check (default: next to the playlists dir)")
+    parser.add_argument("--no-shelf", action="store_true",
+                        help="do not check the categories/ shelf at all")
+    parser.add_argument("--require-shelf", action="store_true",
+                        help="a missing or stale categories/ shelf is a problem, not a note")
     args = parser.parse_args(argv)
 
     out_dir = Path(args.out)
@@ -348,12 +455,24 @@ def main(argv=None) -> int:
 
     violating = [item for item in reports if item["issues"]]
     warned = [item for item in reports if item.get("warnings")]
+    shelf = {"dir": "", "skipped": True, "files": [], "issues": [],
+             "note": "disabled with --no-shelf"}
+    if not args.no_shelf:
+        # "auto" keeps the shelf next to the playlists directory, so a run against
+        # a copy of the repository checks that copy's shelf, not this one's.
+        shelf_dir = (out_dir.parent / build_categories.DEFAULT_SHELF
+                     if args.shelf_dir in ("", "auto") else Path(args.shelf_dir))
+        shelf = verify_category_shelf(
+            shelf_dir, out_dir / "PremiumTV.m3u", out_dir / "countries" / "USA.m3u",
+            allow_missing=not args.require_shelf)
     totals = {
         "playlists": len(reports),
         "entries": sum(item["entries"] for item in reports),
         "playlists_with_issues": len(violating),
         "playlists_with_warnings": len(warned),
         "dead_links_published": sum(len(item["dead_links"]) for item in reports),
+        "shelf_files": len(shelf.get("files") or []),
+        "shelf_problems": len(shelf.get("issues") or []),
         "epg_sources": epg_source_summary(checks_dir),
     }
     result = {
@@ -365,6 +484,7 @@ def main(argv=None) -> int:
         "max_header_guides": scraper.MAX_HEADER_GUIDES,
         "totals": totals,
         "playlists": reports,
+        "shelf": shelf,
         "quarantine_entries": len(scraper.load_quarantine(
             checks_dir / scraper.QUARANTINE_FILENAME, 7.0) or {}),
     }
@@ -380,6 +500,8 @@ def main(argv=None) -> int:
         f"- **Playlists with problems:** {totals['playlists_with_issues']}",
         f"- **Playlists with guide-coverage notes:** {totals['playlists_with_warnings']}",
         f"- **Links published that the deep check called dead:** {totals['dead_links_published']}",
+        f"- **Category shelf files:** {totals['shelf_files']} "
+        f"({totals['shelf_problems']} problem(s))",
         f"- **Curated categories (in the published order):** {', '.join(result['group_order'])}",
         f"- **Maximum guides a header may advertise:** {result['max_header_guides']}",
         "",
@@ -403,7 +525,8 @@ def main(argv=None) -> int:
             f"{len(item['dead_links'])} | {declared_text} | {listed_text} |"
         )
     lines += ["", "## Problems", ""]
-    if violating:
+    shelf_issues = list(shelf.get("issues") or [])
+    if violating or shelf_issues:
         for item in violating:
             lines.append(f"### `{item['file']}`")
             lines.append("")
@@ -411,9 +534,38 @@ def main(argv=None) -> int:
             for entry in item["dead_links"][:20]:
                 lines.append(f"  - dead: {entry['name']} — {entry['reason']}")
             lines.append("")
+        if shelf_issues:
+            lines.append("### Category shelf")
+            lines.append("")
+            lines.extend(f"- {issue}" for issue in shelf_issues)
+            lines.append("")
     else:
         lines.append("None: every playlist is canonical, in order, and free of links the deep "
                      "check confirmed dead.")
+    lines += ["", "## Category shelf", ""]
+    if shelf.get("skipped"):
+        lines.append(f"Not checked: {shelf.get('note') or 'no shelf directory'}.")
+    else:
+        lines += [
+            f"The `{shelf['dir']}/` shelf is re-planned from the published playlists on every "
+            f"run: **{len(shelf['files'])} of {shelf.get('expected_files', len(shelf['files']))} "
+            f"file(s) present**, {sum(1 for row in shelf['files'] if row['status'] == 'ok')} in "
+            "step with the published order.",
+            "",
+            "| # | Shelf file | Scope | Category | Channels | Status |",
+            "|---|---|---|---|---:|---|",
+        ]
+        for index, row in enumerate(shelf["files"], 1):
+            lines.append(f"| {index} | `{row['file']}` | {row['scope']} | {row['category']} | "
+                         f"{row['channels']} | {row['status']} |")
+        lines += [
+            "",
+            "Each file is a slice of an already published playlist, so its sorting is the "
+            "published sorting: curated categories in order, each followed by its own Backups "
+            "group, the long tail by size, `Other` last, and a channel's feeds side by side "
+            "with the best quality first. `scripts/build_categories.py` writes the shelf and "
+            "`scripts/verify_playlists.py --require-shelf` fails a run that leaves it stale.",
+        ]
     warned = [item for item in reports if item.get("warnings")]
     if warned:
         lines += ["", "## Guide coverage notes", ""]
@@ -444,11 +596,20 @@ def main(argv=None) -> int:
         "- EPG coverage counts the `tvg-id` values the advertised local guide declares. A channel "
         "without a public schedule counts as uncovered; its ID is still declared so a player "
         "asks for it instead of guessing.",
+        "- The `categories/` shelf (headline file `categories/USA.m3u`) is written by "
+        "`scripts/build_categories.py` and checked here against the published playlists, so its "
+        "sorting cannot drift from theirs.",
         "",
     ]
     (checks_dir / "VERIFY.md").write_text("\n".join(lines), encoding="utf-8")
     log(f"[verify] wrote {relative(checks_dir / 'VERIFY.md')} and verify.json")
-    if args.strict and violating:
+    if shelf.get("skipped"):
+        log(f"[verify] shelf not checked: {shelf.get('note')}")
+    else:
+        log(f"[verify] shelf {shelf['dir']}: {len(shelf['files'])} file(s), "
+            f"{len(shelf_issues)} problem(s)"
+            + ("; " + "; ".join(shelf_issues[:3]) if shelf_issues else ""))
+    if args.strict and (violating or shelf_issues):
         return 1
     return 0
 

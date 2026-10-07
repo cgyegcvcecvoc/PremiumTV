@@ -151,6 +151,19 @@ jobs:
           python scripts/epg_build.py --patch --countries --max-age-hours 12 \
             --label "guide refresh with the scrape"
 
+      - name: Publish the categories/ shelf
+        # The headline file a player is pointed at: categories/USA.m3u (every US
+        # channel, in category order) plus one file per category for the USA and
+        # for the whole library. Each file is a slice of the playlist the scrape
+        # just published, so its sorting is the published sorting; the verify step
+        # below re-plans the shelf and fails if a committed file is stale.
+        if: always() && steps.scraper.outcome != 'skipped'
+        id: shelf
+        continue-on-error: true
+        env:
+          SCRAPER_LABEL: ${{ steps.label.outputs.label }}
+        run: python scripts/build_categories.py --label "$SCRAPER_LABEL"
+
       - name: Verify the published playlists and guides
         # Offline cross-check of everything this workflow just did: canonical
         # categories and order, no link the deep check called dead, and every
@@ -164,7 +177,9 @@ jobs:
           # Run once, publish the report to the summary, then keep the exit code
           # so a structural problem still fails the step (and the workflow).
           code=0
-          python scripts/verify_playlists.py --strict || code=$?
+          # --require-shelf makes the categories/ shelf part of the contract: a
+          # missing or stale shelf fails this step like a mis-sorted playlist.
+          python scripts/verify_playlists.py --strict --require-shelf || code=$?
           if [ -f playlists/checks/VERIFY.md ]; then
             echo "-----" >> "$GITHUB_STEP_SUMMARY"
             cat playlists/checks/VERIFY.md >> "$GITHUB_STEP_SUMMARY"
@@ -187,7 +202,7 @@ jobs:
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add EPG playlists/
+          git add EPG playlists/ categories/
           if git diff --cached --quiet; then
             echo "No playlist or diagnostic changes to commit."
             exit 0

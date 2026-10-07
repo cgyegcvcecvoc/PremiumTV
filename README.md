@@ -25,6 +25,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Confirmed working links from the latest successful checked run. |
 | [`playlists/categories/`](playlists/categories/README.md) | The same channels split into one playlist per category — `Sports.m3u`, `Cartoons.m3u`, `PBS.m3u`, `Game_Shows.m3u`, `Fox_Channels.m3u`, … each with its own `*_Backups.m3u`. |
 | [`playlists/checks/CATEGORIES.md`](playlists/checks/CATEGORIES.md) | Category audit: the published group order, how many channels each holds, and which ones have guide data. |
+| [`categories/`](categories/README.md) | **The category shelf to point a player at:** [`categories/USA.m3u`](categories/USA.m3u) (every US channel, grouped by category and sorted), [`categories/USA/`](categories/USA) (one file per US category) and [`categories/All/`](categories/All) (one file per category for the whole library). |
 | [`playlists/countries/`](playlists/countries/README.md) | Confirmed working playlists separated by country (`USA.m3u`, `China.m3u`, `UK.m3u`, `Canada.m3u`, `India.m3u`, etc.). |
 | [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u) | Dedicated playlist of confirmed working A&E and A+E Networks channels (linear & FAST). |
 | [`playlists/PremiumTV_all.m3u`](playlists/PremiumTV_all.m3u) | All unique links found, including dead or unverified links. |
@@ -133,6 +134,38 @@ Two rules keep the listing usable:
 Anything still unidentifiable lands in a world region (`Europe`, `Asia`, …) or
 in `Other`, and the whole library is kept — nothing is dropped to make the
 category list short.
+
+### The `categories/` shelf
+
+[`categories/`](categories/README.md) is the folder a player is pointed at when the whole
+playlist is more than you want to load at once. `categories/USA.m3u` is the headline file:
+every working US channel, in the published category order, with each channel's spare feeds
+next to it in its own `<category> Backups` group and the best quality first.
+
+```text
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/USA.m3u          # every US channel, by category
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/USA/Sports.m3u   # just the US sports channels
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/All/Sports.m3u  # every sports channel in the library
+```
+
+| Folder | What it holds |
+|---|---|
+| [`categories/USA.m3u`](categories/USA.m3u) | Every published US channel in one file, in category order. |
+| [`categories/USA/`](categories/USA) | The same list cut per category — `Sports.m3u`, `News.m3u`, `Movies.m3u`, `Cartoons.m3u`, … |
+| [`categories/All/`](categories/All) | One file per category for the whole library (US channels first inside a category, because that is the published order). |
+| [`categories/README.md`](categories/README.md) | The index: category order, channel counts, and the URLs above. |
+
+Two properties make the shelf safe to hand to a player:
+
+* **it is a slice of an already published playlist.** Same channels, same order, same
+  `group-title` labels, same guide header — nothing is re-classified, so the shelf can never
+  show a channel the playlist does not have (and never invents a category of its own);
+* **it cannot drift.** `scripts/build_categories.py` rebuilds it after every scrape, quick
+  update, guide build and deep check, a file is only rewritten when its channel list actually
+  changed, and `scripts/verify_playlists.py --require-shelf` re-plans the shelf from the
+  published playlists and fails the run when a committed file is stale or missing. Groups
+  smaller than three channels keep no file of their own — they stay in the parent playlist,
+  where nothing is lost.
 
 ### Local channels (Lancaster / Harrisburg, PA)
 
@@ -550,6 +583,8 @@ python scripts/discover.py --dry-run              # report only; never promote a
 python scripts/epg_check.py --all                  # verify every advertised TV guide
 python scripts/resort_playlists.py --dry-run       # show the category re-sort without writing
 python scripts/verify_playlists.py                 # offline playlist + EPG coverage report
+python scripts/verify_playlists.py --require-shelf  # ... and the categories/ shelf with it
+python scripts/build_categories.py --dry-run        # show what the shelf would contain
 python scripts/epg_build.py --dry-run              # build the merged guide without publishing it
 python scripts/epg_build.py --patch --force        # rebuild it and advertise it in the playlists
 python scripts/schedule_guard.py report            # schedule coverage table, no side effects
