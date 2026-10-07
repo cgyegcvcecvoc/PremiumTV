@@ -203,6 +203,47 @@ class VotingTest(unittest.TestCase):
         self.assertEqual(votes, {})
 
 
+class DuplicateUrlTest(unittest.TestCase):
+    """One stream, one entry: the verifier treats a repeated URL as a fault."""
+
+    def test_a_url_supported_name_survives(self):
+        first = channel("Nickelodeon (Brazil) (480p)",
+                        url="https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8")
+        second = channel("NickToons Brasil (480p)",
+                         url="https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8")
+        kept, dropped = categorize.dedupe_urls([first, second])
+        self.assertEqual(dropped, 1)
+        self.assertEqual([item.name for item in kept], ["NickToons Brasil (480p)"])
+
+    def test_first_entry_wins_when_the_url_supports_neither_name(self):
+        first = channel("ESPN", url="http://example.com/a.m3u8")
+        second = channel("ESPN (Backup 1)", url="http://example.com/a.m3u8")
+        kept, dropped = categorize.dedupe_urls([first, second])
+        self.assertEqual(dropped, 1)
+        self.assertEqual([item.name for item in kept], ["ESPN"])
+
+    def test_a_dropped_entry_still_passes_on_metadata(self):
+        first = channel("NickToons Brasil", url="https://host/nicktoons/live.m3u8",
+                        tvg_id="NickToons.br")
+        second = channel("Nickelodeon Brazil", url="https://host/nicktoons/live.m3u8",
+                         country="BR")
+        kept, _ = categorize.dedupe_urls([first, second])
+        self.assertEqual(kept[0].attrs.get("tvg-country"), "BR")
+
+    def test_entries_without_a_url_are_dropped(self):
+        empty = scraper.Channel(name="No URL", url="", source="test", attrs={})
+        kept, dropped = categorize.dedupe_urls([empty])
+        self.assertEqual(kept, [])
+        self.assertEqual(dropped, 1)
+
+    def test_distinct_urls_are_left_alone(self):
+        kept, dropped = categorize.dedupe_urls([
+            channel("ESPN", url="http://example.com/espn.m3u8"),
+            channel("ESPN (Backup 1)", url="http://example.com/espn-2.m3u8")])
+        self.assertEqual(dropped, 0)
+        self.assertEqual(len(kept), 2)
+
+
 class NamingTest(unittest.TestCase):
 
     def test_clean_display_name_drops_quality_tags(self):

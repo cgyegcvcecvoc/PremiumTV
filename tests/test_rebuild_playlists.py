@@ -23,6 +23,15 @@ GUIDE = """<?xml version="1.0" encoding="UTF-8"?>
 </tv>
 """
 
+DUPLICATE_URL_PLAYLIST = """#EXTM3U x-tvg-url="https://example.com/guide.xml"
+#EXTINF:-1 tvg-id="Nickelodeon.br" group-title="Cartoons",Nickelodeon (Brazil) (480p)
+https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8
+#EXTINF:-1 tvg-id="NickToons.br" group-title="Cartoons",NickToons Brasil (480p)
+https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8
+#EXTINF:-1 tvg-id="MeTV.us" group-title="Classic TV",MeTV
+http://main.example/metv.m3u8
+"""
+
 PLAYLIST = """#EXTM3U x-tvg-url="https://example.com/guide.xml"
 # old header comment that should not survive
 #EXTINF:-1 tvg-id="NFL.Network.HD.us2" group-title="TV",NFL Network
@@ -34,6 +43,30 @@ http://main.example/buzzr.m3u8
 #EXTINF:-1 tvg-id="FoxNews.us" group-title="News",Fox News
 http://main.example/fox.m3u8
 """
+
+
+class DuplicateUrlTest(unittest.TestCase):
+    """A re-publish resolves a repeated URL instead of copying it forward."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self.tmp.name)
+        self.playlist = self.dir / "priority.m3u"
+        self.playlist.write_text(DUPLICATE_URL_PLAYLIST, encoding="utf-8")
+        categorize.set_group_votes(None)
+
+    def tearDown(self):
+        categorize.set_group_votes(None)
+        self.tmp.cleanup()
+
+    def test_the_stream_is_published_once_under_the_name_the_url_supports(self):
+        result = rebuild_playlists.rebuild_file(self.playlist, None)
+        self.assertEqual(result["duplicate_urls_removed"], 1)
+        text = self.playlist.read_text(encoding="utf-8")
+        urls = [line for line in text.splitlines() if line.startswith("http")]
+        self.assertEqual(sorted(urls), sorted(set(urls)))
+        self.assertIn("NickToons Brasil", text)
+        self.assertNotIn("Nickelodeon (Brazil)", text)
 
 
 class RebuildTest(unittest.TestCase):

@@ -690,6 +690,55 @@ def quality_score(name: str) -> int:
     return score
 
 
+_URL_WORD = re.compile(r"[a-z0-9]{4,}")
+
+
+def url_supports_name(name: str, url: str) -> bool:
+    """True when a word of the channel name also appears in the URL.
+
+    ``stmv2.srvif.com/nicktoons/...`` supports "NickToons Brasil", not
+    "Nickelodeon (Brazil)" - which is how a repeated URL picks its survivor.
+    """
+    lowered = (url or "").lower()
+    return any(word in lowered for word in _URL_WORD.findall(norm_text(name)))
+
+
+def dedupe_urls(channels: list) -> tuple[list, int]:
+    """Keep one entry per URL and return ``(channels, dropped)``.
+
+    The published playlist must not list the same stream twice: the verifier
+    calls a repeated URL a structural fault, so a re-publish has to resolve it
+    instead of copying it forward. The survivor is the entry whose name the URL
+    supports (better metadata wins by default); ties keep the first entry. A
+    dropped entry still passes on metadata the survivor is missing, and an entry
+    without a URL is dropped outright - it can never play.
+    """
+    best: dict[str, int] = {}
+    output: list = []
+    dropped = 0
+    for item in channels:
+        url = _get(item, "url").strip()
+        if not url:
+            dropped += 1
+            continue
+        index = best.get(url)
+        if index is None:
+            best[url] = len(output)
+            output.append(item)
+            continue
+        dropped += 1
+        survivor = output[index]
+        if (url_supports_name(_get(item, "name"), url)
+                and not url_supports_name(_get(survivor, "name"), url)):
+            output[index] = item
+            survivor = item
+        if hasattr(survivor, "attrs") and hasattr(item, "attrs"):
+            for key, value in item.attrs.items():
+                if value and not survivor.attrs.get(key):
+                    survivor.attrs[key] = value
+    return output, dropped
+
+
 def channel_key(name: str, country: str = "") -> str:
     """Identity of a channel across duplicate links."""
     return f"{norm_key(clean_display_name(name))}|{(country or '').strip().upper()}"
