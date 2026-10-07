@@ -185,7 +185,11 @@ class Channel:
         return headers
 
     def to_m3u(self) -> str:
-        attrs = " ".join(f'{key}="{value}"' for key, value in self.attrs.items() if value is not None)
+        # Attribute values are written trimmed: a padded ``tvg-id`` (the Tastemade
+        # Travel entry arrives from its source as ``"USBD700017WC "``) is a literal
+        # id a player cannot match against the guide, so it would silently lose EPG.
+        attrs = " ".join(f'{key}="{str(value).strip()}"'
+                         for key, value in self.attrs.items() if value is not None)
         head = f"#EXTINF:-1 {attrs},{self.name}" if attrs else f"#EXTINF:-1,{self.name}"
         return "\n".join([head, *self.extra, self.url])
 
@@ -772,6 +776,10 @@ def fetch_source_text(src: dict) -> str:
 def fix_url(url: str) -> str:
     """Repair common typos found in upstream lists (e.g. 'ttp://host') and percent-encode non-ASCII paths."""
     url = url.strip()
+    # Some upstream lists mark an entry with a leading '+', which is not part of
+    # any scheme and makes the line unplayable (e.g. '+https://host/live.m3u8').
+    while url.startswith("+"):
+        url = url[1:].lstrip()
     low = url.lower()
     if low.startswith(("ttp://", "ttps://")):
         url = "h" + url
@@ -823,7 +831,7 @@ def parse_m3u(text: str, source: str) -> tuple[list[Channel], list[str]]:
                 name=name.strip() or "Unknown",
                 url="",
                 source=source,
-                attrs=dict(ATTR_RE.findall(meta)),
+                attrs={key: value.strip() for key, value in ATTR_RE.findall(meta)},
                 extra=pending_extra,
             )
             pending_extra = []

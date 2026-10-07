@@ -500,9 +500,12 @@ def programme_from_element(element, source: int) -> Programme | None:
     start = parse_xmltv_time(element.get("start", ""))
     if start is None:
         return None
-    stop = parse_xmltv_time(element.get("stop", "")) or start
-    if stop < start:
-        stop = start
+    stop = parse_xmltv_time(element.get("stop", ""))
+    if stop is None or stop <= start:
+        # A missing, zero-length or reversed stop is a placeholder, not a
+        # schedule: it cannot be shown as a programme, and the published guide
+        # must stay valid XMLTV (no ``stop`` equal to or before ``start``).
+        return None
     title = ""
     programme = None
     for child in element:
@@ -1109,6 +1112,29 @@ def write_country_guides(epg_dir: Path, country_playlists: list[Path], channels:
                 f"{result['publish_reason']}")
         results.append(result)
     return results
+
+
+def prune_stale_guides(epg_dir: Path, country_names: set, keep_names: set) -> list:
+    """Delete generated guides that no current playlist asks for.
+
+    The builder writes one guide per ``playlists/countries/*.m3u`` but never
+    removed the file of a country whose playlist went away, so
+    ``EPG/Papua_New_Guinea.xml`` outlived its playlist. Callers only prune when
+    every expected country guide was published, so a partial build cannot delete
+    a file a playlist still reads.
+    """
+    if not epg_dir.is_dir():
+        return []
+    keep = {f"{name}.xml" for name in set(country_names) | set(keep_names)}
+    keep |= {f"{name}.xml.gz" for name in keep_names}
+    removed = []
+    for path in sorted(list(epg_dir.glob("*.xml")) + list(epg_dir.glob("*.xml.gz"))):
+        # Leave temp files (".<country>.xml.tmp") to the writer that owns them.
+        if not path.is_file() or path.name.startswith(".") or path.name in keep:
+            continue
+        path.unlink(missing_ok=True)
+        removed.append(display_path(path))
+    return removed
 
 
 # --------------------------------------------------------------------------- #
@@ -1826,6 +1852,17 @@ def main(argv=None) -> int:
                 "files changed; rebuilding")
 
     report = build(args)
+    if args.countries and not args.dry_run:
+        # One guide per current country playlist: remove anything the earlier runs
+        # left behind, but only when every expected country guide was published.
+        countries = [item.get("country") for item in report.get("country_guides", []) if item.get("country")]
+        if (countries and report.get("country_guides_complete")
+                and len(countries) == len(country_paths)):
+            removed = prune_stale_guides(epg_dir, set(countries), {args.name})
+            if removed:
+                report["stale_guides_removed"] = removed
+                log(f"[epg-build] removed {len(removed)} stale guide(s): "
+                    + ", ".join(removed))
     published_xml_exists = (epg_dir / f"{args.name}.xml").is_file()
     if args.patch and not args.dry_run:
         if report.get("published") or published_xml_exists:
