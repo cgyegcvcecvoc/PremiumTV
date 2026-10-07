@@ -1,230 +1,76 @@
 {
-  "run_id": "20261006T120002Z-2524",
+  "run_id": "20261007T114448Z-2513",
   "label": "nightly deep link check",
-  "started_utc": "2026-10-06T12:00:02Z",
-  "finished_utc": "2026-10-06T12:02:47Z",
-  "duration_seconds": 164.2,
+  "started_utc": "2026-10-07T11:44:48Z",
+  "finished_utc": "2026-10-07T11:47:42Z",
+  "duration_seconds": 174.2,
   "deep": true,
-  "playlist_count": 174,
-  "entry_count": 19733,
-  "unique_links": 9837,
+  "playlist_count": 175,
+  "entry_count": 19801,
+  "unique_links": 9871,
   "workers": 96,
   "timeout": 10.0,
   "retries": 1,
   "per_playlist": {
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/PremiumTV.m3u": {
       "file": "playlists/PremiumTV.m3u",
-      "entries": 9837,
+      "entries": 9871,
       "counts": {
-        "working": 9743,
-        "offline": 59,
-        "unreachable": 27,
-        "blocked": 8,
+        "working": 9805,
+        "offline": 38,
+        "unreachable": 19,
+        "blocked": 9,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
       "dead": [
         {
-          "name": "ERT Sports 2",
-          "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTSports2/default/index.mpd",
+          "name": "Ovacion TV (720p) [Not 24/7]",
+          "url": "http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8",
           "group": "Sports",
           "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.969
-        },
-        {
-          "name": "SPOTV 2 (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2630",
-          "group": "Sports",
-          "status": "offline",
-          "reason": "connection refused",
+          "reason": "dns lookup failed",
           "http_status": 0,
           "content_type": "",
           "bytes": 0,
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.256
+          "elapsed": 6.615
         },
         {
-          "name": "SPOTV (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2614",
-          "group": "Sports",
-          "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.258
-        },
-        {
-          "name": "FashionTV Asia (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2616",
+          "name": "Discovery Life",
+          "url": "https://cache0.wonvt.st/live/04jtyrz0krzod10e5j0fe/master.m3u8",
           "group": "Lifestyle",
-          "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.252
-        },
-        {
-          "name": "Jordan Tourism (1080p)",
-          "url": "https://playlist.fasttvcdn.com/pl/cc0blorawy1ibohhrupraa/Tourism/playlist.m3u8",
-          "group": "Lifestyle",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 734,
-          "kind": "hls-master",
-          "variant": "https://playlist.fasttvcdn.com/pl/cc0blorawy1ibohhrupraa/Tourism/playlist/4.m3u8?sid=Sde3te-a0EWqRLi8qc1xdg",
-          "segment_ok": null,
-          "elapsed": 0.372
-        },
-        {
-          "name": "Outdoor Channel (Backup 1)",
-          "url": "https://cache0.wonvt.st/live/01s5dub0je1bmd1fhc0or/master.m3u8",
-          "group": "Lifestyle Backups",
           "status": "offline",
           "reason": "playlist only, HTTP 502",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl; charset=utf-8",
-          "bytes": 4138,
+          "bytes": 4192,
           "kind": "hls-media",
           "variant": "",
           "segment_ok": false,
-          "elapsed": 0.569
+          "elapsed": 0.459
         },
         {
-          "name": "Look Thoong TV (720p) [Not 24/7]",
-          "url": "https://livefta.malimarcdn.com/ftaedge00/lookthoongtv.sdp/playlist.m3u8",
+          "name": "Dhoom Music (720p)",
+          "url": "https://cdn.pishow.tv/ott/live/1456/master.m3u8",
           "group": "Music",
           "status": "offline",
-          "reason": "variant HTTP 404",
+          "reason": "playlist only, HTTP 404",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 126,
-          "kind": "hls-master",
-          "variant": "https://livefta.malimarcdn.com/ftaedge00/lookthoongtv.sdp/chunklist.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.158
-        },
-        {
-          "name": "One TV (720p) [Not 24/7]",
-          "url": "https://hms.pfs.gdn/v1/broadcast/one/playlist.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 3737,
-          "kind": "hls-master",
-          "variant": "https://hms.pfs.gdn/hms/v1/broadcast/one/backup/tracks-v1a1/mono.m3u8?token=VSaE_kptEUo-6ugWLqW5TA:O9ifmNWVMe8EKKQUYKFUTffj3ruUxGLms38id_NgrwE0UIVNJ2Q2BKZcqHRcaihmEdCyw7ypyMkf-hW3MmCmYtoK-B7mQ0p8qSmZmqS2B5QTNA3stcAK_5ZaP1Uup_4IXMiU_7E3yUlboNADBD2TGY7WwpCyzSAPVeERWaSWzZvhG1ExH9CHYUIsIkcybyXBYJxbDx1Jlb8zgREf-6vRnvhDVdBhHErpaPbz4XImgYo",
-          "segment_ok": null,
-          "elapsed": 0.05
-        },
-        {
-          "name": "OneFM (720p) [Not 24/7]",
-          "url": "https://hms.pfs.gdn/v1/broadcast/onefm/playlist.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.06
-        },
-        {
-          "name": "Radio Carnaval TV (720p) [Not 24/7]",
-          "url": "https://eu1.servers10.com:8081/8116/index.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.492
-        },
-        {
-          "name": "ROCK Entertainment HD (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2612",
-          "group": "Music",
-          "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.25
-        },
-        {
-          "name": "SpektraTV (720p)",
-          "url": "https://cloudvideo.servers10.com:8081/8026/tracks-v1a1/index.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.375
-        },
-        {
-          "name": "Super Q Panama (1080p)",
-          "url": "https://vcp8.myplaytv.com:1936/superq/superq/playlist.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "variant HTTP timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 86,
-          "kind": "hls-master",
-          "variant": "https://vcp8.myplaytv.com:1936/superq/superq/chunklist_w589154736.m3u8",
-          "segment_ok": null,
-          "elapsed": 3.349
-        },
-        {
-          "name": "CMT (Backup 1)",
-          "url": "https://cache0.wonvt.st/live/1dl2j7a1eycmfv0hzqo9q/master.m3u8",
-          "group": "Music Backups",
-          "status": "offline",
-          "reason": "playlist only, HTTP 502",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl; charset=utf-8",
-          "bytes": 4194,
-          "kind": "hls-media",
-          "variant": "",
+          "bytes": 370,
+          "kind": "hls-variant (2340 kbps)",
+          "variant": "https://cdn.pishow.tv/ott/live/1456/1456_1.m3u8",
           "segment_ok": false,
-          "elapsed": 0.578
+          "elapsed": 0.777
         },
         {
-          "name": "Baraka Television (720p) [Not 24/7]",
-          "url": "https://stream.berosat.live:19360/baraka-hd/baraka-hd.m3u8",
-          "group": "News",
+          "name": "m2o TV (1080p)",
+          "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S62628868/uhdWBlkC1AoO/playlist.m3u8",
+          "group": "Music",
           "status": "offline",
           "reason": "HTTP 404",
           "http_status": 404,
@@ -233,12 +79,12 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.403
+          "elapsed": 1.274
         },
         {
-          "name": "CGTN French (1080p)",
-          "url": "http://145.239.5.177/214/index.m3u8",
-          "group": "News",
+          "name": "Radio Capital TiVu (720p)",
+          "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S35394734/Z6U2wGoDYANk/playlist.m3u8",
+          "group": "Music",
           "status": "offline",
           "reason": "HTTP 404",
           "http_status": 404,
@@ -247,180 +93,12 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 1.18
+          "elapsed": 0.943
         },
         {
-          "name": "ERT News",
-          "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTNews/default/index.mpd",
-          "group": "News",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.626
-        },
-        {
-          "name": "Panafrican Media TV (480p)",
-          "url": "https://live20.bozztv.com/giatv/giatv-pmtv/pmtv/playlist.m3u8",
-          "group": "News",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.063
-        },
-        {
-          "name": "Star Bharat (India) (576p)",
-          "url": "http://51.75.127.199:3141/starbharat/index.m3u8",
-          "group": "News",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.196
-        },
-        {
-          "name": "TVR Info",
-          "url": "https://tvr-info.lg.mncdn.com/tvrinfo/smil:tvrinfo.smil/playlist.m3u8",
-          "group": "News",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 423,
-          "kind": "hls-master",
-          "variant": "https://tvr-info.lg.mncdn.com/tvrinfo/smil:tvrinfo.smil/chunklist_b5160000.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.029
-        },
-        {
-          "name": "Canal 33 Madrid",
-          "url": "https://media2.streambrothers.com:1936/8140/8140/playlist.m3u8",
-          "group": "Europe",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.653
-        },
-        {
-          "name": "dlaCiebie.tv (1080p) [Not 24/7]",
-          "url": "http://94.246.128.53:1935/tv/dlaCiebieTv/playlist.m3u8",
-          "group": "Europe",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.242
-        },
-        {
-          "name": "Gubernia Samara (576p)",
-          "url": "http://live.guberniatv.cdnvideo.ru/guberniatv/guberniatv.sdp/playlist.m3u8",
-          "group": "Europe",
-          "status": "offline",
-          "reason": "playlist only, timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 228,
-          "kind": "hls-variant (1170 kbps)",
-          "variant": "http://live.guberniatv.cdnvideo.ru/guberniatv/guberniatv.sdp/tracks-v1a1/mono.ts.m3u8?hls_proxy_host=544a3dd774cf5ef35a8f5a9f4367ec1a",
-          "segment_ok": false,
-          "elapsed": 0.411
-        },
-        {
-          "name": "NTM (720p) [Not 24/7]",
-          "url": "https://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/playlist.m3u8",
-          "group": "Europe",
-          "status": "offline",
-          "reason": "playlist only, timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 667,
-          "kind": "hls-variant (4110 kbps)",
-          "variant": "https://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/tracks-v1a1/mono.ts.m3u8?hls_proxy_host=06356f05f0a86f5bff53697210849f42",
-          "segment_ok": false,
-          "elapsed": 0.454
-        },
-        {
-          "name": "\u0415\u043d\u0438\u0441\u0435\u0439 (Backup 19)",
-          "url": "http://online-video.rbc.ru/online2/rbctv.m3u8",
-          "group": "Europe Backups",
-          "status": "offline",
-          "reason": "variant HTTP timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 1019,
-          "kind": "hls-master",
-          "variant": "https://f78lz4fal0.a.trbcdn.net/cdnvideo/rbctvhd_1080p/index.m3u8?e=cdnvideo&t=SRkPir",
-          "segment_ok": null,
-          "elapsed": 1.441
-        },
-        {
-          "name": "dlaCiebie.tv (Backup 1)",
-          "url": "https://6034e09794f07.streamlock.net/tv/dlaCiebieTv/playlist.m3u8",
-          "group": "Europe Backups",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.757
-        },
-        {
-          "name": "All Time Movies (576p)",
-          "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-          "group": "Movies",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.859
-        },
-        {
-          "name": "Boogle Bollywood (720p)",
-          "url": "https://yuppnimrestreammum.akamaized.net/181224/smil:bogglebollywood.smil/playlist.m3u8?hdnts=st=1735898689~exp=1835898688~acl=*~hmac=f5fe24724fe05481e3841f9eb5ab8efdee0a3dd83645ae9dcf45703f525bab7b",
-          "group": "Movies",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/x-mpegurl",
-          "bytes": 404,
-          "kind": "hls-master",
-          "variant": "https://yuppnimrestreammum.akamaized.net/181224/smil:bogglebollywood.smil/hdntl=exp=1791374455~acl=%2f*~data=hdntl~hmac=3b8afff9fa802bf07df0e7d8dee581f725ca5df6f6ba5ac91c55bc3d63be7da3/chunklist_b2628000.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.051
-        },
-        {
-          "name": "HITS Movies (576p)",
-          "url": "http://103.151.60.162:2122/play/a01h/index.m3u8?hls",
-          "group": "Movies",
+          "name": "Retro Plus 2 (720p)",
+          "url": "https://tls-cl.cdnz.cl/retroplustvuno/live/playlist.m3u8",
+          "group": "Music",
           "status": "offline",
           "reason": "HTTP 404",
           "http_status": 404,
@@ -432,36 +110,162 @@
           "elapsed": 0.574
         },
         {
-          "name": "Rakuten TV Drama Movies (1080p)",
-          "url": "https://a7089c89d85f453d850c4a1518b43076.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6092/master.m3u8",
-          "group": "Movies",
+          "name": "SONGTV Russia",
+          "url": "https://songtv.hls.iptvdc.com/web-russia/playlist.m3u8",
+          "group": "Music",
+          "status": "offline",
+          "reason": "variant HTTP 503",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 352,
+          "kind": "hls-master",
+          "variant": "https://songtv.hls.iptvdc.com/web-russia/hd/playlist.m3u8",
+          "segment_ok": null,
+          "elapsed": 1.339
+        },
+        {
+          "name": "X 102.7 FM",
+          "url": "https://live2.tensila.com/onair-v-1.xfm1027/hls/master.m3u8",
+          "group": "Music",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "http_status": 200,
+          "content_type": "application/octet-stream",
+          "bytes": 176,
+          "kind": "hls-master",
+          "variant": "https://live2.tensila.com/onair-v-1.xfm1027/hls/live/mystream.m3u8",
+          "segment_ok": null,
+          "elapsed": 0.289
+        },
+        {
+          "name": "Afrik Info TV",
+          "url": "https://kali.vdopanel.com:3119/hybrid/play.m3u8",
+          "group": "News",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.649
+        },
+        {
+          "name": "Almahriah TV (576p)",
+          "url": "https://starmenajo.com/hls/almahriah/index.m3u8",
+          "group": "News",
+          "status": "offline",
+          "reason": "playlist only, HTTP 404",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 115,
+          "kind": "hls-media",
+          "variant": "",
+          "segment_ok": false,
+          "elapsed": 0.522
+        },
+        {
+          "name": "Buletin India (576p)",
+          "url": "http://51.75.127.199:3141/buletinindia/index.m3u8",
+          "group": "News",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.223
+        },
+        {
+          "name": "Prudent Media (1080p)",
+          "url": "https://prudentmcdn.rixcast.com/prudentm.m3u8",
+          "group": "News",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 823,
+          "kind": "html/text page, not a stream",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.48
+        },
+        {
+          "name": "RTM TV (1080p)",
+          "url": "https://5f22d76e220e1.streamlock.net/rtm/rtm/playlist.m3u8",
+          "group": "Europe",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.67
+        },
+        {
+          "name": "Tide TV (1080p)",
+          "url": "https://5889e7d0d6e28.streamlock.net/tide-live/_definst_/smil:livestream.smil/playlist.m3u8",
+          "group": "Europe",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 298,
+          "kind": "hls-master",
+          "variant": "https://5889e7d0d6e28.streamlock.net/tide-live/_definst_/smil:livestream.smil/chunklist_w1266714717_b5500000.m3u8",
+          "segment_ok": null,
+          "elapsed": 0.631
+        },
+        {
+          "name": "TVE Internacional Asia-Oceania (576p) [Geo-blocked]",
+          "url": "https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/tvei_asia_main_576.m3u8",
+          "group": "Europe",
           "status": "offline",
           "reason": "playlist only, HTTP 403",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 1931,
-          "kind": "hls-variant (4520 kbps)",
-          "variant": "https://a7089c89d85f453d850c4a1518b43076.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6092/185abe7e-7f6d-4c9c-8157-539a468b1832/4.m3u8",
+          "bytes": 566,
+          "kind": "hls-media",
+          "variant": "",
           "segment_ok": false,
-          "elapsed": 0.36
+          "elapsed": 0.317
         },
         {
-          "name": "JEI TV",
-          "url": "https://live-th10.myjktv.com/watch/live.m3u8?video=jei_jenung_540&sid=0U5gGVD8MUVHzIdG1JINTEXBzFPw1TS9XkiLqQM0&secret=8aabea762716b38bbc4b6c6fa0bbe509&time=1771648766",
+          "name": "Asianet Movies (576p)",
+          "url": "http://51.75.127.199:3141/asianetmovies/index.m3u8",
+          "group": "Movies",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.224
+        },
+        {
+          "name": "BTV (480p)",
+          "url": "https://fs3.kabelko.sk/9011/index.m3u8?token=btv",
           "group": "International",
           "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 219,
-          "kind": "hls-master",
-          "variant": "https://live-th10.myjktv.com/playlist/live.m3u8?sid=0U5gGVD8MUVHzIdG1JINTEXBzFPw1TS9XkiLqQM0&secret=711163ca78c6591926a00fd17b376e66&time=1771648766",
+          "reason": "dns lookup failed",
+          "http_status": 0,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
           "segment_ok": null,
-          "elapsed": 0.856
+          "elapsed": 6.144
         },
         {
-          "name": "Sicilia 24 Tv",
-          "url": "https://5f22d76e220e1.streamlock.net/sicilia24/sicilia24/playlist.m3u8",
+          "name": "Deejay TV (1080p)",
+          "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO0tz9Sr2Rk/playlist.m3u8",
           "group": "International",
           "status": "offline",
           "reason": "HTTP 404",
@@ -471,124 +275,110 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.515
+          "elapsed": 0.846
         },
         {
-          "name": "Tele Liguria Sud (576p)",
-          "url": "https://5f22d76e220e1.streamlock.net/tls/tls/playlist.m3u8",
-          "group": "International",
+          "name": "Canal+ (720p)",
+          "url": "http://151.80.18.177:86/Canal+_HD/index.m3u8",
+          "group": "Entertainment",
           "status": "offline",
-          "reason": "playlist only, TimeoutError",
+          "reason": "playlist only, HTTP 404",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 138,
-          "kind": "hls-variant (1722 kbps)",
-          "variant": "https://5f22d76e220e1.streamlock.net/tls/tls/chunklist_w289733698.m3u8",
+          "bytes": 128,
+          "kind": "hls-variant (180 kbps)",
+          "variant": "http://151.80.18.177:86/Canal+_HD/tracks-a1/mono.m3u8",
           "segment_ok": false,
-          "elapsed": 0.562
+          "elapsed": 0.263
         },
         {
-          "name": "TLT Molise (1080p)",
-          "url": "https://5f22d76e220e1.streamlock.net/tltmolise/tltmolise/playlist.m3u8",
-          "group": "International",
+          "name": "Manoranjan TV (720p)",
+          "url": "https://cdn.pishow.tv/ott/live/1013/master.m3u8",
+          "group": "Entertainment",
+          "status": "offline",
+          "reason": "playlist only, HTTP 404",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 370,
+          "kind": "hls-variant (2340 kbps)",
+          "variant": "https://cdn.pishow.tv/ott/live/1013/1013_1.m3u8",
+          "segment_ok": false,
+          "elapsed": 0.742
+        },
+        {
+          "name": "Univers TV (720p)",
+          "url": "https://cloud2.streaminglivehd.com:1936/universfaller/universfaller/playlist.m3u8",
+          "group": "Entertainment",
           "status": "offline",
           "reason": "variant HTTP TimeoutError",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 138,
+          "bytes": 139,
           "kind": "hls-master",
-          "variant": "https://5f22d76e220e1.streamlock.net/tltmolise/tltmolise/chunklist_w2047656484.m3u8",
+          "variant": "https://cloud2.streaminglivehd.com:1936/universfaller/universfaller/chunklist_w1021390225.m3u8",
           "segment_ok": null,
-          "elapsed": 0.478
+          "elapsed": 0.322
         },
         {
-          "name": "TVR International",
-          "url": "https://tvr-international.lg.mncdn.com/tvrinternational/smil:tvrinternational.smil/playlist.m3u8",
-          "group": "International",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 423,
-          "kind": "hls-master",
-          "variant": "https://tvr-international.lg.mncdn.com/tvrinternational/smil:tvrinternational.smil/chunklist_b5160000.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.302
-        },
-        {
-          "name": "Qatar Television (Backup 1)",
-          "url": "https://qatartv.akamaized.net/hls/live/20000609/qtv1/master.m3u8",
-          "group": "International Backups",
-          "status": "offline",
-          "reason": "playlist only, HTTP 404",
-          "http_status": 200,
-          "content_type": "application/x-mpegurl",
-          "bytes": 1365,
-          "kind": "hls-variant (7357 kbps)",
-          "variant": "https://qatartv.akamaized.net/hls/live/20000609/qtv1/stream_04/index.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.431
-        },
-        {
-          "name": "Bhagyam TV (1080p)",
-          "url": "https://ott.bhagyam.net/hls/bhagyamweb/index-1409148900-now.m3u8",
-          "group": "Religious",
+          "name": "Canal Sete",
+          "url": "http://play.canalsete.com.br:1935/canalsete/xpl-c7_source/playlist.m3u8",
+          "group": "South America",
           "status": "offline",
           "reason": "playlist only, TimeoutError",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 400,
-          "kind": "hls-variant (4940 kbps)",
-          "variant": "https://ott.bhagyam.net/hls/bhagyamweb/tracks-v2a1/index-1409148900-now.m3u8",
+          "bytes": 139,
+          "kind": "hls-variant (1338 kbps)",
+          "variant": "http://play.canalsete.com.br:1935/canalsete/xpl-c7_source/chunklist_w501340375.m3u8",
           "segment_ok": false,
-          "elapsed": 0.939
+          "elapsed": 0.91
         },
         {
-          "name": "30A Television Channel (720p)",
-          "url": "https://30a-tv.com/feeds/masters/30atv.m3u8",
-          "group": "Entertainment",
-          "status": "offline",
-          "reason": "variant HTTP RemoteDisconnected",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 207,
-          "kind": "hls-master",
-          "variant": "https://30a-tv.com/feeds/720p/33.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.403
-        },
-        {
-          "name": "iTV HD",
-          "url": "https://ip.pdtvhd.com/Khmer/streams/ITVHD.m3u8",
-          "group": "Entertainment",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.79
-        },
-        {
-          "name": "Star Suvarna (576p)",
-          "url": "http://51.75.127.199:3141/starsuvarna/index.m3u8",
-          "group": "Entertainment",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.179
-        },
-        {
-          "name": "Bolivia TV (1080p)",
-          "url": "http://190.181.61.93:8000/play/a001/index.m3u8",
+          "name": "Onda TV (Peru) (720p)",
+          "url": "https://live-evg5.tv360.bitel.com.pe/bitel/onda/playlist.m3u8",
           "group": "South America",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.921
+        },
+        {
+          "name": "Portuguesa Television (480p) [Not 24/7]",
+          "url": "https://streamtv.intervenhosting.net:3789/live/portutvlive.m3u8",
+          "group": "South America",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.146
+        },
+        {
+          "name": "TV Alianca Catarinense (720p)",
+          "url": "https://video01.logicahost.com.br/tvalianca/tvalianca/playlist.m3u8",
+          "group": "South America",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 1.067
+        },
+        {
+          "name": "NBT TV Chiang Mai",
+          "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:4f6e-aa34-2034-5492-c82d.smil/playlist.m3u8",
+          "group": "Asia",
           "status": "offline",
           "reason": "connection refused",
           "http_status": 0,
@@ -597,137 +387,95 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.14
+          "elapsed": 0.385
         },
         {
-          "name": "Canal 13 La Rioja (480p)",
-          "url": "http://arcast.net:1935/mp/mp/playlist.m3u8",
-          "group": "South America",
+          "name": "NBT World (1080p)",
+          "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:d36f-93c1-9c58-fdcc-427f.smil/playlist.m3u8",
+          "group": "Asia",
           "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
+          "reason": "connection refused",
+          "http_status": 0,
           "content_type": "",
           "bytes": 0,
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.103
+          "elapsed": 0.382
         },
         {
-          "name": "Nuestra Tele Internacional (1080p)",
-          "url": "http://45.173.231.22:8000/play/a0cr/index.m3u8",
-          "group": "South America",
+          "name": "Camu TV (480p) [Not 24/7]",
+          "url": "https://live20.bozztv.com/akamaissh101/ssh101/camutv/playlist.m3u8",
+          "group": "North America",
+          "status": "offline",
+          "reason": "variant HTTP 502",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 137,
+          "kind": "hls-master",
+          "variant": "https://live20.bozztv.com/akamaissh101/ssh101/camutv/chunks.m3u8",
+          "segment_ok": null,
+          "elapsed": 0.126
+        },
+        {
+          "name": "Elias Pina TV (720p) [Not 24/7]",
+          "url": "https://cloud2.streaminglivehd.com:1936/8078/8078/playlist.m3u8",
+          "group": "North America",
           "status": "offline",
           "reason": "playlist only, TimeoutError",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 133,
-          "kind": "hls-variant (1850 kbps)",
-          "variant": "http://45.173.231.22:8000/play/a0cr/95598936.m3u8",
+          "bytes": 136,
+          "kind": "hls-variant (570 kbps)",
+          "variant": "https://cloud2.streaminglivehd.com:1936/8078/8078/chunklist_w686785549.m3u8",
           "segment_ok": false,
-          "elapsed": 0.218
+          "elapsed": 0.888
         },
         {
-          "name": "Hunan TV (2160p)",
-          "url": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "playlist only, timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 231,
-          "kind": "hls-media",
-          "variant": "",
-          "segment_ok": false,
-          "elapsed": 1.221
-        },
-        {
-          "name": "JTV Malang",
-          "url": "http://122.248.43.242:1935/JTVMALANG/_definst_/myStream/playlist.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.472
-        },
-        {
-          "name": "Lao Net TV (720p)",
-          "url": "https://livefta.malimarcdn.com/ftaedge00/laonet.sdp/playlist.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 125,
-          "kind": "hls-master",
-          "variant": "https://livefta.malimarcdn.com/ftaedge00/laonet.sdp/chunklist.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.157
-        },
-        {
-          "name": "Myanmar International TV",
-          "url": "https://mrtvott.com/cache/MITV/master.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "variant HTTP TimeoutError",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 348,
-          "kind": "hls-master",
-          "variant": "https://mrtvott.com/cache/MITV/m3u8/cache_MITV_m3u8_hls_m3u8_MITV-TS-H.m3u8",
-          "segment_ok": null,
-          "elapsed": 2.125
-        },
-        {
-          "name": "Guayape TV",
-          "url": "https://tv.bitstreaming.net:8443/live/guayapetv.m3u8",
+          "name": "Jimani TV (360p) [Geo-blocked]",
+          "url": "https://cloud2.streaminglivehd.com:1936/8246/8246/playlist.m3u8",
           "group": "North America",
           "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.029
+          "reason": "playlist only, TimeoutError",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 137,
+          "kind": "hls-variant (617 kbps)",
+          "variant": "https://cloud2.streaminglivehd.com:1936/8246/8246/chunklist_w1915698334.m3u8",
+          "segment_ok": false,
+          "elapsed": 0.748
         },
         {
-          "name": "Zonavision TV [Not 24/7]",
-          "url": "https://ds.tvabierta.net/memfs/b295f254-7af9-45e4-bfc6-7e0bba41929d.m3u8",
-          "group": "North America",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.108
-        },
-        {
-          "name": "Asharq Documentary (1080p)",
-          "url": "https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8",
+          "name": "Asharq Discovery (1080p)",
+          "url": "https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/playlist_dvr.m3u8",
           "group": "Documentary",
           "status": "offline",
           "reason": "playlist only, HTTP 404",
           "http_status": 200,
           "content_type": "application/x-mpegurl",
-          "bytes": 768,
-          "kind": "hls-variant (6131 kbps)",
-          "variant": "https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/asharqdocumentarypublish/asharqdocumentary_source/chunks_dvr.m3u8",
+          "bytes": 721,
+          "kind": "hls-variant (6121 kbps)",
+          "variant": "https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/asharqdiscoverypublish/asharqd_source/chunks_dvr.m3u8",
           "segment_ok": false,
-          "elapsed": 0.29
+          "elapsed": 0.166
         },
         {
-          "name": "Disney International HD (576p)",
-          "url": "http://103.151.60.162:2122/play/a018/index.m3u8?hls",
+          "name": "RL PRO TV",
+          "url": "https://stream.berosat.live:19360/rlpro-tv/rlpro-tv.m3u8",
+          "group": "Documentary",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 823,
+          "kind": "html/text page, not a stream",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.909
+        },
+        {
+          "name": "Taha TV (576p)",
+          "url": "https://stream.starmenajo.com/hls/app/live/ts:fhd.m3u8",
           "group": "Kids",
           "status": "offline",
           "reason": "HTTP 404",
@@ -737,25 +485,11 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.586
+          "elapsed": 0.559
         },
         {
-          "name": "13C (1080p)",
-          "url": "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8",
-          "group": "Culture",
-          "status": "offline",
-          "reason": "playlist only, timeout",
-          "http_status": 200,
-          "content_type": "application/x-mpegurl; charset=utf-8",
-          "bytes": 1141,
-          "kind": "hls-variant (11173 kbps)",
-          "variant": "https://dai.google.com/linear/hls/pa/event/GI-9cp_bT8KcerLpZwkuhw/stream/cba9b9de-2708-4f8a-9bd3-9e19bb9ea07d:CHS/variant/9ea3a15e5eae74e8479c3d9f99fa54ea/bandwidth/11173915.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.409
-        },
-        {
-          "name": "El Sonorense (1080p) [Not 24/7]",
-          "url": "https://s5.mexside.net:1936/elsonorense/elsonorense/playlist.m3u8",
+          "name": "Imai TV (1080p)",
+          "url": "https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8",
           "group": "Culture",
           "status": "offline",
           "reason": "HTTP 404",
@@ -765,39 +499,25 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.458
+          "elapsed": 0.111
         },
         {
-          "name": "Medeniyyet TV (1080p)",
-          "url": "https://str.yodacdn.net/medeniyyettele/index.m3u8",
-          "group": "Culture",
+          "name": "DD Rajasthan (720p)",
+          "url": "https://cdn.pishow.tv/ott/live/34/master.m3u8",
+          "group": "India",
           "status": "offline",
           "reason": "playlist only, HTTP 404",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 538,
-          "kind": "hls-variant (4150 kbps)",
-          "variant": "https://str.yodacdn.net/medeniyyettele/tracks-v1a1/mono.ts.m3u8",
+          "bytes": 364,
+          "kind": "hls-variant (2340 kbps)",
+          "variant": "https://cdn.pishow.tv/ott/live/34/34_1.m3u8",
           "segment_ok": false,
-          "elapsed": 0.776
+          "elapsed": 0.757
         },
         {
-          "name": "MRTV NRC",
-          "url": "https://mrtvott.com/cache/MRTV-NRC-HD/master.m3u8",
-          "group": "Culture",
-          "status": "offline",
-          "reason": "variant HTTP TimeoutError",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 390,
-          "kind": "hls-master",
-          "variant": "https://mrtvott.com/cache/MRTV-NRC-HD/m3u8/cache_MRTV-NRC-HD_m3u8_hls_m3u8_MRTV-NRC-HD-TS-H.m3u8",
-          "segment_ok": null,
-          "elapsed": 2.173
-        },
-        {
-          "name": "CCV (480p)",
-          "url": "https://5a1178b42cc03.streamlock.net/8212/8212/playlist.m3u8",
+          "name": "HSTV (720p)",
+          "url": "https://live.castmaxcloud.com/live/hstv.m3u8",
           "group": "India",
           "status": "offline",
           "reason": "HTTP 404",
@@ -807,39 +527,25 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.544
+          "elapsed": 0.513
         },
         {
-          "name": "Shubhsandesh (720p) [Not 24/7]",
-          "url": "https://6284rn2xr7xv-hls-live.wmncdn.net/shubhsandeshtv1/live123.stream/index.m3u8",
-          "group": "India",
+          "name": "ABC",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb354/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzU0OjE3OTEzNzk4MDM2OTU6Y2RubGl2ZXR2LnR2OmYxNWIwOTFjMmE0YmI5ODkuZGQ3MDI0Zjk5MTljM2IxZTExZjE5ODc5OTI4OTEyMTM5ZDMyN2ZjZjg2NTcwYmFkNDRjM2ZhNTQxMDBjOWQyMg",
+          "group": "Australia",
           "status": "offline",
-          "reason": "playlist only, timeout",
+          "reason": "playlist only, HTTP 503",
           "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 122,
-          "kind": "hls-variant (815 kbps)",
-          "variant": "https://6284rn2xr7xv-hls-live.wmncdn.net/shubhsandeshtv1/live123.stream/chunks.m3u8",
+          "content_type": "application/x-mpegurl; charset=utf-8",
+          "bytes": 2283,
+          "kind": "hls-media",
+          "variant": "",
           "segment_ok": false,
-          "elapsed": 0.74
+          "elapsed": 0.506
         },
         {
-          "name": "Channel Y (720p) [Not 24/7]",
-          "url": "http://cdn19.live247stream.com/channely/tv/playlist.m3u8",
-          "group": "Canada",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 283,
-          "kind": "hls-master",
-          "variant": "http://cdn19.live247stream.com/channely/tv/channely/stream/chunks.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.041
-        },
-        {
-          "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 22)",
-          "url": "https://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
+          "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 12)",
+          "url": "https://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8",
           "group": "Other Backups",
           "status": "offline",
           "reason": "playlist only, TimeoutError",
@@ -849,7 +555,7 @@
           "kind": "hls-media",
           "variant": "",
           "segment_ok": false,
-          "elapsed": 6.458
+          "elapsed": 5.675
         }
       ]
     },
@@ -883,9 +589,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Albania.m3u": {
       "file": "playlists/countries/Albania.m3u",
-      "entries": 16,
+      "entries": 15,
       "counts": {
-        "working": 16,
+        "working": 15,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -897,12 +603,12 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Algeria.m3u": {
       "file": "playlists/countries/Algeria.m3u",
-      "entries": 4,
+      "entries": 6,
       "counts": {
         "working": 4,
         "offline": 0,
         "unreachable": 0,
-        "blocked": 0,
+        "blocked": 2,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
@@ -937,6 +643,20 @@
       },
       "dead": []
     },
+    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Antigua_and_Barbuda.m3u": {
+      "file": "playlists/countries/Antigua_and_Barbuda.m3u",
+      "entries": 1,
+      "counts": {
+        "working": 1,
+        "offline": 0,
+        "unreachable": 0,
+        "blocked": 0,
+        "unsupported": 0,
+        "invalid": 0,
+        "unchecked": 0
+      },
+      "dead": []
+    },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Arab_World.m3u": {
       "file": "playlists/countries/Arab_World.m3u",
       "entries": 15,
@@ -953,32 +673,17 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Argentina.m3u": {
       "file": "playlists/countries/Argentina.m3u",
-      "entries": 152,
+      "entries": 154,
       "counts": {
-        "working": 151,
-        "offline": 1,
+        "working": 154,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Canal 13 La Rioja (480p)",
-          "url": "http://arcast.net:1935/mp/mp/playlist.m3u8",
-          "group": "South America",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.103
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Armenia.m3u": {
       "file": "playlists/countries/Armenia.m3u",
@@ -998,15 +703,30 @@
       "file": "playlists/countries/Aruba.m3u",
       "entries": 9,
       "counts": {
-        "working": 9,
-        "offline": 0,
+        "working": 8,
+        "offline": 1,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "X 102.7 FM",
+          "url": "https://live2.tensila.com/onair-v-1.xfm1027/hls/master.m3u8",
+          "group": "Music",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "http_status": 200,
+          "content_type": "application/octet-stream",
+          "bytes": 176,
+          "kind": "hls-master",
+          "variant": "https://live2.tensila.com/onair-v-1.xfm1027/hls/live/mystream.m3u8",
+          "segment_ok": null,
+          "elapsed": 0.289
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Australia.m3u": {
       "file": "playlists/countries/Australia.m3u",
@@ -1024,9 +744,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Austria.m3u": {
       "file": "playlists/countries/Austria.m3u",
-      "entries": 37,
+      "entries": 39,
       "counts": {
-        "working": 37,
+        "working": 39,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1040,30 +760,15 @@
       "file": "playlists/countries/Azerbaijan.m3u",
       "entries": 14,
       "counts": {
-        "working": 13,
-        "offline": 1,
+        "working": 14,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Medeniyyet TV (1080p)",
-          "url": "https://str.yodacdn.net/medeniyyettele/index.m3u8",
-          "group": "Culture",
-          "status": "offline",
-          "reason": "playlist only, HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 538,
-          "kind": "hls-variant (4150 kbps)",
-          "variant": "https://str.yodacdn.net/medeniyyettele/tracks-v1a1/mono.ts.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.776
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Bahamas.m3u": {
       "file": "playlists/countries/Bahamas.m3u",
@@ -1095,9 +800,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Bangladesh.m3u": {
       "file": "playlists/countries/Bangladesh.m3u",
-      "entries": 20,
+      "entries": 21,
       "counts": {
-        "working": 20,
+        "working": 21,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1123,9 +828,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Belarus.m3u": {
       "file": "playlists/countries/Belarus.m3u",
-      "entries": 24,
+      "entries": 25,
       "counts": {
-        "working": 24,
+        "working": 25,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1182,29 +887,14 @@
       "entries": 47,
       "counts": {
         "working": 46,
-        "offline": 1,
-        "unreachable": 0,
+        "offline": 0,
+        "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Bolivia TV (1080p)",
-          "url": "http://190.181.61.93:8000/play/a001/index.m3u8",
-          "group": "South America",
-          "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.14
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Bosnia_and_Herzegovina.m3u": {
       "file": "playlists/countries/Bosnia_and_Herzegovina.m3u",
@@ -1222,17 +912,46 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Brazil.m3u": {
       "file": "playlists/countries/Brazil.m3u",
-      "entries": 184,
+      "entries": 186,
       "counts": {
         "working": 184,
-        "offline": 0,
+        "offline": 2,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "Canal Sete",
+          "url": "http://play.canalsete.com.br:1935/canalsete/xpl-c7_source/playlist.m3u8",
+          "group": "South America",
+          "status": "offline",
+          "reason": "playlist only, TimeoutError",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 139,
+          "kind": "hls-variant (1338 kbps)",
+          "variant": "http://play.canalsete.com.br:1935/canalsete/xpl-c7_source/chunklist_w501340375.m3u8",
+          "segment_ok": false,
+          "elapsed": 0.91
+        },
+        {
+          "name": "TV Alianca Catarinense (720p)",
+          "url": "https://video01.logicahost.com.br/tvalianca/tvalianca/playlist.m3u8",
+          "group": "South America",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 1.067
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/British_Virgin_Islands.m3u": {
       "file": "playlists/countries/British_Virgin_Islands.m3u",
@@ -1280,88 +999,43 @@
       "file": "playlists/countries/Cambodia.m3u",
       "entries": 16,
       "counts": {
-        "working": 15,
-        "offline": 1,
+        "working": 16,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "iTV HD",
-          "url": "https://ip.pdtvhd.com/Khmer/streams/ITVHD.m3u8",
-          "group": "Entertainment",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.79
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Cameroon.m3u": {
       "file": "playlists/countries/Cameroon.m3u",
       "entries": 10,
       "counts": {
-        "working": 9,
-        "offline": 1,
+        "working": 10,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Panafrican Media TV (480p)",
-          "url": "https://live20.bozztv.com/giatv/giatv-pmtv/pmtv/playlist.m3u8",
-          "group": "News",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.063
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Canada.m3u": {
       "file": "playlists/countries/Canada.m3u",
       "entries": 131,
       "counts": {
-        "working": 130,
-        "offline": 1,
+        "working": 131,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Channel Y (720p) [Not 24/7]",
-          "url": "http://cdn19.live247stream.com/channely/tv/playlist.m3u8",
-          "group": "Canada",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 283,
-          "kind": "hls-master",
-          "variant": "http://cdn19.live247stream.com/channely/tv/channely/stream/chunks.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.041
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Cape_Verde.m3u": {
       "file": "playlists/countries/Cape_Verde.m3u",
@@ -1407,11 +1081,11 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Chile.m3u": {
       "file": "playlists/countries/Chile.m3u",
-      "entries": 172,
+      "entries": 170,
       "counts": {
-        "working": 169,
+        "working": 166,
         "offline": 1,
-        "unreachable": 0,
+        "unreachable": 1,
         "blocked": 2,
         "unsupported": 0,
         "invalid": 0,
@@ -1419,52 +1093,9 @@
       },
       "dead": [
         {
-          "name": "13C (1080p)",
-          "url": "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8",
-          "group": "Culture",
-          "status": "offline",
-          "reason": "playlist only, timeout",
-          "http_status": 200,
-          "content_type": "application/x-mpegurl; charset=utf-8",
-          "bytes": 1141,
-          "kind": "hls-variant (11173 kbps)",
-          "variant": "https://dai.google.com/linear/hls/pa/event/GI-9cp_bT8KcerLpZwkuhw/stream/cba9b9de-2708-4f8a-9bd3-9e19bb9ea07d:CHS/variant/9ea3a15e5eae74e8479c3d9f99fa54ea/bandwidth/11173915.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.409
-        }
-      ]
-    },
-    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/China.m3u": {
-      "file": "playlists/countries/China.m3u",
-      "entries": 52,
-      "counts": {
-        "working": 50,
-        "offline": 2,
-        "unreachable": 0,
-        "blocked": 0,
-        "unsupported": 0,
-        "invalid": 0,
-        "unchecked": 0
-      },
-      "dead": [
-        {
-          "name": "Hunan TV (2160p)",
-          "url": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "playlist only, timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 231,
-          "kind": "hls-media",
-          "variant": "",
-          "segment_ok": false,
-          "elapsed": 1.221
-        },
-        {
-          "name": "CGTN French (1080p)",
-          "url": "http://145.239.5.177/214/index.m3u8",
-          "group": "News",
+          "name": "Retro Plus 2 (720p)",
+          "url": "https://tls-cl.cdnz.cl/retroplustvuno/live/playlist.m3u8",
+          "group": "Music",
           "status": "offline",
           "reason": "HTTP 404",
           "http_status": 404,
@@ -1473,44 +1104,43 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 1.18
+          "elapsed": 0.574
         }
       ]
     },
-    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Colombia.m3u": {
-      "file": "playlists/countries/Colombia.m3u",
-      "entries": 95,
+    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/China.m3u": {
+      "file": "playlists/countries/China.m3u",
+      "entries": 51,
       "counts": {
-        "working": 94,
-        "offline": 1,
+        "working": 51,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Nuestra Tele Internacional (1080p)",
-          "url": "http://45.173.231.22:8000/play/a0cr/index.m3u8",
-          "group": "South America",
-          "status": "offline",
-          "reason": "playlist only, TimeoutError",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 133,
-          "kind": "hls-variant (1850 kbps)",
-          "variant": "http://45.173.231.22:8000/play/a0cr/95598936.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.218
-        }
-      ]
+      "dead": []
+    },
+    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Colombia.m3u": {
+      "file": "playlists/countries/Colombia.m3u",
+      "entries": 96,
+      "counts": {
+        "working": 95,
+        "offline": 0,
+        "unreachable": 0,
+        "blocked": 1,
+        "unsupported": 0,
+        "invalid": 0,
+        "unchecked": 0
+      },
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Costa_Rica.m3u": {
       "file": "playlists/countries/Costa_Rica.m3u",
-      "entries": 53,
+      "entries": 49,
       "counts": {
-        "working": 53,
+        "working": 49,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1564,9 +1194,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Cyprus.m3u": {
       "file": "playlists/countries/Cyprus.m3u",
-      "entries": 21,
+      "entries": 22,
       "counts": {
-        "working": 21,
+        "working": 22,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1592,9 +1222,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/DR_Congo.m3u": {
       "file": "playlists/countries/DR_Congo.m3u",
-      "entries": 5,
+      "entries": 4,
       "counts": {
-        "working": 4,
+        "working": 3,
         "offline": 1,
         "unreachable": 0,
         "blocked": 0,
@@ -1604,26 +1234,26 @@
       },
       "dead": [
         {
-          "name": "Baraka Television (720p) [Not 24/7]",
-          "url": "https://stream.berosat.live:19360/baraka-hd/baraka-hd.m3u8",
-          "group": "News",
+          "name": "RL PRO TV",
+          "url": "https://stream.berosat.live:19360/rlpro-tv/rlpro-tv.m3u8",
+          "group": "Documentary",
           "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
+          "reason": "html page, not a stream",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 823,
+          "kind": "html/text page, not a stream",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.403
+          "elapsed": 0.909
         }
       ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Denmark.m3u": {
       "file": "playlists/countries/Denmark.m3u",
-      "entries": 7,
+      "entries": 6,
       "counts": {
-        "working": 7,
+        "working": 6,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1635,11 +1265,11 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Dominican_Republic.m3u": {
       "file": "playlists/countries/Dominican_Republic.m3u",
-      "entries": 191,
+      "entries": 193,
       "counts": {
-        "working": 190,
-        "offline": 1,
-        "unreachable": 0,
+        "working": 189,
+        "offline": 3,
+        "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -1647,18 +1277,46 @@
       },
       "dead": [
         {
-          "name": "Zonavision TV [Not 24/7]",
-          "url": "https://ds.tvabierta.net/memfs/b295f254-7af9-45e4-bfc6-7e0bba41929d.m3u8",
+          "name": "Camu TV (480p) [Not 24/7]",
+          "url": "https://live20.bozztv.com/akamaissh101/ssh101/camutv/playlist.m3u8",
           "group": "North America",
           "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
+          "reason": "variant HTTP 502",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 137,
+          "kind": "hls-master",
+          "variant": "https://live20.bozztv.com/akamaissh101/ssh101/camutv/chunks.m3u8",
           "segment_ok": null,
-          "elapsed": 0.108
+          "elapsed": 0.126
+        },
+        {
+          "name": "Elias Pina TV (720p) [Not 24/7]",
+          "url": "https://cloud2.streaminglivehd.com:1936/8078/8078/playlist.m3u8",
+          "group": "North America",
+          "status": "offline",
+          "reason": "playlist only, TimeoutError",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 136,
+          "kind": "hls-variant (570 kbps)",
+          "variant": "https://cloud2.streaminglivehd.com:1936/8078/8078/chunklist_w686785549.m3u8",
+          "segment_ok": false,
+          "elapsed": 0.888
+        },
+        {
+          "name": "Jimani TV (360p) [Geo-blocked]",
+          "url": "https://cloud2.streaminglivehd.com:1936/8246/8246/playlist.m3u8",
+          "group": "North America",
+          "status": "offline",
+          "reason": "playlist only, TimeoutError",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 137,
+          "kind": "hls-variant (617 kbps)",
+          "variant": "https://cloud2.streaminglivehd.com:1936/8246/8246/chunklist_w1915698334.m3u8",
+          "segment_ok": false,
+          "elapsed": 0.748
         }
       ]
     },
@@ -1666,9 +1324,9 @@
       "file": "playlists/countries/Ecuador.m3u",
       "entries": 51,
       "counts": {
-        "working": 50,
+        "working": 51,
         "offline": 0,
-        "unreachable": 1,
+        "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -1692,9 +1350,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/El_Salvador.m3u": {
       "file": "playlists/countries/El_Salvador.m3u",
-      "entries": 21,
+      "entries": 20,
       "counts": {
-        "working": 21,
+        "working": 20,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1776,9 +1434,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Finland.m3u": {
       "file": "playlists/countries/Finland.m3u",
-      "entries": 23,
+      "entries": 24,
       "counts": {
-        "working": 23,
+        "working": 24,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1792,28 +1450,28 @@
       "file": "playlists/countries/France.m3u",
       "entries": 195,
       "counts": {
-        "working": 194,
+        "working": 193,
         "offline": 1,
         "unreachable": 0,
-        "blocked": 0,
+        "blocked": 1,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
       "dead": [
         {
-          "name": "FashionTV Asia (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2616",
-          "group": "Lifestyle",
+          "name": "Canal+ (720p)",
+          "url": "http://151.80.18.177:86/Canal+_HD/index.m3u8",
+          "group": "Entertainment",
           "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.252
+          "reason": "playlist only, HTTP 404",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 128,
+          "kind": "hls-variant (180 kbps)",
+          "variant": "http://151.80.18.177:86/Canal+_HD/tracks-a1/mono.m3u8",
+          "segment_ok": false,
+          "elapsed": 0.263
         }
       ]
     },
@@ -1847,23 +1505,38 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Germany.m3u": {
       "file": "playlists/countries/Germany.m3u",
-      "entries": 173,
+      "entries": 171,
       "counts": {
-        "working": 172,
-        "offline": 0,
-        "unreachable": 1,
+        "working": 170,
+        "offline": 1,
+        "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "Tide TV (1080p)",
+          "url": "https://5889e7d0d6e28.streamlock.net/tide-live/_definst_/smil:livestream.smil/playlist.m3u8",
+          "group": "Europe",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 298,
+          "kind": "hls-master",
+          "variant": "https://5889e7d0d6e28.streamlock.net/tide-live/_definst_/smil:livestream.smil/chunklist_w1266714717_b5500000.m3u8",
+          "segment_ok": null,
+          "elapsed": 0.631
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Ghana.m3u": {
       "file": "playlists/countries/Ghana.m3u",
-      "entries": 6,
+      "entries": 5,
       "counts": {
-        "working": 6,
+        "working": 5,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -1875,46 +1548,17 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Greece.m3u": {
       "file": "playlists/countries/Greece.m3u",
-      "entries": 85,
+      "entries": 83,
       "counts": {
         "working": 83,
-        "offline": 2,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "ERT Sports 2",
-          "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTSports2/default/index.mpd",
-          "group": "Sports",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.969
-        },
-        {
-          "name": "ERT News",
-          "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTNews/default/index.mpd",
-          "group": "News",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.626
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Guadeloupe.m3u": {
       "file": "playlists/countries/Guadeloupe.m3u",
@@ -1946,11 +1590,11 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Guatemala.m3u": {
       "file": "playlists/countries/Guatemala.m3u",
-      "entries": 31,
+      "entries": 29,
       "counts": {
-        "working": 31,
+        "working": 28,
         "offline": 0,
-        "unreachable": 0,
+        "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -1962,21 +1606,36 @@
       "file": "playlists/countries/Guinea.m3u",
       "entries": 3,
       "counts": {
-        "working": 3,
-        "offline": 0,
+        "working": 2,
+        "offline": 1,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "Afrik Info TV",
+          "url": "https://kali.vdopanel.com:3119/hybrid/play.m3u8",
+          "group": "News",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.649
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Guyana.m3u": {
       "file": "playlists/countries/Guyana.m3u",
-      "entries": 9,
+      "entries": 8,
       "counts": {
-        "working": 9,
+        "working": 8,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -2004,39 +1663,24 @@
       "file": "playlists/countries/Honduras.m3u",
       "entries": 48,
       "counts": {
-        "working": 47,
-        "offline": 1,
+        "working": 48,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Guayape TV",
-          "url": "https://tv.bitstreaming.net:8443/live/guayapetv.m3u8",
-          "group": "North America",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.029
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Hong_Kong.m3u": {
       "file": "playlists/countries/Hong_Kong.m3u",
-      "entries": 9,
+      "entries": 8,
       "counts": {
         "working": 7,
         "offline": 0,
         "unreachable": 0,
-        "blocked": 2,
+        "blocked": 1,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
@@ -2073,11 +1717,11 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/India.m3u": {
       "file": "playlists/countries/India.m3u",
-      "entries": 712,
+      "entries": 699,
       "counts": {
-        "working": 702,
-        "offline": 8,
-        "unreachable": 2,
+        "working": 692,
+        "offline": 7,
+        "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -2085,8 +1729,8 @@
       },
       "dead": [
         {
-          "name": "Star Bharat (India) (576p)",
-          "url": "http://51.75.127.199:3141/starbharat/index.m3u8",
+          "name": "Buletin India (576p)",
+          "url": "http://51.75.127.199:3141/buletinindia/index.m3u8",
           "group": "News",
           "status": "offline",
           "reason": "HTTP 404",
@@ -2096,39 +1740,53 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.196
+          "elapsed": 0.223
         },
         {
-          "name": "Star Suvarna (576p)",
-          "url": "http://51.75.127.199:3141/starsuvarna/index.m3u8",
+          "name": "Prudent Media (1080p)",
+          "url": "https://prudentmcdn.rixcast.com/prudentm.m3u8",
+          "group": "News",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 823,
+          "kind": "html/text page, not a stream",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.48
+        },
+        {
+          "name": "Manoranjan TV (720p)",
+          "url": "https://cdn.pishow.tv/ott/live/1013/master.m3u8",
           "group": "Entertainment",
           "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.179
-        },
-        {
-          "name": "Bhagyam TV (1080p)",
-          "url": "https://ott.bhagyam.net/hls/bhagyamweb/index-1409148900-now.m3u8",
-          "group": "Religious",
-          "status": "offline",
-          "reason": "playlist only, TimeoutError",
+          "reason": "playlist only, HTTP 404",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 400,
-          "kind": "hls-variant (4940 kbps)",
-          "variant": "https://ott.bhagyam.net/hls/bhagyamweb/tracks-v2a1/index-1409148900-now.m3u8",
+          "bytes": 370,
+          "kind": "hls-variant (2340 kbps)",
+          "variant": "https://cdn.pishow.tv/ott/live/1013/1013_1.m3u8",
           "segment_ok": false,
-          "elapsed": 0.939
+          "elapsed": 0.742
         },
         {
-          "name": "CCV (480p)",
-          "url": "https://5a1178b42cc03.streamlock.net/8212/8212/playlist.m3u8",
+          "name": "DD Rajasthan (720p)",
+          "url": "https://cdn.pishow.tv/ott/live/34/master.m3u8",
+          "group": "India",
+          "status": "offline",
+          "reason": "playlist only, HTTP 404",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 364,
+          "kind": "hls-variant (2340 kbps)",
+          "variant": "https://cdn.pishow.tv/ott/live/34/34_1.m3u8",
+          "segment_ok": false,
+          "elapsed": 0.757
+        },
+        {
+          "name": "HSTV (720p)",
+          "url": "https://live.castmaxcloud.com/live/hstv.m3u8",
           "group": "India",
           "status": "offline",
           "reason": "HTTP 404",
@@ -2138,128 +1796,57 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.544
+          "elapsed": 0.513
         },
         {
-          "name": "Shubhsandesh (720p) [Not 24/7]",
-          "url": "https://6284rn2xr7xv-hls-live.wmncdn.net/shubhsandeshtv1/live123.stream/index.m3u8",
-          "group": "India",
+          "name": "Asianet Movies (576p)",
+          "url": "http://51.75.127.199:3141/asianetmovies/index.m3u8",
+          "group": "Movies",
           "status": "offline",
-          "reason": "playlist only, timeout",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.224
+        },
+        {
+          "name": "Dhoom Music (720p)",
+          "url": "https://cdn.pishow.tv/ott/live/1456/master.m3u8",
+          "group": "Music",
+          "status": "offline",
+          "reason": "playlist only, HTTP 404",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 122,
-          "kind": "hls-variant (815 kbps)",
-          "variant": "https://6284rn2xr7xv-hls-live.wmncdn.net/shubhsandeshtv1/live123.stream/chunks.m3u8",
+          "bytes": 370,
+          "kind": "hls-variant (2340 kbps)",
+          "variant": "https://cdn.pishow.tv/ott/live/1456/1456_1.m3u8",
           "segment_ok": false,
-          "elapsed": 0.74
-        },
-        {
-          "name": "All Time Movies (576p)",
-          "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-          "group": "Movies",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.859
-        },
-        {
-          "name": "Boogle Bollywood (720p)",
-          "url": "https://yuppnimrestreammum.akamaized.net/181224/smil:bogglebollywood.smil/playlist.m3u8?hdnts=st=1735898689~exp=1835898688~acl=*~hmac=f5fe24724fe05481e3841f9eb5ab8efdee0a3dd83645ae9dcf45703f525bab7b",
-          "group": "Movies",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/x-mpegurl",
-          "bytes": 404,
-          "kind": "hls-master",
-          "variant": "https://yuppnimrestreammum.akamaized.net/181224/smil:bogglebollywood.smil/hdntl=exp=1791374455~acl=%2f*~data=hdntl~hmac=3b8afff9fa802bf07df0e7d8dee581f725ca5df6f6ba5ac91c55bc3d63be7da3/chunklist_b2628000.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.051
-        },
-        {
-          "name": "Disney International HD (576p)",
-          "url": "http://103.151.60.162:2122/play/a018/index.m3u8?hls",
-          "group": "Kids",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.586
+          "elapsed": 0.777
         }
       ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Indonesia.m3u": {
       "file": "playlists/countries/Indonesia.m3u",
-      "entries": 109,
+      "entries": 117,
       "counts": {
-        "working": 106,
-        "offline": 3,
-        "unreachable": 0,
+        "working": 116,
+        "offline": 0,
+        "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "SPOTV 2 (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2630",
-          "group": "Sports",
-          "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.256
-        },
-        {
-          "name": "SPOTV (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2614",
-          "group": "Sports",
-          "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.258
-        },
-        {
-          "name": "JTV Malang",
-          "url": "http://122.248.43.242:1935/JTVMALANG/_definst_/myStream/playlist.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.472
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/International.m3u": {
       "file": "playlists/countries/International.m3u",
-      "entries": 974,
+      "entries": 977,
       "counts": {
-        "working": 973,
+        "working": 976,
         "offline": 1,
         "unreachable": 0,
         "blocked": 0,
@@ -2269,8 +1856,8 @@
       },
       "dead": [
         {
-          "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 22)",
-          "url": "https://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
+          "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 12)",
+          "url": "https://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8",
           "group": "Other Backups",
           "status": "offline",
           "reason": "playlist only, TimeoutError",
@@ -2280,15 +1867,15 @@
           "kind": "hls-media",
           "variant": "",
           "segment_ok": false,
-          "elapsed": 6.458
+          "elapsed": 5.675
         }
       ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Iran.m3u": {
       "file": "playlists/countries/Iran.m3u",
-      "entries": 54,
+      "entries": 55,
       "counts": {
-        "working": 54,
+        "working": 55,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -2328,9 +1915,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Israel.m3u": {
       "file": "playlists/countries/Israel.m3u",
-      "entries": 29,
+      "entries": 30,
       "counts": {
-        "working": 29,
+        "working": 30,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -2342,20 +1929,20 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Italy.m3u": {
       "file": "playlists/countries/Italy.m3u",
-      "entries": 469,
+      "entries": 485,
       "counts": {
-        "working": 463,
-        "offline": 3,
-        "unreachable": 0,
-        "blocked": 3,
+        "working": 480,
+        "offline": 4,
+        "unreachable": 1,
+        "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
       "dead": [
         {
-          "name": "Sicilia 24 Tv",
-          "url": "https://5f22d76e220e1.streamlock.net/sicilia24/sicilia24/playlist.m3u8",
+          "name": "Deejay TV (1080p)",
+          "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO0tz9Sr2Rk/playlist.m3u8",
           "group": "International",
           "status": "offline",
           "reason": "HTTP 404",
@@ -2365,35 +1952,49 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.515
+          "elapsed": 0.846
         },
         {
-          "name": "Tele Liguria Sud (576p)",
-          "url": "https://5f22d76e220e1.streamlock.net/tls/tls/playlist.m3u8",
-          "group": "International",
+          "name": "m2o TV (1080p)",
+          "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S62628868/uhdWBlkC1AoO/playlist.m3u8",
+          "group": "Music",
           "status": "offline",
-          "reason": "playlist only, TimeoutError",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 138,
-          "kind": "hls-variant (1722 kbps)",
-          "variant": "https://5f22d76e220e1.streamlock.net/tls/tls/chunklist_w289733698.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.562
-        },
-        {
-          "name": "TLT Molise (1080p)",
-          "url": "https://5f22d76e220e1.streamlock.net/tltmolise/tltmolise/playlist.m3u8",
-          "group": "International",
-          "status": "offline",
-          "reason": "variant HTTP TimeoutError",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 138,
-          "kind": "hls-master",
-          "variant": "https://5f22d76e220e1.streamlock.net/tltmolise/tltmolise/chunklist_w2047656484.m3u8",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
           "segment_ok": null,
-          "elapsed": 0.478
+          "elapsed": 1.274
+        },
+        {
+          "name": "Radio Capital TiVu (720p)",
+          "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S35394734/Z6U2wGoDYANk/playlist.m3u8",
+          "group": "Music",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.943
+        },
+        {
+          "name": "RTM TV (1080p)",
+          "url": "https://5f22d76e220e1.streamlock.net/rtm/rtm/playlist.m3u8",
+          "group": "Europe",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.67
         }
       ]
     },
@@ -2401,10 +2002,10 @@
       "file": "playlists/countries/Ivory_Coast.m3u",
       "entries": 17,
       "counts": {
-        "working": 17,
+        "working": 16,
         "offline": 0,
         "unreachable": 0,
-        "blocked": 0,
+        "blocked": 1,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
@@ -2441,32 +2042,17 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Jordan.m3u": {
       "file": "playlists/countries/Jordan.m3u",
-      "entries": 17,
+      "entries": 16,
       "counts": {
         "working": 16,
-        "offline": 1,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Jordan Tourism (1080p)",
-          "url": "https://playlist.fasttvcdn.com/pl/cc0blorawy1ibohhrupraa/Tourism/playlist.m3u8",
-          "group": "Lifestyle",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 734,
-          "kind": "hls-master",
-          "variant": "https://playlist.fasttvcdn.com/pl/cc0blorawy1ibohhrupraa/Tourism/playlist/4.m3u8?sid=Sde3te-a0EWqRLi8qc1xdg",
-          "segment_ok": null,
-          "elapsed": 0.372
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Kazakhstan.m3u": {
       "file": "playlists/countries/Kazakhstan.m3u",
@@ -2540,52 +2126,23 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Laos.m3u": {
       "file": "playlists/countries/Laos.m3u",
-      "entries": 9,
+      "entries": 7,
       "counts": {
         "working": 7,
-        "offline": 2,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Lao Net TV (720p)",
-          "url": "https://livefta.malimarcdn.com/ftaedge00/laonet.sdp/playlist.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 125,
-          "kind": "hls-master",
-          "variant": "https://livefta.malimarcdn.com/ftaedge00/laonet.sdp/chunklist.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.157
-        },
-        {
-          "name": "Look Thoong TV (720p) [Not 24/7]",
-          "url": "https://livefta.malimarcdn.com/ftaedge00/lookthoongtv.sdp/playlist.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 126,
-          "kind": "hls-master",
-          "variant": "https://livefta.malimarcdn.com/ftaedge00/lookthoongtv.sdp/chunklist.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.158
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Latin_America.m3u": {
       "file": "playlists/countries/Latin_America.m3u",
-      "entries": 32,
+      "entries": 33,
       "counts": {
-        "working": 32,
+        "working": 33,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -2611,10 +2168,10 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Lebanon.m3u": {
       "file": "playlists/countries/Lebanon.m3u",
-      "entries": 28,
+      "entries": 25,
       "counts": {
-        "working": 25,
-        "offline": 2,
+        "working": 23,
+        "offline": 1,
         "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
@@ -2623,23 +2180,9 @@
       },
       "dead": [
         {
-          "name": "One TV (720p) [Not 24/7]",
-          "url": "https://hms.pfs.gdn/v1/broadcast/one/playlist.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 3737,
-          "kind": "hls-master",
-          "variant": "https://hms.pfs.gdn/hms/v1/broadcast/one/backup/tracks-v1a1/mono.m3u8?token=VSaE_kptEUo-6ugWLqW5TA:O9ifmNWVMe8EKKQUYKFUTffj3ruUxGLms38id_NgrwE0UIVNJ2Q2BKZcqHRcaihmEdCyw7ypyMkf-hW3MmCmYtoK-B7mQ0p8qSmZmqS2B5QTNA3stcAK_5ZaP1Uup_4IXMiU_7E3yUlboNADBD2TGY7WwpCyzSAPVeERWaSWzZvhG1ExH9CHYUIsIkcybyXBYJxbDx1Jlb8zgREf-6vRnvhDVdBhHErpaPbz4XImgYo",
-          "segment_ok": null,
-          "elapsed": 0.05
-        },
-        {
-          "name": "OneFM (720p) [Not 24/7]",
-          "url": "https://hms.pfs.gdn/v1/broadcast/onefm/playlist.m3u8",
-          "group": "Music",
+          "name": "Taha TV (576p)",
+          "url": "https://stream.starmenajo.com/hls/app/live/ts:fhd.m3u8",
+          "group": "Kids",
           "status": "offline",
           "reason": "HTTP 404",
           "http_status": 404,
@@ -2648,7 +2191,7 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.06
+          "elapsed": 0.559
         }
       ]
     },
@@ -2710,9 +2253,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Maldives.m3u": {
       "file": "playlists/countries/Maldives.m3u",
-      "entries": 6,
+      "entries": 4,
       "counts": {
-        "working": 6,
+        "working": 4,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -2780,38 +2323,23 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Mexico.m3u": {
       "file": "playlists/countries/Mexico.m3u",
-      "entries": 119,
+      "entries": 116,
       "counts": {
-        "working": 118,
-        "offline": 1,
+        "working": 116,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "El Sonorense (1080p) [Not 24/7]",
-          "url": "https://s5.mexside.net:1936/elsonorense/elsonorense/playlist.m3u8",
-          "group": "Culture",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.458
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Moldova.m3u": {
       "file": "playlists/countries/Moldova.m3u",
-      "entries": 22,
+      "entries": 20,
       "counts": {
-        "working": 22,
+        "working": 20,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -2865,9 +2393,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Morocco.m3u": {
       "file": "playlists/countries/Morocco.m3u",
-      "entries": 8,
+      "entries": 9,
       "counts": {
-        "working": 8,
+        "working": 9,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -2893,46 +2421,17 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Myanmar.m3u": {
       "file": "playlists/countries/Myanmar.m3u",
-      "entries": 12,
+      "entries": 6,
       "counts": {
         "working": 6,
-        "offline": 2,
-        "unreachable": 4,
+        "offline": 0,
+        "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Myanmar International TV",
-          "url": "https://mrtvott.com/cache/MITV/master.m3u8",
-          "group": "Asia",
-          "status": "offline",
-          "reason": "variant HTTP TimeoutError",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 348,
-          "kind": "hls-master",
-          "variant": "https://mrtvott.com/cache/MITV/m3u8/cache_MITV_m3u8_hls_m3u8_MITV-TS-H.m3u8",
-          "segment_ok": null,
-          "elapsed": 2.125
-        },
-        {
-          "name": "MRTV NRC",
-          "url": "https://mrtvott.com/cache/MRTV-NRC-HD/master.m3u8",
-          "group": "Culture",
-          "status": "offline",
-          "reason": "variant HTTP TimeoutError",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 390,
-          "kind": "hls-master",
-          "variant": "https://mrtvott.com/cache/MRTV-NRC-HD/m3u8/cache_MRTV-NRC-HD_m3u8_hls_m3u8_MRTV-NRC-HD-TS-H.m3u8",
-          "segment_ok": null,
-          "elapsed": 2.173
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Namibia.m3u": {
       "file": "playlists/countries/Namibia.m3u",
@@ -2964,9 +2463,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Netherlands.m3u": {
       "file": "playlists/countries/Netherlands.m3u",
-      "entries": 136,
+      "entries": 135,
       "counts": {
-        "working": 136,
+        "working": 135,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3020,9 +2519,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Nigeria.m3u": {
       "file": "playlists/countries/Nigeria.m3u",
-      "entries": 32,
+      "entries": 31,
       "counts": {
-        "working": 32,
+        "working": 31,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3048,9 +2547,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/North_Macedonia.m3u": {
       "file": "playlists/countries/North_Macedonia.m3u",
-      "entries": 16,
+      "entries": 14,
       "counts": {
-        "working": 16,
+        "working": 14,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3090,11 +2589,11 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Pakistan.m3u": {
       "file": "playlists/countries/Pakistan.m3u",
-      "entries": 52,
+      "entries": 56,
       "counts": {
-        "working": 52,
+        "working": 54,
         "offline": 0,
-        "unreachable": 0,
+        "unreachable": 2,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -3106,9 +2605,9 @@
       "file": "playlists/countries/Palestine.m3u",
       "entries": 17,
       "counts": {
-        "working": 17,
+        "working": 16,
         "offline": 0,
-        "unreachable": 0,
+        "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -3118,38 +2617,23 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Panama.m3u": {
       "file": "playlists/countries/Panama.m3u",
-      "entries": 14,
+      "entries": 13,
       "counts": {
         "working": 13,
-        "offline": 1,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Super Q Panama (1080p)",
-          "url": "https://vcp8.myplaytv.com:1936/superq/superq/playlist.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "variant HTTP timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 86,
-          "kind": "hls-master",
-          "variant": "https://vcp8.myplaytv.com:1936/superq/superq/chunklist_w589154736.m3u8",
-          "segment_ok": null,
-          "elapsed": 3.349
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Paraguay.m3u": {
       "file": "playlists/countries/Paraguay.m3u",
-      "entries": 50,
+      "entries": 49,
       "counts": {
-        "working": 50,
+        "working": 49,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3161,23 +2645,52 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Peru.m3u": {
       "file": "playlists/countries/Peru.m3u",
-      "entries": 133,
+      "entries": 144,
       "counts": {
-        "working": 133,
-        "offline": 0,
+        "working": 142,
+        "offline": 2,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "Ovacion TV (720p) [Not 24/7]",
+          "url": "http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8",
+          "group": "Sports",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "http_status": 0,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 6.615
+        },
+        {
+          "name": "Onda TV (Peru) (720p)",
+          "url": "https://live-evg5.tv360.bitel.com.pe/bitel/onda/playlist.m3u8",
+          "group": "South America",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.921
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Philippines.m3u": {
       "file": "playlists/countries/Philippines.m3u",
-      "entries": 9,
+      "entries": 10,
       "counts": {
-        "working": 9,
+        "working": 10,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3189,46 +2702,17 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Poland.m3u": {
       "file": "playlists/countries/Poland.m3u",
-      "entries": 120,
+      "entries": 126,
       "counts": {
-        "working": 118,
-        "offline": 2,
+        "working": 126,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "dlaCiebie.tv (1080p) [Not 24/7]",
-          "url": "http://94.246.128.53:1935/tv/dlaCiebieTv/playlist.m3u8",
-          "group": "Europe",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.242
-        },
-        {
-          "name": "dlaCiebie.tv (Backup 1)",
-          "url": "https://6034e09794f07.streamlock.net/tv/dlaCiebieTv/playlist.m3u8",
-          "group": "Europe Backups",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.757
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Portugal.m3u": {
       "file": "playlists/countries/Portugal.m3u",
@@ -3246,9 +2730,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Puerto_Rico.m3u": {
       "file": "playlists/countries/Puerto_Rico.m3u",
-      "entries": 24,
+      "entries": 26,
       "counts": {
-        "working": 24,
+        "working": 26,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3260,32 +2744,17 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Qatar.m3u": {
       "file": "playlists/countries/Qatar.m3u",
-      "entries": 36,
+      "entries": 35,
       "counts": {
         "working": 35,
-        "offline": 1,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "Qatar Television (Backup 1)",
-          "url": "https://qatartv.akamaized.net/hls/live/20000609/qtv1/master.m3u8",
-          "group": "International Backups",
-          "status": "offline",
-          "reason": "playlist only, HTTP 404",
-          "http_status": 200,
-          "content_type": "application/x-mpegurl",
-          "bytes": 1365,
-          "kind": "hls-variant (7357 kbps)",
-          "variant": "https://qatartv.akamaized.net/hls/live/20000609/qtv1/stream_04/index.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.431
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Republic_of_the_Congo.m3u": {
       "file": "playlists/countries/Republic_of_the_Congo.m3u",
@@ -3303,54 +2772,25 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Romania.m3u": {
       "file": "playlists/countries/Romania.m3u",
-      "entries": 119,
+      "entries": 118,
       "counts": {
-        "working": 117,
-        "offline": 2,
+        "working": 118,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "TVR Info",
-          "url": "https://tvr-info.lg.mncdn.com/tvrinfo/smil:tvrinfo.smil/playlist.m3u8",
-          "group": "News",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 423,
-          "kind": "hls-master",
-          "variant": "https://tvr-info.lg.mncdn.com/tvrinfo/smil:tvrinfo.smil/chunklist_b5160000.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.029
-        },
-        {
-          "name": "TVR International",
-          "url": "https://tvr-international.lg.mncdn.com/tvrinternational/smil:tvrinternational.smil/playlist.m3u8",
-          "group": "International",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 423,
-          "kind": "hls-master",
-          "variant": "https://tvr-international.lg.mncdn.com/tvrinternational/smil:tvrinternational.smil/chunklist_b5160000.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.302
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Russia.m3u": {
       "file": "playlists/countries/Russia.m3u",
-      "entries": 406,
+      "entries": 408,
       "counts": {
-        "working": 399,
-        "offline": 3,
-        "unreachable": 4,
+        "working": 406,
+        "offline": 1,
+        "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -3358,54 +2798,26 @@
       },
       "dead": [
         {
-          "name": "Gubernia Samara (576p)",
-          "url": "http://live.guberniatv.cdnvideo.ru/guberniatv/guberniatv.sdp/playlist.m3u8",
-          "group": "Europe",
+          "name": "SONGTV Russia",
+          "url": "https://songtv.hls.iptvdc.com/web-russia/playlist.m3u8",
+          "group": "Music",
           "status": "offline",
-          "reason": "playlist only, timeout",
+          "reason": "variant HTTP 503",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 228,
-          "kind": "hls-variant (1170 kbps)",
-          "variant": "http://live.guberniatv.cdnvideo.ru/guberniatv/guberniatv.sdp/tracks-v1a1/mono.ts.m3u8?hls_proxy_host=544a3dd774cf5ef35a8f5a9f4367ec1a",
-          "segment_ok": false,
-          "elapsed": 0.411
-        },
-        {
-          "name": "NTM (720p) [Not 24/7]",
-          "url": "https://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/playlist.m3u8",
-          "group": "Europe",
-          "status": "offline",
-          "reason": "playlist only, timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 667,
-          "kind": "hls-variant (4110 kbps)",
-          "variant": "https://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/tracks-v1a1/mono.ts.m3u8?hls_proxy_host=06356f05f0a86f5bff53697210849f42",
-          "segment_ok": false,
-          "elapsed": 0.454
-        },
-        {
-          "name": "\u0415\u043d\u0438\u0441\u0435\u0439 (Backup 19)",
-          "url": "http://online-video.rbc.ru/online2/rbctv.m3u8",
-          "group": "Europe Backups",
-          "status": "offline",
-          "reason": "variant HTTP timeout",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 1019,
+          "bytes": 352,
           "kind": "hls-master",
-          "variant": "https://f78lz4fal0.a.trbcdn.net/cdnvideo/rbctvhd_1080p/index.m3u8?e=cdnvideo&t=SRkPir",
+          "variant": "https://songtv.hls.iptvdc.com/web-russia/hd/playlist.m3u8",
           "segment_ok": null,
-          "elapsed": 1.441
+          "elapsed": 1.339
         }
       ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Rwanda.m3u": {
       "file": "playlists/countries/Rwanda.m3u",
-      "entries": 8,
+      "entries": 10,
       "counts": {
-        "working": 8,
+        "working": 10,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3445,9 +2857,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Saudi_Arabia.m3u": {
       "file": "playlists/countries/Saudi_Arabia.m3u",
-      "entries": 51,
+      "entries": 50,
       "counts": {
-        "working": 50,
+        "working": 49,
         "offline": 1,
         "unreachable": 0,
         "blocked": 0,
@@ -3457,26 +2869,26 @@
       },
       "dead": [
         {
-          "name": "Asharq Documentary (1080p)",
-          "url": "https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8",
+          "name": "Asharq Discovery (1080p)",
+          "url": "https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/playlist_dvr.m3u8",
           "group": "Documentary",
           "status": "offline",
           "reason": "playlist only, HTTP 404",
           "http_status": 200,
           "content_type": "application/x-mpegurl",
-          "bytes": 768,
-          "kind": "hls-variant (6131 kbps)",
-          "variant": "https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/asharqdocumentarypublish/asharqdocumentary_source/chunks_dvr.m3u8",
+          "bytes": 721,
+          "kind": "hls-variant (6121 kbps)",
+          "variant": "https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/asharqdiscoverypublish/asharqd_source/chunks_dvr.m3u8",
           "segment_ok": false,
-          "elapsed": 0.29
+          "elapsed": 0.166
         }
       ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Senegal.m3u": {
       "file": "playlists/countries/Senegal.m3u",
-      "entries": 6,
+      "entries": 7,
       "counts": {
-        "working": 6,
+        "working": 7,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -3516,46 +2928,17 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Singapore.m3u": {
       "file": "playlists/countries/Singapore.m3u",
-      "entries": 17,
+      "entries": 15,
       "counts": {
         "working": 15,
-        "offline": 2,
+        "offline": 0,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": [
-        {
-          "name": "HITS Movies (576p)",
-          "url": "http://103.151.60.162:2122/play/a01h/index.m3u8?hls",
-          "group": "Movies",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.574
-        },
-        {
-          "name": "ROCK Entertainment HD (720p)",
-          "url": "http://58.8.186.128:10006/bysid/2612",
-          "group": "Music",
-          "status": "offline",
-          "reason": "connection refused",
-          "http_status": 0,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.25
-        }
-      ]
+      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Sint_Maarten.m3u": {
       "file": "playlists/countries/Sint_Maarten.m3u",
@@ -3573,17 +2956,32 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Slovakia.m3u": {
       "file": "playlists/countries/Slovakia.m3u",
-      "entries": 50,
+      "entries": 52,
       "counts": {
-        "working": 50,
-        "offline": 0,
+        "working": 51,
+        "offline": 1,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "BTV (480p)",
+          "url": "https://fs3.kabelko.sk/9011/index.m3u8?token=btv",
+          "group": "International",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "http_status": 0,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 6.144
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Slovenia.m3u": {
       "file": "playlists/countries/Slovenia.m3u",
@@ -3631,8 +3029,22 @@
       "file": "playlists/countries/South_Korea.m3u",
       "entries": 69,
       "counts": {
-        "working": 67,
-        "offline": 1,
+        "working": 68,
+        "offline": 0,
+        "unreachable": 1,
+        "blocked": 0,
+        "unsupported": 0,
+        "invalid": 0,
+        "unchecked": 0
+      },
+      "dead": []
+    },
+    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Spain.m3u": {
+      "file": "playlists/countries/Spain.m3u",
+      "entries": 189,
+      "counts": {
+        "working": 186,
+        "offline": 2,
         "unreachable": 0,
         "blocked": 1,
         "unsupported": 0,
@@ -3641,27 +3053,41 @@
       },
       "dead": [
         {
-          "name": "JEI TV",
-          "url": "https://live-th10.myjktv.com/watch/live.m3u8?video=jei_jenung_540&sid=0U5gGVD8MUVHzIdG1JINTEXBzFPw1TS9XkiLqQM0&secret=8aabea762716b38bbc4b6c6fa0bbe509&time=1771648766",
-          "group": "International",
+          "name": "TVE Internacional Asia-Oceania (576p) [Geo-blocked]",
+          "url": "https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/tvei_asia_main_576.m3u8",
+          "group": "Europe",
           "status": "offline",
-          "reason": "variant HTTP 404",
+          "reason": "playlist only, HTTP 403",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 219,
+          "bytes": 566,
+          "kind": "hls-media",
+          "variant": "",
+          "segment_ok": false,
+          "elapsed": 0.317
+        },
+        {
+          "name": "Univers TV (720p)",
+          "url": "https://cloud2.streaminglivehd.com:1936/universfaller/universfaller/playlist.m3u8",
+          "group": "Entertainment",
+          "status": "offline",
+          "reason": "variant HTTP TimeoutError",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 139,
           "kind": "hls-master",
-          "variant": "https://live-th10.myjktv.com/playlist/live.m3u8?sid=0U5gGVD8MUVHzIdG1JINTEXBzFPw1TS9XkiLqQM0&secret=711163ca78c6591926a00fd17b376e66&time=1771648766",
+          "variant": "https://cloud2.streaminglivehd.com:1936/universfaller/universfaller/chunklist_w1021390225.m3u8",
           "segment_ok": null,
-          "elapsed": 0.856
+          "elapsed": 0.322
         }
       ]
     },
-    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Spain.m3u": {
-      "file": "playlists/countries/Spain.m3u",
-      "entries": 191,
+    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Sri_Lanka.m3u": {
+      "file": "playlists/countries/Sri_Lanka.m3u",
+      "entries": 6,
       "counts": {
-        "working": 187,
-        "offline": 4,
+        "working": 5,
+        "offline": 1,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
@@ -3670,9 +3096,9 @@
       },
       "dead": [
         {
-          "name": "Canal 33 Madrid",
-          "url": "https://media2.streambrothers.com:1936/8140/8140/playlist.m3u8",
-          "group": "Europe",
+          "name": "Imai TV (1080p)",
+          "url": "https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8",
+          "group": "Culture",
           "status": "offline",
           "reason": "HTTP 404",
           "http_status": 404,
@@ -3681,65 +3107,9 @@
           "kind": "",
           "variant": "",
           "segment_ok": null,
-          "elapsed": 0.653
-        },
-        {
-          "name": "Rakuten TV Drama Movies (1080p)",
-          "url": "https://a7089c89d85f453d850c4a1518b43076.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6092/master.m3u8",
-          "group": "Movies",
-          "status": "offline",
-          "reason": "playlist only, HTTP 403",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 1931,
-          "kind": "hls-variant (4520 kbps)",
-          "variant": "https://a7089c89d85f453d850c4a1518b43076.mediatailor.eu-west-1.amazonaws.com/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6092/185abe7e-7f6d-4c9c-8157-539a468b1832/4.m3u8",
-          "segment_ok": false,
-          "elapsed": 0.36
-        },
-        {
-          "name": "Radio Carnaval TV (720p) [Not 24/7]",
-          "url": "https://eu1.servers10.com:8081/8116/index.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.492
-        },
-        {
-          "name": "SpektraTV (720p)",
-          "url": "https://cloudvideo.servers10.com:8081/8026/tracks-v1a1/index.m3u8",
-          "group": "Music",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "http_status": 404,
-          "content_type": "",
-          "bytes": 0,
-          "kind": "",
-          "variant": "",
-          "segment_ok": null,
-          "elapsed": 0.375
+          "elapsed": 0.111
         }
       ]
-    },
-    "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Sri_Lanka.m3u": {
-      "file": "playlists/countries/Sri_Lanka.m3u",
-      "entries": 5,
-      "counts": {
-        "working": 5,
-        "offline": 0,
-        "unreachable": 0,
-        "blocked": 0,
-        "unsupported": 0,
-        "invalid": 0,
-        "unchecked": 0
-      },
-      "dead": []
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Sudan.m3u": {
       "file": "playlists/countries/Sudan.m3u",
@@ -3843,15 +3213,44 @@
       "file": "playlists/countries/Thailand.m3u",
       "entries": 50,
       "counts": {
-        "working": 50,
-        "offline": 0,
+        "working": 48,
+        "offline": 2,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "NBT TV Chiang Mai",
+          "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:4f6e-aa34-2034-5492-c82d.smil/playlist.m3u8",
+          "group": "Asia",
+          "status": "offline",
+          "reason": "connection refused",
+          "http_status": 0,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.385
+        },
+        {
+          "name": "NBT World (1080p)",
+          "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:d36f-93c1-9c58-fdcc-427f.smil/playlist.m3u8",
+          "group": "Asia",
+          "status": "offline",
+          "reason": "connection refused",
+          "http_status": 0,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.382
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Togo.m3u": {
       "file": "playlists/countries/Togo.m3u",
@@ -3897,17 +3296,32 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Turkey.m3u": {
       "file": "playlists/countries/Turkey.m3u",
-      "entries": 126,
+      "entries": 128,
       "counts": {
-        "working": 125,
-        "offline": 0,
+        "working": 126,
+        "offline": 1,
         "unreachable": 1,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "Almahriah TV (576p)",
+          "url": "https://starmenajo.com/hls/almahriah/index.m3u8",
+          "group": "News",
+          "status": "offline",
+          "reason": "playlist only, HTTP 404",
+          "http_status": 200,
+          "content_type": "application/vnd.apple.mpegurl",
+          "bytes": 115,
+          "kind": "hls-media",
+          "variant": "",
+          "segment_ok": false,
+          "elapsed": 0.522
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Turkmenistan.m3u": {
       "file": "playlists/countries/Turkmenistan.m3u",
@@ -3925,9 +3339,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/UK.m3u": {
       "file": "playlists/countries/UK.m3u",
-      "entries": 220,
+      "entries": 223,
       "counts": {
-        "working": 218,
+        "working": 221,
         "offline": 0,
         "unreachable": 2,
         "blocked": 0,
@@ -3939,11 +3353,11 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/USA.m3u": {
       "file": "playlists/countries/USA.m3u",
-      "entries": 2041,
+      "entries": 2046,
       "counts": {
-        "working": 2029,
-        "offline": 3,
-        "unreachable": 9,
+        "working": 2040,
+        "offline": 2,
+        "unreachable": 4,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -3951,56 +3365,42 @@
       },
       "dead": [
         {
-          "name": "Outdoor Channel (Backup 1)",
-          "url": "https://cache0.wonvt.st/live/01s5dub0je1bmd1fhc0or/master.m3u8",
-          "group": "Lifestyle Backups",
+          "name": "Discovery Life",
+          "url": "https://cache0.wonvt.st/live/04jtyrz0krzod10e5j0fe/master.m3u8",
+          "group": "Lifestyle",
           "status": "offline",
           "reason": "playlist only, HTTP 502",
           "http_status": 200,
           "content_type": "application/vnd.apple.mpegurl; charset=utf-8",
-          "bytes": 4138,
+          "bytes": 4192,
           "kind": "hls-media",
           "variant": "",
           "segment_ok": false,
-          "elapsed": 0.569
+          "elapsed": 0.459
         },
         {
-          "name": "30A Television Channel (720p)",
-          "url": "https://30a-tv.com/feeds/masters/30atv.m3u8",
-          "group": "Entertainment",
+          "name": "ABC",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb354/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzU0OjE3OTEzNzk4MDM2OTU6Y2RubGl2ZXR2LnR2OmYxNWIwOTFjMmE0YmI5ODkuZGQ3MDI0Zjk5MTljM2IxZTExZjE5ODc5OTI4OTEyMTM5ZDMyN2ZjZjg2NTcwYmFkNDRjM2ZhNTQxMDBjOWQyMg",
+          "group": "Australia",
           "status": "offline",
-          "reason": "variant HTTP RemoteDisconnected",
+          "reason": "playlist only, HTTP 503",
           "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl",
-          "bytes": 207,
-          "kind": "hls-master",
-          "variant": "https://30a-tv.com/feeds/720p/33.m3u8",
-          "segment_ok": null,
-          "elapsed": 0.403
-        },
-        {
-          "name": "CMT (Backup 1)",
-          "url": "https://cache0.wonvt.st/live/1dl2j7a1eycmfv0hzqo9q/master.m3u8",
-          "group": "Music Backups",
-          "status": "offline",
-          "reason": "playlist only, HTTP 502",
-          "http_status": 200,
-          "content_type": "application/vnd.apple.mpegurl; charset=utf-8",
-          "bytes": 4194,
+          "content_type": "application/x-mpegurl; charset=utf-8",
+          "bytes": 2283,
           "kind": "hls-media",
           "variant": "",
           "segment_ok": false,
-          "elapsed": 0.578
+          "elapsed": 0.506
         }
       ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Uganda.m3u": {
       "file": "playlists/countries/Uganda.m3u",
-      "entries": 6,
+      "entries": 7,
       "counts": {
-        "working": 4,
+        "working": 7,
         "offline": 0,
-        "unreachable": 2,
+        "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
@@ -4010,9 +3410,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Ukraine.m3u": {
       "file": "playlists/countries/Ukraine.m3u",
-      "entries": 166,
+      "entries": 168,
       "counts": {
-        "working": 166,
+        "working": 168,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -4024,9 +3424,9 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/United_Arab_Emirates.m3u": {
       "file": "playlists/countries/United_Arab_Emirates.m3u",
-      "entries": 41,
+      "entries": 42,
       "counts": {
-        "working": 41,
+        "working": 42,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -4066,23 +3466,38 @@
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Venezuela.m3u": {
       "file": "playlists/countries/Venezuela.m3u",
-      "entries": 50,
+      "entries": 55,
       "counts": {
-        "working": 50,
-        "offline": 0,
+        "working": 54,
+        "offline": 1,
         "unreachable": 0,
         "blocked": 0,
         "unsupported": 0,
         "invalid": 0,
         "unchecked": 0
       },
-      "dead": []
+      "dead": [
+        {
+          "name": "Portuguesa Television (480p) [Not 24/7]",
+          "url": "https://streamtv.intervenhosting.net:3789/live/portutvlive.m3u8",
+          "group": "South America",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "http_status": 404,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.146
+        }
+      ]
     },
     "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Vietnam.m3u": {
       "file": "playlists/countries/Vietnam.m3u",
-      "entries": 49,
+      "entries": 50,
       "counts": {
-        "working": 49,
+        "working": 50,
         "offline": 0,
         "unreachable": 0,
         "blocked": 0,
@@ -4136,128 +3551,108 @@
     }
   },
   "totals": {
-    "working": 19545,
-    "offline": 118,
-    "unreachable": 54,
-    "blocked": 16,
+    "working": 19669,
+    "offline": 76,
+    "unreachable": 38,
+    "blocked": 18,
     "unsupported": 0,
     "invalid": 0,
     "unchecked": 0
   },
   "host_failures": {
     "cdnlivetv.tv": {
-      "offline": 0,
-      "unreachable": 16
+      "offline": 2,
+      "unreachable": 10
     },
-    "mrtvott.com": {
+    "live20.bozztv.com": {
       "offline": 4,
-      "unreachable": 8
+      "unreachable": 4
     },
-    "cache0.wonvt.st": {
-      "offline": 4,
-      "unreachable": 6
-    },
-    "58.8.186.128:10006": {
-      "offline": 8,
-      "unreachable": 0
-    },
-    "51.75.127.199:3141": {
-      "offline": 4,
-      "unreachable": 2
-    },
-    "cdn.universmotri.ru": {
-      "offline": 0,
-      "unreachable": 6
-    },
-    "5f22d76e220e1.streamlock.net": {
+    "cdn.pishow.tv": {
       "offline": 6,
       "unreachable": 0
     },
-    "ert-ucdn.broadpeak-aas.com": {
+    "4c4b867c89244861ac216426883d1ad0.msvdn.net": {
+      "offline": 6,
+      "unreachable": 0
+    },
+    "cloud2.streaminglivehd.com:1936": {
+      "offline": 6,
+      "unreachable": 0
+    },
+    "cache0.wonvt.st": {
+      "offline": 2,
+      "unreachable": 2
+    },
+    "51.75.127.199:3141": {
       "offline": 4,
       "unreachable": 0
     },
-    "livefta.malimarcdn.com": {
+    "ml-pull-dvc-myco.io:2096": {
+      "offline": 0,
+      "unreachable": 4
+    },
+    "cdn-edge.iiptvcdn.com": {
       "offline": 4,
       "unreachable": 0
     },
-    "hms.pfs.gdn": {
-      "offline": 4,
-      "unreachable": 0
-    },
-    "103.151.60.162:2122": {
-      "offline": 4,
-      "unreachable": 0
-    },
-    "playlist.fasttvcdn.com": {
+    "cdn2.ujjina.com:1935": {
       "offline": 2,
       "unreachable": 0
     },
-    "eu1.servers10.com:8081": {
-      "offline": 2,
-      "unreachable": 0
-    },
-    "cloudvideo.servers10.com:8081": {
-      "offline": 2,
-      "unreachable": 0
-    },
-    "vcp8.myplaytv.com:1936": {
-      "offline": 2,
-      "unreachable": 0
-    },
-    "stream.berosat.live:19360": {
-      "offline": 2,
-      "unreachable": 0
-    },
-    "145.239.5.177": {
-      "offline": 2,
-      "unreachable": 0
-    },
-    "mdc.ott.alticeusa.net": {
+    "streaming.zaytonatube.com:8080": {
       "offline": 0,
       "unreachable": 2
     },
-    "live20.bozztv.com": {
+    "tls-cl.cdnz.cl": {
       "offline": 2,
       "unreachable": 0
     },
-    "tvr-info.lg.mncdn.com": {
+    "songtv.hls.iptvdc.com": {
       "offline": 2,
       "unreachable": 0
     },
-    "media2.streambrothers.com:1936": {
+    "live2.tensila.com": {
       "offline": 2,
       "unreachable": 0
     },
-    "94.246.128.53:1935": {
+    "kali.vdopanel.com:3119": {
       "offline": 2,
       "unreachable": 0
     },
-    "live.guberniatv.cdnvideo.ru": {
+    "starmenajo.com": {
       "offline": 2,
       "unreachable": 0
     },
-    "live-ntm13.cdnvideo.ru": {
+    "cdn.1tvcrimea.ru": {
+      "offline": 0,
+      "unreachable": 2
+    },
+    "mediaworks.dema.mil.kr:1935": {
+      "offline": 0,
+      "unreachable": 2
+    },
+    "prudentmcdn.rixcast.com": {
       "offline": 2,
       "unreachable": 0
     },
-    "online-video.rbc.ru": {
+    "load-balancer.azotosolutions.com": {
+      "offline": 0,
+      "unreachable": 2
+    },
+    "5f22d76e220e1.streamlock.net": {
       "offline": 2,
       "unreachable": 0
     },
-    "6034e09794f07.streamlock.net": {
+    "5889e7d0d6e28.streamlock.net": {
       "offline": 2,
       "unreachable": 0
     },
-    "tvsen6.aynaott.com": {
+    "rtvelivestream-rtveplayplus.rtve.es": {
       "offline": 2,
       "unreachable": 0
     },
-    "yuppnimrestreammum.akamaized.net": {
-      "offline": 2,
-      "unreachable": 0
-    },
-    "a7089c89d85f453d850c4a1518b43076.mediatailor.eu-west-1.amazonaws.com": {
+    "fs3.kabelko.sk": {
       "offline": 2,
       "unreachable": 0
     },
@@ -4265,132 +3660,106 @@
       "offline": 0,
       "unreachable": 2
     },
-    "live-th10.myjktv.com": {
-      "offline": 2,
-      "unreachable": 0
-    },
     "tv-trtbelgesel-dai.medya.trt.com.tr": {
       "offline": 0,
       "unreachable": 2
     },
-    "tvr-international.lg.mncdn.com": {
+    "151.80.18.177:86": {
       "offline": 2,
       "unreachable": 0
     },
-    "qatartv.akamaized.net": {
+    "play.canalsete.com.br:1935": {
       "offline": 2,
       "unreachable": 0
     },
-    "ott.bhagyam.net": {
+    "live-evg5.tv360.bitel.com.pe": {
       "offline": 2,
       "unreachable": 0
     },
-    "streamfi-dreamtv1.zettawiseroutes.com:8181": {
+    "streamtv.intervenhosting.net:3789": {
+      "offline": 2,
+      "unreachable": 0
+    },
+    "video01.logicahost.com.br": {
+      "offline": 2,
+      "unreachable": 0
+    },
+    "master.tucableip.com": {
       "offline": 0,
       "unreachable": 2
     },
-    "30a-tv.com": {
+    "svs.itworkscdn.net": {
       "offline": 2,
       "unreachable": 0
     },
-    "streamfi-alphadgtl1.zettawiseroutes.com:8181": {
+    "v2.tustreaming.cl": {
       "offline": 0,
       "unreachable": 2
     },
-    "ip.pdtvhd.com": {
+    "stream.berosat.live:19360": {
       "offline": 2,
       "unreachable": 0
     },
-    "5.188.159.128:8070": {
+    "origin5.mediacdn.ru": {
       "offline": 0,
       "unreachable": 2
+    },
+    "stream.starmenajo.com": {
+      "offline": 2,
+      "unreachable": 0
+    },
+    "live.castmaxcloud.com": {
+      "offline": 2,
+      "unreachable": 0
+    },
+    "l.cztvcloud.com": {
+      "offline": 2,
+      "unreachable": 0
     }
   },
   "patch": {
     "patched_files": [
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/PremiumTV.m3u",
-        "entries_before": 9837,
-        "entries_after": 9778,
-        "removed": 59,
-        "ratio": 0.006
+        "entries_before": 9871,
+        "entries_after": 9833,
+        "removed": 38,
+        "ratio": 0.0038
       },
       {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Argentina.m3u",
-        "entries_before": 152,
-        "entries_after": 151,
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Aruba.m3u",
+        "entries_before": 9,
+        "entries_after": 8,
         "removed": 1,
-        "ratio": 0.0066
+        "ratio": 0.1111
       },
       {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Azerbaijan.m3u",
-        "entries_before": 14,
-        "entries_after": 13,
-        "removed": 1,
-        "ratio": 0.0714
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Bolivia.m3u",
-        "entries_before": 47,
-        "entries_after": 46,
-        "removed": 1,
-        "ratio": 0.0213
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Cambodia.m3u",
-        "entries_before": 16,
-        "entries_after": 15,
-        "removed": 1,
-        "ratio": 0.0625
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Cameroon.m3u",
-        "entries_before": 10,
-        "entries_after": 9,
-        "removed": 1,
-        "ratio": 0.1
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Canada.m3u",
-        "entries_before": 131,
-        "entries_after": 130,
-        "removed": 1,
-        "ratio": 0.0076
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Brazil.m3u",
+        "entries_before": 186,
+        "entries_after": 184,
+        "removed": 2,
+        "ratio": 0.0108
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Chile.m3u",
-        "entries_before": 172,
-        "entries_after": 171,
+        "entries_before": 170,
+        "entries_after": 169,
         "removed": 1,
-        "ratio": 0.0058
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/China.m3u",
-        "entries_before": 52,
-        "entries_after": 50,
-        "removed": 2,
-        "ratio": 0.0385
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Colombia.m3u",
-        "entries_before": 95,
-        "entries_after": 94,
-        "removed": 1,
-        "ratio": 0.0105
+        "ratio": 0.0059
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/DR_Congo.m3u",
-        "entries_before": 5,
-        "entries_after": 4,
+        "entries_before": 4,
+        "entries_after": 3,
         "removed": 1,
-        "ratio": 0.2
+        "ratio": 0.25
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Dominican_Republic.m3u",
-        "entries_before": 191,
+        "entries_before": 193,
         "entries_after": 190,
-        "removed": 1,
-        "ratio": 0.0052
+        "removed": 3,
+        "ratio": 0.0155
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/France.m3u",
@@ -4400,990 +3769,661 @@
         "ratio": 0.0051
       },
       {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Greece.m3u",
-        "entries_before": 85,
-        "entries_after": 83,
-        "removed": 2,
-        "ratio": 0.0235
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Germany.m3u",
+        "entries_before": 171,
+        "entries_after": 170,
+        "removed": 1,
+        "ratio": 0.0058
       },
       {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Honduras.m3u",
-        "entries_before": 48,
-        "entries_after": 47,
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Guinea.m3u",
+        "entries_before": 3,
+        "entries_after": 2,
         "removed": 1,
-        "ratio": 0.0208
+        "ratio": 0.3333
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/India.m3u",
-        "entries_before": 712,
-        "entries_after": 704,
-        "removed": 8,
-        "ratio": 0.0112
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Indonesia.m3u",
-        "entries_before": 109,
-        "entries_after": 106,
-        "removed": 3,
-        "ratio": 0.0275
+        "entries_before": 699,
+        "entries_after": 692,
+        "removed": 7,
+        "ratio": 0.01
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/International.m3u",
-        "entries_before": 974,
-        "entries_after": 973,
+        "entries_before": 977,
+        "entries_after": 976,
         "removed": 1,
         "ratio": 0.001
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Italy.m3u",
-        "entries_before": 469,
-        "entries_after": 466,
-        "removed": 3,
-        "ratio": 0.0064
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Jordan.m3u",
-        "entries_before": 17,
-        "entries_after": 16,
-        "removed": 1,
-        "ratio": 0.0588
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Laos.m3u",
-        "entries_before": 9,
-        "entries_after": 7,
-        "removed": 2,
-        "ratio": 0.2222
+        "entries_before": 485,
+        "entries_after": 481,
+        "removed": 4,
+        "ratio": 0.0082
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Lebanon.m3u",
-        "entries_before": 28,
-        "entries_after": 26,
-        "removed": 2,
-        "ratio": 0.0714
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Mexico.m3u",
-        "entries_before": 119,
-        "entries_after": 118,
+        "entries_before": 25,
+        "entries_after": 24,
         "removed": 1,
-        "ratio": 0.0084
+        "ratio": 0.04
       },
       {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Myanmar.m3u",
-        "entries_before": 12,
-        "entries_after": 10,
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Peru.m3u",
+        "entries_before": 144,
+        "entries_after": 142,
         "removed": 2,
-        "ratio": 0.1667
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Panama.m3u",
-        "entries_before": 14,
-        "entries_after": 13,
-        "removed": 1,
-        "ratio": 0.0714
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Poland.m3u",
-        "entries_before": 120,
-        "entries_after": 118,
-        "removed": 2,
-        "ratio": 0.0167
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Qatar.m3u",
-        "entries_before": 36,
-        "entries_after": 35,
-        "removed": 1,
-        "ratio": 0.0278
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Romania.m3u",
-        "entries_before": 119,
-        "entries_after": 117,
-        "removed": 2,
-        "ratio": 0.0168
+        "ratio": 0.0139
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Russia.m3u",
-        "entries_before": 406,
-        "entries_after": 403,
-        "removed": 3,
-        "ratio": 0.0074
+        "entries_before": 408,
+        "entries_after": 407,
+        "removed": 1,
+        "ratio": 0.0025
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Saudi_Arabia.m3u",
-        "entries_before": 51,
-        "entries_after": 50,
+        "entries_before": 50,
+        "entries_after": 49,
         "removed": 1,
-        "ratio": 0.0196
+        "ratio": 0.02
       },
       {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Singapore.m3u",
-        "entries_before": 17,
-        "entries_after": 15,
-        "removed": 2,
-        "ratio": 0.1176
-      },
-      {
-        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/South_Korea.m3u",
-        "entries_before": 69,
-        "entries_after": 68,
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Slovakia.m3u",
+        "entries_before": 52,
+        "entries_after": 51,
         "removed": 1,
-        "ratio": 0.0145
+        "ratio": 0.0192
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Spain.m3u",
-        "entries_before": 191,
+        "entries_before": 189,
         "entries_after": 187,
-        "removed": 4,
-        "ratio": 0.0209
+        "removed": 2,
+        "ratio": 0.0106
+      },
+      {
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Sri_Lanka.m3u",
+        "entries_before": 6,
+        "entries_after": 5,
+        "removed": 1,
+        "ratio": 0.1667
+      },
+      {
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Thailand.m3u",
+        "entries_before": 50,
+        "entries_after": 48,
+        "removed": 2,
+        "ratio": 0.04
+      },
+      {
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Turkey.m3u",
+        "entries_before": 128,
+        "entries_after": 127,
+        "removed": 1,
+        "ratio": 0.0078
       },
       {
         "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/USA.m3u",
-        "entries_before": 2041,
-        "entries_after": 2038,
-        "removed": 3,
-        "ratio": 0.0015
+        "entries_before": 2046,
+        "entries_after": 2044,
+        "removed": 2,
+        "ratio": 0.001
+      },
+      {
+        "file": "/home/runner/work/PremiumTV1/PremiumTV1/playlists/countries/Venezuela.m3u",
+        "entries_before": 55,
+        "entries_after": 54,
+        "removed": 1,
+        "ratio": 0.0182
       }
     ],
     "skipped_files": [],
-    "removed_total": 118,
+    "removed_total": 76,
     "removed": [
       {
-        "name": "ERT Sports 2",
-        "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTSports2/default/index.mpd",
+        "name": "Ovacion TV (720p) [Not 24/7]",
+        "url": "http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8",
         "status": "offline",
-        "reason": "HTTP 404",
+        "reason": "dns lookup failed",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "SPOTV 2 (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2630",
-        "status": "offline",
-        "reason": "connection refused",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "SPOTV (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2614",
-        "status": "offline",
-        "reason": "connection refused",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "FashionTV Asia (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2616",
-        "status": "offline",
-        "reason": "connection refused",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Jordan Tourism (1080p)",
-        "url": "https://playlist.fasttvcdn.com/pl/cc0blorawy1ibohhrupraa/Tourism/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Outdoor Channel (Backup 1)",
-        "url": "https://cache0.wonvt.st/live/01s5dub0je1bmd1fhc0or/master.m3u8",
+        "name": "Discovery Life",
+        "url": "https://cache0.wonvt.st/live/04jtyrz0krzod10e5j0fe/master.m3u8",
         "status": "offline",
         "reason": "playlist only, HTTP 502",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "Look Thoong TV (720p) [Not 24/7]",
-        "url": "https://livefta.malimarcdn.com/ftaedge00/lookthoongtv.sdp/playlist.m3u8",
+        "name": "Dhoom Music (720p)",
+        "url": "https://cdn.pishow.tv/ott/live/1456/master.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "m2o TV (1080p)",
+        "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S62628868/uhdWBlkC1AoO/playlist.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Radio Capital TiVu (720p)",
+        "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S35394734/Z6U2wGoDYANk/playlist.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Retro Plus 2 (720p)",
+        "url": "https://tls-cl.cdnz.cl/retroplustvuno/live/playlist.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "SONGTV Russia",
+        "url": "https://songtv.hls.iptvdc.com/web-russia/playlist.m3u8",
+        "status": "offline",
+        "reason": "variant HTTP 503",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "X 102.7 FM",
+        "url": "https://live2.tensila.com/onair-v-1.xfm1027/hls/master.m3u8",
         "status": "offline",
         "reason": "variant HTTP 404",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "One TV (720p) [Not 24/7]",
-        "url": "https://hms.pfs.gdn/v1/broadcast/one/playlist.m3u8",
+        "name": "Afrik Info TV",
+        "url": "https://kali.vdopanel.com:3119/hybrid/play.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Almahriah TV (576p)",
+        "url": "https://starmenajo.com/hls/almahriah/index.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Buletin India (576p)",
+        "url": "http://51.75.127.199:3141/buletinindia/index.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Prudent Media (1080p)",
+        "url": "https://prudentmcdn.rixcast.com/prudentm.m3u8",
+        "status": "offline",
+        "reason": "html page, not a stream",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "RTM TV (1080p)",
+        "url": "https://5f22d76e220e1.streamlock.net/rtm/rtm/playlist.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Tide TV (1080p)",
+        "url": "https://5889e7d0d6e28.streamlock.net/tide-live/_definst_/smil:livestream.smil/playlist.m3u8",
         "status": "offline",
         "reason": "variant HTTP 404",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "OneFM (720p) [Not 24/7]",
-        "url": "https://hms.pfs.gdn/v1/broadcast/onefm/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Radio Carnaval TV (720p) [Not 24/7]",
-        "url": "https://eu1.servers10.com:8081/8116/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "ROCK Entertainment HD (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2612",
-        "status": "offline",
-        "reason": "connection refused",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "SpektraTV (720p)",
-        "url": "https://cloudvideo.servers10.com:8081/8026/tracks-v1a1/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Super Q Panama (1080p)",
-        "url": "https://vcp8.myplaytv.com:1936/superq/superq/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP timeout",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "CMT (Backup 1)",
-        "url": "https://cache0.wonvt.st/live/1dl2j7a1eycmfv0hzqo9q/master.m3u8",
-        "status": "offline",
-        "reason": "playlist only, HTTP 502",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Baraka Television (720p) [Not 24/7]",
-        "url": "https://stream.berosat.live:19360/baraka-hd/baraka-hd.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "CGTN French (1080p)",
-        "url": "http://145.239.5.177/214/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "ERT News",
-        "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTNews/default/index.mpd",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Panafrican Media TV (480p)",
-        "url": "https://live20.bozztv.com/giatv/giatv-pmtv/pmtv/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Star Bharat (India) (576p)",
-        "url": "http://51.75.127.199:3141/starbharat/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "TVR Info",
-        "url": "https://tvr-info.lg.mncdn.com/tvrinfo/smil:tvrinfo.smil/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Canal 33 Madrid",
-        "url": "https://media2.streambrothers.com:1936/8140/8140/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "dlaCiebie.tv (1080p) [Not 24/7]",
-        "url": "http://94.246.128.53:1935/tv/dlaCiebieTv/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Gubernia Samara (576p)",
-        "url": "http://live.guberniatv.cdnvideo.ru/guberniatv/guberniatv.sdp/playlist.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "NTM (720p) [Not 24/7]",
-        "url": "https://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/playlist.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "\u0415\u043d\u0438\u0441\u0435\u0439 (Backup 19)",
-        "url": "http://online-video.rbc.ru/online2/rbctv.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP timeout",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "dlaCiebie.tv (Backup 1)",
-        "url": "https://6034e09794f07.streamlock.net/tv/dlaCiebieTv/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "All Time Movies (576p)",
-        "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Boogle Bollywood (720p)",
-        "url": "https://yuppnimrestreammum.akamaized.net/181224/smil:bogglebollywood.smil/playlist.m3u8?hdnts=st=1735898689~exp=1835898688~acl=*~hmac=f5fe24724fe05481e3841f9eb5ab8efdee0a3dd83645ae9dcf45703f525bab7b",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "HITS Movies (576p)",
-        "url": "http://103.151.60.162:2122/play/a01h/index.m3u8?hls",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Rakuten TV Drama Movies (1080p)",
-        "url": "https://a7089c89d85f453d850c4a1518b43076.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6092/master.m3u8",
+        "name": "TVE Internacional Asia-Oceania (576p) [Geo-blocked]",
+        "url": "https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/tvei_asia_main_576.m3u8",
         "status": "offline",
         "reason": "playlist only, HTTP 403",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "JEI TV",
-        "url": "https://live-th10.myjktv.com/watch/live.m3u8?video=jei_jenung_540&sid=0U5gGVD8MUVHzIdG1JINTEXBzFPw1TS9XkiLqQM0&secret=8aabea762716b38bbc4b6c6fa0bbe509&time=1771648766",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Sicilia 24 Tv",
-        "url": "https://5f22d76e220e1.streamlock.net/sicilia24/sicilia24/playlist.m3u8",
+        "name": "Asianet Movies (576p)",
+        "url": "http://51.75.127.199:3141/asianetmovies/index.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "Tele Liguria Sud (576p)",
-        "url": "https://5f22d76e220e1.streamlock.net/tls/tls/playlist.m3u8",
+        "name": "BTV (480p)",
+        "url": "https://fs3.kabelko.sk/9011/index.m3u8?token=btv",
         "status": "offline",
-        "reason": "playlist only, TimeoutError",
+        "reason": "dns lookup failed",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "TLT Molise (1080p)",
-        "url": "https://5f22d76e220e1.streamlock.net/tltmolise/tltmolise/playlist.m3u8",
+        "name": "Deejay TV (1080p)",
+        "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO0tz9Sr2Rk/playlist.m3u8",
         "status": "offline",
-        "reason": "variant HTTP TimeoutError",
+        "reason": "HTTP 404",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "TVR International",
-        "url": "https://tvr-international.lg.mncdn.com/tvrinternational/smil:tvrinternational.smil/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Qatar Television (Backup 1)",
-        "url": "https://qatartv.akamaized.net/hls/live/20000609/qtv1/master.m3u8",
+        "name": "Canal+ (720p)",
+        "url": "http://151.80.18.177:86/Canal+_HD/index.m3u8",
         "status": "offline",
         "reason": "playlist only, HTTP 404",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "Bhagyam TV (1080p)",
-        "url": "https://ott.bhagyam.net/hls/bhagyamweb/index-1409148900-now.m3u8",
+        "name": "Manoranjan TV (720p)",
+        "url": "https://cdn.pishow.tv/ott/live/1013/master.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Univers TV (720p)",
+        "url": "https://cloud2.streaminglivehd.com:1936/universfaller/universfaller/playlist.m3u8",
+        "status": "offline",
+        "reason": "variant HTTP TimeoutError",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Canal Sete",
+        "url": "http://play.canalsete.com.br:1935/canalsete/xpl-c7_source/playlist.m3u8",
         "status": "offline",
         "reason": "playlist only, TimeoutError",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "30A Television Channel (720p)",
-        "url": "https://30a-tv.com/feeds/masters/30atv.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP RemoteDisconnected",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "iTV HD",
-        "url": "https://ip.pdtvhd.com/Khmer/streams/ITVHD.m3u8",
+        "name": "Onda TV (Peru) (720p)",
+        "url": "https://live-evg5.tv360.bitel.com.pe/bitel/onda/playlist.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "Star Suvarna (576p)",
-        "url": "http://51.75.127.199:3141/starsuvarna/index.m3u8",
+        "name": "Portuguesa Television (480p) [Not 24/7]",
+        "url": "https://streamtv.intervenhosting.net:3789/live/portutvlive.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "Bolivia TV (1080p)",
-        "url": "http://190.181.61.93:8000/play/a001/index.m3u8",
+        "name": "TV Alianca Catarinense (720p)",
+        "url": "https://video01.logicahost.com.br/tvalianca/tvalianca/playlist.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "NBT TV Chiang Mai",
+        "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:4f6e-aa34-2034-5492-c82d.smil/playlist.m3u8",
         "status": "offline",
         "reason": "connection refused",
         "file": "PremiumTV.m3u"
       },
       {
-        "name": "Canal 13 La Rioja (480p)",
-        "url": "http://arcast.net:1935/mp/mp/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Nuestra Tele Internacional (1080p)",
-        "url": "http://45.173.231.22:8000/play/a0cr/index.m3u8",
-        "status": "offline",
-        "reason": "playlist only, TimeoutError",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Hunan TV (2160p)",
-        "url": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "JTV Malang",
-        "url": "http://122.248.43.242:1935/JTVMALANG/_definst_/myStream/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Lao Net TV (720p)",
-        "url": "https://livefta.malimarcdn.com/ftaedge00/laonet.sdp/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Myanmar International TV",
-        "url": "https://mrtvott.com/cache/MITV/master.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP TimeoutError",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Guayape TV",
-        "url": "https://tv.bitstreaming.net:8443/live/guayapetv.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Zonavision TV [Not 24/7]",
-        "url": "https://ds.tvabierta.net/memfs/b295f254-7af9-45e4-bfc6-7e0bba41929d.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Asharq Documentary (1080p)",
-        "url": "https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8",
-        "status": "offline",
-        "reason": "playlist only, HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Disney International HD (576p)",
-        "url": "http://103.151.60.162:2122/play/a018/index.m3u8?hls",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "13C (1080p)",
-        "url": "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "El Sonorense (1080p) [Not 24/7]",
-        "url": "https://s5.mexside.net:1936/elsonorense/elsonorense/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Medeniyyet TV (1080p)",
-        "url": "https://str.yodacdn.net/medeniyyettele/index.m3u8",
-        "status": "offline",
-        "reason": "playlist only, HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "MRTV NRC",
-        "url": "https://mrtvott.com/cache/MRTV-NRC-HD/master.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP TimeoutError",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "CCV (480p)",
-        "url": "https://5a1178b42cc03.streamlock.net/8212/8212/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Shubhsandesh (720p) [Not 24/7]",
-        "url": "https://6284rn2xr7xv-hls-live.wmncdn.net/shubhsandeshtv1/live123.stream/index.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Channel Y (720p) [Not 24/7]",
-        "url": "http://cdn19.live247stream.com/channely/tv/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 22)",
-        "url": "https://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
-        "status": "offline",
-        "reason": "playlist only, TimeoutError",
-        "file": "PremiumTV.m3u"
-      },
-      {
-        "name": "Canal 13 La Rioja (480p)",
-        "url": "http://arcast.net:1935/mp/mp/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Argentina.m3u"
-      },
-      {
-        "name": "Medeniyyet TV (1080p)",
-        "url": "https://str.yodacdn.net/medeniyyettele/index.m3u8",
-        "status": "offline",
-        "reason": "playlist only, HTTP 404",
-        "file": "Azerbaijan.m3u"
-      },
-      {
-        "name": "Bolivia TV (1080p)",
-        "url": "http://190.181.61.93:8000/play/a001/index.m3u8",
+        "name": "NBT World (1080p)",
+        "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:d36f-93c1-9c58-fdcc-427f.smil/playlist.m3u8",
         "status": "offline",
         "reason": "connection refused",
-        "file": "Bolivia.m3u"
+        "file": "PremiumTV.m3u"
       },
       {
-        "name": "iTV HD",
-        "url": "https://ip.pdtvhd.com/Khmer/streams/ITVHD.m3u8",
+        "name": "Camu TV (480p) [Not 24/7]",
+        "url": "https://live20.bozztv.com/akamaissh101/ssh101/camutv/playlist.m3u8",
+        "status": "offline",
+        "reason": "variant HTTP 502",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Elias Pina TV (720p) [Not 24/7]",
+        "url": "https://cloud2.streaminglivehd.com:1936/8078/8078/playlist.m3u8",
+        "status": "offline",
+        "reason": "playlist only, TimeoutError",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Jimani TV (360p) [Geo-blocked]",
+        "url": "https://cloud2.streaminglivehd.com:1936/8246/8246/playlist.m3u8",
+        "status": "offline",
+        "reason": "playlist only, TimeoutError",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Asharq Discovery (1080p)",
+        "url": "https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/playlist_dvr.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "RL PRO TV",
+        "url": "https://stream.berosat.live:19360/rlpro-tv/rlpro-tv.m3u8",
+        "status": "offline",
+        "reason": "html page, not a stream",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "Taha TV (576p)",
+        "url": "https://stream.starmenajo.com/hls/app/live/ts:fhd.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
-        "file": "Cambodia.m3u"
+        "file": "PremiumTV.m3u"
       },
       {
-        "name": "Panafrican Media TV (480p)",
-        "url": "https://live20.bozztv.com/giatv/giatv-pmtv/pmtv/playlist.m3u8",
+        "name": "Imai TV (1080p)",
+        "url": "https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
-        "file": "Cameroon.m3u"
+        "file": "PremiumTV.m3u"
       },
       {
-        "name": "Channel Y (720p) [Not 24/7]",
-        "url": "http://cdn19.live247stream.com/channely/tv/playlist.m3u8",
+        "name": "DD Rajasthan (720p)",
+        "url": "https://cdn.pishow.tv/ott/live/34/master.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "HSTV (720p)",
+        "url": "https://live.castmaxcloud.com/live/hstv.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "ABC",
+        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb354/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzU0OjE3OTEzNzk4MDM2OTU6Y2RubGl2ZXR2LnR2OmYxNWIwOTFjMmE0YmI5ODkuZGQ3MDI0Zjk5MTljM2IxZTExZjE5ODc5OTI4OTEyMTM5ZDMyN2ZjZjg2NTcwYmFkNDRjM2ZhNTQxMDBjOWQyMg",
+        "status": "offline",
+        "reason": "playlist only, HTTP 503",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 12)",
+        "url": "https://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8",
+        "status": "offline",
+        "reason": "playlist only, TimeoutError",
+        "file": "PremiumTV.m3u"
+      },
+      {
+        "name": "X 102.7 FM",
+        "url": "https://live2.tensila.com/onair-v-1.xfm1027/hls/master.m3u8",
         "status": "offline",
         "reason": "variant HTTP 404",
-        "file": "Canada.m3u"
+        "file": "Aruba.m3u"
       },
       {
-        "name": "13C (1080p)",
-        "url": "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8",
+        "name": "Canal Sete",
+        "url": "http://play.canalsete.com.br:1935/canalsete/xpl-c7_source/playlist.m3u8",
         "status": "offline",
-        "reason": "playlist only, timeout",
+        "reason": "playlist only, TimeoutError",
+        "file": "Brazil.m3u"
+      },
+      {
+        "name": "TV Alianca Catarinense (720p)",
+        "url": "https://video01.logicahost.com.br/tvalianca/tvalianca/playlist.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "Brazil.m3u"
+      },
+      {
+        "name": "Retro Plus 2 (720p)",
+        "url": "https://tls-cl.cdnz.cl/retroplustvuno/live/playlist.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
         "file": "Chile.m3u"
       },
       {
-        "name": "Hunan TV (2160p)",
-        "url": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",
+        "name": "RL PRO TV",
+        "url": "https://stream.berosat.live:19360/rlpro-tv/rlpro-tv.m3u8",
         "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "China.m3u"
-      },
-      {
-        "name": "CGTN French (1080p)",
-        "url": "http://145.239.5.177/214/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "China.m3u"
-      },
-      {
-        "name": "Nuestra Tele Internacional (1080p)",
-        "url": "http://45.173.231.22:8000/play/a0cr/index.m3u8",
-        "status": "offline",
-        "reason": "playlist only, TimeoutError",
-        "file": "Colombia.m3u"
-      },
-      {
-        "name": "Baraka Television (720p) [Not 24/7]",
-        "url": "https://stream.berosat.live:19360/baraka-hd/baraka-hd.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
+        "reason": "html page, not a stream",
         "file": "DR_Congo.m3u"
       },
       {
-        "name": "Zonavision TV [Not 24/7]",
-        "url": "https://ds.tvabierta.net/memfs/b295f254-7af9-45e4-bfc6-7e0bba41929d.m3u8",
+        "name": "Camu TV (480p) [Not 24/7]",
+        "url": "https://live20.bozztv.com/akamaissh101/ssh101/camutv/playlist.m3u8",
         "status": "offline",
-        "reason": "HTTP 404",
+        "reason": "variant HTTP 502",
         "file": "Dominican_Republic.m3u"
       },
       {
-        "name": "FashionTV Asia (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2616",
+        "name": "Elias Pina TV (720p) [Not 24/7]",
+        "url": "https://cloud2.streaminglivehd.com:1936/8078/8078/playlist.m3u8",
         "status": "offline",
-        "reason": "connection refused",
+        "reason": "playlist only, TimeoutError",
+        "file": "Dominican_Republic.m3u"
+      },
+      {
+        "name": "Jimani TV (360p) [Geo-blocked]",
+        "url": "https://cloud2.streaminglivehd.com:1936/8246/8246/playlist.m3u8",
+        "status": "offline",
+        "reason": "playlist only, TimeoutError",
+        "file": "Dominican_Republic.m3u"
+      },
+      {
+        "name": "Canal+ (720p)",
+        "url": "http://151.80.18.177:86/Canal+_HD/index.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
         "file": "France.m3u"
       },
       {
-        "name": "ERT Sports 2",
-        "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTSports2/default/index.mpd",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Greece.m3u"
-      },
-      {
-        "name": "ERT News",
-        "url": "https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTNews/default/index.mpd",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Greece.m3u"
-      },
-      {
-        "name": "Guayape TV",
-        "url": "https://tv.bitstreaming.net:8443/live/guayapetv.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Honduras.m3u"
-      },
-      {
-        "name": "Star Bharat (India) (576p)",
-        "url": "http://51.75.127.199:3141/starbharat/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "India.m3u"
-      },
-      {
-        "name": "Star Suvarna (576p)",
-        "url": "http://51.75.127.199:3141/starsuvarna/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "India.m3u"
-      },
-      {
-        "name": "Bhagyam TV (1080p)",
-        "url": "https://ott.bhagyam.net/hls/bhagyamweb/index-1409148900-now.m3u8",
-        "status": "offline",
-        "reason": "playlist only, TimeoutError",
-        "file": "India.m3u"
-      },
-      {
-        "name": "CCV (480p)",
-        "url": "https://5a1178b42cc03.streamlock.net/8212/8212/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "India.m3u"
-      },
-      {
-        "name": "Shubhsandesh (720p) [Not 24/7]",
-        "url": "https://6284rn2xr7xv-hls-live.wmncdn.net/shubhsandeshtv1/live123.stream/index.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "India.m3u"
-      },
-      {
-        "name": "All Time Movies (576p)",
-        "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "India.m3u"
-      },
-      {
-        "name": "Boogle Bollywood (720p)",
-        "url": "https://yuppnimrestreammum.akamaized.net/181224/smil:bogglebollywood.smil/playlist.m3u8?hdnts=st=1735898689~exp=1835898688~acl=*~hmac=f5fe24724fe05481e3841f9eb5ab8efdee0a3dd83645ae9dcf45703f525bab7b",
+        "name": "Tide TV (1080p)",
+        "url": "https://5889e7d0d6e28.streamlock.net/tide-live/_definst_/smil:livestream.smil/playlist.m3u8",
         "status": "offline",
         "reason": "variant HTTP 404",
-        "file": "India.m3u"
+        "file": "Germany.m3u"
       },
       {
-        "name": "Disney International HD (576p)",
-        "url": "http://103.151.60.162:2122/play/a018/index.m3u8?hls",
+        "name": "Afrik Info TV",
+        "url": "https://kali.vdopanel.com:3119/hybrid/play.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "Guinea.m3u"
+      },
+      {
+        "name": "Buletin India (576p)",
+        "url": "http://51.75.127.199:3141/buletinindia/index.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
         "file": "India.m3u"
       },
       {
-        "name": "SPOTV 2 (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2630",
+        "name": "Prudent Media (1080p)",
+        "url": "https://prudentmcdn.rixcast.com/prudentm.m3u8",
         "status": "offline",
-        "reason": "connection refused",
-        "file": "Indonesia.m3u"
+        "reason": "html page, not a stream",
+        "file": "India.m3u"
       },
       {
-        "name": "SPOTV (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2614",
+        "name": "Manoranjan TV (720p)",
+        "url": "https://cdn.pishow.tv/ott/live/1013/master.m3u8",
         "status": "offline",
-        "reason": "connection refused",
-        "file": "Indonesia.m3u"
+        "reason": "playlist only, HTTP 404",
+        "file": "India.m3u"
       },
       {
-        "name": "JTV Malang",
-        "url": "http://122.248.43.242:1935/JTVMALANG/_definst_/myStream/playlist.m3u8",
+        "name": "DD Rajasthan (720p)",
+        "url": "https://cdn.pishow.tv/ott/live/34/master.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "India.m3u"
+      },
+      {
+        "name": "HSTV (720p)",
+        "url": "https://live.castmaxcloud.com/live/hstv.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
-        "file": "Indonesia.m3u"
+        "file": "India.m3u"
       },
       {
-        "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 3)",
-        "url": "https://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
+        "name": "Asianet Movies (576p)",
+        "url": "http://51.75.127.199:3141/asianetmovies/index.m3u8",
+        "status": "offline",
+        "reason": "HTTP 404",
+        "file": "India.m3u"
+      },
+      {
+        "name": "Dhoom Music (720p)",
+        "url": "https://cdn.pishow.tv/ott/live/1456/master.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "India.m3u"
+      },
+      {
+        "name": "\u65b0\u660c\u65b0\u805e\u7d9c\u5408 (Backup 2)",
+        "url": "https://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8",
         "status": "offline",
         "reason": "playlist only, TimeoutError",
         "file": "International.m3u"
       },
       {
-        "name": "Sicilia 24 Tv",
-        "url": "https://5f22d76e220e1.streamlock.net/sicilia24/sicilia24/playlist.m3u8",
+        "name": "Deejay TV (1080p)",
+        "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO0tz9Sr2Rk/playlist.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
         "file": "Italy.m3u"
       },
       {
-        "name": "Tele Liguria Sud (576p)",
-        "url": "https://5f22d76e220e1.streamlock.net/tls/tls/playlist.m3u8",
+        "name": "m2o TV (1080p)",
+        "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S62628868/uhdWBlkC1AoO/playlist.m3u8",
         "status": "offline",
-        "reason": "playlist only, TimeoutError",
+        "reason": "HTTP 404",
         "file": "Italy.m3u"
       },
       {
-        "name": "TLT Molise (1080p)",
-        "url": "https://5f22d76e220e1.streamlock.net/tltmolise/tltmolise/playlist.m3u8",
+        "name": "Radio Capital TiVu (720p)",
+        "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S35394734/Z6U2wGoDYANk/playlist.m3u8",
         "status": "offline",
-        "reason": "variant HTTP TimeoutError",
+        "reason": "HTTP 404",
         "file": "Italy.m3u"
       },
       {
-        "name": "Jordan Tourism (1080p)",
-        "url": "https://playlist.fasttvcdn.com/pl/cc0blorawy1ibohhrupraa/Tourism/playlist.m3u8",
+        "name": "RTM TV (1080p)",
+        "url": "https://5f22d76e220e1.streamlock.net/rtm/rtm/playlist.m3u8",
         "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "Jordan.m3u"
+        "reason": "HTTP 404",
+        "file": "Italy.m3u"
       },
       {
-        "name": "Lao Net TV (720p)",
-        "url": "https://livefta.malimarcdn.com/ftaedge00/laonet.sdp/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "Laos.m3u"
-      },
-      {
-        "name": "Look Thoong TV (720p) [Not 24/7]",
-        "url": "https://livefta.malimarcdn.com/ftaedge00/lookthoongtv.sdp/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "Laos.m3u"
-      },
-      {
-        "name": "One TV (720p) [Not 24/7]",
-        "url": "https://hms.pfs.gdn/v1/broadcast/one/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "Lebanon.m3u"
-      },
-      {
-        "name": "OneFM (720p) [Not 24/7]",
-        "url": "https://hms.pfs.gdn/v1/broadcast/onefm/playlist.m3u8",
+        "name": "Taha TV (576p)",
+        "url": "https://stream.starmenajo.com/hls/app/live/ts:fhd.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
         "file": "Lebanon.m3u"
       },
       {
-        "name": "El Sonorense (1080p) [Not 24/7]",
-        "url": "https://s5.mexside.net:1936/elsonorense/elsonorense/playlist.m3u8",
+        "name": "Ovacion TV (720p) [Not 24/7]",
+        "url": "http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8",
+        "status": "offline",
+        "reason": "dns lookup failed",
+        "file": "Peru.m3u"
+      },
+      {
+        "name": "Onda TV (Peru) (720p)",
+        "url": "https://live-evg5.tv360.bitel.com.pe/bitel/onda/playlist.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
-        "file": "Mexico.m3u"
+        "file": "Peru.m3u"
       },
       {
-        "name": "Myanmar International TV",
-        "url": "https://mrtvott.com/cache/MITV/master.m3u8",
+        "name": "SONGTV Russia",
+        "url": "https://songtv.hls.iptvdc.com/web-russia/playlist.m3u8",
         "status": "offline",
-        "reason": "variant HTTP TimeoutError",
-        "file": "Myanmar.m3u"
-      },
-      {
-        "name": "MRTV NRC",
-        "url": "https://mrtvott.com/cache/MRTV-NRC-HD/master.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP TimeoutError",
-        "file": "Myanmar.m3u"
-      },
-      {
-        "name": "Super Q Panama (1080p)",
-        "url": "https://vcp8.myplaytv.com:1936/superq/superq/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP timeout",
-        "file": "Panama.m3u"
-      },
-      {
-        "name": "dlaCiebie.tv (1080p) [Not 24/7]",
-        "url": "http://94.246.128.53:1935/tv/dlaCiebieTv/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Poland.m3u"
-      },
-      {
-        "name": "dlaCiebie.tv (Backup 1)",
-        "url": "https://6034e09794f07.streamlock.net/tv/dlaCiebieTv/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Poland.m3u"
-      },
-      {
-        "name": "Qatar Television (Backup 1)",
-        "url": "https://qatartv.akamaized.net/hls/live/20000609/qtv1/master.m3u8",
-        "status": "offline",
-        "reason": "playlist only, HTTP 404",
-        "file": "Qatar.m3u"
-      },
-      {
-        "name": "TVR Info",
-        "url": "https://tvr-info.lg.mncdn.com/tvrinfo/smil:tvrinfo.smil/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "Romania.m3u"
-      },
-      {
-        "name": "TVR International",
-        "url": "https://tvr-international.lg.mncdn.com/tvrinternational/smil:tvrinternational.smil/playlist.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "Romania.m3u"
-      },
-      {
-        "name": "Gubernia Samara (576p)",
-        "url": "http://live.guberniatv.cdnvideo.ru/guberniatv/guberniatv.sdp/playlist.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
+        "reason": "variant HTTP 503",
         "file": "Russia.m3u"
       },
       {
-        "name": "NTM (720p) [Not 24/7]",
-        "url": "https://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/playlist.m3u8",
-        "status": "offline",
-        "reason": "playlist only, timeout",
-        "file": "Russia.m3u"
-      },
-      {
-        "name": "\u0415\u043d\u0438\u0441\u0435\u0439 (Backup 26)",
-        "url": "http://online-video.rbc.ru/online2/rbctv.m3u8",
-        "status": "offline",
-        "reason": "variant HTTP timeout",
-        "file": "Russia.m3u"
-      },
-      {
-        "name": "Asharq Documentary (1080p)",
-        "url": "https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8",
+        "name": "Asharq Discovery (1080p)",
+        "url": "https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/playlist_dvr.m3u8",
         "status": "offline",
         "reason": "playlist only, HTTP 404",
         "file": "Saudi_Arabia.m3u"
       },
       {
-        "name": "HITS Movies (576p)",
-        "url": "http://103.151.60.162:2122/play/a01h/index.m3u8?hls",
+        "name": "BTV (480p)",
+        "url": "https://fs3.kabelko.sk/9011/index.m3u8?token=btv",
         "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Singapore.m3u"
+        "reason": "dns lookup failed",
+        "file": "Slovakia.m3u"
       },
       {
-        "name": "ROCK Entertainment HD (720p)",
-        "url": "http://58.8.186.128:10006/bysid/2612",
-        "status": "offline",
-        "reason": "connection refused",
-        "file": "Singapore.m3u"
-      },
-      {
-        "name": "JEI TV",
-        "url": "https://live-th10.myjktv.com/watch/live.m3u8?video=jei_jenung_540&sid=0U5gGVD8MUVHzIdG1JINTEXBzFPw1TS9XkiLqQM0&secret=8aabea762716b38bbc4b6c6fa0bbe509&time=1771648766",
-        "status": "offline",
-        "reason": "variant HTTP 404",
-        "file": "South_Korea.m3u"
-      },
-      {
-        "name": "Canal 33 Madrid",
-        "url": "https://media2.streambrothers.com:1936/8140/8140/playlist.m3u8",
-        "status": "offline",
-        "reason": "HTTP 404",
-        "file": "Spain.m3u"
-      },
-      {
-        "name": "Rakuten TV Drama Movies (1080p)",
-        "url": "https://a7089c89d85f453d850c4a1518b43076.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6092/master.m3u8",
+        "name": "TVE Internacional Asia-Oceania (576p) [Geo-blocked]",
+        "url": "https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/tvei_asia_main_576.m3u8",
         "status": "offline",
         "reason": "playlist only, HTTP 403",
         "file": "Spain.m3u"
       },
       {
-        "name": "Radio Carnaval TV (720p) [Not 24/7]",
-        "url": "https://eu1.servers10.com:8081/8116/index.m3u8",
+        "name": "Univers TV (720p)",
+        "url": "https://cloud2.streaminglivehd.com:1936/universfaller/universfaller/playlist.m3u8",
         "status": "offline",
-        "reason": "HTTP 404",
+        "reason": "variant HTTP TimeoutError",
         "file": "Spain.m3u"
       },
       {
-        "name": "SpektraTV (720p)",
-        "url": "https://cloudvideo.servers10.com:8081/8026/tracks-v1a1/index.m3u8",
+        "name": "Imai TV (1080p)",
+        "url": "https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8",
         "status": "offline",
         "reason": "HTTP 404",
-        "file": "Spain.m3u"
+        "file": "Sri_Lanka.m3u"
       },
       {
-        "name": "Outdoor Channel (Backup 1)",
-        "url": "https://cache0.wonvt.st/live/01s5dub0je1bmd1fhc0or/master.m3u8",
+        "name": "NBT TV Chiang Mai",
+        "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:4f6e-aa34-2034-5492-c82d.smil/playlist.m3u8",
+        "status": "offline",
+        "reason": "connection refused",
+        "file": "Thailand.m3u"
+      },
+      {
+        "name": "NBT World (1080p)",
+        "url": "https://cdn-edge.iiptvcdn.com/live_event/smil:d36f-93c1-9c58-fdcc-427f.smil/playlist.m3u8",
+        "status": "offline",
+        "reason": "connection refused",
+        "file": "Thailand.m3u"
+      },
+      {
+        "name": "Almahriah TV (576p)",
+        "url": "https://starmenajo.com/hls/almahriah/index.m3u8",
+        "status": "offline",
+        "reason": "playlist only, HTTP 404",
+        "file": "Turkey.m3u"
+      },
+      {
+        "name": "Discovery Life",
+        "url": "https://cache0.wonvt.st/live/04jtyrz0krzod10e5j0fe/master.m3u8",
         "status": "offline",
         "reason": "playlist only, HTTP 502",
         "file": "USA.m3u"
       },
       {
-        "name": "30A Television Channel (720p)",
-        "url": "https://30a-tv.com/feeds/masters/30atv.m3u8",
+        "name": "ABC",
+        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb354/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzU0OjE3OTEzNzk4MDM2OTU6Y2RubGl2ZXR2LnR2OmYxNWIwOTFjMmE0YmI5ODkuZGQ3MDI0Zjk5MTljM2IxZTExZjE5ODc5OTI4OTEyMTM5ZDMyN2ZjZjg2NTcwYmFkNDRjM2ZhNTQxMDBjOWQyMg",
         "status": "offline",
-        "reason": "variant HTTP RemoteDisconnected",
+        "reason": "playlist only, HTTP 503",
         "file": "USA.m3u"
       },
       {
-        "name": "CMT (Backup 1)",
-        "url": "https://cache0.wonvt.st/live/1dl2j7a1eycmfv0hzqo9q/master.m3u8",
+        "name": "Portuguesa Television (480p) [Not 24/7]",
+        "url": "https://streamtv.intervenhosting.net:3789/live/portutvlive.m3u8",
         "status": "offline",
-        "reason": "playlist only, HTTP 502",
-        "file": "USA.m3u"
+        "reason": "HTTP 404",
+        "file": "Venezuela.m3u"
       }
     ],
     "aborted": false,
     "abort_reason": "",
-    "working_ratio": 0.9905,
+    "working_ratio": 0.9933,
     "regrouped": 0,
     "quarantine": {
       "file": "playlists/checks/quarantine.json",
-      "count": 2501,
+      "count": 2539,
       "days": 7.0
     },
     "edit_log": "playlists/logs/link-check-edits.txt"

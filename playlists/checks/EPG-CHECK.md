@@ -1,21 +1,21 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261006T120248Z-2686`)
-- **Started:** 2026-10-06T12:02:48Z | **Finished:** 2026-10-06T12:02:49Z | **Duration:** 1.2s
-- **Guides checked:** 175 across 174 playlists
+- **Run:** nightly guide check (`20261007T114743Z-2646`)
+- **Started:** 2026-10-07T11:47:43Z | **Finished:** 2026-10-07T11:47:45Z | **Duration:** 2.3s
+- **Guides checked:** 176 across 175 playlists
 - **Working share:** 1.1%
 
 | Result | Guides |
 |---|---:|
 | ok | 2 |
-| offline | 173 |
+| offline | 174 |
 
 ## Working guides (kept)
 
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
-| `TV.xml` | 230 | 7505 | 2026-10-10 08:00 UTC | 4096 KB |
-| `guide.xml.gz` | 2 | 100 | 2026-10-07 00:30 UTC | 2 KB |
+| `TV.xml` | 229 | 7490 | 2026-10-11 08:00 UTC | 4096 KB |
+| `guide.xml.gz` | 2 | 100 | 2026-10-08 00:30 UTC | 2 KB |
 
 ## Guides that failed
 
@@ -27,6 +27,7 @@
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Algeria.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Andorra.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Angola.xml` | offline | HTTP 404 |
+| `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Antigua_and_Barbuda.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Arab_World.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Argentina.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Armenia.xml` | offline | HTTP 404 |
@@ -197,4 +198,4 @@
 
 ## Patch
 
-- **Aborted:** only 2/175 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing
+- **Aborted:** only 2/176 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing

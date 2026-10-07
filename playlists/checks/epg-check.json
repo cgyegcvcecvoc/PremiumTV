@@ -1,9 +1,9 @@
 {
-  "run_id": "20261006T120248Z-2686",
+  "run_id": "20261007T114743Z-2646",
   "label": "nightly guide check",
-  "started_utc": "2026-10-06T12:02:48Z",
-  "finished_utc": "2026-10-06T12:02:49Z",
-  "duration_seconds": 1.2,
+  "started_utc": "2026-10-07T11:47:43Z",
+  "finished_utc": "2026-10-07T11:47:45Z",
+  "duration_seconds": 2.3,
   "timeout": 60.0,
   "playlists": [
     "playlists/PremiumTV.m3u",
@@ -13,6 +13,7 @@
     "playlists/countries/Algeria.m3u",
     "playlists/countries/Andorra.m3u",
     "playlists/countries/Angola.m3u",
+    "playlists/countries/Antigua_and_Barbuda.m3u",
     "playlists/countries/Arab_World.m3u",
     "playlists/countries/Argentina.m3u",
     "playlists/countries/Armenia.m3u",
@@ -198,28 +199,28 @@
     {
       "url": "https://raw.githubusercontent.com/doms9/iptv/refs/heads/default/M3U8/TV.xml",
       "status": "ok",
-      "reason": "230 channels, 7505 programmes sampled",
+      "reason": "229 channels, 7490 programmes sampled",
       "http_status": 206,
       "bytes": 4194304,
-      "channels": 230,
-      "programmes": 7505,
-      "sample_channel": "TSN 5",
-      "newest_programme": "2026-10-10 08:00 UTC",
+      "channels": 229,
+      "programmes": 7490,
+      "sample_channel": "TSN 4",
+      "newest_programme": "2026-10-11 08:00 UTC",
       "gzipped": false,
-      "elapsed": 0.05
+      "elapsed": 0.13
     },
     {
       "url": "https://worker-9dd4.onrender.com/guide.xml.gz",
       "status": "ok",
       "reason": "2 channels, 100 programmes sampled",
       "http_status": 206,
-      "bytes": 2913,
+      "bytes": 2924,
       "channels": 2,
       "programmes": 100,
       "sample_channel": "ANT1 Europe",
-      "newest_programme": "2026-10-07 00:30 UTC",
+      "newest_programme": "2026-10-08 00:30 UTC",
       "gzipped": true,
-      "elapsed": 0.11
+      "elapsed": 0.1
     },
     {
       "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Afghanistan.xml",
@@ -275,6 +276,19 @@
     },
     {
       "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Angola.xml",
+      "status": "offline",
+      "reason": "HTTP 404",
+      "http_status": 404,
+      "bytes": 0,
+      "channels": 0,
+      "programmes": 0,
+      "sample_channel": "",
+      "newest_programme": "",
+      "gzipped": false,
+      "elapsed": 0.0
+    },
+    {
+      "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Antigua_and_Barbuda.xml",
       "status": "offline",
       "reason": "HTTP 404",
       "http_status": 404,
@@ -2459,13 +2473,13 @@
     }
   ],
   "totals": {
-    "offline": 173,
+    "offline": 174,
     "ok": 2
   },
   "working_ratio": 0.0114,
   "patch": {
     "aborted": true,
-    "abort_reason": "only 2/175 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing",
+    "abort_reason": "only 2/176 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing",
     "patched_files": [],
     "removed": [],
     "added": [],
@@ -2480,6 +2494,7 @@
     "Algeria.m3u": 1,
     "Andorra.m3u": 1,
     "Angola.m3u": 1,
+    "Antigua_and_Barbuda.m3u": 1,
     "Arab_World.m3u": 1,
     "Argentina.m3u": 1,
     "Armenia.m3u": 1,
