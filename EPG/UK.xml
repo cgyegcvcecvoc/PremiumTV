@@ -49,6 +49,12 @@
     <display-name>SkySp.Action.uk</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-action-icon-uk.png" />
   </channel>
+  <channel id="SkySp.Cricket.uk">
+    <display-name>Sky Sports Cricket</display-name>
+    <display-name>SkySp Cricket</display-name>
+    <display-name>SkySp.Cricket.uk</display-name>
+    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-cricket-icon-uk.png" />
+  </channel>
   <channel id="SkySp.F1.uk">
     <display-name>Sky Sports F1</display-name>
     <display-name>SkySp F1</display-name>
@@ -73,12 +79,6 @@
     <display-name>SkySpMainEvHD.uk</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-main-event-icon-uk.png" />
   </channel>
-  <channel id="SkySp.Mix.HD.uk">
-    <display-name>Sky Sports Mix</display-name>
-    <display-name>SkySp Mix HD</display-name>
-    <display-name>SkySp.Mix.HD.uk</display-name>
-    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-mix-icon-uk.png" />
-  </channel>
   <channel id="SkySp.News.HD.uk">
     <display-name>Sky Sports News</display-name>
     <display-name>SkySp News HD</display-name>
@@ -91,11 +91,11 @@
     <display-name>SkySp.PL.HD.uk</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-premier-league-icon-uk.png" />
   </channel>
-  <channel id="SkySp.Racing.HD.uk">
-    <display-name>Sky Sports Racing</display-name>
-    <display-name>SkySp Racing HD</display-name>
-    <display-name>SkySp.Racing.HD.uk</display-name>
-    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-racing-icon-uk.png" />
+  <channel id="SkySp.Tennis.HD.uk">
+    <display-name>Sky Sports Tennis</display-name>
+    <display-name>SkySp Tennis HD</display-name>
+    <display-name>SkySp.Tennis.HD.uk</display-name>
+    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-kingdom/sky-sports-tennis-icon-uk.png" />
   </channel>
   <channel id="StrongmanChampionsLeague.uk@SD">
     <display-name>Strongman Champions League (720p)</display-name>
@@ -373,12 +373,11 @@
     <icon src="https://i.imgur.com/Cl1iGEb.jpeg" />
   </channel>
   <channel id="Pop.uk@SD">
-    <display-name>Pop TV</display-name>
     <display-name>Pop (1080p)</display-name>
     <display-name>Pop (Backup 1)</display-name>
     <display-name>Pop (Backup 2)</display-name>
     <display-name>Pop (Backup 3)</display-name>
-    <icon src="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s16715_dark_360w_270h.png" />
+    <icon src="https://i.imgur.com/fGUlCY3.png" />
   </channel>
   <channel id="SangatTV.uk@SD">
     <display-name>Sangat TV (576p)</display-name>
@@ -753,28 +752,6 @@
     <display-name>STV.HD.uk</display-name>
     <icon src="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s21830_dark_360w_270h.png" />
   </channel>
-  <programme start="20261008113000 +0000" stop="20261008114500 +0000" channel="SkySp.Action.uk">
-    <title>NFL Chargers @ Seahawks Highlights</title>
-    <desc>Bitesize highlights from a week four match-up during the 2026 NFL. (04.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/bbe4660b-14db-47d5-becc-003cd85198d1/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008114500 +0000" stop="20261008120000 +0000" channel="SkySp.Action.uk">
-    <title>NFL Lions @ Panthers Highlights</title>
-    <desc>Bitesize highlights as the Carolina Panthers take on the Detroit Lions in the NFL. Last weekend, Jahmyr Gibbs inspired the Lions to victory over the New York Jets. (04.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/1d4c7411-2ee6-4d95-b780-f2c2656c09cc/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
   <programme start="20261008120000 +0000" stop="20261008140000 +0000" channel="SkySp.Action.uk">
     <title>Live NFL Good Morning Football</title>
     <desc>Get up-to-the-minute breaking NFL news, headline-making interviews and local NFL stories.</desc>
@@ -1460,53 +1437,516 @@
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261008104500 +0000" stop="20261008114500 +0000" channel="SkySp.F1.uk">
-    <title>Bahrain F1 GP Highlights</title>
-    <desc>It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, Max Verstappen took the top step. (04.</desc>
+  <programme start="20261010180000 +0000" stop="20261010190000 +0000" channel="SkySp.Action.uk">
+    <title>NFL Steelers @ Browns Highlights</title>
+    <desc>AFC North rivals the Cleveland Browns and Pittsburgh Steelers open week four of the campaign. Both teams boast 2-1 records three games in having registered victories last week. (02.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
+    <category lang="en">American Football</category>
     <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/0bcf2cad-43a7-4d86-8af5-2d9d04cae2dc/16-9" />
+    <icon src="https://images.metadata.sky.com/pd-image/66ca448d-6a83-4007-8e0b-6c77c41c3ce4/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261008114500 +0000" stop="20261008120500 +0000" channel="SkySp.F1.uk">
-    <title>Chasing The Dream</title>
-    <desc>Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+  <programme start="20261010190000 +0000" stop="20261010191500 +0000" channel="SkySp.Action.uk">
+    <title>NFL Rams @ Eagles Highlights</title>
+    <desc>Bitesize highlights from a week four match-up during the 2026 NFL. (04.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">7.12.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <category lang="en">American Football</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/dba22b23-6996-484b-b47f-fed1b85500e0/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261008120500 +0000" stop="20261008121500 +0000" channel="SkySp.F1.uk">
-    <title>Crofty Hot Laps with Franc Colapin</title>
-    <desc>Sky F1 commentator Crofty joins Alpine's Franco Colapinto for some hot laps.</desc>
+  <programme start="20261010191500 +0000" stop="20261010193000 +0000" channel="SkySp.Action.uk">
+    <title>NFL Chiefs @ Raiders Highlights</title>
+    <desc>Bitesize highlights as the Chiefs hit the road for an NFL match-up during week four against AFC West rivals Las Vegas Raiders. Whose perfect start to the season ends here? (04.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/720ec65e-887d-4bc2-a550-dac626a89d95/16-9" />
+    <category lang="en">American Football</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/85a2ca9a-de28-4aec-9be0-f0213697bb35/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261008121500 +0000" stop="20261008130000 +0000" channel="SkySp.F1.uk">
-    <title>F1 Drivers' Press Conference</title>
-    <desc>Ahead of the Singapore Grand Prix, the drivers sit down to answer questions from the world's media.</desc>
+  <programme start="20261010193000 +0000" stop="20261010230000 +0000" channel="SkySp.Action.uk">
+    <title>Live NCAA: Standford @ Notre Dame</title>
+    <desc>Fifteen wins and counting, the Fighting Irish line up against Stanford Cardinal next. Marcus Freeman's men prevailed in a tight game at North Carolina last week, winning 37-26.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">.36.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/a7a5b329-c063-43e9-ac4e-153386b1333b/16-9" />
+    <category lang="en">American Football</category>
+    <episode-num system="xmltv_ns">.4.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/a8d94fd1-bb20-47cc-8baa-aaced8cbef8d/16-9" />
   </programme>
-  <programme start="20261008130000 +0000" stop="20261008133000 +0000" channel="SkySp.F1.uk">
-    <title>Live F1 Paddock Uncut: Singapore</title>
-    <desc>Join Sky F1's leading voices as they dissect and discuss the top stories coming out of media day in the build-up to the Singapore Grand Prix.</desc>
+  <programme start="20261008130000 +0000" stop="20261008140000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th Test England v India 2025</title>
+    <desc>The fourth day of the fourth Test between England and India at Old Trafford. (26.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">.36.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/47a25981-0950-46a6-a508-fdd9fab7e302/16-9" />
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/85490bf6-bb2e-4163-8e71-cfb9591ba1a3/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008140000 +0000" stop="20261008150000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th Test England v India 2025</title>
+    <desc>Chasing England's first-innings lead of 311, will India frustrate Ben Stokes' men on the last day of the fourth Test at Old Trafford? England are eyeing a series-clinching win. (27.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/b30e4f34-a6a2-4961-895b-a246ca41e8e6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008150000 +0000" stop="20261008163000 +0000" channel="SkySp.Cricket.uk">
+    <title>ICC Men's CWC'23-Made in India</title>
+    <desc>Get to grips with India's passion for cricket through its culture and landscapes during the ICC Men's Cricket World Cup 2023, as the story of each city's love for the sport is revealed.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <icon src="https://images.metadata.sky.com/pd-image/1057349c-01bc-436a-bb97-7ddacec7caec/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008163000 +0000" stop="20261008170000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th T20 England v India</title>
+    <desc>The fourth T20I in England's five-match series with India at the County Ground in Bristol. Previously, England inflicted a record 125-run loss on the reigning world champions. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/13c0a576-ce90-4945-9a1f-64e9ea818b99/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008170000 +0000" stop="20261008180000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th Test England v India 2025</title>
+    <desc>The opening day of the fourth Test between England and India at Old Trafford. Following Shoaib Bashir's decisive wicket, the hosts moved 2-1 up amid simmering tension and drama. (23.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/22d3bc35-e646-4247-8688-69ce5e590d5f/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008180000 +0000" stop="20261008190000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th Test England v India 2025</title>
+    <desc>The second day of the fourth Test between England and India. After being put into bat, India closed day one on 264-4 with the influential Rishabh Pant forced to retire. (24.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/059ba183-f435-43bc-aa40-ab50e5500f40/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008190000 +0000" stop="20261008200000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th Test England v India 2025</title>
+    <desc>The third day of the fourth Test between England and India. Off to a blistering start in reply to India's 358, the hosts are on top after posting 225 for two on Thursday. (25.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/344d3e62-075d-42aa-add2-f8f831f624be/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008200000 +0000" stop="20261008210000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th Test England v India 2025</title>
+    <desc>The fourth day of the fourth Test between England and India at Old Trafford. (26.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/85490bf6-bb2e-4163-8e71-cfb9591ba1a3/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008210000 +0000" stop="20261008220000 +0000" channel="SkySp.Cricket.uk">
+    <title>4th Test England v India 2025</title>
+    <desc>Chasing England's first-innings lead of 311, will India frustrate Ben Stokes' men on the last day of the fourth Test at Old Trafford? England are eyeing a series-clinching win. (27.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/b30e4f34-a6a2-4961-895b-a246ca41e8e6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008220000 +0000" stop="20261008230000 +0000" channel="SkySp.Cricket.uk">
+    <title>BBL 2025 Highlights</title>
+    <desc>The WBBL action continues at Allan Border Field in Brisbane as the season-opening doubleheader concludes with Sydney Thunder in 20-over competition against Hobart Hurricanes. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">11</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/fa297747-5f1c-4271-be7a-ecdaa6719ab5/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008230000 +0000" stop="20261009000000 +0000" channel="SkySp.Cricket.uk">
+    <title>BBL 2025 Highlights</title>
+    <desc>Perth Scorchers attempt to pick themselves up from defeat, with Katie Mack - who hit 79 in vain last time out - back in action against a struggling Adelaide Strikers in the WBBL. (22.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">11</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/d4e13d47-62d8-4f19-bc33-67eff2ec585f/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009000000 +0000" stop="20261009043000 +0000" channel="SkySp.Cricket.uk">
+    <title>3rd T20: England v Sri Lanka</title>
+    <desc>The 20-over leg of Sri Lanka's tour concludes with the third and final T20I, taking place at Old Trafford. Harry Brook's England secured series victory on Thursday night.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="xmltv_ns">.2.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/8f65e0bb-f57d-49c7-991d-97441e171a19/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009043000 +0000" stop="20261009044500 +0000" channel="SkySp.Cricket.uk">
+    <title>Women's: Hundred Final</title>
+    <desc>The winners of the 2026 Women's Hundred are crowned in the final at Lord's as SunRisers Leeds, this year's defending champions, take on the table-topping Trent Rockets. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f333d639-e490-486d-80aa-71716ee60824/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009044500 +0000" stop="20261009050000 +0000" channel="SkySp.Cricket.uk">
+    <title>Men's: Hundred Final</title>
+    <desc>The winners of the 2026 Men's Hundred are crowned in the final at Lord's. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5d180d49-f435-4e90-8a9e-0d78017980c6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009050000 +0000" stop="20261009053000 +0000" channel="SkySp.Cricket.uk">
+    <title>5th T20 England v India Highlights</title>
+    <desc>England attempt to round off an emphatic series win over India in the fifth and final match. An English victory would see Harry Brook's side become the number one ranked T20 side. (11.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/55f74b4c-a647-4981-9789-1a7c7ed74618/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009053000 +0000" stop="20261009063000 +0000" channel="SkySp.Cricket.uk">
+    <title>3rd ODI SA v AUS Highlights</title>
+    <desc>Australia's South African tour continues with the final ODI of the series. Australia bid to avoid whitewash after ceding a sixth successive bilateral series defeat to the hosts. (30.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">09</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/8786b7ea-23cb-4a1f-8b04-45782ec6abe2/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009063000 +0000" stop="20261009153000 +0000" channel="SkySp.Cricket.uk">
+    <title>Live 1st Test Day 1: SA v AUS</title>
+    <desc>Day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban. The Proteas came out on top in the ODI series just gone.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="xmltv_ns">.0.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/b51d04ac-958b-40f0-8127-80d76f66886a/16-9" />
+  </programme>
+  <programme start="20261009153000 +0000" stop="20261009154500 +0000" channel="SkySp.Cricket.uk">
+    <title>Women's: Hundred Final</title>
+    <desc>The winners of the 2026 Women's Hundred are crowned in the final at Lord's as SunRisers Leeds, this year's defending champions, take on the table-topping Trent Rockets. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f333d639-e490-486d-80aa-71716ee60824/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009154500 +0000" stop="20261009160000 +0000" channel="SkySp.Cricket.uk">
+    <title>Men's: Hundred Final</title>
+    <desc>The winners of the 2026 Men's Hundred are crowned in the final at Lord's. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5d180d49-f435-4e90-8a9e-0d78017980c6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009160000 +0000" stop="20261009170000 +0000" channel="SkySp.Cricket.uk">
+    <title>ICC Men's WC'27: Countdown</title>
+    <desc>The countdown to the next ICC Men's Cricket World Cup is on. As the groups and fixtures are revealed, join this special broadcast unpacking all the tournament's key details.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e028b53b-51a2-42c0-b1be-84758ae5ca36/16-9" />
+  </programme>
+  <programme start="20261009170000 +0000" stop="20261009180000 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1: SA v AUS Hlts</title>
+    <desc>Day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/67a03783-27a8-42b7-9a04-26a9e797702f/16-9" />
+  </programme>
+  <programme start="20261009180000 +0000" stop="20261009190000 +0000" channel="SkySp.Cricket.uk">
+    <title>The Test Within</title>
+    <desc>Trace the rich and often turbulent history of the South Africa men's Test cricket team, from its early days in the late 19th century to its modern status as a global powerhouse.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <icon src="https://images.metadata.sky.com/pd-image/7da95758-42dd-49d6-bdf5-9f049298e3c0/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009190000 +0000" stop="20261009191500 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1 SA v AUS Highlights</title>
+    <desc>Bitesize highlights from day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/e1273430-0837-4e61-a588-e3b90f4f19d1/16-9" />
+  </programme>
+  <programme start="20261009191500 +0000" stop="20261009193000 +0000" channel="SkySp.Cricket.uk">
+    <title>Men's: Hundred Final</title>
+    <desc>The winners of the 2026 Men's Hundred are crowned in the final at Lord's. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5d180d49-f435-4e90-8a9e-0d78017980c6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009193000 +0000" stop="20261009200000 +0000" channel="SkySp.Cricket.uk">
+    <title>5th T20 England v India Highlights</title>
+    <desc>England attempt to round off an emphatic series win over India in the fifth and final match. An English victory would see Harry Brook's side become the number one ranked T20 side. (11.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/55f74b4c-a647-4981-9789-1a7c7ed74618/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009200000 +0000" stop="20261009210000 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1: SA v AUS Hlts</title>
+    <desc>Day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/67a03783-27a8-42b7-9a04-26a9e797702f/16-9" />
+  </programme>
+  <programme start="20261009210000 +0000" stop="20261009220000 +0000" channel="SkySp.Cricket.uk">
+    <title>The Test Within</title>
+    <desc>Trace the rich and often turbulent history of the South Africa men's Test cricket team, from its early days in the late 19th century to its modern status as a global powerhouse.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <icon src="https://images.metadata.sky.com/pd-image/7da95758-42dd-49d6-bdf5-9f049298e3c0/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009220000 +0000" stop="20261009230000 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1: SA v AUS Hlts</title>
+    <desc>Day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/67a03783-27a8-42b7-9a04-26a9e797702f/16-9" />
+  </programme>
+  <programme start="20261009230000 +0000" stop="20261009231500 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1 SA v AUS Highlights</title>
+    <desc>Bitesize highlights from day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/e1273430-0837-4e61-a588-e3b90f4f19d1/16-9" />
+  </programme>
+  <programme start="20261009231500 +0000" stop="20261009233000 +0000" channel="SkySp.Cricket.uk">
+    <title>Men's: Hundred Final</title>
+    <desc>The winners of the 2026 Men's Hundred are crowned in the final at Lord's. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5d180d49-f435-4e90-8a9e-0d78017980c6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009233000 +0000" stop="20261010000000 +0000" channel="SkySp.Cricket.uk">
+    <title>5th T20 England v India Highlights</title>
+    <desc>England attempt to round off an emphatic series win over India in the fifth and final match. An English victory would see Harry Brook's side become the number one ranked T20 side. (11.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/55f74b4c-a647-4981-9789-1a7c7ed74618/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010000000 +0000" stop="20261010030000 +0000" channel="SkySp.Cricket.uk">
+    <title>WBBL</title>
+    <desc>Reigning WBBL champions Melbourne Renegades take on Sydney Thunder at the CitiPower Centre.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="xmltv_ns">.4.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/77dbc284-c645-43ce-a7e5-6dbb146021cb/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010030000 +0000" stop="20261010040000 +0000" channel="SkySp.Cricket.uk">
+    <title>WBBL 2025 Highlights</title>
+    <desc>In the WBBL Challenger, a place in the final is up for grabs as the Knockout winners Perth Scorchers take on the Sixers in Sydney. Table toppers Hobart Hurricanes await the winner. (11.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">12</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/4f9e2b74-c60b-4eba-ba54-7a1fe723ec81/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010040000 +0000" stop="20261010050000 +0000" channel="SkySp.Cricket.uk">
+    <title>WBBL 2025 Highlights</title>
+    <desc>The Women's Big Bash League finals commence with the Knockout at the Waca as Perth Scorchers compete with Melbourne Stars. Ellyse Perry and the second-placed Sixers lie in wait. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">12</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5f97cde4-adfe-4731-9abb-39c361f25aea/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010050000 +0000" stop="20261010060000 +0000" channel="SkySp.Cricket.uk">
+    <title>THE ULTIMATE TEST:ICC WTC Final'21</title>
+    <desc>The official film of the 2019-2021 ICC World Test Championship, the inaugural edition of the competition, documenting New Zealand's sublime eight-wicket victory over India in the final.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <icon src="https://images.metadata.sky.com/pd-image/322e1bef-9b17-4c30-8221-9913236b4f2a/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010060000 +0000" stop="20261010070000 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1: SA v AUS Hlts</title>
+    <desc>Day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/67a03783-27a8-42b7-9a04-26a9e797702f/16-9" />
+  </programme>
+  <programme start="20261010070000 +0000" stop="20261010153000 +0000" channel="SkySp.Cricket.uk">
+    <title>Live 1st Test Day 2: SA v AUS</title>
+    <desc>Day two of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="xmltv_ns">.1.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f012c79f-6eb1-4b62-b1df-11b0ee18f2ce/16-9" />
+  </programme>
+  <programme start="20261010153000 +0000" stop="20261010154500 +0000" channel="SkySp.Cricket.uk">
+    <title>Women's: Hundred Final</title>
+    <desc>The winners of the 2026 Women's Hundred are crowned in the final at Lord's as SunRisers Leeds, this year's defending champions, take on the table-topping Trent Rockets. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f333d639-e490-486d-80aa-71716ee60824/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010154500 +0000" stop="20261010160000 +0000" channel="SkySp.Cricket.uk">
+    <title>Men's: Hundred Final</title>
+    <desc>The winners of the 2026 Men's Hundred are crowned in the final at Lord's. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5d180d49-f435-4e90-8a9e-0d78017980c6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010160000 +0000" stop="20261010161500 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1 SA v AUS Highlights</title>
+    <desc>Bitesize highlights from day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/e1273430-0837-4e61-a588-e3b90f4f19d1/16-9" />
+  </programme>
+  <programme start="20261010161500 +0000" stop="20261010163000 +0000" channel="SkySp.Cricket.uk">
+    <title>Men's: Hundred Final</title>
+    <desc>The winners of the 2026 Men's Hundred are crowned in the final at Lord's. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5d180d49-f435-4e90-8a9e-0d78017980c6/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010163000 +0000" stop="20261010170000 +0000" channel="SkySp.Cricket.uk">
+    <title>5th T20 England v India Highlights</title>
+    <desc>England attempt to round off an emphatic series win over India in the fifth and final match. An English victory would see Harry Brook's side become the number one ranked T20 side. (11.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">07</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/55f74b4c-a647-4981-9789-1a7c7ed74618/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010170000 +0000" stop="20261010180000 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 2: SA v AUS Hlts</title>
+    <desc>Day two of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/5fe66eb4-af01-4051-81a8-ec5220c9041c/16-9" />
+  </programme>
+  <programme start="20261010180000 +0000" stop="20261010190000 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1: SA v AUS Hlts</title>
+    <desc>Day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/67a03783-27a8-42b7-9a04-26a9e797702f/16-9" />
+  </programme>
+  <programme start="20261010190000 +0000" stop="20261010191500 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 2: SA v AUS Hlts</title>
+    <desc>Bitesize highlights from day two of the opening Test between South Africa and Australia in a three-match series at Kingsmead Stadium in Durban.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/9920c237-e59a-4e5e-a45f-4367de17dd01/16-9" />
+  </programme>
+  <programme start="20261010191500 +0000" stop="20261010193000 +0000" channel="SkySp.Cricket.uk">
+    <title>1st Test Day 1 SA v AUS Highlights</title>
+    <desc>Bitesize highlights from day one of the opening Test between South Africa and Australia in a three-match series at Kingsmead in Durban. (09.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/e1273430-0837-4e61-a588-e3b90f4f19d1/16-9" />
+  </programme>
+  <programme start="20261010193000 +0000" stop="20261010194500 +0000" channel="SkySp.Cricket.uk">
+    <title>Women's: Hundred Final</title>
+    <desc>The winners of the 2026 Women's Hundred are crowned in the final at Lord's as SunRisers Leeds, this year's defending champions, take on the table-topping Trent Rockets. (16.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Cricket</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f333d639-e490-486d-80aa-71716ee60824/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
   <programme start="20261008133000 +0000" stop="20261008143000 +0000" channel="SkySp.F1.uk">
     <title>Singapore F1 GP Highlights 2025</title>
@@ -2166,38 +2606,29 @@
     <episode-num system="xmltv_ns">.260.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/7d4d889f-0a1c-41d3-ab63-7bdeb2650cd7/16-9" />
   </programme>
-  <programme start="20261008110000 +0000" stop="20261008120000 +0000" channel="SkySp.Fball.uk">
-    <title>Bundesliga Highlights</title>
-    <desc>Matchday highlights from the latest round of fixtures from the 2026-2027 Bundesliga season.</desc>
+  <programme start="20261010180000 +0000" stop="20261010190000 +0000" channel="SkySp.F1.uk">
+    <title>Singapore F1 GP: Sprint</title>
+    <desc>The lights go out in Singapore for the season's final F1 Sprint.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.3.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/47e0e308-ac27-448b-985f-3e487cd87f9b/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Motor Sports</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/de4e982f-ec36-4825-b5c4-1ed9a854a4e6/16-9" />
   </programme>
-  <programme start="20261008120000 +0000" stop="20261008123000 +0000" channel="SkySp.Fball.uk">
-    <title>EFL Cup Hlts: M'boro v Wrexham</title>
-    <desc>In an all-Championship tie from the opening round of the Carabao Cup, Middlesbrough welcome Wrexham to the Riverside Stadium. (07.</desc>
+  <programme start="20261010190000 +0000" stop="20261010193000 +0000" channel="SkySp.F1.uk">
+    <title>Ted's Sprint Notebook</title>
+    <desc>Ted Kravitz is in the paddock as he reviews all the biggest stories from the sixth and final F1 Sprint of the 2026 season in Singapore.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="onscreen">08</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f8fae4d5-279b-49f4-9310-1e3f815355d8/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Motor Sports</category>
+    <episode-num system="xmltv_ns">.295.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/65e4fe5d-2cf0-455b-817a-cfd236036f31/16-9" />
   </programme>
-  <programme start="20261008123000 +0000" stop="20261008130000 +0000" channel="SkySp.Fball.uk">
-    <title>EFL Cup Hlts: Colchester v So'ton</title>
-    <desc>In a first-round match-up from the 26-27 Carabao Cup, Championship side Southampton travel to Colchester United's JobServe Community Stadium.</desc>
+  <programme start="20261010193000 +0000" stop="20261010213000 +0000" channel="SkySp.F1.uk">
+    <title>Singapore F1 GP: Qualifying</title>
+    <desc>The starting grid for Sunday's Singapore Grand Prix is set with F1 qualifying as the drivers look to battle their way through to the Q3 top-shootout for a shot at pole position.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="onscreen">08</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/ffff00c2-bb71-4707-9131-cb203f1d3e89/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Motor Sports</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/6959b21c-16d4-4cb0-81ef-c16eef1563ba/16-9" />
   </programme>
   <programme start="20261008130000 +0000" stop="20261008140000 +0000" channel="SkySp.Fball.uk">
     <title>The World Football Show</title>
@@ -3123,13 +3554,13 @@
     <episode-num system="xmltv_ns">.4.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/e2236e8f-8f7c-46ac-8277-dd96f47442b9/16-9" />
   </programme>
-  <programme start="20261008113000 +0000" stop="20261008120000 +0000" channel="SkySp.Golf.uk">
-    <title>PGA Tour Champions Learning Centre</title>
-    <desc>From instruction tips for your game, to fitness advice and lifestyle lessons, hear from the best on the circuit in PGA Tour Champions Learning Centre.</desc>
+  <programme start="20261010183000 +0000" stop="20261010203000 +0000" channel="SkySp.Fball.uk">
+    <title>EFL: West Brom v Birmingham</title>
+    <desc>West Brom play host to Birmingham City at the Hawthorns in the Sky Bet Championship.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.43.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/32137410-9bbc-4078-98cd-83c192c4964f/16-9" />
+    <category lang="en">Football</category>
+    <episode-num system="xmltv_ns">.24.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f3a39d5b-5d3c-48f9-a818-e9a68209d2a7/16-9" />
   </programme>
   <programme start="20261008120000 +0000" stop="20261008170000 +0000" channel="SkySp.Golf.uk">
     <title>Live DP World Tour Golf</title>
@@ -3814,601 +4245,13 @@
     <episode-num system="xmltv_ns">.5.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/61e6076e-82d2-42bc-9825-ef54a85050e6/16-9" />
   </programme>
-  <programme start="20261008113000 +0000" stop="20261008114500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Legends of Darts: John Part</title>
-    <desc>A celebration of some of the finest darts players of all time. Here the focus is on Canada's three-time world champion John Part.</desc>
-    <episode-num system="xmltv_ns">.37.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/8cb3132c-f5bc-4792-a114-592af657446f/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008114500 +0000" stop="20261008120000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Legends of Darts: Keith Deller</title>
-    <desc>A celebration of some of the finest darts players of all time. Here the focus is on 1983 BDO World Champion Keith Deller.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.41.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/9c253ff2-9c59-4ddf-b774-e238e473d771/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008120000 +0000" stop="20261008130000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NFL Highlights</title>
-    <desc>Patrick Mahomes, and the Kansas City Chiefs face the Indianapolis Colts in the NFL. Kenneth Walker III shone on his Chiefs debut last weekend as his new team cruised to victory. (21.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="onscreen">09</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/92f74ef9-ba5d-42af-89e4-6383565c6cbe/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008130000 +0000" stop="20261008164500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>World Grand Prix Darts S/Fs</title>
-    <desc>The semi-finals of the 2026 World Grand Prix get underway at Leicester's Mattioli Arena.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/67c44de4-4a95-40df-9a40-7a42084e2cc5/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008164500 +0000" stop="20261008170000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NRLW Grand Final Highlights</title>
-    <desc>Bitesize highlights as Accor Stadium in Sydney, Australia, sets the stage for the Telstra Women's Premiership Grand Final. (04.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/394a60dc-5e02-4f9f-8b6a-659c9c2c961c/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008170000 +0000" stop="20261008180000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Dutch F1 GP Highlights</title>
-    <desc>It's lights out in Zandvoort for the final time as polesitter Lando Norris bids to replicate his Hungary win. Mercedes men George Russell and Kimi Antonelli round out the top three. (23.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="onscreen">08</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/b35ab31e-4271-4e8b-987a-d6ff32767edb/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008180000 +0000" stop="20261008190000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Boxing: Cortes v Garcia</title>
-    <desc>Andres Cortes and Eridson Garcia headline Dana White's Zuffa Boxing card with a hard-hitting lightweight showdown. (05.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Boxing</category>
-    <episode-num system="onscreen">04</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/d63bb3ee-0c01-4277-a5d4-ff38de646f72/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008190000 +0000" stop="20261008220000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>EFL Championship Retro</title>
-    <desc>Relive a classic encounter from the play-offs over the years - here, Charlton Athletic and Sunderland meet in the 1997-98 Championship play-off final in a goal-filled encounter.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.52.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/aecd588f-3a5d-4438-8a0a-d56017c03543/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008220000 +0000" stop="20261008230000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NFL Highlights</title>
-    <desc>Patrick Mahomes, and the Kansas City Chiefs face the Indianapolis Colts in the NFL. Kenneth Walker III shone on his Chiefs debut last weekend as his new team cruised to victory. (21.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="onscreen">09</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/92f74ef9-ba5d-42af-89e4-6383565c6cbe/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008230000 +0000" stop="20261008231500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Sarah Storey</title>
-    <desc>Dame Sarah Storey takes a look at some of the individuals that have inspired her in her journey to the top of cycling and her Paralympic gold medals.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">2.4.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/94608ff6-63f3-45f7-bb10-79e8dad58ee7/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008231500 +0000" stop="20261008233000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Stef Reid</title>
-    <desc>British Paralympian Stef Reid takes a look at some of the key individuals that have played a role in inspiring her to the top of sport.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">2.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/e1e719d3-ecff-49c7-8735-23ef7154e6b9/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008233000 +0000" stop="20261009000000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>PDC Classics 2023</title>
-    <desc>Overcoming the nerves of a TV debut, Canadian youngster Dawson Murschell announced himself to the world during this classic contest against James Wade in 2017. Contains flashing images.</desc>
-    <episode-num system="xmltv_ns">.10.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/28a16848-998d-34ba-8d16-d9828c629260/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009000000 +0000" stop="20261009010000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Indycar Series 2026 Highlights</title>
-    <desc>It's NTT IndyCar Series race day as the 2026 field of drivers take to the track for the Grand Prix at Road America in Wisconsin. (21.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="onscreen">06</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/ca1bd9a8-6a0a-40d7-ac8b-272af822d851/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009010000 +0000" stop="20261009020000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Ferrari Challenge Europe Hlts</title>
-    <desc>Highlights from the fifth round of the 2026 Ferrari Challenge campaign as the racing continued in the Portuguese city of Portimão.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">.17.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/1a322df7-267b-48fa-9584-83e9310efb79/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009020000 +0000" stop="20261009034500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Championship Season Review</title>
-    <desc>Revisit the 2023-2024 Sky Bet Championship campaign - a season that saw Leicester City and Ipswich Town secure their Premier League returns alongside Southampton via the play-offs.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.15.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/58691db7-d8dd-39bd-9574-b1c73dff6b6b/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009034500 +0000" stop="20261009040000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>PL Greatest:Liverpool/Blackburn'95</title>
-    <sub-title>Blackburn</sub-title>
-    <desc>Enjoy the greatest Premier League game for each of the league's 47 clubs, as voted for by fans. For Blackburn Rovers, the 2-1 loss to Liverpool that saw Rovers clinch the title.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.140.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/61554004-f5b1-4c7e-aad4-89898090d948/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009040000 +0000" stop="20261009041500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Tanni Grey Thompson Pt 1</title>
-    <desc>One of Britain's most decorated Paralympians, former wheelchair racer Tanni Grey-Thompson speaks about the individuals that have inspired her throughout her life. Part 1.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">2.0.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c5b6f6e2-53fe-48a9-9e03-61f5b06d29db/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009041500 +0000" stop="20261009043000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Tanni Grey Thompson Pt 2</title>
-    <desc>One of Britain's most decorated Paralympians, former wheelchair racer Tanni Grey-Thompson speaks about the individuals that have inspired her throughout her life. Part 2.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">2.1.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/cf2a02d7-2782-44b7-bb36-8bc9786911fe/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009043000 +0000" stop="20261009050000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Live Ladies European Tour Golf</title>
-    <desc>The second day of the Aramco Korea Championship, an LET event at the New Korea Country Club. Hyo Joo Kim stormed to her second second consecutive victory at this event last year.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.57.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/de14dad4-42b8-466b-9bd7-b55f476792b7/16-9" />
-  </programme>
-  <programme start="20261009050000 +0000" stop="20261009083000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Live Ladies European Tour Golf</title>
-    <desc>The second day of the Aramco Korea Championship, an LET event at the New Korea Country Club. Hyo Joo Kim stormed to her second second consecutive victory at this event last year.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.57.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/de14dad4-42b8-466b-9bd7-b55f476792b7/16-9" />
-  </programme>
-  <programme start="20261009083000 +0000" stop="20261009093000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>ATP Final: Marrakech</title>
-    <desc>Rafael Jodar storms his way into the Grand Prix Hassan II final against 36-year-old Marco Trungelliti. Jodar is just the second player born in 2006 to compete in a tour-level final. (05.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <episode-num system="onscreen">04</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/1ae10b09-f752-4866-b14d-f7987326943a/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009093000 +0000" stop="20261009094500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>PL Greatest: L'Pool/Blackpool 2010</title>
-    <desc>Blackpool: Enjoy the greatest Premier League game for each of the league's 47 clubs, as voted for by fans. Here, for Blackpool, the 2-1 win at Anfield against Liverpool in October 2010.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/65def7d1-6d60-425a-b26c-ea861532171c/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009094500 +0000" stop="20261009100000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>The Improvers</title>
-    <desc>Sky Sports coaches Simon Holmes and Denis Pugh offer a series of tips aimed at both complete beginners and accomplished players alike.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">0.1.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/3766fd83-e433-4342-be5c-3ac7e93f3310/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009100000 +0000" stop="20261009110000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>WTA Final: Rabat</title>
-    <desc>Anhelina Kalinina, competing in her third career final, looks to capture her first title in the Rabat showpiece against first-time finalist, sixth seed Petra Marcinko. (23.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <episode-num system="onscreen">05</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/decfdd2d-e642-415e-a456-9c5ca6afd2af/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009110000 +0000" stop="20261009111500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: K &amp; H Richardson-Walsh</title>
-    <desc>In the next episode of this special series, England hockey stars Kate and Helen Richardson-Walsh discuss the individuals that have inspired them during their lives and careers.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">1.1.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/17f927f5-1e0d-4360-9828-917ff1b6915a/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009111500 +0000" stop="20261009113000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Chris Powell</title>
-    <desc>In the next episode of this special series, former Charlton and England star Chris Powell talks about the individuals that have inspired him over the course of his career.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">0.27.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c1e2373c-1249-49bb-8286-7a5f360d03ef/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009113000 +0000" stop="20261009114500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Legends of Darts: Jocky Wilson</title>
-    <desc>A celebration of some of the finest darts players of all time. Here the focus is on two-time world champion Jocky Wilson.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.39.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6d87521c-5691-48bd-9472-ddd49cac9281/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009114500 +0000" stop="20261009120000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Legends of Darts: Adrian Lewis</title>
-    <desc>A celebration of some of the finest darts players of all time. Here the focus is on two-time world champion Adrian Lewis.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.43.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6fa359bb-03c3-47fd-ab42-adce928d49f0/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009120000 +0000" stop="20261009130000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NFL Highlights</title>
-    <desc>After making a promising start to the John Harbaugh era with victory over Dallas, the Giants hit the road during week two of the NFL with a match-up against Los Angeles Rams. (22.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="onscreen">09</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c55560eb-bf20-48d9-8aa4-127a22775d0a/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009130000 +0000" stop="20261009153000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>World Grand Prix Darts Final</title>
-    <desc>With a £150,000 prize fund up for grabs, the 2026 World Grand Prix champion is crowned in the final at Leicester's Mattioli Arena as Luke Humphries takes on Gerwyn Price.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.6.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/03ff877a-5866-4c3d-9d4c-78cf70a0e286/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009153000 +0000" stop="20261009154500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Legends of Darts: Jocky Wilson</title>
-    <desc>A celebration of some of the finest darts players of all time. Here the focus is on two-time world champion Jocky Wilson.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.39.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6d87521c-5691-48bd-9472-ddd49cac9281/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009154500 +0000" stop="20261009160000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Legends of Darts: Adrian Lewis</title>
-    <desc>A celebration of some of the finest darts players of all time. Here the focus is on two-time world champion Adrian Lewis.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.43.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6fa359bb-03c3-47fd-ab42-adce928d49f0/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009160000 +0000" stop="20261009170000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>S/Lge Wheelchair: Grand Final Hlts</title>
-    <desc>The 2026 winners are crowned in the Wheelchair Super League grand final. (20.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="onscreen">09</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/db4fcb90-d37f-4596-9780-ec6461f77513/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009170000 +0000" stop="20261009193500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Indycar Series</title>
-    <desc>It's IndyCar race day as the field lines up on the grid for the start of the Grand Prix of Alabama. Four-time series champion Alex Palou occupies pole for the first time this season.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">.19.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/ae0c98ff-c058-46a0-9e0e-b46e2438dadc/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009193500 +0000" stop="20261009194500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Moeen Ali</title>
-    <desc>In the next episode of this special series, English cricket star Moeen Ali discusses the individuals that have inspired him during his life and career.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Cricket</category>
-    <episode-num system="xmltv_ns">0.22.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c00af4d7-7423-4a12-990b-48a787fb42f4/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009194500 +0000" stop="20261009200000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Dan Bethell</title>
-    <sub-title>British Para athlete Dan Bethell</sub-title>
-    <desc>who plays Para-Badminton for Team GB - talks about the individuals that have inspired him on his journey in the sport.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">2.2.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/cd9ac5ea-ab17-42c5-aa4f-7aa0ab4c7204/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009200000 +0000" stop="20261009220000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>PL Retro: Man Utd v Liverpool 2009</title>
-    <desc>Manchester United welcome Liverpool to Old Trafford in this classic Premier League match from the 2008-09 campaign. It would prove to be a memorable afternoon for the visiting side.</desc>
-    <episode-num system="xmltv_ns">.336.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f75e84d5-5b7a-393c-ac35-11a26621fde4/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009220000 +0000" stop="20261009230000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NFL Highlights</title>
-    <desc>After making a promising start to the John Harbaugh era with victory over Dallas, the Giants hit the road during week two of the NFL with a match-up against Los Angeles Rams. (22.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="onscreen">09</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c55560eb-bf20-48d9-8aa4-127a22775d0a/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261009230000 +0000" stop="20261009233000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>One Championship Weekly Magazine</title>
-    <desc>The weekly show looking back at the best performances of ONE Championship's biggest stars ahead of highly anticipated upcoming bouts.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">.40.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/461473aa-555a-4db1-908c-432992ad122b/16-9" />
-    <rating system="UK">
-      <value>15</value>
-    </rating>
-  </programme>
-  <programme start="20261009233000 +0000" stop="20261010000000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Taylor v Painter 2004</title>
-    <desc>Trailing Kevin Painter 4-1, a ninth World Championship title looked out of reach for Phil Taylor. Cue a miraculous recovery and a breathtaking sudden death leg. Contains flashing images.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/dd9e2755-a1b8-3acc-a01e-4640237b8990/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010000000 +0000" stop="20261010020000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>PL Retro: Man Utd v Liverpool 2009</title>
-    <desc>Manchester United welcome Liverpool to Old Trafford in this classic Premier League match from the 2008-09 campaign. It would prove to be a memorable afternoon for the visiting side.</desc>
-    <episode-num system="xmltv_ns">.336.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f75e84d5-5b7a-393c-ac35-11a26621fde4/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010020000 +0000" stop="20261010034500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Championship Season Review</title>
-    <desc>Revisit the 2024-2025 Sky Bet Championship campaign, a season that saw Leeds United and Burnley secure Premier League returns alongside Sunderland via the play-offs.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.16.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/e3cdbc7d-3444-4735-95d5-0a334d85658d/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010034500 +0000" stop="20261010040000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>PL Greatest Games: Char v WHam '01</title>
-    <desc>A chance to relive a classic clash from the Premier League. Here, rewind to 2001 and thrilling encounter between Charlton Athletic and West Ham United at The Valley.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/85805f54-699a-49c4-ab28-6458037f9065/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010040000 +0000" stop="20261010050000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Live Ladies European Tour Golf</title>
-    <desc>The third day of the Aramco Korea Championship, an LET event at the New Korea Country Club. Hyo Joo Kim stormed to her second second consecutive victory at this event last year.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.58.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/9f2a6a2c-b1f7-48e9-b905-0cb61add4fdf/16-9" />
-  </programme>
-  <programme start="20261010050000 +0000" stop="20261010080000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Live Ladies European Tour Golf</title>
-    <desc>The third day of the Aramco Korea Championship, an LET event at the New Korea Country Club. Hyo Joo Kim stormed to her second second consecutive victory at this event last year.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.58.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/9f2a6a2c-b1f7-48e9-b905-0cb61add4fdf/16-9" />
-  </programme>
-  <programme start="20261010080000 +0000" stop="20261010103500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Indycar Series</title>
-    <desc>It's IndyCar race day as the field lines up on the grid for the start of the Grand Prix of Alabama. Four-time series champion Alex Palou occupies pole for the first time this season.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">.19.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/ae0c98ff-c058-46a0-9e0e-b46e2438dadc/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010103500 +0000" stop="20261010113000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NRLW Grand Final Highlights</title>
-    <desc>Accor Stadium in Sydney sets the stage for the Telstra Women's Premiership Grand Final as the Sydney Roosters and Brisbane Broncos meet in the decider for the fourth time. (04.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/87717511-853e-4315-9940-9521a5219715/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010113000 +0000" stop="20261010114500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Charlotte Edwards</title>
-    <desc>In a special edition of My Icon to mark International Women's Day, former England cricket captain Charlotte Edwards looks at the personalities that have inspired her in her career.</desc>
-    <episode-num system="xmltv_ns">3.2.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f9785532-142d-4b55-80d2-c3ca7aee2064/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010114500 +0000" stop="20261010120000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Chris Powell</title>
-    <desc>In the next episode of this special series, former Charlton and England star Chris Powell talks about the individuals that have inspired him over the course of his career.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">0.27.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c1e2373c-1249-49bb-8286-7a5f360d03ef/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010120000 +0000" stop="20261010134500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>TGL Highlights</title>
-    <desc>At the SoFi Center, Los Angeles Golf Club take on New York in the TGL.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.13.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c16dd68c-70b3-4957-92ea-c9c076257971/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010134500 +0000" stop="20261010155500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Int Rugby U: NZ v AUS 1st Test</title>
-    <desc>In the first of two Tests for the Bledisloe Cup, three-time Rugby World Cup winners New Zealand welcome the Wallabies to Eden Park in Auckland.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="xmltv_ns">.13.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6ff155b4-3948-4f7b-a39a-57aac739cce6/16-9" />
-  </programme>
-  <programme start="20261010155500 +0000" stop="20261010160000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Rugby Gold Shorts</title>
-    <desc>A look back at a classic match. Here in 2002 - a year before their great World Cup triumph - England host the All Blacks, attempting a fifth win over these giants of the game.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="xmltv_ns">.14.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/7eeaeb2f-9d04-463e-9202-a202ee0094d1/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010160000 +0000" stop="20261010170000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NRL Grand Final Highlights</title>
-    <desc>The NRL champions are crowned at Sydney's Accor Stadium as the Newcastle Knights, competing in their first grand final since 2001, meet the Roosters - chasing a 16th premiership. (04.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/16b4fe05-1775-477b-b184-e1aea459c54c/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010170000 +0000" stop="20261010171500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Libby Clegg</title>
-    <desc>Scottish Paralympic sprinter Libby Clegg looks over some of the key individuals that inspired her on her journey to the top.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">2.6.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/2a9b0c63-6730-41f4-a899-1103f260e49a/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010171500 +0000" stop="20261010173000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Jonnie Peacock</title>
-    <desc>British Paralympic sprinter and Paralympic gold medallist Jonnie Peacock speaks about the individuals that have inspired him in his life.</desc>
-    <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">2.7.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/64cf6454-432a-4bf6-ab0e-39af9cbe2f17/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261010173000 +0000" stop="20261010200000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>World Grand Prix Darts Final</title>
-    <desc>With a £150,000 prize fund up for grabs, the 2026 World Grand Prix champion is crowned in the final at Leicester's Mattioli Arena as Luke Humphries takes on Gerwyn Price.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Darts</category>
-    <episode-num system="xmltv_ns">.6.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/03ff877a-5866-4c3d-9d4c-78cf70a0e286/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008110000 +0000" stop="20261008120000 +0000" channel="SkySp.News.HD.uk">
-    <title>Lunchtime Live</title>
-    <desc>Sit down with Sky Sports News as the team break down all the sports stories making the headlines this lunchtime.</desc>
+  <programme start="20261010193000 +0000" stop="20261010200000 +0000" channel="SkySpMainEvHD.uk">
+    <title>Sky Sports Catch-Up</title>
+    <desc>Take a moment to catch-up with the all biggest sports stories hitting the headlines.</desc>
     <category lang="en">Sports</category>
     <category lang="en">Baseball</category>
-    <episode-num system="xmltv_ns">.48.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/b17cebc1-1c11-4c40-b2b6-0bbc0324e983/16-9" />
-  </programme>
-  <programme start="20261008120000 +0000" stop="20261008130000 +0000" channel="SkySp.News.HD.uk">
-    <title>Lunchtime Live</title>
-    <desc>Sit down with Sky Sports News as the team break down all the sports stories making the headlines this lunchtime.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Baseball</category>
-    <episode-num system="xmltv_ns">.48.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/b17cebc1-1c11-4c40-b2b6-0bbc0324e983/16-9" />
+    <episode-num system="xmltv_ns">.20.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/6850d468-fddd-43ff-a616-aa4d00f8a83f/16-9" />
   </programme>
   <programme start="20261008130000 +0000" stop="20261008140000 +0000" channel="SkySp.News.HD.uk">
     <title>The World Football Show</title>
@@ -4834,45 +4677,29 @@
     <episode-num system="xmltv_ns">.37.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/dd62295c-a347-4aa7-a55f-49f79ab0683b/16-9" />
   </programme>
-  <programme start="20261008110000 +0000" stop="20261008120000 +0000" channel="SkySp.PL.HD.uk">
-    <title>Gary Neville's Soccerbox</title>
-    <desc>Gary Neville is joined by five-time Premier League winner and Chelsea legend John Terry to discuss his rise from youth player to the most successful captain in the club's history.</desc>
-    <episode-num system="xmltv_ns">4.3.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/d7829b1a-37aa-4d1e-9d96-0ee6b1d33833/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261008120000 +0000" stop="20261008123000 +0000" channel="SkySp.PL.HD.uk">
-    <title>Wunderkind: Florian Wirtz's Story</title>
-    <desc>Joining Liverpool in the summer of 2025, get to know the story of Germany international Florian Wirtz - one of the leading talents of his generation.</desc>
+  <programme start="20261010180000 +0000" stop="20261010190000 +0000" channel="SkySp.News.HD.uk">
+    <title>Match Centre</title>
+    <desc>All the best reaction and talking points from the day's big games.</desc>
     <category lang="en">Sports</category>
     <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.276.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/0a3f3075-bca2-4541-8b25-2d63853bbc86/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <episode-num system="xmltv_ns">.7.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/e9fc8f1d-189c-4381-ae30-e12eac699d6d/16-9" />
   </programme>
-  <programme start="20261008123000 +0000" stop="20261008124500 +0000" channel="SkySp.PL.HD.uk">
-    <title>PL Greatest: P'mouth/So'ton 2005</title>
-    <desc>Portsmouth: Enjoy the greatest Premier League game for each of the league's 47 clubs, as voted for by fans. For Portsmouth, the 4-1 win over local rivals Southampton back in April 2005.</desc>
+  <programme start="20261010190000 +0000" stop="20261010193000 +0000" channel="SkySp.News.HD.uk">
+    <title>Sky Sports Catch-Up</title>
+    <desc>Take a moment to catch-up with the all biggest sports stories hitting the headlines.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/1266a38f-d110-42bd-bbfd-d1a8fc58a78f/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Baseball</category>
+    <episode-num system="xmltv_ns">.20.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/6850d468-fddd-43ff-a616-aa4d00f8a83f/16-9" />
   </programme>
-  <programme start="20261008124500 +0000" stop="20261008130000 +0000" channel="SkySp.PL.HD.uk">
-    <title>PL Greatest: QPR/Liverpool 2012</title>
-    <desc>QPR: Enjoy the greatest Premier League game for each of the league's 47 clubs, as voted for by fans. For QPR, the 3-2 win over Liverpool that saw Rangers score three in the last 13 minutes.</desc>
+  <programme start="20261010193000 +0000" stop="20261010200000 +0000" channel="SkySp.News.HD.uk">
+    <title>Sky Sports Catch-Up</title>
+    <desc>Take a moment to catch-up with the all biggest sports stories hitting the headlines.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/c48b7ed9-af36-4ac5-8abd-65523dfb585d/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Baseball</category>
+    <episode-num system="xmltv_ns">.20.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/6850d468-fddd-43ff-a616-aa4d00f8a83f/16-9" />
   </programme>
   <programme start="20261008130000 +0000" stop="20261008150000 +0000" channel="SkySp.PL.HD.uk">
     <title>Premier League Years 2000/01</title>
@@ -5504,188 +5331,499 @@
     <episode-num system="xmltv_ns">.5.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/61e6076e-82d2-42bc-9825-ef54a85050e6/16-9" />
   </programme>
-  <programme start="20261008084500 +0000" stop="20261008121500 +0000" channel="SkySp.Racing.HD.uk">
-    <title>International Raceday Live</title>
-    <desc>Live French racing from Bordeaux and St Cloud as well as selected Greyhound racing. A look ahead to today's UK Flat racing.</desc>
+  <programme start="20261010193000 +0000" stop="20261010213000 +0000" channel="SkySp.PL.HD.uk">
+    <title>Game of The Day</title>
+    <desc>Enjoy a full 90-minute rerun of one of the Saturday afternoon fixtures in the Premier League.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.290.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f330709c-50e3-4343-8eb5-73ecced9962a/16-9" />
+    <category lang="en">Football</category>
+    <episode-num system="xmltv_ns">.4.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/c3093347-4be5-4300-ad16-d8e02f7d0de6/16-9" />
   </programme>
-  <programme start="20261008121500 +0000" stop="20261008200000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Raceday Live</title>
-    <sub-title>Live Racing</sub-title>
-    <desc>Vanessa Ryle and Tom Collins bring you action from Bath featuring the Listed Beckford Stakes. Evening All-Weather racing from Southwell with Simon Mapletoft.</desc>
+  <programme start="20261008110000 +0000" stop="20261008140000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai &amp; WTA Beijing</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.1007.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/e9301755-f7a1-4a99-be6e-d1a4f1954b87/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.77.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/a540f668-1d5b-4b3b-b7c7-13cbe250a305/16-9" />
   </programme>
-  <programme start="20261008200000 +0000" stop="20261008220000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Stateside Live</title>
-    <desc>Live US racing from Thistledown, Delaware, Belmont, Keeneland, Woodbine, Horseshoe Indianapolis and Presque Isle Downs.</desc>
+  <programme start="20261008140000 +0000" stop="20261008141500 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Doha</title>
+    <desc>A women's singles champion is crowned in the final of the 26 Qatar Open. (14.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.277.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f3fa3440-1e7f-4b12-866d-ef53b7c1cb4c/16-9" />
-  </programme>
-  <programme start="20261008220000 +0000" stop="20261009010000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Sky Sports News</title>
-    <desc>Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Baseball</category>
-    <episode-num system="xmltv_ns">.68.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/414b03e5-8691-4264-883d-75c0195bc0d7/16-9" />
-  </programme>
-  <programme start="20261009010000 +0000" stop="20261009050000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Australian Racing Live</title>
-    <desc>Live Australian racing from Canberra, Port Macquarie, Cloncurry and Sunshine Coast.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.287.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/a42d7f69-8c4d-4807-9816-e2c67d9a24ce/16-9" />
-  </programme>
-  <programme start="20261009050000 +0000" stop="20261009060000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Australian Racing Live</title>
-    <desc>Live Australian racing from Canberra, Port Macquarie, Cloncurry and Sunshine Coast.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.287.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/a42d7f69-8c4d-4807-9816-e2c67d9a24ce/16-9" />
-  </programme>
-  <programme start="20261009060000 +0000" stop="20261009080000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Sky Sports Breakfast</title>
-    <desc>Stay across the biggest sports stories this morning with a wrap-up of the headlines.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Baseball</category>
-    <episode-num system="xmltv_ns">.69.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/519c4fc6-9b48-41dd-8ce1-b26715987a70/16-9" />
-  </programme>
-  <programme start="20261009080000 +0000" stop="20261009090000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>The Race Ahead</title>
-    <desc>To celebrate Black History Month, we tell the stories of three of racing's emerging names inspiring the next generation and striving to create pathways for diverse communities.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.32.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/2ef54138-5ea9-4519-84e2-49179bd6521d/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">02</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/4aedff25-41f4-4126-b61a-4ce0a9eea98f/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261009090000 +0000" stop="20261009091500 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Jockey Club Gold Cup 2026</title>
-    <sub-title>Take a look behind the scenes on Jockey Club Gold Cup Day at the newly-renovated Belmont Park; headlined by Japan's superstar, Forever Young lining up in the feature race</sub-title>
+  <programme start="20261008141500 +0000" stop="20261008143000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Dubai</title>
+    <desc>A women's singles champion is crowned in the final of the Dubai Duty Free Tennis Championships. (21.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.31.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c4404890-5546-4f3a-b6d7-0f1532bb4160/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">02</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/462281ee-b629-4723-88f3-0bc17f9719bc/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261009091500 +0000" stop="20261009093000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Woodbine Mile 2026</title>
-    <desc>Take a look behind the scenes on Woodbine Mile day, with four Group 1 Breeders' Cup win-and-you're-in races up for grabs.</desc>
+  <programme start="20261008143000 +0000" stop="20261008144500 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Indian Wells</title>
+    <desc>World number one Aryna Sabalenka and two-time Grand Slam winner Elena Rybakina meet in a rematch of the 2026 Australian Open and the 2023 Indian Wells finals - both won by Rybakina. (15.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">03</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/2b5182ac-d855-43a1-809b-69ab2d776654/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008144500 +0000" stop="20261008150000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Miami</title>
+    <desc>Aryna Sabalenka and Coco Gauff share the stage in a final for the fourth time, with hometown favourite Gauff bidding to deny defending Miami champion Sabalenka the Sunshine Double. (28.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">03</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/9d9ea3df-13d7-4974-ba36-5da65e787d2d/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008150000 +0000" stop="20261008153000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA All Access Magazine 2026</title>
+    <desc>Go behind the scenes with an all-access look at the stars of the WTA Tour as they compete at premier events throughout the season.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.4.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/68946dc1-b03c-421c-afbe-f1ec3bf92c06/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008153000 +0000" stop="20261008160000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Tour This Week</title>
+    <desc>Step behind the scenes of men's professional tennis throughout the 2026 season on the ATP Tour with special features, interviews and much more.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.100.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/9db9b62e-b885-46ca-98ad-a224348dda1b/16-9" />
+  </programme>
+  <programme start="20261008160000 +0000" stop="20261008170000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Tokyo 2026 Review</title>
+    <desc>An in-depth review of all the action from the 2026 edition of the Japan Open - an ATP 500 event held in Tokyo.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.13.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/4c57258c-03b5-4001-b66f-fb160ba53e2b/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008170000 +0000" stop="20261008180000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Beijing 2026 Review</title>
+    <desc>An in-depth review of all the action from the 2026 edition of the China Open - an ATP 500 event held in Beijing.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.12.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/47452e0d-74b0-4c12-b503-d425b29a7c8f/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008180000 +0000" stop="20261008193000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Reigning French Open champion and fourth seed Mirra Andreeva competes in her second career Beijing quarter-final against 19th seed Ekaterina Alexandrova. (08.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/ba2b4563-61ef-4856-adfd-5f1939b7676f/16-9" />
+  </programme>
+  <programme start="20261008193000 +0000" stop="20261008210000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>British number two Cam Norrie encounters Czech qualifier Dalibor Svrcina in his opening match at the Shanghai Masters. Norrie suffered an early exit in last week's China Open. (08.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/8a72185b-2310-4319-ae92-3da61d439549/16-9" />
+  </programme>
+  <programme start="20261008210000 +0000" stop="20261008230000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Tokyo</title>
+    <desc>Top seed Carlos Alcaraz attempts to go back to back in Tokyo as the defending champion takes on Jiri Lehecka. The 24-year-old Czech is into his second final of the season. (06.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/a7150fb2-4c53-42d1-b267-de4806e1ca8a/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261008230000 +0000" stop="20261009010000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Beijing</title>
+    <desc>A men's singles champion is crowned in the Beijing final.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.40.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/1150673f-4ac8-4d1c-a28b-d091240d9a97/16-9" />
+  </programme>
+  <programme start="20261009010000 +0000" stop="20261009023000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Reigning French Open champion and fourth seed Mirra Andreeva competes in her second career Beijing quarter-final against 19th seed Ekaterina Alexandrova. (08.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/ba2b4563-61ef-4856-adfd-5f1939b7676f/16-9" />
+  </programme>
+  <programme start="20261009023000 +0000" stop="20261009040000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>British number two Cam Norrie encounters Czech qualifier Dalibor Svrcina in his opening match at the Shanghai Masters. Norrie suffered an early exit in last week's China Open. (08.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/8a72185b-2310-4319-ae92-3da61d439549/16-9" />
+  </programme>
+  <programme start="20261009040000 +0000" stop="20261009050000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.41.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/717ab834-620b-4a44-8754-0b49d574040c/16-9" />
+  </programme>
+  <programme start="20261009050000 +0000" stop="20261009070000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.41.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/717ab834-620b-4a44-8754-0b49d574040c/16-9" />
+  </programme>
+  <programme start="20261009070000 +0000" stop="20261009090000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai &amp; WTA Beijing</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
     <episode-num system="xmltv_ns">.30.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6f2405c8-3a0a-4b82-bdf7-08fb1e93c20a/16-9" />
+    <icon src="https://images.metadata.sky.com/pd-image/0d58a886-21b9-4a52-9f05-423cba3d19d8/16-9" />
+  </programme>
+  <programme start="20261009090000 +0000" stop="20261009110000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.2.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/29f9b5df-217e-4a3d-86b7-4cd558acd551/16-9" />
+  </programme>
+  <programme start="20261009110000 +0000" stop="20261009130000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai &amp; WTA Beijing</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.78.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/c7485baf-0595-4ee5-87dc-5ea1d8f0eb63/16-9" />
+  </programme>
+  <programme start="20261009130000 +0000" stop="20261009140000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.74.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/2ab15058-c90e-4ad9-bc87-1368ba948aac/16-9" />
+  </programme>
+  <programme start="20261009140000 +0000" stop="20261009141500 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Monte Carlo</title>
+    <desc>In a winner-takes-all showdown for world number one status, rivals Carlos Alcaraz and Jannik Sinner meet for the first time this year to determine the Monte-Carlo Masters champion. (12.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">04</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/c06f3353-efc0-4f0e-8225-228f062772a7/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261009093000 +0000" stop="20261009114500 +0000" channel="SkySp.Racing.HD.uk">
-    <title>International Raceday Live</title>
-    <desc>Live French racing from Compiegne and Greyhound racing from Hove. A look ahead to Day 1 of the Welsh Racing Festival live from Chepstow.</desc>
+  <programme start="20261009141500 +0000" stop="20261009143000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Madrid</title>
+    <desc>Eyeing a historic fifth consecutive ATP Masters 1000 title, world number one Jannik Sinner meets familiar rival and two-time Madrid Open champion Alexander Zverev. (03.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.291.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f1f022db-9c20-4a52-8fd0-2384f942f6c0/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">05</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/20a636db-91f3-418e-a973-642a5807bbba/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261009114500 +0000" stop="20261009180000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Raceday Live</title>
-    <sub-title>Live Racing</sub-title>
-    <desc>Alex Hammond, Mick Fitzgerald, Josh Apiafi and Luke Harvey bring you Day 1 of the Welsh Racing Festival live from Chepstow featuring the G2 Persian War Hurdle.</desc>
+  <programme start="20261009143000 +0000" stop="20261009150000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Tour This Week</title>
+    <desc>Step behind the scenes of men's professional tennis throughout the 2026 season on the ATP Tour with special features, interviews and much more.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.1008.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/acfc360e-276c-4f91-9fae-711e1c5d6bfb/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.100.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/9db9b62e-b885-46ca-98ad-a224348dda1b/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261009180000 +0000" stop="20261010010000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Stateside Live</title>
-    <desc>Live US racing from Delaware, Belmont, Keeneland, Woodbine, Laurel Park, Gulfstream, Santa Anita, Penn National, Charles Town, Meadowlands and Remington.</desc>
+  <programme start="20261009150000 +0000" stop="20261009160000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Washington</title>
+    <desc>Taylor Fritz prepares for his first Washington final appearance as the third seed plays rising star Rafael Jodar. Spain's Jodar features in his first ATP 500 title match. (02.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.278.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/c720b1cc-42e6-49e0-b81b-9a05dff50f2e/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">08</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/87812eef-6dd2-4431-93d1-44b9ea2c72e9/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261010010000 +0000" stop="20261010050000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Australian Racing Live</title>
-    <desc>Live Australian racing from Kembla Grange, Rosehill and Eagle Farm.</desc>
+  <programme start="20261009160000 +0000" stop="20261009170000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Tokyo</title>
+    <desc>Top seed Carlos Alcaraz attempts to go back to back in Tokyo as the defending champion takes on Jiri Lehecka. The 24-year-old Czech is into his second final of the season. (06.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.288.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/2ac37d4a-495d-4dad-8c50-736e2f012054/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/32cafe23-7e3b-48e1-ab80-d7986972fcab/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261010050000 +0000" stop="20261010080000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Australian Racing Live</title>
-    <desc>Live Australian racing from Kembla Grange, Rosehill and Eagle Farm.</desc>
+  <programme start="20261009170000 +0000" stop="20261009180000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Beijing</title>
+    <desc>With a record-extending seventh Beijing title in sight, Novak Djokovic faces the fifth-seeded Australian Alex de Minaur. Djokovic leads 3-1 in the pair's head-to-head meetings. (06.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.288.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/2ac37d4a-495d-4dad-8c50-736e2f012054/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/3cbcc9d5-a851-47df-8e76-3b9f37bec644/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261010080000 +0000" stop="20261010083000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Racing To Win</title>
-    <desc>The latest in the series a comprehensive preview show for Hong Kong racing. With form analysis trackwork highlights and interviews an expert team of presenters will also provide their selections.</desc>
+  <programme start="20261009180000 +0000" stop="20261009193000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Revisit a standout match from today's action on the ATP and WTA Tours.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.10.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/bbba8a2e-5326-4e41-b0c1-fe5c47494382/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.30.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/925dedb0-e588-4e77-8982-05e32cdebf9e/16-9" />
   </programme>
-  <programme start="20261010083000 +0000" stop="20261010100000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>The Inside Line</title>
-    <desc>Join Dave Orton and special guests on the show designed to give punters the edge as they tackle the biggest races and talking points ahead of the weekend.</desc>
+  <programme start="20261009193000 +0000" stop="20261009210000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Revisit a standout match from today's action on the ATP and WTA Tours.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.292.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/5a27ff80-1cf7-4793-a0d3-91e766253a90/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.30.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/3c4b853e-4ca4-434c-8a66-705c89519f58/16-9" />
   </programme>
-  <programme start="20261010100000 +0000" stop="20261010120000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>International Raceday Live</title>
-    <desc>Live French racing from Chantilly and Greyhound racing from Romford. A look ahead to Day 2 of the Welsh Racing Festival live from Chepstow.</desc>
+  <programme start="20261009210000 +0000" stop="20261009220000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Tokyo 2026 Review</title>
+    <desc>An in-depth review of all the action from the 2026 edition of the Japan Open - an ATP 500 event held in Tokyo.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.397.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/5b43e3f6-e2fd-48a7-8b36-232f74a90a42/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.13.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/4c57258c-03b5-4001-b66f-fb160ba53e2b/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261010120000 +0000" stop="20261010200000 +0000" channel="SkySp.Racing.HD.uk">
-    <title>Raceday Live</title>
-    <sub-title>Live Racing</sub-title>
-    <desc>Alex Hammond, Mick Fitzgerald, Tom Scudamore and Matt Champman bring you Day 2 of the Welsh Racing Festival at Chepstow featuring the Silver Trophy Handicap Hurdle.</desc>
+  <programme start="20261009220000 +0000" stop="20261009230000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Beijing 2026 Review</title>
+    <desc>An in-depth review of all the action from the 2026 edition of the China Open - an ATP 500 event held in Beijing.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Racing</category>
-    <episode-num system="xmltv_ns">.1009.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/00c7f724-c9ef-46c3-a3cf-1d7cbcfd6678/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.12.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/47452e0d-74b0-4c12-b503-d425b29a7c8f/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261008100000 +0000" stop="20261008130000 +0000" channel="CNBC.uk">
-    <title>Live: Squawk Box</title>
-    <desc>The big names in business and politics tell their important stories in this pre-market morning news and talk program; from professional traders to casual investors.</desc>
-    <category lang="en">Series</category>
-    <category lang="en">Bus./financial</category>
-    <category lang="en">News</category>
-    <category lang="en">Public affairs</category>
-    <category lang="en">Talk</category>
-    <category lang="en">Interview</category>
-    <episode-num system="onscreen">E201</episode-num>
-    <credits>
-      <actor>Becky Quick</actor>
-      <actor>Joe Kernen</actor>
-      <actor>Andrew Ross Sorkin</actor>
-    </credits>
-    <date>2026</date>
-    <icon src="http://dtil.tmsimg.com/assets/p31526545_b_h8_aa.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
+  <programme start="20261009230000 +0000" stop="20261009233000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Tour This Week</title>
+    <desc>Step behind the scenes of men's professional tennis throughout the 2026 season on the ATP Tour with special features, interviews and much more.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.100.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/9db9b62e-b885-46ca-98ad-a224348dda1b/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261009233000 +0000" stop="20261010000000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Rome 2026 Review</title>
+    <desc>An in-depth review of the 2026 Internazionali BNL d'Italia - a WTA 1000 clay-court event.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.5.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/11a57202-d21a-4b75-add3-a1239c106f32/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010000000 +0000" stop="20261010003000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Toronto 2026 Review</title>
+    <desc>An in-depth review of the 2026 National Bank Open - a WTA 1000 event held in Toronto, Canada.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.6.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/55223b75-0494-45c6-bfa3-0d27d6c59e8b/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010003000 +0000" stop="20261010010000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Cincinnati 2026 Review</title>
+    <desc>An in-depth review of all the action from the 2026 edition of the Cincinnati Open - a WTA 1000 event on the hard courts of Ohio.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.7.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/6b2e0e06-b03b-42e4-8064-92a0d4a927fd/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010010000 +0000" stop="20261010023000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Revisit a standout match from today's action on the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.30.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/925dedb0-e588-4e77-8982-05e32cdebf9e/16-9" />
+  </programme>
+  <programme start="20261010023000 +0000" stop="20261010040000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Revisit a standout match from today's action on the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.30.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/3c4b853e-4ca4-434c-8a66-705c89519f58/16-9" />
+  </programme>
+  <programme start="20261010040000 +0000" stop="20261010050000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.76.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/18e94482-7a07-4da3-aa37-6dd57b0f3e4b/16-9" />
+  </programme>
+  <programme start="20261010050000 +0000" stop="20261010070000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.76.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/18e94482-7a07-4da3-aa37-6dd57b0f3e4b/16-9" />
+  </programme>
+  <programme start="20261010070000 +0000" stop="20261010090000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai &amp; WTA Beijing</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.34.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/c227f141-8b38-4c18-bd83-599f2aaed828/16-9" />
+  </programme>
+  <programme start="20261010090000 +0000" stop="20261010110000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.77.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/3f7a19a0-f17a-4258-b557-0ccf92e58607/16-9" />
+  </programme>
+  <programme start="20261010110000 +0000" stop="20261010130000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai &amp; WTA Beijing</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.37.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/69591ae1-3eb2-460f-be31-fcfc2cd033a6/16-9" />
+  </programme>
+  <programme start="20261010130000 +0000" stop="20261010140000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Live: ATP Shanghai</title>
+    <desc>Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.78.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/efcd5231-6f8c-4b79-9e2f-efb0389032e2/16-9" />
+  </programme>
+  <programme start="20261010140000 +0000" stop="20261010143000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Tour This Week</title>
+    <desc>Step behind the scenes of men's professional tennis throughout the 2026 season on the ATP Tour with special features, interviews and much more.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.100.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/9db9b62e-b885-46ca-98ad-a224348dda1b/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010143000 +0000" stop="20261010144500 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Rome</title>
+    <desc>World number one Jannik Sinner, a win away from completing the Career Golden Masters, meets first-time Rome finalist Casper Ruud - who trails 4-0 in head-to-head meetings. (17.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">05</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/80d05ca1-8c57-42a0-964e-47701d919e6a/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010144500 +0000" stop="20261010150000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Montreal</title>
+    <desc>A men's singles champion is crowned in the Montreal final.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.45.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/304db32b-a725-4011-a686-3423e9338ec3/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010150000 +0000" stop="20261010160000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Monterrey</title>
+    <desc>A women's singles champion is crowned in the Monterrey final.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.39.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/be43ee7f-0300-48fa-a746-c55efaea4233/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010160000 +0000" stop="20261010170000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Guadalajara</title>
+    <desc>A win away from retaining the title, teenage star Iva Jovic encounters first-time WTA 500 finalist Peyton Stearns in all-American Guadalajara showdown. (19.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">09</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/c5be7319-8b5c-4047-8910-ced5e3b5961e/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010170000 +0000" stop="20261010180000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Singapore</title>
+    <desc>Former US Open runner-up Leylah Fernandez ends her wait to challenge for a title as the Canadian, seeded sixth in Singapore, meets first-time tour-level finalist Talia Gibson. (27.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">09</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/2bd1ec0f-b889-4b30-b37b-9a80cfb8910f/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261010180000 +0000" stop="20261010193000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Revisit a standout match from today's action on the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.34.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/d3042026-b888-45ce-9c23-35fd4bd32dce/16-9" />
+  </programme>
+  <programme start="20261010193000 +0000" stop="20261010210000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>Tennis Highlights</title>
+    <desc>Revisit a standout match from today's action on the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="xmltv_ns">.34.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f8b01382-46b0-4564-8069-6889e09f0e2f/16-9" />
   </programme>
   <programme start="20261008130000 +0000" stop="20261008160000 +0000" channel="CNBC.uk">
     <title>Live: Squawk on the Street</title>
@@ -6739,28 +6877,45 @@
     <icon src="http://dtil.tmsimg.com/assets/p34269474_b_h8_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261008111500 +0000" stop="20261008120000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Bargain Hunt</title>
-    <desc>Two teams of bargain hunters are under starter's orders at Wetherby Racecourse, skippered by experts Izzie Balmer and David Harper.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">67.22.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/dded7754-44f6-373c-b63e-4baa7398e38e/16-9" />
+  <programme start="20261010180000 +0000" stop="20261010183000 +0000" channel="CNBC.uk">
+    <title>Interested in Gold? Learn More!</title>
+    <desc>Gold has been the best long-term asset class for thousands of years; find out how you can protect your financial future by diversifying your nest-egg with physical gold today.</desc>
+    <category lang="en">Consumer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p27818800_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
-  <programme start="20261008120000 +0000" stop="20261008130000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News at One including BBC London News</title>
-    <desc>The latest national and international news from the BBC.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/13d7b3ba-4302-42e2-9cc3-f8d290b88df8/16-9" />
+  <programme start="20261010183000 +0000" stop="20261010190000 +0000" channel="CNBC.uk">
+    <title>Bathroom Makeover</title>
+    <desc>Transform your bath affordably in just one day!</desc>
+    <category lang="en">Consumer</category>
+    <category lang="en">Health</category>
+    <category lang="en">House/garden</category>
+    <category lang="en">Self improvement</category>
+    <icon src="http://dtil.tmsimg.com/assets/p30220270_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
-  <programme start="20261008130000 +0000" stop="20261008133000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Clean It, Fix It</title>
-    <desc>Mark Wright, Tommy Walsh and Maxine Dwyer help Catherine, a widow, tackle the unfinished DIY projects left behind by her late husband.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">3.13.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/e980c7fe-b453-4b3a-a8c0-aea033a80b15/16-9" />
+  <programme start="20261010190000 +0000" stop="20261010200000 +0000" channel="CNBC.uk">
+    <title>American Greed</title>
+    <sub-title>The Cunning Cowgirl Crook; Dollars for Dumps</sub-title>
+    <desc>A small town comptroller steals $53 million from her city to fund a horse-breeding empire; a crooked real estate developer lures victims to his phony residential oases.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Newsmagazine</category>
+    <category lang="en">Docudrama</category>
+    <category lang="en">Crime</category>
+    <category lang="en">Documentary</category>
+    <episode-num system="onscreen">S8 E3</episode-num>
+    <credits>
+      <actor>Stacy Keach</actor>
+    </credits>
+    <date>2014</date>
+    <icon src="http://dtil.tmsimg.com/assets/p185958_b_h8_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
   </programme>
   <programme start="20261008133000 +0000" stop="20261008140000 +0000" channel="BBC.One.Lon.HD.uk">
     <title>Shift the Thrift</title>
@@ -7204,70 +7359,6 @@
     <category lang="en">Entertainment</category>
     <episode-num system="xmltv_ns">23.4.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/48fc57e2-ed53-4ba0-b110-06b3de5dc33c/16-9" />
-  </programme>
-  <programme start="20261008113000 +0000" stop="20261008120000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>BBC News Now</title>
-    <desc>All the big stories, live as they happen, presented by Lucy Hockings.</desc>
-    <category lang="en">News</category>
-    <credits>
-      <actor>Lucy Hockings</actor>
-    </credits>
-    <date>2023</date>
-    <icon src="http://dtil.tmsimg.com/assets/p24753781_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261008120000 +0000" stop="20261008123000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>BBC News Now</title>
-    <desc>All the big stories, live as they happen, presented by Lucy Hockings.</desc>
-    <category lang="en">News</category>
-    <credits>
-      <actor>Lucy Hockings</actor>
-    </credits>
-    <date>2023</date>
-    <icon src="http://dtil.tmsimg.com/assets/p24753781_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261008123000 +0000" stop="20261008125500 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>BBC News Now</title>
-    <desc>All the big stories, live as they happen, presented by Lucy Hockings.</desc>
-    <category lang="en">News</category>
-    <credits>
-      <actor>Lucy Hockings</actor>
-    </credits>
-    <date>2023</date>
-    <icon src="http://dtil.tmsimg.com/assets/p24753781_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261008125500 +0000" stop="20261008130000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>Talking Movies</title>
-    <desc>Tom Brook presents the latest updates from the film industry, reviews recently released movies and interviews prominent actors.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Talk</category>
-    <credits>
-      <actor>Tom Brook</actor>
-      <actor>Manoush Zomorodi</actor>
-      <director>Tom Brook</director>
-    </credits>
-    <date>1999</date>
-    <icon src="http://dtil.tmsimg.com/assets/p499183_b_h10_ac.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVPG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>PG</value>
-    </rating>
-  </programme>
-  <programme start="20261008130000 +0000" stop="20261008133000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>BBC News Now</title>
-    <desc>All the big stories, live as they happen, presented by Lucy Hockings.</desc>
-    <category lang="en">News</category>
-    <credits>
-      <actor>Lucy Hockings</actor>
-    </credits>
-    <date>2023</date>
-    <icon src="http://dtil.tmsimg.com/assets/p24753781_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme start="20261008133000 +0000" stop="20261008134500 +0000" channel="BBC.News.(North.America).HD.us2">
     <title>Business Today USA</title>
@@ -8627,27 +8718,57 @@
     <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261008113000 +0000" stop="20261008123000 +0000" channel="ITV1.HD.uk">
-    <title>Loose Women</title>
-    <desc>Join the Loose Women panellists as they interview celebrity guests and discuss the day's most topical issues, from current affairs to celebrity gossip and the latest showbiz news.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Chat Show</category>
-    <episode-num system="xmltv_ns">29.118.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/7a737e70-638c-43e5-a3cb-3af5ef3bffa5/16-9" />
-  </programme>
-  <programme start="20261008123000 +0000" stop="20261008125500 +0000" channel="ITV1.HD.uk">
-    <title>ITV Lunchtime News</title>
-    <desc>The latest headlines from around the world at lunchtime with reports and analysis from ITV's Correspondents, all of which are followed by a national weather forecast.</desc>
-    <category lang="en">News &amp; Documentary</category>
+  <programme start="20261010180000 +0000" stop="20261010183000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>BBC News</title>
+    <desc>Twenty-four hours a day, the latest national and international stories as they break.</desc>
     <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/878cac72-fcec-48c3-972a-8ad20fca7d66/16-9" />
+    <date>2008</date>
+    <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
-  <programme start="20261008125500 +0000" stop="20261008130000 +0000" channel="ITV1.HD.uk">
-    <title>ITV News London</title>
-    <desc>The latest news and weather from London and the South East.</desc>
-    <category lang="en">News &amp; Documentary</category>
+  <programme start="20261010183000 +0000" stop="20261010190000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>Tech Now</title>
+    <desc>Alasdair Keane visits Schiphol Airport to see how self-driving vehicles are being trialled; Nick Kwek is at the Imperial War Museum in London to hear how survivor stories are brought to life.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Documentary</category>
+    <category lang="en">Technology</category>
+    <category lang="en">Science</category>
+    <credits>
+      <actor>Alasdair Keane</actor>
+      <actor>Nick Kwek</actor>
+    </credits>
+    <date>2025</date>
+    <icon src="http://dtil.tmsimg.com/assets/p29377809_b_h8_ac.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261010190000 +0000" stop="20261010193000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>BBC News</title>
+    <desc>Twenty-four hours a day, the latest national and international stories as they break.</desc>
     <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/f060f3b0-ec26-43b2-9d1e-b45878c565ba/16-9" />
+    <date>2008</date>
+    <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261010193000 +0000" stop="20261010200000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>The Travel Show</title>
+    <desc>Exploring new destinations around the globe and uncovering hidden sides to some of the world's favorite holiday hotspots.</desc>
+    <category lang="en">Travel</category>
+    <category lang="en">Documentary</category>
+    <credits>
+      <actor>Ade Adepitan</actor>
+      <actor>Rajan Datar</actor>
+      <actor>Carmen Roberts</actor>
+      <director>Tony Harrison</director>
+      <director>Juliet May</director>
+      <director>Jonathan Bullen</director>
+      <director>Maggie Sutcliffe</director>
+      <director>Jenny Ash</director>
+      <director>Ged Maguire</director>
+      <director>Paul Coueslant</director>
+    </credits>
+    <date>2014</date>
+    <icon src="http://dtil.tmsimg.com/assets/p10561148_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
   <programme start="20261008130000 +0000" stop="20261008140000 +0000" channel="ITV1.HD.uk">
     <title>Dickinson's Real Deal</title>
@@ -9030,21 +9151,13 @@
     <episode-num system="xmltv_ns">12.3.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/3e245b27-7e5e-332f-8364-28f40a786887/16-9" />
   </programme>
-  <programme start="20261008113000 +0000" stop="20261008123000 +0000" channel="STV.HD.uk">
-    <title>Loose Women</title>
-    <sub-title>The women put the world to rights once more</sub-title>
-    <desc>The women put the world to rights once more and invite a celebrity guest to chat about what they are up to.</desc>
-    <icon src="https://tv.assets.pressassociation.io/5ed42cbf-1685-51bc-913e-18f8d279fc8f.jpg" />
-  </programme>
-  <programme start="20261008123000 +0000" stop="20261008125500 +0000" channel="STV.HD.uk">
-    <title>ITV Lunchtime News; Weather</title>
-    <sub-title>The key headlines from the day so far</sub-title>
-    <desc>The key headlines from the day so far.</desc>
-    <icon src="https://tv.assets.pressassociation.io/f3c3a307-822e-5781-ad9b-8c3f81e3586a.jpg" />
-  </programme>
-  <programme start="20261008125500 +0000" stop="20261008130000 +0000" channel="STV.HD.uk">
-    <title>STV News; Weather</title>
-    <icon src="https://tv.assets.pressassociation.io/a49e822d-abf3-56bf-905b-c940ead1d15a.jpg" />
+  <programme start="20261010183000 +0000" stop="20261010193500 +0000" channel="ITV1.HD.uk">
+    <title>Win Win with Postcode Lottery</title>
+    <desc>Mel and Sue host as another lucky home winner joins in the studio. Epic prizes are up for grabs, more viewers will win, and there's a guaranteed £1m series jackpot.</desc>
+    <category lang="en">Entertainment</category>
+    <category lang="en">Game Show</category>
+    <episode-num system="xmltv_ns">1.2.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/de1df9aa-9834-4302-812b-742b110069ad/16-9" />
   </programme>
   <programme start="20261008130000 +0000" stop="20261008140000 +0000" channel="STV.HD.uk">
     <title>Dickinson's Real Deal</title>
@@ -9357,5 +9470,11 @@
     <sub-title>With Richard Bacon, Daisy Arwen Campbell, Neil Jones and Gary Wilmot</sub-title>
     <desc>Richard Bacon, Daisy Arwen Campbell, Neil Jones and Gary Wilmot work as a team to take on one of the ruthless Chasers and secure a charity prize.</desc>
     <icon src="https://tv.assets.pressassociation.io/b3c9a9c7-ab44-59fa-b82f-7c0857c8a1a9.jpg" />
+  </programme>
+  <programme start="20261010183000 +0000" stop="20261010193500 +0000" channel="STV.HD.uk">
+    <title>Win Win</title>
+    <sub-title>Interactive quiz show, hosted by Mel Giedroyc and Sue Perkins</sub-title>
+    <desc>Mel Giedroyc and Sue Perkins host the interactive quiz show in which viewers get the chance to win the same prizes as the contestants playing in the studio.</desc>
+    <icon src="https://tv.assets.pressassociation.io/8934ea10-f8f3-5be8-a2ad-bd31b3f577bf.jpg" />
   </programme>
 </tv>
