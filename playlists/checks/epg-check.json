@@ -1,9 +1,9 @@
 {
-  "run_id": "20261008T120230Z-2673",
+  "run_id": "20261009T115438Z-2764",
   "label": "nightly guide check",
-  "started_utc": "2026-10-08T12:02:30Z",
-  "finished_utc": "2026-10-08T12:02:34Z",
-  "duration_seconds": 3.1,
+  "started_utc": "2026-10-09T11:54:38Z",
+  "finished_utc": "2026-10-09T11:54:40Z",
+  "duration_seconds": 1.6,
   "timeout": 60.0,
   "playlists": [
     "playlists/PremiumTV.m3u",
@@ -63,7 +63,6 @@
     "playlists/countries/Faroe_Islands.m3u",
     "playlists/countries/Finland.m3u",
     "playlists/countries/France.m3u",
-    "playlists/countries/Gambia.m3u",
     "playlists/countries/Georgia.m3u",
     "playlists/countries/Germany.m3u",
     "playlists/countries/Ghana.m3u",
@@ -199,28 +198,28 @@
     {
       "url": "https://raw.githubusercontent.com/doms9/iptv/refs/heads/default/M3U8/TV.xml",
       "status": "ok",
-      "reason": "231 channels, 7330 programmes sampled",
+      "reason": "231 channels, 7281 programmes sampled",
       "http_status": 206,
       "bytes": 4194304,
       "channels": 231,
-      "programmes": 7330,
+      "programmes": 7281,
       "sample_channel": "Sportsnet One",
-      "newest_programme": "2026-10-12 08:00 UTC",
+      "newest_programme": "2026-10-13 08:00 UTC",
       "gzipped": false,
-      "elapsed": 0.19
+      "elapsed": 0.05
     },
     {
       "url": "https://worker-9dd4.onrender.com/guide.xml.gz",
       "status": "ok",
       "reason": "2 channels, 101 programmes sampled",
       "http_status": 206,
-      "bytes": 2879,
+      "bytes": 3009,
       "channels": 2,
       "programmes": 101,
       "sample_channel": "ANT1 Europe",
-      "newest_programme": "2026-10-09 00:30 UTC",
+      "newest_programme": "2026-10-10 00:30 UTC",
       "gzipped": true,
-      "elapsed": 0.09
+      "elapsed": 0.08
     },
     {
       "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Afghanistan.xml",
@@ -926,19 +925,6 @@
     },
     {
       "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/France.xml",
-      "status": "offline",
-      "reason": "HTTP 404",
-      "http_status": 404,
-      "bytes": 0,
-      "channels": 0,
-      "programmes": 0,
-      "sample_channel": "",
-      "newest_programme": "",
-      "gzipped": false,
-      "elapsed": 0.0
-    },
-    {
-      "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Gambia.xml",
       "status": "offline",
       "reason": "HTTP 404",
       "http_status": 404,
@@ -2474,12 +2460,12 @@
   ],
   "totals": {
     "ok": 2,
-    "offline": 174
+    "offline": 173
   },
   "working_ratio": 0.0114,
   "patch": {
     "aborted": true,
-    "abort_reason": "only 2/176 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing",
+    "abort_reason": "only 2/175 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing",
     "patched_files": [],
     "removed": [],
     "added": [],
@@ -2544,7 +2530,6 @@
     "Faroe_Islands.m3u": 1,
     "Finland.m3u": 1,
     "France.m3u": 1,
-    "Gambia.m3u": 1,
     "Georgia.m3u": 1,
     "Germany.m3u": 1,
     "Ghana.m3u": 1,

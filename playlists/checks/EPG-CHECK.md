@@ -1,21 +1,21 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261008T120230Z-2673`)
-- **Started:** 2026-10-08T12:02:30Z | **Finished:** 2026-10-08T12:02:34Z | **Duration:** 3.1s
-- **Guides checked:** 176 across 175 playlists
+- **Run:** nightly guide check (`20261009T115438Z-2764`)
+- **Started:** 2026-10-09T11:54:38Z | **Finished:** 2026-10-09T11:54:40Z | **Duration:** 1.6s
+- **Guides checked:** 175 across 174 playlists
 - **Working share:** 1.1%
 
 | Result | Guides |
 |---|---:|
 | ok | 2 |
-| offline | 174 |
+| offline | 173 |
 
 ## Working guides (kept)
 
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
-| `TV.xml` | 231 | 7330 | 2026-10-12 08:00 UTC | 4096 KB |
-| `guide.xml.gz` | 2 | 101 | 2026-10-09 00:30 UTC | 2 KB |
+| `TV.xml` | 231 | 7281 | 2026-10-13 08:00 UTC | 4096 KB |
+| `guide.xml.gz` | 2 | 101 | 2026-10-10 00:30 UTC | 2 KB |
 
 ## Guides that failed
 
@@ -77,7 +77,6 @@
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Faroe_Islands.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Finland.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/France.xml` | offline | HTTP 404 |
-| `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Gambia.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Georgia.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Germany.xml` | offline | HTTP 404 |
 | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ghana.xml` | offline | HTTP 404 |
@@ -198,4 +197,4 @@
 
 ## Patch
 
-- **Aborted:** only 2/176 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing
+- **Aborted:** only 2/175 guides answered (1%) is below --min-working-ratio 25%; treating this run as a network problem and changing nothing
