@@ -1,9 +1,11 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml,https://raw.githubusercontent.com/doms9/iptv/refs/heads/default/M3U8/TV.xml,https://worker-9dd4.onrender.com/guide.xml.gz"
-# International - 678 channels - rebuilt 2026-10-10 12:21 UTC (2026-10-10 08:21 AM EDT)
+# International - 673 channels - rebuilt 2026-10-10 12:27 UTC (2026-10-10 08:27 AM EDT)
 #EXTINF:-1 tvg-name="Вистел" tvg-logo="https://i.imgur.com/MbM0E6L.png" tvg-id="premiumtv.north_macedonia.international" tvg-chno="13" tvg-country="MK" group-title="International",Вистел
 https://live.vtv.mk/live/vtv/chunks.m3u8
 #EXTINF:-1 tvg-name="テレビ朝日" tvg-logo="https://i.imgur.com/5XnMfcR.png" tvg-id="JOEXDTV.jp" tvg-chno="D051" tvg-country="JP" group-title="International",テレビ朝日
 https://tvasahi.mov3.co/hls/tvasahi.m3u8
+#EXTINF:-1 tvg-id="premiumtv.international.1" group-title="International",欧美大片1
+http://epg.112114.xyz/douyu/20415
 #EXTINF:-1 tvg-name="Беларусь 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Belarus_1_logo.svg/960px-Belarus_1_logo.svg.png" tvg-id="Belarus1.by" tvg-chno="1" tvg-country="BY" group-title="International",Беларусь 1
 https://edge55.dc.beltelecom.by/ngtrk/smil:belarus1.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Россия 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Russia-1.svg/960px-Russia-1.svg.png" tvg-id="Russia1.ru" tvg-chno="2" tvg-country="RU" group-title="International",Россия 1
@@ -11,15 +13,13 @@ https://live.smotrim.ru/vgtrk/0/russia1-hd/index.m3u8
 #EXTINF:-1 tvg-id="1Plus1Ukraina.ua@SD" tvg-logo="https://i.imgur.com/FlG7npq.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" group-title="International" tvg-name="1+1 Ukraina" tvg-chno="2" tvg-country="UA",1+1 Ukraina (1080p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
 http://stream.mcquack.net/219/index.m3u8
-#EXTINF:-1 tvg-id="premiumtv.international.1_720p_not_24_7" group-title="International",上虞1新闻综合 (720p) [Not 24/7]
-https://l.cztvcloud.com/channels/lantian/SXshangyu1/720p.m3u8
 #EXTINF:-1 tvg-id="111TV.it@SD" tvg-logo="https://i.imgur.com/kVREx1Q.png" group-title="International" tvg-name="111 Tv" tvg-country="IT",111 TV (720p)
 https://5db313b643fd8.streamlock.net/111/111/playlist.m3u8
 #EXTINF:-1 tvg-id="Channel12.ru@SD" tvg-country="RU" group-title="International",12 канал
 https://12channel.bonus-tv.ru/cdn/12channel_blackout/playlist.m3u8
 #EXTINF:-1 tvg-id="12TVParma.it@SD" tvg-logo="https://i.imgur.com/mBYxWOg.png" group-title="International" tvg-name="12 Tv Parma" tvg-country="IT",12 TV Parma (540p) [Not 24/7]
 https://5929b138b139d.streamlock.net/12TVParma/livestream/playlist.m3u8
-#EXTINF:-1 tvg-id="13C.cl@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/24/13c_%282025%29.png" group-title="International" tvg-status="stable" tvg-country="CL",13C
+#EXTINF:-1 tvg-id="premiumtv.chile.13c" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/24/13c_%282025%29.png" group-title="International" tvg-status="stable" tvg-country="CL",13C
 http://190.83.15.112:8000/play/a052/index.m3u8
 #EXTINF:-1 tvg-name="1Mus" tvg-logo="https://i.imgur.com/PozF9MT.png" tvg-id="FirstMusicChannel.by" tvg-chno="1" tvg-country="BY" group-title="International",1Mus
 http://hz1.teleport.cc/HLS/HD.m3u8
@@ -29,7 +29,7 @@ http://epg.112114.xyz/douyu/2793084
 https://edge55.dc.beltelecom.by/ngtrk/smil:belarus2.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="HellenicParliamentTV2.gr@SD" tvg-country="GR" group-title="International",Βουλή Τηλεόραση 2 (540p) [Not 24/7]
 https://streamer-cache.grnet.gr/parliament/hls/webtv2.m3u8
-#EXTINF:-1 tvg-id="Arkhyz24.ru" tvg-country="RU" group-title="International",Россия 24 (576p) [Not 24/7]
+#EXTINF:-1 tvg-id="Russia24.ru@SD" tvg-country="RU" group-title="International",Россия 24 (576p) [Not 24/7]
 https://uiptv.do.am/1ufc/000000006/playlist.m3u8
 #EXTINF:-1 tvg-id="247BoxTV.ir@SD" tvg-logo="https://i.imgur.com/t5AUthL.png" group-title="International" tvg-status="stable" tvg-country="IR",24/7 Box
 https://hls.247box.live/hls/stream.m3u8
@@ -37,12 +37,12 @@ https://hls.247box.live/hls/stream.m3u8
 https://edge53.dc.beltelecom.by/ngtrk/smil:belarus24.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="24h" tvg-logo="https://i.imgur.com/ZKR2jKr.png" tvg-id="24h.es" tvg-chno="7" tvg-country="ES" group-title="International",24h
 https://rtvelivestream.rtve.es/rtvesec/24h/24h_main_dvr.m3u8
-#EXTINF:-1 tvg-id="premiumtv.international.3" group-title="International",粤语电影3
-http://epg.112114.xyz/douyu/1226741
 #EXTINF:-1 tvg-name="Беларусь 3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Belarus_3_logo.svg/960px-Belarus_3_logo.svg.png" tvg-id="Belarus3.by" tvg-country="BY" group-title="International",Беларусь 3
 https://edge55.dc.beltelecom.by/ngtrk/smil:belarus3.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="HellenicParliamentTV3.gr@SD" tvg-country="GR" group-title="International",Βουλή Τηλεόραση 3 (540p) [Not 24/7]
 https://streamer-cache.grnet.gr/parliament/hls/webtv3.m3u8
+#EXTINF:-1 tvg-id="premiumtv.international.3_720p_not_24_7" group-title="International",上虞3新商都 (720p) [Not 24/7]
+https://l.cztvcloud.com/channels/lantian/SXshangyu3/720p.m3u8
 #EXTINF:-1 tvg-id="premiumtv.latvia.360_tv" tvg-logo="" group-title="International" tvg-status="stable" tvg-country="LV",360 TV
 http://ba261103.amazzin.pw/iptv/9YNR783B2M6ANV6KFA25R382/18013/index.m3u8
 #EXTINF:-1 tvg-id="3sat.de@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/3sat_2019.svg/960px-3sat_2019.svg.png" group-title="International" tvg-country="DE",3sat
@@ -53,7 +53,7 @@ https://streamsrv2.nets-sr.com:19360/4youtv/4youtv.m3u8
 https://itthls.wns.live/hls/stream.m3u8
 #EXTINF:-1 tvg-id="premiumtv.iran.4sports" tvg-logo="" group-title="International" tvg-status="stable" tvg-country="IR",4Sports
 https://orangehls.wns.live/hls/stream.m3u8
-#EXTINF:-1 tvg-id="Belarus5.by" tvg-country="BY" group-title="International",Беларусь 5 Интернет (1080p) [Not 24/7]
+#EXTINF:-1 tvg-id="Belarus5.by@Internet" tvg-country="BY" group-title="International",Беларусь 5 Интернет (1080p) [Not 24/7]
 https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5int.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="premiumtv.latvia.8_tv" tvg-logo="" group-title="International" tvg-status="stable" tvg-country="LV",8 TV
 http://ba261103.amazzin.pw/iptv/9YNR783B2M6ANV6KFA25R382/18014/index.m3u8
@@ -63,7 +63,7 @@ https://live-bauerie.sharp-stream.com/98
 http://103.86.132.58:9981/stream/channelid/1804265102?ticket=80F2D96562CB6AB9B3529389786AFFB6A5732F41&profile=pass
 #EXTINF:-1 tvg-id="premiumtv.pakistan.aan_tv" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_LmcRt4zx3-SVAYkPKU5WCIgND1fLIpyXB7H0nbp2tFh1XMyq18jNLJ3y&s=10" group-title="International" tvg-status="stable" tvg-country="PK",Aan TV
 http://103.86.132.58:9981/stream/channelid/662570916?ticket=A86410C7BBA9A5FB23CA469DDA7C103F43A06D96&profile=pass
-#EXTINF:-1 tvg-id="WABC-DT.us_locals1" tvg-logo="https://i.imgur.com/DPVQSjM.png" group-title="International" tvg-name="ABC" tvg-chno="1" tvg-country="AU",ABC TV (720p)
+#EXTINF:-1 tvg-id="ABCTV.au@NSW" tvg-logo="https://i.imgur.com/DPVQSjM.png" group-title="International" tvg-name="ABC" tvg-chno="1" tvg-country="AU",ABC TV (720p)
 https://c.mjh.nz/abc-nsw.m3u8
 #EXTINF:-1 tvg-id="premiumtv.arab_world.abu_dhabi_tv" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-arab-emirates/abu-dhabi-tv-ae.png" group-title="International" tvg-status="stable" tvg-country="Arab World",Abu Dhabi TV
 http://149.100.11.252:8000/play/a00m/index.m3u8
@@ -143,7 +143,7 @@ https://live.livestreamtv.ca/azstar/amlst:azstar/playlist.m3u8
 https://str.yodacdn.net/azertv/index.m3u8
 #EXTINF:-1 tvg-name="AzStarTV" tvg-logo="https://i.imgur.com/di3XX5L.png" tvg-id="AzStarTV.ca" tvg-country="AZ" group-title="International",AzStarTV
 http://live.azstartv.com/azstar/smil:azstar.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="BTV.lt@SD" tvg-country="RW" group-title="International",B+ TV (480p)
+#EXTINF:-1 tvg-id="BPlusTV.rw@SD" tvg-country="RW" group-title="International",B+ TV (480p)
 https://tv.btnrwanda.com:3432/live/bpluslive.m3u8
 #EXTINF:-1 tvg-id="BalatonTV.hu@SD" tvg-logo="https://balatontelevizio.hu/wp-content/uploads/2020/05/balaton_tv_logo.png" group-title="International" tvg-name="Balaton TV" tvg-chno="1" tvg-country="HU",Balaton TV (432p)
 https://stream.iptvservice.eu/hls/balatontv.m3u8
@@ -224,7 +224,7 @@ http://138.121.15.230:9002/CARACOL/index.m3u8
 https://router.xdevel.com/video0s975911-633/stream/playlist_dvr.m3u8
 #EXTINF:-1 tvg-name="Castrovillari Tv" tvg-logo="https://i.imgur.com/V0kjYNG.png" tvg-country="IT" group-title="International" tvg-id="premiumtv.italy.castrovillari_tv",Castrovillari Tv
 http://msh0062.stream.seeweb.it/live/flv:stream00.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="CCTV-9 纪录" tvg-logo="https://i.imgur.com/Ruyzhu5.png" tvg-id="CCTV9.cn@SD" tvg-chno="10" tvg-country="CN" group-title="International",CCTV-9 纪录
+#EXTINF:-1 tvg-name="CCTV-9 纪录" tvg-logo="https://i.imgur.com/Ruyzhu5.png" tvg-id="CCTV9.cn" tvg-chno="10" tvg-country="CN" group-title="International",CCTV-9 纪录
 http://74.91.26.218:82/live/cctv9hd.m3u8
 #EXTINF:-1 tvg-id="CenterTV.gr@SD" tvg-logo="https://i.imgur.com/52JW71Q.png" group-title="International" tvg-name="Center TV" tvg-chno="101" tvg-country="GR",Center TV (1080p)
 https://eu1.streams.gr:8081/centertv/index.m3u8
@@ -232,9 +232,9 @@ https://eu1.streams.gr:8081/centertv/index.m3u8
 https://cdn4.skygo.mn/live/disk1/Ekh_Oron/HLSv3-FTA/Ekh_Oron.m3u8
 #EXTINF:-1 tvg-id="CGTNFrench.cn@SD" tvg-country="CN" group-title="International",CGTN Français
 https://amg01314-cgtn-amg01314c2-rakuten-us-1319.playouts.now.amagi.tv/cgtn-fr-rakuten/playlist.m3u8
-#EXTINF:-1 tvg-name="CGTN Français" tvg-logo="https://i.imgur.com/fMsJYzl.png" tvg-id="CGTNFrench.cn@SD" tvg-chno="34" tvg-country="FR" group-title="International",CGTN Français
+#EXTINF:-1 tvg-name="CGTN Français" tvg-logo="https://i.imgur.com/fMsJYzl.png" tvg-id="CGTNFrench.cn" tvg-chno="34" tvg-country="FR" group-title="International",CGTN Français
 https://news.cgtn.com/resource/live/french/cgtn-f.m3u8
-#EXTINF:-1 tvg-name="CGTN Pусский" tvg-logo="https://i.imgur.com/fMsJYzl.png" tvg-id="CGTNRussian.cn@SD" tvg-chno="24" tvg-country="RU" group-title="International",CGTN Pусский
+#EXTINF:-1 tvg-name="CGTN Pусский" tvg-logo="https://i.imgur.com/fMsJYzl.png" tvg-id="CGTNRussian.cn" tvg-chno="24" tvg-country="RU" group-title="International",CGTN Pусский
 https://news.cgtn.com/resource/live/russian/cgtn-r.m3u8
 #EXTINF:-1 tvg-name="Channel 11" tvg-logo="" tvg-id="Channel11.mn" tvg-chno="22" tvg-country="MN" group-title="International",Channel 11
 https://cdn4.skygo.mn/live/disk1/Channel11/HLSv3-FTA/Channel11.m3u8
@@ -367,8 +367,8 @@ https://fxtvhls.wns.live/hls/stream.m3u8
 https://cdndirector.dailymotion.com/cdn/live/video/x9us6y4.m3u8?sec=h5bGwJYFZy9AO66NpfTxbhTni9e637DUu_SUPhn3MewWKmiD4Rmw0UuwfufSVb3G
 #EXTINF:-1 tvg-name="Gandan TV" tvg-logo="" tvg-id="GTV.mn" tvg-chno="23" tvg-country="MN" group-title="International",Gandan TV
 https://cdn4.skygo.mn/live/disk1/GTV/HLSv3-FTA/GTV.m3u8
-#EXTINF:-1 tvg-id="premiumtv.italy.giallo" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/italy/giallo-it.png" group-title="International" tvg-status="stable" tvg-country="IT",Giallo
-http://team-tv.co:81/giallo/index.m3u8
+#EXTINF:-1 tvg-name="Giallo" tvg-logo="https://i.imgur.com/0PIRwZS.png" tvg-id="Giallo.TV.it" tvg-chno="38" tvg-country="IT" group-title="International",Giallo
+https://streaming.aurora.enhanced.live/live/mpc/enl0eG1mLmVncmVzcy5mZDJ2eHI=/out/v1/IT_SIMULCAST/GIALLO/CMAF/index.m3u8
 #EXTINF:-1 tvg-id="premiumtv.guyana.glc_elementary" tvg-logo="" group-title="International" tvg-status="stable" tvg-country="GY",GLC Elementary
 http://38.127.211.18/live/c2eds/GLCElementary/HLS/GLCElementary.m3u8
 #EXTINF:-1 tvg-id="premiumtv.guyana.glc_elevate" tvg-logo="" group-title="International" tvg-status="stable" tvg-country="GY",GLC EleVate
@@ -708,7 +708,7 @@ http://rtmp.one.by:1200
 https://tv.cdn.xsg.ge/gpb-1tv/index.m3u8
 #EXTINF:-1 tvg-id="PixelTV.ua" tvg-logo="https://static.wikia.nocookie.net/iepfanon/images/4/43/Pixel_TV_logo.png/revision/latest?cb=20230709150514" group-title="International" tvg-status="stable" tvg-name="Піксель TV" tvg-chno="25" tvg-country="UA",Pixel TV
 https://cdn15.live-tv.cloud/ua_infinitas_tv/pixel-abr/playlist.m3u8
-#EXTINF:-1 tvg-chno="143" tvg-id="Pop.uk@SD" tvg-name="Pop TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s16715_dark_360w_270h.png" group-title="International" tvg-country="US",Pop TV
+#EXTINF:-1 tvg-chno="143" tvg-id="POP.HD.us2" tvg-name="Pop TV" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s16715_dark_360w_270h.png" group-title="International" tvg-country="US",Pop TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36
 https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb269/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjY5OjE3OTE2NDQ0MDU5NzM6Y2RubGl2ZXR2LnR2Ojk2MDNhMDFhZGM1ZTVkMDQuYmE4NzcxNWQxM2RhM2JiN2M2MjRjYmU1Y2I1YThhMDlkZmQwMDZjYjViOWZhYTJkMDQ5OWVkOWE1NDA3MjhlYw
 #EXTINF:-1 tvg-id="PortoCanal.pt@SD" tvg-logo="https://i.imgur.com/DwziwMY.png" group-title="International" tvg-name="Porto Canal" tvg-chno="11" tvg-country="PT",Porto Canal (720p)
@@ -883,7 +883,7 @@ https://streaming-live.rtp.pt/livetvhlsDVR/rtpnHDdvr.smil/playlist.m3u8?DVR=
 https://webtvstream.bhtelecom.ba/rts1.m3u8
 #EXTINF:-1 tvg-name="RTS 2" tvg-logo="https://i.imgur.com/jltAf5h.png" tvg-id="RTS2.rs" tvg-chno="2" tvg-country="RS" group-title="International",RTS 2
 https://webtvstream.bhtelecom.ba/rts2.m3u8
-#EXTINF:-1 tvg-name="RTS 3" tvg-logo="https://i.imgur.com/gxuGB4J.png" tvg-id="RTS3.rs@SD" tvg-chno="3" tvg-country="RS" group-title="International",RTS 3
+#EXTINF:-1 tvg-name="RTS 3" tvg-logo="https://i.imgur.com/gxuGB4J.png" tvg-id="RTS3.rs" tvg-chno="3" tvg-country="RS" group-title="International",RTS 3
 https://webtvstream.bhtelecom.ba/rts_sat.m3u8
 #EXTINF:-1 tvg-name="RTS Svet" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/8a/Rts-svet.png" tvg-id="RTSSvet.rs" tvg-country="RS" group-title="International",RTS Svet
 https://webtvstream.bhtelecom.ba/rts_svet.m3u8
@@ -918,8 +918,6 @@ https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch01/smil:ch-01.smil/chunklist.m3u8
 #EXTINF:-1 tvg-id="SBN.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/14.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="International" tvg-country="MN",SBN (1080p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
 https://cdn4.skygo.mn/live/disk1/SBN/DASH-FTA/SBN.mpd
-#EXTINF:-1 tvg-id="premiumtv.south_korea.sbs" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Seoul_Broadcasting_System_logo.svg/250px-Seoul_Broadcasting_System_logo.svg.png" group-title="International" tvg-status="stable" tvg-country="KR",SBS
-http://1.222.207.80:1935/live/cjbtv/chunklist_w1357270949.m3u8
 #EXTINF:-1 tvg-name="SBS TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/SBS_Korea_Logo_%28Word_Only%29.svg/500px-SBS_Korea_Logo_%28Word_Only%29.svg.png" tvg-id="SBSTV.kr" tvg-chno="7" tvg-country="KR" group-title="International",SBS TV
 https://allanf181.github.io/adaptive-streams/streams/kr/SBSTV.m3u8
 #EXTINF:-1 tvg-id="SBTV.hr@SD" tvg-logo="https://i.imgur.com/MIampxZ.png" group-title="International" tvg-name="SBTV" tvg-chno="21" tvg-country="HR",SBTV (1080p) [Not 24/7]
@@ -930,7 +928,7 @@ https://rbmn-live.akamaized.net/hls/live/2002825/geoSTVATweb/master.m3u8
 https://stream10.xdevel.com/video0s977089-1792/stream/playlist.m3u8
 #EXTINF:-1 tvg-name="Set Tv Cilento" tvg-logo="https://i.imgur.com/qN5D1jD.png" tvg-country="IT" group-title="International" tvg-id="premiumtv.italy.set_tv_cilento",Set Tv Cilento
 https://stream1.aswifi.it/settv/live/index.m3u8
-#EXTINF:-1 tvg-id="SevenChannel.mn" tvg-logo="https://i.imgur.com/9Ld5ATz.png" group-title="International" tvg-country="MN",Seven Channel (720p) [Not 24/7]
+#EXTINF:-1 tvg-id="SevenChannel.mn@SD" tvg-logo="https://i.imgur.com/9Ld5ATz.png" group-title="International" tvg-country="MN",Seven Channel (720p) [Not 24/7]
 https://xykt-fix.github.io/liveh42-syhtv-mn/7Channel_HD/03.m3u8
 #EXTINF:-1 tvg-name="Sienatv" tvg-logo="https://i.imgur.com/gcysky4.png" tvg-country="IT" group-title="International" tvg-id="premiumtv.italy.sienatv",Sienatv
 https://router.xdevel.com/video0s976727-1441/stream/playlist.m3u8
@@ -950,12 +948,10 @@ https://stream.smashmalta.com/live/webplayer/livestream/1.m3u8
 https://cd198.anystream.uk:9092/iqapp/s2tve/playlist.m3u8
 #EXTINF:-1 tvg-id="premiumtv.russia.solnce" tvg-logo="https://static.wikia.nocookie.net/iepfanon/images/5/55/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%82%D0%B5%D0%BB%D0%B5%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0_%D0%A1%D0%9E%D0%9B%D0%9D%D0%A6%D0%95.png/revision/latest?cb=20230717235537" group-title="International" tvg-status="stable" tvg-country="RU",Solnce
 https://tv.mediacdn.ru/live/solntse/playlist_3000k.m3u8
-#EXTINF:-1 tvg-id="SoloTV.cl" tvg-logo="https://stream.making.cl/logo-solotv.png" group-title="International" tvg-country="CL",Solo TV
+#EXTINF:-1 tvg-id="SoloTV.cl@HD" tvg-logo="https://stream.making.cl/logo-solotv.png" group-title="International" tvg-country="CL",Solo TV
 https://sproxy.solotv.cl/hls/live/fhd.m3u8
 #EXTINF:-1 tvg-name="Somali National TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d6/SNTV_REBRANDED_LOGO.png" tvg-id="SomaliNationalTV.so" tvg-country="SO" group-title="International",Somali National TV Ⓢ
 https://cd198.anystream.uk:9092/iqapp/s4ne/playlist.m3u8
-#EXTINF:-1 tvg-id="premiumtv.latin_america.sony_channel" tvg-logo="" group-title="International" tvg-status="stable" tvg-country="Latin America",SONY CHANNEL
-http://209.61.12.77:9000/play/a09n/index.m3u8
 #EXTINF:-1 tvg-id="SorTV.md@SD" tvg-logo="https://i.imgur.com/BcfZgD8.png" group-title="International" tvg-name="Sor TV" tvg-chno="1" tvg-country="MD",Sor TV (720p)
 http://188.237.212.16:8888/live/cameraFeed.m3u8
 #EXTINF:-1 tvg-name="Soyon Geegerulch" tvg-logo="" tvg-id="SoyonGegeeruulegchTV.mn" tvg-chno="24" tvg-country="MN" group-title="International",Soyon Geegerulch
@@ -1001,8 +997,6 @@ http://217.209.209.118:9998/stream/channelid/43302800?ticket=EE11409F101290E3F5A
 https://eco.streams.ovh:1936/syrostv1/syrostv1/playlist.m3u8
 #EXTINF:-1 tvg-name="T13 en vivo" tvg-logo="https://i.imgur.com/3CEijac.png" tvg-id="T13.cl" tvg-chno="10" tvg-country="CL" group-title="International",T13 en vivo
 https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="T9.it@SD" tvg-logo="https://i.imgur.com/kQKzpYj.png" group-title="International" tvg-name="T9" tvg-country="IT",T9 (288p)
-https://streaming.softwarecreation.it/tnove/tnove/playlist.m3u8
 #EXTINF:-1 tvg-name="Taevas TV7" tvg-logo="https://i.imgur.com/usXedIj.png" tvg-id="TaevasTV7.fi" tvg-chno="5" tvg-country="EE" group-title="International",Taevas TV7
 https://vod.tv7.fi/tv7-ee/_definst_/smil:tv7-ee.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="tagesschau24.de@SD" tvg-logo="https://i.imgur.com/LH0Gctv.png" group-title="International" tvg-name="Tagesschau24" tvg-chno="16" tvg-country="DE",tagesschau24 (720p)
@@ -1073,8 +1067,6 @@ http://45.173.231.22:8000/play/a053/index.m3u8
 http://wms.shared.streamshow.it/telefoggia/mp4:telefoggia/playlist.m3u8
 #EXTINF:-1 tvg-id="Telefriuli.it@SD" tvg-logo="https://i.imgur.com/He3uCs6.png" group-title="International" tvg-name="Tele Friuli" tvg-country="IT",Telefriuli (1080p)
 https://5757bf2aa08e42248fb9b9d620f5d900.msvdn.net/live/S11646715/pE3ax0lT0rBd/playlist.m3u8
-#EXTINF:-1 tvg-name="Teleitalia 41" tvg-logo="https://i.imgur.com/lTuPSOn.png" tvg-country="IT" group-title="International" tvg-id="premiumtv.italy.teleitalia_41",Teleitalia 41
-https://streaming.softwarecreation.it/teleitalia/teleitalia/playlist.m3u8
 #EXTINF:-1 tvg-id="TelekanalRAI.ua@SD" tvg-logo="https://i.imgur.com/Ouv51WB.png" group-title="International" tvg-name="Telekanal RAI" tvg-chno="6" tvg-country="UA",Telekanal RAI (480p)
 https://stream.rai.ua/rai/stream.m3u8
 #EXTINF:-1 tvg-name="Teleleonessa" tvg-logo="https://i.imgur.com/jq3etlV.png" tvg-country="IT" group-title="International" tvg-id="premiumtv.italy.teleleonessa",Teleleonessa
@@ -1091,7 +1083,7 @@ https://live.mariatvcdn.com/telemistretta/8fbcd205ada81b295ee6c211c3a80dde.sdp/p
 http://185.202.128.1:1935/TelemoliseStream/telemoliseTV.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="Telenorba" tvg-logo="https://upload.wikimedia.org/wikipedia/it/thumb/2/28/Telenorba_-_Logo_2014.svg/500px-Telenorba_-_Logo_2014.svg.png" tvg-id="Telenorba.it" tvg-country="IT" group-title="International",Telenorba
 https://live-telenorba.cdn.netrw.it/telenorba/hls/ccr/telenorba/master.m3u8
-#EXTINF:-1 tvg-id="TeleRama.it@SD" tvg-logo="https://i.imgur.com/whIRrjo.png" group-title="International" tvg-country="EC",Telerama (240p) [Not 24/7]
+#EXTINF:-1 tvg-id="Telerama.ec@SD" tvg-logo="https://i.imgur.com/whIRrjo.png" group-title="International" tvg-country="EC",Telerama (240p) [Not 24/7]
 https://play.once.net.ec/telerama/live.tv/538.m3u8
 #EXTINF:-1 tvg-id="TeleRama.it@SD" tvg-logo="https://i.imgur.com/0YTYXB9.png" group-title="International" tvg-name="Telerama" tvg-country="IT",TeleRama (576p)
 https://58d921499d3d3.streamlock.net/TeleRama/livestream/playlist.m3u8
@@ -1148,8 +1140,6 @@ http://209.61.12.77:9000/play/a08w/index.m3u8
 https://live-bauerie.sharp-stream.com/TDAAC
 #EXTINF:-1 tvg-name="TOKYO MX チャンネル" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/108_mx.png" tvg-id="premiumtv.japan.tokyo_mx" tvg-chno="CH 108" tvg-country="JP" group-title="International",TOKYO MX チャンネル
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-tokyomx-cmaf-rakutenjp/playlist.m3u8
-#EXTINF:-1 tvg-id="premiumtv.south_korea.tooniverse" tvg-logo="" group-title="International" tvg-status="stable" tvg-country="KR",Tooniverse
-https://live-th10.myjktv.com/watch/live.m3u8?video=tooniverse_540&sid=1UJHEirDzlX6b0U2JY7vH7DGkPolJyz1eb9pjKwU&secret=47b667ee1999652cb92cf9cb73c4e654&time=1771648662
 #EXTINF:-1 tvg-name="TRC Santeramo" tvg-logo="https://i.imgur.com/VbYdS8P.jpg" tvg-country="IT" group-title="International" tvg-id="premiumtv.italy.trc_santeramo",TRC Santeramo
 https://stream7.livinlive.it/trc/trc/playlist.m3u8
 #EXTINF:-1 tvg-name="TRG Media" tvg-logo="https://hostux.pics/images/2026/09/11/30_trg_media50fbce3fd42ecedb.png" tvg-chno="13" tvg-country="IT" group-title="International" tvg-id="premiumtv.italy.trg_media",TRG Media
@@ -1160,6 +1150,8 @@ https://av.hellasnet.tv/rst/trt/index.m3u8
 https://tv-trt1.medya.trt.com.tr/master.m3u8
 #EXTINF:-1 tvg-id="TRTAvaz.tr@SD" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/turkey/trt-avaz-tr.png" group-title="International" tvg-status="stable" tvg-name="TRT Avaz" tvg-chno="9" tvg-country="TR",TRT Avaz
 https://tv-trtavaz.medya.trt.com.tr/master.m3u8
+#EXTINF:-1 tvg-name="TRT Belgesel" tvg-logo="https://i.imgur.com/MGO87pe.png" tvg-id="TRTBelgesel.tr" tvg-chno="8" tvg-country="TR" group-title="International",TRT Belgesel
+https://tv-trtbelgesel-dai.medya.trt.com.tr/master.m3u8
 #EXTINF:-1 tvg-id="TRTDiyanetCocuk.tr@SD" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/turkey/trt-diyanet-cocuk-tr.png" group-title="International" tvg-status="stable" tvg-country="TR",TRT Diyanet Cocuk
 https://tv-trtdiyanetcocuk.medya.trt.com.tr/master.m3u8
 #EXTINF:-1 tvg-id="TRTHaber.tr@SD" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/turkey/trt-harber-tr.png" group-title="International" tvg-status="stable" tvg-name="TRT Haber" tvg-chno="3" tvg-country="TR",TRT Harber
@@ -1279,8 +1271,6 @@ https://5db313b643fd8.streamlock.net/tvmpa/tvmpa/playlist.m3u8
 https://livevideo.infomaniak.com/streaming/livecast/tvm3/playlist.m3u8
 #EXTINF:-1 tvg-id="premiumtv.south_korea.tvn" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Logo_tvN.svg/1200px-Logo_tvN.svg.png" group-title="International" tvg-status="stable" tvg-country="KR",tvN
 https://d21dxaer0ypwk1.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-a6m2cy2rylsvo-ssai-prd/54ac8e25_eb5a_4f10_ba20_ffb254f0a16c/hls/playlist.m3u8
-#EXTINF:-1 tvg-id="premiumtv.south_korea.tvn_show" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Logo_tvN.svg/1200px-Logo_tvN.svg.png" group-title="International" tvg-status="stable" tvg-country="KR",tvN Show
-https://live-th10.myjktv.com/watch/live.m3u8?video=xtm_540&sid=PFAIITxvW0TtUOE7GDqh12d5WYdLdrMlPprSkxzy&secret=5c986f90b21bf48ab94c72fda0e9a216&time=1771650213
 #EXTINF:-1 tvg-id="TVPInfo.pl@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/28/TVP_info_%282024%29.png" group-title="International" tvg-country="PL",TVP Info
 https://dash4.antik.sk/live/test_tvp_info/playlist.m3u8
 #EXTINF:-1 tvg-id="TVPPolonia.pl@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/TVP_Polonia_Logo_2020.svg/960px-TVP_Polonia_Logo_2020.svg.png" group-title="International" tvg-country="PL",TVP Polonia
@@ -1306,7 +1296,7 @@ https://cdn8.streamshow.it/cloud-tvrs/tvrs/playlist.m3u8
 #EXTINF:-1 tvg-id="UBS.mn@SD" tvg-logo="https://i.imgur.com/dIRMYYd.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="International" tvg-country="MN",UBS (1080p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
 https://cdn4.skygo.mn/live/disk1/UBSHD/DASH-FTA/UBSHD.mpd
-#EXTINF:-1 tvg-name="UCL" tvg-logo="https://i.imgur.com/JxqVHPX.png" tvg-id="UCL.uy@SD" tvg-chno="18" tvg-country="CL" group-title="International",UCL
+#EXTINF:-1 tvg-name="UCL" tvg-logo="https://i.imgur.com/JxqVHPX.png" tvg-id="UCL.uy" tvg-chno="18" tvg-country="CL" group-title="International",UCL
 https://redirector.rudo.video/hls-video/c54ac2799874375c81c1672abb700870537c5223/ucl/ucl.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="UCV Televisión" tvg-logo="https://i.imgur.com/2VL4Pts.png" tvg-id="UCVTV.cl" tvg-chno="1" tvg-country="CL" group-title="International",UCV Televisión
 https://unlimited1-cl-isp.dps.live/ucvtv2/ucvtv2.smil/playlist.m3u8
