@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261009T115438Z-2764`)
-- **Started:** 2026-10-09T11:54:38Z | **Finished:** 2026-10-09T11:54:40Z | **Duration:** 1.6s
+- **Run:** nightly guide check (`20261010T111142Z-2849`)
+- **Started:** 2026-10-10T11:11:42Z | **Finished:** 2026-10-10T11:11:46Z | **Duration:** 3.8s
 - **Guides checked:** 175 across 174 playlists
 - **Working share:** 1.1%
 
@@ -14,8 +14,8 @@
 
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
-| `TV.xml` | 231 | 7281 | 2026-10-13 08:00 UTC | 4096 KB |
-| `guide.xml.gz` | 2 | 101 | 2026-10-10 00:30 UTC | 2 KB |
+| `TV.xml` | 230 | 7318 | 2026-10-14 08:00 UTC | 4096 KB |
+| `guide.xml.gz` | 2 | 107 | 2026-10-11 02:15 UTC | 3 KB |
 
 ## Guides that failed
 

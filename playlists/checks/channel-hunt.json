@@ -1,9 +1,9 @@
 {
-  "run_id": "20261009T115451Z-2784",
+  "run_id": "20261010T111155Z-2868",
   "label": "nightly priority channel hunt",
-  "started_utc": "2026-10-09T11:54:51Z",
-  "finished_utc": "2026-10-09T12:03:58Z",
-  "duration_seconds": 547.7,
+  "started_utc": "2026-10-10T11:11:55Z",
+  "finished_utc": "2026-10-10T11:23:49Z",
+  "duration_seconds": 714.1,
   "output": "playlists/sources/priority-channels.m3u",
   "playlist": "playlists/Priority_Channels.m3u",
   "published_count": 15,
@@ -12,9 +12,12 @@
     {
       "name": "Nickelodeon",
       "country": "us",
-      "candidates": 40,
-      "notes": [],
-      "working": 17,
+      "candidates": 34,
+      "notes": [
+        "GitHub code search HTTP 429 for 'Nickelodeon'",
+        "GitHub code search HTTP 429 for 'Nickelodeon US'"
+      ],
+      "working": 18,
       "dropped_temporary": 0,
       "published": 4,
       "results": [
@@ -25,7 +28,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.046
+          "elapsed": 0.052
         },
         {
           "name": "Nickelodeon",
@@ -34,7 +37,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.625
+          "elapsed": 0.808
         },
         {
           "name": "Nickelodeon Latin America (1080p)",
@@ -43,7 +46,7 @@
           "reason": "HTTP 404",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.036
+          "elapsed": 0.122
         },
         {
           "name": "Nickelodeon Toons (720p)",
@@ -52,25 +55,7 @@
           "reason": "HTTP 403 (auth or geo-block)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.061
-        },
-        {
-          "name": "Nickelodeon Toons LatAm (720p)",
-          "url": "https://jmp2.uk/plu-645952687cb4b100084ed52e.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": null,
-          "elapsed": 0.061
-        },
-        {
-          "name": "Nickelodeon Teen LatAm (720p)",
-          "url": "https://jmp2.uk/plu-5fab09a8749b1a00077d35d2.m3u8",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": null,
-          "elapsed": 0.067
+          "elapsed": 0.135
         },
         {
           "name": "Nickelodeon Teen (720p)",
@@ -79,25 +64,25 @@
           "reason": "HTTP 403 (auth or geo-block)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.074
+          "elapsed": 0.157
         },
         {
-          "name": "Nickelodeon Pluto TV (720p)",
-          "url": "https://jmp2.uk/plu-5ca673e0d0bd6c2689c94ce3.m3u8",
+          "name": "Nickelodeon Toons LatAm (720p)",
+          "url": "https://jmp2.uk/plu-645952687cb4b100084ed52e.m3u8",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.161
+        },
+        {
+          "name": "Nickelodeon Teen LatAm (720p)",
+          "url": "https://jmp2.uk/plu-5fab09a8749b1a00077d35d2.m3u8",
           "status": "offline",
           "reason": "variant HTTP 404",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.151
-        },
-        {
-          "name": "Nickelodeon en espanol",
-          "url": "https://jmp2.uk/plu-5d8d08395f39465da6fb3ec4.m3u8",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": null,
-          "elapsed": 0.163
+          "elapsed": 0.165
         },
         {
           "name": "Nickelodeon Clasico (720p)",
@@ -106,7 +91,7 @@
           "reason": "HTTP 403 (auth or geo-block)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.166
+          "elapsed": 0.171
         },
         {
           "name": "Nickelodeon Classico (720p)",
@@ -115,7 +100,25 @@
           "reason": "HTTP 403 (auth or geo-block)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.182
+          "elapsed": 0.171
+        },
+        {
+          "name": "Nickelodeon en espanol",
+          "url": "https://jmp2.uk/plu-5d8d08395f39465da6fb3ec4.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.631
+        },
+        {
+          "name": "Nickelodeon Pluto TV (720p)",
+          "url": "https://jmp2.uk/plu-5ca673e0d0bd6c2689c94ce3.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": null,
+          "elapsed": 0.781
         },
         {
           "name": "Nickelodeon en Espa\u00f1ol",
@@ -124,16 +127,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.073
-        },
-        {
-          "name": "Nickelodeon (Brazil) (480p)",
-          "url": "https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8",
-          "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": true,
-          "elapsed": 0.072
+          "elapsed": 0.143
         },
         {
           "name": "Nickelodeon",
@@ -142,7 +136,25 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.19
+          "elapsed": 0.206
+        },
+        {
+          "name": "Nickelodeon (Brazil) (480p)",
+          "url": "https://stmv2.srvif.com/nicktoons/nicktoons/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.27
+        },
+        {
+          "name": "Nickelodeon (France) (504p)",
+          "url": "http://151.80.18.177:86/Nickelodeon_FR/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.296
         },
         {
           "name": "Nickelodeon Junior (1080p)",
@@ -151,16 +163,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.24
-        },
-        {
-          "name": "Nickelodeon (Czech Republic)",
-          "url": "http://88.212.15.19/live/test_nickelodeon_hevc_25p/playlist.m3u8",
-          "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": true,
-          "elapsed": 0.249
+          "elapsed": 0.297
         },
         {
           "name": "Nickelodeon (Croatia) (1080p)",
@@ -169,16 +172,16 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.251
+          "elapsed": 0.317
         },
         {
-          "name": "Nickelodeon (Russia) (576p)",
-          "url": "http://stream.mcquack.net/443/index.m3u8",
+          "name": "Nickelodeon (Czech Republic)",
+          "url": "http://88.212.15.19/live/test_nickelodeon_hevc_25p/playlist.m3u8",
           "status": "working",
-          "reason": "hls playlist",
+          "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
-          "segment_ok": null,
-          "elapsed": 0.292
+          "segment_ok": true,
+          "elapsed": 0.333
         },
         {
           "name": "Nickelodeon (Hungary)",
@@ -187,25 +190,16 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.328
+          "elapsed": 0.347
         },
         {
-          "name": "Nickelodeon (India) (576p)",
-          "url": "http://103.185.24.134:3001/NICK/index.m3u8",
+          "name": "Nickelodeon (Russia) (576p)",
+          "url": "http://stream.mcquack.net/443/index.m3u8",
           "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
+          "reason": "application/vnd.apple.mpegurl",
           "source": "local:PremiumTV_all.m3u",
-          "segment_ok": true,
-          "elapsed": 0.48
-        },
-        {
-          "name": "Nickelodeon (United Kingdom) (576p)",
-          "url": "http://tvsen7.aynascope.net/nicklodean/index.m3u8",
-          "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": true,
-          "elapsed": 0.517
+          "segment_ok": null,
+          "elapsed": 0.436
         },
         {
           "name": "Nickelodeon Global (576p)",
@@ -214,16 +208,25 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.538
+          "elapsed": 0.483
         },
         {
-          "name": "Nickelodeon CIS (1080p)",
-          "url": "https://stream8.cinerama.uz/1500/playlist.m3u8",
+          "name": "Nickelodeon (India) (576p)",
+          "url": "http://103.185.24.134:3001/NICK/index.m3u8",
           "status": "working",
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.543
+          "elapsed": 0.534
+        },
+        {
+          "name": "Nickelodeon (United Kingdom) (576p)",
+          "url": "http://tvsen7.aynascope.net/nicklodean/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.552
         },
         {
           "name": "Nickelodeon (Germany)",
@@ -232,7 +235,16 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.91
+          "elapsed": 0.672
+        },
+        {
+          "name": "Nickelodeon CIS (1080p)",
+          "url": "https://stream8.cinerama.uz/1500/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.862
         },
         {
           "name": "Nickelodeon (Italy)",
@@ -241,16 +253,7 @@
           "reason": "mpeg-ts transport stream",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 2.25
-        },
-        {
-          "name": "Nickelodeon (Greece) (720p)",
-          "url": "http://143.244.60.30/NICKELODEON/index.m3u8",
-          "status": "offline",
-          "reason": "connection refused",
-          "source": "github:kilirushi/iptv/gr.m3u",
-          "segment_ok": null,
-          "elapsed": 0.018
+          "elapsed": 2.695
         },
         {
           "name": "Nickelodeon (Romania)",
@@ -259,7 +262,7 @@
           "reason": "SSLEOFError",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.137
+          "elapsed": 0.075
         },
         {
           "name": "Nickelodeon Classics (720p)",
@@ -268,16 +271,7 @@
           "reason": "HTTP 403 (auth or geo-block)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.162
-        },
-        {
-          "name": "Nickelodeon",
-          "url": "http://4gtv.kakaxi-1.ink:9999/4gtv/185",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:zhuxinfu88/tvlist/ipv6.m3u",
-          "segment_ok": null,
-          "elapsed": 0.177
+          "elapsed": 0.158
         },
         {
           "name": "Nickelodeon Asia (1080p)",
@@ -286,25 +280,7 @@
           "reason": "connection refused",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.178
-        },
-        {
-          "name": "Nickelodeon UK (1080p)",
-          "url": "https://d20opqftbkv2z0.cloudfront.net/live12/nickelodeon/bitrate1-clear.isml/live.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:kilirushi/iptv/uk.m3u",
-          "segment_ok": null,
-          "elapsed": 0.328
-        },
-        {
-          "name": "Nickelodeon",
-          "url": "https://iptv.852851.xyz/live/stream-6fbd6fad-d0f2-4e07-872e-f8e7f1e19ede/index.m3u8",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:judy-gotv/iptv/ceshi.m3u",
-          "segment_ok": null,
-          "elapsed": 0.436
+          "elapsed": 0.169
         },
         {
           "name": "Nickelodeon (Bulgaria) (576p)",
@@ -313,25 +289,7 @@
           "reason": "timeout",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 12.016
-        },
-        {
-          "name": "Nickelodeon",
-          "url": "https://smt.goiptv.us.ci/Nickelodeon/playlist.m3u8",
-          "status": "unreachable",
-          "reason": "timeout",
-          "source": "github:judy-gotv/iptv/smart.m3u",
-          "segment_ok": null,
-          "elapsed": 12.025
-        },
-        {
-          "name": "Nickelodeon",
-          "url": "plugin://plugin.video.joyn/?mode=play_video&video_id=nickelodeon-de-hd&stream_type=LIVE",
-          "status": "invalid",
-          "reason": "not an http(s) URL",
-          "source": "github:michaz1988/michaz1988.github.io/tv.m3u",
-          "segment_ok": null,
-          "elapsed": 0.0
+          "elapsed": 12.024
         },
         {
           "name": "Nickelodeon Pluto TV",
@@ -340,25 +298,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.065
-        },
-        {
-          "name": "\u2606 Nickelodeon iCarly \ud83c\udde7\ud83c\uddf7",
-          "url": "https://jmp2.uk/plu-620ff46e0a576e0007dc2f89.m3u8",
-          "status": "offline",
-          "reason": "variant HTTP 404",
-          "source": "local:m3u.m3u",
-          "segment_ok": null,
-          "elapsed": 0.068
-        },
-        {
-          "name": "\u2606 Nickelodeon Rocker Power TV \ud83c\udde7\ud83c\uddf7",
-          "url": "https://jmp2.uk/plu-6202a7fcfb1b100008811f54.m3u8",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": null,
-          "elapsed": 0.623
+          "elapsed": 0.142
         },
         {
           "name": "\u2606 Nickelodeon Bob Esponja \ud83c\udde7\ud83c\uddf7",
@@ -367,37 +307,40 @@
           "reason": "variant HTTP 404",
           "source": "local:m3u.m3u",
           "segment_ok": null,
-          "elapsed": 0.821
+          "elapsed": 0.244
         },
         {
-          "name": "Nickelodeon-Asia",
-          "url": "p2p://61.221.233.81:9000/56068a190003ecea009b80d561580316&link=wvw.f0rcetech.c0m",
-          "status": "invalid",
-          "reason": "not an http(s) URL",
-          "source": "github:yuanxin69/m3u/cctv.m3u",
+          "name": "\u2606 Nickelodeon Rocker Power TV \ud83c\udde7\ud83c\uddf7",
+          "url": "https://jmp2.uk/plu-6202a7fcfb1b100008811f54.m3u8",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.0
+          "elapsed": 0.526
+        },
+        {
+          "name": "\u2606 Nickelodeon iCarly \ud83c\udde7\ud83c\uddf7",
+          "url": "https://jmp2.uk/plu-620ff46e0a576e0007dc2f89.m3u8",
+          "status": "offline",
+          "reason": "variant HTTP 404",
+          "source": "local:m3u.m3u",
+          "segment_ok": null,
+          "elapsed": 0.743
         }
       ]
     },
     {
       "name": "NickToons",
       "country": "us",
-      "candidates": 36,
-      "notes": [],
-      "working": 6,
+      "candidates": 11,
+      "notes": [
+        "GitHub code search HTTP 429 for 'NickToons'",
+        "GitHub code search HTTP 429 for 'NickToons US'"
+      ],
+      "working": 8,
       "dropped_temporary": 0,
       "published": 4,
       "results": [
-        {
-          "name": "Nicktoons",
-          "url": "http://41.205.93.154/NICKTOONS/index.m3u8",
-          "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": true,
-          "elapsed": 0.445
-        },
         {
           "name": "Nicktoons USA",
           "url": "http://tvsen7.aynascope.net/nicktoons/index.m3u8",
@@ -405,7 +348,16 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.563
+          "elapsed": 0.488
+        },
+        {
+          "name": "Nicktoons",
+          "url": "http://41.205.93.154/NICKTOONS/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.49
         },
         {
           "name": "Nicktoons USA",
@@ -414,25 +366,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.798
-        },
-        {
-          "name": "NickToons (720p)",
-          "url": "http://143.244.60.30/NICKTOONS/index.m3u8",
-          "status": "offline",
-          "reason": "connection refused",
-          "source": "github:kilirushi/iptv/cate/kids.m3u",
-          "segment_ok": null,
-          "elapsed": 0.018
-        },
-        {
-          "name": "Nicktoons USA",
-          "url": "https://fl1.moveonjoy.com/NICKTOONS/index.m3u8",
-          "status": "offline",
-          "reason": "connection refused",
-          "source": "github:gtvservices5/IPTV-LIVE/IPTV/PrimeVision.m3u",
-          "segment_ok": null,
-          "elapsed": 0.069
+          "elapsed": 0.707
         },
         {
           "name": "Nicktoons (United States) CA",
@@ -441,70 +375,7 @@
           "reason": "variant HTTP 404",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.158
-        },
-        {
-          "name": "Nicktoons US",
-          "url": "https://tv4.live/api/stream/robert.goldsby50@gmail.com/629662/livetv.epg/nicktoons.east.us.m3u8?checkedby:iptvcat.com",
-          "status": "unreachable",
-          "reason": "RemoteDisconnected",
-          "source": "github:niltim10/Niltimtv/Niltim.m3u",
-          "segment_ok": null,
-          "elapsed": 0.208
-        },
-        {
-          "name": "NickToons US",
-          "url": "http://clientportal.link:80/0K8G7KduNVxY44/msip9o4fdVvr91/27457",
-          "status": "unreachable",
-          "reason": "HTTP 514",
-          "source": "github:aoestudios57/aoestudios57.github.io/aoe-tv/CONTENT/mix/files/UK USA Canada TV.m3u",
-          "segment_ok": null,
-          "elapsed": 0.238
-        },
-        {
-          "name": "NickToons US",
-          "url": "http://clientportal.link:80/6yjrsES6RO/iRWHJn390/27457",
-          "status": "unreachable",
-          "reason": "HTTP 514",
-          "source": "github:eklins/FDTV/zz/IPTV20230304 World-6yjrsES6RO.m3u",
-          "segment_ok": null,
-          "elapsed": 0.239
-        },
-        {
-          "name": "Nicktoons US",
-          "url": "https://tvnow.best/api/stream/ilovetdjakes@icloud.com/647cb6/livetv.epg/nicktoons.east.us.m3u8",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:xerox-xcom/xcomstaticwebpoc/src/basics.m3u",
-          "segment_ok": null,
-          "elapsed": 0.388
-        },
-        {
-          "name": "Nicktoons US",
-          "url": "https://maldivesn.net/hilaytv/nicktoons",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "github:rehendi/unservtv/MonochromeTV.m3u",
-          "segment_ok": null,
-          "elapsed": 0.505
-        },
-        {
-          "name": "NICKTOONS US",
-          "url": "http://tply.000webhostapp.com/pkin.php?id=14440",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:Sonuiptvnew/Sonuiptvnew/fullyfree.m3u",
-          "segment_ok": null,
-          "elapsed": 7.321
-        },
-        {
-          "name": "NickToons US",
-          "url": "http://45.12.1.14:80/e7b6Fxb81/iROrzG21/27457",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:mu51c/m3u/us3.m3u",
-          "segment_ok": null,
-          "elapsed": 12.013
+          "elapsed": 0.146
         },
         {
           "name": "Nicktoons (720p)",
@@ -513,16 +384,25 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.073
+          "elapsed": 0.128
         },
         {
-          "name": "Nicktoons CIS (1080p)",
-          "url": "https://stream8.cinerama.uz/1502/playlist.m3u8",
+          "name": "Nicktoons (Czech Republic)",
+          "url": "http://88.212.15.19/live/test_nicktoons/playlist.m3u8",
           "status": "working",
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.556
+          "elapsed": 0.303
+        },
+        {
+          "name": "Nicktoons (Hungary)",
+          "url": "http://88.212.15.19/live/nicktoons_hungary/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.319
         },
         {
           "name": "Nicktoons Scandinavia",
@@ -531,34 +411,16 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 2.254
+          "elapsed": 0.693
         },
         {
-          "name": "Nicktoons UK",
-          "url": "https://a1xs.vip/100054",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:gtvservices5/IPTV-LIVE/IPTV/PrimeVision.m3u",
-          "segment_ok": null,
-          "elapsed": 0.012
-        },
-        {
-          "name": "NickToons",
-          "url": "http://tvultimate.ddns.net/LIVE/H01/CANAL314/PROFILE03.m3u8?tvultimate=%2F.ts",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:chwlibre/iptv/abandonadas/tvultimate.m3u",
-          "segment_ok": null,
-          "elapsed": 0.015
-        },
-        {
-          "name": "NICKTOONS",
-          "url": "http://185.236.230.212:9981/play/a0b9",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "github:aria-tv/aria/aria+/Czechia.m3u",
-          "segment_ok": null,
-          "elapsed": 0.203
+          "name": "Nicktoons CIS (1080p)",
+          "url": "https://stream8.cinerama.uz/1502/playlist.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.864
         },
         {
           "name": "Nicktoons (France) (1080p)",
@@ -567,7 +429,7 @@
           "reason": "HTTP 400",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.204
+          "elapsed": 0.283
         },
         {
           "name": "Nicktoons (Romania)",
@@ -576,152 +438,20 @@
           "reason": "SSLEOFError",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.223
-        },
-        {
-          "name": "Nicktoons",
-          "url": "http://vod.cdn.iutpcdn.com/LIVE/H01/CANAL315/PROFILE03.m3u8",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:chwlibre/iptv/casterlist.m3u",
-          "segment_ok": null,
-          "elapsed": 0.278
-        },
-        {
-          "name": "Nicktoons",
-          "url": "http://vod.cdn.iutpcdn.com/LIVE/H01/CANAL315/PROFILE05.m3u8",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:chwlibre/iptv/casterlist.m3u",
-          "segment_ok": null,
-          "elapsed": 0.278
-        },
-        {
-          "name": "NickToons UK (576p)",
-          "url": "https://d20opqftbkv2z0.cloudfront.net/live13/nicktoons/bitrate1-clear.isml/live.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:kilirushi/iptv/uk.m3u",
-          "segment_ok": null,
-          "elapsed": 0.356
-        },
-        {
-          "name": "Nicktoons",
-          "url": "https://45.159.74.22/Boomerang/playlist.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:aria-tv/aria/stable/Russia \ud83c\uddf7\ud83c\uddfa.m3u",
-          "segment_ok": null,
-          "elapsed": 0.478
-        },
-        {
-          "name": "Nicktoons",
-          "url": "https://stream01.vnet.am/Boomerang/mono.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:kilirushi/iptv/cate/kids.m3u",
-          "segment_ok": null,
-          "elapsed": 0.71
-        },
-        {
-          "name": "NICKTOONS",
-          "url": "http://tply.000webhostapp.com/pkin.php?id=6064",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:Sonuiptvnew/Sonuiptvnew/fullyfree.m3u",
-          "segment_ok": null,
-          "elapsed": 7.322
-        },
-        {
-          "name": "Nicktoons Scandinavia",
-          "url": "http://89.254.128.5:22280/nicktoons/video.m3u8",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:kilirushi/iptv/cate/kids.m3u",
-          "segment_ok": null,
-          "elapsed": 12.004
-        },
-        {
-          "name": "Nicktoons (Czech Republic)",
-          "url": "http://88.212.15.19/live/test_nicktoons/playlist.m3u8",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": null,
-          "elapsed": 12.013
-        },
-        {
-          "name": "Nicktoons (Hungary)",
-          "url": "http://88.212.15.19/live/nicktoons_hungary/index.m3u8",
-          "status": "unreachable",
-          "reason": "timeout",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": null,
-          "elapsed": 14.22
-        },
-        {
-          "name": "NickToons",
-          "url": "http://rayito-tv.xyz:41001/elliot/elliot/30745",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:jromero88/iptv/IPTV.m3u",
-          "segment_ok": null,
-          "elapsed": 24.124
-        },
-        {
-          "name": "NickToons UK",
-          "url": "http://clientportal.link:80/6yjrsES6RO/iRWHJn390/14824",
-          "status": "unreachable",
-          "reason": "HTTP 514",
-          "source": "github:eklins/FDTV/zz/IPTV20230304 World-6yjrsES6RO.m3u",
-          "segment_ok": null,
-          "elapsed": 0.231
-        },
-        {
-          "name": "NickToons UK",
-          "url": "http://clientportal.link:80/0K8G7KduNVxY44/msip9o4fdVvr91/14824",
-          "status": "unreachable",
-          "reason": "HTTP 514",
-          "source": "github:aoestudios57/aoestudios57.github.io/aoe-tv/CONTENT/mix/files/UK USA Canada TV.m3u",
-          "segment_ok": null,
-          "elapsed": 0.238
-        },
-        {
-          "name": "NickToons RO",
-          "url": "http://clientportal.link:80/6yjrsES6RO/iRWHJn390/32823",
-          "status": "unreachable",
-          "reason": "HTTP 514",
-          "source": "github:eklins/FDTV/zz/IPTV20230304 World-6yjrsES6RO.m3u",
-          "segment_ok": null,
-          "elapsed": 0.257
-        },
-        {
-          "name": "NickToons HD",
-          "url": "http://45.159.74.22/Boomerang/mono.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:blackbirdstudiorus/LoganetXIPTV/LoganetXAll.m3u",
-          "segment_ok": null,
-          "elapsed": 0.319
-        },
-        {
-          "name": "Nicktoons (S)",
-          "url": "http://192.168.0.20/stream/tunerequest00040000C0FFFFFF00B6B188043601FF0001700A010102FF",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:Pavion/tvstreamrecord/channels.m3u",
-          "segment_ok": null,
-          "elapsed": 12.013
+          "elapsed": 12.189
         }
       ]
     },
     {
       "name": "MeTV",
       "country": "us",
-      "candidates": 25,
-      "notes": [],
-      "working": 6,
-      "dropped_temporary": 4,
+      "candidates": 5,
+      "notes": [
+        "GitHub code search HTTP 429 for 'MeTV'",
+        "GitHub code search HTTP 429 for 'MeTV US'"
+      ],
+      "working": 4,
+      "dropped_temporary": 2,
       "published": 2,
       "results": [
         {
@@ -731,34 +461,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.229
-        },
-        {
-          "name": "METV USA",
-          "url": "https://kerimmkirac-daddylive.hf.space/watch/aHR0cHM6Ly9kZHk2bmV3Lm5ld2tzby5ydS9kZHk2L3ByZW1pdW02NjIvbW9uby5tM3U4.m3u8",
-          "status": "offline",
-          "reason": "html page, not a stream",
-          "source": "github:mehmetey03/CanliTvListe/daddylive.m3u",
-          "segment_ok": null,
-          "elapsed": 0.076
-        },
-        {
-          "name": "METV USA",
-          "url": "https://arquerido-piggy.hf.space/watch/aHR0cHM6Ly9kZHk2bmV3Lm5ld2tzby5ydS9kZHk2L3ByZW1pdW02NjIvbW9uby5tM3U4.m3u8",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "github:arquerido/mych/PIGGY.m3u",
-          "segment_ok": null,
-          "elapsed": 0.102
-        },
-        {
-          "name": "METV USA",
-          "url": "https://73tred-dproxy.hf.space/watch/aHR0cHM6Ly9kZHk2bmV3Lm5ld2tzby5ydS9kZHk2L3ByZW1pdW02NjIvbW9uby5tM3U4.m3u8",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "github:pythondunyam/pytest/channels.m3u",
-          "segment_ok": null,
-          "elapsed": 0.113
+          "elapsed": 0.294
         },
         {
           "name": "MeTV",
@@ -767,142 +470,25 @@
           "reason": "HTTP 403 (auth or geo-block)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 0.157
-        },
-        {
-          "name": "METV USA",
-          "url": "https://ondemand.st/papi/tv/dlhd/662/playlist.m3u8",
-          "status": "unreachable",
-          "reason": "timeout",
-          "source": "github:BuddyChewChew/My-Streams/Backup/dami-tv.m3u",
-          "segment_ok": null,
-          "elapsed": 12.47
+          "elapsed": 0.263
         },
         {
           "name": "MeTV",
-          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTE1NTI2MDQ5NTM6Y2RubGl2ZXR2LnR2OjI5NGM4MDkwNGZkYTdiOWEuMDgyZDg0Zjk1MmEzOTA1ZDE0NTRmZTc1N2I1NDRiNzhiZmEyYzJkYzljOTk2OWE1MTA5Y2QwZWIwY2Q5NzgzYg",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTE2MzkwMDQ3Nzk6Y2RubGl2ZXR2LnR2OmJlMzZkMGE3MDY3ZmM0M2EuMTEyNmQxYmYyMGVkMWI4NGZiNjU1MzYwNTc3Y2I0M2RkMWQ1Y2FjZDRmNTBhOWMxZGNjMjhlZmY0MjViNWViZQ",
           "status": "working",
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.392
+          "elapsed": 0.533
         },
         {
           "name": "MeTV",
-          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTE1NTgwMDQ4NTE6Y2RubGl2ZXR2LnR2OjcxODkxNTEyNDU4YmQzMDcuMjMxNDEzM2E3YTBkYzA5OTJiZTYxMzRkMzk4ZmMxOWRhYjI1NmYwNzEzZjQ0ZjFjODhmOTRjYTk2YmFmOTQwNA",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24b/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMjRiOjE3OTE2NDQ0MDQ4OTM6Y2RubGl2ZXR2LnR2OjBiZTNkYzljYTg2YjU5NDYuOWU5ZDZmYmYzMjQ3YjNiMTc4MGY1YTYyZWQ0OTg2YjlhM2JiYTgyNTVjOGM5OTY4MzE5ZTVkZTQzNWNlODM4ZA",
           "status": "working",
           "reason": "hls, segment ok (65536 bytes)",
           "source": "upstream:doms9",
           "segment_ok": true,
-          "elapsed": 0.409
-        },
-        {
-          "name": "METV USA",
-          "url": "https://ddy6new.newkso.ru/ddy6/premium662/mono.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:blakestrick/m3u/ddhd.m3u",
-          "segment_ok": null,
-          "elapsed": 0.079
-        },
-        {
-          "name": "group-title=\"#DAHF\",METV USA",
-          "url": "http://scafroglia93-ua.hf.space/proxy/m3u?url=https%3A%2F%2Fthedaddy.click%2Fstream%2Fstream-662.php",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "github:arquerido/mych/d1.m3u",
-          "segment_ok": null,
-          "elapsed": 0.149
-        },
-        {
-          "name": "METV USA",
-          "url": "https://daddyhd.iptvbd.xyz/stream.m3u8?id=662",
-          "status": "unreachable",
-          "reason": "SSLError",
-          "source": "github:tvbd/m3uplayer/m3u/daddyhd.m3u",
-          "segment_ok": null,
-          "elapsed": 0.165
-        },
-        {
-          "name": "METV USA",
-          "url": "https://xyzdddd.mizhls.ru/lb/premium662/index.m3u8?|Referer=https://lewblivehdplay.ru/&Origin=https://lewblivehdplay.ru&&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-          "status": "invalid",
-          "reason": "empty or malformed URL",
-          "source": "github:alexandermail371/cricfytv/daddyhd.m3u",
-          "segment_ok": null,
-          "elapsed": 0.0
-        },
-        {
-          "name": "METV USA",
-          "url": "https://ddy6.mizhls.ru/ddy6/premium662/index.m3u8?|User-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.1 Mobile/15E148 Safari/605.1.15/Clipbox+/2.2.8&Referer=https://qqwebplay.xyz/",
-          "status": "invalid",
-          "reason": "empty or malformed URL",
-          "source": "github:nayeem086/playlists/daddy.m3u",
-          "segment_ok": null,
-          "elapsed": 0.0
-        },
-        {
-          "name": "METV USA",
-          "url": "https://chat.cfbu247.sbs/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2NjIiLCJ0cyI6MTc5MTM2Mjc4NzA2Mn0",
-          "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
-          "source": "github:antonio-bravo/m3u/lista_tvnow247.m3u",
-          "segment_ok": true,
-          "elapsed": 0.423
-        },
-        {
-          "name": "METV USA",
-          "url": "https://chunk.tvnow247.today/api/proxy/playlist?token=eyJjaGFubmVsSWQiOiI2NjIiLCJ0cyI6MTc5MTUxMjU4MDM5N30",
-          "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
-          "source": "github:antonio-bravo/m3u/lista_tv247us.m3u",
-          "segment_ok": true,
-          "elapsed": 1.612
-        },
-        {
-          "name": "MeTV Wjlp New Jerseynew York SD",
-          "url": "https://tvpass.org/live/metv-wjlp-new-jerseynew-york/sd",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:Sunstar16/MagisTV-AS-A-m3u-PLAYLIST/playlist.m3u",
-          "segment_ok": null,
-          "elapsed": 0.19
-        },
-        {
-          "name": "MeTV Wjlp New Jerseynew York HD",
-          "url": "https://tvpass.org/live/metv-wjlp-new-jerseynew-york/hd",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:Sunstar16/MagisTV-AS-A-m3u-PLAYLIST/playlist.m3u",
-          "segment_ok": null,
-          "elapsed": 0.19
-        },
-        {
-          "name": "METV HD (1080p)",
-          "url": "http://maxotts.maxdigitaltv.com/x-media/C168/master.m3u8",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "github:shovo127/IPTV-By-Shovo/streams/np.m3u",
-          "segment_ok": null,
-          "elapsed": 0.998
-        },
-        {
-          "name": "MeTV",
-          "url": "http://192.168.0.37:50960/channels/5212.m3u8",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:jromero88/iptv/ottplayer.m3u",
-          "segment_ok": null,
-          "elapsed": 12.01
-        },
-        {
-          "name": "MeTV",
-          "url": "https://api.locastnet.org/api/watch/stream/1221/34/-118/?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkdWRlc2VrLnBldGVyQGdtYWlsLmNvbSIsInJvbGUiOjEsImV4cCI6MTU4OTEyNjI3OH0.UmdOQBwiO5JjceZ-WpWKYXZy2v6aooUi1808NTolbIo&fbclid=IwAR3EW3T_ZSm_BwKxzpTSlethc322oxJ_Z5JYgPOkD4SSB08yvxqmsbM_zTU",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:jromero88/iptv/channels/us.m3u",
-          "segment_ok": null,
-          "elapsed": 0.184
+          "elapsed": 0.536
         },
         {
           "name": "MeTV 7 720p",
@@ -911,57 +497,30 @@
           "reason": "mpeg-ts transport stream",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 2.853
-        },
-        {
-          "name": "96.7 MeTV FM",
-          "url": "https://ais-sa1.streamon.fm/7795_96k.aac",
-          "status": "offline",
-          "reason": "HTTP 404",
-          "source": "github:junguler/m3u-radio-music-playlists/keep_one/Top40.m3u",
-          "segment_ok": null,
-          "elapsed": 0.2
-        },
-        {
-          "name": "WMYX HD2 MeTV FM",
-          "url": "http://stream.dar.fm/169496",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:junguler/m3u-radio-music-playlists/radio_matik/usa.m3u",
-          "segment_ok": null,
-          "elapsed": 0.682
-        },
-        {
-          "name": "MeTV SD",
-          "url": "http://192.168.0.37:50960/channels/3855.ts",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:jromero88/iptv/canales.m3u",
-          "segment_ok": null,
-          "elapsed": 12.01
-        },
-        {
-          "name": "MeTV HD",
-          "url": "http://192.168.0.37:50960/channels/4086.ts",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:jromero88/iptv/canales.m3u",
-          "segment_ok": null,
-          "elapsed": 12.013
+          "elapsed": 1.826
         }
       ]
     },
     {
       "name": "MeTV Toons",
       "country": "us",
-      "candidates": 13,
+      "candidates": 4,
       "notes": [
-        "GitHub code search HTTP 429 for 'MeTVToons'"
+        "GitHub code search HTTP 429 for 'MeTV Toons'"
       ],
       "working": 0,
       "dropped_temporary": 0,
       "published": 0,
       "results": [
+        {
+          "name": "USA: METV TOONS",
+          "url": "http://wheremyslimesat.hopto.org:2096/Kentynes/0176324859/814408",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:ShanZaiTV/global-broadcast/playlist.m3u",
+          "segment_ok": null,
+          "elapsed": 0.033
+        },
         {
           "name": "MeTV Toons",
           "url": "https://live.realms.pub/live/01aec3bf-b9bb-4c3f-93e8-fc76542016f4/index.m3u8",
@@ -969,138 +528,37 @@
           "reason": "HTTP 404",
           "source": "github:InsolenceWillow/insolencetvgo/insolencetvgo.m3u",
           "segment_ok": null,
-          "elapsed": 0.136
+          "elapsed": 0.253
         },
         {
-          "name": "MeTV",
-          "url": "https://iptv.852851.xyz/ch/7dd1d534617a1da242c1e16e01e0afcc/master.m3u8",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:hxng1006/tv/judy.m3u",
+          "name": "MeTV Toons (720p)",
+          "url": "http://206.212.244.63/112/index.m3u8",
+          "status": "unreachable",
+          "reason": "TimeoutError",
+          "source": "github:cihan53/chyz-iptv/US/index.m3u",
           "segment_ok": null,
-          "elapsed": 0.284
+          "elapsed": 12.013
         },
         {
           "name": "MeTV Toons",
-          "url": "https://iptv.852851.xyz/ch/8c667796ea426ff04c5566d8bb912365/master.m3u8",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:hxng1006/tv/judy.m3u",
-          "segment_ok": null,
-          "elapsed": 0.284
-        },
-        {
-          "name": "MeTV Toons (WJLP2) New Jersey",
-          "url": "https://int.klcis.cc/api/m3u/metv-toons?quality=hd",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:arquerido/mych/USAIR.m3u",
-          "segment_ok": null,
-          "elapsed": 0.028
-        },
-        {
-          "name": "MeTV Toons (WJLP2) New Jersey SD",
-          "url": "https://int.klcis.cc/api/m3u/metv-toons?quality=sd",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:arquerido/mych/USAIR.m3u",
-          "segment_ok": null,
-          "elapsed": 0.03
-        },
-        {
-          "name": "MeTV Toons (WJLP2) New Jersey HD",
-          "url": "https://tvpass.org/live/metv-toons/hd",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:judy-gotv/iptv/TVPass.m3u",
-          "segment_ok": null,
-          "elapsed": 0.022
-        },
-        {
-          "name": "MeTV Toons (WJLP2) New Jersey SD",
           "url": "https://tvpass.org/live/metv-toons/sd",
           "status": "offline",
           "reason": "dns lookup failed",
-          "source": "github:judy-gotv/iptv/TVPass.m3u",
+          "source": "github:iptvspace/live/sd.m3u",
           "segment_ok": null,
-          "elapsed": 0.022
-        },
-        {
-          "name": "MeTV Toons",
-          "url": "https://tvpass.org/live/metv-toons/hd/",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:arquerido/mych/ALLUSA.m3u",
-          "segment_ok": null,
-          "elapsed": 0.187
-        },
-        {
-          "name": "MeTV Toons",
-          "url": "https://tvpass.org/live/metv-toons/sd/",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:arquerido/mych/ALLUSA.m3u",
-          "segment_ok": null,
-          "elapsed": 0.188
-        },
-        {
-          "name": "MeTV Toons",
-          "url": "https://i1.ut770.freelocaltv.org/hls/toons-8.8_hls/toons-8.8_master.m3u8",
-          "status": "blocked",
-          "reason": "HTTP 403 (auth or geo-block)",
-          "source": "github:aria-tv/aria/aria+/united_states.m3u",
-          "segment_ok": null,
-          "elapsed": 0.328
-        },
-        {
-          "name": "MeTV Toons SD",
-          "url": "https://v13.thetvapp.to/hls/metv-toons/tracks-v1a1/mono.m3u8?token=WSyOotmM70bHLc0FOZJ_Hw&expires=1780739037&user_id=MThOYUNRcG91R2RZWWlhWU9QOTRQZ1FianBLdVBzcjRQd3JRbVB1bg==",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:BuddyChewChew/buddylive-combined/combined_playlist.m3u",
-          "segment_ok": null,
-          "elapsed": 12.02
-        },
-        {
-          "name": "MeTV Toons HD",
-          "url": "https://v13.thetvapp.to/hls/metv-toons/tracks-v1a1/mono.m3u8?token=6E8oltBuVlE6uyBHw1S8BQ&expires=1780739047&user_id=MThOYUNRcG91R2RZWWlhWU9QOTRQZ1FianBLdVBzcjRQd3JRbVB1bg==",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:BuddyChewChew/buddylive-combined/combined_playlist.m3u",
-          "segment_ok": null,
-          "elapsed": 12.021
-        },
-        {
-          "name": "MeTV Toons",
-          "url": "https://v16.thetvapp.to/hls/metv-toons/tracks-v1a1/mono.m3u8?token=z28hE8vR3N0wbaLq7a6b9Q&expires=1780723909&user_id=T1ZtclpDOWt0UEdLcDJiejhaNjllUTcyeVhwaEhsbHg1cERhQ0JMSg==",
-          "status": "unreachable",
-          "reason": "TimeoutError",
-          "source": "github:BuddyChewChew/buddylive/en/videoall.m3u",
-          "segment_ok": null,
-          "elapsed": 12.036
+          "elapsed": 0.235
         }
       ]
     },
     {
       "name": "NFL Network",
       "country": "us",
-      "candidates": 17,
-      "notes": [
-        "GitHub code search HTTP 429 for 'NFL Network US'"
-      ],
-      "working": 7,
-      "dropped_temporary": 3,
+      "candidates": 37,
+      "notes": [],
+      "working": 8,
+      "dropped_temporary": 4,
       "published": 4,
       "results": [
-        {
-          "name": "NFL Network US",
-          "url": "http://b3659824.rossteleccom.net/iptv/BCGWTA42BLCZPK/31011/index.m3u8",
-          "status": "working",
-          "reason": "hls, segment ok (65536 bytes)",
-          "source": "local:PremiumTV_all.m3u",
-          "segment_ok": true,
-          "elapsed": 0.534
-        },
         {
           "name": "NFL Network US",
           "url": "http://weqcffv8.vexiumis.top/iptv/B3VXS594EX7ZAW/31011/index.m3u8",
@@ -1108,7 +566,16 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.628
+          "elapsed": 0.71
+        },
+        {
+          "name": "NFL Network US",
+          "url": "http://b3659824.rossteleccom.net/iptv/BCGWTA42BLCZPK/31011/index.m3u8",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "local:PremiumTV_all.m3u",
+          "segment_ok": true,
+          "elapsed": 0.772
         },
         {
           "name": "NFL NETWORK",
@@ -1117,25 +584,106 @@
           "reason": "HTTP 403 (auth or geo-block)",
           "source": "github:judy-gotv/iptv/Pixelsports.m3u",
           "segment_ok": null,
-          "elapsed": 0.077
+          "elapsed": 0.174
+        },
+        {
+          "name": "NFL Network US",
+          "url": "https://tv4.live/api/stream/robert.goldsby50@gmail.com/629662/livetv.epg/nfl.network.us.m3u8",
+          "status": "unreachable",
+          "reason": "RemoteDisconnected",
+          "source": "github:BahyOsama/dinurunn/oo.m3u",
+          "segment_ok": null,
+          "elapsed": 0.208
+        },
+        {
+          "name": "NFL Network US",
+          "url": "http://clientportal.link:80/6yjrsES6RO/iRWHJn390/9077",
+          "status": "unreachable",
+          "reason": "HTTP 514",
+          "source": "github:eklins/FDTV/zz/IPTV20230304 World-6yjrsES6RO.m3u",
+          "segment_ok": null,
+          "elapsed": 0.3
+        },
+        {
+          "name": "NFL NETWORK US",
+          "url": "http://client.nodomain.vip:80/live.ts?channelId=2187&uid=56661&deviceUser=27irenasimic&devicePass=FTvDYXPG38",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "github:gambler65/kongresi1908/irena.m3u",
+          "segment_ok": null,
+          "elapsed": 0.718
+        },
+        {
+          "name": "NFL NETWORK US",
+          "url": "http://client.nodomain.vip:80/live.ts?channelId=2187&uid=51265&deviceUser=IvanPiric&devicePass=VZaH9WnFbQ",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "github:gambler65/kongresi1908/kafica.m3u",
+          "segment_ok": null,
+          "elapsed": 0.719
+        },
+        {
+          "name": "NFL Network US",
+          "url": "http://starott.vip:8080/live/HK63Ukja4y36/BXhr8vneDEPs/67640.m3u8",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/Unknown/Unknown/SpecialLinks5.m3u",
+          "segment_ok": null,
+          "elapsed": 1.178
+        },
+        {
+          "name": "NFL Network US",
+          "url": "http://starott.vip:8080/HK63Ukja4y36/BXhr8vneDEPs/67640",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/LOCAL/USA/SpecialLinks.m3u",
+          "segment_ok": null,
+          "elapsed": 1.324
+        },
+        {
+          "name": "NFL Network US",
+          "url": "http://j.jserv.me:80/live/CodeMonkey/dCheFMNQnF/11154.ts",
+          "status": "unreachable",
+          "reason": "TimeoutError",
+          "source": "github:BillOatmanWork/EmbyRefreshLogos/Doc/Emby.m3u",
+          "segment_ok": null,
+          "elapsed": 12.304
+        },
+        {
+          "name": "NFL Network US",
+          "url": "http://463758a0.ucomist.net/iptv/V4ZVP6G52HVXDE/31011/index.m3u8",
+          "status": "offline",
+          "reason": "playlist only, timeout",
+          "source": "github:mehmetey03/CanliTvListe/play.m3u",
+          "segment_ok": false,
+          "elapsed": 0.489
+        },
+        {
+          "name": "NFL Network US",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb65d/playlist.m3u8?token=NmEyODhkMjg4MWQ4MTkyYmI3NmNiNjVkOjE3OTE2MzI2OTEzODc6Y2RubGl2ZXR2LnR2OjZiMjcyM2Y5MTAxNmYxMGUuZjFjM2M3OGMzNjA5YjNhOTViMWZiZDgyNDc1NDRlZjEyMzExMTc0OWNjNWEwNWVkMTdlNGFmOGQ1OWYzYWVkOQ",
+          "status": "working",
+          "reason": "hls, segment ok (65536 bytes)",
+          "source": "github:Ziorub96/M3u8-extractor-/daddylive_streams.m3u",
+          "segment_ok": true,
+          "elapsed": 0.488
         },
         {
           "name": "NFL Network",
-          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb306/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzA2OjE3OTE1NTgwMDU3OTg6Y2RubGl2ZXR2LnR2OjVmMzY5ZTUxYjA2ZjQwMDYuZmI4NjY0YjdlNTQwZWVjNzAxY2U0NjQ5Y2RkZGQ5NjIyMzAyZjhiYmQxODY4YjJmNTg0MWNhMzk1Zjk3MzA2OA",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb306/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzA2OjE3OTE2NDQ0MDU3MDM6Y2RubGl2ZXR2LnR2OmM3M2YxYWZlOTgzMTliMDcuMWU3M2VlMTRmMDRiZWQ2YTM0NDU1NWMxNjczNGMzM2EyNTI2OGViN2M1ZWFkYjFjMjQ4NWYxYjQzNjM1ZTA4OA",
           "status": "working",
           "reason": "hls, segment ok (65536 bytes)",
           "source": "upstream:doms9",
           "segment_ok": true,
-          "elapsed": 0.383
+          "elapsed": 0.526
         },
         {
           "name": "NFL Network",
-          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb306/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzA2OjE3OTE1NTI2MDU5ODM6Y2RubGl2ZXR2LnR2OjNiNTY1ZjVjYWEyMWFlZWYuNTUxYzZjZTI1YmZhMDVmYzAwY2ZkMmIzNGFjOTAzZDU0MjFhNWJjOTE3YTBjNzZhZjk0MDc5OWE3OWI4ZTg2Zg",
+          "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb306/playlist.m3u8?token=NmEyODhkMjc4MWQ4MTkyYmI3NmNiMzA2OjE3OTE2MzkwMDU2MTA6Y2RubGl2ZXR2LnR2OjdlYzliZjMzZjhiYjBjMTUuODAyOTY0OTFlNGM5YTRlOTkyOGUzMGVkNjBiMjI0NGMxZThkYTk0NGNlYjMzZDc0NjE4YjI2ZGVlNTE3ZTM5Zg",
           "status": "working",
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.389
+          "elapsed": 0.546
         },
         {
           "name": "[Sports] NFL Network (OVO)",
@@ -1144,7 +692,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.448
+          "elapsed": 0.777
         },
         {
           "name": "USA NFL NETWORK 2 Backup NO_1 alliptvlinks.com",
@@ -1153,16 +701,79 @@
           "reason": "HTTP 444",
           "source": "github:Jovin69PR/jovinpriptv/USA NFL NETWORK 2 Backup NO_1_alliptvlinks_com.m3u",
           "segment_ok": null,
-          "elapsed": 0.054
+          "elapsed": 0.128
         },
         {
-          "name": "NFL Network",
-          "url": "https://iptv.852851.xyz/live/stream-f197632d-4d50-4f8e-bd38-f416614719d9/index.m3u8",
+          "name": "NFL Network HD US",
+          "url": "http://starott.vip:8080/live/HK63Ukja4y36/BXhr8vneDEPs/67639.m3u8",
           "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:judy-gotv/iptv/ceshi.m3u",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/Unknown/Unknown/SpecialLinks5.m3u",
           "segment_ok": null,
-          "elapsed": 0.012
+          "elapsed": 1.125
+        },
+        {
+          "name": "NFL Network FHD US",
+          "url": "http://starott.vip:8080/live/HK63Ukja4y36/BXhr8vneDEPs/67638.m3u8",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/Unknown/Unknown/SpecialLinks5.m3u",
+          "segment_ok": null,
+          "elapsed": 1.225
+        },
+        {
+          "name": "NFL Network 1 US",
+          "url": "http://starott.vip:8080/live/HK63Ukja4y36/BXhr8vneDEPs/67637.m3u8",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/Unknown/Unknown/SpecialLinks5.m3u",
+          "segment_ok": null,
+          "elapsed": 1.452
+        },
+        {
+          "name": "NFL Network HD US",
+          "url": "http://starott.vip:8080/HK63Ukja4y36/BXhr8vneDEPs/67639",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/LOCAL/USA/SpecialLinks.m3u",
+          "segment_ok": null,
+          "elapsed": 1.479
+        },
+        {
+          "name": "NFL Network 1 US",
+          "url": "http://starott.vip:8080/HK63Ukja4y36/BXhr8vneDEPs/67637",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/LOCAL/USA/SpecialLinks.m3u",
+          "segment_ok": null,
+          "elapsed": 1.593
+        },
+        {
+          "name": "US: NFL Network HD",
+          "url": "http://starott.vip:8080/live/HK63Ukja4y36/BXhr8vneDEPs/135259.m3u8",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/Unknown/Unknown/SpecialLinks5.m3u",
+          "segment_ok": null,
+          "elapsed": 1.599
+        },
+        {
+          "name": "US: NFL Network 1 HD",
+          "url": "http://starott.vip:8080/live/HK63Ukja4y36/BXhr8vneDEPs/135258.m3u8",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/Unknown/Unknown/SpecialLinks5.m3u",
+          "segment_ok": null,
+          "elapsed": 1.601
+        },
+        {
+          "name": "NFL Network FHD US",
+          "url": "http://starott.vip:8080/HK63Ukja4y36/BXhr8vneDEPs/67638",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/LOCAL/USA/SpecialLinks.m3u",
+          "segment_ok": null,
+          "elapsed": 1.608
         },
         {
           "name": "NFL Network",
@@ -1171,7 +782,7 @@
           "reason": "dns lookup failed",
           "source": "github:judy-gotv/iptv/UDPTV.m3u",
           "segment_ok": null,
-          "elapsed": 0.022
+          "elapsed": 0.028
         },
         {
           "name": "NFL Network",
@@ -1180,7 +791,7 @@
           "reason": "HTTP 404",
           "source": "github:smolnp/IPTVru/IPTVdonor.m3u",
           "segment_ok": null,
-          "elapsed": 0.109
+          "elapsed": 0.145
         },
         {
           "name": "NFL Network",
@@ -1189,7 +800,16 @@
           "reason": "html page, not a stream",
           "source": "github:chwlibre/iptv/casterlist.m3u",
           "segment_ok": null,
-          "elapsed": 0.296
+          "elapsed": 0.377
+        },
+        {
+          "name": "NFL Network",
+          "url": "https://iptv.852851.xyz/live/stream-f197632d-4d50-4f8e-bd38-f416614719d9/index.m3u8",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:judy-gotv/iptv/ceshi.m3u",
+          "segment_ok": null,
+          "elapsed": 0.857
         },
         {
           "name": "NFL Network",
@@ -1198,7 +818,16 @@
           "reason": "html page, not a stream",
           "source": "github:chwlibre/iptv/abandonadas/todokodi.m3u",
           "segment_ok": null,
-          "elapsed": 1.072
+          "elapsed": 1.014
+        },
+        {
+          "name": "NFL Network HD",
+          "url": "http://listplay4k.live:8080/play/sEqGlXBK924GUbV9yuY_SJAk1DARxgFCRZ8pu6aVoeI/ts",
+          "status": "unreachable",
+          "reason": "TimeoutError",
+          "source": "github:BahyOsama/dinurunn/oo.m3u",
+          "segment_ok": null,
+          "elapsed": 12.163
         },
         {
           "name": "NFL Network HD",
@@ -1216,7 +845,7 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "github:judy-gotv/iptv/BD.m3u",
           "segment_ok": true,
-          "elapsed": 0.828
+          "elapsed": 0.758
         },
         {
           "name": "NFL Network HD alliptvlinks.com",
@@ -1225,16 +854,16 @@
           "reason": "hls playlist",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": null,
-          "elapsed": 14.058
+          "elapsed": 1.368
         },
         {
-          "name": "NFL Network [COLOR blue]HD[/COLOR]",
-          "url": "http://tv-tikilive-hls-live.hls.adaptive.level3.net/hls/72.m3u8",
-          "status": "offline",
-          "reason": "dns lookup failed",
-          "source": "github:chwlibre/iptv/list1.m3u",
+          "name": "NFL Network CA",
+          "url": "https://tv4.live/api/stream/robert.goldsby50@gmail.com/629662/livetv.epg/nfl.network.alt.canadian.ca.m3u8",
+          "status": "unreachable",
+          "reason": "RemoteDisconnected",
+          "source": "github:BahyOsama/dinurunn/oo.m3u",
           "segment_ok": null,
-          "elapsed": 0.067
+          "elapsed": 0.208
         },
         {
           "name": "NFL |  NFL NETWORK",
@@ -1243,22 +872,154 @@
           "reason": "HTTP 401 (auth or geo-block)",
           "source": "github:bugsfreeweb/LiveTVCollector/SpecialLinks/NFL_PACKAGE/Unknown/SpecialLinks.m3u",
           "segment_ok": null,
-          "elapsed": 0.377
+          "elapsed": 0.407
+        },
+        {
+          "name": "NFL Network [COLOR blue]HD[/COLOR]",
+          "url": "http://tv-tikilive-hls-live.hls.adaptive.level3.net/hls/72.m3u8",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:chwlibre/iptv/list1.m3u",
+          "segment_ok": null,
+          "elapsed": 0.44
+        },
+        {
+          "name": "UK: NFL NETWORK",
+          "url": "http://starott.vip:8080/live/HK63Ukja4y36/BXhr8vneDEPs/129443.m3u8",
+          "status": "offline",
+          "reason": "html page, not a stream",
+          "source": "github:myfriendqaz/LiveTVCollector/SpecialLinks/Unknown/Unknown/SpecialLinks5.m3u",
+          "segment_ok": null,
+          "elapsed": 1.751
         }
       ]
     },
     {
       "name": "NFL RedZone",
       "country": "us",
-      "candidates": 1,
-      "notes": [
-        "GitHub code search HTTP 429 for 'NFL RedZone'",
-        "GitHub code search HTTP 429 for 'NFL RedZone US'"
-      ],
+      "candidates": 25,
+      "notes": [],
       "working": 1,
       "dropped_temporary": 0,
       "published": 1,
       "results": [
+        {
+          "name": "NFL REDZONE",
+          "url": "https://pixelstream-cdn.b-cdn.net/play/pAVJjXWDXadNqa4ml_eoyKC_Xzx6izbNiZpWlFuGfcrWshvhU5IoaBgOVoego5pt/867.m3u8",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "github:judy-gotv/iptv/Pixelsports.m3u",
+          "segment_ok": null,
+          "elapsed": 0.045
+        },
+        {
+          "name": "NFL REDZONE",
+          "url": "https://fl1.moveonjoy.com/NFL_RedZone/mpegts",
+          "status": "offline",
+          "reason": "connection refused",
+          "source": "github:BuddyChewChew/My-Streams/Archive/Backup.m3u",
+          "segment_ok": null,
+          "elapsed": 0.075
+        },
+        {
+          "name": "NFL REDZONE",
+          "url": "https://moveonjoy-scan.vercel.app/api/scan?url=https://fl1.moveonjoy.com/NFL_RedZone/mpegts",
+          "status": "offline",
+          "reason": "HTTP 402",
+          "source": "github:BuddyChewChew/My-Streams/Archive/moj-scanner.m3u",
+          "segment_ok": null,
+          "elapsed": 0.098
+        },
+        {
+          "name": "NFL REDZONE (US)",
+          "url": "http://cord-cutter.net:8080/bn80NG/909467/159120",
+          "status": "unreachable",
+          "reason": "HTTP 444",
+          "source": "github:BuddyChewChew/My-Streams/Archive/Backup.m3u",
+          "segment_ok": null,
+          "elapsed": 0.17
+        },
+        {
+          "name": "USA: NFL REDZONE",
+          "url": "http://cord-cutter.net:8080/bn80NG/909467/159118",
+          "status": "unreachable",
+          "reason": "HTTP 444",
+          "source": "github:BuddyChewChew/My-Streams/Archive/Backup.m3u",
+          "segment_ok": null,
+          "elapsed": 0.17
+        },
+        {
+          "name": "USA | NFL REDZONE 3",
+          "url": "http://cord-cutter.net:8080/bn80NG/909467/208830",
+          "status": "unreachable",
+          "reason": "HTTP 444",
+          "source": "github:BuddyChewChew/My-Streams/Archive/Backup.m3u",
+          "segment_ok": null,
+          "elapsed": 0.171
+        },
+        {
+          "name": "USA: NFL REDZONE (2)",
+          "url": "http://cord-cutter.net:8080/bn80NG/909467/159119",
+          "status": "unreachable",
+          "reason": "HTTP 444",
+          "source": "github:BuddyChewChew/My-Streams/Archive/Backup.m3u",
+          "segment_ok": null,
+          "elapsed": 0.171
+        },
+        {
+          "name": "NFL RedZone",
+          "url": "https://a1xs.vip/40000033",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:BuddyChewChew/My-Streams/Archive/Backup.m3u",
+          "segment_ok": null,
+          "elapsed": 0.179
+        },
+        {
+          "name": "NFL REDZONE US",
+          "url": "http://client.nodomain.vip:80/live.ts?channelId=2071&uid=56661&deviceUser=27irenasimic&devicePass=FTvDYXPG38",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "github:gambler65/kongresi1908/irena.m3u",
+          "segment_ok": null,
+          "elapsed": 0.278
+        },
+        {
+          "name": "NFL REDZONE US",
+          "url": "http://client.nodomain.vip:80/live.ts?channelId=2071&uid=51265&deviceUser=IvanPiric&devicePass=VZaH9WnFbQ",
+          "status": "blocked",
+          "reason": "HTTP 403 (auth or geo-block)",
+          "source": "github:gambler65/kongresi1908/kafica.m3u",
+          "segment_ok": null,
+          "elapsed": 0.279
+        },
+        {
+          "name": "NFL RedZone US",
+          "url": "https://tv4.live/api/stream/robert.goldsby50@gmail.com/629662/livetv.epg/nfl.red.zone.us.m3u8",
+          "status": "unreachable",
+          "reason": "RemoteDisconnected",
+          "source": "github:BahyOsama/dinurunn/oo.m3u",
+          "segment_ok": null,
+          "elapsed": 0.38
+        },
+        {
+          "name": "NFL RedZone",
+          "url": "http://iptvtree.net:8080/live/7e4b0dbd/1dd755dc3f/2369.ts",
+          "status": "offline",
+          "reason": "HTTP 404",
+          "source": "github:wliqi495-create/jaychou123/mylist.m3u",
+          "segment_ok": null,
+          "elapsed": 1.54
+        },
+        {
+          "name": "NFL RedZone",
+          "url": "https://ondemand.st/papi/tv/dlhd/667/playlist.m3u8",
+          "status": "unreachable",
+          "reason": "HTTP 502",
+          "source": "github:BuddyChewChew/My-Streams/Backup/dami-tv.m3u",
+          "segment_ok": null,
+          "elapsed": 3.663
+        },
         {
           "name": "[Sports] NFL RedZone (OVO)",
           "url": "https://fingersoon.st/scripts/application14",
@@ -1266,7 +1027,106 @@
           "reason": "hls, segment ok (65536 bytes)",
           "source": "local:PremiumTV_all.m3u",
           "segment_ok": true,
-          "elapsed": 0.423
+          "elapsed": 0.587
+        },
+        {
+          "name": "NFL REDZONE USA",
+          "url": "http://authxplus-2.xyz:2082/Tourobox1-2PjdkGGaHb/ffhsLleA6G/1130",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:RMplayTV/RM-TVPlay/VENDA.m3u",
+          "segment_ok": null,
+          "elapsed": 0.032
+        },
+        {
+          "name": "NFL REDZONE USA",
+          "url": "http://mn.appserv19.xyz:2095/Xplus-1-VuwQeebKp2/NvEqVzUReq/1134",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:renatoft89/ebytr/list2.m3u",
+          "segment_ok": null,
+          "elapsed": 0.037
+        },
+        {
+          "name": "NFL REDZONE USA",
+          "url": "http://cutix.click:80/live/Tourobox1-6Je0UzDYEU/XBrIy8xGxa/1130.m3u8",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:batista2169/diversos/JBFTV-LIVE-02-CANAIS.m3u",
+          "segment_ok": null,
+          "elapsed": 0.037
+        },
+        {
+          "name": "NFL REDZONE USA",
+          "url": "http://178.162.225.182:2082/Tourobox1-mgMGJKr4sW/aFgRuT8o3H/1130",
+          "status": "unreachable",
+          "reason": "TimeoutError",
+          "source": "github:MatheusAlves7/Canais_IPTV/IPTV.m3u",
+          "segment_ok": null,
+          "elapsed": 12.013
+        },
+        {
+          "name": "NFL REDZONE USA",
+          "url": "http://main.xplus2-main.xyz:2082/Tourobox1-kvZv7KYREg/tI6XJXhY32/1130",
+          "status": "unreachable",
+          "reason": "TimeoutError",
+          "source": "github:renatoft89/ebytr/list3.m3u",
+          "segment_ok": null,
+          "elapsed": 12.054
+        },
+        {
+          "name": "NFL RedZone",
+          "url": "https://iptv.852851.xyz/live/stream-07343507-376a-4b8c-afb0-7674e1197315/index.m3u8",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:judy-gotv/iptv/ceshi.m3u",
+          "segment_ok": null,
+          "elapsed": 0.008
+        },
+        {
+          "name": "NFL RedZone SD",
+          "url": "https://tvpass.org/live/NFLRedZone/sd",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:judy-gotv/iptv/TVPass.m3u",
+          "segment_ok": null,
+          "elapsed": 0.24
+        },
+        {
+          "name": "NFL RedZone (720p) [Not 24/7]",
+          "url": "https://tvpass.org/live/NFLRedZone/hd",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:spikeneedles/colab-media-link-extractor/backend/backup/live_tv/2026-03-01T11-06-36-332Z_NFL RedZone (720p) [Not 24_7].m3u",
+          "segment_ok": null,
+          "elapsed": 0.24
+        },
+        {
+          "name": "NFL Redzone Network",
+          "url": "https://ott.udptv.xyz/stream/udptvus/nflredzonenetwork/master.m3u8?u=cocked&p=dd0abb52723d22acc0f97fe0336480feaa88a37ecda55a138a8d5e0ee14b0664",
+          "status": "offline",
+          "reason": "dns lookup failed",
+          "source": "github:judy-gotv/iptv/UDPTV.m3u",
+          "segment_ok": null,
+          "elapsed": 0.03
+        },
+        {
+          "name": "NFL |  NFL REDZONE (SUNDAYS 1-8PM) B/U",
+          "url": "http://op.web24.live:8080/recycle_n24/network24_selfrestream/55050",
+          "status": "blocked",
+          "reason": "HTTP 401 (auth or geo-block)",
+          "source": "github:bugsfreeweb/LiveTVCollector/SpecialLinks/NFL_PACKAGE/Unknown/SpecialLinks.m3u",
+          "segment_ok": null,
+          "elapsed": 0.296
+        },
+        {
+          "name": "NFL |  NFL REDZONE (SUNDAYS 1-8PM)",
+          "url": "http://op.web24.live:8080/recycle_n24/network24_selfrestream/55049",
+          "status": "blocked",
+          "reason": "HTTP 401 (auth or geo-block)",
+          "source": "github:bugsfreeweb/LiveTVCollector/SpecialLinks/NFL_PACKAGE/Unknown/SpecialLinks.m3u",
+          "segment_ok": null,
+          "elapsed": 0.319
         }
       ]
     }
