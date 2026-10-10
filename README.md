@@ -2,6 +2,11 @@
 
 A playlist builder for publicly listed TV streams. The scraper combines enabled sources, removes duplicate URLs, checks HTTP streams, and publishes the checked player playlist when the run passes its safety threshold.
 
+## Change log
+
+- [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.
+- [Repository change log](CHANGELOG.md) — concise GitHub copy and links to the live health reports.
+
 ## Load the playlist
 
 Load this URL in an M3U-compatible player (VLC, TiviMate, IPTV Smarters, Kodi PVR IPTV Simple, etc.):
@@ -10,15 +15,14 @@ Load this URL in an M3U-compatible player (VLC, TiviMate, IPTV Smarters, Kodi PV
 https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u
 ```
 
-> **These links need a public repository.** Checked on 2026-10-05: while `PremiumTV1` is private,
-> `raw.githubusercontent.com` answers `404 Not Found` for every URL above, in every country
-> playlist, and in the `x-tvg-url` guide headers the playlists advertise - GitHub only serves raw
-> files to readers who can see the repository. Nothing in the build is wrong (the workflows read
-> their own inputs through `local_path` and the authenticated API, and the published links were
-> spot-checked live), but a player can only use them once the files are public: make the
-> repository public, publish it with GitHub Pages
-> (`https://cgyegcvcecvoc.github.io/PremiumTV1/playlists/PremiumTV.m3u`), or mirror the
-> `playlists/` and `EPG/` folders into a public repository. The first option needs no change here.
+> **These links need a public delivery point.** Checked on 2026-10-10: GitHub reports
+> `PremiumTV1` as a private repository. The `raw.githubusercontent.com` playlist URLs and each
+> playlist's `x-tvg-url` guide URLs therefore cannot be fetched by an unauthenticated IPTV player.
+> The Actions pipeline can read its own repository files; that does not grant a player access.
+> No visibility or sharing setting was changed. To use these feeds in a player, publish the
+> authorized playlist/guide outputs at a publicly reachable endpoint (for example, an approved
+> public repository, GitHub Pages, or a public mirror). Do not make the entire repository public
+> unless the owner approves.
 
 | File | Purpose |
 |---|---|
