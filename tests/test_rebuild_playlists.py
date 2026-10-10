@@ -1,5 +1,4 @@
 """Offline tests for scripts/rebuild_playlists.py."""
-import json
 import sys
 import tempfile
 import unittest

@@ -284,9 +284,11 @@ class ChannelHuntTest(unittest.TestCase):
         self.assertEqual(target["working"], 2)
         self.assertEqual(target["dropped_temporary"], 1)
         self.assertEqual(target["published"], 1)
-        published_urls = [item["url"] for item in target["results"]
-                          if item["status"] == "working"][:1]
-        self.assertNotIn("token=", (self.out / "sources" / "priority-channels.m3u").read_text())
+        curated = self.out / "sources" / "priority-channels.m3u"
+        published_urls = [line.strip() for line in curated.read_text().splitlines()
+                          if line.strip() and not line.startswith("#")]
+        self.assertEqual(published_urls, [f"{self.base}/metvtoons.m3u8"])
+        self.assertNotIn("token=", curated.read_text())
 
     def test_hunt_writes_a_ready_to_load_playlist_with_guides(self):
         (self.out / "PremiumTV.m3u").write_text(

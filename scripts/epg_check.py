@@ -28,6 +28,12 @@ Only `offline` and `invalid` guides are dropped, and only with ``--patch``.
 ``--min-working-ratio`` (default 0.25) aborts patching when the whole run looks
 like a network outage rather than a genuinely dead guide.
 
+Guides this repository publishes for its own players - ``EPG/PremiumTV.xml`` and
+one ``EPG/<Country>.xml`` per country, written by ``scripts/epg_build.py`` - are
+reported with an ``own_repo`` flag: their status is still recorded, but they are
+left out of the working share (so a private repository, where every raw URL 404s,
+can no longer look like an outage) and they are never dropped from a header.
+
 Outputs:
 
     checks/epg-check.json      full machine-readable result
@@ -74,10 +80,42 @@ MIN_WORKING_RATIO = 0.25
 DEFAULT_TIMEOUT = 45.0
 # Statuses that are confirmed dead and dropped by --patch.
 DEAD_STATUSES = {"offline", "invalid"}
+# This repository publishes its own merged guide (scripts/epg_build.py) and points
+# every player playlist at it. Those URLs are not upstream guides, and the
+# verifier must never judge them as if they were: while the repository is private
+# (or a push has not landed yet) raw.githubusercontent.com answers 404 for every
+# one of them, which is a fact about repository visibility, not about a guide a
+# player can no longer download. Counting them made a healthy run look like an
+# outage - 173 self-hosted 404s out of 175 guides drove the working share to 1%,
+# which tripped the --min-working-ratio guard on every nightly run and disabled
+# guide patching altogether.
+OWN_REPO = (os.environ.get("GITHUB_REPOSITORY") or "cgyegcvcecvoc/PremiumTV1").strip("/")
 
 
 def log(msg: str) -> None:
     print(msg, flush=True)
+
+
+def own_guide_prefixes() -> tuple:
+    """URL prefixes of the guide files this repository publishes for its players."""
+    prefixes = [f"https://raw.githubusercontent.com/{OWN_REPO}/",
+                f"https://raw.githubusercontent.com/{OWN_REPO.lower()}/"]
+    owner, _, name = OWN_REPO.partition("/")
+    if owner and name:
+        prefixes.append(f"https://{owner.lower()}.github.io/{name}/")
+    return tuple(prefixes)
+
+
+def is_own_guide(url: str) -> bool:
+    """True when the guide is an EPG file this repository generated itself."""
+    text = str(url or "").strip()
+    if not text.startswith(own_guide_prefixes()):
+        return False
+    path = urllib.parse.urlsplit(text).path
+    # Only the generated guides: this repository also hosts its own source
+    # playlists (playlists/*.m3u) under the same prefix, and those are ordinary
+    # inputs, never advertised as guides.
+    return "/EPG/" in path or "/playlists/epg/" in path
 
 
 def display_path(path) -> str:
@@ -170,7 +208,8 @@ def parse_xmltv(body: bytes) -> dict:
 def verify_guide(url: str, timeout: float, retries: int = 1) -> dict:
     result = {"url": url, "status": "unreachable", "reason": "", "http_status": 0,
               "bytes": 0, "channels": 0, "programmes": 0, "sample_channel": "",
-              "newest_programme": "", "gzipped": False, "elapsed": 0.0}
+              "newest_programme": "", "gzipped": False, "elapsed": 0.0,
+              "own_repo": is_own_guide(url)}
     parsed = urllib.parse.urlsplit(url)
     if parsed.scheme.lower() not in ("http", "https") or not parsed.netloc:
         result.update(status="invalid", reason="not an http(s) URL")
@@ -319,7 +358,7 @@ def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int
                                     "http_status": 0, "bytes": 0, "channels": 0,
                                     "programmes": 0, "sample_channel": "",
                                     "newest_programme": "", "gzipped": False,
-                                    "elapsed": 0.0}
+                                    "elapsed": 0.0, "own_repo": is_own_guide(url)}
                 if index % 25 == 0 or index == len(guides):
                     log(f"[epg] {index}/{len(guides)} guides checked")
     finished = dt.datetime.now(dt.timezone.utc)
@@ -327,17 +366,29 @@ def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int
     totals: dict = {}
     for result in results.values():
         totals[result["status"]] = totals.get(result["status"], 0) + 1
-    checked = len(results)
-    working = totals.get("ok", 0) + totals.get("empty", 0)
+    # The working share is what decides whether a run looks like an outage, so it
+    # is measured over the upstream guides only - see is_own_guide().
+    upstream = [result for result in results.values() if not result.get("own_repo")]
+    own = [result for result in results.values() if result.get("own_repo")]
+    own_totals: dict = {}
+    for result in own:
+        own_totals[result["status"]] = own_totals.get(result["status"], 0) + 1
+    checked = len(upstream)
+    working = sum(1 for result in upstream if result["status"] in ("ok", "empty"))
     ratio = working / checked if checked else 0.0
+    if own:
+        log(f"[epg] {len(own)} of {len(results)} guides are this repository's own "
+            f"published files; excluded from the working share "
+            f"({', '.join(f'{status}={count}' for status, count in sorted(own_totals.items()))})")
 
     patch_report = {"aborted": False, "abort_reason": "", "patched_files": [],
-                    "removed": [], "added": [], "working_ratio": round(ratio, 4)}
+                    "removed": [], "added": [], "working_ratio": round(ratio, 4),
+                    "own_guides_kept": len([url for url in guides if is_own_guide(url)])}
     if patch:
         if checked and ratio < min_working_ratio:
             patch_report["aborted"] = True
             patch_report["abort_reason"] = (
-                f"only {working}/{checked} guides answered ({ratio:.0%}) is below "
+                f"only {working}/{checked} upstream guides answered ({ratio:.0%}) is below "
                 f"--min-working-ratio {min_working_ratio:.0%}; treating this run as a "
                 f"network problem and changing nothing")
             log(f"[epg] ABORTED: {patch_report['abort_reason']}")
@@ -345,7 +396,9 @@ def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int
             for path in targets:
                 original = per_playlist.get(str(path), [])
                 kept = [url for url in original
-                        if results.get(url, {}).get("status") not in DEAD_STATUSES]
+                        if url not in results
+                        or results[url].get("own_repo")
+                        or results[url].get("status") not in DEAD_STATUSES]
                 removed = [url for url in original if url not in kept]
                 added = [url for url in extra_guides
                          if url not in original
@@ -375,9 +428,18 @@ def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int
         "timeout": timeout,
         "playlists": [str(path.relative_to(ROOT)) if str(path).startswith(str(ROOT))
                       else str(path) for path in targets],
-        "guides": [results.get(url, {"url": url, "status": "unchecked"}) for url in guides],
+        "guides": [results.get(url, {"url": url, "status": "unchecked",
+                                     "own_repo": is_own_guide(url)}) for url in guides],
         "totals": totals,
         "working_ratio": round(ratio, 4),
+        "upstream_guides": checked,
+        "own_guides": {
+            "count": len(own),
+            "statuses": own_totals,
+            "note": ("guides this repository publishes itself; advertised to players but "
+                     "never treated as an upstream source, and 404 here means the repository "
+                     "is private rather than the guide being gone"),
+        },
         "patch": patch_report,
         "per_playlist_guide_count": {path.name: len(per_playlist[str(path)]) for path in targets},
     }
@@ -389,6 +451,8 @@ def write_reports(out_dir: Path, report: dict) -> list:
     (checks_dir / "epg-check.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
 
     totals = report["totals"]
+    own = report.get("own_guides") or {}
+    own_count = own.get("count", 0)
     lines = [
         "# TV guide (EPG) check",
         "",
@@ -396,32 +460,54 @@ def write_reports(out_dir: Path, report: dict) -> list:
         f"- **Started:** {report['started_utc']} | **Finished:** {report['finished_utc']} "
         f"| **Duration:** {report['duration_seconds']}s",
         f"- **Guides checked:** {len(report['guides'])} across "
-        f"{len(report['playlists'])} playlists",
-        f"- **Working share:** {report['working_ratio']:.1%}",
+        f"{len(report['playlists'])} playlists"
+        + (f" ({own_count} of them are this repository's own published guides)"
+           if own_count else ""),
+        f"- **Working share of upstream guides:** {report['working_ratio']:.1%}",
         "",
         "| Result | Guides |", "|---|---:|",
     ]
     for status in ("ok", "empty", "unreachable", "blocked", "offline", "invalid"):
         if totals.get(status):
             lines.append(f"| {status} | {totals[status]} |")
+    if own_count:
+        lines.append(f"| own guide (excluded from the share above) | {own_count} |")
     lines += ["", "## Working guides (kept)", "",
               "| Guide | Channels | Programmes sampled | Newest programme | Size read |",
               "|---|---:|---:|---|---:|"]
     for guide in report["guides"]:
-        if guide.get("status") != "ok":
+        if guide.get("status") != "ok" or guide.get("own_repo"):
             continue
         name = guide["url"].rsplit("/", 1)[-1]
         lines.append(f"| `{name}` | {guide.get('channels', 0)} | "
                      f"{guide.get('programmes', 0)} | {guide.get('newest_programme') or '-'} | "
                      f"{guide.get('bytes', 0) // 1024} KB |")
     broken = [guide for guide in report["guides"]
-              if guide.get("status") in DEAD_STATUSES or guide.get("status") == "blocked"]
+              if not guide.get("own_repo")
+              and (guide.get("status") in DEAD_STATUSES or guide.get("status") == "blocked")]
     if broken:
         lines += ["", "## Guides that failed", "",
                   "| Guide | Status | Reason |", "|---|---|---|"]
         for guide in broken:
             lines.append(f"| `{scraper.safe_url(guide['url'])}` | {guide.get('status')} | "
                          f"{guide.get('reason', '')} |")
+    if own_count:
+        statuses = ", ".join(f"{status}={count}"
+                             for status, count in sorted((own.get("statuses") or {}).items()))
+        own_guides = [guide for guide in report["guides"] if guide.get("own_repo")]
+        lines += ["", "## This repository's own guides", "",
+                  f"{own_count} advertised guide URL(s) are files this repository publishes "
+                  f"itself (`EPG/*.xml`), so they are never counted as upstream guides and "
+                  f"never removed. Status of those: {statuses or 'unchecked'}. A `404` here "
+                  "means the repository is private - GitHub only serves raw files to readers "
+                  "who can see it (see the note at the top of `README.md`); it does not mean "
+                  "the guide is gone for someone who can.",
+                  "", "| Own guide | Status | Reason |", "|---|---|---|"]
+        for guide in own_guides[:15]:
+            name = guide["url"].rsplit("/", 1)[-1]
+            lines.append(f"| `{name}` | {guide.get('status')} | {guide.get('reason', '')} |")
+        if len(own_guides) > 15:
+            lines.append(f"| … {len(own_guides) - 15} more (one per country playlist) | | |")
     patch = report.get("patch") or {}
     if patch:
         lines += ["", "## Patch", ""]

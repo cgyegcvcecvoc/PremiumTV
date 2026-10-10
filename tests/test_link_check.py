@@ -113,7 +113,7 @@ class LinkCheckTest(unittest.TestCase):
         text = "\n".join([
             header,
             "# test playlist",
-            f'#EXTINF:-1 tvg-id="Master.us" group-title="Live",Master HLS',
+            '#EXTINF:-1 tvg-id="Master.us" group-title="Live",Master HLS',
             f"{self.base}/master.m3u8",
             "#EXTINF:-1 group-title=\"Live\",Direct TS",
             f"{self.base}/direct.ts",
@@ -359,6 +359,74 @@ class LinkCheckTest(unittest.TestCase):
             last_seen_utc=dt.datetime.now(dt.timezone.utc).isoformat())
         path.write_text(json.dumps({"entries": fresh}), encoding="utf-8")
         self.assertIn("http://dead.invalid/x.m3u8", scraper.load_quarantine(path, 7.0))
+
+    # -- the biweekly archive scope --------------------------------------- #
+    def test_archives_scope_covers_every_playlist_no_daily_run_patches(self):
+        out = self.out / "playlists"
+        (out / "categories").mkdir(parents=True)
+        (out / "sources").mkdir(parents=True)
+        (out / "countries").mkdir(parents=True)
+        shelf = self.out / "categories"
+        (shelf / "USA").mkdir(parents=True)
+        for path in (out / "PremiumTV.m3u", out / "AE_Channels.m3u",
+                     out / "Priority_Channels.m3u", out / "PremiumTV_all.m3u",
+                     out / "categories" / "Sports.m3u", out / "categories" / "Sports_Backups.m3u",
+                     out / "sources" / "iptv-org.m3u", out / "countries" / "UK.m3u",
+                     shelf / "USA.m3u", shelf / "USA" / "Sports.m3u"):
+            path.write_text("#EXTM3U\n", encoding="utf-8")
+
+        daily = {path.name for path in link_check.collect_targets(out, [], True, False)}
+        swept = {path.name for path in link_check.collect_targets(out, [], True, False,
+                                                                   True, shelf)}
+        # Everything the nightly and quick runs already reach stays in scope...
+        for name in ("PremiumTV.m3u", "AE_Channels.m3u", "UK.m3u"):
+            self.assertIn(name, daily)
+        # ...and the archive sweep adds the files no daily run ever rewrites.
+        for name in ("Priority_Channels.m3u", "PremiumTV_all.m3u", "Sports.m3u",
+                     "Sports_Backups.m3u", "iptv-org.m3u", "USA.m3u"):
+            self.assertNotIn(name, daily, f"{name} should not be a daily target")
+            self.assertIn(name, swept, f"{name} should be in the archive sweep")
+        self.assertTrue(daily <= swept)
+        # Nothing is listed twice by --all together with --archives.
+        both = link_check.collect_targets(out, [], True, False, True, shelf)
+        self.assertEqual(len(both), len({str(path.resolve()) for path in both}))
+
+    def test_archive_sweep_reports_premiumtv_all_without_pruning_it(self):
+        # PremiumTV_all.m3u is documented as "all unique links found, including dead
+        # or unverified links", so the sweep must count its dead links - that is how
+        # they reach the quarantine and stay out of the player - and leave them in.
+        out = self.out / "playlists"
+        out.mkdir(parents=True, exist_ok=True)
+        playlist = out / "PremiumTV_all.m3u"
+        playlist.write_text("\n".join([
+            "#EXTM3U",
+            '#EXTINF:-1 group-title="Live",Working',
+            f"{self.base}/master.m3u8",
+            '#EXTINF:-1 group-title="Live",Gone',
+            f"{self.base}/gone.m3u8",
+            "",
+        ]), encoding="utf-8")
+        player = out / "Priority_Channels.m3u"
+        player.write_text("\n".join([
+            "#EXTM3U",
+            '#EXTINF:-1 group-title="Live",Gone',
+            f"{self.base}/gone.m3u8",
+            "",
+        ]), encoding="utf-8")
+        self.assertTrue(link_check.is_report_only(playlist))
+        self.assertFalse(link_check.is_report_only(player))
+
+        loaded = link_check.load_playlists([playlist, player])
+        results, _ = link_check.run_checks(loaded, 8, 4, 5.0, 0, True)
+        before = playlist.read_text(encoding="utf-8")
+        patch = link_check.patch_playlists(loaded, results, 0.0, 1.0, dry_run=False,
+                                           report_only={playlist})
+        self.assertEqual(playlist.read_text(encoding="utf-8"), before)
+        self.assertEqual(len(patch["reported_only"]), 1)
+        self.assertEqual(patch["reported_only"][0]["dead"], 1)
+        self.assertEqual(patch["reported_only"][0]["entries"], 2)
+        # The file with no archive exemption loses its dead link under the same run.
+        self.assertNotIn("gone.m3u8", player.read_text(encoding="utf-8"))
 
     def test_main_without_playlists_fails_cleanly(self):
         with redirect_stdout(StringIO()):

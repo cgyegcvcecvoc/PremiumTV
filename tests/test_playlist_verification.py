@@ -325,7 +325,6 @@ class CommittedPlaylistsTest(unittest.TestCase):
     ROOT = Path(__file__).resolve().parents[1]
 
     def _channels(self, name: str):
-        import re
         path = self.ROOT / "playlists" / name
         if not path.exists():
             self.skipTest(f"{name} is not checked in")

@@ -52,7 +52,6 @@ import json
 import os
 import re
 import socket
-import ssl
 import sys
 import time
 import urllib.error
@@ -521,7 +520,8 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
 # Playlist-level runs
 # --------------------------------------------------------------------------- #
 def collect_targets(out_dir: Path, extra: list, all_playlists: bool,
-                    countries: bool) -> list:
+                    countries: bool, archives: bool = False,
+                    shelf_dir: Path | None = None) -> list:
     targets: list = []
     if all_playlists:
         for name in ("PremiumTV.m3u", "AE_Channels.m3u"):
@@ -529,6 +529,8 @@ def collect_targets(out_dir: Path, extra: list, all_playlists: bool,
             if path.exists():
                 targets.append(path)
         countries = True
+    if archives:
+        targets.extend(archive_targets(out_dir, shelf_dir))
     for item in extra:
         path = Path(item)
         if not path.is_absolute():
@@ -544,10 +546,49 @@ def collect_targets(out_dir: Path, extra: list, all_playlists: bool,
     ordered = []
     for path in targets:
         key = str(path.resolve())
-        if key not in seen:
-            seen.add(key)
-            ordered.append(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        ordered.append(path)
     return ordered
+
+
+def archive_targets(out_dir: Path, shelf_dir: Path | None = None) -> list:
+    """Every playlist a player can be pointed at that the daily runs never patch.
+
+    The nightly deep check covers the player playlists (the main one, A&E and the
+    country files); the quick daily updates repair the main and priority playlists
+    with a shallow check. That leaves three sets of files nobody ever walks end to
+    end: the per-category playlists and the ``categories/`` shelf (which a player
+    is pointed at in the README), the local copies of the upstream sources that a
+    scrape falls back to when an index is down, and the archive of every link ever
+    found. A channel that died in one of those stays there until a viewer hits a
+    black screen - so the biweekly sweep checks them too.
+    """
+    paths: list = []
+    for name in ("Priority_Channels.m3u", "PremiumTV_all.m3u"):
+        path = out_dir / name
+        if path.exists():
+            paths.append(path)
+    for pattern in ("categories/*.m3u", "sources/*.m3u"):
+        paths.extend(sorted((out_dir / Path(pattern).parent).glob(Path(pattern).name)))
+    # The published category shelf lives at the repository root, next to playlists/.
+    shelf = Path(shelf_dir) if shelf_dir else ROOT / "categories"
+    for pattern in ("*.m3u", "*/*.m3u"):
+        paths.extend(sorted(shelf.glob(pattern)))
+    return [path for path in paths if path.is_file()]
+
+
+def is_report_only(path: Path) -> bool:
+    """A checked-but-never-rewritten archive: it exists to hold every link found.
+
+    ``playlists/PremiumTV_all.m3u`` is documented as "all unique links found,
+    including dead or unverified links", so pruning it would break the file's
+    purpose. It is still worth checking - a dead link confirmed here is added to
+    the quarantine, which is what keeps it out of the published playlists - but
+    the file itself keeps its contents.
+    """
+    return path.name == "PremiumTV_all.m3u"
 
 
 def load_playlists(paths: list) -> dict:
@@ -565,7 +606,7 @@ def run_checks(loaded: dict, workers: int, per_host_workers: int, timeout: float
                retries: int, deep: bool) -> tuple[dict, dict]:
     """Check every unique URL once; return (url -> result, playlist -> stats)."""
     unique: dict = {}
-    for path, data in loaded.items():
+    for _path, data in loaded.items():
         for channel in data["channels"]:
             url = channel.url
             if url and url not in unique:
@@ -633,10 +674,13 @@ def summarize(loaded: dict, results: dict) -> dict:
 
 
 def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
-                    max_remove_ratio: float, dry_run: bool) -> dict:
+                    max_remove_ratio: float, dry_run: bool,
+                    report_only: set | None = None) -> dict:
     """Remove confirmed-dead entries in place, with per-playlist safety limits."""
     patch_report = {"patched_files": [], "skipped_files": [], "removed_total": 0,
-                    "removed": [], "aborted": False, "abort_reason": ""}
+                    "removed": [], "aborted": False, "abort_reason": "",
+                    "reported_only": []}
+    report_only = report_only or set()
 
     checked = 0
     working = 0
@@ -661,6 +705,20 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
 
     for path, data in loaded.items():
         entries = len(data["blocks"])
+        if path in report_only:
+            # Checked (and its dead links feed the quarantine), but never rewritten:
+            # see is_report_only().
+            dead_here = sum(1 for block in data["blocks"]
+                            if results.get(block.url or "", {}).get("status")
+                            in DEAD_STATUSES)
+            patch_report["reported_only"].append({
+                "file": str(path), "entries": entries, "dead": dead_here,
+                "reason": "every link found stays in this archive, dead ones "
+                          "included; the quarantine is what keeps them out of the "
+                          "player playlists"})
+            log(f"[patch] {path.name}: reported {dead_here} dead of {entries}, "
+                f"file left complete (documented archive)")
+            continue
         kept, removed = [], []
         for block in data["blocks"]:
             status = results.get(block.url or "", {}).get("status", "unchecked")
@@ -703,15 +761,21 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
 # --------------------------------------------------------------------------- #
 # Reports
 # --------------------------------------------------------------------------- #
-def write_reports(out_dir: Path, report: dict) -> list:
+def write_reports(out_dir: Path, report: dict, suffix: str = "") -> list:
+    """Write ``checks/link-check{suffix}.json`` and ``checks/LINK-CHECK{SUFFIX}.md``.
+
+    A separate suffix lets a second sweep (the biweekly archive pass) report on the
+    playlists the nightly one skips without overwriting the ``link-check.json`` the
+    re-sort and the guide build read back.
+    """
     checks_dir = out_dir / "checks"
     checks_dir.mkdir(parents=True, exist_ok=True)
-    (checks_dir / "link-check.json").write_text(
+    (checks_dir / f"link-check{suffix}.json").write_text(
         json.dumps(report, indent=2, sort_keys=False), encoding="utf-8")
 
     totals = report["totals"]
     lines = [
-        "# Deep link check",
+        "# Deep link check" + (" - archives and category shelf" if suffix else ""),
         "",
         f"- **Run:** {report['label']} (`{report['run_id']}`)",
         f"- **Started:** {report['started_utc']}  |  **Finished:** {report['finished_utc']}"
@@ -763,6 +827,10 @@ def write_reports(out_dir: Path, report: dict) -> list:
                              f"({info['entries_before']} -> {info['entries_after']})")
             for info in patch["skipped_files"]:
                 lines.append(f"  - skipped `{Path(info['file']).name}`: {info['reason']}")
+            for info in patch.get("reported_only", []):
+                lines.append(f"  - reported only `{Path(info['file']).name}`: "
+                             f"{info['dead']} of {info['entries']} links are dead; the file "
+                             f"keeps every one of them by design")
     if report["host_failures"]:
         lines += ["", "## Hosts with the most failing links", "",
                   "| Host | Offline | Unreachable |", "|---|---:|---:|"]
@@ -781,8 +849,10 @@ def write_reports(out_dir: Path, report: dict) -> list:
             url = scraper.safe_url(item.get("url", ""))
             lines.append(f"| {item.get('name', '')[:60]} | {item.get('reason', '')} | `{url}` |")
     lines.append("")
-    (checks_dir / "LINK-CHECK.md").write_text("\n".join(lines), encoding="utf-8")
-    return [checks_dir / "link-check.json", checks_dir / "LINK-CHECK.md"]
+    (checks_dir / f"LINK-CHECK{suffix.upper()}.md").write_text("\n".join(lines),
+                                                                encoding="utf-8")
+    return [checks_dir / f"link-check{suffix}.json",
+            checks_dir / f"LINK-CHECK{suffix.upper()}.md"]
 
 
 def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float) -> Path:
@@ -848,6 +918,9 @@ def append_edit_log(out_dir: Path, report: dict, patch: dict) -> Path:
                      f"{scraper.safe_url(item['url'])}")
     for info in patch.get("skipped_files", []):
         lines.append(f"  ! skipped {Path(info['file']).name}: {info['reason']}")
+    for info in patch.get("reported_only", []):
+        lines.append(f"  ~ reported {Path(info['file']).name}: {info['dead']} dead of "
+                     f"{info['entries']} entries, none removed (archive by design)")
     lines.append("")
     with path.open("a", encoding="utf-8") as handle:
         handle.write("\n".join(lines) + "\n")
@@ -868,6 +941,11 @@ def build_parser() -> argparse.ArgumentParser:
                     help="check PremiumTV.m3u, AE_Channels.m3u and every country playlist")
     ap.add_argument("--countries", action="store_true",
                     help="include playlists/countries/*.m3u")
+    ap.add_argument("--archives", action="store_true",
+                    help="also check the playlists no daily run patches: the priority "
+                         "playlist, the per-category playlists, the categories/ shelf "
+                         "and the local source copies (PremiumTV_all.m3u is checked but "
+                         "never pruned - see is_report_only)")
     ap.add_argument("--workers", type=int, default=96, help="maximum concurrent checks")
     ap.add_argument("--per-host-workers", type=int, default=8,
                     help="maximum concurrent checks per host")
@@ -889,6 +967,12 @@ def build_parser() -> argparse.ArgumentParser:
                     help="with --patch: remember dead links for this many days so the "
                          "daily scrape cannot publish them again (0 disables)")
     ap.add_argument("--label", default="deep link check", help="run label for the reports")
+    ap.add_argument("--report-suffix", default="",
+                    help="write checks/link-check<SUFFIX>.json and "
+                         "checks/LINK-CHECK<SUFFIX>.md instead of the nightly reports")
+    ap.add_argument("--categories-dir", default="",
+                    help="directory holding the published categories/ shelf that "
+                         "--archives sweeps (default: categories/ in the repository)")
     return ap
 
 
@@ -898,9 +982,11 @@ def main(argv=None) -> int:
         log("[check] workers and timeout must be positive")
         return 2
     out_dir = Path(args.out)
-    targets = collect_targets(out_dir, args.playlist, args.all, args.countries)
+    targets = collect_targets(out_dir, args.playlist, args.all, args.countries,
+                              args.archives, Path(args.categories_dir)
+                              if args.categories_dir else None)
     if not targets:
-        log("[check] no playlists to check - pass --all or --playlist <file>")
+        log("[check] no playlists to check - pass --all, --archives or --playlist <file>")
         return 2
     started = dt.datetime.now(dt.timezone.utc)
     loaded = load_playlists(targets)
@@ -925,8 +1011,9 @@ def main(argv=None) -> int:
         **summary,
     }
     if args.patch:
-        report["patch"] = patch_playlists(loaded, results, args.min_working_ratio,
-                                          args.max_remove_ratio, args.dry_run)
+        report["patch"] = patch_playlists(
+            loaded, results, args.min_working_ratio, args.max_remove_ratio,
+            args.dry_run, report_only={path for path in targets if is_report_only(path)})
         if not args.dry_run:
             quarantine = update_quarantine(out_dir, report, report["patch"],
                                            args.quarantine_days)
@@ -938,7 +1025,7 @@ def main(argv=None) -> int:
             }
             report["patch"]["edit_log"] = str(
                 display_path(append_edit_log(out_dir, report, report["patch"])))
-    written = write_reports(out_dir, report)
+    written = write_reports(out_dir, report, args.report_suffix)
     totals = report["totals"]
     log(f"[check] done in {report['duration_seconds']}s: "
         f"working={totals.get('working', 0)} offline={totals.get('offline', 0)} "

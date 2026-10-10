@@ -34,7 +34,6 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import json
 import re
 import sys
 from pathlib import Path
@@ -270,7 +269,7 @@ def main(argv=None) -> int:
             "=" * 88,
             f"Run: {utc_s} ({local_s}) - {args.label}",
             f"Playlists touched: {len(reports)}",
-            f"Links changed: 0 (this tool re-groups and re-orders; it never edits a URL)",
+            "Links changed: 0 (this tool re-groups and re-orders; it never edits a URL)",
             f"Dead links pruned: {sum(len(item['pruned']) for item in reports)}"
             + (" (disabled by --no-prune)" if args.no_prune else ""),
             f"Max feeds per channel: {args.max_feeds or 'unlimited'}",

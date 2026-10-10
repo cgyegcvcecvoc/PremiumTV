@@ -112,6 +112,11 @@ BRACKET_RE = re.compile(r"[\[(][^\])]*[\])]")
 NON_ALNUM_RE = re.compile(r"[^a-z0-9]+")
 CC_SUFFIX_RE = re.compile(r"\.([a-z]{2})$")
 XMLTV_TIME_RE = re.compile(r"^(\d{14})(?:\s*([+-]\d{4}))?$")
+# A <programme ...> opening tag with its attribute string, so the scan of an
+# already published guide can read start/stop/channel the same way the writer
+# emits them (scripts/epg_build.py writes one tag per line, other generators do
+# not always - see channels_with_listings).
+PROGRAMME_TAG_RE = re.compile(r"<programme\b([^>]*)>", re.IGNORECASE)
 HTML_TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
 GENERATOR = "PremiumTV1 epg_build.py"
@@ -396,9 +401,12 @@ def guide_streams(url: str, timeout: float, retries: int, max_bytes: int):
                 response.close()
                 raise ValueError("empty response")
 
-            def chain(first: bytes):
+            def chain(first: bytes, _response=response):
+                # _response is bound at definition time: `response` is rebound on
+                # every retry, and this generator is only consumed later, while the
+                # parser reads it.
                 yield first
-                yield from response_chunks(response)
+                yield from response_chunks(_response)
 
             raw = ChainedStream(chain(head), max_bytes)
             buffered = io.BufferedReader(raw, buffer_size=1 << 16)
@@ -582,7 +590,7 @@ def harvest_guide(url: str, index: int, wanted: Wanted, timeout: float, retries:
     stream = None
     try:
         stream, gzipped, raw, response = guide_streams(url, timeout, retries, max_bytes)
-        opener, harvest_truncated_flag = raw, raw
+        opener = raw
         seen_something = False
         matched_ids: dict = {}   # guide channel id -> [playlist ids]
 
@@ -1410,7 +1418,8 @@ def build(args) -> dict:
     # ---- safety gate: never replace a good guide with a hollow one ---------- #
     xml_path = epg_dir / f"{args.name}.xml"
     gz_path = epg_dir / f"{args.name}.xml.gz"
-    previous_channels = previous_programme_channels(out_dir, xml_path)
+    previous_channels = previous_programme_channels(out_dir, xml_path,
+                                                     window_start, window_end)
     if not order:
         report["publish_reason"] = "no playlist channel matched any upstream guide"
     elif len(order) < args.min_channels:
@@ -1422,7 +1431,8 @@ def build(args) -> dict:
     elif previous_channels and len(order) < previous_channels * args.min_previous_ratio:
         report["publish_reason"] = (f"{len(order)} channels is under "
                                     f"{args.min_previous_ratio:.0%} of the "
-                                    f"{previous_channels} in the published guide")
+                                    f"{previous_channels} with current listings in the "
+                                    f"published guide")
     if report["publish_reason"]:
         log(f"[epg-build] NOT PUBLISHED: {report['publish_reason']}")
         report["previous_channels"] = previous_channels
@@ -1602,14 +1612,68 @@ def note_window(report: dict, started: dt.datetime, window_end: dt.datetime) -> 
         (window_end - started).total_seconds() / 3600, 2)
 
 
-def previous_programme_channels(out_dir: Path, xml_path: Path) -> int:
+def channels_with_listings(xml_path: Path, window_start: dt.datetime,
+                           window_end: dt.datetime) -> int:
+    """Channels of an already published guide that still have a listing in the window.
+
+    "Don't replace a good guide with a hollow one" only makes sense against a guide
+    a player can actually read, so the benchmark is the number of channels with an
+    event inside *this* build's window - not the number of ``<channel>`` rows in the
+    file. Counting rows instead made the gate self-locking once a build was held
+    back: the published guide kept ageing, its listings left the window, and every
+    following run compared itself to that dead catalogue size, reported
+    "not published", and left the same expired file in front of the players - the
+    one outcome the gate exists to prevent.
+    """
+    if not xml_path.is_file():
+        return 0
+    try:
+        start_key = int(window_start.strftime("%Y%m%d%H%M%S"))
+        end_key = int(window_end.strftime("%Y%m%d%H%M%S"))
+    except (ValueError, OverflowError):
+        return 0
+    live: set = set()
+    pending = ""
+    try:
+        with xml_path.open("r", encoding="utf-8", errors="replace") as handle:
+            for line in handle:
+                text = pending + line
+                pending = ""
+                if "<programme" not in text:
+                    continue
+                # A wrapped opening tag: hold the tail until its ">" arrives.
+                tail = text[text.rfind("<programme"):]
+                if ">" not in tail:
+                    pending = tail
+                    continue
+                for match in PROGRAMME_TAG_RE.finditer(text):
+                    attrs = dict(scraper.ATTR_RE.findall(match.group(1)))
+                    start = attrs.get("start", "")[:14]
+                    stop = attrs.get("stop", "")[:14]
+                    channel = attrs.get("channel", "")
+                    if not (channel and start.isdigit() and stop.isdigit()):
+                        continue
+                    if int(stop) >= start_key and int(start) <= end_key:
+                        live.add(channel)
+    except OSError:
+        return 0
+    return len(live)
+
+
+def previous_programme_channels(out_dir: Path, xml_path: Path,
+                                window_start: dt.datetime | None = None,
+                                window_end: dt.datetime | None = None) -> int:
     """Channels with programmes in the last published build, falling back to the file.
 
     The merged guide now declares every playlist channel (programme channels and
     empty catalogue entries), so counting ``<channel>`` elements in the file would
     make the "don't replace a good guide" gate compare against the catalogue size
-    instead of the last real coverage.
+    instead of the last real coverage. With a window to compare against - the
+    normal case - the file itself is scanned, which also ignores listings that
+    have since expired; see channels_with_listings().
     """
+    if window_start is not None and window_end is not None:
+        return channels_with_listings(xml_path, window_start, window_end)
     report_path = out_dir / "checks" / "epg-build.json"
     try:
         report = json.loads(report_path.read_text(encoding="utf-8"))
@@ -1650,6 +1714,13 @@ def recently_dead_guide_urls(report_path: Path,
         return {
             guide.get("url", "") for guide in report.get("guides", [])
             if guide.get("status") in ("offline", "invalid") and guide.get("url")
+            # A guide this repository publishes itself is written by the very build
+            # that is about to re-advertise it, so it can never be a dead upstream
+            # source to avoid: before this filter a private repository (where the raw
+            # URL answers 404) made each build strip its own guide back out of the
+            # headers the previous step had just written, and the two workflows
+            # undid each other every night.
+            and not guide.get("own_repo") and not epg_check.is_own_guide(guide.get("url", ""))
         }
     except (json.JSONDecodeError, OSError, TypeError, ValueError):
         return set()

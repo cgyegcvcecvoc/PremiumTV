@@ -185,6 +185,37 @@ class WorkflowParsingTest(unittest.TestCase):
         found = guard.previous_occurrence(at("2026-09-29T15:00:00Z"), spec, "America/New_York")
         self.assertEqual(found, at("2026-09-01T08:37:00Z"))
 
+    def test_the_biweekly_cleanup_runs_twice_a_month_off_peak(self):
+        # The automation contract for biweekly-cleanup.yml: twice a month, never on
+        # a congested minute, and in the repository's timezone so DST moves the
+        # slot instead of skipping it.
+        slots = guard.load_schedule(REPO / ".github" / "workflows" / "biweekly-cleanup.yml")
+        self.assertEqual([slot.cron for slot in slots], ["43 7 1,15 * *"])
+        slot = slots[0]
+        self.assertEqual(slot.timezone, "America/New_York")
+        spec = slot.spec
+        # Two dated slots are 14-16 days apart and each one covers for the other,
+        # which an "every even week" parity trick cannot do once the scheduler
+        # drops the single run that mattered.
+        self.assertEqual(sorted(spec.days), [1, 15])
+        self.assertTrue(spec.day_restricted)
+        self.assertNotIn(0, spec.minutes)
+        self.assertNotIn(15, spec.minutes)
+        self.assertNotIn(30, spec.minutes)
+        # 07:43 EDT is 11:43 UTC, and a run mid-month resolves back to the 15th.
+        self.assertEqual(guard.previous_occurrence(at("2026-10-10T12:00:00Z"), spec,
+                                                   "America/New_York"),
+                         at("2026-10-01T11:43:00Z"))
+        self.assertEqual(guard.previous_occurrence(at("2026-10-20T12:00:00Z"), spec,
+                                                   "America/New_York"),
+                         at("2026-10-15T11:43:00Z"))
+        # A November run lands on the 1st even though October had 31 days - and it
+        # is an hour later in UTC, because 1 November 2026 is the day daylight
+        # saving ends: the slot follows New York time, not the clock.
+        self.assertEqual(guard.previous_occurrence(at("2026-11-02T12:00:00Z"), spec,
+                                                   "America/New_York"),
+                         at("2026-11-01T12:43:00Z"))
+
     def test_parses_a_synthetic_workflow_and_stops_at_the_next_key(self):
         yaml_text = """name: Test
 on:
