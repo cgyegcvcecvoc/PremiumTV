@@ -1502,7 +1502,7 @@ def cap_feeds(channels: list[Channel], limit: int) -> list[Channel]:
     if limit <= 0:
         return list(channels)
     groups: dict[str, list[Channel]] = {}
-    for index, channel in enumerate(channels):
+    for channel in channels:
         key = categorize.channel_key(channel.name, categorize.country_of(channel))
         groups.setdefault(key, []).append(channel)
     keep: set[int] = set()
@@ -2001,7 +2001,7 @@ def make_status_markdown(report: dict) -> str:
         "[`logs/log-edits.txt`](logs/log-edits.txt) | "
         "[`logs/errors.txt`](logs/errors.txt) | "
         "[`logs/run-history.txt`](logs/run-history.txt)",
-        f"- **Run history:** [`run-history.jsonl`](run-history.jsonl) (append-only; one entry per run)",
+        "- **Run history:** [`run-history.jsonl`](run-history.jsonl) (append-only; one entry per run)",
         "",
         category_block(report),
         "## Playlist sources",
@@ -2850,11 +2850,15 @@ def main() -> int:
         "all_playlist_written": all_playlist_written,
         "duration_seconds": round((finished - started).total_seconds(), 2),
         "changes": changes,
+        # One entry only: a second "categories" key here used to overwrite this one
+        # with the published-channel counts, silently discarding the fallback and
+        # leaving STATUS.md with an empty category table on any run that did not
+        # publish a playlist (report-only runs and blocked publishes had the counts
+        # in category_counts but not in published).
         "categories": published_categories or category_counts,
         "countries_count": len(countries_summary),
         "countries": countries_summary,
         "ae_channels": ae_summary,
-        "categories": dict(categorize.category_counts(published)) if published else {},
         "promoted_sources": [name for name, stat in source_stats.items() if stat.get("promoted_by_discovery")],
         "sources": source_stats,
         "reference_checks": reference_checks,

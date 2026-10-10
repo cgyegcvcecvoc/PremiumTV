@@ -91,7 +91,7 @@ def check_channels(channels: list, workers: int, per_host: int, timeout: float,
         for index, future in enumerate(cf.as_completed(futures), 1):
             try:
                 url, result = future.result()
-            except Exception as exc:  # noqa: BLE001 - never fail the whole run
+            except Exception:  # noqa: BLE001 - never fail the whole run
                 continue
             results[url] = result
             if index % 250 == 0:

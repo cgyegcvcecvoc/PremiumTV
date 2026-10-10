@@ -1,6 +1,6 @@
 {
-  "run_id": "20261010T111155Z",
-  "generated_utc": "2026-10-10T11:11:55+00:00",
+  "run_id": "20261010T121433Z",
+  "generated_utc": "2026-10-10T12:14:33+00:00",
   "group_order": [
     "Sports",
     "Sports Backups",
@@ -11,7 +11,6 @@
     "NBC",
     "NBC Sports Channels",
     "Cartoons",
-    "Cartoons Backups",
     "PBS",
     "PBS Backups",
     "Game Shows",
@@ -68,6 +67,7 @@
     "Oceania Backups",
     "Online TV",
     "Relax",
+    "TEST",
     "Tv Celebrities",
     "Tv Paranormal",
     "Tv Shows",
@@ -99,9 +99,9 @@
     "epg_sources": {
       "finished_utc": "2026-10-10T11:11:46Z",
       "counts": {
-        "offline": 173,
         "ok": 2
       },
+      "own_repo_guides": 173,
       "verified": null,
       "unreachable": null
     }
@@ -372,33 +372,33 @@
       "missing_tvg_id": 0,
       "missing_tvg_id_sample": [],
       "duplicate_tvg_ids": {
+        "premiumtv.usa.nfl_network_us": [
+          "NFL Network US"
+        ],
         "Live.Event.us": [
           "[Sports] NFL RedZone (OVO)"
         ],
-        "NFL.Network.HD.us2": [
-          "NFL Network US (Backup 1)"
-        ],
         "Nicktoons.us2": [
           "Nicktoons USA",
-          "Nicktoons USA (Backup 1)"
+          "Nicktoons USA"
         ]
       },
       "groups": {
+        "Kids": 6,
         "Sports": 4,
-        "Kids": 4,
-        "Cartoons": 3,
-        "Sports Backups": 1,
-        "Cartoons Backups": 1,
+        "Cartoons": 2,
         "Classic TV": 1,
-        "MeTV": 1
+        "MeTV": 1,
+        "TEST": 1
       },
       "non_canonical_groups": {},
       "categories": {
-        "Sports": 5,
-        "Cartoons": 4,
-        "Kids": 4,
+        "Sports": 4,
+        "Cartoons": 2,
+        "Kids": 6,
         "Classic TV": 1,
-        "MeTV": 1
+        "MeTV": 1,
+        "TEST": 1
       },
       "out_of_order": 0,
       "dead_links": [],
@@ -407,8 +407,8 @@
         "playlist_ids": 11,
         "matched_ids": 9,
         "coverage": 0.8182,
-        "ids_with_programmes": 5,
-        "programme_coverage": 0.4545,
+        "ids_with_programmes": 4,
+        "programme_coverage": 0.3636,
         "guide_programmes": 90923,
         "problem": ""
       },

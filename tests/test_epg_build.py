@@ -729,6 +729,56 @@ class HelperTest(unittest.TestCase):
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 
+    def test_channels_with_listings_counts_only_live_channels(self):
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            path = tmp / "PremiumTV.xml"
+            path.write_text(
+                "<tv>\n"
+                '  <channel id="Live.us"><display-name>Live</display-name></channel>\n'
+                '  <channel id="Stale.us"><display-name>Stale</display-name></channel>\n'
+                '  <programme start="20261010120000 +0000" stop="20261010130000 +0000"'
+                ' channel="Live.us">\n    <title>Now</title>\n  </programme>\n'
+                '  <programme start="20261005120000 +0000" stop="20261005130000 +0000"'
+                ' channel="Stale.us">\n    <title>Expired</title>\n  </programme>\n'
+                '  <programme start="20261011120000 +0000" stop="20261011130000 +0000"'
+                ' channel="Later.us">\n    <title>Scheduled</title>\n  </programme>\n'
+                '  <programme start="20261011060000 +0000"\n'
+                '             stop="20261011070000 +0000" channel="Wrapped.us">\n'
+                "    <title>Split tag</title>\n  </programme>\n"
+                "</tv>\n", encoding="utf-8")
+            start = dt.datetime(2026, 10, 10, 6, tzinfo=dt.timezone.utc)
+            end = dt.datetime(2026, 10, 12, 6, tzinfo=dt.timezone.utc)
+            # Everything inside the window, whatever the file declares, and a tag
+            # that a generator wrapped over two lines still counts once.
+            self.assertEqual(epg_build.channels_with_listings(path, start, end), 3)
+            self.assertEqual(epg_build.channels_with_listings(tmp / "missing.xml",
+                                                              start, end), 0)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_previous_programme_channels_prefers_the_window_over_the_last_report(self):
+        out = Path(tempfile.mkdtemp())
+        try:
+            (out / "checks").mkdir(parents=True, exist_ok=True)
+            (out / "checks" / "epg-build.json").write_text(json.dumps(
+                {"published": True, "channels_with_guide": 8521}), encoding="utf-8")
+            xml = out / "PremiumTV.xml"
+            xml.write_text(
+                "<tv>\n"
+                '  <programme start="20261005120000 +0000" stop="20261005130000 +0000"'
+                ' channel="Old.us">\n    <title>x</title>\n  </programme>\n'
+                "</tv>\n", encoding="utf-8")
+            start = dt.datetime(2026, 10, 10, 6, tzinfo=dt.timezone.utc)
+            end = dt.datetime(2026, 10, 12, 6, tzinfo=dt.timezone.utc)
+            # A guide whose listings have all aged out protects nothing: counting
+            # its rows (or trusting the last report) would block its own
+            # replacement on every following run.
+            self.assertEqual(epg_build.previous_programme_channels(out, xml, start, end), 0)
+            self.assertEqual(epg_build.previous_programme_channels(out, xml), 8521)
+        finally:
+            shutil.rmtree(out, ignore_errors=True)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

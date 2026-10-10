@@ -1,0 +1,5 @@
+# Append a line here and push to run the biweekly deep cleanup on this branch.
+# .github/workflows/biweekly-cleanup.yml watches this path (same switch as
+# run-scrape.txt, run-deep-check.txt and run-epg-build.txt); the workflow never
+# writes to it - scripts/cleanup_repo.py refuses to touch logs/run-*.txt for
+# exactly this reason - so it cannot trigger itself.

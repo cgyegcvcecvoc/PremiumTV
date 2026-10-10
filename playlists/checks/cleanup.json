@@ -1,0 +1,86 @@
+{
+  "run_id": "20261010T120739Z-958",
+  "label": "repository cleanup",
+  "started_utc": "2026-10-10T12:07:39Z",
+  "finished_utc": "2026-10-10T12:07:40Z",
+  "duration_seconds": 0.29,
+  "apply": false,
+  "keep_runs": 30,
+  "max_log_lines": 2500,
+  "max_log_kb": 512,
+  "logs": [
+    {
+      "file": "playlists/logs/link-check-edits.txt",
+      "lines": 8157,
+      "blocks": 19,
+      "dropped_blocks": 10,
+      "kept_blocks": 9,
+      "bytes_before": 931407,
+      "bytes_after": 135614,
+      "written": false,
+      "reason": "over 2500 lines"
+    },
+    {
+      "file": "playlists/logs/epg-check-edits.txt",
+      "lines": 13174,
+      "blocks": 19,
+      "dropped_blocks": 13,
+      "kept_blocks": 6,
+      "bytes_before": 1409248,
+      "bytes_after": 22631,
+      "written": false,
+      "reason": "over 2500 lines"
+    },
+    {
+      "file": "playlists/logs/epg-build-edits.txt",
+      "lines": 880,
+      "blocks": 70,
+      "dropped_blocks": 40,
+      "kept_blocks": 30,
+      "bytes_before": 109553,
+      "bytes_after": 5228,
+      "written": false,
+      "reason": "past the last 30 runs"
+    },
+    {
+      "file": "playlists/logs/log-edits.txt",
+      "lines": 5117,
+      "blocks": 73,
+      "dropped_blocks": 43,
+      "kept_blocks": 30,
+      "bytes_before": 569085,
+      "bytes_after": 258007,
+      "written": false,
+      "reason": "past the last 30 runs"
+    }
+  ],
+  "logs_trimmed": 4,
+  "blocks_dropped": 106,
+  "oversized_logs": [],
+  "removed": [
+    "scripts/__pycache__",
+    "tests/__pycache__"
+  ],
+  "empty_playlists": [],
+  "stale_reports": [],
+  "guide": {
+    "guide": "EPG/PremiumTV.xml",
+    "exists": true,
+    "size_kb": 60974,
+    "age_hours": 0.3,
+    "live_channels": 0,
+    "problem": "no listing inside the next 48h - the guide is 59 MB of expired data; scripts/epg_build.py --force --patch has to publish a fresh one"
+  },
+  "quarantine": {
+    "file": "playlists/checks/quarantine.json",
+    "entries_before": 560,
+    "entries_after": 560,
+    "dropped": 0,
+    "written": false
+  },
+  "freed_bytes": 2597813,
+  "problems": [
+    "published guide: no listing inside the next 48h - the guide is 59 MB of expired data; scripts/epg_build.py --force --patch has to publish a fresh one"
+  ],
+  "outcome": "NEEDS ATTENTION"
+}

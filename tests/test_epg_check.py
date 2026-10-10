@@ -10,6 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from io import StringIO
 from pathlib import Path
 from contextlib import redirect_stdout
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import epg_check  # noqa: E402
@@ -232,6 +233,61 @@ class EpgCheckTest(unittest.TestCase):
         with redirect_stdout(StringIO()):
             code = epg_check.main(["--out", str(self.out)])
         self.assertEqual(code, 2)
+
+    # -- this repository's own published guides ---------------------------- #
+    def test_own_guides_are_kept_and_left_out_of_the_working_share(self):
+        # /EPG/PremiumTV.xml answers 404 (a private repository serves nothing), but
+        # it is this repository's own file: it must stay in the header and must not
+        # be counted as an upstream guide that died - the number that decides
+        # whether a run looks like an outage.
+        path = self.write_playlist([f"{self.base}/guide.xml.gz",
+                                    f"{self.base}/EPG/PremiumTV.xml",
+                                    f"{self.base}/gone.xml.gz"])
+        with patch.object(epg_check, "own_guide_prefixes", lambda: (self.base + "/",)):
+            report = epg_check.run(self.out, [path], 10, 6, 1, [], True, False, 0.25, "unit")
+        self.assertEqual(report["totals"].get("offline"), 2)
+        self.assertEqual(report["own_guides"]["count"], 1)
+        self.assertEqual(report["working_ratio"], 0.5)     # 1 of 2 *upstream* guides
+        self.assertFalse(report["patch"]["aborted"])
+        self.assertEqual([item["url"] for item in report["patch"]["removed"]],
+                         [f"{self.base}/gone.xml.gz"])
+        first = path.read_text(encoding="utf-8").splitlines()[0]
+        self.assertIn("EPG/PremiumTV.xml", first)
+        self.assertNotIn("gone.xml.gz", first)
+
+    def test_own_guides_cannot_abort_a_run_that_is_actually_healthy(self):
+        # A whole shelf of country guides is one file per country playlist, so a
+        # private repository used to report 173 dead of 175 and disable patching.
+        guides = [f"{self.base}/EPG/{country}.xml" for country in ("UK", "US", "CA")]
+        guides.insert(0, f"{self.base}/guide.xml.gz")
+        path = self.write_playlist(guides)
+        with patch.object(epg_check, "own_guide_prefixes", lambda: (self.base + "/",)):
+            report = epg_check.run(self.out, [path], 10, 6, 1, [], True, False, 0.25, "unit")
+        self.assertEqual(report["working_ratio"], 1.0)     # the one upstream guide works
+        self.assertFalse(report["patch"]["aborted"])
+        self.assertEqual(report["patch"]["removed"], [])
+        epg_check.write_reports(self.out, report)
+        markdown = (self.out / "checks" / "EPG-CHECK.md").read_text()
+        # Listed under its own heading; the only upstream guide works, so there is
+        # no "Guides that failed" table at all.
+        self.assertIn("This repository's own guides", markdown)
+        self.assertNotIn("## Guides that failed", markdown)
+        self.assertIn("own guide (excluded from the share above) | 3 |", markdown)
+
+    def test_is_own_guide_needs_the_epg_path_and_this_repository(self):
+        with patch.object(epg_check, "own_guide_prefixes",
+                          lambda: ("https://raw.githubusercontent.com/some/one/",)):
+            self.assertTrue(epg_check.is_own_guide(
+                "https://raw.githubusercontent.com/some/one/main/EPG/UK.xml"))
+            self.assertTrue(epg_check.is_own_guide(
+                "https://raw.githubusercontent.com/some/one/main/playlists/epg/UK.xml"))
+            # Same repository, but an input playlist - never advertised as a guide.
+            self.assertFalse(epg_check.is_own_guide(
+                "https://raw.githubusercontent.com/some/one/main/playlists/PremiumTV.m3u"))
+            # Someone else's guide is an ordinary upstream source.
+            self.assertFalse(epg_check.is_own_guide(
+                "https://raw.githubusercontent.com/other/two/main/EPG/UK.xml"))
+            self.assertFalse(epg_check.is_own_guide(""))
 
 
 if __name__ == "__main__":

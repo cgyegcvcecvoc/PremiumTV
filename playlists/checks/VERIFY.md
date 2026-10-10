@@ -1,12 +1,12 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-10T11:11:55+00:00 UTC
+- **Generated:** 2026-10-10T12:14:33+00:00 UTC
 - **Playlists checked:** 175 (19620 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 163
 - **Links published that the deep check called dead:** 0
 - **Category shelf files:** 125 (0 problem(s))
-- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, Cartoons Backups, PBS, PBS Backups, Game Shows, News, News Backups, Religious, Religious Backups, Music, Music Backups, International, International Backups, Entertainment, Entertainment Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Africa, North America, North America Backups, Legislative, Legislative Backups, Series, Series Backups, Business, Business Backups, South America, South America Backups, Family, Classic TV, Comedy, Weather, A&E Networks, A&E Networks Backups, United States, United States Backups, Australia, Canada, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Online TV, Relax, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
+- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Religious, Religious Backups, Music, Music Backups, International, International Backups, Entertainment, Entertainment Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Africa, North America, North America Backups, Legislative, Legislative Backups, Series, Series Backups, Business, Business Backups, South America, South America Backups, Family, Classic TV, Comedy, Weather, A&E Networks, A&E Networks Backups, United States, United States Backups, Australia, Canada, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Online TV, Relax, TEST, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
 
 ## Playlists
@@ -15,7 +15,7 @@
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | `playlists/PremiumTV.m3u` | 9773 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Europe, Movies, International, Religious, Entertainment, South America, Asia, United States, North America, Documentary, Kids, Series, Education, Culture, Legislative, India, Africa, Business, Comedy, Classic TV, UK, Family, A&E Networks, Canada, Weather, Animals & Nature, Aria Web Channels, Tv Paranormal, Australia, Global TV, Online TV, Tv Celebrities, Oceania, Relax, Tv Shows, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 8033/8414 (95.5%) | 2306 (27.4%) |
 | `playlists/AE_Channels.m3u` | 59 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 54/54 (100.0%) | 15 (27.8%) |
-| `playlists/Priority_Channels.m3u` | 15 | Sports, Cartoons, Kids, Classic TV, MeTV | 0 | 0 | 3 | 0 | 9/11 (81.8%) | 5 (45.5%) |
+| `playlists/Priority_Channels.m3u` | 15 | Sports, Cartoons, Kids, Classic TV, MeTV, TEST | 0 | 0 | 3 | 0 | 9/11 (81.8%) | 4 (36.4%) |
 | `playlists/countries/Afghanistan.m3u` | 10 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 10/10 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Albania.m3u` | 15 | News, Europe, International, Music | 0 | 0 | 1 | 0 | 15/15 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Algeria.m3u` | 4 | Sports, Africa, Kids, News | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
@@ -496,7 +496,8 @@ Each file is a slice of an already published playlist, so its sorting is the pub
 ## EPG sources (last deep guide check)
 
 - **Checked:** 2026-10-10T11:11:46Z
-- **Status counts:** offline: 173, ok: 2
+- **Upstream status counts:** ok: 2
+- **Own guides:** 173 (this repository's own `EPG/*.xml`, recorded but not counted above - a private repository answers 404 for them and that says nothing about the guides a player needs)
 
 A guide that is unreachable upstream is dropped by `scripts/epg_check.py`, so a channel whose guide is not merged correctly shows as missing coverage above rather than as a wrong schedule.
 

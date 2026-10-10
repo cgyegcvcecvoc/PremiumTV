@@ -1,0 +1,276 @@
+name: Biweekly deep cleanup
+
+# Everything else in .github/workflows/ is a *publishing* run: it fetches, checks,
+# repairs and re-publishes, and it has to finish quickly because seven scrapes a
+# day depend on it. This is the slow one, twice a month, that does the jobs a
+# five-minute run cannot afford:
+#
+#   1. scripts/link_check.py --all      re-proves every published player playlist
+#                                       end to end (HLS variant + a real media
+#                                       segment), which is the same deep pass the
+#                                       nightly check does - re-run here because a
+#                                       link that only fails intermittently needs
+#                                       more than one sighting before it is pruned;
+#   2. scripts/link_check.py --archives re-tests the 218 playlists NO daily run
+#                                       ever patches: the priority playlist, the
+#                                       per-category playlists, the categories/
+#                                       shelf a player is pointed at in the README,
+#                                       and the local source copies a scrape falls
+#                                       back to when an index is down. A channel
+#                                       that died in one of those stays there until
+#                                       somebody runs this - dead links found here
+#                                       also enter the quarantine, so the next
+#                                       scrape cannot publish them from upstream;
+#   3. scripts/epg_check.py + epg_build.py re-verify the guides and rebuild the
+#                                      merged and per-country XMLTV files;
+#   4. scripts/resort_playlists.py + build_categories.py re-group, re-order and
+#                                      prune the links the two checks above called
+#                                      dead, then rebuild the published shelf;
+#   5. scripts/channel_hunt.py hunts replacements for the priority channels
+#                                      (Nickelodeon, NickToons, MeTV, MeTV Toons,
+#                                      NFL Network, NFL RedZone) that died since the
+#                                      last hunt - a channel can sit dead in
+#                                      playlists/Priority_Channels.m3u between the
+#                                      nightly hunts only because nothing retries a
+#                                      hunt that found nothing;
+#   6. scripts/cleanup_repo.py does the repository housekeeping: the append-only
+#                                      logs are trimmed to the runs anybody reads,
+#                                      orphaned guide files and swap files are
+#                                      removed, the quarantine is compacted, and
+#                                      every published artifact is checked for
+#                                      actually being current (a guide build can be
+#                                      held by its own safety gate for weeks while
+#                                      every run stays green);
+#   7. scripts/verify_playlists.py --strict --require-shelf audits the result, so
+#      a playlist that drifted out of the taxonomy fails this run instead of
+#      quietly staying wrong.
+#
+# Twice a month, at 07:43 on the 1st and the 15th, New York time. GitHub's cron
+# cannot express "every 14 days" in one line, and the parity trick (a weekly
+# trigger plus a "is this an even week?" test) loses a whole month when the
+# scheduler drops the one run that mattered - which this repository measured it
+# doing. Two dated slots per month are at most 16 days apart, at least 14, and
+# each one can make up for the other. The minute is off-peak for the reason
+# documented in scrape.yml, and the hour sits after the 06:23 scrape, the 07:31
+# quick update and the 1st-of-the-month discovery run so no two publishers commit
+# at the same moment.
+#
+# Nothing here is on the critical path: the run is safe to skip, safe to re-run,
+# and every step it performs is either read-only or guarded by its own
+# working-ratio and max-remove limits.
+on:
+  schedule:
+    - cron: "43 7 1,15 * *"
+      timezone: "America/New_York"
+  # "Run it now" switch, the same pattern the deep check, the guide build and the
+  # scrape use: appending a line to playlists/logs/run-cleanup.txt and pushing
+  # starts this workflow on that branch. The workflow never writes to that file -
+  # cleanup_repo.py refuses to touch logs/run-*.txt for exactly this reason - so
+  # it cannot trigger itself.
+  push:
+    paths:
+      - "playlists/logs/run-cleanup.txt"
+  workflow_dispatch:
+    inputs:
+      patch:
+        description: "Prune confirmed-dead channels from every playlist"
+        type: boolean
+        default: true
+      deep:
+        description: "Deep check (resolve HLS variants and probe media segments)"
+        type: boolean
+        default: true
+      housekeeping:
+        description: "Trim logs, remove orphans and compact the quarantine"
+        type: boolean
+        default: true
+      hunt:
+        description: "Re-hunt priority channels that died since the last hunt"
+        type: boolean
+        default: true
+      keep_runs:
+        description: "Run blocks to keep in each append-only log"
+        type: string
+        default: "30"
+  repository_dispatch:
+    types: [cleanup-now]
+
+permissions:
+  contents: write
+
+concurrency:
+  # Per branch, like every other workflow here: a manual run on a working branch
+  # must not be cancelled by the next scheduled run on main.
+  group: biweekly-cleanup-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    # The archive sweep walks ~27k links with a media-segment probe per URL; the
+    # headroom is for a slow internet rather than for a bug.
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run offline tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Deep-check the player playlists
+        id: links
+        continue-on-error: true
+        env:
+          PATCH: ${{ inputs.patch }}
+          DEEP: ${{ inputs.deep }}
+        run: |
+          args=(--all --workers 96 --per-host-workers 8 --timeout 12 --retries 2
+                --min-working-ratio 0.25 --max-remove-ratio 0.35
+                --quarantine-days 14
+                --label "biweekly deep cleanup: player playlists")
+          if [ "$DEEP" != "false" ]; then args+=(--deep); else args+=(--no-deep); fi
+          # A scheduled run always prunes; a manual run can report only.
+          if [ "$PATCH" != "false" ]; then args+=(--patch); fi
+          python scripts/link_check.py "${args[@]}"
+
+      - name: Deep-check the playlists no daily run patches
+        # The point of this workflow. Separate from the step above on purpose: the
+        # archive files are mostly dead by design (a fallback copy of an index, a
+        # Backups group of spare feeds), so they need looser limits than a player
+        # playlist, and their report must not overwrite the link-check.json that
+        # the re-sort and the next scrape read back.
+        id: archives
+        continue-on-error: true
+        env:
+          PATCH: ${{ inputs.patch }}
+          DEEP: ${{ inputs.deep }}
+        run: |
+          args=(--archives --workers 96 --per-host-workers 8 --timeout 12 --retries 2
+                --min-working-ratio 0.10 --max-remove-ratio 0.60
+                --quarantine-days 21 --report-suffix "-archives"
+                --label "biweekly deep cleanup: archives, shelf and source copies")
+          if [ "$DEEP" != "false" ]; then args+=(--deep); else args+=(--no-deep); fi
+          if [ "$PATCH" != "false" ]; then args+=(--patch); fi
+          python scripts/link_check.py "${args[@]}"
+
+      - name: Verify the TV guides
+        id: epg
+        continue-on-error: true
+        env:
+          PATCH: ${{ inputs.patch }}
+        run: |
+          args=(--all --workers 8 --timeout 60 --min-working-ratio 0.25
+                --label "biweekly deep cleanup: guide check")
+          if [ "$PATCH" != "false" ]; then args+=(--patch); fi
+          python scripts/epg_check.py "${args[@]}"
+
+      - name: Rebuild the merged and country-specific TV guides
+        id: epgbuild
+        continue-on-error: true
+        run: |
+          python scripts/epg_build.py --force --patch --countries --workers 4 \
+            --timeout 120 --label "biweekly deep cleanup: guide rebuild"
+
+      - name: Re-sort every playlist and prune the deep-checked-dead links
+        # Reads the link-check.json both checks above wrote, so this is where a
+        # link the archive sweep confirmed dead leaves the category playlists and
+        # the shelf as well as the main file.
+        id: resort
+        continue-on-error: true
+        run: python scripts/resort_playlists.py --label "biweekly deep cleanup"
+
+      - name: Rebuild the categories/ shelf
+        id: shelf
+        continue-on-error: true
+        run: python scripts/build_categories.py --label "biweekly deep cleanup"
+
+      - name: Re-hunt the priority channels
+        id: hunt
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUNT: ${{ inputs.hunt }}
+        run: |
+          if [ "$HUNT" = "false" ]; then
+            echo "Priority-channel hunt disabled for this run."
+            exit 0
+          fi
+          # Best effort by design: a channel with nothing playable in the whole
+          # corpus is a finding, not a crash.
+          python scripts/channel_hunt.py --github-search --workers 24 --timeout 12 \
+            --label "biweekly deep cleanup: priority channel hunt" || true
+
+      - name: Repository housekeeping
+        # Trims the append-only logs, removes orphaned guide files and stray swap
+        # files, compacts the quarantine, and reports any published artifact that
+        # is no longer current. --strict is deliberately NOT passed: a cleanup run
+        # that found work for a maintainer has still done its own job, and the
+        # findings are in playlists/checks/CLEANUP.md and the step summary below.
+        id: housekeeping
+        continue-on-error: true
+        env:
+          HOUSEKEEPING: ${{ inputs.housekeeping }}
+          KEEP_RUNS: ${{ inputs.keep_runs }}
+        run: |
+          if [ "$HOUSEKEEPING" = "false" ]; then
+            echo "Housekeeping disabled; running read-only to produce the report."
+            python scripts/cleanup_repo.py --keep-runs "${KEEP_RUNS:-30}" \
+              --label "biweekly deep cleanup"
+            exit 0
+          fi
+          python scripts/cleanup_repo.py --apply --keep-runs "${KEEP_RUNS:-30}" \
+            --label "biweekly deep cleanup"
+
+      - name: Verify the published playlists and guides
+        id: verify
+        continue-on-error: true
+        run: python scripts/verify_playlists.py --strict --require-shelf
+
+      - name: Add the cleanup report to the Actions summary
+        if: always()
+        run: |
+          for file in playlists/checks/CLEANUP.md playlists/checks/LINK-CHECK.md \
+                      playlists/checks/LINK-CHECK-ARCHIVES.md \
+                      playlists/checks/EPG-CHECK.md playlists/checks/EPG-BUILD.md \
+                      playlists/checks/CHANNEL-HUNT.md playlists/checks/VERIFY.md; do
+            if [ -f "$file" ]; then
+              echo "-----" >> "$GITHUB_STEP_SUMMARY"
+              cat "$file" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          done
+
+      - name: Commit the cleanup
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # This repository carries an 80 MB guide directory that changes on most
+          # runs; an automatic gc mid-commit would spend minutes repacking objects
+          # nobody asked to keep. The log trimming is exactly the moment it would fire.
+          git config gc.auto 0
+          git add EPG playlists/ categories/
+          if git diff --cached --quiet; then
+            echo "Nothing to clean up: every playlist, guide and report is current."
+            exit 0
+          fi
+          git commit -m "Biweekly cleanup: dead channels pruned from every playlist, repository housekeeping ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep 10
+          done
+          exit 1
+
+      - name: Fail the workflow if a step crashed
+        # "Found something to fix" is not a crash: the housekeeping step reports
+        # its findings in CLEANUP.md and stays green. A step that could not finish
+        # is a different matter, and this is the only step that can see through
+        # continue-on-error (an aborted step reports conclusion=success).
+        if: >-
+          steps.links.outcome == 'failure' || steps.archives.outcome == 'failure' ||
+          steps.epg.outcome == 'failure' || steps.epgbuild.outcome == 'failure' ||
+          steps.resort.outcome == 'failure' || steps.shelf.outcome == 'failure' ||
+          steps.verify.outcome == 'failure'
+        run: exit 1

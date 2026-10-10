@@ -51,6 +51,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_categories  # noqa: E402  (the shelf this repository publishes)
 import categorize  # noqa: E402  (the taxonomy the published files must match)
+import epg_check  # noqa: E402  (knows which guide URLs this repository publishes itself)
 import link_check  # noqa: E402
 import scraper  # noqa: E402
 
@@ -227,7 +228,13 @@ def verify_playlist(path: Path, epg_dir: Path, dead: dict[str, str], cache: dict
     # how big they are), so the check re-orders the file's own entries and counts
     # the positions that differ instead of comparing a per-entry key.
     ordered = categorize.order_channels(channels)
-    out_of_order = sum(1 for left, right in zip(channels, ordered)
+    if len(ordered) != len(channels):
+        # order_channels() is a permutation of its input: a different length means it
+        # lost or invented an entry. That is a fault worth reporting - and reporting
+        # beats crashing the verifier on a traceback.
+        issues.append(f"the taxonomy re-order kept {len(ordered)} of {len(channels)} "
+                      f"entries; every channel must survive the sort")
+    out_of_order = sum(1 for left, right in zip(channels, ordered, strict=False)
                        if (left.name, left.url, left.attrs.get("group-title", ""))
                        != (right.name, right.url, right.attrs.get("group-title", "")))
 
@@ -388,16 +395,22 @@ def epg_source_summary(checks_dir: Path) -> dict:
     except (OSError, ValueError):
         return {}
     results = data.get("results") or data.get("guides") or {}
-    if isinstance(results, list):
-        counts = collections.Counter(str(item.get("status") or "unknown") for item in results)
-    elif isinstance(results, dict):
-        counts = collections.Counter(str(item.get("status") or "unknown")
-                                     for item in results.values() if isinstance(item, dict))
-    else:
-        counts = collections.Counter()
+    items = results if isinstance(results, list) else (
+        list(results.values()) if isinstance(results, dict) else [])
+    items = [item for item in items if isinstance(item, dict)]
+    # The guides this repository publishes itself are recorded with their real
+    # status, but they are not upstream sources: counting 173 self-hosted 404s
+    # here made every verify report look as though the whole guide shelf had died.
+    def is_own(item: dict) -> bool:
+        return bool(item.get("own_repo")) or epg_check.is_own_guide(str(item.get("url") or ""))
+
+    own = sum(1 for item in items if is_own(item))
+    counts = collections.Counter(str(item.get("status") or "unknown")
+                                 for item in items if not is_own(item))
     return {
         "finished_utc": data.get("finished_utc") or data.get("started_utc") or "",
         "counts": dict(counts),
+        "own_repo_guides": own,
         "verified": data.get("verified_count"),
         "unreachable": data.get("unreachable_count"),
     }
@@ -579,8 +592,13 @@ def main(argv=None) -> int:
             "## EPG sources (last deep guide check)",
             "",
             f"- **Checked:** {epg_sources.get('finished_utc') or 'unknown'}",
-            "- **Status counts:** " + ", ".join(f"{key}: {value}"
-                                                for key, value in (epg_sources.get("counts") or {}).items()),
+            "- **Upstream status counts:** " + (", ".join(
+                f"{key}: {value}" for key, value in (epg_sources.get("counts") or {}).items())
+                or "no upstream guide in the last report"),
+            f"- **Own guides:** {epg_sources.get('own_repo_guides') or 0} "
+            "(this repository's own `EPG/*.xml`, recorded but not counted above - a "
+            "private repository answers 404 for them and that says nothing about the "
+            "guides a player needs)",
             "",
             "A guide that is unreachable upstream is dropped by `scripts/epg_check.py`, so a "
             "channel whose guide is not merged correctly shows as missing coverage above "

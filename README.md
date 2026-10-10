@@ -36,6 +36,8 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/logs/run-history.txt`](playlists/logs/run-history.txt) | Plain-text (`.txt`) tabular summary of all recorded runs. |
 | [`playlists/report.json`](playlists/report.json) | Detailed latest JSON report, including failed sources, country counts, A&E channels, and dead/unverified URLs. |
 | [`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md) | Nightly deep check: which published links are working, offline, unreachable, blocked, and what was patched out. |
+| [`playlists/checks/CLEANUP.md`](playlists/checks/CLEANUP.md) | Biweekly repository housekeeping: logs trimmed, orphans removed, and whether every published artifact is actually current. |
+| [`playlists/checks/LINK-CHECK-ARCHIVES.md`](playlists/checks/LINK-CHECK-ARCHIVES.md) | Biweekly deep check of the 218 playlists no daily run patches (priority, per-category, `categories/` shelf, source copies). |
 | [`playlists/checks/VERIFY.md`](playlists/checks/VERIFY.md) | Offline verification of every playlist: the published categories and order, links the deep check called dead, header guide counts, and per-playlist EPG coverage. |
 | [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md) | Last remote EPG URL/status check (nightly); the checked-in snapshot predates the root-guide migration, while current country XML coverage is in EPG-BUILD. |
 | [`EPG/PremiumTV.xml`](EPG/PremiumTV.xml) | **One merged, filtered XMLTV guide** for the whole library — load this `.xml` in an IPTV player. |
@@ -321,6 +323,13 @@ A separate [guide workflow](.github/workflows/epg-build.yml) rebuilds the merged
 
 A separate [monthly workflow](.github/workflows/discover.yml) hunts for new channels on the 1st of each month at 4:37 AM; see [Monthly new-channel discovery](#monthly-new-channel-discovery).
 
+A separate [biweekly workflow](.github/workflows/biweekly-cleanup.yml) runs the slow, whole-repository
+sweep at 7:43 AM on the 1st and the 15th of every month: it deep-checks the 218 playlists no daily run
+ever patches (the priority playlist, the per-category playlists, the `categories/` shelf and the local
+source copies), removes the dead channels they hold, rebuilds the guides, re-hunts the priority
+channels, trims the append-only logs and reports anything the pipeline left stale. See
+[Biweekly deep cleanup](#biweekly-deep-cleanup).
+
 ### Schedule reliability and the catch-up guard
 
 GitHub does not promise to start a `schedule:` cron on time. Measured on this repository from
@@ -459,6 +468,16 @@ lose more than that share of its entries. Every removal is logged to
 `playlists/logs/link-check-edits.txt` and summarised in
 [`playlists/checks/LINK-CHECK.md`](playlists/checks/LINK-CHECK.md).
 
+`--all` covers the playlists a player loads. **`--archives`** adds the 218 that no daily run patches -
+the priority playlist, the 81 `playlists/categories/*.m3u` files, the `categories/` shelf and the
+`playlists/sources/*.m3u` fallback copies - plus `playlists/PremiumTV_all.m3u`, which is checked but
+never pruned because the file exists to hold every link ever found. The sweep the
+[biweekly workflow](#biweekly-deep-cleanup) runs writes its own report
+(`playlists/checks/LINK-CHECK-ARCHIVES.md`, via `--report-suffix "-archives"`) so the
+`link-check.json` the re-sort and the next scrape read back stays the player one, and it uses looser
+limits (`--min-working-ratio 0.10 --max-remove-ratio 0.60 --quarantine-days 21`) because those files are
+spares and caches rather than something a viewer is watching.
+
 ### `scripts/epg_check.py` — TV guide verification
 
 Players download every guide in the playlist's `x-tvg-url` header on each refresh, so one dead guide
@@ -470,6 +489,21 @@ while `unreachable` and `blocked` guides are kept because they may recover. Resu
 and the newest programme date are in
 [`playlists/checks/EPG-CHECK.md`](playlists/checks/EPG-CHECK.md).
 
+The guides this repository publishes for its own players (`EPG/PremiumTV.xml` and one
+`EPG/<Country>.xml` per country, written by `scripts/epg_build.py`) are recorded with their real status
+but flagged `own_repo`: they are never counted as upstream guides and never dropped from a header.
+Without that distinction a *private* repository - where `raw.githubusercontent.com` answers 404 for
+every one of its own files, see the note at the top of this README - looks like a total outage
+(173 "dead" guides out of 175), which trips `--min-working-ratio` and silently disables guide patching.
+
+### `scripts/epg_build.py` — merged and country-specific XMLTV
+
+Verification tells you which upstream guides are alive; the builder turns the verified ones into
+player-ready outputs. Its safety gate compares a fresh build against the channels of the published
+guide that **still have a listing inside the new window** - not against the number of `<channel>` rows
+in the file. A guide whose listings have all aged out protects nothing, and comparing against the old
+row count let one held build block every build after it forever: 180 fresh channels refused in favour
+of 8,521 expired ones, nightly, with the same file growing staler each day.
 ### `scripts/epg_build.py` — merged and country-specific XMLTV
 
 Verification tells you which upstream guides are alive; the builder turns the verified ones into
@@ -514,6 +548,59 @@ them as a last resort). `blocklist` in the same config holds URL fragments that 
 how a feed several indexes list as "MeTV Toons" but which actually carries a different network stays
 out. GitHub code search is best effort: it is rate limited (429) when the hunt runs more than about
 once an hour, and every failure is recorded in the report's `notes` instead of being hidden.
+
+## Biweekly deep cleanup
+
+Every other scheduled run is a *publishing* run: it has to finish in a few minutes because seven
+scrapes a day depend on it. [`.github/workflows/biweekly-cleanup.yml`](.github/workflows/biweekly-cleanup.yml)
+is the slow one, twice a month at **7:43 AM on the 1st and the 15th** (New York time), that does the jobs
+a quick run cannot afford. Start it by hand from **Actions → Biweekly deep cleanup → Run workflow**, or
+by appending a line to [`playlists/logs/run-cleanup.txt`](playlists/logs/run-cleanup.txt) and pushing it
+(the workflow never writes to that file, so it cannot trigger itself), or locally:
+
+```bash
+python scripts/link_check.py --all     --deep --patch --quarantine-days 14   # player playlists
+python scripts/link_check.py --archives --deep --patch \
+        --min-working-ratio 0.10 --max-remove-ratio 0.60 \
+        --report-suffix "-archives"                                          # everything else
+python scripts/resort_playlists.py                                          # re-order + prune dead links
+python scripts/build_categories.py                                          # rebuild the published shelf
+python scripts/cleanup_repo.py --apply                                      # logs, orphans, quarantine
+python scripts/verify_playlists.py --strict --require-shelf                 # audit the result
+```
+
+**The dead channels the daily runs miss.** `link_check.py --all` (nightly) checks the main playlist, the
+A&E playlist and the country files; the four-times-a-day quick update re-checks the main and priority
+playlists with a shallow probe. That leaves `playlists/Priority_Channels.m3u`, the 81
+`playlists/categories/*.m3u` files, the 125 files of the `categories/` shelf a player is pointed at in
+[the section above](#the-categories-shelf), and the 10 `playlists/sources/*.m3u` copies a scrape falls
+back to when an index is down - 218 playlists in which a channel that died simply stays. `--archives`
+adds exactly those to the sweep, with looser limits (they are mostly spares and fallbacks by design) and
+its own report, `playlists/checks/LINK-CHECK-ARCHIVES.md`, so the `link-check.json` the next scrape reads
+back is still the player one. `playlists/PremiumTV_all.m3u` is checked but never pruned: it is the
+archive of *every* link found, dead ones included, and a link confirmed dead there is still added to the
+quarantine, which is what stops the next scrape publishing it into a player.
+
+**Why two dated slots rather than "every other week".** GitHub's cron cannot express a 14-day
+interval, and the usual trick - a weekly trigger plus an even-week test - loses a whole month the moment
+the scheduler drops the one run that mattered, which [this repository has measured it
+doing](#schedule-reliability-and-the-catch-up-guard). Two dated slots are between 14 and 16 days apart and
+each one covers for the other.
+
+**Repository housekeeping** is [`scripts/cleanup_repo.py`](scripts/cleanup_repo.py), and it is the only
+tool here that looks at the repository instead of the playlists:
+
+| It does | Why it matters here |
+|---|---|
+| Trims the four append-only `playlists/logs/*-edits.txt` logs to the last `--keep-runs` runs (and `--max-log-lines` lines), at run-block boundaries, header banner intact | The logs record one line per removed link, so they passed a megabyte each within days and every clone carried that history |
+| Removes `EPG/<Country>.xml` files whose country playlist is gone, plus swap files and byte-code caches a cut-off run left behind | `git` keeps every version of a 60 MB file it has ever seen |
+| Drops quarantine entries past `--quarantine-days`, and reports the ones with no usable timestamp instead of removing them | The scraper *honours* an undated entry forever, so silently dropping one would re-publish a dead link |
+| Checks that `STATUS.md`, `report.json` and every `checks/*.json` were refreshed recently, and that the published guide still has listings inside its window | A guide build held back by its own safety gate leaves every run green while players see an empty grid - nothing else in the pipeline notices |
+| Refuses to touch `logs/run-*.txt` | Those files are push triggers; rewriting one from a workflow would start that workflow again |
+
+It is read-only unless you pass `--apply`, and the cleanup run does not fail on a finding - the findings
+are the point, and they are published in [`playlists/checks/CLEANUP.md`](playlists/checks/CLEANUP.md)
+alongside the history in `playlists/logs/cleanup-edits.txt`.
 
 ## Monthly new-channel discovery
 
@@ -596,6 +683,10 @@ python scripts/discover.py --no-search --max-candidates 3   # quick, seeded-only
 python scripts/discover.py --dry-run              # report only; never promote a source
 python scripts/epg_check.py --all                  # verify every advertised TV guide
 python scripts/resort_playlists.py --dry-run       # show the category re-sort without writing
+python scripts/link_check.py --archives --deep --patch  # sweep the playlists no daily run patches
+python scripts/link_check.py --archives --no-deep --dry-run --report-suffix "-archives"
+python scripts/cleanup_repo.py                          # report what needs housekeeping, change nothing
+python scripts/cleanup_repo.py --apply --keep-runs 30   # trim logs, drop orphan guides, compact quarantine
 python scripts/verify_playlists.py                 # offline playlist + EPG coverage report
 python scripts/verify_playlists.py --require-shelf  # ... and the categories/ shelf with it
 python scripts/build_categories.py --dry-run        # show what the shelf would contain
