@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** biweekly deep cleanup: guide check (`20261010T122942Z-2786`)
-- **Started:** 2026-10-10T12:29:42Z | **Finished:** 2026-10-10T12:29:43Z | **Duration:** 1.1s
+- **Run:** biweekly deep cleanup: guide check (`20261010T130547Z-3015`)
+- **Started:** 2026-10-10T13:05:47Z | **Finished:** 2026-10-10T13:05:51Z | **Duration:** 4.3s
 - **Guides checked:** 178 across 177 playlists (176 of them are this repository's own published guides)
 - **Working share of upstream guides:** 100.0%
 
