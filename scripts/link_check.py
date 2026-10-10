@@ -345,10 +345,30 @@ def looks_like_media(body: bytes, content_type: str) -> tuple[bool, str]:
     return bool(body), f"{len(body)} bytes of {content_type or 'unknown type'}"
 
 
+def classify_fetch_failure(response: dict) -> str:
+    """Classify a failed request without turning transient/blocked media into dead links.
+
+    A root playlist can answer successfully while its HLS variant or segment is
+    blocked, redirected, rate-limited, or temporarily unavailable. Those outcomes
+    are not proof that the channel is dead, so only explicit gone responses and
+    permanent name/connection failures are safe to prune.
+    """
+    code = int(response.get("status") or 0)
+    error = str(response.get("error") or "").strip().lower()
+    if code in (401, 403, 451):
+        return "blocked"
+    if code in (404, 410):
+        return "offline"
+    if code == 0 and error in ("dns lookup failed", "connection refused"):
+        return "offline"
+    return "unreachable"
+
+
 def probe_segment(url: str, headers: dict, timeout: float) -> dict:
     result = fetch(url, headers, timeout, limit=SEGMENT_READ_BYTES, range_header=SEGMENT_RANGE)
     if not result["ok"]:
-        return {"ok": False, "detail": result["error"], "bytes": 0}
+        return {"ok": False, "status": classify_fetch_failure(result),
+                "detail": result["error"], "bytes": 0}
     body = result["body"]
     if len(body) >= 2 and body[:2] == b"\x1f\x8b":
         try:
@@ -356,10 +376,12 @@ def probe_segment(url: str, headers: dict, timeout: float) -> dict:
         except (OSError, zlib.error):
             pass
     if not body:
-        return {"ok": False, "detail": "empty segment", "bytes": 0}
+        return {"ok": False, "status": "offline", "detail": "empty segment", "bytes": 0}
     if len(body) < MIN_SEGMENT_BYTES and not (body[:1] == b"\x47" or b"ftyp" in body[:8]):
-        return {"ok": False, "detail": f"segment too small ({len(body)} bytes)", "bytes": len(body)}
-    return {"ok": True, "detail": f"segment ok ({len(body)} bytes)", "bytes": len(body)}
+        return {"ok": False, "status": "offline",
+                "detail": f"segment too small ({len(body)} bytes)", "bytes": len(body)}
+    return {"ok": True, "status": "working",
+            "detail": f"segment ok ({len(body)} bytes)", "bytes": len(body)}
 
 
 # --------------------------------------------------------------------------- #
@@ -414,14 +436,13 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
         if not response["ok"]:
             error = response["error"]
             code = response["status"]
-            if code in (401, 403, 451):
-                result.update(status="blocked", reason=f"HTTP {code} (auth or geo-block)")
-                return result
-            if code in (404, 410):
-                result.update(status="offline", reason=f"HTTP {code}")
-                return result
-            if code in (400, 402, 405, 406, 409, 415, 422) and code < 500:
-                result.update(status="offline", reason=f"HTTP {code}")
+            # Permanent gone responses and auth/geo blocks are conclusive. Other
+            # HTTP 4xx/3xx replies are retained: an endpoint may need different
+            # headers or may have returned an unusual redirect, but it was not
+            # proven dead by this probe.
+            if code in (401, 403, 451, 404, 410) or (0 < code < 500):
+                result.update(status=classify_fetch_failure(response),
+                              reason=f"HTTP {code}" if code else error)
                 return result
             last_error = error
             if host_limiter:
@@ -430,11 +451,7 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
                 time.sleep(min(2 ** attempt, 4))
                 continue
             reason = last_error or "no response"
-            # A DNS failure or a refused port is a dead host, not a slow one.
-            if reason in ("dns lookup failed", "connection refused"):
-                result.update(status="offline", reason=reason)
-            else:
-                result.update(status="unreachable", reason=reason)
+            result.update(status=classify_fetch_failure(response), reason=reason)
             return result
 
         if host_limiter:
@@ -452,7 +469,7 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
                     result["variant"] = variant
                     variant_response = fetch(variant, headers, timeout)
                     if not variant_response["ok"]:
-                        result.update(status="offline",
+                        result.update(status=classify_fetch_failure(variant_response),
                                       reason=f"variant HTTP {variant_response['status'] or variant_response['error']}")
                         return result
                     text = variant_response["body"].decode("utf-8", "ignore")
@@ -464,9 +481,10 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
                     probe = probe_segment(segment, headers, timeout)
                     result["segment_ok"] = probe["ok"]
                     if not probe["ok"]:
-                        # The playlist exists but the media behind it is gone:
-                        # exactly the case a shallow check reports as "working".
-                        result.update(status="offline", reason=f"playlist only, {probe['detail']}")
+                        # A gone/empty segment is offline; an auth wall, timeout,
+                        # or server error must stay in the playlist for a recheck.
+                        result.update(status=probe.get("status", "offline"),
+                                      reason=f"playlist only, {probe['detail']}")
                         return result
                     result.update(status="working", reason=f"hls, {probe['detail']}")
                     return result
@@ -485,7 +503,8 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
                 probe = probe_segment(segment, headers, timeout)
                 result["segment_ok"] = probe["ok"]
                 if not probe["ok"]:
-                    result.update(status="offline", reason=f"playlist only, {probe['detail']}")
+                    result.update(status=probe.get("status", "offline"),
+                                  reason=f"playlist only, {probe['detail']}")
                     return result
                 result.update(status="working", reason=f"hls, {probe['detail']}")
                 return result
@@ -855,12 +874,14 @@ def write_reports(out_dir: Path, report: dict, suffix: str = "") -> list:
             checks_dir / f"LINK-CHECK{suffix.upper()}.md"]
 
 
-def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float) -> Path:
-    """Remember the links that answered but served no media.
+def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float,
+                      results: dict | None = None) -> Path:
+    """Remember dead links, but release any URL this run re-proved non-dead.
 
     The daily scrape re-imports everything the indexes list, so without this a
-    link that only fails the deep check would be published again a few hours
-    later. `scraper.py` reads this file and holds those links back for `days`.
+    confirmed-dead link would be published again a few hours later. Conversely,
+    a URL now classified as working, blocked, or transiently unreachable must be
+    released from a stale quarantine entry so it is not suppressed as dead.
     """
     checks_dir = out_dir / "checks"
     checks_dir.mkdir(parents=True, exist_ok=True)
@@ -880,6 +901,9 @@ def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float) -> 
         if last_seen is None or last_seen.replace(tzinfo=None) >= cutoff.replace(tzinfo=None):
             pruned[url] = entry
     entries = pruned
+    for url, result in (results or {}).items():
+        if result.get("status") in {"working", "blocked", "unreachable", "unsupported"}:
+            entries.pop(url, None)
     for item in patch.get("removed", []):
         url = item.get("url") or ""
         if not url:
@@ -1016,7 +1040,7 @@ def main(argv=None) -> int:
             args.dry_run, report_only={path for path in targets if is_report_only(path)})
         if not args.dry_run:
             quarantine = update_quarantine(out_dir, report, report["patch"],
-                                           args.quarantine_days)
+                                           args.quarantine_days, results)
             report["patch"]["quarantine"] = {
                 "file": display_path(quarantine),
                 "count": (json.loads(quarantine.read_text(encoding="utf-8")) or {})

@@ -45,6 +45,14 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path
         if path == "/master.m3u8":
             self._send(200, MASTER_PLAYLIST.encode())
+        elif path == "/master-variant-blocked.m3u8":
+            self._send(200, b"#EXTM3U\n#EXT-X-STREAM-INF:BANDWIDTH=800000\nblocked.m3u8\n")
+        elif path == "/master-variant-error.m3u8":
+            self._send(200, b"#EXTM3U\n#EXT-X-STREAM-INF:BANDWIDTH=800000\nvariant-error.m3u8\n")
+        elif path == "/master-segment-blocked.m3u8":
+            self._send(200, b"#EXTM3U\n#EXT-X-TARGETDURATION:4\n#EXTINF:4.0,\nblocked.ts\n")
+        elif path == "/master-segment-error.m3u8":
+            self._send(200, b"#EXTM3U\n#EXT-X-TARGETDURATION:4\n#EXTINF:4.0,\nserver-error.ts\n")
         elif path == "/v1.m3u8":
             self._send(200, MEDIA_PLAYLIST.encode())
         elif path == "/v2.m3u8":
@@ -67,6 +75,14 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, b"<html><body>not a stream</body></html>", "text/html")
         elif path == "/blocked.m3u8":
             self._send(403, b"denied", "text/plain")
+        elif path == "/bad-request.m3u8":
+            self._send(400, b"bad request", "text/plain")
+        elif path == "/variant-error.m3u8":
+            self._send(503, b"temporarily unavailable", "text/plain")
+        elif path == "/blocked.ts":
+            self._send(403, b"denied", "text/plain")
+        elif path == "/server-error.ts":
+            self._send(503, b"temporarily unavailable", "text/plain")
         elif path == "/slow.m3u8":
             time.sleep(2.5)
             self._send(200, MEDIA_PLAYLIST.encode())
@@ -173,6 +189,26 @@ class LinkCheckTest(unittest.TestCase):
         result = self.check(f"{self.base}/deadvariant.m3u8")
         self.assertEqual(result["status"], "offline")
 
+    def test_variant_403_is_blocked_not_dead(self):
+        result = self.check(f"{self.base}/master-variant-blocked.m3u8")
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("variant HTTP 403", result["reason"])
+
+    def test_segment_403_is_blocked_not_dead(self):
+        result = self.check(f"{self.base}/master-segment-blocked.m3u8")
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("playlist only, HTTP 403", result["reason"])
+
+    def test_variant_5xx_is_unreachable_not_dead(self):
+        result = self.check(f"{self.base}/master-variant-error.m3u8", retries=0)
+        self.assertEqual(result["status"], "unreachable")
+        self.assertIn("variant HTTP 503", result["reason"])
+
+    def test_segment_5xx_is_unreachable_not_dead(self):
+        result = self.check(f"{self.base}/master-segment-error.m3u8", retries=0)
+        self.assertEqual(result["status"], "unreachable")
+        self.assertIn("playlist only, HTTP 503", result["reason"])
+
     def test_segment_probe_uses_the_newest_segment(self):
         # Live playlists list oldest-first; the newest segment is the only one
         # still inside the server's DVR window.
@@ -191,6 +227,11 @@ class LinkCheckTest(unittest.TestCase):
         result = self.check(f"{self.base}/gone.m3u8")
         self.assertEqual(result["status"], "offline")
         self.assertEqual(result["reason"], "HTTP 404")
+
+    def test_other_client_errors_are_rechecked_not_pruned(self):
+        result = self.check(f"{self.base}/bad-request.m3u8")
+        self.assertEqual(result["status"], "unreachable")
+        self.assertEqual(result["reason"], "HTTP 400")
 
     def test_html_page_is_offline(self):
         result = self.check(f"{self.base}/page.m3u8")
@@ -337,6 +378,31 @@ class LinkCheckTest(unittest.TestCase):
         statuses = {channel.url: channel.status for channel in channels}
         self.assertEqual(statuses[dead_url], "dead")
         self.assertNotEqual(statuses[f"{self.base}/master.m3u8"], "dead")
+
+    def test_current_non_dead_results_release_stale_quarantine_entries(self):
+        now = dt.datetime.now(dt.timezone.utc).isoformat().replace("+00:00", "Z")
+        urls = {
+            "blocked": "https://example.invalid/blocked.m3u8",
+            "unreachable": "https://example.invalid/retry.m3u8",
+            "offline": "https://example.invalid/gone.m3u8",
+        }
+        entry = {"name": "old result", "first_seen_utc": now,
+                 "last_seen_utc": now, "reason": "old probe", "status": "offline", "hits": 2}
+        path = self.out / "checks" / "quarantine.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"entries": {url: dict(entry) for url in urls.values()}}),
+                        encoding="utf-8")
+
+        link_check.update_quarantine(
+            self.out, {"finished_utc": now}, {"removed": []}, 7.0,
+            {urls["blocked"]: {"status": "blocked"},
+             urls["unreachable"]: {"status": "unreachable"},
+             urls["offline"]: {"status": "offline"}})
+
+        entries = json.loads(path.read_text(encoding="utf-8"))["entries"]
+        self.assertNotIn(urls["blocked"], entries)
+        self.assertNotIn(urls["unreachable"], entries)
+        self.assertIn(urls["offline"], entries)
 
     def test_quarantine_entries_expire(self):
         stale = {
