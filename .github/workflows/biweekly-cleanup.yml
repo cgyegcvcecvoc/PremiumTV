@@ -150,7 +150,7 @@ jobs:
         run: |
           args=(--archives --workers 96 --per-host-workers 8 --timeout 12 --retries 2
                 --min-working-ratio 0.10 --max-remove-ratio 0.60
-                --quarantine-days 21 --report-suffix "-archives"
+                --quarantine-days 21 --report-suffix archives
                 --label "biweekly deep cleanup: archives, shelf and source copies")
           if [ "$DEEP" != "false" ]; then args+=(--deep); else args+=(--no-deep); fi
           if [ "$PATCH" != "false" ]; then args+=(--patch); fi
@@ -257,10 +257,24 @@ jobs:
             exit 0
           fi
           git commit -m "Biweekly cleanup: dead channels pruned from every playlist, repository housekeeping ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          # Landing the commit has to survive someone else pushing while this run is
+          # still going - a maintainer's branch, or another scheduled run. `git pull
+          # --rebase` alone was the shape here first, and it failed exactly that way:
+          # the conflicted rebase stayed in progress, so retries 2 and 3 could not
+          # even start. Every path this workflow writes is derived from the state it
+          # checked (a playlist, a guide, a log, a report), so on a conflict this
+          # run's copy is the one to keep and the other run regenerates its own.
           for i in 1 2 3; do
-            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            git fetch --quiet origin "$GITHUB_REF_NAME"
+            if git rebase "origin/$GITHUB_REF_NAME" --strategy-option theirs; then
+              git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            fi
+            # A conflicted rebase left in progress makes the next attempt fail before
+            # it starts, so clear it before looping.
+            git rebase --abort 2>/dev/null || true
             sleep 10
           done
+          echo "The cleanup ran, but its commit could not be landed after 3 attempts."
           exit 1
 
       - name: Fail the workflow if a step crashed

@@ -579,6 +579,23 @@ def archive_targets(out_dir: Path, shelf_dir: Path | None = None) -> list:
     return [path for path in paths if path.is_file()]
 
 
+def normalize_suffix(raw: str) -> str:
+    """``archives`` -> ``-archives``; an empty or already dashed suffix is kept.
+
+    The value is part of a file name, and a caller should not have to know that.
+    Telling people to pass ``-archives`` is also a trap: argparse reads a value that
+    starts with a dash as the *next option* and stops with
+    ``error: argument --report-suffix: expected one argument``, which is exactly how
+    the first biweekly run lost its archive sweep.
+    """
+    text = str(raw or "").strip()
+    if not text:
+        return ""
+    if text.startswith(("-", "_", ".")):
+        return text
+    return f"-{text}"
+
+
 def is_report_only(path: Path) -> bool:
     """A checked-but-never-rewritten archive: it exists to hold every link found.
 
@@ -969,7 +986,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--label", default="deep link check", help="run label for the reports")
     ap.add_argument("--report-suffix", default="",
                     help="write checks/link-check<SUFFIX>.json and "
-                         "checks/LINK-CHECK<SUFFIX>.md instead of the nightly reports")
+                         "checks/LINK-CHECK<SUFFIX>.md instead of the nightly reports "
+                         "(pass a name like 'archives'; the separating dash is added)")
     ap.add_argument("--categories-dir", default="",
                     help="directory holding the published categories/ shelf that "
                          "--archives sweeps (default: categories/ in the repository)")
@@ -982,6 +1000,7 @@ def main(argv=None) -> int:
         log("[check] workers and timeout must be positive")
         return 2
     out_dir = Path(args.out)
+    args.report_suffix = normalize_suffix(args.report_suffix)
     targets = collect_targets(out_dir, args.playlist, args.all, args.countries,
                               args.archives, Path(args.categories_dir)
                               if args.categories_dir else None)

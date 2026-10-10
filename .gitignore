@@ -1,7 +1,10 @@
-__pycache__/
-*.pyc
-.venv/
+# Byte-code the offline tools leave next to the scripts.
 __pycache__/
 *.py[cod]
-# temp file the guide builder swaps into place
+
+# Local virtualenv (the tests need none; the scripts have no dependencies).
+.venv/
+
+# Temp file the guide builder swaps into place; a run cut off mid-write leaves one
+# behind, and scripts/cleanup_repo.py removes them on the biweekly sweep.
 EPG/.*.tmp

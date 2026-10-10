@@ -39,7 +39,13 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         if body:
-            self.wfile.write(body)
+            try:
+                self.wfile.write(body)
+            except (BrokenPipeError, ConnectionResetError):
+                # A checker that already saw the status line closes early; the
+                # response it did not read is not a failure of either side, and
+                # socketserver's traceback only buries the real test output.
+                pass
 
     def do_GET(self):
         path = self.path
@@ -312,6 +318,36 @@ class LinkCheckTest(unittest.TestCase):
         edit_log = self.out / "logs" / "link-check-edits.txt"
         self.assertTrue(edit_log.exists())
         self.assertIn("-removed", edit_log.read_text())
+
+    def test_suffixed_reports_keep_the_nightly_ones(self):
+        """The archive sweep must not clobber the link-check.json others read."""
+        path = self.write_playlist()
+        with redirect_stdout(StringIO()):
+            code = link_check.main(["--out", str(self.out), "--playlist", str(path),
+                                    "--workers", "8", "--timeout", "5", "--retries", "0",
+                                    "--report-suffix", "archives"])
+        self.assertEqual(code, 0)
+        checks = self.out / "checks"
+        self.assertTrue((checks / "link-check-archives.json").exists())
+        self.assertTrue((checks / "LINK-CHECK-ARCHIVES.md").exists())
+        self.assertFalse((checks / "link-check.json").exists())
+        self.assertFalse((checks / "LINK-CHECK.md").exists())
+
+    def test_report_suffix_survives_argument_parsing(self):
+        """Regression: a value that starts with '-' is read as the next option.
+
+        The first biweekly run passed ``--report-suffix "-archives"`` and argparse
+        aborted with "expected one argument" before a single link was checked, so the
+        archive sweep silently never happened. A name without the dash is the
+        supported form and the script adds the separating dash itself.
+        """
+        args = link_check.build_parser().parse_args(
+            ["--archives", "--report-suffix", "archives"])
+        self.assertEqual("archives", args.report_suffix)
+        self.assertEqual("-archives", link_check.normalize_suffix(args.report_suffix))
+        self.assertEqual("-archives", link_check.normalize_suffix("-archives"))
+        self.assertEqual("", link_check.normalize_suffix(""))
+        self.assertEqual("_keep", link_check.normalize_suffix("_keep"))
 
     def test_patch_records_a_quarantine_for_the_next_scrape(self):
         path = self.write_playlist()

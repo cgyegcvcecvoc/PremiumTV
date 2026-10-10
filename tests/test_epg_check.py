@@ -41,7 +41,13 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         if body:
-            self.wfile.write(body)
+            try:
+                self.wfile.write(body)
+            except (BrokenPipeError, ConnectionResetError):
+                # A checker that already saw the status line closes early; the
+                # response it did not read is not a failure of either side, and
+                # socketserver's traceback only buries the real test output.
+                pass
 
     def do_GET(self):
         path = self.path
