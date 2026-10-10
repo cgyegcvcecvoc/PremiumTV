@@ -1,10 +1,10 @@
 # Merged TV guide build
 
-- **Run:** guide refresh with the scrape (`20261010T002152Z-2784`)
-- **Started:** 2026-10-10T00:21:52Z | **Finished:** 2026-10-10T00:21:58Z | **Duration:** 5.9s
+- **Run:** scheduled guide build (`20261010T011846Z-2046`)
+- **Started:** 2026-10-10T01:18:46Z | **Finished:** 2026-10-10T01:18:49Z | **Duration:** 3.5s
 - **Guide link (`.xml`):** `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml`
 - **Gzipped:** `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml.gz`
-- **Window:** 20261009182152 +0000 to 20261012002152 +0000 UTC (48h ahead, 6h back)
+- **Window:** 20261009191846 +0000 to 20261012011846 +0000 UTC (48h ahead, 6h back)
 
 | Result | Value |
 |---|---:|
@@ -12,10 +12,10 @@
 | Playlist channels | 8552 |
 | Channels declared in the guide | 181 (every playlist channel) |
 | Channels with a guide | 181 (2.1%) |
-| Programmes in the guide | 10333 |
+| Programmes in the guide | 10284 |
 | Duplicate events merged | 0 |
 | Overlapping events dropped | 0 |
-| Events dropped (out of window / placeholder) | 14159 |
+| Events dropped (out of window / placeholder) | 14208 |
 | XML size | 0 KB |
 | Gzipped size | 0 KB |
 
@@ -56,7 +56,7 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 | Burkina_Faso | 3 | 0 | 0 | 0 KB | [`Burkina_Faso.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Burkina_Faso.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Cambodia | 14 | 0 | 0 | 2 KB | [`Cambodia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cambodia.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Cameroon | 10 | 0 | 0 | 1 KB | [`Cameroon.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cameroon.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
-| Canada | 114 | 6 | 327 | 190 KB | [`Canada.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Canada.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
+| Canada | 114 | 6 | 323 | 187 KB | [`Canada.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Canada.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Cape_Verde | 1 | 0 | 0 | 0 KB | [`Cape_Verde.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cape_Verde.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Caribbean_Netherlands | 4 | 0 | 0 | 0 KB | [`Caribbean_Netherlands.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Caribbean_Netherlands.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Chad | 1 | 0 | 0 | 0 KB | [`Chad.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Chad.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
@@ -81,7 +81,7 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 | Ethiopia | 1 | 0 | 0 | 0 KB | [`Ethiopia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ethiopia.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Faroe_Islands | 2 | 0 | 0 | 0 KB | [`Faroe_Islands.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Faroe_Islands.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Finland | 20 | 0 | 0 | 3 KB | [`Finland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Finland.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
-| France | 143 | 1 | 54 | 33 KB | [`France.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/France.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
+| France | 143 | 1 | 53 | 33 KB | [`France.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/France.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Georgia | 12 | 0 | 0 | 2 KB | [`Georgia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Georgia.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Germany | 148 | 0 | 0 | 27 KB | [`Germany.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Germany.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Ghana | 5 | 0 | 0 | 0 KB | [`Ghana.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ghana.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
@@ -101,7 +101,7 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 | International | 753 | 0 | 0 | 124 KB | [`International.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/International.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Iran | 54 | 0 | 0 | 7 KB | [`Iran.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Iran.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Iraq | 48 | 0 | 0 | 8 KB | [`Iraq.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Iraq.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
-| Ireland | 18 | 1 | 39 | 32 KB | [`Ireland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ireland.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
+| Ireland | 18 | 1 | 38 | 32 KB | [`Ireland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ireland.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Israel | 31 | 0 | 0 | 6 KB | [`Israel.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Israel.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Italy | 420 | 0 | 0 | 72 KB | [`Italy.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Italy.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Ivory_Coast | 12 | 0 | 0 | 1 KB | [`Ivory_Coast.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ivory_Coast.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
@@ -154,7 +154,7 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 | Poland | 117 | 0 | 0 | 23 KB | [`Poland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Poland.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Portugal | 40 | 0 | 0 | 7 KB | [`Portugal.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Portugal.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Puerto_Rico | 25 | 0 | 0 | 3 KB | [`Puerto_Rico.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Puerto_Rico.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
-| Qatar | 16 | 1 | 46 | 15 KB | [`Qatar.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Qatar.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
+| Qatar | 16 | 1 | 45 | 15 KB | [`Qatar.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Qatar.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Republic_of_the_Congo | 3 | 0 | 0 | 0 KB | [`Republic_of_the_Congo.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Republic_of_the_Congo.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Romania | 113 | 0 | 0 | 18 KB | [`Romania.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Romania.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Russia | 338 | 0 | 0 | 54 KB | [`Russia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Russia.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
@@ -187,8 +187,8 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 | Tunisia | 3 | 0 | 0 | 0 KB | [`Tunisia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Tunisia.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Turkey | 120 | 0 | 0 | 19 KB | [`Turkey.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Turkey.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Turkmenistan | 8 | 0 | 0 | 1 KB | [`Turkmenistan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Turkmenistan.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
-| UK | 170 | 14 | 861 | 508 KB | [`UK.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/UK.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
-| USA | 1603 | 153 | 8724 | 8883 KB | [`USA.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/USA.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
+| UK | 170 | 14 | 852 | 503 KB | [`UK.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/UK.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
+| USA | 1603 | 153 | 8687 | 8853 KB | [`USA.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/USA.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Uganda | 8 | 0 | 0 | 1 KB | [`Uganda.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Uganda.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | Ukraine | 148 | 0 | 0 | 30 KB | [`Ukraine.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ukraine.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
 | United_Arab_Emirates | 39 | 0 | 0 | 6 KB | [`United_Arab_Emirates.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/United_Arab_Emirates.xml) | valid XML; current verified feeds; all-library safety gate kept the previous guide |
@@ -204,8 +204,8 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 
 | Guide | Status | Channels seen | Matched | By id | By name | Programmes kept | Dropped | Read |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| `TV.xml` | ok | 241 | 180 | 158 | 22 | 10287 | 14098 | 24090 KB |
-| `guide.xml.gz` | ok | 2 | 1 | 1 | 0 | 46 | 61 | 3 KB |
+| `TV.xml` | ok | 241 | 180 | 158 | 22 | 10239 | 14146 | 24090 KB |
+| `guide.xml.gz` | ok | 2 | 1 | 1 | 0 | 45 | 62 | 3 KB |
 
 ## Playlist headers
 
