@@ -473,7 +473,9 @@ the priority playlist, the 81 `playlists/categories/*.m3u` files, the `categorie
 `playlists/sources/*.m3u` fallback copies - plus `playlists/PremiumTV_all.m3u`, which is checked but
 never pruned because the file exists to hold every link ever found. The sweep the
 [biweekly workflow](#biweekly-deep-cleanup) runs writes its own report
-(`playlists/checks/LINK-CHECK-ARCHIVES.md`, via `--report-suffix "-archives"`) so the
+(`playlists/checks/LINK-CHECK-ARCHIVES.md`, via `--report-suffix archives` - pass the
+name, not `-archives`: argparse would read a value starting with a dash as the next option,
+and the separating dash is added for you) so the
 `link-check.json` the re-sort and the next scrape read back stays the player one, and it uses looser
 limits (`--min-working-ratio 0.10 --max-remove-ratio 0.60 --quarantine-days 21`) because those files are
 spares and caches rather than something a viewer is watching.
@@ -562,7 +564,7 @@ by appending a line to [`playlists/logs/run-cleanup.txt`](playlists/logs/run-cle
 python scripts/link_check.py --all     --deep --patch --quarantine-days 14   # player playlists
 python scripts/link_check.py --archives --deep --patch \
         --min-working-ratio 0.10 --max-remove-ratio 0.60 \
-        --report-suffix "-archives"                                          # everything else
+        --report-suffix archives                                             # everything else
 python scripts/resort_playlists.py                                          # re-order + prune dead links
 python scripts/build_categories.py                                          # rebuild the published shelf
 python scripts/cleanup_repo.py --apply                                      # logs, orphans, quarantine
@@ -684,7 +686,7 @@ python scripts/discover.py --dry-run              # report only; never promote a
 python scripts/epg_check.py --all                  # verify every advertised TV guide
 python scripts/resort_playlists.py --dry-run       # show the category re-sort without writing
 python scripts/link_check.py --archives --deep --patch  # sweep the playlists no daily run patches
-python scripts/link_check.py --archives --no-deep --dry-run --report-suffix "-archives"
+python scripts/link_check.py --archives --no-deep --dry-run --report-suffix archives
 python scripts/cleanup_repo.py                          # report what needs housekeeping, change nothing
 python scripts/cleanup_repo.py --apply --keep-runs 30   # trim logs, drop orphan guides, compact quarantine
 python scripts/verify_playlists.py                 # offline playlist + EPG coverage report

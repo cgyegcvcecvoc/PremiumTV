@@ -52,6 +52,11 @@ SELF_GUIDE_RE = re.compile(
 # links are never pruned, only their groups and order are fixed.
 CATALOGUE_FILES = ("PremiumTV_all.m3u",)
 
+# Sub-directories of playlists/ whose files a scrape regenerates from the current
+# working-channel set. A playlist in one of these that holds no channel is dropped
+# by the re-sort instead of being published empty; see droppable_when_empty().
+GENERATED_DIRS = ("countries",)
+
 
 def log(msg: str) -> None:
     print(msg, flush=True)
@@ -186,6 +191,32 @@ def refresh_title(header: list, utc_s: str, local_s: str, label: str, count: int
     return header
 
 
+def droppable_when_empty(path: Path, out_dir: Path) -> bool:
+    """True for a generated playlist that the scrape would not have written anyway.
+
+    ``playlists/countries/*.m3u`` is built from the set of confirmed-working
+    channels, and ``scraper.write_country_playlists`` deletes a country file that
+    no longer has a country in it. So when a re-sort prunes the last link of a
+    country, the matching move is to remove the file: leaving it published meant
+    three country playlists advertised "working channels (1)" over an empty body,
+    because a header count is only refreshed while the file still has entries -
+    and an empty playlist a player can still subscribe to is a bug report, not a
+    status. The scrape rewrites both the file and the country index within hours,
+    so a country that gets a working feed back is republished automatically.
+
+    The top-level playlists (PremiumTV.m3u, Priority_Channels.m3u, ...) are never
+    dropped: they are fixed entry points, and an empty one is an emergency a
+    report should keep raising.
+    """
+    try:
+        relative_parts = path.relative_to(out_dir).parts
+    except ValueError:
+        return False
+    return (len(relative_parts) == 2
+            and relative_parts[0] in GENERATED_DIRS
+            and relative_parts[1].endswith(".m3u"))
+
+
 def published_targets(out_dir: Path, files: list[str]) -> list[tuple[Path, str]]:
     """Every committed playlist, with the title prefix its note line should carry."""
     if files:
@@ -242,8 +273,18 @@ def main(argv=None) -> int:
         report = resort_file(path, dead, prune=path.name not in CATALOGUE_FILES,
                              max_feeds=args.max_feeds, max_guides=max_guides,
                              dry_run=args.dry_run)
+        # A generated playlist the prune emptied (or that arrived empty) is
+        # removed rather than published with a stale count over an empty body.
+        drop = bool(report["entries_after"] == 0 and droppable_when_empty(path, out_dir))
+        report["dropped_when_empty"] = drop
+        if drop and not args.dry_run:
+            try:
+                path.unlink()
+            except OSError as exc:  # a vanished file is not worth failing the run
+                log(f"[resort] WARNING: could not remove {report['file']}: {exc}")
+                report["dropped_when_empty"] = False
         if (not args.dry_run and not args.keep_titles and report["changed"]
-                and report["entries_after"]):
+                and not report["dropped_when_empty"]):
             header, blocks = load_playlist(path)
             header = refresh_title(header, utc_s, local_s, args.label,
                                    report["entries_after"], prefix)
@@ -259,6 +300,10 @@ def main(argv=None) -> int:
         log(f"[resort] {report['file']}: {report['entries_before']} -> "
             f"{report['entries_after']} entries"
             + (f", pruned {len(report['pruned'])}" if report["pruned"] else "")
+            + (", removed (no channel left)"
+               if report["dropped_when_empty"] and not args.dry_run
+               else ", would remove (no channel left)"
+               if report["dropped_when_empty"] else "")
             + (f" ({', '.join(flags)})" if flags else " (already canonical)"))
 
     log_path = out_dir / "logs" / "resort-log.txt"
@@ -277,6 +322,8 @@ def main(argv=None) -> int:
         ]
         for item in reports:
             lines.append(f"{item['file']}: {item['entries_before']} -> {item['entries_after']} entries"
+                         + (", removed: no working channel left"
+                            if item.get("dropped_when_empty") else "")
                          + (", reordered" if item["reordered"] else "")
                          + (f", {item['regrouped']} group titles normalised" if item["regrouped"] else "")
                          + (f", {item['guides_trimmed']} header guides trimmed"
@@ -290,8 +337,10 @@ def main(argv=None) -> int:
         log(f"[resort] wrote {relative(log_path)}")
     touched = sum(1 for item in reports if item["reordered"] or item["regrouped"]
                    or item["pruned"] or item["guides_trimmed"])
+    dropped = sum(1 for item in reports if item.get("dropped_when_empty"))
     log(f"[resort] {touched} of {len(reports)} playlists needed a change; "
-        f"{sum(len(item['pruned']) for item in reports)} links pruned")
+        f"{sum(len(item['pruned']) for item in reports)} links pruned"
+        + (f"; {dropped} emptied country playlist(s) removed" if dropped else ""))
     return 0
 
 

@@ -11,6 +11,8 @@ import json
 import sys
 import tempfile
 import unittest
+from io import StringIO
+from contextlib import redirect_stdout
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -359,3 +361,106 @@ class CommittedPlaylistsTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PruneEmptiedPlaylistTest(unittest.TestCase):
+    """What a re-sort leaves behind when it prunes the last link of a playlist.
+
+    The biweekly run's own report caught three country playlists published as an
+    empty body under a header that still said "working channels (1)": the header
+    count is only refreshed while a file has entries, so the files the prune
+    emptied kept advertising a channel nobody can play. These tests pin the two
+    halves of that fix - generated playlists are dropped when they hold nothing,
+    and a playlist that has to stay gets a header that tells the truth.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        self.playlists = self.root / "playlists"
+        (self.playlists / "countries").mkdir(parents=True)
+        (self.playlists / "checks").mkdir(parents=True)
+        self.addCleanup(self.tmp.cleanup)
+
+    def write_playlist(self, relative: str, urls: list, note: str) -> Path:
+        path = self.playlists / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        lines = ["#EXTM3U", f"# {note}"]
+        for index, url in enumerate(urls):
+            lines.append(f'#EXTINF:-1 tvg-id="c{index}.x@SD" group-title="Other",Chan {index}')
+            lines.append(url)
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        return path
+
+    def mark_dead(self, *urls: str) -> None:
+        finished = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+        report = {"finished_utc": finished,
+                  "dead": [{"url": url, "status": "offline", "reason": "no media segment"}
+                           for url in urls]}
+        (self.playlists / "checks" / "link-check.json").write_text(
+            json.dumps(report), encoding="utf-8")
+
+    def run_resort(self, *extra: str) -> str:
+        buffer = StringIO()
+        with redirect_stdout(buffer):
+            code = resort_playlists.main(["--out", str(self.playlists), "--no-guides",
+                                          "--label", "unit test", *extra])
+        self.assertEqual(0, code)
+        return buffer.getvalue()
+
+    def test_the_last_pruned_channel_takes_the_file_with_it(self):
+        url = "https://stream.test/bermuda.m3u8"
+        path = self.write_playlist("countries/Bermuda.m3u", [url],
+                                   "Bermuda working channels (1) - updated once")
+        self.mark_dead(url)
+        output = self.run_resort()
+        self.assertFalse(path.exists(), "an emptied country playlist stays published")
+        self.assertIn("removed (no channel left)", output)
+
+    def test_a_husk_left_by_an_earlier_run_is_also_cleaned_up(self):
+        path = self.write_playlist("countries/Macau.m3u", [],
+                                  "Macau working channels (1) - updated once")
+        self.mark_dead("https://stream.test/other.m3u8")
+        output = self.run_resort()
+        self.assertFalse(path.exists())
+        self.assertIn("1 emptied country playlist(s) removed", output)
+
+    def test_dry_run_only_says_it_would(self):
+        url = "https://stream.test/san.m3u8"
+        path = self.write_playlist("countries/San_Marino.m3u", [url],
+                                  "San Marino working channels (1) - updated once")
+        self.mark_dead(url)
+        output = self.run_resort("--dry-run")
+        self.assertTrue(path.exists())
+        self.assertIn("would remove (no channel left)", output)
+        self.assertIn(url, path.read_text(encoding="utf-8"))
+
+    def test_a_published_entry_point_keeps_its_file_and_a_true_count(self):
+        url = "https://stream.test/main.m3u8"
+        path = self.write_playlist("PremiumTV.m3u", [url],
+                                   "Working links - curated categories - 1 channels - updated once")
+        self.mark_dead(url)
+        self.run_resort()
+        self.assertTrue(path.exists(), "PremiumTV.m3u must survive even when empty")
+        text = path.read_text(encoding="utf-8")
+        self.assertNotIn(url, text)
+        self.assertIn("0 channels", text)
+        self.assertNotIn("1 channels", text)
+
+    def test_only_generated_directories_may_be_dropped(self):
+        cases = {
+            "countries/Bermuda.m3u": True,
+            "countries/USA.m3u": True,
+            "PremiumTV.m3u": False,
+            "PremiumTV_all.m3u": False,
+            "Priority_Channels.m3u": False,
+            "categories/News.m3u": False,
+            "sources/priority-channels.m3u": False,
+            "countries/README.md": False,
+            "Bermuda.m3u": False,
+        }
+        for relative, expected in cases.items():
+            with self.subTest(relative=relative):
+                self.assertIs(expected,
+                              resort_playlists.droppable_when_empty(
+                                  self.playlists / relative, self.playlists))
