@@ -83,10 +83,22 @@ jobs:
           (cd build-out && sha256sum *.apk > SHA256SUMS.txt)
           ls -la build-out
 
+      # Upload before the branch commit: a release is the thing people want, so
+      # it must not depend on a git push succeeding. This step carries its own
+      # `if`, so it still runs when an earlier step failed.
+      - name: Attach the APKs to the release
+        if: github.event_name == 'release'
+        run: gh release upload "${{ github.event.release.tag_name }}" build-out/*.apk build-out/SHA256SUMS.txt --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       # Only for branch builds. On a release event github.ref_name is the tag,
       # so "push HEAD to a branch with the tag's name" would be nonsense.
+      # Two builds can overlap (a push and a release at once), so the push
+      # rebases and retries instead of turning the run red for a race.
       - name: Publish build output to the branch
         if: always() && github.ref_type == 'branch'
+        continue-on-error: true
         run: |
           set -uo pipefail
           mkdir -p build-out
@@ -106,10 +118,12 @@ jobs:
             exit 0
           fi
           git commit -m "ci: publish APK build output (run ${{ github.run_number }}) [skip ci]"
-          git push origin "HEAD:${{ github.ref_name }}"
-
-      - name: Attach the APKs to the release
-        if: github.event_name == 'release'
-        run: gh release upload "${{ github.event.release.tag_name }}" build-out/*.apk build-out/SHA256SUMS.txt --clobber
-        env:
-          GH_TOKEN: ${{ github.token }}
+          for attempt in 1 2 3; do
+            if git pull --rebase origin "${{ github.ref_name }}" &&
+               git push origin "HEAD:${{ github.ref_name }}"; then
+              echo "Published on attempt $attempt."
+              break
+            fi
+            echo "Branch publish attempt $attempt failed; retrying."
+            sleep 15
+          done
