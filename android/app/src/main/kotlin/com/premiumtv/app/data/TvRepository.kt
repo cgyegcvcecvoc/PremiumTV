@@ -1,12 +1,15 @@
 package com.premiumtv.app.data
 
 import android.app.Application
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import com.premiumtv.app.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.File
@@ -18,6 +21,7 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 /**
  * Owns the channel list and the guide.
@@ -27,14 +31,32 @@ import java.util.Locale
  *    produced by android/tools/build_bundle.py from this repository;
  *  - a cache in the app's private files, written by [refresh].
  *
- * The cache wins when it exists, so a refresh survives a restart. Resetting in
- * Settings deletes it and falls back to what the APK shipped with.
+ * The cache wins when it exists, so automatic and manual refreshes survive a
+ * restart. Resetting in Settings deletes it and falls back to what the APK
+ * shipped with. All load/write operations share one mutex: a background worker
+ * can never replace files while the foreground UI is reading them.
  */
 class TvRepository(private val app: Application) {
 
     private companion object {
         const val TAG = "PremiumTV"
+
+        const val PREFS = "premiumtv_refresh"
+        const val KEY_LAST_ATTEMPT = "last_attempt_ms"
+        const val KEY_LAST_SUCCESS = "last_success_ms"
+        const val KEY_LAST_TRIGGER = "last_trigger"
+        const val KEY_LAST_MESSAGE = "last_message"
+        const val KEY_NEXT_AUTOMATIC = "next_automatic_ms"
+
+        const val PLAYLIST_VALIDATOR = "playlist"
+        const val GUIDE_VALIDATOR = "guide"
+
+        const val MAX_PLAYLIST_CHARS = 16 * 1024 * 1024
+        const val MAX_GUIDE_CHARS = 80 * 1024 * 1024
     }
+
+    private val operations = Mutex()
+    private val preferences = app.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
     private val _state = MutableStateFlow<LoadState>(LoadState.Loading)
     val state: StateFlow<LoadState> = _state
@@ -42,15 +64,57 @@ class TvRepository(private val app: Application) {
     private val _status = MutableStateFlow("")
     val status: StateFlow<String> = _status
 
+    private val _refreshInfo = MutableStateFlow(readRefreshInfo())
+    val refreshInfo: StateFlow<RefreshInfo> = _refreshInfo
+
     private val cacheDir: File get() = File(app.filesDir, "bundle")
+    private val stagingCacheDir: File get() = File(app.filesDir, "bundle-staging")
+    private val backupCacheDir: File get() = File(app.filesDir, "bundle-backup")
 
     suspend fun load() = withContext(Dispatchers.IO) {
+        operations.withLock { loadLocked() }
+    }
+
+    /**
+     * Refreshes both app data sources.
+     *
+     * A manual refresh deliberately downloads both files even when their HTTP
+     * validators are unchanged: this is the Settings screen's "force" action.
+     * Automatic checks send ETag/Last-Modified validators, so matching the
+     * repository's frequent publishing windows normally costs only two tiny
+     * HTTP 304 responses.
+     */
+    suspend fun refresh(trigger: RefreshTrigger): RefreshOutcome = withContext(Dispatchers.IO) {
+        operations.withLock { refreshLocked(trigger) }
+    }
+
+    /** Drops the downloaded copy and goes back to what the APK shipped with. */
+    suspend fun resetToBundled() = withContext(Dispatchers.IO) {
+        operations.withLock {
+            cacheDir.deleteRecursively()
+            stagingCacheDir.deleteRecursively()
+            backupCacheDir.deleteRecursively()
+            clearValidators()
+            loadLocked()
+            _status.value = "Using the channel list and guide bundled in this APK."
+        }
+    }
+
+    /** Called by the WorkManager scheduler so Settings can show the next check. */
+    fun noteNextAutomaticRefresh(epochMillis: Long) {
+        preferences.edit().putLong(KEY_NEXT_AUTOMATIC, epochMillis).apply()
+        _refreshInfo.value = _refreshInfo.value.copy(nextAutomaticAtMillis = epochMillis)
+    }
+
+    // -------------------------------------------------------------- operations
+
+    private fun loadLocked() {
+        recoverInterruptedCacheWrite()
         _state.value = LoadState.Loading
         _status.value = "Loading channels…"
 
         // Publish the channel rows as soon as their small files are ready. The
-        // larger guide can finish in the background without holding Channels
-        // behind a full-library parse.
+        // larger guide can finish without holding Channels behind a full parse.
         val cached = readCache { partial ->
             _state.value = LoadState.Ready(partial)
             _status.value = if (partial.guideLoading) "Channels ready; loading guide…" else ""
@@ -59,9 +123,9 @@ class TvRepository(private val app: Application) {
             _state.value = LoadState.Ready(cached)
             _status.value = when {
                 cached.guideError != null -> "Channels loaded; the programme guide is unavailable."
-                else -> "Showing the copy downloaded from GitHub."
+                else -> "Showing the latest copy downloaded in the app."
             }
-            return@withContext
+            return
         }
 
         _status.value = "Loading bundled channels…"
@@ -86,47 +150,188 @@ class TvRepository(private val app: Application) {
         }
     }
 
-    /** Downloads the playlist and guide the bundle points at, then reloads. */
-    suspend fun refresh() = withContext(Dispatchers.IO) {
-        val meta = (_state.value as? LoadState.Ready)?.library?.meta
-        val playlistUrl = meta?.playlistUrl.orEmpty()
-        val guideUrl = meta?.guideUrl.orEmpty()
-        if (playlistUrl.isBlank()) {
-            _status.value = "This build has no update URL to fetch."
-            return@withContext
-        }
+    private fun refreshLocked(trigger: RefreshTrigger): RefreshOutcome {
+        beginRefresh(trigger)
+        val isManual = trigger == RefreshTrigger.Manual
 
         try {
-            _status.value = "Downloading playlist…"
-            val playlist = downloadText(playlistUrl)
+            var current = (_state.value as? LoadState.Ready)?.library
+            if (current == null) {
+                loadLocked()
+                current = (_state.value as? LoadState.Ready)?.library
+            }
+            if (current == null) {
+                return finishRefresh(
+                    trigger = trigger,
+                    successful = false,
+                    message = "Refresh could not start because the current channel data is unreadable.",
+                    retryable = false,
+                )
+            }
 
-            _status.value = "Reading channels…"
-            val (channels, headerGuide) = M3uParser.parse(playlist)
+            val meta = current.meta
+            val playlistUrl = meta.playlistUrl.trim()
+            if (playlistUrl.isBlank()) {
+                return finishRefresh(
+                    trigger = trigger,
+                    successful = false,
+                    message = "This build has no playlist update URL to fetch.",
+                    retryable = false,
+                )
+            }
+
+            // A bundled fallback must always perform a full fetch. Validators
+            // are only safe when the downloaded cache they describe is active.
+            val conditional = !isManual && current.refreshed
+            _status.value = if (isManual) {
+                "Force refresh: downloading the complete channel list…"
+            } else {
+                "Background refresh: checking the channel list…"
+            }
+            val playlistDownload = downloadText(
+                urlString = playlistUrl,
+                validatorName = PLAYLIST_VALIDATOR,
+                conditional = conditional,
+                maxChars = MAX_PLAYLIST_CHARS,
+            )
+
+            val parsedPlaylist = playlistDownload.text?.let { M3uParser.parse(it) }
+            val channels = parsedPlaylist?.first ?: current.channels
             if (channels.isEmpty()) throw IOException("the playlist contained no channels")
 
-            _status.value = "Downloading guide…"
-            val guide = downloadText(guideUrl.ifBlank { headerGuide })
-            val programmes = XmlTvParser.parse(guide)
+            // Prefer a guide URL advertised by a newly downloaded playlist. If
+            // the playlist was unchanged, its URL in bundle metadata is enough.
+            val headerGuideUrl = parsedPlaylist?.second.orEmpty().trim()
+            val guideUrl = headerGuideUrl.ifBlank { meta.guideUrl.trim() }
+            if (guideUrl.isBlank()) throw IOException("the playlist has no programme-guide URL")
 
-            val library = buildLibrary(channels, programmes, meta ?: BundleMeta.EMPTY, true)
+            _status.value = if (isManual) {
+                "Force refresh: downloading the complete programme guide…"
+            } else {
+                "Background refresh: checking the programme guide…"
+            }
+            var guideDownload = downloadText(
+                urlString = guideUrl,
+                validatorName = GUIDE_VALIDATOR,
+                conditional = conditional,
+                maxChars = MAX_GUIDE_CHARS,
+            )
+
+            // When channel membership changed, re-read even an otherwise
+            // unchanged guide. The previous parsed cache intentionally omitted
+            // programmes for channels that did not exist at that time.
+            if (playlistDownload.text != null && guideDownload.notModified) {
+                guideDownload = downloadText(
+                    urlString = guideUrl,
+                    validatorName = GUIDE_VALIDATOR,
+                    conditional = false,
+                    maxChars = MAX_GUIDE_CHARS,
+                )
+            }
+
+            if (playlistDownload.notModified && guideDownload.notModified) {
+                saveValidator(PLAYLIST_VALIDATOR, playlistUrl, playlistDownload)
+                saveValidator(GUIDE_VALIDATOR, guideUrl, guideDownload)
+                val message = if (isManual) {
+                    "All app data was checked; the channel list and guide are already current."
+                } else {
+                    "Background check complete; the channel list and guide are already current."
+                }
+                return finishRefresh(trigger, true, message, changed = false)
+            }
+
+            val programmes = guideDownload.text?.let { XmlTvParser.parse(it) }
+                ?: current.programmes.values.flatten()
+            val updatedMeta = meta.copy(
+                playlistUrl = playlistUrl,
+                guideUrl = guideUrl,
+            )
+            val library = buildLibrary(channels, programmes, updatedMeta, refreshed = true)
             writeCache(library)
+            saveValidator(PLAYLIST_VALIDATOR, playlistUrl, playlistDownload)
+            saveValidator(GUIDE_VALIDATOR, guideUrl, guideDownload)
             _state.value = LoadState.Ready(library)
-            _status.value = "Updated from GitHub: ${library.channels.size} channels, " +
-                "${library.programmes.size} with listings."
-        } catch (e: FileNotFoundException) {
-            _status.value = "Update failed: the file was not found (HTTP 404). " +
-                "The repository is private, so a TV cannot read raw GitHub links " +
-                "until it is public or mirrored."
+
+            val message = if (isManual) {
+                "Force refresh complete: ${library.channels.size} channels and " +
+                    "${library.meta.programmeCount} guide listings loaded."
+            } else {
+                "Background refresh complete: ${library.channels.size} channels and " +
+                    "${library.meta.programmeCount} guide listings loaded."
+            }
+            return finishRefresh(trigger, true, message, changed = true)
         } catch (e: Exception) {
-            _status.value = "Update failed: ${e.message ?: e.javaClass.simpleName}"
+            Log.w(TAG, "${trigger.name} refresh failed; keeping the current app data", e)
+            val retryable = isRetryable(e)
+            return finishRefresh(
+                trigger = trigger,
+                successful = false,
+                message = refreshFailureMessage(e),
+                retryable = retryable,
+            )
         }
     }
 
-    /** Drops the downloaded copy and goes back to what the APK shipped with. */
-    suspend fun resetToBundled() = withContext(Dispatchers.IO) {
-        cacheDir.deleteRecursively()
-        _status.value = "Downloaded copy removed."
-        load()
+    private fun beginRefresh(trigger: RefreshTrigger) {
+        val now = System.currentTimeMillis()
+        preferences.edit()
+            .putLong(KEY_LAST_ATTEMPT, now)
+            .putString(KEY_LAST_TRIGGER, trigger.name)
+            .apply()
+        _refreshInfo.value = _refreshInfo.value.copy(
+            inProgress = true,
+            lastAttemptAtMillis = now,
+            lastTrigger = trigger,
+            lastMessage = if (trigger == RefreshTrigger.Manual) {
+                "Force refresh is running."
+            } else {
+                "Automatic background refresh is running."
+            },
+        )
+    }
+
+    private fun finishRefresh(
+        trigger: RefreshTrigger,
+        successful: Boolean,
+        message: String,
+        changed: Boolean = false,
+        retryable: Boolean = false,
+    ): RefreshOutcome {
+        val now = System.currentTimeMillis()
+        val editor = preferences.edit()
+            .putLong(KEY_LAST_ATTEMPT, now)
+            .putString(KEY_LAST_TRIGGER, trigger.name)
+            .putString(KEY_LAST_MESSAGE, message)
+        if (successful) editor.putLong(KEY_LAST_SUCCESS, now)
+        editor.apply()
+
+        _refreshInfo.value = _refreshInfo.value.copy(
+            inProgress = false,
+            lastAttemptAtMillis = now,
+            lastSuccessAtMillis = if (successful) now else _refreshInfo.value.lastSuccessAtMillis,
+            lastTrigger = trigger,
+            lastMessage = message,
+        )
+        _status.value = message
+        return RefreshOutcome(
+            successful = successful,
+            changed = changed,
+            retryable = retryable,
+        )
+    }
+
+    private fun readRefreshInfo(): RefreshInfo {
+        val trigger = preferences.getString(KEY_LAST_TRIGGER, null)?.let { saved ->
+            RefreshTrigger.entries.firstOrNull { it.name == saved }
+        }
+        return RefreshInfo(
+            lastAttemptAtMillis = preferences.getLong(KEY_LAST_ATTEMPT, 0L),
+            lastSuccessAtMillis = preferences.getLong(KEY_LAST_SUCCESS, 0L),
+            nextAutomaticAtMillis = preferences.getLong(KEY_NEXT_AUTOMATIC, 0L),
+            lastTrigger = trigger,
+            lastMessage = preferences.getString(KEY_LAST_MESSAGE, null)
+                ?: "Automatic refresh has not run yet.",
+        )
     }
 
     // ---------------------------------------------------------------- reading
@@ -153,6 +358,8 @@ class TvRepository(private val app: Application) {
             )
         } catch (e: Exception) {
             Log.w(TAG, "Downloaded channels are unreadable; using the bundled data", e)
+            cacheDir.deleteRecursively()
+            clearValidators()
             null
         }
     }
@@ -243,9 +450,10 @@ class TvRepository(private val app: Application) {
         val known = HashSet(channels.map { it.id })
         val kept = programmes.filter { known.contains(it.channelId) && it.end > now - 6 * 3600L }
         val byChannel = groupProgrammes(kept, known)
+        val groups = groupsFrom(channels)
         val meta = base.copy(
             channelCount = channels.size,
-            groupCount = groupsFrom(channels).size,
+            groupCount = groups.size,
             programmeCount = kept.size,
             guideChannels = byChannel.size,
             windowStart = kept.minOfOrNull { it.start } ?: now,
@@ -254,7 +462,7 @@ class TvRepository(private val app: Application) {
         )
         return Library(
             channels = channels,
-            groups = groupsFrom(channels),
+            groups = groups,
             programmes = byChannel,
             meta = meta,
             refreshed = refreshed,
@@ -284,16 +492,41 @@ class TvRepository(private val app: Application) {
             .map { CategoryGroup(it.key, it.value) }
     }
 
+    /** Writes a complete staging directory, then swaps it into place atomically. */
     private fun writeCache(library: Library) {
-        cacheDir.deleteRecursively()
-        cacheDir.mkdirs()
-        File(cacheDir, "meta.json").writeText(metaToJson(library.meta))
-        writeLines(File(cacheDir, "channels.jsonl"), library.channels.map { channelToJson(it) })
-        writeLines(File(cacheDir, "groups.jsonl"), library.groups.map { groupToJson(it) })
+        stagingCacheDir.deleteRecursively()
+        backupCacheDir.deleteRecursively()
+        if (!stagingCacheDir.mkdirs() && !stagingCacheDir.isDirectory) {
+            throw IOException("could not create the refresh staging directory")
+        }
+
+        File(stagingCacheDir, "meta.json").writeText(metaToJson(library.meta))
+        writeLines(File(stagingCacheDir, "channels.jsonl"), library.channels.map { channelToJson(it) })
+        writeLines(File(stagingCacheDir, "groups.jsonl"), library.groups.map { groupToJson(it) })
         writeLines(
-            File(cacheDir, "epg.jsonl"),
-            library.programmes.values.flatten().map { programmeToJson(it) }
+            File(stagingCacheDir, "epg.jsonl"),
+            library.programmes.values.flatten().map { programmeToJson(it) },
         )
+
+        var oldMoved = false
+        if (cacheDir.exists()) {
+            oldMoved = cacheDir.renameTo(backupCacheDir)
+            if (!oldMoved) throw IOException("could not prepare the existing refresh cache")
+        }
+        if (!stagingCacheDir.renameTo(cacheDir)) {
+            if (oldMoved) backupCacheDir.renameTo(cacheDir)
+            throw IOException("could not publish the refreshed app data")
+        }
+        backupCacheDir.deleteRecursively()
+    }
+
+    /** Restores the old complete cache if the process stopped midway through a swap. */
+    private fun recoverInterruptedCacheWrite() {
+        if (!cacheDir.exists() && backupCacheDir.isDirectory) {
+            backupCacheDir.renameTo(cacheDir)
+        }
+        stagingCacheDir.deleteRecursively()
+        if (cacheDir.exists()) backupCacheDir.deleteRecursively()
     }
 
     private fun writeLines(file: File, lines: List<String>) {
@@ -360,25 +593,124 @@ class TvRepository(private val app: Application) {
 
     // --------------------------------------------------------------- downloading
 
-    private fun downloadText(urlString: String): String {
+    private data class DownloadResult(
+        val text: String?,
+        val etag: String,
+        val lastModified: String,
+        val notModified: Boolean,
+    )
+
+    private class HttpStatusException(
+        val statusCode: Int,
+        val sourceUrl: String,
+    ) : IOException("HTTP $statusCode from $sourceUrl")
+
+    private fun downloadText(
+        urlString: String,
+        validatorName: String,
+        conditional: Boolean,
+        maxChars: Int,
+    ): DownloadResult {
         val connection = URL(urlString).openConnection() as HttpURLConnection
+        val savedUrl = preferences.getString("${validatorName}_url", "").orEmpty()
+        val savedEtag = preferences.getString("${validatorName}_etag", "").orEmpty()
+        val savedModified = preferences.getString("${validatorName}_modified", "").orEmpty()
+
         return try {
             connection.connectTimeout = 20_000
             connection.readTimeout = 90_000
             connection.instanceFollowRedirects = true
             connection.setRequestProperty(
                 "User-Agent",
-                "PremiumTV/${BuildConfig.VERSION_NAME} (Android ${Build.VERSION.RELEASE})"
+                "PremiumTV/${BuildConfig.VERSION_NAME} (Android ${Build.VERSION.RELEASE})",
             )
+            if (conditional && savedUrl == urlString) {
+                if (savedEtag.isNotBlank()) connection.setRequestProperty("If-None-Match", savedEtag)
+                if (savedModified.isNotBlank()) {
+                    connection.setRequestProperty("If-Modified-Since", savedModified)
+                }
+            }
+
             val code = connection.responseCode
-            if (code !in 200..299) throw IOException("HTTP $code from $urlString")
-            connection.inputStream.bufferedReader().readText()
+            if (code == HttpURLConnection.HTTP_NOT_MODIFIED) {
+                DownloadResult(
+                    text = null,
+                    etag = connection.getHeaderField("ETag").orEmpty().ifBlank { savedEtag },
+                    lastModified = connection.getHeaderField("Last-Modified").orEmpty()
+                        .ifBlank { savedModified },
+                    notModified = true,
+                )
+            } else {
+                if (code !in 200..299) throw HttpStatusException(code, urlString)
+                val announcedLength = connection.contentLengthLong
+                if (announcedLength > maxChars.toLong() * 4L) {
+                    throw IOException("the downloaded file is unexpectedly large")
+                }
+                val text = connection.inputStream.bufferedReader().use { reader ->
+                    val output = StringBuilder(minOf(announcedLength.coerceAtLeast(0L).toInt(), maxChars))
+                    val buffer = CharArray(16 * 1024)
+                    while (true) {
+                        val count = reader.read(buffer)
+                        if (count < 0) break
+                        output.append(buffer, 0, count)
+                        if (output.length > maxChars) {
+                            throw IOException("the downloaded file exceeds the app's safety limit")
+                        }
+                    }
+                    output.toString()
+                }
+                DownloadResult(
+                    text = text,
+                    etag = connection.getHeaderField("ETag").orEmpty(),
+                    lastModified = connection.getHeaderField("Last-Modified").orEmpty(),
+                    notModified = false,
+                )
+            }
         } finally {
             connection.disconnect()
         }
     }
 
+    private fun saveValidator(name: String, url: String, result: DownloadResult) {
+        preferences.edit()
+            .putString("${name}_url", url)
+            .putString("${name}_etag", result.etag)
+            .putString("${name}_modified", result.lastModified)
+            .apply()
+    }
+
+    private fun clearValidators() {
+        preferences.edit()
+            .remove("${PLAYLIST_VALIDATOR}_url")
+            .remove("${PLAYLIST_VALIDATOR}_etag")
+            .remove("${PLAYLIST_VALIDATOR}_modified")
+            .remove("${GUIDE_VALIDATOR}_url")
+            .remove("${GUIDE_VALIDATOR}_etag")
+            .remove("${GUIDE_VALIDATOR}_modified")
+            .apply()
+    }
+
+    private fun isRetryable(error: Exception): Boolean = when (error) {
+        is HttpStatusException -> error.statusCode == 408 || error.statusCode == 425 ||
+            error.statusCode == 429 || error.statusCode in 500..599
+        is IOException -> true
+        else -> false
+    }
+
+    private fun refreshFailureMessage(error: Exception): String = when (error) {
+        is HttpStatusException -> when (error.statusCode) {
+            401, 403, 404 -> "Refresh could not access the repository (HTTP ${error.statusCode}). " +
+                "The current app data was kept. Private GitHub raw files need a public, " +
+                "owner-approved delivery mirror before a TV can download them."
+            else -> "Refresh failed with HTTP ${error.statusCode}; the current app data was kept."
+        }
+        else -> "Refresh failed: ${error.message ?: error.javaClass.simpleName}. " +
+            "The current app data was kept."
+    }
+
     private fun stamp(): String {
-        return SimpleDateFormat("yyyy-MM-dd HH:mm 'UTC'", Locale.US).format(Date())
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm 'UTC'", Locale.US)
+        formatter.timeZone = TimeZone.getTimeZone("UTC")
+        return formatter.format(Date())
     }
 }

@@ -80,6 +80,29 @@ data class Library(
     val guideError: String? = null,
 )
 
+/** Why a network refresh was requested. */
+enum class RefreshTrigger {
+    Manual,
+    Automatic,
+}
+
+/** Result consumed by the background worker to decide whether a short retry is useful. */
+data class RefreshOutcome(
+    val successful: Boolean,
+    val changed: Boolean = false,
+    val retryable: Boolean = false,
+)
+
+/** Persistent background-refresh information shown in Settings. */
+data class RefreshInfo(
+    val inProgress: Boolean = false,
+    val lastAttemptAtMillis: Long = 0L,
+    val lastSuccessAtMillis: Long = 0L,
+    val nextAutomaticAtMillis: Long = 0L,
+    val lastTrigger: RefreshTrigger? = null,
+    val lastMessage: String = "Automatic refresh has not run yet.",
+)
+
 sealed interface LoadState {
     data object Loading : LoadState
     data class Ready(val library: Library) : LoadState

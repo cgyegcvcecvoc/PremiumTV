@@ -45,6 +45,8 @@ import com.premiumtv.app.BuildConfig
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Library
 import com.premiumtv.app.data.Programme
+import com.premiumtv.app.data.RefreshInfo
+import com.premiumtv.app.data.RefreshTrigger
 
 private enum class Tab(val label: String) {
     Channels("Channels"),
@@ -57,8 +59,9 @@ fun HomeScreen(
     library: Library,
     now: Long,
     status: String,
+    refreshInfo: RefreshInfo,
     onSelect: (Channel) -> Unit,
-    onRefresh: () -> Unit,
+    onForceRefresh: () -> Unit,
     onReset: () -> Unit,
 ) {
     var tab by remember { mutableStateOf(Tab.Channels) }
@@ -103,7 +106,13 @@ fun HomeScreen(
         when (tab) {
             Tab.Channels -> CategoriesScreen(library, now, onSelect)
             Tab.Guide -> GuideScreen(library, now, onSelect)
-            Tab.Settings -> SettingsScreen(library, status, onRefresh, onReset)
+            Tab.Settings -> SettingsScreen(
+                library = library,
+                status = status,
+                refreshInfo = refreshInfo,
+                onForceRefresh = onForceRefresh,
+                onReset = onReset,
+            )
         }
     }
 }
@@ -400,7 +409,8 @@ private fun ProgressLine(fraction: Float) {
 private fun SettingsScreen(
     library: Library,
     status: String,
-    onRefresh: () -> Unit,
+    refreshInfo: RefreshInfo,
+    onForceRefresh: () -> Unit,
     onReset: () -> Unit,
 ) {
     val meta = library.meta
@@ -436,28 +446,83 @@ private fun SettingsScreen(
         }
         InfoRow(
             "Showing now",
-            if (library.refreshed) "Copy downloaded from GitHub" else "Data bundled in this APK",
+            if (library.refreshed) "Latest copy downloaded by the app" else "Data bundled in this APK",
         )
 
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = "Update",
+            text = "Automatic refresh",
+            style = MaterialTheme.typography.titleMedium,
+            color = Color.White,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        InfoRow(
+            "Background updates",
+            when {
+                refreshInfo.inProgress && refreshInfo.lastTrigger == RefreshTrigger.Automatic ->
+                    "On — checking now"
+                else -> "On — waits for a connected network"
+            },
+        )
+        InfoRow(
+            "Next background check",
+            if (refreshInfo.nextAutomaticAtMillis > 0L) {
+                formatRefreshInstant(refreshInfo.nextAutomaticAtMillis)
+            } else {
+                "Being scheduled"
+            },
+        )
+        InfoRow(
+            "Last successful refresh",
+            if (refreshInfo.lastSuccessAtMillis > 0L) {
+                formatRefreshInstant(refreshInfo.lastSuccessAtMillis)
+            } else {
+                "Not yet"
+            },
+        )
+        if (refreshInfo.lastAttemptAtMillis > 0L) {
+            InfoRow("Last refresh result", refreshInfo.lastMessage)
+        }
+        Text(
+            text = "Beta 4 checks shortly after the repository's playlist, quick-update " +
+                "and guide publishing windows. Android may defer a background check " +
+                "while the device is asleep. Unchanged files use HTTP validators, so " +
+                "they are not downloaded again.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MutedText,
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = "Refresh now",
             style = MaterialTheme.typography.titleMedium,
             color = Color.White,
             fontWeight = FontWeight.SemiBold,
         )
         Spacer(modifier = Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            FocusButton("Refresh from GitHub") { onRefresh() }
+            FocusButton(
+                if (refreshInfo.inProgress) "Refreshing all data…" else "Force refresh all now"
+            ) { onForceRefresh() }
             FocusButton("Reset to bundled data") { onReset() }
         }
         Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = status.ifBlank {
-                "Refresh downloads the playlist and guide straight from this " +
-                    "repository. The repository is private today, so the download " +
-                    "will fail with HTTP 404 until it is public or mirrored."
+                "Force refresh bypasses saved validators and downloads both the complete " +
+                    "channel list and programme guide, then replaces the cache only after " +
+                    "both files parse successfully."
             },
+            style = MaterialTheme.typography.bodySmall,
+            color = MutedText,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "The repository is private today, so unauthenticated raw GitHub " +
+                "downloads return an access error. Automatic and forced refreshes start " +
+                "working when an owner-approved public delivery URL is available; the " +
+                "APK's bundled data remains usable meanwhile.",
             style = MaterialTheme.typography.bodySmall,
             color = MutedText,
         )

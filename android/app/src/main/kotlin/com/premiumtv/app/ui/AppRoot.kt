@@ -17,6 +17,7 @@ import kotlinx.coroutines.delay
 fun AppRoot(viewModel: TvViewModel = viewModel()) {
     val state by viewModel.state.collectAsState()
     val status by viewModel.status.collectAsState()
+    val refreshInfo by viewModel.refreshInfo.collectAsState()
 
     // The guide's "now" has to move on its own; the listings are keyed to real
     // clock times, so a static value would leave yesterday's show on screen.
@@ -55,8 +56,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                     library = current.library,
                     now = now,
                     status = status,
+                    refreshInfo = refreshInfo,
                     onSelect = { playing = it },
-                    onRefresh = { viewModel.refresh() },
+                    onForceRefresh = { viewModel.forceRefresh() },
                     onReset = { viewModel.resetToBundled() },
                 )
             }

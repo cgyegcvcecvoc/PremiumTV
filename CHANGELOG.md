@@ -4,7 +4,36 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
-## 2026-10-11 — Android TV beta 3 (v1.0.0-beta3 candidate)
+## 2026-10-11 — Android TV beta 4 (v1.0.0-beta4 preview)
+
+- **GitHub-aligned automatic refresh.** Android WorkManager now schedules a
+  connected-network check 45 minutes after every daily playlist scrape,
+  quick-update and EPG publication slot. The next one-time job is chained after
+  each run and survives app exits/reboots; Android may defer it under normal
+  background limits.
+- **Low-cost unchanged checks.** Automatic runs retain ETag and Last-Modified
+  validators, so unchanged playlist/guide files use HTTP 304 instead of being
+  transferred up to 13 times per day. A changed playlist forces a complete
+  guide read so newly added channel IDs can receive listings immediately.
+- **Force refresh all.** Settings now has a true force action that bypasses
+  validators and downloads both the complete USA playlist and complete guide.
+  It shows in-progress state, next automatic check, last successful refresh and
+  the latest result.
+- **Safe cache publication.** Foreground and worker operations share one mutex.
+  A refresh writes a staging directory and atomically swaps it into place only
+  after both files parse; interrupted, partial and malformed updates keep the
+  last usable data. Reset clears validators so the next check cannot mistake
+  bundled data for an already-downloaded copy.
+- **Honest private-repository behavior.** 401/403/404 results retain current
+  data and do not trigger rapid retries. Transient timeouts, 408/425/429 and 5xx
+  failures receive two WorkManager backoff retries. No GitHub credential is
+  embedded or requested.
+- **Version/release status.** Source is `1.0.0-beta4`, `versionCode 4`, and CI
+  targets the [v1.0.0-beta4 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4).
+  **Beta 3 is the current default release; Beta 4 is the new preview** until its
+  background behavior is smoke-tested on TV hardware.
+
+## 2026-10-11 — Android TV beta 3 (v1.0.0-beta3; current default release)
 
 - **Channels open sooner.** The repository reads the channel list first and
   publishes the Channels screen while it parses the larger programme guide on
@@ -19,13 +48,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   small disk cache and skip per-image fades to reduce repeated work on TV sticks.
 - **Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now
   targets the `v1.0.0-beta3` release tag.
-- **Release status** — Beta 3 is published as the
-  [v1.0.0-beta3 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3)
-  with a CI-built APK, but it has not yet been smoke-tested on a TV. **Beta 2
-  remains the current best validated/recommended release and is marked Latest
-  on GitHub** until Beta 3 is checked on-device.
+- **Release status** — Beta 3 is the
+  [current default release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3)
+  with a CI-built APK. Beta 4 continues separately as the new pre-release.
 
-## 2026-10-11 — Android TV beta 2 (v1.0.0-beta2; current best validated release)
+## 2026-10-11 — Android TV beta 2 (v1.0.0-beta2; superseded by beta 3)
 
 - **Fixed: channels did not load on launch.** The bundled channel list and guide
   were in the APK, but the reader looped on `JsonReader.hasNext()` past the end

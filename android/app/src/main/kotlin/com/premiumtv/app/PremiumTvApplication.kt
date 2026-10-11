@@ -4,10 +4,25 @@ import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
+import com.premiumtv.app.data.TvRepository
+import com.premiumtv.app.update.AutomaticRefreshScheduler
 import java.io.File
 
-/** Shared image pipeline for channel artwork. */
+/** Shared app services: one data repository, background updates and channel artwork. */
 class PremiumTvApplication : Application(), ImageLoaderFactory {
+
+    /** Foreground UI and WorkManager use the same mutex-protected repository. */
+    val repository: TvRepository by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        TvRepository(this)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        // WorkManager persists this one-time request across process exits and
+        // reboots. Each completed worker schedules the following GitHub slot.
+        AutomaticRefreshScheduler.scheduleNext(this)
+    }
+
     override fun newImageLoader(): ImageLoader =
         ImageLoader.Builder(this)
             // Logos are decorative; avoiding per-card fades keeps focus and

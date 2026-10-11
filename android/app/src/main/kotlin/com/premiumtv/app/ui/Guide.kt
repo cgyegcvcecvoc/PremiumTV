@@ -23,6 +23,7 @@ fun progressOf(programme: Programme, now: Long): Float {
 // Only ever touched from the main thread, which is where every caller runs.
 private val CLOCK = SimpleDateFormat("h:mm a", Locale.US)
 private val DAY_CLOCK = SimpleDateFormat("EEE h:mm a", Locale.US)
+private val REFRESH_INSTANT = SimpleDateFormat("MMM d, h:mm a z", Locale.US)
 
 fun formatClock(epochSeconds: Long): String = CLOCK.format(Date(epochSeconds * 1000L))
 
@@ -30,3 +31,6 @@ fun formatRange(start: Long, end: Long): String =
     "${formatClock(start)} - ${formatClock(end)}"
 
 fun formatDay(epochSeconds: Long): String = DAY_CLOCK.format(Date(epochSeconds * 1000L))
+
+/** Device-local date/time for refresh history and the next WorkManager slot. */
+fun formatRefreshInstant(epochMillis: Long): String = REFRESH_INSTANT.format(Date(epochMillis))
