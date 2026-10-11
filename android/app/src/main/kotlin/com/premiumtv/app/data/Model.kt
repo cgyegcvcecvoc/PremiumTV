@@ -74,6 +74,10 @@ data class Library(
     val meta: BundleMeta,
     /** True when this data came from a network refresh instead of the APK. */
     val refreshed: Boolean,
+    /** Channels can be shown before the larger programme guide finishes parsing. */
+    val guideLoading: Boolean = false,
+    /** Non-fatal guide problem; channels remain usable if the guide is unavailable. */
+    val guideError: String? = null,
 )
 
 sealed interface LoadState {

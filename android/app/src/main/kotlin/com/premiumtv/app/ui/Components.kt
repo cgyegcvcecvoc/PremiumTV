@@ -16,13 +16,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.composed
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +36,10 @@ import androidx.compose.ui.input.key.onKeyEvent
 import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.onClick as semanticsOnClick
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,35 +48,40 @@ import coil.compose.AsyncImage
 import com.premiumtv.app.data.Channel
 
 /**
- * Makes anything remote-control and touch operable.
+ * Makes a control operable by touch, accessibility actions and a TV remote.
  *
- * Material's `clickable` is a pointer modifier: it does not make a composable a
- * D-pad focus target, and relying on it alone leaves channel cards that can be
- * focused but never opened with the OK button. So focus, the centre/enter keys
- * and taps are each wired up explicitly and exactly once, which also means the
- * action can never fire twice for one press.
- *
- * The key is read from the platform event ([KeyEvent.nativeKeyEvent]) rather
- * than through the Compose `key`/`type` extensions, because those are declared
- * as extensions and would silently need an extra import to resolve.
+ * The handlers stay explicit so a remote's centre key is handled once, rather
+ * than once by the key listener and again by a generic click detector. Keeping
+ * the latest callback in state also avoids a stale lambda if a lazy-list item
+ * is reused after its data changes.
  */
-fun Modifier.tvClickable(onClick: () -> Unit): Modifier = this
-    .focusable()
-    .onKeyEvent { event ->
-        val native = event.nativeKeyEvent
-        val isSelectKey = native.keyCode == NativeKey.KEYCODE_DPAD_CENTER ||
-            native.keyCode == NativeKey.KEYCODE_ENTER ||
-            native.keyCode == NativeKey.KEYCODE_NUMPAD_ENTER
-        if (native.action == NativeKey.ACTION_UP && isSelectKey) {
-            onClick()
-            true
-        } else {
-            false
+fun Modifier.tvClickable(onClick: () -> Unit): Modifier = composed {
+    val currentOnClick = rememberUpdatedState(onClick)
+    this
+        .semantics(mergeDescendants = true) {
+            role = Role.Button
+            semanticsOnClick(label = null) {
+                currentOnClick.value()
+                true
+            }
         }
-    }
-    .pointerInput(Unit) {
-        detectTapGestures(onTap = { onClick() })
-    }
+        .focusable()
+        .onKeyEvent { event ->
+            val native = event.nativeKeyEvent
+            val isSelectKey = native.keyCode == NativeKey.KEYCODE_DPAD_CENTER ||
+                native.keyCode == NativeKey.KEYCODE_ENTER ||
+                native.keyCode == NativeKey.KEYCODE_NUMPAD_ENTER
+            if (native.action == NativeKey.ACTION_UP && isSelectKey) {
+                currentOnClick.value()
+                true
+            } else {
+                false
+            }
+        }
+        .pointerInput(Unit) {
+            detectTapGestures(onTap = { currentOnClick.value() })
+        }
+}
 
 @Composable
 fun ChannelCard(
@@ -209,6 +221,64 @@ fun FocusButton(label: String, modifier: Modifier = Modifier, onClick: () -> Uni
                 style = MaterialTheme.typography.titleSmall,
                 color = if (focused) Color(0xFF12160B) else Color.White,
             )
+        }
+    }
+}
+
+@Composable
+fun LoadingScreen(title: String, detail: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF070A0F)),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+            CircularProgressIndicator(color = PremiumGold, strokeWidth = 3.dp)
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.White,
+            )
+            Text(
+                text = detail,
+                style = MaterialTheme.typography.bodySmall,
+                color = MutedText,
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+@Composable
+fun LoadErrorScreen(message: String, onRetry: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF070A0F)),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(horizontal = 64.dp),
+        ) {
+            Text(
+                text = "Channels couldn't be loaded",
+                style = MaterialTheme.typography.titleLarge,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+            )
+            Text(
+                text = message,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MutedText,
+                textAlign = TextAlign.Center,
+            )
+            FocusButton("Retry loading") { onRetry() }
         }
     }
 }

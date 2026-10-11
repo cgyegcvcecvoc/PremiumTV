@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## Android TV app (v1.0.0-beta2)
+## Android TV app (v1.0.0-beta3 candidate)
 
 The repository also builds an Android app that carries the playlists and the
 guide **inside the APK** — nothing to configure in a player, no M3U file to
@@ -66,23 +66,32 @@ side-load.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Installable APK | `build-out/PremiumTV-1.0.0-beta2-debug.apk` (rewritten by every build) |
-| Release | [v1.0.0-beta2](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta2) |
+| Source candidate | `1.0.0-beta3` (`versionCode 3`) |
+| Current best validated APK | `build-out/PremiumTV-1.0.0-beta2-debug.apk` (debug-signed) |
+| Current best release | [v1.0.0-beta2](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta2) |
+| Beta 3 preview APK | [v1.0.0-beta3 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3) |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-The app bundles the **USA library**: 2,217 channels across the 59 categories
-the repository publishes, plus every guide listing the repository had at build
-time (about 9,950 of them, covering the 167 channels the upstream XMLTV sources
-actually schedule). Beta 2 fixes the bundled data not loading on launch: beta 1
-showed a "run Python" message instead of the channels. It installs on an Android TV,
-a Google TV, a Fire TV stick, a tablet or a phone.
+**Beta 2 remains the current best release for now.** The Beta 3 APK is available
+as a pre-release, but has not yet been smoke-tested on a TV; use Beta 2 until
+that check is complete. The app bundles the **USA library**: 2,217 channels
+across the repository's 59 published categories, plus about 9,950 guide
+listings covering the 167 channels with schedule data.
+Beta 2 fixed the earlier launch failure that showed a "run Python" message
+instead of channels. The app installs on Android TV, Google TV, Fire TV stick,
+tablet and phone.
 
 - **Channels** — one row per category, in the published order; each card shows
-  the logo and what is on right now.
+the logo and what is on right now. Beta 3 publishes channels as soon as their
+list is ready, rather than waiting for the larger guide to finish parsing.
 - **Guide** — what's on now across every channel that has listings, with a
-  progress bar and what's next.
+progress bar and what's next. A damaged or missing guide no longer blocks the
+Channels tab.
 - **Settings** — refresh from the repository's raw URLs, or reset to the
-  bundled copy.
+bundled copy.
+- **Navigation** — D-pad focus stays within channel rows; controls expose button
+semantics for assistive technologies. Shared on-disk logo caching and no-fade
+artwork reduce repeated image work while browsing.
 
 Playback is ExoPlayer (Media3), and it sends the referrer, origin and
 user-agent a playlist entry publishes when it has one.
