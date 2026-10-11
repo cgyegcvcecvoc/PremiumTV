@@ -1,26 +1,26 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261010T233900Z-2773`)
-- **Started:** 2026-10-10T23:39:00Z | **Finished:** 2026-10-10T23:39:01Z | **Duration:** 1.4s
-- **Guides checked:** 179 across 178 playlists (177 of them are this repository's own published guides)
+- **Run:** nightly guide check (`20261011T112542Z-2767`)
+- **Started:** 2026-10-11T11:25:42Z | **Finished:** 2026-10-11T11:25:46Z | **Duration:** 3.9s
+- **Guides checked:** 176 across 175 playlists (174 of them are this repository's own published guides)
 - **Working share of upstream guides:** 100.0%
 
 | Result | Guides |
 |---|---:|
 | ok | 2 |
-| offline | 177 |
-| own guide (excluded from the share above) | 177 |
+| offline | 174 |
+| own guide (excluded from the share above) | 174 |
 
 ## Working guides (kept)
 
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
-| `TV.xml` | 230 | 7318 | 2026-10-14 08:00 UTC | 4096 KB |
+| `TV.xml` | 230 | 7331 | 2026-10-15 08:00 UTC | 4096 KB |
 | `guide.xml.gz` | 2 | 114 | 2026-10-12 02:15 UTC | 2 KB |
 
 ## This repository's own guides
 
-177 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: offline=177. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
+174 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: offline=174. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
 
 | Own guide | Status | Reason |
 |---|---|---|
@@ -39,7 +39,7 @@
 | `Austria.xml` | offline | HTTP 404 |
 | `Azerbaijan.xml` | offline | HTTP 404 |
 | `Bahamas.xml` | offline | HTTP 404 |
-| … 162 more (one per country playlist) | | |
+| … 159 more (one per country playlist) | | |
 
 ## Patch
 
