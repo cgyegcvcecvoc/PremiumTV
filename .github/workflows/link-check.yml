@@ -79,11 +79,8 @@ jobs:
           PATCH: ${{ inputs.patch }}
           DEEP: ${{ inputs.deep }}
         run: |
-          # One-time cleanup on this branch after the probe fix: keep the global
-          # working-ratio guard, but do not leave independently confirmed-dead
-          # country entries behind solely because their file has a high dead share.
           args=(--all --workers 96 --per-host-workers 8 --timeout 10 --retries 1
-                --min-working-ratio 0.25 --max-remove-ratio 1.0
+                --min-working-ratio 0.25 --max-remove-ratio 0.35
                 --label "nightly deep link check")
           if [ "$DEEP" != "false" ]; then args+=(--deep); fi
           # A scheduled run always patches; a manual run can report only.

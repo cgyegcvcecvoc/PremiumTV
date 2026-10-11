@@ -26,12 +26,12 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 
 | File | Purpose |
 |---|---|
-| [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Confirmed working links from the latest successful checked run. |
+| [`playlists/PremiumTV.m3u`](playlists/PremiumTV.m3u) | Checked player feed: working links are kept; blocked or transient links are retained for regional access/recheck; confirmed-dead links are removed. |
 | [`playlists/categories/`](playlists/categories/README.md) | The same channels split into one playlist per category — `Sports.m3u`, `Cartoons.m3u`, `PBS.m3u`, `Game_Shows.m3u`, `Fox_Channels.m3u`, … each with its own `*_Backups.m3u`. |
 | [`playlists/checks/CATEGORIES.md`](playlists/checks/CATEGORIES.md) | Category audit: the published group order, how many channels each holds, and which ones have guide data. |
 | [`categories/`](categories/README.md) | **The category shelf to point a player at:** [`categories/USA.m3u`](categories/USA.m3u) (every US channel, grouped by category and sorted), [`categories/USA/`](categories/USA) (one file per US category) and [`categories/All/`](categories/All) (one file per category for the whole library). |
-| [`playlists/countries/`](playlists/countries/README.md) | Confirmed working playlists separated by country (`USA.m3u`, `China.m3u`, `UK.m3u`, `Canada.m3u`, `India.m3u`, etc.). |
-| [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u) | Dedicated playlist of confirmed working A&E and A+E Networks channels (linear & FAST). |
+| [`playlists/countries/`](playlists/countries/README.md) | Checked playlists separated by country (`USA.m3u`, `China.m3u`, `UK.m3u`, `Canada.m3u`, `India.m3u`, etc.); confirmed-dead links are removed and blocked/transient links remain for recheck. |
+| [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u) | Dedicated A&E/A+E Networks playlist (linear & FAST); confirmed-dead links are removed, with blocked/transient links retained for recheck. |
 | [`playlists/PremiumTV_all.m3u`](playlists/PremiumTV_all.m3u) | All unique links found, including dead or unverified links. |
 | [`playlists/STATUS.md`](playlists/STATUS.md) | Latest run outcome, source counts, country counts, A&E status, additions/removals, and diagnostics. |
 | [`playlists/logs/scrape-log.txt`](playlists/logs/scrape-log.txt) | Complete plain-text (`.txt`) run report with source stats, A&E channels, country counts, and log edits. |
@@ -49,7 +49,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`EPG/PremiumTV.xml.gz`](EPG/PremiumTV.xml.gz) | Gzipped copy of the all-country guide (for players that accept `.xml.gz`). |
 | [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: verified source guides, per-country channel/programme coverage, XML sizes and validation results. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
-| [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons, NFL Network, NFL RedZone) and the same guides as the main playlist. |
+| [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load, end-to-end verified links for Nickelodeon, NickToons, MeTV, MeTV Toons, NFL Network and NFL RedZone; the hunt publishes playable candidates, while unresolved alternatives remain in the diagnostics/source pool. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
@@ -93,7 +93,7 @@ staying wrong.
 
 ### Country-separated playlists & A&E channels
 
-Every checked run automatically classifies all confirmed working channels by country (`tvg-country`, `tvg-id` country suffix, and `group-title` / channel metadata) and writes a separate playlist per country in [`playlists/countries/`](playlists/countries/README.md), plus a dedicated A&E Networks playlist at [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u):
+Every checked run automatically classifies the retained channels by country (`tvg-country`, `tvg-id` country suffix, and `group-title` / channel metadata) and writes a separate playlist per country in [`playlists/countries/`](playlists/countries/README.md), plus a dedicated A&E Networks playlist at [`playlists/AE_Channels.m3u`](playlists/AE_Channels.m3u):
 
 ```text
 # USA channels only
