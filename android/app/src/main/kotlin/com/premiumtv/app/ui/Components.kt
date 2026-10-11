@@ -29,9 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.onKeyEvent
+import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -49,13 +48,19 @@ import com.premiumtv.app.data.Channel
  * focused but never opened with the OK button. So focus, the centre/enter keys
  * and taps are each wired up explicitly and exactly once, which also means the
  * action can never fire twice for one press.
+ *
+ * The key is read from the platform event ([KeyEvent.nativeKeyEvent]) rather
+ * than through the Compose `key`/`type` extensions, because those are declared
+ * as extensions and would silently need an extra import to resolve.
  */
 fun Modifier.tvClickable(onClick: () -> Unit): Modifier = this
     .focusable()
     .onKeyEvent { event ->
-        if (event.type == KeyEventType.KeyUp &&
-            (event.key == Key.DirectionCenter || event.key == Key.Enter || event.key == Key.NumPadEnter)
-        ) {
+        val native = event.nativeKeyEvent
+        val isSelectKey = native.keyCode == NativeKey.KEYCODE_DPAD_CENTER ||
+            native.keyCode == NativeKey.KEYCODE_ENTER ||
+            native.keyCode == NativeKey.KEYCODE_NUMPAD_ENTER
+        if (native.action == NativeKey.ACTION_UP && isSelectKey) {
             onClick()
             true
         } else {
@@ -179,8 +184,11 @@ fun TabChip(label: String, selected: Boolean, onClick: () -> Unit) {
     }
 }
 
+// The click handler is deliberately the last parameter: a trailing lambda
+// binds to the last parameter, so putting the modifier last would make
+// FocusButton("Refresh") { ... } hand the lambda to the modifier instead.
 @Composable
-fun FocusButton(label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun FocusButton(label: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
     var focused by remember { mutableStateOf(false) }
     Surface(
         modifier = modifier

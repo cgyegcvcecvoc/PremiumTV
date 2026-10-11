@@ -106,17 +106,19 @@ class TvRepository(private val app: Application) {
         null
     }
 
-    private fun readCache(): Library? = try {
+    private fun readCache(): Library? {
         if (!cacheDir.isDirectory) return null
-        readLibrary(
-            { name ->
-                val file = File(cacheDir, name)
-                if (file.isFile) file.inputStream() else null
-            },
-            refreshed = true
-        )
-    } catch (e: Exception) {
-        null
+        return try {
+            readLibrary(
+                { name ->
+                    val file = File(cacheDir, name)
+                    if (file.isFile) file.inputStream() else null
+                },
+                refreshed = true
+            )
+        } catch (e: Exception) {
+            null
+        }
     }
 
     private fun readLibrary(open: (String) -> InputStream?, refreshed: Boolean): Library? {
