@@ -12,10 +12,10 @@ android {
         applicationId = "com.premiumtv.app"
         minSdk = 23
         targetSdk = 34
-        // Beta 3 publishes Channels before guide parsing completes and isolates
-        // guide-file failures so they no longer block channel browsing.
-        versionCode = 3
-        versionName = "1.0.0-beta3"
+        // Beta 4 adds persistent, network-aware background data refreshes and
+        // a full force-refresh action while keeping Beta 3 as the default release.
+        versionCode = 4
+        versionName = "1.0.0-beta4"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -66,6 +66,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    implementation("androidx.work:work-runtime-ktx:2.9.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
     implementation("androidx.compose.ui:ui")

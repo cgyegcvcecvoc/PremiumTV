@@ -4,6 +4,8 @@
     <!-- Live streams and channel logos are fetched over the network. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- WorkManager restores the automatic data-refresh schedule after reboot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!--
         Installs on a television (leanback) and on a phone or tablet. Neither

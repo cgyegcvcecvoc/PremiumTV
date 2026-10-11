@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## Android TV app (v1.0.0-beta3 candidate)
+## Android TV app (v1.0.0-beta4 candidate)
 
 The repository also builds an Android app that carries the playlists and the
 guide **inside the APK** — nothing to configure in a player, no M3U file to
@@ -66,41 +66,49 @@ side-load.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Source candidate | `1.0.0-beta3` (`versionCode 3`) |
-| Current best validated APK | `build-out/PremiumTV-1.0.0-beta2-debug.apk` (debug-signed) |
-| Current best release | [v1.0.0-beta2](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta2) |
-| Beta 3 preview APK | [v1.0.0-beta3 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3) |
+| New source candidate | `1.0.0-beta4` (`versionCode 4`) |
+| Current default APK | `build-out/PremiumTV-1.0.0-beta3-debug.apk` (debug-signed) |
+| Current default release | [v1.0.0-beta3](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3) |
+| New Beta 4 preview | [v1.0.0-beta4 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4) |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-**Beta 2 remains the current best release for now.** The Beta 3 APK is available
-as a pre-release, but has not yet been smoke-tested on a TV; use Beta 2 until
-that check is complete. The app bundles the **USA library**: 2,217 channels
-across the repository's 59 published categories, plus about 9,950 guide
-listings covering the 167 channels with schedule data.
-Beta 2 fixed the earlier launch failure that showed a "run Python" message
-instead of channels. The app installs on Android TV, Google TV, Fire TV stick,
-tablet and phone.
+**Beta 3 is the current default release.** Beta 4 is the new preview and stays
+a pre-release until its background-update behavior has been checked on real TV
+hardware. The current Beta 4 build bundles the **USA library**: 2,197 channels
+across 60 published categories, plus 9,753 guide listings covering the 165
+channels with schedule data. It installs on Android TV, Google TV, Fire TV
+stick, tablet and phone.
 
 - **Channels** — one row per category, in the published order; each card shows
-the logo and what is on right now. Beta 3 publishes channels as soon as their
-list is ready, rather than waiting for the larger guide to finish parsing.
+  the logo and what is on right now. Channels appear as soon as their list is
+  ready rather than waiting for the larger guide to finish parsing.
 - **Guide** — what's on now across every channel that has listings, with a
-progress bar and what's next. A damaged or missing guide no longer blocks the
-Channels tab.
-- **Settings** — refresh from the repository's raw URLs, or reset to the
-bundled copy.
+  progress bar and what's next. A damaged or missing guide does not block the
+  Channels tab.
+- **Automatic refresh (Beta 4)** — Android WorkManager checks on a connected
+  network shortly after all daily scrape, quick-update and guide publication
+  windows. The request survives app exits and device reboots; Android can defer
+  it while a device sleeps. ETag/Last-Modified checks avoid downloading files
+  that did not change.
+- **Settings** — **Force refresh all now** bypasses saved validators and fetches
+  both the full channel list and full guide. A successful pair is installed
+  atomically; a failed or partial refresh keeps the last usable copy. Settings
+  also shows the next check, last success and last result, and can reset to the
+  bundled copy.
 - **Navigation** — D-pad focus stays within channel rows; controls expose button
-semantics for assistive technologies. Shared on-disk logo caching and no-fade
-artwork reduce repeated image work while browsing.
+  semantics for assistive technologies. Shared on-disk logo caching and no-fade
+  artwork reduce repeated image work while browsing.
 
 Playback is ExoPlayer (Media3), and it sends the referrer, origin and
 user-agent a playlist entry publishes when it has one.
 
 Two things to know before installing:
 
-1. **Refresh from GitHub returns HTTP 404 today.** The app refreshes over
-   `raw.githubusercontent.com`, which cannot be read while `PremiumTV1` is
-   private. The app reports that honestly rather than failing silently.
+1. **App-side refresh cannot read this private repository today.** Automatic and
+   forced updates use the bundled raw URLs. `raw.githubusercontent.com` returns
+   an access error to an unauthenticated TV while `PremiumTV1` is private. The
+   app keeps its bundled/cached copy and reports the failure honestly; refresh
+   starts working when an owner-approved public mirror or delivery URL exists.
 2. **Some channels will not play.** A link stays in the playlist until the
    nightly deep check confirms it is dead, so a few dead upstream feeds are
    still in this build.

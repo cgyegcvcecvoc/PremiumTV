@@ -3,15 +3,18 @@ package com.premiumtv.app
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.premiumtv.app.data.TvRepository
+import com.premiumtv.app.data.RefreshTrigger
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TvViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = TvRepository(application)
+    private val repository = (application as PremiumTvApplication).repository
+    private var forceRefreshJob: Job? = null
 
     val state = repository.state
     val status = repository.status
+    val refreshInfo = repository.refreshInfo
 
     init {
         load()
@@ -21,8 +24,12 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch { repository.load() }
     }
 
-    fun refresh() {
-        viewModelScope.launch { repository.refresh() }
+    /** Settings action: bypass validators and fetch both playlist and guide. */
+    fun forceRefresh() {
+        if (forceRefreshJob?.isActive == true) return
+        forceRefreshJob = viewModelScope.launch {
+            repository.refresh(RefreshTrigger.Manual)
+        }
     }
 
     fun resetToBundled() {
