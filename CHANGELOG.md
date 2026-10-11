@@ -4,7 +4,22 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
-## 2026-10-11 — first Android TV app (v1.0.0 beta)
+## 2026-10-11 — Android TV beta 2 (v1.0.0-beta2)
+
+- **Fixed: channels did not load on launch.** The bundled channel list and guide
+  were in the APK, but the reader looped on `JsonReader.hasNext()` past the end
+  of each file and threw on the last line. The app then reported the data as
+  missing and asked for a Python command, which a TV cannot run. Each line is
+  now read on its own, a damaged download falls back to the bundled copy, and
+  the app's messages no longer mention Python.
+- **Version** — `1.0.0-beta2`, `versionCode 2`. Install
+  `PremiumTV-1.0.0-beta2-debug.apk`.
+- **Unsigned release APK dropped.** An unsigned APK cannot be installed on a
+  device, so CI publishes only the debug APK, which installs as-is.
+- Rebuilt bundle: 2,217 USA channels in 59 categories; about 9,950 guide
+  listings for 167 channels.
+
+## 2026-10-11 — first Android TV app (v1.0.0 beta, superseded by beta 2)
 
 The repository now builds an installable Android app that carries the channel
 list and the guide inside the APK, so a TV needs no separate player setup.

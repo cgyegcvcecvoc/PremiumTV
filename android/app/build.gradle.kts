@@ -12,9 +12,10 @@ android {
         applicationId = "com.premiumtv.app"
         minSdk = 23
         targetSdk = 34
-        // 1.0.0-beta: first installable build of the Android TV app.
-        versionCode = 1
-        versionName = "1.0.0-beta"
+        // 1.0.0-beta2: second beta. beta1 shipped without working channel data
+        // (the bundle reader threw on the last line), so this build replaces it.
+        versionCode = 2
+        versionName = "1.0.0-beta2"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -32,9 +33,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // No signing config: the release APK is produced unsigned so the
-            // owner can sign it with their own key. The debug APK is signed
-            // with the standard debug key and installs as-is.
+            // No signing config. CI publishes only the debug build, which is
+            // signed with the standard debug key and installs as-is on a TV.
+            // An unsigned release APK cannot be installed, so it is not built.
         }
     }
 

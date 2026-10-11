@@ -2,6 +2,7 @@ package com.premiumtv.app.data
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import com.premiumtv.app.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +32,10 @@ import java.util.Locale
  */
 class TvRepository(private val app: Application) {
 
+    private companion object {
+        const val TAG = "PremiumTV"
+    }
+
     private val _state = MutableStateFlow<LoadState>(LoadState.Loading)
     val state: StateFlow<LoadState> = _state
 
@@ -41,17 +46,25 @@ class TvRepository(private val app: Application) {
 
     suspend fun load() = withContext(Dispatchers.IO) {
         _state.value = LoadState.Loading
-        val library = readCache() ?: readBundled()
-        _state.value = if (library != null) {
-            LoadState.Ready(library)
-        } else {
-            LoadState.Error(
-                "The bundled channel data is missing from this build.\n" +
-                    "Run: python android/tools/build_bundle.py"
-            )
-        }
-        if (library != null && library.refreshed) {
+
+        // A downloaded copy wins; a damaged or missing one quietly falls back to
+        // the bundle that the APK shipped with.
+        val cached = readCache()
+        if (cached != null) {
+            _state.value = LoadState.Ready(cached)
             _status.value = "Showing the copy downloaded from GitHub."
+            return@withContext
+        }
+
+        try {
+            _state.value = LoadState.Ready(readBundled())
+        } catch (e: Exception) {
+            Log.e(TAG, "The channel data bundled in this APK could not be read", e)
+            _state.value = LoadState.Error(
+                "The channel data inside this app could not be read.\n" +
+                    "Install the latest PremiumTV beta APK and open it again.\n\n" +
+                    "Detail: ${e.javaClass.simpleName}: ${e.message ?: "no message"}"
+            )
         }
     }
 
@@ -100,12 +113,11 @@ class TvRepository(private val app: Application) {
 
     // ---------------------------------------------------------------- reading
 
-    private fun readBundled(): Library? = try {
+    /** Reads the APK's bundle. Throws with the reason if any part of it is unreadable. */
+    private fun readBundled(): Library =
         readLibrary({ name -> app.assets.open("bundle/$name") }, refreshed = false)
-    } catch (e: Exception) {
-        null
-    }
 
+    /** Reads the downloaded copy, or returns null so the caller uses the APK's bundle. */
     private fun readCache(): Library? {
         if (!cacheDir.isDirectory) return null
         return try {
@@ -117,17 +129,20 @@ class TvRepository(private val app: Application) {
                 refreshed = true
             )
         } catch (e: Exception) {
+            Log.w(TAG, "Downloaded copy is unreadable; using the bundled data", e)
             null
         }
     }
 
-    private fun readLibrary(open: (String) -> InputStream?, refreshed: Boolean): Library? {
-        val metaStream = open("meta.json") ?: return null
-        val meta = parseMeta(metaStream)
-        val channels = readJsonLines(open("channels.jsonl") ?: return null) { parseChannel(it) }
-        val groups = readJsonLines(open("groups.jsonl") ?: return null) { parseGroup(it) }
-        val programmes = readJsonLines(open("epg.jsonl") ?: return null) { parseProgramme(it) }
-        if (channels.isEmpty()) return null
+    private fun readLibrary(open: (String) -> InputStream?, refreshed: Boolean): Library {
+        fun stream(name: String): InputStream =
+            open(name) ?: throw FileNotFoundException("$name is missing")
+
+        val meta = stream("meta.json").use { parseMeta(it) }
+        val channels = readJsonLines(stream("channels.jsonl")) { parseChannel(it) }
+        val groups = readJsonLines(stream("groups.jsonl")) { parseGroup(it) }
+        val programmes = readJsonLines(stream("epg.jsonl")) { parseProgramme(it) }
+        if (channels.isEmpty()) throw IOException("channels.jsonl holds no channels")
         val byChannel = groupProgrammes(programmes, HashSet(channels.map { it.id }))
         return Library(
             channels = channels,
