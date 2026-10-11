@@ -23,7 +23,7 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     var now by remember { mutableStateOf(System.currentTimeMillis() / 1000L) }
     LaunchedEffect(Unit) {
         while (true) {
-            delay(30_000L)
+            delay(60_000L)
             now = System.currentTimeMillis() / 1000L
         }
     }
@@ -31,9 +31,15 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     var playing by remember { mutableStateOf<Channel?>(null) }
 
     when (val current = state) {
-        LoadState.Loading -> CenteredMessage("Loading channels…")
+        LoadState.Loading -> LoadingScreen(
+            title = "Loading channels…",
+            detail = "Getting your TV library ready.",
+        )
 
-        is LoadState.Error -> CenteredMessage(current.message)
+        is LoadState.Error -> LoadErrorScreen(
+            message = current.message,
+            onRetry = { viewModel.load() },
+        )
 
         is LoadState.Ready -> {
             val channel = playing

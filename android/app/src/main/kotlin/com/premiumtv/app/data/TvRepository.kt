@@ -46,23 +46,41 @@ class TvRepository(private val app: Application) {
 
     suspend fun load() = withContext(Dispatchers.IO) {
         _state.value = LoadState.Loading
+        _status.value = "Loading channels…"
 
-        // A downloaded copy wins; a damaged or missing one quietly falls back to
-        // the bundle that the APK shipped with.
-        val cached = readCache()
+        // Publish the channel rows as soon as their small files are ready. The
+        // larger guide can finish in the background without holding Channels
+        // behind a full-library parse.
+        val cached = readCache { partial ->
+            _state.value = LoadState.Ready(partial)
+            _status.value = if (partial.guideLoading) "Channels ready; loading guide…" else ""
+        }
         if (cached != null) {
             _state.value = LoadState.Ready(cached)
-            _status.value = "Showing the copy downloaded from GitHub."
+            _status.value = when {
+                cached.guideError != null -> "Channels loaded; the programme guide is unavailable."
+                else -> "Showing the copy downloaded from GitHub."
+            }
             return@withContext
         }
 
+        _status.value = "Loading bundled channels…"
         try {
-            _state.value = LoadState.Ready(readBundled())
+            val bundled = readBundled { partial ->
+                _state.value = LoadState.Ready(partial)
+                _status.value = if (partial.guideLoading) "Channels ready; loading guide…" else ""
+            }
+            _state.value = LoadState.Ready(bundled)
+            _status.value = if (bundled.guideError != null) {
+                "Channels loaded; the programme guide is unavailable."
+            } else {
+                ""
+            }
         } catch (e: Exception) {
             Log.e(TAG, "The channel data bundled in this APK could not be read", e)
             _state.value = LoadState.Error(
                 "The channel data inside this app could not be read.\n" +
-                    "Install the latest PremiumTV beta APK and open it again.\n\n" +
+                    "Install the latest PremiumTV beta APK and retry.\n\n" +
                     "Detail: ${e.javaClass.simpleName}: ${e.message ?: "no message"}"
             )
         }
@@ -113,44 +131,85 @@ class TvRepository(private val app: Application) {
 
     // ---------------------------------------------------------------- reading
 
-    /** Reads the APK's bundle. Throws with the reason if any part of it is unreadable. */
-    private fun readBundled(): Library =
-        readLibrary({ name -> app.assets.open("bundle/$name") }, refreshed = false)
+    /** Reads the APK's bundle and publishes channels before parsing the guide. */
+    private fun readBundled(onChannelsReady: (Library) -> Unit): Library =
+        readLibrary(
+            open = { name -> app.assets.open("bundle/$name") },
+            refreshed = false,
+            onChannelsReady = onChannelsReady,
+        )
 
     /** Reads the downloaded copy, or returns null so the caller uses the APK's bundle. */
-    private fun readCache(): Library? {
+    private fun readCache(onChannelsReady: (Library) -> Unit): Library? {
         if (!cacheDir.isDirectory) return null
         return try {
             readLibrary(
-                { name ->
+                open = { name ->
                     val file = File(cacheDir, name)
                     if (file.isFile) file.inputStream() else null
                 },
-                refreshed = true
+                refreshed = true,
+                onChannelsReady = onChannelsReady,
             )
         } catch (e: Exception) {
-            Log.w(TAG, "Downloaded copy is unreadable; using the bundled data", e)
+            Log.w(TAG, "Downloaded channels are unreadable; using the bundled data", e)
             null
         }
     }
 
-    private fun readLibrary(open: (String) -> InputStream?, refreshed: Boolean): Library {
+    /**
+     * Parses the required channel list first, then publishes it while the guide
+     * is parsed. A missing or damaged guide is non-fatal: the channel browser
+     * still opens and reports that listings are unavailable.
+     */
+    private fun readLibrary(
+        open: (String) -> InputStream?,
+        refreshed: Boolean,
+        onChannelsReady: (Library) -> Unit,
+    ): Library {
         fun stream(name: String): InputStream =
             open(name) ?: throw FileNotFoundException("$name is missing")
 
-        val meta = stream("meta.json").use { parseMeta(it) }
+        val meta = try {
+            open("meta.json")?.use { parseMeta(it) } ?: BundleMeta.EMPTY
+        } catch (e: Exception) {
+            Log.w(TAG, "Bundle metadata is unavailable; continuing with defaults", e)
+            BundleMeta.EMPTY
+        }
         val channels = readJsonLines(stream("channels.jsonl")) { parseChannel(it) }
-        val groups = readJsonLines(stream("groups.jsonl")) { parseGroup(it) }
-        val programmes = readJsonLines(stream("epg.jsonl")) { parseProgramme(it) }
         if (channels.isEmpty()) throw IOException("channels.jsonl holds no channels")
-        val byChannel = groupProgrammes(programmes, HashSet(channels.map { it.id }))
-        return Library(
+
+        val loadedGroups = try {
+            open("groups.jsonl")?.use { input ->
+                readJsonLines(input) { parseGroup(it) }
+            }.orEmpty()
+        } catch (e: Exception) {
+            Log.w(TAG, "Category metadata is unreadable; deriving categories from channels", e)
+            emptyList()
+        }
+        val groups = loadedGroups.ifEmpty { groupsFrom(channels) }
+
+        val partial = Library(
             channels = channels,
-            groups = groups.ifEmpty { groupsFrom(channels) },
-            programmes = byChannel,
+            groups = groups,
+            programmes = emptyMap(),
             meta = meta,
             refreshed = refreshed,
+            guideLoading = true,
         )
+        onChannelsReady(partial)
+
+        return try {
+            val programmes = readJsonLines(stream("epg.jsonl")) { parseProgramme(it) }
+            val byChannel = groupProgrammes(programmes, HashSet(channels.map { it.id }))
+            partial.copy(programmes = byChannel, guideLoading = false)
+        } catch (e: Exception) {
+            Log.w(TAG, "Programme guide is unreadable; keeping the channel list available", e)
+            partial.copy(
+                guideLoading = false,
+                guideError = "Programme listings could not be loaded. Channels are still available.",
+            )
+        }
     }
 
     private fun parseMeta(stream: InputStream): BundleMeta {

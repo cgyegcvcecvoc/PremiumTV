@@ -1,8 +1,13 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. Version **1.0.0-beta2** (`versionName 1.0.0-beta2`,
-`versionCode 2`). Beta 1 shipped without working channel data; beta 2 fixes that.
+TV guide inside the APK. The source now targets **1.0.0-beta3** (`versionName`
+`1.0.0-beta3`, `versionCode` `3`). Beta 3 makes channels available before guide
+parsing finishes and keeps guide-file problems from blocking channel browsing.
+
+**Current best validated release: Beta 2.** The Beta 3 source is the next
+candidate; until its APK has been built and smoke-tested on a TV, use the
+installable Beta 2 APK linked below as the recommended release.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
 The same APK works everywhere — navigation is D-pad first, and touch works too.
@@ -65,19 +70,21 @@ python3 tools/build_bundle.py          # writes app/src/main/assets/bundle
 `app/src/main/assets/bundle/` is gitignored: it is derived data and would go
 stale the moment the repository publishes a new scrape. Only developers need to
 run the script; the APK built by CI already contains the bundle, and the app
-itself never asks a viewer to run anything. If the bundle is unreadable, the
-app says so on screen and tells the viewer to install the latest beta.
+itself never asks a viewer to run anything. If the required channel list is
+unreadable, the app shows a retry action and a useful error; an unavailable
+guide no longer prevents the channel browser from opening.
 
 ### Where the APKs come from
 
 GitHub Actions builds them — [`.github/workflows/android-build.yml`](../.github/workflows/android-build.yml).
 A plain sandbox cannot compile this project (no JDK, no Android SDK, no access
 to Maven Central or `dl.google.com`). Every push that touches `android/`,
-`playlists/countries/`, `EPG/` or the workflow rebuilds both APKs and commits
-them to `build-out/`:
+`playlists/countries/`, `EPG/` or the workflow rebuilds the installable debug
+APK and commits the build output to `build-out/`:
 
 ```text
-build-out/PremiumTV-1.0.0-beta2-debug.apk   install as-is (debug-signed)
+build-out/PremiumTV-1.0.0-beta2-debug.apk   current best validated APK (debug-signed)
+build-out/PremiumTV-1.0.0-beta3-debug.apk   next candidate after the Beta 3 CI build
 build-out/SHA256SUMS.txt
 build-out/build-log.txt                     full Gradle output
 ```
@@ -98,6 +105,7 @@ an unsigned APK cannot be installed on a TV or phone, so it was never usable.
 android/
 ├── app/src/main/kotlin/com/premiumtv/app/
 │   ├── MainActivity.kt          entry point
+│   ├── PremiumTvApplication.kt  shared cached channel-art image loader
 │   ├── TvViewModel.kt           exposes load state and refresh/reset
 │   ├── data/
 │   │   ├── Model.kt             Channel, Programme, Library, LoadState

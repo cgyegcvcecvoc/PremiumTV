@@ -2,6 +2,7 @@ package com.premiumtv.app.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -87,9 +88,15 @@ fun HomeScreen(
             TabChip(Tab.Settings.label, tab == Tab.Settings) { tab = Tab.Settings }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "${library.channels.size} channels · ${library.programmes.size} with guide",
+                text = when {
+                    library.guideLoading -> "${library.channels.size} channels · Loading guide…"
+                    library.guideError != null -> "${library.channels.size} channels · Guide unavailable"
+                    else -> "${library.channels.size} channels · ${library.programmes.size} with guide"
+                },
                 style = MaterialTheme.typography.labelMedium,
-                color = MutedText,
+                color = if (library.guideLoading) PremiumGold else MutedText,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
         }
 
@@ -109,7 +116,7 @@ private fun CategoriesScreen(
     now: Long,
     onSelect: (Channel) -> Unit,
 ) {
-    val byGroup = remember(library) { library.channels.groupBy { it.group } }
+    val byGroup = remember(library.channels) { library.channels.groupBy { it.group } }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 48.dp),
@@ -162,6 +169,7 @@ private fun CategoryRow(
             )
         }
         LazyRow(
+            modifier = Modifier.focusGroup(),
             contentPadding = PaddingValues(horizontal = SCREEN_GUTTER),
             horizontalArrangement = Arrangement.spacedBy(CARD_GAP),
         ) {
@@ -188,7 +196,19 @@ private fun GuideScreen(
     now: Long,
     onSelect: (Channel) -> Unit,
 ) {
-    val entries = remember(library) {
+    if (library.guideLoading) {
+        CenteredMessage("Channels are ready.\nLoading programme listings…")
+        return
+    }
+    if (library.guideError != null) {
+        CenteredMessage(
+            "${library.guideError}\n\n" +
+                "You can still browse and play channels from the Channels tab."
+        )
+        return
+    }
+
+    val entries = remember(library.channels, library.programmes) {
         library.channels
             .mapNotNull { channel ->
                 val list = library.programmes[channel.id]
@@ -405,7 +425,11 @@ private fun SettingsScreen(
         InfoRow("Categories", library.groups.size.toString())
         InfoRow(
             "Guide listings",
-            "${meta.programmeCount} across ${library.programmes.size} channels",
+            when {
+                library.guideLoading -> "Loading programme listings…"
+                library.guideError != null -> "Unavailable — channels are still ready"
+                else -> "${library.meta.programmeCount} across ${library.programmes.size} channels"
+            },
         )
         if (meta.windowStart > 0L) {
             InfoRow("Guide window", "${formatDay(meta.windowStart)} – ${formatDay(meta.windowEnd)}")

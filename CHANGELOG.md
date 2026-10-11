@@ -4,7 +4,26 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
-## 2026-10-11 — Android TV beta 2 (v1.0.0-beta2)
+## 2026-10-11 — Android TV beta 3 (v1.0.0-beta3 candidate)
+
+- **Channels open sooner.** The repository reads the channel list first and
+  publishes the Channels screen while it parses the larger programme guide on
+  the IO dispatcher. Guide parsing no longer blocks the first usable channel
+  rows.
+- **Guide failures are isolated.** Missing or damaged metadata/categories use
+  safe fallbacks; an unreadable guide shows a clear notice without taking down
+  the channel list. A failure to read the required channel data now offers a
+  visible retry action.
+- **Smoother browsing.** Channel rows are D-pad focus groups; controls expose
+  button semantics and retain the latest click callback. Channel logos share a
+  small disk cache and skip per-image fades to reduce repeated work on TV sticks.
+- **Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now
+  targets the `v1.0.0-beta3` release tag.
+- **Release status** — Beta 3 is the next candidate, not yet smoke-tested on a
+  TV. **Beta 2 is the current best validated/recommended release and is marked
+  Latest on GitHub** until the Beta 3 APK has been built and checked on-device.
+
+## 2026-10-11 — Android TV beta 2 (v1.0.0-beta2; current best validated release)
 
 - **Fixed: channels did not load on launch.** The bundled channel list and guide
   were in the APK, but the reader looped on `JsonReader.hasNext()` past the end

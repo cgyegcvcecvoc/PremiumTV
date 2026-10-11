@@ -45,7 +45,7 @@ jobs:
     env:
       # Push builds attach their APKs to this release too, so the download
       # links on the release page can never go stale or stay empty.
-      RELEASE_TAG: v1.0.0-beta2
+      RELEASE_TAG: v1.0.0-beta3
 
     steps:
       - name: Check out the repository
@@ -82,7 +82,7 @@ jobs:
           set -euo pipefail
           mkdir -p build-out
           version=$(grep -o 'versionName = "[^"]*"' android/app/build.gradle.kts | head -1 | sed 's/.*"\(.*\)"/\1/')
-          version=${version:-1.0.0-beta2}
+          version=${version:-1.0.0-beta3}
           echo "VERSION=$version" >> "$GITHUB_ENV"
           cp android/app/build/outputs/apk/debug/app-debug.apk "build-out/PremiumTV-${version}-debug.apk"
           # Only the debug APK is published; drop any unsigned leftovers.

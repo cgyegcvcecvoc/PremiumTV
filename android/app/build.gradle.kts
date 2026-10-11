@@ -12,10 +12,10 @@ android {
         applicationId = "com.premiumtv.app"
         minSdk = 23
         targetSdk = 34
-        // 1.0.0-beta2: second beta. beta1 shipped without working channel data
-        // (the bundle reader threw on the last line), so this build replaces it.
-        versionCode = 2
-        versionName = "1.0.0-beta2"
+        // Beta 3 publishes Channels before guide parsing completes and isolates
+        // guide-file failures so they no longer block channel browsing.
+        versionCode = 3
+        versionName = "1.0.0-beta3"
         vectorDrawables.useSupportLibrary = true
     }
 
