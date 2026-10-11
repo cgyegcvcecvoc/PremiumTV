@@ -83,8 +83,10 @@ jobs:
           (cd build-out && sha256sum *.apk > SHA256SUMS.txt)
           ls -la build-out
 
+      # Only for branch builds. On a release event github.ref_name is the tag,
+      # so "push HEAD to a branch with the tag's name" would be nonsense.
       - name: Publish build output to the branch
-        if: always()
+        if: always() && github.ref_type == 'branch'
         run: |
           set -uo pipefail
           mkdir -p build-out
