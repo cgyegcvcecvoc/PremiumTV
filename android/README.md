@@ -5,9 +5,9 @@ TV guide inside the APK. The source now targets **1.0.0-beta3** (`versionName`
 `1.0.0-beta3`, `versionCode` `3`). Beta 3 makes channels available before guide
 parsing finishes and keeps guide-file problems from blocking channel browsing.
 
-**Current best validated release: Beta 2.** The Beta 3 source is the next
-candidate; until its APK has been built and smoke-tested on a TV, use the
-installable Beta 2 APK linked below as the recommended release.
+**Current best validated release: Beta 2.** The Beta 3 APK is available as a
+pre-release, but has not yet been smoke-tested on a TV. Until that check is
+complete, use the installable Beta 2 APK linked below as the recommended build.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
 The same APK works everywhere — navigation is D-pad first, and touch works too.
@@ -84,10 +84,14 @@ APK and commits the build output to `build-out/`:
 
 ```text
 build-out/PremiumTV-1.0.0-beta2-debug.apk   current best validated APK (debug-signed)
-build-out/PremiumTV-1.0.0-beta3-debug.apk   next candidate after the Beta 3 CI build
+build-out/PremiumTV-1.0.0-beta3-debug.apk   Beta 3 preview APK (debug-signed)
 build-out/SHA256SUMS.txt
 build-out/build-log.txt                     full Gradle output
 ```
+
+The Beta 3 candidate is also published at the
+[v1.0.0-beta3 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3).
+Beta 2 remains the recommended download until Beta 3 has been checked on a TV.
 
 Only the debug APK is published. The unsigned release APK was dropped in beta 2:
 an unsigned APK cannot be installed on a TV or phone, so it was never usable.

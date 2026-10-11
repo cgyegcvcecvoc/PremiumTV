@@ -69,13 +69,14 @@ side-load.
 | Source candidate | `1.0.0-beta3` (`versionCode 3`) |
 | Current best validated APK | `build-out/PremiumTV-1.0.0-beta2-debug.apk` (debug-signed) |
 | Current best release | [v1.0.0-beta2](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta2) |
-| Beta 3 build output | `build-out/PremiumTV-1.0.0-beta3-debug.apk` after its CI build |
+| Beta 3 preview APK | [v1.0.0-beta3 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3) |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-**Beta 2 remains the current best release for now.** Beta 3 is the next candidate;
-use Beta 2 until the Beta 3 APK has been built and smoke-tested on a TV. The app
-bundles the **USA library**: 2,217 channels across the 59 categories the
-repository publishes, plus about 9,950 guide listings covering 167 channels.
+**Beta 2 remains the current best release for now.** The Beta 3 APK is available
+as a pre-release, but has not yet been smoke-tested on a TV; use Beta 2 until
+that check is complete. The app bundles the **USA library**: 2,217 channels
+across the repository's 59 published categories, plus about 9,950 guide
+listings covering the 167 channels with schedule data.
 Beta 2 fixed the earlier launch failure that showed a "run Python" message
 instead of channels. The app installs on Android TV, Google TV, Fire TV stick,
 tablet and phone.

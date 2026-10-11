@@ -19,9 +19,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   small disk cache and skip per-image fades to reduce repeated work on TV sticks.
 - **Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now
   targets the `v1.0.0-beta3` release tag.
-- **Release status** — Beta 3 is the next candidate, not yet smoke-tested on a
-  TV. **Beta 2 is the current best validated/recommended release and is marked
-  Latest on GitHub** until the Beta 3 APK has been built and checked on-device.
+- **Release status** — Beta 3 is published as the
+  [v1.0.0-beta3 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3)
+  with a CI-built APK, but it has not yet been smoke-tested on a TV. **Beta 2
+  remains the current best validated/recommended release and is marked Latest
+  on GitHub** until Beta 3 is checked on-device.
 
 ## 2026-10-11 — Android TV beta 2 (v1.0.0-beta2; current best validated release)
 
