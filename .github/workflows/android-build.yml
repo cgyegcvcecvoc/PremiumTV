@@ -108,6 +108,6 @@ jobs:
 
       - name: Attach the APKs to the release
         if: github.event_name == 'release'
-        run: gh release upload "${{ github.event.release.tag_name }}" build-out/*.apk --clobber
+        run: gh release upload "${{ github.event.release.tag_name }}" build-out/*.apk build-out/SHA256SUMS.txt --clobber
         env:
           GH_TOKEN: ${{ github.token }}
