@@ -1,0 +1,113 @@
+name: Build PremiumTV Android APK
+
+# Builds the Android TV app. This repository cannot be compiled from a plain
+# sandbox (no JDK, no Android SDK, no Maven/Google mirror), so GitHub Actions
+# is the build environment: it bakes the channel list and the guide into the
+# APK and publishes both a ready-to-install debug build and an unsigned
+# release build the owner can sign with their own key.
+#
+#   PremiumTV-<version>-debug.apk             install as-is (debug key)
+#   PremiumTV-<version>-release-unsigned.apk  sign before publishing
+#
+# Output goes to build-out/ and is committed back to the branch, because that
+# is the only channel every environment can read: uploaded Actions artifacts
+# live behind results-receiver.actions.githubusercontent.com, which is not
+# reachable from every sandbox. The [skip ci] marker and the path filter below
+# keep this from triggering another build.
+
+on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - "android/**"
+      - "playlists/countries/**"
+      - "EPG/**"
+      - ".github/workflows/android-build.yml"
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Bake the playlists and guide into the app
+        run: |
+          mkdir -p build-out
+          python3 android/tools/build_bundle.py | tee build-out/bundle-log.txt
+          ls -la android/app/src/main/assets/bundle
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug and release APKs
+        id: gradle
+        working-directory: android
+        run: |
+          set -o pipefail
+          chmod +x gradlew
+          mkdir -p "$GITHUB_WORKSPACE/build-out"
+          ./gradlew --no-daemon --stacktrace assembleDebug assembleRelease 2>&1 \
+            | tee "$GITHUB_WORKSPACE/build-out/build-log.txt"
+
+      - name: Collect the APKs
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p build-out
+          version=$(grep -o 'versionName = "[^"]*"' android/app/build.gradle.kts | head -1 | sed 's/.*"\(.*\)"/\1/')
+          version=${version:-1.0.0-beta}
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+          cp android/app/build/outputs/apk/debug/app-debug.apk "build-out/PremiumTV-${version}-debug.apk"
+          cp android/app/build/outputs/apk/release/app-release-unsigned.apk "build-out/PremiumTV-${version}-release-unsigned.apk"
+          (cd build-out && sha256sum *.apk > SHA256SUMS.txt)
+          ls -la build-out
+
+      - name: Publish build output to the branch
+        if: always()
+        run: |
+          set -uo pipefail
+          mkdir -p build-out
+          # Keep the log small enough to read: the tail holds the failure, and
+          # the compiler error lines are pulled out separately.
+          if [ -f build-out/build-log.txt ]; then
+            tail -c 400000 build-out/build-log.txt > build-out/build-log.tail.txt
+            mv build-out/build-log.tail.txt build-out/build-log.txt
+            grep -E "^(e: |w: .*error|FAILURE:|\\* What went wrong|Execution failed|\> Task .*FAILED)" build-out/build-log.txt | head -120 > build-out/build-errors.txt || true
+          fi
+          cp android/app/src/main/assets/bundle/meta.json build-out/bundle-meta.json 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f build-out
+          if git diff --cached --quiet; then
+            echo "Nothing new to publish."
+            exit 0
+          fi
+          git commit -m "ci: publish APK build output (run ${{ github.run_number }}) [skip ci]"
+          git push origin "HEAD:${{ github.ref_name }}"
+
+      - name: Attach the APKs to the release
+        if: github.event_name == 'release'
+        run: gh release upload "${{ github.event.release.tag_name }}" build-out/*.apk --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}

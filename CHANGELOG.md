@@ -4,6 +4,43 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
+## 2026-10-11 — first Android TV app (v1.0.0 beta)
+
+The repository now builds an installable Android app that carries the channel
+list and the guide inside the APK, so a TV needs no separate player setup.
+
+- **Project** — [`android/`](android/README.md): Kotlin + Jetpack Compose,
+  targeting leanback (Android TV / Google TV / Fire TV) and handhelds from one
+  APK. `minSdk 23`, `targetSdk 34`.
+- **Bundled data** — 2,158 confirmed-working USA channels in the 59 published
+  categories and every guide listing available at build time (about 8,900
+  listings covering 158 channels). [`android/tools/build_bundle.py`](android/tools/build_bundle.py)
+  converts `playlists/countries/USA.m3u` + `EPG/USA.xml` into JSON Lines the
+  app streams with `android.util.JsonReader`, so a TV stick never holds a
+  10 MB XML document in memory beside a video decoder.
+- **Screens** — category rows, a what's-on-now guide with now/next and
+  progress, and settings that refresh from the repository's raw URLs or reset
+  to the bundled copy.
+- **Playback** — ExoPlayer (Media3), honouring the referrer, origin and
+  user-agent a playlist entry publishes through `#EXTVLCOPT` / `#KODIPROP`.
+- **D-pad correctness** — focus, the centre/enter keys and taps are each wired
+  once, so a card can never be focused-but-unopenable or fire twice on one
+  press.
+- **Build** — [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml)
+  compiles in GitHub Actions: a plain sandbox has no JDK, no Android SDK and no
+  route to Maven Central or `dl.google.com`. It publishes a debug-signed,
+  installable APK and an unsigned release APK to `build-out/` and to the
+  release.
+- **Tests** — `tests/test_android_bundle.py` (18 checks) covers header capture,
+  timezone normalisation, group ordering, the already-finished listings rule,
+  and referential integrity between the bundle's channels and programmes.
+  Full suite: 311 passing.
+
+Known limits: USA library only; the world library is not bundled yet. Guide
+coverage is whatever the upstream XMLTV sources publish — 158 of 2,158
+channels have real listings and the app says so rather than padding. Refresh
+returns HTTP 404 while the repository is private.
+
 ## 2026-10-10 — verified playlist maintenance and history backfill
 
 The existing deep-check workflow was reviewed as the safe mechanism for pruning broken player feeds. It probes HLS variants and actual media segments, removes only confirmed-dead/invalid links, and protects working streams with minimum-working and maximum-removal thresholds. Timeouts, 5xx responses, resets, and auth/geo blocks are not treated as dead based on one observation. The user-facing player playlist is built from confirmed-working links; the all-links catalogue and source caches remain diagnostic/fallback data, not clean player feeds.
@@ -31,6 +68,7 @@ Baseline captured from scraper run `20261010T202102Z-2648` (20:21–20:24 UTC):
 | 2026-10-05 | PR #15 | Reconciled branch conflicts into one taxonomy/order; strict verification, safer in-place resorting, guide-header limits, and honest EPG coverage. |
 | 2026-10-07 | PRs #16–18 | Generated category shelf; URL deduplication and workflow branch isolation; fixed padded IDs, malformed `+https` URLs, placeholder EPG programmes, orphan guides, and stale shelf files. |
 | 2026-10-10 | PR #19 | Added the biweekly archive/deep-clean workflow: check archived/source playlists, rebuild guides and category shelf, re-hunt priority channels, rotate logs, compact quarantine, prune orphans, then verify strictly. |
+| 2026-10-11 | app/ | First Android TV app (v1.0.0 beta): bundled USA channel list and guide, D-pad first Compose UI, Media3 playback, GitHub Actions APK build. |
 
 PRs #9 and #13 were superseded/closed rather than discarded: merged-guide work was reconciled into #11/#12, and the taxonomy work from #13 was reconciled with #14 by #15.
 
