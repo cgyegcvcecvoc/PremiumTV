@@ -40,6 +40,10 @@ jobs:
     name: Build APK
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      # Push builds attach their APKs to this release too, so the download
+      # links on the release page can never go stale or stay empty.
+      RELEASE_TAG: v1.0.0-beta
 
     steps:
       - name: Check out the repository
@@ -83,6 +87,25 @@ jobs:
           (cd build-out && sha256sum *.apk > SHA256SUMS.txt)
           ls -la build-out
 
+      # Deliberately ordered before the branch push: on a tag build the branch
+      # push cannot succeed (a branch and a tag may not share a name), and a
+      # failed step would skip everything after it - which is exactly how the
+      # release page ended up with no APK on it.
+      - name: Attach the APKs to the release
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          tag="${{ github.event.release.tag_name }}"
+          tag="${tag:-$RELEASE_TAG}"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag does not exist; the APKs stay in build-out/ and in the Actions artifact."
+            exit 0
+          fi
+          gh release upload "$tag" build-out/*.apk build-out/SHA256SUMS.txt --clobber
+          gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'
+
       - name: Publish build output to the branch
         if: always()
         run: |
@@ -96,6 +119,10 @@ jobs:
             grep -E "^(e: |w: .*error|FAILURE:|\\* What went wrong|Execution failed|\> Task .*FAILED)" build-out/build-log.txt | head -120 > build-out/build-errors.txt || true
           fi
           cp android/app/src/main/assets/bundle/meta.json build-out/bundle-meta.json 2>/dev/null || true
+          if [ "${GITHUB_REF_TYPE}" != "branch" ]; then
+            echo "Ref ${GITHUB_REF_NAME} is a ${GITHUB_REF_TYPE}, not a branch: nothing to push."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f build-out
@@ -104,10 +131,4 @@ jobs:
             exit 0
           fi
           git commit -m "ci: publish APK build output (run ${{ github.run_number }}) [skip ci]"
-          git push origin "HEAD:${{ github.ref_name }}"
-
-      - name: Attach the APKs to the release
-        if: github.event_name == 'release'
-        run: gh release upload "${{ github.event.release.tag_name }}" build-out/*.apk --clobber
-        env:
-          GH_TOKEN: ${{ github.token }}
+          git push origin "HEAD:${GITHUB_REF_NAME}"
