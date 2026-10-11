@@ -11,7 +11,7 @@ The same APK works everywhere — navigation is D-pad first, and touch works too
 | Data | Source in this repository | Bundled size |
 |---|---|---|
 | 2,158 USA channels in 59 categories | `playlists/countries/USA.m3u` | ~816 KB |
-| 9,058 guide listings for 158 channels | `EPG/USA.xml` | ~3.3 MB |
+| ~8,900 guide listings for 158 channels | `EPG/USA.xml` | ~3.2 MB |
 
 Both are converted to JSON Lines by [`tools/build_bundle.py`](tools/build_bundle.py)
 and streamed into the app with `android.util.JsonReader`, so a TV stick never
