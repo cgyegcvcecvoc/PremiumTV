@@ -74,10 +74,10 @@ side-load.
 
 **Beta 3 is the current default release.** Beta 4 is the new preview and stays
 a pre-release until its background-update behavior has been checked on real TV
-hardware. The app bundles the **USA library**: 2,217 channels across the
-repository's 59 published categories, plus about 9,950 guide listings covering
-the 167 channels with schedule data. It installs on Android TV, Google TV, Fire
-TV stick, tablet and phone.
+hardware. The current Beta 4 build bundles the **USA library**: 2,197 channels
+across 60 published categories, plus 9,753 guide listings covering the 165
+channels with schedule data. It installs on Android TV, Google TV, Fire TV
+stick, tablet and phone.
 
 - **Channels** — one row per category, in the published order; each card shows
   the logo and what is on right now. Channels appear as soon as their list is
