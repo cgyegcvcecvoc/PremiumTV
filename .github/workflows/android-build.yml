@@ -3,11 +3,13 @@ name: Build PremiumTV Android APK
 # Builds the Android TV app. This repository cannot be compiled from a plain
 # sandbox (no JDK, no Android SDK, no Maven/Google mirror), so GitHub Actions
 # is the build environment: it bakes the channel list and the guide into the
-# APK and publishes both a ready-to-install debug build and an unsigned
-# release build the owner can sign with their own key.
+# APK and publishes a ready-to-install debug build (signed with the standard
+# debug key, so it installs as-is on a TV).
 #
-#   PremiumTV-<version>-debug.apk             install as-is (debug key)
-#   PremiumTV-<version>-release-unsigned.apk  sign before publishing
+#   PremiumTV-<version>-debug.apk             install as-is
+#
+# The unsigned release APK was dropped in beta 2: an unsigned APK cannot be
+# installed on a device, so it was never a usable download.
 #
 # Output goes to build-out/ and is committed back to the branch, because that
 # is the only channel every environment can read: uploaded Actions artifacts
@@ -43,7 +45,7 @@ jobs:
     env:
       # Push builds attach their APKs to this release too, so the download
       # links on the release page can never go stale or stay empty.
-      RELEASE_TAG: v1.0.0-beta
+      RELEASE_TAG: v1.0.0-beta2
 
     steps:
       - name: Check out the repository
@@ -64,14 +66,14 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build debug and release APKs
+      - name: Build the debug APK
         id: gradle
         working-directory: android
         run: |
           set -o pipefail
           chmod +x gradlew
           mkdir -p "$GITHUB_WORKSPACE/build-out"
-          ./gradlew --no-daemon --stacktrace assembleDebug assembleRelease 2>&1 \
+          ./gradlew --no-daemon --stacktrace assembleDebug 2>&1 \
             | tee "$GITHUB_WORKSPACE/build-out/build-log.txt"
 
       - name: Collect the APKs
@@ -80,10 +82,11 @@ jobs:
           set -euo pipefail
           mkdir -p build-out
           version=$(grep -o 'versionName = "[^"]*"' android/app/build.gradle.kts | head -1 | sed 's/.*"\(.*\)"/\1/')
-          version=${version:-1.0.0-beta}
+          version=${version:-1.0.0-beta2}
           echo "VERSION=$version" >> "$GITHUB_ENV"
           cp android/app/build/outputs/apk/debug/app-debug.apk "build-out/PremiumTV-${version}-debug.apk"
-          cp android/app/build/outputs/apk/release/app-release-unsigned.apk "build-out/PremiumTV-${version}-release-unsigned.apk"
+          # Only the debug APK is published; drop any unsigned leftovers.
+          rm -f build-out/*-release-unsigned.apk
           (cd build-out && sha256sum *.apk > SHA256SUMS.txt)
           ls -la build-out
 

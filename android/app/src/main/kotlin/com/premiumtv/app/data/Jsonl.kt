@@ -1,27 +1,39 @@
 package com.premiumtv.app.data
 
 import android.util.JsonReader
+import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.io.StringReader
 import java.nio.charset.StandardCharsets
 
 /**
  * Reads a JSON Lines file (one JSON object per line).
  *
- * The bundle is 2,158 channels and roughly 9,000 programmes, so it is streamed
- * instead of being parsed into one giant JSONObject: a TV stick has far less
- * heap than a desktop and org.json holds every value twice.
+ * The bundle is 2,217 channels and roughly 10,000 programmes, so it is streamed
+ * one line at a time instead of being parsed into one giant JSONObject: a TV
+ * stick has far less heap than a desktop and org.json holds every value twice.
+ *
+ * Each line gets its own [JsonReader]. Looping `while (reader.hasNext())` over
+ * the whole file does not work: android.util.JsonReader.hasNext() is true at the
+ * end of the document too (it only reports END_OBJECT / END_ARRAY as "no more"),
+ * so the loop called beginObject() on END_DOCUMENT and threw on the last line.
+ * That exception made every bundled load fail, and the app showed its
+ * "bundled data is missing" message even though the data was in the APK.
  */
 internal fun <T> readJsonLines(input: InputStream, parse: (JsonReader) -> T): List<T> {
-    val reader = JsonReader(InputStreamReader(input, StandardCharsets.UTF_8))
-    reader.isLenient = true
-    return reader.use { json ->
-        buildList {
-            while (json.hasNext()) {
-                add(parse(json))
+    val out = ArrayList<T>()
+    BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8)).use { lines ->
+        while (true) {
+            val line = lines.readLine() ?: break
+            if (line.isBlank()) continue
+            JsonReader(StringReader(line)).use { json ->
+                json.isLenient = true
+                out.add(parse(json))
             }
         }
     }
+    return out
 }
 
 /** Reads a string field, tolerating a null or a number where a string was expected. */

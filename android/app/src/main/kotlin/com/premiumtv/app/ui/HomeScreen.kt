@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -164,7 +165,10 @@ private fun CategoryRow(
             contentPadding = PaddingValues(horizontal = SCREEN_GUTTER),
             horizontalArrangement = Arrangement.spacedBy(CARD_GAP),
         ) {
-            items(items = channels, key = { it.id + "|" + it.url }) { channel ->
+            itemsIndexed(
+                items = channels,
+                key = { index, channel -> "$index|${channel.id}|${channel.url}" },
+            ) { _, channel ->
                 val current = nowPlaying(programmes[channel.id].orEmpty(), now)
                 ChannelCard(
                     channel = channel,
@@ -195,8 +199,8 @@ private fun GuideScreen(
 
     if (entries.isEmpty()) {
         CenteredMessage(
-            "No guide listings are bundled with this build.\n" +
-                "Run the repository's EPG build, then android/tools/build_bundle.py."
+            "No programme listings are in this build.\n" +
+                "Every channel still opens from the Channels tab."
         )
         return
     }
@@ -218,7 +222,11 @@ private fun GuideScreen(
                 modifier = Modifier.padding(bottom = 6.dp),
             )
         }
-        items(items = entries, key = { it.first.id + "|" + it.first.url }) { (channel, programmes) ->
+        itemsIndexed(
+            items = entries,
+            key = { index, entry -> "$index|${entry.first.id}|${entry.first.url}" },
+        ) { _, entry ->
+            val (channel, programmes) = entry
             GuideRow(
                 channel = channel,
                 programmes = programmes,
@@ -469,8 +477,8 @@ private fun SettingsScreen(
         )
         Spacer(modifier = Modifier.height(32.dp))
         Text(
-            text = "PremiumTV 1.0.0 beta — a first test build. Publicly listed " +
-                "streams only; nothing is hosted by this app.",
+            text = "PremiumTV ${BuildConfig.VERSION_NAME} — a beta test build. Publicly " +
+                "listed streams only; nothing is hosted by this app.",
             style = MaterialTheme.typography.labelSmall,
             color = MutedText,
             textAlign = TextAlign.Start,

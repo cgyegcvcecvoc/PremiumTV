@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## Android TV app (v1.0.0 beta)
+## Android TV app (v1.0.0-beta2)
 
 The repository also builds an Android app that carries the playlists and the
 guide **inside the APK** — nothing to configure in a player, no M3U file to
@@ -66,14 +66,15 @@ side-load.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Installable APK | `build-out/PremiumTV-1.0.0-beta-debug.apk` (rewritten by every build) |
-| Release | [v1.0.0-beta](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta) |
+| Installable APK | `build-out/PremiumTV-1.0.0-beta2-debug.apk` (rewritten by every build) |
+| Release | [v1.0.0-beta2](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta2) |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-The app bundles the **USA library**: 2,158 confirmed-working channels across
-the 59 categories the repository publishes, plus every guide listing the
-repository had at build time (about 8,900 of them, covering the 158 channels
-the upstream XMLTV sources actually schedule). It installs on an Android TV,
+The app bundles the **USA library**: 2,217 channels across the 59 categories
+the repository publishes, plus every guide listing the repository had at build
+time (about 9,950 of them, covering the 167 channels the upstream XMLTV sources
+actually schedule). Beta 2 fixes the bundled data not loading on launch: beta 1
+showed a "run Python" message instead of the channels. It installs on an Android TV,
 a Google TV, a Fire TV stick, a tablet or a phone.
 
 - **Channels** — one row per category, in the published order; each card shows
