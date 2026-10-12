@@ -103,12 +103,6 @@
     <display-name>talkSPORT (1080p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/en/9/9d/Talksport_logo.png" />
   </channel>
-  <channel id="TNT.Sports.1.HD.uk">
-    <display-name>TNT Sports 1</display-name>
-    <display-name>TNT Sports 1 HD</display-name>
-    <display-name>TNT.Sports.1.HD.uk</display-name>
-    <icon src="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s97542_dark_360w_270h.png" />
-  </channel>
   <channel id="BBCLifestyle.uk@Poland">
     <display-name>BBC Lifestyle Poland (1080p)</display-name>
     <icon src="https://i.imgur.com/9mzJJ3y.png" />
@@ -168,7 +162,9 @@
   </channel>
   <channel id="CNBC.uk">
     <display-name>CNBC</display-name>
-    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnbc-us.png" />
+    <display-name>CNBC HD</display-name>
+    <display-name>CNBC.HD.us2</display-name>
+    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-states/cnbc-us.png" />
   </channel>
   <channel id="CNBCEurope.uk">
     <display-name>CNBC Europe</display-name>
@@ -257,12 +253,6 @@
     <display-name>BBC News South Asia (720p)</display-name>
     <icon src="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_BBC_NEWS/images/LOGO_HD/image.png" />
   </channel>
-  <channel id="BBC.One.Lon.HD.uk">
-    <display-name>BBC One</display-name>
-    <display-name>BBC One Lon HD</display-name>
-    <display-name>BBC.One.Lon.HD.uk</display-name>
-    <icon src="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s67081_dark_360w_270h.png" />
-  </channel>
   <channel id="BBCPersian.uk@SD">
     <display-name>BBC Persian (1080p)</display-name>
     <display-name>BBC Persian (Backup 1)</display-name>
@@ -343,6 +333,10 @@
     <display-name>Hala London (1080p)</display-name>
     <icon src="https://i.imgur.com/bM4VZDH.png" />
   </channel>
+  <channel id="HellenicTV.uk@SD">
+    <display-name>Hellenic TV (720p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/NE7ddhC.png" />
+  </channel>
   <channel id="IBCTamil.uk@SD">
     <display-name>IBC Tamil (1080p)</display-name>
     <icon src="https://i.imgur.com/uVt9vBa.png" />
@@ -366,15 +360,20 @@
     <icon src="https://i.imgur.com/Cl1iGEb.jpeg" />
   </channel>
   <channel id="Pop.uk@SD">
+    <display-name>Pop TV</display-name>
     <display-name>Pop (1080p)</display-name>
     <display-name>Pop (Backup 1)</display-name>
     <display-name>Pop (Backup 2)</display-name>
     <display-name>Pop (Backup 3)</display-name>
-    <icon src="https://i.imgur.com/fGUlCY3.png" />
+    <icon src="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s16715_dark_360w_270h.png" />
   </channel>
   <channel id="SangatTV.uk@SD">
     <display-name>Sangat TV (576p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/en/c/c3/Sangat_TV_logo.png" />
+  </channel>
+  <channel id="SheffieldLiveTV.uk@SD">
+    <display-name>Sheffield Live TV (360p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/p0QzCFs.png" />
   </channel>
   <channel id="SparkTV.uk@SD">
     <display-name>Spark TV (1080p)</display-name>
@@ -625,10 +624,6 @@
   <channel id="WorldWarTV.uk@SamsungUK">
     <display-name>World War TV by A+E Networks (Samsung UK)</display-name>
   </channel>
-  <channel id="BabyTV.uk@LatinAmerica">
-    <display-name>BabyTV Latin America (1080p)</display-name>
-    <icon src="https://i.imgur.com/4BDJ5FT.png" />
-  </channel>
   <channel id="JimJamEurope.uk@SD">
     <display-name>JimJam Europe (720p)</display-name>
     <icon src="https://i.imgur.com/ODhkYyx.png" />
@@ -745,14 +740,6 @@
     <display-name>STV.HD.uk</display-name>
     <icon src="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s21830_dark_360w_270h.png" />
   </channel>
-  <programme start="20261011130000 +0000" stop="20261011170000 +0000" channel="SkySp.Action.uk">
-    <title>Live NFL Eagles v Jaguars</title>
-    <desc>The NFL's London Games continue as the 3-1 Jacksonville Jaguars meet the 2-2 Eagles at the Tottenham Hotspur Stadium. Philadelphia are looking to avoid a third consecutive loss.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="xmltv_ns">.19.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/795a7cc6-c7dd-407c-ac72-70eee4e3d4bf/16-9" />
-  </programme>
   <programme start="20261011170000 +0000" stop="20261011201500 +0000" channel="SkySp.Action.uk">
     <title>Live NFL Bears @ Packers</title>
     <desc>NFC North rivals Green Bay Packers and Chicago Bears lock horns during week five of the 2026 NFL. The 3-1 Bears come from a 23-12 victory over the New York Jets.</desc>
@@ -1302,28 +1289,21 @@
     <episode-num system="onscreen">10</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/ebaf943f-6e4f-4557-ab37-983b288204de/16-9" />
   </programme>
-  <programme start="20261011140000 +0000" stop="20261011150000 +0000" channel="SkySp.F1.uk">
-    <title>Live Chequered Flag: Singapore</title>
-    <desc>As the chequered flag comes down on the Singapore Grand Prix, join Sky Sports F1 for all the reaction and analysis.</desc>
+  <programme start="20261013210000 +0000" stop="20261013220000 +0000" channel="SkySp.Action.uk">
+    <title>Live NFL Fantasy</title>
+    <desc>Featuring the top NFL fantasy experts and analysts, this is the perfect companion to dominate your fantasy football leagues, providing key insights to build the best line-up.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/39bb161d-d4a8-4630-ace6-78aefb43e6f5/16-9" />
+    <category lang="en">American Football</category>
+    <episode-num system="xmltv_ns">.37.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/19968b19-6a82-418e-bd72-ba3359166dac/16-9" />
   </programme>
-  <programme start="20261011150000 +0000" stop="20261011153000 +0000" channel="SkySp.F1.uk">
-    <title>Live Ted's Notebook: Singapore</title>
-    <desc>Ted Kravitz is live following the Singapore Grand Prix, as he shares his thoughts on the race while gathering reaction from the paddock.</desc>
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="SkySp.Action.uk">
+    <title>Chris Simms Unbuttoned 2026</title>
+    <desc>Chris Simms takes an unfiltered look at the NFL, featuring player access, unabashed opinion, X&amp;O film breakdown and stories from a life in football.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">.284.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f4ba2ec1-655d-422f-9ffe-da30f85837af/16-9" />
-  </programme>
-  <programme start="20261011153000 +0000" stop="20261011163000 +0000" channel="SkySp.F1.uk">
-    <title>Singapore F1 GP Highlights</title>
-    <desc>It's lights out at Marina Bay Circuit for the Singapore Grand Prix. Mercedes man George Russell duly converted from pole here last season as McLaren claimed the constructors' title. (11.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/1f31a827-cb04-469b-930d-a1d0c8fe86e1/16-9" />
+    <category lang="en">American Football</category>
+    <episode-num system="xmltv_ns">.25.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/df1a0385-7146-49a1-810f-740f10ae370b/16-9" />
   </programme>
   <programme start="20261011163000 +0000" stop="20261011184500 +0000" channel="SkySp.F1.uk">
     <title>Singapore F1 Grand Prix</title>
@@ -1956,13 +1936,28 @@
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261011133000 +0000" stop="20261011170000 +0000" channel="SkySp.Fball.uk">
-    <title>Live NFL Eagles v Jaguars</title>
-    <desc>The NFL's London Games continue as the 3-1 Jacksonville Jaguars meet the 2-2 Eagles at the Tottenham Hotspur Stadium. Philadelphia are looking to avoid a third consecutive loss.</desc>
+  <programme start="20261013210000 +0000" stop="20261013220000 +0000" channel="SkySp.F1.uk">
+    <title>Azerbaijan F1 GP Highlights</title>
+    <sub-title>It's lights out in Baku</sub-title>
+    <desc>George Russell starts in P1 for the 12th time in his career as Charles Leclerc and Oscar Piastri complete the top three. Kimi Antonelli begins down in 16th. (26.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="xmltv_ns">.19.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/795a7cc6-c7dd-407c-ac72-70eee4e3d4bf/16-9" />
+    <category lang="en">Motor Sports</category>
+    <episode-num system="onscreen">09</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/1356c88b-383d-401e-bc36-daff17163b89/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="SkySp.F1.uk">
+    <title>Bahrain F1 GP Highlights</title>
+    <desc>It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, Max Verstappen took the top step. (04.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/0bcf2cad-43a7-4d86-8af5-2d9d04cae2dc/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
   <programme start="20261011170000 +0000" stop="20261011202500 +0000" channel="SkySp.Fball.uk">
     <title>Live NFL Bears @ Packers</title>
@@ -2814,32 +2809,58 @@
     <episode-num system="xmltv_ns">.25.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/3ee440b2-a675-43ea-9a1a-97619418a265/16-9" />
   </programme>
-  <programme start="20261011110000 +0000" stop="20261011160000 +0000" channel="SkySp.Golf.uk">
-    <title>Live DP World Tour Golf</title>
-    <desc>Round four of the Open de España, a DP World Tour event taking place at Club de Campo Villa de Madrid. Last year, Marco Penge beat fellow Englishman Dan Brown in a play-off for the win.</desc>
+  <programme start="20261013213000 +0000" stop="20261013214500 +0000" channel="SkySp.Fball.uk">
+    <title>Scottish Premiership Round Up Show</title>
+    <desc>A round-up of the Scottish Premiership action from the latest round of fixtures in the 2026-2027 season.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.140.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/1ce80c91-79b4-4a2b-a964-9e36db6e21ce/16-9" />
+    <category lang="en">Football</category>
+    <episode-num system="xmltv_ns">.8.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/043fe445-6d36-41b1-99bd-c12f13d9ddac/16-9" />
   </programme>
-  <programme start="20261011160000 +0000" stop="20261011163000 +0000" channel="SkySp.Golf.uk">
-    <title>HotelPlanner Tour Golf Highlights</title>
-    <desc>Highlights from the 2026 season of the HotelPlanner Tour, the second tier of men's professional golf in Europe.</desc>
+  <programme start="20261013214500 +0000" stop="20261013220000 +0000" channel="SkySp.Fball.uk">
+    <title>SPFL 26/27: Motherwell v Celtic</title>
+    <desc>Motherwell host Celtic in the Scottish Premiership. Celtic surrendered an unbeaten start to the defence of their title in defeat to Old Firm rivals Rangers before the break. (11.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.4.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/328aca2e-3004-4b0c-895b-1b69fad361ae/16-9" />
+    <category lang="en">Football</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/544d6455-6061-4447-be16-22a3074dc64b/16-9" />
+  </programme>
+  <programme start="20261013220000 +0000" stop="20261013221500 +0000" channel="SkySp.Fball.uk">
+    <title>EFL P/O 98-99: Gill'ham v Man City</title>
+    <desc>A chance to relive some classic matches from the English Football League. Here, Manchester City met Gillingham in the Division Two play-off final as part of the 1998-99 campaign.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/4c757b5e-21c9-423b-918e-799bd92530e3/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261011163000 +0000" stop="20261011170000 +0000" channel="SkySp.Golf.uk">
-    <title>PGA Tour Champions Learning Centre</title>
-    <desc>From instruction tips for your game, to fitness advice and lifestyle lessons, hear from the best on the circuit in PGA Tour Champions Learning Centre.</desc>
+  <programme start="20261013221500 +0000" stop="20261013223000 +0000" channel="SkySp.Fball.uk">
+    <title>EFL P/O 99-00: Bolton v Watford</title>
+    <desc>A chance to relive some classic matches from the English Football League. Here, the 1998-99 Division One play-off final between Bolton Wanderers and Watford.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <episode-num system="xmltv_ns">.43.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/32137410-9bbc-4078-98cd-83c192c4964f/16-9" />
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/8195f259-6eb1-49f2-b61b-0a1aea675f36/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261013223000 +0000" stop="20261013224500 +0000" channel="SkySp.Fball.uk">
+    <title>EFL P/O 99-00: Barnsley v Ipswich</title>
+    <desc>A chance to relive some classic matches from the English Football League. Here, Ipswich Town met Barnsley in the 1999-00 Division One play-off final at the old Wembley.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/b97114fa-6957-4611-9b35-b2f0506403e1/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme start="20261013224500 +0000" stop="20261013230000 +0000" channel="SkySp.Fball.uk">
+    <title>EFL P/O 02-03:Sheff Utd v N.Forest</title>
+    <desc>A chance to relive some classic matches from the English Football League. Here, the second leg of Sheffield United's play-off semi-final second leg against Forest in 2003.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/1e896c69-1a4e-4028-8955-bc23ba903175/16-9" />
     <rating system="UK">
       <value>U</value>
     </rating>
@@ -3329,13 +3350,21 @@
     <episode-num system="xmltv_ns">.11.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/fdbdd21f-f2c3-4c06-88d0-aed9c6c1c4e9/16-9" />
   </programme>
-  <programme start="20261011120000 +0000" stop="20261011150000 +0000" channel="SkySpMainEvHD.uk">
-    <title>Live PL: C. Palace v Nott'm Forest</title>
-    <desc>Forest boss Oliver Glasner returns to Crystal Palace - the club the Austrian brought domestic and European success to - for a Super Sunday encounter with Pierre Sage's Eagles.</desc>
+  <programme start="20261013210000 +0000" stop="20261013220000 +0000" channel="SkySp.Golf.uk">
+    <title>Ladies European Tour Golf Hlts</title>
+    <desc>Tournament highlights from the Aramco Korea Championship, an LET event at the New Korea Country Club. Hyo Joo Kim stormed to her second second consecutive victory at this event last year.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6ea16016-35c9-47d9-8dc8-283fb9a2cd92/16-9" />
+    <category lang="en">Golf</category>
+    <episode-num system="xmltv_ns">.59.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/7cf62b63-a888-4541-9dd8-5fb4a854b91e/16-9" />
+  </programme>
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="SkySp.Golf.uk">
+    <title>PGA Tour Golf Highlights</title>
+    <desc>Tournament highlights from the 2026 Baycurrent Classic, a PGA Tour event staged at Yokohama Country Club in Japan, where last year, Xander Schauffele clinched the title.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <episode-num system="xmltv_ns">.143.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/f393b2f3-92bd-47ef-8c4f-748adbdbcebc/16-9" />
   </programme>
   <programme start="20261011150000 +0000" stop="20261011183000 +0000" channel="SkySpMainEvHD.uk">
     <title>Live PL: Liverpool v Man City</title>
@@ -3540,59 +3569,29 @@
     <episode-num system="xmltv_ns">.25.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/3ee440b2-a675-43ea-9a1a-97619418a265/16-9" />
   </programme>
-  <programme start="20261011130000 +0000" stop="20261011153500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>Indycar Series</title>
-    <desc>It's IndyCar race day as the field lines up on the grid for the start of the Grand Prix of Alabama. Four-time series champion Alex Palou occupies pole for the first time this season.</desc>
+  <programme start="20261013213000 +0000" stop="20261013220000 +0000" channel="SkySpMainEvHD.uk">
+    <title>Paper Talk</title>
+    <desc>A look at the big stories dominating the news headlines, with discussion and analysis of sport's major topics.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <episode-num system="xmltv_ns">.19.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/ae0c98ff-c058-46a0-9e0e-b46e2438dadc/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Baseball</category>
+    <episode-num system="xmltv_ns">.51.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/696d7684-6719-42ba-b320-eb055949e88a/16-9" />
   </programme>
-  <programme start="20261011153500 +0000" stop="20261011154500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>My Icon: Linford Christie</title>
-    <desc>Former sprint superstar and Olympic gold medalist Linford Christie discusses the individuals that have inspired him in his life and career.</desc>
+  <programme start="20261013220000 +0000" stop="20261013223000 +0000" channel="SkySpMainEvHD.uk">
+    <title>Sky Sports News</title>
+    <desc>Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
     <category lang="en">Sports</category>
-    <episode-num system="xmltv_ns">0.10.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/55a0d712-3dae-40fd-a95a-3863b0174caf/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Baseball</category>
+    <episode-num system="xmltv_ns">.73.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/b7aa0ec5-8fb7-41ea-8865-a6a3b6d3d180/16-9" />
   </programme>
-  <programme start="20261011154500 +0000" stop="20261011160000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NRL Grand Final Highlights</title>
-    <desc>The 2026 NRL campaign draws to a close with the Grand Final at Sydney's Accor Stadium. (04.</desc>
+  <programme start="20261013223000 +0000" stop="20261014020000 +0000" channel="SkySpMainEvHD.uk">
+    <title>Live NBA: Cavaliers @ Magic</title>
+    <desc>In the build-up to the 2026-27 NBA, the Orlando Magic and Cleveland Cavaliers meet for a preseason contest.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/a4224c85-a92f-4bf9-a1da-e7bb7e2a52d7/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261011160000 +0000" stop="20261011161500 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NRLW Grand Final Highlights</title>
-    <desc>Bitesize highlights as Accor Stadium in Sydney, Australia, sets the stage for the Telstra Women's Premiership Grand Final. (04.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Rugby</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/394a60dc-5e02-4f9f-8b6a-659c9c2c961c/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261011161500 +0000" stop="20261011170000 +0000" channel="SkySp.Mix.HD.uk">
-    <title>NFL Gameday</title>
-    <desc>A review of all of the latest games from the NFL, with discussion and analysis of the latest talking points.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">American Football</category>
-    <episode-num system="xmltv_ns">.24.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/4b455f3f-7f4e-45b8-9ffb-cadded27ead2/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Basketball</category>
+    <episode-num system="xmltv_ns">.0.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/e68dd295-793b-49d0-a86e-528b5813c973/16-9" />
   </programme>
   <programme start="20261011170000 +0000" stop="20261011233000 +0000" channel="SkySp.Mix.HD.uk">
     <title>Live NFL RedZone</title>
@@ -4296,37 +4295,27 @@
       <value>U</value>
     </rating>
   </programme>
-  <programme start="20261011140000 +0000" stop="20261011150000 +0000" channel="SkySp.News.HD.uk">
-    <title>Soccer Sunday</title>
-    <desc>Stay in touch with the news, as studio guests join the team for live reports and the latest scores from all the afternoon's sporting events.</desc>
+  <programme start="20261013214500 +0000" stop="20261013220000 +0000" channel="SkySp.Mix.HD.uk">
+    <title>S/Lge Highlights</title>
+    <desc>Hull KR play host to Leeds Rhinos in the Betfred Super League. Two tries from Ash Handley got Leeds over the line in their opener, while the Robins stormed to victory over Hull FC. (22.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/766b2599-10ae-46d9-b563-486d4e718ee6/16-9" />
+    <category lang="en">Rugby</category>
+    <episode-num system="onscreen">02</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/75a333d2-c663-35a4-82d7-d55cf4cef2ce/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261011150000 +0000" stop="20261011160000 +0000" channel="SkySp.News.HD.uk">
-    <title>Soccer Sunday</title>
-    <desc>Stay in touch with the news, as studio guests join the team for live reports and the latest scores from all the afternoon's sporting events.</desc>
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="SkySp.Mix.HD.uk">
+    <title>NFL Highlights</title>
+    <desc>Nick Sirianni's Philadelphia Eagles go to Chicago targeting a third consecutive win to start the campaign. The hosts were shut down by Minnesota for their first loss of the season. (28.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/766b2599-10ae-46d9-b563-486d4e718ee6/16-9" />
-  </programme>
-  <programme start="20261011160000 +0000" stop="20261011170000 +0000" channel="SkySp.News.HD.uk">
-    <title>Soccer Sunday</title>
-    <desc>Stay in touch with the news, as studio guests join the team for live reports and the latest scores from all the afternoon's sporting events.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/766b2599-10ae-46d9-b563-486d4e718ee6/16-9" />
-  </programme>
-  <programme start="20261011170000 +0000" stop="20261011180000 +0000" channel="SkySp.News.HD.uk">
-    <title>Sky Sports Catch-Up</title>
-    <desc>Take a moment to catch-up with the all biggest sports stories hitting the headlines.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Baseball</category>
-    <episode-num system="xmltv_ns">.21.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6ef27f9b-5a39-4031-840e-9beb798b35dc/16-9" />
+    <category lang="en">American Football</category>
+    <episode-num system="onscreen">09</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/d4e61484-6c78-43aa-83f7-bbd34b031be7/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
   <programme start="20261011180000 +0000" stop="20261011190000 +0000" channel="SkySp.News.HD.uk">
     <title>Sky Sports Catch-Up</title>
@@ -4760,49 +4749,21 @@
     <episode-num system="xmltv_ns">.7.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/3393166c-e1d5-47f1-91f0-cd4003fbfe7b/16-9" />
   </programme>
-  <programme start="20261011143000 +0000" stop="20261011144500 +0000" channel="SkySp.Tennis.HD.uk">
-    <title>WTA Final: Indian Wells</title>
-    <desc>World number one Aryna Sabalenka and two-time Grand Slam winner Elena Rybakina meet in a rematch of the 2026 Australian Open and the 2023 Indian Wells finals - both won by Rybakina. (15.</desc>
+  <programme start="20261013213000 +0000" stop="20261013220000 +0000" channel="SkySp.News.HD.uk">
+    <title>Paper Talk</title>
+    <desc>A look at the big stories dominating the news headlines, with discussion and analysis of sport's major topics.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <episode-num system="onscreen">03</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/2b5182ac-d855-43a1-809b-69ab2d776654/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Baseball</category>
+    <episode-num system="xmltv_ns">.51.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/696d7684-6719-42ba-b320-eb055949e88a/16-9" />
   </programme>
-  <programme start="20261011144500 +0000" stop="20261011150000 +0000" channel="SkySp.Tennis.HD.uk">
-    <title>WTA Final: Miami</title>
-    <desc>Aryna Sabalenka and Coco Gauff share the stage in a final for the fourth time, with hometown favourite Gauff bidding to deny defending Miami champion Sabalenka the Sunshine Double. (28.</desc>
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="SkySp.News.HD.uk">
+    <title>Sky Sports News</title>
+    <desc>Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <episode-num system="onscreen">03</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/9d9ea3df-13d7-4974-ba36-5da65e787d2d/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261011150000 +0000" stop="20261011153000 +0000" channel="SkySp.Tennis.HD.uk">
-    <title>ATP Tour This Week</title>
-    <desc>Step behind the scenes of men's professional tennis throughout the 2026 season on the ATP Tour with special features, interviews and much more.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <episode-num system="xmltv_ns">.100.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/9db9b62e-b885-46ca-98ad-a224348dda1b/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme start="20261011153000 +0000" stop="20261011163000 +0000" channel="SkySp.Tennis.HD.uk">
-    <title>ATP Final: Beijing</title>
-    <desc>With a record-extending seventh Beijing title in sight, Novak Djokovic faces the fifth-seeded Australian Alex de Minaur. Djokovic leads 3-1 in the pair's head-to-head meetings. (06.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <episode-num system="onscreen">10</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/3cbcc9d5-a851-47df-8e76-3b9f37bec644/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
+    <category lang="en">Baseball</category>
+    <episode-num system="xmltv_ns">.73.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/b7aa0ec5-8fb7-41ea-8865-a6a3b6d3d180/16-9" />
   </programme>
   <programme start="20261011163000 +0000" stop="20261011183000 +0000" channel="SkySp.Tennis.HD.uk">
     <title>WTA Final: Beijing</title>
@@ -5189,861 +5150,1207 @@
     <episode-num system="xmltv_ns">.12.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/096ea701-54d8-4881-9ff1-41bf84cd328c/16-9" />
   </programme>
-  <programme start="20261011133000 +0000" stop="20261011163000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live: The Gallagher PREM</title>
-    <sub-title>Exeter Chiefs v Newcastle Red Bulls (Kick-off 3.00pm)</sub-title>
-    <desc>Exeter Chiefs v Newcastle Red Bulls (Kick-off 3.00pm). Coverage of the match from Sandy Park.</desc>
-    <icon src="https://tv.assets.pressassociation.io/93cc6158-133a-543d-9b4a-16a660f6bb31.jpg" />
-  </programme>
-  <programme start="20261011163000 +0000" stop="20261011181500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>The Gallagher PREM</title>
-    <sub-title>Sale Sharks v Harlequins</sub-title>
-    <desc>Sale Sharks v Harlequins.</desc>
-    <icon src="https://tv.assets.pressassociation.io/21b9f906-33ff-52e2-a094-095fc43222ee.jpg" />
-  </programme>
-  <programme start="20261011181500 +0000" stop="20261011183000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Groundbreaking</title>
-    <sub-title>Reliving some of the most memorable games at Stamford Bridge</sub-title>
-    <desc>Reliving some of the most memorable games at Stamford Bridge.</desc>
-    <icon src="https://tv.assets.pressassociation.io/e427f171-2d40-55a5-9d18-25654829f3fc.jpg" />
-  </programme>
-  <programme start="20261011183000 +0000" stop="20261011204500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live: Serie A</title>
-    <sub-title>Cagliari v Juventus (Kick-off 7.45pm)</sub-title>
-    <desc>Cagliari v Juventus (Kick-off 7.45pm). Coverage of the Italian top-flight match from Unipol Domus.</desc>
-    <icon src="https://tv.assets.pressassociation.io/c8aff1c4-6cdf-518e-952d-7ea979c22416.jpg" />
-  </programme>
-  <programme start="20261011204500 +0000" stop="20261011210000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Groundbreaking</title>
-    <sub-title>Reliving some of the most memorable games at Villa Park</sub-title>
-    <desc>Reliving some of the most memorable games at Villa Park.</desc>
-    <icon src="https://tv.assets.pressassociation.io/388c3470-3bdc-5dac-b6ef-add33f67529d.jpg" />
-  </programme>
-  <programme start="20261011210000 +0000" stop="20261011213000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>UEFA Champions League Magazine</title>
-    <sub-title>Paulo Dybala talks about his deep connection with Roma's fans</sub-title>
-    <desc>Manchester City's Antoine Semenyo reflects on the mindset behind his rise to the top of the game, while Paulo Dybala talks about his deep connection with Roma's fans.</desc>
-    <icon src="https://tv.assets.pressassociation.io/34656dd3-655e-5cd3-8fa2-2f5f9df96582.jpg" />
-  </programme>
-  <programme start="20261011213000 +0000" stop="20261011220000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>UEFA Champions League - Classics</title>
-    <sub-title>Arsenal v Slavia Prague from the 2007/08 season</sub-title>
-    <desc>We revisit the entertaining 2007/08 UEFA Champions League group stage tie between Arsenal and Slavia Prague at the Emirates. The Gunners had not lost at home in Europe since 2004.</desc>
-    <icon src="https://tv.assets.pressassociation.io/b71bd7bc-7266-533b-9e45-e32cc46dfb62.jpg" />
-  </programme>
-  <programme start="20261011220000 +0000" stop="20261011230000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>The Gallagher PREM</title>
-    <sub-title>Exeter Chiefs v Newcastle Red Bulls</sub-title>
-    <desc>Exeter Chiefs v Newcastle Red Bulls.</desc>
-    <icon src="https://tv.assets.pressassociation.io/06d54b68-3809-52d9-8e48-37f8284322fd.jpg" />
-  </programme>
-  <programme start="20261011230000 +0000" stop="20261011233000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>The Breakdown</title>
-    <sub-title>Harry Kane talks through his best ever season</sub-title>
-    <desc>England and Bayern Munich star Harry Kane talks through his best ever season, where he scored an unbelievable 73 goals for club and country.</desc>
-    <icon src="https://tv.assets.pressassociation.io/6f757bef-2107-5566-ace8-87a3fef9c8ff.jpg" />
-  </programme>
-  <programme start="20261011233000 +0000" stop="20261012000000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Highlights</title>
-    <sub-title>Action from Major League Baseball</sub-title>
-    <desc>Action from Major League Baseball.</desc>
-    <icon src="https://tv.assets.pressassociation.io/43d3c6c9-b39a-55e1-86f2-3c19bab265b9.jpg" />
-  </programme>
-  <programme start="20261012000000 +0000" stop="20261012033000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live MLB</title>
-    <sub-title>Milwaukee Brewers v Los Angeles Dodgers (Start-time 1.00am)</sub-title>
-    <desc>Milwaukee Brewers v Los Angeles Dodgers (Start-time 1.00am). Coverage of game one of the National League Championship Series at American Family Field.</desc>
-    <icon src="https://tv.assets.pressassociation.io/5329e6da-1e90-5466-9e78-0091565c40a2.jpg" />
-  </programme>
-  <programme start="20261012033000 +0000" stop="20261012040000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Classic</title>
-    <sub-title>MLB Ultimate Lineup takes a look at 'The Most Entertainin..</sub-title>
-    <desc>MLB Ultimate Lineup takes a look at 'The Most Entertaining Players We Ever Saw'. Players who keep us glued to our seats including Pedro Martinez, Rickey Henderson and Torii Hunter.</desc>
-    <icon src="https://tv.assets.pressassociation.io/db28cbc2-c8a7-5788-b56f-7c9391c43e8d.jpg" />
-  </programme>
-  <programme start="20261012040000 +0000" stop="20261012043000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Classic</title>
-    <sub-title>A look some of the most unbreakable records in Major League Baseball</sub-title>
-    <desc>A look some of the most unbreakable records in Major League Baseball.</desc>
-    <icon src="https://tv.assets.pressassociation.io/9228354d-2045-5a93-a6cf-9b7504afcb22.jpg" />
-  </programme>
-  <programme start="20261012043000 +0000" stop="20261012050000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Classic</title>
-    <sub-title>A countdown of baseball's greatest plays at home plate</sub-title>
-    <desc>A countdown of baseball's greatest plays at home plate.</desc>
-    <icon src="https://tv.assets.pressassociation.io/cfc165b2-afdd-5025-9591-380022dbff55.jpg" />
-  </programme>
-  <programme start="20261012050000 +0000" stop="20261012053000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League Stories</title>
-    <sub-title>Michael Carrick reflects on his remarkable journey through the game</sub-title>
-    <desc>Michael Carrick reflects on his remarkable journey through the game, sharing fascinating stories of Jacques Santini at Spurs and Sir Alex Ferguson at Manchester United.</desc>
-    <icon src="https://tv.assets.pressassociation.io/69b68e69-061b-53f8-817a-f95b49761bd1.jpg" />
-  </programme>
-  <programme start="20261012053000 +0000" stop="20261012060000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League - The Big Interview</title>
-    <sub-title>Hayden Hackney talks about his start to life in the Premier League with Everton</sub-title>
-    <desc>Hayden Hackney talks about his start to life in the Premier League with Everton, the culmination of a lifetime of persistence and turning a childhood dream into a reality.</desc>
-    <icon src="https://tv.assets.pressassociation.io/0145f398-154d-5c5d-acb1-aba0f05553c5.jpg" />
-  </programme>
-  <programme start="20261012060000 +0000" stop="20261012073000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League</title>
-    <sub-title>Arsenal v Leeds United</sub-title>
-    <desc>Arsenal v Leeds United.</desc>
-    <icon src="https://tv.assets.pressassociation.io/6c49de84-92d7-5412-8d31-198dff7a0904.jpg" />
-  </programme>
-  <programme start="20261012073000 +0000" stop="20261012083000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Serie A</title>
-    <sub-title>Como v AS Roma</sub-title>
-    <desc>Como v AS Roma.</desc>
-    <icon src="https://tv.assets.pressassociation.io/3de7e4f8-d2b9-5951-bdd0-372de76c66a4.jpg" />
-  </programme>
-  <programme start="20261012083000 +0000" stop="20261012093000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Serie A</title>
-    <sub-title>Cagliari v Juventus</sub-title>
-    <desc>Cagliari v Juventus.</desc>
-    <icon src="https://tv.assets.pressassociation.io/28905db7-f794-5122-a923-18aa3c14002e.jpg" />
-  </programme>
-  <programme start="20261012093000 +0000" stop="20261012100000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League Stories</title>
-    <sub-title>Michael Carrick reflects on his remarkable journey through the game</sub-title>
-    <desc>Michael Carrick reflects on his remarkable journey through the game, sharing fascinating stories of Jacques Santini at Spurs and Sir Alex Ferguson at Manchester United.</desc>
-    <icon src="https://tv.assets.pressassociation.io/69b68e69-061b-53f8-817a-f95b49761bd1.jpg" />
-  </programme>
-  <programme start="20261012100000 +0000" stop="20261012103000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League - The Big Interview</title>
-    <sub-title>Hayden Hackney talks about his start to life in the Premier League with Everton</sub-title>
-    <desc>Hayden Hackney talks about his start to life in the Premier League with Everton, the culmination of a lifetime of persistence and turning a childhood dream into a reality.</desc>
-    <icon src="https://tv.assets.pressassociation.io/0145f398-154d-5c5d-acb1-aba0f05553c5.jpg" />
-  </programme>
-  <programme start="20261012103000 +0000" stop="20261012110000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>UEFA Champions League Magazine</title>
-    <sub-title>Paulo Dybala talks about his deep connection with Roma's fans</sub-title>
-    <desc>Manchester City's Antoine Semenyo reflects on the mindset behind his rise to the top of the game, while Paulo Dybala talks about his deep connection with Roma's fans.</desc>
-    <icon src="https://tv.assets.pressassociation.io/34656dd3-655e-5cd3-8fa2-2f5f9df96582.jpg" />
-  </programme>
-  <programme start="20261012110000 +0000" stop="20261012120000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>UEFA Europa League &amp; Conference League Magazine</title>
-    <sub-title>Adam Smith details Bournemouth's miraculous rise to UEFA Europa League football</sub-title>
-    <desc>Adam Smith details Bournemouth's miraculous rise to UEFA Europa League football, while Pascal Gross discusses his emotional return to Brighton &amp; Hove Albion.</desc>
-    <icon src="https://tv.assets.pressassociation.io/73281de3-a65a-54b0-87ac-900459196cab.jpg" />
-  </programme>
-  <programme start="20261012120000 +0000" stop="20261012123000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Highlights</title>
-    <sub-title>Action from Major League Baseball</sub-title>
-    <desc>Action from Major League Baseball.</desc>
-    <icon src="https://tv.assets.pressassociation.io/0e9ad10d-a4a7-5515-bbd6-919d05c2a5a6.jpg" />
-  </programme>
-  <programme start="20261012123000 +0000" stop="20261012124500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Groundbreaking</title>
-    <sub-title>Reliving some of the most memorable games at Stamford Bridge</sub-title>
-    <desc>Reliving some of the most memorable games at Stamford Bridge.</desc>
-    <icon src="https://tv.assets.pressassociation.io/e427f171-2d40-55a5-9d18-25654829f3fc.jpg" />
-  </programme>
-  <programme start="20261012124500 +0000" stop="20261012130000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Groundbreaking</title>
-    <sub-title>Reliving some of the most memorable games at Villa Park</sub-title>
-    <desc>Reliving some of the most memorable games at Villa Park.</desc>
-    <icon src="https://tv.assets.pressassociation.io/388c3470-3bdc-5dac-b6ef-add33f67529d.jpg" />
-  </programme>
-  <programme start="20261012130000 +0000" stop="20261012140000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Serie A</title>
-    <sub-title>Como v AS Roma</sub-title>
-    <desc>Como v AS Roma.</desc>
-    <icon src="https://tv.assets.pressassociation.io/3de7e4f8-d2b9-5951-bdd0-372de76c66a4.jpg" />
-  </programme>
-  <programme start="20261012140000 +0000" stop="20261012150000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Serie A</title>
-    <sub-title>Cagliari v Juventus</sub-title>
-    <desc>Cagliari v Juventus.</desc>
-    <icon src="https://tv.assets.pressassociation.io/28905db7-f794-5122-a923-18aa3c14002e.jpg" />
-  </programme>
-  <programme start="20261012150000 +0000" stop="20261012153000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League Legends</title>
-    <sub-title>A profile of former Arsenal striker Thierry Henry</sub-title>
-    <desc>A profile of former Arsenal striker Thierry Henry, who amassed a total of 175 Premier League goals for the Gunners over two spells at the club between 1999 and 2012.</desc>
-    <icon src="https://tv.assets.pressassociation.io/3d6fd6f9-579f-5c7a-9a1f-b79475f0285b.jpg" />
-  </programme>
-  <programme start="20261012153000 +0000" stop="20261012170000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League</title>
-    <sub-title>Arsenal v Leeds United</sub-title>
-    <desc>Arsenal v Leeds United.</desc>
-    <icon src="https://tv.assets.pressassociation.io/6c49de84-92d7-5412-8d31-198dff7a0904.jpg" />
-  </programme>
-  <programme start="20261012170000 +0000" stop="20261012180000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>UCI Gravel World Championships</title>
-    <sub-title>Action from the women's event in Nannup, Western Australia</sub-title>
-    <desc>Action from the women's event in Nannup, Western Australia.</desc>
-    <icon src="https://tv.assets.pressassociation.io/a69183e7-7e08-5338-a827-e390532eb287.jpg" />
-  </programme>
-  <programme start="20261012180000 +0000" stop="20261012190000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>UCI Gravel World Championships</title>
-    <sub-title>Action from the men's event in Nannup, Western Australia</sub-title>
-    <desc>Action from the men's event in Nannup, Western Australia.</desc>
-    <icon src="https://tv.assets.pressassociation.io/19a215a2-a31d-58db-9112-7980eded9670.jpg" />
-  </programme>
-  <programme start="20261012190000 +0000" stop="20261012200000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>World Superbike Highlights</title>
-    <sub-title>Action from the 11th round of the season at Circuito Estoril in Portugal</sub-title>
-    <desc>Action from the 11th round of the season at Circuito Estoril in Portugal.</desc>
-    <icon src="https://tv.assets.pressassociation.io/41af628f-aa76-5c31-b63c-8b00626a8452.jpg" />
-  </programme>
-  <programme start="20261012200000 +0000" stop="20261012201500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>The Gruppetto</title>
-    <sub-title>Rob Hatch presents news from the world of cycling</sub-title>
-    <desc>Rob Hatch presents news from the world of cycling.</desc>
-    <icon src="https://tv.assets.pressassociation.io/04751a70-18a6-5116-bc65-a36c741f82c1.jpg" />
-  </programme>
-  <programme start="20261012201500 +0000" stop="20261012203000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>The Gallagher PREM - The Wrap Up</title>
-    <sub-title>A look back at the third round of fixtures</sub-title>
-    <desc>A look back at the third round of fixtures, including Northampton Saints v Bath Rugby, Sale Sharks v Harlequins, Saracens v Bristol Bears, and Leicester Tigers v Gloucester Rugby.</desc>
-    <icon src="https://tv.assets.pressassociation.io/36aa0296-f922-594d-8bf7-c8253c313fd1.jpg" />
-  </programme>
-  <programme start="20261012203000 +0000" stop="20261012210000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Highlights</title>
-    <sub-title>Action from Major League Baseball</sub-title>
-    <desc>Action from Major League Baseball.</desc>
-    <icon src="https://tv.assets.pressassociation.io/0e9ad10d-a4a7-5515-bbd6-919d05c2a5a6.jpg" />
-  </programme>
-  <programme start="20261012210000 +0000" stop="20261013003000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live MLB</title>
-    <sub-title>Milwaukee Brewers v Los Angeles Dodgers (Start-time 10.00pm)</sub-title>
-    <desc>Milwaukee Brewers v Los Angeles Dodgers (Start-time 10.00pm). Coverage of game two of the National League Championship Series at American Family Field.</desc>
-    <icon src="https://tv.assets.pressassociation.io/95d7540e-f792-513c-9120-6255d769b40b.jpg" />
-  </programme>
-  <programme start="20261013003000 +0000" stop="20261013033000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live MLB</title>
-    <sub-title>Tampa Bay Rays v Cleveland Guardians or Chicago White Sox (Start-time 1.00am)</sub-title>
-    <desc>Tampa Bay Rays v Cleveland Guardians or Chicago White Sox (Start-time 1.00am). Coverage of game one of the American League Championship Series at Tropicana Field.</desc>
-    <icon src="https://tv.assets.pressassociation.io/c90b4358-bc36-5c55-8db1-03eeefe68517.jpg" />
-  </programme>
-  <programme start="20261013033000 +0000" stop="20261013040000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Closer</title>
-    <sub-title>A look back at the best action from the MLB</sub-title>
-    <desc>A look back at the best action from the MLB.</desc>
-    <icon src="https://tv.assets.pressassociation.io/6e78bc87-c82b-573d-ac0f-383fcd1abc92.jpg" />
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013041500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>The Gallagher PREM - The Wrap Up</title>
-    <sub-title>A look back at the third round of fixtures</sub-title>
-    <desc>A look back at the third round of fixtures, including Northampton Saints v Bath Rugby, Sale Sharks v Harlequins, Saracens v Bristol Bears, and Leicester Tigers v Gloucester Rugby.</desc>
-    <icon src="https://tv.assets.pressassociation.io/36aa0296-f922-594d-8bf7-c8253c313fd1.jpg" />
-  </programme>
-  <programme start="20261013041500 +0000" stop="20261013043000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>The Gruppetto</title>
-    <sub-title>Rob Hatch presents news from the world of cycling</sub-title>
-    <desc>Rob Hatch presents news from the world of cycling.</desc>
-    <icon src="https://tv.assets.pressassociation.io/04751a70-18a6-5116-bc65-a36c741f82c1.jpg" />
-  </programme>
-  <programme start="20261013043000 +0000" stop="20261013060000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live: Men's Cycling World Tour</title>
-    <sub-title>Coverage of the first stage of the Tour of Guangxi</sub-title>
-    <desc>Coverage of the first stage of the Tour of Guangxi.</desc>
-    <icon src="https://tv.assets.pressassociation.io/c9a9a812-e10b-5201-b36d-4bcf461a6005.jpg" />
-  </programme>
-  <programme start="20261013060000 +0000" stop="20261013064500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Sign Up - Into Football</title>
-    <sub-title>Mikel Arteta answers questions from deaf Arsenal fans</sub-title>
-    <desc>Mikel Arteta answers questions from deaf Arsenal fans, and Mikel Merino uses British Sign Language in his goal celebration. Plus, Karen Carney analyses the start of the season.</desc>
-    <icon src="https://tv.assets.pressassociation.io/e7193fbd-48a6-5395-bf31-579abe9d3ab5.jpg" />
-  </programme>
-  <programme start="20261013064500 +0000" stop="20261013074500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MotoGP</title>
-    <sub-title>Action from the 2026 Moto3 Grand Prix of Indonesia</sub-title>
-    <desc>Action from the 2026 Moto3 Grand Prix of Indonesia.</desc>
-    <icon src="https://tv.assets.pressassociation.io/39285283-056c-526b-a21b-7736ec225336.jpg" />
-  </programme>
-  <programme start="20261013074500 +0000" stop="20261013084500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MotoGP</title>
-    <sub-title>Action from the 2026 Moto2 Grand Prix of Indonesia</sub-title>
-    <desc>Action from the 2026 Moto2 Grand Prix of Indonesia.</desc>
-    <icon src="https://tv.assets.pressassociation.io/24500392-9274-5d74-85ad-7f492e435e7c.jpg" />
-  </programme>
-  <programme start="20261013084500 +0000" stop="20261013091500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MotoGP</title>
-    <sub-title>Action from the 2026 MotoGP Grand Prix of Indonesia sprint race</sub-title>
-    <desc>Action from the 2026 MotoGP Grand Prix of Indonesia sprint race.</desc>
-    <icon src="https://tv.assets.pressassociation.io/43d737f8-1091-541c-8ea3-a9a50881edda.jpg" />
-  </programme>
-  <programme start="20261013091500 +0000" stop="20261013101500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MotoGP</title>
-    <sub-title>Action from the 2026 MotoGP Grand Prix of Indonesia</sub-title>
-    <desc>Action from the 2026 MotoGP Grand Prix of Indonesia.</desc>
-    <icon src="https://tv.assets.pressassociation.io/9bac6fc4-4da6-5990-8f66-2a398760c4a4.jpg" />
-  </programme>
-  <programme start="20261013101500 +0000" stop="20261013110000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Sign Up - Into Football</title>
-    <sub-title>Mikel Arteta answers questions from deaf Arsenal fans</sub-title>
-    <desc>Mikel Arteta answers questions from deaf Arsenal fans, and Mikel Merino uses British Sign Language in his goal celebration. Plus, Karen Carney analyses the start of the season.</desc>
-    <icon src="https://tv.assets.pressassociation.io/e7193fbd-48a6-5395-bf31-579abe9d3ab5.jpg" />
-  </programme>
-  <programme start="20261013110000 +0000" stop="20261013120000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League Review</title>
-    <sub-title>A look back at the best action from matchday six of the top flight</sub-title>
-    <desc>A look back at the best action from matchday six of the top flight, including Arsenal v Leeds United, Manchester United v Tottenham Hotspur, and Liverpool v Manchester City.</desc>
-    <icon src="https://tv.assets.pressassociation.io/59cf5444-21cf-56d0-9ae9-8fc68657586b.jpg" />
-  </programme>
-  <programme start="20261013120000 +0000" stop="20261013130000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>MLB Highlights</title>
-    <sub-title>Action from Major League Baseball</sub-title>
-    <desc>Action from Major League Baseball.</desc>
-    <icon src="https://tv.assets.pressassociation.io/ff1531f0-cb94-5327-89e3-e32877758484.jpg" />
-  </programme>
-  <programme start="20261013130000 +0000" stop="20261013131500 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>TNT Sports Cricket Reload</title>
-    <sub-title>A look back at India v West Indies in the first T20 of the series</sub-title>
-    <desc>A look back at India v West Indies in the first T20 of the series.</desc>
-    <icon src="https://tv.assets.pressassociation.io/f44bdebb-6176-5cf4-bde5-6f5cc6266972.jpg" />
-  </programme>
-  <programme start="20261013131500 +0000" stop="20261013133000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>TNT Sports Cricket Reload</title>
-    <sub-title>A look back at India v West Indies in the second T20 of the series</sub-title>
-    <desc>A look back at India v West Indies in the second T20 of the series.</desc>
-    <icon src="https://tv.assets.pressassociation.io/a7518900-b227-575d-ac17-15a08f685f7c.jpg" />
-  </programme>
-  <programme start="20261013133000 +0000" stop="20261013140000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League Stories</title>
-    <sub-title>Michael Carrick reflects on his remarkable journey through the game</sub-title>
-    <desc>Michael Carrick reflects on his remarkable journey through the game, sharing fascinating stories of Jacques Santini at Spurs and Sir Alex Ferguson at Manchester United.</desc>
-    <icon src="https://tv.assets.pressassociation.io/69b68e69-061b-53f8-817a-f95b49761bd1.jpg" />
-  </programme>
-  <programme start="20261013140000 +0000" stop="20261013160000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live UEFA Youth League</title>
-    <sub-title>Atletico Madrid U19 v Manchester United U19 (Kick-off 3.00pm)</sub-title>
-    <desc>Atletico Madrid U19 v Manchester United U19 (Kick-off 3.00pm). Coverage of the league phase match from Centro Deportivo Wanda Alcalá de Henares.</desc>
-    <icon src="https://tv.assets.pressassociation.io/7498b789-55ff-529f-8082-6a16981c62de.jpg" />
-  </programme>
-  <programme start="20261013160000 +0000" stop="20261013173000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Premier League</title>
-    <sub-title>Arsenal v Leeds United</sub-title>
-    <desc>Arsenal v Leeds United.</desc>
-    <icon src="https://tv.assets.pressassociation.io/6c49de84-92d7-5412-8d31-198dff7a0904.jpg" />
-  </programme>
-  <programme start="20261013173000 +0000" stop="20261013180000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>UEFA Extraordinary Stories</title>
-    <sub-title>A profile of Northern Irish footballer Jimmy Hasty</sub-title>
-    <desc>A profile of Northern Irish footballer Jimmy Hasty, who overcame the loss of his left arm to become a Dundalk legend and star on the European stage.</desc>
-  </programme>
-  <programme start="20261013180000 +0000" stop="20261013213000 +0000" channel="TNT.Sports.1.HD.uk">
-    <title>Live UEFA Champions League</title>
-    <sub-title>Arsenal v Lille (Kick-off 8.00pm)</sub-title>
-    <desc>Arsenal v Lille (Kick-off 8.00pm). Coverage of the league phase match from Emirates Stadium.</desc>
-    <icon src="https://tv.assets.pressassociation.io/520aa7b1-c2cf-526a-9370-98cbbde69990.jpg" />
-  </programme>
-  <programme start="20261011142500 +0000" stop="20261011151500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Kingdom</title>
-    <desc>Injured wild dog Flint helps care for Storm's largest-ever litter of pups. Leopard Mutima searches for a home, and the lions are challenged by forces beyond their control.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">0.3.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/2d5426b2-6361-46c4-90d6-2310d1e9e545/16-9" />
-  </programme>
-  <programme start="20261011151500 +0000" stop="20261011161500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Homes Under the Hammer</title>
-    <desc>Jacqui is not impressed by the mushrooms growing inside a Norfolk end-of-terrace. In the West Midlands, Dion thinks some walls need to be rebuilt.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">27.46.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/0e140656-526c-47af-bd5b-e45feead671c/16-9" />
-  </programme>
-  <programme start="20261011161500 +0000" stop="20261011163000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News</title>
-    <desc>The latest national and international news from the BBC.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/960b6079-2ce9-46cf-b848-738d53983417/16-9" />
-  </programme>
-  <programme start="20261011163000 +0000" stop="20261011163500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC London News</title>
-    <desc>The latest news, sport and weather from London.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/dd9999ee-b156-440b-bfb2-f923ff62d87f/16-9" />
-  </programme>
-  <programme start="20261011163500 +0000" stop="20261011164000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Weather</title>
-    <desc>The latest weather forecast.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/e5be038a-5dd7-47de-bb5b-6ce20972c236/16-9" />
-  </programme>
-  <programme start="20261011164000 +0000" stop="20261011174000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Countryfile</title>
-    <desc>Anita Rani and Sean Fletcher head to the south Pennines.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">.76.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/a9119943-8dc3-4858-9549-dc8e9c59f686/16-9" />
-  </programme>
-  <programme start="20261011174000 +0000" stop="20261011181000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>The Reluctant Vampire</title>
-    <desc>Val's curiosity about human life gets the better of him, and he decides to explore the village, finding himself torn between two worlds.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Comedy</category>
-    <episode-num system="xmltv_ns">0.1.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/0a89634f-7711-4e42-97b3-d11d7bc0ab9d/16-9" />
-  </programme>
-  <programme start="20261011181000 +0000" stop="20261011190000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Strictly Come Dancing: The Results</title>
-    <desc>It's time for the latest round of results as the couples wait to find out if they've secured a place in the next theme week - icons.</desc>
-    <category lang="en">Entertainment</category>
-    <episode-num system="xmltv_ns">23.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/dd1d11f7-61e8-47ce-94bd-04b598dd2353/16-9" />
-  </programme>
-  <programme start="20261011190000 +0000" stop="20261011200000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Antiques Roadshow</title>
-    <desc>The roadshow is at Dartington Estate in Devon, where finds include a walking stick with a secret, an African headrest and a Rolex watch rescued from the rubbish.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Antiques</category>
-    <episode-num system="xmltv_ns">48.8.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/2ac5d3f4-7c6d-4489-9614-12151c0ce5c6/16-9" />
-  </programme>
-  <programme start="20261011200000 +0000" stop="20261011210000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Time</title>
-    <desc>Tensions rise with new arrivals to the young offender institution. Contains strong language, some violence and some upsetting scenes.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Detective</category>
-    <episode-num system="xmltv_ns">2.0.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/e8173768-a73e-47ba-98b8-3f02c835b12a/16-9" />
-  </programme>
-  <programme start="20261011210000 +0000" stop="20261011212500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News and Weather</title>
-    <desc>The latest national and international news from the BBC.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/7039fba8-f4af-4dcf-ac39-25d1b8eabd83/16-9" />
-  </programme>
-  <programme start="20261011212500 +0000" stop="20261011213000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC London News</title>
-    <desc>The latest news, sport and weather from London.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/870764f4-e8cb-4ed9-bae8-5337ad332fbf/16-9" />
-  </programme>
-  <programme start="20261011213000 +0000" stop="20261011223500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Match of the Day</title>
-    <desc>Highlights of three Premier League games, including Liverpool v Manchester City at Anfield.</desc>
+  <programme start="20261013210000 +0000" stop="20261013211500 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Indian Wells</title>
+    <desc>World number one Aryna Sabalenka and two-time Grand Slam winner Elena Rybakina meet in a rematch of the 2026 Australian Open and the 2023 Indian Wells finals - both won by Rybakina. (15.</desc>
     <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <episode-num system="xmltv_ns">.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/1600bb94-a467-4737-ba88-cc7e236457ef/16-9" />
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">03</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/2b5182ac-d855-43a1-809b-69ab2d776654/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261011223500 +0000" stop="20261012002500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>The Nice Guys</title>
-    <desc>Mismatched PIs investigate a missing girl and the mysterious death of a porn star. Contains very strong language, some sexual content and some violence.</desc>
-    <category lang="en">Movie</category>
-    <icon src="https://images.metadata.sky.com/pd-image/bcc30e0f-31d2-407c-b368-74e0d6e0d757/16-9" />
+  <programme start="20261013211500 +0000" stop="20261013213000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Final: Miami</title>
+    <desc>Aryna Sabalenka and Coco Gauff share the stage in a final for the fourth time, with hometown favourite Gauff bidding to deny defending Miami champion Sabalenka the Sunshine Double. (28.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">03</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/9d9ea3df-13d7-4974-ba36-5da65e787d2d/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261012002500 +0000" stop="20261012011500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>The Graham Norton Show</title>
-    <desc>Olivia Colman, Alexander Skarsgård, John Malkovich and Ayo Edebiri join Graham on his sofa. With music from Orville Peck. Contains some strong language.</desc>
-    <category lang="en">Entertainment</category>
-    <episode-num system="xmltv_ns">33.2.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f1722ba2-886b-4542-a015-63e2a26ff41c/16-9" />
-  </programme>
-  <programme start="20261012011500 +0000" stop="20261012012000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Weather for the Week Ahead</title>
-    <desc>Detailed weather forecast.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/4ce920a8-8817-4536-bfe8-a55c1b1846ea/16-9" />
-  </programme>
-  <programme start="20261012012000 +0000" stop="20261012050000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News</title>
-    <desc>BBC One joins the BBC's rolling news channel for a night of news.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0975ac79-51a4-4b55-8493-75d9262760ea/16-9" />
-  </programme>
-  <programme start="20261012050000 +0000" stop="20261012083000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Breakfast</title>
-    <desc>The latest news, sport, business and weather from the BBC's Breakfast team.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
+  <programme start="20261013213000 +0000" stop="20261013220000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>WTA Beijing 2026 Review</title>
+    <desc>An in-depth review of all the WTA action from Beijing.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
     <episode-num system="xmltv_ns">.8.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/3683955f-ddd8-48c1-9d32-ad38919b4897/16-9" />
+    <icon src="https://images.metadata.sky.com/pd-image/20c5b238-6fb6-4b56-8591-43b2587964de/16-9" />
   </programme>
-  <programme start="20261012083000 +0000" stop="20261012094500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Morning Live</title>
-    <desc>Join Gethin Jones, Helen Skelton, Michelle Ackerley and the team for conversation, advice and tips to make your day that little bit easier.</desc>
-    <category lang="en">Entertainment</category>
-    <episode-num system="xmltv_ns">7.93.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/826c354b-5703-4897-86e4-da2a5eecf418/16-9" />
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="SkySp.Tennis.HD.uk">
+    <title>ATP Final: Beijing</title>
+    <desc>With a record-extending seventh Beijing title in sight, Novak Djokovic faces the fifth-seeded Australian Alex de Minaur. Djokovic leads 3-1 in the pair's head-to-head meetings. (06.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <episode-num system="onscreen">10</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/3cbcc9d5-a851-47df-8e76-3b9f37bec644/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
   </programme>
-  <programme start="20261012094500 +0000" stop="20261012103000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Crimewatch Live</title>
-    <desc>In 1988, Lee Boxell disappeared after seeing a friend. His heartbroken family are still looking for him. Plus, justice for the man jailed 14 years after he attacked three women.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">23.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/01e37f62-4217-4582-8b36-7aa8eada4ddd/16-9" />
+  <programme start="20261011160000 +0000" stop="20261011190000 +0000" channel="CNBC.uk">
+    <title>Live: PGA Tour Champions Golf</title>
+    <desc>From Ocean Course at Hammock Beach in Palm Coast, Fla.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="http://dtil.tmsimg.com/assets/p33945152_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
   </programme>
-  <programme start="20261012103000 +0000" stop="20261012111500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Homes Under the Hammer</title>
-    <desc>A flat in an old mill building just outside Manchester impresses Martel, while in west London Jacqui spots a property with potential to extend.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">27.9.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/51c4521b-fbd5-47dd-9d69-78f4e6e8ec3c/16-9" />
-  </programme>
-  <programme start="20261012111500 +0000" stop="20261012120000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Bargain Hunt</title>
-    <sub-title>Two teams</sub-title>
-    <desc>a pair of PhD students and a father and daughter - gallop around the antiques stalls of Southwell Racecourse with experts Lesley Kiddell-Spencer and Irita Marriott.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">50.18.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6aac27cc-32dc-4a98-b986-7fe628ed8f1d/16-9" />
-  </programme>
-  <programme start="20261012120000 +0000" stop="20261012130000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News at One including BBC London News</title>
-    <desc>The latest national and international news from the BBC.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/b9a5d6e0-1c5a-4cfc-87ae-c72ace9155f4/16-9" />
-  </programme>
-  <programme start="20261012130000 +0000" stop="20261012133000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Clean It, Fix It</title>
-    <desc>Mark Wright, Karla Pryce and Asher Edwards help Robin reclaim his one-bedroom flat from years of accumulated belongings.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">3.14.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/659108d4-6fca-4f3b-833c-61298ed28c79/16-9" />
-  </programme>
-  <programme start="20261012133000 +0000" stop="20261012140000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Shift the Thrift</title>
-    <desc>In Bridgend, Anum and Betti race to turn charity shop finds into profit, risking big on designer items, bold upcycles and a high-stakes live-streamed auction.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Antiques</category>
-    <episode-num system="xmltv_ns">0.4.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/96e7912a-7937-48c5-8f99-0f941aa8c1a6/16-9" />
-  </programme>
-  <programme start="20261012140000 +0000" stop="20261012144500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Escape to the Country</title>
-    <desc>Three generations swap busy Bucks for the calm of Cornwall, where Alistair Appleton has a beautiful mystery house conversion up his sleeve and meets a duo lighting up the county.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">26.26.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/bf1329bf-b55c-4a7d-8888-90f9d36c869f/16-9" />
-  </programme>
-  <programme start="20261012144500 +0000" stop="20261012153000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Garden Rescue</title>
-    <desc>Flo and Sue are in Stevenage to help mother and daughter Margaret and Elizabeth transform their south-facing garden.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">10.28.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/eb1cae5e-b8cd-41e6-bc13-198163641510/16-9" />
-  </programme>
-  <programme start="20261012153000 +0000" stop="20261012161500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Bridge of Lies</title>
-    <desc>Friends Karen, Andrew, Mary and Arwel take on the Bridge of Lies. One by one, they must cross the Bridge, stepping on the truths and avoiding the lies.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">4.17.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/84fa6582-68c9-47f7-b761-d207b0b4c739/16-9" />
-  </programme>
-  <programme start="20261012161500 +0000" stop="20261012170000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Pointless</title>
-    <desc>Alexander Armstrong is joined by co-host Andi Oliver for the quiz where contestants try to score as few points as possible by coming up with the answers no-one else could think of.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">29.24.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/8212ae03-5c96-399c-bb19-7eee2437ccc1/16-9" />
-  </programme>
-  <programme start="20261012170000 +0000" stop="20261012173000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News</title>
-    <desc>The latest national and international news from the BBC.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/371f0842-300b-434d-b802-8f7ef50816b2/16-9" />
-  </programme>
-  <programme start="20261012173000 +0000" stop="20261012180000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC London News</title>
-    <desc>The latest news, sport and weather from London.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/e9684f30-18a5-4adb-8334-d4f377cd581d/16-9" />
-  </programme>
-  <programme start="20261012180000 +0000" stop="20261012183000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>The One Show</title>
-    <desc>Alex Jones and Roman Kemp bring you the stories that matter from across the country.</desc>
-    <category lang="en">Entertainment</category>
-    <episode-num system="xmltv_ns">.22.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/5c51a2c4-a2f4-4628-9dd5-096f701a6d9d/16-9" />
-  </programme>
-  <programme start="20261012183000 +0000" stop="20261012190000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>EastEnders</title>
-    <desc>Ned rallies the community to celebrate becoming co-owner of Harry's Barn. Lauren and Mark's secret threatens to catch up with them. Amy finds herself increasingly drawn to Craig.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Soap</category>
-    <episode-num system="xmltv_ns">.161.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/9b0230ca-5d51-406b-a9c9-2a09c218e5ea/16-9" />
-  </programme>
-  <programme start="20261012190000 +0000" stop="20261012193000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Roman Abramovich: How He Hid His Fortune - Panorama</title>
-    <desc>How new evidence suggests Roman Abramovich's business empire was built on lies.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">.47.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/e9cfc7d4-60f6-43f7-bcb7-f1efc5aeb632/16-9" />
-  </programme>
-  <programme start="20261012193000 +0000" stop="20261012200000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Clickbait Clinic with Stacey Dooley</title>
-    <desc>Stacey meets young men who boost their testosterone to appear as manly as possible.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">0.3.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/f5128853-e731-4524-9540-d217a31dbc2d/16-9" />
-  </programme>
-  <programme start="20261012200000 +0000" stop="20261012210000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Time</title>
-    <desc>Officer Bailey hides the truth as pressure mounts in the young offender institution. Contains strong language, some violence and some upsetting scenes.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Detective</category>
-    <episode-num system="xmltv_ns">2.1.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/3afc73bb-1b7f-40b8-8fd0-b4cdba14a931/16-9" />
-  </programme>
-  <programme start="20261012210000 +0000" stop="20261012213000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News and Weather</title>
-    <desc>The latest national and international news, with reports from BBC correspondents worldwide.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/ccc5899e-6308-4627-8559-2f50df60dddf/16-9" />
-  </programme>
-  <programme start="20261012213000 +0000" stop="20261012214000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC London News</title>
-    <desc>The latest news, sport and weather from London.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/5b983721-d4ba-406a-8c25-c74de890858e/16-9" />
-  </programme>
-  <programme start="20261012214000 +0000" stop="20261012221000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Have I Got News for You</title>
-    <desc>Alex Jones hosts, with guest panellists comedian Chloe Petts and parliamentary sketch writer Tom Peck joining team captains Ian Hislop and Paul Merton as they delve into the news.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Comedy</category>
-    <episode-num system="xmltv_ns">71.1.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/3e70ed13-371a-4f55-9038-f7a77dd27ac7/16-9" />
-  </programme>
-  <programme start="20261012221000 +0000" stop="20261012235000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Misbehaviour</title>
-    <desc>As audiences look forward to the Miss World pageant, certain women plan to disrupt it. Contains some strong language.</desc>
-    <category lang="en">Movie</category>
-    <icon src="https://images.metadata.sky.com/pd-image/6112d51d-aebd-4ab7-950b-4d382107966a/16-9" />
-  </programme>
-  <programme start="20261012235000 +0000" stop="20261012235500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Weather for the Week Ahead</title>
-    <desc>Detailed weather forecast.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/cc452627-cfda-45ee-b4a2-3493c00d75ef/16-9" />
-  </programme>
-  <programme start="20261012235500 +0000" stop="20261013050000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News</title>
-    <desc>BBC One joins the BBC's rolling news channel for a night of news.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/5cc14f01-6dbf-4760-85f7-e29cca53554f/16-9" />
-  </programme>
-  <programme start="20261013050000 +0000" stop="20261013083000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Breakfast</title>
-    <desc>The latest news, sport, business and weather from the BBC's Breakfast team.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <episode-num system="xmltv_ns">.9.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/7399e510-66f1-428a-a0cd-2c765c099e95/16-9" />
-  </programme>
-  <programme start="20261013083000 +0000" stop="20261013094500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Morning Live</title>
-    <desc>Join Gethin Jones, Helen Skelton, Michelle Ackerley and the team for conversation, advice and tips to make your day that little bit easier.</desc>
-    <category lang="en">Entertainment</category>
-    <episode-num system="xmltv_ns">7.94.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/b1b910df-83d3-41f2-b96a-ad039bf3b56e/16-9" />
-  </programme>
-  <programme start="20261013094500 +0000" stop="20261013103000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Crimewatch Live</title>
-    <desc>Sam Rimmer was shot with a sub-machine gun in Dingle, Liverpool, in 2022. Do you know those responsible? And it's jail for the so-called Rightmove burglary gang.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">23.6.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/0bbd1bc9-1f83-4855-a837-9f1bbaa4ca6e/16-9" />
-  </programme>
-  <programme start="20261013103000 +0000" stop="20261013111500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Homes Under the Hammer</title>
-    <desc>A couple in Norwich plan their ideal city bolthole. Martin is in desirable Fulham to see a flat with great potential. And in County Durham, there is a developer with a long commute.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Factual</category>
-    <episode-num system="xmltv_ns">27.16.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/4b7453ea-05ea-4a64-88a8-c7964ede8f2a/16-9" />
-  </programme>
-  <programme start="20261013111500 +0000" stop="20261013120000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Bargain Hunt</title>
-    <desc>Christina Trevanion marks the 200th anniversary of the RSPCA, and two teams hunt for bargains with their dogs at Shepton Mallet antiques fair in Somerset.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">67.18.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/0d8abaa7-7df4-328a-999e-750fb0cb49c6/16-9" />
-  </programme>
-  <programme start="20261013120000 +0000" stop="20261013130000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News at One including BBC London News</title>
-    <desc>The latest national and international news from the BBC.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/bd4c7ddf-9261-484d-8f64-86faa9197d92/16-9" />
-  </programme>
-  <programme start="20261013130000 +0000" stop="20261013133000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Clean It, Fix It</title>
-    <desc>Mark Wright, Asher Edwards and Maxine Dwyer help Sammy, a mum overwhelmed by clutter, transform her home into a functional sanctuary.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">3.15.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/e2d914b1-b969-4102-9610-39fae677d433/16-9" />
-  </programme>
-  <programme start="20261013133000 +0000" stop="20261013140000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Shift the Thrift</title>
-    <desc>Polly and Callum compete in Midsomer Norton to find and upcycle charity shop treasures.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Antiques</category>
-    <episode-num system="xmltv_ns">0.5.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/015cd6e4-df3f-4768-beda-cbd7e75d4b5a/16-9" />
-  </programme>
-  <programme start="20261013140000 +0000" stop="20261013144500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Escape to the Country</title>
-    <desc>Steve Brown helps Cheryl and Barry swap Somerset suburbia for Moray and Aberdeenshire, where £425,000 must buy plenty of land for their family and growing menagerie of animals.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">26.27.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/ebb16900-d2fc-4bff-9d0c-c74c34f3841f/16-9" />
-  </programme>
-  <programme start="20261013144500 +0000" stop="20261013153000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Garden Rescue</title>
-    <desc>Flo and Charlie are in Twickenham to create a Hawaiian-themed garden, complete with tiki bar, for dance-mad Michael and Jill to trip the light fantastic in.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">9.0.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/235014d7-6771-487b-844f-ee6fd4b5d6e9/16-9" />
-  </programme>
-  <programme start="20261013153000 +0000" stop="20261013161500 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Bridge of Lies</title>
-    <desc>Family team of four Kezia, Nathaniel, Seyi and Femi take on the Bridge of Lies. One by one, they must cross the Bridge, stepping on the truths and avoiding the lies.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">4.18.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/b43fe8fc-f8ae-42bf-9d89-27404814e2ee/16-9" />
-  </programme>
-  <programme start="20261013161500 +0000" stop="20261013170000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Pointless</title>
-    <desc>Alexander Armstrong is joined by co-host Andi Oliver for the quiz where contestants try to score as few points as possible by coming up with the answers no-one else could think of.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">29.25.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/4297d061-8521-314e-a667-960ac3a49a8c/16-9" />
-  </programme>
-  <programme start="20261013170000 +0000" stop="20261013173000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC News</title>
-    <desc>The latest national and international news from the BBC.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/b98128ce-6c2c-4284-a975-4d5031b38784/16-9" />
-  </programme>
-  <programme start="20261013173000 +0000" stop="20261013180000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>BBC London News</title>
-    <desc>The latest news, sport and weather from London.</desc>
-    <category lang="en">News &amp; Documentary</category>
-    <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0b12235e-b421-4916-a967-4868c4603d4b/16-9" />
-  </programme>
-  <programme start="20261013180000 +0000" stop="20261013183000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>The One Show</title>
-    <desc>Alex Jones and Roman Kemp bring you the stories that matter from across the country.</desc>
-    <category lang="en">Entertainment</category>
-    <episode-num system="xmltv_ns">.23.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/5ab802df-292e-4d9f-b7d1-9ff6842b813e/16-9" />
-  </programme>
-  <programme start="20261013183000 +0000" stop="20261013190000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>EastEnders</title>
-    <sub-title>Mark faces an impossible choice</sub-title>
-    <desc>Amy's growing distance from her friends causes concern. The Slaters rally around Kat as her grief deepens.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Soap</category>
-    <episode-num system="xmltv_ns">.162.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/1aea2a10-acf6-4a06-bef2-6d64b5541aab/16-9" />
-  </programme>
-  <programme start="20261013190000 +0000" stop="20261013200000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>DIY SOS</title>
-    <desc>In Preston, the team transforms a family home for 16-year-old Dan, who has complex disabilities after brain tumour surgery, so that he can finally come home from hospital.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Gradening</category>
-    <episode-num system="xmltv_ns">34.3.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/6752cf6c-40ec-484a-b20e-80b06d6ef3be/16-9" />
-  </programme>
-  <programme start="20261013200000 +0000" stop="20261013210000 +0000" channel="BBC.One.Lon.HD.uk">
-    <title>Blue Lights</title>
-    <desc>Mo McIntyre's mental state threatens to derail the trial for the murder of Gerry Cliff. Contains strong language and some violent scenes.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Detective</category>
-    <episode-num system="xmltv_ns">3.2.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/ea227581-412c-470f-9360-9d90bc3bb2c5/16-9" />
-  </programme>
-  <programme start="20261011143000 +0000" stop="20261011150000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>Clive Myrie's African Adventure</title>
-    <sub-title>Durban</sub-title>
-    <desc>Clive gets onto the anti-poaching front line protecting South Africa's magnificent rhino and tries to stay upright as he takes to the ocean with a surf school for street kids.</desc>
+  <programme start="20261011190000 +0000" stop="20261011200000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A modern-day slip business; a scrubbing tool; dog-friendly frozen yogurt; an electric unicycle; an update on the "Lollacup.".</desc>
     <category lang="en">Series</category>
-    <category lang="en">Travel</category>
-    <category lang="en">Documentary</category>
-    <episode-num system="onscreen">S1 E2</episode-num>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S4 E7</episode-num>
     <credits>
-      <actor>Clive Myrie</actor>
-      <director>Des Henderson</director>
+      <actor>Barbara Corcoran</actor>
+      <actor>Mark Cuban</actor>
+      <actor>Robert Herjavec</actor>
+      <director>Alan Carter</director>
+      <director>Ken Fuchs</director>
+      <director>Craig Spirko</director>
     </credits>
-    <date>2026</date>
-    <icon src="http://dtil.tmsimg.com/assets/p32196879_b_h10_ac.jpg?w=960&amp;h=540" />
+    <date>2012</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
     <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>6</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
   </programme>
-  <programme start="20261011150000 +0000" stop="20261011153000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>BBC News</title>
-    <desc>Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <category lang="en">News</category>
-    <date>2008</date>
-    <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
+  <programme start="20261011200000 +0000" stop="20261011210000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A product designed to keep your cat stimulated; a product used for potty-training; an entrepreneur presents his measuring tool for cutting hair; an inclusive product line providing aid to minor injuries; Mark Cuban gets an update on "Trophy Smack.".</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S13 E20</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Robert Herjavec</actor>
+    </credits>
+    <date>2022</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
     <previously-shown />
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
   </programme>
-  <programme start="20261011153000 +0000" stop="20261011160000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>Global Eye</title>
-    <desc>Global reporters deliver in-depth, investigative coverage of major world events, uncovering crucial details in international news.</desc>
-    <category lang="en">News</category>
+  <programme start="20261011210000 +0000" stop="20261011220000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A beauty product that combines luxury and glamour with safety and quality; a product for cutting cheese; a space-saving beauty organizer; a way to remove pet hair from clothes; an update on FitFighter.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S12 E20</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2021</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261011220000 +0000" stop="20261011230000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>All-natural personal care products; a customizable fashion design for sports fans; support system exclusively for women; Nigerian immigrants celebrate their African heritage with their children's fashion clothing line; an update on Touch Up Cup.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S13 E15</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2022</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261011230000 +0000" stop="20261012000000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A modern-day slip business; a scrubbing tool; dog-friendly frozen yogurt; an electric unicycle; an update on the "Lollacup.".</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S4 E7</episode-num>
+    <credits>
+      <actor>Barbara Corcoran</actor>
+      <actor>Mark Cuban</actor>
+      <actor>Robert Herjavec</actor>
+      <director>Alan Carter</director>
+      <director>Ken Fuchs</director>
+      <director>Craig Spirko</director>
+    </credits>
+    <date>2012</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>6</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261012000000 +0000" stop="20261012010000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>Guest shark Kendra Scott; a women's undergarment subscription service; an effortless approach to a classic breakfast meal; an eco-friendly alternative to collecting dog waste; a healthy take on a beloved snack food.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S12 E2</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Barbara Corcoran</actor>
+      <actor>Kevin O'Leary</actor>
+    </credits>
+    <date>2020</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TV14</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261012010000 +0000" stop="20261012020000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A self-tanner geared toward men; a new-and-improved flashlight; a reusable cup service for marathoners; an authentic instant pho.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S16 E8</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
     <date>2025</date>
-    <icon src="http://dtil.tmsimg.com/assets/p31064392_b_h11_ae.jpg?w=960&amp;h=540" />
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+    <rating system="Australian Classification Board">
+      <value>PG</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261012020000 +0000" stop="20261012030000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A new twist on frozen food; a state-of-the-art air purifier that works while one sleeps; sheer socks with flair; a rugged liner to protect car seats from active pets.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S16 E16</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2025</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+    <rating system="Australian Classification Board">
+      <value>PG</value>
+    </rating>
+    <rating system="Mediakasvatus- ja kuvaohjelmayksikkö">
+      <value>K12</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261012030000 +0000" stop="20261012040000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A nutrient-rich energy bar; a gender-neutral clothing brand; a portable children's toy; a healthy Mexican snack company.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S14 E20</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2023</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+    <rating system="Mediakasvatus- ja kuvaohjelmayksikkö">
+      <value>K7</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261012040000 +0000" stop="20261012050000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A self-tanner geared toward men; a new-and-improved flashlight; a reusable cup service for marathoners; an authentic instant pho.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S16 E8</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2025</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+    <rating system="Australian Classification Board">
+      <value>PG</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261012050000 +0000" stop="20261012060000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>All-natural personal care products; a customizable fashion design for sports fans; support system exclusively for women; Nigerian immigrants celebrate their African heritage with their children's fashion clothing line; an update on Touch Up Cup.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S13 E15</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2022</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261012060000 +0000" stop="20261012063000 +0000" channel="CNBC.uk">
+    <title>America's Next Investment</title>
+    <desc>America's Next Investment: Exploring Opportunities in AI, Tech, Real Estate, Alcohol, Cannabis, and More. Tune in to discover how to invest!</desc>
+    <category lang="en">Consumer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p27849984_b_h10_ab.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261011160000 +0000" stop="20261011170000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>BBC News</title>
-    <desc>Twenty-four hours a day, the latest national and international stories as they break.</desc>
+  <programme start="20261012063000 +0000" stop="20261012070000 +0000" channel="CNBC.uk">
+    <title>Inogen Portable Oxygen - No More Tanks!</title>
+    <desc>Regain independence and enjoy greater mobility with the compact design and long-lasting battery of portable oxygen.</desc>
+    <category lang="en">Health</category>
+    <category lang="en">Consumer</category>
+    <category lang="en">Science</category>
+    <category lang="en">Medical</category>
+    <category lang="en">Technology</category>
+    <icon src="http://dtil.tmsimg.com/assets/p17108681_b_h11_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261012070000 +0000" stop="20261012073000 +0000" channel="CNBC.uk">
+    <title>CNBC Sport: On the Record</title>
+    <sub-title>The Owner's Box</sub-title>
+    <desc>Conversations with Seven Seven Six founder Alexis Ohanian, Dallas Cowboys owner Jerry Jones and Monumental Sports and Entertainment CEO, Ted Leonsis.</desc>
+    <category lang="en">Series</category>
     <category lang="en">News</category>
-    <date>2008</date>
-    <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">S2 E1</episode-num>
+    <date>2025</date>
+    <icon src="http://dtil.tmsimg.com/assets/p29771746_b_h8_ab.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261011170000 +0000" stop="20261011173000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>BBC News</title>
-    <desc>Twenty-four hours a day, the latest national and international stories as they break.</desc>
+  <programme start="20261012073000 +0000" stop="20261012080000 +0000" channel="CNBC.uk">
+    <title>CNBC Sport: On the Record</title>
+    <sub-title>The Commissioners</sub-title>
+    <desc>Conversations with MLB Commissioner Rob Manfred, NCAA President Charlie Baker and NASCAR Commissioner Steve Phelps.</desc>
+    <category lang="en">Series</category>
     <category lang="en">News</category>
-    <date>2008</date>
-    <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">S2 E2</episode-num>
+    <date>2025</date>
+    <icon src="http://dtil.tmsimg.com/assets/p29771746_b_h8_ab.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261011173000 +0000" stop="20261011180000 +0000" channel="BBC.News.(North.America).HD.us2">
-    <title>Talking Business</title>
-    <desc>The host sits down with experts to shed light on various issues from the business world and interviews them on the latest innovations in technology.</desc>
+  <programme start="20261012080000 +0000" stop="20261012090000 +0000" channel="CNBC.uk">
+    <title>Live: Squawk Box Europe</title>
+    <desc>"Squawk Box Europe" provides three hours of analysis and debate on trading days to lead up to the open of the European markets.</desc>
+    <category lang="en">Series</category>
     <category lang="en">Bus./financial</category>
     <category lang="en">News</category>
+    <episode-num system="onscreen">S2026</episode-num>
     <credits>
-      <actor>Aaron Heslehurst</actor>
+      <actor>Geoff Cutmore</actor>
+      <actor>Steve Sedgwick</actor>
+      <actor>Karen Tso</actor>
     </credits>
-    <date>2015</date>
-    <icon src="http://dtil.tmsimg.com/assets/p11861669_b_h10_ad.jpg?w=960&amp;h=540" />
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p290959_b_h10_ah.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012090000 +0000" stop="20261012100000 +0000" channel="CNBC.uk">
+    <title>Live: Morning Call</title>
+    <desc>Morgan Brennan delivers the essential market intelligence that drives the trading day ahead; capture breaking business news as it unfolds and tracks pre-market equity moves, commodity swings, U.S. futures, and overnight action across global markets.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <episode-num system="onscreen">E160</episode-num>
+    <credits>
+      <actor>Morgan Brennan</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p32656961_b_h8_ab.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012100000 +0000" stop="20261012130000 +0000" channel="CNBC.uk">
+    <title>Live: Squawk Box</title>
+    <desc>The big names in business and politics tell their important stories in this pre-market morning news and talk program; from professional traders to casual investors.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Public affairs</category>
+    <category lang="en">Talk</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Becky Quick</actor>
+      <actor>Joe Kernen</actor>
+      <actor>Andrew Ross Sorkin</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p31526545_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012130000 +0000" stop="20261012160000 +0000" channel="CNBC.uk">
+    <title>Live: Squawk on the Street</title>
+    <desc>Taking viewers onto the floor of the exchange, right to the posts where the big companies in the world trade; tick charts track the action of every trade of every stock; the treasury, currency and commodity action in real time.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">Public affairs</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Carl Quintanilla</actor>
+      <actor>David Faber</actor>
+      <actor>Jim Cramer</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p186279_b_h8_al.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012160000 +0000" stop="20261012170000 +0000" channel="CNBC.uk">
+    <title>Live: Halftime Report</title>
+    <desc>The front lines of market coverage; host Scott Wapner and the top investors get to the heart of the action as it's happening and help set the agenda for the rest of the day.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Public affairs</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Scott Wapner</actor>
+      <director>Andy Barsh</director>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p7993305_b_h8_am.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012170000 +0000" stop="20261012180000 +0000" channel="CNBC.uk">
+    <title>Live: The Exchange</title>
+    <desc>Anchor Kelly Evans reports on the important stories to markets and investors; reporters provide actionable information to viewers as they make daily investment decisions.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Kelly Evans</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p16362303_b_h8_ai.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Australian Classification Board">
+      <value>G</value>
+    </rating>
+  </programme>
+  <programme start="20261012180000 +0000" stop="20261012190000 +0000" channel="CNBC.uk">
+    <title>Live: Power Lunch</title>
+    <desc>Focusing on real-time market coverage, breaking news and up-to-the-instant stock moving information; delving into the economy, the markets, real estate, media and technology -- any place where there's money to be made.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Brian Sullivan</actor>
+      <actor>Kelly Evans</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p186274_b_h8_ag.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012190000 +0000" stop="20261012200000 +0000" channel="CNBC.uk">
+    <title>Live: Closing Bell</title>
+    <desc>A guide through the most important hour of the Wall Street trading day, and taking a close-up look at how the markets are moving, what's driving them and how investors are reacting; coverage includes reports from the CME Group, NASDAQ and the NYSE.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">Public affairs</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Scott Wapner</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p186272_b_h8_ad.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Australian Classification Board">
+      <value>G</value>
+    </rating>
+  </programme>
+  <programme start="20261012200000 +0000" stop="20261012210000 +0000" channel="CNBC.uk">
+    <title>Live: Closing Bell: Overtime</title>
+    <desc>Melissa Lee and Michael Santoli take viewers through all the after-hours moves including breaking news, corporate earnings and post-market trading; strategists and money managers debate actionable ideas and the market themes of the day.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">Public affairs</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>John Fortt</actor>
+      <actor>Morgan Brennan</actor>
+      <actor>Michael Santoli</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p21779438_b_h8_aq.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012210000 +0000" stop="20261012220000 +0000" channel="CNBC.uk">
+    <title>Live: Fast Money</title>
+    <desc>The information normally reserved for the Wall Street trading floor, enabling viewers to make decisions that give them a chance to make money; the news with an angle that won't be seen until tomorrow's papers.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Public affairs</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Melissa Lee</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p185328_b_h8_ai.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261012220000 +0000" stop="20261012230000 +0000" channel="CNBC.uk">
+    <title>Mad Money</title>
+    <desc>Taking viewers inside the mind of one of Wall Street's most respected and successful money managers; Jim Cramer guides viewers through the confusing jungle of Wall Street investing, navigating through both opportunities and pitfalls.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">How-to</category>
+    <episode-num system="onscreen">E203</episode-num>
+    <credits>
+      <actor>Jim Cramer</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p185326_b_h8_ac.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+  </programme>
+  <programme start="20261012230000 +0000" stop="20261013000000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A new twist on frozen food; a state-of-the-art air purifier that works while one sleeps; sheer socks with flair; a rugged liner to protect car seats from active pets.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S16 E16</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2025</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
     <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+    <rating system="Australian Classification Board">
+      <value>PG</value>
+    </rating>
+    <rating system="Mediakasvatus- ja kuvaohjelmayksikkö">
+      <value>K12</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261013000000 +0000" stop="20261013010000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A solution to combat telemarketers and scammers; an easy-to-use 3D printer for kids to design and make their own toys; a savings and gifting online platform for kids; ethical and customizable meat box subscription delivery service.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S10 E15</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2019</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A healthy alternative to salt; a spring-loaded cake stand; an entertaining approach to the tried-and-true carving knives often used during holidays; a product designed to attach a cellphone to almost any surface.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S12 E4</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2020</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261013020000 +0000" stop="20261013030000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A portable outdoor game that combines pickleball and Spikeball; a pet-sitting service for weddings and events; a high-fashion bodysuit; gourmet made-to-order French fries.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S15 E4</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2023</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+    <rating system="Australian Classification Board">
+      <value>PG</value>
+    </rating>
+    <rating system="Mediakasvatus- ja kuvaohjelmayksikkö">
+      <value>S</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261013030000 +0000" stop="20261013040000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>Three entrepreneurs from California are redefining the art of gifting; a life jacket that is easier to use; an online clothing company with products from Africa; an all-in-one, self-protective silicone infant pacifier; an update on Drop Stop.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S9 E19</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Robert Herjavec</actor>
+    </credits>
+    <date>2018</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261013040000 +0000" stop="20261013050000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A solution to combat telemarketers and scammers; an easy-to-use 3D printer for kids to design and make their own toys; a savings and gifting online platform for kids; ethical and customizable meat box subscription delivery service.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S10 E15</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Barbara Corcoran</actor>
+    </credits>
+    <date>2019</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261013050000 +0000" stop="20261013060000 +0000" channel="CNBC.uk">
+    <title>American Greed</title>
+    <sub-title>Biggest Cons: The Most Hated Man in America</sub-title>
+    <desc>Former hedge fund manager Martin Shkreli jacks up the price of a life-saving drug by 5,000% and goes to prison for defrauding investors.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Newsmagazine</category>
+    <category lang="en">Docudrama</category>
+    <category lang="en">Crime</category>
+    <category lang="en">Documentary</category>
+    <credits>
+      <actor>Stacy Keach</actor>
+      <actor>Scott Cohn</actor>
+      <actor>Katharin "Ladie K" Mraz</actor>
+    </credits>
+    <date>2020</date>
+    <icon src="http://dtil.tmsimg.com/assets/p12690448_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+  </programme>
+  <programme start="20261013060000 +0000" stop="20261013070000 +0000" channel="CNBC.uk">
+    <title>Dateline</title>
+    <sub-title>Along Came Jodi</sub-title>
+    <desc>Jodi Arias is convicted of murdering her ex-boyfriend, Travis Alexander.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Newsmagazine</category>
+    <category lang="en">Documentary</category>
+    <episode-num system="onscreen">S3 E12</episode-num>
+    <credits>
+      <actor>Natalie Morales</actor>
+      <actor>Craig Melvin</actor>
+    </credits>
+    <date>2019</date>
+    <icon src="http://dtil.tmsimg.com/assets/p13159645_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261013070000 +0000" stop="20261013080000 +0000" channel="CNBC.uk">
+    <title>Dateline</title>
+    <sub-title>Secrets and Lies</sub-title>
+    <desc>A woman is found murdered in the remains of a house that has burned to the ground, and it will take years to unravel the mystery of what happened to her.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Newsmagazine</category>
+    <category lang="en">Documentary</category>
+    <episode-num system="onscreen">S3 E14</episode-num>
+    <credits>
+      <actor>Natalie Morales</actor>
+      <actor>Craig Melvin</actor>
+    </credits>
+    <date>2019</date>
+    <icon src="http://dtil.tmsimg.com/assets/p13159645_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TV14</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>14+</value>
+    </rating>
+  </programme>
+  <programme start="20261013080000 +0000" stop="20261013090000 +0000" channel="CNBC.uk">
+    <title>Live: Squawk Box Europe</title>
+    <desc>"Squawk Box Europe" provides three hours of analysis and debate on trading days to lead up to the open of the European markets.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <episode-num system="onscreen">S2026</episode-num>
+    <credits>
+      <actor>Geoff Cutmore</actor>
+      <actor>Steve Sedgwick</actor>
+      <actor>Karen Tso</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p290959_b_h10_ah.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013090000 +0000" stop="20261013100000 +0000" channel="CNBC.uk">
+    <title>Live: Morning Call</title>
+    <desc>Morgan Brennan delivers the essential market intelligence that drives the trading day ahead; capture breaking business news as it unfolds and tracks pre-market equity moves, commodity swings, U.S. futures, and overnight action across global markets.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <episode-num system="onscreen">E161</episode-num>
+    <credits>
+      <actor>Morgan Brennan</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p32656961_b_h8_ab.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013100000 +0000" stop="20261013130000 +0000" channel="CNBC.uk">
+    <title>Live: Squawk Box</title>
+    <desc>The big names in business and politics tell their important stories in this pre-market morning news and talk program; from professional traders to casual investors.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Public affairs</category>
+    <category lang="en">Talk</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Becky Quick</actor>
+      <actor>Joe Kernen</actor>
+      <actor>Andrew Ross Sorkin</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p31526545_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013130000 +0000" stop="20261013160000 +0000" channel="CNBC.uk">
+    <title>Live: Squawk on the Street</title>
+    <desc>Taking viewers onto the floor of the exchange, right to the posts where the big companies in the world trade; tick charts track the action of every trade of every stock; the treasury, currency and commodity action in real time.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">Public affairs</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Carl Quintanilla</actor>
+      <actor>David Faber</actor>
+      <actor>Jim Cramer</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p186279_b_h8_al.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013160000 +0000" stop="20261013170000 +0000" channel="CNBC.uk">
+    <title>Live: Halftime Report</title>
+    <desc>The front lines of market coverage; host Scott Wapner and the top investors get to the heart of the action as it's happening and help set the agenda for the rest of the day.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Public affairs</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Scott Wapner</actor>
+      <director>Andy Barsh</director>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p7993305_b_h8_am.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013170000 +0000" stop="20261013180000 +0000" channel="CNBC.uk">
+    <title>Live: The Exchange</title>
+    <desc>Anchor Kelly Evans reports on the important stories to markets and investors; reporters provide actionable information to viewers as they make daily investment decisions.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Kelly Evans</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p16362303_b_h8_ai.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Australian Classification Board">
+      <value>G</value>
+    </rating>
+  </programme>
+  <programme start="20261013180000 +0000" stop="20261013190000 +0000" channel="CNBC.uk">
+    <title>Live: Power Lunch</title>
+    <desc>Focusing on real-time market coverage, breaking news and up-to-the-instant stock moving information; delving into the economy, the markets, real estate, media and technology -- any place where there's money to be made.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Brian Sullivan</actor>
+      <actor>Kelly Evans</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p186274_b_h8_ag.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013190000 +0000" stop="20261013200000 +0000" channel="CNBC.uk">
+    <title>Live: Closing Bell</title>
+    <desc>A guide through the most important hour of the Wall Street trading day, and taking a close-up look at how the markets are moving, what's driving them and how investors are reacting; coverage includes reports from the CME Group, NASDAQ and the NYSE.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">Public affairs</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Scott Wapner</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p186272_b_h8_ad.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Australian Classification Board">
+      <value>G</value>
+    </rating>
+  </programme>
+  <programme start="20261013200000 +0000" stop="20261013210000 +0000" channel="CNBC.uk">
+    <title>Live: Closing Bell: Overtime</title>
+    <desc>Melissa Lee and Michael Santoli take viewers through all the after-hours moves including breaking news, corporate earnings and post-market trading; strategists and money managers debate actionable ideas and the market themes of the day.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">Public affairs</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>John Fortt</actor>
+      <actor>Morgan Brennan</actor>
+      <actor>Michael Santoli</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p21779438_b_h8_aq.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013210000 +0000" stop="20261013220000 +0000" channel="CNBC.uk">
+    <title>Live: Fast Money</title>
+    <desc>The information normally reserved for the Wall Street trading floor, enabling viewers to make decisions that give them a chance to make money; the news with an angle that won't be seen until tomorrow's papers.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Public affairs</category>
+    <category lang="en">Interview</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Melissa Lee</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p185328_b_h8_ai.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="CNBC.uk">
+    <title>Mad Money</title>
+    <desc>Taking viewers inside the mind of one of Wall Street's most respected and successful money managers; Jim Cramer guides viewers through the confusing jungle of Wall Street investing, navigating through both opportunities and pitfalls.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Bus./financial</category>
+    <category lang="en">News</category>
+    <category lang="en">Interview</category>
+    <category lang="en">How-to</category>
+    <episode-num system="onscreen">E204</episode-num>
+    <credits>
+      <actor>Jim Cramer</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p185326_b_h8_ac.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+  </programme>
+  <programme start="20261013230000 +0000" stop="20261014000000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>A Brooklyn man pitches his business of foldable, wheeled luggage; a Texas woman makes soaps, washes and grooming products; a fashionable line of sports apparel for women; a single-serve wine product; an update on some of Lori Greiner's investments.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S6 E11</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Robert Herjavec</actor>
+    </credits>
+    <date>2014</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
+  </programme>
+  <programme start="20261014000000 +0000" stop="20261014010000 +0000" channel="CNBC.uk">
+    <title>Shark Tank</title>
+    <desc>Three entrepreneurs from California are redefining the art of gifting; a life jacket that is easier to use; an online clothing company with products from Africa; an all-in-one, self-protective silicone infant pacifier; an update on Drop Stop.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Reality</category>
+    <episode-num system="onscreen">S9 E19</episode-num>
+    <credits>
+      <actor>Mark Cuban</actor>
+      <actor>Daymond John</actor>
+      <actor>Robert Herjavec</actor>
+    </credits>
+    <date>2018</date>
+    <icon src="http://dtil.tmsimg.com/assets/p3560383_b_h8_bl.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Kijkwijzer">
+      <value>AL</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>AL</value>
+    </rating>
+    <rating system="방송통신심의위원회">
+      <value>15</value>
+    </rating>
   </programme>
   <programme start="20261011180000 +0000" stop="20261011183000 +0000" channel="BBC.News.(North.America).HD.us2">
     <title>BBC News</title>
@@ -7308,34 +7615,109 @@
     <icon src="http://dtil.tmsimg.com/assets/p23647415_b_h10_ae.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261011142000 +0000" stop="20261011164000 +0000" channel="ITV1.HD.uk">
-    <title>Jurassic World: Fallen Kingdom</title>
-    <desc>Action-adventure film sequel starring Chris Pratt and Bryce Dallas Howard, 2018. Owen and Claire return to the ruined Jurassic World theme park to save its exhibits from a volcano.</desc>
-    <category lang="en">Movie</category>
-    <category lang="en">Action</category>
-    <icon src="https://images.metadata.sky.com/pd-image/7ea9e057-9933-427e-9047-7c68af8c27fb/16-9" />
+  <programme start="20261013205500 +0000" stop="20261013210000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>Clive Myrie's African Adventure</title>
+    <desc>Clive Myrie has always wanted to explore the Africa that's rarely seen on TV; he gets the chance to live life local-style and discover his family roots as he explores this vibrant land.</desc>
+    <category lang="en">Travel</category>
+    <category lang="en">Documentary</category>
+    <credits>
+      <actor>Clive Myrie</actor>
+      <director>Des Henderson</director>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p32196885_b_h10_ac.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
-  <programme start="20261011164000 +0000" stop="20261011173000 +0000" channel="ITV1.HD.uk">
-    <title>The Chase</title>
-    <desc>Bradley Walsh hosts as Lynwen from Mold, Rob from London, Vikki from Wellingborough and Keith from Manchester work together as a team and try to take one of the Chasers down.</desc>
-    <category lang="en">Entertainment</category>
-    <category lang="en">Game Show</category>
-    <episode-num system="xmltv_ns">16.20.</episode-num>
-    <icon src="https://images.metadata.sky.com/pd-image/518aeb45-e5b0-4449-a882-cc492ab36b52/16-9" />
-  </programme>
-  <programme start="20261011173000 +0000" stop="20261011174500 +0000" channel="ITV1.HD.uk">
-    <title>ITV Evening News</title>
-    <desc>National and international news with reports and analysis from ITV's Correspondents in the UK and around the world as well as the latest major sports results.</desc>
-    <category lang="en">News &amp; Documentary</category>
+  <programme start="20261013210000 +0000" stop="20261013213000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>BBC World News America</title>
+    <desc>The hosts shed light on political, economic and social issues in the United States and other notable events across the globe.</desc>
     <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/18eb4bfd-9097-4ed1-b108-42e4e625dabe/16-9" />
+    <credits>
+      <actor>Katty Kay</actor>
+      <actor>Laura Trevelyan</actor>
+      <actor>Charlotte Laws</actor>
+    </credits>
+    <date>2007</date>
+    <icon src="http://dtil.tmsimg.com/assets/p208539_b_h10_aj.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="UK Content Provider">
+      <value>PG</value>
+    </rating>
   </programme>
-  <programme start="20261011174500 +0000" stop="20261011180000 +0000" channel="ITV1.HD.uk">
-    <title>ITV News London</title>
-    <desc>The latest news and weather from London and the South East.</desc>
-    <category lang="en">News &amp; Documentary</category>
+  <programme start="20261013213000 +0000" stop="20261013220000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>Newsnight</title>
+    <desc>Comprehensive coverage of today's important national and international news stories.</desc>
     <category lang="en">News</category>
-    <icon src="https://images.metadata.sky.com/pd-image/7d066370-c0e5-4d31-bea3-53d83d203f77/16-9" />
+    <credits>
+      <actor>Kirsty Wark</actor>
+      <actor>Mark Urban</actor>
+      <actor>Faisal Islam</actor>
+    </credits>
+    <date>1980</date>
+    <icon src="http://dtil.tmsimg.com/assets/p269693_b_h10_ag.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVPG</value>
+    </rating>
+    <rating system="British Board of Film Classification">
+      <value>Uc</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261013220000 +0000" stop="20261013230000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>BBC World News America</title>
+    <desc>The hosts shed light on political, economic and social issues in the United States and other notable events across the globe.</desc>
+    <category lang="en">News</category>
+    <credits>
+      <actor>Katty Kay</actor>
+      <actor>Laura Trevelyan</actor>
+      <actor>Charlotte Laws</actor>
+    </credits>
+    <date>2007</date>
+    <icon src="http://dtil.tmsimg.com/assets/p208539_b_h10_aj.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Canadian Parental Rating">
+      <value>PG</value>
+    </rating>
+    <rating system="UK Content Provider">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261013230000 +0000" stop="20261013233000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>BBC News</title>
+    <desc>Twenty-four hours a day, the latest national and international stories as they break.</desc>
+    <category lang="en">News</category>
+    <date>2008</date>
+    <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261013233000 +0000" stop="20261014000000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>Newscast</title>
+    <desc>Political coverage and analysis with the Brexitcast team.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Politics</category>
+    <category lang="en">Public affairs</category>
+    <credits>
+      <actor>Laura Kuenssberg</actor>
+      <actor>Chris Mason</actor>
+      <actor>Adam Fleming</actor>
+    </credits>
+    <date>2020</date>
+    <icon src="http://dtil.tmsimg.com/assets/p30078221_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261014000000 +0000" stop="20261014003000 +0000" channel="BBC.News.(North.America).HD.us2">
+    <title>BBC News</title>
+    <desc>Twenty-four hours a day, the latest national and international stories as they break.</desc>
+    <category lang="en">News</category>
+    <date>2008</date>
+    <icon src="http://dtil.tmsimg.com/assets/p8133775_b_h10_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
   <programme start="20261011180000 +0000" stop="20261011190000 +0000" channel="ITV1.HD.uk">
     <title>The Box</title>
@@ -7736,27 +8118,36 @@
     <episode-num system="xmltv_ns">0.2.</episode-num>
     <icon src="https://images.metadata.sky.com/pd-image/8bff909d-f779-492f-8080-36160921a594/16-9" />
   </programme>
-  <programme start="20261011142000 +0000" stop="20261011164000 +0000" channel="STV.HD.uk">
-    <title>Jurassic World: Fallen Kingdom</title>
-    <sub-title>Action sequel, starring Chris Pratt and Bryce Dallas Howard</sub-title>
-    <desc>While trying to protect genetically engineered dinosaurs, Owen Grady and Claire Dearing uncover a conspiracy. Action sequel, starring Chris Pratt and Bryce Dallas Howard.</desc>
-    <icon src="https://tv.assets.pressassociation.io/c06250e9-d7a5-5c04-bb92-84b736c42739.jpg" />
+  <programme start="20261013210000 +0000" stop="20261013213000 +0000" channel="ITV1.HD.uk">
+    <title>ITV News at Ten</title>
+    <desc>ITV News provides a fresh perspective on the major stories of the day with national and international news with reports and analysis from ITV's Correspondents.</desc>
+    <category lang="en">News &amp; Documentary</category>
+    <category lang="en">News</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e54d0f63-2a44-446e-bcef-8118dc853bb8/16-9" />
   </programme>
-  <programme start="20261011164000 +0000" stop="20261011173000 +0000" channel="STV.HD.uk">
-    <title>The Chase</title>
-    <sub-title>Lynwen, Rob, Vikki and Keith take part</sub-title>
-    <desc>Lynwen from Mold, Rob from London, Vikki from Wellingborough and Keith from Manchester work together to take down one of the country's finest quiz brains. Bradley Walsh hosts.</desc>
-    <icon src="https://tv.assets.pressassociation.io/4b56df91-d3ff-594a-8223-bfe9cb8d8474.jpg" />
+  <programme start="20261013213000 +0000" stop="20261013214500 +0000" channel="ITV1.HD.uk">
+    <title>ITV News London</title>
+    <desc>The latest news and weather from London and the South East.</desc>
+    <category lang="en">News &amp; Documentary</category>
+    <category lang="en">News</category>
+    <icon src="https://images.metadata.sky.com/pd-image/533b0e91-81e0-41ac-ab4e-9d6902fffe76/16-9" />
   </programme>
-  <programme start="20261011173000 +0000" stop="20261011174500 +0000" channel="STV.HD.uk">
-    <title>ITV News and Weather</title>
-    <sub-title>Round-up of the latest headlines</sub-title>
-    <desc>Round-up of the latest headlines.</desc>
-    <icon src="https://tv.assets.pressassociation.io/db5f2a8d-d100-5720-b38d-79210fbcec27.jpg" />
+  <programme start="20261013214500 +0000" stop="20261013223500 +0000" channel="ITV1.HD.uk">
+    <title>The Sugar Daddy Murder</title>
+    <sub-title>True Crime Presents</sub-title>
+    <desc>The murder of Peter McMahon, whose ex-partner killed him for financial gain.</desc>
+    <category lang="en">News &amp; Documentary</category>
+    <category lang="en">Feature</category>
+    <episode-num system="xmltv_ns">1.7.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/dee871e7-dbbe-4aff-8b38-ad6936a4cacc/16-9" />
   </programme>
-  <programme start="20261011174500 +0000" stop="20261011180000 +0000" channel="STV.HD.uk">
-    <title>STV News; Weather</title>
-    <icon src="https://tv.assets.pressassociation.io/a49e822d-abf3-56bf-905b-c940ead1d15a.jpg" />
+  <programme start="20261013223500 +0000" stop="20261013230000 +0000" channel="ITV1.HD.uk">
+    <title>Sorry, I Didn't Know</title>
+    <desc>Chizzy Akudolu hosts as guests JB Gill, Nish Kumar, Lindsey Santoro and Aurie Styla join team leaders Richard Blackwood and Eddie Kadi to go on a tour of Black British history.</desc>
+    <category lang="en">Entertainment</category>
+    <category lang="en">Game Show</category>
+    <episode-num system="xmltv_ns">5.3.</episode-num>
+    <icon src="https://images.metadata.sky.com/pd-image/1407063b-6d5d-4421-a7ca-269b8be93ec1/16-9" />
   </programme>
   <programme start="20261011180000 +0000" stop="20261011190000 +0000" channel="STV.HD.uk">
     <title>The Box</title>
@@ -8055,5 +8446,31 @@
     <sub-title>Martin is put under emotional pressure from Ben</sub-title>
     <desc>Under emotional pressure from a frantic Ben, Martin must decide how far he is prepared to go to bury the secret from their past and save his best friend.</desc>
     <icon src="https://tv.assets.pressassociation.io/ade73e76-8f84-5b35-a456-7c93b0edae95.jpg" />
+  </programme>
+  <programme start="20261013210000 +0000" stop="20261013213000 +0000" channel="STV.HD.uk">
+    <title>ITV News at Ten; Weather</title>
+    <sub-title>A fresh perspective on the major stories of the day</sub-title>
+    <desc>A fresh perspective on the major stories of the day, featuring national and international news, with reports and analysis from ITV's correspondents.</desc>
+    <icon src="https://tv.assets.pressassociation.io/c336b6e1-bc22-5f43-bbb7-16ebb51607b5.jpg" />
+  </programme>
+  <programme start="20261013213000 +0000" stop="20261013214000 +0000" channel="STV.HD.uk">
+    <title>STV News; Weather</title>
+    <icon src="https://tv.assets.pressassociation.io/a49e822d-abf3-56bf-905b-c940ead1d15a.jpg" />
+  </programme>
+  <programme start="20261013214000 +0000" stop="20261013220500 +0000" channel="STV.HD.uk">
+    <title>Scotland Tonight; Weather</title>
+    <sub-title>Current affairs show</sub-title>
+    <desc>Current affairs show tackling the issues behind the headlines from a Scottish perspective, with studio debate and analysis of major stories.</desc>
+    <icon src="https://tv.assets.pressassociation.io/36938c5b-6350-5b25-ac82-8a51754c0912.jpg" />
+  </programme>
+  <programme start="20261013220500 +0000" stop="20261013230000 +0000" channel="STV.HD.uk">
+    <title>Killer in the House: The Murder of Nicholas Billingham</title>
+    <sub-title>The case of a woman who killed her partner</sub-title>
+    <desc>A look at the case of primary school teacher Fiona Beal, who killed her partner Nicholas Billingham and claimed that he had left her for another woman.</desc>
+    <icon src="https://tv.assets.pressassociation.io/09f6fee6-5d3b-547d-8d6f-b87c06381c20.jpg" />
+  </programme>
+  <programme start="20261013230000 +0000" stop="20261014020000 +0000" channel="STV.HD.uk">
+    <title>Shop on TV</title>
+    <icon src="https://tv.assets.pressassociation.io/aac68f56-48b3-5869-a5fd-7e0462b7c6d7.jpg" />
   </programme>
 </tv>
