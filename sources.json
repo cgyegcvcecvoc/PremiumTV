@@ -309,5 +309,63 @@
     "recheck_after_days": 90,
     "max_new_channels_export": 300,
     "playlist_path_exclude_regex": "(?i)(series|movie|vod|adult|xxx|radio|podcast|music|trailer)"
+  },
+  "epg_sources": {
+    "_comment": "Upstream XMLTV guides merged into the repository's own guides, one family per published country. scripts/epg_sources.py expands the per_country templates with every published country code ({cc} = lowercase, {CC} = uppercase) and always includes the fixed feeds first. These URLs are verified by scripts/epg_check.py and harvested by scripts/epg_build.py, but never advertised in playlist x-tvg-url headers: the merged guide already carries their listings. Disable one family with enabled=false; disable the whole block with enabled=false at the top.",
+    "enabled": true,
+    "fixed": [
+      {
+        "name": "epg.pw all countries",
+        "url": "https://epg.pw/xmltv/epg.xml.gz",
+        "enabled": true,
+        "note": "epg.pw's one-for-all XMLTV (every country they publish) - the fallback for channels whose country has no dedicated file."
+      },
+      {
+        "name": "iptv-epg.org US",
+        "url": "https://iptv-epg.org/files/epg-us.xml.gz",
+        "enabled": true,
+        "note": "iptv-epg.org's US guide (same file as https://iptv-epg.org/files/epg-us.xml, gzipped)."
+      },
+      {
+        "name": "epg.pw US",
+        "url": "https://epg.pw/xmltv/epg_US.xml.gz",
+        "enabled": true,
+        "note": "epg.pw's US guide (https://epg.pw/areas/us.html?lang=en)."
+      },
+      {
+        "name": "epg.pw Canada",
+        "url": "https://epg.pw/xmltv/epg_CA.xml.gz",
+        "enabled": true
+      },
+      {
+        "name": "epg.pw UK",
+        "url": "https://epg.pw/xmltv/epg_GB.xml.gz",
+        "enabled": true
+      },
+      {
+        "name": "epg.pw Australia",
+        "url": "https://epg.pw/xmltv/epg_AU.xml.gz",
+        "enabled": true
+      },
+      {
+        "name": "epg.pw India",
+        "url": "https://epg.pw/xmltv/epg_IN.xml.gz",
+        "enabled": true
+      }
+    ],
+    "per_country": [
+      {
+        "name": "iptv-epg.org",
+        "url_template": "https://iptv-epg.org/files/epg-{cc}.xml.gz",
+        "enabled": true,
+        "note": "Per-country guides published at https://iptv-epg.org/guides (76 countries)."
+      },
+      {
+        "name": "epg.pw",
+        "url_template": "https://epg.pw/xmltv/epg_{CC}.xml.gz",
+        "enabled": true,
+        "note": "Per-country guides published at https://epg.pw/xmltv.html?lang=en (21 countries)."
+      }
+    ]
   }
 }

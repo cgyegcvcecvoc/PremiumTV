@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.premiumtv.app.BuildConfig
 import com.premiumtv.app.data.Channel
@@ -83,7 +84,9 @@ fun HomeScreen(
                 color = PremiumGold,
                 fontWeight = FontWeight.Bold,
             )
-            Spacer(modifier = Modifier.width(28.dp))
+            Spacer(modifier = Modifier.width(10.dp))
+            VersionPlaque(BuildConfig.VERSION_NAME)
+            Spacer(modifier = Modifier.width(18.dp))
             TabChip(Tab.Channels.label, tab == Tab.Channels) { tab = Tab.Channels }
             Spacer(modifier = Modifier.width(12.dp))
             TabChip(Tab.Guide.label, tab == Tab.Guide) { tab = Tab.Guide }
@@ -189,7 +192,7 @@ private fun CategoryRow(
                 val current = nowPlaying(programmes[channel.id].orEmpty(), now)
                 ChannelCard(
                     channel = channel,
-                    subtitle = current?.title,
+                    subtitle = current?.title ?: "No listing",
                     onClick = { onSelect(channel) },
                 )
             }
@@ -331,12 +334,19 @@ private fun GuideRow(
                 Spacer(modifier = Modifier.height(4.dp))
                 if (current != null) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "NOW",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = PremiumGold,
-                            fontWeight = FontWeight.Bold,
-                        )
+                        Box(
+                            modifier = Modifier
+                                .background(LiveRed, RoundedCornerShape(4.dp))
+                                .padding(horizontal = 6.dp, vertical = 2.dp),
+                        ) {
+                            Text(
+                                text = "NOW",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                letterSpacing = 0.6.sp,
+                            )
+                        }
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = current.title,
@@ -383,6 +393,29 @@ private fun GuideRow(
                 }
             }
         }
+    }
+}
+
+/** Small playbill-style plaque: the shipped version under the brand name. */
+@Composable
+private fun VersionPlaque(version: String) {
+    Box(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = PremiumGoldDim,
+                shape = RoundedCornerShape(6.dp),
+            )
+            .padding(horizontal = 8.dp, vertical = 3.dp),
+    ) {
+        Text(
+            text = version,
+            style = MaterialTheme.typography.labelSmall,
+            color = PremiumGoldDim,
+            fontWeight = FontWeight.SemiBold,
+            letterSpacing = 0.8.sp,
+            maxLines = 1,
+        )
     }
 }
 
@@ -485,10 +518,10 @@ private fun SettingsScreen(
             InfoRow("Last refresh result", refreshInfo.lastMessage)
         }
         Text(
-            text = "Beta 4 checks shortly after the repository's playlist, quick-update " +
-                "and guide publishing windows. Android may defer a background check " +
-                "while the device is asleep. Unchanged files use HTTP validators, so " +
-                "they are not downloaded again.",
+            text = "PremiumTV checks shortly after the repository's playlist, " +
+                "quick-update and guide publishing windows. Android may defer a " +
+                "background check while the device is asleep. Unchanged files use " +
+                "HTTP validators, so they are not downloaded again.",
             style = MaterialTheme.typography.bodySmall,
             color = MutedText,
         )
@@ -566,8 +599,8 @@ private fun SettingsScreen(
         )
         Spacer(modifier = Modifier.height(32.dp))
         Text(
-            text = "PremiumTV ${BuildConfig.VERSION_NAME} — a beta test build. Publicly " +
-                "listed streams only; nothing is hosted by this app.",
+            text = "PremiumTV ${BuildConfig.VERSION_NAME} — every channel, one guide. " +
+                "Publicly listed streams only; nothing is hosted by this app.",
             style = MaterialTheme.typography.labelSmall,
             color = MutedText,
             textAlign = TextAlign.Start,

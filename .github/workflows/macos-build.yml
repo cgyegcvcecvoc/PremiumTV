@@ -34,12 +34,14 @@ jobs:
   build:
     name: Build DMG + PKG
     # A release for Android must not start a Mac build (or upload Mac files
-    # to an Android release). Push/dispatch builds still run as usual.
-    if: github.event_name != 'release' || github.event.release.tag_name == 'v1.0.0-experimental.1'
+    # to an Android-only release). The official release carries both platforms,
+    # so both build workflows attach to it. Push/dispatch builds still run as
+    # usual.
+    if: github.event_name != 'release' || github.event.release.tag_name == 'v1.0.0'
     runs-on: macos-14
     timeout-minutes: 60
     env:
-      RELEASE_TAG: v1.0.0-experimental.1
+      RELEASE_TAG: v1.0.0
 
     steps:
       - name: Check out the repository

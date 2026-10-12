@@ -211,8 +211,10 @@
     if (current) {
       nowEl.textContent = current.t;
       nowEl.classList.add('live');
+    } else if (programmeIndex.has(channel.id)) {
+      nowEl.textContent = 'Nothing listed at this hour';
     } else {
-      nowEl.textContent = programmeIndex.has(channel.id) ? 'Nothing listed at this hour' : channel.country || channel.group;
+      nowEl.textContent = channel.country ? `${channel.country} · No listing` : 'No listing';
     }
     card.addEventListener('click', () => openPlayer(channel));
     return card;
@@ -296,7 +298,13 @@
       const middle = document.createElement('div');
       const title = document.createElement('div');
       title.className = 'guide-title';
-      title.textContent = row.current ? row.current.t : 'Nothing on right now';
+      if (row.current) {
+        const pill = document.createElement('span');
+        pill.className = 'now-pill';
+        pill.textContent = 'NOW';
+        title.appendChild(pill);
+      }
+      title.appendChild(document.createTextNode(row.current ? row.current.t : 'Nothing on right now'));
       const times = document.createElement('div');
       times.className = 'guide-times';
       times.textContent = row.current
@@ -601,6 +609,8 @@
 
   async function boot() {
     appInfo = await api.getAppInfo();
+    const brandTag = document.getElementById('brand-tag');
+    if (brandTag && appInfo.version) brandTag.textContent = appInfo.version;
     snapshot = await api.getSnapshot();
     programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
     els.statusText.textContent = snapshot.state.message || '';

@@ -6,15 +6,15 @@ packaged as a `.dmg` (drag to Applications) and a `.pkg` (installer) instead of
 a script you have to run. Supports **macOS 12 (Monterey) and later**, on Intel
 and Apple Silicon.
 
-The installers are built by GitHub Actions on a macOS runner and attached to
-the [`v1.0.0-experimental.1` pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-experimental.1)
-as `PremiumTV-1.0.0-experimental.1-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
+The installers are built by GitHub Actions on a macOS runner and attached to the
+[official `v1.0.0` release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0)
+("Marquee") as `PremiumTV-1.0.0-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
 `...-arm64.pkg`, with `SHA256SUMS.txt`.
 
-**Experimental, not the default release.** Earlier Mac builds displayed the player
-over the channel list at startup because a CSS display rule overrode `hidden`.
-This build fixes the overlay and adds a regression test, but it has not yet been
-smoke-tested on a Mac; channel playback still depends on upstream feeds.
+**The Marquee release.** The earlier player-over-channel-list display bug is
+fixed and covered by a regression test; the channel browser, guide, settings
+refreshes and loopback playback all pass the app's test suites. Playback still
+depends on upstream feeds, and the installers are ad-hoc signed (not notarized).
 
 ## Installing
 
