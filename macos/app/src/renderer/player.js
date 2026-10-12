@@ -24,6 +24,7 @@ window.PremiumPlayer = (function () {
   let hls = null;
   let mpegtsPlayer = null;
   let currentUrl = '';
+  let sourceHint = '';
   let attempts = [];
   let index = 0;
 
@@ -171,10 +172,11 @@ window.PremiumPlayer = (function () {
 
   return {
     /** Starts playback of an already-resolved loopback URL. */
-    play(url) {
+    play(url, originalUrl = '') {
       teardown();
       currentUrl = url;
-      attempts = strategiesFor(url);
+      sourceHint = originalUrl;
+      attempts = strategiesFor(originalUrl || url);
       index = 0;
       clearError();
       showSpinner(true);
@@ -188,6 +190,7 @@ window.PremiumPlayer = (function () {
     stop() {
       teardown();
       currentUrl = '';
+      sourceHint = '';
       attempts = [];
       index = 0;
       showSpinner(false);
@@ -195,7 +198,7 @@ window.PremiumPlayer = (function () {
     },
 
     retry() {
-      if (currentUrl) this.play(currentUrl);
+      if (currentUrl) this.play(currentUrl, sourceHint);
     },
 
     setMuted(muted) {

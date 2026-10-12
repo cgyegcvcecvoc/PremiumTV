@@ -514,7 +514,10 @@
     els.playerDetail.textContent = current && current.d ? current.d : channel.group;
     els.player.hidden = false;
     els.statusText.textContent = `Playing ${channel.name}`;
-    window.PremiumPlayer.play(resolved.url);
+    // The proxy URL is /p/<session>, without a file extension. Pass the
+    // original stream URL as a format hint so HLS/MPEG-TS gets the right
+    // player first instead of trying native playback of every feed.
+    window.PremiumPlayer.play(resolved.url, channel.url);
   }
 
   async function closePlayer() {

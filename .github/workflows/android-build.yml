@@ -42,6 +42,8 @@ concurrency:
 jobs:
   build:
     name: Build APK
+    # Do not attach an Android APK to the Mac experimental release.
+    if: github.event_name != 'release' || github.event.release.tag_name == 'v1.0.0-beta4'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -109,7 +111,12 @@ jobs:
           tag="${{ github.event.release.tag_name }}"
           tag="${tag:-$RELEASE_TAG}"
           if ! gh release view "$tag" >/dev/null 2>&1; then
-            echo "Release $tag does not exist; the APKs stay in build-out/ and in the Actions artifact."
+            echo "Release $tag does not exist; the APK stays in build-out/."
+            exit 0
+          fi
+          tagged=$(git ls-remote origin "refs/tags/$tag" | cut -f1)
+          if [ "$tagged" != "$GITHUB_SHA" ]; then
+            echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
             exit 0
           fi
           gh release upload "$tag" \

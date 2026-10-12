@@ -6,10 +6,9 @@ TV guide inside the APK. The source now targets **1.0.0-beta4** (`versionName`
 and a complete force-refresh action on top of Beta 3's faster, fault-isolated
 channel loading.
 
-**Current default release: Beta 3.** Beta 4 is the new pre-release and remains a
-preview until its WorkManager schedule and updates have been smoke-tested on a
-real TV. Use Beta 3 when you want the default build; test Beta 4 when you want
-the new automatic-refresh behavior.
+**Current Android download: Beta 4.** It is a beta, not a verified stable
+release; its WorkManager schedule and updates still need a smoke test on a real
+TV. There is no separate older default Android release.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
 The same APK works everywhere — navigation is D-pad first, and touch works too.
@@ -104,23 +103,21 @@ to Maven Central or `dl.google.com`). Every push that touches `android/`,
 APK and commits the build output to `build-out/`:
 
 ```text
-build-out/PremiumTV-1.0.0-beta3-debug.apk   current default APK (debug-signed)
-build-out/PremiumTV-1.0.0-beta4-debug.apk   new Beta 4 preview (debug-signed)
+build-out/PremiumTV-1.0.0-beta4-debug.apk   current beta APK (debug-signed)
 build-out/SHA256SUMS.txt
 build-out/build-log.txt                     full Gradle output
 ```
 
-Beta 3 is the [current default release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3).
-The new build is published separately as the
-[v1.0.0-beta4 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4).
+[v1.0.0-beta4](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4)
+is the single current Android beta download. It is not a verified final release;
+a TV hardware smoke test is still needed.
 Only the debug APK is published. The unsigned release APK was dropped in beta 2:
 an unsigned APK cannot be installed on a TV or phone, so it was never usable.
 
 ### Installing on a TV
 
-1. Copy `PremiumTV-1.0.0-beta3-debug.apk` to the TV (USB stick, a file-sharing
-   app, or `adb install -r PremiumTV-1.0.0-beta3-debug.apk` from a computer).
-   Substitute `beta4` to test the new preview.
+1. Copy `PremiumTV-1.0.0-beta4-debug.apk` to the TV (USB stick, a file-sharing
+   app, or `adb install -r PremiumTV-1.0.0-beta4-debug.apk` from a computer).
 2. Allow installs from that source (*Install unknown apps*).
 3. Open **PremiumTV**. The Channels tab should list the categories straight away.
 

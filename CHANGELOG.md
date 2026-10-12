@@ -4,7 +4,23 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
-## 2026-10-12 — macOS app (v1.0.0-mac1 preview)
+## 2026-10-12 — release consolidation and Mac experimental display fix
+
+- The Mac player's `#player { display: flex }` and error panel's `display: grid`
+  overrode the browser's `[hidden]` display rule. On launch they covered the
+  channel browser with the error text and Try Again button. Explicitly honor
+  `[hidden]` and test both elements' initial hidden state. Playback now uses
+  the original feed URL as a format hint rather than the extensionless loopback
+  URL, so HLS and MPEG-TS are tried before native playback where appropriate.
+- Publish one **Mac experimental pre-release** (`v1.0.0-experimental.1`) and
+  one **Android beta download** (`v1.0.0-beta4`, the default/latest download).
+  Superseded release pages are removed, but historical Git tags remain.
+  Neither platform is claimed to be a hardware-verified final/stable build;
+  the Mac installer is not the default release.
+- Build workflows only attach artifacts to their own platform's matching tag
+  and commit, so later branch builds cannot silently replace a release asset.
+
+## 2026-10-12 — macOS app (v1.0.0-mac1 preview; historical)
 
 - **A native installer, not a script.** New `macos/` Electron app packaged as a
   `.dmg` and a `.pkg` for macOS 12+ on Intel and Apple Silicon, built by

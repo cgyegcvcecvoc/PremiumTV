@@ -33,10 +33,13 @@ concurrency:
 jobs:
   build:
     name: Build DMG + PKG
+    # A release for Android must not start a Mac build (or upload Mac files
+    # to an Android release). Push/dispatch builds still run as usual.
+    if: github.event_name != 'release' || github.event.release.tag_name == 'v1.0.0-experimental.1'
     runs-on: macos-14
     timeout-minutes: 60
     env:
-      RELEASE_TAG: v1.0.0-mac1
+      RELEASE_TAG: v1.0.0-experimental.1
 
     steps:
       - name: Check out the repository
@@ -91,6 +94,17 @@ jobs:
           npx electron-builder --mac pkg --arm64 --prepackaged dist/mac-arm64/PremiumTV.app 2>&1 \
             | tee -a "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
 
+      - name: Verify the installed app contains channels and the renderer
+        working-directory: macos/app
+        run: |
+          for arch in mac mac-arm64; do
+            resources="dist/$arch/PremiumTV.app/Contents/Resources"
+            test -s "$resources/bundle/channels.jsonl"
+            test -s "$resources/bundle/meta.json"
+            test -s "$resources/app.asar"
+            node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1])); if(meta.channel_count < 1) process.exit(1)' "$resources/bundle/meta.json"
+          done
+
       - name: Checksum the installers
         working-directory: macos/app/dist
         run: shasum -a 256 *.dmg *.pkg > SHA256SUMS.txt
@@ -113,10 +127,15 @@ jobs:
           tag="${{ github.event.release.tag_name }}"
           tag="${tag:-$RELEASE_TAG}"
           if ! gh release view "$tag" >/dev/null 2>&1; then
-            echo "Release $tag does not exist; creating it."
-            gh release create "$tag" --title "PremiumTV for Mac $tag" \
-              --notes "Installers for macOS 12 (Monterey) and later. Download the .dmg (drag to Applications) or the .pkg (installer). Ad-hoc signed, not notarized." \
-              --prerelease || true
+            echo "Release $tag does not exist; installers remain in the Actions artifact."
+            exit 0
+          fi
+          # A branch build made after the tagged release must never overwrite
+          # its installers with a different commit's bundle or app code.
+          tagged=$(git ls-remote origin "refs/tags/$tag" | cut -f1)
+          if [ "$tagged" != "$GITHUB_SHA" ]; then
+            echo "Release $tag points to $tagged, not $GITHUB_SHA; leaving its assets intact."
+            exit 0
           fi
           gh release upload "$tag" \
             macos/app/dist/*.dmg \
@@ -150,4 +169,11 @@ jobs:
             exit 0
           fi
           git commit -m "ci: publish mac build log (run ${{ github.run_number }}) [skip ci]"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          # Android and Mac build on the same push and may publish their logs
+          # in either order. Rebase over the other job's log commit instead of
+          # failing a successful installer build with a non-fast-forward push.
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep 5
+          done
+          exit 1
