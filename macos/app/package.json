@@ -1,0 +1,35 @@
+{
+  "name": "premiumtv",
+  "productName": "PremiumTV",
+  "version": "1.0.0-mac1",
+  "description": "PremiumTV for Mac — the repository's channel list and TV guide, bundled in the app",
+  "author": {
+    "name": "cgyegcvcecvoc",
+    "email": "cgyegcvcecvoc@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "main": "src/main/main.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "assets": "node tools/copy_assets.js",
+    "bundle": "python3 ../../android/tools/build_bundle.py --out resources/bundle --version $npm_package_version",
+    "predist": "npm run assets",
+    "dist": "electron-builder --mac",
+    "dist:dmg": "electron-builder --mac dmg",
+    "dist:pkg": "electron-builder --mac pkg"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.3",
+    "hls.js": "^1.7.3",
+    "mpegts.js": "^1.8.2"
+  },
+  "devDependencies": {
+    "electron": "~43.7.9",
+    "electron-builder": "^26.15.3"
+  }
+}

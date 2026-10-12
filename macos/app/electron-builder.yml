@@ -1,0 +1,83 @@
+appId: com.premiumtv.mac
+productName: PremiumTV
+copyright: Copyright © cgyegcvcecvoc
+
+# Everything the app needs is baked into the .app: the renderer, the playlist /
+# guide bundle in Contents/Resources/bundle, and the vendored HLS + MPEG-TS
+# players in the renderer. The installed app never asks the user to run
+# anything, which is the point of shipping an installer instead of a script.
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - src/**
+  - package.json
+
+extraResources:
+  - from: resources/bundle
+    to: bundle
+    filter:
+      - "**/*"
+
+artifactName: PremiumTV-${version}-mac-${arch}.${ext}
+
+# Ad-hoc sign the assembled .app on macOS runners (see tools/after-pack.cjs).
+afterPack: tools/after-pack.cjs
+
+mac:
+  # macOS 12 Monterey is the supported floor. Electron 43 is the last major
+  # that runs on Monterey - Electron 44 dropped macOS 12 when Chromium did - so
+  # the Electron version in package.json and this floor are pinned together.
+  minimumSystemVersion: "12.0"
+  category: public.app-category.entertainment
+  icon: build/icon.png
+  # No Apple Developer ID certificate is available to this repository, so
+  # electron-builder's own signing is disabled and the afterPack hook ad-hoc
+  # signs the .app with the runner's codesign (a macOS-only tool; the Linux
+  # DMG job leaves the app unsigned). Set CSC_LINK / CSC_KEY_PASSWORD secrets
+  # and hardenedRuntime + notarize to sign properly.
+  identity: null
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  darkModeSupport: true
+  extendInfo:
+    NSHumanReadableCopyright: Copyright © cgyegcvcecvoc
+    NSAppTransportSecurity:
+      # Public IPTV feeds are still served over plain http:// and refuse
+      # connections without their published referrer/user-agent. The stream
+      # proxy in src/main/stream-proxy.js fetches them from the main process;
+      # this only stops macOS from killing those sockets.
+      NSAllowsArbitraryLoads: true
+      NSAllowsArbitraryLoadsInWebContent: true
+    NSHighResolutionCapable: true
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+    - target: zip
+      arch:
+        - x64
+        - arm64
+
+dmg:
+  sign: false
+  writeUpdateInfo: false
+  contents:
+    - x: 150
+      y: 190
+      type: file
+    - x: 430
+      y: 190
+      type: link
+      path: /Applications
+
+# The .pkg is built on a macOS runner (productbuild is macOS-only) by
+# .github/workflows/macos-build.yml. It installs the same .app into
+# /Applications.
+pkg:
+  installLocation: /Applications
+  isRelocatable: false
+  allowAnywhere: false
+  allowCurrentUserHome: false

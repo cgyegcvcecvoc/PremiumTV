@@ -242,7 +242,8 @@ def write_jsonl(path: str, rows: list[dict]) -> None:
 def build(playlist: str, guide: str, index: str, out_dir: str, version: str) -> dict:
     channels, header_guide = parse_m3u(playlist)
     programmes = parse_xmltv(guide)
-    groups = order_groups(channels, load_group_order(index))
+    published_order = load_group_order(index)
+    groups = order_groups(channels, published_order)
 
     guide_url = header_guide or "%s/%s" % (RAW_BASE, os.path.relpath(guide, REPO_ROOT).replace(os.sep, "/"))
     playlist_url = "%s/%s" % (RAW_BASE, os.path.relpath(playlist, REPO_ROOT).replace(os.sep, "/"))
@@ -275,6 +276,10 @@ def build(playlist: str, guide: str, index: str, out_dir: str, version: str) -> 
         "playlist_url": playlist_url,
         "guide_url": guide_url,
         "raw_base": RAW_BASE,
+        # The category order the taxonomy published, so an app-side refresh can
+        # re-order a freshly parsed playlist exactly like the bundle (the Mac
+        # app rebuilds categories from this after a download).
+        "published_order": published_order,
     }
     with open(os.path.join(out_dir, "meta.json"), "w", encoding="utf-8") as handle:
         json.dump(meta, handle, indent=2, ensure_ascii=False)
