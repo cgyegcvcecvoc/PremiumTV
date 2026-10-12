@@ -14,20 +14,31 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   picked out for the release — 345 curated feeds across 172 countries. The
   nightly guide check verifies every URL; the guide build merges the working
   ones ahead of the two or three guides a scraped M3U used to advertise, which
-  is what left most channels without listings.
+  is what left most channels without listings. Result on the release build:
+  **1,658 channels with real listings (19.6%) and 99,079 programmes, up from
+  172 channels and 10,090 programmes**, and every one of the 8,460 published
+  channel ids is declared in the guide — including `epg-us.xml.gz` (13,373
+  programmes) and epg.pw's `epg.xml.gz` (1,390 channels matched). Per-country
+  guides grow the same way automatically as upstream families publish more
+  `epg-<cc>` files; no listings are ever invented for channels no guide
+  schedules.
 - **Backup feeds share their station's schedule.** Display-name matching is now
   country-aware: when several published ids share one name and one country,
   all of them receive the same verified listings ("Nickelodeon" US backups get
-  the US schedule), while same-name channels in other countries never do.
-  Cross-country names without a guide country suffix stay unmatched rather
-  than guessed.
+  the US schedule), while same-name channels in other countries never do. The
+  country of a per-country source file (`epg_DE.xml.gz`) counts even when the
+  channel id has no `.de` suffix, three-letter names ("CNN", "TLC") match
+  again, and cross-country names without any country signal stay unmatched
+  rather than guessed.
 - **Refreshes verified in both apps.** Settings' *Force refresh all now* and
   the automatic WorkManager/timer slots keep passing the contract tests on
   Android (`tests/test_android_refresh.py`) and macOS
   (`tests/test_macos_app.py`, `macos/app/test/*.test.js`): slots mirror the 13
   publishing windows, requests are conditional (ETag/Last-Modified) yet
   manually bypassable, serialized, and installed atomically with a backup
-  rollback. 340 Python tests + 25 Node tests green.
+  rollback. Release verification: 343 Python tests + 25 Node tests green, and
+  both CI release builds green (Gradle APK with the in-repo Android SDK
+  Layoutlib toolchain; electron-builder DMG + PKG for Apple silicon and Intel).
 - **Marquee UI on both platforms.** Cinema-gold-on-midnight theme with a
   playbill voice: marquee-plaque brand mark and version tag, gold-underlined
   tabs and category selection, ON-AIR style NOW badges, lifted channel cards,
