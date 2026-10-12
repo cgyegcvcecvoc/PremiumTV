@@ -30,23 +30,9 @@
   • Implicit publishing triggered by CI detection. This behavior will be disabled in electron-builder v27. Please use --publish explicitly.
   • loaded configuration  file=/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/electron-builder.yml
   • building        target=pkg arch=x64 file=dist/PremiumTV-1.0.0-mac1-mac-x64.pkg
-  ⨯ productbuild process failed 1
-Exit code:
-1
-Output:
-Exit code: 1. Command failed: productbuild --synthesize --product /private/var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/t-DuN8aC/productbuild-requirements-0.plist --component /Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac /Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/distribution.xml
-productbuild: error: The component at "/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac" is not a bundle.
-
-productbuild: error: The component at "/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac" is not a bundle.
-  failedTask=build stackTrace=Error: productbuild process failed 1
-Exit code:
-1
-Output:
-Exit code: 1. Command failed: productbuild --synthesize --product /private/var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/t-DuN8aC/productbuild-requirements-0.plist --component /Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac /Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/distribution.xml
-productbuild: error: The component at "/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac" is not a bundle.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             productbuild: error: The component at "/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac" is not a bundle.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 at /Users/runner/work/PremiumTV1/PremiumTV1/macos/app/node_modules/builder-util/src/util.ts:192:18
-    at ChildProcess.exithandler (node:child_process:424:5)
-    at ChildProcess.emit (node:events:519:28)
-    at maybeClose (node:internal/child_process:1101:16)
-    at Process.ChildProcess._handle.onexit (node:internal/child_process:304:5)
+  • skipped macOS notarization  reason=`notarize` options were unable to be generated
+  • electron-builder  version=26.15.3 os=23.6.0
+  • Implicit publishing triggered by CI detection. This behavior will be disabled in electron-builder v27. Please use --publish explicitly.
+  • loaded configuration  file=/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/electron-builder.yml
+  • building        target=pkg arch=arm64 file=dist/PremiumTV-1.0.0-mac1-mac-arm64.pkg
+  • skipped macOS notarization  reason=`notarize` options were unable to be generated
