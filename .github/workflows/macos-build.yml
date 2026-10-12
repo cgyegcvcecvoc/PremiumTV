@@ -1,0 +1,103 @@
+name: Build PremiumTV macOS DMG + PKG
+
+# Builds the Mac app the same way a developer would, but on a real macOS
+# runner (the only place productbuild and codesign exist): bakes the channel
+# list and guide into the app, vendors the players, packages a .dmg and a .pkg
+# for both Intel and Apple Silicon, ad-hoc signs the .app, and publishes the
+# installers to the release page plus an Actions artifact.
+#
+# The repository is private, so the artifacts are only downloadable by people
+# with repository access - which is exactly who installs test builds.
+
+on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - "macos/**"
+      - "playlists/countries/**"
+      - "EPG/**"
+      - "android/tools/build_bundle.py"
+      - ".github/workflows/macos-build.yml"
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: macos-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build DMG + PKG
+    runs-on: macos-14
+    timeout-minutes: 60
+    env:
+      RELEASE_TAG: v1.0.0-mac1
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: macos/app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: macos/app
+        run: npm ci
+
+      - name: Bake the playlists and guide into the app
+        working-directory: macos/app
+        run: npm run bundle
+
+      - name: Vendor the player libraries
+        working-directory: macos/app
+        run: npm run assets
+
+      - name: Run the app's unit tests
+        working-directory: macos/app
+        run: npm test
+
+      - name: Build .dmg, .zip and .pkg for Intel and Apple Silicon
+        working-directory: macos/app
+        run: npx electron-builder --mac dmg zip pkg --x64 --arm64
+
+      - name: Checksum the installers
+        working-directory: macos/app/dist
+        run: shasum -a 256 *.dmg *.pkg > SHA256SUMS.txt
+
+      - name: Upload installers as an Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PremiumTV-macOS-installers
+          path: |
+            macos/app/dist/*.dmg
+            macos/app/dist/*.pkg
+            macos/app/dist/SHA256SUMS.txt
+          if-no-files-found: error
+
+      - name: Attach the installers to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          tag="${{ github.event.release.tag_name }}"
+          tag="${tag:-$RELEASE_TAG}"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag does not exist; creating it."
+            gh release create "$tag" --title "PremiumTV for Mac $tag" \
+              --notes "Installers for macOS 12 (Monterey) and later. Download the .dmg (drag to Applications) or the .pkg (installer). Ad-hoc signed, not notarized." \
+              --prerelease || true
+          fi
+          gh release upload "$tag" \
+            macos/app/dist/*.dmg \
+            macos/app/dist/*.pkg \
+            macos/app/dist/SHA256SUMS.txt --clobber
+          gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'

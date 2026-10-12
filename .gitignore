@@ -8,3 +8,10 @@ EPG/.*.tmp
 
 # CI build output (APKs + logs), published by .github/workflows/android-build.yml
 build-out/
+
+# macOS app derived data (rebuilt from the repository at package time)
+macos/app/node_modules/
+macos/app/dist/
+macos/app/resources/bundle/
+macos/app/src/renderer/vendor/
+macos/app/.cache/

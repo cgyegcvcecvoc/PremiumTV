@@ -1,0 +1,309 @@
+'use strict';
+
+/**
+ * PremiumTV for Mac — application entry point.
+ *
+ * Wires the four pieces together: the loopback server the window is served
+ * from, the repository that owns the channel list and the guide, the refresh
+ * scheduler that mirrors the repository's publishing windows, and the window
+ * itself. Nothing here talks to the renderer except through the preload bridge.
+ */
+
+const { app, BrowserWindow, Menu, ipcMain, powerMonitor, shell, dialog } = require('electron');
+const path = require('node:path');
+const os = require('node:os');
+
+const { TvRepository } = require('./repository');
+const { StreamProxy } = require('./stream-proxy');
+const { AutoRefresh } = require('./auto-refresh');
+const schedule = require('./refresh-schedule');
+
+const WINDOW_STATE_KEY = 'window-bounds';
+
+let mainWindow = null;
+let repository = null;
+let proxy = null;
+let autoRefresh = null;
+
+// ------------------------------------------------------------------- paths
+
+function paths() {
+  const rendererDir = path.join(__dirname, '..', 'renderer');
+  const bundleDir = app.isPackaged
+    ? path.join(process.resourcesPath, 'bundle')
+    : path.join(__dirname, '..', '..', 'resources', 'bundle');
+  const userData = app.getPath('userData');
+  return {
+    rendererDir,
+    bundleDir,
+    cacheDir: path.join(userData, 'bundle'),
+    stateFile: path.join(userData, 'refresh-state.json'),
+    logoCacheDir: path.join(userData, 'logo-cache'),
+  };
+}
+
+// ---------------------------------------------------------------- lifecycle
+
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+  bootstrap();
+}
+
+function bootstrap() {
+  app.setName('PremiumTV');
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') app.quit();
+  });
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    else mainWindow.show();
+  });
+
+  app.whenReady().then(async () => {
+    const options = paths();
+
+    proxy = new StreamProxy({ rendererDir: options.rendererDir, logoCacheDir: options.logoCacheDir });
+    await proxy.start();
+
+    repository = new TvRepository({
+      bundleDir: options.bundleDir,
+      cacheDir: options.cacheDir,
+      stateFile: options.stateFile,
+    });
+    repository.on('state', (state) => send('ptv:state', state));
+    repository.on('info', (info) => send('ptv:info', info));
+    repository.on('progress', (progress) => send('ptv:progress', progress));
+
+    autoRefresh = new AutoRefresh({ repository });
+
+    await createWindow();
+    await repository.load();
+
+    autoRefresh.start();
+
+    // A Mac that slept through a publishing window gets its check on wake.
+    powerMonitor.on('resume', () => {
+      autoRefresh.catchUpIfOverdue().catch(() => {});
+    });
+    app.on('browser-window-focus', () => {
+      autoRefresh.catchUpIfOverdue().catch(() => {});
+    });
+  });
+
+  app.on('before-quit', async () => {
+    if (autoRefresh) autoRefresh.stop();
+    if (proxy) await proxy.stop();
+  });
+}
+
+function createWindow() {
+  const saved = readWindowState();
+  mainWindow = new BrowserWindow({
+    width: saved.width,
+    height: saved.height,
+    x: saved.x,
+    y: saved.y,
+    minWidth: 940,
+    minHeight: 600,
+    title: 'PremiumTV',
+    backgroundColor: '#141417',
+    titleBarStyle: 'hiddenInset',
+    trafficLightPosition: { x: 16, y: 18 },
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+      spellcheck: false,
+      backgroundThrottling: false,
+    },
+  });
+
+  mainWindow.once('ready-to-show', () => mainWindow.show());
+  mainWindow.on('close', writeWindowState);
+
+  // Anything the renderer tries to open in a new window goes to the browser.
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (/^https?:\/\//i.test(url)) shell.openExternal(url);
+    return { action: 'deny' };
+  });
+
+  mainWindow.loadURL(proxy.origin);
+  buildMenu();
+  return mainWindow;
+}
+
+function send(channel, payload) {
+  if (mainWindow && !mainWindow.isDestroyed()) mainWindow.webContents.send(channel, payload);
+}
+
+function readWindowState() {
+  const fallback = { width: 1280, height: 820 };
+  try {
+    const stored = JSON.parse(require('node:fs').readFileSync(paths().stateFile, 'utf8'));
+    const bounds = stored && stored[WINDOW_STATE_KEY];
+    if (bounds && bounds.width >= 940 && bounds.height >= 600) return bounds;
+  } catch (error) {
+    /* first run */
+  }
+  return fallback;
+}
+
+function writeWindowState() {
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  try {
+    const bounds = mainWindow.getBounds();
+    const stateFile = paths().stateFile;
+    const existing = JSON.parse(require('node:fs').readFileSync(stateFile, 'utf8'));
+    require('node:fs').writeFileSync(
+      stateFile,
+      `${JSON.stringify({ ...existing, [WINDOW_STATE_KEY]: bounds }, null, 2)}\n`,
+      'utf8',
+    );
+  } catch (error) {
+    /* window geometry is a convenience */
+  }
+}
+
+// ---------------------------------------------------------------- IPC bridge
+
+ipcMain.handle('ptv:snapshot', () => repository.snapshot());
+
+ipcMain.handle('ptv:app-info', () => {
+  const meta = (repository.library && repository.library.meta) || null;
+  return {
+    version: app.getVersion(),
+    electron: process.versions.electron,
+    chromium: process.versions.chrome,
+    node: process.versions.node,
+    platform: `${os.type()} ${os.release()}`,
+    arch: process.arch,
+    userData: app.getPath('userData'),
+    bundleDir: paths().bundleDir,
+    meta,
+    repositoryTimeZone: schedule.REPOSITORY_TIME_ZONE,
+    publishingGraceMinutes: schedule.PUBLISHING_GRACE_MINUTES,
+    checkTimes: schedule.slotTimes(),
+    refresh: repository.info,
+    nextAutomaticAt: repository.info.nextAutomaticAt || null,
+  };
+});
+
+ipcMain.handle('ptv:refresh', async (_event, force) => {
+  return force ? autoRefresh.runManual() : repository.refresh('automatic');
+});
+
+ipcMain.handle('ptv:reset', async () => {
+  await repository.resetToBundled();
+  return repository.snapshot();
+});
+
+ipcMain.handle('ptv:resolve-stream', (_event, channelId) => {
+  const channel = (repository.library.channels || []).find((c) => c.id === channelId);
+  if (!channel || !channel.url) return { ok: false, message: 'That channel has no stream URL.' };
+  const sessionId = proxy.registerChannel(channel);
+  return { ok: true, url: sessionId, sessionId, channel };
+});
+
+ipcMain.handle('ptv:release-stream', (_event, sessionId) => {
+  proxy.releaseSession(sessionId);
+  return { ok: true };
+});
+
+ipcMain.handle('ptv:logo-url', (_event, logoUrl) => {
+  if (!logoUrl || !/^https?:\/\//i.test(logoUrl)) return '';
+  return `${proxy.origin}/logo/?u=${encodeURIComponent(logoUrl)}`;
+});
+
+ipcMain.handle('ptv:open-external', (_event, url) => {
+  if (/^https?:\/\//i.test(url)) shell.openExternal(url);
+  return { ok: true };
+});
+
+// -------------------------------------------------------------------- menu
+
+function buildMenu() {
+  const isMac = process.platform === 'darwin';
+  const template = [
+    ...(isMac ? [{ role: 'appMenu' }] : []),
+    { role: 'fileMenu' },
+    { role: 'editMenu' },
+    {
+      label: 'View',
+      submenu: [
+        {
+          label: 'Channels',
+          accelerator: 'CmdOrCtrl+1',
+          click: () => send('ptv:select-tab', 'channels'),
+        },
+        {
+          label: 'Guide',
+          accelerator: 'CmdOrCtrl+2',
+          click: () => send('ptv:select-tab', 'guide'),
+        },
+        {
+          label: 'Settings',
+          accelerator: 'CmdOrCtrl+3',
+          click: () => send('ptv:select-tab', 'settings'),
+        },
+        { type: 'separator' },
+        {
+          label: 'Refresh Library Now',
+          accelerator: 'CmdOrCtrl+R',
+          click: () => {
+            if (autoRefresh) autoRefresh.runManual().catch(() => {});
+          },
+        },
+        { type: 'separator' },
+        { role: 'reload' },
+        { role: 'forceReload' },
+        { role: 'toggleDevTools' },
+        { type: 'separator' },
+        { role: 'resetZoom' },
+        { role: 'zoomIn' },
+        { role: 'zoomOut' },
+        { type: 'separator' },
+        { role: 'togglefullscreen' },
+      ],
+    },
+    { role: 'windowMenu' },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'About the bundled playlist',
+          click: () => {
+            const meta = (repository.library && repository.library.meta) || {};
+            dialog.showMessageBox(mainWindow, {
+              type: 'info',
+              title: 'PremiumTV data',
+              message: `Bundled ${meta.version || 'unknown'}`,
+              detail: [
+                `Channels: ${meta.channel_count || 0}`,
+                `Categories: ${meta.group_count || 0}`,
+                `Guide listings: ${meta.programme_count || 0} for ${meta.guide_channels || 0} channels`,
+                `Playlist: ${meta.playlist || ''}`,
+                `Guide: ${meta.guide || ''}`,
+                `Generated: ${meta.generated_utc || ''}`,
+              ].join('\n'),
+            });
+          },
+        },
+        {
+          label: 'PremiumTV1 repository',
+          click: () => shell.openExternal('https://github.com/cgyegcvcecvoc/PremiumTV1'),
+        },
+      ],
+    },
+  ];
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+}
