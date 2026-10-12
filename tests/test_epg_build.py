@@ -765,6 +765,21 @@ class HelperTest(unittest.TestCase):
                          ["BBCOne.uk", "premiumtv.uk.bbc_one_hd"])
         # A guide suffix for a country nobody publishes leaves the name unmatched.
         self.assertEqual(wanted.ids_for_name("Nickelodeon", "Nickelodeon.fr"), [])
+        # Candidates that declare no country of their own trust the guide's.
+        unknown = epg_build.Wanted()
+        unknown.add("a.b.c", "Mystery TV", "", "")
+        unknown.add("d.e.f", "Mystery TV HD", "", "")
+        self.assertEqual(sorted(unknown.ids_for_name("Mystery TV", "mystery.us")),
+                         ["a.b.c", "d.e.f"])
+
+    def test_short_names_are_matchable_but_two_letters_are_not(self):
+        wanted = epg_build.Wanted()
+        wanted.add("CNN.us", "CNN", "US", "")
+        wanted.add("premiumtv.us.cnn_international", "CNN International", "US", "")
+        self.assertEqual(wanted.ids_for_name("CNN", "CNN.us"), ["CNN.us"])
+        tiny = epg_build.Wanted()
+        tiny.add("x.y.z", "IT", "US", "")
+        self.assertEqual(tiny.by_name.get("it"), None)
 
     def test_guide_list_puts_the_curated_sources_first(self):
         with tempfile.TemporaryDirectory() as temp:

@@ -277,7 +277,9 @@ class Wanted:
             self.by_exact_key[exact_key].append(tvg_id)
         if name:
             key = norm_name(name)
-            if len(key) >= 4:
+            # Short names ("CNN", "TLC", "ABC") are matchable too now that
+            # candidates are country-filtered; two letters are still noise.
+            if len(key) >= 3:
                 self.by_name.setdefault(key, [])
                 if tvg_id not in self.by_name[key]:
                     self.by_name[key].append(tvg_id)
@@ -322,7 +324,11 @@ class Wanted:
         guide_cc = epg_sources.norm_cc(cc_of_id(guide_cc) or guide_cc)
         countries = {cid: self.country_code_of(cid) for cid in ids}
         if guide_cc:
-            return [cid for cid in ids if countries[cid] == guide_cc]
+            same = [cid for cid in ids if countries[cid] == guide_cc]
+            if same:
+                return same
+            # Nobody declares a country; the guide is the only country source.
+            return list(ids) if all(code == "" for code in countries.values()) else []
         distinct = set(countries.values())
         return list(ids) if len(distinct) == 1 else []
 
@@ -644,7 +650,11 @@ def harvest_guide(url: str, index: int, wanted: Wanted, timeout: float, retries:
                 if match_names:
                     names = [clean_text(node.text or "") for node in element
                              if node.tag == "display-name"]
-                    guide_cc = cc_of_id(guide_id)
+                    # A per-country source file (epg_DE.xml.gz) defines which
+                    # country its names belong to even when the channel id has
+                    # no .de suffix - that keeps "Nickelodeon" from six
+                    # countries from ever becoming ambiguous.
+                    guide_cc = cc_of_id(guide_id) or epg_sources.guide_url_country(url)
                     for name in names:
                         named = wanted.ids_for_name(name, guide_cc)
                         if not named:

@@ -31,6 +31,19 @@ class CountryCodeTest(unittest.TestCase):
         self.assertEqual(epg_sources.norm_cc("UK"), "gb")
         self.assertEqual(epg_sources.norm_cc("us"), "us")
 
+    def test_guide_url_country_reads_per_country_file_names(self):
+        self.assertEqual(epg_sources.guide_url_country(
+            "https://epg.pw/xmltv/epg_DE.xml.gz"), "de")
+        self.assertEqual(epg_sources.guide_url_country(
+            "https://iptv-epg.org/files/epg-us.xml.gz"), "us")
+        self.assertEqual(epg_sources.guide_url_country(
+            "https://iptv-epg.org/files/epg-uk.xml.gz"), "gb")
+        self.assertEqual(epg_sources.guide_url_country(
+            "https://epg.pw/xmltv/epg.xml.gz"), "")
+        self.assertEqual(epg_sources.guide_url_country(
+            "https://example.com/guide.xml.gz"), "")
+        self.assertEqual(epg_sources.guide_url_country(""), "")
+
 
 class TemplateTest(unittest.TestCase):
     def test_expand_template_handles_both_cases(self):

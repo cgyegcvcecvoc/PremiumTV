@@ -128,6 +128,23 @@ def norm_cc(raw: str) -> str:
     return CC_ALIASES.get(code, code)
 
 
+CC_IN_URL_RE = re.compile(r"(?:epg[-_])([a-z]{2})(?:\.xml)", re.IGNORECASE)
+
+
+def guide_url_country(url: str) -> str:
+    """Country code implied by a per-country guide URL, or ``""``.
+
+    ``https://epg.pw/xmltv/epg_DE.xml.gz`` -> ``de`` and
+    ``https://iptv-epg.org/files/epg-us.xml.gz`` -> ``us``, so every channel in
+    that file can be matched as the country it belongs to, even when the same
+    display name exists in several countries. All-countries files (``epg.xml``)
+    and unrelated hosts return ``""`` and stay suffix/name-driven.
+    """
+    name = (url or "").split("?", 1)[0].rsplit("/", 1)[-1]
+    match = CC_IN_URL_RE.search(name)
+    return norm_cc(match.group(1)) if match else ""
+
+
 def load_config(path: Path | None = None) -> dict:
     """The ``epg_sources`` block of ``sources.json`` (empty dict if absent)."""
     source = Path(path) if path else SOURCES_FILE

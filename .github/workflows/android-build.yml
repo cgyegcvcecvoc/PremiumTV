@@ -149,4 +149,11 @@ jobs:
             exit 0
           fi
           git commit -m "ci: publish APK build output (run ${{ github.run_number }}) [skip ci]"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          # The guide build, the Mac build and this one all publish to the same
+          # branch and may finish in any order. Rebase over the other jobs'
+          # commits instead of failing the build on a non-fast-forward push.
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep 5
+          done
+          exit 1
