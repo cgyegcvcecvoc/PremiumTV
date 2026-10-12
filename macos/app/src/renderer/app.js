@@ -43,6 +43,7 @@
     category: null, // null = every channel
     query: '',
     rendered: 0,
+    refreshing: null,
   };
 
   const PAGE = 240;
@@ -363,9 +364,13 @@
       <div class="panel">
         <h2>Library</h2>
         <div class="actions">
-          <button class="btn btn-primary" id="force-refresh">Force refresh all now</button>
-          <button class="btn" id="check-now">Check for changes</button>
-          <button class="btn btn-danger" id="reset-bundled">Reset to the bundled copy</button>
+          <button class="btn btn-primary" id="force-refresh" ${ui.refreshing ? 'disabled' : ''}>${
+            ui.refreshing === 'force-refresh' ? 'Refreshing…' : 'Force refresh all now'
+          }</button>
+          <button class="btn" id="check-now" ${ui.refreshing ? 'disabled' : ''}>${
+            ui.refreshing === 'check-now' ? 'Checking…' : 'Check for changes'
+          }</button>
+          <button class="btn btn-danger" id="reset-bundled" ${ui.refreshing ? 'disabled' : ''}>Reset to the bundled copy</button>
         </div>
         <p><span id="busy" class="badge ${resultClass}">${escapeHtml(info.lastTrigger || 'idle')}</span> &nbsp; ${sourceBadge}</p>
         <dl class="meta">
@@ -472,21 +477,25 @@
   }
 
   async function runRefresh(force, buttonId) {
-    const button = buttonId ? document.getElementById(buttonId) : null;
-    if (button) {
-      button.disabled = true;
-      button.textContent = force ? 'Refreshing…' : 'Checking…';
-    }
+    // onInfo() redraws Settings when the main process reports progress. Keep a
+    // UI-level guard as well as the repository's promise coalescing so that a
+    // redraw cannot replace a disabled button with a second live action.
+    if (ui.refreshing) return;
+    ui.refreshing = buttonId || (force ? 'force-refresh' : 'check-now');
     els.statusText.textContent = force ? 'Downloading the playlist and the guide…' : 'Checking the repository…';
+    if (ui.tab === 'settings') renderSettings();
+
     try {
-      await api.refresh(force);
+      const outcome = await api.refresh(force);
       snapshot = await api.getSnapshot();
       programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
-    } finally {
-      if (button) {
-        button.disabled = false;
-        button.textContent = force ? 'Force refresh all now' : 'Check for changes';
+      if (outcome && outcome.ok === false) {
+        els.statusText.textContent = outcome.message || 'The repository refresh failed; the current copy is unchanged.';
       }
+    } catch (error) {
+      els.statusText.textContent = `Refresh failed: ${error.message || String(error)}. The current copy is unchanged.`;
+    } finally {
+      ui.refreshing = null;
       render();
     }
   }

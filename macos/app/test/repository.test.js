@@ -109,6 +109,49 @@ test('a manual refresh downloads, parses and swaps the cache atomically', async 
   assert.ok(names.includes('Match of the Day'), `guide parsed, got ${names}`);
 });
 
+test('overlapping requests of the same kind share one refresh instead of duplicating downloads', async () => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-'));
+  let calls = 0;
+  let allowFirstRequest;
+  const firstRequestGate = new Promise((resolve) => {
+    allowFirstRequest = resolve;
+  });
+  let firstRequestStarted;
+  const firstRequestStartedPromise = new Promise((resolve) => {
+    firstRequestStarted = resolve;
+  });
+
+  const fetchImpl = async (url) => {
+    calls += 1;
+    if (calls === 1) {
+      firstRequestStarted();
+      await firstRequestGate;
+    }
+    return url.endsWith('.xml') || url.includes('guide')
+      ? makeResponse({ body: GUIDE_TEXT, headers: { etag: '"g1"' } })
+      : makeResponse({ body: PLAYLIST_TEXT, headers: { etag: '"p1"' } });
+  };
+  const repository = makeRepository(root, fetchImpl);
+  await repository.load();
+
+  const first = repository.refresh('manual');
+  const duplicate = repository.refresh('manual');
+  assert.strictEqual(duplicate, first, 'duplicate manual actions should join the active refresh');
+  await firstRequestStartedPromise;
+  allowFirstRequest();
+
+  const [firstResult, duplicateResult] = await Promise.all([first, duplicate]);
+  assert.equal(firstResult.ok, true);
+  assert.strictEqual(duplicateResult, firstResult);
+  assert.equal(calls, 2, 'one playlist and one guide were downloaded, not two pairs');
+
+  // The coalescing entry is cleared after completion; a later explicit manual
+  // refresh still checks both files from scratch.
+  const later = await repository.refresh('manual');
+  assert.equal(later.ok, true);
+  assert.equal(calls, 4);
+});
+
 test('an automatic refresh sends validators and honours 304', async () => {
   const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-'));
   let calls = 0;

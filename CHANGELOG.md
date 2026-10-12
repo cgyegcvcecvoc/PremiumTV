@@ -4,7 +4,21 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
-## 2026-10-12 — macOS app (v1.0.0-mac1 preview)
+## 2026-10-12 — macOS app refresh fix (v1.0.0-mac2)
+
+- **No duplicate refresh downloads.** Concurrent refresh requests of the same
+  kind now share one in-flight operation. Settings buttons stay disabled across
+  progress redraws, so repeated clicks cannot queue additional playlist/guide
+  downloads.
+- **Clear failure feedback.** Renderer-side refresh exceptions now stay in the
+  app's status bar and leave the current bundled/downloaded copy in place.
+- **Auto schedules preserved.** The Mac app still follows the existing
+  publisher slots; no repository scrape/quick-update/EPG cron was changed.
+- **Packaging version.** The macOS build workflow now targets
+  [`v1.0.0-mac2`](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac2)
+  for the Intel and Apple Silicon DMG/PKG installers.
+
+## 2026-10-12 — first macOS app (v1.0.0-mac1)
 
 - **A native installer, not a script.** New `macos/` Electron app packaged as a
   `.dmg` and a `.pkg` for macOS 12+ on Intel and Apple Silicon, built by

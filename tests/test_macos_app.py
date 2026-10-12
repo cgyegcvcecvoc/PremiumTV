@@ -74,8 +74,20 @@ class MacRefreshScheduleTests(unittest.TestCase):
         self.assertIn("runRefresh(true, 'force-refresh')", renderer)
         self.assertIn("runRefresh(false, 'check-now')", renderer)
 
+    def test_settings_prevent_duplicate_refresh_clicks_and_show_errors(self):
+        renderer = text(MAC / "src" / "renderer" / "app.js")
+        self.assertIn("if (ui.refreshing) return;", renderer)
+        self.assertIn("${ui.refreshing ? 'disabled' : ''}", renderer)
+        self.assertIn("Refresh failed:", renderer)
+
 
 class MacPackagingTests(unittest.TestCase):
+    def test_second_mac_version_matches_the_release_tag(self):
+        version = json.loads(text(PACKAGE))["version"]
+        workflow = text(WORKFLOW)
+        self.assertEqual(version, "1.0.0-mac2")
+        self.assertIn(f"RELEASE_TAG: v{version}", workflow)
+
     def test_minimum_system_version_is_macos_12(self):
         self.assertIn('minimumSystemVersion: "12.0"', text(BUILDER))
 

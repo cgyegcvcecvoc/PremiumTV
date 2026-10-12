@@ -50,6 +50,10 @@ class TvRepository extends EventEmitter {
     this.library = { meta: null, groups: [], channels: [], programmes: [] };
     this.info = this.readState().info || {};
     this.queue = Promise.resolve();
+    // A click can otherwise enqueue another complete pair of downloads while
+    // the first refresh is still running. The Settings screen can redraw on
+    // progress events, so coalesce same-kind requests in the repository too.
+    this.inFlightRefreshes = new Map();
   }
 
   get stagingCacheDir() {
@@ -86,7 +90,17 @@ class TvRepository extends EventEmitter {
    * responses instead of a 10 MB guide download.
    */
   refresh(trigger, meta = {}) {
-    return this.serialize(() => this.refreshLocked(trigger, meta));
+    const key = trigger === 'manual' ? 'manual' : 'automatic';
+    const alreadyRunning = this.inFlightRefreshes.get(key);
+    if (alreadyRunning) return alreadyRunning;
+
+    const operation = this.serialize(() => this.refreshLocked(trigger, meta));
+    let shared;
+    shared = operation.finally(() => {
+      if (this.inFlightRefreshes.get(key) === shared) this.inFlightRefreshes.delete(key);
+    });
+    this.inFlightRefreshes.set(key, shared);
+    return shared;
   }
 
   /** Drops the downloaded copy and goes back to what the .app shipped with. */

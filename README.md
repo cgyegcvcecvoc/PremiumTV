@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## macOS app (v1.0.0-mac1)
+## macOS app (v1.0.0-mac2)
 
 The repository also ships a **macOS app** that does the same job as the Android
 one — channels and guide bundled in the app — packaged as a `.dmg` (drag to
@@ -67,8 +67,14 @@ Intel and Apple Silicon. Nothing to run, nothing to configure.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Installers (dmg + pkg, both archs) | [v1.0.0-mac1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1) |
+| Installers (dmg + pkg, both archs) | [v1.0.0-mac2 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac2) |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
+
+Version **1.0.0-mac2** keeps the existing automatic refresh schedule, but
+coalesces repeated in-flight refresh actions so a Settings redraw cannot queue
+extra playlist/guide downloads. Refresh errors now remain visible in the status
+bar instead of escaping as an unhandled renderer error. GitHub's scheduled
+scrape jobs are unchanged.
 
 Because Electron 44 dropped macOS 12, the app pins Electron 43 and declares
 `minimumSystemVersion: "12.0"`. It is ad-hoc signed, not notarized: on first

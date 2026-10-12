@@ -6,10 +6,11 @@ packaged as a `.dmg` (drag to Applications) and a `.pkg` (installer) instead of
 a script you have to run. Supports **macOS 12 (Monterey) and later**, on Intel
 and Apple Silicon.
 
-The installers are built by GitHub Actions on a macOS runner and attached to
-the [`v1.0.0-mac1` release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1)
-as `PremiumTV-1.0.0-mac1-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
-`...-arm64.pkg`, with `SHA256SUMS.txt`.
+The second app build, **v1.0.0-mac2**, is built by GitHub Actions on a macOS
+runner and attached to the [v1.0.0-mac2 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac2)
+as `PremiumTV-1.0.0-mac2-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
+`...-arm64.pkg`, with `SHA256SUMS.txt`. It prevents overlapping refresh clicks
+from causing duplicate downloads and keeps refresh failures visible in the app.
 
 ## Installing
 
@@ -43,9 +44,11 @@ on its next run.
 
 Checks follow the repository's publishing jobs in `America/New_York`, 45
 minutes after each slot, sending the last ETag/Last-Modified so an unchanged
-playlist and guide cost two small `304` responses. See
-`src/main/refresh-schedule.js`; `tests/test_macos_app.py` fails the build if
-the in-app slots drift from `scrape.yml` / `quick-update.yml` / `epg-build.yml`.
+playlist and guide cost two small `304` responses. Repeated in-flight refreshes
+of the same kind are coalesced, and the Settings actions stay disabled while a
+refresh is running. See `src/main/refresh-schedule.js`;
+`tests/test_macos_app.py` fails the build if the in-app slots drift from
+`scrape.yml` / `quick-update.yml` / `epg-build.yml`.
 
 > **Access limitation:** this repository is private, so `raw.githubusercontent.com`
 > returns an access error to an unauthenticated Mac. Refreshes report that

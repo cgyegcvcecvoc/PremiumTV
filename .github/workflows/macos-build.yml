@@ -36,7 +36,7 @@ jobs:
     runs-on: macos-14
     timeout-minutes: 60
     env:
-      RELEASE_TAG: v1.0.0-mac1
+      RELEASE_TAG: v1.0.0-mac2
 
     steps:
       - name: Check out the repository
@@ -115,8 +115,8 @@ jobs:
           if ! gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag does not exist; creating it."
             gh release create "$tag" --title "PremiumTV for Mac $tag" \
-              --notes "Installers for macOS 12 (Monterey) and later. Download the .dmg (drag to Applications) or the .pkg (installer). Ad-hoc signed, not notarized." \
-              --prerelease || true
+              --notes "Installers for macOS 12 (Monterey) and later. Download the .dmg (drag to Applications) or the .pkg (installer). Ad-hoc signed, not notarized. This build coalesces overlapping refresh actions to avoid duplicate playlist/guide downloads." \
+              --prerelease --target "$GITHUB_SHA" || true
           fi
           gh release upload "$tag" \
             macos/app/dist/*.dmg \
