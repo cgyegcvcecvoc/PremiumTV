@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261011T112542Z-2767`)
-- **Started:** 2026-10-11T11:25:42Z | **Finished:** 2026-10-11T11:25:46Z | **Duration:** 3.9s
+- **Run:** nightly guide check (`20261012T131053Z-2772`)
+- **Started:** 2026-10-12T13:10:53Z | **Finished:** 2026-10-12T13:10:59Z | **Duration:** 5.7s
 - **Guides checked:** 176 across 175 playlists (174 of them are this repository's own published guides)
 - **Working share of upstream guides:** 100.0%
 
@@ -15,8 +15,8 @@
 
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
-| `TV.xml` | 230 | 7331 | 2026-10-15 08:00 UTC | 4096 KB |
-| `guide.xml.gz` | 2 | 114 | 2026-10-12 02:15 UTC | 2 KB |
+| `TV.xml` | 217 | 7355 | 2026-10-16 08:00 UTC | 4096 KB |
+| `guide.xml.gz` | 2 | 108 | 2026-10-13 01:00 UTC | 3 KB |
 
 ## This repository's own guides
 
