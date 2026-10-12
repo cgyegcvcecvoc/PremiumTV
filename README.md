@@ -57,6 +57,25 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
+## macOS app (v1.0.0-mac1)
+
+The repository also ships a **macOS app** that does the same job as the Android
+one — channels and guide bundled in the app — packaged as a `.dmg` (drag to
+Applications) and a `.pkg` (installer) for **macOS 12 (Monterey) and later**, on
+Intel and Apple Silicon. Nothing to run, nothing to configure.
+
+| Item | Where |
+|---|---|
+| Project and build docs | [`macos/`](macos/README.md) |
+| Installers (dmg + pkg, both archs) | [v1.0.0-mac1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1) |
+| Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
+
+Because Electron 44 dropped macOS 12, the app pins Electron 43 and declares
+`minimumSystemVersion: "12.0"`. It is ad-hoc signed, not notarized: on first
+launch, right-click → **Open**, or run `xattr -dr com.apple.quarantine
+/Applications/PremiumTV.app`. Like the Android app, refreshes can only read this
+repository once a public mirror exists; until then the bundled copy is used.
+
 ## Android TV app (v1.0.0-beta4 candidate)
 
 The repository also builds an Android app that carries the playlists and the

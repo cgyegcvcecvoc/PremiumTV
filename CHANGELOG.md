@@ -4,6 +4,23 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
+## 2026-10-12 — macOS app (v1.0.0-mac1 preview)
+
+- **A native installer, not a script.** New `macos/` Electron app packaged as a
+  `.dmg` and a `.pkg` for macOS 12+ on Intel and Apple Silicon, built by
+  `.github/workflows/macos-build.yml` and published to the
+  [v1.0.0-mac1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1).
+- **Same behaviour as the Android app.** Channels / Guide / Settings screens,
+  bundled USA playlist + guide, loopback playback proxy that sends each entry's
+  published referrer/origin/user-agent, and a GitHub-aligned automatic refresh
+  (45 min after every publishing slot, ETag/Last-Modified conditional, atomic
+  staging swap, force-refresh and reset-to-bundled).
+- **Electron pinned to 43.** Electron 44 dropped macOS 12, so the app stays on
+  43 and declares `minimumSystemVersion: "12.0"`. Ad-hoc signed, not notarized.
+- **Guarded by tests.** `tests/test_macos_app.py` and `macos/app/test/*.test.js`
+  cross-check the parsers against `build_bundle.py` and the refresh slots
+  against the publishing workflows.
+
 ## 2026-10-11 — Android TV beta 4 (v1.0.0-beta4 preview)
 
 - **GitHub-aligned automatic refresh.** Android WorkManager now schedules a
