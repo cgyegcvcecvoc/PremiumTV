@@ -18,6 +18,11 @@
 
 * { box-sizing: border-box; }
 
+/* The player and its error panel specify display below. Without this rule
+   those selectors override the user-agent [hidden] style, putting a black
+   player/error screen in front of the channel list on first launch. */
+[hidden] { display: none !important; }
+
 html, body {
   margin: 0;
   height: 100%;

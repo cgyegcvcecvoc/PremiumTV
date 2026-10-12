@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## macOS app (v1.0.0-mac1)
+## macOS app (experimental)
 
 The repository also ships a **macOS app** that does the same job as the Android
 one — channels and guide bundled in the app — packaged as a `.dmg` (drag to
@@ -67,8 +67,12 @@ Intel and Apple Silicon. Nothing to run, nothing to configure.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Installers (dmg + pkg, both archs) | [v1.0.0-mac1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1) |
+| Installers (dmg + pkg, both archs) | [v1.0.0-experimental.1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-experimental.1) |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
+
+The earlier Mac installers could cover the channel browser with a player/error
+overlay. The experimental build fixes that display bug, but has not been
+smoke-tested on Mac hardware and is **not** the default download.
 
 Because Electron 44 dropped macOS 12, the app pins Electron 43 and declares
 `minimumSystemVersion: "12.0"`. It is ad-hoc signed, not notarized: on first
@@ -76,7 +80,7 @@ launch, right-click → **Open**, or run `xattr -dr com.apple.quarantine
 /Applications/PremiumTV.app`. Like the Android app, refreshes can only read this
 repository once a public mirror exists; until then the bundled copy is used.
 
-## Android TV app (v1.0.0-beta4 candidate)
+## Android TV app (v1.0.0-beta4)
 
 The repository also builds an Android app that carries the playlists and the
 guide **inside the APK** — nothing to configure in a player, no M3U file to
@@ -85,15 +89,13 @@ side-load.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| New source candidate | `1.0.0-beta4` (`versionCode 4`) |
-| Current default APK | `build-out/PremiumTV-1.0.0-beta3-debug.apk` (debug-signed) |
-| Current default release | [v1.0.0-beta3](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3) |
-| New Beta 4 preview | [v1.0.0-beta4 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4) |
+| Version | `1.0.0-beta4` (`versionCode 4`) |
+| Android download | [v1.0.0-beta4 (latest beta)](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4) |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-**Beta 3 is the current default release.** Beta 4 is the new preview and stays
-a pre-release until its background-update behavior has been checked on real TV
-hardware. The current Beta 4 build bundles the **USA library**: 2,197 channels
+**Beta 4 is the default Android download, not a verified final/stable release.**
+Its background-update behavior still needs a smoke test on real TV hardware.
+The current Beta 4 build bundles the **USA library**: 2,197 channels
 across 60 published categories, plus 9,753 guide listings covering the 165
 channels with schedule data. It installs on Android TV, Google TV, Fire TV
 stick, tablet and phone.

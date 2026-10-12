@@ -7,9 +7,14 @@ a script you have to run. Supports **macOS 12 (Monterey) and later**, on Intel
 and Apple Silicon.
 
 The installers are built by GitHub Actions on a macOS runner and attached to
-the [`v1.0.0-mac1` release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1)
-as `PremiumTV-1.0.0-mac1-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
+the [`v1.0.0-experimental.1` pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-experimental.1)
+as `PremiumTV-1.0.0-experimental.1-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
 `...-arm64.pkg`, with `SHA256SUMS.txt`.
+
+**Experimental, not the default release.** Earlier Mac builds displayed the player
+over the channel list at startup because a CSS display rule overrode `hidden`.
+This build fixes the overlay and adds a regression test, but it has not yet been
+smoke-tested on a Mac; channel playback still depends on upstream feeds.
 
 ## Installing
 
@@ -35,9 +40,8 @@ as `PremiumTV-1.0.0-mac1-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
 
 Playback uses hls.js / mpegts.js behind a loopback proxy, so the referrer,
 origin and user-agent a playlist entry publishes are sent — several public
-feeds refuse the connection otherwise. A channel that will not play is almost
-always a dead upstream link; the repository's nightly link check removes those
-on its next run.
+feeds refuse the connection otherwise. An upstream feed may be unavailable or
+refuse this connection; retrying the same feed will not necessarily help. Close the player to browse other channels.
 
 ## Automatic refresh
 
