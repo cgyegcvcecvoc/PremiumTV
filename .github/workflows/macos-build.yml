@@ -65,13 +65,31 @@ jobs:
         working-directory: macos/app
         run: npm test
 
-      - name: Build .dmg, .zip and .pkg for Intel and Apple Silicon
+      # The .pkg target writes a fixed intermediate file (com.<id>.pkg), so two
+      # archs must not build pkg in the same process - they race and unlink each
+      # other's file. Build dmg+zip for both archs, then pkg per arch from the
+      # already-signed app.
+      - name: Build .dmg and .zip for Intel and Apple Silicon
         working-directory: macos/app
         run: |
           set -o pipefail
           mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
-          npx electron-builder --mac dmg zip pkg --x64 --arm64 2>&1 \
+          npx electron-builder --mac dmg zip --x64 --arm64 2>&1 \
             | tee "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
+
+      - name: Build the Intel .pkg
+        working-directory: macos/app
+        run: |
+          set -o pipefail
+          npx electron-builder --mac pkg --x64 --prepackaged dist/mac 2>&1 \
+            | tee -a "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
+
+      - name: Build the Apple Silicon .pkg
+        working-directory: macos/app
+        run: |
+          set -o pipefail
+          npx electron-builder --mac pkg --arm64 --prepackaged dist/mac-arm64 2>&1 \
+            | tee -a "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
 
       - name: Checksum the installers
         working-directory: macos/app/dist
