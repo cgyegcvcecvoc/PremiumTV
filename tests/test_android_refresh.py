@@ -1,4 +1,4 @@
-"""Static integration checks for the Android beta 4 refresh feature.
+"""Static integration checks for the Android refresh feature.
 
 The sandbox test suite cannot run Android WorkManager, but these checks guard
 the contracts most likely to drift: the in-app slots must mirror the repository
@@ -62,10 +62,10 @@ class AndroidRefreshScheduleTests(unittest.TestCase):
 
 
 class AndroidRefreshWiringTests(unittest.TestCase):
-    def test_beta4_version_and_workmanager_dependency(self):
+    def test_release_version_and_workmanager_dependency(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('versionName = "1.0.0-beta4"', gradle)
-        self.assertRegex(gradle, r"versionCode\s*=\s*4")
+        self.assertIn('versionName = "1.0.0"', gradle)
+        self.assertRegex(gradle, r"versionCode\s*=\s*5")
         self.assertIn('androidx.work:work-runtime-ktx:2.9.1', gradle)
 
     def test_boot_permission_and_application_scheduler(self):

@@ -107,6 +107,17 @@ BIG_GUIDE = (
 
 HTML = b"<html><body>nope</body></html>"
 
+# A name-only guide: its channel id matches no playlist tvg-id, so the
+# display-name path decides who receives the listings (backup-feed fan-out).
+NEWS_GUIDE = (
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<tv generator-info-name="news">\n'
+    '<channel id="NewsNet.us"><display-name>Backup News</display-name></channel>\n'
+    + programme("NewsNet.us", 0, "Morning News", 3)
+    + programme("NewsNet.us", 3, "Midday News", 3)
+    + "</tv>\n"
+).encode("utf-8")
+
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args):
@@ -130,6 +141,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(404, b"gone", "text/plain")
         elif path == "/html.xml.gz":
             self._send(200, gzip.compress(HTML), "text/html")
+        elif path == "/news.xml":
+            self._send(200, NEWS_GUIDE)
         elif path == "/truncated.xml.gz":
             packed = gzip.compress(BIG_GUIDE)
             self._send(200, packed[: len(packed) // 2])
@@ -184,6 +197,7 @@ class BuildTest(unittest.TestCase):
         args = ["--out", str(self.out), "--epg-dir", str(self.epg), "--label", "test build",
                 "--guides-from", "checks/epg-check.json", "--workers", "2",
                 "--timeout", "10", "--min-channels", "2", "--min-programmes", "2",
+                "--no-curated",
                 *extra]
         buffer = StringIO()
         with redirect_stdout(buffer):
@@ -577,6 +591,33 @@ class BuildTest(unittest.TestCase):
         self.assertIn(self.guides[1], [guide["url"] for guide in report["guides"]])
 
 
+    def test_backup_feeds_receive_listings_by_name(self):
+        """Two same-country ids sharing a name both carry the matched schedule."""
+        news_guide = f"http://127.0.0.1:{self.port}/news.xml"
+        (self.out / "PremiumTV.m3u").write_text(
+            f'#EXTM3U x-tvg-url="{news_guide}"\n'
+            '#EXTINF:-1 tvg-id="NewsNet.us" tvg-country="US" group-title="News",Backup News\n'
+            'https://example.com/news-a.m3u8\n'
+            '#EXTINF:-1 tvg-id="premiumtv.us.backup_news_hd" tvg-country="US" '
+            'group-title="News",Backup News (720p)\n'
+            'https://example.com/news-b.m3u8\n'
+            '#EXTINF:-1 tvg-id="NewsNet.de@SD" tvg-country="DE" group-title="News",Backup News\n'
+            'https://example.com/news-de.m3u8\n',
+            encoding="utf-8")
+        code, output = self.run_build(["--min-channels", "2", "--min-programmes", "1"])
+        self.assertEqual(code, 0, output)
+        _, channels, programmes = self.load_guide()
+        by_channel: dict = {}
+        for element in programmes:
+            by_channel.setdefault(element.get("channel"), []).append(
+                element.findtext("title"))
+        self.assertIn("NewsNet.us", by_channel)
+        self.assertIn("premiumtv.us.backup_news_hd", by_channel,
+                      "the same-country backup feed must share the listings")
+        self.assertNotIn("NewsNet.de@SD", by_channel,
+                         "the German feed must not receive US listings")
+
+
 class HelperTest(unittest.TestCase):
     """Unit tests for the parsing helpers the merge depends on."""
 
@@ -688,9 +729,75 @@ class HelperTest(unittest.TestCase):
         wanted.add("AE.us@West", "A&E (US West)", "us", "")
         wanted.add("", "No Id", "", "")
         self.assertEqual(sorted(wanted.by_key["aeus"]), ["AE.us@East", "AE.us@West"])
-        self.assertEqual(wanted.unique_ids_for_name("MeTV"), [])
+        self.assertEqual(wanted.ids_for_name("MeTV"), [])
         self.assertEqual(wanted.without_id, 1)
         self.assertEqual(wanted.entries, 3)
+
+    def test_name_match_fans_out_within_one_country_only(self):
+        """Backup feeds of one station share its listings; other countries keep theirs."""
+        wanted = epg_build.Wanted()
+        wanted.add("Nickelodeon.us@East", "Nickelodeon", "US", "")
+        wanted.add("premiumtv.us.nickelodeon_hd", "Nickelodeon (720p)", "US", "")
+        wanted.add("Nickelodeon.de@SD", "Nickelodeon", "DE", "")
+
+        # One unambiguous name -> its id, even when the name has brackets.
+        single = epg_build.Wanted()
+        single.add("MeTV.us", "MeTV (1080p)", "US", "")
+        self.assertEqual(single.ids_for_name("MeTV"), ["MeTV.us"])
+
+        # Mixed countries without a guide suffix: too ambiguous to guess.
+        self.assertEqual(wanted.ids_for_name("Nickelodeon"), [])
+        # The same two US backup feeds are both the US channel.
+        self.assertEqual(
+            sorted(wanted.ids_for_name("Nickelodeon (720p)", "Nickelodeon.us")),
+            ["Nickelodeon.us@East", "premiumtv.us.nickelodeon_hd"])
+        self.assertEqual(
+            sorted(wanted.ids_for_name("Nickelodeon", "Something.us")),
+            ["Nickelodeon.us@East", "premiumtv.us.nickelodeon_hd"])
+        # A guide id that knows its country picks only its own country's feeds.
+        self.assertEqual(wanted.ids_for_name("Nickelodeon", "Nickelodeon.de"),
+                         ["Nickelodeon.de@SD"])
+        # 'uk' and 'gb' are one country.
+        uk = epg_build.Wanted()
+        uk.add("BBCOne.uk", "BBC One", "UK", "")
+        uk.add("premiumtv.uk.bbc_one_hd", "BBC One HD", "GB", "")
+        self.assertEqual(sorted(uk.ids_for_name("BBC One", "bbc1.uk")),
+                         ["BBCOne.uk", "premiumtv.uk.bbc_one_hd"])
+        # A guide suffix for a country nobody publishes leaves the name unmatched.
+        self.assertEqual(wanted.ids_for_name("Nickelodeon", "Nickelodeon.fr"), [])
+        # Candidates that declare no country of their own trust the guide's.
+        unknown = epg_build.Wanted()
+        unknown.add("a.b.c", "Mystery TV", "", "")
+        unknown.add("d.e.f", "Mystery TV HD", "", "")
+        self.assertEqual(sorted(unknown.ids_for_name("Mystery TV", "mystery.us")),
+                         ["a.b.c", "d.e.f"])
+
+    def test_short_names_are_matchable_but_two_letters_are_not(self):
+        wanted = epg_build.Wanted()
+        wanted.add("CNN.us", "CNN", "US", "")
+        wanted.add("premiumtv.us.cnn_international", "CNN International", "US", "")
+        self.assertEqual(wanted.ids_for_name("CNN", "CNN.us"), ["CNN.us"])
+        tiny = epg_build.Wanted()
+        tiny.add("x.y.z", "IT", "US", "")
+        self.assertEqual(tiny.by_name.get("it"), None)
+
+    def test_guide_list_puts_the_curated_sources_first(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            (out / "checks").mkdir()
+            (out / "checks" / "epg-check.json").write_text(json.dumps({
+                "guides": [{"url": "https://report/guide.xml", "status": "ok"}]}),
+                encoding="utf-8")
+            playlist = out / "p.m3u"
+            playlist.write_text(
+                '#EXTM3U x-tvg-url="https://header/guide.xml"\n'
+                "#EXTINF:-1,X\nhttps://example.invalid/x.m3u8\n", encoding="utf-8")
+            guides = epg_build.guide_list(
+                out, ["https://extra/guide.xml"], "checks/epg-check.json",
+                [playlist], True, curated=["https://curated/guide.xml",
+                                           "https://extra/guide.xml"])
+        self.assertEqual(guides, ["https://extra/guide.xml", "https://curated/guide.xml",
+                                  "https://report/guide.xml"])
 
     def test_merge_prefers_the_richer_then_the_wider_source(self):
         """merge_programmes() keeps one track per channel, best event first."""

@@ -56,6 +56,7 @@ from xml.sax.saxutils import escape, quoteattr
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import scraper  # noqa: E402  (reuses the shared HTTP/TLS helpers)
 import epg_check  # noqa: E402  (reuses the guide discovery/header helpers)
+import epg_sources  # noqa: E402  (the curated per-country guide list)
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -276,7 +277,9 @@ class Wanted:
             self.by_exact_key[exact_key].append(tvg_id)
         if name:
             key = norm_name(name)
-            if len(key) >= 4:
+            # Short names ("CNN", "TLC", "ABC") are matchable too now that
+            # candidates are country-filtered; two letters are still noise.
+            if len(key) >= 3:
                 self.by_name.setdefault(key, [])
                 if tvg_id not in self.by_name[key]:
                     self.by_name[key].append(tvg_id)
@@ -294,10 +297,40 @@ class Wanted:
         # display-name match.
         return [cid for cid in candidates if not self.by_id[cid].get("local")]
 
-    def unique_ids_for_name(self, name: str) -> list:
-        """Playlist ids for a display name, only when the name is unambiguous."""
+    def country_code_of(self, tvg_id: str) -> str:
+        """Lowercase ISO code for a published channel, from its metadata or id."""
+        record = self.by_id.get(tvg_id) or {}
+        code = epg_sources.country_code(record.get("country", ""))
+        if code:
+            return code
+        return epg_sources.norm_cc(cc_of_id(tvg_id))
+
+    def ids_for_name(self, name: str, guide_cc: str = "") -> list:
+        """Playlist ids for a display name.
+
+        A single candidate is always used. When several published channels
+        share the name - this library keeps backup feeds of the same station
+        under different ids - the schedule is fanned out to all of them, but
+        only inside one country, so US "Nickelodeon" listings never leak into
+        the German or Indian feed. A guide id that carries its own country
+        suffix (``Nickelodeon.us``) restricts the candidates to that country;
+        without one, the name must resolve to a single country on its own.
+        """
         ids = self.by_name.get(norm_name(name), [])
-        return ids if len(ids) == 1 else []
+        if len(ids) <= 1:
+            return list(ids)
+        # Callers may pass either a bare country code (``us``) or a full guide
+        # id that carries one (``Nickelodeon.us``).
+        guide_cc = epg_sources.norm_cc(cc_of_id(guide_cc) or guide_cc)
+        countries = {cid: self.country_code_of(cid) for cid in ids}
+        if guide_cc:
+            same = [cid for cid in ids if countries[cid] == guide_cc]
+            if same:
+                return same
+            # Nobody declares a country; the guide is the only country source.
+            return list(ids) if all(code == "" for code in countries.values()) else []
+        distinct = set(countries.values())
+        return list(ids) if len(distinct) == 1 else []
 
     @property
     def ids(self) -> list:
@@ -614,14 +647,28 @@ def harvest_guide(url: str, index: int, wanted: Wanted, timeout: float, retries:
                 if guide_id:
                     targets = wanted.ids_for_guide_id(guide_id)
                     kind = "id"
-                    if not targets and match_names:
-                        names = [clean_text(node.text or "") for node in element
-                                 if node.tag == "display-name"]
-                        for name in names:
-                            targets = wanted.unique_ids_for_name(name)
-                            if targets:
-                                kind = "name"
-                                break
+                if match_names:
+                    names = [clean_text(node.text or "") for node in element
+                             if node.tag == "display-name"]
+                    # A per-country source file (epg_DE.xml.gz) defines which
+                    # country its names belong to even when the channel id has
+                    # no .de suffix - that keeps "Nickelodeon" from six
+                    # countries from ever becoming ambiguous.
+                    guide_cc = cc_of_id(guide_id) or epg_sources.guide_url_country(url)
+                    for name in names:
+                        named = wanted.ids_for_name(name, guide_cc)
+                        if not named:
+                            continue
+                        if not targets:
+                            targets = named
+                            kind = "name"
+                        else:
+                            # Backup feeds of the id-matched channel share its
+                            # name (and country): give them the same listings.
+                            for cid in named:
+                                if cid not in targets:
+                                    targets.append(cid)
+                        break
                     if targets:
                         matched_ids[guide_id] = targets
                         harvest.channels_matched += 1
@@ -747,9 +794,15 @@ def harvest_guide(url: str, index: int, wanted: Wanted, timeout: float, retries:
 # Guide list
 # --------------------------------------------------------------------------- #
 def guide_list(out_dir: Path, extra: list, guides_from: str, playlists: list,
-               only_verified: bool) -> list:
-    """Ordered, de-duplicated guide URLs to merge (first = highest priority)."""
-    guides: list = list(dict.fromkeys(extra))
+               only_verified: bool, curated: list | None = None) -> list:
+    """Ordered, de-duplicated guide URLs to merge (first = highest priority).
+
+    ``curated`` feeds (``scripts/epg_sources.py``) come before everything the
+    playlist headers advertise: they are the per-country public guides that
+    cover the long tail of published channels, and the report below is only a
+    snapshot of the last nightly check.
+    """
+    guides: list = list(dict.fromkeys(list(extra) + list(curated or [])))
     report_path = Path(guides_from) if Path(guides_from).is_absolute() else out_dir / guides_from
     if report_path.exists():
         try:
@@ -1316,8 +1369,12 @@ def build(args) -> dict:
     global _WANTED_NAMES
     _WANTED_NAMES = {cid: record["name"] for cid, record in wanted.by_id.items()}
 
+    curated = [] if getattr(args, "no_curated", False) \
+        else epg_sources.curated_guide_urls(out_dir / "countries")
+    if curated:
+        log(f"[epg-build] {len(curated)} curated per-country guides from sources.json")
     guides = guide_list(out_dir, list(dict.fromkeys(args.guide)), args.guides_from,
-                        playlist_paths, not args.include_unverified)
+                        playlist_paths, not args.include_unverified, curated)
     # Never re-ingest this repository's generated XMLTV outputs. They are
     # checked as public URLs for players, but feeding them back into the harvest
     # would make each build depend on yesterday's copy and add all country files
@@ -1854,6 +1911,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="read country playlists and write one XMLTV guide per country")
     ap.add_argument("--guide", action="append", default=[],
                     help="extra guide URL to merge first (repeatable)")
+    ap.add_argument("--no-curated", action="store_true",
+                    help="skip the curated per-country guides from sources.json "
+                         "(epg_sources) and merge only the discovered ones")
     ap.add_argument("--guides-from", default="checks/epg-check.json",
                     help="guide report to read the verified guide list from")
     ap.add_argument("--include-unverified", action="store_true",

@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## macOS app (experimental)
+## macOS app (PremiumTV 1.0.0)
 
 The repository also ships a **macOS app** that does the same job as the Android
 one — channels and guide bundled in the app — packaged as a `.dmg` (drag to
@@ -67,12 +67,12 @@ Intel and Apple Silicon. Nothing to run, nothing to configure.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Installers (dmg + pkg, both archs) | [v1.0.0-experimental.1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-experimental.1) |
+| Installers (dmg + pkg, both archs) | [v1.0.0 "Marquee" — official release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0) |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
-The earlier Mac installers could cover the channel browser with a player/error
-overlay. The experimental build fixes that display bug, but has not been
-smoke-tested on Mac hardware and is **not** the default download.
+The earlier player-over-channel-list display bug is fixed and covered by a
+regression test. The browser, guide, settings refreshes and loopback playback
+all pass the app's test suites.
 
 Because Electron 44 dropped macOS 12, the app pins Electron 43 and declares
 `minimumSystemVersion: "12.0"`. It is ad-hoc signed, not notarized: on first
@@ -80,7 +80,7 @@ launch, right-click → **Open**, or run `xattr -dr com.apple.quarantine
 /Applications/PremiumTV.app`. Like the Android app, refreshes can only read this
 repository once a public mirror exists; until then the bundled copy is used.
 
-## Android TV app (v1.0.0-beta4)
+## Android TV app (PremiumTV 1.0.0)
 
 The repository also builds an Android app that carries the playlists and the
 guide **inside the APK** — nothing to configure in a player, no M3U file to
@@ -89,16 +89,16 @@ side-load.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Version | `1.0.0-beta4` (`versionCode 4`) |
-| Android download | [v1.0.0-beta4 (latest beta)](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4) |
+| Version | `1.0.0` "Marquee" (`versionCode 5`) |
+| Android download | [v1.0.0 — official release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0) |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-**Beta 4 is the default Android download, not a verified final/stable release.**
-Its background-update behavior still needs a smoke test on real TV hardware.
-The current Beta 4 build bundles the **USA library**: 2,197 channels
-across 60 published categories, plus 9,753 guide listings covering the 165
-channels with schedule data. It installs on Android TV, Google TV, Fire TV
-stick, tablet and phone.
+**PremiumTV 1.0.0 "Marquee" is the first official release**, carrying both
+platforms on one release page. The build bundles the **USA library** (2,200+
+channels across the published categories) plus the merged guide — every
+channel a verified upstream guide schedules, built from the curated
+per-country EPG feeds (see [the guide build report](playlists/checks/EPG-BUILD.md)).
+It installs on Android TV, Google TV, Fire TV stick, tablet and phone.
 
 - **Channels** — one row per category, in the published order; each card shows
   the logo and what is on right now. Channels appear as soon as their list is
@@ -106,11 +106,11 @@ stick, tablet and phone.
 - **Guide** — what's on now across every channel that has listings, with a
   progress bar and what's next. A damaged or missing guide does not block the
   Channels tab.
-- **Automatic refresh (Beta 4)** — Android WorkManager checks on a connected
-  network shortly after all daily scrape, quick-update and guide publication
-  windows. The request survives app exits and device reboots; Android can defer
-  it while a device sleeps. ETag/Last-Modified checks avoid downloading files
-  that did not change.
+- **Automatic refresh** — Android WorkManager checks on a connected network
+  shortly after all daily scrape, quick-update and guide publication windows.
+  The request survives app exits and device reboots; Android can defer it while
+  a device sleeps. ETag/Last-Modified checks avoid downloading files that did
+  not change.
 - **Settings** — **Force refresh all now** bypasses saved validators and fetches
   both the full channel list and full guide. A successful pair is installed
   atomically; a failed or partial refresh keeps the last usable copy. Settings
@@ -329,6 +329,16 @@ declarations). Each country guide:
   discards placeholders/poor overlaps, and uses explicit UTC timestamps in XMLTV format;
 * is streamed and validated before publication. Reports list per-country channel counts, matched
   channels, programme totals, XML sizes and any build/validation failures.
+
+**Curated upstream guide sources cover every country.** `sources.json` → `epg_sources` lists the
+public XMLTV feeds every guide build merges ahead of the guides found in playlist headers:
+[`iptv-epg.org`](https://iptv-epg.org/guides) (`epg-us.xml` and the other per-country `epg-<cc>.xml.gz`
+files) and [`epg.pw`](https://epg.pw/xmltv.html?lang=en) (`epg.xml.gz` one-for-all plus `epg_<CC>.xml.gz`
+per country). `scripts/epg_sources.py` expands one URL per published country playlist (345 curated
+URLs across 172 countries in the current configuration). The nightly guide check verifies every one
+of them (`playlists/checks/EPG-CHECK.md`), the merge matches them to playlist channels by ID and by
+display name — fanning a schedule out to same-country backup feeds of one station — and the merged
+guide is the only one advertised to players, so no player ever downloads the raw upstream files.
 
 **Local stations are treated conservatively.** The curated Lancaster/Harrisburg/Johnstown/Philadelphia
 feeds are in the USA playlist and are link-checked with the rest. A generic national `NBC.us` guide

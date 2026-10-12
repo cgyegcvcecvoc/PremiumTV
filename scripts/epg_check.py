@@ -64,6 +64,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import scraper  # noqa: E402  (reuses the shared HTTP/TLS helpers)
+import epg_sources  # noqa: E402  (the curated per-country guide list)
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -332,7 +333,7 @@ def collect_targets(out_dir: Path, extra: list, all_playlists: bool,
 
 def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int,
         extra_guides: list, patch: bool, dry_run: bool, min_working_ratio: float,
-        label: str) -> dict:
+        label: str, curated: list | None = None) -> dict:
     started = dt.datetime.now(dt.timezone.utc)
     per_playlist = {}
     guides: list = []
@@ -341,8 +342,15 @@ def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int
         per_playlist[str(path)] = found
         guides.extend(found)
     guides.extend(extra_guides)
+    # Curated per-country sources (sources.json -> epg_sources) are verified
+    # like any other guide, but never advertised in a playlist header: the
+    # merged guide already carries their listings.
+    curated_urls = [url for url in (curated or []) if url]
+    curated_set = set(curated_urls)
+    guides.extend(curated_urls)
     guides = list(dict.fromkeys(guides))
-    log(f"[epg] {len(guides)} unique guide URLs across {len(targets)} playlists")
+    log(f"[epg] {len(guides)} unique guide URLs across {len(targets)} playlists"
+        + (f" ({len(curated_set)} curated sources)" if curated_set else ""))
 
     results: dict = {}
     if guides:
@@ -361,21 +369,36 @@ def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int
                                     "elapsed": 0.0, "own_repo": is_own_guide(url)}
                 if index % 25 == 0 or index == len(guides):
                     log(f"[epg] {index}/{len(guides)} guides checked")
+    for url in curated_set:
+        if url in results:
+            results[url]["curated"] = True
     finished = dt.datetime.now(dt.timezone.utc)
 
     totals: dict = {}
     for result in results.values():
         totals[result["status"]] = totals.get(result["status"], 0) + 1
+    curated_totals: dict = {}
+    for url in curated_set:
+        status = results.get(url, {}).get("status", "unchecked")
+        curated_totals[status] = curated_totals.get(status, 0) + 1
     # The working share is what decides whether a run looks like an outage, so it
-    # is measured over the upstream guides only - see is_own_guide().
+    # is measured over the upstream guides only - see is_own_guide(). A curated
+    # per-country URL that answers 404 was simply never published (no epg-xx
+    # file for that country): that is the normal shape of the curated list, not
+    # evidence of a network problem, so it is left out of the share entirely.
     upstream = [result for result in results.values() if not result.get("own_repo")]
     own = [result for result in results.values() if result.get("own_repo")]
     own_totals: dict = {}
     for result in own:
         own_totals[result["status"]] = own_totals.get(result["status"], 0) + 1
-    checked = len(upstream)
+    unpublished_curated = [result for result in upstream
+                           if result.get("curated") and result.get("status") == "offline"]
+    checked = len(upstream) - len(unpublished_curated)
     working = sum(1 for result in upstream if result["status"] in ("ok", "empty"))
     ratio = working / checked if checked else 0.0
+    if unpublished_curated:
+        log(f"[epg] {len(unpublished_curated)} curated per-country guides were never "
+            f"published (404); excluded from the working share")
     if own:
         log(f"[epg] {len(own)} of {len(results)} guides are this repository's own "
             f"published files; excluded from the working share "
@@ -433,6 +456,14 @@ def run(out_dir: Path, targets: list, timeout: float, workers: int, retries: int
         "totals": totals,
         "working_ratio": round(ratio, 4),
         "upstream_guides": checked,
+        "curated_sources": {
+            "count": len(curated_set),
+            "statuses": curated_totals,
+            "unpublished": len(unpublished_curated),
+            "note": ("per-country XMLTV feeds from sources.json (epg_sources), verified "
+                     "here and merged by epg_build; never advertised in playlist headers"),
+            "urls": sorted(curated_set),
+        },
         "own_guides": {
             "count": len(own),
             "statuses": own_totals,
@@ -482,6 +513,25 @@ def write_reports(out_dir: Path, report: dict) -> list:
         lines.append(f"| `{name}` | {guide.get('channels', 0)} | "
                      f"{guide.get('programmes', 0)} | {guide.get('newest_programme') or '-'} | "
                      f"{guide.get('bytes', 0) // 1024} KB |")
+    curated = report.get("curated_sources") or {}
+    if curated.get("count"):
+        statuses = ", ".join(f"{status}={count}" for status, count
+                             in sorted((curated.get("statuses") or {}).items()))
+        curated_guides = [guide for guide in report["guides"] if guide.get("curated")]
+        lines += ["", "## Curated per-country sources", "",
+                  f"{curated['count']} guide URL(s) from `sources.json` (`epg_sources`) are "
+                  "verified on every run and merged by `scripts/epg_build.py` ahead of the "
+                  "guides found in playlist headers. They are never advertised in an "
+                  "`x-tvg-url` header - the merged guide already carries their listings. "
+                  f"Status this run: {statuses or 'unchecked'}.", "",
+                  "| Source | Status | Channels | Programmes sampled |",
+                  "|---|---|---:|---:|"]
+        for guide in curated_guides[:30]:
+            name = guide["url"].rsplit("/", 1)[-1]
+            lines.append(f"| `{name}` | {guide.get('status')} | {guide.get('channels', 0)} | "
+                         f"{guide.get('programmes', 0)} |")
+        if len(curated_guides) > 30:
+            lines.append(f"| … {len(curated_guides) - 30} more | | | |")
     broken = [guide for guide in report["guides"]
               if not guide.get("own_repo")
               and (guide.get("status") in DEAD_STATUSES or guide.get("status") == "blocked")]
@@ -556,6 +606,9 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--countries", action="store_true", help="include country playlists")
     ap.add_argument("--guide", action="append", default=[],
                     help="extra guide URL to verify (and add with --patch)")
+    ap.add_argument("--no-curated", action="store_true",
+                    help="skip the curated per-country guides from sources.json "
+                         "(epg_sources)")
     ap.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT,
                     help="per-guide timeout in seconds")
     ap.add_argument("--workers", type=int, default=12, help="concurrent guide checks")
@@ -578,7 +631,9 @@ def main(argv=None) -> int:
         return 2
     report = run(out_dir, targets, args.timeout, args.workers, args.retries,
                  list(dict.fromkeys(args.guide)), args.patch, args.dry_run,
-                 args.min_working_ratio, args.label)
+                 args.min_working_ratio, args.label,
+                 curated=[] if args.no_curated
+                 else epg_sources.curated_guide_urls(out_dir / "countries"))
     if args.patch and not args.dry_run:
         report["patch"]["edit_log"] = str(
             display_path(append_edit_log(out_dir, report)))

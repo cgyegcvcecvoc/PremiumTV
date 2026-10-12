@@ -12,10 +12,11 @@ android {
         applicationId = "com.premiumtv.app"
         minSdk = 23
         targetSdk = 34
-        // Beta 4 adds persistent, network-aware background data refreshes and
-        // a full force-refresh action while keeping Beta 3 as the default release.
-        versionCode = 4
-        versionName = "1.0.0-beta4"
+        // 1.0.0 "Marquee": the first official release. Persistent, network-aware
+        // background data refreshes, a full force-refresh action, and a merged
+        // guide built from the curated per-country EPG sources.
+        versionCode = 5
+        versionName = "1.0.0"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -26,8 +27,8 @@ android {
             versionNameSuffix = "-debug"
         }
         release {
-            // R8 is off for the beta so a stack trace from a TV device maps
-            // straight back to this source tree.
+            // R8 is off so a stack trace from a TV device maps straight back
+            // to this source tree.
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

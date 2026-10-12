@@ -198,6 +198,35 @@ class EpgCheckTest(unittest.TestCase):
         first = path.read_text(encoding="utf-8").splitlines()[0]
         self.assertIn("plain.xml", first)
 
+    def test_curated_sources_are_verified_but_never_advertised(self):
+        path = self.write_playlist([f"{self.base}/guide.xml.gz"])
+        curated = [f"{self.base}/plain.xml", f"{self.base}/gone.xml.gz"]
+        report = epg_check.run(self.out, [path], 10, 6, 1, [], True, False, 0.25, "unit",
+                               curated=curated)
+        by_url = {guide["url"]: guide for guide in report["guides"]}
+        self.assertTrue(by_url[f"{self.base}/plain.xml"]["curated"])
+        self.assertTrue(by_url[f"{self.base}/gone.xml.gz"]["curated"])
+        self.assertEqual(report["curated_sources"]["count"], 2)
+        self.assertEqual(report["curated_sources"]["statuses"],
+                         {"ok": 1, "offline": 1})
+        # --patch must not push curated feeds into any x-tvg-url header.
+        self.assertEqual(epg_check.extract_guides(path), [f"{self.base}/guide.xml.gz"])
+        self.assertEqual(report["patch"]["added"], [])
+        self.assertEqual(report["curated_sources"]["unpublished"], 1)
+
+    def test_unpublished_curated_guides_do_not_fake_an_outage(self):
+        # Five curated per-country URLs that were never published (404) plus one
+        # working advertised guide: the run is healthy and patching must go
+        # ahead, exactly like a curated list with far more countries than the
+        # two upstream families actually cover.
+        path = self.write_playlist([f"{self.base}/guide.xml.gz"])
+        curated = [f"{self.base}/never-{index}.xml.gz" for index in range(5)]
+        report = epg_check.run(self.out, [path], 10, 6, 1, [], True, False, 0.9, "unit",
+                               curated=curated)
+        self.assertEqual(report["working_ratio"], 1.0)
+        self.assertEqual(report["curated_sources"]["unpublished"], 5)
+        self.assertFalse(report["patch"]["aborted"])
+
     def test_patch_aborts_when_guides_are_unreachable(self):
         path = self.write_playlist([f"{self.base}/slow.xml.gz"])
         report = epg_check.run(self.out, [path], 0.5, 4, 0, [], True, False, 0.9, "unit")
@@ -218,7 +247,7 @@ class EpgCheckTest(unittest.TestCase):
         buffer = StringIO()
         with redirect_stdout(buffer):
             code = epg_check.main(["--out", str(self.out), "--playlist", str(path),
-                                   "--patch", "--label", "unit test"])
+                                   "--patch", "--no-curated", "--label", "unit test"])
         self.assertEqual(code, 0)
         checks = self.out / "checks"
         report = json.loads((checks / "epg-check.json").read_text())

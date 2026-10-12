@@ -144,7 +144,7 @@ class TvRepository(private val app: Application) {
             Log.e(TAG, "The channel data bundled in this APK could not be read", e)
             _state.value = LoadState.Error(
                 "The channel data inside this app could not be read.\n" +
-                    "Install the latest PremiumTV beta APK and retry.\n\n" +
+                    "Install the latest PremiumTV release and retry.\n\n" +
                     "Detail: ${e.javaClass.simpleName}: ${e.message ?: "no message"}"
             )
         }
