@@ -26,6 +26,10 @@ on:
   # GitHub's scheduler is late or a link needs checking right away. The workflow
   # never writes to that file, so it cannot trigger itself.
   push:
+    # Tag pushes (release tags) must not run the pipeline; path filters are
+    # not evaluated for tags and would fire every workflow on each release.
+    tags-ignore:
+      - "**"
     paths:
       - "playlists/logs/run-deep-check.txt"
   schedule:

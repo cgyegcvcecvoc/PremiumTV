@@ -40,6 +40,10 @@ on:
   # playlists/logs/run-scrape.txt and pushing runs a full checked scrape on that
   # branch. The workflow never writes to that file, so it cannot trigger itself.
   push:
+    # Tag pushes (release tags) must not run the pipeline; path filters are
+    # not evaluated for tags and would fire every workflow on each release.
+    tags-ignore:
+      - "**"
     paths:
       - "playlists/logs/run-scrape.txt"
   workflow_dispatch:

@@ -68,6 +68,10 @@ on:
   # cleanup_repo.py refuses to touch logs/run-*.txt for exactly this reason - so
   # it cannot trigger itself.
   push:
+    # Tag pushes (release tags) must not run the pipeline; path filters are
+    # not evaluated for tags and would fire every workflow on each release.
+    tags-ignore:
+      - "**"
     paths:
       - "playlists/logs/run-cleanup.txt"
   workflow_dispatch:
