@@ -169,4 +169,11 @@ jobs:
             exit 0
           fi
           git commit -m "ci: publish mac build log (run ${{ github.run_number }}) [skip ci]"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          # Android and Mac build on the same push and may publish their logs
+          # in either order. Rebase over the other job's log commit instead of
+          # failing a successful installer build with a non-fast-forward push.
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep 5
+          done
+          exit 1
