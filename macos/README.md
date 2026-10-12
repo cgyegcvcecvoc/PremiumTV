@@ -11,6 +11,8 @@ runner and attached to the [v1.0.0-mac2 pre-release](https://github.com/cgyegcvc
 as `PremiumTV-1.0.0-mac2-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
 `...-arm64.pkg`, with `SHA256SUMS.txt`. It prevents overlapping refresh clicks
 from causing duplicate downloads and keeps refresh failures visible in the app.
+The v1.0.0-mac2 release bundle is rebuilt from the checked-in USA playlist and
+guide after the manual verified repository scrape on 2026-10-12.
 
 ## Installing
 
