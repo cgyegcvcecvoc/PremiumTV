@@ -67,7 +67,11 @@ jobs:
 
       - name: Build .dmg, .zip and .pkg for Intel and Apple Silicon
         working-directory: macos/app
-        run: npx electron-builder --mac dmg zip pkg --x64 --arm64
+        run: |
+          set -o pipefail
+          mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
+          npx electron-builder --mac dmg zip pkg --x64 --arm64 2>&1 \
+            | tee "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
 
       - name: Checksum the installers
         working-directory: macos/app/dist
@@ -101,3 +105,31 @@ jobs:
             macos/app/dist/*.pkg \
             macos/app/dist/SHA256SUMS.txt --clobber
           gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'
+
+      # Publish the build log to the branch even on failure, because uploaded
+      # Actions logs are not readable from every environment. The [skip ci]
+      # marker and the path filter keep this from re-triggering a build.
+      - name: Publish build log to the branch
+        if: always()
+        run: |
+          set -uo pipefail
+          mkdir -p macos/build-out
+          if [ -f macos/build-out/build-log.txt ]; then
+            tail -c 400000 macos/build-out/build-log.txt > macos/build-out/build-log.tail.txt
+            mv macos/build-out/build-log.tail.txt macos/build-out/build-log.txt
+          else
+            echo "no build log produced" > macos/build-out/build-log.txt
+          fi
+          if [ "${GITHUB_REF_TYPE}" != "branch" ]; then
+            echo "Ref ${GITHUB_REF_NAME} is a ${GITHUB_REF_TYPE}, not a branch: nothing to push."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f macos/build-out
+          if git diff --cached --quiet; then
+            echo "Nothing new to publish."
+            exit 0
+          fi
+          git commit -m "ci: publish mac build log (run ${{ github.run_number }}) [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
