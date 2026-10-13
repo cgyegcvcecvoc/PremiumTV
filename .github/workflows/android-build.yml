@@ -93,6 +93,22 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
+      # The runner disk is nearly full by the time the SDK, the Gradle build
+      # and this checkout are on it (~6.7 GB free), while a default AVD data
+      # partition needs ~7.4 GB: the emulator died instantly with "Not enough
+      # space to create userdata partition" and the boot wait simply polled
+      # until its timeout, skipping the APK collect/attach steps below.
+      # Reclaim the preinstalled toolchains this job never uses, and give the
+      # AVD a 2 GB data partition - the smoke test only installs the APK and
+      # dumps the UI hierarchy, so it needs neither the space nor a GPU.
+      - name: Free disk space for the emulator
+        run: |
+          df -h /
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup \
+            /opt/hostedtoolcache/CodeQL /usr/local/share/powershell || true
+          sudo docker image prune --all --force || true
+          df -h /
+
       - name: Smoke test cold launch and relaunch of the built APK
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -100,9 +116,10 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_2
+          disk-size: 2048M
           ram-size: 2048M
-          emulator-boot-timeout: 300
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -camera-back none
+          emulator-boot-timeout: 600
+          emulator-options: -no-window -gpu off -noaudio -no-boot-anim -no-snapshot -camera-back none
           disable-animations: true
           script: python3 android/tools/smoke_apk.py
 
