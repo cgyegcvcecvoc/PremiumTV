@@ -28,6 +28,15 @@
     <display-name>6721</display-name>
     <icon src="https://epg.pw/media/images/epg/2024/06/08/20240608025936080657_96.png" />
   </channel>
+  <channel id="TSN.3.ca2">
+    <display-name>TSN 3</display-name>
+    <display-name>TSN 3 HD</display-name>
+    <display-name>470389</display-name>
+    <display-name>470888</display-name>
+    <display-name>TSN3</display-name>
+    <display-name>6987</display-name>
+    <icon src="https://epg.pw/media/images/epg/2024/06/08/20240608031449844446_74.png" />
+  </channel>
   <channel id="TSN.5.ca2">
     <display-name>TSN 5</display-name>
     <display-name>470390</display-name>
@@ -599,7 +608,6 @@
   </channel>
   <channel id="HauntTV.ca@SD">
     <display-name>HauntTV (1080p)</display-name>
-    <display-name>HauntTV CA (720p)</display-name>
     <icon src="https://images.pluto.tv/channels/63934c218ef524000757b122/colorLogoPNG.png" />
   </channel>
   <channel id="HauntTV.ca@CA">
@@ -623,34 +631,6 @@
     <display-name>The Weather Network (Backup 1)</display-name>
     <icon src="https://i.imgur.com/V6ZUwUY.png" />
   </channel>
-  <programme start="20261013000000 +0000" stop="20261013030000 +0000" channel="Sportsnet.East.ca2">
-    <title>Live: MLB Baseball</title>
-    <desc>The Tampa Bay Rays host the Cleveland Guardians in Game 1 of the 2026 American League Championship Series at Tropicana Field. Angel Martinez leads the Guardians in home runs, while Junior Caminero leads the Rays in home runs and RBIs.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Playoff sports</category>
-    <category lang="en">Baseball</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003RZPEQ.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
-  </programme>
-  <programme start="20261013030000 +0000" stop="20261013040000 +0000" channel="Sportsnet.East.ca2">
-    <title>Live: Sportsnet Central</title>
-    <desc>Canada's premier destination for sports and analysis.</desc>
-    <category lang="en">News</category>
-    <date>2014</date>
-    <icon src="http://dtil.tmsimg.com/assets/p11080201_b_h8_ag.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="Sportsnet.East.ca2">
-    <title>NLCS in 30</title>
-    <sub-title>Game 2: Los Angeles Dodgers at Milwaukee Brewers</sub-title>
-    <desc>From October 12, 2026.</desc>
-    <category lang="en">Series</category>
-    <category lang="en">Baseball</category>
-    <episode-num system="onscreen">E2</episode-num>
-    <date>2026</date>
-    <icon src="http://dtil.tmsimg.com/assets/p34326380_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
   <programme start="20261013043000 +0000" stop="20261013050000 +0000" channel="Sportsnet.East.ca2">
     <title>ALCS in 30</title>
     <sub-title>Game 1: Cleveland at Tampa Bay</sub-title>
@@ -1116,13 +1096,29 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013001500 +0000" stop="20261013033000 +0000" channel="TSN.1.ca2">
-    <title>Live: NFL Football</title>
-    <desc>The Rams host the Bills at SoFi Stadium. Buffalo lost its previous game to New England 29-26, while the Rams have alternated wins and losses. The Rams rely on Matthew Stafford, who has six touchdowns; Buffalo looks to Josh Allen, who has six as well.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0039LLNF.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
+  <programme start="20261015070000 +0000" stop="20261015073000 +0000" channel="Sportsnet.East.ca2">
+    <title>NLCS in 30</title>
+    <desc>From October 12, 2026.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015073000 +0000" stop="20261015080000 +0000" channel="Sportsnet.East.ca2">
+    <title>Live: MLB Central</title>
+    <desc>Coverage and analysis of Major League Baseball.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015080000 +0000" stop="20261015110000 +0000" channel="Sportsnet.East.ca2">
+    <title>Live: MLB Baseball</title>
+    <desc>National League Championship Series, Game 3.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013033000 +0000" stop="20261013050000 +0000" channel="TSN.1.ca2">
     <title>Live: SC With Jay Onrait</title>
@@ -1707,35 +1703,21 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013000000 +0000" stop="20261013020000 +0000" channel="TSN.2.ca2">
-    <title>Women's International Friendly Football</title>
-    <desc>From BMO Field in Toronto.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003D3VBB.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
+  <programme start="20261015070000 +0000" stop="20261015090000 +0000" channel="TSN.1.ca2">
+    <title>Live: WNBA Basketball</title>
+    <desc>All the latest basketball action from the WNBA.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013023000 +0000" channel="TSN.2.ca2">
-    <title>SC</title>
-    <sub-title>Top Overtime Moments</sub-title>
-    <desc>The best and worst from the world of sports.</desc>
-    <category lang="en">Series</category>
-    <category lang="en">Anthology</category>
-    <episode-num system="onscreen">E14</episode-num>
-    <date>2025</date>
-    <icon src="http://dtil.tmsimg.com/assets/p11413944_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261013023000 +0000" stop="20261013030000 +0000" channel="TSN.2.ca2">
-    <title>SC</title>
-    <sub-title>Top 50 CHL Goals</sub-title>
-    <desc>The best and worst from the world of sports.</desc>
-    <category lang="en">Series</category>
-    <category lang="en">Anthology</category>
-    <episode-num system="onscreen">E32</episode-num>
-    <date>2023</date>
-    <icon src="http://dtil.tmsimg.com/assets/p11413944_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
+  <programme start="20261015090000 +0000" stop="20261015110000 +0000" channel="TSN.1.ca2">
+    <title>Live: WNBA Basketball</title>
+    <desc>All the latest basketball action from the WNBA.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013030000 +0000" stop="20261013090000 +0000" channel="TSN.2.ca2">
     <title>Live: 2026 Dongfeng Voyah Wuhan Open Tennis</title>
@@ -2441,24 +2423,550 @@
     <icon src="http://dtil.tmsimg.com/assets/p33571998_b_h10_ab.jpg?w=960&amp;h=540" />
     <premiere lang="en" />
   </programme>
-  <programme start="20261013001500 +0000" stop="20261013033000 +0000" channel="TSN.5.ca2">
-    <title>Live: NFL Football</title>
-    <desc>The Rams host the Bills at SoFi Stadium. Buffalo lost its previous game to New England 29-26, while the Rams have alternated wins and losses. The Rams rely on Matthew Stafford, who has six touchdowns; Buffalo looks to Josh Allen, who has six as well.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0039LLNF.jpg?w=960&amp;h=540" />
+  <programme start="20261015100000 +0000" stop="20261015103000 +0000" channel="TSN.2.ca2">
+    <title>SC</title>
+    <desc>The best and worst from the world of sports.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015103000 +0000" stop="20261015110000 +0000" channel="TSN.2.ca2">
+    <title>SC</title>
+    <desc>The best and worst from the world of sports.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013033000 +0000" stop="20261013050000 +0000" channel="TSN.3.ca2">
+    <title>Live: SC With Jay Onrait</title>
+    <desc>The latest scores and highlights, with host Jay Onrait.</desc>
+    <category lang="en">Sports talk</category>
+    <credits>
+      <actor>Jay Onrait</actor>
+    </credits>
+    <date>2021</date>
+    <icon src="http://dtil.tmsimg.com/assets/p19487661_b_h8_ac.jpg?w=960&amp;h=540" />
     <premiere lang="en" />
   </programme>
-  <programme start="20261013033000 +0000" stop="20261013040000 +0000" channel="TSN.5.ca2">
+  <programme start="20261013050000 +0000" stop="20261013060000 +0000" channel="TSN.3.ca2">
+    <title>Live: SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013060000 +0000" stop="20261013070000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013070000 +0000" stop="20261013073000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261013073000 +0000" stop="20261013083000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261013083000 +0000" stop="20261013093000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013093000 +0000" stop="20261013103000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013103000 +0000" stop="20261013113000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013113000 +0000" stop="20261013123000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013123000 +0000" stop="20261013133000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013133000 +0000" stop="20261013143000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013143000 +0000" stop="20261013153000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013153000 +0000" stop="20261013163000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261013163000 +0000" stop="20261013170000 +0000" channel="TSN.3.ca2">
+    <title>Canadian Superbike Championship</title>
+    <desc>From Canadian Tire Motorsport Park in Bowmanville, Ont.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motorcycle racing</category>
+    <icon src="http://dtil.tmsimg.com/assets/p27644807_b_h10_ab.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013170000 +0000" stop="20261013173000 +0000" channel="TSN.3.ca2">
+    <title>Motorcycle Experience</title>
+    <desc>Dave Hatch and Emily Roberts share their passion for the sport as they interview motorcycle enthusiasts, share hard won tips and tricks, review the latest bikes, and travel to some of the best riding locations across North America.</desc>
+    <category lang="en">Motorcycle</category>
+    <date>2000</date>
+    <icon src="http://dtil.tmsimg.com/assets/p809237_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261013173000 +0000" stop="20261013180000 +0000" channel="TSN.3.ca2">
     <title>SC</title>
-    <sub-title>Top 40 Wild and Wacky Finishes</sub-title>
+    <sub-title>NBA Plays of the Year</sub-title>
     <desc>The best and worst from the world of sports.</desc>
     <category lang="en">Series</category>
     <category lang="en">Anthology</category>
-    <episode-num system="onscreen">E8</episode-num>
+    <category lang="en">Documentary</category>
+    <episode-num system="onscreen">E22</episode-num>
     <date>2026</date>
     <icon src="http://dtil.tmsimg.com/assets/p11413944_b_h10_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
+  </programme>
+  <programme start="20261013180000 +0000" stop="20261013190000 +0000" channel="TSN.3.ca2">
+    <title>Live: Big Day With Peter Schrager</title>
+    <desc>Peter Schrager's daily show will feature rotating panelists focusing heavily on the NFL while also providing coverage of other major sports stories.</desc>
+    <category lang="en">Football</category>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p34014283_b_h8_ab.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013190000 +0000" stop="20261013200000 +0000" channel="TSN.3.ca2">
+    <title>Live: NBA Today</title>
+    <desc>In-depth, comprehensive daily coverage of all aspects of the NBA from expert analysts.</desc>
+    <category lang="en">Sports talk</category>
+    <category lang="en">Basketball</category>
+    <credits>
+      <actor>Malika Andrews</actor>
+      <actor>Kendrick Perkins</actor>
+      <actor>Chiney Ogwumike</actor>
+    </credits>
+    <date>2021</date>
+    <icon src="http://dtil.tmsimg.com/assets/p22600822_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013200000 +0000" stop="20261013210000 +0000" channel="TSN.3.ca2">
+    <title>NFL Live</title>
+    <desc>Host Laura Rutledge takes the helm of this weekday show featuring the likes of Marcus Spears, Dan Orlovsky, Mina Kimes, and Adam Schefter. The "NFL Live" crew entertains fans while offering all the latest news and analysis from across the NFL.</desc>
+    <category lang="en">Football</category>
+    <credits>
+      <actor>Laura Rutledge</actor>
+      <actor>Marcus Spears</actor>
+      <actor>Dan Orlovsky</actor>
+    </credits>
+    <date>2003</date>
+    <icon src="http://dtil.tmsimg.com/assets/p17830833_b_h10_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+  </programme>
+  <programme start="20261013210000 +0000" stop="20261013213000 +0000" channel="TSN.3.ca2">
+    <title>College Football Live</title>
+    <desc>Want to know up-to-the-minute reports about your favorite college football team? ESPN has it covered with this weekday studio show, a roundtable format that emphasizes discussion and opinions on the sport's biggest stories and newsmakers. The half-hour program features a rotating roster of analysts that includes coaches, former players, and media personalities.</desc>
+    <category lang="en">Football</category>
+    <category lang="en">News</category>
+    <credits>
+      <actor>Kelsey Riggs</actor>
+      <actor>Jen Lada</actor>
+      <actor>Desmond Howard</actor>
+    </credits>
+    <date>2020</date>
+    <icon src="http://dtil.tmsimg.com/assets/p221266_b_h10_ah.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+  </programme>
+  <programme start="20261013213000 +0000" stop="20261013220000 +0000" channel="TSN.3.ca2">
+    <title>Live: Pardon the Interruption</title>
+    <desc>The debate is the story in this fast-paced, half-hour series hosted by former Washington Post sportswriters Tony Kornheiser and Michael Wilbon. The pair engage in high-energy discussions, conduct interviews and often argue over topics not even related to sports. Other sports reporters appear as guests and offer opinions on the top stories of the day.</desc>
+    <category lang="en">Sports talk</category>
+    <credits>
+      <actor>Tony Kornheiser</actor>
+      <actor>Michael Wilbon</actor>
+    </credits>
+    <date>2001</date>
+    <icon src="http://dtil.tmsimg.com/assets/p31727874_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013220000 +0000" stop="20261013233000 +0000" channel="TSN.3.ca2">
+    <title>Live: SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261013233000 +0000" stop="20261014001500 +0000" channel="TSN.3.ca2">
+    <title>Live: Winnipeg Jets Pregame</title>
+    <desc>Pregame coverage for the Winnipeg Jets.</desc>
+    <category lang="en">Hockey</category>
+    <date>2011</date>
+    <icon src="http://dtil.tmsimg.com/assets/p8856318_b_h10_ab.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014001500 +0000" stop="20261014024500 +0000" channel="TSN.3.ca2">
+    <title>Live: NHL Hockey</title>
+    <desc>The Winnipeg Jets host the Minnesota Wild for a Central Division showdown at Canada Life Centre. Minnesota's defense Quinn Hughes leads the team in points and assists, while Winnipeg's left winger Kyle Connor leads in points and goals.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Hockey</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003NJC7V.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014024500 +0000" stop="20261014040000 +0000" channel="TSN.3.ca2">
+    <title>Live: SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014040000 +0000" stop="20261014080000 +0000" channel="TSN.3.ca2">
+    <title>Live: 2026 Rolex Shanghai Masters Tennis</title>
+    <desc>From Qizhong Forest Sports City Arena in Shanghai, China.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <icon src="http://dtil.tmsimg.com/assets/p33511409_b_h10_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014080000 +0000" stop="20261014090000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014090000 +0000" stop="20261014100000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261014100000 +0000" stop="20261014140000 +0000" channel="TSN.3.ca2">
+    <title>Live: 2026 Rolex Shanghai Masters Tennis</title>
+    <desc>From Qizhong Forest Sports City Arena in Shanghai, China.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <icon src="http://dtil.tmsimg.com/assets/p33511409_b_h10_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014140000 +0000" stop="20261014143000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261014143000 +0000" stop="20261014153000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261014153000 +0000" stop="20261014163000 +0000" channel="TSN.3.ca2">
+    <title>SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261014163000 +0000" stop="20261014170000 +0000" channel="TSN.3.ca2">
+    <title>SC</title>
+    <sub-title>Top Bloopers of All-Time</sub-title>
+    <desc>The best and worst from the world of sports.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Anthology</category>
+    <episode-num system="onscreen">E12</episode-num>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p11413944_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261014170000 +0000" stop="20261014173000 +0000" channel="TSN.3.ca2">
+    <title>SC</title>
+    <sub-title>Top PWHL Moments</sub-title>
+    <desc>The best and worst from the world of sports.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Anthology</category>
+    <episode-num system="onscreen">E15</episode-num>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p11413944_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261014173000 +0000" stop="20261014180000 +0000" channel="TSN.3.ca2">
+    <title>SC</title>
+    <sub-title>Top 50 Defensive Plays of All-Time</sub-title>
+    <desc>The best and worst from the world of sports.</desc>
+    <category lang="en">Series</category>
+    <category lang="en">Anthology</category>
+    <episode-num system="onscreen">E9</episode-num>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p11413944_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261014180000 +0000" stop="20261014190000 +0000" channel="TSN.3.ca2">
+    <title>Live: Big Day With Peter Schrager</title>
+    <desc>Peter Schrager's daily show will feature rotating panelists focusing heavily on the NFL while also providing coverage of other major sports stories.</desc>
+    <category lang="en">Football</category>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p34014283_b_h8_ab.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014190000 +0000" stop="20261014200000 +0000" channel="TSN.3.ca2">
+    <title>Live: NBA Today</title>
+    <desc>In-depth, comprehensive daily coverage of all aspects of the NBA from expert analysts.</desc>
+    <category lang="en">Sports talk</category>
+    <category lang="en">Basketball</category>
+    <credits>
+      <actor>Malika Andrews</actor>
+      <actor>Kendrick Perkins</actor>
+      <actor>Chiney Ogwumike</actor>
+    </credits>
+    <date>2021</date>
+    <icon src="http://dtil.tmsimg.com/assets/p22600822_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014200000 +0000" stop="20261014210000 +0000" channel="TSN.3.ca2">
+    <title>NFL Live</title>
+    <desc>Host Laura Rutledge takes the helm of this weekday show featuring the likes of Marcus Spears, Dan Orlovsky, Mina Kimes, and Adam Schefter. The "NFL Live" crew entertains fans while offering all the latest news and analysis from across the NFL.</desc>
+    <category lang="en">Football</category>
+    <credits>
+      <actor>Laura Rutledge</actor>
+      <actor>Marcus Spears</actor>
+      <actor>Dan Orlovsky</actor>
+    </credits>
+    <date>2003</date>
+    <icon src="http://dtil.tmsimg.com/assets/p17830833_b_h10_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+  </programme>
+  <programme start="20261014210000 +0000" stop="20261014213000 +0000" channel="TSN.3.ca2">
+    <title>College Football Live</title>
+    <desc>Want to know up-to-the-minute reports about your favorite college football team? ESPN has it covered with this weekday studio show, a roundtable format that emphasizes discussion and opinions on the sport's biggest stories and newsmakers. The half-hour program features a rotating roster of analysts that includes coaches, former players, and media personalities.</desc>
+    <category lang="en">Football</category>
+    <category lang="en">News</category>
+    <credits>
+      <actor>Kelsey Riggs</actor>
+      <actor>Jen Lada</actor>
+      <actor>Desmond Howard</actor>
+    </credits>
+    <date>2020</date>
+    <icon src="http://dtil.tmsimg.com/assets/p221266_b_h10_ah.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>L</value>
+    </rating>
+  </programme>
+  <programme start="20261014213000 +0000" stop="20261014220000 +0000" channel="TSN.3.ca2">
+    <title>Live: Pardon the Interruption</title>
+    <desc>The debate is the story in this fast-paced, half-hour series hosted by former Washington Post sportswriters Tony Kornheiser and Michael Wilbon. The pair engage in high-energy discussions, conduct interviews and often argue over topics not even related to sports. Other sports reporters appear as guests and offer opinions on the top stories of the day.</desc>
+    <category lang="en">Sports talk</category>
+    <credits>
+      <actor>Tony Kornheiser</actor>
+      <actor>Michael Wilbon</actor>
+    </credits>
+    <date>2001</date>
+    <icon src="http://dtil.tmsimg.com/assets/p31727874_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014220000 +0000" stop="20261014230000 +0000" channel="TSN.3.ca2">
+    <title>Live: SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261014230000 +0000" stop="20261015010000 +0000" channel="TSN.3.ca2">
+    <title>Live: WNBA Basketball</title>
+    <desc>All the latest basketball action from the WNBA.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Playoff sports</category>
+    <category lang="en">Basketball</category>
+    <icon src="http://dtil.tmsimg.com/assets/p191289_b_h8_ai.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261015010000 +0000" stop="20261015030000 +0000" channel="TSN.3.ca2">
+    <title>Live: WNBA Basketball</title>
+    <desc>All the latest basketball action from the WNBA.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Playoff sports</category>
+    <category lang="en">Basketball</category>
+    <icon src="http://dtil.tmsimg.com/assets/p191289_b_h8_ai.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261015030000 +0000" stop="20261015040000 +0000" channel="TSN.3.ca2">
+    <title>Live: SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <category lang="en">News</category>
+    <category lang="en">Sports talk</category>
+    <date>2009</date>
+    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261015040000 +0000" stop="20261015050000 +0000" channel="TSN.3.ca2">
+    <title>Live: SC With Jay Onrait</title>
+    <desc>The latest scores and highlights, with host Jay Onrait.</desc>
+    <category lang="en">Sports talk</category>
+    <credits>
+      <actor>Jay Onrait</actor>
+    </credits>
+    <date>2021</date>
+    <icon src="http://dtil.tmsimg.com/assets/p19487661_b_h8_ac.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
+  </programme>
+  <programme start="20261015050000 +0000" stop="20261015053000 +0000" channel="TSN.3.ca2">
+    <title>College Football Live</title>
+    <desc>Want to know up-to-the-minute reports about your favorite college football team? ESPN has it covered with this weekday studio show, a roundtable format that emphasizes discussion and opinions on the sport's biggest stories and newsmakers. The half-hour program features a rotating roster of analysts that includes coaches, former players, and media personalities.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015053000 +0000" stop="20261015060000 +0000" channel="TSN.3.ca2">
+    <title>Live: Pardon the Interruption</title>
+    <desc>The debate is the story in this fast-paced, half-hour series hosted by former Washington Post sportswriters Tony Kornheiser and Michael Wilbon. The pair engage in high-energy discussions, conduct interviews and often argue over topics not even related to sports. Other sports reporters appear as guests and offer opinions on the top stories of the day.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015060000 +0000" stop="20261015070000 +0000" channel="TSN.3.ca2">
+    <title>Live: SportsCentre</title>
+    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015070000 +0000" stop="20261015090000 +0000" channel="TSN.3.ca2">
+    <title>Live: WNBA Basketball</title>
+    <desc>All the latest basketball action from the WNBA.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015090000 +0000" stop="20261015110000 +0000" channel="TSN.3.ca2">
+    <title>Live: WNBA Basketball</title>
+    <desc>All the latest basketball action from the WNBA.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013040000 +0000" stop="20261013080000 +0000" channel="TSN.5.ca2">
     <title>Live: 2026 Rolex Shanghai Masters Tennis</title>
@@ -2854,25 +3362,21 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013000500 +0000" stop="20261013010300 +0000" channel="TSNTheOcho.ca@SD">
-    <title>2019 Spikeball College Championship</title>
-    <live />
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="TSN.5.ca2">
+    <title>PBR Bull Riding</title>
+    <desc>Coverage of classic bull riding events from around the United States.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013010300 +0000" stop="20261013020300 +0000" channel="TSNTheOcho.ca@SD">
-    <title>Major League Table Tennis</title>
-    <live />
-  </programme>
-  <programme start="20261013020300 +0000" stop="20261013023200 +0000" channel="TSNTheOcho.ca@SD">
-    <title>Fling Golf</title>
-    <live />
-  </programme>
-  <programme start="20261013023200 +0000" stop="20261013030200 +0000" channel="TSNTheOcho.ca@SD">
-    <title>Professional Arm Wrestling Championship</title>
-    <live />
-  </programme>
-  <programme start="20261013030200 +0000" stop="20261013040000 +0000" channel="TSNTheOcho.ca@SD">
-    <title>2019 Spikeball College Championship</title>
-    <live />
+  <programme start="20261015080000 +0000" stop="20261015113000 +0000" channel="TSN.5.ca2">
+    <title>Live: College Football</title>
+    <desc>The Sam Houston Bearkats host the Western Kentucky Hilltoppers in a midweek Conference USA showdown at Elliott T. Bowers Stadium. The Hilltoppers rely on quarterback Rodney Tisdale Jr., while quarterback Landyn Locke leads the Bearkats.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013040000 +0000" stop="20261013050000 +0000" channel="TSNTheOcho.ca@SD">
     <title>Major League Table Tennis</title>
@@ -3102,13 +3606,25 @@
     <title>Major League Table Tennis</title>
     <live />
   </programme>
-  <programme start="20261013001500 +0000" stop="20261013033000 +0000" channel="TSN4.ca@SD">
-    <title>Live: NFL Football</title>
-    <desc>The Rams host the Bills at SoFi Stadium. Buffalo lost its previous game to New England 29-26, while the Rams have alternated wins and losses. The Rams rely on Matthew Stafford, who has six touchdowns; Buffalo looks to Josh Allen, who has six as well.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0039LLNF.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
+  <programme start="20261015070000 +0000" stop="20261015082500 +0000" channel="TSNTheOcho.ca@SD">
+    <title>Moxie Games 3</title>
+    <live />
+  </programme>
+  <programme start="20261015082500 +0000" stop="20261015092300 +0000" channel="TSNTheOcho.ca@SD">
+    <title>2019 Spikeball College Championship</title>
+    <live />
+  </programme>
+  <programme start="20261015092300 +0000" stop="20261015094500 +0000" channel="TSNTheOcho.ca@SD">
+    <title>2023 FootGolf World Cup</title>
+    <live />
+  </programme>
+  <programme start="20261015094500 +0000" stop="20261015100600 +0000" channel="TSNTheOcho.ca@SD">
+    <title>2023 FootGolf World Cup</title>
+    <live />
+  </programme>
+  <programme start="20261015100600 +0000" stop="20261015110500 +0000" channel="TSNTheOcho.ca@SD">
+    <title>Major League Table Tennis</title>
+    <live />
   </programme>
   <programme start="20261013033000 +0000" stop="20261013050000 +0000" channel="TSN4.ca@SD">
     <title>Live: SC With Jay Onrait</title>
@@ -3661,18 +4177,18 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013030000 +0000" channel="TSC.ca@SD">
-    <title>AquaTru: Home Water Purification</title>
-    <desc>Save on your favourite brands in Fitness, Beauty, Home and Other Categories! Free S&amp;H code: SHIP150. Interest-free payments. Best value guaranteed. EASY PAY? payments. New offers every day. Shop online at TSC.ca!</desc>
-    <date>20261013</date>
+  <programme start="20261015073000 +0000" stop="20261015093000 +0000" channel="TSN4.ca@SD">
+    <title>Live: MLS Soccer</title>
+    <desc>The Toronto FC host the Orlando City SC in MLS regular-season play at BMO Field. Orlando sits seventh in the Eastern Conference and won their last meeting, 3-0, in September, while Toronto has dropped three of its last four and sits in 11th place.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013040000 +0000" channel="TSC.ca@SD">
-    <title>AquaTru: Home Water Purification</title>
-    <desc>Save on your favourite brands in Fitness, Beauty, Home and Other Categories! Free S&amp;H code: SHIP150. Interest-free payments. Best value guaranteed. EASY PAY? payments. New offers every day. Shop online at TSC.ca!</desc>
-    <date>20261013</date>
+  <programme start="20261015093000 +0000" stop="20261015113000 +0000" channel="TSN4.ca@SD">
+    <title>Live: MLS Soccer</title>
+    <desc>The Colorado Rapids host the Minnesota United FC in MLS at Dick's Sporting Goods Park. Minnesota arrives without a win in last four, while Colorado, eighth in the Western Conference, won the last meeting, 1-0, at Allianz Field in May.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -4043,33 +4559,34 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012224500 +0000" stop="20261013010000 +0000" channel="StingrayClassica.ca@SD">
-    <title>Berlioz: The Damnation of Faust</title>
-  </programme>
-  <programme start="20261013011500 +0000" stop="20261013020000 +0000" channel="StingrayClassica.ca@SD">
-    <title>Mozart – Symphonie No. 36 «Linz»</title>
-    <date>20261013</date>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="TSC.ca@SD">
+    <title>Cuddl Duds - Live in Layers</title>
+    <desc>Shop Cuddl Duds for comfortable base layer, warm clothes and winter clothing. Quality, cozy styles for women, men and kids. Make layering a lifestyle.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013023500 +0000" channel="StingrayClassica.ca@SD">
-    <title>Beethoven Concerto pour piano no 1, Symphonie no 2</title>
-    <date>20261013</date>
+  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="TSC.ca@SD">
+    <title>Jewellery Showroom Sale</title>
+    <desc>Canada's Destination for Exclusive Brands. Shop TSC.ca!</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013023500 +0000" stop="20261013030000 +0000" channel="StingrayClassica.ca@SD">
-    <title>Copland – Appalachian Spring</title>
-    <date>20261013</date>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="TSC.ca@SD">
+    <title>L'Occitane: Journey to Provence</title>
+    <desc>Looking at skin care from L'Occitane; inspired by Provencal traditions, these formulas harness essential oils, shea butter and other regional ingredients.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013042500 +0000" channel="StingrayClassica.ca@SD">
-    <title>Requiem de Fauré</title>
-    <date>20261013</date>
+  <programme start="20261015100000 +0000" stop="20261015110000 +0000" channel="TSC.ca@SD">
+    <title>Comfy Bedding feat Shavel</title>
+    <desc>Shavel Home Products has been producing exquisite bed linens for over 100 years.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -4431,12 +4948,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013000000 +0000" stop="20261013020000 +0000" channel="StingrayCozyCafe.ca@HD">
-    <title>Welcome to Cozy Café</title>
-  </programme>
-  <programme start="20261013020000 +0000" stop="20261013040000 +0000" channel="StingrayCozyCafe.ca@HD">
-    <title>Welcome to Cozy Café</title>
-  </programme>
   <programme start="20261013040000 +0000" stop="20261013060000 +0000" channel="StingrayCozyCafe.ca@HD">
     <title>Welcome to Cozy Café</title>
   </programme>
@@ -4515,33 +5026,11 @@
   <programme start="20261015060000 +0000" stop="20261015080000 +0000" channel="StingrayCozyCafe.ca@HD">
     <title>Welcome to Cozy Café</title>
   </programme>
-  <programme start="20261013010300 +0000" stop="20261013022700 +0000" channel="StingrayDJAZZ.ca@SD">
-    <title>F.B. Orch. B.E. Ba. T.J. and M.L. Ba. – Newport</title>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015080000 +0000" stop="20261015100000 +0000" channel="StingrayCozyCafe.ca@HD">
+    <title>Welcome to Cozy Café</title>
   </programme>
-  <programme start="20261013022700 +0000" stop="20261013030400 +0000" channel="StingrayDJAZZ.ca@SD">
-    <title>GrĂSgory Privat – SOLEY</title>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013030400 +0000" stop="20261013041900 +0000" channel="StingrayDJAZZ.ca@SD">
-    <title>STUFF. live at BIRD Rotterdam</title>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013041900 +0000" stop="20261013044800 +0000" channel="StingrayDJAZZ.ca@SD">
-    <title>Paradox Live: Vein ft. Greg Osby</title>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015100000 +0000" stop="20261015120000 +0000" channel="StingrayCozyCafe.ca@HD">
+    <title>Welcome to Cozy Café</title>
   </programme>
   <programme start="20261013044800 +0000" stop="20261013055300 +0000" channel="StingrayDJAZZ.ca@SD">
     <title>MĂźnchner Klaviersommer: Eliane Elias Trio</title>
@@ -4977,8 +5466,33 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayEasyListening.ca@SD">
-    <title>Stingray Easy Listening</title>
+  <programme start="20261015073200 +0000" stop="20261015081200 +0000" channel="StingrayDJAZZ.ca@SD">
+    <title>PatĂĄx: A Night to Remember 2/2</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015081200 +0000" stop="20261015091400 +0000" channel="StingrayDJAZZ.ca@SD">
+    <title>Liz McComb in Paris: Back to Blues</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015091400 +0000" stop="20261015101400 +0000" channel="StingrayDJAZZ.ca@SD">
+    <title>Non Stop Travels: The Story of Michel Petrucciani</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015101400 +0000" stop="20261015111400 +0000" channel="StingrayDJAZZ.ca@SD">
+    <title>Hypnotic Brass Ensemble – Jazzwoche Burghausen</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayEasyListening.ca@SD">
     <title>Stingray Easy Listening</title>
@@ -5092,8 +5606,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayFlashback70s.ca@SD">
-    <title>Stingray Flashback 70's</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayEasyListening.ca@SD">
+    <title>Stingray Easy Listening</title>
+    <desc>A channel ideal for relaxing background music.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayFlashback70s.ca@SD">
     <title>Stingray Flashback 70's</title>
@@ -5207,8 +5726,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayHitList.ca@SD">
-    <title>Stingray Hit List</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayFlashback70s.ca@SD">
+    <title>Stingray Flashback 70's</title>
+    <desc>Polyester, platforms, Studio 54, flower power and the outrageousness of the 70s.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayHitList.ca@SD">
     <title>Stingray Hit List</title>
@@ -5322,8 +5846,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayHotCountry.ca@SD">
-    <title>Stingray Hot Country</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayHitList.ca@SD">
+    <title>Stingray Hit List</title>
+    <desc>Get the latest and the hottest chart-topping hits from today and preview the hits of tomorrow.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayHotCountry.ca@SD">
     <title>Stingray Hot Country</title>
@@ -5437,8 +5966,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayJukeboxOldies.ca@SD">
-    <title>Stingray Jukebox Oldies</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayHotCountry.ca@SD">
+    <title>Stingray Hot Country</title>
+    <desc>From Taylor Swift, Blake Shelton, Lady Antebellum to Carrie Underwood and Keith Urban, Stingray Music's Hot Country keeps the thermostat turned up to maximum.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayJukeboxOldies.ca@SD">
     <title>Stingray Jukebox Oldies</title>
@@ -5552,17 +6086,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012235900 +0000" stop="20261013005900 +0000" channel="StingrayNaturescape.ca@SD">
-    <title>Mystical River Relaxation</title>
-  </programme>
-  <programme start="20261013005900 +0000" stop="20261013015900 +0000" channel="StingrayNaturescape.ca@SD">
-    <title>Kapas Biru Waterfall: Indonesia</title>
-  </programme>
-  <programme start="20261013015900 +0000" stop="20261013025900 +0000" channel="StingrayNaturescape.ca@SD">
-    <title>Spectacular Setting Sun</title>
-  </programme>
-  <programme start="20261013025900 +0000" stop="20261013035900 +0000" channel="StingrayNaturescape.ca@SD">
-    <title>Flow of Life</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayJukeboxOldies.ca@SD">
+    <title>Stingray Jukebox Oldies</title>
+    <desc>The days of early rock and roll from the 50s - 60s.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013035900 +0000" stop="20261013045900 +0000" channel="StingrayNaturescape.ca@SD">
     <title>Songs of the Sea</title>
@@ -5711,8 +6241,17 @@
   <programme start="20261015055800 +0000" stop="20261015070000 +0000" channel="StingrayNaturescape.ca@SD">
     <title>Coral Kingdom</title>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayNothinBut90s.ca@SD">
-    <title>Stingray Nothin' but 90's</title>
+  <programme start="20261015070000 +0000" stop="20261015075900 +0000" channel="StingrayNaturescape.ca@SD">
+    <title>Snake Island: Philippines</title>
+  </programme>
+  <programme start="20261015075900 +0000" stop="20261015085900 +0000" channel="StingrayNaturescape.ca@SD">
+    <title>Waipoua Forest: New Zealand</title>
+  </programme>
+  <programme start="20261015085900 +0000" stop="20261015095900 +0000" channel="StingrayNaturescape.ca@SD">
+    <title>Relaxing Nature Sceneries</title>
+  </programme>
+  <programme start="20261015095900 +0000" stop="20261015105900 +0000" channel="StingrayNaturescape.ca@SD">
+    <title>Waimamaku Beach: New Zealand</title>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayNothinBut90s.ca@SD">
     <title>Stingray Nothin' but 90's</title>
@@ -5826,8 +6365,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayPopAdult.ca@SD">
-    <title>Stingray Pop Adult</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayNothinBut90s.ca@SD">
+    <title>Stingray Nothin' but 90's</title>
+    <desc>Mix of R&amp;B, rock and dance that emphasizes pop and alternative hits from the nineties.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayPopAdult.ca@SD">
     <title>Stingray Pop Adult</title>
@@ -5941,8 +6485,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayRememberthe80s.ca@SD">
-    <title>Stingray Remember the '80s</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayPopAdult.ca@SD">
+    <title>Stingray Pop Adult</title>
+    <desc>Features the best in pop-adult contemporary music.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayRememberthe80s.ca@SD">
     <title>Stingray Remember the '80s</title>
@@ -6056,8 +6605,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingraySmoothJazz.ca@SD">
-    <title>Stingray Smooth Jazz</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayRememberthe80s.ca@SD">
+    <title>Stingray Remember the '80s</title>
+    <desc>The best of pop music from the 80s.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingraySmoothJazz.ca@SD">
     <title>Stingray Smooth Jazz</title>
@@ -6171,8 +6725,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayTheSpa.ca@SD">
-    <title>Stingray The Spa</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingraySmoothJazz.ca@SD">
+    <title>Stingray Smooth Jazz</title>
+    <desc>The hottest contemporary jazz artists in a smooth-flowing soundscape, featuring melodic and stylish guitars, saxophones, pianos, trumpets. It creates a superb background sound full of melodies and modern textures. Featured artists include Boney James, Chris Botti, David Koz, Fourplay, Diana Krall, Warren Hill, George Howard, Jeff Lorber, Joe Sample, Kenny G, Spyro Gyra, Najee, and Paul Hardcastle.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayTheSpa.ca@SD">
     <title>Stingray The Spa</title>
@@ -6286,48 +6845,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013000000 +0000" stop="20261013010000 +0000" channel="PrimeAsiaTV.ca@SD">
-    <title>Prime Bollywood</title>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="PrimeAsiaTV.ca@SD">
-    <title>Chajj Da Vichar</title>
-    <desc>The host invites prominent personalities and talks to them about important issues affecting the people.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013020000 +0000" stop="20261013030000 +0000" channel="PrimeAsiaTV.ca@SD">
-    <title>Prime Beats</title>
-    <desc>New Music Videos and their Reviews.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013030000 +0000" stop="20261013033000 +0000" channel="PrimeAsiaTV.ca@SD">
-    <title>Prime News India</title>
-    <desc>The host presents a detailed report on some of the latest and important news stories and developments from all over India.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013033000 +0000" stop="20261013040000 +0000" channel="PrimeAsiaTV.ca@SD">
-    <title>Prime Hassiyan</title>
-    <desc>Talented artists from around the country perform hilarious sketches and entertain the audience with their wit and humor, bringing diverse comedic styles to a national stage.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="PrimeAsiaTV.ca@SD">
-    <title>Prime Nagme</title>
-    <date>20261013</date>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayTheSpa.ca@SD">
+    <title>Stingray The Spa</title>
+    <desc>Purely instrumental electro-acoustic music.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -6889,24 +7410,56 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="TamilVisionTV.ca@SD">
-    <title>Yathum Oorey</title>
-    <date>20261013</date>
+  <programme start="20261015070000 +0000" stop="20261015073000 +0000" channel="PrimeAsiaTV.ca@SD">
+    <title>Prime Discussion</title>
+    <desc>Discussion on Current Affairs.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013013000 +0000" channel="TamilVisionTV.ca@SD">
-    <title>Chelvi</title>
-    <date>20261013</date>
+  <programme start="20261015073000 +0000" stop="20261015080000 +0000" channel="PrimeAsiaTV.ca@SD">
+    <title>Khabar di Khabar</title>
+    <desc>The host presents a detailed and reliable analysis of the latest and the most important news updates of the day.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013013000 +0000" stop="20261013020000 +0000" channel="TamilVisionTV.ca@SD">
-    <title>Comedy Express</title>
-    <desc>A compilation of comic scenes from popular films.</desc>
-    <date>20261013</date>
+  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="PrimeAsiaTV.ca@SD">
+    <title>Prime News Canada</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="PrimeAsiaTV.ca@SD">
+    <title>Prime Focus</title>
+    <desc>The latest socio-economic and political news, updates and developments from various parts of the world.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015100000 +0000" stop="20261015101500 +0000" channel="PrimeAsiaTV.ca@SD">
+    <title>Prime Calgary News</title>
+    <desc>Bringing communities together by producing content that is engaging and relevant to NRI community.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015101500 +0000" stop="20261015103000 +0000" channel="PrimeAsiaTV.ca@SD">
+    <title>Prime Special</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015103000 +0000" stop="20261015110000 +0000" channel="PrimeAsiaTV.ca@SD">
+    <title>Prime News India</title>
+    <desc>The host presents a detailed report on some of the latest and important news stories and developments from all over India.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -7373,51 +7926,48 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012230000 +0000" stop="20261013010000 +0000" channel="CBCNewsNetwork.ca@SD">
-    <title>Hanomansing Live</title>
-    <desc>The latest breaking and developing news from across Canada, live from Vancouver.</desc>
-    <category lang="en">News</category>
-    <date>2026</date>
-    <icon src="http://dtil.tmsimg.com/assets/p34139216_b_h8_aa.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
-    <live />
+  <programme start="20261015070000 +0000" stop="20261015073000 +0000" channel="TamilVisionTV.ca@SD">
+    <title>Chelvi</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="CBCNewsNetwork.ca@SD">
-    <title>Live: The National</title>
-    <desc>CBC's flagship nightly news program, featuring the day's top stories with in-depth and original journalism; Adrienne Arsenault and Ian Hanomansing anchor.</desc>
-    <category lang="en">News</category>
-    <credits>
-      <actor>Ian Hanomansing</actor>
-      <actor>Adrienne Arsenault</actor>
-    </credits>
-    <date>1998</date>
-    <icon src="http://dtil.tmsimg.com/assets/p23618219_b_h8_aa.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
+  <programme start="20261015073000 +0000" stop="20261015080000 +0000" channel="TamilVisionTV.ca@SD">
+    <title>Kaiyalavu Manasu</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013030000 +0000" channel="CBCNewsNetwork.ca@SD">
-    <title>Live: The National</title>
-    <desc>CBC's flagship nightly news program, featuring the day's top stories with in-depth and original journalism; Adrienne Arsenault and Ian Hanomansing anchor.</desc>
-    <category lang="en">News</category>
-    <credits>
-      <actor>Ian Hanomansing</actor>
-      <actor>Adrienne Arsenault</actor>
-    </credits>
-    <date>1998</date>
-    <icon src="http://dtil.tmsimg.com/assets/p23618219_b_h8_aa.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
+  <programme start="20261015080000 +0000" stop="20261015083000 +0000" channel="TamilVisionTV.ca@SD">
+    <title>Kalai Mutram</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013040000 +0000" channel="CBCNewsNetwork.ca@SD">
-    <title>The National</title>
-    <desc>CBC's flagship nightly news program, featuring the day's top stories with in-depth and original journalism; Adrienne Arsenault and Ian Hanomansing anchor.</desc>
-    <category lang="en">News</category>
-    <credits>
-      <actor>Ian Hanomansing</actor>
-      <actor>Adrienne Arsenault</actor>
-    </credits>
-    <date>1998</date>
-    <icon src="http://dtil.tmsimg.com/assets/p23618219_b_h8_aa.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
-    <new />
+  <programme start="20261015083000 +0000" stop="20261015090000 +0000" channel="TamilVisionTV.ca@SD">
+    <title>News</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="TamilVisionTV.ca@SD">
+    <title>Paarvai</title>
+    <desc>Weekly news updates along with expert interviews and analysis.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015100000 +0000" stop="20261015110000 +0000" channel="TamilVisionTV.ca@SD">
+    <title>Rajahvin Ragangal</title>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013040000 +0000" stop="20261013050000 +0000" channel="CBCNewsNetwork.ca@SD">
     <title>The National</title>
@@ -7789,30 +8339,53 @@
     <icon src="http://dtil.tmsimg.com/assets/p23618219_b_h8_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="CP24.ca@SD">
-    <title>CP24 Nightside</title>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="CBCNewsNetwork.ca@SD">
+    <title>The National</title>
+    <desc>CBC's flagship nightly news program, featuring the day's top stories with in-depth and original journalism; Adrienne Arsenault and Ian Hanomansing anchor.</desc>
+    <category lang="en">News</category>
+    <credits>
+      <actor>Ian Hanomansing</actor>
+      <actor>Adrienne Arsenault</actor>
+    </credits>
+    <date>1998</date>
+    <icon src="http://dtil.tmsimg.com/assets/p23618219_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013013000 +0000" channel="CP24.ca@SD">
-    <title>Ask a Lawyer</title>
+  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="CBCNewsNetwork.ca@SD">
+    <title>The National</title>
+    <desc>CBC's flagship nightly news program, featuring the day's top stories with in-depth and original journalism; Adrienne Arsenault and Ian Hanomansing anchor.</desc>
+    <category lang="en">News</category>
+    <credits>
+      <actor>Ian Hanomansing</actor>
+      <actor>Adrienne Arsenault</actor>
+    </credits>
+    <date>1998</date>
+    <icon src="http://dtil.tmsimg.com/assets/p23618219_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
-  <programme start="20261013013000 +0000" stop="20261013020000 +0000" channel="CP24.ca@SD">
-    <title>CP24 Nightside</title>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="CBCNewsNetwork.ca@SD">
+    <title>The National</title>
+    <desc>CBC's flagship nightly news program, featuring the day's top stories with in-depth and original journalism; Adrienne Arsenault and Ian Hanomansing anchor.</desc>
+    <category lang="en">News</category>
+    <credits>
+      <actor>Ian Hanomansing</actor>
+      <actor>Adrienne Arsenault</actor>
+    </credits>
+    <date>1998</date>
+    <icon src="http://dtil.tmsimg.com/assets/p23618219_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013023000 +0000" channel="CP24.ca@SD">
-    <title>CP24 Nightside</title>
-  </programme>
-  <programme start="20261013023000 +0000" stop="20261013030000 +0000" channel="CP24.ca@SD">
-    <title>CP24 Nightside</title>
-  </programme>
-  <programme start="20261013030000 +0000" stop="20261013033000 +0000" channel="CP24.ca@SD">
-    <title>CP24 Nightside</title>
-  </programme>
-  <programme start="20261013033000 +0000" stop="20261013040500 +0000" channel="CP24.ca@SD">
-    <title>CTV Toronto Late News</title>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="CBCNewsNetwork.ca@SD">
+    <title>CBC Morning Live With David Common</title>
+    <desc>Join David Common with the latest news, and what you need to know to start your day.</desc>
+    <category lang="en">News</category>
+    <credits>
+      <actor>David Common</actor>
+    </credits>
+    <date>2026</date>
+    <icon src="http://dtil.tmsimg.com/assets/p32198256_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
     <live />
-  </programme>
-  <programme start="20261013040500 +0000" stop="20261013043500 +0000" channel="CP24.ca@SD">
-    <title>Ask a Lawyer</title>
   </programme>
   <programme start="20261013043500 +0000" stop="20261013050000 +0000" channel="CP24.ca@SD">
     <title>CP24 Nightside</title>
@@ -8065,69 +8638,26 @@
   <programme start="20261015063000 +0000" stop="20261015070000 +0000" channel="CP24.ca@SD">
     <title>CTV Toronto Late News</title>
   </programme>
-  <programme start="20261013003100 +0000" stop="20261013010000 +0000" channel="IciRDI.ca@SD">
-    <title>Le téléjournal midi</title>
-    <desc>Le point sur l'actualité avec les journalistes sur le terrain, au pays et ailleurs dans le monde.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015070000 +0000" stop="20261015073000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013013000 +0000" channel="IciRDI.ca@SD">
-    <title>Les décrypteurs</title>
-    <desc>Le 10 septembre 2025, le militant conservateur et proche de Donald Trump Charlie Kirk a été assassiné. Depuis, son image a été reprise et ridiculisée sur Internet. Un phénomène jusque-là jamais vu.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015073000 +0000" stop="20261015080000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
   </programme>
-  <programme start="20261013013000 +0000" stop="20261013020000 +0000" channel="IciRDI.ca@SD">
-    <title>Live: L'info maintenant</title>
-    <desc>Les nouvelles qui marquent l'actualité au pays et ailleurs dans le monde.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015080000 +0000" stop="20261015083000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013023000 +0000" channel="IciRDI.ca@SD">
-    <title>Live: L'info maintenant</title>
-    <desc>Les nouvelles qui marquent l'actualité au pays et ailleurs dans le monde.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015083000 +0000" stop="20261015090000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
   </programme>
-  <programme start="20261013023000 +0000" stop="20261013030000 +0000" channel="IciRDI.ca@SD">
-    <title>L'info maintenant</title>
-    <desc>Les nouvelles qui marquent l'actualité au pays et ailleurs dans le monde.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015090000 +0000" stop="20261015093000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013033000 +0000" channel="IciRDI.ca@SD">
-    <title>Live: L'info maintenant</title>
-    <desc>Les nouvelles qui marquent l'actualité au pays et ailleurs dans le monde.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015093000 +0000" stop="20261015100000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
   </programme>
-  <programme start="20261013033000 +0000" stop="20261013040000 +0000" channel="IciRDI.ca@SD">
-    <title>L'info maintenant</title>
-    <desc>Les nouvelles qui marquent l'actualité au pays et ailleurs dans le monde.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="IciRDI.ca@SD">
-    <title>Live: L'info maintenant</title>
-    <desc>Les nouvelles qui marquent l'actualité au pays et ailleurs dans le monde.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Breakfast</title>
   </programme>
   <programme start="20261013043000 +0000" stop="20261013050000 +0000" channel="IciRDI.ca@SD">
     <title>Le journal de France 2</title>
@@ -8681,41 +9211,34 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="LoveNature.ca@SD">
-    <title>Wild Rose Vet</title>
-    <desc>A turtle named Knuckles needs help with some shell issues.</desc>
-    <date>20261013</date>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="IciRDI.ca@SD">
+    <title>Live: 24/60</title>
+    <desc>Comprendre les événements de la journée, tant en politique nationale et internationale qu'en culture, environnement et société.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="LoveNature.ca@SD">
-    <title>Europe's Wild Kingdom</title>
-    <date>20261013</date>
+  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="IciRDI.ca@SD">
+    <title>Les grands reportages</title>
+    <desc>Le film vaudra à Steven Spielberg un énorme succès critique et public. Mais il va également engendrer un doute: l'histoire qui y est racontée correspond-elle à la réalité historique?</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013030000 +0000" channel="LoveNature.ca@SD">
-    <title>Wild Philippines</title>
-    <desc>Bask in the interconnected lives of wildlife shaped by volcanoes, forests and seas; take flight with rare Philippine eagles as they raise their young in an ancient tree, then dive into a river to catch a glimpse of the world's rarest crocodile.</desc>
-    <date>20261013</date>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="IciRDI.ca@SD">
+    <title>Live: Le téléjournal avec Azeb Wolde-Giorghis</title>
+    <desc>Un regard approfondi sur les sujets de l'heure, au pays comme à l'international, et sur les grands enjeux auxquels la société est confrontée.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013040000 +0000" channel="LoveNature.ca@SD">
-    <title>Wild Philippines</title>
-    <desc>Plunge into the clear seas to explore the Tubbataha Reef, which rests on an extinct underwater volcano where shallow lagoons shelter sea turtles and tiger sharks; take flight with tarsiers as they hunt insects using leaps between trees.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="LoveNature.ca@SD">
-    <title>Wild Rose Vets</title>
-    <desc>A lab named Buddy undergoes urgent surgery to remove a 10-pound tumor; Johnny, the clinic cat, develops an infection after fighting with squirrels; a long-time client brings in his new puppy, who has a different temperament than his last dog.</desc>
-    <date>20261013</date>
+  <programme start="20261015100000 +0000" stop="20261015110000 +0000" channel="IciRDI.ca@SD">
+    <title>Live: Le téléjournal avec Azeb Wolde-Giorghis</title>
+    <desc>Un regard approfondi sur les sujets de l'heure, au pays comme à l'international, et sur les grands enjeux auxquels la société est confrontée.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -9192,41 +9715,34 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="LoveNature.ca@4K">
-    <title>Wild Rose Vet</title>
-    <desc>A turtle named Knuckles needs help with some shell issues.</desc>
-    <date>20261013</date>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="LoveNature.ca@SD">
+    <title>Life in the Air</title>
+    <desc>In the busy skies above our planet we'll meet a creature that creates sound out of thin air with the world's fastest courtship display and arguably the world's most aggressive bird, harnessing cold aggression to protect its patch of sky.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="LoveNature.ca@4K">
-    <title>Europe's Wild Kingdom</title>
-    <date>20261013</date>
+  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="LoveNature.ca@SD">
+    <title>Secret Life of Farm Animals</title>
+    <desc>Piglets growing up in the Brecon Beacons are followed for their first 12 weeks, and the theory that every piglet always returns to the same teat to suckle is tested.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013030000 +0000" channel="LoveNature.ca@4K">
-    <title>Wild Philippines</title>
-    <desc>Bask in the interconnected lives of wildlife shaped by volcanoes, forests and seas; take flight with rare Philippine eagles as they raise their young in an ancient tree, then dive into a river to catch a glimpse of the world's rarest crocodile.</desc>
-    <date>20261013</date>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="LoveNature.ca@SD">
+    <title>Secret Life of Farm Animals</title>
+    <desc>The first 12 weeks of a Hereford calf's life as it makes friends and settles into the herd during the summer.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013040000 +0000" channel="LoveNature.ca@4K">
-    <title>Wild Philippines</title>
-    <desc>Plunge into the clear seas to explore the Tubbataha Reef, which rests on an extinct underwater volcano where shallow lagoons shelter sea turtles and tiger sharks; take flight with tarsiers as they hunt insects using leaps between trees.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="LoveNature.ca@4K">
-    <title>Wild Rose Vets</title>
-    <desc>A lab named Buddy undergoes urgent surgery to remove a 10-pound tumor; Johnny, the clinic cat, develops an infection after fighting with squirrels; a long-time client brings in his new puppy, who has a different temperament than his last dog.</desc>
-    <date>20261013</date>
+  <programme start="20261015100000 +0000" stop="20261015110000 +0000" channel="LoveNature.ca@SD">
+    <title>Secret Life of Farm Animals</title>
+    <desc>Sheep are followed through the first 12 weeks of a lamb's life on a Welsh Hill farm where it is discovered that sheep are highly social animals.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -9703,41 +10219,34 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="LoveNature.ca@HD">
-    <title>Wild Rose Vet</title>
-    <desc>A turtle named Knuckles needs help with some shell issues.</desc>
-    <date>20261013</date>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="LoveNature.ca@4K">
+    <title>Life in the Air</title>
+    <desc>In the busy skies above our planet we'll meet a creature that creates sound out of thin air with the world's fastest courtship display and arguably the world's most aggressive bird, harnessing cold aggression to protect its patch of sky.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="LoveNature.ca@HD">
-    <title>Europe's Wild Kingdom</title>
-    <date>20261013</date>
+  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="LoveNature.ca@4K">
+    <title>Secret Life of Farm Animals</title>
+    <desc>Piglets growing up in the Brecon Beacons are followed for their first 12 weeks, and the theory that every piglet always returns to the same teat to suckle is tested.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013030000 +0000" channel="LoveNature.ca@HD">
-    <title>Wild Philippines</title>
-    <desc>Bask in the interconnected lives of wildlife shaped by volcanoes, forests and seas; take flight with rare Philippine eagles as they raise their young in an ancient tree, then dive into a river to catch a glimpse of the world's rarest crocodile.</desc>
-    <date>20261013</date>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="LoveNature.ca@4K">
+    <title>Secret Life of Farm Animals</title>
+    <desc>The first 12 weeks of a Hereford calf's life as it makes friends and settles into the herd during the summer.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013040000 +0000" channel="LoveNature.ca@HD">
-    <title>Wild Philippines</title>
-    <desc>Plunge into the clear seas to explore the Tubbataha Reef, which rests on an extinct underwater volcano where shallow lagoons shelter sea turtles and tiger sharks; take flight with tarsiers as they hunt insects using leaps between trees.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="LoveNature.ca@HD">
-    <title>Wild Rose Vets</title>
-    <desc>A lab named Buddy undergoes urgent surgery to remove a 10-pound tumor; Johnny, the clinic cat, develops an infection after fighting with squirrels; a long-time client brings in his new puppy, who has a different temperament than his last dog.</desc>
-    <date>20261013</date>
+  <programme start="20261015100000 +0000" stop="20261015110000 +0000" channel="LoveNature.ca@4K">
+    <title>Secret Life of Farm Animals</title>
+    <desc>Sheep are followed through the first 12 weeks of a lamb's life on a Welsh Hill farm where it is discovered that sheep are highly social animals.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -10214,66 +10723,34 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="WildTV.ca@SD">
-    <title>The One</title>
-    <desc>Mike and his son are headed to Sask adrenaline on their annual trip to hunt black bears. Pt1.</desc>
-    <date>20261013</date>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="LoveNature.ca@HD">
+    <title>Life in the Air</title>
+    <desc>In the busy skies above our planet we'll meet a creature that creates sound out of thin air with the world's fastest courtship display and arguably the world's most aggressive bird, harnessing cold aggression to protect its patch of sky.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013013000 +0000" channel="WildTV.ca@SD">
-    <title>Hit Squad Outdoors With Tim Sylvia</title>
-    <desc>This week Blaine Anthony is on a quest for a big buck in an unusual way.</desc>
-    <date>20261013</date>
+  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="LoveNature.ca@HD">
+    <title>Secret Life of Farm Animals</title>
+    <desc>Piglets growing up in the Brecon Beacons are followed for their first 12 weeks, and the theory that every piglet always returns to the same teat to suckle is tested.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013013000 +0000" stop="20261013020000 +0000" channel="WildTV.ca@SD">
-    <title>The High Road With Keith Warren</title>
-    <desc>On this episode of The High Road with Keith Warren, Keith and Johnny Piazza head out to G2 Ranch to use two totally different 50 calibers to hunt exotics.</desc>
-    <date>20261013</date>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="LoveNature.ca@HD">
+    <title>Secret Life of Farm Animals</title>
+    <desc>The first 12 weeks of a Hereford calf's life as it makes friends and settles into the herd during the summer.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013023000 +0000" channel="WildTV.ca@SD">
-    <title>The Mellon Patch, It's a Family Thing</title>
-    <desc>Rich and Sandi start the process of segregating birds and collecting eggs to load the incubator for the first hatch of the season.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013023000 +0000" stop="20261013030000 +0000" channel="WildTV.ca@SD">
-    <title>Onx Hunt Gameday</title>
-    <desc>Jared Larsen heads to Southern Illinois for a hang-and-hunt whitetail adventure with a lot of strategy behind every sit.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013030000 +0000" stop="20261013033000 +0000" channel="WildTV.ca@SD">
-    <title>Claudio Ongaro's Hired to Hunt</title>
-    <desc>On this hunt, Daryl guides five clients and Claudio to 48 ducks and 48 geese to wrap up the perfect trip.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013033000 +0000" stop="20261013040000 +0000" channel="WildTV.ca@SD">
-    <title>Elusive Wildlife</title>
-    <desc>Summer cameras were loaded with giant Texas whitetails until the acorns started falling; as opening day nears, the bucks vanish without a trace, forcing Chad and Scott to figure out whether the deer moved out or simply changed patterns.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="WildTV.ca@SD">
-    <title>Bloodline Adventures TV</title>
-    <desc>We flew to Costa Rica to go deep-sea fishing, searching for the elusive marlin, but before we could even get on the water we got robbed; all of our filming equipment was stolen.</desc>
-    <date>20261013</date>
+  <programme start="20261015100000 +0000" stop="20261015110000 +0000" channel="LoveNature.ca@HD">
+    <title>Secret Life of Farm Animals</title>
+    <desc>Sheep are followed through the first 12 weeks of a lamb's life on a Welsh Hill farm where it is discovered that sheep are highly social animals.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -11087,23 +11564,69 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="FEVATV.ca@SD">
-    <title>Black in Business</title>
+  <programme start="20261015070000 +0000" stop="20261015073000 +0000" channel="WildTV.ca@SD">
+    <title>Beyond the Blind Hunts</title>
+    <desc>Justin heads to Alberta's Wessex Game Birds for his first-ever pheasant hunt. With fast-flying birds, missed opportunities, and lessons learned in the field, every flush is a chance to become a better hunter.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="FEVATV.ca@SD">
-    <title>Intimate Live</title>
+  <programme start="20261015073000 +0000" stop="20261015080000 +0000" channel="WildTV.ca@SD">
+    <title>The Way It Was Tv</title>
+    <desc>The guys sit down with Christian Bud Turner, Lynn Beaty's grandson and an Arkansas Razorback baseball player. Bud talks about his path to college baseball, life as a Razorback, hunting stories and some of the lessons he's learned along the way.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013030000 +0000" channel="FEVATV.ca@SD">
-    <title>Late Night Cocktale</title>
+  <programme start="20261015080000 +0000" stop="20261015083000 +0000" channel="WildTV.ca@SD">
+    <title>Trigger Time Tv</title>
+    <desc>A: Zeroing 45° B: Functional Exercises/KDG Sidelock C: High Standard 380 D: Shooting Bags.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013033000 +0000" channel="FEVATV.ca@SD">
-    <title>FEVA Late Night</title>
+  <programme start="20261015083000 +0000" stop="20261015090000 +0000" channel="WildTV.ca@SD">
+    <title>Mitchell Payment's Moment of Truth TV</title>
+    <desc>Mitchell and friends head to the flyway for spring snow geese.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013033000 +0000" stop="20261013040000 +0000" channel="FEVATV.ca@SD">
-    <title>FEVA Late Night</title>
+  <programme start="20261015090000 +0000" stop="20261015093000 +0000" channel="WildTV.ca@SD">
+    <title>Hard Truths of Conservation</title>
+    <desc>In Namibia, Dan Cabela visits conservationist Robin Hurt to see how private land ownership and hunting have restored the landscape to a thriving wildlife area.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="FEVATV.ca@SD">
-    <title>FEVA Late Night</title>
+  <programme start="20261015093000 +0000" stop="20261015100000 +0000" channel="WildTV.ca@SD">
+    <title>Long Range Hunter</title>
+    <desc>This week, the conclusion of the epic hunting trip at Lakeside Safari in South Africa.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015100000 +0000" stop="20261015103000 +0000" channel="WildTV.ca@SD">
+    <title>Hit Squad Outdoors With Tim Sylvia</title>
+    <desc>This week we have Grant Boies and Dave Hendrickson on their search for big whitetail.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015103000 +0000" stop="20261015110000 +0000" channel="WildTV.ca@SD">
+    <title>Reel West Coast</title>
+    <desc>Brendan heads out of Tofino to chase his newest obsession; jigging for squid and then using them as bait for salmon battles.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013043000 +0000" stop="20261013050000 +0000" channel="FEVATV.ca@SD">
     <title>FEVA Late Night</title>
@@ -11327,61 +11850,26 @@
   <programme start="20261015050000 +0000" stop="20261015070000 +0000" channel="FEVATV.ca@SD">
     <title>Planet Nollywood</title>
   </programme>
-  <programme start="20261013003000 +0000" stop="20261013010000 +0000" channel="NTVPlus.ca@SD">
-    <title>Flip Side</title>
-    <desc>The hilarious survey game show explores answers to questions from differing perspectives; host Jaleel White.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="FEVATV.ca@SD">
+    <title>Late Night Cocktale</title>
   </programme>
-  <programme start="20261013010000 +0000" stop="20261013020000 +0000" channel="NTVPlus.ca@SD">
-    <title>TMS2</title>
-    <desc>TMS2 brings the biggest names, hottest entertainment stories and must-know lifestyle trends to Canadians every weekday afternoon, hosted by Morgan Hoffman and Brad Smith, and featuring Entertainment Reporter, Brittnee Blair; from exclusive celebrity interviews and pop culture coverage to expert advice on food, fashion, home and wellness, TMS2 gives viewers an entertaining, interactive way to stay</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015080000 +0000" stop="20261015083000 +0000" channel="FEVATV.ca@SD">
+    <title>FEVA Late Night</title>
   </programme>
-  <programme start="20261013020000 +0000" stop="20261013023000 +0000" channel="NTVPlus.ca@SD">
-    <title>The Drew Barrymore Show</title>
-    <desc>Drew Barrymore presents human-interest stories, celebrity guests, lifestyle segments and field pieces, all driven by her infectious brand of humor and optimism.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015083000 +0000" stop="20261015090000 +0000" channel="FEVATV.ca@SD">
+    <title>FEVA Late Night</title>
   </programme>
-  <programme start="20261013023000 +0000" stop="20261013030000 +0000" channel="NTVPlus.ca@SD">
-    <title>The Drew Barrymore Show</title>
-    <desc>Drew Barrymore presents human-interest stories, celebrity guests, lifestyle segments and field pieces, all driven by her infectious brand of humor and optimism.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015090000 +0000" stop="20261015093000 +0000" channel="FEVATV.ca@SD">
+    <title>FEVA Late Night</title>
   </programme>
-  <programme start="20261013030000 +0000" stop="20261013033000 +0000" channel="NTVPlus.ca@SD">
-    <title>Abbott Elementary</title>
-    <desc>On Teacher Appreciation Day, the district gives Abbott two courtside tickets to a 76ers game and the teachers must decide who deserves them; Janine invites the teachers to her house for game night and her sister, Ayesha, comes to visit.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015093000 +0000" stop="20261015100000 +0000" channel="FEVATV.ca@SD">
+    <title>FEVA Late Night</title>
   </programme>
-  <programme start="20261013033000 +0000" stop="20261013040000 +0000" channel="NTVPlus.ca@SD">
-    <title>Wheel of Fortune</title>
-    <desc>In a classic game-show version of "Hangman," contestants solve word puzzles for cash and prizes.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015100000 +0000" stop="20261015103000 +0000" channel="FEVATV.ca@SD">
+    <title>Gospel Groove</title>
   </programme>
-  <programme start="20261013040000 +0000" stop="20261013043000 +0000" channel="NTVPlus.ca@SD">
-    <title>NTV Entertainment News</title>
-    <desc>Stay informed with the latest breaking news and headlines.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261015103000 +0000" stop="20261015110000 +0000" channel="FEVATV.ca@SD">
+    <title>Gospel Groove</title>
   </programme>
   <programme start="20261013043000 +0000" stop="20261013050000 +0000" channel="NTVPlus.ca@SD">
     <title>NTV Evening Newshour</title>
@@ -11933,8 +12421,45 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261012220000 +0000" stop="20261013020000 +0000" channel="StingrayClassicRock.ca@SD">
-    <title>Stingray Classic Rock</title>
+  <programme start="20261015070000 +0000" stop="20261015080000 +0000" channel="NTVPlus.ca@SD">
+    <title>Private Eyes West Coast</title>
+    <desc>Private investigators Matt Shade and Angie Everett leave Toronto and juggle the challenges of opening a P.I. firm in a new city. Without their friendly Toronto network of sources, Shade and Angie work to build a new community. From tracking down a missing student in the wilderness of British Columbia to extracting a murder confession from a surfer in Tofino, Shade and Angie prove life on the West</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015080000 +0000" stop="20261015093000 +0000" channel="NTVPlus.ca@SD">
+    <title>Survivor</title>
+    <desc>One tribe feels torn apart in the aftermath of a divisive vote-out, while another tribe basks in unity, until an unexpected summoning changes everything; old wounds and previous alliances are put to the test at tribal council.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015093000 +0000" stop="20261015100000 +0000" channel="NTVPlus.ca@SD">
+    <title>Abbott Elementary</title>
+    <desc>A group of dedicated, passionate teachers -- and a slightly tone-deaf principal -- find themselves thrown together in a Philadelphia public school where, despite the odds stacked against them, they are determined to help their students succeed in life. Though these incredible public servants may be outnumbered and underfunded, they love what they do -- even if they don't love the school district's</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015100000 +0000" stop="20261015103000 +0000" channel="NTVPlus.ca@SD">
+    <title>CTV National News With Omar Sachedina</title>
+    <desc>CTV News covers stories that matter to Canadians - locally, nationally, &amp; internationally.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015103000 +0000" stop="20261015113000 +0000" channel="NTVPlus.ca@SD">
+    <title>NTV Latenight News</title>
+    <desc>Stay informed with the latest breaking news and headlines.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261013020000 +0000" stop="20261013060000 +0000" channel="StingrayClassicRock.ca@SD">
     <title>Stingray Classic Rock</title>
@@ -12048,129 +12573,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261013005000 +0000" stop="20261013010000 +0000" channel="Knowledge.Network.ca">
-    <title>Wolf Joe</title>
-    <desc>When Joe and his friends forget Mishoom's message and pick too many crabapples, the baskets tip over and roll downhill.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013010000 +0000" stop="20261013012000 +0000" channel="Knowledge.Network.ca">
-    <title>PAW Patrol</title>
-    <desc>Mysterious holes appear all over Ms. Marjorie's yard.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013012000 +0000" stop="20261013013000 +0000" channel="Knowledge.Network.ca">
-    <title>The Snoopy Show</title>
-    <desc>The dog is ready for his close-up; new adventures with the happy-dancing, high-flying, big-dreaming beagle who is joined by best friend Woodstock and the rest of the Peanuts gang.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013013000 +0000" stop="20261013014000 +0000" channel="Knowledge.Network.ca">
-    <title>Clifford the Big Red Dog</title>
-    <desc>While playing kickball with his friends, Pablo loses his lucky coin and worries that his team won't win without it.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013014000 +0000" stop="20261013020000 +0000" channel="Knowledge.Network.ca">
-    <title>Peg + Cat</title>
-    <desc>Peg and Cat solve problems and learn foundational math concepts and skills.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013020000 +0000" stop="20261013022000 +0000" channel="Knowledge.Network.ca">
-    <title>True and the Rainbow Kingdom</title>
-    <desc>True and her friends learn more about the traditions of Yetis and find they are afraid of the dark.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013022000 +0000" stop="20261013023000 +0000" channel="Knowledge.Network.ca">
-    <title>Flower &amp; Flour</title>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013023000 +0000" stop="20261013025000 +0000" channel="Knowledge.Network.ca">
-    <title>Let's Go Luna!</title>
-    <desc>Leo must overcome his fear of horses so he can ride with his uncle in Sydney.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013025000 +0000" stop="20261013030000 +0000" channel="Knowledge.Network.ca">
-    <title>Luna, Chip &amp; Inkie: Adventure Rangers Go</title>
-    <desc>Best buddies Luna, Chip and Inkie are always eager to lend their friends a wing, paw or tentacle because helping others is what they do best.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013030000 +0000" stop="20261013032000 +0000" channel="Knowledge.Network.ca">
-    <title>PAW Patrol</title>
-    <desc>When the bouncy turkey from the Thanksgiving feast at City Hall flies away with Mayor Humdinger and his kittens, the pups must save the day.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013032000 +0000" stop="20261013033000 +0000" channel="Knowledge.Network.ca">
-    <title>Molang</title>
-    <desc>Molang and Piu Piu are called by a friend who wants to show them the new video game he invented; when they arrive at his house, their friend is not in the living room but inside the video game.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013033000 +0000" stop="20261013035000 +0000" channel="Knowledge.Network.ca">
-    <title>Bubble Guppies</title>
-    <desc>When Molly and Gil discover the pumpkin patch is empty, their turkey friend leads them on a hunt to find the guilty party.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013035000 +0000" stop="20261013040000 +0000" channel="Knowledge.Network.ca">
-    <title>Hey Duggee</title>
-    <desc>When someone leaves the paddock gate open, the squirrels must help Duggee herd all the sheep back to the paddock.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013040000 +0000" stop="20261013042000 +0000" channel="Knowledge.Network.ca">
-    <title>Carl the Collector</title>
-    <desc>Lotta is frustrated learning a new dance, but realizes it is ok to experience music in her own way; Sheldon worries about telling Carl that he doesn't want to play pirates anymore.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013042000 +0000" stop="20261013043000 +0000" channel="Knowledge.Network.ca">
-    <title>Peep and the Big Wide World</title>
-    <desc>Quack is the only one who can see bubbles.</desc>
-    <date>20261013</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261013043000 +0000" stop="20261013045000 +0000" channel="Knowledge.Network.ca">
-    <title>Caillou</title>
-    <desc>Caillou must maintain his kite and monitor his spaceship's systems as a pilot, facing various challenges that demand his attention.</desc>
-    <date>20261013</date>
+  <programme start="20261015100000 +0000" stop="20261015140000 +0000" channel="StingrayClassicRock.ca@SD">
+    <title>Stingray Classic Rock</title>
+    <desc>Rock music of the late 60s to the 80s.</desc>
+    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -13228,6 +13634,86 @@
   <programme start="20261015065000 +0000" stop="20261015070000 +0000" channel="Knowledge.Network.ca">
     <title>Let's Go Luna!</title>
     <desc>Andy and friends find a missing Luna in Delhi with the help of her hat and an ancient astronomy site.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015070000 +0000" stop="20261015072000 +0000" channel="Knowledge.Network.ca">
+    <title>The Cat in the Hat Knows a Lot About That!</title>
+    <desc>Sally and Nick try to wrap a present for their moms; Nick and Sally try to get a frog out of their shallow pool.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015072000 +0000" stop="20261015073000 +0000" channel="Knowledge.Network.ca">
+    <title>MojoSwoptops</title>
+    <desc>Nori and Preston set out to build a massive Swoppiton-style stone circle; the heavy stones quickly overwhelm Mojo's crane, requiring extra muscle to finish the job.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015073000 +0000" stop="20261015075000 +0000" channel="Knowledge.Network.ca">
+    <title>The Creature Cases</title>
+    <desc>Sam and Kit must save an isolated desert town that a serpent could pull underground.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015075000 +0000" stop="20261015080000 +0000" channel="Knowledge.Network.ca">
+    <title>Do Not Watch This Show</title>
+    <desc>Wizz is a blue monster who is stuck in a TV show that he does not want people to watch; Wizz's friends help him navigate the consequences of being the star of a show that he wants to escape from.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015080000 +0000" stop="20261015082000 +0000" channel="Knowledge.Network.ca">
+    <title>Galapagos X</title>
+    <desc>The kids go back in time to find out why nobody drinks tap water anymore and discover the problem is a feud between farmers and bugs.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015082000 +0000" stop="20261015083000 +0000" channel="Knowledge.Network.ca">
+    <title>Luna, Chip &amp; Inkie: Adventure Rangers Go</title>
+    <desc>Best buddies Luna, Chip and Inkie are always eager to lend their friends a wing, paw or tentacle because helping others is what they do best.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015083000 +0000" stop="20261015090000 +0000" channel="Knowledge.Network.ca">
+    <title>The Snoopy Show</title>
+    <desc>Snoopy is asked to speak before the Head Beagle, tries to escape the modern world with his Beagle Scouts and discovers rainy days can be fun.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="Knowledge.Network.ca">
+    <title>Waterfront Cities of the World</title>
+    <desc>Kuala Lumpur's culturally rich urban center has experienced incredible growth, allowing it to foster an original and innovative array of architecture.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015100000 +0000" stop="20261015103000 +0000" channel="Knowledge.Network.ca">
+    <title>David Rocco's Dolce Italia</title>
+    <desc>David sets out with his family to experience local hotspots and give tourists an authentic experience of fishing and cooking on his boat.</desc>
+    <date>20261015</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261015103000 +0000" stop="20261015110000 +0000" channel="Knowledge.Network.ca">
+    <title>David Rocco's Dolce Africa</title>
+    <desc>The Rocco family journeys into the Maasai Mara to have a truly unique and life-changing experience: a Safari adventure to top anyone's bucket list; they learn a thing or two about the circle of life.</desc>
     <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
