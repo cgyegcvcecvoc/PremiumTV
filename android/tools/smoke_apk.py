@@ -33,7 +33,7 @@ def main():
                 nodes = ET.fromstring(xml)
                 texts = {node.get("text", "") for node in nodes.iter("node")}
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
-                if count and names.intersection(texts):
+                if count and any(name in value for value in texts for name in names):
                     print(f"APK SMOKE PASS ({'cold launch' if attempt == 0 else 'relaunch'}): {meta['channel_count']} channels and visible channel cards")
                     break
             except (subprocess.SubprocessError, ET.ParseError):

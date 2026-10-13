@@ -45,7 +45,7 @@ jobs:
     # Do not attach an Android APK to a Mac-only release; the official release
     # carries both platforms.
     if: github.event_name != 'release' || github.event.release.tag_name == 'v1.0.1'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 45
     env:
       # Push builds attach their APKs to this release too, so the download
@@ -96,9 +96,13 @@ jobs:
       - name: Smoke test cold launch and relaunch of the built APK
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 28
+          api-level: 30
+          target: google_apis
           arch: x86_64
-          profile: Nexus 6
+          profile: pixel_2
+          ram-size: 2048M
+          emulator-boot-timeout: 300
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -camera-back none
           disable-animations: true
           script: python3 android/tools/smoke_apk.py
 
