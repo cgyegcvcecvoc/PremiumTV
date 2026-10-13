@@ -1,13 +1,13 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The source targets **1.0.0 "Marquee"** (`versionName`
-`1.0.0`, `versionCode` `5`) — the first official release. The guide inside the
+TV guide inside the APK. The source targets **1.0.1** (`versionName`
+`1.0.1`, `versionCode` `6`) — the channel-loading patch release. The guide inside the
 APK now comes from the repository's merged XMLTV, which is built from the
 curated per-country feeds (iptv-epg.org and epg.pw) on every guide build.
 
-**Current Android download: PremiumTV 1.0.0 — the Marquee release**, on the
-[official release page](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0).
+**Current Android download: PremiumTV 1.0.1 — Channels Back on Air**, on the
+[official release page](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1).
 The debug-signed APK installs as-is on any supported device.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
@@ -107,20 +107,20 @@ to Maven Central or `dl.google.com`). Every push that touches `android/`,
 APK and commits the build output to `build-out/`:
 
 ```text
-build-out/PremiumTV-1.0.0-debug.apk   current release APK (debug-signed)
+build-out/PremiumTV-1.0.1-debug.apk   current release APK (debug-signed)
 build-out/SHA256SUMS.txt
 build-out/build-log.txt               full Gradle output
 ```
 
-[v1.0.0](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0) is
+[v1.0.1](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1) is
 the official Android download on the Marquee release page.
 Only the debug APK is published. The unsigned release APK was dropped in beta 2:
 an unsigned APK cannot be installed on a TV or phone, so it was never usable.
 
 ### Installing on a TV
 
-1. Copy `PremiumTV-1.0.0-debug.apk` to the TV (USB stick, a file-sharing
-   app, or `adb install -r PremiumTV-1.0.0-debug.apk` from a computer).
+1. Copy `PremiumTV-1.0.1-debug.apk` to the TV (USB stick, a file-sharing
+   app, or `adb install -r PremiumTV-1.0.1-debug.apk` from a computer).
 2. Allow installs from that source (*Install unknown apps*).
 3. Open **PremiumTV**. The Channels tab should list the categories straight away.
 
@@ -165,3 +165,12 @@ android/
   WorkManager jobs until the app is opened again.
 - Dead upstream links are still in the playlist until the nightly link check
   drops them, so some channels will fail to play.
+
+## Release launch gate
+
+After baking the actual channel assets, CI runs `testDebugUnitTest` with
+Robolectric (five bundled-load/cache-recovery tests) and builds the debug APK.
+`tools/smoke_apk.py` then installs that APK on an API 30 emulator, clears app
+data for a cold launch, checks the channel count and visible cards, and repeats
+a relaunch. Emulator boot failures block publication rather than being counted
+as app test passes. Physical TV and upstream playback checks remain manual.
