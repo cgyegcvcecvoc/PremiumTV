@@ -18,6 +18,13 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   Electron smoke tests for Intel and Apple Silicon before installer uploads.
 - Version 1.0.1 on both platforms; Android versionCode 6. Platform-specific
   checksum manifests avoid the two build jobs overwriting one shared file.
+- Release CI fix (same day): the new Android emulator gate never booted —
+  the runner had ~6.7 GB free while a default AVD data partition needs
+  ~7.4 GB, so the emulator exited with "Not enough space to create userdata
+  partition" and the APK collect/attach steps were silently skipped, leaving
+  this release's draft without its Android APK. The Android workflow now
+  frees the unused preinstalled toolchains and uses a 2048M AVD data
+  partition; the cold-start/relaunch gate passes and the APK attaches.
 - Upstream stream availability and private-repository refresh access remain
   external limitations; this patch does not promise every live feed is online.
 

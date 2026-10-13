@@ -16,6 +16,11 @@ name: Build PremiumTV Android APK
 # live behind results-receiver.actions.githubusercontent.com, which is not
 # reachable from every sandbox. The [skip ci] marker and the path filter below
 # keep this from triggering another build.
+#
+# Release flow: verified artifacts are attached to the exact-SHA v1.0.1 draft
+# before it is published (see the "Attach the APKs to the release" step); the
+# emulator smoke gate depends on the "Free disk space for the emulator" step -
+# do not grow the AVD data partition past the runner's free disk.
 
 on:
   push:
