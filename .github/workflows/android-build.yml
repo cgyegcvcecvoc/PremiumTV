@@ -123,7 +123,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set -uo pipefail
+          set -euo pipefail
           tag="${{ github.event.release.tag_name }}"
           tag="${tag:-$RELEASE_TAG}"
           if ! gh release view "$tag" >/dev/null 2>&1; then
@@ -131,6 +131,11 @@ jobs:
             exit 0
           fi
           tagged=$(git ls-remote origin "refs/tags/$tag" | cut -f1)
+          # GitHub creates a draft release's tag only when it is published.
+          # Permit uploads to an untagged draft only for its exact target SHA.
+          if [ -z "$tagged" ]; then
+            tagged=$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if .isDraft then .targetCommitish else "" end')
+          fi
           if [ "$tagged" != "$GITHUB_SHA" ]; then
             echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
             exit 0
