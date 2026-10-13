@@ -100,9 +100,13 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_2
-          ram-size: 2048M
-          emulator-boot-timeout: 300
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -camera-back none
+          # The smoke script only dumps the UI hierarchy, so no GPU is needed;
+          # swiftshader software rendering plus 2 GB RAM left the emulator
+          # still booting when the 300s wait expired (two CI runs in a row),
+          # which skipped collecting and attaching the APK entirely.
+          ram-size: 4096M
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu off -noaudio -no-boot-anim -no-snapshot -camera-back none
           disable-animations: true
           script: python3 android/tools/smoke_apk.py
 
