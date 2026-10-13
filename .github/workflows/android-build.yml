@@ -137,7 +137,11 @@ jobs:
           cp android/app/build/outputs/apk/debug/app-debug.apk "build-out/PremiumTV-${version}-debug.apk"
           # Only the debug APK is published; drop any unsigned leftovers.
           rm -f build-out/*-release-unsigned.apk
-          (cd build-out && sha256sum *.apk > SHA256SUMS-android.txt)
+          # build-out/ is committed back to the branch, so it can still hold
+          # APKs from older releases; checksum only the APK this run built or
+          # SHA256SUMS-android.txt gains a line for a file the release lacks
+          # (v1.0.1 shipped with a stray PremiumTV-1.0.0-debug.apk line).
+          (cd build-out && sha256sum "PremiumTV-${version}-debug.apk" > SHA256SUMS-android.txt)
           ls -la build-out
 
       # Deliberately ordered before the branch push: on a tag build the branch
