@@ -93,22 +93,45 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Smoke test cold launch and relaunch of the built APK
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: google_apis
-          arch: x86_64
-          profile: pixel_2
-          # The smoke script only dumps the UI hierarchy, so no GPU is needed;
-          # swiftshader software rendering plus 2 GB RAM left the emulator
-          # still booting when the 300s wait expired (two CI runs in a row),
-          # which skipped collecting and attaching the APK entirely.
-          ram-size: 4096M
-          emulator-boot-timeout: 900
-          emulator-options: -no-window -gpu off -noaudio -no-boot-anim -no-snapshot -camera-back none
-          disable-animations: true
-          script: python3 android/tools/smoke_apk.py
+      # TEMPORARY DIAGNOSTIC (arena/7927cccc-premiumtv1): boot the emulator by
+      # hand with full logging into build-out/, which the always() publish step
+      # below commits back to the branch, to find out why the emulator never
+      # reports boot_completed under android-emulator-runner.
+      - name: DIAG boot the emulator manually (temporary)
+        run: |
+          set -uo pipefail
+          mkdir -p build-out
+          exec > >(tee build-out/emulator-diag.log) 2>&1
+          echo "== env =="; whoami; nproc; free -h; uname -a
+          echo "== kvm =="; ls -l /dev/kvm || echo "NO /dev/kvm"
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
+          echo "ANDROID_HOME=${ANDROID_HOME:-} ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-} SDK=$SDK"
+          ls "$SDK" || true
+          export PATH="$SDK/emulator:$SDK/platform-tools:$SDK/cmdline-tools/latest/bin:$PATH"
+          echo "== versions =="; emulator -version || true; adb version || true
+          echo "== accel =="; emulator -accel-check || true
+          echo "== install system image =="
+          yes | sdkmanager --licenses >/dev/null 2>&1 || true
+          sdkmanager "system-images;android-30;google_apis;x86_64" || true
+          echo "== create avd =="
+          echo no | avdmanager create avd --force -n premiumtv-test -k "system-images;android-30;google_apis;x86_64" -d pixel_2 || true
+          avdmanager list avd || true
+          echo "== launch =="
+          nohup emulator -avd premiumtv-test -no-window -gpu off -noaudio -no-boot-anim -no-snapshot -camera-back none -verbose > build-out/emulator-verbose.log 2>&1 &
+          echo "emulator launcher pid $!"
+          for i in $(seq 1 48); do
+            sleep 10
+            state=$(adb devices 2>/dev/null | awk 'NR>1 {print $2}' | head -1)
+            boot=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r\n')
+            echo "[$((i*10))s] device_state=${state:-none} boot_completed=${boot:-?}"
+            if [ "$boot" = "1" ]; then echo "BOOTED OK"; break; fi
+            if ! pgrep -f "premiumtv-test" >/dev/null; then echo "EMULATOR PROCESS DIED"; break; fi
+          done
+          echo "== emulator verbose log (tail) =="
+          tail -c 8000 build-out/emulator-verbose.log || true
+          echo "== diag end (failing on purpose; see logs above) =="
+          adb emu kill || true
+          exit 1
 
       - name: Collect the APKs
         if: success()
