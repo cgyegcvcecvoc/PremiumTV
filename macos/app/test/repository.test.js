@@ -174,3 +174,44 @@ test('resetToBundled drops the cache and falls back to the bundle', async () => 
   assert.equal(repository.state.source, 'bundled');
   assert.ok(!fs.existsSync(path.join(root, 'cache')));
 });
+
+test('validators survive a restart and are not sent after a corrupt-cache fallback', async (t) => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-'));
+  t.after(() => fsp.rm(root, { recursive: true, force: true }));
+  const requests = [];
+  const fetchImpl = async (url, init) => {
+    requests.push(init.headers);
+    return makeResponse({
+      body: url.endsWith('.xml') ? GUIDE_TEXT : PLAYLIST_TEXT,
+      headers: { etag: '"saved"' },
+    });
+  };
+  let repository = makeRepository(root, fetchImpl);
+  await repository.load();
+  await repository.refresh('manual');
+  repository = makeRepository(root, fetchImpl);
+  await repository.load();
+  await repository.refresh('automatic');
+  assert.equal(requests[2]['If-None-Match'], '"saved"');
+  await fsp.writeFile(path.join(root, 'cache', 'channels.jsonl'), '{bad json}\n');
+  await repository.load();
+  assert.equal(repository.state.source, 'bundled');
+  await repository.refresh('automatic');
+  assert.equal(requests[4]['If-None-Match'], undefined);
+});
+
+test('missing guide does not prevent channels loading and interrupted cache swaps recover', async (t) => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-'));
+  t.after(() => fsp.rm(root, { recursive: true, force: true }));
+  const repository = makeRepository(root, async () => makeResponse());
+  await fsp.cp(repository.bundleDir, repository.backupDir, { recursive: true });
+  await fsp.rm(path.join(repository.backupDir, 'epg.jsonl'));
+  await fsp.mkdir(repository.stagingDir);
+  await repository.load();
+  assert.equal(repository.state.phase, 'ready');
+  assert.equal(repository.state.source, 'cache');
+  assert.equal(repository.library.channels.length, 2);
+  assert.equal(repository.library.programmes.length, 0);
+  assert.equal(fs.existsSync(repository.stagingDir), false);
+  assert.equal(fs.existsSync(repository.backupDir), false);
+});

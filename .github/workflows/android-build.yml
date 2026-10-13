@@ -44,13 +44,13 @@ jobs:
     name: Build APK
     # Do not attach an Android APK to a Mac-only release; the official release
     # carries both platforms.
-    if: github.event_name != 'release' || github.event.release.tag_name == 'v1.0.0'
+    if: github.event_name != 'release' || github.event.release.tag_name == 'v1.0.1'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
       # Push builds attach their APKs to this release too, so the download
       # links on the release page can never go stale or stay empty.
-      RELEASE_TAG: v1.0.0
+      RELEASE_TAG: v1.0.1
 
     steps:
       - name: Check out the repository
@@ -69,7 +69,7 @@ jobs:
         run: |
           mkdir -p build-out
           version=$(grep -o 'versionName = "[^"]*"' android/app/build.gradle.kts | head -1 | sed 's/.*"\(.*\)"/\1/')
-          version=${version:-1.0.0}
+          version=${version:-1.0.1}
           echo "VERSION=$version" >> "$GITHUB_ENV"
           python3 android/tools/build_bundle.py --version "$version" | tee build-out/bundle-log.txt
           ls -la android/app/src/main/assets/bundle
@@ -84,19 +84,34 @@ jobs:
           set -o pipefail
           chmod +x gradlew
           mkdir -p "$GITHUB_WORKSPACE/build-out"
-          ./gradlew --no-daemon --stacktrace assembleDebug 2>&1 \
+          ./gradlew --no-daemon --stacktrace testDebugUnitTest assembleDebug 2>&1 \
             | tee "$GITHUB_WORKSPACE/build-out/build-log.txt"
+
+      - name: Enable KVM for the emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Smoke test cold launch and relaunch of the built APK
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 28
+          arch: x86_64
+          profile: Nexus 6
+          disable-animations: true
+          script: python3 android/tools/smoke_apk.py
 
       - name: Collect the APKs
         if: success()
         run: |
           set -euo pipefail
           mkdir -p build-out
-          version=${VERSION:-1.0.0}
+          version=${VERSION:-1.0.1}
           cp android/app/build/outputs/apk/debug/app-debug.apk "build-out/PremiumTV-${version}-debug.apk"
           # Only the debug APK is published; drop any unsigned leftovers.
           rm -f build-out/*-release-unsigned.apk
-          (cd build-out && sha256sum *.apk > SHA256SUMS.txt)
+          (cd build-out && sha256sum *.apk > SHA256SUMS-android.txt)
           ls -la build-out
 
       # Deliberately ordered before the branch push: on a tag build the branch
@@ -121,7 +136,7 @@ jobs:
             exit 0
           fi
           gh release upload "$tag" \
-            "build-out/PremiumTV-${VERSION}-debug.apk" build-out/SHA256SUMS.txt --clobber
+            "build-out/PremiumTV-${VERSION}-debug.apk" build-out/SHA256SUMS-android.txt --clobber
           gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'
 
       - name: Publish build output to the branch

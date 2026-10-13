@@ -580,16 +580,31 @@
     }
   });
 
-  api.onState((state) => {
-    snapshot.state = state;
-    els.statusText.textContent = state.message || '';
-    if (state.phase === 'ready') {
-      renderCategories();
-      render();
-    } else if (state.phase === 'error') {
-      els.channelsGrid.innerHTML = `<div class="empty-state">${escapeHtml(state.message)}</div>`;
+  // State notifications do not contain the library. Re-read it over IPC on
+  // each transition, including the early channel-only progress notification.
+  // Ignore older replies: a slow startup request must not erase a ready one.
+  let snapshotRequest = 0;
+  async function syncSnapshot() {
+    const request = ++snapshotRequest;
+    const next = await api.getSnapshot();
+    if (request !== snapshotRequest) return;
+    snapshot = next;
+    programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
+    els.statusText.textContent = snapshot.state.message || '';
+    renderCategories();
+    render();
+    if (snapshot.state.phase === 'error') {
+      els.channelsGrid.innerHTML = `<div class="empty-state">${escapeHtml(snapshot.state.message)}</div>`;
     }
-  });
+  }
+
+  function updateSnapshot() {
+    syncSnapshot().catch((error) => {
+      els.statusText.textContent = `Could not load channels: ${error.message}`;
+    });
+  }
+
+  api.onState(updateSnapshot);
 
   api.onInfo((info) => {
     snapshot.info = info;
@@ -598,7 +613,7 @@
   });
 
   api.onProgress(() => {
-    els.statusText.textContent = 'Channels ready; loading the guide…';
+    updateSnapshot();
   });
 
   api.onSelectTab((tab) => selectTab(tab));
@@ -611,11 +626,7 @@
     appInfo = await api.getAppInfo();
     const brandTag = document.getElementById('brand-tag');
     if (brandTag && appInfo.version) brandTag.textContent = appInfo.version;
-    snapshot = await api.getSnapshot();
-    programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
-    els.statusText.textContent = snapshot.state.message || '';
-    renderCategories();
-    selectTab('channels');
+    await syncSnapshot();
 
     // Keep "now playing" honest without a full re-render storm.
     clockTimer = window.setInterval(() => {

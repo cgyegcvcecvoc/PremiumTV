@@ -168,8 +168,8 @@ class TvRepository extends EventEmitter {
     this.emit('info', this.info);
 
     const stored = this.readState();
-    const validators = stored.validators || {};
-    const conditional = !isManual && Boolean(stored.info && stored.info.lastSuccessAt);
+    const validators = (stored.info && stored.info.validators) || stored.validators || {};
+    const conditional = !isManual && this.state.source === 'cache' && Boolean(stored.info && stored.info.lastSuccessAt);
 
     const meta = this.currentMeta();
     const playlistUrl = meta && meta.playlist_url;
@@ -368,6 +368,7 @@ class TvRepository extends EventEmitter {
       // A cache we cannot read is treated as no cache: fall back to the bundle
       // rather than showing an empty app.
       await fsp.rm(this.cacheDir, { recursive: true, force: true });
+      this.clearValidators();
       return null;
     }
   }
@@ -443,6 +444,7 @@ class TvRepository extends EventEmitter {
   clearValidators() {
     const stored = this.readState();
     delete stored.validators;
+    delete this.info.validators;
     this.info = { ...this.info, lastSuccessAt: null };
     try {
       fs.mkdirSync(path.dirname(this.stateFile), { recursive: true });

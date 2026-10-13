@@ -12,11 +12,9 @@ android {
         applicationId = "com.premiumtv.app"
         minSdk = 23
         targetSdk = 34
-        // 1.0.0 "Marquee": the first official release. Persistent, network-aware
-        // background data refreshes, a full force-refresh action, and a merged
-        // guide built from the curated per-country EPG sources.
-        versionCode = 5
-        versionName = "1.0.0"
+        // 1.0.1: channel-loading hotfix and bundled-library regression coverage.
+        versionCode = 6
+        versionName = "1.0.1"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -53,6 +51,10 @@ android {
         buildConfig = true
     }
 
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -61,6 +63,9 @@ android {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+
     implementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.activity:activity-compose:1.9.1")
     implementation("androidx.core:core-ktx:1.13.1")

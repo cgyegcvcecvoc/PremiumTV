@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## macOS app (PremiumTV 1.0.0)
+## macOS app (PremiumTV 1.0.1)
 
 The repository also ships a **macOS app** that does the same job as the Android
 one — channels and guide bundled in the app — packaged as a `.dmg` (drag to
@@ -67,12 +67,14 @@ Intel and Apple Silicon. Nothing to run, nothing to configure.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Installers (dmg + pkg, both archs) | [v1.0.0 "Marquee" — official release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0) |
+| Installers (dmg + pkg, both archs) | [v1.0.1 — channel-loading hotfix](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1) |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
-The earlier player-over-channel-list display bug is fixed and covered by a
-regression test. The browser, guide, settings refreshes and loopback playback
-all pass the app's test suites.
+Version **1.0.1** fixes a cold-start race that could leave Channels empty even
+after the bundled library loaded. The renderer now fetches the loaded library
+on state/progress events and rebuilds the guide index. Regression tests cover
+cold launch, guide loading, refreshed rows and out-of-order IPC replies. CI also
+launches both packaged Mac architectures and the built APK before publishing.
 
 Because Electron 44 dropped macOS 12, the app pins Electron 43 and declares
 `minimumSystemVersion: "12.0"`. It is ad-hoc signed, not notarized: on first
@@ -80,7 +82,7 @@ launch, right-click → **Open**, or run `xattr -dr com.apple.quarantine
 /Applications/PremiumTV.app`. Like the Android app, refreshes can only read this
 repository once a public mirror exists; until then the bundled copy is used.
 
-## Android TV app (PremiumTV 1.0.0)
+## Android TV app (PremiumTV 1.0.1)
 
 The repository also builds an Android app that carries the playlists and the
 guide **inside the APK** — nothing to configure in a player, no M3U file to
@@ -89,8 +91,8 @@ side-load.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Version | `1.0.0` "Marquee" (`versionCode 5`) |
-| Android download | [v1.0.0 — official release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0) |
+| Version | `1.0.1` (`versionCode 6`) |
+| Android download | [v1.0.1 — channel-loading hotfix](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1) |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 **PremiumTV 1.0.0 "Marquee" is the first official release**, carrying both
