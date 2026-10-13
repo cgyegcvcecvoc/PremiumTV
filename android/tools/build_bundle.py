@@ -44,7 +44,7 @@ DEFAULT_PLAYLIST = "playlists/countries/USA.m3u"
 DEFAULT_GUIDE = "EPG/USA.xml"
 DEFAULT_INDEX = "categories/index.json"
 DEFAULT_OUT = os.path.join("android", "app", "src", "main", "assets", "bundle")
-DEFAULT_VERSION = "1.0.0-beta4"
+DEFAULT_VERSION = "1.0.1"
 
 # The repository the app refreshes from.  These are the same raw URLs the
 # playlists advertise; they only resolve for a device if the repository is

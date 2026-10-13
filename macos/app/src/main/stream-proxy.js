@@ -202,7 +202,7 @@ class StreamProxy {
 
     if (isPlaylist) {
       const text = await readLimited(upstream, MAX_PLAYLIST_BYTES);
-      const rewritten = rewritePlaylist(text, target, session, `${this.origin}/p/${sessionId}`);
+      const rewritten = rewritePlaylist(text, upstream.url || target, session, `${this.origin}/p/${sessionId}`);
       response.writeHead(200, {
         'content-type': 'application/vnd.apple.mpegurl',
         'cache-control': 'no-cache',

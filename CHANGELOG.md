@@ -4,6 +4,23 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
+## 2026-10-13 — PremiumTV 1.0.1 — channel-loading hotfix
+
+- Fixed the Mac renderer retaining an empty startup snapshot after the main
+  process finished loading channels. State/progress events now fetch the actual
+  library, rebuild the guide index, and ignore stale IPC replies.
+- Fixed Mac refresh validators being read from the wrong saved-state field;
+  a corrupt cache fallback no longer sends validators for a discarded copy.
+- HLS redirects now resolve relative segments and encryption keys against the
+  final upstream URL, rather than the original pre-redirect URL.
+- Added DOM regression tests, proxy HTTP coverage, five Android/Robolectric
+  library tests, Android emulator cold-start/relaunch checks, and real packaged
+  Electron smoke tests for Intel and Apple Silicon before installer uploads.
+- Version 1.0.1 on both platforms; Android versionCode 6. Platform-specific
+  checksum manifests avoid the two build jobs overwriting one shared file.
+- Upstream stream availability and private-repository refresh access remain
+  external limitations; this patch does not promise every live feed is online.
+
 ## 2026-10-12 — PremiumTV 1.0.0 "Marquee" — the first official release
 
 - **A guide for every channel.** New `sources.json` → `epg_sources` curated

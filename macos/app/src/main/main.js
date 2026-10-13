@@ -19,6 +19,11 @@ const { AutoRefresh } = require('./auto-refresh');
 const schedule = require('./refresh-schedule');
 
 const WINDOW_STATE_KEY = 'window-bounds';
+const smokeMode = process.argv.includes('--smoke-test');
+if (smokeMode) {
+  app.setPath('userData', require('node:fs').mkdtempSync(path.join(os.tmpdir(), 'premiumtv-smoke-')));
+  setTimeout(() => app.exit(1), 90000).unref();
+}
 
 let mainWindow = null;
 let repository = null;
@@ -85,6 +90,16 @@ function bootstrap() {
     autoRefresh = new AutoRefresh({ repository });
 
     await createWindow();
+    if (smokeMode) {
+      try {
+        await require('./smoke-test')(mainWindow, repository, proxy);
+        app.exit(0);
+      } catch (error) {
+        console.error(error);
+        app.exit(1);
+      }
+      return;
+    }
     await repository.load();
 
     autoRefresh.start();

@@ -56,3 +56,33 @@ test('absoluteUrl resolves relative and absolute URIs', () => {
   assert.equal(absoluteUrl('a/b.ts', 'https://h/x/master.m3u8'), 'https://h/x/a/b.ts');
   assert.equal(absoluteUrl('https://o/z.ts', 'https://h/x/master.m3u8'), 'https://o/z.ts');
 });
+
+test('HTTP proxy resolves HLS segments and keys against the final redirected URL', async (t) => {
+  const { StreamProxy } = require('../src/main/stream-proxy');
+  const path = require('node:path');
+  const requests = [];
+  const proxy = new StreamProxy({
+    rendererDir: path.join(__dirname, '..', 'src', 'renderer'),
+    logoCacheDir: '/unused',
+    fetchImpl: async (url, init) => {
+      requests.push({ url, headers: init.headers });
+      const response = new Response('#EXTM3U\n#EXT-X-KEY:METHOD=AES-128,URI="key.bin"\n#EXTINF:6,\nseg.ts\n', {
+        headers: { 'content-type': 'application/vnd.apple.mpegurl' },
+      });
+      Object.defineProperty(response, 'url', { value: 'https://cdn.example/new/live.m3u8' });
+      return response;
+    },
+  });
+  await proxy.start();
+  t.after(() => proxy.stop());
+  const url = proxy.registerChannel({ url: 'https://origin.example/live.m3u8', ua: 'TestUA', referrer: 'https://ref.example' });
+  const result = await fetch(url);
+  assert.equal(result.status, 200);
+  const playlist = await result.text();
+  assert.ok(playlist.includes(encodeURIComponent('https://cdn.example/new/seg.ts')));
+  assert.ok(playlist.includes(encodeURIComponent('https://cdn.example/new/key.bin')));
+  assert.equal(requests[0].headers.Referer, 'https://ref.example');
+  assert.equal(requests[0].headers['User-Agent'], 'TestUA');
+  assert.equal((await fetch(`${url}?u=${encodeURIComponent('https://not-allowed.example/seg.ts')}`)).status, 403);
+  assert.equal((await fetch(`${proxy.origin}/app.js`)).status, 200);
+});

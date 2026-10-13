@@ -64,8 +64,8 @@ class AndroidRefreshScheduleTests(unittest.TestCase):
 class AndroidRefreshWiringTests(unittest.TestCase):
     def test_release_version_and_workmanager_dependency(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('versionName = "1.0.0"', gradle)
-        self.assertRegex(gradle, r"versionCode\s*=\s*5")
+        self.assertIn('versionName = "1.0.1"', gradle)
+        self.assertRegex(gradle, r"versionCode\s*=\s*6")
         self.assertIn('androidx.work:work-runtime-ktx:2.9.1', gradle)
 
     def test_boot_permission_and_application_scheduler(self):
