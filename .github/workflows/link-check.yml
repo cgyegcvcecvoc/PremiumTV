@@ -125,17 +125,6 @@ jobs:
         continue-on-error: true
         run: python scripts/build_categories.py --label "nightly deep link check"
 
-      - name: Verify the published playlists and guides
-        # Offline cross-check of everything this workflow just did: canonical
-        # categories and order, no link the deep check called dead, and every
-        # advertised guide declaring the channels in front of it. --strict makes
-        # a structural problem fail the step; it is continue-on-error so the
-        # reports below are still committed and visible.
-        if: always()
-        id: verify
-        continue-on-error: true
-        run: python scripts/verify_playlists.py --strict --require-shelf
-
       - name: Hunt for priority channels
         id: hunt
         continue-on-error: true
@@ -151,6 +140,17 @@ jobs:
           # effort, so a missing working link for a channel must not fail the run.
           python scripts/channel_hunt.py --github-search --workers 24 --timeout 12 \
             --label "nightly priority channel hunt" || true
+
+      - name: Verify the published playlists and guides
+        # Offline cross-check of everything this workflow just did: canonical
+        # categories and order, no link the deep check called dead, and every
+        # advertised guide declaring the channels in front of it. --strict makes
+        # a structural problem fail the step; it is continue-on-error so the
+        # reports below are still committed and visible.
+        if: always()
+        id: verify
+        continue-on-error: true
+        run: python scripts/verify_playlists.py --strict --require-shelf
 
       - name: Add the check reports to the Actions summary
         if: always()

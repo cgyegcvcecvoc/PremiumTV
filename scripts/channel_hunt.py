@@ -423,6 +423,46 @@ def write_curated_playlist(path: Path, entries: list, label: str,
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def release_revalidated_quarantine(out_dir: Path, channels: list,
+                                   updated_utc: str) -> list[dict]:
+    """Release links from quarantine after the deep hunt proves they play again.
+
+    A prior deep check may have quarantined a stream that later recovered. The
+    hunt verifies candidates with a real media-segment probe; once one of those
+    links is selected for publication, that newer positive result supersedes the
+    older failure evidence so the scraper and verifier do not keep treating it
+    as dead.
+    """
+    path = out_dir / "checks" / scraper.QUARANTINE_FILENAME
+    if not channels or not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    if not isinstance(data, dict) or not isinstance(data.get("entries"), dict):
+        return []
+
+    entries = data["entries"]
+    released = []
+    released_urls = set()
+    for channel in channels:
+        url = (channel.url or "").strip()
+        if not url or url in released_urls or url not in entries:
+            continue
+        released_urls.add(url)
+        released.append({"name": channel.name, "url": scraper.safe_url(url)})
+    if not released:
+        return []
+
+    for url in released_urls:
+        entries.pop(url, None)
+    data["updated_utc"] = updated_utc
+    data["count"] = len(entries)
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return released
+
+
 def load_config(config_path: Path) -> dict:
     config = json.loads(config_path.read_text(encoding="utf-8"))
     return config.get("priority_channels") or {}
@@ -440,6 +480,7 @@ def write_reports(out_dir: Path, report: dict) -> list:
         f"| **Duration:** {report['duration_seconds']}s",
         f"- **Curated source:** `{report['output']}` "
         f"({report['published_count']} verified links)",
+        f"- **Recovered from dead-link quarantine:** {len(report.get('quarantine_released') or [])}",
         "",
         "| Channel | Candidates | Verified working | Published |",
         "|---|---:|---:|---:|",
@@ -605,6 +646,7 @@ def main(argv=None) -> int:
         # Same canonical categories and ordering as every other published
         # playlist: Nickelodeon/NickToons -> Cartoons, MeTV -> TV, US first.
         scraper.canonicalize_channels(published)
+    quarantine_released = []
     if published and not args.report_only:
         write_curated_playlist(output, published, args.label, utc_s, local_s)
         log(f"[hunt] wrote {output} ({len(published)} verified links)")
@@ -613,6 +655,9 @@ def main(argv=None) -> int:
         write_curated_playlist(playlist_path, published, args.label, utc_s, local_s,
                                header=header)
         log(f"[hunt] wrote {playlist_path} ({len(published)} verified links)")
+        quarantine_released = release_revalidated_quarantine(out_dir, published, utc_s)
+        if quarantine_released:
+            log(f"[hunt] released {len(quarantine_released)} revalidated link(s) from quarantine")
     elif not published:
         log("[hunt] no verified links this run; curated playlist left untouched")
 
@@ -626,6 +671,7 @@ def main(argv=None) -> int:
         "playlist": display_path(playlist_path),
         "published_count": len(published) if not args.report_only else 0,
         "github_search": bool(args.github_search),
+        "quarantine_released": quarantine_released,
         "targets": target_reports,
     }
     for path in write_reports(out_dir, report):

@@ -428,6 +428,13 @@ class LinkCheckTest(unittest.TestCase):
         # The file with no archive exemption loses its dead link under the same run.
         self.assertNotIn("gone.m3u8", player.read_text(encoding="utf-8"))
 
+    def test_workflow_verifies_after_refreshing_priority_channels(self):
+        workflow = Path(__file__).resolve().parents[1] / ".github" / "workflows" / "link-check.yml"
+        text = workflow.read_text(encoding="utf-8")
+        hunt_step = text.index("- name: Hunt for priority channels")
+        verify_step = text.index("- name: Verify the published playlists and guides")
+        self.assertLess(hunt_step, verify_step)
+
     def test_main_without_playlists_fails_cleanly(self):
         with redirect_stdout(StringIO()):
             code = link_check.main(["--out", str(self.out)])

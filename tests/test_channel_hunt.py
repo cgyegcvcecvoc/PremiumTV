@@ -261,6 +261,63 @@ class ChannelHuntTest(unittest.TestCase):
         channels, _ = scraper.parse_m3u(text, "curated")
         self.assertEqual(len(channels), 2)  # MeTV Toons + Nickelodeon, both verified
 
+    def test_hunt_releases_only_successfully_revalidated_quarantine_entries(self):
+        checks = self.out / "checks"
+        checks.mkdir(parents=True, exist_ok=True)
+        recovered_url = f"{self.base}/metvtoons.m3u8"
+        still_dead_url = f"{self.base}/dead.m3u8"
+        quarantine_path = checks / scraper.QUARANTINE_FILENAME
+        quarantine_path.write_text(json.dumps({
+            "updated_utc": "2026-01-01T00:00:00Z",
+            "expires_after_days": 7.0,
+            "count": 2,
+            "entries": {
+                recovered_url: {"name": "MeTV Toons", "hits": 2},
+                still_dead_url: {"name": "MeTV Toons dead", "hits": 2},
+            },
+        }), encoding="utf-8")
+
+        with redirect_stdout(StringIO()):
+            code = channel_hunt.main(["--out", str(self.out), "--sources",
+                                      str(self.config_path), "--no-upstream",
+                                      "--channel", "MeTV Toons", "--workers", "8",
+                                      "--timeout", "5"])
+
+        self.assertEqual(code, 0)
+        remaining = json.loads(quarantine_path.read_text(encoding="utf-8"))
+        self.assertEqual(remaining["count"], 1)
+        self.assertEqual(list(remaining["entries"]), [still_dead_url])
+        report = json.loads((checks / "channel-hunt.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["quarantine_released"], [
+            {"name": "MeTV Toons (720p)", "url": recovered_url},
+        ])
+        self.assertIn("**Recovered from dead-link quarantine:** 1",
+                      (checks / "CHANNEL-HUNT.md").read_text(encoding="utf-8"))
+
+    def test_report_only_does_not_release_quarantine_entries(self):
+        checks = self.out / "checks"
+        checks.mkdir(parents=True, exist_ok=True)
+        recovered_url = f"{self.base}/metvtoons.m3u8"
+        quarantine_path = checks / scraper.QUARANTINE_FILENAME
+        initial = {
+            "updated_utc": "2026-01-01T00:00:00Z",
+            "expires_after_days": 7.0,
+            "count": 1,
+            "entries": {recovered_url: {"name": "MeTV Toons", "hits": 2}},
+        }
+        quarantine_path.write_text(json.dumps(initial), encoding="utf-8")
+
+        with redirect_stdout(StringIO()):
+            code = channel_hunt.main(["--out", str(self.out), "--sources",
+                                      str(self.config_path), "--no-upstream",
+                                      "--report-only", "--channel", "MeTV Toons",
+                                      "--workers", "8", "--timeout", "5"])
+
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(quarantine_path.read_text(encoding="utf-8")), initial)
+        report = json.loads((checks / "channel-hunt.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["quarantine_released"], [])
+
     def test_tokenised_links_are_only_kept_when_nothing_stable_plays(self):
         (self.out / "PremiumTV_all.m3u").write_text("\n".join([
             "#EXTM3U",
