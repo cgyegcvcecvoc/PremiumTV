@@ -88,3 +88,37 @@ test('xmltvTime handles offsets both ways', () => {
   assert.equal(utc, eastern);
   assert.equal(utc, Date.UTC(2026, 9, 11, 4, 30, 0) / 1000);
 });
+
+
+test('parseM3u preserves commas in quoted metadata and channel display names', () => {
+  const { channels } = parseM3u([
+    '#EXTM3U',
+    '#EXTINF:-1 tvg-id="news.local" group-title="News, Local",News, Local',
+    'https://example.org/news.m3u8',
+  ].join('\n'));
+  assert.equal(channels[0].group, 'News, Local');
+  assert.equal(channels[0].name, 'News, Local');
+});
+
+test('xmltvTime rejects impossible values and malformed suffixes', () => {
+  const { xmltvTime } = require('../src/main/parsers');
+  assert.equal(xmltvTime('20261131010000 +0000'), 0);
+  assert.equal(xmltvTime('00000101000000 +0000'), 0);
+  assert.equal(xmltvTime('20261101010000 +2460'), 0);
+  assert.equal(xmltvTime('20261101010000 +0000 trailing'), 0);
+});
+
+test('parseXmltv repairs a non-positive duration and drops an invalid date', () => {
+  const xml = `<tv>
+    <programme channel="demo" start="20261101010000 +0000" stop="20261101000000 +0000">
+      <title>Valid start</title>
+    </programme>
+    <programme channel="demo" start="20261131010000 +0000" stop="20261131020000 +0000">
+      <title>Invalid calendar date</title>
+    </programme>
+  </tv>`;
+  const programmes = parseXmltv(xml, { knownIds: new Set(['demo']), nowSeconds: 0 });
+  assert.equal(programmes.length, 1);
+  assert.equal(programmes[0].t, 'Valid start');
+  assert.equal(programmes[0].e - programmes[0].s, 1800);
+});

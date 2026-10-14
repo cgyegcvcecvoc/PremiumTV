@@ -116,6 +116,20 @@ class TvRepository extends EventEmitter {
     };
   }
 
+  /**
+   * Channel ids are EPG ids, not unique stream ids: backups intentionally share
+   * them. Resolve an exact id+URL pair first so choosing a backup actually plays
+   * that backup rather than silently opening the primary feed.
+   */
+  findChannel(channelId, streamUrl = '') {
+    const channels = this.library.channels || [];
+    if (streamUrl) {
+      const exact = channels.find((channel) => channel.id === channelId && channel.url === streamUrl);
+      if (exact) return exact;
+    }
+    return channels.find((channel) => channel.id === channelId) || null;
+  }
+
   // ------------------------------------------------------------- operations
 
   async loadLocked() {

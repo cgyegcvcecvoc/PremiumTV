@@ -5,8 +5,8 @@ package com.premiumtv.app.data
  *
  * It mirrors android/tools/build_bundle.py exactly, so a playlist refreshed
  * over the network produces the same channel records the APK shipped with:
- * tvg-* attributes, the display name after the last comma, and the
- * #EXTVLCOPT / #KODIPROP headers some streams need (referrer, user-agent).
+ * tvg-* attributes, the display name after the first comma outside quotes,
+ * and the #EXTVLCOPT / #KODIPROP headers some streams need (referrer, user-agent).
  */
 internal object M3uParser {
 
@@ -58,12 +58,7 @@ internal object M3uParser {
                 chno = attrs["tvg-chno"].orEmpty().trim()
                 ua = attrs["http-user-agent"].orEmpty().trim()
                 referrer = attrs["http-referrer"].orEmpty().trim()
-                val comma = line.lastIndexOf(',')
-                name = if (comma >= 0) {
-                    line.substring(comma + 1).trim()
-                } else {
-                    attrs["tvg-name"].orEmpty().trim()
-                }
+                name = extinfName(line, attrs)
                 pending = true
                 continue
             }
@@ -141,6 +136,17 @@ internal object M3uParser {
             out[match.groupValues[1]] = match.groupValues[2]
         }
         return out
+    }
+
+    private fun extinfName(line: String, attrs: Map<String, String>): String {
+        var quoted = false
+        for (index in line.indices) {
+            when (line[index]) {
+                '"' -> quoted = !quoted
+                ',' -> if (!quoted) return line.substring(index + 1).trim()
+            }
+        }
+        return attrs["tvg-name"].orEmpty().trim()
     }
 
     private fun cleanName(raw: String): String {

@@ -1250,8 +1250,44 @@ def _classify_stream_body(channel: Channel, body: bytes, content_type: str) -> C
 QUARANTINE_FILENAME = "quarantine.json"
 
 
+def load_channel_hunt_working(checks_dir: Path) -> tuple[dt.datetime | None, set[str]]:
+    """Read links re-proven playable by a later deep channel-hunt run.
+
+    Channel hunts use the same HLS variant/segment probe as the nightly checker.
+    Their positive result supersedes an older quarantine entry, but only when
+    the report itself is timestamped and the probe confirmed a media segment.
+    """
+    path = checks_dir / "channel-hunt.json"
+    if not path.exists():
+        return None, set()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None, set()
+    if not isinstance(data, dict):
+        return None, set()
+    finished = parse_utc_iso(str(data.get("finished_utc") or ""))
+    targets = data.get("targets")
+    if finished is None or not isinstance(targets, list):
+        return None, set()
+    working: set[str] = set()
+    for target in targets:
+        if not isinstance(target, dict):
+            continue
+        results = target.get("results")
+        if not isinstance(results, list):
+            continue
+        for result in results:
+            if not isinstance(result, dict):
+                continue
+            url = str(result.get("url") or "").strip()
+            if url and result.get("status") == "working" and result.get("segment_ok") is True:
+                working.add(url)
+    return finished, working
+
+
 def load_quarantine(path: Path, days: float) -> dict:
-    """Read the quarantine file, dropping entries older than `days`."""
+    """Read active quarantine entries, dropping expired or later-revalidated links."""
     if days <= 0 or not path.exists():
         return {}
     try:
@@ -1264,11 +1300,20 @@ def load_quarantine(path: Path, days: float) -> dict:
     if days <= 0:
         return entries
     cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)
+    hunt_finished, hunt_working = load_channel_hunt_working(path.parent)
     fresh = {}
     for url, entry in entries.items():
         if not isinstance(entry, dict) or not url:
             continue
         last_seen = parse_utc_iso(str(entry.get("last_seen_utc") or ""))
+        verified_after_quarantine = (
+            hunt_finished is not None
+            and url in hunt_working
+            and last_seen is not None
+            and hunt_finished > last_seen
+        )
+        if verified_after_quarantine:
+            continue
         if last_seen is None or last_seen.replace(tzinfo=None) >= cutoff.replace(tzinfo=None):
             fresh[url] = entry
     return fresh
@@ -1304,7 +1349,8 @@ def load_deep_check_dead(checks_dir: Path,
     a real media segment, so it catches streams that answer a shallow request but
     serve nothing. Treating its confirmed-dead list as evidence keeps such a link
     out of the published playlist even when the shallow six-second check happens
-    to pass on the same day.
+    to pass on the same day. A later channel-hunt segment success supersedes that
+    verdict; a still-later deep-check failure takes precedence again.
     """
     if max_age_hours <= 0:
         return {}
@@ -1342,6 +1388,13 @@ def load_deep_check_dead(checks_dir: Path,
                 continue
             reason = str(entry.get("reason") or "").strip()
             dead[url] = f"deep check: {status}" + (f" ({reason})" if reason else "")
+    # A later channel hunt runs the same deep variant + media-segment probe.
+    # Do not keep publishing a stale dead verdict after that run proves a URL
+    # works; a still-later nightly failure will naturally take precedence.
+    hunt_finished, hunt_working = load_channel_hunt_working(checks_dir)
+    if finished is not None and hunt_finished is not None and hunt_finished > finished:
+        for url in hunt_working:
+            dead.pop(url, None)
     return dead
 
 

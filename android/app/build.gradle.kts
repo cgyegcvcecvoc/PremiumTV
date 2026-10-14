@@ -4,6 +4,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+// Release tags can override these properties so the stable 1.0.2 and the
+// 1.1.0 all-channel preview are built from the same reviewed source commit.
+val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.2").get()
+val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("7").get().toInt()
+
 android {
     namespace = "com.premiumtv.app"
     compileSdk = 34
@@ -12,9 +17,8 @@ android {
         applicationId = "com.premiumtv.app"
         minSdk = 23
         targetSdk = 34
-        // 1.0.1: channel-loading hotfix and bundled-library regression coverage.
-        versionCode = 6
-        versionName = "1.0.1"
+        versionCode = premiumTvVersionCode
+        versionName = premiumTvVersion
         vectorDrawables.useSupportLibrary = true
     }
 

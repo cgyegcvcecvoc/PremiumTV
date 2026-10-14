@@ -4,6 +4,30 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
+## 2026-10-14 — Prepared 1.0.2 stable and 1.1.0 preview (not published)
+
+- Kept **1.0.2** as the default stable target: Android `versionCode 7`, USA
+  playlist/guide, and macOS package version 1.0.2. The 1.0.2 release is prepared
+  but has not been published.
+- Set up **1.1.0** as a separate GitHub pre-release target: Android
+  `versionCode 8`, the checked global playlist and merged guide. Workflows only
+  build that scope for the 1.1.0 preview and reject a stable-tagged 1.1.0.
+- Added an optional cable-style, eight-hour EPG grid to both apps. The tab is
+  controlled by bundle metadata (`preview_features: ["cable-guide"]`), so it is
+  absent from the stable USA build.
+- Fixed M3U display names containing commas and tightened XMLTV timestamp/end
+  validation in the builder and app parsers. Fixed Mac duplicate-EPG-ID stream
+  selection and reliable proxy-session release; added regression tests.
+- Reconciled stale dead-link/quarantine evidence against a later successful
+  deep channel-hunt result, so two streams re-proven playable are not falsely
+  reported as dead. The verifier now lets newer confirmed media probes supersede
+  older quarantine entries.
+- Updated the macOS XML parser dependency and release-build configuration.
+  Offline validation passes: 349 Python tests, 38 macOS Node tests, and the
+  strict verifier (177 playlists, 19,650 entries, zero problems or published
+  dead links). Android Gradle/emulator and macOS packaging remain platform-CI
+  checks; Java is not available in this sandbox. No release was published.
+
 ## 2026-10-13 — PremiumTV 1.0.1 — channel-loading hotfix
 
 - Fixed the Mac renderer retaining an empty startup snapshot after the main

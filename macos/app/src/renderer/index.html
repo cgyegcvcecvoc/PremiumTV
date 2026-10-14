@@ -20,6 +20,7 @@
       <nav id="tabs" role="tablist" aria-label="Sections">
         <button class="tab" role="tab" data-tab="channels" aria-selected="true">Channels</button>
         <button class="tab" role="tab" data-tab="guide" aria-selected="false">Guide</button>
+        <button id="cable-tab" class="tab" role="tab" data-tab="cable" aria-selected="false" hidden>Cable</button>
         <button class="tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
       </nav>
 
@@ -49,6 +50,14 @@
           <p id="guide-subtitle"></p>
         </header>
         <div id="guide-list"></div>
+      </section>
+
+      <section id="view-cable" class="view" role="tabpanel" hidden>
+        <header class="view-head">
+          <h1>Cable guide <span class="preview-tag">1.1.0 preview</span></h1>
+          <p id="cable-subtitle"></p>
+        </header>
+        <div id="cable-list" class="cable-scroll" aria-label="Cable-style channel guide"></div>
       </section>
 
       <section id="view-settings" class="view" role="tabpanel" hidden>

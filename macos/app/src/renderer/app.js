@@ -22,11 +22,15 @@
     channelsGrid: document.getElementById('channels-grid'),
     guideList: document.getElementById('guide-list'),
     guideSubtitle: document.getElementById('guide-subtitle'),
+    cableList: document.getElementById('cable-list'),
+    cableSubtitle: document.getElementById('cable-subtitle'),
+    cableTab: document.getElementById('cable-tab'),
     settingsBody: document.getElementById('settings-body'),
     statusText: document.getElementById('status-text'),
     views: {
       channels: document.getElementById('view-channels'),
       guide: document.getElementById('view-guide'),
+      cable: document.getElementById('view-cable'),
       settings: document.getElementById('view-settings'),
     },
     player: document.getElementById('player'),
@@ -43,6 +47,9 @@
     category: null, // null = every channel
     query: '',
     rendered: 0,
+    cableRows: [],
+    cableRendered: 0,
+    cableWindowStart: 0,
   };
 
   const PAGE = 240;
@@ -139,6 +146,19 @@
     if (!programme) return 0;
     const total = Math.max(1, programme.e - programme.s);
     return Math.min(100, Math.max(0, ((atSeconds - programme.s) / total) * 100));
+  }
+
+  const CABLE_WINDOW_SECONDS = 8 * 60 * 60;
+  const CABLE_SLOT_SECONDS = 30 * 60;
+  const CABLE_SLOT_PX = 90;
+  const CABLE_LABEL_PX = 230;
+  const CABLE_PAGE = 120;
+  const CABLE_TIMELINE_PX = (CABLE_WINDOW_SECONDS / CABLE_SLOT_SECONDS) * CABLE_SLOT_PX;
+  const channelCollator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+
+  function cablePreviewEnabled() {
+    const features = snapshot.library.meta && snapshot.library.meta.preview_features;
+    return Array.isArray(features) && features.includes('cable-guide');
   }
 
   // -------------------------------------------------------------- rendering
@@ -350,6 +370,183 @@
     els.guideList.appendChild(fragment);
   }
 
+  function cableRow(channel, start, end, query) {
+    const guide = programmeIndex.get(channel.id) || [];
+    const programmes = guide.filter((programme) => programme.e > start && programme.s < end);
+    if (!programmes.length) return null;
+    if (query) {
+      const channelMatches = channel.name.toLowerCase().includes(query) ||
+        channel.group.toLowerCase().includes(query) ||
+        (channel.country || '').toLowerCase().includes(query);
+      const programmeMatches = programmes.some((programme) =>
+        programme.t.toLowerCase().includes(query) || (programme.g || '').toLowerCase().includes(query),
+      );
+      if (!channelMatches && !programmeMatches) return null;
+    }
+    return { channel, programmes };
+  }
+
+  function cableChannelRow(row, start, end, at) {
+    const item = document.createElement('div');
+    item.className = 'cable-row';
+
+    const label = document.createElement('button');
+    label.type = 'button';
+    label.className = 'cable-channel';
+    label.addEventListener('click', () => openPlayer(row.channel));
+    label.title = `${row.channel.name} · ${row.channel.group}`;
+
+    const number = document.createElement('span');
+    number.className = 'cable-number';
+    number.textContent = row.channel.chno || '—';
+    const logo = document.createElement('span');
+    logo.className = 'cable-logo';
+    const logoUrl = logoSource(row.channel);
+    if (logoUrl) {
+      const image = document.createElement('img');
+      image.loading = 'lazy';
+      image.alt = '';
+      image.src = logoUrl;
+      image.addEventListener('error', () => {
+        logo.textContent = row.channel.name.slice(0, 2).toUpperCase();
+        logo.classList.add('empty');
+      }, { once: true });
+      logo.appendChild(image);
+    } else {
+      logo.textContent = row.channel.name.slice(0, 2).toUpperCase();
+      logo.classList.add('empty');
+    }
+    const name = document.createElement('span');
+    name.className = 'cable-channel-name';
+    name.textContent = row.channel.name;
+    label.append(number, logo, name);
+
+    const timeline = document.createElement('div');
+    timeline.className = 'cable-track';
+    timeline.style.width = `${CABLE_TIMELINE_PX}px`;
+    const slotCount = CABLE_WINDOW_SECONDS / CABLE_SLOT_SECONDS;
+    for (let slot = 0; slot < slotCount; slot += 1) {
+      const gridline = document.createElement('span');
+      gridline.className = 'cable-gridline';
+      gridline.style.left = `${slot * CABLE_SLOT_PX}px`;
+      timeline.appendChild(gridline);
+    }
+
+    for (const programme of row.programmes) {
+      const visibleStart = Math.max(programme.s, start);
+      const visibleEnd = Math.min(programme.e, end);
+      if (visibleEnd <= visibleStart) continue;
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      const current = at >= programme.s && at < programme.e;
+      cell.className = `cable-programme${current ? ' current' : ''}`;
+      cell.style.left = `${((visibleStart - start) / 60) * 3}px`;
+      cell.style.width = `${((visibleEnd - visibleStart) / 60) * 3}px`;
+      cell.title = `${formatClock(visibleStart)}–${formatClock(visibleEnd)} · ${programme.t}`;
+      cell.addEventListener('click', () => openPlayer(row.channel));
+
+      const time = document.createElement('span');
+      time.className = 'cable-programme-time';
+      time.textContent = `${formatClock(visibleStart)}${current ? ' · NOW' : ''}`;
+      const title = document.createElement('span');
+      title.className = 'cable-programme-title';
+      title.textContent = programme.t;
+      cell.append(time, title);
+      timeline.appendChild(cell);
+    }
+
+    if (at >= start && at < end) {
+      const marker = document.createElement('span');
+      marker.className = 'cable-now-line';
+      marker.style.left = `${((at - start) / 60) * 3}px`;
+      timeline.appendChild(marker);
+    }
+
+    item.append(label, timeline);
+    return item;
+  }
+
+  function appendCablePage() {
+    const list = ui.cableRows;
+    const fragment = document.createDocumentFragment();
+    const page = list.slice(ui.cableRendered, ui.cableRendered + CABLE_PAGE);
+    const start = ui.cableWindowStart;
+    const end = start + CABLE_WINDOW_SECONDS;
+    const at = nowSeconds();
+    for (const row of page) fragment.appendChild(cableChannelRow(row, start, end, at));
+    els.cableList.appendChild(fragment);
+    ui.cableRendered += page.length;
+  }
+
+  function renderCableGuide() {
+    const enabled = cablePreviewEnabled();
+    els.cableTab.hidden = !enabled;
+    if (!enabled) {
+      if (ui.tab === 'cable') selectTab('channels');
+      return;
+    }
+    if (snapshot.library.guideLoading || snapshot.library.guideError) {
+      els.cableList.textContent = '';
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.textContent = snapshot.library.guideLoading
+        ? 'The guide is still loading. Channels remain available in the Channels tab.'
+        : `The programme guide is unavailable: ${snapshot.library.guideError}`;
+      els.cableList.appendChild(empty);
+      els.cableSubtitle.textContent = 'The channel list remains available while the guide is unavailable.';
+      return;
+    }
+
+    const previousTop = els.cableList.scrollTop;
+    const previousLeft = els.cableList.scrollLeft;
+    const at = nowSeconds();
+    const start = Math.floor(at / CABLE_SLOT_SECONDS) * CABLE_SLOT_SECONDS;
+    const end = start + CABLE_WINDOW_SECONDS;
+    const query = ui.query.trim().toLowerCase();
+    const rows = (snapshot.library.channels || [])
+      .map((channel) => cableRow(channel, start, end, query))
+      .filter(Boolean)
+      .sort((a, b) => {
+        const numberOrder = channelCollator.compare(a.channel.chno || '', b.channel.chno || '');
+        return numberOrder || channelCollator.compare(a.channel.name, b.channel.name);
+      });
+
+    ui.cableWindowStart = start;
+    ui.cableRows = rows;
+    ui.cableRendered = 0;
+    els.cableSubtitle.textContent = `${rows.length} channels with listings · 8-hour window · scroll horizontally for later times`;
+    els.cableList.textContent = '';
+
+    const header = document.createElement('div');
+    header.className = 'cable-row cable-header-row';
+    const stub = document.createElement('div');
+    stub.className = 'cable-channel cable-header-stub';
+    stub.textContent = 'CHANNEL';
+    const times = document.createElement('div');
+    times.className = 'cable-track cable-time-track';
+    times.style.width = `${CABLE_TIMELINE_PX}px`;
+    for (let slot = 0; slot < CABLE_WINDOW_SECONDS / CABLE_SLOT_SECONDS; slot += 1) {
+      const tick = document.createElement('span');
+      tick.className = 'cable-time-tick';
+      tick.style.left = `${slot * CABLE_SLOT_PX}px`;
+      tick.textContent = formatClock(start + slot * CABLE_SLOT_SECONDS);
+      times.appendChild(tick);
+    }
+    header.append(stub, times);
+    els.cableList.appendChild(header);
+
+    if (!rows.length) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-state cable-empty';
+      empty.textContent = 'No programme listings match this time window.';
+      els.cableList.appendChild(empty);
+    } else {
+      appendCablePage();
+    }
+    els.cableList.scrollTop = previousTop;
+    els.cableList.scrollLeft = previousLeft;
+  }
+
   function renderSettings() {
     const meta = snapshot.library.meta || {};
     const info = snapshot.info || {};
@@ -389,7 +586,8 @@
       <div class="panel">
         <h2>What is installed</h2>
         <dl class="meta">
-          <dt>Version</dt><dd>${escapeHtml(meta.version || 'unknown')}</dd>
+          <dt>Version</dt><dd>${escapeHtml(meta.version || 'unknown')}${meta.library_scope === 'all' ? ' · 1.1.0 preview' : ''}</dd>
+          <dt>Library scope</dt><dd>${escapeHtml(meta.library_scope || 'usa')}${Array.isArray(meta.preview_features) && meta.preview_features.length ? ` · preview: ${escapeHtml(meta.preview_features.join(', '))}` : ''}</dd>
           <dt>Channels</dt><dd>${escapeHtml(meta.channel_count || (snapshot.library.channels || []).length)}</dd>
           <dt>Categories</dt><dd>${escapeHtml(meta.group_count || (snapshot.library.groups || []).length)}</dd>
           <dt>Guide listings</dt><dd>${escapeHtml(meta.programme_count || (snapshot.library.programmes || []).length)} for ${escapeHtml(
@@ -456,13 +654,14 @@
   // -------------------------------------------------------------- actions
 
   function selectTab(tab) {
+    if (tab === 'cable' && !cablePreviewEnabled()) tab = 'channels';
     ui.tab = tab;
     for (const [name, view] of Object.entries(els.views)) view.hidden = name !== tab;
     for (const button of els.tabs.querySelectorAll('.tab')) {
       button.setAttribute('aria-selected', String(button.dataset.tab === tab));
     }
     els.categories.style.display = tab === 'channels' ? '' : 'none';
-    els.search.placeholder = tab === 'guide' ? 'Search the guide' : 'Search channels';
+    els.search.placeholder = tab === 'guide' ? 'Search the guide' : tab === 'cable' ? 'Search channel or show' : 'Search channels';
     render();
   }
 
@@ -474,8 +673,10 @@
   }
 
   function render() {
+    els.cableTab.hidden = !cablePreviewEnabled();
     if (ui.tab === 'channels') renderChannels();
     else if (ui.tab === 'guide') renderGuide();
+    else if (ui.tab === 'cable') renderCableGuide();
     else renderSettings();
   }
 
@@ -508,7 +709,7 @@
   }
 
   async function openPlayer(channel) {
-    const resolved = await api.resolveStream(channel.id);
+    const resolved = await api.resolveStream(channel.id, channel.url);
     if (!resolved.ok) {
       els.statusText.textContent = resolved.message;
       return;
@@ -560,6 +761,13 @@
     if (node.scrollTop + node.clientHeight >= node.scrollHeight - 600) {
       const total = visibleChannels().length;
       if (ui.rendered < total) appendChannelPage();
+    }
+  });
+
+  els.cableList.addEventListener('scroll', () => {
+    if (ui.tab !== 'cable') return;
+    if (els.cableList.scrollTop + els.cableList.clientHeight >= els.cableList.scrollHeight - 480) {
+      if (ui.cableRendered < ui.cableRows.length) appendCablePage();
     }
   });
 
@@ -631,6 +839,7 @@
     // Keep "now playing" honest without a full re-render storm.
     clockTimer = window.setInterval(() => {
       if (ui.tab === 'guide') renderGuide();
+      else if (ui.tab === 'cable') renderCableGuide();
       else if (ui.tab === 'channels' && ui.rendered <= PAGE) renderChannels();
     }, 30000);
   }

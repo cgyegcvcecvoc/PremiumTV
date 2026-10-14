@@ -140,6 +140,16 @@ class ParsePlaylistTests(unittest.TestCase):
         self.assertEqual(noid["id"], "no.id.channel")
         self.assertEqual(noid["group"], "Sports")
 
+    def test_commas_in_quoted_attributes_and_display_names_are_preserved(self):
+        playlist = write(
+            Path(self.tmp.name) / "comma.m3u",
+            '#EXTM3U\n#EXTINF:-1 tvg-id="local.news" group-title="News, Local",News, Local\n'
+            'https://stream.example/news.m3u8\n',
+        )
+        channels, _ = build_bundle.parse_m3u(playlist)
+        self.assertEqual(channels[0]["group"], "News, Local")
+        self.assertEqual(channels[0]["name"], "News, Local")
+
 
 class ParseGuideTests(unittest.TestCase):
     def setUp(self):
@@ -177,6 +187,25 @@ class ParseGuideTests(unittest.TestCase):
     def test_bogus_timestamp_is_zero_not_a_crash(self):
         self.assertEqual(build_bundle.xmltv_time("not-a-time"), 0)
         self.assertEqual(build_bundle.xmltv_time(""), 0)
+
+    def test_invalid_dates_offsets_and_trailing_text_are_rejected(self):
+        self.assertEqual(build_bundle.xmltv_time("20261131010000 +0000"), 0)
+        self.assertEqual(build_bundle.xmltv_time("00000101000000 +0000"), 0)
+        self.assertEqual(build_bundle.xmltv_time("20261101010000 +2460"), 0)
+        self.assertEqual(build_bundle.xmltv_time("20261101010000 +0000 junk"), 0)
+
+    def test_invalid_stop_falls_back_to_a_valid_thirty_minute_window(self):
+        path = write(
+            Path(self.tmp.name) / "bad-stop.xml",
+            '<tv><programme channel="demo" start="20261101010000 +0000" '
+            'stop="20261101000000 +0000"><title>Good start</title></programme>'
+            '<programme channel="demo" start="20261131010000 +0000" '
+            'stop="20261131020000 +0000"><title>Invalid date</title></programme></tv>',
+        )
+        programmes = build_bundle.parse_xmltv(path)
+        self.assertEqual(len(programmes), 1)
+        self.assertEqual(programmes[0]["t"], "Good start")
+        self.assertEqual(programmes[0]["e"] - programmes[0]["s"], 1800)
 
     def test_sorted_by_channel_then_start(self):
         pairs = [(p["c"], p["s"]) for p in self.programmes]
@@ -246,6 +275,8 @@ class BuildBundleTests(unittest.TestCase):
         self.assertEqual(self.meta["programme_count"], len(programmes))
         self.assertEqual(self.meta["guide_channels"], len({p["c"] for p in programmes}))
         self.assertEqual(self.meta["version"], "9.9.9")
+        self.assertEqual(self.meta["library_scope"], "usa")
+        self.assertEqual(self.meta["preview_features"], [])
         self.assertEqual(self.meta["guide_url"], "https://example.invalid/one.xml")
         self.assertEqual(self.meta["window_start"], min(p["s"] for p in programmes))
         self.assertEqual(self.meta["window_end"], max(p["e"] for p in programmes))
@@ -259,6 +290,20 @@ class BuildBundleTests(unittest.TestCase):
             self.assertGreater(programme["e"], programme["s"])
             self.assertGreater(programme["s"], 1_600_000_000)
 
+    def test_all_scope_is_explicit_preview_and_stable_default_stays_usa(self):
+        self.assertEqual(build_bundle.DEFAULT_SCOPE, "usa")
+        self.assertEqual(build_bundle.DEFAULT_VERSION, "1.0.2")
+        meta = build_bundle.build(
+            self.playlist,
+            self.guide,
+            str(self.root / "missing-index.json"),
+            str(self.root / "preview-bundle"),
+            "1.1.0",
+            scope="all",
+        )
+        self.assertEqual(meta["library_scope"], "all")
+        self.assertEqual(meta["preview_features"], ["cable-guide"])
+
 
 @unittest.skipUnless(
     (REPO_ROOT / "playlists" / "countries" / "USA.m3u").is_file()
@@ -267,6 +312,22 @@ class BuildBundleTests(unittest.TestCase):
 )
 class RepositoryBundleTests(unittest.TestCase):
     """Runs against the real files the APK is built from."""
+
+    def test_all_preview_bundle_uses_the_checked_player_list_and_merged_guide(self):
+        playlist_rel, guide_rel = build_bundle.SCOPE_INPUTS["all"]
+        self.assertEqual(playlist_rel, "playlists/PremiumTV.m3u")
+        self.assertEqual(guide_rel, "EPG/PremiumTV.xml")
+        playlist = REPO_ROOT / playlist_rel
+        guide = REPO_ROOT / guide_rel
+        channels, _ = build_bundle.parse_m3u(str(playlist))
+        programmes = build_bundle.parse_xmltv(str(guide))
+        known = {channel["id"] for channel in channels}
+        matched = {programme["c"] for programme in programmes if programme["c"] in known}
+
+        self.assertGreater(len(channels), 9000)
+        self.assertEqual(len({channel["url"] for channel in channels}), len(channels))
+        self.assertTrue(matched, "the global EPG must match the active player playlist")
+        self.assertTrue(all(p["e"] > p["s"] for p in programmes))
 
     def test_usa_bundle_is_complete(self):
         playlist = REPO_ROOT / "playlists" / "countries" / "USA.m3u"

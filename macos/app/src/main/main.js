@@ -222,11 +222,12 @@ ipcMain.handle('ptv:reset', async () => {
   return repository.snapshot();
 });
 
-ipcMain.handle('ptv:resolve-stream', (_event, channelId) => {
-  const channel = (repository.library.channels || []).find((c) => c.id === channelId);
+ipcMain.handle('ptv:resolve-stream', (_event, channelId, streamUrl) => {
+  const channel = repository.findChannel(channelId, streamUrl);
   if (!channel || !channel.url) return { ok: false, message: 'That channel has no stream URL.' };
-  const sessionId = proxy.registerChannel(channel);
-  return { ok: true, url: sessionId, sessionId, channel };
+  const url = proxy.registerChannel(channel);
+  const sessionId = new URL(url).pathname.split('/').filter(Boolean).at(-1);
+  return { ok: true, url, sessionId, channel };
 });
 
 ipcMain.handle('ptv:release-stream', (_event, sessionId) => {

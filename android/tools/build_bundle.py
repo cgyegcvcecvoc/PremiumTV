@@ -40,11 +40,14 @@ from datetime import datetime, timezone
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-DEFAULT_PLAYLIST = "playlists/countries/USA.m3u"
-DEFAULT_GUIDE = "EPG/USA.xml"
+DEFAULT_SCOPE = "usa"
+SCOPE_INPUTS = {
+    "usa": ("playlists/countries/USA.m3u", "EPG/USA.xml"),
+    "all": ("playlists/PremiumTV.m3u", "EPG/PremiumTV.xml"),
+}
 DEFAULT_INDEX = "categories/index.json"
 DEFAULT_OUT = os.path.join("android", "app", "src", "main", "assets", "bundle")
-DEFAULT_VERSION = "1.0.1"
+DEFAULT_VERSION = "1.0.2"
 
 # The repository the app refreshes from.  These are the same raw URLs the
 # playlists advertise; they only resolve for a device if the repository is
@@ -53,8 +56,6 @@ DEFAULT_VERSION = "1.0.1"
 RAW_BASE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main"
 
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
-# #EXTINF:-1 ... ,Display name   -> everything after the last comma is the name.
-NAME_SPLIT_RE = re.compile(r",(?![^=]*=)")
 # Decorative prefixes/suffixes that only add noise on a TV screen.
 NOISE_PREFIX_RE = re.compile(r"^[\s\u2605\u2606\u2b50\u2728\u2022\u25b6\-\u2013]+")
 
@@ -68,6 +69,22 @@ def clean_name(raw: str) -> str:
 
 def parse_attrs(line: str) -> dict:
     return {k: v for k, v in ATTR_RE.findall(line)}
+
+
+def extinf_name(line: str, attrs: dict) -> str:
+    """Read the display name after the first comma outside quoted attributes.
+
+    Channel names may contain commas, and quoted attribute values may contain
+    them too. Splitting at the last comma silently truncated names in every
+    generated app bundle.
+    """
+    quoted = False
+    for index, char in enumerate(line):
+        if char == '"':
+            quoted = not quoted
+        elif char == "," and not quoted:
+            return line[index + 1:].strip()
+    return (attrs.get("tvg-name") or "").strip()
 
 
 def parse_m3u(path: str) -> tuple[list[dict], str]:
@@ -98,10 +115,7 @@ def parse_m3u(path: str) -> tuple[list[dict], str]:
                 # Any stream options seen after the previous entry are dropped.
                 pending_opts = {}
                 attrs = parse_attrs(line)
-                if "," in line:
-                    name = line.rsplit(",", 1)[1].strip()
-                else:
-                    name = attrs.get("tvg-name", "").strip()
+                name = extinf_name(line, attrs)
                 pending = {
                     "id": (attrs.get("tvg-id") or "").strip(),
                     "name": clean_name(name),
@@ -157,20 +171,29 @@ def parse_m3u(path: str) -> tuple[list[dict], str]:
 
 
 def xmltv_time(value: str) -> int:
-    """'20261011043000 +0000' -> epoch seconds (UTC)."""
+    """Parse a complete XMLTV timestamp, returning epoch seconds or zero.
+
+    Reject trailing junk, impossible calendar dates and out-of-range UTC
+    offsets instead of allowing permissive parsers to normalize them.
+    """
     value = (value or "").strip()
     if not value:
         return 0
-    match = re.match(r"(\d{14})\s*([+-]\d{4})?", value)
+    match = re.fullmatch(r"(\d{14})(?:\s*([+-])(\d{2})(\d{2}))?", value)
     if not match:
         return 0
-    stamp = match.group(1)
-    offset = match.group(2) or "+0000"
+    stamp, sign, hours_text, minutes_text = match.groups()
     try:
-        dt = datetime.strptime(stamp + " " + offset, "%Y%m%d%H%M%S %z")
+        if sign:
+            if int(hours_text) > 23 or int(minutes_text) > 59:
+                return 0
+            offset = f"{sign}{hours_text}{minutes_text}"
+        else:
+            offset = "+0000"
+        moment = datetime.strptime(stamp + " " + offset, "%Y%m%d%H%M%S %z")
     except ValueError:
         return 0
-    return int(dt.astimezone(timezone.utc).timestamp())
+    return int(moment.astimezone(timezone.utc).timestamp())
 
 
 def child_text(node: ET.Element, tag: str) -> str:
@@ -192,7 +215,7 @@ def parse_xmltv(path: str) -> list[dict]:
         if not channel or not start:
             node.clear()
             continue
-        if not stop:
+        if stop <= start:
             stop = start + 1800
         categories = [c.text.strip() for c in node.findall("category") if c.text]
         episode = node.find("sub-title")
@@ -239,7 +262,8 @@ def write_jsonl(path: str, rows: list[dict]) -> None:
             handle.write("\n")
 
 
-def build(playlist: str, guide: str, index: str, out_dir: str, version: str) -> dict:
+def build(playlist: str, guide: str, index: str, out_dir: str, version: str,
+          scope: str = DEFAULT_SCOPE) -> dict:
     channels, header_guide = parse_m3u(playlist)
     programmes = parse_xmltv(guide)
     published_order = load_group_order(index)
@@ -264,6 +288,8 @@ def build(playlist: str, guide: str, index: str, out_dir: str, version: str) -> 
 
     meta = {
         "version": version,
+        "library_scope": scope,
+        "preview_features": ["cable-guide"] if scope == "all" else [],
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "playlist": os.path.relpath(playlist, REPO_ROOT).replace(os.sep, "/"),
         "guide": os.path.relpath(guide, REPO_ROOT).replace(os.sep, "/"),
@@ -288,26 +314,36 @@ def build(playlist: str, guide: str, index: str, out_dir: str, version: str) -> 
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build the Android app data bundle.")
-    parser.add_argument("--playlist", default=os.path.join(REPO_ROOT, DEFAULT_PLAYLIST))
-    parser.add_argument("--guide", default=os.path.join(REPO_ROOT, DEFAULT_GUIDE))
+    parser = argparse.ArgumentParser(description="Build the PremiumTV app data bundle.")
+    parser.add_argument("--scope", choices=sorted(SCOPE_INPUTS), default=DEFAULT_SCOPE,
+                        help="usa (stable default) or all (1.1.0 cable-guide preview)")
+    parser.add_argument("--playlist", default=None,
+                        help="override the playlist selected by --scope")
+    parser.add_argument("--guide", default=None,
+                        help="override the XMLTV guide selected by --scope")
     parser.add_argument("--index", default=os.path.join(REPO_ROOT, DEFAULT_INDEX))
     parser.add_argument("--out", default=os.path.join(REPO_ROOT, DEFAULT_OUT))
     parser.add_argument("--version", default=DEFAULT_VERSION)
     parser.add_argument("--check", action="store_true", help="report only, write nothing")
     args = parser.parse_args()
+    default_playlist, default_guide = SCOPE_INPUTS[args.scope]
+    playlist = args.playlist or os.path.join(REPO_ROOT, default_playlist)
+    guide = args.guide or os.path.join(REPO_ROOT, default_guide)
 
-    for path in (args.playlist, args.guide):
-        if not os.path.isfile(path):
-            print("MISSING INPUT: %s" % path, file=sys.stderr)
+    for input_path in (playlist, guide):
+        if not os.path.isfile(input_path):
+            print("MISSING INPUT: %s" % input_path, file=sys.stderr)
             return 2
 
-    channels, _ = parse_m3u(args.playlist)
-    programmes = parse_xmltv(args.guide)
+    channels, _ = parse_m3u(playlist)
+    programmes = parse_xmltv(guide)
     groups = order_groups(channels, load_group_order(args.index))
     known = {c["id"] for c in channels if c["id"]}
+    now = int(datetime.now(timezone.utc).timestamp())
+    programmes = [p for p in programmes if p["e"] > now - 6 * 3600]
     matched = len({p["c"] for p in programmes if p["c"] in known})
 
+    print("scope         : %s" % args.scope)
     print("channels      : %d" % len(channels))
     print("groups        : %d" % len(groups))
     print("programmes    : %d (for %d bundled channels)" % (len(programmes), matched))
@@ -316,7 +352,7 @@ def main() -> int:
     if args.check:
         return 0
 
-    meta = build(args.playlist, args.guide, args.index, args.out, args.version)
+    meta = build(playlist, guide, args.index, args.out, args.version, scope=args.scope)
     print("wrote bundle  : %s (%s)" % (args.out, meta["generated_utc"]))
     return 0
 

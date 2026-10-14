@@ -23,7 +23,7 @@ function setup(t, initial) {
   let current = initial;
   const events = {};
   dom.window.premiumtv = {
-    getAppInfo: async () => ({ version: '1.0.1' }),
+    getAppInfo: async () => ({ version: '1.0.2' }),
     getSnapshot: async () => structuredClone(current),
     onState: (fn) => { events.state = fn; },
     onProgress: (fn) => { events.progress = fn; },
@@ -95,4 +95,36 @@ test('loading failure is visible rather than silently showing an empty grid', as
   await tick();
   assert.equal(app.window.document.querySelector('.empty-state')?.textContent, failure.state.message);
   assert.equal(app.window.document.querySelector('retry'), null);
+});
+
+test('the cable guide is opt-in bundle preview UI with a real, selectable EPG grid', async (t) => {
+  const preview = ready('Public One');
+  const now = Math.floor(Date.now() / 1000);
+  preview.library.meta = {
+    version: '1.1.0',
+    library_scope: 'all',
+    preview_features: ['cable-guide'],
+  };
+  preview.library.channels[0].chno = '12';
+  preview.library.programmes = [
+    { c: 'one', s: now - 900, e: now + 1800, t: 'Live match', g: 'Sports' },
+    { c: 'one', s: now + 1800, e: now + 5400, t: 'Post-game', g: 'Sports' },
+  ];
+  const app = setup(t, preview);
+  await tick();
+
+  const cableTab = app.window.document.getElementById('cable-tab');
+  assert.equal(cableTab.hidden, false);
+  cableTab.click();
+  assert.equal(app.window.document.getElementById('view-cable').hidden, false);
+  assert.equal(app.window.document.querySelectorAll('.cable-row').length, 2);
+  assert.equal(app.window.document.querySelector('.cable-programme-title')?.textContent, 'Live match');
+  assert.equal(app.window.document.querySelector('.cable-now-line') !== null, true);
+  assert.match(app.window.document.getElementById('cable-subtitle').textContent, /8-hour window/);
+});
+
+test('stable bundles keep the preview-only cable tab hidden', async (t) => {
+  const app = setup(t, ready());
+  await tick();
+  assert.equal(app.window.document.getElementById('cable-tab').hidden, true);
 });

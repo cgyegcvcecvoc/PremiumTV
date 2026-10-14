@@ -189,6 +189,41 @@ class DeepCheckEvidenceTest(unittest.TestCase):
             }), encoding="utf-8")
             self.assertEqual(scraper.load_deep_check_dead(checks, 72.0), {})
 
+    def test_later_deep_channel_hunt_clears_stale_dead_and_quarantine_evidence(self):
+        url = "https://stream.example/recovered.m3u8"
+        dead_at = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=3)
+        working_at = dead_at + dt.timedelta(hours=1)
+        dead_stamp = dead_at.isoformat(timespec="seconds")
+        working_stamp = working_at.isoformat(timespec="seconds")
+        with tempfile.TemporaryDirectory() as tmp:
+            checks = Path(tmp)
+            (checks / "link-check.json").write_text(json.dumps({
+                "finished_utc": dead_stamp,
+                "per_playlist": {"priority.m3u": {"dead": [
+                    {"url": url, "status": "offline", "reason": "HTTP 404"},
+                ]}},
+            }), encoding="utf-8")
+            quarantine = {
+                "entries": {url: {
+                    "name": "Recovered channel",
+                    "last_seen_utc": dead_stamp,
+                    "status": "offline",
+                    "hits": 2,
+                }},
+            }
+            (checks / "quarantine.json").write_text(json.dumps(quarantine), encoding="utf-8")
+            (checks / "channel-hunt.json").write_text(json.dumps({
+                "finished_utc": working_stamp,
+                "targets": [{"results": [{
+                    "url": url,
+                    "status": "working",
+                    "segment_ok": True,
+                }]}],
+            }), encoding="utf-8")
+
+            self.assertEqual(scraper.load_deep_check_dead(checks, 72.0), {})
+            self.assertEqual(scraper.load_quarantine(checks / "quarantine.json", 7.0), {})
+
 
 class PatchRegroupsTest(unittest.TestCase):
     """A patched playlist comes back in the same order the scraper would publish."""
