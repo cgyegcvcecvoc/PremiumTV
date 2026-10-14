@@ -3,6 +3,7 @@ package com.premiumtv.app.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusGroup
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -73,45 +74,64 @@ fun HomeScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
     ) {
-        Row(
+        // The title, the version plaque and the status line share the first row;
+        // the tabs get their own scrollable row. Putting all of it on one row
+        // worked while the app had three tabs, but the 1.1.0 preview adds the
+        // Cable tab, and on a narrow screen the weighted status line then had
+        // zero width left: it disappeared from the UI entirely (and from the
+        // emulator smoke check that looks for "<count> channels").
+        val cablePreview = library.meta.previewFeatures.contains("cable-guide")
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 18.dp, bottom = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "PremiumTV",
-                style = MaterialTheme.typography.headlineSmall,
-                color = PremiumGold,
-                fontWeight = FontWeight.Bold,
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            val cablePreview = library.meta.previewFeatures.contains("cable-guide")
-            VersionPlaque(
-                if (cablePreview) "${BuildConfig.VERSION_NAME} · PREVIEW" else BuildConfig.VERSION_NAME,
-            )
-            Spacer(modifier = Modifier.width(18.dp))
-            TabChip(Tab.Channels.label, tab == Tab.Channels) { tab = Tab.Channels }
-            Spacer(modifier = Modifier.width(12.dp))
-            TabChip(Tab.Guide.label, tab == Tab.Guide) { tab = Tab.Guide }
-            if (cablePreview) {
-                Spacer(modifier = Modifier.width(12.dp))
-                TabChip(Tab.Cable.label, tab == Tab.Cable) { tab = Tab.Cable }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = "PremiumTV",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = PremiumGold,
+                    fontWeight = FontWeight.Bold,
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                VersionPlaque(
+                    if (cablePreview) "${BuildConfig.VERSION_NAME} · PREVIEW" else BuildConfig.VERSION_NAME,
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = when {
+                        library.guideLoading -> "${library.channels.size} channels · Loading guide…"
+                        library.guideError != null -> "${library.channels.size} channels · Guide unavailable"
+                        else -> "${library.channels.size} channels · ${library.programmes.size} with guide"
+                    },
+                    style = MaterialTheme.typography.labelMedium,
+                    color = if (library.guideLoading) PremiumGold else MutedText,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.weight(1f),
+                )
             }
-            Spacer(modifier = Modifier.width(12.dp))
-            TabChip(Tab.Settings.label, tab == Tab.Settings) { tab = Tab.Settings }
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = when {
-                    library.guideLoading -> "${library.channels.size} channels · Loading guide…"
-                    library.guideError != null -> "${library.channels.size} channels · Guide unavailable"
-                    else -> "${library.channels.size} channels · ${library.programmes.size} with guide"
-                },
-                style = MaterialTheme.typography.labelMedium,
-                color = if (library.guideLoading) PremiumGold else MutedText,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                TabChip(Tab.Channels.label, tab == Tab.Channels) { tab = Tab.Channels }
+                Spacer(modifier = Modifier.width(12.dp))
+                TabChip(Tab.Guide.label, tab == Tab.Guide) { tab = Tab.Guide }
+                if (cablePreview) {
+                    Spacer(modifier = Modifier.width(12.dp))
+                    TabChip(Tab.Cable.label, tab == Tab.Cable) { tab = Tab.Cable }
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                TabChip(Tab.Settings.label, tab == Tab.Settings) { tab = Tab.Settings }
+            }
         }
 
         when (tab) {
