@@ -13,6 +13,10 @@ the recommended download.
   programme titles with start times, a NOW marker and a gold highlight on the
   current programme. Horizontal scrolling is shared between the clock header and
   the rows, so the grid stays aligned.
+- **The header still fits.** The title, the version plaque and the app's own
+  `<count> channels · <count> with guide` status line share the top row, and the
+  tabs sit in a scrollable row underneath: with a fourth tab the status line
+  previously had no width left on a narrow screen and vanished from the UI.
 - **The tab is metadata-gated.** The cable guide appears only when the bundle
   declares `preview_features: ["cable-guide"]`, which the global 1.1.0 bundle
   does and the stable USA bundle does not. The header shows a `PREVIEW` tag and

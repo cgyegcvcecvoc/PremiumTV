@@ -24,6 +24,16 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   private in file" and the tagged release could not produce an APK. The helper
   is now `internal` and shared by the channel cards and the cable grid. This was
   a visibility-only change; the wire format, bundle and UI are unchanged.
+- **Preview header fix, found by the release gate.** The 1.1.0 build passed
+  Gradle but failed the emulator cold-launch check. The captured log showed the
+  app alive and focused with the global cards on screen — and the header's
+  status line missing entirely: with the extra Cable tab and the longer
+  `1.1.0-debug · PREVIEW` plaque, the weighted `<count> channels · …` text was
+  measured at zero width on a narrow screen. The title, plaque and status line
+  now share the first row and the tabs get a scrollable row of their own, so the
+  status line always renders and no tab can be clipped. The gate itself was
+  resized for the global bundle (explicit adb timeouts, 240s UI window, retried
+  dumps) and now saves `build-out/smoke-log.txt` on failure.
 - Release CI builds both tagged versions from the release commit and attaches
   the APK, the `.dmg`/`.pkg` installers and the per-platform checksum manifests
   to the matching release page. Offline validation on the release commit: 349

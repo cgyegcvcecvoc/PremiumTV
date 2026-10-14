@@ -42,19 +42,40 @@ def adb(*args, timeout=ADB_TIMEOUT_SECONDS):
 def diagnose(reason, last_dump=""):
     """Save what the emulator saw, because the Actions log may not travel."""
     print(reason)
-    try:
-        logcat = adb("logcat", "-d", "-t", "400", timeout=120)
-    except subprocess.SubprocessError as error:
-        logcat = f"logcat unavailable: {error}"
-    print(logcat)
-    if last_dump:
-        print(f"last UI dump ({len(last_dump)} chars): {last_dump[:4000]}")
+    sections = {"reason": reason}
+    probes = {
+        "pidof": ("shell", "pidof", PACKAGE),
+        "current focus": ("shell", "dumpsys", "window"),
+        "top activity": ("shell", "dumpsys", "activity", "activities"),
+        "meminfo": ("shell", "dumpsys", "meminfo", PACKAGE),
+        "logcat": ("logcat", "-d", "-t", "600"),
+        "crash log": ("logcat", "-b", "crash", "-d", "-t", "200"),
+    }
+    for label, args in probes.items():
+        try:
+            sections[label] = adb(*args, timeout=150)
+        except subprocess.SubprocessError as error:
+            sections[label] = f"{label} unavailable: {error}"
+    # Keep the parts that answer "did the app start, did it die, did the system
+    # hand it to the launcher": the full dumpsys output is far too big to save.
+    focus = [line for line in sections["current focus"].splitlines() if "mCurrentFocus" in line or "mFocusedApp" in line]
+    top = [line for line in sections["top activity"].splitlines() if PACKAGE in line][:12]
+    mem = sections["meminfo"].splitlines()[:24]
+    body = "\n\n".join([
+        reason,
+        "=== process ===\n" + sections["pidof"].strip(),
+        "=== focus ===\n" + "\n".join(focus),
+        "=== premiumtv activity lines ===\n" + "\n".join(top),
+        "=== meminfo ===\n" + "\n".join(mem),
+        "=== crash log ===\n" + sections["crash log"],
+        "=== logcat ===\n" + sections["logcat"],
+        "=== last UI dump ===\n" + last_dump,
+    ])
+    print(body[:20000])
     try:
         out = ROOT / "build-out"
         out.mkdir(parents=True, exist_ok=True)
-        (out / "smoke-log.txt").write_text(
-            f"{reason}\n\n=== logcat ===\n{logcat}\n\n=== last UI dump ===\n{last_dump}\n"
-        )
+        (out / "smoke-log.txt").write_text(body)
     except OSError as error:
         print(f"could not write build-out/smoke-log.txt: {error}")
 
