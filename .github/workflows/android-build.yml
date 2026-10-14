@@ -93,10 +93,7 @@ jobs:
               *) echo "Unsupported tag/prerelease combination: $RELEASE_TAG:$RELEASE_PRERELEASE"; exit 1 ;;
             esac
           else
-            # TEMPORARY (diagnostic): reproduce the 1.1.0 preview scope on a
-            # branch push so build-out/smoke-log.txt is published to the branch
-            # where it can actually be read. Revert before merging.
-            version="${INPUT_VERSION:-1.1.0}"
+            version="${INPUT_VERSION:-1.0.2}"
             case "$version" in
               1.0.2) scope=usa; code=7 ;;
               1.1.0) scope=all; code=8 ;;
