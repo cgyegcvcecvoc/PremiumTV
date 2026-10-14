@@ -7117,3 +7117,79 @@ ISSUES / ERRORS:
   * 4052 links returned a confirmed failure (see dead details).
   * This run started +5h 24m after its scheduled time (2026-10-14T03:29:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261014T125029Z-3001
+TIMESTAMP:    2026-10-14 08:54 AM EDT (2026-10-14T12:50:29Z -> 2026-10-14T12:54:17Z)
+LABEL / TYPE: 3:07 AM daily scrape [regular_check]
+STATUS:       WARNING (checked=True, duration=227.61s)
+PLAYLISTS:    working=9747 / unique=16598 (dead=3948, unverified=2903)
+COUNTRIES:    173 country playlists updated in playlists/countries/
+A&E CHANNELS: 57 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +432 channels added / -518 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [Singapore] Cinemax Asia HD (1080p) (iptv-org) -> http://125.227.210.55:1001/VideoInput/play.ts
+  + [Singapore] HBO Asia Taiwan (1080p) (iptv-org) -> http://125.227.210.55:1003/VideoInput/play.ts
+  + [Argentina] Quiero Musica en mi Idioma (1080p) (iptv-org) -> http://158.172.155.130:8000/play/a00a/index.m3u8
+  + [Argentina] DeporTV (1080p) (iptv-org) -> http://158.172.155.130:8000/play/a09y/index.m3u8
+  + [Argentina] Allegro HD (1080p) (iptv-org) -> http://158.172.155.130:8000/play/a0dn/index.m3u8
+  + [Argentina] TN (1080p) (iptv-org) -> http://158.172.155.130:8000/play/a0dp/index.m3u8
+  + [Bolivia] PAT (1080p) (iptv-org) -> http://158.172.155.130:8000/play/a0e6/index.m3u8
+  + [Bolivia] Gigavision (1080p) (iptv-org) -> http://158.172.155.130:8000/play/a0e7/index.m3u8
+  + [Chile] Retro Plus 2 (1080p) (iptv-org) -> http://181.119.97.124:8080/play/a00n/index.m3u8
+  + [Chile] Retro Plus (1080p) (iptv-org) -> http://181.119.97.124:8080/play/a00t/index.m3u8
+  + [Ecuador] Maxivision Canal 8 (1080p) (iptv-org) -> http://181.119.97.124:8080/play/a00w/index.m3u8
+  + [Chile] Retro Plus 3 (1080p) (iptv-org) -> http://181.119.97.124:8080/play/retroplus_3/index.m3u8
+  + [USA] [Horse Racing] Horse Racing 1 (FAWA) (doms9) -> http://193.47.62.55/hls/vavavava.m3u8
+  + [USA] [Horse Racing] Horse Racing 2 (FAWA) (doms9) -> http://193.47.62.55/hls/vavavavaq.m3u8
+  + [USA] [AFC Champions League] Melbourne Victory vs Seoul (FAWA) (doms9) -> http://193.47.62.59/hls/R111A.m3u8
+  + [USA] [Japan J League] Yokohama FC vs Urawa Reds (FAWA) (doms9) -> http://193.47.62.59/hls/bzzz.m3u8
+  + [USA] [AFC Champions League II] Persib Bandung vs Viettel (FAWA) (doms9) -> http://193.47.62.59/hls/bzzzq.m3u8
+  + [USA] [Norway OBOS-ligaen] Strommen vs Asane (FAWA) (doms9) -> http://193.47.62.59/hls/bzzzqq.m3u8
+  + [USA] [UEFA Youth League] Betis U19 vs FC Porto U19 (FAWA) (doms9) -> http://193.47.62.59/hls/bzzzqqq.m3u8
+  + [USA] [Golf] Golf St Andrews Links Collegiate (FAWA) (doms9) -> http://193.47.62.59/hls/bzzzqqqq.m3u8
+  + [USA] [Kenya Premier League] Leopards vs Bandari (FAWA) (doms9) -> http://193.47.62.59/hls/f333.m3u8
+  + [USA] [Russia Cup] Krylya Sovetov vs Baltika (FAWA) (doms9) -> http://193.47.62.59/hls/f333A.m3u8
+  + [USA] [AFC Champions League II] Nasaf Qarshi vs Al Wahda (FAWA) (doms9) -> http://193.47.62.59/hls/f333AA.m3u8
+  + [USA] [Kazakhstan Premier League] Atyrau vs Yelimay Semey (FAWA) (doms9) -> http://193.47.62.59/hls/f333AAA.m3u8
+  + [USA] [Turkey Lig 1] Umraniyespor vs Boluspor (FAWA) (doms9) -> http://193.47.62.59/hls/f333AAAQ.m3u8
+  + [USA] [UEFA Youth League] Manchester City U19 vs PSG U19 (FAWA) (doms9) -> http://193.47.62.59/hls/f333AAAQQ.m3u8
+  + [USA] [Japan J League Cup] Gainare Tottori vs Cerezo Osaka (FAWA) (doms9) -> http://193.47.62.59/hls/g222.m3u8
+  + [USA] [Japan J League Cup] Iwata vs Kawasaki Frontale (FAWA) (doms9) -> http://193.47.62.59/hls/g222A.m3u8
+  + [USA] [Japan J League Cup] Mito vs FC Tokyo (FAWA) (doms9) -> http://193.47.62.59/hls/g222AA.m3u8
+  + [USA] [Japan J League Cup] Nagoya Grampus vs Okayama (FAWA) (doms9) -> http://193.47.62.59/hls/g222AAA.m3u8
+REMOVED CHANNELS (SAMPLE):
+  - [India] Star Movies Select HD (1080p) (previous) -> http://103.151.60.162:2122/play/a02l/index.m3u8?hls=
+  - [UK] BBC News Latin America (720p) (previous) -> http://138.121.15.230:9002/BBC-NEWS/index.m3u8
+  - [USA] Comedy Central Latin America (1080p) (previous) -> http://15.204.246.24:8080/ComedyCentralHD/index.m3u8
+  - [Argentina] TN (1080p) (previous) -> http://15.204.246.24:8080/TNHD/index.m3u8
+  - [Spain] AXN (Spain) (1080p) (previous) -> http://193.254.245.162/AXN/index.m3u8
+  - [France] Nicktoons (France) (1080p) (previous) -> http://193.254.245.162/NICKELODEON/index.m3u8
+  - [USA] Paramount Network (432p) (previous) -> http://193.254.245.162/PARAMOUNT-CHANNEL/index.m3u8
+  - [France] Paris Premiere (720p) (previous) -> http://193.254.245.162/PARIS-PREMIERE/index.m3u8
+  - [USA] VH1 (432p) (previous) -> http://193.254.245.162/VH1/index.m3u8
+  - [USA] [Brazil Serie B] Athletic Club vs Londrina (FAWA) (previous) -> http://193.47.62.41/hls/GUUU.m3u8
+  - [USA] [Friendly Match] USA W vs Spain W (FAWA) (previous) -> http://193.47.62.41/hls/KVVV.m3u8
+  - [USA] [NCAA American Football] Middle Tennessee St vs Delaware Fightin (FAWA) (previous) -> http://193.47.62.41/hls/KVVVQ.m3u8
+  - [USA] [NBA Basketball] Orlando Magic vs Cleveland Cavaliers 1 (FAWA) (previous) -> http://193.47.62.41/hls/KVVVQQ.m3u8
+  - [USA] [NBA Basketball] Toronto Raptors vs New York Knicks 1 (FAWA) (previous) -> http://193.47.62.41/hls/KVVVQQQ.m3u8
+  - [USA] [UFC Fight Night] Dana White Contender Series Week 10 (FAWA) (previous) -> http://193.47.62.41/hls/KVVVQQQQ.m3u8
+  - [USA] [Friendly Match] Brazil W vs Argentina W (FAWA) (previous) -> http://193.47.62.41/hls/KVVVQQQQQ.m3u8
+  - [USA] [Colombia Primera A] Bucaramanga vs Aguilas (FAWA) (previous) -> http://193.47.62.41/hls/KVVVQQQQQA.m3u8
+  - [USA] [WWE Wrestling] WWE NXT 1 (FAWA) (previous) -> http://193.47.62.44/hls/R666A.m3u8
+  - [USA] [NBA Basketball] Oklahoma City Thunder vs Indiana Pacers 1 (FAWA) (previous) -> http://193.47.62.44/hls/R666AA.m3u8
+  - [USA] [NCAA American Football] Jacksonville State vs Florida International (FAWA) (previous) -> http://193.47.62.44/hls/R666AAA.m3u8
+  - [USA] [MLB Baseball] Tampa Bay Rays vs Cleveland Guardians 1 (FAWA) (previous) -> http://193.47.62.44/hls/R666AAAA.m3u8
+  - [USA] [Copa Sudamericana] Boca Juniors vs Vasco (FAWA) (previous) -> http://193.47.62.59/hls/R111.m3u8
+  - [USA] [NBA Basketball] Los Angeles Lakers vs Golden State Warriors 1 (FAWA) (previous) -> http://193.47.62.59/hls/R111AA.m3u8
+  - [USA] [NBA Basketball] Sacramento Kings vs Portland Trail Blazers 1 (FAWA) (previous) -> http://193.47.62.59/hls/R111AAA.m3u8
+  - [USA] FX Latin America South (720p) (previous) -> http://72.1.184.5:8089/play/a05i/index.m3u8
+  - [USA] [Copa Sudamericana] Boca Juniors vs Vasco da Gama | ESPN AR┃OP3 (TVF90) (previous) -> https://11.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NHL] Dallas Stars vs. Colorado Avalanche | ESPN 4 | OP2 (TVF90) (previous) -> https://11.ftlly.com:443/espn4/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NHL] Dallas Stars vs. Colorado Avalanche | ESPN 4 | OP3 (TVF90) (previous) -> https://3.ftlly.com:443/espn4/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Atlético Bucaramanga vs Rionegro Águilas | Win Sports + | OP3 (TVF90) (previous) -> https://3.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NCAA Men's Soccer] Virginia vs Gardner-Webb | Disney+ (TVF90) (previous) -> https://4.ftlly.com:443/disney24/mono.m3u8?token=%5Bredacted%5D
+ISSUES / ERRORS:
+  * 2903 links could not be confirmed after retries (see unverified details).
+  * 3948 links returned a confirmed failure (see dead details).
+  * This run started +5h 44m after its scheduled time (2026-10-14T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+
