@@ -8,10 +8,10 @@ be distributed as a GitHub pre-release and is never the default. The guide is
 built from the repository's curated per-country XMLTV feeds (iptv-epg.org and
 epg.pw).
 
-The 1.0.2 stable target is prepared but has not been published by this change.
-GitHub Actions can build either version; the 1.1.0 release job requires the
-GitHub pre-release flag. Both versions publish a debug-signed APK that installs
-as-is on supported devices.
+The 1.0.2 stable target is published as the `v1.0.2` release; the 1.1.0 build is
+published with GitHub's pre-release flag. GitHub Actions can build either
+version; the 1.1.0 release job requires that pre-release flag. Both versions
+publish a debug-signed APK that installs as-is on supported devices.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
 The same APK works everywhere — navigation is D-pad first, and touch works too.
@@ -126,10 +126,9 @@ build-out/SHA256SUMS-android.txt
 build-out/build-log.txt               full Gradle output
 ```
 
-No new release has been published by this change. The workflow only attaches
-1.0.2 assets to a stable `v1.0.2` release and 1.1.0 assets to a pre-release
-`v1.1.0` release. Only the debug APK is published; an unsigned release APK
-cannot be installed on a TV or phone.
+The workflow only attaches 1.0.2 assets to the stable `v1.0.2` release and
+1.1.0 assets to the pre-release `v1.1.0` release. Only the debug APK is
+published; an unsigned release APK cannot be installed on a TV or phone.
 
 ### Installing on a TV
 

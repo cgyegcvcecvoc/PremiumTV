@@ -317,7 +317,12 @@ fun InfoRow(label: String, value: String) {
     }
 }
 
-private fun initialsOf(name: String): String {
+/**
+ * Two clean initials for a channel that has no logo, used by the channel cards
+ * and by the cable-grid channel column. It lives here rather than in either
+ * screen so both surfaces fall back to the same label.
+ */
+internal fun initialsOf(name: String): String {
     val letters = name.filter { it.isLetterOrDigit() }
     return when {
         letters.length >= 2 -> letters.substring(0, 2).uppercase()
