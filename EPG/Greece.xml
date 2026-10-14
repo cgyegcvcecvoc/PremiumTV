@@ -46,6 +46,10 @@
     <display-name>DELTA TV (720p)</display-name>
     <icon src="https://i.ibb.co/Nt79gnx/319386123-3050873715211949-6691293256713061450-n-1024x752.png" />
   </channel>
+  <channel id="egnatiatv.gr">
+    <display-name>Egnatia</display-name>
+    <icon src="https://i.imgur.com/zuyYIca.png" />
+  </channel>
   <channel id="epsilon.gr">
     <display-name>Epsilon</display-name>
     <display-name>GR - α.Epsilon</display-name>
@@ -57,10 +61,6 @@
     <display-name>GR - ERT WORLD</display-name>
     <display-name>ERTWORLD.gr</display-name>
     <icon src="https://iptv-epg.org/images/3z4WaNrSddBxC3qppsJn0HjvpDuc_lj4m7wfv0ie5XNsAv5n9RdLN_zN7F8YEF6cx_MheR1rCi_yXMhiOepj97g2AB9S4r9OwC5kK_fUsRqn" />
-  </channel>
-  <channel id="eurotv.gr">
-    <display-name>Euro</display-name>
-    <icon src="https://i.imgur.com/mHCk05E.png" />
   </channel>
   <channel id="hlektra.gr">
     <display-name>Hlektra</display-name>
@@ -245,9 +245,13 @@
     <display-name>Corfu Channel (720p)</display-name>
     <icon src="https://i.imgur.com/EFL1Tjg.png" />
   </channel>
-  <channel id="EuroTV.gr@SD">
-    <display-name>Euro TV (Greece) (432p)</display-name>
-    <icon src="https://www.eurotv.gr/wp-content/uploads/2018/03/ima-euro-channel-190-x-400.png" />
+  <channel id="EgnatiaTV.gr@SD">
+    <display-name>Egnatia TV (576p)</display-name>
+    <icon src="https://i.imgur.com/zuyYIca.png" />
+  </channel>
+  <channel id="ERTNews.gr">
+    <display-name>ERT News</display-name>
+    <icon src="https://i.imgur.com/saIGLvr.png" />
   </channel>
   <channel id="MegaChannel.gr">
     <display-name>Mega News</display-name>
@@ -335,13 +339,6 @@
     <display-name>4E (Backup 1)</display-name>
     <icon src="https://i.imgur.com/Na0UCV7.png" />
   </channel>
-  <programme start="20261014110000 +0000" stop="20261014124500 +0000" channel="AlphaTV.gr@SD">
-    <title>Ela STH Thesh Mou</title>
-    <date>20261014</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261014124500 +0000" stop="20261014150000 +0000" channel="AlphaTV.gr@SD">
     <title>Happy Day Ston Alpha</title>
     <date>20261014</date>
@@ -601,9 +598,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261014120000 +0000" stop="20261014130000 +0000" channel="ERTWorld.gr">
-    <title>Ειδήσεις - Αθλητικά - Καιρός</title>
-  </programme>
   <programme start="20261014130000 +0000" stop="20261014150000 +0000" channel="ERTWorld.gr">
     <title>Ρίζες Abroad</title>
     <new />
@@ -738,11 +732,11 @@
   <programme start="20261016180000 +0000" stop="20261016190000 +0000" channel="ERTWorld.gr">
     <title>Ειδήσεις - Αθλητικά - Καιρός</title>
   </programme>
-  <programme start="20261014120000 +0000" stop="20261014130000 +0000" channel="ioniantv.gr">
-    <title>Το Φακελάκι</title>
+  <programme start="20261016190000 +0000" stop="20261016200000 +0000" channel="ERTWorld.gr">
+    <title>Τα Μυστικά της Μουσικής (Ε)</title>
   </programme>
-  <programme start="20261014130000 +0000" stop="20261014140000 +0000" channel="ioniantv.gr">
-    <title>Γαλάζιο Παράθυρο</title>
+  <programme start="20261016200000 +0000" stop="20261016214000 +0000" channel="ERTWorld.gr">
+    <title>Θολός Βυθός</title>
   </programme>
   <programme start="20261014140000 +0000" stop="20261014150000 +0000" channel="ioniantv.gr">
     <title>Προφίλ</title>
@@ -897,6 +891,12 @@
   <programme start="20261016180000 +0000" stop="20261016190000 +0000" channel="ioniantv.gr">
     <title>Εντός Αρκαδίας</title>
   </programme>
+  <programme start="20261016190000 +0000" stop="20261016200000 +0000" channel="ioniantv.gr">
+    <title>Εκτός Πλάνου</title>
+  </programme>
+  <programme start="20261016200000 +0000" stop="20261016210000 +0000" channel="ioniantv.gr">
+    <title>Travel Guide</title>
+  </programme>
   <programme start="20261014120000 +0000" stop="20261015000000 +0000" channel="OneChannel.gr@HD">
     <title>Bếp chiến - Tập 4</title>
     <date>20261014</date>
@@ -999,6 +999,12 @@
   </programme>
   <programme start="20261016173000 +0000" stop="20261016190000 +0000" channel="OneChannel.gr@HD">
     <title>Tonight</title>
+  </programme>
+  <programme start="20261016190000 +0000" stop="20261016200000 +0000" channel="OneChannel.gr@HD">
+    <title>One Time</title>
+  </programme>
+  <programme start="20261016200000 +0000" stop="20261016210000 +0000" channel="OneChannel.gr@HD">
+    <title>Με τον Ρένο</title>
   </programme>
   <programme start="20261014110000 +0000" stop="20261014160000 +0000" channel="TV100.gr@SD">
     <title>最新！カウントダウン TOP50</title>
@@ -1461,8 +1467,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261014113000 +0000" stop="20261014133000 +0000" channel="ENAChannel.gr@SD">
-    <title>Αναλυτής</title>
+  <programme start="20261016190000 +0000" stop="20261016210000 +0000" channel="TV100.gr@SD">
+    <title>最新！カウントダウン TOP20</title>
+    <desc>ミュージック・ジャパンTVがお届けするオリジナル最強ランキング！ヒット曲まるわかり！！ www.mjtv.jp</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261014133000 +0000" stop="20261014143000 +0000" channel="ENAChannel.gr@SD">
     <title>Δελτίο Ειδήσεων</title>
@@ -1590,8 +1601,8 @@
   <programme start="20261016173000 +0000" stop="20261016183000 +0000" channel="ENAChannel.gr@SD">
     <title>Δελτίο Ειδήσεων</title>
   </programme>
-  <programme start="20261014080000 +0000" stop="20261014130000 +0000" channel="KontraChannel.gr@SD">
-    <title>Εκπομπές Τηλεοπτικών Αγορών</title>
+  <programme start="20261016183000 +0000" stop="20261016203000 +0000" channel="ENAChannel.gr@SD">
+    <title>Ένα με τη Γη</title>
   </programme>
   <programme start="20261014130000 +0000" stop="20261014145500 +0000" channel="KontraChannel.gr@SD">
     <title>Εκπομπές Τηλεοπτικών Αγορών</title>
@@ -1677,12 +1688,8 @@
   <programme start="20261016180000 +0000" stop="20261016190000 +0000" channel="KontraChannel.gr@SD">
     <title>Κόντρα &amp; Ρήξη</title>
   </programme>
-  <programme start="20261014100000 +0000" stop="20261014140000 +0000" channel="AlertTV.gr@SD">
-    <title>Alert</title>
-    <date>20261014</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261016190000 +0000" stop="20261016204500 +0000" channel="KontraChannel.gr@SD">
+    <title>Spotlight</title>
   </programme>
   <programme start="20261014140000 +0000" stop="20261014180000 +0000" channel="AlertTV.gr@SD">
     <title>Alert</title>
@@ -1782,9 +1789,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261014090000 +0000" stop="20261014130000 +0000" channel="PanikTV.gr@SD">
-    <title>All New</title>
-  </programme>
   <programme start="20261014130000 +0000" stop="20261014150000 +0000" channel="PanikTV.gr@SD">
     <title>Viral Hits</title>
   </programme>
@@ -1848,8 +1852,8 @@
   <programme start="20261016170000 +0000" stop="20261016190000 +0000" channel="PanikTV.gr@SD">
     <title>PANIK Hits</title>
   </programme>
-  <programme start="20261014120000 +0000" stop="20261014140000 +0000" channel="Action24.gr@SD">
-    <title>Back 2 Μπακ</title>
+  <programme start="20261016190000 +0000" stop="20261016210000 +0000" channel="PanikTV.gr@SD">
+    <title>Laika Vibes</title>
   </programme>
   <programme start="20261014140000 +0000" stop="20261014145000 +0000" channel="Action24.gr@SD">
     <title>Χωρίς Χάρτη</title>
@@ -1970,5 +1974,8 @@
   </programme>
   <programme start="20261016170000 +0000" stop="20261016190000 +0000" channel="Action24.gr@SD">
     <title>Επόμενη Κίνηση</title>
+  </programme>
+  <programme start="20261016190000 +0000" stop="20261016210000 +0000" channel="Action24.gr@SD">
+    <title>Πίσω Από Τις Γραμμές</title>
   </programme>
 </tv>
