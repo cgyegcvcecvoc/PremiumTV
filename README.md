@@ -64,8 +64,8 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable** | **1.0.2** (Android `versionCode 7`) | USA lineup + USA guide | Default build and releasable stable target |
-| **Preview** | **1.1.0** (Android `versionCode 8`) | Global checked lineup + merged guide | Must be published as a GitHub pre-release; never the default |
+| **Stable** | **1.0.2** (Android `versionCode 7`) | USA lineup + USA guide | Published stable release (`v1.0.2`) and the default build |
+| **Preview** | **1.1.0** (Android `versionCode 8`) | Global checked lineup + merged guide | Published with GitHub's pre-release flag (`v1.1.0`); never the default |
 
 The 1.1.0 pre-release adds an optional **Cable** guide: an 8-hour, channel-by-time
 schedule shown only when the bundle metadata enables `cable-guide`. Both apps
@@ -82,7 +82,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.2` — USA lineup; prepared for release, not published in this change |
+| Stable target | `1.0.2` — USA lineup; published as the stable release |
 | Preview target | `1.1.0` — global lineup + optional Cable guide; GitHub pre-release only |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
@@ -125,9 +125,10 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**No 1.0.2 stable release or 1.1.0 pre-release has been published by this
-change.** The GitHub workflows build from the release tag/dispatch selection;
-1.1.0 must have GitHub's pre-release flag enabled.
+**1.0.2 is the published stable release and 1.1.0 is published with GitHub's
+pre-release flag.** The workflows build from the release tag or a manual
+dispatch; a 1.1.0 build is only accepted when GitHub marks that release as a
+pre-release.
 
 ### Keeping the categories and the order honest
 

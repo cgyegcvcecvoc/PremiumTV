@@ -13,8 +13,9 @@ The release workflow prepares two separate channels:
   optional Cable guide tab. This must be published with GitHub's pre-release
   flag; the default build remains 1.0.2.
 
-The 1.0.2 stable target is prepared but has not been published by this change.
-When built, installers are named `PremiumTV-<version>-mac-x64.dmg`,
+The 1.0.2 stable target is published as the `v1.0.2` release and 1.1.0 as the
+pre-release `v1.1.0`.
+Installers are named `PremiumTV-<version>-mac-x64.dmg`,
 `...-arm64.dmg`, `...-x64.pkg` and `...-arm64.pkg`, with
 `SHA256SUMS-macos.txt`. Third-party playback still depends on upstream feeds;
 the installers are ad-hoc signed, not notarized.

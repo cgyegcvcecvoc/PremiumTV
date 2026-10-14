@@ -4,7 +4,34 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
-## 2026-10-14 — Prepared 1.0.2 stable and 1.1.0 preview (not published)
+## 2026-10-14 — PremiumTV 1.0.2 released, 1.1.0 published as a pre-release
+
+- **1.0.2 is the published stable release.** It is the USA lineup + USA guide
+  with Android `versionCode 7`, and it carries the parser, playback and
+  channel-health fixes prepared earlier the same day (comma-safe `#EXTINF`
+  names, strict XMLTV timestamps and repaired non-positive durations, exact
+  id+URL backup-stream selection on Mac, correct proxy-session release, newer
+  confirmed media probes superseding older quarantine entries).
+- **1.1.0 is published as a GitHub pre-release.** Global checked lineup
+  (9,788 channels, 89 categories) plus the merged guide (105,319 programmes
+  across 1,650 channels) and the optional cable-style guide, which stays gated
+  on `preview_features: ["cable-guide"]` so the stable build never shows it.
+  Android `versionCode 8`. It must keep the pre-release flag and never becomes
+  the default.
+- **Android build fix.** The merged preview code called `initialsOf()` from
+  `CableGuide.kt` while the helper was file-private in `Components.kt`, so
+  `compileDebugKotlin` failed with "Cannot access 'fun initialsOf(...)': it is
+  private in file" and the tagged release could not produce an APK. The helper
+  is now `internal` and shared by the channel cards and the cable grid. This was
+  a visibility-only change; the wire format, bundle and UI are unchanged.
+- Release CI builds both tagged versions from the release commit and attaches
+  the APK, the `.dmg`/`.pkg` installers and the per-platform checksum manifests
+  to the matching release page. Offline validation on the release commit: 349
+  Python tests, 38 macOS Node tests, and the strict verifier reporting 177
+  playlists / 19,650 entries with zero structural problems and zero published
+  dead links.
+
+## 2026-10-14 — Prepared 1.0.2 stable and 1.1.0 preview
 
 - Kept **1.0.2** as the default stable target: Android `versionCode 7`, USA
   playlist/guide, and macOS package version 1.0.2. The 1.0.2 release is prepared
