@@ -187,5 +187,9 @@ After baking the actual channel assets, CI runs `testDebugUnitTest` with
 Robolectric (repository/cache and parser regression tests) and builds the debug APK.
 `tools/smoke_apk.py` then installs that APK on an API 30 emulator, clears app
 data for a cold launch, checks the channel count and visible cards, and repeats
-a relaunch. Emulator boot failures block publication rather than being counted
-as app test passes. Physical TV and upstream playback checks remain manual.
+a relaunch. Every adb call has an explicit timeout and the UI window is sized
+for the global 1.1.0 library (~21 MB of assets against ~6 MB for the stable USA
+bundle), so a slow dump is retried instead of failing the build; a real failure
+writes `build-out/smoke-log.txt`, which branch builds publish. Emulator boot
+failures block publication rather than being counted as app test passes.
+Physical TV and upstream playback checks remain manual.
