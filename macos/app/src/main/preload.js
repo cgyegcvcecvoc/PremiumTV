@@ -24,7 +24,7 @@ contextBridge.exposeInMainWorld('premiumtv', {
   /** Settings → Reset to the bundled copy. */
   resetToBundled: () => ipcRenderer.invoke('ptv:reset'),
   /** Returns the loopback URL whose requests carry the channel's headers. */
-  resolveStream: (channelId) => ipcRenderer.invoke('ptv:resolve-stream', channelId),
+  resolveStream: (channelId, streamUrl) => ipcRenderer.invoke('ptv:resolve-stream', channelId, streamUrl),
   releaseStream: (sessionId) => ipcRenderer.invoke('ptv:release-stream', sessionId),
   /** Logo URLs go through the main process so they can be cached and proxied. */
   logoUrl: (logoUrl) => ipcRenderer.invoke('ptv:logo-url', logoUrl),

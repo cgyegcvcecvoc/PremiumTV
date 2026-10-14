@@ -111,25 +111,32 @@ internal object XmlTvParser {
      */
     private fun parseTime(raw: String?): Long {
         val value = raw?.trim().orEmpty()
-        if (value.length < 14) return 0L
+        val match = Regex("^(\\d{14})(?:\\s*([+-])(\\d{2})(\\d{2}))?$").matchEntire(value)
+            ?: return 0L
+        val stamp = match.groupValues[1]
+        val signText = match.groupValues[2]
+        val year = stamp.substring(0, 4).toIntOrNull() ?: return 0L
+        if (year < 1) return 0L
+        val offsetHours = match.groupValues[3].toIntOrNull() ?: 0
+        val offsetMinutes = match.groupValues[4].toIntOrNull() ?: 0
+        if (offsetHours > 23 || offsetMinutes > 59) return 0L
+
         return try {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.isLenient = false
             calendar.clear()
             calendar.set(
-                value.substring(0, 4).toInt(),
-                value.substring(4, 6).toInt() - 1,
-                value.substring(6, 8).toInt(),
-                value.substring(8, 10).toInt(),
-                value.substring(10, 12).toInt(),
-                value.substring(12, 14).toInt(),
+                stamp.substring(0, 4).toInt(),
+                stamp.substring(4, 6).toInt() - 1,
+                stamp.substring(6, 8).toInt(),
+                stamp.substring(8, 10).toInt(),
+                stamp.substring(10, 12).toInt(),
+                stamp.substring(12, 14).toInt(),
             )
             var epoch = calendar.timeInMillis / 1000L
-            val offset = value.substring(14).trim()
-            if (offset.length >= 5 && (offset[0] == '+' || offset[0] == '-')) {
-                val sign = if (offset[0] == '-') -1L else 1L
-                val hours = offset.substring(1, 3).toLongOrNull() ?: 0L
-                val minutes = offset.substring(3, 5).toLongOrNull() ?: 0L
-                epoch -= sign * (hours * 3600L + minutes * 60L)
+            if (signText.isNotEmpty()) {
+                val sign = if (signText == "-") -1L else 1L
+                epoch -= sign * (offsetHours * 3600L + offsetMinutes * 60L)
             }
             epoch
         } catch (ignored: Exception) {

@@ -93,4 +93,29 @@ class TvRepositoryTest {
         assertFalse(ready(repository).refreshed)
         assertTrue(ready(repository).channels.isNotEmpty())
     }
+
+    @Test fun m3uParserKeepsCommasInChannelNamesAndQuotedAttributes() {
+        val playlist = """#EXTM3U
+#EXTINF:-1 tvg-id="news.local" group-title="News, Local",News, Local
+https://example.org/news.m3u8"""
+        val (channels, _) = M3uParser.parse(playlist)
+        assertEquals(1, channels.size)
+        assertEquals("News, Local", channels.single().name)
+        assertEquals("News, Local", channels.single().group)
+    }
+
+    @Test fun xmltvParserRejectsInvalidDatesAndRepairsNonPositiveDurations() {
+        val guide = """<tv>
+<programme channel="demo" start="20261101010000 +0000" stop="20261101000000 +0000">
+<title>Valid start</title></programme>
+<programme channel="demo" start="20261131010000 +0000" stop="20261131020000 +0000">
+<title>Invalid calendar date</title></programme>
+<programme channel="demo" start="00000101000000 +0000" stop="00000101010000 +0000">
+<title>Invalid year zero</title></programme>
+</tv>"""
+        val programmes = XmlTvParser.parse(guide)
+        assertEquals(1, programmes.size)
+        assertEquals("Valid start", programmes.single().title)
+        assertEquals(1800L, programmes.single().end - programmes.single().start)
+    }
 }

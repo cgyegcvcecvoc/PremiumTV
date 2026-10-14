@@ -52,6 +52,7 @@ import com.premiumtv.app.data.RefreshTrigger
 private enum class Tab(val label: String) {
     Channels("Channels"),
     Guide("Guide"),
+    Cable("Cable"),
     Settings("Settings"),
 }
 
@@ -85,11 +86,18 @@ fun HomeScreen(
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.width(10.dp))
-            VersionPlaque(BuildConfig.VERSION_NAME)
+            val cablePreview = library.meta.previewFeatures.contains("cable-guide")
+            VersionPlaque(
+                if (cablePreview) "${BuildConfig.VERSION_NAME} · PREVIEW" else BuildConfig.VERSION_NAME,
+            )
             Spacer(modifier = Modifier.width(18.dp))
             TabChip(Tab.Channels.label, tab == Tab.Channels) { tab = Tab.Channels }
             Spacer(modifier = Modifier.width(12.dp))
             TabChip(Tab.Guide.label, tab == Tab.Guide) { tab = Tab.Guide }
+            if (cablePreview) {
+                Spacer(modifier = Modifier.width(12.dp))
+                TabChip(Tab.Cable.label, tab == Tab.Cable) { tab = Tab.Cable }
+            }
             Spacer(modifier = Modifier.width(12.dp))
             TabChip(Tab.Settings.label, tab == Tab.Settings) { tab = Tab.Settings }
             Spacer(modifier = Modifier.weight(1f))
@@ -109,6 +117,13 @@ fun HomeScreen(
         when (tab) {
             Tab.Channels -> CategoriesScreen(library, now, onSelect)
             Tab.Guide -> GuideScreen(library, now, onSelect)
+            Tab.Cable -> {
+                if (library.meta.previewFeatures.contains("cable-guide")) {
+                    CableGuideScreen(library, now, onSelect)
+                } else {
+                    CategoriesScreen(library, now, onSelect)
+                }
+            }
             Tab.Settings -> SettingsScreen(
                 library = library,
                 status = status,
@@ -461,6 +476,10 @@ private fun SettingsScreen(
         )
         Spacer(modifier = Modifier.height(12.dp))
         InfoRow("App version", BuildConfig.VERSION_NAME)
+        InfoRow("Library scope", if (meta.libraryScope == "all") "Global · preview" else "USA · stable")
+        if (meta.previewFeatures.isNotEmpty()) {
+            InfoRow("Preview features", meta.previewFeatures.sorted().joinToString())
+        }
         InfoRow("Bundle built", meta.generatedUtc.ifBlank { "unknown" })
         InfoRow("Source playlist", meta.playlist.ifBlank { "unknown" })
         InfoRow("Source guide", meta.guide.ifBlank { "unknown" })

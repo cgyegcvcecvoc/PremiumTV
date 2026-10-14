@@ -29,6 +29,17 @@ function parseAttrs(line) {
   return attrs;
 }
 
+function extinfName(line, attrs) {
+  // EXTINF fields end at the first comma outside quotes. The visible channel
+  // name may itself contain commas, so splitting at the last comma loses data.
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    if (line[index] === '"') quoted = !quoted;
+    else if (line[index] === ',' && !quoted) return line.slice(index + 1).trim();
+  }
+  return (attrs['tvg-name'] || '').trim();
+}
+
 /** Trim decorative noise but keep country flags and quality markers. */
 function cleanName(raw) {
   const name = (raw || '').replace(NOISE_PREFIX_RE, '');
@@ -70,7 +81,7 @@ function parseM3u(text) {
       // Any stream options seen after the previous entry are dropped.
       pendingOpts = {};
       const attrs = parseAttrs(line);
-      const name = line.includes(',') ? line.slice(line.lastIndexOf(',') + 1).trim() : (attrs['tvg-name'] || '').trim();
+      const name = extinfName(line, attrs);
       pending = {
         id: (attrs['tvg-id'] || '').trim(),
         name: cleanName(name),
@@ -138,22 +149,30 @@ function slugify(name) {
 function xmltvTime(value) {
   const text = (value || '').trim();
   if (!text) return 0;
-  const match = text.match(/^(\d{14})\s*([+-]\d{4})?/);
+  const match = text.match(/^(\d{14})(?:\s*([+-])(\d{2})(\d{2}))?$/);
   if (!match) return 0;
-  const [, stamp, offset] = match;
+  const [, stamp, offsetSign, offsetHoursText, offsetMinutesText] = match;
   const year = Number(stamp.slice(0, 4));
   const month = Number(stamp.slice(4, 6));
   const day = Number(stamp.slice(6, 8));
   const hour = Number(stamp.slice(8, 10));
   const minute = Number(stamp.slice(10, 12));
   const second = Number(stamp.slice(12, 14));
-  if (month < 1 || month > 12 || day < 1 || day > 31 || hour > 23 || minute > 59 || second > 60) return 0;
-  const asUtc = Date.UTC(year, month - 1, day, hour, minute, second);
+  if (year < 1 || month < 1 || month > 12 || day < 1 || hour > 23 || minute > 59 || second > 59) return 0;
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (day > daysInMonth[month - 1]) return 0;
+
+  const offsetHours = Number(offsetHoursText || 0);
+  const offsetMinutes = Number(offsetMinutesText || 0);
+  if (offsetHours > 23 || offsetMinutes > 59) return 0;
+  const utcDate = new Date(0);
+  utcDate.setUTCFullYear(year, month - 1, day);
+  utcDate.setUTCHours(hour, minute, second, 0);
+  const asUtc = utcDate.getTime();
   if (Number.isNaN(asUtc)) return 0;
-  const sign = (offset || '+0000')[0] === '-' ? -1 : 1;
-  const offHours = Number((offset || '+0000').slice(1, 3));
-  const offMinutes = Number((offset || '+0000').slice(3, 5));
-  return Math.floor((asUtc - sign * (offHours * 60 + offMinutes) * 60 * 1000) / 1000);
+  const sign = offsetSign === '-' ? -1 : 1;
+  return Math.floor((asUtc - sign * (offsetHours * 60 + offsetMinutes) * 60 * 1000) / 1000);
 }
 
 function textOf(node, key) {
@@ -214,7 +233,8 @@ function parseXmltv(text, options = {}) {
     const channel = (attrs.channel || '').trim();
     const start = xmltvTime(attrs.start || '');
     if (!channel || !start) continue;
-    const stop = xmltvTime(attrs.stop || '') || start + 1800;
+    let stop = xmltvTime(attrs.stop || '');
+    if (stop <= start) stop = start + 1800;
     if (knownIds && !knownIds.has(channel)) continue;
     if (stop <= nowSeconds - 6 * 3600) continue;
 

@@ -85,4 +85,14 @@ test('HTTP proxy resolves HLS segments and keys against the final redirected URL
   assert.equal(requests[0].headers['User-Agent'], 'TestUA');
   assert.equal((await fetch(`${url}?u=${encodeURIComponent('https://not-allowed.example/seg.ts')}`)).status, 403);
   assert.equal((await fetch(`${proxy.origin}/app.js`)).status, 200);
+
+  const sessionId = new URL(url).pathname.split('/').filter(Boolean).at(-1);
+  assert.equal(proxy.sessions.size, 1);
+  assert.equal(proxy.releaseSession(sessionId), true);
+  assert.equal(proxy.sessions.size, 0, 'closing playback releases its whitelist and session');
+  assert.equal((await fetch(url)).status, 410);
+
+  const legacyUrl = proxy.registerChannel({ url: 'https://origin.example/legacy.m3u8' });
+  assert.equal(proxy.releaseSession(legacyUrl), true, 'older renderers may pass the full URL');
+  assert.equal(proxy.sessions.size, 0);
 });

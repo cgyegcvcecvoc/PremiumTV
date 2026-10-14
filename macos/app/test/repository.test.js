@@ -215,3 +215,21 @@ test('missing guide does not prevent channels loading and interrupted cache swap
   assert.equal(fs.existsSync(repository.stagingDir), false);
   assert.equal(fs.existsSync(repository.backupDir), false);
 });
+
+
+test('findChannel selects the requested backup when EPG ids are shared', async (t) => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-'));
+  t.after(() => fsp.rm(root, { recursive: true, force: true }));
+  const repository = makeRepository(root, async () => makeResponse());
+  await repository.load();
+  const backup = {
+    ...repository.library.channels[0],
+    name: 'Sports One (Backup 1)',
+    url: 'http://stream.example/sports-one-backup.m3u8',
+  };
+  repository.library.channels.push(backup);
+
+  assert.equal(repository.findChannel('sports.one', backup.url), backup);
+  assert.equal(repository.findChannel('sports.one').url, repository.library.channels[0].url);
+  assert.equal(repository.findChannel('missing.id', 'https://example.org/missing'), null);
+});

@@ -1,10 +1,10 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-14T20:28:33+00:00 UTC
+- **Generated:** 2026-10-14T21:07:44+00:00 UTC
 - **Playlists checked:** 177 (19650 entries)
-- **Playlists with problems:** 1
+- **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 76
-- **Links published that the deep check called dead:** 2
+- **Links published that the deep check called dead:** 0
 - **Category shelf files:** 126 (0 problem(s))
 - **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, Cartoons Backups, PBS, PBS Backups, Game Shows, News, News Backups, Religious, Religious Backups, Music, Music Backups, International, International Backups, Entertainment, Entertainment Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Africa, Africa Backups, Legislative, Legislative Backups, North America, North America Backups, Business, Business Backups, Series, Series Backups, South America, South America Backups, Family, Classic TV, Comedy, Weather, A&E Networks, A&E Networks Backups, Online TV, Relax, United States, United States Backups, Australia, Canada, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
@@ -15,7 +15,7 @@
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | `playlists/PremiumTV.m3u` | 9788 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Europe, Movies, International, Religious, Entertainment, South America, Asia, United States, North America, Documentary, Kids, Series, Culture, Education, Legislative, India, Africa, Business, Comedy, Classic TV, Family, UK, A&E Networks, Canada, Weather, Animals & Nature, Aria Web Channels, Australia, Online TV, Tv Paranormal, Global TV, Relax, Tv Celebrities, Oceania, Tv Shows, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 8425/8425 (100.0%) | 1650 (19.6%) |
 | `playlists/AE_Channels.m3u` | 57 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 52/52 (100.0%) | 8 (15.4%) |
-| `playlists/Priority_Channels.m3u` | 17 | Sports, Cartoons, Kids, Classic TV, MeTV | 0 | 0 | 3 | 2 | 13/13 (100.0%) | 8 (61.5%) |
+| `playlists/Priority_Channels.m3u` | 17 | Sports, Cartoons, Kids, Classic TV, MeTV | 0 | 0 | 3 | 0 | 13/13 (100.0%) | 8 (61.5%) |
 | `playlists/countries/Afghanistan.m3u` | 8 | Asia, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Albania.m3u` | 16 | News, Europe, International, Music | 0 | 0 | 1 | 0 | 16/16 (100.0%) | 3 (18.8%) |
 | `playlists/countries/Algeria.m3u` | 3 | Sports, Africa, Kids | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 1 (33.3%) |
@@ -193,12 +193,7 @@
 
 ## Problems
 
-### `playlists/Priority_Channels.m3u`
-
-- 2 published link(s) confirmed dead by the last deep check
-  - dead: [Sports] NFL RedZone (OVO) — quarantined: playlist only, HTTP 403
-  - dead: Nickelodeon (Brazil) (480p) — quarantined: HTTP 404
-
+None: every playlist is canonical, in order, and free of links the deep check confirmed dead.
 
 ## Category shelf
 

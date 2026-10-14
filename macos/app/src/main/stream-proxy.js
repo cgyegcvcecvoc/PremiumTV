@@ -118,7 +118,18 @@ class StreamProxy {
   }
 
   releaseSession(sessionId) {
-    this.sessions.delete(sessionId);
+    // Accept either the opaque id or the loopback URL returned by older builds.
+    // The Mac renderer used to pass the full URL as the id, leaking one session
+    // (and its whitelist) on every playback.
+    let key = String(sessionId || '');
+    if (key.includes('/p/')) {
+      try {
+        key = new URL(key).pathname.split('/').filter(Boolean).at(-1) || '';
+      } catch (error) {
+        return false;
+      }
+    }
+    return this.sessions.delete(key);
   }
 
   // -------------------------------------------------------------- handling

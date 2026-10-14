@@ -57,84 +57,77 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | `playlists/sources/*.m3u` | Normalized copies used as fallback caches when an upstream source is unavailable. |
 | [`playlists/logs/resort-log.txt`](playlists/logs/resort-log.txt) | Result of the last `scripts/resort_playlists.py` run: what was re-sorted and which links were pruned. |
 
-## macOS app (PremiumTV 1.0.1)
+## PremiumTV apps and release channels
 
-The repository also ships a **macOS app** that does the same job as the Android
-one — channels and guide bundled in the app — packaged as a `.dmg` (drag to
+PremiumTV ships a native Android TV app and a macOS app. Release builds share
+the same data scope and version policy:
+
+| Channel | Version | Library | Release status |
+|---|---|---|---|
+| **Stable** | **1.0.2** (Android `versionCode 7`) | USA lineup + USA guide | Default build and releasable stable target |
+| **Preview** | **1.1.0** (Android `versionCode 8`) | Global checked lineup + merged guide | Must be published as a GitHub pre-release; never the default |
+
+The 1.1.0 pre-release adds an optional **Cable** guide: an 8-hour, channel-by-time
+schedule shown only when the bundle metadata enables `cable-guide`. Both apps
+keep their normal Channels and Guide views. The Android bundle builder and the
+Mac build default to `1.0.2` / `usa`; the release workflows select `all` only
+for 1.1.0 and reject a stable-tagged 1.1.0 release.
+
+### macOS app
+
+The macOS app packages the channels and guide inside a `.dmg` (drag to
 Applications) and a `.pkg` (installer) for **macOS 12 (Monterey) and later**, on
-Intel and Apple Silicon. Nothing to run, nothing to configure.
+Intel and Apple Silicon.
 
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Installers (dmg + pkg, both archs) | [v1.0.1 — channel-loading hotfix](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1) |
+| Stable target | `1.0.2` — USA lineup; prepared for release, not published in this change |
+| Preview target | `1.1.0` — global lineup + optional Cable guide; GitHub pre-release only |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
-Version **1.0.1** fixes a cold-start race that could leave Channels empty even
-after the bundled library loaded. The renderer now fetches the loaded library
-on state/progress events and rebuilds the guide index. Regression tests cover
-cold launch, guide loading, refreshed rows and out-of-order IPC replies. CI also
-launches both packaged Mac architectures and the built APK before publishing.
+The macOS regression suite covers startup data delivery, the cable-guide
+preview gate, parser accuracy, duplicate-ID playback selection, and proxy
+session cleanup. Electron 43 retains macOS 12 support. Builds are ad-hoc signed,
+not notarized; first launch may require right-click → **Open** or clearing the
+quarantine attribute. App-side refresh remains blocked while this repository is
+private, so the bundled copy stays usable.
 
-Because Electron 44 dropped macOS 12, the app pins Electron 43 and declares
-`minimumSystemVersion: "12.0"`. It is ad-hoc signed, not notarized: on first
-launch, right-click → **Open**, or run `xattr -dr com.apple.quarantine
-/Applications/PremiumTV.app`. Like the Android app, refreshes can only read this
-repository once a public mirror exists; until then the bundled copy is used.
+### Android TV app
 
-## Android TV app (PremiumTV 1.0.1)
-
-The repository also builds an Android app that carries the playlists and the
-guide **inside the APK** — nothing to configure in a player, no M3U file to
-side-load.
+The Android app carries the playlists and guide **inside the APK** — nothing
+to configure in a player, no M3U file to side-load. It installs on Android TV,
+Google TV, Fire TV stick, tablet and phone.
 
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Version | `1.0.1` (`versionCode 6`) |
-| Android download | [v1.0.1 — channel-loading hotfix](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1) |
+| Stable target | `1.0.2` (`versionCode 7`) — USA library |
+| Preview target | `1.1.0` (`versionCode 8`) — global library + Cable guide |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-**PremiumTV 1.0.0 "Marquee" is the first official release**, carrying both
-platforms on one release page. The build bundles the **USA library** (2,200+
-channels across the published categories) plus the merged guide — every
-channel a verified upstream guide schedules, built from the curated
+The stable build bundles the USA playlist and guide; the preview build bundles
+the checked global playlist and merged guide. Both guides are built from curated
 per-country EPG feeds (see [the guide build report](playlists/checks/EPG-BUILD.md)).
-It installs on Android TV, Google TV, Fire TV stick, tablet and phone.
 
-- **Channels** — one row per category, in the published order; each card shows
-  the logo and what is on right now. Channels appear as soon as their list is
-  ready rather than waiting for the larger guide to finish parsing.
-- **Guide** — what's on now across every channel that has listings, with a
-  progress bar and what's next. A damaged or missing guide does not block the
-  Channels tab.
-- **Automatic refresh** — Android WorkManager checks on a connected network
-  shortly after all daily scrape, quick-update and guide publication windows.
-  The request survives app exits and device reboots; Android can defer it while
-  a device sleeps. ETag/Last-Modified checks avoid downloading files that did
-  not change.
-- **Settings** — **Force refresh all now** bypasses saved validators and fetches
-  both the full channel list and full guide. A successful pair is installed
-  atomically; a failed or partial refresh keeps the last usable copy. Settings
-  also shows the next check, last success and last result, and can reset to the
-  bundled copy.
-- **Navigation** — D-pad focus stays within channel rows; controls expose button
-  semantics for assistive technologies. Shared on-disk logo caching and no-fade
-  artwork reduce repeated image work while browsing.
+- **Channels** — one row per category, in published order; each card shows its
+  logo and current programme when the guide has one.
+- **Guide** — what's on now across channels with listings, progress and next up.
+- **Cable (1.1.0 preview only)** — a cable-style 8-hour schedule, channel logos
+  and channel numbers; enabled by preview bundle metadata and absent from stable.
+- **Automatic refresh** — Android WorkManager checks after repository publishing
+  windows, using ETag/Last-Modified where possible.
+- **Settings** — bundle provenance, refresh state, force refresh, and reset to
+  bundled data.
 
-Playback is ExoPlayer (Media3), and it sends the referrer, origin and
-user-agent a playlist entry publishes when it has one.
+Playback is ExoPlayer (Media3), and the app sends the referrer, origin and
+user-agent a playlist entry publishes when it has one. Some upstream streams can
+still fail between health checks; confirmed failures should be removed from the
+player playlists, while transient or geo-blocked errors stay distinguishable.
 
-Two things to know before installing:
-
-1. **App-side refresh cannot read this private repository today.** Automatic and
-   forced updates use the bundled raw URLs. `raw.githubusercontent.com` returns
-   an access error to an unauthenticated TV while `PremiumTV1` is private. The
-   app keeps its bundled/cached copy and reports the failure honestly; refresh
-   starts working when an owner-approved public mirror or delivery URL exists.
-2. **Some channels will not play.** A link stays in the playlist until the
-   nightly deep check confirms it is dead, so a few dead upstream feeds are
-   still in this build.
+**No 1.0.2 stable release or 1.1.0 pre-release has been published by this
+change.** The GitHub workflows build from the release tag/dispatch selection;
+1.1.0 must have GitHub's pre-release flag enabled.
 
 ### Keeping the categories and the order honest
 

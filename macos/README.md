@@ -6,16 +6,18 @@ packaged as a `.dmg` (drag to Applications) and a `.pkg` (installer) instead of
 a script you have to run. Supports **macOS 12 (Monterey) and later**, on Intel
 and Apple Silicon.
 
-The installers are built by GitHub Actions on a macOS runner and attached to the
-[official `v1.0.1` release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1)
-("Channels Back on Air") as `PremiumTV-1.0.1-mac-x64.dmg`, `...-arm64.dmg`, `...-x64.pkg` and
-`...-arm64.pkg`, with `SHA256SUMS-macos.txt`.
+The release workflow prepares two separate channels:
 
-**The channel-loading hotfix.** Version 1.0.1 fixes the empty cold-start
-snapshot, updates refreshed rows and guide listings, and corrects redirected
-HLS segment/key resolution. CI launches both packaged architectures before
-uploading installers. Third-party playback still depends on upstream feeds;
-the installers remain ad-hoc signed, not notarized.
+- **1.0.2 stable (default):** USA playlist + USA guide.
+- **1.1.0 pre-release:** global checked playlist + merged guide, with the
+  optional Cable guide tab. This must be published with GitHub's pre-release
+  flag; the default build remains 1.0.2.
+
+The 1.0.2 stable target is prepared but has not been published by this change.
+When built, installers are named `PremiumTV-<version>-mac-x64.dmg`,
+`...-arm64.dmg`, `...-x64.pkg` and `...-arm64.pkg`, with
+`SHA256SUMS-macos.txt`. Third-party playback still depends on upstream feeds;
+the installers are ad-hoc signed, not notarized.
 
 ## Installing
 
@@ -37,7 +39,8 @@ the installers remain ad-hoc signed, not notarized.
 |---|---|
 | **Channels** | One card per channel, grouped in the repository's published category order (`Sports`, `Lifestyle`, `Fox Channels`, …). Each card shows the logo and, when the guide covers it, what is on right now. |
 | **Guide** | "What's on now" for every channel with listings: current programme with a progress bar plus what is next. |
-| **Settings** | Bundle provenance and counts, automatic-refresh state, next check, last success/result, **Force refresh all now**, and **Reset to the bundled copy**. |
+| **Cable (1.1.0 preview only)** | An 8-hour, horizontally scrollable channel-by-time grid with programme titles, logos, channel numbers and a live marker. Bundle metadata gates the tab; stable 1.0.2 does not show it. |
+| **Settings** | Bundle provenance and counts, library scope/preview features, automatic-refresh state, next check, last success/result, **Force refresh all now**, and **Reset to the bundled copy**. |
 
 Playback uses hls.js / mpegts.js behind a loopback proxy, so the referrer,
 origin and user-agent a playlist entry publishes are sent — several public
@@ -62,9 +65,12 @@ the in-app slots drift from `scrape.yml` / `quick-update.yml` / `epg-build.yml`.
 ```bash
 cd macos/app
 npm ci
-npm run bundle     # bake playlists/countries/USA.m3u + EPG/USA.xml into resources/bundle
+npm run bundle     # stable default: USA playlist + USA guide
 npm run assets     # vendor hls.js + mpegts.js into the renderer
-npm test           # node unit tests + reference-builder cross-checks
+npm test           # unit tests + parser and preview-guide regression coverage
+
+# Build preview data explicitly; the app version is selected by the workflow.
+PREMIUMTV_SCOPE=all PREMIUMTV_VERSION=1.1.0 npm run bundle
 npm run dist       # local .dmg/.zip (Linux can build dmg; .pkg needs macOS)
 ```
 

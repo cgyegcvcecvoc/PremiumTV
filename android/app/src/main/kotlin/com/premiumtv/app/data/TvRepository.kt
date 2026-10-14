@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.io.FileNotFoundException
@@ -421,6 +422,12 @@ class TvRepository(private val app: Application) {
 
     private fun parseMeta(stream: InputStream): BundleMeta {
         val json = JSONObject(stream.bufferedReader().readText())
+        val features = json.optJSONArray("preview_features")
+        val previewFeatures = buildSet {
+            for (index in 0 until (features?.length() ?: 0)) {
+                features?.optString(index)?.trim()?.takeIf { it.isNotEmpty() }?.let { add(it) }
+            }
+        }
         return BundleMeta(
             version = json.optString("version", "1.0.0"),
             generatedUtc = json.optString("generated_utc", ""),
@@ -435,6 +442,8 @@ class TvRepository(private val app: Application) {
             playlistUrl = json.optString("playlist_url", ""),
             guideUrl = json.optString("guide_url", ""),
             rawBase = json.optString("raw_base", ""),
+            libraryScope = json.optString("library_scope", "usa"),
+            previewFeatures = previewFeatures,
         )
     }
 
@@ -588,6 +597,8 @@ class TvRepository(private val app: Application) {
         json.put("playlist_url", meta.playlistUrl)
         json.put("guide_url", meta.guideUrl)
         json.put("raw_base", meta.rawBase)
+        json.put("library_scope", meta.libraryScope)
+        json.put("preview_features", JSONArray(meta.previewFeatures.toList()))
         return json.toString()
     }
 
