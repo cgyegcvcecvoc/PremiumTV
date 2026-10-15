@@ -18,7 +18,8 @@ name: Build PremiumTV Android APK
 # keep this from triggering another build.
 #
 # Release flow: artifacts attach only to the exact-SHA release being built;
-# v1.1.0 is accepted only when GitHub marks it as a pre-release.
+# the global previews (v1.1.0, v1.1.1) are accepted only when GitHub marks them
+# as pre-releases, so a preview can never become the stable download.
 # emulator smoke gate depends on the "Free disk space for the emulator" step -
 # do not grow the AVD data partition past the runner's free disk.
 
@@ -38,10 +39,11 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Build 1.0.2 stable or 1.1.0 preview (global library + cable guide)."
+        description: "Build 1.0.2 stable, or a global preview: 1.1.1 (cable-style Guide tab) or 1.1.0."
         type: choice
         options:
           - 1.0.2
+          - 1.1.1
           - 1.1.0
         default: 1.0.2
         required: true
@@ -60,7 +62,7 @@ jobs:
     name: Build APK
     # Do not attach an Android APK to a Mac-only release; the official release
     # carries both platforms.
-    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease)
+    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease)
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     env:
@@ -70,7 +72,7 @@ jobs:
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
@@ -90,6 +92,7 @@ jobs:
             case "$RELEASE_TAG:$RELEASE_PRERELEASE" in
               v1.0.2:false) version=1.0.2; scope=usa; code=7 ;;
               v1.1.0:true) version=1.1.0; scope=all; code=8 ;;
+              v1.1.1:true) version=1.1.1; scope=all; code=9 ;;
               *) echo "Unsupported tag/prerelease combination: $RELEASE_TAG:$RELEASE_PRERELEASE"; exit 1 ;;
             esac
           else
@@ -97,6 +100,7 @@ jobs:
             case "$version" in
               1.0.2) scope=usa; code=7 ;;
               1.1.0) scope=all; code=8 ;;
+              1.1.1) scope=all; code=9 ;;
               *) echo "Unsupported PremiumTV version: $version"; exit 1 ;;
             esac
           fi
@@ -118,7 +122,7 @@ jobs:
           ls -la android/app/src/main/assets/bundle
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Build the debug APK
         id: gradle
@@ -155,7 +159,7 @@ jobs:
           sudo docker image prune --all --force || true
           df -h /
 
-      - name: Smoke test cold launch and relaunch of the built APK
+      - name: Smoke test the built APK (cold launch, relaunch, Guide tab and remote)
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30

@@ -6,8 +6,8 @@ name: Build PremiumTV macOS DMG + PKG
 # for both Intel and Apple Silicon, ad-hoc signs the .app, and publishes the
 # installers to the release page plus an Actions artifact.
 #
-# The repository is private, so the artifacts are only downloadable by people
-# with repository access - which is exactly who installs test builds.
+# The global previews (v1.1.0, v1.1.1) attach only to GitHub pre-releases; the
+# stable v1.0.2 only to a full release.
 
 on:
   push:
@@ -24,10 +24,11 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Build 1.0.2 stable or 1.1.0 preview (global library + cable guide)."
+        description: "Build 1.0.2 stable, or a global preview: 1.1.1 (cable-style Guide tab) or 1.1.0."
         type: choice
         options:
           - 1.0.2
+          - 1.1.1
           - 1.1.0
         default: 1.0.2
         required: true
@@ -48,7 +49,7 @@ jobs:
     # to an Android-only release). The official release carries both platforms,
     # so both build workflows attach to it. Push/dispatch builds still run as
     # usual.
-    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease)
+    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease)
     runs-on: macos-14
     timeout-minutes: 60
     env:
@@ -56,10 +57,10 @@ jobs:
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
           cache: npm
@@ -81,6 +82,7 @@ jobs:
             case "$RELEASE_TAG:$RELEASE_PRERELEASE" in
               v1.0.2:false) version=1.0.2; scope=usa ;;
               v1.1.0:true) version=1.1.0; scope=all ;;
+              v1.1.1:true) version=1.1.1; scope=all ;;
               *) echo "Unsupported tag/prerelease combination: $RELEASE_TAG:$RELEASE_PRERELEASE"; exit 1 ;;
             esac
           else
@@ -88,6 +90,7 @@ jobs:
             case "$version" in
               1.0.2) scope=usa ;;
               1.1.0) scope=all ;;
+              1.1.1) scope=all ;;
               *) echo "Unsupported PremiumTV version: $version"; exit 1 ;;
             esac
           fi
@@ -158,8 +161,13 @@ jobs:
         working-directory: macos/app
         run: |
           set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
           for arch in mac mac-arm64; do
-            "dist/$arch/PremiumTV.app/Contents/MacOS/PremiumTV" --smoke-test
+            # The smoke test opens the Guide tab too; a preview build saves a
+            # screenshot of the cable-style grid next to the build log.
+            shot=""
+            if [ "$BUNDLE_SCOPE" = "all" ]; then shot="$GITHUB_WORKSPACE/macos/build-out/guide-$arch.png"; fi
+            PREMIUMTV_SMOKE_SHOT="$shot" "dist/$arch/PremiumTV.app/Contents/MacOS/PremiumTV" --smoke-test
           done
 
       - name: Checksum the installers
@@ -167,7 +175,7 @@ jobs:
         run: shasum -a 256 *.dmg *.pkg > SHA256SUMS-macos.txt
 
       - name: Upload installers as an Actions artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: PremiumTV-macOS-installers
           path: |
