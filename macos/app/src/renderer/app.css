@@ -413,7 +413,10 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   .guide-clock { display: none; }
 }
 
-/* ----------------------------------------------------------- cable preview */
+/* ------------------------------------------------------- cable-style guide */
+/* Preview builds render the Guide as a grid: channels down the left (sticky),
+   half-hour times across the top (sticky), programme cells sized by duration,
+   a red NOW line, and a detail strip above it for the highlighted show. */
 
 .preview-tag {
   display: inline-block;
@@ -429,12 +432,74 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   vertical-align: 3px;
 }
 
+.guide-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 86px;
+  margin-bottom: 10px;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: linear-gradient(120deg, #1a222d, #121820 70%);
+}
+.guide-info-main { flex: 1; min-width: 0; }
+.guide-info-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
+}
+.guide-info-title {
+  margin-top: 3px;
+  overflow: hidden;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.guide-info-desc {
+  margin-top: 3px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.guide-info-channel { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; max-width: 34%; }
+.guide-info-logo {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 750;
+}
+.guide-info-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.guide-info-channel-text { display: flex; flex-direction: column; min-width: 0; }
+.guide-info-channel-name { overflow: hidden; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.guide-info-channel-group { color: var(--muted); font-size: 11px; }
+
 .cable-scroll {
   --cable-label: 230px;
-  --cable-timeline: 1440px;
+  --cable-slot: 150px;
+  --cable-timeline: 2400px;
+  --cable-row: 64px;
   position: relative;
-  max-height: calc(100vh - 205px);
-  min-height: 280px;
+  max-height: calc(100vh - 252px);
+  min-height: 260px;
   overflow: auto;
   overscroll-behavior: contain;
   border: 1px solid var(--border);
@@ -450,26 +515,26 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   display: grid;
   grid-template-columns: var(--cable-label) var(--cable-timeline);
   width: max-content;
-  min-height: 76px;
+  min-height: var(--cable-row);
 }
 .cable-header-row {
   position: sticky;
   top: 0;
-  z-index: 5;
-  min-height: 42px;
+  z-index: 6;
+  min-height: 40px;
   background: #171c24;
-  box-shadow: 0 1px 0 var(--border);
+  box-shadow: 0 1px 0 var(--border), 0 6px 12px rgba(0, 0, 0, 0.35);
 }
 .cable-channel {
   position: sticky;
   left: 0;
-  z-index: 2;
+  z-index: 4;
   display: flex;
   align-items: center;
   gap: 9px;
   width: var(--cable-label);
-  min-height: 76px;
-  padding: 7px 10px;
+  min-height: var(--cable-row);
+  padding: 6px 10px;
   border: 0;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -478,21 +543,23 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   font: inherit;
   text-align: left;
   cursor: pointer;
+  scroll-margin-top: 48px;
 }
 .cable-channel:hover { background: #202a36; }
-.cable-channel:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.cable-channel:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; background: #202a36; }
 .cable-header-stub {
-  z-index: 6;
-  min-height: 42px;
-  color: var(--muted);
-  font-size: 10px;
+  z-index: 7;
+  min-height: 40px;
+  color: var(--gold);
+  font-size: 11px;
   font-weight: 750;
-  letter-spacing: 1px;
+  letter-spacing: 0.4px;
   cursor: default;
 }
-.cable-header-stub:hover { background: #171c24; }
+.cable-header-stub:hover { background: #141b24; }
 .cable-number {
-  flex: 0 0 34px;
+  flex: 0 0 auto;
+  max-width: 44px;
   color: var(--gold);
   font-size: 11px;
   font-variant-numeric: tabular-nums;
@@ -501,9 +568,9 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   text-overflow: ellipsis;
 }
 .cable-logo {
-  flex: 0 0 38px;
-  width: 38px;
-  height: 36px;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 34px;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -514,26 +581,35 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   font-weight: 700;
 }
 .cable-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.cable-channel-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cable-channel-name {
-  min-width: 0;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  font-size: 11.5px;
-  font-weight: 620;
+  font-size: 12px;
+  font-weight: 650;
   line-height: 1.2;
+}
+.cable-channel-group {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .cable-track {
   position: relative;
   width: var(--cable-timeline);
-  height: 76px;
-  overflow: hidden;
+  height: var(--cable-row);
+  /* clip, not hidden: a hidden box is a scroll container, which would make the
+     sticky titles below stick to it instead of to the grid. */
+  overflow: clip;
   border-bottom: 1px solid var(--border);
   background: #0f151d;
 }
 .cable-time-track {
-  height: 42px;
+  height: 40px;
   overflow: visible;
   border-bottom: 0;
   background: #171c24;
@@ -542,16 +618,34 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 90px;
+  width: var(--cable-slot);
   display: flex;
   align-items: center;
   padding-left: 10px;
-  color: var(--muted);
-  font-size: 11px;
+  border-left: 1px solid rgba(130, 151, 177, 0.18);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.cable-time-tick:nth-child(even) { color: var(--text); }
+.cable-time-tick:nth-child(even) { color: var(--muted); font-weight: 500; }
+.guide-now-marker {
+  position: absolute;
+  z-index: 3;
+  bottom: 3px;
+  transform: translateX(-50%);
+  padding: 1px 6px 2px;
+  border-radius: 999px;
+  background: var(--live);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  box-shadow: 0 0 6px rgba(226, 72, 60, 0.7);
+  pointer-events: none;
+}
 .cable-gridline {
   position: absolute;
   z-index: 0;
@@ -564,13 +658,14 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
 .cable-programme {
   position: absolute;
   z-index: 1;
-  top: 5px;
-  bottom: 5px;
+  top: 4px;
+  bottom: 4px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  overflow: hidden;
-  padding: 7px 8px;
+  justify-content: center;
+  gap: 3px;
+  overflow: clip;
+  padding: 5px 8px;
   border: 1px solid rgba(130, 151, 177, 0.22);
   border-radius: 6px;
   background: #1a2633;
@@ -578,6 +673,8 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   font: inherit;
   text-align: left;
   cursor: pointer;
+  scroll-margin-left: calc(var(--cable-label) + 12px);
+  scroll-margin-top: 48px;
   transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 .cable-programme:hover,
@@ -590,24 +687,45 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
 }
 .cable-programme.current {
   border-color: rgba(240, 192, 64, 0.75);
-  background: linear-gradient(145deg, #303628, #202c34);
+  background: linear-gradient(145deg, #34392a, #202c34);
 }
+.cable-programme.past { opacity: 0.55; }
+/* After .current, so a highlighted live show still looks highlighted. */
+.cable-programme:focus-visible,
+.cable-programme.current:focus-visible {
+  z-index: 3;
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+  border-color: var(--gold);
+  background: #34465a;
+  box-shadow: 0 0 0 3px rgba(240, 192, 64, 0.55), 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+.cable-programme.current:hover { background: linear-gradient(145deg, #3d4430, #26333d); }
 .cable-programme-time {
   flex: 0 0 auto;
   overflow: hidden;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 10px;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
   white-space: nowrap;
 }
 .cable-programme.current .cable-programme-time { color: var(--gold); }
+/* A show that continues under the sticky channel column keeps its time and
+   title readable at the column's edge, as a cable guide does. */
+.cable-programme > .cable-programme-time,
+.cable-programme > .cable-programme-title {
+  position: sticky;
+  left: calc(var(--cable-label) + 9px);
+  align-self: flex-start;
+  max-width: 100%;
+}
 .cable-programme-title {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -621,4 +739,23 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   box-shadow: 0 0 5px rgba(226, 72, 60, 0.8);
   pointer-events: none;
 }
+.cable-section {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: calc(var(--cable-label) + var(--cable-timeline));
+  padding: 9px 12px 6px;
+  border-bottom: 1px solid var(--border);
+  background: #10161e;
+}
+.cable-section-name {
+  position: sticky;
+  left: 12px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+.cable-section-count { position: sticky; left: 180px; color: var(--muted); font-size: 11px; }
 .cable-empty { margin: 18px; }
