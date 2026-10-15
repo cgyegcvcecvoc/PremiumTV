@@ -211,6 +211,10 @@
     <display-name>Guada TV (720p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/YaDNsYN.png" />
   </channel>
+  <channel id="ImasTV.es@SD">
+    <display-name>Imas TV (1080p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/a9hgTmM.png" />
+  </channel>
   <channel id="InteralmeriaTV.es@SD">
     <display-name>Interalmeria TV (1080p)</display-name>
     <icon src="https://i.imgur.com/ulSkAjZ.png" />
@@ -470,10 +474,6 @@
     <display-name>Onda Valencia TV (720p)</display-name>
     <icon src="https://i.imgur.com/6HxLUQd.png" />
   </channel>
-  <channel id="POPWorldTV.es@SD">
-    <display-name>POP World TV (720p)</display-name>
-    <icon src="https://i.imgur.com/LQB6G3s.jpg" />
-  </channel>
   <channel id="Radio3.es@SD">
     <display-name>Radio 3 (720p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/RNE_Radio_3_2026.svg/500px-RNE_Radio_3_2026.svg.png" />
@@ -722,12 +722,6 @@
     <display-name>Canal Parlamento (360p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/BUO0wH6.png" />
   </channel>
-  <programme start="20261015133500 +0000" stop="20261015152000 +0000" channel="RealMadridTV.es@SD">
-    <title>El valle de los hombres de piedra</title>
-  </programme>
-  <programme start="20261015152000 +0000" stop="20261015153500 +0000" channel="RealMadridTV.es@SD">
-    <title>Ciudad Real Madrid</title>
-  </programme>
   <programme start="20261015153500 +0000" stop="20261015173000 +0000" channel="RealMadridTV.es@SD">
     <title>LALIGA EA SPORTS (T26/27): Real Madrid - Villarreal CF</title>
   </programme>
@@ -776,12 +770,8 @@
   <programme start="20261017180000 +0000" stop="20261017220000 +0000" channel="RealMadridTV.es@SD">
     <title>Real Madrid TV</title>
   </programme>
-  <programme start="20261015120000 +0000" stop="20261015160000 +0000" channel="Teledeporte.es@SD">
-    <title>Teledeporte</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017220000 +0000" stop="20261018020000 +0000" channel="RealMadridTV.es@SD">
+    <title>Real Madrid TV</title>
   </programme>
   <programme start="20261015160000 +0000" stop="20261015200000 +0000" channel="Teledeporte.es@SD">
     <title>Teledeporte</title>
@@ -880,9 +870,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261015134000 +0000" stop="20261015145000 +0000" channel="APunt.es@SD">
-    <title>Atrapa'm si pots</title>
   </programme>
   <programme start="20261015145000 +0000" stop="20261015183000 +0000" channel="APunt.es@SD">
     <title>Està Passant Comunitat Valenciana</title>
@@ -1034,8 +1021,11 @@
   <programme start="20261017200000 +0000" stop="20261017210500 +0000" channel="APunt.es@SD">
     <title>A la saca</title>
   </programme>
-  <programme start="20261015133000 +0000" stop="20261015160000 +0000" channel="CanalSurAndalucia.es@SD">
-    <title>La tarde, aquí y ahora</title>
+  <programme start="20261017210500 +0000" stop="20261017220000 +0000" channel="APunt.es@SD">
+    <title>Terra de festes</title>
+  </programme>
+  <programme start="20261017220000 +0000" stop="20261017225000 +0000" channel="APunt.es@SD">
+    <title>La banda</title>
   </programme>
   <programme start="20261015160000 +0000" stop="20261015175000 +0000" channel="CanalSurAndalucia.es@SD">
     <title>Andalucía Directo</title>
@@ -1337,13 +1327,11 @@
   <programme start="20261017190500 +0000" stop="20261017210000 +0000" channel="ETB1.es@SD">
     <title>50. Euskal Herriko dantza txapelketa</title>
   </programme>
-  <programme start="20261015130000 +0000" stop="20261015155500 +0000" channel="ETB2.es@SD">
-    <title>Boulevard</title>
-    <desc>Eider Hurtado e Iñaki Espiga dirigen un programa que reúne información y análisis de lo que ocurre en Euskadi y el mundo.</desc>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017210000 +0000" stop="20261017215000 +0000" channel="ETB1.es@SD">
+    <title>Oholtzan</title>
+  </programme>
+  <programme start="20261017215000 +0000" stop="20261017221500 +0000" channel="ETB1.es@SD">
+    <title>61 Jazzaldia: David Murray Quartet</title>
   </programme>
   <programme start="20261015155500 +0000" stop="20261015163000 +0000" channel="ETB2.es@SD">
     <title>Sustraia</title>
@@ -1839,8 +1827,42 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015140300 +0000" stop="20261015153200 +0000" channel="ElToroTV.es@SD">
-    <title>Mañanas en libertad</title>
+  <programme start="20261017203000 +0000" stop="20261017205800 +0000" channel="ETB2.es@SD">
+    <title>Euskal Herria Desde el Aire</title>
+    <desc>Serie documental que realiza un espectacular viaje para los sentidos que recorre Euskadi desde el aire, mostrando su esencia como nunca antes se ha visto.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017205800 +0000" stop="20261017213500 +0000" channel="ETB2.es@SD">
+    <title>Teleberri fin de semana</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017213500 +0000" stop="20261017215500 +0000" channel="ETB2.es@SD">
+    <title>Kirolak ETB2</title>
+    <desc>Información deportiva.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017215500 +0000" stop="20261017221000 +0000" channel="ETB2.es@SD">
+    <title>Eguraldia ETB2</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017221000 +0000" stop="20261017234000 +0000" channel="ETB2.es@SD">
+    <title>Endeavour</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261015153200 +0000" stop="20261015170000 +0000" channel="ElToroTV.es@SD">
     <title>España en la memoria</title>
@@ -1973,6 +1995,9 @@
   </programme>
   <programme start="20261017193000 +0000" stop="20261017203000 +0000" channel="ElToroTV.es@SD">
     <title>Historias de nuestros médicos</title>
+  </programme>
+  <programme start="20261017203000 +0000" stop="20261017223000 +0000" channel="ElToroTV.es@SD">
+    <title>Más se perdió en Cuba</title>
   </programme>
   <programme start="20261015140000 +0000" stop="20261015173000 +0000" channel="TeleElx.es@SD">
     <title>E Día A Día Redifusión</title>
@@ -2274,18 +2299,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261015133600 +0000" stop="20261015142100 +0000" channel="TVG2.es@SD">
-    <title>Telexornal Mediodía</title>
-  </programme>
-  <programme start="20261015142100 +0000" stop="20261015143300 +0000" channel="TVG2.es@SD">
-    <title>Telexornal Deportes Mediodía</title>
-  </programme>
-  <programme start="20261015143300 +0000" stop="20261015144500 +0000" channel="TVG2.es@SD">
-    <title>O Tempo</title>
-  </programme>
-  <programme start="20261015144500 +0000" stop="20261015152500 +0000" channel="TVG2.es@SD">
-    <title>Atrápame se podes</title>
   </programme>
   <programme start="20261015152500 +0000" stop="20261015163000 +0000" channel="TVG2.es@SD">
     <title>Retransmisión deportiva</title>
@@ -2611,8 +2624,8 @@
   <programme start="20261017200000 +0000" stop="20261017205000 +0000" channel="TVG2.es@SD">
     <title>Telexornal Serán fin de semana</title>
   </programme>
-  <programme start="20261015135000 +0000" stop="20261015154500 +0000" channel="SolMusica.es@SD">
-    <title>Directo al grano</title>
+  <programme start="20261017205000 +0000" stop="20261017221300 +0000" channel="TVG2.es@SD">
+    <title>Cine</title>
   </programme>
   <programme start="20261015154500 +0000" stop="20261015163500 +0000" channel="SolMusica.es@SD">
     <title>Valle Salvaje</title>
@@ -2748,6 +2761,9 @@
   </programme>
   <programme start="20261017194500 +0000" stop="20261017210000 +0000" channel="SolMusica.es@SD">
     <title>La revuelta</title>
+  </programme>
+  <programme start="20261017210000 +0000" stop="20261017224000 +0000" channel="SolMusica.es@SD">
+    <title>El Túnel: avanza y gana</title>
   </programme>
   <programme start="20261015135000 +0000" stop="20261015163500 +0000" channel="24h.es">
     <title>La hora de La 1: La hora de la actualidad</title>
@@ -3113,12 +3129,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015132500 +0000" stop="20261015141000 +0000" channel="CanalExtremadura.es">
-    <title>Ley y Orden</title>
-  </programme>
-  <programme start="20261015141000 +0000" stop="20261015153000 +0000" channel="CanalExtremadura.es">
-    <title>Los disparatados vaqueros de Calico County</title>
-  </programme>
   <programme start="20261015153000 +0000" stop="20261015183000 +0000" channel="CanalExtremadura.es">
     <title>Conexión Extremadura</title>
   </programme>
@@ -3326,12 +3336,11 @@
   <programme start="20261017192000 +0000" stop="20261017202000 +0000" channel="CanalExtremadura.es">
     <title>Informe Extremadura</title>
   </programme>
-  <programme start="20261015130000 +0000" stop="20261015160000 +0000" channel="TVEStar.es@HD">
-    <title>Chaîne espagnole pour le continent américain</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017202000 +0000" stop="20261017212000 +0000" channel="CanalExtremadura.es">
+    <title>Informe Extremadura</title>
+  </programme>
+  <programme start="20261017212000 +0000" stop="20261017230000 +0000" channel="CanalExtremadura.es">
+    <title>Rescate en los Alpes</title>
   </programme>
   <programme start="20261015160000 +0000" stop="20261015190000 +0000" channel="TVEStar.es@HD">
     <title>Chaîne espagnole pour le continent américain</title>
@@ -3423,12 +3432,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261015140000 +0000" stop="20261015143500 +0000" channel="TV3CAT.es">
-    <title>Com si fos ahir</title>
-  </programme>
-  <programme start="20261015143500 +0000" stop="20261015152000 +0000" channel="TV3CAT.es">
-    <title>El paraíso de las señoras</title>
   </programme>
   <programme start="20261015152000 +0000" stop="20261015171500 +0000" channel="TV3CAT.es">
     <title>La selva</title>
@@ -3567,12 +3570,6 @@
   </programme>
   <programme start="20261017200500 +0000" stop="20261017230500 +0000" channel="TV3CAT.es">
     <title>Col·lapse</title>
-  </programme>
-  <programme start="20261015140000 +0000" stop="20261015143000 +0000" channel="24Horas.es@SD">
-    <title>Noticias 24H</title>
-  </programme>
-  <programme start="20261015143000 +0000" stop="20261015150000 +0000" channel="24Horas.es@SD">
-    <title>Noticias 24H</title>
   </programme>
   <programme start="20261015150000 +0000" stop="20261015180000 +0000" channel="24Horas.es@SD">
     <title>La tarde en 24h</title>
@@ -3835,8 +3832,17 @@
   <programme start="20261017200500 +0000" stop="20261017203200 +0000" channel="24Horas.es@SD">
     <title>Noticias 24H</title>
   </programme>
-  <programme start="20261015140000 +0000" stop="20261015150000 +0000" channel="3CatInfo.es@SD">
-    <title>Notícies 3CatInfo</title>
+  <programme start="20261017203200 +0000" stop="20261017210000 +0000" channel="24Horas.es@SD">
+    <title>Noticias 24H</title>
+  </programme>
+  <programme start="20261017210000 +0000" stop="20261017213000 +0000" channel="24Horas.es@SD">
+    <title>Noticias 24H</title>
+  </programme>
+  <programme start="20261017213000 +0000" stop="20261017220000 +0000" channel="24Horas.es@SD">
+    <title>Secuencias en 24 horas</title>
+  </programme>
+  <programme start="20261017220000 +0000" stop="20261017223000 +0000" channel="24Horas.es@SD">
+    <title>Noticias 24H</title>
   </programme>
   <programme start="20261015150000 +0000" stop="20261015163000 +0000" channel="3CatInfo.es@SD">
     <title>Notícies 3CatInfo</title>
@@ -3943,21 +3949,8 @@
   <programme start="20261017200200 +0000" stop="20261017210000 +0000" channel="3CatInfo.es@SD">
     <title>Telenotícies vespre</title>
   </programme>
-  <programme start="20261015140000 +0000" stop="20261015150000 +0000" channel="Historia.es@SD">
-    <title>La malédiction d'Oak Island</title>
-    <desc>L'équipe continue d'enchaîner les découvertes stupéfiantes dans le puits principal; tous ces nouveaux indices et potentielles traces menant au trésor tant convoité pourraient guider les frères Lagina et leurs coéquipiers vers les secrets bien gardés d'Oak Island.</desc>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015150000 +0000" stop="20261015160000 +0000" channel="Historia.es@SD">
-    <title>Le secret du ranch Skinwalker</title>
-    <desc>Audacieuse, une expérience avec une fusée et un hélicoptère permet à l'équipe d'être témoin d'un phénomène qui pourrait prouver une ancienne légende à propos du ranch.</desc>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017210000 +0000" stop="20261017223000 +0000" channel="3CatInfo.es@SD">
+    <title>Notícies 3CatInfo</title>
   </programme>
   <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="Historia.es@SD">
     <title>Au-delà du ranch Skinwalker</title>
@@ -4455,8 +4448,29 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015140000 +0000" stop="20261015160000 +0000" channel="Taroteame.es@SD">
-    <title>Tarotéame</title>
+  <programme start="20261017203000 +0000" stop="20261017213000 +0000" channel="Historia.es@SD">
+    <title>Dangereuse époque avec Henry Winkler</title>
+    <desc>Voici la vérité insoupçonnée de certains produits qui étaient utilisés quotidiennement autrefois et qui étaient bien plus dangereux qu'ils ne le laissaient paraître. Des articles sensationnels comme la dynamite par correspondance et la vaisselle radioactive avaient jadis leur place dans tous les foyers. Préparez-vous pour un voyage stupéfiant au coeur des produits ménagers les plus imprudents et r</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017213000 +0000" stop="20261017220000 +0000" channel="Historia.es@SD">
+    <title>Tout sur le menu avec Braun Strowman</title>
+    <desc>La légende de la WWE Braun Strowman se rend à Washington pour infliger la peine capitale à ses meilleurs restaurants. Il recherche des plats monumentaux, mais entre la légendaire saucisse épicée du Ben's Chili Bowl et TOUT SUR LE MENU chez Oohh's and Aahh's, référence incontournable de la cuisine soul food, comment choisir un favori? Il rencontre les chefs et les habitants qui font prospérer ces i</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017220000 +0000" stop="20261017230000 +0000" channel="Historia.es@SD">
+    <title>Comment Disney a forgé le monde</title>
+    <desc>Disney a commencé son Projet X en secret et, après avoir connu des tragédies et des retards de construction, Walt Disney World ouvre enfin ses portes; c'est alors le triomphe de l'imagination, de la technologie et d'un rêve.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261015160000 +0000" stop="20261015180000 +0000" channel="Taroteame.es@SD">
     <title>Tarotéame</title>
@@ -4502,12 +4516,6 @@
   </programme>
   <programme start="20261016200000 +0000" stop="20261016220000 +0000" channel="Taroteame.es@SD">
     <title>Tarotéame</title>
-  </programme>
-  <programme start="20261015140000 +0000" stop="20261015150000 +0000" channel="NegociosTV.es@SD">
-    <title>Todo es geopolítica</title>
-  </programme>
-  <programme start="20261015150000 +0000" stop="20261015160000 +0000" channel="NegociosTV.es@SD">
-    <title>Rolling Stocks</title>
   </programme>
   <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="NegociosTV.es@SD">
     <title>Noticiero</title>
