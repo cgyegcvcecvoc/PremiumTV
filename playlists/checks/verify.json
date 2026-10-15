@@ -1,6 +1,6 @@
 {
-  "run_id": "20261015T224038Z",
-  "generated_utc": "2026-10-15T22:40:38+00:00",
+  "run_id": "20261015T225033Z",
+  "generated_utc": "2026-10-15T22:50:33+00:00",
   "group_order": [
     "Sports",
     "Sports Backups",
@@ -18,10 +18,10 @@
     "News Backups",
     "Religious",
     "Religious Backups",
-    "International",
-    "International Backups",
     "Music",
     "Music Backups",
+    "International",
+    "International Backups",
     "Entertainment",
     "Entertainment Backups",
     "Movies",
@@ -70,10 +70,12 @@
     "Oceania",
     "Oceania Backups",
     "Relax",
+    "TEST",
     "Tv Paranormal",
     "Tv Shows",
     "UK",
     "UK Backups",
+    "USA Channels",
     "Other",
     "Other Backups"
   ],
@@ -90,11 +92,11 @@
   ],
   "max_header_guides": 2,
   "totals": {
-    "playlists": 180,
-    "entries": 23082,
-    "playlists_with_issues": 2,
-    "playlists_with_warnings": 81,
-    "dead_links_published": 3,
+    "playlists": 178,
+    "entries": 23079,
+    "playlists_with_issues": 0,
+    "playlists_with_warnings": 79,
+    "dead_links_published": 0,
     "shelf_files": 133,
     "shelf_problems": 0,
     "epg_sources": {
@@ -392,40 +394,44 @@
       "missing_tvg_id": 0,
       "missing_tvg_id_sample": [],
       "duplicate_tvg_ids": {
-        "NFLNetwork.us@SD": [
-          "NFL Network (Backup 1)"
-        ],
         "premiumtv.usa.nfl_network_us": [
-          "NFL Network US (Backup 1)"
+          "NFL Network US"
+        ],
+        "Nicktoons.us2": [
+          "Nicktoons USA",
+          "Nicktoons USA"
         ]
       },
       "groups": {
-        "Cartoons": 5,
-        "Sports": 4,
-        "Kids": 4,
-        "Sports Backups": 2,
+        "Kids": 7,
+        "Sports": 5,
+        "Cartoons": 1,
         "3-Radio#Chicago": 1,
         "Classic TV": 1,
-        "MeTV": 1
+        "MeTV": 1,
+        "TEST": 1,
+        "USA Channels": 1
       },
       "non_canonical_groups": {},
       "categories": {
-        "Sports": 6,
-        "Cartoons": 5,
-        "Kids": 4,
+        "Sports": 5,
+        "Cartoons": 1,
+        "Kids": 7,
         "3-Radio#Chicago": 1,
         "Classic TV": 1,
-        "MeTV": 1
+        "MeTV": 1,
+        "TEST": 1,
+        "USA Channels": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
         "declared_ids": 9924,
-        "playlist_ids": 16,
-        "matched_ids": 16,
-        "coverage": 1.0,
-        "ids_with_programmes": 9,
-        "programme_coverage": 0.5625,
+        "playlist_ids": 15,
+        "matched_ids": 14,
+        "coverage": 0.9333,
+        "ids_with_programmes": 8,
+        "programme_coverage": 0.5333,
         "guide_programmes": 116423,
         "problem": ""
       },
@@ -1485,53 +1491,6 @@
       },
       "issues": [],
       "warnings": []
-    },
-    {
-      "file": "playlists/countries/Bermuda.m3u",
-      "entries": 1,
-      "unique_urls": 1,
-      "duplicate_urls": [],
-      "guides": [
-        "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bermuda.xml"
-      ],
-      "guides_advertised": 1,
-      "local_guide_files": [
-        "EPG/Bermuda.xml"
-      ],
-      "missing_tvg_id": 0,
-      "missing_tvg_id_sample": [],
-      "duplicate_tvg_ids": {},
-      "groups": {
-        "North America": 1
-      },
-      "non_canonical_groups": {},
-      "categories": {
-        "North America": 1
-      },
-      "out_of_order": 0,
-      "dead_links": [
-        {
-          "name": "Channel 82",
-          "url": "https://service.webvideocore.net/CL1olYogIrDWvwqiIKK7eBmnWbRkKKsu3nqabm9GlX02JOj3CDNXzodJMDEN2dk3/a_bq9clxfbupwg.m3u8",
-          "reason": "quarantined: variant HTTP 403"
-        }
-      ],
-      "epg": {
-        "declared_ids": 1,
-        "playlist_ids": 1,
-        "matched_ids": 1,
-        "coverage": 1.0,
-        "ids_with_programmes": 0,
-        "programme_coverage": 0.0,
-        "guide_programmes": 0,
-        "problem": ""
-      },
-      "issues": [
-        "1 published link(s) confirmed dead by the last deep check"
-      ],
-      "warnings": [
-        "the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared"
-      ]
     },
     {
       "file": "playlists/countries/Bolivia.m3u",
@@ -8367,60 +8326,6 @@
         "problem": ""
       },
       "issues": [],
-      "warnings": [
-        "the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared"
-      ]
-    },
-    {
-      "file": "playlists/countries/San_Marino.m3u",
-      "entries": 2,
-      "unique_urls": 2,
-      "duplicate_urls": [],
-      "guides": [
-        "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/San_Marino.xml"
-      ],
-      "guides_advertised": 1,
-      "local_guide_files": [
-        "EPG/San_Marino.xml"
-      ],
-      "missing_tvg_id": 0,
-      "missing_tvg_id_sample": [],
-      "duplicate_tvg_ids": {},
-      "groups": {
-        "Sports": 1,
-        "International": 1
-      },
-      "non_canonical_groups": {},
-      "categories": {
-        "Sports": 1,
-        "International": 1
-      },
-      "out_of_order": 0,
-      "dead_links": [
-        {
-          "name": "San Marino RTV Sport (720p)",
-          "url": "https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch02/smil:ch-02.smil/master.m3u8",
-          "reason": "quarantined: variant HTTP 404"
-        },
-        {
-          "name": "San Marino RTV (720p)",
-          "url": "https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch01/smil:ch-01.smil/chunklist.m3u8",
-          "reason": "quarantined: variant HTTP 404"
-        }
-      ],
-      "epg": {
-        "declared_ids": 2,
-        "playlist_ids": 2,
-        "matched_ids": 2,
-        "coverage": 1.0,
-        "ids_with_programmes": 0,
-        "programme_coverage": 0.0,
-        "guide_programmes": 0,
-        "problem": ""
-      },
-      "issues": [
-        "2 published link(s) confirmed dead by the last deep check"
-      ],
       "warnings": [
         "the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared"
       ]

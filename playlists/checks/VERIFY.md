@@ -1,12 +1,12 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-15T22:40:38+00:00 UTC
-- **Playlists checked:** 180 (23082 entries)
-- **Playlists with problems:** 2
-- **Playlists with guide-coverage notes:** 81
-- **Links published that the deep check called dead:** 3
+- **Generated:** 2026-10-15T22:50:33+00:00 UTC
+- **Playlists checked:** 178 (23079 entries)
+- **Playlists with problems:** 0
+- **Playlists with guide-coverage notes:** 79
+- **Links published that the deep check called dead:** 0
 - **Category shelf files:** 133 (0 problem(s))
-- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Religious, Religious Backups, International, International Backups, Music, Music Backups, Entertainment, Entertainment Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Europe, Europe Backups, Documentary, Documentary Backups, Education, Education Backups, Africa, Africa Backups, North America, North America Backups, Legislative, Legislative Backups, Series, Series Backups, Business, Business Backups, South America, South America Backups, Family, Classic TV, Comedy, A&E Networks, A&E Networks Backups, Weather, Online TV, United States, United States Backups, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
+- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Religious, Religious Backups, Music, Music Backups, International, International Backups, Entertainment, Entertainment Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Europe, Europe Backups, Documentary, Documentary Backups, Education, Education Backups, Africa, Africa Backups, North America, North America Backups, Legislative, Legislative Backups, Series, Series Backups, Business, Business Backups, South America, South America Backups, Family, Classic TV, Comedy, A&E Networks, A&E Networks Backups, Weather, Online TV, United States, United States Backups, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, TEST, Tv Paranormal, Tv Shows, UK, UK Backups, USA Channels, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
 
 ## Playlists
@@ -15,7 +15,7 @@
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | `playlists/PremiumTV.m3u` | 11497 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Movies, Music, News, Europe, Entertainment, International, Religious, South America, Asia, Documentary, Series, United States, Kids, North America, Comedy, Education, Culture, Legislative, India, Classic TV, Africa, Business, A&E Networks, Family, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Global TV, Tv Celebrities, Tv Paranormal, Aria Web Channels, Online TV, Oceania, Tv Shows, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 9665/9665 (100.0%) | 1809 (18.7%) |
 | `playlists/AE_Channels.m3u` | 67 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 59/59 (100.0%) | 8 (13.6%) |
-| `playlists/Priority_Channels.m3u` | 18 | Sports, Cartoons, Kids, 3-Radio#Chicago, Classic TV, MeTV | 0 | 0 | 3 | 0 | 16/16 (100.0%) | 9 (56.2%) |
+| `playlists/Priority_Channels.m3u` | 18 | Sports, Cartoons, Kids, 3-Radio#Chicago, Classic TV, MeTV, TEST, USA Channels | 0 | 0 | 3 | 0 | 14/15 (93.3%) | 8 (53.3%) |
 | `playlists/countries/Afghanistan.m3u` | 8 | Asia, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Albania.m3u` | 16 | News, Europe, International, Music | 0 | 0 | 1 | 0 | 16/16 (100.0%) | 3 (18.8%) |
 | `playlists/countries/Algeria.m3u` | 3 | Sports, Africa, Kids | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 1 (33.3%) |
@@ -37,7 +37,6 @@
 | `playlists/countries/Belgium.m3u` | 26 | Sports, Lifestyle, Europe, Music, International, Documentary, Legislative, News, Tv Shows | 0 | 0 | 1 | 0 | 24/24 (100.0%) | 4 (16.7%) |
 | `playlists/countries/Belize.m3u` | 1 | Religious | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Benin.m3u` | 4 | Sports, Africa, Business | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 1 (25.0%) |
-| `playlists/countries/Bermuda.m3u` | 1 | North America | 0 | 0 | 1 | 1 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Bolivia.m3u` | 52 | Sports, Lifestyle, South America, Music, Business, Culture, Documentary, Education, Entertainment, International, Religious | 0 | 0 | 1 | 0 | 50/50 (100.0%) | 1 (2.0%) |
 | `playlists/countries/Bosnia_and_Herzegovina.m3u` | 8 | International, Europe, News, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Brazil.m3u` | 176 | Sports, Lifestyle, Cartoons, South America, Entertainment, News, Religious, Movies, Culture, Education, International, Music, Kids, Legislative, A&E Networks, Business, Classic TV, Comedy, Documentary | 0 | 0 | 1 | 0 | 169/169 (100.0%) | 26 (15.4%) |
@@ -154,7 +153,6 @@
 | `playlists/countries/Rwanda.m3u` | 10 | Sports, Africa, Entertainment, International, Music | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saint_Kitts_and_Nevis.m3u` | 3 | North America | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saint_Lucia.m3u` | 2 | North America | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
-| `playlists/countries/San_Marino.m3u` | 2 | Sports, International | 0 | 0 | 1 | 2 | 2/2 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saudi_Arabia.m3u` | 52 | Music, Asia, Religious, News, Movies, Documentary, Series, Classic TV, Culture, Entertainment, International, Kids | 0 | 0 | 1 | 0 | 43/43 (100.0%) | 4 (9.3%) |
 | `playlists/countries/Senegal.m3u` | 5 | Africa, Religious | 0 | 0 | 1 | 0 | 5/5 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Serbia.m3u` | 20 | Sports, Europe, Music, International | 0 | 0 | 1 | 0 | 20/20 (100.0%) | 8 (40.0%) |
@@ -196,17 +194,7 @@
 
 ## Problems
 
-### `playlists/countries/Bermuda.m3u`
-
-- 1 published link(s) confirmed dead by the last deep check
-  - dead: Channel 82 — quarantined: variant HTTP 403
-
-### `playlists/countries/San_Marino.m3u`
-
-- 2 published link(s) confirmed dead by the last deep check
-  - dead: San Marino RTV Sport (720p) — quarantined: variant HTTP 404
-  - dead: San Marino RTV (720p) — quarantined: variant HTTP 404
-
+None: every playlist is canonical, in order, and free of links the deep check confirmed dead.
 
 ## Category shelf
 
@@ -365,7 +353,6 @@ Each file is a slice of an already published playlist, so its sorting is the pub
 - `playlists/countries/Barbados.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Belarus.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Belize.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
-- `playlists/countries/Bermuda.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Bosnia_and_Herzegovina.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/British_Virgin_Islands.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Burkina_Faso.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
@@ -416,7 +403,6 @@ Each file is a slice of an already published playlist, so its sorting is the pub
 - `playlists/countries/Rwanda.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Saint_Kitts_and_Nevis.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Saint_Lucia.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
-- `playlists/countries/San_Marino.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Senegal.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Sierra_Leone.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Sint_Maarten.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared

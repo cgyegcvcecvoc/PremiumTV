@@ -27,10 +27,14 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
     (2,682 → 683 proven-dead entries). The 1,999 released links returned to a
     checked re-scrape, which re-verified each one over the network:
     **confirmed-working channels went 9,822 → 11,705 (+1,883 restored)**, dead
-    links 3,995 → 2,060, A&E channels 58 → 67, and two country playlists that
-    had been emptied out (Bermuda, San Marino) exist again — 177 countries in
-    total. Links that are genuinely gone are re-quarantined under the current
-    rules and stay out.
+    links 3,995 → 2,060, and A&E channels 58 → 67. The deep check that
+    followed then re-probed all 11,705 published links with the fixed
+    HLS rules — **97.5% answered with playable media** — and patched the 416
+    confirmed-dead entries out. Three channels in the briefly-revived Bermuda
+    and San Marino playlists were confirmed truly gone (their variant
+    playlists 403/404), so those two single-channel country files were cleared
+    out again; 175 countries remain. Links that are genuinely gone are
+    re-quarantined under the current rules and stay out.
 - **New: the public download site** (`docs/`, GitHub Pages at
   [`cgyegcvcecvoc.github.io/PremiumTV1`](https://cgyegcvcecvoc.github.io/PremiumTV1/)):
   - **Apps**: every release asset for the Stable (1.0.2) and Preview (1.1.1)
