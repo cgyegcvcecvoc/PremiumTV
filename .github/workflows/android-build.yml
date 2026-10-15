@@ -250,10 +250,12 @@ jobs:
           # This commit only touches generated build output, so when an earlier
           # run (even a cancelled one) published the same files, ours win
           # (-X theirs is the commit being replayed). A plain rebase stopped on
-          # that conflict and left every retry failing.
+          # that conflict and left every retry failing. --autostash: a
+          # non-default version build edits package.json (npm version), and a
+          # dirty tree made 'git pull --rebase' refuse to start.
           for i in 1 2 3; do
             git rebase --abort >/dev/null 2>&1 || true
-            git pull --rebase -X theirs origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            git pull --rebase --autostash -X theirs origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
             sleep 5
           done
           exit 1

@@ -88,9 +88,12 @@ def diagnose(reason, last_dump=""):
         print(f"could not write build-out/smoke-log.txt: {error}")
 
 
-TIME_TICK = re.compile(r"^\d{1,2}:\d{2} (AM|PM)$")
-GUIDE_DATE = re.compile(r"^[A-Z][a-z]{2}, [A-Z][a-z]{2} \d{1,2}$")
-GUIDE_DEADLINE_SECONDS = 120
+# Newer ICU puts a narrow no-break space before AM/PM; \s matches either.
+TIME_TICK = re.compile(r"^\d{1,2}:\d{2}\s(AM|PM)$")
+GUIDE_DATE = re.compile(r"^[A-Z][a-z]{2}, [A-Z][a-z]{2}\s\d{1,2}$")
+# The global guide (~105k listings) can still be parsing when the channel cards
+# are already up, so the first guide check gets the same room as the UI check.
+GUIDE_DEADLINE_SECONDS = 240
 
 
 def dump_ui():
@@ -164,10 +167,13 @@ def check_guide(meta, names):
     cable = "cable-guide" in (meta.get("preview_features") or [])
 
     def guide_tab(texts, nodes):
-        return next((node for node in nodes if node.get("text") == "Guide"), None)
+        # Return coordinates, not the element: an ElementTree element with no
+        # children is falsy, which made the first version of this wait loop
+        # until its deadline with the tab plainly on screen.
+        node = next((node for node in nodes if node.get("text") == "Guide"), None)
+        return centre_of(node) if node is not None else None
 
-    tab, _, _ = wait_for(guide_tab, "the Guide tab")
-    x, y = centre_of(tab)
+    (x, y), _, _ = wait_for(guide_tab, "the Guide tab")
     progress(f"tapping the Guide tab at {x},{y} (cable grid expected: {cable})")
     adb("shell", "input", "tap", str(x), str(y))
 
