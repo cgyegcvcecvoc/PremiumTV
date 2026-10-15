@@ -66,7 +66,6 @@
     <display-name>ATV (360p)</display-name>
     <display-name>TR - ATV</display-name>
     <display-name>ATV.tr</display-name>
-    <display-name>like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Asia" tvg-country="AM",ATV (Armenia) (1080p)</display-name>
     <display-name>ATV (Turkiye) (1080p)</display-name>
     <icon src="https://iptv-epg.org/images/tm4B1qBymAKUaP0JvVEX0ZwWzyOeNv_2E1W3LboHOZCvzIivL_kqPRPfP_JPk2eNcl3c7kEb8COuKqj_O_STpLLiWj6ubQhVn_Ry6A" />
   </channel>
@@ -448,12 +447,6 @@
     <display-name>TRT Muzik (720p)</display-name>
     <icon src="https://i.imgur.com/JgUzRH8.png" />
   </channel>
-  <channel id="TRTBelgesel.tr">
-    <display-name>TRT Belgesel</display-name>
-    <display-name>TR - TRT Belgesel</display-name>
-    <display-name>TRTBelgesel.tr</display-name>
-    <icon src="https://iptv-epg.org/images/FlRSEhoeLolQaDdUdStlDWsvU-xfOofPFBkW0heZDhtkql2p3TmS_NHX_ZSLWPN_oxOSrB39TWdRoGh2CJUx1M4O36-MmWCo8IJb70tVve2-o8C0" />
-  </channel>
   <channel id="TRTDiyanetCocuk.tr@SD">
     <display-name>TRT Diyanet Cocuk</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/turkey/trt-diyanet-cocuk-tr.png" />
@@ -793,6 +786,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261017230000 +0000" stop="20261018000000 +0000" channel="ASpor.tr@SD">
+    <title>Ana Haber</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261015163000 +0000" stop="20261015183000 +0000" channel="FBTV.tr@SD">
     <title>Basketbol: Kadınlar Süper Ligi</title>
   </programme>
@@ -994,9 +994,8 @@
   <programme start="20261017223000 +0000" stop="20261017230000 +0000" channel="FBTV.tr@SD">
     <title>Maçın Ardından</title>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="ATV.tr@SD">
-    <title>ATV Ana Haber</title>
-    <new />
+  <programme start="20261017230000 +0000" stop="20261017231500 +0000" channel="FBTV.tr@SD">
+    <title>Analiz Fenerbahçe</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015212000 +0000" channel="ATV.tr@SD">
     <title>Güneşin Doğduğu Yer</title>
@@ -1077,14 +1076,6 @@
   </programme>
   <programme start="20261017212000 +0000" stop="20261018000000 +0000" channel="ATV.tr@SD">
     <title>Dizi</title>
-  </programme>
-  <programme start="20261015140000 +0000" stop="20261015170000 +0000" channel="EuroD.tr@SD">
-    <title>Neler Oluyor Hayatta?</title>
-    <desc>Neler Oluyor Hayatta Kanal Dnin sabah kuşağında yer alan ve hafta içi her gün canlı yayınlanan programlarından biridir. Yayında gündeme damga vuran olaylar, toplumu yakından ilgilendiren gelişmeler ve hayata dair merak edilen başlıklar işleniyor. Özel röportajlar ve dikkat çeken içeriklerle zenginleşen program, izleyiciye farklı bakış açıları sunuyor. Samimi dili ve sıcak anlatımıyla sabah saatler</desc>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015190000 +0000" channel="EuroD.tr@SD">
     <title>Yaprak Dökümü</title>
@@ -1282,13 +1273,6 @@
     <title>Yerli Dizi</title>
     <desc>Yerli Dizi sürükleyici hikayesi ve güçlü karakterleriyle izleyiciyi ekran başına kilitliyor. Sırlar, aşk ve entrikalar karakterlerin hayatlarını derinden etkilerken her bölümde gerilim ve duygusal yoğunluk artıyor. Karakterler zor seçimlerle karşılaşırken izleyici olayların gelişimini heyecanla takip ediyor. Hikaye sürpriz gelişmeler, beklenmedik karşılaşmalar ve dramatik anlarla dolu olarak ilerl</desc>
     <date>20261017</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015142500 +0000" stop="20261015164500 +0000" channel="Kanal12.tr@SD">
-    <title>Мастер</title>
-    <date>20261015</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -1503,10 +1487,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="KanalD.tr@SD">
-    <title>Kanal D Ana Haber</title>
-    <new />
-  </programme>
   <programme start="20261015170000 +0000" stop="20261015201500 +0000" channel="KanalD.tr@SD">
     <title>Uzak Şehir</title>
   </programme>
@@ -1560,15 +1540,6 @@
   <programme start="20261017160000 +0000" stop="20261018040000 +0000" channel="KanalD.tr@SD">
     <title>Kanal D Ana Haber</title>
     <new />
-  </programme>
-  <programme start="20261015161500 +0000" stop="20261015165000 +0000" channel="NTV.tr@SD">
-    <title>Ceyda Düvenci İle Bambaşka Sohbetler</title>
-  </programme>
-  <programme start="20261015165000 +0000" stop="20261015165500 +0000" channel="NTV.tr@SD">
-    <title>Ana Haber Özet</title>
-  </programme>
-  <programme start="20261015165500 +0000" stop="20261015170000 +0000" channel="NTV.tr@SD">
-    <title>Hava Durumu</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015175000 +0000" channel="NTV.tr@SD">
     <title>Ana Haber</title>
@@ -2035,13 +2006,14 @@
   <programme start="20261017220000 +0000" stop="20261017224000 +0000" channel="NTV.tr@SD">
     <title>Haber Bülteni</title>
   </programme>
-  <programme start="20261015163000 +0000" stop="20261015170000 +0000" channel="PowerTV.tr@SD">
-    <title>Power Super Fast</title>
-    <desc>The host presents the latest updates and developments pertaining to various socio-economic and political issues across the nation in rapid succession.</desc>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017224000 +0000" stop="20261017225500 +0000" channel="NTV.tr@SD">
+    <title>Müze Ziyaretçisi</title>
+  </programme>
+  <programme start="20261017225500 +0000" stop="20261017230000 +0000" channel="NTV.tr@SD">
+    <title>Hava Durumu</title>
+  </programme>
+  <programme start="20261017230000 +0000" stop="20261017235500 +0000" channel="NTV.tr@SD">
+    <title>Haber Bülteni</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015173000 +0000" channel="PowerTV.tr@SD">
     <title>Commercial</title>
@@ -2155,10 +2127,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="StarTV.tr@SD">
-    <title>Star Haber</title>
-    <new />
-  </programme>
   <programme start="20261015170000 +0000" stop="20261015211500 +0000" channel="StarTV.tr@SD">
     <title>Sevdiğim Sensin</title>
   </programme>
@@ -2229,9 +2197,6 @@
   <programme start="20261017213000 +0000" stop="20261018000000 +0000" channel="StarTV.tr@SD">
     <title>Dizi</title>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="TV8.tr@SD">
-    <title>MasterChef Türkiye</title>
-  </programme>
   <programme start="20261015170000 +0000" stop="20261015211500 +0000" channel="TV8.tr@SD">
     <title>MasterChef Türkiye</title>
   </programme>
@@ -2298,9 +2263,6 @@
   </programme>
   <programme start="20261017223000 +0000" stop="20261018010000 +0000" channel="TV8.tr@SD">
     <title>Gazete Magazin</title>
-  </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="VavTV.tr@SD">
-    <title>Rahmet Elçisi</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015180000 +0000" channel="VavTV.tr@SD">
     <title>Nefs Ülkesi</title>
@@ -2445,6 +2407,9 @@
   </programme>
   <programme start="20261017210000 +0000" stop="20261017230000 +0000" channel="VavTV.tr@SD">
     <title>Özgürlüğün Sesi: Bilal</title>
+  </programme>
+  <programme start="20261017230000 +0000" stop="20261018000000 +0000" channel="VavTV.tr@SD">
+    <title>Mukabele</title>
   </programme>
   <programme start="20261015155000 +0000" stop="20261015174000 +0000" channel="ZarokTV.tr@SD">
     <title>Legally Blunt</title>
@@ -2680,20 +2645,6 @@
   </programme>
   <programme start="20261017221500 +0000" stop="20261017233000 +0000" channel="360.tr@SD">
     <title>Pınar Altuğ Atacan ile Kim O?</title>
-  </programme>
-  <programme start="20261015160000 +0000" stop="20261015165500 +0000" channel="AHaber.tr@SD">
-    <title>Ajans Bugün</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015165500 +0000" stop="20261015170000 +0000" channel="AHaber.tr@SD">
-    <title>Hava Durumu</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015180000 +0000" channel="AHaber.tr@SD">
     <title>Ajans Bugün</title>
@@ -3066,17 +3017,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015162500 +0000" stop="20261015164000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Konsol</title>
-  </programme>
-  <programme start="20261015164000 +0000" stop="20261015165000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Kültür Hazineleri</title>
-  </programme>
-  <programme start="20261015165000 +0000" stop="20261015165500 +0000" channel="FlashHaberTV.tr@SD">
-    <title>İstanbul'un Selatin Camileri</title>
-  </programme>
-  <programme start="20261015165500 +0000" stop="20261015170000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Kuş Bakışı</title>
+  <programme start="20261017230000 +0000" stop="20261017235000 +0000" channel="AHaber.tr@SD">
+    <title>Akşam Ajansı</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015172500 +0000" channel="FlashHaberTV.tr@SD">
     <title>Almanak</title>
@@ -3747,8 +3693,11 @@
   <programme start="20261017222500 +0000" stop="20261017225500 +0000" channel="FlashHaberTV.tr@SD">
     <title>Bilim Hattı</title>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="HaberGlobal.tr@SD">
-    <title>Ana Haber</title>
+  <programme start="20261017225500 +0000" stop="20261017230000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Kısa Bir Mola</title>
+  </programme>
+  <programme start="20261017230000 +0000" stop="20261017233000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Efsanelerin Ayak İzleri</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015210000 +0000" channel="HaberGlobal.tr@SD">
     <title>Mesele</title>
@@ -3825,8 +3774,8 @@
   <programme start="20261017210000 +0000" stop="20261017230000 +0000" channel="HaberGlobal.tr@SD">
     <title>Sıra Dışı Gündem</title>
   </programme>
-  <programme start="20261015150000 +0000" stop="20261015170000 +0000" channel="HalkTV.tr@SD">
-    <title>Görkemli Hatıralar</title>
+  <programme start="20261017230000 +0000" stop="20261018030000 +0000" channel="HaberGlobal.tr@SD">
+    <title>Haber Bülteni</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015200000 +0000" channel="HalkTV.tr@SD">
     <title>Görkemli Hatıralar</title>
@@ -3881,9 +3830,6 @@
   </programme>
   <programme start="20261017200000 +0000" stop="20261018050000 +0000" channel="HalkTV.tr@SD">
     <title>Görkemli Hatıralar</title>
-  </programme>
-  <programme start="20261015163000 +0000" stop="20261015170000 +0000" channel="TRTArabi.tr@SD">
-    <title>Tafaul</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015173000 +0000" channel="TRTArabi.tr@SD">
     <title>Wa Lana Waqfa</title>
@@ -4188,8 +4134,8 @@
   <programme start="20261017223000 +0000" stop="20261017230000 +0000" channel="TRTArabi.tr@SD">
     <title>Al Malab</title>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="TRTWorld.tr@SD">
-    <title>Newshour</title>
+  <programme start="20261017230000 +0000" stop="20261017233000 +0000" channel="TRTArabi.tr@SD">
+    <title>News</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015173000 +0000" channel="TRTWorld.tr@SD">
     <title>News - London</title>
@@ -4512,8 +4458,8 @@
   <programme start="20261017220000 +0000" stop="20261017230000 +0000" channel="TRTWorld.tr@SD">
     <title>Storyteller</title>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="TurkHaberTV.tr@SD">
-    <title>Ana Haber Bülteni</title>
+  <programme start="20261017230000 +0000" stop="20261017233000 +0000" channel="TRTWorld.tr@SD">
+    <title>News</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015190000 +0000" channel="TurkHaberTV.tr@SD">
     <title>Yakın Gündem</title>
@@ -4665,252 +4611,8 @@
   <programme start="20261017220000 +0000" stop="20261017230000 +0000" channel="TurkHaberTV.tr@SD">
     <title>Gece Bülteni</title>
   </programme>
-  <programme start="20261015155000 +0000" stop="20261015164500 +0000" channel="TRTBelgesel.tr">
-    <title>Megeti - Afrika'nın Kayıp Kurdu</title>
-  </programme>
-  <programme start="20261015164500 +0000" stop="20261015174000 +0000" channel="TRTBelgesel.tr">
-    <title>Anadolu İnsanı</title>
-  </programme>
-  <programme start="20261015174000 +0000" stop="20261015184000 +0000" channel="TRTBelgesel.tr">
-    <title>Yaşama Dönen Cennet</title>
-  </programme>
-  <programme start="20261015184000 +0000" stop="20261015193500 +0000" channel="TRTBelgesel.tr">
-    <title>Ailenin Yeni Üyesi</title>
-  </programme>
-  <programme start="20261015193500 +0000" stop="20261015203000 +0000" channel="TRTBelgesel.tr">
-    <title>Guguk Kuşu - Yuvamdaki Düşman</title>
-  </programme>
-  <programme start="20261015203000 +0000" stop="20261015210000 +0000" channel="TRTBelgesel.tr">
-    <title>Modern Zaman İşleri</title>
-  </programme>
-  <programme start="20261015210000 +0000" stop="20261015213500 +0000" channel="TRTBelgesel.tr">
-    <title>Antika Dedektifi</title>
-  </programme>
-  <programme start="20261015213500 +0000" stop="20261015220500 +0000" channel="TRTBelgesel.tr">
-    <title>Yenilmez Savaşçılar</title>
-  </programme>
-  <programme start="20261015220500 +0000" stop="20261015223500 +0000" channel="TRTBelgesel.tr">
-    <title>Hasat Vakti</title>
-  </programme>
-  <programme start="20261015223500 +0000" stop="20261015230500 +0000" channel="TRTBelgesel.tr">
-    <title>Kronovizör</title>
-  </programme>
-  <programme start="20261015230500 +0000" stop="20261015234500 +0000" channel="TRTBelgesel.tr">
-    <title>Hedef Sıfır Atık</title>
-  </programme>
-  <programme start="20261015234500 +0000" stop="20261016001500 +0000" channel="TRTBelgesel.tr">
-    <title>Yemek Güzeldir</title>
-  </programme>
-  <programme start="20261016001500 +0000" stop="20261016010500 +0000" channel="TRTBelgesel.tr">
-    <title>Türkiye'nin Dev Yapıları Yusufeli Barajı</title>
-  </programme>
-  <programme start="20261016010500 +0000" stop="20261016013500 +0000" channel="TRTBelgesel.tr">
-    <title>Doğu'nun Kayıp Silüetleri</title>
-  </programme>
-  <programme start="20261016013500 +0000" stop="20261016021000 +0000" channel="TRTBelgesel.tr">
-    <title>Gümrük 24 Saat</title>
-  </programme>
-  <programme start="20261016021000 +0000" stop="20261016030000 +0000" channel="TRTBelgesel.tr">
-    <title>Anadolu İnsanı</title>
-  </programme>
-  <programme start="20261016030000 +0000" stop="20261016035500 +0000" channel="TRTBelgesel.tr">
-    <title>Ailenin Yeni Üyesi</title>
-  </programme>
-  <programme start="20261016035500 +0000" stop="20261016035800 +0000" channel="TRTBelgesel.tr">
-    <title>Tanıtım</title>
-  </programme>
-  <programme start="20261016035800 +0000" stop="20261016040000 +0000" channel="TRTBelgesel.tr">
-    <title>İstiklal Marşı</title>
-  </programme>
-  <programme start="20261016040000 +0000" stop="20261016043500 +0000" channel="TRTBelgesel.tr">
-    <title>Türlerin İzinde</title>
-  </programme>
-  <programme start="20261016043500 +0000" stop="20261016051500 +0000" channel="TRTBelgesel.tr">
-    <title>Hedef Sıfır Atık</title>
-  </programme>
-  <programme start="20261016051500 +0000" stop="20261016055000 +0000" channel="TRTBelgesel.tr">
-    <title>Antika Dedektifi</title>
-  </programme>
-  <programme start="20261016055000 +0000" stop="20261016070000 +0000" channel="TRTBelgesel.tr">
-    <title>Şehirden Uzakta</title>
-  </programme>
-  <programme start="20261016070000 +0000" stop="20261016075500 +0000" channel="TRTBelgesel.tr">
-    <title>Yaşama Dönen Cennet</title>
-  </programme>
-  <programme start="20261016075500 +0000" stop="20261016085000 +0000" channel="TRTBelgesel.tr">
-    <title>Okyanusun Ruhu</title>
-  </programme>
-  <programme start="20261016085000 +0000" stop="20261016093000 +0000" channel="TRTBelgesel.tr">
-    <title>Kronovizör</title>
-  </programme>
-  <programme start="20261016093000 +0000" stop="20261016100500 +0000" channel="TRTBelgesel.tr">
-    <title>Modern Zaman İşleri</title>
-  </programme>
-  <programme start="20261016100500 +0000" stop="20261016103500 +0000" channel="TRTBelgesel.tr">
-    <title>Yenilmez Savaşçılar</title>
-  </programme>
-  <programme start="20261016103500 +0000" stop="20261016113000 +0000" channel="TRTBelgesel.tr">
-    <title>Yağmurların Peşinde</title>
-  </programme>
-  <programme start="20261016113000 +0000" stop="20261016120000 +0000" channel="TRTBelgesel.tr">
-    <title>Doğu'nun Kayıp Silüetleri</title>
-  </programme>
-  <programme start="20261016120000 +0000" stop="20261016121500 +0000" channel="TRTBelgesel.tr">
-    <title>Doğanın Saklı Hazineleri</title>
-  </programme>
-  <programme start="20261016121500 +0000" stop="20261016132000 +0000" channel="TRTBelgesel.tr">
-    <title>Büyük Mücadele</title>
-  </programme>
-  <programme start="20261016132000 +0000" stop="20261016135000 +0000" channel="TRTBelgesel.tr">
-    <title>Hasat Vakti</title>
-  </programme>
-  <programme start="20261016135000 +0000" stop="20261016142500 +0000" channel="TRTBelgesel.tr">
-    <title>Gümrük 24 Saat</title>
-  </programme>
-  <programme start="20261016142500 +0000" stop="20261016145500 +0000" channel="TRTBelgesel.tr">
-    <title>Yemek Güzeldir</title>
-  </programme>
-  <programme start="20261016145500 +0000" stop="20261016153500 +0000" channel="TRTBelgesel.tr">
-    <title>Türkiye'nin Dev Yapıları Ankara Şehir Hastanesi</title>
-  </programme>
-  <programme start="20261016153500 +0000" stop="20261016163500 +0000" channel="TRTBelgesel.tr">
-    <title>Okyanusun Ruhu</title>
-  </programme>
-  <programme start="20261016163500 +0000" stop="20261016173500 +0000" channel="TRTBelgesel.tr">
-    <title>Anadolu İnsanı</title>
-  </programme>
-  <programme start="20261016173500 +0000" stop="20261016183500 +0000" channel="TRTBelgesel.tr">
-    <title>Yaşama Dönen Cennet</title>
-  </programme>
-  <programme start="20261016183500 +0000" stop="20261016193500 +0000" channel="TRTBelgesel.tr">
-    <title>Ailenin Yeni Üyesi</title>
-  </programme>
-  <programme start="20261016193500 +0000" stop="20261016203500 +0000" channel="TRTBelgesel.tr">
-    <title>Yırtıcı Kuşlar</title>
-  </programme>
-  <programme start="20261016203500 +0000" stop="20261016211000 +0000" channel="TRTBelgesel.tr">
-    <title>Benim Sakin Dünyam</title>
-  </programme>
-  <programme start="20261016211000 +0000" stop="20261016214000 +0000" channel="TRTBelgesel.tr">
-    <title>İnsanlar ve İnançlar</title>
-  </programme>
-  <programme start="20261016214000 +0000" stop="20261016221500 +0000" channel="TRTBelgesel.tr">
-    <title>Modern Zaman İşleri</title>
-  </programme>
-  <programme start="20261016221500 +0000" stop="20261016225000 +0000" channel="TRTBelgesel.tr">
-    <title>Antika Dedektifi</title>
-  </programme>
-  <programme start="20261016225000 +0000" stop="20261016232000 +0000" channel="TRTBelgesel.tr">
-    <title>Yenilmez Savaşçılar</title>
-  </programme>
-  <programme start="20261016232000 +0000" stop="20261016235000 +0000" channel="TRTBelgesel.tr">
-    <title>Hasat Vakti</title>
-  </programme>
-  <programme start="20261016235000 +0000" stop="20261017003000 +0000" channel="TRTBelgesel.tr">
-    <title>Hedef Sıfır Atık</title>
-  </programme>
-  <programme start="20261017003000 +0000" stop="20261017004500 +0000" channel="TRTBelgesel.tr">
-    <title>Doğanın Saklı Hazineleri</title>
-  </programme>
-  <programme start="20261017004500 +0000" stop="20261017011500 +0000" channel="TRTBelgesel.tr">
-    <title>Yemek Güzeldir</title>
-  </programme>
-  <programme start="20261017011500 +0000" stop="20261017015500 +0000" channel="TRTBelgesel.tr">
-    <title>Türkiye'nin Dev Yapıları Ankara Şehir Hastanesi</title>
-  </programme>
-  <programme start="20261017015500 +0000" stop="20261017022500 +0000" channel="TRTBelgesel.tr">
-    <title>Doğu'nun Kayıp Silüetleri</title>
-  </programme>
-  <programme start="20261017022500 +0000" stop="20261017030000 +0000" channel="TRTBelgesel.tr">
-    <title>Gümrük 24 Saat</title>
-  </programme>
-  <programme start="20261017030000 +0000" stop="20261017035500 +0000" channel="TRTBelgesel.tr">
-    <title>Anadolu İnsanı</title>
-  </programme>
-  <programme start="20261017035500 +0000" stop="20261017035800 +0000" channel="TRTBelgesel.tr">
-    <title>Tanıtım</title>
-  </programme>
-  <programme start="20261017035800 +0000" stop="20261017040000 +0000" channel="TRTBelgesel.tr">
-    <title>İstiklal Marşı</title>
-  </programme>
-  <programme start="20261017040000 +0000" stop="20261017045000 +0000" channel="TRTBelgesel.tr">
-    <title>Mavi Dünya</title>
-  </programme>
-  <programme start="20261017045000 +0000" stop="20261017054500 +0000" channel="TRTBelgesel.tr">
-    <title>Kalahari:Gizli İş Birlikleri Diyarı</title>
-  </programme>
-  <programme start="20261017054500 +0000" stop="20261017061500 +0000" channel="TRTBelgesel.tr">
-    <title>Tuna Boyu Günlükleri</title>
-  </programme>
-  <programme start="20261017061500 +0000" stop="20261017071000 +0000" channel="TRTBelgesel.tr">
-    <title>Büyük Kedilerin Dönüşü</title>
-  </programme>
-  <programme start="20261017071000 +0000" stop="20261017080500 +0000" channel="TRTBelgesel.tr">
-    <title>Keşif Gezisi</title>
-  </programme>
-  <programme start="20261017080500 +0000" stop="20261017083500 +0000" channel="TRTBelgesel.tr">
-    <title>Yiyeceğin Serüveni</title>
-  </programme>
-  <programme start="20261017083500 +0000" stop="20261017093000 +0000" channel="TRTBelgesel.tr">
-    <title>Dünyanın En Gizli Otelleri</title>
-  </programme>
-  <programme start="20261017093000 +0000" stop="20261017102500 +0000" channel="TRTBelgesel.tr">
-    <title>Himalayaların Gökyüzü Irmağı</title>
-  </programme>
-  <programme start="20261017102500 +0000" stop="20261017112000 +0000" channel="TRTBelgesel.tr">
-    <title>Ulak</title>
-  </programme>
-  <programme start="20261017112000 +0000" stop="20261017121500 +0000" channel="TRTBelgesel.tr">
-    <title>Yok Olan Krallar 1:namib'in Aslanları</title>
-  </programme>
-  <programme start="20261017121500 +0000" stop="20261017130500 +0000" channel="TRTBelgesel.tr">
-    <title>Anadolu İnsanı</title>
-  </programme>
-  <programme start="20261017130500 +0000" stop="20261017134500 +0000" channel="TRTBelgesel.tr">
-    <title>Türkiye'nin Dev Yapıları Ankara Havalimanı</title>
-  </programme>
-  <programme start="20261017134500 +0000" stop="20261017142000 +0000" channel="TRTBelgesel.tr">
-    <title>Hasat Vakti</title>
-  </programme>
-  <programme start="20261017142000 +0000" stop="20261017151500 +0000" channel="TRTBelgesel.tr">
-    <title>Yaşama Dönen Cennet</title>
-  </programme>
-  <programme start="20261017151500 +0000" stop="20261017161000 +0000" channel="TRTBelgesel.tr">
-    <title>Keşif Gezisi</title>
-  </programme>
-  <programme start="20261017161000 +0000" stop="20261017170000 +0000" channel="TRTBelgesel.tr">
-    <title>Köpek Balığı Ton Balığına Karşı</title>
-  </programme>
-  <programme start="20261017170000 +0000" stop="20261017173000 +0000" channel="TRTBelgesel.tr">
-    <title>İnsan İklimi</title>
-  </programme>
-  <programme start="20261017173000 +0000" stop="20261017181000 +0000" channel="TRTBelgesel.tr">
-    <title>Gümrük 24 Saat</title>
-  </programme>
-  <programme start="20261017181000 +0000" stop="20261017185000 +0000" channel="TRTBelgesel.tr">
-    <title>Evvel Zaman Tarifleri</title>
-  </programme>
-  <programme start="20261017185000 +0000" stop="20261017194500 +0000" channel="TRTBelgesel.tr">
-    <title>Dünyanın En Gizli Otelleri</title>
-  </programme>
-  <programme start="20261017194500 +0000" stop="20261017203500 +0000" channel="TRTBelgesel.tr">
-    <title>Mavi Dünya</title>
-  </programme>
-  <programme start="20261017203500 +0000" stop="20261017210500 +0000" channel="TRTBelgesel.tr">
-    <title>Tuna Boyu Günlükleri</title>
-  </programme>
-  <programme start="20261017210500 +0000" stop="20261017214000 +0000" channel="TRTBelgesel.tr">
-    <title>Yiyeceğin Serüveni</title>
-  </programme>
-  <programme start="20261017214000 +0000" stop="20261017223500 +0000" channel="TRTBelgesel.tr">
-    <title>Büyük Kedilerin Dönüşü</title>
-  </programme>
-  <programme start="20261017223500 +0000" stop="20261017232000 +0000" channel="TRTBelgesel.tr">
-    <title>Türkiye'nin Dev Yapıları Ankara Havalimanı</title>
-  </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="TRTHaber.tr@SD">
-    <title>Sıcak Haber</title>
-    <new />
+  <programme start="20261017230000 +0000" stop="20261018000000 +0000" channel="TurkHaberTV.tr@SD">
+    <title>Haftanın Manşeti</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015174500 +0000" channel="TRTHaber.tr@SD">
     <title>Ana Haber 20</title>
@@ -5079,8 +4781,8 @@
     <title>Haber 01</title>
     <new />
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="TRTKurdi.tr@SD">
-    <title>Ana Haber (Nûçeyên Sereke)</title>
+  <programme start="20261017230000 +0000" stop="20261018000000 +0000" channel="TRTHaber.tr@SD">
+    <title>Haber 02</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015180000 +0000" channel="TRTKurdi.tr@SD">
     <title>Kadınlar Yarışıyor (Çı Dıpêjın Çı Dıbêjın)</title>
@@ -5235,8 +4937,8 @@
   <programme start="20261017210000 +0000" stop="20261017230000 +0000" channel="TRTKurdi.tr@SD">
     <title>Ozan (Dengbêj)</title>
   </programme>
-  <programme start="20261015160000 +0000" stop="20261015170000 +0000" channel="TRTTurk.tr@SD">
-    <title>İthal Gelin Aranıyor</title>
+  <programme start="20261017230000 +0000" stop="20261018010000 +0000" channel="TRTKurdi.tr@SD">
+    <title>İntikam Vakti (Dora Heyfê)</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015190000 +0000" channel="TRTTurk.tr@SD">
     <title>Trendyol 1. Lig Futbol Karşılaşması 10. Hafta Muğlaspor Kulübü - Bursaspor</title>
@@ -6532,8 +6234,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015163000 +0000" stop="20261015170000 +0000" channel="DiyanetTV.tr@SD">
-    <title>Vefa Sokak</title>
+  <programme start="20261017230000 +0000" stop="20261017233000 +0000" channel="NOWTV.tr@SD">
+    <title>Now深宵新聞[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015180000 +0000" channel="DiyanetTV.tr@SD">
     <title>Diyanete Soralım</title>
@@ -6805,26 +6512,8 @@
   <programme start="20261017223000 +0000" stop="20261017230000 +0000" channel="DiyanetTV.tr@SD">
     <title>Tarih Ve Ötesi</title>
   </programme>
-  <programme start="20261015163800 +0000" stop="20261015164600 +0000" channel="MinikaGo.tr@SD">
-    <title>Ana Pumpkin</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015164600 +0000" stop="20261015165400 +0000" channel="MinikaGo.tr@SD">
-    <title>Ana Pumpkin</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015165400 +0000" stop="20261015170000 +0000" channel="MinikaGo.tr@SD">
-    <title>Ana Pumpkin</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017230000 +0000" stop="20261018000000 +0000" channel="DiyanetTV.tr@SD">
+    <title>Yerinde Sorular</title>
   </programme>
   <programme start="20261015170000 +0000" stop="20261015171600 +0000" channel="MinikaGo.tr@SD">
     <title>Marsupilamis</title>
