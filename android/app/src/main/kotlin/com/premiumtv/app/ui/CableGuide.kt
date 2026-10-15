@@ -790,12 +790,13 @@ private fun GuideProgrammeCell(
                         // A show that started left of the visible window keeps
                         // its time and title at the visible edge, as on a
                         // cable box, instead of showing the cut-off tail.
-                        val hidden = (scrollX() - cellStartPx).roundToInt()
-                            .coerceIn(0, (constraints.maxWidth - minVisiblePx).coerceAtLeast(0))
-                        val placeable = measurable.measure(
-                            constraints.copy(minWidth = 0, maxWidth = (constraints.maxWidth - hidden).coerceAtLeast(0)),
-                        )
-                        layout(constraints.maxWidth, placeable.height) { placeable.place(hidden, 0) }
+                        val hidden = (scrollX() - cellStartPx).roundToInt().coerceIn(0, constraints.maxWidth)
+                        val remaining = constraints.maxWidth - hidden
+                        val placeable = measurable.measure(constraints.copy(minWidth = 0, maxWidth = remaining))
+                        layout(constraints.maxWidth, placeable.height) {
+                            // A sliver too narrow for a title stays an empty block.
+                            if (hidden == 0 || remaining >= minVisiblePx) placeable.place(hidden, 0)
+                        }
                     }
                     .padding(horizontal = 7.dp, vertical = 4.dp),
                 verticalArrangement = Arrangement.Center,
