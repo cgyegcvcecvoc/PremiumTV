@@ -110,14 +110,14 @@ concurrency:
 
 jobs:
   cleanup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # The archive sweep walks ~27k links with a media-segment probe per URL; the
     # headroom is for a slow internet rather than for a bug.
     timeout-minutes: 300
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -154,7 +154,7 @@ jobs:
         run: |
           args=(--archives --workers 96 --per-host-workers 8 --timeout 12 --retries 2
                 --min-working-ratio 0.10 --max-remove-ratio 0.60
-                --quarantine-days 21 --report-suffix "-archives"
+                --quarantine-days 21 --report-suffix=-archives
                 --label "biweekly deep cleanup: archives, shelf and source copies")
           if [ "$DEEP" != "false" ]; then args+=(--deep); else args+=(--no-deep); fi
           if [ "$PATCH" != "false" ]; then args+=(--patch); fi

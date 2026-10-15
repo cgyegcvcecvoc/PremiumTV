@@ -24,6 +24,12 @@ MASTER_PLAYLIST = ("#EXTM3U\n"
                    "#EXT-X-STREAM-INF:BANDWIDTH=4000000\nv2.m3u8\n")
 MASTER_DEAD_VARIANT = ("#EXTM3U\n"
                        "#EXT-X-STREAM-INF:BANDWIDTH=4000000\ngone.m3u8\n")
+# A redirector (jmp2.uk, i.mjh.nz) answers with a 302 to the real master
+# playlist, whose variant and segment URIs are relative to *that* address.
+REDIRECTED_MASTER = "#EXTM3U\n#EXT-X-STREAM-INF:BANDWIDTH=2000000\nvariant.m3u8?token=abc\n"
+REDIRECTED_MEDIA = "#EXTM3U\n#EXT-X-TARGETDURATION:4\n#EXTINF:4.0,\nsegment.ts?token=abc\n"
+MEDIA_PLAYLIST_LIMITED = "#EXTM3U\n#EXT-X-TARGETDURATION:4\n#EXTINF:4.0,\nratelimited.ts\n"
+MASTER_BUSY_VARIANT = "#EXTM3U\n#EXT-X-STREAM-INF:BANDWIDTH=4000000\nbusy.m3u8\n"
 MPD = ('<?xml version="1.0"?>\n<MPD xmlns="urn:mpeg:dash:schema:mpd:2011">'
        '<Period><AdaptationSet><Representation id="1" bandwidth="1000000"/></AdaptationSet></Period></MPD>')
 EMPTY_MPD = '<MPD xmlns="urn:mpeg:dash:schema:mpd:2011"><Period></Period></MPD>'
@@ -74,6 +80,25 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, MPD.encode(), "application/dash+xml")
         elif path == "/emptydash.m3u8":
             self._send(200, EMPTY_MPD.encode(), "application/dash+xml")
+        elif path == "/hop/plu-123.m3u8":
+            self.send_response(302)
+            self.send_header("Location", "/stitch/hls/channel/123/master.m3u8?sid=1")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+        elif path == "/stitch/hls/channel/123/master.m3u8?sid=1":
+            self._send(200, REDIRECTED_MASTER.encode())
+        elif path == "/stitch/hls/channel/123/variant.m3u8?token=abc":
+            self._send(200, REDIRECTED_MEDIA.encode())
+        elif path == "/stitch/hls/channel/123/segment.ts?token=abc":
+            self._send(200, TS_SEGMENT, "video/mp2t")
+        elif path == "/limited.m3u8":
+            self._send(200, MEDIA_PLAYLIST_LIMITED.encode())
+        elif path == "/ratelimited.ts":
+            self._send(429, b"slow down", "text/plain")
+        elif path == "/busyvariant.m3u8":
+            self._send(200, MASTER_BUSY_VARIANT.encode())
+        elif path == "/busy.m3u8":
+            self._send(503, b"busy", "text/plain")
         elif path == "/gz.m3u8":
             body = gzip.compress(MEDIA_PLAYLIST.encode())
             self._send(200, body)
@@ -172,6 +197,85 @@ class LinkCheckTest(unittest.TestCase):
     def test_master_with_dead_variant_is_offline(self):
         result = self.check(f"{self.base}/deadvariant.m3u8")
         self.assertEqual(result["status"], "offline")
+
+    def test_redirected_master_resolves_variants_against_the_final_url(self):
+        # Resolving "variant.m3u8" against the redirector's own URL asked the
+        # redirector for a path it does not serve; on 2026-10-13 that removed
+        # ~1,700 working jmp2.uk channels as "variant HTTP 414/404".
+        result = self.check(f"{self.base}/hop/plu-123.m3u8")
+        self.assertEqual(result["status"], "working", result["reason"])
+        self.assertTrue(result["segment_ok"])
+        self.assertEqual(result["variant"],
+                         f"{self.base}/stitch/hls/channel/123/variant.m3u8?token=abc")
+
+    def test_rate_limited_segment_is_unreachable_not_offline(self):
+        # HTTP 429 means the CDN was busy during the sweep, not that the
+        # channel died: the link must stay published and out of the quarantine.
+        result = self.check(f"{self.base}/limited.m3u8")
+        self.assertEqual(result["status"], "unreachable")
+        self.assertIn("429", result["reason"])
+
+    def test_server_error_on_the_variant_is_unreachable_not_offline(self):
+        result = self.check(f"{self.base}/busyvariant.m3u8")
+        self.assertEqual(result["status"], "unreachable")
+        self.assertEqual(result["reason"], "variant HTTP 503")
+
+    def test_sub_request_classification_matches_the_playlist_rules(self):
+        self.assertEqual(link_check.sub_request_status(404, "HTTP 404"), "offline")
+        self.assertEqual(link_check.sub_request_status(410, "HTTP 410"), "offline")
+        self.assertEqual(link_check.sub_request_status(403, "HTTP 403"), "offline")
+        for code in (408, 414, 425, 429, 500, 502, 503, 504):
+            self.assertEqual(link_check.sub_request_status(code, f"HTTP {code}"), "unreachable")
+        self.assertEqual(link_check.sub_request_status(0, "timeout"), "unreachable")
+        self.assertEqual(link_check.sub_request_status(0, "RemoteDisconnected"), "unreachable")
+        self.assertEqual(link_check.sub_request_status(0, "dns lookup failed"), "offline")
+        self.assertEqual(link_check.sub_request_status(0, "connection refused"), "offline")
+
+    def test_quarantine_keeps_only_entries_the_current_rules_call_dead(self):
+        now = dt.datetime.now(dt.timezone.utc).isoformat()
+
+        def entry(reason, **extra):
+            return {"name": reason, "first_seen_utc": now, "last_seen_utc": now,
+                    "reason": reason, "status": "offline", "hits": 1, **extra}
+
+        entries = {
+            "http://a.invalid/404.m3u8": entry("HTTP 404"),
+            "http://a.invalid/seg404.m3u8": entry("playlist only, HTTP 404"),
+            "http://a.invalid/html.m3u8": entry("html page, not a stream"),
+            "http://a.invalid/429.m3u8": entry("playlist only, HTTP 429"),
+            "http://a.invalid/503.m3u8": entry("playlist only, HTTP 503"),
+            "http://a.invalid/timeout.m3u8": entry("variant HTTP timeout"),
+            "http://jmp2.invalid/plu-1.m3u8": entry("variant HTTP 414"),
+            "http://jmp2.invalid/plu-2.m3u8": entry("variant HTTP 404"),
+            "http://a.invalid/new-variant-404.m3u8": entry("variant HTTP 404", rules=2),
+            "http://a.invalid/revived.m3u8": entry("HTTP 404"),
+        }
+        path = self.out / "checks" / "quarantine.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"entries": entries}), encoding="utf-8")
+        report = {"finished_utc": now}
+        results = {"http://a.invalid/revived.m3u8": {"status": "working"}}
+        link_check.update_quarantine(self.out, report, {"removed": []}, 7.0, results)
+        kept = set(json.loads(path.read_text(encoding="utf-8"))["entries"])
+        self.assertEqual(kept, {
+            "http://a.invalid/404.m3u8",
+            "http://a.invalid/seg404.m3u8",
+            "http://a.invalid/html.m3u8",
+            "http://a.invalid/new-variant-404.m3u8",
+        })
+
+    def test_new_quarantine_entries_record_the_rules_version(self):
+        now = dt.datetime.now(dt.timezone.utc).isoformat()
+        link_check.update_quarantine(
+            self.out, {"finished_utc": now},
+            {"removed": [{"url": "http://a.invalid/gone.m3u8", "name": "Gone",
+                          "reason": "variant HTTP 404", "status": "offline"}]}, 7.0)
+        entries = json.loads((self.out / "checks" / "quarantine.json").read_text())["entries"]
+        self.assertEqual(entries["http://a.invalid/gone.m3u8"]["rules"], link_check.QUARANTINE_RULES)
+        # ...so the next run keeps it instead of discarding it as pre-fix data.
+        link_check.update_quarantine(self.out, {"finished_utc": now}, {"removed": []}, 7.0)
+        entries = json.loads((self.out / "checks" / "quarantine.json").read_text())["entries"]
+        self.assertIn("http://a.invalid/gone.m3u8", entries)
 
     def test_segment_probe_uses_the_newest_segment(self):
         # Live playlists list oldest-first; the newest segment is the only one
@@ -427,6 +531,20 @@ class LinkCheckTest(unittest.TestCase):
         self.assertEqual(patch["reported_only"][0]["entries"], 2)
         # The file with no archive exemption loses its dead link under the same run.
         self.assertNotIn("gone.m3u8", player.read_text(encoding="utf-8"))
+
+    def test_biweekly_archive_step_arguments_parse(self):
+        # The archive sweep passed --report-suffix "-archives": argparse reads a
+        # value that starts with "-" as another option and exits with code 2, so
+        # the step crashed in two seconds and failed every biweekly run.
+        import shlex
+        workflow = (Path(__file__).resolve().parents[1] / ".github" / "workflows"
+                    / "biweekly-cleanup.yml").read_text(encoding="utf-8")
+        start = workflow.index("args=(--archives")
+        block = workflow[start + len("args=("):workflow.index(")", start)]
+        args = link_check.build_parser().parse_args(shlex.split(block) + ["--deep", "--patch"])
+        self.assertTrue(args.archives)
+        self.assertEqual(args.report_suffix, "-archives")
+        self.assertEqual(args.quarantine_days, 21.0)
 
     def test_main_without_playlists_fails_cleanly(self):
         with redirect_stdout(StringIO()):

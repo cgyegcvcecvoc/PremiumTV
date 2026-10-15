@@ -20,10 +20,17 @@ Each link ends up in exactly one bucket:
 |---|---|---|
 | `working`     | answered and produced playable media                          | keep     |
 | `offline`     | confirmed dead: 404/410, DNS failure, refused, HTML, empty    | **removed** |
-| `unreachable` | timeout / 5xx / connection reset - may be transient           | keep     |
+| `unreachable` | timeout / 429 / 5xx / connection reset - may be transient     | keep     |
 | `blocked`     | 401 / 403 / 451 - needs auth or is geo-blocked                | keep     |
 | `unsupported` | non-HTTP scheme (rtmp, acestream, ...) that cannot be probed  | keep     |
 | `invalid`     | malformed or non-http URL                                     | **removed** |
+
+The variant playlist and the media segment behind a working playlist URL are
+held to the same transient/dead split: a segment that is missing (404) or
+refused is ``offline``, one whose host answers 429/5xx or times out is
+``unreachable``. Relative variant and
+segment URIs are resolved against the URL that finally served the playlist,
+after redirects.
 
 Only the two confirmed-dead buckets are ever removed, and only with ``--patch``.
 Two safety nets keep a bad network day from gutting a good playlist:
@@ -252,9 +259,14 @@ def fetch(url: str, headers: dict, timeout: float, limit: int = PLAYLIST_READ_BY
             status = int(getattr(response, "status", 0) or response.getcode() or 0)
             content_type = (response.headers.get("Content-Type") or "").lower()
             body = _read_body(response, limit)
+            # urllib follows redirects silently. Relative URIs inside an HLS
+            # playlist are relative to the URL that finally served it, not to
+            # the link in the M3U (jmp2.uk -> Pluto TV, for example), so the
+            # caller needs the final address to resolve variants and segments.
+            final_url = response.geturl() or url
             return {"ok": True, "status": status, "content_type": content_type,
                     "body": body, "bytes": len(body), "elapsed": time.time() - started,
-                    "error": ""}
+                    "error": "", "url": final_url}
     except urllib.error.HTTPError as exc:
         try:
             exc.close()
@@ -283,6 +295,36 @@ def _error_reason(exc: Exception) -> str:
 
 def resolve_url(base: str, ref: str) -> str:
     return urllib.parse.urljoin(base, ref.strip())
+
+
+# Answers that say "busy right now", not "gone": a rate limit, a gateway or
+# server error, a request the server refused to read. 414 belongs here because
+# it describes the URL this checker built, never the stream itself.
+TRANSIENT_HTTP_CODES = frozenset({408, 414, 425, 429})
+
+
+def sub_request_status(code: int, error: str) -> str:
+    """Classify a failed variant-playlist or media-segment request.
+
+    A variant or segment that answers 429 Too Many Requests, a 5xx or a timeout
+    belongs to a host that was busy during the sweep - the playlist above it
+    just answered - so the link is ``unreachable`` (kept and re-checked next
+    run), exactly like the same answers on the playlist URL itself. Before
+    this, a CDN rate-limiting the nightly check had working channels
+    quarantined as "playlist only, HTTP 429", and the verifier then failed the
+    run because those links were still published.
+
+    Any other HTTP error stays ``offline``: a 404/410 means the media is gone,
+    and a 401/403 on the media behind an open playlist is a refusal the app
+    would get too, because it sends the same headers as this check.
+    """
+    if code in TRANSIENT_HTTP_CODES or code >= 500:
+        return "unreachable"
+    if code:
+        return "offline"
+    if error in ("dns lookup failed", "connection refused"):
+        return "offline"
+    return "unreachable"
 
 
 def pick_variant(body_text: str, base_url: str) -> tuple[str, int]:
@@ -348,7 +390,8 @@ def looks_like_media(body: bytes, content_type: str) -> tuple[bool, str]:
 def probe_segment(url: str, headers: dict, timeout: float) -> dict:
     result = fetch(url, headers, timeout, limit=SEGMENT_READ_BYTES, range_header=SEGMENT_RANGE)
     if not result["ok"]:
-        return {"ok": False, "detail": result["error"], "bytes": 0}
+        return {"ok": False, "detail": result["error"], "bytes": 0,
+                "status": sub_request_status(result["status"], result["error"])}
     body = result["body"]
     if len(body) >= 2 and body[:2] == b"\x1f\x8b":
         try:
@@ -442,7 +485,7 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
         body = response["body"]
         result["bytes"] = response["bytes"]
         text = body.decode("utf-8", "ignore")
-        base_url = url
+        base_url = response.get("url") or url
 
         if HLS_MASTER_RE.search(text):
             result["kind"] = "hls-master"
@@ -452,11 +495,13 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
                     result["variant"] = variant
                     variant_response = fetch(variant, headers, timeout)
                     if not variant_response["ok"]:
-                        result.update(status="offline",
-                                      reason=f"variant HTTP {variant_response['status'] or variant_response['error']}")
+                        result.update(
+                            status=sub_request_status(variant_response["status"],
+                                                      variant_response["error"]),
+                            reason=f"variant HTTP {variant_response['status'] or variant_response['error']}")
                         return result
                     text = variant_response["body"].decode("utf-8", "ignore")
-                    base_url = variant
+                    base_url = variant_response.get("url") or variant
                     result["kind"] = f"hls-variant ({bandwidth // 1000} kbps)"
             if HLS_MEDIA_RE.search(text) or "#EXTINF" in text:
                 segment = first_segment(text, base_url)
@@ -466,7 +511,10 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
                     if not probe["ok"]:
                         # The playlist exists but the media behind it is gone:
                         # exactly the case a shallow check reports as "working".
-                        result.update(status="offline", reason=f"playlist only, {probe['detail']}")
+                        # A busy segment host is not that case (see
+                        # sub_request_status), so it stays "unreachable".
+                        result.update(status=probe.get("status", "offline"),
+                                      reason=f"playlist only, {probe['detail']}")
                         return result
                     result.update(status="working", reason=f"hls, {probe['detail']}")
                     return result
@@ -485,7 +533,8 @@ def verify_link(channel: scraper.Channel, timeout: float, retries: int, deep: bo
                 probe = probe_segment(segment, headers, timeout)
                 result["segment_ok"] = probe["ok"]
                 if not probe["ok"]:
-                    result.update(status="offline", reason=f"playlist only, {probe['detail']}")
+                    result.update(status=probe.get("status", "offline"),
+                                  reason=f"playlist only, {probe['detail']}")
                     return result
                 result.update(status="working", reason=f"hls, {probe['detail']}")
                 return result
@@ -855,12 +904,54 @@ def write_reports(out_dir: Path, report: dict, suffix: str = "") -> list:
             checks_dir / f"LINK-CHECK{suffix.upper()}.md"]
 
 
-def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float) -> Path:
+QUARANTINE_REASON_PREFIXES = ("playlist only, ", "variant HTTP ", "variant ", "HTTP ")
+# Version of the rules a quarantine entry was recorded under. Version 2 is the
+# first that resolved a redirected master playlist's variants against the URL
+# that served it; a variant failure recorded before that (jmp2.uk and the
+# mjh.nz redirectors produced ~1,700 "variant HTTP 414/404" entries on
+# 2026-10-13) says nothing about the stream and is not carried forward.
+QUARANTINE_RULES = 2
+
+
+def quarantine_reason_is_conclusive(reason: str) -> bool:
+    """Whether a recorded quarantine reason still proves a link dead today.
+
+    Entries written before the variant/segment rules matched the playlist-URL
+    rules (see ``sub_request_status``) can hold reasons such as "playlist only,
+    HTTP 429", "variant HTTP 503" or "variant HTTP 414" (the last one came from
+    resolving a redirected master playlist's variants against the wrong URL).
+    None of those is evidence that a channel died, so they are not kept.
+    """
+    text = (reason or "").strip()
+    for prefix in QUARANTINE_REASON_PREFIXES:
+        if text.startswith(prefix):
+            text = text[len(prefix):].strip()
+    if text.isdigit():
+        return sub_request_status(int(text), "") == "offline"
+    if text.startswith("HTTP ") and text[5:].isdigit():
+        return sub_request_status(int(text[5:]), "") == "offline"
+    if text in ("dns lookup failed", "connection refused"):
+        return True
+    transient_words = ("timeout", "timed out", "timeouterror", "remotedisconnected",
+                       "connectionreset", "connectionaborted", "incompleteread",
+                       "ssl", "checker error")
+    if any(word in text.lower() for word in transient_words):
+        return False
+    return True
+
+
+def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float,
+                      results: dict | None = None) -> Path:
     """Remember the links that answered but served no media.
 
     The daily scrape re-imports everything the indexes list, so without this a
     link that only fails the deep check would be published again a few hours
     later. `scraper.py` reads this file and holds those links back for `days`.
+
+    A link this run re-checked and did not find dead (working, blocked or merely
+    unreachable) leaves the quarantine, and so does an entry whose recorded
+    reason the current rules no longer count as dead: the quarantine only ever
+    holds links the last deep check could prove were gone.
     """
     checks_dir = out_dir / "checks"
     checks_dir.mkdir(parents=True, exist_ok=True)
@@ -872,9 +963,22 @@ def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float) -> 
         except (OSError, ValueError):
             entries = {}
     cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=max(days, 0))
+    rechecked = results or {}
     pruned = {}
     for url, entry in entries.items():
         if not isinstance(entry, dict):
+            continue
+        reason = str(entry.get("reason") or "")
+        if not quarantine_reason_is_conclusive(reason):
+            continue
+        try:
+            rules = int(entry.get("rules") or 1)
+        except (TypeError, ValueError):
+            rules = 1
+        if rules < QUARANTINE_RULES and reason.startswith("variant "):
+            continue
+        status = (rechecked.get(url) or {}).get("status")
+        if status and status not in ("offline", "invalid"):
             continue
         last_seen = scraper.parse_utc_iso(str(entry.get("last_seen_utc") or ""))
         if last_seen is None or last_seen.replace(tzinfo=None) >= cutoff.replace(tzinfo=None):
@@ -892,6 +996,7 @@ def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float) -> 
             "reason": item.get("reason") or existing.get("reason") or "served no media",
             "status": item.get("status") or "offline",
             "hits": int(existing.get("hits") or 0) + 1,
+            "rules": QUARANTINE_RULES,
         }
     path.write_text(json.dumps({
         "updated_utc": report["finished_utc"],
@@ -1016,7 +1121,7 @@ def main(argv=None) -> int:
             args.dry_run, report_only={path for path in targets if is_report_only(path)})
         if not args.dry_run:
             quarantine = update_quarantine(out_dir, report, report["patch"],
-                                           args.quarantine_days)
+                                           args.quarantine_days, results)
             report["patch"]["quarantine"] = {
                 "file": display_path(quarantine),
                 "count": (json.loads(quarantine.read_text(encoding="utf-8")) or {})
