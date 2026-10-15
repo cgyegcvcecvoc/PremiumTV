@@ -52,6 +52,7 @@ import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -68,10 +69,13 @@ import com.premiumtv.app.data.Programme
 import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
 
-private val ROW_HEIGHT = 64.dp
-private val SECTION_HEIGHT = 28.dp
-private val HEADER_HEIGHT = 34.dp
-private val INFO_HEIGHT = 78.dp
+// Sized so a 1080p TV (960x540 dp) shows five channel rows under the detail
+// strip and the time header.
+private val ROW_HEIGHT = 58.dp
+private val SECTION_HEIGHT = 26.dp
+private val HEADER_HEIGHT = 32.dp
+private val INFO_HEIGHT = 70.dp
+private val MIN_VISIBLE_TITLE = 44.dp
 
 private val GridBackground = Color(0xFF0C1118)
 private val HeaderBackground = Color(0xFF161D27)
@@ -371,7 +375,7 @@ private fun GuideInfoPanel(model: GuideModel, cursor: GuideCursor, focused: Bool
             .clip(RoundedCornerShape(10.dp))
             .background(HeaderBackground)
             .border(1.dp, PanelStroke, RoundedCornerShape(10.dp))
-            .padding(horizontal = 14.dp, vertical = 8.dp),
+            .padding(horizontal = 14.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier.weight(1f)) {
@@ -381,7 +385,7 @@ private fun GuideInfoPanel(model: GuideModel, cursor: GuideCursor, focused: Bool
                     Box(
                         modifier = Modifier
                             .background(LiveRed, RoundedCornerShape(4.dp))
-                            .padding(horizontal = 6.dp, vertical = 1.dp),
+                            .padding(horizontal = 6.dp),
                     ) {
                         Text(
                             text = "LIVE",
@@ -637,6 +641,7 @@ private fun GuideChannelRow(
                         windowStart = windowStart,
                         windowEnd = windowEnd,
                         slotWidth = slotWidth,
+                        scrollX = scrollX,
                         highlighted = index == highlightedProgramme,
                         onClick = onSelect,
                     )
@@ -685,8 +690,8 @@ private fun GuideChannelCell(channel: Channel, width: Dp, highlighted: Boolean, 
         var logoShown by remember(channel.logo) { mutableStateOf(false) }
         Box(
             modifier = Modifier
-                .width(44.dp)
-                .height(34.dp)
+                .width(42.dp)
+                .height(32.dp)
                 .clip(RoundedCornerShape(5.dp))
                 .background(Color(0xFF202A36)),
             contentAlignment = Alignment.Center,
@@ -713,8 +718,9 @@ private fun GuideChannelCell(channel: Channel, width: Dp, highlighted: Boolean, 
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = channel.name,
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.labelMedium,
                 color = Color.White,
+                fontWeight = FontWeight.SemiBold,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -736,6 +742,7 @@ private fun GuideProgrammeCell(
     windowStart: Long,
     windowEnd: Long,
     slotWidth: Dp,
+    scrollX: () -> Float,
     highlighted: Boolean,
     onClick: () -> Unit,
 ) {
@@ -747,6 +754,9 @@ private fun GuideProgrammeCell(
     val width = slotWidth * ((visibleEnd - visibleStart).toFloat() / GUIDE_SLOT_SECONDS.toFloat())
     val live = now >= programme.start && now < programme.end
     val shape = RoundedCornerShape(6.dp)
+    val density = LocalDensity.current
+    val cellStartPx = with(density) { x.toPx() }
+    val minVisiblePx = with(density) { MIN_VISIBLE_TITLE.roundToPx() }
     Box(
         modifier = Modifier
             .offset(x = x)
@@ -776,6 +786,17 @@ private fun GuideProgrammeCell(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .layout { measurable, constraints ->
+                        // A show that started left of the visible window keeps
+                        // its time and title at the visible edge, as on a
+                        // cable box, instead of showing the cut-off tail.
+                        val hidden = (scrollX() - cellStartPx).roundToInt()
+                            .coerceIn(0, (constraints.maxWidth - minVisiblePx).coerceAtLeast(0))
+                        val placeable = measurable.measure(
+                            constraints.copy(minWidth = 0, maxWidth = (constraints.maxWidth - hidden).coerceAtLeast(0)),
+                        )
+                        layout(constraints.maxWidth, placeable.height) { placeable.place(hidden, 0) }
+                    }
                     .padding(horizontal = 7.dp, vertical = 4.dp),
                 verticalArrangement = Arrangement.Center,
             ) {
