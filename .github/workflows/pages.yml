@@ -46,15 +46,40 @@ jobs:
         run: python scripts/build_site_data.py
 
       - name: Enable Pages (first run) and configure the deployment
+        id: pages
+        continue-on-error: true
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
+      - name: Pages is not enabled for this repository yet
+        if: steps.pages.outcome != 'success'
+        run: |
+          {
+            echo "### GitHub Pages is not enabled for this repository yet"
+            echo ""
+            echo "The site is generated and ready to publish, but creating a Pages"
+            echo "site is an admin action that neither \`GITHUB_TOKEN\` nor app"
+            echo "integration tokens are allowed to perform on this repository."
+            echo ""
+            echo "**One manual step (15 seconds):**"
+            echo ""
+            echo "1. Open **Settings \u2192 Pages** on this repository."
+            echo "2. Under **Source**, choose **GitHub Actions**."
+            echo "3. Re-run this workflow (*Actions \u2192 Deploy download site \u2192 Run workflow*),"
+            echo "   or push any \`docs/\` change - the site publishes automatically from then on,"
+            echo "   at https://cgyegcvcecvoc.github.io/PremiumTV1/ ."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Pages is not enabled yet - see the run summary for the one-click fix." >&2
+          exit 1
+
       - name: Upload the site
+        if: steps.pages.outcome == 'success'
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
       - name: Deploy to GitHub Pages
         id: deployment
+        if: steps.pages.outcome == 'success'
         uses: actions/deploy-pages@v4

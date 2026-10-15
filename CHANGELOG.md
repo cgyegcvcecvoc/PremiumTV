@@ -49,9 +49,14 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   - **Change log**: the timeline on the page, the Atom feed
     (`data/feed.xml`) to subscribe to, and a live re-fetch of
     `docs/data/changelog.json` so new entries appear without redeploying.
-  - Deployed by `.github/workflows/pages.yml`, which also enables Pages for
-    the repository automatically on its first run. Site data is regenerated
-    offline by `python scripts/build_site_data.py`.
+  - Deployed by `.github/workflows/pages.yml`, which regenerates the data and
+    publishes `docs/` on every relevant change to `main`. **One manual step
+    remains:** creating the Pages site is an admin action GitHub refuses
+    `GITHUB_TOKEN` and integration tokens (`403 Resource not accessible by
+    integration`), so the repository owner must open
+    **Settings → Pages → Source: GitHub Actions** once; the workflow then
+    publishes (and its failure summary repeats these instructions). Site data
+    is regenerated offline by `python scripts/build_site_data.py`.
 - **"Run it now" switches fire again.** The `playlists/logs/run-*.txt` push
   switches (`run-scrape.txt`, `run-deep-check.txt`, `run-epg-build.txt`,
   `run-cleanup.txt`) never triggered outside of `workflow_dispatch`: a push

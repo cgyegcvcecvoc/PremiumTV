@@ -51,6 +51,10 @@ change log already in the repository.
 ## Deployment
 
 `.github/workflows/pages.yml` deploys this directory to GitHub Pages on every
-push to `main` that touches `docs/` (and on demand via *Run workflow*). The
-first run also enables Pages for the repository automatically
-(`actions/configure-pages` with `enablement: true`).
+push to `main` that touches `docs/` (and on demand via *Run workflow*).
+
+**One manual step is needed first**, because creating a Pages site is an admin
+action GitHub does not allow `GITHUB_TOKEN` or app integration tokens to
+perform: open **Settings → Pages** on the repository and set **Source** to
+**GitHub Actions**. The workflow retries automatically and publishes the site
+from then on (its failure message above repeats these instructions).
