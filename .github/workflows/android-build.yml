@@ -68,7 +68,7 @@ jobs:
     env:
       # Push builds default to the stable draft; release and manual builds
       # select a tag corresponding to the requested version.
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.1.1') }}
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.2') }}
 
     steps:
       - name: Check out the repository
@@ -96,7 +96,7 @@ jobs:
               *) echo "Unsupported tag/prerelease combination: $RELEASE_TAG:$RELEASE_PRERELEASE"; exit 1 ;;
             esac
           else
-            version="${INPUT_VERSION:-1.1.1}"
+            version="${INPUT_VERSION:-1.0.2}"
             case "$version" in
               1.0.2) scope=usa; code=7 ;;
               1.1.0) scope=all; code=8 ;;
