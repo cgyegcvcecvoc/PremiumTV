@@ -233,3 +233,36 @@ test('findChannel selects the requested backup when EPG ids are shared', async (
   assert.equal(repository.findChannel('sports.one').url, repository.library.channels[0].url);
   assert.equal(repository.findChannel('missing.id', 'https://example.org/missing'), null);
 });
+
+test('a downloaded copy written by another build is discarded so the new bundle shows', async (t) => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-'));
+  t.after(() => fsp.rm(root, { recursive: true, force: true }));
+  const repository = makeRepository(root, async () => makeResponse());
+  // What a 1.0.x install left behind: a USA refresh with stable metadata.
+  await fsp.cp(repository.bundleDir, repository.cacheDir, { recursive: true });
+  const meta = JSON.parse(await fsp.readFile(path.join(repository.cacheDir, 'meta.json'), 'utf8'));
+  await fsp.writeFile(path.join(repository.cacheDir, 'meta.json'),
+    JSON.stringify({ ...meta, version: '1.0.2', library_scope: 'usa', preview_features: [] }));
+  repository.info = { ...repository.info, validators: { playlist: { etag: '"old"' } }, lastSuccessAt: 1 };
+  repository.writeState();
+
+  await repository.load();
+  assert.equal(repository.state.source, 'bundled');
+  assert.equal(repository.library.meta.version, 'test');
+  assert.equal(fs.existsSync(repository.cacheDir), false);
+  assert.equal(repository.readState().info.validators, undefined, 'validators go with the stale copy');
+});
+
+test('a downloaded copy from this same build is kept', async (t) => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-'));
+  t.after(() => fsp.rm(root, { recursive: true, force: true }));
+  const repository = makeRepository(root, async (url) =>
+    makeResponse({ body: url.endsWith('.xml') ? GUIDE_TEXT : PLAYLIST_TEXT, headers: { etag: '"same"' } }));
+  await repository.load();
+  await repository.refresh('manual');
+  assert.equal(repository.state.source, 'cache');
+  await repository.load();
+  assert.equal(repository.state.source, 'cache');
+  assert.equal(repository.library.meta.version, 'test');
+});
+

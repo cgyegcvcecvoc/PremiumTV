@@ -316,7 +316,7 @@ def build(playlist: str, guide: str, index: str, out_dir: str, version: str,
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build the PremiumTV app data bundle.")
     parser.add_argument("--scope", choices=sorted(SCOPE_INPUTS), default=DEFAULT_SCOPE,
-                        help="usa (stable default) or all (1.1.0 cable-guide preview)")
+                        help="usa (stable default) or all (1.1.x global preview with the cable-style guide)")
     parser.add_argument("--playlist", default=None,
                         help="override the playlist selected by --scope")
     parser.add_argument("--guide", default=None,

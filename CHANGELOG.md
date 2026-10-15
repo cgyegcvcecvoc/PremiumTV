@@ -4,6 +4,56 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
+## 2026-10-15 — PremiumTV 1.1.1 pre-release: the Guide tab is a cable-style grid
+
+- **The cable guide is real and visible now.** In the 1.1.1 preview the Guide
+  tab of both apps *is* the cable-style grid: channels down the left (number,
+  logo, name, category), each channel's shows to the right sized by running
+  time, half-hour times across the top for eight hours, a red NOW line, the
+  live show outlined, category headings, and a detail strip for the
+  highlighted show. Stable 1.0.2 keeps the list-style Guide.
+- **Why 1.1.0 did not show it:** its grid was a separate Cable tab gated on the
+  *loaded* library's metadata, and an in-place upgrade kept the 1.0.x USA
+  download in the cache, which loads before the bundle — so the app showed the
+  old lineup and no Cable tab. Both apps now discard a downloaded copy written
+  by another version or library scope (with its validators), and the preview
+  features always come from the app's own bundle.
+- **TV remote:** the grid is one focus stop with a cable-box highlight — up/down
+  keep the time column, left/right step one show, OK plays, Back from the
+  player returns to the same show, up from the first row returns to the tabs,
+  CH+/CH− page, and the remote's GUIDE key opens the guide. Mac: hover and
+  arrow keys, sidebar categories filter the grid.
+- **Android refresh** parses the guide off the HTTP stream (the 38 MB global XML
+  no longer becomes a ~200 MB String), keeps the published category order,
+  and no longer blames a "private repository" (the repository is public).
+- **Release gating:** `v1.1.1` builds only as a GitHub pre-release (Android
+  `versionCode 9`, global scope); a stable-tagged `v1.1.1` is rejected. The
+  emulator gate opens the Guide, checks times/channels/shows, drives the D-pad,
+  OK and Back, and saves screenshots; the Mac gate opens the Guide grid.
+
+### Maintenance (same day)
+
+- **Deep link check removed working channels.** HLS variants and segments were
+  resolved against the M3U link instead of the URL that finally served the
+  playlist, so redirectors (jmp2.uk and the mjh.nz hosts) failed every variant
+  with 414/404: the 2026-10-13 nightly run removed ~1,700 entries
+  (`PremiumTV.m3u` 10,917 → 9,759) and quarantined them. Fixed, and the
+  quarantine drops entries recorded under the old rules.
+- **"Deep link and guide check" failed on 10-14 and 10-15.** A CDN answering 429
+  to segment probes made working links "offline"; `verify_playlists --strict`
+  then failed because they were still published. Rate limits, 5xx and timeouts
+  one level below a working playlist are now "unreachable" (kept), matching the
+  playlist-URL rules.
+- **"Biweekly deep cleanup" failed on 10-15.** `--report-suffix "-archives"` was
+  parsed by argparse as an option (exit code 2), so the archive sweep never ran;
+  the workflow now passes `--report-suffix=-archives`.
+- All workflows moved to Node 24 action majors (`checkout@v5`,
+  `setup-python@v6`, `setup-node@v5`, `upload-artifact@v6`, `setup-gradle@v5`);
+  the scheduled data jobs pin `ubuntu-24.04` ahead of the 2026-10-19
+  `ubuntu-latest` → Ubuntu 26.04 move.
+- Tests: 361 Python (12 new) and 42 macOS Node (4 new), plus new JVM/Robolectric
+  Android tests for the guide model, stale caches and streaming XMLTV parsing.
+
 ## 2026-10-14 — PremiumTV 1.0.2 released, 1.1.0 published as a pre-release
 
 - **1.0.2 is the published stable release.** It is the USA lineup + USA guide

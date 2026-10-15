@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.premiumtv.app.TvViewModel
@@ -30,6 +31,11 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     }
 
     var playing by remember { mutableStateOf<Channel?>(null) }
+    // Held here rather than in HomeScreen, which leaves the composition while a
+    // channel plays: closing the player returns to the same tab and, in the
+    // guide, to the same highlighted show.
+    var tab by rememberSaveable { mutableStateOf(HomeTab.Channels) }
+    val guideState = rememberCableGuideState()
 
     when (val current = state) {
         LoadState.Loading -> LoadingScreen(
@@ -57,6 +63,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                     now = now,
                     status = status,
                     refreshInfo = refreshInfo,
+                    tab = tab,
+                    onTabChange = { tab = it },
+                    guideState = guideState,
                     onSelect = { playing = it },
                     onForceRefresh = { viewModel.forceRefresh() },
                     onReset = { viewModel.resetToBundled() },

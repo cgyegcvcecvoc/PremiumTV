@@ -36,5 +36,46 @@ module.exports = async function smokeTest(window, repository, proxy) {
   await waitFor("document.querySelectorAll('#channels-grid .card').length > 1");
   const response = await fetch(`${proxy.origin}/healthz`);
   assert.equal(response.status, 200);
-  console.log(`PACKAGED SMOKE PASS: ${repository.library.channels.length} channels, bridge, players, refresh and reset`);
+
+  // The Guide tab: the cable-style grid on preview builds, the list on stable.
+  const bundled = (await repository.bundledMeta()) || {};
+  const cableGuide = Array.isArray(bundled.preview_features) && bundled.preview_features.includes('cable-guide');
+  await window.webContents.executeJavaScript("document.querySelector('[data-tab=\"guide\"]').click()");
+  let guide;
+  if (cableGuide) {
+    await waitFor("document.querySelectorAll('#guide-grid .cable-programme').length > 0");
+    guide = await window.webContents.executeJavaScript(`({
+      ticks: document.querySelectorAll('#guide-grid .cable-header-row .cable-time-tick').length,
+      rows: document.querySelectorAll('#guide-grid .cable-row:not(.cable-header-row)').length,
+      shows: document.querySelectorAll('#guide-grid .cable-programme').length,
+      nowLine: Boolean(document.querySelector('#guide-grid .cable-now-line')),
+      list: document.getElementById('guide-list').hidden,
+    })`);
+    assert.equal(guide.ticks, 16, 'eight hours of half-hour times across the top');
+    assert.ok(guide.rows > 0, 'channel rows down the left');
+    assert.ok(guide.shows >= guide.rows, 'shows to the right of the channels');
+    assert.equal(guide.nowLine, true);
+    assert.equal(guide.list, true, 'the list view is replaced by the grid');
+  } else {
+    await waitFor("document.querySelectorAll('#guide-list .guide-row').length > 0");
+    guide = { list: true };
+  }
+  // Screenshots for the build output, so the guide can be checked by eye.
+  const shot = process.env.PREMIUMTV_SMOKE_SHOT;
+  if (shot) {
+    try {
+      await delay(600);
+      const image = await window.webContents.capturePage();
+      if (!image.isEmpty()) {
+        require('node:fs').writeFileSync(shot, image.toPNG());
+        console.log(`saved ${shot}`);
+      } else {
+        console.log('capturePage returned an empty image; no screenshot saved');
+      }
+    } catch (error) {
+      console.log(`screenshot skipped: ${error.message}`);
+    }
+  }
+  console.log(`PACKAGED SMOKE PASS: ${repository.library.channels.length} channels, bridge, players, refresh, reset ` +
+    `and the ${cableGuide ? `cable guide (${guide.rows} rows, ${guide.shows} shows)` : 'guide list'}`);
 };

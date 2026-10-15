@@ -9,8 +9,11 @@
  *  - a cache in ~/Library/Application Support/PremiumTV, written by refresh().
  *
  * The cache wins when it exists, so automatic and manual refreshes survive a
- * restart. Resetting in Settings deletes it and falls back to what the .app
- * shipped with. Every load and write shares one serialized queue, so the
+ * restart - but only while it was written by this same build: a copy left by
+ * another version or library scope (a 1.0.x USA cache after installing the
+ * global preview, say) is discarded on load, because it would otherwise hide
+ * everything the new build ships. Resetting in Settings deletes it and falls
+ * back to what the .app shipped with. Every load and write shares one serialized queue, so the
  * background scheduler can never replace files while the window is reading
  * them. A refresh is staged in a sibling directory and swapped in with a
  * rename: an interrupted or bad download leaves the previous usable copy
@@ -83,7 +86,7 @@ class TvRepository extends EventEmitter {
    * validators are unchanged - that is the Settings screen's "force" action.
    * Automatic checks send ETag/Last-Modified validators, so matching the
    * repository's frequent publishing windows normally costs two tiny HTTP 304
-   * responses instead of a 10 MB guide download.
+   * responses instead of a full guide download.
    */
   refresh(trigger, meta = {}) {
     return this.serialize(() => this.refreshLocked(trigger, meta));
@@ -134,6 +137,7 @@ class TvRepository extends EventEmitter {
 
   async loadLocked() {
     await this.recoverInterruptedCacheWrite();
+    await this.discardCacheFromAnotherBuild();
     this.setState({ phase: 'loading', message: 'Loading channels…' });
 
     const cached = await this.readCache();
@@ -246,7 +250,7 @@ class TvRepository extends EventEmitter {
       return this.finishRefresh(trigger, {
         ok: false,
         retryable: playlistResponse.status >= 500 || guideResponse.status >= 500,
-        message: `The server answered ${playlistResponse.status === 200 ? guideResponse.status : playlistResponse.status} for ${failed}. This repository is private, so raw.githubusercontent.com refuses an unauthenticated Mac; the bundled copy is still in use.`,
+        message: `The server answered ${playlistResponse.ok ? guideResponse.status : playlistResponse.status} for ${failed}; the copy already on this Mac is still in use.`,
       });
     }
 
@@ -356,6 +360,38 @@ class TvRepository extends EventEmitter {
       throw error;
     }
     await fsp.rm(this.backupDir, { recursive: true, force: true });
+  }
+
+  /** The metadata of the bundle baked into this .app (version, scope, features). */
+  async bundledMeta() {
+    if (this.bundledMetaCache === undefined) {
+      this.bundledMetaCache = await readJson(path.join(this.bundleDir, 'meta.json'));
+    }
+    return this.bundledMetaCache;
+  }
+
+  /**
+   * Drops a downloaded copy that another build wrote.
+   *
+   * The cache always records the version and library scope of the bundle it
+   * replaced. When those differ from this .app's bundle, the copy belongs to
+   * an earlier install - for example a 1.0.x USA refresh still sitting in
+   * Application Support after the global preview is installed - and loading it
+   * would show the old lineup and keep the new Guide hidden. The validators go
+   * with it, so the next refresh downloads the new build's playlist in full.
+   */
+  async discardCacheFromAnotherBuild() {
+    if (!(await isDirectory(this.cacheDir))) return false;
+    const bundled = await this.bundledMeta();
+    if (!bundled) return false;
+    const cached = await readJson(path.join(this.cacheDir, 'meta.json'));
+    const sameBuild = Boolean(cached) &&
+      String(cached.version || '') === String(bundled.version || '') &&
+      String(cached.library_scope || 'usa') === String(bundled.library_scope || 'usa');
+    if (sameBuild) return false;
+    await fsp.rm(this.cacheDir, { recursive: true, force: true });
+    this.clearValidators();
+    return true;
   }
 
   /** Removes a half-written cache left behind by a crash or a forced quit. */
@@ -498,10 +534,7 @@ class TvRepository extends EventEmitter {
 
   describeNetworkFailure(error) {
     const detail = error.message || String(error);
-    if (/40[134]/.test(detail)) {
-      return `Access denied while contacting the repository (${detail}). This repository is private, so raw.githubusercontent.com refuses an unauthenticated Mac; the bundled copy is still in use.`;
-    }
-    return `The repository could not be reached: ${detail}. The bundled copy is still in use.`;
+    return `The repository could not be reached: ${detail}. The copy already on this Mac is still in use.`;
   }
 
   finishRefresh(trigger, outcome) {

@@ -1,5 +1,7 @@
 package com.premiumtv.app.ui
 
+import android.view.KeyEvent as NativeKey
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusGroup
@@ -36,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -50,10 +53,10 @@ import com.premiumtv.app.data.Programme
 import com.premiumtv.app.data.RefreshInfo
 import com.premiumtv.app.data.RefreshTrigger
 
-private enum class Tab(val label: String) {
+/** The home screen's sections. AppRoot keeps the choice while a channel plays. */
+enum class HomeTab(val label: String) {
     Channels("Channels"),
     Guide("Guide"),
-    Cable("Cable"),
     Settings("Settings"),
 }
 
@@ -63,24 +66,41 @@ fun HomeScreen(
     now: Long,
     status: String,
     refreshInfo: RefreshInfo,
+    tab: HomeTab,
+    onTabChange: (HomeTab) -> Unit,
+    guideState: CableGuideState,
     onSelect: (Channel) -> Unit,
     onForceRefresh: () -> Unit,
     onReset: () -> Unit,
 ) {
-    var tab by remember { mutableStateOf(Tab.Channels) }
+    // Back leaves the Guide or Settings for Channels before it leaves the app,
+    // the way a cable box's Back/Exit closes its guide.
+    BackHandler(enabled = tab != HomeTab.Channels) { onTabChange(HomeTab.Channels) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
+            .onPreviewKeyEvent { event ->
+                // The GUIDE button on a TV remote opens the guide from anywhere.
+                val native = event.nativeKeyEvent
+                if (native.keyCode == NativeKey.KEYCODE_GUIDE) {
+                    if (native.action == NativeKey.ACTION_UP) onTabChange(HomeTab.Guide)
+                    true
+                } else {
+                    false
+                }
+            },
     ) {
         // The title, the version plaque and the status line share the first row;
-        // the tabs get their own scrollable row. Putting all of it on one row
-        // worked while the app had three tabs, but the 1.1.0 preview adds the
-        // Cable tab, and on a narrow screen the weighted status line then had
-        // zero width left: it disappeared from the UI entirely (and from the
-        // emulator smoke check that looks for "<count> channels").
-        val cablePreview = library.meta.previewFeatures.contains("cable-guide")
+        // the tabs get their own scrollable row, so on a narrow screen the
+        // weighted status line keeps its width (the emulator smoke check looks
+        // for "<count> channels" in it).
+        //
+        // Preview builds (bundle preview_features: cable-guide) show the
+        // cable-style grid as the Guide tab; stable builds keep the "what's on
+        // now" list there.
+        val cableGuide = library.meta.previewFeatures.contains("cable-guide")
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -98,7 +118,7 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 VersionPlaque(
-                    if (cablePreview) "${BuildConfig.VERSION_NAME} · PREVIEW" else BuildConfig.VERSION_NAME,
+                    if (cableGuide) "${BuildConfig.VERSION_NAME} · PREVIEW" else BuildConfig.VERSION_NAME,
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
@@ -122,29 +142,22 @@ fun HomeScreen(
                     .horizontalScroll(rememberScrollState()),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                TabChip(Tab.Channels.label, tab == Tab.Channels) { tab = Tab.Channels }
+                TabChip(HomeTab.Channels.label, tab == HomeTab.Channels) { onTabChange(HomeTab.Channels) }
                 Spacer(modifier = Modifier.width(12.dp))
-                TabChip(Tab.Guide.label, tab == Tab.Guide) { tab = Tab.Guide }
-                if (cablePreview) {
-                    Spacer(modifier = Modifier.width(12.dp))
-                    TabChip(Tab.Cable.label, tab == Tab.Cable) { tab = Tab.Cable }
-                }
+                TabChip(HomeTab.Guide.label, tab == HomeTab.Guide) { onTabChange(HomeTab.Guide) }
                 Spacer(modifier = Modifier.width(12.dp))
-                TabChip(Tab.Settings.label, tab == Tab.Settings) { tab = Tab.Settings }
+                TabChip(HomeTab.Settings.label, tab == HomeTab.Settings) { onTabChange(HomeTab.Settings) }
             }
         }
 
         when (tab) {
-            Tab.Channels -> CategoriesScreen(library, now, onSelect)
-            Tab.Guide -> GuideScreen(library, now, onSelect)
-            Tab.Cable -> {
-                if (library.meta.previewFeatures.contains("cable-guide")) {
-                    CableGuideScreen(library, now, onSelect)
-                } else {
-                    CategoriesScreen(library, now, onSelect)
-                }
+            HomeTab.Channels -> CategoriesScreen(library, now, onSelect)
+            HomeTab.Guide -> if (cableGuide) {
+                CableGuideScreen(library = library, now = now, state = guideState, onSelect = onSelect)
+            } else {
+                GuideScreen(library, now, onSelect)
             }
-            Tab.Settings -> SettingsScreen(
+            HomeTab.Settings -> SettingsScreen(
                 library = library,
                 status = status,
                 refreshInfo = refreshInfo,
@@ -591,10 +604,11 @@ private fun SettingsScreen(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "The repository is private today, so unauthenticated raw GitHub " +
-                "downloads return an access error. Automatic and forced refreshes start " +
-                "working when an owner-approved public delivery URL is available; the " +
-                "APK's bundled data remains usable meanwhile.",
+            text = "Refreshes download the playlist and the guide from the public " +
+                "repository on raw.githubusercontent.com; no account is needed. If a " +
+                "download fails, the copy already on this device stays in use. The " +
+                "global preview's guide is a large file (about 38 MB of XML), so a " +
+                "forced refresh can take a minute on a TV.",
             style = MaterialTheme.typography.bodySmall,
             color = MutedText,
         )

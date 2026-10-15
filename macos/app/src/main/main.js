@@ -193,10 +193,16 @@ function writeWindowState() {
 
 ipcMain.handle('ptv:snapshot', () => repository.snapshot());
 
-ipcMain.handle('ptv:app-info', () => {
+ipcMain.handle('ptv:app-info', async () => {
   const meta = (repository.library && repository.library.meta) || null;
+  // What this .app was built with. The renderer decides from these (not from
+  // a downloaded copy) whether the Guide is the cable-style grid.
+  const bundled = (await repository.bundledMeta()) || {};
   return {
     version: app.getVersion(),
+    bundleVersion: bundled.version || '',
+    libraryScope: bundled.library_scope || 'usa',
+    previewFeatures: Array.isArray(bundled.preview_features) ? bundled.preview_features : [],
     electron: process.versions.electron,
     chromium: process.versions.chrome,
     node: process.versions.node,

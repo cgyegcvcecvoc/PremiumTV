@@ -15,14 +15,9 @@ Load this URL in an M3U-compatible player (VLC, TiviMate, IPTV Smarters, Kodi PV
 https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u
 ```
 
-> **These links need a public delivery point.** Checked on 2026-10-10: GitHub reports
-> `PremiumTV1` as a private repository. The `raw.githubusercontent.com` playlist URLs and each
-> playlist's `x-tvg-url` guide URLs therefore cannot be fetched by an unauthenticated IPTV player.
-> The Actions pipeline can read its own repository files; that does not grant a player access.
-> No visibility or sharing setting was changed. To use these feeds in a player, publish the
-> authorized playlist/guide outputs at a publicly reachable endpoint (for example, an approved
-> public repository, GitHub Pages, or a public mirror). Do not make the entire repository public
-> unless the owner approves.
+> **Public links.** Checked on 2026-10-15: `PremiumTV1` is a public repository, so the
+> `raw.githubusercontent.com` playlist URLs and each playlist's `x-tvg-url` guide URLs load in
+> any IPTV player without an account, and the apps' automatic refreshes can download them.
 
 | File | Purpose |
 |---|---|
@@ -65,13 +60,18 @@ the same data scope and version policy:
 | Channel | Version | Library | Release status |
 |---|---|---|---|
 | **Stable** | **1.0.2** (Android `versionCode 7`) | USA lineup + USA guide | Published stable release (`v1.0.2`) and the default build |
-| **Preview** | **1.1.0** (Android `versionCode 8`) | Global checked lineup + merged guide | Published with GitHub's pre-release flag (`v1.1.0`); never the default |
+| **Preview** | **1.1.1** (Android `versionCode 9`) | Global checked lineup + merged guide, **cable-style Guide tab** | Published with GitHub's pre-release flag (`v1.1.1`); never the default |
+| Preview (superseded) | 1.1.0 (Android `versionCode 8`) | Global lineup + separate Cable tab | Pre-release `v1.1.0`, kept for reference |
 
-The 1.1.0 pre-release adds an optional **Cable** guide: an 8-hour, channel-by-time
-schedule shown only when the bundle metadata enables `cable-guide`. Both apps
-keep their normal Channels and Guide views. The Android bundle builder and the
-Mac build default to `1.0.2` / `usa`; the release workflows select `all` only
-for 1.1.0 and reject a stable-tagged 1.1.0 release.
+In the 1.1.1 pre-release the **Guide tab is a cable-style grid**: channels down the
+left, what each one is playing to the right, half-hour times across the top for
+eight hours, a red NOW line and a detail strip for the highlighted show. It
+works with a TV remote (D-pad highlight, OK to watch, Back to return) and with a
+mouse or touch. The grid is enabled by the bundle the app was built with
+(`preview_features: ["cable-guide"]`, global scope only), so stable 1.0.2 keeps
+its list-style Guide. The Android bundle builder and the Mac build default to
+`1.0.2` / `usa`; the release workflows select `all` only for 1.1.x and reject a
+stable-tagged 1.1.x release. See [`release-notes-1.1.1.md`](release-notes-1.1.1.md).
 
 ### macOS app
 
@@ -83,15 +83,15 @@ Intel and Apple Silicon.
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
 | Stable target | `1.0.2` — USA lineup; published as the stable release |
-| Preview target | `1.1.0` — global lineup + optional Cable guide; GitHub pre-release only |
+| Preview target | `1.1.1` — global lineup + cable-style Guide tab; GitHub pre-release only |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
-The macOS regression suite covers startup data delivery, the cable-guide
-preview gate, parser accuracy, duplicate-ID playback selection, and proxy
-session cleanup. Electron 43 retains macOS 12 support. Builds are ad-hoc signed,
-not notarized; first launch may require right-click → **Open** or clearing the
-quarantine attribute. App-side refresh remains blocked while this repository is
-private, so the bundled copy stays usable.
+The macOS regression suite covers startup data delivery, the cable-style guide
+(grid layout, category filter, keyboard movement, stale-download handling),
+parser accuracy, duplicate-ID playback selection, and proxy session cleanup.
+Electron 43 retains macOS 12 support. Builds are ad-hoc signed, not notarized;
+first launch may require right-click → **Open** or clearing the quarantine
+attribute.
 
 ### Android TV app
 
@@ -103,7 +103,7 @@ Google TV, Fire TV stick, tablet and phone.
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
 | Stable target | `1.0.2` (`versionCode 7`) — USA library |
-| Preview target | `1.1.0` (`versionCode 8`) — global library + Cable guide |
+| Preview target | `1.1.1` (`versionCode 9`) — global library + cable-style Guide tab |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 The stable build bundles the USA playlist and guide; the preview build bundles
@@ -112,9 +112,10 @@ per-country EPG feeds (see [the guide build report](playlists/checks/EPG-BUILD.m
 
 - **Channels** — one row per category, in published order; each card shows its
   logo and current programme when the guide has one.
-- **Guide** — what's on now across channels with listings, progress and next up.
-- **Cable (1.1.0 preview only)** — a cable-style 8-hour schedule, channel logos
-  and channel numbers; enabled by preview bundle metadata and absent from stable.
+- **Guide** — in the 1.1.1 preview, a cable-style grid: channels down the left,
+  shows to the right, times across the top, a NOW line and a detail strip; the
+  remote's D-pad moves a highlight, OK watches, Back returns to the same show.
+  Stable 1.0.2 shows what's on now across channels with listings instead.
 - **Automatic refresh** — Android WorkManager checks after repository publishing
   windows, using ETag/Last-Modified where possible.
 - **Settings** — bundle provenance, refresh state, force refresh, and reset to
@@ -125,10 +126,10 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.2 is the published stable release and 1.1.0 is published with GitHub's
-pre-release flag.** The workflows build from the release tag or a manual
-dispatch; a 1.1.0 build is only accepted when GitHub marks that release as a
-pre-release.
+**1.0.2 is the published stable release; 1.1.1 (and the earlier 1.1.0) are
+published with GitHub's pre-release flag.** The workflows build from the release
+tag or a manual dispatch; a 1.1.x build is only accepted when GitHub marks that
+release as a pre-release.
 
 ### Keeping the categories and the order honest
 
@@ -560,7 +561,7 @@ the priority playlist, the 81 `playlists/categories/*.m3u` files, the `categorie
 `playlists/sources/*.m3u` fallback copies - plus `playlists/PremiumTV_all.m3u`, which is checked but
 never pruned because the file exists to hold every link ever found. The sweep the
 [biweekly workflow](#biweekly-deep-cleanup) runs writes its own report
-(`playlists/checks/LINK-CHECK-ARCHIVES.md`, via `--report-suffix "-archives"`) so the
+(`playlists/checks/LINK-CHECK-ARCHIVES.md`, via `--report-suffix=-archives`) so the
 `link-check.json` the re-sort and the next scrape read back stays the player one, and it uses looser
 limits (`--min-working-ratio 0.10 --max-remove-ratio 0.60 --quarantine-days 21`) because those files are
 spares and caches rather than something a viewer is watching.
@@ -649,7 +650,7 @@ by appending a line to [`playlists/logs/run-cleanup.txt`](playlists/logs/run-cle
 python scripts/link_check.py --all     --deep --patch --quarantine-days 14   # player playlists
 python scripts/link_check.py --archives --deep --patch \
         --min-working-ratio 0.10 --max-remove-ratio 0.60 \
-        --report-suffix "-archives"                                          # everything else
+        --report-suffix=-archives                                            # everything else
 python scripts/resort_playlists.py                                          # re-order + prune dead links
 python scripts/build_categories.py                                          # rebuild the published shelf
 python scripts/cleanup_repo.py --apply                                      # logs, orphans, quarantine
@@ -750,7 +751,7 @@ python scripts/discover.py --dry-run              # report only; never promote a
 python scripts/epg_check.py --all                  # verify every advertised TV guide
 python scripts/resort_playlists.py --dry-run       # show the category re-sort without writing
 python scripts/link_check.py --archives --deep --patch  # sweep the playlists no daily run patches
-python scripts/link_check.py --archives --no-deep --dry-run --report-suffix "-archives"
+python scripts/link_check.py --archives --no-deep --dry-run --report-suffix=-archives
 python scripts/cleanup_repo.py                          # report what needs housekeeping, change nothing
 python scripts/cleanup_repo.py --apply --keep-runs 30   # trim logs, drop orphan guides, compact quarantine
 python scripts/verify_playlists.py                 # offline playlist + EPG coverage report

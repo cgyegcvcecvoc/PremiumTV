@@ -20,7 +20,6 @@
       <nav id="tabs" role="tablist" aria-label="Sections">
         <button class="tab" role="tab" data-tab="channels" aria-selected="true">Channels</button>
         <button class="tab" role="tab" data-tab="guide" aria-selected="false">Guide</button>
-        <button id="cable-tab" class="tab" role="tab" data-tab="cable" aria-selected="false" hidden>Cable</button>
         <button class="tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
       </nav>
 
@@ -46,18 +45,16 @@
 
       <section id="view-guide" class="view" role="tabpanel" hidden>
         <header class="view-head">
-          <h1>Guide</h1>
+          <h1>Guide <span id="guide-tag" class="preview-tag" hidden></span></h1>
           <p id="guide-subtitle"></p>
         </header>
+        <!-- Preview builds (bundle preview_features: cable-guide) show the
+             cable-style grid: channels down the left, programmes to the right,
+             times across the top. Stable builds keep the "on now" list. -->
+        <div id="guide-info" class="guide-info" aria-live="polite" hidden></div>
+        <div id="guide-grid" class="cable-scroll" role="grid"
+             aria-label="TV guide: channels down the left, times across the top" hidden></div>
         <div id="guide-list"></div>
-      </section>
-
-      <section id="view-cable" class="view" role="tabpanel" hidden>
-        <header class="view-head">
-          <h1>Cable guide <span class="preview-tag">1.1.0 preview</span></h1>
-          <p id="cable-subtitle"></p>
-        </header>
-        <div id="cable-list" class="cable-scroll" aria-label="Cable-style channel guide"></div>
       </section>
 
       <section id="view-settings" class="view" role="tabpanel" hidden>

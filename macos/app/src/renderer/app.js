@@ -22,15 +22,14 @@
     channelsGrid: document.getElementById('channels-grid'),
     guideList: document.getElementById('guide-list'),
     guideSubtitle: document.getElementById('guide-subtitle'),
-    cableList: document.getElementById('cable-list'),
-    cableSubtitle: document.getElementById('cable-subtitle'),
-    cableTab: document.getElementById('cable-tab'),
+    guideGrid: document.getElementById('guide-grid'),
+    guideInfo: document.getElementById('guide-info'),
+    guideTag: document.getElementById('guide-tag'),
     settingsBody: document.getElementById('settings-body'),
     statusText: document.getElementById('status-text'),
     views: {
       channels: document.getElementById('view-channels'),
       guide: document.getElementById('view-guide'),
-      cable: document.getElementById('view-cable'),
       settings: document.getElementById('view-settings'),
     },
     player: document.getElementById('player'),
@@ -47,9 +46,14 @@
     category: null, // null = every channel
     query: '',
     rendered: 0,
-    cableRows: [],
-    cableRendered: 0,
-    cableWindowStart: 0,
+    // The cable-style grid: rows (one per channel) interleaved with category
+    // headings, rendered a page at a time as the grid scrolls.
+    guideItems: [],
+    guideRows: [],
+    guideRendered: 0,
+    guideWindowStart: 0,
+    guideMetrics: null,
+    guideFocusTime: 0,
   };
 
   const PAGE = 240;
@@ -148,17 +152,26 @@
     return Math.min(100, Math.max(0, ((atSeconds - programme.s) / total) * 100));
   }
 
-  const CABLE_WINDOW_SECONDS = 8 * 60 * 60;
-  const CABLE_SLOT_SECONDS = 30 * 60;
-  const CABLE_SLOT_PX = 90;
-  const CABLE_LABEL_PX = 230;
-  const CABLE_PAGE = 120;
-  const CABLE_TIMELINE_PX = (CABLE_WINDOW_SECONDS / CABLE_SLOT_SECONDS) * CABLE_SLOT_PX;
+  // The cable-style guide grid: channels down the left, programmes to the
+  // right, times across the top in half-hour slots, eight hours from the
+  // current half hour. It replaces the "on now" list on builds whose bundle
+  // enables the cable-guide preview feature.
+  const GUIDE_WINDOW_SECONDS = 8 * 60 * 60;
+  const GUIDE_SLOT_SECONDS = 30 * 60;
+  const GUIDE_SLOTS = GUIDE_WINDOW_SECONDS / GUIDE_SLOT_SECONDS;
+  const GUIDE_PAGE = 120;
   const channelCollator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
-  function cablePreviewEnabled() {
+  /**
+   * Whether this build shows the cable-style grid as its Guide. The answer
+   * comes from the bundle baked into this app (reported by the main process)
+   * first, so a downloaded copy from an older stable install can never hide
+   * the grid of a preview build; the active library's metadata is the fallback.
+   */
+  function cableGuideEnabled() {
+    const fromBuild = appInfo && Array.isArray(appInfo.previewFeatures) && appInfo.previewFeatures.includes('cable-guide');
     const features = snapshot.library.meta && snapshot.library.meta.preview_features;
-    return Array.isArray(features) && features.includes('cable-guide');
+    return Boolean(fromBuild) || (Array.isArray(features) && features.includes('cable-guide'));
   }
 
   // -------------------------------------------------------------- rendering
@@ -269,6 +282,22 @@
   }
 
   function renderGuide() {
+    const grid = cableGuideEnabled();
+    els.guideGrid.hidden = !grid;
+    els.guideInfo.hidden = !grid;
+    els.guideList.hidden = grid;
+    els.guideTag.hidden = !grid;
+    if (grid) {
+      els.guideTag.textContent = 'Cable guide';
+      els.guideList.textContent = '';
+      renderCableGuide();
+      return;
+    }
+    els.guideGrid.textContent = '';
+    renderGuideList();
+  }
+
+  function renderGuideList() {
     const at = nowSeconds();
     const query = ui.query.trim().toLowerCase();
     const channels = (snapshot.library.channels || []).filter((channel) => programmeIndex.has(channel.id));
@@ -370,6 +399,15 @@
     els.guideList.appendChild(fragment);
   }
 
+  function guideMetrics() {
+    const width = els.guideGrid.clientWidth || 1000;
+    const label = Math.round(Math.min(260, Math.max(190, width * 0.24)));
+    // About two and a quarter hours across, like a cable box, with room for a
+    // title in a half-hour cell.
+    const slot = Math.round(Math.min(240, Math.max(130, (width - label) / 4.5)));
+    return { label, slot, pxPerSecond: slot / GUIDE_SLOT_SECONDS, timeline: slot * GUIDE_SLOTS };
+  }
+
   function cableRow(channel, start, end, query) {
     const guide = programmeIndex.get(channel.id) || [];
     const programmes = guide.filter((programme) => programme.e > start && programme.s < end);
@@ -386,165 +424,406 @@
     return { channel, programmes };
   }
 
-  function cableChannelRow(row, start, end, at) {
-    const item = document.createElement('div');
-    item.className = 'cable-row';
+  /**
+   * One row per guide channel, in the published category order (the order the
+   * Channels tab uses), each channel's feeds collapsed to the first one: the
+   * backups of a channel share its EPG id, so they would only repeat the row.
+   */
+  function guideRows(start, end, query) {
+    const channels = snapshot.library.channels || [];
+    const groupOrder = new Map((snapshot.library.groups || []).map((group, index) => [group.name, index]));
+    const rank = (channel) => (groupOrder.has(channel.group) ? groupOrder.get(channel.group) : groupOrder.size);
+    const ordered = channels
+      .map((channel, index) => ({ channel, index }))
+      .sort((a, b) => rank(a.channel) - rank(b.channel) || a.index - b.index);
+    const seen = new Set();
+    const rows = [];
+    for (const { channel } of ordered) {
+      if (ui.category && channel.group !== ui.category) continue;
+      const key = channel.id || channel.url;
+      if (seen.has(key)) continue;
+      const row = cableRow(channel, start, end, query);
+      if (!row) continue;
+      seen.add(key);
+      rows.push(row);
+    }
+    return rows;
+  }
 
-    const label = document.createElement('button');
-    label.type = 'button';
-    label.className = 'cable-channel';
-    label.addEventListener('click', () => openPlayer(row.channel));
-    label.title = `${row.channel.name} · ${row.channel.group}`;
+  function guideItemsFrom(rows) {
+    const items = [];
+    let group = null;
+    const counts = new Map();
+    for (const row of rows) counts.set(row.channel.group, (counts.get(row.channel.group) || 0) + 1);
+    rows.forEach((row, index) => {
+      if (row.channel.group !== group) {
+        group = row.channel.group;
+        items.push({ type: 'section', name: group, count: counts.get(group) });
+      }
+      items.push({ type: 'row', row, index });
+    });
+    return items;
+  }
 
-    const number = document.createElement('span');
-    number.className = 'cable-number';
-    number.textContent = row.channel.chno || '—';
+  function channelLogo(channel, className) {
     const logo = document.createElement('span');
-    logo.className = 'cable-logo';
-    const logoUrl = logoSource(row.channel);
+    logo.className = className;
+    const initials = (channel.name.replace(/[^\p{L}\p{N}]/gu, '').slice(0, 2) || 'TV').toUpperCase();
+    const logoUrl = logoSource(channel);
     if (logoUrl) {
       const image = document.createElement('img');
       image.loading = 'lazy';
       image.alt = '';
       image.src = logoUrl;
       image.addEventListener('error', () => {
-        logo.textContent = row.channel.name.slice(0, 2).toUpperCase();
+        logo.textContent = initials;
         logo.classList.add('empty');
       }, { once: true });
       logo.appendChild(image);
     } else {
-      logo.textContent = row.channel.name.slice(0, 2).toUpperCase();
+      logo.textContent = initials;
       logo.classList.add('empty');
     }
+    return logo;
+  }
+
+  function cableSection(item) {
+    const section = document.createElement('div');
+    section.className = 'cable-section';
+    const name = document.createElement('span');
+    name.className = 'cable-section-name';
+    name.textContent = item.name;
+    const count = document.createElement('span');
+    count.className = 'cable-section-count';
+    count.textContent = `${item.count} ${item.count === 1 ? 'channel' : 'channels'}`;
+    section.append(name, count);
+    return section;
+  }
+
+  function cableChannelRow(row, rowIndex, start, end, at, metrics) {
+    const item = document.createElement('div');
+    item.className = 'cable-row';
+    item.dataset.row = String(rowIndex);
+    item.setAttribute('role', 'row');
+
+    const label = document.createElement('button');
+    label.type = 'button';
+    label.className = 'cable-channel';
+    label.dataset.row = String(rowIndex);
+    label.title = `${row.channel.name} · ${row.channel.group}`;
+    label.setAttribute('role', 'rowheader');
+    label.addEventListener('click', () => openPlayer(row.channel));
+
+    const number = document.createElement('span');
+    number.className = 'cable-number';
+    number.textContent = row.channel.chno || '';
+    const text = document.createElement('span');
+    text.className = 'cable-channel-text';
     const name = document.createElement('span');
     name.className = 'cable-channel-name';
     name.textContent = row.channel.name;
-    label.append(number, logo, name);
+    const group = document.createElement('span');
+    group.className = 'cable-channel-group';
+    group.textContent = row.channel.country ? `${row.channel.group} · ${row.channel.country}` : row.channel.group;
+    text.append(name, group);
+    if (row.channel.chno) label.append(number);
+    label.append(channelLogo(row.channel, 'cable-logo'), text);
 
     const timeline = document.createElement('div');
     timeline.className = 'cable-track';
-    timeline.style.width = `${CABLE_TIMELINE_PX}px`;
-    const slotCount = CABLE_WINDOW_SECONDS / CABLE_SLOT_SECONDS;
-    for (let slot = 0; slot < slotCount; slot += 1) {
+    for (let slot = 0; slot < GUIDE_SLOTS; slot += 1) {
       const gridline = document.createElement('span');
       gridline.className = 'cable-gridline';
-      gridline.style.left = `${slot * CABLE_SLOT_PX}px`;
+      gridline.style.left = `${slot * metrics.slot}px`;
       timeline.appendChild(gridline);
     }
 
-    for (const programme of row.programmes) {
+    row.programmes.forEach((programme, programmeIndex) => {
       const visibleStart = Math.max(programme.s, start);
       const visibleEnd = Math.min(programme.e, end);
-      if (visibleEnd <= visibleStart) continue;
+      if (visibleEnd <= visibleStart) return;
       const cell = document.createElement('button');
       cell.type = 'button';
       const current = at >= programme.s && at < programme.e;
-      cell.className = `cable-programme${current ? ' current' : ''}`;
-      cell.style.left = `${((visibleStart - start) / 60) * 3}px`;
-      cell.style.width = `${((visibleEnd - visibleStart) / 60) * 3}px`;
-      cell.title = `${formatClock(visibleStart)}–${formatClock(visibleEnd)} · ${programme.t}`;
+      cell.className = `cable-programme${current ? ' current' : ''}${programme.e <= at ? ' past' : ''}`;
+      cell.dataset.row = String(rowIndex);
+      cell.dataset.programme = String(programmeIndex);
+      cell.dataset.s = String(programme.s);
+      cell.dataset.e = String(programme.e);
+      cell.setAttribute('role', 'gridcell');
+      cell.style.left = `${(visibleStart - start) * metrics.pxPerSecond}px`;
+      cell.style.width = `${Math.max(4, (visibleEnd - visibleStart) * metrics.pxPerSecond)}px`;
+      cell.title = `${formatClock(programme.s)}–${formatClock(programme.e)} · ${programme.t}`;
       cell.addEventListener('click', () => openPlayer(row.channel));
 
       const time = document.createElement('span');
       time.className = 'cable-programme-time';
-      time.textContent = `${formatClock(visibleStart)}${current ? ' · NOW' : ''}`;
+      time.textContent = programme.s < start ? `‹ ${formatClock(programme.s)}` : formatClock(programme.s);
       const title = document.createElement('span');
       title.className = 'cable-programme-title';
       title.textContent = programme.t;
       cell.append(time, title);
       timeline.appendChild(cell);
-    }
+    });
 
-    if (at >= start && at < end) {
-      const marker = document.createElement('span');
-      marker.className = 'cable-now-line';
-      marker.style.left = `${((at - start) / 60) * 3}px`;
-      timeline.appendChild(marker);
-    }
+    const marker = document.createElement('span');
+    marker.className = 'cable-now-line';
+    marker.hidden = !(at >= start && at < end);
+    marker.style.left = `${(at - start) * metrics.pxPerSecond}px`;
+    timeline.appendChild(marker);
 
     item.append(label, timeline);
     return item;
   }
 
   function appendCablePage() {
-    const list = ui.cableRows;
+    const items = ui.guideItems;
+    if (ui.guideRendered >= items.length) return false;
+    const metrics = ui.guideMetrics || guideMetrics();
     const fragment = document.createDocumentFragment();
-    const page = list.slice(ui.cableRendered, ui.cableRendered + CABLE_PAGE);
-    const start = ui.cableWindowStart;
-    const end = start + CABLE_WINDOW_SECONDS;
+    const start = ui.guideWindowStart;
+    const end = start + GUIDE_WINDOW_SECONDS;
     const at = nowSeconds();
-    for (const row of page) fragment.appendChild(cableChannelRow(row, start, end, at));
-    els.cableList.appendChild(fragment);
-    ui.cableRendered += page.length;
+    let rows = 0;
+    while (ui.guideRendered < items.length && rows < GUIDE_PAGE) {
+      const item = items[ui.guideRendered];
+      if (item.type === 'section') {
+        fragment.appendChild(cableSection(item));
+      } else {
+        fragment.appendChild(cableChannelRow(item.row, item.index, start, end, at, metrics));
+        rows += 1;
+      }
+      ui.guideRendered += 1;
+    }
+    els.guideGrid.appendChild(fragment);
+    return true;
+  }
+
+  function guideTimeHeader(start, at, metrics) {
+    const header = document.createElement('div');
+    header.className = 'cable-row cable-header-row';
+    header.setAttribute('role', 'row');
+    const stub = document.createElement('div');
+    stub.className = 'cable-channel cable-header-stub';
+    stub.textContent = new Date(start * 1000).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+    const times = document.createElement('div');
+    times.className = 'cable-track cable-time-track';
+    for (let slot = 0; slot < GUIDE_SLOTS; slot += 1) {
+      const tick = document.createElement('span');
+      tick.className = 'cable-time-tick';
+      tick.style.left = `${slot * metrics.slot}px`;
+      tick.textContent = formatClock(start + slot * GUIDE_SLOT_SECONDS);
+      tick.setAttribute('role', 'columnheader');
+      times.appendChild(tick);
+    }
+    const nowMarker = document.createElement('span');
+    nowMarker.className = 'guide-now-marker';
+    placeNowMarker(nowMarker, at, start, metrics);
+    times.appendChild(nowMarker);
+    header.append(stub, times);
+    return header;
+  }
+
+  /** The red time pill on the NOW line; kept clear of the date cell just after the half hour. */
+  function placeNowMarker(marker, at, start, metrics) {
+    const x = (at - start) * metrics.pxPerSecond;
+    marker.textContent = formatClock(at);
+    marker.style.left = `${x}px`;
+    marker.style.transform = x < 36 ? 'translateX(-2px)' : 'translateX(-50%)';
+  }
+
+  /** The detail strip above the grid: what the highlighted cell is playing. */
+  function showGuideInfo(row, programme) {
+    const info = els.guideInfo;
+    info.textContent = '';
+    const at = nowSeconds();
+    if (!row) {
+      const lead = document.createElement('div');
+      lead.className = 'guide-info-main';
+      const title = document.createElement('div');
+      title.className = 'guide-info-title';
+      title.textContent = ui.guideRows.length
+        ? `${ui.guideRows.length} channels with listings${ui.category ? ` in ${ui.category}` : ''}`
+        : 'No listings in this window';
+      const hint = document.createElement('div');
+      hint.className = 'guide-info-desc';
+      hint.textContent = 'Point at a show for details · click to watch · arrow keys move through the grid';
+      lead.append(title, hint);
+      info.appendChild(lead);
+      return;
+    }
+    const lead = document.createElement('div');
+    lead.className = 'guide-info-main';
+    const kicker = document.createElement('div');
+    kicker.className = 'guide-info-kicker';
+    const title = document.createElement('div');
+    title.className = 'guide-info-title';
+    const desc = document.createElement('div');
+    desc.className = 'guide-info-desc';
+    if (programme) {
+      const live = at >= programme.s && at < programme.e;
+      if (live) {
+        const pill = document.createElement('span');
+        pill.className = 'now-pill';
+        pill.textContent = 'LIVE';
+        kicker.appendChild(pill);
+      }
+      const minutesLeft = Math.max(1, Math.round((programme.e - at) / 60));
+      const startsIn = Math.max(1, Math.round((programme.s - at) / 60));
+      const when = live
+        ? `${minutesLeft} min left`
+        : programme.e <= at
+          ? 'ended'
+          : startsIn < 60 ? `starts in ${startsIn} min` : `starts at ${formatClock(programme.s)}`;
+      kicker.appendChild(document.createTextNode(
+        `${formatClock(programme.s)} – ${formatClock(programme.e)} · ${when}${programme.g ? ` · ${programme.g}` : ''}`,
+      ));
+      title.textContent = programme.ep ? `${programme.t} — ${programme.ep}` : programme.t;
+      desc.textContent = programme.d || 'No description in the guide for this listing.';
+    } else {
+      const current = row.programmes.find((p) => p.s <= at && p.e > at);
+      kicker.textContent = current ? `On now · ${formatClock(current.s)} – ${formatClock(current.e)}` : 'Nothing listed right now';
+      title.textContent = current ? current.t : row.channel.name;
+      desc.textContent = 'Click the channel to watch it live.';
+    }
+    lead.append(kicker, title, desc);
+    const channel = document.createElement('div');
+    channel.className = 'guide-info-channel';
+    const name = document.createElement('span');
+    name.className = 'guide-info-channel-name';
+    name.textContent = row.channel.chno ? `${row.channel.chno} · ${row.channel.name}` : row.channel.name;
+    const group = document.createElement('span');
+    group.className = 'guide-info-channel-group';
+    group.textContent = row.channel.group;
+    const names = document.createElement('span');
+    names.className = 'guide-info-channel-text';
+    names.append(name, group);
+    channel.append(channelLogo(row.channel, 'guide-info-logo'), names);
+    info.append(lead, channel);
+  }
+
+  function guideTarget(node) {
+    const cell = node && node.closest ? node.closest('.cable-programme, .cable-row > .cable-channel') : null;
+    if (!cell || cell.classList.contains('cable-header-stub')) return null;
+    const row = ui.guideRows[Number(cell.dataset.row)];
+    if (!row) return null;
+    const programme = cell.dataset.programme != null ? row.programmes[Number(cell.dataset.programme)] : null;
+    return { cell, row, programme };
   }
 
   function renderCableGuide() {
-    const enabled = cablePreviewEnabled();
-    els.cableTab.hidden = !enabled;
-    if (!enabled) {
-      if (ui.tab === 'cable') selectTab('channels');
-      return;
-    }
     if (snapshot.library.guideLoading || snapshot.library.guideError) {
-      els.cableList.textContent = '';
+      els.guideGrid.textContent = '';
+      els.guideInfo.hidden = true;
       const empty = document.createElement('div');
-      empty.className = 'empty-state';
+      empty.className = 'empty-state cable-empty';
       empty.textContent = snapshot.library.guideLoading
         ? 'The guide is still loading. Channels remain available in the Channels tab.'
         : `The programme guide is unavailable: ${snapshot.library.guideError}`;
-      els.cableList.appendChild(empty);
-      els.cableSubtitle.textContent = 'The channel list remains available while the guide is unavailable.';
+      els.guideGrid.appendChild(empty);
+      els.guideSubtitle.textContent = 'The channel list remains available while the guide is unavailable.';
       return;
     }
 
-    const previousTop = els.cableList.scrollTop;
-    const previousLeft = els.cableList.scrollLeft;
+    const previousTop = els.guideGrid.scrollTop;
+    const previousLeft = els.guideGrid.scrollLeft;
     const at = nowSeconds();
-    const start = Math.floor(at / CABLE_SLOT_SECONDS) * CABLE_SLOT_SECONDS;
-    const end = start + CABLE_WINDOW_SECONDS;
+    const start = Math.floor(at / GUIDE_SLOT_SECONDS) * GUIDE_SLOT_SECONDS;
+    const end = start + GUIDE_WINDOW_SECONDS;
     const query = ui.query.trim().toLowerCase();
-    const rows = (snapshot.library.channels || [])
-      .map((channel) => cableRow(channel, start, end, query))
-      .filter(Boolean)
-      .sort((a, b) => {
-        const numberOrder = channelCollator.compare(a.channel.chno || '', b.channel.chno || '');
-        return numberOrder || channelCollator.compare(a.channel.name, b.channel.name);
-      });
+    const metrics = guideMetrics();
+    const rows = guideRows(start, end, query);
 
-    ui.cableWindowStart = start;
-    ui.cableRows = rows;
-    ui.cableRendered = 0;
-    els.cableSubtitle.textContent = `${rows.length} channels with listings · 8-hour window · scroll horizontally for later times`;
-    els.cableList.textContent = '';
-
-    const header = document.createElement('div');
-    header.className = 'cable-row cable-header-row';
-    const stub = document.createElement('div');
-    stub.className = 'cable-channel cable-header-stub';
-    stub.textContent = 'CHANNEL';
-    const times = document.createElement('div');
-    times.className = 'cable-track cable-time-track';
-    times.style.width = `${CABLE_TIMELINE_PX}px`;
-    for (let slot = 0; slot < CABLE_WINDOW_SECONDS / CABLE_SLOT_SECONDS; slot += 1) {
-      const tick = document.createElement('span');
-      tick.className = 'cable-time-tick';
-      tick.style.left = `${slot * CABLE_SLOT_PX}px`;
-      tick.textContent = formatClock(start + slot * CABLE_SLOT_SECONDS);
-      times.appendChild(tick);
-    }
-    header.append(stub, times);
-    els.cableList.appendChild(header);
+    if (start !== ui.guideWindowStart) ui.guideFocusTime = 0;
+    ui.guideWindowStart = start;
+    ui.guideMetrics = metrics;
+    ui.guideRows = rows;
+    ui.guideItems = guideItemsFrom(rows);
+    ui.guideRendered = 0;
+    els.guideGrid.style.setProperty('--cable-label', `${metrics.label}px`);
+    els.guideGrid.style.setProperty('--cable-slot', `${metrics.slot}px`);
+    els.guideGrid.style.setProperty('--cable-timeline', `${metrics.timeline}px`);
+    const totalWithGuide = new Set(programmeIndex.keys()).size;
+    els.guideSubtitle.textContent = `${rows.length} channels with listings${ui.category ? ` in ${ui.category}` : ''} · ` +
+      `${formatClock(start)} – ${formatClock(end)} · the guide covers ${totalWithGuide} of ${(snapshot.library.channels || []).length} channels`;
+    els.guideGrid.textContent = '';
+    els.guideGrid.appendChild(guideTimeHeader(start, at, metrics));
 
     if (!rows.length) {
       const empty = document.createElement('div');
       empty.className = 'empty-state cable-empty';
-      empty.textContent = 'No programme listings match this time window.';
-      els.cableList.appendChild(empty);
+      empty.textContent = query || ui.category
+        ? 'No channel or show in this time window matches the search or category.'
+        : 'No programme listings cover this time window.';
+      els.guideGrid.appendChild(empty);
     } else {
       appendCablePage();
     }
-    els.cableList.scrollTop = previousTop;
-    els.cableList.scrollLeft = previousLeft;
+    showGuideInfo(null, null);
+    els.guideGrid.scrollTop = previousTop;
+    els.guideGrid.scrollLeft = previousLeft;
+  }
+
+  /** Moves the NOW line and the live highlight without rebuilding the grid. */
+  function updateGuideClock() {
+    if (!cableGuideEnabled() || els.guideGrid.hidden) return;
+    const at = nowSeconds();
+    const start = Math.floor(at / GUIDE_SLOT_SECONDS) * GUIDE_SLOT_SECONDS;
+    if (start !== ui.guideWindowStart || !ui.guideMetrics) {
+      renderCableGuide();
+      return;
+    }
+    const metrics = ui.guideMetrics;
+    const left = `${(at - start) * metrics.pxPerSecond}px`;
+    for (const line of els.guideGrid.querySelectorAll('.cable-now-line')) line.style.left = left;
+    const marker = els.guideGrid.querySelector('.guide-now-marker');
+    if (marker) placeNowMarker(marker, at, start, metrics);
+    for (const cell of els.guideGrid.querySelectorAll('.cable-programme')) {
+      const s = Number(cell.dataset.s);
+      const e = Number(cell.dataset.e);
+      cell.classList.toggle('current', at >= s && at < e);
+      cell.classList.toggle('past', e <= at);
+    }
+  }
+
+  /** The time a cell stands for: its start, or the window start if it began earlier. */
+  function cellTime(cell) {
+    return Math.max(Number(cell.dataset.s), ui.guideWindowStart);
+  }
+
+  /**
+   * Arrow-key movement through the grid, like a cable remote. Up and down keep
+   * the remembered time column (ui.guideFocusTime) instead of the start of
+   * whichever show is highlighted, so the highlight does not drift sideways
+   * while scrolling past long and short shows.
+   */
+  function moveInGuide(cell, key) {
+    const rowEl = cell.closest('.cable-row');
+    if (!rowEl) return null;
+    const cells = [...rowEl.querySelectorAll('.cable-channel, .cable-programme')];
+    const position = cells.indexOf(cell);
+    if (key === 'ArrowRight' || key === 'ArrowLeft') {
+      const next = key === 'ArrowRight' ? cells[position + 1] : position > 0 ? cells[position - 1] : null;
+      if (next && next.classList.contains('cable-programme')) ui.guideFocusTime = cellTime(next);
+      return next || null;
+    }
+    const step = key === 'ArrowDown' ? 'nextElementSibling' : 'previousElementSibling';
+    let next = rowEl[step];
+    while (next && !(next.classList.contains('cable-row') && !next.classList.contains('cable-header-row'))) {
+      next = next[step];
+    }
+    if (!next && key === 'ArrowDown' && appendCablePage()) {
+      next = rowEl.nextElementSibling;
+      while (next && !next.classList.contains('cable-row')) next = next.nextElementSibling;
+    }
+    if (!next) return null;
+    if (cell.classList.contains('cable-channel')) return next.querySelector('.cable-channel');
+    const at = ui.guideFocusTime || cellTime(cell);
+    const programmes = [...next.querySelectorAll('.cable-programme')];
+    return programmes.find((p) => Number(p.dataset.s) <= at && Number(p.dataset.e) > at) ||
+      programmes.find((p) => Number(p.dataset.s) >= at) ||
+      programmes[programmes.length - 1] ||
+      next.querySelector('.cable-channel');
   }
 
   function renderSettings() {
@@ -586,7 +865,7 @@
       <div class="panel">
         <h2>What is installed</h2>
         <dl class="meta">
-          <dt>Version</dt><dd>${escapeHtml(meta.version || 'unknown')}${meta.library_scope === 'all' ? ' · 1.1.0 preview' : ''}</dd>
+          <dt>Version</dt><dd>${escapeHtml(meta.version || 'unknown')}${meta.library_scope === 'all' ? ' · preview (global lineup, cable guide)' : ''}</dd>
           <dt>Library scope</dt><dd>${escapeHtml(meta.library_scope || 'usa')}${Array.isArray(meta.preview_features) && meta.preview_features.length ? ` · preview: ${escapeHtml(meta.preview_features.join(', '))}` : ''}</dd>
           <dt>Channels</dt><dd>${escapeHtml(meta.channel_count || (snapshot.library.channels || []).length)}</dd>
           <dt>Categories</dt><dd>${escapeHtml(meta.group_count || (snapshot.library.groups || []).length)}</dd>
@@ -609,17 +888,16 @@
         )}</b>, ${escapeHtml(String(appInfo.publishingGraceMinutes || 45))} minutes after each slot so the
         publishing job has finished writing. A check sends the last ETag and Last-Modified value, so an
         unchanged playlist and guide cost two small <code>304 Not Modified</code> responses instead of a
-        10 MB guide download.</p>
+        full guide download (about 15 MB for the USA lineup, about 38 MB for the global preview).</p>
         <p class="muted">Check times: ${escapeHtml((appInfo.checkTimes || []).join(', '))}</p>
       </div>
 
       <div class="panel">
         <h2>Known limitations</h2>
         <div class="note">
-          <p><b>Automatic and forced refreshes cannot read this repository while it is private.</b>
-          <code>raw.githubusercontent.com</code> returns an access error to an unauthenticated Mac, so a refresh
-          reports that result and the bundled copy stays in use. Refreshes start working when an owner-approved
-          public mirror or delivery URL exists; no GitHub credential is stored in this app.</p>
+          <p><b>Refreshes download from the public repository.</b> The playlist and the guide come from
+          <code>raw.githubusercontent.com</code> with no account or credential. If a download fails, the copy
+          already on this Mac stays in use and the result above says why.</p>
         </div>
         <ul class="plain">
           <li>Only ${escapeHtml(String(meta.guide_channels || new Set(programmeIndex.keys()).size))} of the bundled
@@ -654,29 +932,38 @@
   // -------------------------------------------------------------- actions
 
   function selectTab(tab) {
-    if (tab === 'cable' && !cablePreviewEnabled()) tab = 'channels';
+    // 1.1.0 had a separate "Cable" tab; the grid is the Guide tab now.
+    if (tab === 'cable') tab = 'guide';
+    if (!els.views[tab]) tab = 'channels';
     ui.tab = tab;
     for (const [name, view] of Object.entries(els.views)) view.hidden = name !== tab;
     for (const button of els.tabs.querySelectorAll('.tab')) {
       button.setAttribute('aria-selected', String(button.dataset.tab === tab));
     }
-    els.categories.style.display = tab === 'channels' ? '' : 'none';
-    els.search.placeholder = tab === 'guide' ? 'Search the guide' : tab === 'cable' ? 'Search channel or show' : 'Search channels';
+    // The category list filters the grid too, like a cable box's guide filter.
+    const categories = tab === 'channels' || (tab === 'guide' && cableGuideEnabled());
+    els.categories.style.display = categories ? '' : 'none';
+    els.search.placeholder = tab === 'guide'
+      ? (cableGuideEnabled() ? 'Search channel or show' : 'Search the guide')
+      : 'Search channels';
     render();
   }
 
   function selectCategory(name) {
     ui.category = name;
     renderCategories();
-    renderChannels();
+    if (ui.tab === 'guide') {
+      els.guideGrid.scrollTop = 0;
+      renderGuide();
+    } else {
+      renderChannels();
+    }
     document.getElementById('content').scrollTop = 0;
   }
 
   function render() {
-    els.cableTab.hidden = !cablePreviewEnabled();
     if (ui.tab === 'channels') renderChannels();
     else if (ui.tab === 'guide') renderGuide();
-    else if (ui.tab === 'cable') renderCableGuide();
     else renderSettings();
   }
 
@@ -764,11 +1051,46 @@
     }
   });
 
-  els.cableList.addEventListener('scroll', () => {
-    if (ui.tab !== 'cable') return;
-    if (els.cableList.scrollTop + els.cableList.clientHeight >= els.cableList.scrollHeight - 480) {
-      if (ui.cableRendered < ui.cableRows.length) appendCablePage();
+  els.guideGrid.addEventListener('scroll', () => {
+    if (ui.tab !== 'guide') return;
+    if (els.guideGrid.scrollTop + els.guideGrid.clientHeight >= els.guideGrid.scrollHeight - 480) {
+      appendCablePage();
     }
+  });
+
+  // The detail strip follows the pointer and the keyboard focus.
+  let infoTarget = null;
+  function followGuideTarget(event) {
+    const target = guideTarget(event.target);
+    if (!target || target.cell === infoTarget) return;
+    infoTarget = target.cell;
+    showGuideInfo(target.row, target.programme);
+  }
+  els.guideGrid.addEventListener('mouseover', followGuideTarget);
+  els.guideGrid.addEventListener('focusin', followGuideTarget);
+  // A click or tab into a show sets the time column the arrow keys keep.
+  els.guideGrid.addEventListener('mousedown', (event) => {
+    const cell = event.target.closest('.cable-programme');
+    if (cell) ui.guideFocusTime = cellTime(cell);
+  });
+
+  els.guideGrid.addEventListener('keydown', (event) => {
+    if (!['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+    const cell = event.target.closest('.cable-programme, .cable-row > .cable-channel');
+    if (!cell || cell.classList.contains('cable-header-stub')) return;
+    event.preventDefault();
+    const next = moveInGuide(cell, event.key);
+    if (!next) return;
+    next.focus({ preventScroll: true });
+    if (typeof next.scrollIntoView === 'function') next.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  });
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      if (ui.tab === 'guide' && cableGuideEnabled()) renderCableGuide();
+    }, 150);
   });
 
   document.addEventListener('keydown', (event) => {
@@ -838,9 +1160,12 @@
 
     // Keep "now playing" honest without a full re-render storm.
     clockTimer = window.setInterval(() => {
-      if (ui.tab === 'guide') renderGuide();
-      else if (ui.tab === 'cable') renderCableGuide();
-      else if (ui.tab === 'channels' && ui.rendered <= PAGE) renderChannels();
+      if (ui.tab === 'guide') {
+        // The grid keeps its scroll position and keyboard focus: only the NOW
+        // line and the live highlight move, until the next half hour rebuilds it.
+        if (cableGuideEnabled()) updateGuideClock();
+        else renderGuide();
+      } else if (ui.tab === 'channels' && ui.rendered <= PAGE) renderChannels();
     }, 30000);
   }
 
