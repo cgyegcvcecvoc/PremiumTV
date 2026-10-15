@@ -24,10 +24,13 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
     `quarantine_entry_proven_dead`) used by the scraper's reader, the deep
     check's writer and the cleanup's compactor, so the three can never disagree.
   - `playlists/checks/quarantine.json` was compacted under those rules
-    (2,682 → 683 proven-dead entries). The 1,999 released links return to the
-    next checked scrape, which re-verifies each one over the network and
-    publishes only the confirmed-working channels — dead ones are re-quarantined
-    under the current rules.
+    (2,682 → 683 proven-dead entries). The 1,999 released links returned to a
+    checked re-scrape, which re-verified each one over the network:
+    **confirmed-working channels went 9,822 → 11,705 (+1,883 restored)**, dead
+    links 3,995 → 2,060, A&E channels 58 → 67, and two country playlists that
+    had been emptied out (Bermuda, San Marino) exist again — 177 countries in
+    total. Links that are genuinely gone are re-quarantined under the current
+    rules and stay out.
 - **New: the public download site** (`docs/`, GitHub Pages at
   [`cgyegcvcecvoc.github.io/PremiumTV1`](https://cgyegcvcecvoc.github.io/PremiumTV1/)):
   - **Apps**: every release asset for the Stable (1.0.2) and Preview (1.1.1)
