@@ -22,8 +22,8 @@ Daemon will be stopped at the end of the build
 > Task :app:compileDebugJavaWithJavac FROM-CACHE
 > Task :app:preDebugUnitTestBuild UP-TO-DATE
 > Task :app:javaPreCompileDebugUnitTest FROM-CACHE
-> Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:bundleDebugClassesToCompileJar
+> Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:mergeDebugShaders
 > Task :app:compileDebugUnitTestKotlin FROM-CACHE
 > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
@@ -58,7 +58,7 @@ Unable to strip the following libraries, packaging them as they are: libandroidx
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792104768660.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792105067190.json
 
-BUILD SUCCESSFUL in 28s
+BUILD SUCCESSFUL in 32s
 46 actionable tasks: 24 executed, 22 from cache
