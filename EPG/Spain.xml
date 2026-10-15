@@ -180,6 +180,10 @@
     <display-name>ElToroTV.es</display-name>
     <icon src="https://iptv-epg.org/images/OvwHFTKn6SBaGSUfY7syZPlwFTXduZtsN3r9srHjB-fq_CT0knmH0XWeAgbHCAQAt3nK9zw88dGwZ7BC-SX11lfdv7tBqsekI7yuytnuIFc" />
   </channel>
+  <channel id="Elche7TV.es@SD">
+    <display-name>Elche 7 TV (576p)</display-name>
+    <icon src="https://i.imgur.com/tjI0dLx.png" />
+  </channel>
   <channel id="EmpordaTV.es@SD">
     <display-name>Emporda TV (1080p)</display-name>
     <icon src="https://i.imgur.com/jc0lUbX.png" />
@@ -328,10 +332,6 @@
     <display-name>ES - TVG 2</display-name>
     <display-name>TVG2.es</display-name>
     <icon src="https://iptv-epg.org/images/trgTM2uzVqZmZE07mcoCXLCyDuSOBiQnG6sT4nxm_2GfV6NM2yjrZeEZZfHsA3jJ8jvy39xDlUqcvhfgiRQbbr3im-3kG2DMUyL_6Q" />
-  </channel>
-  <channel id="TVR.es@SD">
-    <display-name>TVR (Spain) (360p) [Not 24/7]</display-name>
-    <icon src="https://i.ibb.co/nRq3YfT/Logo-Rioja-Televisi-n-S-A.png" />
   </channel>
   <channel id="TVReus.es@SD">
     <display-name>TVReus (720p) [Not 24/7]</display-name>
@@ -895,9 +895,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015060000 +0000" stop="20261015083000 +0000" channel="APunt.es@SD">
-    <title>Les notícies del matí</title>
-  </programme>
   <programme start="20261015083000 +0000" stop="20261015110000 +0000" channel="APunt.es@SD">
     <title>Obert pel matí</title>
   </programme>
@@ -1048,6 +1045,9 @@
   <programme start="20261017134500 +0000" stop="20261017144500 +0000" channel="APunt.es@SD">
     <title>Atrapa'm si pots</title>
   </programme>
+  <programme start="20261017144500 +0000" stop="20261017165500 +0000" channel="APunt.es@SD">
+    <title>Està Passant Comunitat Valenciana</title>
+  </programme>
   <programme start="20261015073000 +0000" stop="20261015102000 +0000" channel="CanalSurAndalucia.es@SD">
     <title>Hoy en día</title>
   </programme>
@@ -1153,8 +1153,8 @@
   <programme start="20261017133500 +0000" stop="20261017145500 +0000" channel="CanalSurAndalucia.es@SD">
     <title>Andalucía por el mundo</title>
   </programme>
-  <programme start="20261015070000 +0000" stop="20261015090000 +0000" channel="ETB1.es@SD">
-    <title>Egun on Euskadi</title>
+  <programme start="20261017145500 +0000" stop="20261017153000 +0000" channel="CanalSurAndalucia.es@SD">
+    <title>Al Sur Conciertos</title>
   </programme>
   <programme start="20261015090000 +0000" stop="20261015093500 +0000" channel="ETB1.es@SD">
     <title>Adinberri</title>
@@ -1375,13 +1375,8 @@
   <programme start="20261017130500 +0000" stop="20261017150500 +0000" channel="ETB1.es@SD">
     <title>Kepa Junkera Berpiztu (Renacer)</title>
   </programme>
-  <programme start="20261015073500 +0000" stop="20261015085000 +0000" channel="ETB2.es@SD">
-    <title>Euskadi quédate</title>
-    <desc>La información más cercana de Euskadi, los datos imprescindibles para tu día a día, la última hora de nuestra actualidad, las historias que nos llegan muy adentro. Todo contando de forma amable y positiva. De la mano de Odei Esnaola, todas las tardes, de lunes a viernes, en ETB2.</desc>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017150500 +0000" stop="20261017180000 +0000" channel="ETB1.es@SD">
+    <title>Pilota: ETB Kantxa</title>
   </programme>
   <programme start="20261015085000 +0000" stop="20261015095500 +0000" channel="ETB2.es@SD">
     <title>Esto no es normal</title>
@@ -1860,8 +1855,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015081100 +0000" stop="20261015083200 +0000" channel="ElToroTV.es@SD">
-    <title>Deportes en libertad</title>
+  <programme start="20261017144000 +0000" stop="20261017153500 +0000" channel="ETB2.es@SD">
+    <title>Historias a Bocados</title>
+    <desc>Espacio en el que el cocinero Joseba Arguiñano visita en cada edición un pueblo distinto. En sus viajes descubre historias personales relacionadas con la gastronomía, conoce a los vecinos más singulares, y degusta los platos típicos de cada lugar.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261015083200 +0000" stop="20261015100000 +0000" channel="ElToroTV.es@SD">
     <title>El gato al agua</title>
@@ -2066,13 +2066,6 @@
   </programme>
   <programme start="20261016213000 +0000" stop="20261016220000 +0000" channel="TeleElx.es@SD">
     <title>El camp d'Elx</title>
-  </programme>
-  <programme start="20261015060100 +0000" stop="20261015083600 +0000" channel="Telemadrid.es@HD">
-    <title>El análisis: el diario de la noche</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261015083600 +0000" stop="20261015092900 +0000" channel="Telemadrid.es@HD">
     <title>Nos vemos en el bar</title>
@@ -2367,9 +2360,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261015080000 +0000" stop="20261015083300 +0000" channel="TVG2.es@SD">
-    <title>Polo Rego</title>
   </programme>
   <programme start="20261015083300 +0000" stop="20261015092600 +0000" channel="TVG2.es@SD">
     <title>Gastrópodos</title>
@@ -2707,8 +2697,8 @@
   <programme start="20261017142500 +0000" stop="20261017150500 +0000" channel="TVG2.es@SD">
     <title>Documental</title>
   </programme>
-  <programme start="20261015055000 +0000" stop="20261015083600 +0000" channel="SolMusica.es@SD">
-    <title>La hora de La 1: La hora de la actualidad</title>
+  <programme start="20261017150500 +0000" stop="20261017155000 +0000" channel="TVG2.es@SD">
+    <title>Soño contigo</title>
   </programme>
   <programme start="20261015083600 +0000" stop="20261015125500 +0000" channel="SolMusica.es@SD">
     <title>Mañaneros 360</title>
@@ -2841,20 +2831,6 @@
   </programme>
   <programme start="20261017135000 +0000" stop="20261017154500 +0000" channel="SolMusica.es@SD">
     <title>Directo al grano</title>
-  </programme>
-  <programme start="20261015080000 +0000" stop="20261015083000 +0000" channel="24h.es">
-    <title>TD Internacional 24 Horas</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015083000 +0000" stop="20261015090000 +0000" channel="24h.es">
-    <title>TD Internacional 24 Horas</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261015090000 +0000" stop="20261015093000 +0000" channel="24h.es">
     <title>TD Internacional 24 Horas</title>
@@ -3269,9 +3245,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015073000 +0000" stop="20261015090000 +0000" channel="CanalExtremadura.es">
-    <title>Conexión Extremadura</title>
-  </programme>
   <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="CanalExtremadura.es">
     <title>Atrápame si puedes Celebrity</title>
   </programme>
@@ -3488,6 +3461,9 @@
   <programme start="20261017132000 +0000" stop="20261017150000 +0000" channel="CanalExtremadura.es">
     <title>Manolo la Nuit</title>
   </programme>
+  <programme start="20261017150000 +0000" stop="20261017161500 +0000" channel="CanalExtremadura.es">
+    <title>Asesinato en el open de París</title>
+  </programme>
   <programme start="20261015070000 +0000" stop="20261015130000 +0000" channel="TVEStar.es@HD">
     <title>Chaîne espagnole pour le continent américain</title>
     <date>20261015</date>
@@ -3592,9 +3568,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261015060000 +0000" stop="20261015083000 +0000" channel="TV3CAT.es">
-    <title>Matins</title>
   </programme>
   <programme start="20261015083000 +0000" stop="20261015115500 +0000" channel="TV3CAT.es">
     <title>Tot es mou</title>
@@ -3736,12 +3709,6 @@
   </programme>
   <programme start="20261017133500 +0000" stop="20261017151500 +0000" channel="TV3CAT.es">
     <title>Armor</title>
-  </programme>
-  <programme start="20261015055000 +0000" stop="20261015083500 +0000" channel="24Horas.es@SD">
-    <title>La hora de La 1: La hora de la actualidad</title>
-  </programme>
-  <programme start="20261015083500 +0000" stop="20261015090000 +0000" channel="24Horas.es@SD">
-    <title>Diario 24</title>
   </programme>
   <programme start="20261015090000 +0000" stop="20261015120000 +0000" channel="24Horas.es@SD">
     <title>Diario 24</title>
@@ -3983,8 +3950,8 @@
   <programme start="20261017141900 +0000" stop="20261017150000 +0000" channel="24Horas.es@SD">
     <title>Objetivo Planeta</title>
   </programme>
-  <programme start="20261015060000 +0000" stop="20261015083000 +0000" channel="3CatInfo.es@SD">
-    <title>Matins</title>
+  <programme start="20261017150000 +0000" stop="20261017153000 +0000" channel="24Horas.es@SD">
+    <title>Noticias 24H</title>
   </programme>
   <programme start="20261015083000 +0000" stop="20261015100000 +0000" channel="3CatInfo.es@SD">
     <title>Notícies 3CatInfo</title>
@@ -4094,13 +4061,8 @@
   <programme start="20261017133200 +0000" stop="20261017143000 +0000" channel="3CatInfo.es@SD">
     <title>Telenotícies migdia</title>
   </programme>
-  <programme start="20261015080000 +0000" stop="20261015090000 +0000" channel="Historia.es@SD">
-    <title>Incroyable avec Dan Aykroyd</title>
-    <desc>Connaissez-vous cette discipline sportive bien particulière, et surtout étrange, qu'est celle du combat d'orteils? Saviez-vous qu'il existe une compétition visant à déterminer les animaux de compagnie les plus laids au monde? Et n'oublions pas que certains de nos classiques duels de cours d'école ont des origines particulièrement effrayantes... Le moment est venu d'explorer l'univers des jeux les</desc>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017143000 +0000" stop="20261017163000 +0000" channel="3CatInfo.es@SD">
+    <title>Notícies 3CatInfo</title>
   </programme>
   <programme start="20261015090000 +0000" stop="20261015100000 +0000" channel="Historia.es@SD">
     <title>La vie après nous</title>
@@ -4606,6 +4568,14 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261017150000 +0000" stop="20261017160000 +0000" channel="Historia.es@SD">
+    <title>La vie après nous</title>
+    <desc>Des gratte-ciels vertigineux en passant par des forteresses et camps militaires impénétrables, les structures les plus robustes ont été conçues pour résister aux catastrophes. Cependant, dans un monde sans présence humaine, même les plus puissantes constructions commencent à se fissurer. Alors que les intempéries et les forces de la nature révèlent les vulnérabilités de ces monuments du génie mode</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261015080000 +0000" stop="20261015100000 +0000" channel="Taroteame.es@SD">
     <title>Tarotéame</title>
   </programme>
@@ -4662,9 +4632,6 @@
   </programme>
   <programme start="20261016200000 +0000" stop="20261016220000 +0000" channel="Taroteame.es@SD">
     <title>Tarotéame</title>
-  </programme>
-  <programme start="20261015050000 +0000" stop="20261015083000 +0000" channel="NegociosTV.es@SD">
-    <title>Business Connection</title>
   </programme>
   <programme start="20261015083000 +0000" stop="20261015100000 +0000" channel="NegociosTV.es@SD">
     <title>Tech Talks Skyller Academy</title>
@@ -4764,5 +4731,8 @@
   </programme>
   <programme start="20261017140000 +0000" stop="20261017150000 +0000" channel="NegociosTV.es@SD">
     <title>Todo es geopolítica</title>
+  </programme>
+  <programme start="20261017150000 +0000" stop="20261017160000 +0000" channel="NegociosTV.es@SD">
+    <title>Rolling Stocks</title>
   </programme>
 </tv>
