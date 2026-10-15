@@ -1249,6 +1249,78 @@ def _classify_stream_body(channel: Channel, body: bytes, content_type: str) -> C
 # playlist between two deep checks.
 QUARANTINE_FILENAME = "quarantine.json"
 
+# Version of the rules a quarantine entry was recorded under. Version 2 is the
+# first that resolved a redirected master playlist's variants against the URL
+# that served it; a variant failure recorded before that (jmp2.uk and the
+# mjh.nz redirectors produced ~1,700 "variant HTTP 414/404" entries on
+# 2026-10-13) says nothing about the stream and is not carried forward.
+QUARANTINE_RULES = 2
+QUARANTINE_REASON_PREFIXES = ("playlist only, ", "variant HTTP ", "variant ", "HTTP ")
+# Requests that failed this way say "the host was busy", not "the channel died".
+TRANSIENT_HTTP_CODES = frozenset({408, 414, 425, 429})
+
+
+def failure_is_conclusive(code: int, error: str) -> bool:
+    """Whether a failed request proves the link is gone (vs. merely busy).
+
+    429/408/414/425, any 5xx and every timeout/reset/SSL error are transient:
+    the playlist above just answered, so the link stays published and is
+    re-checked next run. Any other HTTP error (404/410/403/401/400...) and a
+    DNS failure or refused connection are conclusive.
+    """
+    if code in TRANSIENT_HTTP_CODES or code >= 500:
+        return False
+    if code:
+        return True
+    return error in ("dns lookup failed", "connection refused")
+
+
+def quarantine_reason_is_conclusive(reason: str) -> bool:
+    """Whether a recorded quarantine reason still proves a link dead today.
+
+    Entries written before the variant/segment rules matched the playlist-URL
+    rules can hold reasons such as "playlist only, HTTP 429", "variant HTTP 503"
+    or "variant HTTP 414" (the last one came from resolving a redirected master
+    playlist's variants against the wrong URL). None of those is evidence that a
+    channel died, so they are not honoured.
+    """
+    text = (reason or "").strip()
+    for prefix in QUARANTINE_REASON_PREFIXES:
+        if text.startswith(prefix):
+            text = text[len(prefix):].strip()
+    if text.isdigit():
+        return failure_is_conclusive(int(text), "")
+    if text.startswith("HTTP ") and text[5:].isdigit():
+        return failure_is_conclusive(int(text[5:]), "")
+    if text in ("dns lookup failed", "connection refused"):
+        return True
+    transient_words = ("timeout", "timed out", "timeouterror", "remotedisconnected",
+                       "connectionreset", "connectionaborted", "incompleteread",
+                       "ssl", "checker error")
+    if any(word in text.lower() for word in transient_words):
+        return False
+    return True
+
+
+def quarantine_entry_proven_dead(entry: dict) -> bool:
+    """Whether a quarantine entry proves its link dead under the current rules.
+
+    Shared by the scraper (which reads the file), the deep check (which rewrites
+    it) and the cleanup (which compacts it) so the three can never disagree: a
+    pre-fix "variant ..." failure is dropped together with every reason the
+    current rules classify as transient.
+    """
+    reason = str((entry or {}).get("reason") or "")
+    if not quarantine_reason_is_conclusive(reason):
+        return False
+    try:
+        rules = int(entry.get("rules") or 1)
+    except (TypeError, ValueError):
+        rules = 1
+    if rules < QUARANTINE_RULES and reason.startswith("variant "):
+        return False
+    return True
+
 
 def load_channel_hunt_working(checks_dir: Path) -> tuple[dt.datetime | None, set[str]]:
     """Read links re-proven playable by a later deep channel-hunt run.
@@ -1287,7 +1359,13 @@ def load_channel_hunt_working(checks_dir: Path) -> tuple[dt.datetime | None, set
 
 
 def load_quarantine(path: Path, days: float) -> dict:
-    """Read active quarantine entries, dropping expired or later-revalidated links."""
+    """Read active quarantine entries, dropping expired or later-revalidated links.
+
+    Entries the current rules no longer count as dead (see
+    ``quarantine_entry_proven_dead``) are ignored as well: holding them back
+    would keep channels out of the player playlist on the strength of a failure
+    recorded by a bug, not of a dead stream.
+    """
     if days <= 0 or not path.exists():
         return {}
     try:
@@ -1304,6 +1382,8 @@ def load_quarantine(path: Path, days: float) -> dict:
     fresh = {}
     for url, entry in entries.items():
         if not isinstance(entry, dict) or not url:
+            continue
+        if not quarantine_entry_proven_dead(entry):
             continue
         last_seen = parse_utc_iso(str(entry.get("last_seen_utc") or ""))
         verified_after_quarantine = (

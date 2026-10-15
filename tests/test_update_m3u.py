@@ -162,6 +162,10 @@ class QuarantineTest(unittest.TestCase):
                 "http://main.example/nfl.m3u8": {
                     "reason": "variant HTTP 404",
                     "hits": 2,
+                    # Current-rules entry (rules=2): pre-fix "variant ..."
+                    # failures are ignored by the reader - they were recorded
+                    # when variants were resolved against the wrong URL.
+                    "rules": 2,
                     "last_seen_utc": __import__("datetime").datetime.now(
                         __import__("datetime").timezone.utc).isoformat(timespec="seconds"),
                 }}}), encoding="utf-8")

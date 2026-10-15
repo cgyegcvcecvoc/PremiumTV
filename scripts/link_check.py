@@ -300,7 +300,7 @@ def resolve_url(base: str, ref: str) -> str:
 # Answers that say "busy right now", not "gone": a rate limit, a gateway or
 # server error, a request the server refused to read. 414 belongs here because
 # it describes the URL this checker built, never the stream itself.
-TRANSIENT_HTTP_CODES = frozenset({408, 414, 425, 429})
+TRANSIENT_HTTP_CODES = scraper.TRANSIENT_HTTP_CODES
 
 
 def sub_request_status(code: int, error: str) -> str:
@@ -316,15 +316,11 @@ def sub_request_status(code: int, error: str) -> str:
 
     Any other HTTP error stays ``offline``: a 404/410 means the media is gone,
     and a 401/403 on the media behind an open playlist is a refusal the app
-    would get too, because it sends the same headers as this check.
+    would get too, because it sends the same headers as this check. The
+    split itself lives in ``scraper.failure_is_conclusive`` so the scraper's
+    quarantine reader classifies a recorded failure the same way.
     """
-    if code in TRANSIENT_HTTP_CODES or code >= 500:
-        return "unreachable"
-    if code:
-        return "offline"
-    if error in ("dns lookup failed", "connection refused"):
-        return "offline"
-    return "unreachable"
+    return "offline" if scraper.failure_is_conclusive(code, error) else "unreachable"
 
 
 def pick_variant(body_text: str, base_url: str) -> tuple[str, int]:
@@ -904,13 +900,12 @@ def write_reports(out_dir: Path, report: dict, suffix: str = "") -> list:
             checks_dir / f"LINK-CHECK{suffix.upper()}.md"]
 
 
-QUARANTINE_REASON_PREFIXES = ("playlist only, ", "variant HTTP ", "variant ", "HTTP ")
-# Version of the rules a quarantine entry was recorded under. Version 2 is the
-# first that resolved a redirected master playlist's variants against the URL
-# that served it; a variant failure recorded before that (jmp2.uk and the
-# mjh.nz redirectors produced ~1,700 "variant HTTP 414/404" entries on
-# 2026-10-13) says nothing about the stream and is not carried forward.
-QUARANTINE_RULES = 2
+QUARANTINE_REASON_PREFIXES = scraper.QUARANTINE_REASON_PREFIXES
+# Version of the rules a quarantine entry was recorded under (see
+# ``scraper.QUARANTINE_RULES``): variant failures recorded before the fix that
+# resolves a redirected master playlist's variants against the URL that served
+# it say nothing about the stream and are not carried forward.
+QUARANTINE_RULES = scraper.QUARANTINE_RULES
 
 
 def quarantine_reason_is_conclusive(reason: str) -> bool:
@@ -920,24 +915,10 @@ def quarantine_reason_is_conclusive(reason: str) -> bool:
     rules (see ``sub_request_status``) can hold reasons such as "playlist only,
     HTTP 429", "variant HTTP 503" or "variant HTTP 414" (the last one came from
     resolving a redirected master playlist's variants against the wrong URL).
-    None of those is evidence that a channel died, so they are not kept.
+    None of those is evidence that a channel died, so they are not kept. The
+    rules live in ``scraper`` so the scraper's reader applies the same ones.
     """
-    text = (reason or "").strip()
-    for prefix in QUARANTINE_REASON_PREFIXES:
-        if text.startswith(prefix):
-            text = text[len(prefix):].strip()
-    if text.isdigit():
-        return sub_request_status(int(text), "") == "offline"
-    if text.startswith("HTTP ") and text[5:].isdigit():
-        return sub_request_status(int(text[5:]), "") == "offline"
-    if text in ("dns lookup failed", "connection refused"):
-        return True
-    transient_words = ("timeout", "timed out", "timeouterror", "remotedisconnected",
-                       "connectionreset", "connectionaborted", "incompleteread",
-                       "ssl", "checker error")
-    if any(word in text.lower() for word in transient_words):
-        return False
-    return True
+    return scraper.quarantine_reason_is_conclusive(reason)
 
 
 def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float,
@@ -968,14 +949,7 @@ def update_quarantine(out_dir: Path, report: dict, patch: dict, days: float,
     for url, entry in entries.items():
         if not isinstance(entry, dict):
             continue
-        reason = str(entry.get("reason") or "")
-        if not quarantine_reason_is_conclusive(reason):
-            continue
-        try:
-            rules = int(entry.get("rules") or 1)
-        except (TypeError, ValueError):
-            rules = 1
-        if rules < QUARANTINE_RULES and reason.startswith("variant "):
+        if not scraper.quarantine_entry_proven_dead(entry):
             continue
         status = (rechecked.get(url) or {}).get("status")
         if status and status not in ("offline", "invalid"):
