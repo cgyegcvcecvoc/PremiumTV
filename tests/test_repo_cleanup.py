@@ -180,6 +180,7 @@ class CleanupTest(unittest.TestCase):
             "https://old/dead.m3u8": {"last_seen_utc": stale.isoformat(
                 timespec="seconds").replace("+00:00", "Z")},
             "https://nodate/dead.m3u8": {"reason": "no timestamp recorded"},
+            "https://stale-rules/dead.m3u8": {"reason": "variant HTTP 414"},
             "": {"reason": "malformed row"},
         }
         path = self.out / "checks" / "quarantine.json"
@@ -188,13 +189,15 @@ class CleanupTest(unittest.TestCase):
                         encoding="utf-8")
         report = run_cli(self.out, self.epg, "--apply")
         kept = json.loads(path.read_text(encoding="utf-8"))
-        # The expired one and the malformed one go; the undated one stays, because
-        # scraper.load_quarantine() honours it and so must not be un-quarantined
-        # here - it is reported instead.
+        # The expired one, the malformed one and the pre-fix "variant HTTP 414"
+        # go (the reader ignores all three); the undated one that still proves
+        # its link dead stays, because scraper.load_quarantine() honours it and
+        # so it must not be un-quarantined here - it is reported instead.
         self.assertEqual(sorted(kept["entries"]),
                          ["https://nodate/dead.m3u8", "https://ok/live.m3u8"])
         self.assertEqual(kept["count"], 2)
-        self.assertEqual(report["quarantine"]["dropped"], 2)
+        self.assertEqual(report["quarantine"]["dropped"], 3)
+        self.assertEqual(report["quarantine"]["stale_rules"], 1)
         self.assertEqual(report["quarantine"]["undated"], 1)
         self.assertTrue(any("no usable" in problem for problem in report["problems"]))
 

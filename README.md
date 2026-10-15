@@ -2,6 +2,8 @@
 
 A playlist builder for publicly listed TV streams. The scraper combines enabled sources, removes duplicate URLs, checks HTTP streams, and publishes the checked player playlist when the run passes its safety threshold.
 
+**➡️ [Download site](https://cgyegcvcecvoc.github.io/PremiumTV1/)** — app installers (Android TV / Fire TV / macOS), the best working M3U playlist for **your** country, and the change log ([Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml)) — live at [`cgyegcvcecvoc.github.io/PremiumTV1`](https://cgyegcvcecvoc.github.io/PremiumTV1/) from [`docs/`](docs/README.md).
+
 ## Change log
 
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.

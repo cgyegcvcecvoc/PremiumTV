@@ -50,6 +50,10 @@
     <display-name>DELTA TV (720p)</display-name>
     <icon src="https://i.ibb.co/Nt79gnx/319386123-3050873715211949-6691293256713061450-n-1024x752.png" />
   </channel>
+  <channel id="egnatiatv.gr">
+    <display-name>Egnatia</display-name>
+    <icon src="https://i.imgur.com/zuyYIca.png" />
+  </channel>
   <channel id="epsilon.gr">
     <display-name>Epsilon</display-name>
     <display-name>GR - α.Epsilon</display-name>
@@ -66,6 +70,10 @@
     <display-name>Euro</display-name>
     <icon src="https://i.imgur.com/mHCk05E.png" />
   </channel>
+  <channel id="hlektra.gr">
+    <display-name>Hlektra</display-name>
+    <icon src="https://i.imgur.com/LbogUPS.png" />
+  </channel>
   <channel id="ioniantv.gr">
     <display-name>Ionian Channel</display-name>
     <display-name>GR - Ionian TV</display-name>
@@ -79,10 +87,6 @@
   <channel id="KritiTV.gr@SD">
     <display-name>Kriti TV (1080p)</display-name>
     <icon src="https://i.imgur.com/X7jKwYl.png" />
-  </channel>
-  <channel id="lychnostv.gr">
-    <display-name>Lychnos</display-name>
-    <icon src="hhttps://i.imgur.com/JYSlBfY.png" />
   </channel>
   <channel id="NeaTV.gr">
     <display-name>NEA</display-name>
@@ -126,10 +130,6 @@
     <display-name>Thraki Net TV (1080p)</display-name>
     <icon src="https://i.imgur.com/3ITSnqT.png" />
   </channel>
-  <channel id="trttv.gr">
-    <display-name>TRT</display-name>
-    <icon src="https://i.imgur.com/g0jPOcC.png" />
-  </channel>
   <channel id="TV100.gr@SD">
     <display-name>TV 100 (720p)</display-name>
     <display-name>100%</display-name>
@@ -166,10 +166,6 @@
   <channel id="Channel8.gr@HD">
     <display-name>Channel 8 (Greece) (1080p)</display-name>
     <icon src="https://www.channel8.gr/img/channel8.png" />
-  </channel>
-  <channel id="EcclesiaTV.gr@SD">
-    <display-name>Ecclesia TV (Greece) (1080p)</display-name>
-    <icon src="https://i.imgur.com/QQSSMZx.png" />
   </channel>
   <channel id="ENAChannel.gr@SD">
     <display-name>ENA Channel (1080p)</display-name>
@@ -272,10 +268,6 @@
   <channel id="StarKentrikisElladas.gr@SD">
     <display-name>Star Kentrikis Elladas (1080p)</display-name>
     <icon src="https://i.imgur.com/ZBt6beo.png" />
-  </channel>
-  <channel id="TRT.gr@SD">
-    <display-name>TRT (Greece) (720p)</display-name>
-    <icon src="https://i.imgur.com/g0jPOcC.png" />
   </channel>
   <channel id="BarazaTV.gr@SD">
     <display-name>Baraza TV (1080p)</display-name>
@@ -628,6 +620,13 @@
   </programme>
   <programme start="20261017213000 +0000" stop="20261017221500 +0000" channel="AlphaTV.gr@SD">
     <title>Tromeroi Goneis</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017221500 +0000" stop="20261017230000 +0000" channel="AlphaTV.gr@SD">
+    <title>Oikogeneiakes Istories</title>
     <date>20261017</date>
     <audio>
       <stereo>stereo</stereo>
@@ -1048,26 +1047,8 @@
   <programme start="20261017200000 +0000" stop="20261017223000 +0000" channel="OneChannel.gr@HD">
     <title>Ελα και θα Δεις</title>
   </programme>
-  <programme start="20261015130000 +0000" stop="20261015163500 +0000" channel="TV100.gr@SD">
-    <title>Вечер с Владимиром Соловьевым</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015163500 +0000" stop="20261015170400 +0000" channel="TV100.gr@SD">
-    <title>Рассекреченная история</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261015170400 +0000" stop="20261015175900 +0000" channel="TV100.gr@SD">
-    <title>т/с Улицы разбитых фонарей. 5 с-н 19 с. – Крайние обстоятельства</title>
-    <date>20261015</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261017223000 +0000" stop="20261018013000 +0000" channel="OneChannel.gr@HD">
+    <title>One Review</title>
   </programme>
   <programme start="20261015180000 +0000" stop="20261015230000 +0000" channel="TV100.gr@SD">
     <title>最新！カウントダウン TOP50</title>
@@ -1510,9 +1491,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015153000 +0000" stop="20261015163000 +0000" channel="ENAChannel.gr@SD">
-    <title>Όλγα On Air</title>
-  </programme>
   <programme start="20261015163000 +0000" stop="20261015173000 +0000" channel="ENAChannel.gr@SD">
     <title>Ena Live News</title>
   </programme>
@@ -1632,6 +1610,9 @@
   </programme>
   <programme start="20261017213000 +0000" stop="20261017223000 +0000" channel="ENAChannel.gr@SD">
     <title>Δελτίο Ειδήσεων</title>
+  </programme>
+  <programme start="20261017223000 +0000" stop="20261017233000 +0000" channel="ENAChannel.gr@SD">
+    <title>GR Express</title>
   </programme>
   <programme start="20261015155500 +0000" stop="20261015165000 +0000" channel="KontraChannel.gr@SD">
     <title>Kontra View</title>

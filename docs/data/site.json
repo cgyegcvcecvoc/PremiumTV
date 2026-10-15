@@ -1,0 +1,2147 @@
+{
+ "generated_utc": "2026-10-15T22:56:22Z",
+ "repo": {
+  "owner": "cgyegcvcecvoc",
+  "name": "PremiumTV1",
+  "branch": "main",
+  "url": "https://github.com/cgyegcvcecvoc/PremiumTV1",
+  "raw_base": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main",
+  "pages_url": "https://cgyegcvcecvoc.github.io/PremiumTV1/",
+  "changelog_md": "https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md",
+  "changelog_doc": "https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk"
+ },
+ "stats": {
+  "confirmed_channels": 11705,
+  "unique_links": 16753,
+  "countries": 177,
+  "last_run_utc": "2026-10-15 22:27 UTC",
+  "last_run_label": "manual re-scrape (run-scrape.txt)"
+ },
+ "playlists": {
+  "main": {
+   "name": "PremiumTV.m3u",
+   "description": "Every confirmed-working channel, grouped by category.",
+   "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u",
+   "count": 11497
+  },
+  "priority": {
+   "name": "Priority_Channels.m3u",
+   "description": "Nickelodeon, NickToons, MeTV, MeTV Toons, NFL Network, NFL RedZone - verified links only.",
+   "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Priority_Channels.m3u",
+   "count": 18
+  },
+  "usa": {
+   "name": "categories/USA.m3u",
+   "description": "Every US channel in category order.",
+   "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/USA.m3u",
+   "count": 2707
+  },
+  "ae": {
+   "name": "AE_Channels.m3u",
+   "description": "A&E and A+E Networks channels, linear and FAST.",
+   "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/AE_Channels.m3u",
+   "count": 67
+  },
+  "guide": {
+   "name": "EPG/PremiumTV.xml",
+   "description": "Merged XMLTV guide for the whole library.",
+   "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml"
+  }
+ },
+ "apps": {
+  "channels": [
+   {
+    "id": "stable",
+    "tag": "v1.0.2",
+    "version": "1.0.2",
+    "channel": "Stable",
+    "badge": "Recommended",
+    "summary": "USA lineup + USA guide. The default download.",
+    "notes_file": "release-notes-1.0.2.md",
+    "min_os": "macOS 12 (Monterey) or later · Android 5.0+ (TV, tablet, phone)",
+    "published_at": "2026-10-14T21:30:26Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.2",
+    "notes_title": "PremiumTV 1.0.2 — Stable Maintenance Release",
+    "notes_summary": "The default release. Same USA lineup and USA guide as 1.0.1, with the parser, playback and channel-health fixes from the 2026-10-14 deep check, plus the Android build fix that had blocked the APK.",
+    "assets": [
+     {
+      "name": "PremiumTV-1.0.2-debug.apk",
+      "kind": "android",
+      "arch": "universal",
+      "size": 15767740,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.2/PremiumTV-1.0.2-debug.apk",
+      "sha256": "63afbcb09a6f1c810c9a0435922396d71fbc19c1c9f440721fc6628e85cc9767"
+     },
+     {
+      "name": "PremiumTV-1.0.2-mac-arm64.dmg",
+      "kind": "macos-dmg",
+      "arch": "arm64",
+      "size": 135437465,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.2/PremiumTV-1.0.2-mac-arm64.dmg",
+      "sha256": null
+     },
+     {
+      "name": "PremiumTV-1.0.2-mac-arm64.pkg",
+      "kind": "macos-pkg",
+      "arch": "arm64",
+      "size": 133423847,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.2/PremiumTV-1.0.2-mac-arm64.pkg",
+      "sha256": null
+     },
+     {
+      "name": "PremiumTV-1.0.2-mac-x64.dmg",
+      "kind": "macos-dmg",
+      "arch": "x64",
+      "size": 140917174,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.2/PremiumTV-1.0.2-mac-x64.dmg",
+      "sha256": null
+     },
+     {
+      "name": "PremiumTV-1.0.2-mac-x64.pkg",
+      "kind": "macos-pkg",
+      "arch": "x64",
+      "size": 139061446,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.2/PremiumTV-1.0.2-mac-x64.pkg",
+      "sha256": null
+     },
+     {
+      "name": "SHA256SUMS-android.txt",
+      "kind": "checksum",
+      "arch": "—",
+      "size": 92,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.2/SHA256SUMS-android.txt",
+      "sha256": null
+     },
+     {
+      "name": "SHA256SUMS-macos.txt",
+      "kind": "checksum",
+      "arch": "—",
+      "size": 380,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.2/SHA256SUMS-macos.txt",
+      "sha256": null
+     }
+    ]
+   },
+   {
+    "id": "preview",
+    "tag": "v1.1.1",
+    "version": "1.1.1",
+    "channel": "Preview",
+    "badge": "Pre-release",
+    "summary": "Global checked lineup + merged guide + cable-style Guide grid.",
+    "notes_file": "release-notes-1.1.1.md",
+    "min_os": "macOS 12 (Monterey) or later · Android 5.0+ (TV, tablet, phone)",
+    "published_at": "2026-10-15T21:17:01Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.1.1",
+    "notes_title": "PremiumTV 1.1.1 — Preview: the Cable-Style Guide",
+    "notes_summary": "**This is a pre-release, not the default.** Stable users stay on 1.0.2. Like 1.1.0, this build is published with GitHub's pre-release flag so it is never handed out as the recommended download.",
+    "assets": [
+     {
+      "name": "PremiumTV-1.1.1-debug.apk",
+      "kind": "android",
+      "arch": "universal",
+      "size": 18790492,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-debug.apk",
+      "sha256": null
+     },
+     {
+      "name": "PremiumTV-1.1.1-mac-arm64.dmg",
+      "kind": "macos-dmg",
+      "arch": "arm64",
+      "size": 137948586,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-arm64.dmg",
+      "sha256": null
+     },
+     {
+      "name": "PremiumTV-1.1.1-mac-arm64.pkg",
+      "kind": "macos-pkg",
+      "arch": "arm64",
+      "size": 135978188,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-arm64.pkg",
+      "sha256": null
+     },
+     {
+      "name": "PremiumTV-1.1.1-mac-x64.dmg",
+      "kind": "macos-dmg",
+      "arch": "x64",
+      "size": 143481990,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-x64.dmg",
+      "sha256": null
+     },
+     {
+      "name": "PremiumTV-1.1.1-mac-x64.pkg",
+      "kind": "macos-pkg",
+      "arch": "x64",
+      "size": 141623616,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-x64.pkg",
+      "sha256": null
+     },
+     {
+      "name": "SHA256SUMS-android.txt",
+      "kind": "checksum",
+      "arch": "—",
+      "size": 92,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/SHA256SUMS-android.txt",
+      "sha256": null
+     },
+     {
+      "name": "SHA256SUMS-macos.txt",
+      "kind": "checksum",
+      "arch": "—",
+      "size": 380,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/SHA256SUMS-macos.txt",
+      "sha256": null
+     }
+    ]
+   }
+  ],
+  "older": [
+   {
+    "tag": "v1.1.0",
+    "name": "PremiumTV 1.1.0 — Preview: Global Lineup + Cable Guide",
+    "published_at": "2026-10-14T22:12:09Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.1.0"
+   },
+   {
+    "tag": "v1.0.1",
+    "name": "PremiumTV 1.0.1 — Channels Back on Air",
+    "published_at": "2026-10-13T11:37:07Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.1"
+   },
+   {
+    "tag": "v1.0.0",
+    "name": "PremiumTV 1.0.0 — The Marquee Release",
+    "published_at": "2026-10-12T22:39:49Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0"
+   }
+  ]
+ },
+ "countries": [
+  {
+   "slug": "USA",
+   "name": "United States",
+   "iso2": "US",
+   "region": false,
+   "count": 2707,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/USA.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/USA.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "India",
+   "name": "India",
+   "iso2": "IN",
+   "region": false,
+   "count": 697,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/India.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/India.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Italy",
+   "name": "Italy",
+   "iso2": "IT",
+   "region": false,
+   "count": 485,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Italy.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Italy.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Russia",
+   "name": "Russia",
+   "iso2": "RU",
+   "region": false,
+   "count": 411,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Russia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Russia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Germany",
+   "name": "Germany",
+   "iso2": "DE",
+   "region": false,
+   "count": 388,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Germany.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Germany.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Sweden",
+   "name": "Sweden",
+   "iso2": "SE",
+   "region": false,
+   "count": 379,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sweden.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Sweden.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "UK",
+   "name": "United Kingdom",
+   "iso2": "GB",
+   "region": false,
+   "count": 243,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/UK.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/UK.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Poland",
+   "name": "Poland",
+   "iso2": "PL",
+   "region": false,
+   "count": 210,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Poland.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Poland.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "France",
+   "name": "France",
+   "iso2": "FR",
+   "region": false,
+   "count": 202,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/France.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/France.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Chile",
+   "name": "Chile",
+   "iso2": "CL",
+   "region": false,
+   "count": 196,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Chile.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Chile.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Dominican_Republic",
+   "name": "Dominican Republic",
+   "iso2": "DO",
+   "region": false,
+   "count": 191,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Dominican_Republic.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Dominican_Republic.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Spain",
+   "name": "Spain",
+   "iso2": "ES",
+   "region": false,
+   "count": 185,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Spain.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Spain.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Brazil",
+   "name": "Brazil",
+   "iso2": "BR",
+   "region": false,
+   "count": 176,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Brazil.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Brazil.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Ukraine",
+   "name": "Ukraine",
+   "iso2": "UA",
+   "region": false,
+   "count": 173,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ukraine.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ukraine.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Argentina",
+   "name": "Argentina",
+   "iso2": "AR",
+   "region": false,
+   "count": 162,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Argentina.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Argentina.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Canada",
+   "name": "Canada",
+   "iso2": "CA",
+   "region": false,
+   "count": 147,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Canada.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Canada.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Peru",
+   "name": "Peru",
+   "iso2": "PE",
+   "region": false,
+   "count": 147,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Peru.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Peru.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Netherlands",
+   "name": "Netherlands",
+   "iso2": "NL",
+   "region": false,
+   "count": 145,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Netherlands.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Netherlands.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Romania",
+   "name": "Romania",
+   "iso2": "RO",
+   "region": false,
+   "count": 136,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Romania.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Romania.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Turkey",
+   "name": "Turkey",
+   "iso2": "TR",
+   "region": false,
+   "count": 132,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Turkey.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Turkey.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Mexico",
+   "name": "Mexico",
+   "iso2": "MX",
+   "region": false,
+   "count": 122,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mexico.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Mexico.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Colombia",
+   "name": "Colombia",
+   "iso2": "CO",
+   "region": false,
+   "count": 106,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Colombia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Colombia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Indonesia",
+   "name": "Indonesia",
+   "iso2": "ID",
+   "region": false,
+   "count": 105,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Indonesia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Indonesia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Greece",
+   "name": "Greece",
+   "iso2": "GR",
+   "region": false,
+   "count": 83,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Greece.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Greece.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Mongolia",
+   "name": "Mongolia",
+   "iso2": "MN",
+   "region": false,
+   "count": 77,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mongolia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Mongolia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "South_Korea",
+   "name": "South Korea",
+   "iso2": "KR",
+   "region": false,
+   "count": 69,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/South_Korea.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/South_Korea.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Thailand",
+   "name": "Thailand",
+   "iso2": "TH",
+   "region": false,
+   "count": 66,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Thailand.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Thailand.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Czechia",
+   "name": "Czechia",
+   "iso2": "CZ",
+   "region": false,
+   "count": 64,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Czechia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Czechia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "China",
+   "name": "China",
+   "iso2": "CN",
+   "region": false,
+   "count": 61,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/China.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/China.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Costa_Rica",
+   "name": "Costa Rica",
+   "iso2": "CR",
+   "region": false,
+   "count": 58,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Costa_Rica.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Costa_Rica.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Vietnam",
+   "name": "Vietnam",
+   "iso2": "VN",
+   "region": false,
+   "count": 57,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Vietnam.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Vietnam.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Iran",
+   "name": "Iran",
+   "iso2": "IR",
+   "region": false,
+   "count": 56,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Iran.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Iran.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Paraguay",
+   "name": "Paraguay",
+   "iso2": "PY",
+   "region": false,
+   "count": 56,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Paraguay.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Paraguay.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Ecuador",
+   "name": "Ecuador",
+   "iso2": "EC",
+   "region": false,
+   "count": 54,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ecuador.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ecuador.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Hungary",
+   "name": "Hungary",
+   "iso2": "HU",
+   "region": false,
+   "count": 54,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Hungary.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Hungary.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Iraq",
+   "name": "Iraq",
+   "iso2": "IQ",
+   "region": false,
+   "count": 54,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Iraq.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Iraq.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Pakistan",
+   "name": "Pakistan",
+   "iso2": "PK",
+   "region": false,
+   "count": 54,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Pakistan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Pakistan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Venezuela",
+   "name": "Venezuela",
+   "iso2": "VE",
+   "region": false,
+   "count": 54,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Venezuela.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Venezuela.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Bolivia",
+   "name": "Bolivia",
+   "iso2": "BO",
+   "region": false,
+   "count": 52,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bolivia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bolivia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Saudi_Arabia",
+   "name": "Saudi Arabia",
+   "iso2": "SA",
+   "region": false,
+   "count": 52,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Saudi_Arabia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Saudi_Arabia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Slovakia",
+   "name": "Slovakia",
+   "iso2": "SK",
+   "region": false,
+   "count": 51,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Slovakia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Slovakia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Honduras",
+   "name": "Honduras",
+   "iso2": "HN",
+   "region": false,
+   "count": 47,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Honduras.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Honduras.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Portugal",
+   "name": "Portugal",
+   "iso2": "PT",
+   "region": false,
+   "count": 43,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Portugal.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Portugal.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "United_Arab_Emirates",
+   "name": "United Arab Emirates",
+   "iso2": "AE",
+   "region": false,
+   "count": 42,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/United_Arab_Emirates.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/United_Arab_Emirates.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Austria",
+   "name": "Austria",
+   "iso2": "AT",
+   "region": false,
+   "count": 38,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Austria.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Austria.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Kazakhstan",
+   "name": "Kazakhstan",
+   "iso2": "KZ",
+   "region": false,
+   "count": 38,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kazakhstan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Kazakhstan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Qatar",
+   "name": "Qatar",
+   "iso2": "QA",
+   "region": false,
+   "count": 36,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Qatar.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Qatar.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Uzbekistan",
+   "name": "Uzbekistan",
+   "iso2": "UZ",
+   "region": false,
+   "count": 34,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Uzbekistan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Uzbekistan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Guatemala",
+   "name": "Guatemala",
+   "iso2": "GT",
+   "region": false,
+   "count": 32,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guatemala.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Guatemala.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Israel",
+   "name": "Israel",
+   "iso2": "IL",
+   "region": false,
+   "count": 32,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Israel.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Israel.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Australia",
+   "name": "Australia",
+   "iso2": "AU",
+   "region": false,
+   "count": 31,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Australia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Australia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Nigeria",
+   "name": "Nigeria",
+   "iso2": "NG",
+   "region": false,
+   "count": 30,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Nigeria.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Nigeria.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Belarus",
+   "name": "Belarus",
+   "iso2": "BY",
+   "region": false,
+   "count": 29,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Belarus.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Belarus.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Lebanon",
+   "name": "Lebanon",
+   "iso2": "LB",
+   "region": false,
+   "count": 27,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Lebanon.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Lebanon.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Belgium",
+   "name": "Belgium",
+   "iso2": "BE",
+   "region": false,
+   "count": 26,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Belgium.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Belgium.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Bulgaria",
+   "name": "Bulgaria",
+   "iso2": "BG",
+   "region": false,
+   "count": 26,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bulgaria.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bulgaria.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Singapore",
+   "name": "Singapore",
+   "iso2": "SG",
+   "region": false,
+   "count": 25,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Singapore.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Singapore.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Switzerland",
+   "name": "Switzerland",
+   "iso2": "CH",
+   "region": false,
+   "count": 25,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Switzerland.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Switzerland.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Finland",
+   "name": "Finland",
+   "iso2": "FI",
+   "region": false,
+   "count": 24,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Finland.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Finland.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Puerto_Rico",
+   "name": "Puerto Rico",
+   "iso2": "PR",
+   "region": false,
+   "count": 24,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Puerto_Rico.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Puerto_Rico.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "El_Salvador",
+   "name": "El Salvador",
+   "iso2": "SV",
+   "region": false,
+   "count": 23,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/El_Salvador.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/El_Salvador.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Estonia",
+   "name": "Estonia",
+   "iso2": "EE",
+   "region": false,
+   "count": 21,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Estonia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Estonia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Japan",
+   "name": "Japan",
+   "iso2": "JP",
+   "region": false,
+   "count": 20,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Japan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Japan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Moldova",
+   "name": "Moldova",
+   "iso2": "MD",
+   "region": false,
+   "count": 20,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Moldova.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Moldova.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "North_Macedonia",
+   "name": "North Macedonia",
+   "iso2": "MK",
+   "region": false,
+   "count": 20,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/North_Macedonia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/North_Macedonia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Serbia",
+   "name": "Serbia",
+   "iso2": "RS",
+   "region": false,
+   "count": 20,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Serbia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Serbia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Ireland",
+   "name": "Ireland",
+   "iso2": "IE",
+   "region": false,
+   "count": 19,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ireland.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ireland.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Bangladesh",
+   "name": "Bangladesh",
+   "iso2": "BD",
+   "region": false,
+   "count": 18,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bangladesh.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bangladesh.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Cyprus",
+   "name": "Cyprus",
+   "iso2": "CY",
+   "region": false,
+   "count": 18,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cyprus.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cyprus.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Latvia",
+   "name": "Latvia",
+   "iso2": "LV",
+   "region": false,
+   "count": 17,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Latvia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Latvia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Lithuania",
+   "name": "Lithuania",
+   "iso2": "LT",
+   "region": false,
+   "count": 17,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Lithuania.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Lithuania.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Palestine",
+   "name": "Palestine",
+   "iso2": "PS",
+   "region": false,
+   "count": 17,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Palestine.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Palestine.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Albania",
+   "name": "Albania",
+   "iso2": "AL",
+   "region": false,
+   "count": 16,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Albania.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Albania.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Jordan",
+   "name": "Jordan",
+   "iso2": "JO",
+   "region": false,
+   "count": 16,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Jordan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Jordan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Turkmenistan",
+   "name": "Turkmenistan",
+   "iso2": "TM",
+   "region": false,
+   "count": 16,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Turkmenistan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Turkmenistan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Panama",
+   "name": "Panama",
+   "iso2": "PA",
+   "region": false,
+   "count": 15,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Panama.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Panama.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "South_Africa",
+   "name": "South Africa",
+   "iso2": "ZA",
+   "region": false,
+   "count": 15,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/South_Africa.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/South_Africa.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Taiwan",
+   "name": "Taiwan",
+   "iso2": "TW",
+   "region": false,
+   "count": 15,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Taiwan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Taiwan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Egypt",
+   "name": "Egypt",
+   "iso2": "EG",
+   "region": false,
+   "count": 14,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Egypt.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Egypt.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Georgia",
+   "name": "Georgia",
+   "iso2": "GE",
+   "region": false,
+   "count": 14,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Georgia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Georgia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Cambodia",
+   "name": "Cambodia",
+   "iso2": "KH",
+   "region": false,
+   "count": 13,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cambodia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cambodia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Kuwait",
+   "name": "Kuwait",
+   "iso2": "KW",
+   "region": false,
+   "count": 13,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kuwait.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Kuwait.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Azerbaijan",
+   "name": "Azerbaijan",
+   "iso2": "AZ",
+   "region": false,
+   "count": 12,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Azerbaijan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Azerbaijan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Ivory_Coast",
+   "name": "Ivory Coast",
+   "iso2": "CI",
+   "region": false,
+   "count": 12,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ivory_Coast.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ivory_Coast.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Syria",
+   "name": "Syria",
+   "iso2": "SY",
+   "region": false,
+   "count": 12,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Syria.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Syria.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Cameroon",
+   "name": "Cameroon",
+   "iso2": "CM",
+   "region": false,
+   "count": 11,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cameroon.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cameroon.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Croatia",
+   "name": "Croatia",
+   "iso2": "HR",
+   "region": false,
+   "count": 11,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Croatia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Croatia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Luxembourg",
+   "name": "Luxembourg",
+   "iso2": "LU",
+   "region": false,
+   "count": 11,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Luxembourg.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Luxembourg.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Armenia",
+   "name": "Armenia",
+   "iso2": "AM",
+   "region": false,
+   "count": 10,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Armenia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Armenia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Rwanda",
+   "name": "Rwanda",
+   "iso2": "RW",
+   "region": false,
+   "count": 10,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Rwanda.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Rwanda.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Aruba",
+   "name": "Aruba",
+   "iso2": "AW",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Aruba.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Aruba.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Guyana",
+   "name": "Guyana",
+   "iso2": "GY",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guyana.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Guyana.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Hong_Kong",
+   "name": "Hong Kong",
+   "iso2": "HK",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Hong_Kong.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Hong_Kong.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Kosovo",
+   "name": "Kosovo",
+   "iso2": "XK",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kosovo.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Kosovo.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Laos",
+   "name": "Laos",
+   "iso2": "LA",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Laos.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Laos.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Morocco",
+   "name": "Morocco",
+   "iso2": "MA",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Morocco.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Morocco.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Philippines",
+   "name": "Philippines",
+   "iso2": "PH",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Philippines.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Philippines.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Uganda",
+   "name": "Uganda",
+   "iso2": "UG",
+   "region": false,
+   "count": 9,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Uganda.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Uganda.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Afghanistan",
+   "name": "Afghanistan",
+   "iso2": "AF",
+   "region": false,
+   "count": 8,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Afghanistan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Afghanistan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Bosnia_and_Herzegovina",
+   "name": "Bosnia & Herzegovina",
+   "iso2": "BA",
+   "region": false,
+   "count": 8,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bosnia_and_Herzegovina.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bosnia_and_Herzegovina.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Haiti",
+   "name": "Haiti",
+   "iso2": "HT",
+   "region": false,
+   "count": 8,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Haiti.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Haiti.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Denmark",
+   "name": "Denmark",
+   "iso2": "DK",
+   "region": false,
+   "count": 7,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Denmark.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Denmark.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Myanmar",
+   "name": "Myanmar",
+   "iso2": "MM",
+   "region": false,
+   "count": 7,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Myanmar.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Myanmar.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "New_Zealand",
+   "name": "New Zealand",
+   "iso2": "NZ",
+   "region": false,
+   "count": 7,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/New_Zealand.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/New_Zealand.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Slovenia",
+   "name": "Slovenia",
+   "iso2": "SI",
+   "region": false,
+   "count": 7,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Slovenia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Slovenia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Sri_Lanka",
+   "name": "Sri Lanka",
+   "iso2": "LK",
+   "region": false,
+   "count": 7,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sri_Lanka.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Sri_Lanka.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Ghana",
+   "name": "Ghana",
+   "iso2": "GH",
+   "region": false,
+   "count": 6,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ghana.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ghana.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Nepal",
+   "name": "Nepal",
+   "iso2": "NP",
+   "region": false,
+   "count": 6,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Nepal.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Nepal.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Nicaragua",
+   "name": "Nicaragua",
+   "iso2": "NI",
+   "region": false,
+   "count": 6,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Nicaragua.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Nicaragua.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Oman",
+   "name": "Oman",
+   "iso2": "OM",
+   "region": false,
+   "count": 6,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Oman.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Oman.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Bahrain",
+   "name": "Bahrain",
+   "iso2": "BH",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bahrain.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bahrain.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Guadeloupe",
+   "name": "Guadeloupe",
+   "iso2": "GP",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guadeloupe.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Guadeloupe.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Kenya",
+   "name": "Kenya",
+   "iso2": "KE",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kenya.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Kenya.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Martinique",
+   "name": "Martinique",
+   "iso2": "MQ",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Martinique.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Martinique.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Norway",
+   "name": "Norway",
+   "iso2": "NO",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Norway.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Norway.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Senegal",
+   "name": "Senegal",
+   "iso2": "SN",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Senegal.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Senegal.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Sint_Maarten",
+   "name": "Sint Maarten",
+   "iso2": "SX",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sint_Maarten.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Sint_Maarten.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Tanzania",
+   "name": "Tanzania",
+   "iso2": "TZ",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Tanzania.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Tanzania.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Trinidad_and_Tobago",
+   "name": "Trinidad & Tobago",
+   "iso2": "TT",
+   "region": false,
+   "count": 5,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Trinidad_and_Tobago.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Trinidad_and_Tobago.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Benin",
+   "name": "Benin",
+   "iso2": "BJ",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Benin.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Benin.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Cuba",
+   "name": "Cuba",
+   "iso2": "CU",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cuba.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cuba.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "DR_Congo",
+   "name": "DR Congo",
+   "iso2": "CD",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/DR_Congo.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/DR_Congo.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Iceland",
+   "name": "Iceland",
+   "iso2": "IS",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Iceland.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Iceland.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Jamaica",
+   "name": "Jamaica",
+   "iso2": "JM",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Jamaica.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Jamaica.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Libya",
+   "name": "Libya",
+   "iso2": "LY",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Libya.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Libya.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Maldives",
+   "name": "Maldives",
+   "iso2": "MV",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Maldives.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Maldives.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "North_Korea",
+   "name": "North Korea",
+   "iso2": "KP",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/North_Korea.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/North_Korea.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Somalia",
+   "name": "Somalia",
+   "iso2": "SO",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Somalia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Somalia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Tunisia",
+   "name": "Tunisia",
+   "iso2": "TN",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Tunisia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Tunisia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Uruguay",
+   "name": "Uruguay",
+   "iso2": "UY",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Uruguay.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Uruguay.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Yemen",
+   "name": "Yemen",
+   "iso2": "YE",
+   "region": false,
+   "count": 4,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Yemen.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Yemen.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Algeria",
+   "name": "Algeria",
+   "iso2": "DZ",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Algeria.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Algeria.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Angola",
+   "name": "Angola",
+   "iso2": "AO",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Angola.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Angola.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Caribbean_Netherlands",
+   "name": "Caribbean Netherlands",
+   "iso2": "BQ",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Caribbean_Netherlands.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Caribbean_Netherlands.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Curacao",
+   "name": "Curacao",
+   "iso2": "CW",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Curacao.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Curacao.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Guinea",
+   "name": "Guinea",
+   "iso2": "GN",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guinea.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Guinea.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Kyrgyzstan",
+   "name": "Kyrgyzstan",
+   "iso2": "KG",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Kyrgyzstan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Kyrgyzstan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Malta",
+   "name": "Malta",
+   "iso2": "MT",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Malta.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Malta.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Monaco",
+   "name": "Monaco",
+   "iso2": "MC",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Monaco.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Monaco.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Montenegro",
+   "name": "Montenegro",
+   "iso2": "ME",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Montenegro.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Montenegro.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Mozambique",
+   "name": "Mozambique",
+   "iso2": "MZ",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mozambique.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Mozambique.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Republic_of_the_Congo",
+   "name": "Republic of the Congo",
+   "iso2": "CG",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Republic_of_the_Congo.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Republic_of_the_Congo.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Saint_Kitts_and_Nevis",
+   "name": "St Kitts & Nevis",
+   "iso2": "KN",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Saint_Kitts_and_Nevis.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Saint_Kitts_and_Nevis.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Western_Sahara",
+   "name": "Western Sahara",
+   "iso2": "EH",
+   "region": false,
+   "count": 3,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Western_Sahara.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Western_Sahara.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Bahamas",
+   "name": "Bahamas",
+   "iso2": "BS",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bahamas.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bahamas.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "British_Virgin_Islands",
+   "name": "British Virgin Islands",
+   "iso2": "VG",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/British_Virgin_Islands.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/British_Virgin_Islands.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Burkina_Faso",
+   "name": "Burkina Faso",
+   "iso2": "BF",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Burkina_Faso.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Burkina_Faso.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Burundi",
+   "name": "Burundi",
+   "iso2": "BI",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Burundi.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Burundi.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Faroe_Islands",
+   "name": "Faroe Islands",
+   "iso2": "FO",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Faroe_Islands.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Faroe_Islands.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Mali",
+   "name": "Mali",
+   "iso2": "ML",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Mali.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Mali.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Niger",
+   "name": "Niger",
+   "iso2": "NE",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Niger.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Niger.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Saint_Lucia",
+   "name": "St Lucia",
+   "iso2": "LC",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Saint_Lucia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Saint_Lucia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Sudan",
+   "name": "Sudan",
+   "iso2": "SD",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sudan.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Sudan.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Suriname",
+   "name": "Suriname",
+   "iso2": "SR",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Suriname.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Suriname.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Togo",
+   "name": "Togo",
+   "iso2": "TG",
+   "region": false,
+   "count": 2,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Togo.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Togo.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Andorra",
+   "name": "Andorra",
+   "iso2": "AD",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Andorra.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Andorra.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Antigua_and_Barbuda",
+   "name": "Antigua & Barbuda",
+   "iso2": "AG",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Antigua_and_Barbuda.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Antigua_and_Barbuda.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Barbados",
+   "name": "Barbados",
+   "iso2": "BB",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Barbados.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Barbados.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Belize",
+   "name": "Belize",
+   "iso2": "BZ",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Belize.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Belize.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Cape_Verde",
+   "name": "Cape Verde",
+   "iso2": "CV",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Cape_Verde.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Cape_Verde.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Chad",
+   "name": "Chad",
+   "iso2": "TD",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Chad.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Chad.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Equatorial_Guinea",
+   "name": "Equatorial Guinea",
+   "iso2": "GQ",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Equatorial_Guinea.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Equatorial_Guinea.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Eritrea",
+   "name": "Eritrea",
+   "iso2": "ER",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Eritrea.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Eritrea.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Ethiopia",
+   "name": "Ethiopia",
+   "iso2": "ET",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ethiopia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ethiopia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "French_Guiana",
+   "name": "French Guiana",
+   "iso2": "GF",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/French_Guiana.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/French_Guiana.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Gambia",
+   "name": "Gambia",
+   "iso2": "GM",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Gambia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Gambia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Guam",
+   "name": "Guam",
+   "iso2": "GU",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Guam.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Guam.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Malaysia",
+   "name": "Malaysia",
+   "iso2": "MY",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Malaysia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Malaysia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Namibia",
+   "name": "Namibia",
+   "iso2": "NA",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Namibia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Namibia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Papua_New_Guinea",
+   "name": "Papua New Guinea",
+   "iso2": "PG",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Papua_New_Guinea.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Papua_New_Guinea.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Sierra_Leone",
+   "name": "Sierra Leone",
+   "iso2": "SL",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Sierra_Leone.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Sierra_Leone.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Zimbabwe",
+   "name": "Zimbabwe",
+   "iso2": "ZW",
+   "region": false,
+   "count": 1,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Zimbabwe.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Zimbabwe.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "International",
+   "name": "International",
+   "iso2": null,
+   "region": true,
+   "count": 1131,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/International.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/International.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Latin_America",
+   "name": "Latin America",
+   "iso2": null,
+   "region": true,
+   "count": 33,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Latin_America.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Latin_America.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Arab_World",
+   "name": "Arab World",
+   "iso2": null,
+   "region": true,
+   "count": 15,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Arab_World.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Arab_World.xml",
+   "epg_present": true
+  }
+ ],
+ "changelog": [
+  {
+   "id": "2026-10-15",
+   "date": "2026-10-15",
+   "title": "1,999 missing channels restored + public download site",
+   "body_md": "- **The missing channels are cleared out and fixed.** The 2026-10-13 deep\n  check resolved HLS variants against the redirector's M3U URL instead of the\n  URL that finally served the playlist, so redirector channels (1,344 `jmp2.uk`\n  Pluto links plus ~655 others) were quarantined as `variant HTTP 414/404` and\n  removed. The checker's writer was fixed that day, but\n  `scraper.load_quarantine()` never applied the same rules, so every scrape\n  still marked those links dead even when its own check found them alive —\n  they could not come back.\n  - `scraper.py` now owns the shared rules (`quarantine_reason_is_conclusive`,\n    `quarantine_entry_proven_dead`) used by the scraper's reader, the deep\n    check's writer and the cleanup's compactor, so the three can never disagree.\n  - `playlists/checks/quarantine.json` was compacted under those rules\n    (2,682 → 683 proven-dead entries). The 1,999 released links returned to a\n    checked re-scrape, which re-verified each one over the network:\n    **confirmed-working channels went 9,822 → 11,705 (+1,883 restored)**, dead\n    links 3,995 → 2,060, and A&E channels 58 → 67. The deep check that\n    followed then re-probed all 11,705 published links with the fixed\n    HLS rules — **97.5% answered with playable media** — and patched the 416\n    confirmed-dead entries out. Three channels in the briefly-revived Bermuda\n    and San Marino playlists were confirmed truly gone (their variant\n    playlists 403/404), so those two single-channel country files were cleared\n    out again; 175 countries remain. Links that are genuinely gone are\n    re-quarantined under the current rules and stay out.\n- **New: the public download site** (`docs/`, GitHub Pages at\n  [`cgyegcvcecvoc.github.io/PremiumTV1`](https://cgyegcvcecvoc.github.io/PremiumTV1/)):\n  - **Apps**: every release asset for the Stable (1.0.2) and Preview (1.1.1)\n    channels — Android APK, macOS `.dmg`/`.pkg` for Intel and Apple Silicon —\n    with sizes, SHA-256 checksums, install help for Android TV/Fire TV and\n    macOS, and links to older releases.\n  - **Best working M3U for your country**: the page detects the visitor's\n    country in the browser and hands them that country's confirmed-working\n    playlist (copy URL, download `.m3u`, QR code, that country's guide URL),\n    plus a custom bundle builder that merges any set of country playlists into\n    one `.m3u`. All 175 country playlists are listed with live channel counts.\n  - **Change log**: the timeline on the page, the Atom feed\n    (`data/feed.xml`) to subscribe to, and a live re-fetch of\n    `docs/data/changelog.json` so new entries appear without redeploying.\n  - Deployed by `.github/workflows/pages.yml`, which also enables Pages for\n    the repository automatically on its first run. Site data is regenerated\n    offline by `python scripts/build_site_data.py`.\n- **\"Run it now\" switches fire again.** The `playlists/logs/run-*.txt` push\n  switches (`run-scrape.txt`, `run-deep-check.txt`, `run-epg-build.txt`,\n  `run-cleanup.txt`) never triggered outside of `workflow_dispatch`: a push\n  block with only `tags-ignore` and `paths` does not evaluate the paths filter\n  on branch pushes. All four workflows now declare `branches: [\"**\"]` like the\n  build workflows, which demonstrably fire.\n- **Change-log discipline:** this entry is the first under the policy above —\n  every future request is recorded here, and the site/feed are regenerated with\n  it.",
+   "bullets": [
+    "**The missing channels are cleared out and fixed.** The 2026-10-13 deep",
+    "**New: the public download site** (`docs/`, GitHub Pages at",
+    "**\"Run it now\" switches fire again.** The `playlists/logs/run-*.txt` push",
+    "**Change-log discipline:** this entry is the first under the policy above —"
+   ]
+  },
+  {
+   "id": "2026-10-15",
+   "date": "2026-10-15",
+   "title": "PremiumTV 1.1.1 pre-release: the Guide tab is a cable-style grid",
+   "body_md": "- **The cable guide is real and visible now.** In the 1.1.1 preview the Guide\n  tab of both apps *is* the cable-style grid: channels down the left (number,\n  logo, name, category), each channel's shows to the right sized by running\n  time, half-hour times across the top for eight hours, a red NOW line, the\n  live show outlined, category headings, and a detail strip for the\n  highlighted show. Stable 1.0.2 keeps the list-style Guide.\n- **Why 1.1.0 did not show it:** its grid was a separate Cable tab gated on the\n  *loaded* library's metadata, and an in-place upgrade kept the 1.0.x USA\n  download in the cache, which loads before the bundle — so the app showed the\n  old lineup and no Cable tab. Both apps now discard a downloaded copy written\n  by another version or library scope (with its validators), and the preview\n  features always come from the app's own bundle.\n- **TV remote:** the grid is one focus stop with a cable-box highlight — up/down\n  keep the time column, left/right step one show, OK plays, Back from the\n  player returns to the same show, up from the first row returns to the tabs,\n  CH+/CH− page, and the remote's GUIDE key opens the guide. Mac: hover and\n  arrow keys, sidebar categories filter the grid.\n- **Android refresh** parses the guide off the HTTP stream (the 38 MB global XML\n  no longer becomes a ~200 MB String), keeps the published category order,\n  and no longer blames a \"private repository\" (the repository is public).\n- **Release gating:** `v1.1.1` builds only as a GitHub pre-release (Android\n  `versionCode 9`, global scope); a stable-tagged `v1.1.1` is rejected. The\n  emulator gate opens the Guide, checks times/channels/shows, drives the D-pad,\n  OK and Back, and saves screenshots; the Mac gate opens the Guide grid.\n\n### Maintenance (same day)\n\n- **Deep link check removed working channels.** HLS variants and segments were\n  resolved against the M3U link instead of the URL that finally served the\n  playlist, so redirectors (jmp2.uk and the mjh.nz hosts) failed every variant\n  with 414/404: the 2026-10-13 nightly run removed ~1,700 entries\n  (`PremiumTV.m3u` 10,917 → 9,759) and quarantined them. Fixed, and the\n  quarantine drops entries recorded under the old rules.\n- **\"Deep link and guide check\" failed on 10-14 and 10-15.** A CDN answering 429\n  to segment probes made working links \"offline\"; `verify_playlists --strict`\n  then failed because they were still published. Rate limits, 5xx and timeouts\n  one level below a working playlist are now \"unreachable\" (kept), matching the\n  playlist-URL rules.\n- **\"Biweekly deep cleanup\" failed on 10-15.** `--report-suffix \"-archives\"` was\n  parsed by argparse as an option (exit code 2), so the archive sweep never ran;\n  the workflow now passes `--report-suffix=-archives`.\n- All workflows moved to Node 24 action majors (`checkout@v5`,\n  `setup-python@v6`, `setup-node@v5`, `upload-artifact@v6`, `setup-gradle@v5`);\n  the scheduled data jobs pin `ubuntu-24.04` ahead of the 2026-10-19\n  `ubuntu-latest` → Ubuntu 26.04 move.\n- Tests: 361 Python (12 new) and 42 macOS Node (4 new), plus new JVM/Robolectric\n  Android tests for the guide model, stale caches and streaming XMLTV parsing.",
+   "bullets": [
+    "**The cable guide is real and visible now.** In the 1.1.1 preview the Guide",
+    "**Why 1.1.0 did not show it:** its grid was a separate Cable tab gated on the",
+    "**TV remote:** the grid is one focus stop with a cable-box highlight — up/down",
+    "**Android refresh** parses the guide off the HTTP stream (the 38 MB global XML",
+    "**Release gating:** `v1.1.1` builds only as a GitHub pre-release (Android",
+    "**Deep link check removed working channels.** HLS variants and segments were",
+    "**\"Deep link and guide check\" failed on 10-14 and 10-15.** A CDN answering 429",
+    "**\"Biweekly deep cleanup\" failed on 10-15.** `--report-suffix \"-archives\"` was"
+   ]
+  },
+  {
+   "id": "2026-10-14",
+   "date": "2026-10-14",
+   "title": "PremiumTV 1.0.2 released, 1.1.0 published as a pre-release",
+   "body_md": "- **1.0.2 is the published stable release.** It is the USA lineup + USA guide\n  with Android `versionCode 7`, and it carries the parser, playback and\n  channel-health fixes prepared earlier the same day (comma-safe `#EXTINF`\n  names, strict XMLTV timestamps and repaired non-positive durations, exact\n  id+URL backup-stream selection on Mac, correct proxy-session release, newer\n  confirmed media probes superseding older quarantine entries).\n- **1.1.0 is published as a GitHub pre-release.** Global checked lineup\n  (9,788 channels, 89 categories) plus the merged guide (105,319 programmes\n  across 1,650 channels) and the optional cable-style guide, which stays gated\n  on `preview_features: [\"cable-guide\"]` so the stable build never shows it.\n  Android `versionCode 8`. It must keep the pre-release flag and never becomes\n  the default.\n- **Android build fix.** The merged preview code called `initialsOf()` from\n  `CableGuide.kt` while the helper was file-private in `Components.kt`, so\n  `compileDebugKotlin` failed with \"Cannot access 'fun initialsOf(...)': it is\n  private in file\" and the tagged release could not produce an APK. The helper\n  is now `internal` and shared by the channel cards and the cable grid. This was\n  a visibility-only change; the wire format, bundle and UI are unchanged.\n- **Preview header fix, found by the release gate.** The 1.1.0 build passed\n  Gradle but failed the emulator cold-launch check. The captured log showed the\n  app alive and focused with the global cards on screen — and the header's\n  status line missing entirely: with the extra Cable tab and the longer\n  `1.1.0-debug · PREVIEW` plaque, the weighted `<count> channels · …` text was\n  measured at zero width on a narrow screen. The title, plaque and status line\n  now share the first row and the tabs get a scrollable row of their own, so the\n  status line always renders and no tab can be clipped. The gate itself was\n  resized for the global bundle (explicit adb timeouts, 240s UI window, retried\n  dumps) and now saves `build-out/smoke-log.txt` on failure.\n- Release CI builds both tagged versions from the release commit and attaches\n  the APK, the `.dmg`/`.pkg` installers and the per-platform checksum manifests\n  to the matching release page. Offline validation on the release commit: 349\n  Python tests, 38 macOS Node tests, and the strict verifier reporting 177\n  playlists / 19,650 entries with zero structural problems and zero published\n  dead links.",
+   "bullets": [
+    "**1.0.2 is the published stable release.** It is the USA lineup + USA guide",
+    "**1.1.0 is published as a GitHub pre-release.** Global checked lineup",
+    "**Android build fix.** The merged preview code called `initialsOf()` from",
+    "**Preview header fix, found by the release gate.** The 1.1.0 build passed",
+    "Release CI builds both tagged versions from the release commit and attaches"
+   ]
+  },
+  {
+   "id": "2026-10-14",
+   "date": "2026-10-14",
+   "title": "Prepared 1.0.2 stable and 1.1.0 preview",
+   "body_md": "- Kept **1.0.2** as the default stable target: Android `versionCode 7`, USA\n  playlist/guide, and macOS package version 1.0.2. The 1.0.2 release is prepared\n  but has not been published.\n- Set up **1.1.0** as a separate GitHub pre-release target: Android\n  `versionCode 8`, the checked global playlist and merged guide. Workflows only\n  build that scope for the 1.1.0 preview and reject a stable-tagged 1.1.0.\n- Added an optional cable-style, eight-hour EPG grid to both apps. The tab is\n  controlled by bundle metadata (`preview_features: [\"cable-guide\"]`), so it is\n  absent from the stable USA build.\n- Fixed M3U display names containing commas and tightened XMLTV timestamp/end\n  validation in the builder and app parsers. Fixed Mac duplicate-EPG-ID stream\n  selection and reliable proxy-session release; added regression tests.\n- Reconciled stale dead-link/quarantine evidence against a later successful\n  deep channel-hunt result, so two streams re-proven playable are not falsely\n  reported as dead. The verifier now lets newer confirmed media probes supersede\n  older quarantine entries.\n- Updated the macOS XML parser dependency and release-build configuration.\n  Offline validation passes: 349 Python tests, 38 macOS Node tests, and the\n  strict verifier (177 playlists, 19,650 entries, zero problems or published\n  dead links). Android Gradle/emulator and macOS packaging remain platform-CI\n  checks; Java is not available in this sandbox. No release was published.",
+   "bullets": [
+    "Kept **1.0.2** as the default stable target: Android `versionCode 7`, USA",
+    "Set up **1.1.0** as a separate GitHub pre-release target: Android",
+    "Added an optional cable-style, eight-hour EPG grid to both apps. The tab is",
+    "Fixed M3U display names containing commas and tightened XMLTV timestamp/end",
+    "Reconciled stale dead-link/quarantine evidence against a later successful",
+    "Updated the macOS XML parser dependency and release-build configuration."
+   ]
+  },
+  {
+   "id": "2026-10-13",
+   "date": "2026-10-13",
+   "title": "PremiumTV 1.0.1 — channel-loading hotfix",
+   "body_md": "- Fixed the Mac renderer retaining an empty startup snapshot after the main\n  process finished loading channels. State/progress events now fetch the actual\n  library, rebuild the guide index, and ignore stale IPC replies.\n- Fixed Mac refresh validators being read from the wrong saved-state field;\n  a corrupt cache fallback no longer sends validators for a discarded copy.\n- HLS redirects now resolve relative segments and encryption keys against the\n  final upstream URL, rather than the original pre-redirect URL.\n- Added DOM regression tests, proxy HTTP coverage, five Android/Robolectric\n  library tests, Android emulator cold-start/relaunch checks, and real packaged\n  Electron smoke tests for Intel and Apple Silicon before installer uploads.\n- Version 1.0.1 on both platforms; Android versionCode 6. Platform-specific\n  checksum manifests avoid the two build jobs overwriting one shared file.\n- Release CI fix (same day): the new Android emulator gate never booted —\n  the runner had ~6.7 GB free while a default AVD data partition needs\n  ~7.4 GB, so the emulator exited with \"Not enough space to create userdata\n  partition\" and the APK collect/attach steps were silently skipped, leaving\n  this release's draft without its Android APK. The Android workflow now\n  frees the unused preinstalled toolchains and uses a 2048M AVD data\n  partition; the cold-start/relaunch gate passes and the APK attaches.\n- Upstream stream availability and private-repository refresh access remain\n  external limitations; this patch does not promise every live feed is online.",
+   "bullets": [
+    "Fixed the Mac renderer retaining an empty startup snapshot after the main",
+    "Fixed Mac refresh validators being read from the wrong saved-state field;",
+    "HLS redirects now resolve relative segments and encryption keys against the",
+    "Added DOM regression tests, proxy HTTP coverage, five Android/Robolectric",
+    "Version 1.0.1 on both platforms; Android versionCode 6. Platform-specific",
+    "Release CI fix (same day): the new Android emulator gate never booted —",
+    "Upstream stream availability and private-repository refresh access remain"
+   ]
+  },
+  {
+   "id": "2026-10-12",
+   "date": "2026-10-12",
+   "title": "PremiumTV 1.0.0 \"Marquee\" — the first official release",
+   "body_md": "- **A guide for every channel.** New `sources.json` → `epg_sources` curated\n  guide registry: `scripts/epg_sources.py` expands one upstream XMLTV URL per\n  published country — `https://iptv-epg.org/files/epg-<cc>.xml.gz` (iptv-epg.org,\n  76 countries) and `https://epg.pw/xmltv/epg_<CC>.xml.gz` (epg.pw, 21 countries)\n  plus epg.pw's one-for-all `epg.xml.gz` and the `epg-us.xml` US guide that was\n  picked out for the release — 345 curated feeds across 172 countries. The\n  nightly guide check verifies every URL; the guide build merges the working\n  ones ahead of the two or three guides a scraped M3U used to advertise, which\n  is what left most channels without listings. Result on the release build:\n  **1,658 channels with real listings (19.6%) and 99,079 programmes, up from\n  172 channels and 10,090 programmes**, and every one of the 8,460 published\n  channel ids is declared in the guide — including `epg-us.xml.gz` (13,373\n  programmes) and epg.pw's `epg.xml.gz` (1,390 channels matched). Per-country\n  guides grow the same way automatically as upstream families publish more\n  `epg-<cc>` files; no listings are ever invented for channels no guide\n  schedules.\n- **Backup feeds share their station's schedule.** Display-name matching is now\n  country-aware: when several published ids share one name and one country,\n  all of them receive the same verified listings (\"Nickelodeon\" US backups get\n  the US schedule), while same-name channels in other countries never do. The\n  country of a per-country source file (`epg_DE.xml.gz`) counts even when the\n  channel id has no `.de` suffix, three-letter names (\"CNN\", \"TLC\") match\n  again, and cross-country names without any country signal stay unmatched\n  rather than guessed.\n- **Refreshes verified in both apps.** Settings' *Force refresh all now* and\n  the automatic WorkManager/timer slots keep passing the contract tests on\n  Android (`tests/test_android_refresh.py`) and macOS\n  (`tests/test_macos_app.py`, `macos/app/test/*.test.js`): slots mirror the 13\n  publishing windows, requests are conditional (ETag/Last-Modified) yet\n  manually bypassable, serialized, and installed atomically with a backup\n  rollback. Release verification: 343 Python tests + 25 Node tests green, and\n  both CI release builds green (Gradle APK with the in-repo Android SDK\n  Layoutlib toolchain; electron-builder DMG + PKG for Apple silicon and Intel).\n- **Marquee UI on both platforms.** Cinema-gold-on-midnight theme with a\n  playbill voice: marquee-plaque brand mark and version tag, gold-underlined\n  tabs and category selection, ON-AIR style NOW badges, lifted channel cards,\n  \"No listing\" honesty labels and gold primary actions. Same layouts, same\n  D-pad/keyboard behavior, same hidden-overlay fix on the Mac.\n- **One official release page.** `v1.0.0` carries the Android APK\n  (`versionName 1.0.0`, `versionCode 5`) and the four Mac installers\n  (dmg/pkg for Intel and Apple Silicon). Both build workflows attach to the\n  same tag and only when the tag points at their own commit. Superseded\n  release pages (beta 4, experimental.1) are removed; their Git tags remain.",
+   "bullets": [
+    "**A guide for every channel.** New `sources.json` → `epg_sources` curated",
+    "**Backup feeds share their station's schedule.** Display-name matching is now",
+    "**Refreshes verified in both apps.** Settings' *Force refresh all now* and",
+    "**Marquee UI on both platforms.** Cinema-gold-on-midnight theme with a",
+    "**One official release page.** `v1.0.0` carries the Android APK"
+   ]
+  },
+  {
+   "id": "2026-10-12",
+   "date": "2026-10-12",
+   "title": "release consolidation and Mac experimental display fix",
+   "body_md": "- The Mac player's `#player { display: flex }` and error panel's `display: grid`\n  overrode the browser's `[hidden]` display rule. On launch they covered the\n  channel browser with the error text and Try Again button. Explicitly honor\n  `[hidden]` and test both elements' initial hidden state. Playback now uses\n  the original feed URL as a format hint rather than the extensionless loopback\n  URL, so HLS and MPEG-TS are tried before native playback where appropriate.\n- Publish one **Mac experimental pre-release** (`v1.0.0-experimental.1`) and\n  one **Android beta download** (`v1.0.0-beta4`, the default/latest download).\n  Superseded release pages are removed, but historical Git tags remain.\n  Neither platform is claimed to be a hardware-verified final/stable build;\n  the Mac installer is not the default release.\n- Build workflows only attach artifacts to their own platform's matching tag\n  and commit, so later branch builds cannot silently replace a release asset.",
+   "bullets": [
+    "The Mac player's `#player { display: flex }` and error panel's `display: grid`",
+    "Publish one **Mac experimental pre-release** (`v1.0.0-experimental.1`) and",
+    "Build workflows only attach artifacts to their own platform's matching tag"
+   ]
+  },
+  {
+   "id": "2026-10-12",
+   "date": "2026-10-12",
+   "title": "macOS app (v1.0.0-mac1 preview; historical)",
+   "body_md": "- **A native installer, not a script.** New `macos/` Electron app packaged as a\n  `.dmg` and a `.pkg` for macOS 12+ on Intel and Apple Silicon, built by\n  `.github/workflows/macos-build.yml` and published to the\n  [v1.0.0-mac1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1).\n- **Same behaviour as the Android app.** Channels / Guide / Settings screens,\n  bundled USA playlist + guide, loopback playback proxy that sends each entry's\n  published referrer/origin/user-agent, and a GitHub-aligned automatic refresh\n  (45 min after every publishing slot, ETag/Last-Modified conditional, atomic\n  staging swap, force-refresh and reset-to-bundled).\n- **Electron pinned to 43.** Electron 44 dropped macOS 12, so the app stays on\n  43 and declares `minimumSystemVersion: \"12.0\"`. Ad-hoc signed, not notarized.\n- **Guarded by tests.** `tests/test_macos_app.py` and `macos/app/test/*.test.js`\n  cross-check the parsers against `build_bundle.py` and the refresh slots\n  against the publishing workflows.",
+   "bullets": [
+    "**A native installer, not a script.** New `macos/` Electron app packaged as a",
+    "**Same behaviour as the Android app.** Channels / Guide / Settings screens,",
+    "**Electron pinned to 43.** Electron 44 dropped macOS 12, so the app stays on",
+    "**Guarded by tests.** `tests/test_macos_app.py` and `macos/app/test/*.test.js`"
+   ]
+  },
+  {
+   "id": "2026-10-11",
+   "date": "2026-10-11",
+   "title": "Android TV beta 4 (v1.0.0-beta4 preview)",
+   "body_md": "- **GitHub-aligned automatic refresh.** Android WorkManager now schedules a\n  connected-network check 45 minutes after every daily playlist scrape,\n  quick-update and EPG publication slot. The next one-time job is chained after\n  each run and survives app exits/reboots; Android may defer it under normal\n  background limits.\n- **Low-cost unchanged checks.** Automatic runs retain ETag and Last-Modified\n  validators, so unchanged playlist/guide files use HTTP 304 instead of being\n  transferred up to 13 times per day. A changed playlist forces a complete\n  guide read so newly added channel IDs can receive listings immediately.\n- **Force refresh all.** Settings now has a true force action that bypasses\n  validators and downloads both the complete USA playlist and complete guide.\n  It shows in-progress state, next automatic check, last successful refresh and\n  the latest result.\n- **Safe cache publication.** Foreground and worker operations share one mutex.\n  A refresh writes a staging directory and atomically swaps it into place only\n  after both files parse; interrupted, partial and malformed updates keep the\n  last usable data. Reset clears validators so the next check cannot mistake\n  bundled data for an already-downloaded copy.\n- **Honest private-repository behavior.** 401/403/404 results retain current\n  data and do not trigger rapid retries. Transient timeouts, 408/425/429 and 5xx\n  failures receive two WorkManager backoff retries. No GitHub credential is\n  embedded or requested.\n- **Version/release status.** Source is `1.0.0-beta4`, `versionCode 4`, and CI\n  targets the [v1.0.0-beta4 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4).\n  **Beta 3 is the current default release; Beta 4 is the new preview** until its\n  background behavior is smoke-tested on TV hardware.",
+   "bullets": [
+    "**GitHub-aligned automatic refresh.** Android WorkManager now schedules a",
+    "**Low-cost unchanged checks.** Automatic runs retain ETag and Last-Modified",
+    "**Force refresh all.** Settings now has a true force action that bypasses",
+    "**Safe cache publication.** Foreground and worker operations share one mutex.",
+    "**Honest private-repository behavior.** 401/403/404 results retain current",
+    "**Version/release status.** Source is `1.0.0-beta4`, `versionCode 4`, and CI"
+   ]
+  },
+  {
+   "id": "2026-10-11",
+   "date": "2026-10-11",
+   "title": "Android TV beta 3 (v1.0.0-beta3; current default release)",
+   "body_md": "- **Channels open sooner.** The repository reads the channel list first and\n  publishes the Channels screen while it parses the larger programme guide on\n  the IO dispatcher. Guide parsing no longer blocks the first usable channel\n  rows.\n- **Guide failures are isolated.** Missing or damaged metadata/categories use\n  safe fallbacks; an unreadable guide shows a clear notice without taking down\n  the channel list. A failure to read the required channel data now offers a\n  visible retry action.\n- **Smoother browsing.** Channel rows are D-pad focus groups; controls expose\n  button semantics and retain the latest click callback. Channel logos share a\n  small disk cache and skip per-image fades to reduce repeated work on TV sticks.\n- **Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now\n  targets the `v1.0.0-beta3` release tag.\n- **Release status** — Beta 3 is the\n  [current default release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3)\n  with a CI-built APK. Beta 4 continues separately as the new pre-release.",
+   "bullets": [
+    "**Channels open sooner.** The repository reads the channel list first and",
+    "**Guide failures are isolated.** Missing or damaged metadata/categories use",
+    "**Smoother browsing.** Channel rows are D-pad focus groups; controls expose",
+    "**Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now",
+    "**Release status** — Beta 3 is the"
+   ]
+  },
+  {
+   "id": "2026-10-11",
+   "date": "2026-10-11",
+   "title": "Android TV beta 2 (v1.0.0-beta2; superseded by beta 3)",
+   "body_md": "- **Fixed: channels did not load on launch.** The bundled channel list and guide\n  were in the APK, but the reader looped on `JsonReader.hasNext()` past the end\n  of each file and threw on the last line. The app then reported the data as\n  missing and asked for a Python command, which a TV cannot run. Each line is\n  now read on its own, a damaged download falls back to the bundled copy, and\n  the app's messages no longer mention Python.\n- **Version** — `1.0.0-beta2`, `versionCode 2`. Install\n  `PremiumTV-1.0.0-beta2-debug.apk`.\n- **Unsigned release APK dropped.** An unsigned APK cannot be installed on a\n  device, so CI publishes only the debug APK, which installs as-is.\n- Rebuilt bundle: 2,217 USA channels in 59 categories; about 9,950 guide\n  listings for 167 channels.",
+   "bullets": [
+    "**Fixed: channels did not load on launch.** The bundled channel list and guide",
+    "**Version** — `1.0.0-beta2`, `versionCode 2`. Install",
+    "**Unsigned release APK dropped.** An unsigned APK cannot be installed on a",
+    "Rebuilt bundle: 2,217 USA channels in 59 categories; about 9,950 guide"
+   ]
+  },
+  {
+   "id": "2026-10-11",
+   "date": "2026-10-11",
+   "title": "first Android TV app (v1.0.0 beta, superseded by beta 2)",
+   "body_md": "The repository now builds an installable Android app that carries the channel\nlist and the guide inside the APK, so a TV needs no separate player setup.\n\n- **Project** — [`android/`](android/README.md): Kotlin + Jetpack Compose,\n  targeting leanback (Android TV / Google TV / Fire TV) and handhelds from one\n  APK. `minSdk 23`, `targetSdk 34`.\n- **Bundled data** — 2,158 confirmed-working USA channels in the 59 published\n  categories and every guide listing available at build time (about 8,900\n  listings covering 158 channels). [`android/tools/build_bundle.py`](android/tools/build_bundle.py)\n  converts `playlists/countries/USA.m3u` + `EPG/USA.xml` into JSON Lines the\n  app streams with `android.util.JsonReader`, so a TV stick never holds a\n  10 MB XML document in memory beside a video decoder.\n- **Screens** — category rows, a what's-on-now guide with now/next and\n  progress, and settings that refresh from the repository's raw URLs or reset\n  to the bundled copy.\n- **Playback** — ExoPlayer (Media3), honouring the referrer, origin and\n  user-agent a playlist entry publishes through `#EXTVLCOPT` / `#KODIPROP`.\n- **D-pad correctness** — focus, the centre/enter keys and taps are each wired\n  once, so a card can never be focused-but-unopenable or fire twice on one\n  press.\n- **Build** — [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml)\n  compiles in GitHub Actions: a plain sandbox has no JDK, no Android SDK and no\n  route to Maven Central or `dl.google.com`. It publishes a debug-signed,\n  installable APK and an unsigned release APK to `build-out/` and to the\n  release.\n- **Tests** — `tests/test_android_bundle.py` (18 checks) covers header capture,\n  timezone normalisation, group ordering, the already-finished listings rule,\n  and referential integrity between the bundle's channels and programmes.\n  Full suite: 311 passing.\n\nKnown limits: USA library only; the world library is not bundled yet. Guide\ncoverage is whatever the upstream XMLTV sources publish — 158 of 2,158\nchannels have real listings and the app says so rather than padding. Refresh\nreturns HTTP 404 while the repository is private.",
+   "bullets": [
+    "**Project** — [`android/`](android/README.md): Kotlin + Jetpack Compose,",
+    "**Bundled data** — 2,158 confirmed-working USA channels in the 59 published",
+    "**Screens** — category rows, a what's-on-now guide with now/next and",
+    "**Playback** — ExoPlayer (Media3), honouring the referrer, origin and",
+    "**D-pad correctness** — focus, the centre/enter keys and taps are each wired",
+    "**Build** — [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml)",
+    "**Tests** — `tests/test_android_bundle.py` (18 checks) covers header capture,"
+   ]
+  },
+  {
+   "id": "2026-10-10",
+   "date": "2026-10-10",
+   "title": "verified playlist maintenance and history backfill",
+   "body_md": "The existing deep-check workflow was reviewed as the safe mechanism for pruning broken player feeds. It probes HLS variants and actual media segments, removes only confirmed-dead/invalid links, and protects working streams with minimum-working and maximum-removal thresholds. Timeouts, 5xx responses, resets, and auth/geo blocks are not treated as dead based on one observation. The user-facing player playlist is built from confirmed-working links; the all-links catalogue and source caches remain diagnostic/fallback data, not clean player feeds.\n\nBaseline captured from scraper run `20261010T202102Z-2648` (20:21–20:24 UTC):\n\n- 21,547 source entries; 17,230 unique URLs.\n- 10,946 confirmed working; 1,915 confirmed dead; 4,369 unverified.\n- 176 country playlists; A&E playlist: 62 confirmed working of 71 unique candidates.\n- The same commit's offline verification: 179 published playlists, 0 structural problems, 0 known-dead links present, and 131/131 category-shelf files in sync.\n- The latest saved live deep check before this baseline (11:08–11:11 UTC) removed 156 confirmed-dead entries across 27 playlists; it retained 48 unreachable and 12 blocked entries rather than risking false removals. The next live check's results are recorded in the updated Actions report.\n- The refreshed merged XMLTV guide declares 9,281 channel IDs but has programme listings for 192 channels (2.1%); guide coverage remains a follow-up item.\n\n### Historical milestones\n\n| Date | Change | Summary |\n|---|---|---|\n| 2026-09-27 | PRs #1–2 | Scheduled M3U scraper, checked player playlist, all-links catalogue, source snapshots, publication safety threshold, and setup documentation. |\n| 2026-09-28 | PRs #3–4 | Append-only run history and diagnostics; separate confirmed-dead from transient/unverified; source audits and monthly discovery with scoring, caps, cooldown, and rollback. |\n| 2026-09-29–30 | PRs #5–6 | Country-specific playlists, curated A&E feeds, plain-text logs, steadier New York schedules, and URL/W3U parsing fixes. |\n| 2026-10-01 | PR #7 | Tried a single master list with country sections; subsequent taxonomy and country-playlist changes define the current output format. |\n| 2026-10-02 | PR #8 | Deep HLS/DASH checks, EPG checks, quarantining, safe dead-link pruning, priority-channel hunting, and stable-link ranking. |\n| 2026-10-03 | PRs #10–11 | Guide/workflow integration, live deep audit, and curated Lancaster/Harrisburg-area local channel source. |\n| 2026-10-04 | PRs #12, #14 | Merged and country XMLTV guides; canonical categories and backup groups; quick repair/replacement path; NFL Network/RedZone targets. |\n| 2026-10-05 | PR #15 | Reconciled branch conflicts into one taxonomy/order; strict verification, safer in-place resorting, guide-header limits, and honest EPG coverage. |\n| 2026-10-07 | PRs #16–18 | Generated category shelf; URL deduplication and workflow branch isolation; fixed padded IDs, malformed `+https` URLs, placeholder EPG programmes, orphan guides, and stale shelf files. |\n| 2026-10-10 | PR #19 | Added the biweekly archive/deep-clean workflow: check archived/source playlists, rebuild guides and category shelf, re-hunt priority channels, rotate logs, compact quarantine, prune orphans, then verify strictly. |\n| 2026-10-11 | app/ | First Android TV app (v1.0.0 beta): bundled USA channel list and guide, D-pad first Compose UI, Media3 playback, GitHub Actions APK build. |\n\nPRs #9 and #13 were superseded/closed rather than discarded: merged-guide work was reconciled into #11/#12, and the taxonomy work from #13 was reconciled with #14 by #15.",
+   "bullets": [
+    "21,547 source entries; 17,230 unique URLs.",
+    "10,946 confirmed working; 1,915 confirmed dead; 4,369 unverified.",
+    "176 country playlists; A&E playlist: 62 confirmed working of 71 unique candidates.",
+    "The same commit's offline verification: 179 published playlists, 0 structural problems, 0 known-dead links present, and 131/131 category-shelf files in sync.",
+    "The latest saved live deep check before this baseline (11:08–11:11 UTC) removed 156 confirmed-dead entries across 27 playlists; it retained 48 unreachable and 12 blocked entries rather than risking false removals. The next live check's results are recorded in the updated Actions report.",
+    "The refreshed merged XMLTV guide declares 9,281 channel IDs but has programme listings for 192 channels (2.1%); guide coverage remains a follow-up item."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PremiumTV — apps &amp; the best working playlist for your country</title>
+<meta name="description" content="Download the PremiumTV apps for Android TV / Fire TV and macOS, get the best working M3U playlist for your country, and follow every change we make.">
+<meta property="og:title" content="PremiumTV — apps & playlists">
+<meta property="og:description" content="Apps, country M3U playlists and a change log you can subscribe to.">
+<meta property="og:type" content="website">
+<link rel="alternate" type="application/atom+xml" title="PremiumTV change log" href="data/feed.xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%235b5bd6'/%3E%3Cpath d='M24 20l22 12-22 12z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">▶</span>
+      <span class="brand-name">PremiumTV</span>
+    </a>
+    <nav class="nav">
+      <a href="#apps">Apps</a>
+      <a href="#playlists">Playlists</a>
+      <a href="#changelog">Changelog</a>
+      <a href="#help">Help</a>
+      <a class="nav-repo" href="https://github.com/cgyegcvcecvoc/PremiumTV1" target="_blank" rel="noopener">GitHub&nbsp;↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ============================ HERO ============================ -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <h1>TV that works.<br><em>Apps, playlists, and proof.</em></h1>
+        <p class="lede">
+          Install the app — or load one link into any IPTV player. Every channel in a
+          country playlist is one our checks confirmed <strong>working</strong>, and
+          every change we make shows up in the changelog below.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#apps">Download the apps</a>
+          <a class="btn btn-ghost" href="#playlists">Get my country’s playlist</a>
+        </div>
+        <ul class="hero-stats" id="hero-stats">
+          <li><strong id="stat-channels">—</strong><span>channels confirmed working</span></li>
+          <li><strong id="stat-countries">—</strong><span>countries with their own playlist</span></li>
+          <li><strong id="stat-links">—</strong><span>unique links checked</span></li>
+        </ul>
+        <p class="hero-meta" id="hero-meta">Loading current status…</p>
+      </div>
+      <div class="hero-card" id="hero-card">
+        <div class="hero-card-label">Best playlist for you</div>
+        <div class="hero-card-body">
+          <div class="detect-flag" id="detect-flag">🌍</div>
+          <div class="detect-copy">
+            <div class="detect-title" id="detect-title">Detecting your country…</div>
+            <div class="detect-sub" id="detect-sub">This runs in your browser only.</div>
+          </div>
+        </div>
+        <a class="btn btn-primary btn-block" id="hero-get" href="#playlists">Choose a country</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ APPS ============================ -->
+  <section class="section" id="apps">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Download the apps</h2>
+        <p>
+          The channels and guide ship <em>inside</em> the app — nothing to configure.
+          Android installs on Android&nbsp;TV, Google&nbsp;TV, Fire&nbsp;TV, tablets and phones;
+          the macOS build runs on Intel and Apple&nbsp;Silicon.
+        </p>
+      </div>
+
+      <div class="channel-tabs" role="tablist" aria-label="Release channel">
+        <button class="channel-tab active" data-channel="stable" role="tab">Stable</button>
+        <button class="channel-tab" data-channel="preview" role="tab">Preview</button>
+      </div>
+
+      <div id="channel-cards"></div>
+
+      <details class="older-releases">
+        <summary>Older releases</summary>
+        <ul id="older-releases-list"></ul>
+      </details>
+
+      <div class="install-grid">
+        <div class="install-card">
+          <h3>Android&nbsp;TV / Fire&nbsp;TV</h3>
+          <ol>
+            <li>Download the <strong>.apk</strong> on the device (or copy it over USB / a file app).</li>
+            <li>Open it and allow installs from unknown sources when asked.</li>
+            <li>Fire&nbsp;TV: use Downloader or a file manager to open the APK, then allow it.</li>
+          </ol>
+        </div>
+        <div class="install-card">
+          <h3>macOS</h3>
+          <ol>
+            <li>Download the <strong>.dmg</strong> (drag to Applications) or <strong>.pkg</strong> (installer).</li>
+            <li>Builds are ad-hoc signed: first launch may need <em>right-click&nbsp;→&nbsp;Open</em>.</li>
+            <li>Or run: <code>xattr -d com.apple.quarantine /Applications/PremiumTV.app</code></li>
+          </ol>
+        </div>
+        <div class="install-card">
+          <h3>Verify your download</h3>
+          <p>Every release ships <code>SHA256SUMS</code> files. Check yours:</p>
+          <pre id="sha-preview">sha256sum PremiumTV-*.apk</pre>
+          <p class="muted small">macOS: <code>shasum -a 256 &lt;file&gt;</code></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PLAYLISTS ============================ -->
+  <section class="section section-alt" id="playlists">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The best working M3U for your country</h2>
+        <p>
+          Pick your country and load one URL into VLC, TiviMate, IPTV&nbsp;Smarters, Kodi PVR
+          IPTV&nbsp;Simple, or any M3U player. Country playlists carry only
+          <strong>confirmed-working</strong> links and advertise their own TV guide.
+        </p>
+      </div>
+
+      <div class="picker">
+        <div class="picker-controls">
+          <label class="field">
+            <span>Country</span>
+            <input type="search" id="country-search" placeholder="Search countries…" autocomplete="off">
+          </label>
+          <label class="field">
+            <span>&nbsp;</span>
+            <select id="country-select" aria-label="Country"></select>
+          </label>
+          <button class="btn btn-ghost" id="use-detected" hidden>Use my detected country</button>
+        </div>
+
+        <div class="playlist-card" id="playlist-card">
+          <div class="playlist-card-head">
+            <div>
+              <div class="playlist-name" id="playlist-name">—</div>
+              <div class="playlist-desc" id="playlist-desc">Choose a country to see its playlist.</div>
+            </div>
+            <div class="playlist-count"><strong id="playlist-count">—</strong><span>channels</span></div>
+          </div>
+          <div class="playlist-url-row">
+            <code id="playlist-url">—</code>
+            <button class="btn btn-small" id="copy-url">Copy</button>
+          </div>
+          <div class="playlist-actions">
+            <a class="btn btn-primary" id="download-m3u" download>Download&nbsp;.m3u</a>
+            <button class="btn btn-ghost" id="show-qr">QR&nbsp;code</button>
+            <button class="btn btn-ghost" id="copy-epg">Copy guide URL</button>
+            <a class="btn btn-ghost" id="open-raw" target="_blank" rel="noopener">Open raw file</a>
+          </div>
+          <div class="qr-box" id="qr-box" hidden>
+            <canvas id="qr-canvas" width="220" height="220"></canvas>
+            <p class="muted small">Scan with your phone to open the playlist on another device.</p>
+          </div>
+          <p class="muted small" id="playlist-guide-note"></p>
+        </div>
+      </div>
+
+      <div class="bundle">
+        <h3>Build a custom bundle</h3>
+        <p class="muted">
+          Tick more than one country and we’ll merge them into a single
+          <code>.m3u</code> you can download — duplicates removed, guide included.
+        </p>
+        <div class="bundle-controls">
+          <input type="search" id="bundle-search" placeholder="Filter the list…" autocomplete="off">
+          <div class="bundle-buttons">
+            <button class="btn btn-small btn-ghost" id="bundle-select-detected">My country</button>
+            <button class="btn btn-small btn-ghost" id="bundle-select-top">Top&nbsp;5</button>
+            <button class="btn btn-small btn-ghost" id="bundle-clear">Clear</button>
+            <button class="btn btn-small btn-primary" id="bundle-build">Build&nbsp;&amp;&nbsp;download</button>
+          </div>
+        </div>
+        <div class="bundle-list" id="bundle-list"></div>
+        <div class="bundle-status" id="bundle-status"></div>
+      </div>
+
+      <div class="quick-picks">
+        <h3>Quick picks</h3>
+        <div class="quick-grid" id="quick-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CHANGELOG ============================ -->
+  <section class="section" id="changelog">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Change log</h2>
+        <p>
+          Every change asked of us is recorded the same day — playlist fixes, app
+          releases, site updates. Subscribe so you never miss one:
+          <a href="data/feed.xml">Atom feed</a> ·
+          <a id="changelog-md-link" href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md</a> ·
+          <a id="changelog-doc-link" href="https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk" target="_blank" rel="noopener">detailed Google Doc</a>
+        </p>
+      </div>
+      <div class="changelog-meta" id="changelog-meta"></div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <!-- ============================ HELP ============================ -->
+  <section class="section section-alt" id="help">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Help</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>How do I load an M3U playlist?</summary>
+          <p>
+            Copy the playlist URL above, then in your player: <strong>VLC</strong> →
+            Media&nbsp;→&nbsp;Open Network Stream; <strong>TiviMate / IPTV Smarters</strong> →
+            add playlist&nbsp;→&nbsp;M3U URL; <strong>Kodi</strong> → PVR IPTV Simple Client →
+            Remote path. Paste the URL, save, and the channels appear.
+          </p>
+        </details>
+        <details>
+          <summary>Which playlist is “the best working one” for my country?</summary>
+          <p>
+            The country playlist shown above: it contains only links the last checks
+            confirmed working, split out of the main library, and its header points your
+            player at that country’s own guide (<code>EPG/&lt;Country&gt;.xml</code>).
+            Want everything? Use <code>PremiumTV.m3u</code> from the quick picks.
+          </p>
+        </details>
+        <details>
+          <summary>Why do channels sometimes disappear and come back?</summary>
+          <p>
+            Public streams move around. Our runs check every link several times a day:
+            confirmed-dead links are removed (or held in quarantine), links that merely
+            timed out are kept and retried, and channels that come back are republished
+            automatically. The change log records what happened.
+          </p>
+        </details>
+        <details>
+          <summary>App or playlist — which should I use?</summary>
+          <p>
+            The apps bundle the lineup and guide inside the APK/.dmg, add a TV remote
+            interface, a cable-style program guide and automatic refresh. Playlists suit
+            any player you already own. Both read the same checked channel library.
+          </p>
+        </details>
+        <details>
+          <summary>Is this legal?</summary>
+          <p>
+            The library only links streams that publishers already list publicly on the
+            internet. Availability depends on the source and your region; we don’t host
+            or re-broadcast anything.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <strong>PremiumTV</strong> ·
+      <a href="https://github.com/cgyegcvcecvoc/PremiumTV1" target="_blank" rel="noopener">github.com/cgyegcvcecvoc/PremiumTV1</a>
+    </div>
+    <div class="muted small">
+      Playlists link to publicly listed streams · data refreshed by automated checks ·
+      <a href="data/feed.xml">changelog feed</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="data/site-data.js"></script>
+<script src="assets/qrcode.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

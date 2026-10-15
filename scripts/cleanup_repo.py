@@ -335,19 +335,21 @@ def guide_is_current(epg_dir: Path, name: str, ahead_hours: float,
 
 
 def compact_quarantine(checks_dir: Path, days: float, apply: bool) -> dict:
-    """Drop the quarantine entries whose clock has run out, and count the rest.
+    """Drop the quarantine entries no reader would honour, and count the rest.
 
     ``scraper.load_quarantine()`` ignores an entry once its ``last_seen_utc`` is
-    older than ``days``, but it never rewrites the file - the deep check only
-    compacts it on a run that patches, so on a repository whose nightly check is
-    failing the file keeps every link it ever held back. An entry with no usable
-    timestamp, on the other hand, is *honoured forever* by that same reader, so
+    older than ``days``, and ignores any entry whose recorded reason the current
+    rules no longer count as dead (``scraper.quarantine_entry_proven_dead``),
+    but it never rewrites the file - the deep check only compacts it on a run
+    that patches, so on a repository whose nightly check is failing the file
+    keeps every link it ever held back. An entry with no usable timestamp that
+    still proves its link dead is *honoured forever* by that same reader, so
     dropping it here would quietly re-publish a dead link: it is counted and
     reported instead of removed.
     """
     path = checks_dir / scraper.QUARANTINE_FILENAME
     result = {"file": display_path(path), "entries_before": 0, "entries_after": 0,
-              "dropped": 0, "undated": 0, "written": False}
+              "dropped": 0, "stale_rules": 0, "undated": 0, "written": False}
     if not path.is_file():
         result["skipped"] = "missing"
         return result
@@ -363,8 +365,12 @@ def compact_quarantine(checks_dir: Path, days: float, apply: bool) -> dict:
     cutoff = utc_now() - dt.timedelta(days=max(days, 0))
     keep: dict = {}
     undated = 0
+    stale_rules = 0
     for url, entry in entries.items():
         if not url or not isinstance(entry, dict):
+            continue
+        if not scraper.quarantine_entry_proven_dead(entry):
+            stale_rules += 1
             continue
         last_seen = scraper.parse_utc_iso(str(entry.get("last_seen_utc") or ""))
         if last_seen is None:
@@ -375,7 +381,8 @@ def compact_quarantine(checks_dir: Path, days: float, apply: bool) -> dict:
             continue
         keep[url] = entry
     result.update(entries_before=len(entries), entries_after=len(keep),
-                  dropped=len(entries) - len(keep), undated=undated)
+                  dropped=len(entries) - len(keep), stale_rules=stale_rules,
+                  undated=undated)
     if keep == entries or not result["dropped"]:
         return result
     if apply:
@@ -385,7 +392,8 @@ def compact_quarantine(checks_dir: Path, days: float, apply: bool) -> dict:
         path.write_text(json.dumps(data, indent=2), encoding="utf-8")
         result["written"] = True
     log(f"[cleanup] quarantine: {result['entries_before']} -> {result['entries_after']} "
-        f"entries ({result['dropped']} unreadable or past {days:g} days)"
+        f"entries ({result['dropped']} dropped: {stale_rules} no longer proven dead, "
+        f"the rest unreadable or past {days:g} days)"
         + ("" if apply else " [report only]"))
     return result
 
@@ -476,7 +484,10 @@ def write_reports(out_dir: Path, report: dict) -> list:
                  else " - current"),
               f"- Quarantine: {report['quarantine'].get('entries_before', 0)} read, "
               f"{report['quarantine'].get('entries_after', 0)} kept, "
-              f"{report['quarantine'].get('dropped', 0)} expired or malformed dropped"
+              f"{report['quarantine'].get('dropped', 0)} dropped"
+              + (f" ({report['quarantine']['stale_rules']} recorded under rules the "
+                 f"current checker no longer counts as dead)"
+                 if report['quarantine'].get('stale_rules') else "")
               + (f", {report['quarantine']['undated']} without a usable timestamp "
                  f"(kept: the scraper honours those until they are cleared by hand)"
                  if report['quarantine'].get('undated') else "")]

@@ -1,5 +1,5 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Peru.xml"
-# Peru working channels (146) - updated 2026-10-15 22:08 UTC (2026-10-15 06:08 PM EDT) - arena restore-1999
+# Peru working channels (147) - updated 2026-10-15 22:24 UTC (2026-10-15 06:24 PM EDT) - manual re-scrape (run-scrape.txt)
 #EXTINF:-1 tvg-id="L1Max.pe@SD" tvg-logo="https://i.imgur.com/2fziU2B.png" group-title="Sports" tvg-country="PE",L1 Max (1080p)
 http://190.93.224.42/LIGA-1-MAX/index.m3u8
 #EXTINF:-1 tvg-id="MonterricoTV.pe@SD" tvg-country="PE" group-title="Sports",Monterrico TV (1080p) [Not 24/7]
@@ -41,8 +41,6 @@ https://play.agenciastreaming.com:8081/tvwanka/tracks-v1/index.fmp4.m3u8
 https://live-evg10.tv360.bitel.com.pe/bitel/canal25ayacucho/playlist.m3u8
 #EXTINF:-1 tvg-id="Canal8Catacaos.pe@SD" tvg-logo="https://i.imgur.com/O5MrFjY.png" group-title="South America" tvg-country="PE",Canal 8 Catacaos (720p) [Not 24/7]
 https://live.obslivestream.com/canal8/index.m3u8
-#EXTINF:-1 tvg-id="CANALMTelevision.pe@SD" tvg-logo="https://i.imgur.com/EcdNFuJ.png" group-title="South America" tvg-country="PE",CANAL M Television (720p)
-https://live-evg10.tv360.bitel.com.pe/bitel/anqaratv/playlist.m3u8
 #EXTINF:-1 tvg-id="CanalMasTV.pe@SD" tvg-logo="https://i.imgur.com/rdHygJ1.png" group-title="South America" tvg-country="PE",Canal Mas TV (720p)
 https://live-evg11.tv360.bitel.com.pe/bitel/mastvSRT/playlist.m3u8
 #EXTINF:-1 tvg-id="CasmaTV.pe@SD" tvg-logo="https://i.imgur.com/42aE0nm.jpeg" group-title="South America" tvg-country="PE",Casma TV (720p)
@@ -192,6 +190,8 @@ https://live-evg5.tv360.bitel.com.pe/bitel/yurivisionSRT/playlist.m3u8
 https://7.innovatestream.pe:19360/megatvjaen/megatvjaen.m3u8
 #EXTINF:-1 tvg-id="Nativa.pe@SD" tvg-country="PE" group-title="South America Backups" tvg-logo="https://i.imgur.com/Y9k9XSO.png",Nativa (Backup 1)
 https://oneplay.iptvperu.tv:1936/static/nativa1.stream/chunks.m3u8
+#EXTINF:-1 tvg-id="NativaTVSatipo.pe@SD" tvg-country="PE" group-title="South America Backups" tvg-logo="https://i.imgur.com/ScCAgGB.png",Nativa TV Satipo (Backup 1)
+https://7.innovatestream.pe:19360/nativatv/nativatv.m3u8
 #EXTINF:-1 tvg-id="Teleselva.pe@SD" tvg-country="PE" group-title="South America Backups" tvg-logo="https://i.imgur.com/cu7hTn8.png",Teleselva (Backup 1)
 https://7.innovatestream.pe:19360/tvnoticiassatipo/tvnoticiassatipo.m3u8
 #EXTINF:-1 tvg-id="AtlantisRadioTV.pe@SD" tvg-logo="https://i.imgur.com/1eB9roP.png" group-title="Music" tvg-country="PE",Atlantis Radio TV (720p)
@@ -263,6 +263,12 @@ https://s3.tvdatta.com:3700/live/jjrtvlive.m3u8
 http://190.93.224.42/LA-TELE/index.m3u8
 #EXTINF:-1 tvg-id="MovistarPlus.pe@SD" tvg-logo="https://i.imgur.com/yGQGDoi.png" group-title="Entertainment" tvg-country="PE",Movistar Plus (1080p)
 http://200.62.239.170:830/play/a08z/index.m3u8
+#EXTINF:-1 tvg-id="AsiriTV.pe@SD" tvg-logo="https://i.imgur.com/7bGVFBa.png" group-title="Culture" tvg-country="PE",AsiriTV (720p) [Not 24/7]
+https://video2.lhdserver.es/asiritv/live.m3u8
+#EXTINF:-1 tvg-id="Cultura24.pe@SD" tvg-logo="https://i.imgur.com/h0LxXsx.png" group-title="Culture" tvg-country="PE",Cultura 24
+https://www.opencaster.com/resources/hls_stream/cultura24.m3u8
+#EXTINF:-1 tvg-id="USMPTV.pe@SD" tvg-logo="https://i.imgur.com/9cmIv3q.png" group-title="Culture" tvg-country="PE",USMPTV (720p)
+http://187.102.210.46/USMP/index.m3u8
 #EXTINF:-1 tvg-id="AndesTelevision.pe@SD" tvg-logo="https://i.imgur.com/CsW4Op8.png" group-title="Religious" tvg-country="PE",Andes Television (720p)
 https://live-evg7.tv360.bitel.com.pe/bitel/andestvSRT/playlist.m3u8
 #EXTINF:-1 tvg-id="BethelTV.pe@SD" tvg-logo="https://i.imgur.com/zCVh765.png" group-title="Religious" tvg-country="PE",Bethel TV (720p)
@@ -271,10 +277,6 @@ https://alfa.betheltv.tv/srt/3_abr/playlist.m3u8
 https://servilive.com:3028/live/jntv19live.m3u8
 #EXTINF:-1 tvg-id="JN19.pe@SD" tvg-logo="https://i.imgur.com/dudxyqk.png" group-title="Religious Backups" tvg-country="PE",JN19 (Backup 1)
 http://187.102.210.46/JN19/index.m3u8
-#EXTINF:-1 tvg-id="AsiriTV.pe@SD" tvg-logo="https://i.imgur.com/7bGVFBa.png" group-title="Culture" tvg-country="PE",AsiriTV (720p) [Not 24/7]
-https://video2.lhdserver.es/asiritv/live.m3u8
-#EXTINF:-1 tvg-id="USMPTV.pe@SD" tvg-logo="https://i.imgur.com/9cmIv3q.png" group-title="Culture" tvg-country="PE",USMPTV (720p)
-http://187.102.210.46/USMP/index.m3u8
 #EXTINF:-1 tvg-id="Latina.pe@SD" tvg-logo="https://i.imgur.com/MOsWriY.png" group-title="International" tvg-country="PE",Latina (1080p)
 http://190.93.224.42/LATINA/index.m3u8
 #EXTINF:-1 tvg-id="PanamericanaTV.pe@SD" tvg-logo="https://i.imgur.com/uQhEDES.png" group-title="International" tvg-name="Panamericana TV" tvg-chno="5" tvg-country="PE",Panamericana TV (1080p)

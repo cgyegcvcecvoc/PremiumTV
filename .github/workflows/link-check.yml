@@ -28,6 +28,11 @@ on:
   push:
     # Tag pushes (release tags) must not run the pipeline; path filters are
     # not evaluated for tags and would fire every workflow on each release.
+    # The explicit branches filter is required for the paths filter to be
+    # evaluated at all on branch pushes - a tags-ignore-only push block
+    # silently never fires (the same shape as android-build.yml).
+    branches:
+      - "**"
     tags-ignore:
       - "**"
     paths:

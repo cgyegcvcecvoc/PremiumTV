@@ -464,6 +464,35 @@ class LinkCheckTest(unittest.TestCase):
         path.write_text(json.dumps({"entries": fresh}), encoding="utf-8")
         self.assertIn("http://dead.invalid/x.m3u8", scraper.load_quarantine(path, 7.0))
 
+    def test_load_quarantine_ignores_entries_the_current_rules_call_dead(self):
+        # The scraper's reader must agree with the deep check's writer: a
+        # pre-fix "variant HTTP 414"/"variant HTTP 404" (the 2026-10-13
+        # redirector bug) or a transient "playlist only, HTTP 429" says nothing
+        # about the stream, so it must not hold a channel back - even though
+        # the entry is still sitting on disk between two deep checks.
+        now = dt.datetime.now(dt.timezone.utc).isoformat()
+
+        def entry(reason, **extra):
+            return {"name": reason, "first_seen_utc": now, "last_seen_utc": now,
+                    "reason": reason, "status": "offline", "hits": 1, **extra}
+
+        entries = {
+            "http://jmp2.invalid/plu-1.m3u8": entry("variant HTTP 414"),
+            "http://jmp2.invalid/plu-2.m3u8": entry("variant HTTP 404"),
+            "http://a.invalid/429.m3u8": entry("playlist only, HTTP 429"),
+            "http://a.invalid/timeout.m3u8": entry("variant HTTP timeout"),
+            "http://a.invalid/gone.m3u8": entry("HTTP 404"),
+            "http://a.invalid/new-variant-404.m3u8": entry("variant HTTP 404", rules=2),
+        }
+        path = self.out / "checks" / "quarantine.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"entries": entries}), encoding="utf-8")
+        kept = scraper.load_quarantine(path, 7.0)
+        self.assertEqual(set(kept), {
+            "http://a.invalid/gone.m3u8",
+            "http://a.invalid/new-variant-404.m3u8",
+        })
+
     # -- the biweekly archive scope --------------------------------------- #
     def test_archives_scope_covers_every_playlist_no_daily_run_patches(self):
         out = self.out / "playlists"

@@ -1,0 +1,60 @@
+name: Deploy download site (GitHub Pages)
+
+# Publishes docs/ to GitHub Pages: the download page for the apps, the
+# per-country M3U picker and the change log (with its Atom feed).
+#
+# The site is static; scripts/build_site_data.py only regenerates its data
+# files from the repository (playlists, reports, CHANGELOG.md) so the page
+# always shows current counts and changelog entries.
+#
+# The first run also *enables* Pages for the repository (configure-pages
+# `enablement: true`), so no manual Settings -> Pages step is needed.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "docs/**"
+      - "scripts/build_site_data.py"
+      - ".github/workflows/pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate site data from the repository
+        run: python scripts/build_site_data.py
+
+      - name: Enable Pages (first run) and configure the deployment
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
