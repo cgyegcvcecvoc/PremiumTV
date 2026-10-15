@@ -4,6 +4,57 @@
 
 This GitHub file is the short index. The detailed Doc and the append-only [`playlists/run-history.jsonl`](playlists/run-history.jsonl) retain the run-by-run record; the per-run live reports remain under [`playlists/checks/`](playlists/checks/).
 
+> **Change-log policy.** Every change made on request is recorded here the same
+> day under a dated heading, and `python scripts/build_site_data.py` is re-run so
+> the [download site](https://cgyegcvcecvoc.github.io/PremiumTV1/) and its
+> [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
+> If the site does not show a change, the generator was not re-run.
+
+## 2026-10-15 — 1,999 missing channels restored + public download site
+
+- **The missing channels are cleared out and fixed.** The 2026-10-13 deep
+  check resolved HLS variants against the redirector's M3U URL instead of the
+  URL that finally served the playlist, so redirector channels (1,344 `jmp2.uk`
+  Pluto links plus ~655 others) were quarantined as `variant HTTP 414/404` and
+  removed. The checker's writer was fixed that day, but
+  `scraper.load_quarantine()` never applied the same rules, so every scrape
+  still marked those links dead even when its own check found them alive —
+  they could not come back.
+  - `scraper.py` now owns the shared rules (`quarantine_reason_is_conclusive`,
+    `quarantine_entry_proven_dead`) used by the scraper's reader, the deep
+    check's writer and the cleanup's compactor, so the three can never disagree.
+  - `playlists/checks/quarantine.json` was compacted under those rules
+    (2,682 → 683 proven-dead entries). The 1,999 released links return to the
+    next checked scrape, which re-verifies each one over the network and
+    publishes only the confirmed-working channels — dead ones are re-quarantined
+    under the current rules.
+- **New: the public download site** (`docs/`, GitHub Pages at
+  [`cgyegcvcecvoc.github.io/PremiumTV1`](https://cgyegcvcecvoc.github.io/PremiumTV1/)):
+  - **Apps**: every release asset for the Stable (1.0.2) and Preview (1.1.1)
+    channels — Android APK, macOS `.dmg`/`.pkg` for Intel and Apple Silicon —
+    with sizes, SHA-256 checksums, install help for Android TV/Fire TV and
+    macOS, and links to older releases.
+  - **Best working M3U for your country**: the page detects the visitor's
+    country in the browser and hands them that country's confirmed-working
+    playlist (copy URL, download `.m3u`, QR code, that country's guide URL),
+    plus a custom bundle builder that merges any set of country playlists into
+    one `.m3u`. All 175 country playlists are listed with live channel counts.
+  - **Change log**: the timeline on the page, the Atom feed
+    (`data/feed.xml`) to subscribe to, and a live re-fetch of
+    `docs/data/changelog.json` so new entries appear without redeploying.
+  - Deployed by `.github/workflows/pages.yml`, which also enables Pages for
+    the repository automatically on its first run. Site data is regenerated
+    offline by `python scripts/build_site_data.py`.
+- **"Run it now" switches fire again.** The `playlists/logs/run-*.txt` push
+  switches (`run-scrape.txt`, `run-deep-check.txt`, `run-epg-build.txt`,
+  `run-cleanup.txt`) never triggered outside of `workflow_dispatch`: a push
+  block with only `tags-ignore` and `paths` does not evaluate the paths filter
+  on branch pushes. All four workflows now declare `branches: ["**"]` like the
+  build workflows, which demonstrably fire.
+- **Change-log discipline:** this entry is the first under the policy above —
+  every future request is recorded here, and the site/feed are regenerated with
+  it.
+
 ## 2026-10-15 — PremiumTV 1.1.1 pre-release: the Guide tab is a cable-style grid
 
 - **The cable guide is real and visible now.** In the 1.1.1 preview the Guide

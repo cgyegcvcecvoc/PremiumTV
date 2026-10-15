@@ -1,0 +1,176 @@
+[
+ {
+  "id": "2026-10-15",
+  "date": "2026-10-15",
+  "title": "1,999 missing channels restored + public download site",
+  "body_md": "- **The missing channels are cleared out and fixed.** The 2026-10-13 deep\n  check resolved HLS variants against the redirector's M3U URL instead of the\n  URL that finally served the playlist, so redirector channels (1,344 `jmp2.uk`\n  Pluto links plus ~655 others) were quarantined as `variant HTTP 414/404` and\n  removed. The checker's writer was fixed that day, but\n  `scraper.load_quarantine()` never applied the same rules, so every scrape\n  still marked those links dead even when its own check found them alive —\n  they could not come back.\n  - `scraper.py` now owns the shared rules (`quarantine_reason_is_conclusive`,\n    `quarantine_entry_proven_dead`) used by the scraper's reader, the deep\n    check's writer and the cleanup's compactor, so the three can never disagree.\n  - `playlists/checks/quarantine.json` was compacted under those rules\n    (2,682 → 683 proven-dead entries). The 1,999 released links return to the\n    next checked scrape, which re-verifies each one over the network and\n    publishes only the confirmed-working channels — dead ones are re-quarantined\n    under the current rules.\n- **New: the public download site** (`docs/`, GitHub Pages at\n  [`cgyegcvcecvoc.github.io/PremiumTV1`](https://cgyegcvcecvoc.github.io/PremiumTV1/)):\n  - **Apps**: every release asset for the Stable (1.0.2) and Preview (1.1.1)\n    channels — Android APK, macOS `.dmg`/`.pkg` for Intel and Apple Silicon —\n    with sizes, SHA-256 checksums, install help for Android TV/Fire TV and\n    macOS, and links to older releases.\n  - **Best working M3U for your country**: the page detects the visitor's\n    country in the browser and hands them that country's confirmed-working\n    playlist (copy URL, download `.m3u`, QR code, that country's guide URL),\n    plus a custom bundle builder that merges any set of country playlists into\n    one `.m3u`. All 175 country playlists are listed with live channel counts.\n  - **Change log**: the timeline on the page, the Atom feed\n    (`data/feed.xml`) to subscribe to, and a live re-fetch of\n    `docs/data/changelog.json` so new entries appear without redeploying.\n  - Deployed by `.github/workflows/pages.yml`, which also enables Pages for\n    the repository automatically on its first run. Site data is regenerated\n    offline by `python scripts/build_site_data.py`.\n- **\"Run it now\" switches fire again.** The `playlists/logs/run-*.txt` push\n  switches (`run-scrape.txt`, `run-deep-check.txt`, `run-epg-build.txt`,\n  `run-cleanup.txt`) never triggered outside of `workflow_dispatch`: a push\n  block with only `tags-ignore` and `paths` does not evaluate the paths filter\n  on branch pushes. All four workflows now declare `branches: [\"**\"]` like the\n  build workflows, which demonstrably fire.\n- **Change-log discipline:** this entry is the first under the policy above —\n  every future request is recorded here, and the site/feed are regenerated with\n  it.",
+  "bullets": [
+   "**The missing channels are cleared out and fixed.** The 2026-10-13 deep",
+   "**New: the public download site** (`docs/`, GitHub Pages at",
+   "**\"Run it now\" switches fire again.** The `playlists/logs/run-*.txt` push",
+   "**Change-log discipline:** this entry is the first under the policy above —"
+  ]
+ },
+ {
+  "id": "2026-10-15",
+  "date": "2026-10-15",
+  "title": "PremiumTV 1.1.1 pre-release: the Guide tab is a cable-style grid",
+  "body_md": "- **The cable guide is real and visible now.** In the 1.1.1 preview the Guide\n  tab of both apps *is* the cable-style grid: channels down the left (number,\n  logo, name, category), each channel's shows to the right sized by running\n  time, half-hour times across the top for eight hours, a red NOW line, the\n  live show outlined, category headings, and a detail strip for the\n  highlighted show. Stable 1.0.2 keeps the list-style Guide.\n- **Why 1.1.0 did not show it:** its grid was a separate Cable tab gated on the\n  *loaded* library's metadata, and an in-place upgrade kept the 1.0.x USA\n  download in the cache, which loads before the bundle — so the app showed the\n  old lineup and no Cable tab. Both apps now discard a downloaded copy written\n  by another version or library scope (with its validators), and the preview\n  features always come from the app's own bundle.\n- **TV remote:** the grid is one focus stop with a cable-box highlight — up/down\n  keep the time column, left/right step one show, OK plays, Back from the\n  player returns to the same show, up from the first row returns to the tabs,\n  CH+/CH− page, and the remote's GUIDE key opens the guide. Mac: hover and\n  arrow keys, sidebar categories filter the grid.\n- **Android refresh** parses the guide off the HTTP stream (the 38 MB global XML\n  no longer becomes a ~200 MB String), keeps the published category order,\n  and no longer blames a \"private repository\" (the repository is public).\n- **Release gating:** `v1.1.1` builds only as a GitHub pre-release (Android\n  `versionCode 9`, global scope); a stable-tagged `v1.1.1` is rejected. The\n  emulator gate opens the Guide, checks times/channels/shows, drives the D-pad,\n  OK and Back, and saves screenshots; the Mac gate opens the Guide grid.\n\n### Maintenance (same day)\n\n- **Deep link check removed working channels.** HLS variants and segments were\n  resolved against the M3U link instead of the URL that finally served the\n  playlist, so redirectors (jmp2.uk and the mjh.nz hosts) failed every variant\n  with 414/404: the 2026-10-13 nightly run removed ~1,700 entries\n  (`PremiumTV.m3u` 10,917 → 9,759) and quarantined them. Fixed, and the\n  quarantine drops entries recorded under the old rules.\n- **\"Deep link and guide check\" failed on 10-14 and 10-15.** A CDN answering 429\n  to segment probes made working links \"offline\"; `verify_playlists --strict`\n  then failed because they were still published. Rate limits, 5xx and timeouts\n  one level below a working playlist are now \"unreachable\" (kept), matching the\n  playlist-URL rules.\n- **\"Biweekly deep cleanup\" failed on 10-15.** `--report-suffix \"-archives\"` was\n  parsed by argparse as an option (exit code 2), so the archive sweep never ran;\n  the workflow now passes `--report-suffix=-archives`.\n- All workflows moved to Node 24 action majors (`checkout@v5`,\n  `setup-python@v6`, `setup-node@v5`, `upload-artifact@v6`, `setup-gradle@v5`);\n  the scheduled data jobs pin `ubuntu-24.04` ahead of the 2026-10-19\n  `ubuntu-latest` → Ubuntu 26.04 move.\n- Tests: 361 Python (12 new) and 42 macOS Node (4 new), plus new JVM/Robolectric\n  Android tests for the guide model, stale caches and streaming XMLTV parsing.",
+  "bullets": [
+   "**The cable guide is real and visible now.** In the 1.1.1 preview the Guide",
+   "**Why 1.1.0 did not show it:** its grid was a separate Cable tab gated on the",
+   "**TV remote:** the grid is one focus stop with a cable-box highlight — up/down",
+   "**Android refresh** parses the guide off the HTTP stream (the 38 MB global XML",
+   "**Release gating:** `v1.1.1` builds only as a GitHub pre-release (Android",
+   "**Deep link check removed working channels.** HLS variants and segments were",
+   "**\"Deep link and guide check\" failed on 10-14 and 10-15.** A CDN answering 429",
+   "**\"Biweekly deep cleanup\" failed on 10-15.** `--report-suffix \"-archives\"` was"
+  ]
+ },
+ {
+  "id": "2026-10-14",
+  "date": "2026-10-14",
+  "title": "PremiumTV 1.0.2 released, 1.1.0 published as a pre-release",
+  "body_md": "- **1.0.2 is the published stable release.** It is the USA lineup + USA guide\n  with Android `versionCode 7`, and it carries the parser, playback and\n  channel-health fixes prepared earlier the same day (comma-safe `#EXTINF`\n  names, strict XMLTV timestamps and repaired non-positive durations, exact\n  id+URL backup-stream selection on Mac, correct proxy-session release, newer\n  confirmed media probes superseding older quarantine entries).\n- **1.1.0 is published as a GitHub pre-release.** Global checked lineup\n  (9,788 channels, 89 categories) plus the merged guide (105,319 programmes\n  across 1,650 channels) and the optional cable-style guide, which stays gated\n  on `preview_features: [\"cable-guide\"]` so the stable build never shows it.\n  Android `versionCode 8`. It must keep the pre-release flag and never becomes\n  the default.\n- **Android build fix.** The merged preview code called `initialsOf()` from\n  `CableGuide.kt` while the helper was file-private in `Components.kt`, so\n  `compileDebugKotlin` failed with \"Cannot access 'fun initialsOf(...)': it is\n  private in file\" and the tagged release could not produce an APK. The helper\n  is now `internal` and shared by the channel cards and the cable grid. This was\n  a visibility-only change; the wire format, bundle and UI are unchanged.\n- **Preview header fix, found by the release gate.** The 1.1.0 build passed\n  Gradle but failed the emulator cold-launch check. The captured log showed the\n  app alive and focused with the global cards on screen — and the header's\n  status line missing entirely: with the extra Cable tab and the longer\n  `1.1.0-debug · PREVIEW` plaque, the weighted `<count> channels · …` text was\n  measured at zero width on a narrow screen. The title, plaque and status line\n  now share the first row and the tabs get a scrollable row of their own, so the\n  status line always renders and no tab can be clipped. The gate itself was\n  resized for the global bundle (explicit adb timeouts, 240s UI window, retried\n  dumps) and now saves `build-out/smoke-log.txt` on failure.\n- Release CI builds both tagged versions from the release commit and attaches\n  the APK, the `.dmg`/`.pkg` installers and the per-platform checksum manifests\n  to the matching release page. Offline validation on the release commit: 349\n  Python tests, 38 macOS Node tests, and the strict verifier reporting 177\n  playlists / 19,650 entries with zero structural problems and zero published\n  dead links.",
+  "bullets": [
+   "**1.0.2 is the published stable release.** It is the USA lineup + USA guide",
+   "**1.1.0 is published as a GitHub pre-release.** Global checked lineup",
+   "**Android build fix.** The merged preview code called `initialsOf()` from",
+   "**Preview header fix, found by the release gate.** The 1.1.0 build passed",
+   "Release CI builds both tagged versions from the release commit and attaches"
+  ]
+ },
+ {
+  "id": "2026-10-14",
+  "date": "2026-10-14",
+  "title": "Prepared 1.0.2 stable and 1.1.0 preview",
+  "body_md": "- Kept **1.0.2** as the default stable target: Android `versionCode 7`, USA\n  playlist/guide, and macOS package version 1.0.2. The 1.0.2 release is prepared\n  but has not been published.\n- Set up **1.1.0** as a separate GitHub pre-release target: Android\n  `versionCode 8`, the checked global playlist and merged guide. Workflows only\n  build that scope for the 1.1.0 preview and reject a stable-tagged 1.1.0.\n- Added an optional cable-style, eight-hour EPG grid to both apps. The tab is\n  controlled by bundle metadata (`preview_features: [\"cable-guide\"]`), so it is\n  absent from the stable USA build.\n- Fixed M3U display names containing commas and tightened XMLTV timestamp/end\n  validation in the builder and app parsers. Fixed Mac duplicate-EPG-ID stream\n  selection and reliable proxy-session release; added regression tests.\n- Reconciled stale dead-link/quarantine evidence against a later successful\n  deep channel-hunt result, so two streams re-proven playable are not falsely\n  reported as dead. The verifier now lets newer confirmed media probes supersede\n  older quarantine entries.\n- Updated the macOS XML parser dependency and release-build configuration.\n  Offline validation passes: 349 Python tests, 38 macOS Node tests, and the\n  strict verifier (177 playlists, 19,650 entries, zero problems or published\n  dead links). Android Gradle/emulator and macOS packaging remain platform-CI\n  checks; Java is not available in this sandbox. No release was published.",
+  "bullets": [
+   "Kept **1.0.2** as the default stable target: Android `versionCode 7`, USA",
+   "Set up **1.1.0** as a separate GitHub pre-release target: Android",
+   "Added an optional cable-style, eight-hour EPG grid to both apps. The tab is",
+   "Fixed M3U display names containing commas and tightened XMLTV timestamp/end",
+   "Reconciled stale dead-link/quarantine evidence against a later successful",
+   "Updated the macOS XML parser dependency and release-build configuration."
+  ]
+ },
+ {
+  "id": "2026-10-13",
+  "date": "2026-10-13",
+  "title": "PremiumTV 1.0.1 — channel-loading hotfix",
+  "body_md": "- Fixed the Mac renderer retaining an empty startup snapshot after the main\n  process finished loading channels. State/progress events now fetch the actual\n  library, rebuild the guide index, and ignore stale IPC replies.\n- Fixed Mac refresh validators being read from the wrong saved-state field;\n  a corrupt cache fallback no longer sends validators for a discarded copy.\n- HLS redirects now resolve relative segments and encryption keys against the\n  final upstream URL, rather than the original pre-redirect URL.\n- Added DOM regression tests, proxy HTTP coverage, five Android/Robolectric\n  library tests, Android emulator cold-start/relaunch checks, and real packaged\n  Electron smoke tests for Intel and Apple Silicon before installer uploads.\n- Version 1.0.1 on both platforms; Android versionCode 6. Platform-specific\n  checksum manifests avoid the two build jobs overwriting one shared file.\n- Release CI fix (same day): the new Android emulator gate never booted —\n  the runner had ~6.7 GB free while a default AVD data partition needs\n  ~7.4 GB, so the emulator exited with \"Not enough space to create userdata\n  partition\" and the APK collect/attach steps were silently skipped, leaving\n  this release's draft without its Android APK. The Android workflow now\n  frees the unused preinstalled toolchains and uses a 2048M AVD data\n  partition; the cold-start/relaunch gate passes and the APK attaches.\n- Upstream stream availability and private-repository refresh access remain\n  external limitations; this patch does not promise every live feed is online.",
+  "bullets": [
+   "Fixed the Mac renderer retaining an empty startup snapshot after the main",
+   "Fixed Mac refresh validators being read from the wrong saved-state field;",
+   "HLS redirects now resolve relative segments and encryption keys against the",
+   "Added DOM regression tests, proxy HTTP coverage, five Android/Robolectric",
+   "Version 1.0.1 on both platforms; Android versionCode 6. Platform-specific",
+   "Release CI fix (same day): the new Android emulator gate never booted —",
+   "Upstream stream availability and private-repository refresh access remain"
+  ]
+ },
+ {
+  "id": "2026-10-12",
+  "date": "2026-10-12",
+  "title": "PremiumTV 1.0.0 \"Marquee\" — the first official release",
+  "body_md": "- **A guide for every channel.** New `sources.json` → `epg_sources` curated\n  guide registry: `scripts/epg_sources.py` expands one upstream XMLTV URL per\n  published country — `https://iptv-epg.org/files/epg-<cc>.xml.gz` (iptv-epg.org,\n  76 countries) and `https://epg.pw/xmltv/epg_<CC>.xml.gz` (epg.pw, 21 countries)\n  plus epg.pw's one-for-all `epg.xml.gz` and the `epg-us.xml` US guide that was\n  picked out for the release — 345 curated feeds across 172 countries. The\n  nightly guide check verifies every URL; the guide build merges the working\n  ones ahead of the two or three guides a scraped M3U used to advertise, which\n  is what left most channels without listings. Result on the release build:\n  **1,658 channels with real listings (19.6%) and 99,079 programmes, up from\n  172 channels and 10,090 programmes**, and every one of the 8,460 published\n  channel ids is declared in the guide — including `epg-us.xml.gz` (13,373\n  programmes) and epg.pw's `epg.xml.gz` (1,390 channels matched). Per-country\n  guides grow the same way automatically as upstream families publish more\n  `epg-<cc>` files; no listings are ever invented for channels no guide\n  schedules.\n- **Backup feeds share their station's schedule.** Display-name matching is now\n  country-aware: when several published ids share one name and one country,\n  all of them receive the same verified listings (\"Nickelodeon\" US backups get\n  the US schedule), while same-name channels in other countries never do. The\n  country of a per-country source file (`epg_DE.xml.gz`) counts even when the\n  channel id has no `.de` suffix, three-letter names (\"CNN\", \"TLC\") match\n  again, and cross-country names without any country signal stay unmatched\n  rather than guessed.\n- **Refreshes verified in both apps.** Settings' *Force refresh all now* and\n  the automatic WorkManager/timer slots keep passing the contract tests on\n  Android (`tests/test_android_refresh.py`) and macOS\n  (`tests/test_macos_app.py`, `macos/app/test/*.test.js`): slots mirror the 13\n  publishing windows, requests are conditional (ETag/Last-Modified) yet\n  manually bypassable, serialized, and installed atomically with a backup\n  rollback. Release verification: 343 Python tests + 25 Node tests green, and\n  both CI release builds green (Gradle APK with the in-repo Android SDK\n  Layoutlib toolchain; electron-builder DMG + PKG for Apple silicon and Intel).\n- **Marquee UI on both platforms.** Cinema-gold-on-midnight theme with a\n  playbill voice: marquee-plaque brand mark and version tag, gold-underlined\n  tabs and category selection, ON-AIR style NOW badges, lifted channel cards,\n  \"No listing\" honesty labels and gold primary actions. Same layouts, same\n  D-pad/keyboard behavior, same hidden-overlay fix on the Mac.\n- **One official release page.** `v1.0.0` carries the Android APK\n  (`versionName 1.0.0`, `versionCode 5`) and the four Mac installers\n  (dmg/pkg for Intel and Apple Silicon). Both build workflows attach to the\n  same tag and only when the tag points at their own commit. Superseded\n  release pages (beta 4, experimental.1) are removed; their Git tags remain.",
+  "bullets": [
+   "**A guide for every channel.** New `sources.json` → `epg_sources` curated",
+   "**Backup feeds share their station's schedule.** Display-name matching is now",
+   "**Refreshes verified in both apps.** Settings' *Force refresh all now* and",
+   "**Marquee UI on both platforms.** Cinema-gold-on-midnight theme with a",
+   "**One official release page.** `v1.0.0` carries the Android APK"
+  ]
+ },
+ {
+  "id": "2026-10-12",
+  "date": "2026-10-12",
+  "title": "release consolidation and Mac experimental display fix",
+  "body_md": "- The Mac player's `#player { display: flex }` and error panel's `display: grid`\n  overrode the browser's `[hidden]` display rule. On launch they covered the\n  channel browser with the error text and Try Again button. Explicitly honor\n  `[hidden]` and test both elements' initial hidden state. Playback now uses\n  the original feed URL as a format hint rather than the extensionless loopback\n  URL, so HLS and MPEG-TS are tried before native playback where appropriate.\n- Publish one **Mac experimental pre-release** (`v1.0.0-experimental.1`) and\n  one **Android beta download** (`v1.0.0-beta4`, the default/latest download).\n  Superseded release pages are removed, but historical Git tags remain.\n  Neither platform is claimed to be a hardware-verified final/stable build;\n  the Mac installer is not the default release.\n- Build workflows only attach artifacts to their own platform's matching tag\n  and commit, so later branch builds cannot silently replace a release asset.",
+  "bullets": [
+   "The Mac player's `#player { display: flex }` and error panel's `display: grid`",
+   "Publish one **Mac experimental pre-release** (`v1.0.0-experimental.1`) and",
+   "Build workflows only attach artifacts to their own platform's matching tag"
+  ]
+ },
+ {
+  "id": "2026-10-12",
+  "date": "2026-10-12",
+  "title": "macOS app (v1.0.0-mac1 preview; historical)",
+  "body_md": "- **A native installer, not a script.** New `macos/` Electron app packaged as a\n  `.dmg` and a `.pkg` for macOS 12+ on Intel and Apple Silicon, built by\n  `.github/workflows/macos-build.yml` and published to the\n  [v1.0.0-mac1 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-mac1).\n- **Same behaviour as the Android app.** Channels / Guide / Settings screens,\n  bundled USA playlist + guide, loopback playback proxy that sends each entry's\n  published referrer/origin/user-agent, and a GitHub-aligned automatic refresh\n  (45 min after every publishing slot, ETag/Last-Modified conditional, atomic\n  staging swap, force-refresh and reset-to-bundled).\n- **Electron pinned to 43.** Electron 44 dropped macOS 12, so the app stays on\n  43 and declares `minimumSystemVersion: \"12.0\"`. Ad-hoc signed, not notarized.\n- **Guarded by tests.** `tests/test_macos_app.py` and `macos/app/test/*.test.js`\n  cross-check the parsers against `build_bundle.py` and the refresh slots\n  against the publishing workflows.",
+  "bullets": [
+   "**A native installer, not a script.** New `macos/` Electron app packaged as a",
+   "**Same behaviour as the Android app.** Channels / Guide / Settings screens,",
+   "**Electron pinned to 43.** Electron 44 dropped macOS 12, so the app stays on",
+   "**Guarded by tests.** `tests/test_macos_app.py` and `macos/app/test/*.test.js`"
+  ]
+ },
+ {
+  "id": "2026-10-11",
+  "date": "2026-10-11",
+  "title": "Android TV beta 4 (v1.0.0-beta4 preview)",
+  "body_md": "- **GitHub-aligned automatic refresh.** Android WorkManager now schedules a\n  connected-network check 45 minutes after every daily playlist scrape,\n  quick-update and EPG publication slot. The next one-time job is chained after\n  each run and survives app exits/reboots; Android may defer it under normal\n  background limits.\n- **Low-cost unchanged checks.** Automatic runs retain ETag and Last-Modified\n  validators, so unchanged playlist/guide files use HTTP 304 instead of being\n  transferred up to 13 times per day. A changed playlist forces a complete\n  guide read so newly added channel IDs can receive listings immediately.\n- **Force refresh all.** Settings now has a true force action that bypasses\n  validators and downloads both the complete USA playlist and complete guide.\n  It shows in-progress state, next automatic check, last successful refresh and\n  the latest result.\n- **Safe cache publication.** Foreground and worker operations share one mutex.\n  A refresh writes a staging directory and atomically swaps it into place only\n  after both files parse; interrupted, partial and malformed updates keep the\n  last usable data. Reset clears validators so the next check cannot mistake\n  bundled data for an already-downloaded copy.\n- **Honest private-repository behavior.** 401/403/404 results retain current\n  data and do not trigger rapid retries. Transient timeouts, 408/425/429 and 5xx\n  failures receive two WorkManager backoff retries. No GitHub credential is\n  embedded or requested.\n- **Version/release status.** Source is `1.0.0-beta4`, `versionCode 4`, and CI\n  targets the [v1.0.0-beta4 pre-release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta4).\n  **Beta 3 is the current default release; Beta 4 is the new preview** until its\n  background behavior is smoke-tested on TV hardware.",
+  "bullets": [
+   "**GitHub-aligned automatic refresh.** Android WorkManager now schedules a",
+   "**Low-cost unchanged checks.** Automatic runs retain ETag and Last-Modified",
+   "**Force refresh all.** Settings now has a true force action that bypasses",
+   "**Safe cache publication.** Foreground and worker operations share one mutex.",
+   "**Honest private-repository behavior.** 401/403/404 results retain current",
+   "**Version/release status.** Source is `1.0.0-beta4`, `versionCode 4`, and CI"
+  ]
+ },
+ {
+  "id": "2026-10-11",
+  "date": "2026-10-11",
+  "title": "Android TV beta 3 (v1.0.0-beta3; current default release)",
+  "body_md": "- **Channels open sooner.** The repository reads the channel list first and\n  publishes the Channels screen while it parses the larger programme guide on\n  the IO dispatcher. Guide parsing no longer blocks the first usable channel\n  rows.\n- **Guide failures are isolated.** Missing or damaged metadata/categories use\n  safe fallbacks; an unreadable guide shows a clear notice without taking down\n  the channel list. A failure to read the required channel data now offers a\n  visible retry action.\n- **Smoother browsing.** Channel rows are D-pad focus groups; controls expose\n  button semantics and retain the latest click callback. Channel logos share a\n  small disk cache and skip per-image fades to reduce repeated work on TV sticks.\n- **Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now\n  targets the `v1.0.0-beta3` release tag.\n- **Release status** — Beta 3 is the\n  [current default release](https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.0-beta3)\n  with a CI-built APK. Beta 4 continues separately as the new pre-release.",
+  "bullets": [
+   "**Channels open sooner.** The repository reads the channel list first and",
+   "**Guide failures are isolated.** Missing or damaged metadata/categories use",
+   "**Smoother browsing.** Channel rows are D-pad focus groups; controls expose",
+   "**Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now",
+   "**Release status** — Beta 3 is the"
+  ]
+ },
+ {
+  "id": "2026-10-11",
+  "date": "2026-10-11",
+  "title": "Android TV beta 2 (v1.0.0-beta2; superseded by beta 3)",
+  "body_md": "- **Fixed: channels did not load on launch.** The bundled channel list and guide\n  were in the APK, but the reader looped on `JsonReader.hasNext()` past the end\n  of each file and threw on the last line. The app then reported the data as\n  missing and asked for a Python command, which a TV cannot run. Each line is\n  now read on its own, a damaged download falls back to the bundled copy, and\n  the app's messages no longer mention Python.\n- **Version** — `1.0.0-beta2`, `versionCode 2`. Install\n  `PremiumTV-1.0.0-beta2-debug.apk`.\n- **Unsigned release APK dropped.** An unsigned APK cannot be installed on a\n  device, so CI publishes only the debug APK, which installs as-is.\n- Rebuilt bundle: 2,217 USA channels in 59 categories; about 9,950 guide\n  listings for 167 channels.",
+  "bullets": [
+   "**Fixed: channels did not load on launch.** The bundled channel list and guide",
+   "**Version** — `1.0.0-beta2`, `versionCode 2`. Install",
+   "**Unsigned release APK dropped.** An unsigned APK cannot be installed on a",
+   "Rebuilt bundle: 2,217 USA channels in 59 categories; about 9,950 guide"
+  ]
+ },
+ {
+  "id": "2026-10-11",
+  "date": "2026-10-11",
+  "title": "first Android TV app (v1.0.0 beta, superseded by beta 2)",
+  "body_md": "The repository now builds an installable Android app that carries the channel\nlist and the guide inside the APK, so a TV needs no separate player setup.\n\n- **Project** — [`android/`](android/README.md): Kotlin + Jetpack Compose,\n  targeting leanback (Android TV / Google TV / Fire TV) and handhelds from one\n  APK. `minSdk 23`, `targetSdk 34`.\n- **Bundled data** — 2,158 confirmed-working USA channels in the 59 published\n  categories and every guide listing available at build time (about 8,900\n  listings covering 158 channels). [`android/tools/build_bundle.py`](android/tools/build_bundle.py)\n  converts `playlists/countries/USA.m3u` + `EPG/USA.xml` into JSON Lines the\n  app streams with `android.util.JsonReader`, so a TV stick never holds a\n  10 MB XML document in memory beside a video decoder.\n- **Screens** — category rows, a what's-on-now guide with now/next and\n  progress, and settings that refresh from the repository's raw URLs or reset\n  to the bundled copy.\n- **Playback** — ExoPlayer (Media3), honouring the referrer, origin and\n  user-agent a playlist entry publishes through `#EXTVLCOPT` / `#KODIPROP`.\n- **D-pad correctness** — focus, the centre/enter keys and taps are each wired\n  once, so a card can never be focused-but-unopenable or fire twice on one\n  press.\n- **Build** — [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml)\n  compiles in GitHub Actions: a plain sandbox has no JDK, no Android SDK and no\n  route to Maven Central or `dl.google.com`. It publishes a debug-signed,\n  installable APK and an unsigned release APK to `build-out/` and to the\n  release.\n- **Tests** — `tests/test_android_bundle.py` (18 checks) covers header capture,\n  timezone normalisation, group ordering, the already-finished listings rule,\n  and referential integrity between the bundle's channels and programmes.\n  Full suite: 311 passing.\n\nKnown limits: USA library only; the world library is not bundled yet. Guide\ncoverage is whatever the upstream XMLTV sources publish — 158 of 2,158\nchannels have real listings and the app says so rather than padding. Refresh\nreturns HTTP 404 while the repository is private.",
+  "bullets": [
+   "**Project** — [`android/`](android/README.md): Kotlin + Jetpack Compose,",
+   "**Bundled data** — 2,158 confirmed-working USA channels in the 59 published",
+   "**Screens** — category rows, a what's-on-now guide with now/next and",
+   "**Playback** — ExoPlayer (Media3), honouring the referrer, origin and",
+   "**D-pad correctness** — focus, the centre/enter keys and taps are each wired",
+   "**Build** — [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml)",
+   "**Tests** — `tests/test_android_bundle.py` (18 checks) covers header capture,"
+  ]
+ },
+ {
+  "id": "2026-10-10",
+  "date": "2026-10-10",
+  "title": "verified playlist maintenance and history backfill",
+  "body_md": "The existing deep-check workflow was reviewed as the safe mechanism for pruning broken player feeds. It probes HLS variants and actual media segments, removes only confirmed-dead/invalid links, and protects working streams with minimum-working and maximum-removal thresholds. Timeouts, 5xx responses, resets, and auth/geo blocks are not treated as dead based on one observation. The user-facing player playlist is built from confirmed-working links; the all-links catalogue and source caches remain diagnostic/fallback data, not clean player feeds.\n\nBaseline captured from scraper run `20261010T202102Z-2648` (20:21–20:24 UTC):\n\n- 21,547 source entries; 17,230 unique URLs.\n- 10,946 confirmed working; 1,915 confirmed dead; 4,369 unverified.\n- 176 country playlists; A&E playlist: 62 confirmed working of 71 unique candidates.\n- The same commit's offline verification: 179 published playlists, 0 structural problems, 0 known-dead links present, and 131/131 category-shelf files in sync.\n- The latest saved live deep check before this baseline (11:08–11:11 UTC) removed 156 confirmed-dead entries across 27 playlists; it retained 48 unreachable and 12 blocked entries rather than risking false removals. The next live check's results are recorded in the updated Actions report.\n- The refreshed merged XMLTV guide declares 9,281 channel IDs but has programme listings for 192 channels (2.1%); guide coverage remains a follow-up item.\n\n### Historical milestones\n\n| Date | Change | Summary |\n|---|---|---|\n| 2026-09-27 | PRs #1–2 | Scheduled M3U scraper, checked player playlist, all-links catalogue, source snapshots, publication safety threshold, and setup documentation. |\n| 2026-09-28 | PRs #3–4 | Append-only run history and diagnostics; separate confirmed-dead from transient/unverified; source audits and monthly discovery with scoring, caps, cooldown, and rollback. |\n| 2026-09-29–30 | PRs #5–6 | Country-specific playlists, curated A&E feeds, plain-text logs, steadier New York schedules, and URL/W3U parsing fixes. |\n| 2026-10-01 | PR #7 | Tried a single master list with country sections; subsequent taxonomy and country-playlist changes define the current output format. |\n| 2026-10-02 | PR #8 | Deep HLS/DASH checks, EPG checks, quarantining, safe dead-link pruning, priority-channel hunting, and stable-link ranking. |\n| 2026-10-03 | PRs #10–11 | Guide/workflow integration, live deep audit, and curated Lancaster/Harrisburg-area local channel source. |\n| 2026-10-04 | PRs #12, #14 | Merged and country XMLTV guides; canonical categories and backup groups; quick repair/replacement path; NFL Network/RedZone targets. |\n| 2026-10-05 | PR #15 | Reconciled branch conflicts into one taxonomy/order; strict verification, safer in-place resorting, guide-header limits, and honest EPG coverage. |\n| 2026-10-07 | PRs #16–18 | Generated category shelf; URL deduplication and workflow branch isolation; fixed padded IDs, malformed `+https` URLs, placeholder EPG programmes, orphan guides, and stale shelf files. |\n| 2026-10-10 | PR #19 | Added the biweekly archive/deep-clean workflow: check archived/source playlists, rebuild guides and category shelf, re-hunt priority channels, rotate logs, compact quarantine, prune orphans, then verify strictly. |\n| 2026-10-11 | app/ | First Android TV app (v1.0.0 beta): bundled USA channel list and guide, D-pad first Compose UI, Media3 playback, GitHub Actions APK build. |\n\nPRs #9 and #13 were superseded/closed rather than discarded: merged-guide work was reconciled into #11/#12, and the taxonomy work from #13 was reconciled with #14 by #15.",
+  "bullets": [
+   "21,547 source entries; 17,230 unique URLs.",
+   "10,946 confirmed working; 1,915 confirmed dead; 4,369 unverified.",
+   "176 country playlists; A&E playlist: 62 confirmed working of 71 unique candidates.",
+   "The same commit's offline verification: 179 published playlists, 0 structural problems, 0 known-dead links present, and 131/131 category-shelf files in sync.",
+   "The latest saved live deep check before this baseline (11:08–11:11 UTC) removed 156 confirmed-dead entries across 27 playlists; it retained 48 unreachable and 12 blocked entries rather than risking false removals. The next live check's results are recorded in the updated Actions report.",
+   "The refreshed merged XMLTV guide declares 9,281 channel IDs but has programme listings for 192 channels (2.1%); guide coverage remains a follow-up item."
+  ]
+ }
+]
