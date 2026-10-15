@@ -78,7 +78,7 @@
     if (s.confirmed_channels) {
       $("stat-channels").textContent = Number(s.confirmed_channels).toLocaleString();
     }
-    if (s.countries) $("stat-countries").textContent = Number(s.countries).toLocaleString();
+    $("stat-countries").textContent = Number((D.countries || []).length || s.countries || 0).toLocaleString();
     if (s.unique_links) $("stat-links").textContent = Number(s.unique_links).toLocaleString();
     if (s.last_run_utc) {
       $("hero-meta").textContent =
