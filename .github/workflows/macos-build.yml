@@ -242,8 +242,13 @@ jobs:
           # Android and Mac build on the same push and may publish their logs
           # in either order. Rebase over the other job's log commit instead of
           # failing a successful installer build with a non-fast-forward push.
+          # This commit only touches generated build output, so when an earlier
+          # run (even a cancelled one) published the same files, ours win
+          # (-X theirs is the commit being replayed). A plain rebase stopped on
+          # that conflict and left every retry failing.
           for i in 1 2 3; do
-            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            git rebase --abort >/dev/null 2>&1 || true
+            git pull --rebase -X theirs origin "$GITHUB_REF_NAME" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
             sleep 5
           done
           exit 1

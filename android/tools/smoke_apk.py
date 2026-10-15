@@ -109,6 +109,18 @@ def centre_of(node):
     return (left + right) // 2, (top + bottom) // 2
 
 
+def progress(line):
+    """Appends a milestone to build-out/smoke-progress.txt as the run goes."""
+    print(line)
+    try:
+        out = ROOT / "build-out"
+        out.mkdir(parents=True, exist_ok=True)
+        with (out / "smoke-progress.txt").open("a", encoding="utf-8") as handle:
+            handle.write(f"{time.strftime('%H:%M:%S')} {line}\n")
+    except OSError:
+        pass
+
+
 def screenshot(name):
     """Saves the emulator screen to build-out/<name> (PNG)."""
     out = ROOT / "build-out"
@@ -156,12 +168,13 @@ def check_guide(meta, names):
 
     tab, _, _ = wait_for(guide_tab, "the Guide tab")
     x, y = centre_of(tab)
+    progress(f"tapping the Guide tab at {x},{y} (cable grid expected: {cable})")
     adb("shell", "input", "tap", str(x), str(y))
 
     if not cable:
         wait_for(lambda texts, nodes: any("channels with listings" in t for t in texts),
                  "the stable guide list")
-        print("GUIDE PASS (stable): the Guide tab shows the what's-on-now list")
+        progress("GUIDE PASS (stable): the Guide tab shows the what's-on-now list")
         return
 
     def grid(texts, nodes):
@@ -172,8 +185,8 @@ def check_guide(meta, names):
         return (ticks, rows) if len(ticks) >= 3 and dated and listed and rows else None
 
     (ticks, rows), texts, _ = wait_for(grid, "the cable-style guide grid")
-    print(f"GUIDE PASS (cable grid): times across the top {ticks[:6]}, "
-          f"channels down the left {rows[:4]}")
+    progress(f"GUIDE PASS (cable grid): times across the top {ticks[:6]}, "
+             f"channels down the left {rows[:4]}")
     screenshot("android-guide.png")
 
     # The remote: the grid takes focus when it opens; move right and down.
@@ -181,7 +194,7 @@ def check_guide(meta, names):
     key("KEYCODE_DPAD_RIGHT", 2)
     key("KEYCODE_DPAD_DOWN", 2)
     moved, texts, _ = wait_for(lambda t, n: set(t) != before and grid(t, n), "the guide after D-pad moves")
-    print("GUIDE PASS (remote): the highlight and the detail strip follow the D-pad")
+    progress("GUIDE PASS (remote): the highlight and the detail strip follow the D-pad")
     screenshot("android-guide-remote.png")
 
     # OK plays the highlighted channel; Back returns to the same guide.
@@ -189,14 +202,15 @@ def check_guide(meta, names):
     wait_for(lambda t, n: not grid(t, n), "the player after OK in the guide")
     key("KEYCODE_BACK")
     wait_for(grid, "the guide again after Back from the player")
-    print("GUIDE PASS (player): OK opened the channel and Back returned to the guide")
+    progress("GUIDE PASS (player): OK opened the channel and Back returned to the guide")
 
 
 def main():
     bundle = ROOT / "android/app/src/main/assets/bundle"
     meta = json.loads((bundle / "meta.json").read_text())
     names = {json.loads(row)["name"] for row in (bundle / "channels.jsonl").read_text().splitlines() if row}
-    print(f"bundled library: {meta['channel_count']} channels, {len(names)} names, version {meta['version']}")
+    progress(f"bundled library: {meta['channel_count']} channels, {len(names)} names, version {meta['version']}, "
+             f"preview features {meta.get('preview_features') or []}")
     adb("install", "-r", str(ROOT / "android/app/build/outputs/apk/debug/app-debug.apk"),
         timeout=INSTALL_TIMEOUT_SECONDS)
     for attempt in range(2):
@@ -218,9 +232,16 @@ def main():
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
                 named = [value for value in texts for name in names if name and name in value]
                 if count and named:
-                    print(f"APK SMOKE PASS ({'cold launch' if attempt == 0 else 'relaunch'}): "
-                          f"{meta['channel_count']} channels and visible channel cards")
-                    check_guide(meta, names)
+                    progress(f"APK SMOKE PASS ({'cold launch' if attempt == 0 else 'relaunch'}): "
+                             f"{meta['channel_count']} channels and visible channel cards")
+                    try:
+                        check_guide(meta, names)
+                    except Exception as error:  # noqa: BLE001 - always leave a diagnosable log
+                        import traceback
+                        if not (ROOT / "build-out" / "smoke-log.txt").exists():
+                            diagnose(f"Guide check crashed: {type(error).__name__}: {error}\n"
+                                     f"{traceback.format_exc()}", last_dump)
+                        raise
                     return
                 last_error = f"channel count seen: {count}; visible channel names: {named[:3]}; texts: {sorted(texts)[:12]}"
             except (subprocess.SubprocessError, ET.ParseError) as error:
