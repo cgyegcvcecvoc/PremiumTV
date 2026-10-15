@@ -229,10 +229,15 @@
     if (scroll) $("playlist-card").scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
+  function repoPathOf(url) {
+    var marker = "/" + D.repo.name + "/" + D.repo.branch + "/";
+    var i = url.indexOf(marker);
+    if (i >= 0) return url.substring(i + marker.length);
+    return url;
+  }
+
   function downloadPlaylist(url, filename) {
-    fetchRepoText(url.indexOf("playlists/") >= 0 || url.indexOf("categories/") >= 0
-      ? url.substring(url.indexOf("playlists/") >= 0 ? url.indexOf("playlists/") : url.indexOf("categories/"))
-      : url).then(function (text) {
+    fetchRepoText(repoPathOf(url)).then(function (text) {
       saveText(text, filename);
     }).catch(function () {
       // Mirrors blocked? Fall back to opening the raw file.
@@ -540,17 +545,24 @@
       { url: "https://country.is/", parse: function (j) { return matchCountry(j.country, null); } }
     ];
     var i = 0;
+    var settled = false;
     function tryNext() {
-      if (i >= attempts.length) { applyDetected(null); return; }
+      if (settled) return;
+      if (i >= attempts.length) { settled = true; applyDetected(null); return; }
       var attempt = attempts[i++];
       var timer = setTimeout(tryNext, 4000);
       fetch(attempt.url, { cache: "no-store" })
         .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
         .then(function (j) {
           clearTimeout(timer);
+          if (settled) return;
           var c = attempt.parse(j);
-          if (c) applyDetected(c, "detected via " + attempt.url.split("/")[2]);
-          else tryNext();
+          if (c) {
+            settled = true;
+            applyDetected(c, "detected via " + attempt.url.split("/")[2]);
+          } else {
+            tryNext();
+          }
         })
         .catch(function () { clearTimeout(timer); tryNext(); });
     }
@@ -564,6 +576,19 @@
     var el = ev.target.closest ? ev.target.closest("[data-copy]") : null;
     if (el) {
       copyText(el.getAttribute("data-copy"), "URL copied to clipboard");
+      return;
+    }
+    // Cross-origin links ignore the download attribute; route every repo-file
+    // download through the mirror fetch so the file is really saved locally.
+    var link = ev.target.closest ? ev.target.closest("a[download]") : null;
+    if (link && /^https?:\/\//.test(link.getAttribute("href") || "")) {
+      var href = link.getAttribute("href");
+      var match = href.match(/\/(?:playlists|categories|EPG)\/.+$/);
+      if (match) {
+        ev.preventDefault();
+        downloadPlaylist(href, link.getAttribute("download") || "PremiumTV.m3u");
+        toast("Preparing " + (link.getAttribute("download") || "playlist") + "…");
+      }
     }
   });
   $("copy-url").addEventListener("click", function () {
