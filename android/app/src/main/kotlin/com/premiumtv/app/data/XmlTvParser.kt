@@ -2,6 +2,7 @@ package com.premiumtv.app.data
 
 import android.util.Xml
 import org.xmlpull.v1.XmlPullParser
+import java.io.InputStream
 import java.io.StringReader
 import java.util.Calendar
 import java.util.TimeZone
@@ -10,28 +11,51 @@ import java.util.TimeZone
  * XMLTV parser used by the in-app updater.
  *
  * Streams the document with the platform XmlPullParser instead of building a
- * DOM: a full guide is ~10 MB of XML and a TV device would not thank us for
- * holding that in memory alongside a video decoder.
+ * DOM. The refresh hands it the HTTP stream directly: the global preview's
+ * merged guide is ~38 MB of XML, and holding that as text alongside a video
+ * decoder is more than a TV stick's heap allows.
  */
 internal object XmlTvParser {
 
+    private val WHITESPACE = Regex("\\s+")
+    private val XMLTV_TIME = Regex("^(\\d{14})(?:\\s*([+-])(\\d{2})(\\d{2}))?$")
+
+    /** Parses a whole guide held in memory (tests and small files). */
     fun parse(text: String): List<Programme> {
-        val out = ArrayList<Programme>()
         val parser = Xml.newPullParser()
         parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         parser.setInput(StringReader(text))
+        return parse(parser) { _, _ -> true }
+    }
+
+    /**
+     * Parses a guide as it streams in. [keep] sees each listing's channel id
+     * and end time before its text is read, so listings the app would drop
+     * anyway (unknown channels, long-finished shows) cost nothing.
+     */
+    fun parse(input: InputStream, keep: (channelId: String, end: Long) -> Boolean): List<Programme> {
+        val parser = Xml.newPullParser()
+        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
+        // A null encoding lets the parser honour the XML declaration.
+        parser.setInput(input, null)
+        return parse(parser, keep)
+    }
+
+    private fun parse(parser: XmlPullParser, keep: (String, Long) -> Boolean): List<Programme> {
+        val out = ArrayList<Programme>()
         var event = parser.eventType
         while (event != XmlPullParser.END_DOCUMENT) {
             if (event == XmlPullParser.START_TAG && parser.name == "programme") {
-                val programme = readProgramme(parser)
+                val programme = readProgramme(parser, keep)
                 if (programme != null) out.add(programme)
             }
             event = parser.next()
         }
-        return out.sortedWith(compareBy({ it.channelId }, { it.start }))
+        out.sortWith(compareBy({ it.channelId }, { it.start }))
+        return out
     }
 
-    private fun readProgramme(parser: XmlPullParser): Programme? {
+    private fun readProgramme(parser: XmlPullParser, keep: (String, Long) -> Boolean): Programme? {
         val channelId = parser.getAttributeValue(null, "channel")?.trim().orEmpty()
         val start = parseTime(parser.getAttributeValue(null, "start"))
         if (channelId.isEmpty() || start == 0L) {
@@ -40,6 +64,10 @@ internal object XmlTvParser {
         }
         var end = parseTime(parser.getAttributeValue(null, "stop"))
         if (end <= start) end = start + 1800L
+        if (!keep(channelId, end)) {
+            skipToEnd(parser, "programme")
+            return null
+        }
 
         var title = ""
         var desc = ""
@@ -103,7 +131,7 @@ internal object XmlTvParser {
         return ""
     }
 
-    private fun collapse(value: String): String = value.replace(Regex("\\s+"), " ")
+    private fun collapse(value: String): String = value.replace(WHITESPACE, " ")
 
     /**
      * XMLTV timestamps look like `20261011043000 +0000`. They are converted to
@@ -111,8 +139,7 @@ internal object XmlTvParser {
      */
     private fun parseTime(raw: String?): Long {
         val value = raw?.trim().orEmpty()
-        val match = Regex("^(\\d{14})(?:\\s*([+-])(\\d{2})(\\d{2}))?$").matchEntire(value)
-            ?: return 0L
+        val match = XMLTV_TIME.matchEntire(value) ?: return 0L
         val stamp = match.groupValues[1]
         val signText = match.groupValues[2]
         val year = stamp.substring(0, 4).toIntOrNull() ?: return 0L

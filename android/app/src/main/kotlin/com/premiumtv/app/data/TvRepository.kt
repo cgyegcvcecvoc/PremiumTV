@@ -15,6 +15,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.FilterInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -33,9 +34,14 @@ import java.util.TimeZone
  *  - a cache in the app's private files, written by [refresh].
  *
  * The cache wins when it exists, so automatic and manual refreshes survive a
- * restart. Resetting in Settings deletes it and falls back to what the APK
- * shipped with. All load/write operations share one mutex: a background worker
- * can never replace files while the foreground UI is reading them.
+ * restart - but only while it was written by this same build. A cache records
+ * the version and library scope of the bundle it replaced; when those differ
+ * from this APK's bundle (a 1.0.x USA refresh still on the device after the
+ * global preview is installed over it), the cache is discarded on load,
+ * because it would otherwise hide everything the new APK ships, the cable
+ * guide included. Resetting in Settings deletes it and falls back to what the
+ * APK shipped with. All load/write operations share one mutex: a background
+ * worker can never replace files while the foreground UI is reading them.
  */
 class TvRepository(private val app: Application) {
 
@@ -52,8 +58,10 @@ class TvRepository(private val app: Application) {
         const val PLAYLIST_VALIDATOR = "playlist"
         const val GUIDE_VALIDATOR = "guide"
 
-        const val MAX_PLAYLIST_CHARS = 16 * 1024 * 1024
-        const val MAX_GUIDE_CHARS = 80 * 1024 * 1024
+        const val MAX_PLAYLIST_BYTES = 32L * 1024L * 1024L
+        // The global preview's merged guide is ~38 MB of XML. It is parsed
+        // straight off the connection, so this only bounds the download.
+        const val MAX_GUIDE_BYTES = 160L * 1024L * 1024L
     }
 
     private val operations = Mutex()
@@ -67,6 +75,20 @@ class TvRepository(private val app: Application) {
 
     private val _refreshInfo = MutableStateFlow(readRefreshInfo())
     val refreshInfo: StateFlow<RefreshInfo> = _refreshInfo
+
+    /**
+     * The metadata of the bundle inside this APK: its version, library scope
+     * and preview features. It decides which UI the build shows, whatever a
+     * downloaded copy says.
+     */
+    private val bundledMeta: BundleMeta by lazy {
+        try {
+            app.assets.open("bundle/meta.json").use { parseMeta(it) }
+        } catch (e: Exception) {
+            Log.w(TAG, "The APK's bundle metadata is unreadable", e)
+            BundleMeta.EMPTY
+        }
+    }
 
     private val cacheDir: File get() = File(app.filesDir, "bundle")
     private val stagingCacheDir: File get() = File(app.filesDir, "bundle-staging")
@@ -111,6 +133,7 @@ class TvRepository(private val app: Application) {
 
     private fun loadLocked() {
         recoverInterruptedCacheWrite()
+        discardCacheFromAnotherBuild()
         _state.value = LoadState.Loading
         _status.value = "Loading channels…"
 
@@ -189,14 +212,14 @@ class TvRepository(private val app: Application) {
             } else {
                 "Background refresh: checking the channel list…"
             }
-            val playlistDownload = downloadText(
+            val playlistDownload = download(
                 urlString = playlistUrl,
                 validatorName = PLAYLIST_VALIDATOR,
                 conditional = conditional,
-                maxChars = MAX_PLAYLIST_CHARS,
-            )
+                maxBytes = MAX_PLAYLIST_BYTES,
+            ) { input -> input.bufferedReader(Charsets.UTF_8).readText() }
 
-            val parsedPlaylist = playlistDownload.text?.let { M3uParser.parse(it) }
+            val parsedPlaylist = playlistDownload.body?.let { M3uParser.parse(it) }
             val channels = parsedPlaylist?.first ?: current.channels
             if (channels.isEmpty()) throw IOException("the playlist contained no channels")
 
@@ -211,22 +234,33 @@ class TvRepository(private val app: Application) {
             } else {
                 "Background refresh: checking the programme guide…"
             }
-            var guideDownload = downloadText(
+            // The guide is parsed as it downloads, keeping only listings for
+            // channels in the playlist that have not finished more than six
+            // hours ago. Reading the 38 MB global guide into one String first
+            // needed ~200 MB of heap, enough to kill the refresh on a TV stick.
+            val known = HashSet<String>(channels.size * 2).apply { channels.forEach { add(it.id) } }
+            val keepAfter = System.currentTimeMillis() / 1000L - 6 * 3600L
+            val readGuide: (InputStream) -> List<Programme> = { input ->
+                XmlTvParser.parse(input) { channelId, end -> end > keepAfter && known.contains(channelId) }
+            }
+            var guideDownload = download(
                 urlString = guideUrl,
                 validatorName = GUIDE_VALIDATOR,
                 conditional = conditional,
-                maxChars = MAX_GUIDE_CHARS,
+                maxBytes = MAX_GUIDE_BYTES,
+                read = readGuide,
             )
 
             // When channel membership changed, re-read even an otherwise
             // unchanged guide. The previous parsed cache intentionally omitted
             // programmes for channels that did not exist at that time.
-            if (playlistDownload.text != null && guideDownload.notModified) {
-                guideDownload = downloadText(
+            if (playlistDownload.body != null && guideDownload.notModified) {
+                guideDownload = download(
                     urlString = guideUrl,
                     validatorName = GUIDE_VALIDATOR,
                     conditional = false,
-                    maxChars = MAX_GUIDE_CHARS,
+                    maxBytes = MAX_GUIDE_BYTES,
+                    read = readGuide,
                 )
             }
 
@@ -241,11 +275,18 @@ class TvRepository(private val app: Application) {
                 return finishRefresh(trigger, true, message, changed = false)
             }
 
-            val programmes = guideDownload.text?.let { XmlTvParser.parse(it) }
-                ?: current.programmes.values.flatten()
+            val programmes = guideDownload.body ?: current.programmes.values.flatten()
+            // The refreshed copy describes this APK's build, so the next load
+            // keeps it (see discardCacheFromAnotherBuild) and the UI it gates
+            // stays the one this APK ships.
+            val build = bundledMeta.takeIf { it !== BundleMeta.EMPTY } ?: meta
             val updatedMeta = meta.copy(
                 playlistUrl = playlistUrl,
                 guideUrl = guideUrl,
+                version = build.version,
+                libraryScope = build.libraryScope,
+                previewFeatures = build.previewFeatures,
+                publishedOrder = build.publishedOrder.ifEmpty { meta.publishedOrder },
             )
             val library = buildLibrary(channels, programmes, updatedMeta, refreshed = true)
             writeCache(library)
@@ -269,6 +310,16 @@ class TvRepository(private val app: Application) {
                 successful = false,
                 message = refreshFailureMessage(e),
                 retryable = retryable,
+            )
+        } catch (e: OutOfMemoryError) {
+            // The half-built lists are garbage once this frame unwinds; the
+            // library on screen was never replaced.
+            Log.e(TAG, "${trigger.name} refresh ran out of memory; keeping the current app data", e)
+            return finishRefresh(
+                trigger = trigger,
+                successful = false,
+                message = "Refresh needed more memory than this device allows; the current app data was kept.",
+                retryable = false,
             )
         }
     }
@@ -345,6 +396,37 @@ class TvRepository(private val app: Application) {
             onChannelsReady = onChannelsReady,
         )
 
+    /**
+     * Drops a downloaded copy that another build wrote.
+     *
+     * Every cache records the version and library scope of the bundle it was
+     * refreshed from. A copy whose version or scope differs from this APK's
+     * bundle belongs to an earlier install - typically a 1.0.x USA refresh
+     * after the global preview was installed over it, which kept showing the
+     * old lineup and hid the preview's cable guide. Its validators go too, so
+     * the next refresh downloads the new build's files in full.
+     */
+    private fun discardCacheFromAnotherBuild() {
+        if (!cacheDir.isDirectory) return
+        val bundle = bundledMeta
+        if (bundle === BundleMeta.EMPTY) return
+        val cached = try {
+            File(cacheDir, "meta.json").takeIf { it.isFile }?.inputStream()?.use { parseMeta(it) }
+        } catch (e: Exception) {
+            null
+        }
+        if (cached != null && cached.version == bundle.version && cached.libraryScope == bundle.libraryScope) {
+            return
+        }
+        Log.i(
+            TAG,
+            "Discarding the downloaded ${cached?.version ?: "unknown"}/${cached?.libraryScope ?: "unknown"} " +
+                "copy; this APK ships ${bundle.version}/${bundle.libraryScope}",
+        )
+        cacheDir.deleteRecursively()
+        clearValidators()
+    }
+
     /** Reads the downloaded copy, or returns null so the caller uses the APK's bundle. */
     private fun readCache(onChannelsReady: (Library) -> Unit): Library? {
         if (!cacheDir.isDirectory) return null
@@ -378,11 +460,17 @@ class TvRepository(private val app: Application) {
         fun stream(name: String): InputStream =
             open(name) ?: throw FileNotFoundException("$name is missing")
 
-        val meta = try {
+        val readMeta = try {
             open("meta.json")?.use { parseMeta(it) } ?: BundleMeta.EMPTY
         } catch (e: Exception) {
             Log.w(TAG, "Bundle metadata is unavailable; continuing with defaults", e)
             BundleMeta.EMPTY
+        }
+        // Which preview UI shows is a property of the APK, not of the data.
+        val meta = if (refreshed && bundledMeta !== BundleMeta.EMPTY) {
+            readMeta.copy(previewFeatures = bundledMeta.previewFeatures)
+        } else {
+            readMeta
         }
         val channels = readJsonLines(stream("channels.jsonl")) { parseChannel(it) }
         if (channels.isEmpty()) throw IOException("channels.jsonl holds no channels")
@@ -395,7 +483,7 @@ class TvRepository(private val app: Application) {
             Log.w(TAG, "Category metadata is unreadable; deriving categories from channels", e)
             emptyList()
         }
-        val groups = loadedGroups.ifEmpty { groupsFrom(channels) }
+        val groups = loadedGroups.ifEmpty { groupsFrom(channels, meta.publishedOrder) }
 
         val partial = Library(
             channels = channels,
@@ -428,6 +516,12 @@ class TvRepository(private val app: Application) {
                 features?.optString(index)?.trim()?.takeIf { it.isNotEmpty() }?.let { add(it) }
             }
         }
+        val order = json.optJSONArray("published_order")
+        val publishedOrder = buildList {
+            for (index in 0 until (order?.length() ?: 0)) {
+                order?.optString(index)?.trim()?.takeIf { it.isNotEmpty() }?.let { add(it) }
+            }
+        }
         return BundleMeta(
             version = json.optString("version", "1.0.0"),
             generatedUtc = json.optString("generated_utc", ""),
@@ -444,6 +538,7 @@ class TvRepository(private val app: Application) {
             rawBase = json.optString("raw_base", ""),
             libraryScope = json.optString("library_scope", "usa"),
             previewFeatures = previewFeatures,
+            publishedOrder = publishedOrder,
         )
     }
 
@@ -459,7 +554,7 @@ class TvRepository(private val app: Application) {
         val known = HashSet(channels.map { it.id })
         val kept = programmes.filter { known.contains(it.channelId) && it.end > now - 6 * 3600L }
         val byChannel = groupProgrammes(kept, known)
-        val groups = groupsFrom(channels)
+        val groups = groupsFrom(channels, base.publishedOrder)
         val meta = base.copy(
             channelCount = channels.size,
             groupCount = groups.size,
@@ -491,14 +586,23 @@ class TvRepository(private val app: Application) {
         return out
     }
 
-    private fun groupsFrom(channels: List<Channel>): List<CategoryGroup> {
+    /**
+     * Categories in the published order (as android/tools/build_bundle.py
+     * writes groups.jsonl), then any others by size. Without the order a
+     * refresh used to re-sort the Channels tab and the guide by size.
+     */
+    private fun groupsFrom(channels: List<Channel>, publishedOrder: List<String> = emptyList()): List<CategoryGroup> {
         val counts = LinkedHashMap<String, Int>()
         for (channel in channels) {
             counts[channel.group] = (counts[channel.group] ?: 0) + 1
         }
-        return counts.entries
+        val published = publishedOrder.filter { counts.containsKey(it) }.distinct()
+        val publishedSet = published.toHashSet()
+        val rest = counts.entries
+            .filter { it.key !in publishedSet }
             .sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key.lowercase() })
-            .map { CategoryGroup(it.key, it.value) }
+            .map { it.key }
+        return (published + rest).map { CategoryGroup(it, counts[it] ?: 0) }
     }
 
     /** Writes a complete staging directory, then swaps it into place atomically. */
@@ -510,11 +614,12 @@ class TvRepository(private val app: Application) {
         }
 
         File(stagingCacheDir, "meta.json").writeText(metaToJson(library.meta))
-        writeLines(File(stagingCacheDir, "channels.jsonl"), library.channels.map { channelToJson(it) })
-        writeLines(File(stagingCacheDir, "groups.jsonl"), library.groups.map { groupToJson(it) })
+        writeLines(File(stagingCacheDir, "channels.jsonl"), library.channels.asSequence().map { channelToJson(it) })
+        writeLines(File(stagingCacheDir, "groups.jsonl"), library.groups.asSequence().map { groupToJson(it) })
+        // One line at a time: the global guide is ~100k listings.
         writeLines(
             File(stagingCacheDir, "epg.jsonl"),
-            library.programmes.values.flatten().map { programmeToJson(it) },
+            library.programmes.values.asSequence().flatten().map { programmeToJson(it) },
         )
 
         var oldMoved = false
@@ -538,7 +643,7 @@ class TvRepository(private val app: Application) {
         if (cacheDir.exists()) backupCacheDir.deleteRecursively()
     }
 
-    private fun writeLines(file: File, lines: List<String>) {
+    private fun writeLines(file: File, lines: Sequence<String>) {
         file.bufferedWriter().use { writer ->
             for (line in lines) {
                 writer.write(line)
@@ -599,13 +704,14 @@ class TvRepository(private val app: Application) {
         json.put("raw_base", meta.rawBase)
         json.put("library_scope", meta.libraryScope)
         json.put("preview_features", JSONArray(meta.previewFeatures.toList()))
+        json.put("published_order", JSONArray(meta.publishedOrder))
         return json.toString()
     }
 
     // --------------------------------------------------------------- downloading
 
-    private data class DownloadResult(
-        val text: String?,
+    private class Downloaded<T>(
+        val body: T?,
         val etag: String,
         val lastModified: String,
         val notModified: Boolean,
@@ -616,12 +722,49 @@ class TvRepository(private val app: Application) {
         val sourceUrl: String,
     ) : IOException("HTTP $statusCode from $sourceUrl")
 
-    private fun downloadText(
+    /** Counts what it passes on and stops a download that outgrows [limit]. */
+    private class LimitedInputStream(input: InputStream, private val limit: Long) : FilterInputStream(input) {
+        private var count = 0L
+
+        private fun advance(read: Long) {
+            if (read > 0) {
+                count += read
+                if (count > limit) throw IOException("the downloaded file exceeds the app's safety limit")
+            }
+        }
+
+        override fun read(): Int {
+            val value = super.read()
+            if (value >= 0) advance(1)
+            return value
+        }
+
+        override fun read(buffer: ByteArray, offset: Int, length: Int): Int {
+            val read = super.read(buffer, offset, length)
+            advance(read.toLong())
+            return read
+        }
+
+        override fun skip(n: Long): Long {
+            val skipped = super.skip(n)
+            advance(skipped)
+            return skipped
+        }
+    }
+
+    /**
+     * GETs [urlString] and hands the body stream to [read] while the connection
+     * is open, so a large guide is parsed as it arrives instead of being held
+     * as text first. A conditional request sends the saved validators and
+     * returns [Downloaded.notModified] on HTTP 304.
+     */
+    private fun <T> download(
         urlString: String,
         validatorName: String,
         conditional: Boolean,
-        maxChars: Int,
-    ): DownloadResult {
+        maxBytes: Long,
+        read: (InputStream) -> T,
+    ): Downloaded<T> {
         val connection = URL(urlString).openConnection() as HttpURLConnection
         val savedUrl = preferences.getString("${validatorName}_url", "").orEmpty()
         val savedEtag = preferences.getString("${validatorName}_etag", "").orEmpty()
@@ -644,8 +787,8 @@ class TvRepository(private val app: Application) {
 
             val code = connection.responseCode
             if (code == HttpURLConnection.HTTP_NOT_MODIFIED) {
-                DownloadResult(
-                    text = null,
+                Downloaded(
+                    body = null,
                     etag = connection.getHeaderField("ETag").orEmpty().ifBlank { savedEtag },
                     lastModified = connection.getHeaderField("Last-Modified").orEmpty()
                         .ifBlank { savedModified },
@@ -654,24 +797,12 @@ class TvRepository(private val app: Application) {
             } else {
                 if (code !in 200..299) throw HttpStatusException(code, urlString)
                 val announcedLength = connection.contentLengthLong
-                if (announcedLength > maxChars.toLong() * 4L) {
+                if (announcedLength > maxBytes) {
                     throw IOException("the downloaded file is unexpectedly large")
                 }
-                val text = connection.inputStream.bufferedReader().use { reader ->
-                    val output = StringBuilder(minOf(announcedLength.coerceAtLeast(0L).toInt(), maxChars))
-                    val buffer = CharArray(16 * 1024)
-                    while (true) {
-                        val count = reader.read(buffer)
-                        if (count < 0) break
-                        output.append(buffer, 0, count)
-                        if (output.length > maxChars) {
-                            throw IOException("the downloaded file exceeds the app's safety limit")
-                        }
-                    }
-                    output.toString()
-                }
-                DownloadResult(
-                    text = text,
+                val body = LimitedInputStream(connection.inputStream, maxBytes).buffered(64 * 1024).use { read(it) }
+                Downloaded(
+                    body = body,
                     etag = connection.getHeaderField("ETag").orEmpty(),
                     lastModified = connection.getHeaderField("Last-Modified").orEmpty(),
                     notModified = false,
@@ -682,7 +813,7 @@ class TvRepository(private val app: Application) {
         }
     }
 
-    private fun saveValidator(name: String, url: String, result: DownloadResult) {
+    private fun saveValidator(name: String, url: String, result: Downloaded<*>) {
         preferences.edit()
             .putString("${name}_url", url)
             .putString("${name}_etag", result.etag)
@@ -710,9 +841,8 @@ class TvRepository(private val app: Application) {
 
     private fun refreshFailureMessage(error: Exception): String = when (error) {
         is HttpStatusException -> when (error.statusCode) {
-            401, 403, 404 -> "Refresh could not access the repository (HTTP ${error.statusCode}). " +
-                "The current app data was kept. Private GitHub raw files need a public, " +
-                "owner-approved delivery mirror before a TV can download them."
+            401, 403, 404 -> "Refresh could not download ${error.sourceUrl} (HTTP ${error.statusCode}). " +
+                "The current app data was kept."
             else -> "Refresh failed with HTTP ${error.statusCode}; the current app data was kept."
         }
         else -> "Refresh failed: ${error.message ?: error.javaClass.simpleName}. " +

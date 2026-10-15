@@ -9,6 +9,9 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.ByteArrayInputStream
 import java.io.File
 
 /** Exercises Android's real JsonReader and APK assets, not source-text checks. */
@@ -117,5 +120,70 @@ https://example.org/news.m3u8"""
         assertEquals(1, programmes.size)
         assertEquals("Valid start", programmes.single().title)
         assertEquals(1800L, programmes.single().end - programmes.single().start)
+    }
+
+    private fun rewriteCacheMeta(cache: File, edit: (JSONObject) -> Unit) {
+        val file = File(cache, "meta.json")
+        val json = JSONObject(file.readText())
+        edit(json)
+        file.writeText(json.toString())
+    }
+
+    @Test fun cacheWrittenByAnotherBuildIsDiscardedForTheApksBundle() = runBlocking {
+        // What a 1.0.x install leaves behind when a newer APK is installed over it.
+        val cache = copyBundle()
+        rewriteCacheMeta(cache) {
+            it.put("version", "0.9.9-old")
+            it.put("library_scope", "usa")
+            it.put("preview_features", JSONArray())
+        }
+        app.getSharedPreferences("premiumtv_refresh", 0).edit()
+            .putString("playlist_etag", "\"old\"").commit()
+        val repository = TvRepository(app)
+        repository.load()
+        val library = ready(repository)
+        assertFalse("the stale download must not be shown", library.refreshed)
+        assertFalse(cache.exists())
+        assertNull(app.getSharedPreferences("premiumtv_refresh", 0).getString("playlist_etag", null))
+    }
+
+    @Test fun cacheWrittenByThisBuildIsKept() = runBlocking {
+        copyBundle()
+        val repository = TvRepository(app)
+        repository.load()
+        assertTrue(ready(repository).refreshed)
+    }
+
+    @Test fun previewFeaturesComeFromTheApkNotFromTheDownload() = runBlocking {
+        val apkFeatures = app.assets.open("bundle/meta.json").bufferedReader().use { reader ->
+            val array = JSONObject(reader.readText()).optJSONArray("preview_features") ?: JSONArray()
+            (0 until array.length()).map { array.getString(it) }.toSet()
+        }
+        val cache = copyBundle()
+        rewriteCacheMeta(cache) { it.put("preview_features", JSONArray(listOf("from-the-download"))) }
+        val repository = TvRepository(app)
+        repository.load()
+        val library = ready(repository)
+        assertTrue(library.refreshed)
+        assertEquals(apkFeatures, library.meta.previewFeatures)
+    }
+
+    @Test fun streamingXmltvParserSkipsListingsTheAppWouldDrop() {
+        val guide = """<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+<programme channel="keep" start="20261101010000 +0000" stop="20261101020000 +0000">
+<title>Kept   show</title><desc>A  description</desc><category>News</category></programme>
+<programme channel="drop" start="20261101010000 +0000" stop="20261101020000 +0000">
+<title>Unknown channel</title></programme>
+<programme channel="keep" start="20261101000000 +0000" stop="20261101003000 +0000">
+<title>Already over</title></programme>
+</tv>"""
+        val cutoff = 1_793_494_000L // 2026-11-01 00:46:40 UTC
+        val programmes = XmlTvParser.parse(ByteArrayInputStream(guide.toByteArray())) { channel, end ->
+            channel == "keep" && end > cutoff
+        }
+        assertEquals(listOf("Kept show"), programmes.map { it.title })
+        assertEquals("A description", programmes.single().desc)
+        assertEquals("News", programmes.single().category)
     }
 }

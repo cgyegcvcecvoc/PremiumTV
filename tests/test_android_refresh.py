@@ -78,6 +78,12 @@ class AndroidRefreshWiringTests(unittest.TestCase):
             self.assertIn("v1.0.2:false", source)
             self.assertIn("v1.1.0:true", source)
             self.assertIn("scope=all", source)
+            # 1.1.1 is a global preview too: pre-release only, never stable.
+            self.assertIn("v1.1.1:true", source)
+            self.assertIn("github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease", source)
+            self.assertNotIn("v1.1.1:false", source)
+        android = text(ROOT / ".github" / "workflows" / "android-build.yml")
+        self.assertIn("v1.1.1:true) version=1.1.1; scope=all; code=9 ;;", android)
 
     def test_boot_permission_and_application_scheduler(self):
         manifest = text(ANDROID / "AndroidManifest.xml")
@@ -100,6 +106,14 @@ class AndroidRefreshWiringTests(unittest.TestCase):
         self.assertIn('"Force refresh all now"', settings)
         self.assertIn("val conditional = !isManual && current.refreshed", repository)
 
+    def test_refresh_streams_the_guide_instead_of_buffering_it(self):
+        repository = text(REPOSITORY)
+        parser = text(ANDROID / "kotlin" / "com" / "premiumtv" / "app" / "data" / "XmlTvParser.kt")
+        self.assertNotIn("downloadText", repository)
+        self.assertIn("XmlTvParser.parse(input)", repository)
+        self.assertIn("fun parse(input: InputStream, keep:", parser)
+        self.assertIn("catch (e: OutOfMemoryError)", repository)
+
     def test_refresh_is_serialized_conditional_and_atomically_published(self):
         repository = text(REPOSITORY)
         self.assertIn("private val operations = Mutex()", repository)
@@ -107,6 +121,44 @@ class AndroidRefreshWiringTests(unittest.TestCase):
         self.assertIn('connection.setRequestProperty("If-Modified-Since"', repository)
         self.assertIn("stagingCacheDir.renameTo(cacheDir)", repository)
         self.assertIn("backupCacheDir.renameTo(cacheDir)", repository)
+
+
+
+
+class AndroidCableGuideWiringTests(unittest.TestCase):
+    """The cable-style grid must be the Guide tab of a preview build - not a
+    separate tab that a stale download can hide, as happened in 1.1.0."""
+
+    UI = ANDROID / "kotlin" / "com" / "premiumtv" / "app" / "ui"
+
+    def test_guide_tab_is_the_cable_grid_on_preview_builds(self):
+        home = text(self.UI / "HomeScreen.kt")
+        self.assertIn('val cableGuide = library.meta.previewFeatures.contains("cable-guide")', home)
+        self.assertRegex(home, r"HomeTab\.Guide -> if \(cableGuide\) \{\s*CableGuideScreen\(")
+        self.assertNotIn('Cable("Cable")', home)
+        self.assertIn("KEYCODE_GUIDE", home)
+
+    def test_grid_has_channels_left_times_on_top_and_a_remote_highlight(self):
+        guide = text(self.UI / "CableGuide.kt")
+        model = text(self.UI / "GuideModel.kt")
+        for piece in ("GuideTimeHeader(", "GuideChannelCell(", "GuideProgrammeCell(", "GuideInfoPanel("):
+            self.assertIn(piece, guide)
+        self.assertIn("moveGuideCursor(model, cursorNow(), move)", guide)
+        self.assertIn("focusRequester.requestFocus()", guide)
+        self.assertIn("internal const val GUIDE_SLOTS", model)
+
+    def test_tab_and_guide_position_survive_the_player(self):
+        root = text(self.UI / "AppRoot.kt")
+        self.assertIn("rememberSaveable { mutableStateOf(HomeTab.Channels) }", root)
+        self.assertIn("rememberCableGuideState()", root)
+
+    def test_a_cache_from_another_build_cannot_hide_the_new_bundle(self):
+        repository = text(REPOSITORY)
+        self.assertIn("discardCacheFromAnotherBuild()", repository)
+        self.assertIn("cached.version == bundle.version && cached.libraryScope == bundle.libraryScope", repository)
+        # The repository is public: refresh errors must not blame a private repo.
+        self.assertNotIn("Private GitHub raw files", repository)
+        self.assertNotIn("repository is private", text(self.UI / "HomeScreen.kt"))
 
 
 if __name__ == "__main__":

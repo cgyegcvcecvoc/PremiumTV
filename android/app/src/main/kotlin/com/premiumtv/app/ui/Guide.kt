@@ -24,6 +24,7 @@ fun progressOf(programme: Programme, now: Long): Float {
 private val CLOCK = SimpleDateFormat("h:mm a", Locale.US)
 private val DAY_CLOCK = SimpleDateFormat("EEE h:mm a", Locale.US)
 private val REFRESH_INSTANT = SimpleDateFormat("MMM d, h:mm a z", Locale.US)
+private val GUIDE_DATE = SimpleDateFormat("EEE, MMM d", Locale.US)
 
 fun formatClock(epochSeconds: Long): String = CLOCK.format(Date(epochSeconds * 1000L))
 
@@ -31,6 +32,9 @@ fun formatRange(start: Long, end: Long): String =
     "${formatClock(start)} - ${formatClock(end)}"
 
 fun formatDay(epochSeconds: Long): String = DAY_CLOCK.format(Date(epochSeconds * 1000L))
+
+/** "Thu, Oct 15": the cable guide's date, above the channel column. */
+fun formatGuideDate(epochSeconds: Long): String = GUIDE_DATE.format(Date(epochSeconds * 1000L))
 
 /** Device-local date/time for refresh history and the next WorkManager slot. */
 fun formatRefreshInstant(epochMillis: Long): String = REFRESH_INSTANT.format(Date(epochMillis))

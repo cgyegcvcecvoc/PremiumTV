@@ -8,6 +8,14 @@ start and especially `uiautomator dump` all take much longer there, so the gate
 sizes its waits for the larger library instead of assuming the stable one.
 A dump that times out is retried rather than counted as a failed check.
 
+After the channel check, the Guide tab is opened. A preview build (bundle
+preview_features: cable-guide) must show the cable-style grid - channels down
+the left, half-hour times across the top, shows to the right - and answer the
+remote: the highlight moves with the D-pad, OK opens the player, and Back
+returns to the same guide. A stable build must show the "what's on now" list.
+Preview runs save screenshots of the guide to build-out/ so the grid can be
+checked by eye.
+
 On failure the logcat tail and the last UI dump are written to
 build-out/smoke-log.txt. Actions logs live behind a host some sandboxes cannot
 reach, and for branch builds build-out/ is committed back to the branch, which
@@ -80,6 +88,110 @@ def diagnose(reason, last_dump=""):
         print(f"could not write build-out/smoke-log.txt: {error}")
 
 
+TIME_TICK = re.compile(r"^\d{1,2}:\d{2} (AM|PM)$")
+GUIDE_DATE = re.compile(r"^[A-Z][a-z]{2}, [A-Z][a-z]{2} \d{1,2}$")
+GUIDE_DEADLINE_SECONDS = 120
+
+
+def dump_ui():
+    """One uiautomator dump: (xml text, parsed nodes)."""
+    adb("shell", "uiautomator", "dump", "/sdcard/premiumtv-ui.xml", timeout=DUMP_TIMEOUT_SECONDS)
+    xml = adb("shell", "cat", "/sdcard/premiumtv-ui.xml", timeout=DUMP_TIMEOUT_SECONDS)
+    return xml, list(ET.fromstring(xml).iter("node"))
+
+
+def texts_of(nodes):
+    return [node.get("text", "") for node in nodes if node.get("text", "")]
+
+
+def centre_of(node):
+    left, top, right, bottom = map(int, re.findall(r"\d+", node.get("bounds", "")))
+    return (left + right) // 2, (top + bottom) // 2
+
+
+def screenshot(name):
+    """Saves the emulator screen to build-out/<name> (PNG)."""
+    out = ROOT / "build-out"
+    out.mkdir(parents=True, exist_ok=True)
+    try:
+        data = subprocess.check_output(["adb", "exec-out", "screencap", "-p"], timeout=ADB_TIMEOUT_SECONDS)
+        if data.startswith(b"\x89PNG"):
+            (out / name).write_bytes(data)
+            print(f"saved build-out/{name} ({len(data) // 1024} KB)")
+    except subprocess.SubprocessError as error:
+        print(f"screenshot {name} skipped: {error}")
+
+
+def wait_for(check, label):
+    """Polls the UI until check(texts) is truthy; returns (value, texts, xml)."""
+    deadline = time.monotonic() + GUIDE_DEADLINE_SECONDS
+    last_xml, last_texts, last_error = "", [], ""
+    while time.monotonic() < deadline:
+        try:
+            last_xml, nodes = dump_ui()
+            last_texts = texts_of(nodes)
+            value = check(last_texts, nodes)
+            if value:
+                return value, last_texts, last_xml
+        except (subprocess.SubprocessError, ET.ParseError) as error:
+            last_error = f"{type(error).__name__}: {error}"
+        time.sleep(2)
+    diagnose(f"{label} not seen within {GUIDE_DEADLINE_SECONDS} seconds. "
+             f"Texts: {sorted(set(last_texts))[:40]} {last_error}", last_xml)
+    raise RuntimeError(f"{label} not seen in time")
+
+
+def key(code, times=1):
+    for _ in range(times):
+        adb("shell", "input", "keyevent", code)
+        time.sleep(0.6)
+
+
+def check_guide(meta, names):
+    """Opens the Guide tab and checks the grid (preview) or the list (stable)."""
+    cable = "cable-guide" in (meta.get("preview_features") or [])
+
+    def guide_tab(texts, nodes):
+        return next((node for node in nodes if node.get("text") == "Guide"), None)
+
+    tab, _, _ = wait_for(guide_tab, "the Guide tab")
+    x, y = centre_of(tab)
+    adb("shell", "input", "tap", str(x), str(y))
+
+    if not cable:
+        wait_for(lambda texts, nodes: any("channels with listings" in t for t in texts),
+                 "the stable guide list")
+        print("GUIDE PASS (stable): the Guide tab shows the what's-on-now list")
+        return
+
+    def grid(texts, nodes):
+        ticks = [t for t in texts if TIME_TICK.match(t)]
+        dated = any(GUIDE_DATE.match(t) for t in texts)
+        listed = any(t.endswith("channels listed") for t in texts)
+        rows = [t for t in texts if t in names]
+        return (ticks, rows) if len(ticks) >= 3 and dated and listed and rows else None
+
+    (ticks, rows), texts, _ = wait_for(grid, "the cable-style guide grid")
+    print(f"GUIDE PASS (cable grid): times across the top {ticks[:6]}, "
+          f"channels down the left {rows[:4]}")
+    screenshot("android-guide.png")
+
+    # The remote: the grid takes focus when it opens; move right and down.
+    before = set(texts)
+    key("KEYCODE_DPAD_RIGHT", 2)
+    key("KEYCODE_DPAD_DOWN", 2)
+    moved, texts, _ = wait_for(lambda t, n: set(t) != before and grid(t, n), "the guide after D-pad moves")
+    print("GUIDE PASS (remote): the highlight and the detail strip follow the D-pad")
+    screenshot("android-guide-remote.png")
+
+    # OK plays the highlighted channel; Back returns to the same guide.
+    key("KEYCODE_DPAD_CENTER")
+    wait_for(lambda t, n: not grid(t, n), "the player after OK in the guide")
+    key("KEYCODE_BACK")
+    wait_for(grid, "the guide again after Back from the player")
+    print("GUIDE PASS (player): OK opened the channel and Back returned to the guide")
+
+
 def main():
     bundle = ROOT / "android/app/src/main/assets/bundle"
     meta = json.loads((bundle / "meta.json").read_text())
@@ -108,6 +220,7 @@ def main():
                 if count and named:
                     print(f"APK SMOKE PASS ({'cold launch' if attempt == 0 else 'relaunch'}): "
                           f"{meta['channel_count']} channels and visible channel cards")
+                    check_guide(meta, names)
                     return
                 last_error = f"channel count seen: {count}; visible channel names: {named[:3]}; texts: {sorted(texts)[:12]}"
             except (subprocess.SubprocessError, ET.ParseError) as error:
