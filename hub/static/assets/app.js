@@ -156,12 +156,20 @@
 
     /* ---- featured playlists & bundles ---- */
     $("#featured-grid").innerHTML = D.featured.map(plCard).join("");
-    $("#bundle-grid").innerHTML = D.bundles.map(function (b) {
+    var bundleCards = D.bundles.map(function (b) {
       return '<div class="pl-card"><h4>' + esc(b.label) + "</h4>" +
         '<div class="pl-meta">' + b.files + " files · " + fmtSize(b.size) + " zipped</div>" +
         '<p class="pl-desc">' + esc(b.desc) + "</p>" +
         '<div class="pl-actions">' + dlBtn(b.dl, "⬇ Download zip", true) + "</div></div>";
     }).join("");
+    if (D.server) {
+      bundleCards +=
+        '<div class="pl-card" style="border-color:rgba(245,192,68,.5)"><h4>🚀 This website, ready to deploy</h4>' +
+        '<div class="pl-meta">static copy · ~38 MB zipped</div>' +
+        '<p class="pl-desc">The whole hub as a plain folder of files. Unzip it, drag the folder into app.netlify.com/drop (free), and you get a permanent URL — no server, no card, no GitHub Pages.</p>' +
+        '<div class="pl-actions"><a class="chip-btn primary" href="/get/bundles/premiumtv-hub-static-site.zip" download>⬇ Download site zip</a></div></div>';
+    }
+    $("#bundle-grid").innerHTML = bundleCards;
 
     /* ---- category chips ---- */
     function renderCats(which) {

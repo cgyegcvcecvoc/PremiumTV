@@ -63,6 +63,7 @@ def localize(entry):
 
 def main():
     data = json.load(open(os.path.join(DIST, "data.json"), encoding="utf-8"))
+    data["server"] = False  # hides server-only extras (e.g. the self-zip card)
 
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)

@@ -212,6 +212,7 @@ def main():
 
     data = {
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        "server": True,  # export_static.py flips this off for static hosting
         "stats": {
             "working": report.get("working"),
             "unique": report.get("total_unique"),

@@ -18,7 +18,7 @@ ENV MIRROR_MAC=${MIRROR_MAC}
 
 # 1) Pull released APKs (and optionally macOS installers) from public release storage.
 # 2) Scan everything, hash APKs, build the zip bundles and data.json.
-RUN python hub/fetch_assets.py && python hub/build_data.py
+RUN python hub/fetch_assets.py && python hub/build_data.py && python hub/export_static.py
 
 EXPOSE 8000
 ENV PORT=8000
