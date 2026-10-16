@@ -1,5 +1,54 @@
 # Deploying the PremiumTV Download Hub to a permanent URL
 
+**Nothing here costs money.** Two ways to go:
+
+- **Static export (easiest, $0, no credit card, no terminal):** drag one
+  folder into a browser on Netlify Drop or Cloudflare Pages. See Option 0.
+- **Full server (also $0 on Render's free tier):** Options A–D below.
+
+---
+
+## Option 0 — $0 drag-and-drop static deploy (Netlify Drop / Cloudflare Pages)
+
+`hub/export_static.py` turns the hub into a plain folder of files — no server,
+no Python on the host, nothing to maintain. Small files (every playlist, the
+zip bundles, the gzipped guide, the unreleased 1.0.3 APK) are included in the
+folder; huge files that already have a permanent free home (released APKs and
+macOS installers on GitHub's release storage, the 35 MB merged guide on raw
+file storage) are linked directly. Visitors still get one-click downloads for
+everything.
+
+Build it (already done if `hub/dist/static-site/` exists):
+
+```bash
+python3 hub/build_data.py
+python3 hub/export_static.py
+# -> hub/dist/static-site/  (~76 MB, ~590 files)
+# -> hub/dist/bundles/premiumtv-hub-static-site.zip  (drag-and-drop copy)
+```
+
+**Netlify Drop (no account card, ~1 minute):**
+1. Go to <https://app.netlify.com/drop> (free account, email only).
+2. Drag the `static-site` folder (or the unzipped contents of
+   `premiumtv-hub-static-site.zip`) onto the page.
+3. Done — you get a permanent `https://something.netlify.app` URL you can
+   rename in Site settings. Never sleeps, free SSL.
+
+**Cloudflare Pages (also free, no card):**
+1. <https://dash.cloudflare.com> → Workers & Pages → Create → Pages →
+   **Upload assets**.
+2. Upload the same folder. Permanent `https://<name>.pages.dev` URL.
+   (Every file in the export is under Cloudflare's 25 MB per-file limit.)
+
+**Surge.sh (free, one command):** `npx surge hub/dist/static-site`
+
+To refresh the site after playlists change: rerun the two build commands and
+drag the folder in again (Netlify keeps the same URL).
+
+---
+
+## Running it as a real server instead
+
 The hub is one Python process with zero dependencies, so it runs on any free
 host. All the config files are already in the repo root — pick a host and go.
 
