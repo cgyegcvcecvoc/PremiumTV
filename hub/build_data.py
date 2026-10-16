@@ -8,6 +8,8 @@ anywhere; paths resolve relative to this file.
 import hashlib
 import json
 import os
+import re
+import sys
 import zipfile
 from datetime import datetime, timezone
 
@@ -18,6 +20,16 @@ BUNDLES = os.path.join(DIST, "bundles")
 
 RAW = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main"
 REL = "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download"
+
+# Share the download page's complete-release gate: a stray local APK or draft
+# must never change the recommended Netlify download.
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+from build_site_data import load_releases, latest_complete_stable_release, release_tag
+
+
+def release_channels(releases):
+    stable = latest_complete_stable_release(releases)
+    return release_tag(stable)[1:] if stable else None
 
 
 def count_channels(path):
@@ -72,47 +84,40 @@ def main():
 
     report = json.load(open(os.path.join(ROOT, "playlists", "report.json")))
 
+    releases = [r for r in load_releases() if not r.get("draft")]
+    stable_version = release_channels(releases)
+
     # ---------------- Android apps (served straight from build-out/) -------
     android_meta = {
-        "1.0.2": ("Stable", "Published stable release. USA lineup with the USA guide built in."),
-        "1.0.3": ("Stable (maintenance build)", "Next maintenance build of the stable channel — USA lineup + USA guide."),
-        "1.1.1": ("Preview", "Global checked lineup, merged guide and the cable-style Guide grid."),
+        "1.0.2": ("Archive", "USA lineup with the USA guide built in."),
+        "1.0.3": ("Archive", "Everyday Polish — loading indicators, refresh stages, tips and clear completion feedback. USA lineup + guide."),
+        "1.1.1": ("Preview", "Encore Preview — global lineup + cable guide, with Everyday Polish loading and refresh feedback."),
         "1.1.0": ("Preview (superseded)", "Earlier preview with the global lineup; kept for reference."),
         "1.0.1": ("Archive", "Channels Back on Air release."),
         "1.0.0": ("Archive", "The original Marquee release."),
     }
+    if stable_version:
+        _, description = android_meta.get(stable_version, ("Stable", "Latest complete stable release."))
+        android_meta[stable_version] = ("Stable", description)
     android = []
-    seen_versions = set()
-    bo = os.path.join(ROOT, "build-out")
-    if os.path.isdir(bo):
-        for name in sorted(os.listdir(bo), reverse=True):
-            if not name.endswith(".apk"):
-                continue
-            ver = name.replace("PremiumTV-", "").replace("-debug.apk", "")
-            channel, desc = android_meta.get(ver, ("Archive", ""))
-            p = os.path.join(bo, name)
-            android.append({
-                "version": ver,
-                "channel": channel,
-                "desc": desc,
-                "name": name,
-                "size": os.path.getsize(p),
-                "sha256": sha256(p),
-                "dl": f"/get/build-out/{name}",
-            })
-            seen_versions.add(ver)
-    # Released versions with no local APK (fresh clone): link to release storage.
-    for ver in ["1.1.1", "1.1.0", "1.0.2", "1.0.1", "1.0.0"]:
-        if ver in seen_versions:
+    # Release metadata is authoritative, not possibly old build-out APKs. In
+    # particular, a rebuilt 1.1.1 must not advertise the original APK's hash.
+    for release in releases:
+        if not re.fullmatch(r"v\d+\.\d+\.\d+", release_tag(release)):
+            continue
+        ver = release_tag(release).removeprefix("v")
+        name = f"PremiumTV-{ver}-debug.apk"
+        asset = next((a for a in release.get("assets", []) if a.get("name") == name), None)
+        if not asset:
             continue
         channel, desc = android_meta.get(ver, ("Archive", ""))
-        name = f"PremiumTV-{ver}-debug.apk"
         android.append({
             "version": ver, "channel": channel, "desc": desc, "name": name,
-            "size": None, "sha256": None,
-            "dl": f"{REL}/v{ver}/{name}",
+            "size": asset.get("size"), "sha256": None,
+            "dl": asset.get("browser_download_url") or f"{REL}/v{ver}/{name}",
+            "checksums": f"{REL}/v{ver}/SHA256SUMS-android.txt",
         })
-    android.sort(key=lambda a: a["version"], reverse=True)
+    android.sort(key=lambda a: tuple(int(p) for p in a["version"].split(".")), reverse=True)
 
     # ---------------- macOS apps (GitHub release direct-download links) ----
     mac_local = os.path.join(DIST, "mac")
@@ -137,8 +142,8 @@ def main():
         return out
 
     macos = [
-        {"version": "1.0.2", "channel": "Stable", "desc": "Published stable release — USA lineup + USA guide.", "assets": mac_assets("v1.0.2", "1.0.2")},
-        {"version": "1.1.1", "channel": "Preview", "desc": "Global lineup, merged guide, cable-style Guide grid.", "assets": mac_assets("v1.1.1", "1.1.1")},
+        *([{"version": stable_version, "channel": "Stable", "desc": android_meta[stable_version][1], "assets": mac_assets("v" + stable_version, stable_version)}] if stable_version else []),
+        {"version": "1.1.1", "channel": "Preview", "desc": android_meta["1.1.1"][1], "assets": mac_assets("v1.1.1", "1.1.1")},
     ]
 
     # ---------------- Playlists --------------------------------------------

@@ -25,6 +25,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   duplicate-request and non-modal renderer tests. Both platform build workflows
   retain their unit-test and packaged-app smoke gates. An explicit
   `[preview-build]` push switch builds 1.1.1 without changing stable defaults.
+- **Both download sites updated.** The Netlify hub now shares the published,
+  complete-stable gate with the main site instead of hardcoding 1.0.2. Both
+  explain Everyday Polish and Encore. Static APK downloads use release storage
+  and authoritative release sizes rather than embedding stale local builds.
+  Netlify Drop still requires uploading the rebuilt folder to the existing site.
 - **Manual checked scrape requested.** A run-scrape.txt push requests a full
   source scrape and stream checks (no skip-check). Status remains available in
   the Actions run and playlist reports; an app refresh is not a server scrape.

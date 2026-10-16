@@ -73,7 +73,7 @@
     );
   }
 
-  fetch("data.json").then(function (r) { return r.json(); }).then(function (D) {
+  fetch("data.json").then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(function (D) {
     /* ---- hero stats ---- */
     if (D.server) {
       var ha = $("#hero-actions");
@@ -103,10 +103,9 @@
       if (!stableApk && a.channel === "Stable") stableApk = a;
       if (!previewApk && a.channel === "Preview") previewApk = a;
     });
-    // prefer the published stable (1.0.2) as the headline stable
-    D.android.forEach(function (a) { if (a.version === "1.0.2") stableApk = a; });
 
-    var macStable = D.macos[0], macPreview = D.macos[1];
+    var macStable = D.macos.find(function (m) { return m.channel === "Stable"; });
+    var macPreview = D.macos.find(function (m) { return m.channel === "Preview"; });
     var appCards = "";
 
     function absUrl(dl) { return /^https?:/.test(dl) ? dl : location.origin + dl; }
@@ -137,7 +136,7 @@
     if (previewApk) {
       appCards +=
         '<div class="app-card"><span class="badge preview">Preview</span>' +
-        "<h3>Preview — cable-style guide</h3>" +
+        "<h3>Encore Preview — cable-style guide</h3>" +
         '<p class="app-kind">Android APK v' + esc(previewApk.version) + (previewApk.size ? " · " + fmtSize(previewApk.size) : "") +
         (macPreview ? " · also for macOS below" : "") + "</p>" +
         '<p class="app-desc">' + esc(previewApk.desc) + "</p>" +
@@ -152,7 +151,7 @@
     /* ---- apps: full APK table ---- */
     $("#apk-table tbody").innerHTML = D.android.map(function (a) {
       return "<tr><td><strong>v" + esc(a.version) + "</strong></td><td>" + esc(a.channel) + "</td><td>" +
-        (a.size ? fmtSize(a.size) : "—") + '</td><td><span class="hash">' + (a.sha256 || "see release page") + "</span></td><td>" +
+        (a.size ? fmtSize(a.size) : "—") + '</td><td>' + (a.sha256 ? '<span class="hash">' + esc(a.sha256) + '</span>' : '<a href="' + esc(a.checksums) + '">Release checksums</a>') + "</td><td>" +
         '<a class="chip-btn primary" href="' + esc(a.dl) + '" download>⬇ APK</a></td></tr>';
     }).join("");
 

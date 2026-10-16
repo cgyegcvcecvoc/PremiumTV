@@ -9,7 +9,7 @@ server, no build step — published with GitHub Pages.
 ## What the page does
 
 - **Download the apps.** The latest complete Stable release (currently 1.0.2;
-  1.0.3 is the next maintenance build) and Preview (1.1.1), with every asset
+  1.0.3 is the next maintenance build) and Encore Preview (1.1.1), with every asset
   (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes,
   SHA-256 checksums and install help — all linking at the GitHub release assets.
   The 1.0.3 build is promoted only after its APK and all four Mac installers are
@@ -24,6 +24,14 @@ server, no build step — published with GitHub Pages.
   is shown as a timeline, with an [Atom feed](data/feed.xml) readers can subscribe
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
+
+## Everyday Polish / Encore
+
+Stable 1.0.3 and the updated 1.1.1 preview share non-blocking loading indicators,
+real refresh stages, elapsed time, rotating tips/facts and result feedback.
+1.0.3 remains USA/list-guide; Encore 1.1.1 remains global/cable-guide and optional.
+The Netlify Drop hub under `hub/` uses the same complete-release gate. Rebuild
+and re-upload its export to refresh an existing Netlify deployment.
 
 ## Files
 

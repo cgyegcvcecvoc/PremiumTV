@@ -214,3 +214,14 @@ bundle), so a slow dump is retried instead of failing the build; a real failure
 writes `build-out/smoke-log.txt`, which branch builds publish. Emulator boot
 failures block publication rather than being counted as app test passes.
 Physical TV and upstream playback checks remain manual.
+
+### Updated Encore Preview builds
+
+Ordinary pushes and manual builds default to stable 1.0.3 (Android code 10).
+To request the updated 1.1.1 preview (code 11) without Actions-dispatch access,
+append a timestamp to `.github/preview-build.txt` and push with
+`[preview-build]` in the commit message. Both platform workflows build the global
+preview and retain their normal smoke gates. Branch artifacts do not overwrite
+an existing tagged release: release attachments remain exact-SHA guarded.
+Only publish verified artifacts deliberately; label any rebuilt preview with its
+actual source commit in the release notes. The original 1.1.1 tag is historical.
