@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261016T094631Z-2968`)
-- **Started:** 2026-10-16T09:46:31Z | **Finished:** 2026-10-16T09:47:09Z | **Duration:** 37.5s
+- **Run:** nightly guide check (`20261016T104648Z-3054`)
+- **Started:** 2026-10-16T10:46:48Z | **Finished:** 2026-10-16T10:47:02Z | **Duration:** 13.3s
 - **Guides checked:** 523 across 177 playlists (176 of them are this repository's own published guides)
 - **Working share of upstream guides:** 99.1%
 
@@ -410,19 +410,19 @@
 
 | Own guide | Status | Reason |
 |---|---|---|
-| `PremiumTV.xml` | ok | 9811 channels, 9284 programmes sampled |
+| `PremiumTV.xml` | ok | 9776 channels, 9278 programmes sampled |
 | `Afghanistan.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Albania.xml` | ok | 16 channels, 88 programmes sampled |
-| `Algeria.xml` | ok | 4 channels, 76 programmes sampled |
+| `Algeria.xml` | ok | 4 channels, 77 programmes sampled |
 | `Andorra.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Angola.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Antigua_and_Barbuda.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Arab_World.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Argentina.xml` | ok | 157 channels, 1283 programmes sampled |
-| `Armenia.xml` | ok | 10 channels, 122 programmes sampled |
+| `Argentina.xml` | ok | 156 channels, 1280 programmes sampled |
+| `Armenia.xml` | ok | 10 channels, 121 programmes sampled |
 | `Aruba.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Australia.xml` | ok | 31 channels, 869 programmes sampled |
-| `Austria.xml` | ok | 34 channels, 853 programmes sampled |
+| `Austria.xml` | ok | 34 channels, 863 programmes sampled |
 | `Azerbaijan.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Bahamas.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | … 161 more (one per country playlist) | | |

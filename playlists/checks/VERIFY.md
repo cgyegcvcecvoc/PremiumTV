@@ -1,7 +1,7 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-16T10:40:52+00:00 UTC
-- **Playlists checked:** 178 (22815 entries)
+- **Generated:** 2026-10-16T10:49:14+00:00 UTC
+- **Playlists checked:** 178 (22793 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 80
 - **Links published that the deep check called dead:** 0
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 11365 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, Movies, News, Europe, Entertainment, International, Religious, South America, Asia, Documentary, Series, United States, Kids, North America, Comedy, Education, Culture, Legislative, India, Classic TV, Africa, Business, A&E Networks, Family, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Tv Celebrities, Tv Paranormal, Global TV, Aria Web Channels, Tv Shows, Oceania, Online TV, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 9773/9773 (100.0%) | 1755 (18.0%) |
+| `playlists/PremiumTV.m3u` | 11354 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, Movies, News, Europe, Entertainment, International, Religious, South America, Asia, Documentary, Series, United States, Kids, North America, Comedy, Education, Culture, Legislative, India, Classic TV, Africa, Business, A&E Networks, Family, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Tv Celebrities, Tv Paranormal, Global TV, Aria Web Channels, Tv Shows, Oceania, Online TV, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 9763/9763 (100.0%) | 1753 (18.0%) |
 | `playlists/AE_Channels.m3u` | 67 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 59/59 (100.0%) | 8 (13.6%) |
 | `playlists/Priority_Channels.m3u` | 18 | Sports, Cartoons, Kids, 3-Radio#Chicago, Classic TV, MeTV | 0 | 0 | 3 | 0 | 16/16 (100.0%) | 9 (56.2%) |
 | `playlists/countries/Afghanistan.m3u` | 8 | Asia, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
@@ -50,16 +50,16 @@
 | `playlists/countries/Cape_Verde.m3u` | 1 | Music | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Caribbean_Netherlands.m3u` | 3 | North America, Music | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Chad.m3u` | 1 | International | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
-| `playlists/countries/Chile.m3u` | 198 | Sports, Lifestyle, Cartoons, South America, Music, Religious, News, Culture, Entertainment, International, Education, Movies, Series, Business, Classic TV, Comedy, Documentary, Kids | 0 | 0 | 1 | 0 | 188/188 (100.0%) | 16 (8.5%) |
+| `playlists/countries/Chile.m3u` | 197 | Sports, Lifestyle, Cartoons, South America, Music, Religious, News, Culture, Entertainment, International, Education, Movies, Series, Business, Classic TV, Comedy, Documentary, Kids | 0 | 0 | 1 | 0 | 187/187 (100.0%) | 16 (8.6%) |
 | `playlists/countries/China.m3u` | 60 | Lifestyle, Asia, News, Documentary, International, Movies, Business, Culture, Kids, Religious | 0 | 0 | 1 | 0 | 50/50 (100.0%) | 5 (10.0%) |
-| `playlists/countries/Colombia.m3u` | 103 | Sports, Lifestyle, NBC, South America, Music, Religious, Entertainment, News, Education, International, Movies, Family, Legislative | 0 | 0 | 1 | 0 | 94/94 (100.0%) | 18 (19.1%) |
+| `playlists/countries/Colombia.m3u` | 102 | Sports, Lifestyle, NBC, South America, Music, Religious, Entertainment, News, Education, International, Movies, Family, Legislative | 0 | 0 | 1 | 0 | 93/93 (100.0%) | 18 (19.4%) |
 | `playlists/countries/Costa_Rica.m3u` | 58 | Sports, Lifestyle, North America, Music, Religious, Entertainment, International, Kids | 0 | 0 | 1 | 0 | 50/50 (100.0%) | 4 (8.0%) |
 | `playlists/countries/Croatia.m3u` | 15 | Lifestyle, International, Music, Europe, Kids, Documentary, Entertainment, News | 0 | 0 | 1 | 0 | 15/15 (100.0%) | 10 (66.7%) |
 | `playlists/countries/Cuba.m3u` | 4 | News, International, North America | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Curacao.m3u` | 3 | Entertainment, Music, North America | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Cyprus.m3u` | 17 | International, Asia, Religious, Entertainment, Kids | 0 | 0 | 1 | 0 | 17/17 (100.0%) | 1 (5.9%) |
 | `playlists/countries/Czechia.m3u` | 52 | Sports, Lifestyle, NBC Sports Channels, Europe, Documentary, Music, Movies, International, News | 0 | 0 | 1 | 0 | 46/46 (100.0%) | 23 (50.0%) |
-| `playlists/countries/DR_Congo.m3u` | 5 | Documentary, Entertainment, Movies, News, Religious | 0 | 0 | 1 | 0 | 5/5 (100.0%) | 0 (0.0%) |
+| `playlists/countries/DR_Congo.m3u` | 4 | Entertainment, Movies, News, Religious | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Denmark.m3u` | 7 | International, Europe, Legislative | 0 | 0 | 1 | 0 | 7/7 (100.0%) | 4 (57.1%) |
 | `playlists/countries/Dominican_Republic.m3u` | 182 | Sports, Lifestyle, Cartoons, North America, Entertainment, Religious, Music, News, Culture, International, Kids, Movies, Documentary, Family | 0 | 0 | 1 | 0 | 177/177 (100.0%) | 3 (1.7%) |
 | `playlists/countries/Ecuador.m3u` | 53 | South America, Music, Entertainment, Religious, Culture, Education, News, International, Legislative | 0 | 0 | 1 | 0 | 51/51 (100.0%) | 5 (9.8%) |
@@ -88,14 +88,14 @@
 | `playlists/countries/Hong_Kong.m3u` | 9 | Entertainment, Asia, International, Movies, News | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 3 (37.5%) |
 | `playlists/countries/Hungary.m3u` | 54 | Sports, Lifestyle, NBC, Europe, International, Movies, Documentary, Entertainment, Religious, Culture, Music | 0 | 0 | 1 | 0 | 52/52 (100.0%) | 7 (13.5%) |
 | `playlists/countries/Iceland.m3u` | 4 | International, Music, News | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 2 (50.0%) |
-| `playlists/countries/India.m3u` | 694 | Sports, Lifestyle, NBC, Cartoons, PBS, News, Entertainment, Religious, India, Movies, Music, Documentary, Kids, Education, Culture, Legislative, Business, Comedy, Weather | 0 | 0 | 1 | 0 | 647/647 (100.0%) | 253 (39.1%) |
+| `playlists/countries/India.m3u` | 693 | Sports, Lifestyle, NBC, Cartoons, PBS, News, Entertainment, Religious, India, Movies, Music, Documentary, Kids, Education, Culture, Legislative, Business, Comedy, Weather | 0 | 0 | 1 | 0 | 646/646 (100.0%) | 253 (39.2%) |
 | `playlists/countries/Indonesia.m3u` | 114 | Sports, Lifestyle, NBC, Asia, Religious, Music, Kids, Culture, Education, Entertainment, News | 0 | 0 | 1 | 0 | 113/113 (100.0%) | 34 (30.1%) |
 | `playlists/countries/International.m3u` | 1132 | Sports, Lifestyle, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Movies, Documentary, Music, Series, Kids, News, Entertainment, Comedy, Animals & Nature, International, Tv Celebrities, Tv Paranormal, Aria Web Channels, Classic TV, Global TV, Business, Tv Shows, 3-Radio#Chicago, Africa, MeTV, Religious, Other | 0 | 0 | 1 | 0 | 875/875 (100.0%) | 37 (4.2%) |
 | `playlists/countries/Iran.m3u` | 56 | NBC, International, Asia, Religious, Movies, News, Entertainment, Music, Kids, Family | 0 | 0 | 1 | 0 | 54/54 (100.0%) | 1 (1.8%) |
 | `playlists/countries/Iraq.m3u` | 54 | Religious, Asia, News, International, Family, Culture, Entertainment | 0 | 0 | 1 | 0 | 46/46 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Ireland.m3u` | 18 | Sports, International, Movies, Music, News | 0 | 0 | 1 | 0 | 17/17 (100.0%) | 3 (17.6%) |
 | `playlists/countries/Israel.m3u` | 31 | Sports, Lifestyle, Asia, News, International, Entertainment, Religious, Kids, Education, Legislative, Movies, Series | 0 | 0 | 1 | 0 | 31/31 (100.0%) | 6 (19.4%) |
-| `playlists/countries/Italy.m3u` | 497 | Sports, Lifestyle, CBS, NBC, Cartoons, International, Movies, Music, Europe, News, Religious, Documentary, Kids, Culture, Entertainment, Education, Legislative, Series | 0 | 0 | 1 | 0 | 450/450 (100.0%) | 38 (8.4%) |
+| `playlists/countries/Italy.m3u` | 496 | Sports, Lifestyle, CBS, NBC, Cartoons, International, Movies, Music, Europe, News, Religious, Documentary, Kids, Culture, Entertainment, Education, Legislative, Series | 0 | 0 | 1 | 0 | 449/449 (100.0%) | 38 (8.5%) |
 | `playlists/countries/Ivory_Coast.m3u` | 11 | Religious, Africa, Business, Culture, Music, News, Series | 0 | 0 | 1 | 0 | 11/11 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Jamaica.m3u` | 4 | Religious, North America | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 1 (25.0%) |
 | `playlists/countries/Japan.m3u` | 20 | Lifestyle, International, News, Asia, Religious, Weather | 0 | 0 | 1 | 0 | 15/15 (100.0%) | 7 (46.7%) |
@@ -113,7 +113,7 @@
 | `playlists/countries/Lithuania.m3u` | 18 | Europe, International, Music, Entertainment, News | 0 | 0 | 1 | 0 | 17/17 (100.0%) | 4 (23.5%) |
 | `playlists/countries/Luxembourg.m3u` | 11 | Lifestyle, Europe, Music, Entertainment, International | 0 | 0 | 1 | 0 | 10/10 (100.0%) | 1 (10.0%) |
 | `playlists/countries/Malaysia.m3u` | 1 | Movies | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
-| `playlists/countries/Maldives.m3u` | 5 | Asia, News | 0 | 0 | 1 | 0 | 5/5 (100.0%) | 1 (20.0%) |
+| `playlists/countries/Maldives.m3u` | 4 | Asia, News | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 1 (25.0%) |
 | `playlists/countries/Mali.m3u` | 2 | Entertainment | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Malta.m3u` | 3 | International, Culture | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 2 (66.7%) |
 | `playlists/countries/Martinique.m3u` | 5 | Music, Family, North America | 0 | 0 | 1 | 0 | 5/5 (100.0%) | 0 (0.0%) |
@@ -136,7 +136,7 @@
 | `playlists/countries/North_Macedonia.m3u` | 20 | Sports, International, Music, Europe | 0 | 0 | 1 | 0 | 17/17 (100.0%) | 2 (11.8%) |
 | `playlists/countries/Norway.m3u` | 5 | Sports, Lifestyle, Europe, International | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Oman.m3u` | 6 | Sports, Asia, Culture, News, Religious | 0 | 0 | 1 | 0 | 5/5 (100.0%) | 0 (0.0%) |
-| `playlists/countries/Pakistan.m3u` | 53 | Sports, Lifestyle, Religious, News, Asia, Kids, Entertainment, International, Music, Movies | 0 | 0 | 1 | 0 | 51/51 (100.0%) | 0 (0.0%) |
+| `playlists/countries/Pakistan.m3u` | 52 | Sports, Lifestyle, Religious, News, Asia, Kids, Entertainment, International, Music, Movies | 0 | 0 | 1 | 0 | 50/50 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Palestine.m3u` | 17 | Asia, News, Music | 0 | 0 | 1 | 0 | 14/14 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Panama.m3u` | 13 | Cartoons, Music, Religious, North America | 0 | 0 | 1 | 0 | 13/13 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Papua_New_Guinea.m3u` | 1 | NBC | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
@@ -144,7 +144,7 @@
 | `playlists/countries/Peru.m3u` | 139 | Sports, Lifestyle, South America, Music, News, Entertainment, Religious, Culture, International, Kids, Legislative, Family, Series | 0 | 0 | 1 | 0 | 126/126 (100.0%) | 8 (6.3%) |
 | `playlists/countries/Philippines.m3u` | 10 | Sports, Lifestyle, Religious, News, Asia, Music | 0 | 0 | 1 | 0 | 10/10 (100.0%) | 3 (30.0%) |
 | `playlists/countries/Poland.m3u` | 206 | Sports, Lifestyle, Fox Channels, CBS, Cartoons, Europe, Movies, Documentary, Music, Entertainment, Kids, News, Series, Business, Family, Education, International, Religious | 0 | 0 | 1 | 0 | 192/192 (100.0%) | 122 (63.5%) |
-| `playlists/countries/Portugal.m3u` | 44 | Sports, Lifestyle, Religious, International, Music, News, Europe, Movies, Kids, Legislative, Series | 0 | 0 | 1 | 0 | 41/41 (100.0%) | 17 (41.5%) |
+| `playlists/countries/Portugal.m3u` | 43 | Sports, Lifestyle, Religious, International, Music, News, Europe, Movies, Kids, Legislative, Series | 0 | 0 | 1 | 0 | 40/40 (100.0%) | 17 (42.5%) |
 | `playlists/countries/Puerto_Rico.m3u` | 27 | North America, Religious, Music, Business, Entertainment | 0 | 0 | 1 | 0 | 26/26 (100.0%) | 1 (3.9%) |
 | `playlists/countries/Qatar.m3u` | 36 | News, International, Asia, Religious | 0 | 0 | 1 | 0 | 15/15 (100.0%) | 4 (26.7%) |
 | `playlists/countries/Republic_of_the_Congo.m3u` | 3 | Africa, Culture, Religious | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 0 (0.0%) |
@@ -180,7 +180,7 @@
 | `playlists/countries/Turkey.m3u` | 128 | Sports, NBC, Cartoons, Asia, News, Music, International, Entertainment, Religious, Culture, Kids, Education, Movies | 0 | 0 | 1 | 0 | 123/123 (100.0%) | 28 (22.8%) |
 | `playlists/countries/Turkmenistan.m3u` | 16 | Sports, Asia, International, Culture, Education, Music | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/UK.m3u` | 231 | Sports, Lifestyle, NBC, Cartoons, UK, News, Religious, Music, Entertainment, Documentary, Kids, Movies, A&E Networks, International, Comedy, Education, Series, Business, Culture, United Kingdom | 0 | 0 | 1 | 0 | 173/173 (100.0%) | 58 (33.5%) |
-| `playlists/countries/USA.m3u` | 2682 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Religious, Documentary, Music, Kids, Legislative, News, Education, Comedy, Classic TV, A&E Networks, Business, Culture, Family, International, Weather, Animals & Nature, Global TV, Tv Shows, Aria Web Channels, Australia, Relax, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 1989/1989 (100.0%) | 432 (21.7%) |
+| `playlists/countries/USA.m3u` | 2679 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Religious, Documentary, Music, Kids, Legislative, News, Education, Comedy, Classic TV, A&E Networks, Business, Culture, Family, International, Weather, Animals & Nature, Global TV, Tv Shows, Aria Web Channels, Australia, Relax, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 1987/1987 (100.0%) | 430 (21.6%) |
 | `playlists/countries/Uganda.m3u` | 8 | Africa, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 1 (12.5%) |
 | `playlists/countries/Ukraine.m3u` | 175 | Sports, Lifestyle, Game Shows, Europe, International, Movies, News, Entertainment, Music, Documentary, Kids, Religious, Culture, Legislative, Education, Series | 0 | 0 | 1 | 0 | 150/150 (100.0%) | 65 (43.3%) |
 | `playlists/countries/United_Arab_Emirates.m3u` | 42 | Sports, NBC, Cartoons, Music, News, Religious, Asia, Entertainment, International, Business, Documentary, Family, Kids, Movies | 0 | 0 | 1 | 0 | 39/39 (100.0%) | 3 (7.7%) |
@@ -202,7 +202,7 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 
 | # | Shelf file | Scope | Category | Channels | Status |
 |---|---|---|---|---:|---|
-| 1 | `categories/USA.m3u` | USA | USA | 2682 | ok |
+| 1 | `categories/USA.m3u` | USA | USA | 2679 | ok |
 | 2 | `categories/USA/Sports.m3u` | USA | Sports | 144 | ok |
 | 3 | `categories/USA/Sports_Backups.m3u` | USA | Sports Backups | 49 | ok |
 | 4 | `categories/USA/Lifestyle.m3u` | USA | Lifestyle | 145 | ok |
@@ -235,8 +235,8 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 | 31 | `categories/USA/Kids.m3u` | USA | Kids | 89 | ok |
 | 32 | `categories/USA/Kids_Backups.m3u` | USA | Kids Backups | 32 | ok |
 | 33 | `categories/USA/Legislative.m3u` | USA | Legislative | 63 | ok |
-| 34 | `categories/USA/News.m3u` | USA | News | 60 | ok |
-| 35 | `categories/USA/News_Backups.m3u` | USA | News Backups | 28 | ok |
+| 34 | `categories/USA/News.m3u` | USA | News | 58 | ok |
+| 35 | `categories/USA/News_Backups.m3u` | USA | News Backups | 27 | ok |
 | 36 | `categories/USA/Education.m3u` | USA | Education | 31 | ok |
 | 37 | `categories/USA/Education_Backups.m3u` | USA | Education Backups | 3 | ok |
 | 38 | `categories/USA/Comedy.m3u` | USA | Comedy | 30 | ok |
@@ -270,25 +270,25 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 | 66 | `categories/All/PBS_Backups.m3u` | World | PBS Backups | 7 | ok |
 | 67 | `categories/All/Game_Shows.m3u` | World | Game Shows | 12 | ok |
 | 68 | `categories/All/Game_Shows_Backups.m3u` | World | Game Shows Backups | 16 | ok |
-| 69 | `categories/All/Music.m3u` | World | Music | 854 | ok |
+| 69 | `categories/All/Music.m3u` | World | Music | 852 | ok |
 | 70 | `categories/All/Music_Backups.m3u` | World | Music Backups | 85 | ok |
 | 71 | `categories/All/Movies.m3u` | World | Movies | 840 | ok |
 | 72 | `categories/All/Movies_Backups.m3u` | World | Movies Backups | 99 | ok |
-| 73 | `categories/All/News.m3u` | World | News | 759 | ok |
-| 74 | `categories/All/News_Backups.m3u` | World | News Backups | 166 | ok |
+| 73 | `categories/All/News.m3u` | World | News | 755 | ok |
+| 74 | `categories/All/News_Backups.m3u` | World | News Backups | 165 | ok |
 | 75 | `categories/All/Europe.m3u` | World | Europe | 705 | ok |
 | 76 | `categories/All/Europe_Backups.m3u` | World | Europe Backups | 67 | ok |
 | 77 | `categories/All/Entertainment.m3u` | World | Entertainment | 633 | ok |
 | 78 | `categories/All/Entertainment_Backups.m3u` | World | Entertainment Backups | 66 | ok |
 | 79 | `categories/All/International.m3u` | World | International | 604 | ok |
 | 80 | `categories/All/International_Backups.m3u` | World | International Backups | 94 | ok |
-| 81 | `categories/All/Religious.m3u` | World | Religious | 580 | ok |
+| 81 | `categories/All/Religious.m3u` | World | Religious | 579 | ok |
 | 82 | `categories/All/Religious_Backups.m3u` | World | Religious Backups | 42 | ok |
-| 83 | `categories/All/South_America.m3u` | World | South America | 459 | ok |
+| 83 | `categories/All/South_America.m3u` | World | South America | 458 | ok |
 | 84 | `categories/All/South_America_Backups.m3u` | World | South America Backups | 23 | ok |
-| 85 | `categories/All/Asia.m3u` | World | Asia | 434 | ok |
+| 85 | `categories/All/Asia.m3u` | World | Asia | 433 | ok |
 | 86 | `categories/All/Asia_Backups.m3u` | World | Asia Backups | 21 | ok |
-| 87 | `categories/All/Documentary.m3u` | World | Documentary | 381 | ok |
+| 87 | `categories/All/Documentary.m3u` | World | Documentary | 380 | ok |
 | 88 | `categories/All/Documentary_Backups.m3u` | World | Documentary Backups | 70 | ok |
 | 89 | `categories/All/Series.m3u` | World | Series | 334 | ok |
 | 90 | `categories/All/Series_Backups.m3u` | World | Series Backups | 104 | ok |
@@ -424,7 +424,7 @@ Each file is a slice of an already published playlist, so its sorting is the pub
 
 ## EPG sources (last deep guide check)
 
-- **Checked:** 2026-10-16T09:47:09Z
+- **Checked:** 2026-10-16T10:47:02Z
 - **Upstream status counts:** ok: 108, unreachable: 1, offline: 235, empty: 3
 - **Own guides:** 176 (this repository's own `EPG/*.xml`, recorded but not counted above - a private repository answers 404 for them and that says nothing about the guides a player needs)
 
