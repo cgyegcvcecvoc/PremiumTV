@@ -82,33 +82,59 @@ def main():
         "1.0.0": ("Archive", "The original Marquee release."),
     }
     android = []
+    seen_versions = set()
     bo = os.path.join(ROOT, "build-out")
-    for name in sorted(os.listdir(bo), reverse=True):
-        if not name.endswith(".apk"):
+    if os.path.isdir(bo):
+        for name in sorted(os.listdir(bo), reverse=True):
+            if not name.endswith(".apk"):
+                continue
+            ver = name.replace("PremiumTV-", "").replace("-debug.apk", "")
+            channel, desc = android_meta.get(ver, ("Archive", ""))
+            p = os.path.join(bo, name)
+            android.append({
+                "version": ver,
+                "channel": channel,
+                "desc": desc,
+                "name": name,
+                "size": os.path.getsize(p),
+                "sha256": sha256(p),
+                "dl": f"/get/build-out/{name}",
+            })
+            seen_versions.add(ver)
+    # Released versions with no local APK (fresh clone): link to release storage.
+    for ver in ["1.1.1", "1.1.0", "1.0.2", "1.0.1", "1.0.0"]:
+        if ver in seen_versions:
             continue
-        ver = name.replace("PremiumTV-", "").replace("-debug.apk", "")
         channel, desc = android_meta.get(ver, ("Archive", ""))
-        p = os.path.join(bo, name)
+        name = f"PremiumTV-{ver}-debug.apk"
         android.append({
-            "version": ver,
-            "channel": channel,
-            "desc": desc,
-            "name": name,
-            "size": os.path.getsize(p),
-            "sha256": sha256(p),
-            "dl": f"/get/build-out/{name}",
+            "version": ver, "channel": channel, "desc": desc, "name": name,
+            "size": None, "sha256": None,
+            "dl": f"{REL}/v{ver}/{name}",
         })
+    android.sort(key=lambda a: a["version"], reverse=True)
 
     # ---------------- macOS apps (GitHub release direct-download links) ----
+    mac_local = os.path.join(DIST, "mac")
+
     def mac_assets(tag, ver):
         base = f"{REL}/{tag}"
-        return [
-            {"label": "Apple Silicon (M1/M2/M3/M4) — DMG", "name": f"PremiumTV-{ver}-mac-arm64.dmg", "url": f"{base}/PremiumTV-{ver}-mac-arm64.dmg"},
-            {"label": "Apple Silicon — PKG installer", "name": f"PremiumTV-{ver}-mac-arm64.pkg", "url": f"{base}/PremiumTV-{ver}-mac-arm64.pkg"},
-            {"label": "Intel Macs — DMG", "name": f"PremiumTV-{ver}-mac-x64.dmg", "url": f"{base}/PremiumTV-{ver}-mac-x64.dmg"},
-            {"label": "Intel Macs — PKG installer", "name": f"PremiumTV-{ver}-mac-x64.pkg", "url": f"{base}/PremiumTV-{ver}-mac-x64.pkg"},
-            {"label": "SHA-256 checksums", "name": "SHA256SUMS-macos.txt", "url": f"{base}/SHA256SUMS-macos.txt"},
-        ]
+        out = []
+        for label, name in [
+            ("Apple Silicon (M1/M2/M3/M4) — DMG", f"PremiumTV-{ver}-mac-arm64.dmg"),
+            ("Apple Silicon — PKG installer", f"PremiumTV-{ver}-mac-arm64.pkg"),
+            ("Intel Macs — DMG", f"PremiumTV-{ver}-mac-x64.dmg"),
+            ("Intel Macs — PKG installer", f"PremiumTV-{ver}-mac-x64.pkg"),
+            ("SHA-256 checksums", "SHA256SUMS-macos.txt"),
+        ]:
+            local = os.path.join(mac_local, name)
+            if os.path.isfile(local) and os.path.getsize(local) > 0:
+                # Mirrored at deploy time (fetch_assets.py MIRROR_MAC=1): self-host.
+                out.append({"label": label, "name": name, "url": f"/get/mac/{name}",
+                            "size": os.path.getsize(local)})
+            else:
+                out.append({"label": label, "name": name, "url": f"{base}/{name}"})
+        return out
 
     macos = [
         {"version": "1.0.2", "channel": "Stable", "desc": "Published stable release — USA lineup + USA guide.", "assets": mac_assets("v1.0.2", "1.0.2")},

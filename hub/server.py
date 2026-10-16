@@ -27,10 +27,12 @@ ZONES = {
     "EPG": os.path.join(ROOT, "EPG"),
     "build-out": os.path.join(ROOT, "build-out"),
     "bundles": os.path.join(DIST, "bundles"),
+    "mac": os.path.join(DIST, "mac"),
 }
 
 # Only these extensions may leave the server through /get/.
-ALLOWED_EXT = {".m3u", ".m3u8", ".xml", ".gz", ".apk", ".zip", ".txt", ".json", ".jsonl", ".md", ".png"}
+ALLOWED_EXT = {".m3u", ".m3u8", ".xml", ".gz", ".apk", ".zip", ".txt", ".json", ".jsonl", ".md", ".png",
+               ".dmg", ".pkg"}
 
 MIME = {
     ".m3u": "audio/x-mpegurl",
@@ -43,10 +45,12 @@ MIME = {
     ".md": "text/plain; charset=utf-8",
     ".json": "application/json",
     ".jsonl": "application/json",
+    ".dmg": "application/x-apple-diskimage",
+    ".pkg": "application/octet-stream",
 }
 
 # Always download these instead of rendering in the browser.
-FORCE_ATTACH = {".apk", ".zip", ".gz", ".m3u", ".m3u8"}
+FORCE_ATTACH = {".apk", ".zip", ".gz", ".m3u", ".m3u8", ".dmg", ".pkg"}
 
 CHUNK = 1 << 16
 
@@ -169,7 +173,8 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+    # Priority: CLI arg > $PORT (Render/Railway/Fly inject this) > 8000
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.environ.get("PORT", "8000"))
     if not os.path.isfile(os.path.join(DIST, "data.json")):
         sys.exit("hub/dist/data.json missing — run: python3 hub/build_data.py")
     httpd = ThreadingHTTPServer(("0.0.0.0", port), Handler)

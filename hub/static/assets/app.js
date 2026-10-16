@@ -98,16 +98,18 @@
     var macStable = D.macos[0], macPreview = D.macos[1];
     var appCards = "";
 
+    function absUrl(dl) { return /^https?:/.test(dl) ? dl : location.origin + dl; }
+
     if (stableApk) {
       appCards +=
         '<div class="app-card featured"><span class="badge stable">Stable</span>' +
         "<h3>Android TV · Fire TV</h3>" +
-        '<p class="app-kind">APK · v' + esc(stableApk.version) + " · " + fmtSize(stableApk.size) + "</p>" +
-        '<p class="app-desc">' + esc(stableApk.desc) + " Served directly from this hub.</p>" +
+        '<p class="app-kind">APK · v' + esc(stableApk.version) + (stableApk.size ? " · " + fmtSize(stableApk.size) : "") + "</p>" +
+        '<p class="app-desc">' + esc(stableApk.desc) + "</p>" +
         '<div class="app-actions"><div class="dl-row"><span class="fname">' + esc(stableApk.name) + "</span>" +
         '<a class="dl" href="' + esc(stableApk.dl) + '" download>⬇ APK</a></div>' +
         '<div class="dl-row"><span class="fname">Direct link for the Downloader app</span>' +
-        '<a class="dl alt2" href="#" data-copy="' + esc(location.origin + stableApk.dl) + '">Copy link</a></div></div></div>';
+        '<a class="dl alt2" href="#" data-copy="' + esc(absUrl(stableApk.dl)) + '">Copy link</a></div></div></div>';
     }
     if (macStable) {
       var dmg = macStable.assets[0], dmgIntel = macStable.assets[2];
@@ -125,7 +127,7 @@
       appCards +=
         '<div class="app-card"><span class="badge preview">Preview</span>' +
         "<h3>Preview — cable-style guide</h3>" +
-        '<p class="app-kind">Android APK v' + esc(previewApk.version) + " · " + fmtSize(previewApk.size) +
+        '<p class="app-kind">Android APK v' + esc(previewApk.version) + (previewApk.size ? " · " + fmtSize(previewApk.size) : "") +
         (macPreview ? " · also for macOS below" : "") + "</p>" +
         '<p class="app-desc">' + esc(previewApk.desc) + "</p>" +
         '<div class="app-actions"><div class="dl-row"><span class="fname">' + esc(previewApk.name) + "</span>" +
@@ -139,7 +141,7 @@
     /* ---- apps: full APK table ---- */
     $("#apk-table tbody").innerHTML = D.android.map(function (a) {
       return "<tr><td><strong>v" + esc(a.version) + "</strong></td><td>" + esc(a.channel) + "</td><td>" +
-        fmtSize(a.size) + '</td><td><span class="hash">' + a.sha256 + "</span></td><td>" +
+        (a.size ? fmtSize(a.size) : "—") + '</td><td><span class="hash">' + (a.sha256 || "see release page") + "</span></td><td>" +
         '<a class="chip-btn primary" href="' + esc(a.dl) + '" download>⬇ APK</a></td></tr>';
     }).join("");
 

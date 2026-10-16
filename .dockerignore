@@ -1,0 +1,14 @@
+# Keep the image lean: the hub only needs playlists/, EPG/, categories/, hub/,
+# and (if present locally) build-out/*.apk. Everything else stays out.
+.git
+.github
+android
+macos
+scripts
+tests
+docs
+hub/dist
+**/__pycache__
+**/*.pyc
+.venv
+node_modules
