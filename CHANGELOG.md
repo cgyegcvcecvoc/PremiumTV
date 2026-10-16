@@ -10,6 +10,56 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-16 — PremiumTV 1.0.3 maintenance + download-site reliability
+
+- **Stable 1.0.3 build prepared.** The Android default now uses `versionName
+  1.0.3` / `versionCode 10` (above preview code 9), the macOS package and
+  bundle defaults are aligned, and both release workflows accept `v1.0.3` only
+  as a full stable release. The USA lineup and list-style guide remain the
+  stable scope; the 1.1.1 cable guide stays preview-only. The current published
+  stable download remains 1.0.2 until 1.0.3 has its complete asset set.
+- **Download site data stays current.** The Pages workflow now runs on
+  `CHANGELOG.md`, playlist/report/country/EPG changes and published releases;
+  it also runs after scheduled/manual data workflows because their bot commits
+  do not trigger push workflows. It refreshes release asset metadata before
+  rebuilding. The download page only
+  promotes a stable release once the APK and all four Mac installers exist.
+  Its live changelog refresh compares entry contents (so editing an existing
+  entry also updates open pages), and generated data/Atom timestamps are
+  reproducible so `build_site_data.py --check` can work reliably.
+- **Public Pages status verified.** The repo is public, but GitHub Pages itself
+  is not enabled: the Pages API returns 404, and this integration is denied
+  permission to create the site (403). The workflow cannot change that admin
+  setting; the owner must set **Settings → Pages → Source: GitHub Actions** once.
+- **Manual checked scrape completed.** Run `20261016T103351Z-2912` finished at
+  10:38 UTC on October 16. It confirmed 11,365 of 16,628 unique source links,
+  reported 2,292 dead and 2,971 unverified candidates, and regenerated the
+  175-country set; the scraper correctly marked this as a warning rather than
+  claiming every source worked.
+- **A full stream and guide check followed.** Deep HLS/segment checks covered
+  11,365 unique links across the published playlists: 22,633 of 22,797 playlist
+  entries (99.3%) returned playable media. It removed 22 confirmed-dead
+  occurrences only, taking `PremiumTV.m3u` from 11,365 to 11,354 entries and
+  the USA playlist from 2,682 to 2,679. The 128 unreachable and 14 blocked
+  results were retained because a timeout/server error or geo/auth block is not
+  proof that a stream is dead. Strict verification passed with no structural
+  problems, no known-dead links left published, and all 134 category-shelf
+  files in sync. The refreshed merged guide contains 116,992 programmes across
+  1,757 of 9,769 playlist channels (18.0% coverage); guide coverage remains an
+  upstream limitation, not an app defect.
+- **The 1.0.3 apps were rebuilt from that checked snapshot.** The [Android CI
+  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38890743640)
+  passed unit tests, emulator cold-launch and stable list-Guide smoke tests;
+  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,679 USA channels, 62 groups,
+  and 26,658 programmes (430 with guide listings). SHA-256:
+  `20c378f77aae1e03f87bf2ce708c3c442031c0dadea41351b0c4eb195d048b09`. The
+  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38890743535)
+  passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,
+  and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.
+  They are ad-hoc signed, not notarized. These are branch build outputs, not a
+  published 1.0.3 release; 1.0.2 remains the public stable-download fallback
+  until a complete 1.0.3 release is published.
+
 ## 2026-10-15 — 1,999 missing channels restored + public download site
 
 - **The missing channels are cleared out and fixed.** The 2026-10-13 deep

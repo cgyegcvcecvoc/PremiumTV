@@ -6,8 +6,8 @@ name: Build PremiumTV macOS DMG + PKG
 # for both Intel and Apple Silicon, ad-hoc signs the .app, and publishes the
 # installers to the release page plus an Actions artifact.
 #
-# The global previews (v1.1.0, v1.1.1) attach only to GitHub pre-releases; the
-# stable v1.0.2 only to a full release.
+# The global previews (v1.1.0, v1.1.1) attach only to GitHub pre-releases;
+# stable v1.0.3 (and the historical v1.0.2) only to full releases.
 
 on:
   push:
@@ -24,13 +24,14 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Build 1.0.2 stable, or a global preview: 1.1.1 (cable-style Guide tab) or 1.1.0."
+        description: "Build 1.0.3 stable, or a global preview: 1.1.1 (cable-style Guide tab) or 1.1.0."
         type: choice
         options:
+          - 1.0.3
           - 1.0.2
           - 1.1.1
           - 1.1.0
-        default: 1.0.2
+        default: 1.0.3
         required: true
   release:
     types: [published]
@@ -49,11 +50,11 @@ jobs:
     # to an Android-only release). The official release carries both platforms,
     # so both build workflows attach to it. Push/dispatch builds still run as
     # usual.
-    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease)
+    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.0.3' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease)
     runs-on: macos-14
     timeout-minutes: 60
     env:
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.2') }}
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.3') }}
 
     steps:
       - name: Check out the repository
@@ -81,14 +82,16 @@ jobs:
           if [ "$GITHUB_EVENT_NAME" = "release" ]; then
             case "$RELEASE_TAG:$RELEASE_PRERELEASE" in
               v1.0.2:false) version=1.0.2; scope=usa ;;
+              v1.0.3:false) version=1.0.3; scope=usa ;;
               v1.1.0:true) version=1.1.0; scope=all ;;
               v1.1.1:true) version=1.1.1; scope=all ;;
               *) echo "Unsupported tag/prerelease combination: $RELEASE_TAG:$RELEASE_PRERELEASE"; exit 1 ;;
             esac
           else
-            version="${INPUT_VERSION:-1.0.2}"
+            version="${INPUT_VERSION:-1.0.3}"
             case "$version" in
               1.0.2) scope=usa ;;
+              1.0.3) scope=usa ;;
               1.1.0) scope=all ;;
               1.1.1) scope=all ;;
               *) echo "Unsupported PremiumTV version: $version"; exit 1 ;;

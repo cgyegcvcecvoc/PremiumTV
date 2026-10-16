@@ -7,16 +7,44 @@ name: Deploy download site (GitHub Pages)
 # files from the repository (playlists, reports, CHANGELOG.md) so the page
 # always shows current counts and changelog entries.
 #
-# The first run also *enables* Pages for the repository (configure-pages
-# `enablement: true`), so no manual Settings -> Pages step is needed.
+# The first run asks GitHub to enable Pages, but GitHub currently denies that
+# admin operation to workflow/integration tokens. If Pages is still disabled,
+# the summary explains the one-time owner action: Settings -> Pages -> Source:
+# GitHub Actions. After that, changes and release publications deploy normally.
 
 on:
   workflow_dispatch:
+  release:
+    types: [published]
+  # Data workflows commit with GITHUB_TOKEN, whose pushes do not recursively
+  # trigger push workflows. Deploy after their runs so automated scrapes and
+  # repairs update the public site too.
+  workflow_run:
+    workflows:
+      - Scrape playlists
+      - Quick playlist update
+      - Deep link and guide check
+      - Build merged and country EPG guides
+      - Biweekly deep cleanup
+      - Monthly discovery
+    types: [completed]
+    branches: [main]
   push:
     branches:
       - "main"
     paths:
       - "docs/**"
+      - "CHANGELOG.md"
+      - "release-notes-*.md"
+      - "playlists/PremiumTV.m3u"
+      - "playlists/Priority_Channels.m3u"
+      - "playlists/AE_Channels.m3u"
+      - "playlists/countries/**"
+      - "playlists/report.json"
+      - "playlists/STATUS.md"
+      - "categories/USA.m3u"
+      - "EPG/**"
+      - "build-out/SHA256SUMS*.txt"
       - "scripts/build_site_data.py"
       - ".github/workflows/pages.yml"
 
@@ -41,6 +69,14 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+
+      - name: Refresh published GitHub release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
+            --jq '[.[] | {tag: .tag_name, name, draft, prerelease, published_at, html_url, assets: [.assets[] | {name, size, browser_download_url}]}]' \
+            > docs/data/releases.src.json
 
       - name: Regenerate site data from the repository
         run: python scripts/build_site_data.py

@@ -1,18 +1,22 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build is **1.0.2 stable** (`versionCode`
-`7`) with the USA lineup. **1.1.1** (`versionCode` `9`) is the preview build
-with the global checked lineup and a **cable-style Guide tab**; it must be
-distributed as a GitHub pre-release and is never the default (it supersedes
-the 1.1.0 preview, `versionCode` `8`). The guide is
+TV guide inside the APK. The default build target is **1.0.3 stable**
+(`versionCode` `10`) with the USA lineup. The last published stable download is
+still **1.0.2** (`versionCode` `7`) until the 1.0.3 release has its full asset
+set. **1.1.1** (`versionCode` `9`) is the preview build with the global checked
+lineup and a **cable-style Guide tab**; it must be distributed as a GitHub
+pre-release and is never the default (it supersedes the 1.1.0 preview,
+`versionCode` `8`). The guide is
 built from the repository's curated per-country XMLTV feeds (iptv-epg.org and
 epg.pw).
 
-The 1.0.2 stable target is published as the `v1.0.2` release; the 1.1.x builds
-are published with GitHub's pre-release flag. GitHub Actions can build any of
-them; the 1.1.x release jobs require that pre-release flag. Both versions
-publish a debug-signed APK that installs as-is on supported devices.
+The next stable target is `v1.0.3`; `v1.0.2` remains the current published
+stable release until the 1.0.3 Android and Mac assets are complete. The 1.1.x
+builds are published with GitHub's pre-release flag. GitHub Actions can build
+all supported versions; the 1.1.x release jobs require that pre-release flag.
+Each published version carries a debug-signed APK that installs as-is on
+supported devices.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
 The same APK works everywhere — navigation is D-pad first, and touch works too.
@@ -21,7 +25,7 @@ The same APK works everywhere — navigation is D-pad first, and touch works too
 
 | Build | Source playlist | Source guide | Preview metadata |
 |---|---|---|---|
-| **1.0.2 stable (default)** | `playlists/countries/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no preview features |
+| **1.0.3 stable build target (default)** | `playlists/countries/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no preview features |
 | **1.1.1 pre-release** (and 1.1.0) | `playlists/PremiumTV.m3u` | `EPG/PremiumTV.xml` | `library_scope: all`; `preview_features: ["cable-guide"]` |
 
 Both scopes are converted to JSON Lines by [`tools/build_bundle.py`](tools/build_bundle.py)
@@ -55,7 +59,7 @@ Channels no public guide schedules show "Nothing listed at this hour" or
   page, and the remote's GUIDE key opens it. Touch drags both ways; tap plays.
   It is enabled by the APK's own bundle (`cable-guide`), never by downloaded
   data.
-- **Guide (stable 1.0.2)** — "what's on now" across every channel that has
+- **Guide (stable 1.0.3)** — "what's on now" across every channel that has
   listings: current programme with a progress bar, plus what is next.
 - **Settings** — bundle provenance and counts, automatic-refresh state, next
   check, last success/result, **Force refresh all now**, and reset to the APK's
@@ -104,9 +108,9 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Stable default (USA, 1.0.2)
-python3 tools/build_bundle.py --scope usa --version 1.0.2
-./gradlew -PpremiumTvVersion=1.0.2 -PpremiumTvVersionCode=7 assembleDebug
+# Stable build target (USA, 1.0.3)
+python3 tools/build_bundle.py --scope usa --version 1.0.3
+./gradlew -PpremiumTvVersion=1.0.3 -PpremiumTvVersionCode=10 assembleDebug
 
 # 1.1.1 pre-release data (global lineup + cable-style Guide tab)
 python3 tools/build_bundle.py --scope all --version 1.1.1
@@ -126,17 +130,22 @@ GitHub Actions builds them — [`.github/workflows/android-build.yml`](../.githu
 A plain sandbox cannot compile this project (no JDK, no Android SDK, no access
 to Maven Central or `dl.google.com`). Every push that touches `android/`,
 `playlists/countries/`, `EPG/` or the workflow rebuilds the installable debug
-APK and commits the build output to `build-out/`:
+APK and commits the build output to `build-out/`. The stable bundle takes its
+channels only from the checked USA playlist, not the unfiltered all-links
+catalogue; the manual scrape, later main-branch recheck, and post-merge deep
+check on 2026-10-16 leave 2,669 USA entries. The committed bundle metadata
+records the exact counts and guide window used by each build:
 
 ```text
-build-out/PremiumTV-1.0.2-debug.apk   stable default (debug-signed, USA scope)
+build-out/PremiumTV-1.0.3-debug.apk   stable build default (debug-signed, USA scope)
 build-out/PremiumTV-1.1.1-debug.apk   only when the preview version is selected
 build-out/SHA256SUMS-android.txt
 build-out/build-log.txt               full Gradle output
 ```
 
-The workflow only attaches 1.0.2 assets to the stable `v1.0.2` release and
-1.1.x assets to the matching pre-release (`v1.1.0`, `v1.1.1`). Only the debug APK is
+The workflow attaches 1.0.3 assets only to the full stable `v1.0.3` release
+(and can still rebuild the historical `v1.0.2` release), while 1.1.x assets go
+to the matching pre-release (`v1.1.0`, `v1.1.1`). Only the debug APK is
 published; an unsigned release APK cannot be installed on a TV or phone.
 
 ### Installing on a TV
@@ -180,7 +189,7 @@ android/
 
 ## Known limits
 
-- Stable 1.0.2 intentionally bundles the USA library. The 1.1.x pre-releases
+- Stable 1.0.3 intentionally bundles the USA library. The 1.1.x pre-releases
   select the checked global playlist and merged guide.
 - No favourites, search, or "continue watching" — browse, play and guide only.
 - The bundled guide is a snapshot of what the repository had published at

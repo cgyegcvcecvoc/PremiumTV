@@ -211,10 +211,55 @@ def classify_asset(name: str) -> tuple[str, str]:
     return "other", "—"
 
 
+def release_tag(release: dict) -> str:
+    """Accept the checked-in compact format and GitHub's release API format."""
+    return str(release.get("tag") or release.get("tag_name") or "")
+
+
+def latest_complete_stable_release(releases: list[dict]) -> dict | None:
+    """Pick the newest published stable release only after every app installer exists.
+
+    A release can be published before the platform build jobs finish attaching
+    their assets. Keeping the previous complete stable download live during that
+    window is better than advertising a version with no working download links.
+    """
+    candidates = []
+    for release in releases:
+        tag = release_tag(release)
+        if release.get("draft") or release.get("prerelease"):
+            continue
+        match = re.fullmatch(r"v(\d+)\.(\d+)\.(\d+)", tag)
+        if not match:
+            continue
+        version = ".".join(match.groups())
+        available = {a.get("name", "") for a in release.get("assets") or []}
+        required = {
+            f"PremiumTV-{version}-debug.apk",
+            f"PremiumTV-{version}-mac-arm64.dmg",
+            f"PremiumTV-{version}-mac-arm64.pkg",
+            f"PremiumTV-{version}-mac-x64.dmg",
+            f"PremiumTV-{version}-mac-x64.pkg",
+        }
+        if required.issubset(available):
+            candidates.append((tuple(int(part) for part in match.groups()), release))
+    return max(candidates, key=lambda item: item[0])[1] if candidates else None
+
+
 def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[dict], list[dict]]:
-    by_tag = {r.get("tag"): r for r in releases}
+    by_tag = {release_tag(r): r for r in releases if release_tag(r)}
+    channel_specs = [dict(spec) for spec in CHANNELS]
+    current_stable = latest_complete_stable_release(releases)
+    if current_stable:
+        stable_tag = release_tag(current_stable)
+        stable_version = stable_tag[1:]
+        channel_specs[0].update({
+            "tag": stable_tag,
+            "version": stable_version,
+            "notes_file": f"release-notes-{stable_version}.md",
+        })
+
     channels = []
-    for spec in CHANNELS:
+    for spec in channel_specs:
         release = by_tag.get(spec["tag"], {})
         assets = []
         for asset in release.get("assets") or []:
@@ -240,8 +285,9 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
             "assets": assets,
         })
     older = []
+    active_tags = {c["tag"] for c in channel_specs}
     for tag, release in sorted(by_tag.items(), reverse=True):
-        if tag in {c["tag"] for c in CHANNELS} or not tag:
+        if tag in active_tags or not tag:
             continue
         older.append({
             "tag": tag,
@@ -357,7 +403,12 @@ def parse_changelog() -> list[dict]:
 
 
 def write_feed(entries: list[dict]) -> str:
-    updated = iso_time(dt.datetime.now(dt.timezone.utc))
+    # The feed's <updated> must describe its content, not the moment a build ran.
+    # A wall-clock timestamp made the generated feed differ on every invocation,
+    # so the documented --check command could never be reproducible.
+    latest_date = max((entry["date"] for entry in entries), default="1970-01-01")
+    updated = f"{latest_date}T12:00:00Z"
+
     def esc(text: str) -> str:
         return (text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
     lines = [
@@ -389,14 +440,43 @@ def write_feed(entries: list[dict]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def stable_generated_time(stats: dict, changelog: list[dict]) -> str:
+    """Return a deterministic timestamp for the inputs represented on the site."""
+    dates: list[dt.datetime] = []
+    raw_run_time = stats.get("last_run_utc")
+    if raw_run_time:
+        for fmt in ("%Y-%m-%d %H:%M UTC", "%Y-%m-%d %H:%M:%S UTC"):
+            try:
+                dates.append(dt.datetime.strptime(raw_run_time, fmt).replace(tzinfo=dt.timezone.utc))
+                break
+            except ValueError:
+                continue
+        if not dates:
+            try:
+                parsed = dt.datetime.fromisoformat(raw_run_time.replace("Z", "+00:00"))
+                dates.append(parsed.replace(tzinfo=dt.timezone.utc) if parsed.tzinfo is None else parsed)
+            except (AttributeError, TypeError, ValueError):
+                pass
+    if changelog:
+        try:
+            dates.append(dt.datetime.strptime(changelog[0]["date"], "%Y-%m-%d")
+                         .replace(tzinfo=dt.timezone.utc))
+        except (KeyError, TypeError, ValueError):
+            pass
+    if not dates:
+        return "1970-01-01T00:00:00Z"
+    return iso_time(max(dates))
+
+
 def build_payload() -> tuple[dict, list[dict]]:
     checksums = load_checksums()
     releases = load_releases()
     channels, older = build_apps(checksums, releases)
     countries = build_countries()
     changelog = parse_changelog()
+    stats = build_stats()
     payload = {
-        "generated_utc": iso_time(dt.datetime.now(dt.timezone.utc)),
+        "generated_utc": stable_generated_time(stats, changelog),
         "repo": {
             "owner": REPO_OWNER,
             "name": REPO_NAME,
@@ -408,7 +488,7 @@ def build_payload() -> tuple[dict, list[dict]]:
                             f"/blob/{REPO_BRANCH}/CHANGELOG.md",
             "changelog_doc": GOOGLE_DOC_CHANGELOG,
         },
-        "stats": build_stats(),
+        "stats": stats,
         "playlists": {
             "main": {
                 "name": "PremiumTV.m3u",

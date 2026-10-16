@@ -4,10 +4,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// Release tags can override these properties so the stable 1.0.2 and the
-// 1.1.0 all-channel preview are built from the same reviewed source commit.
-val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.2").get()
-val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("7").get().toInt()
+// Release tags can override these properties. The default is the 1.0.3 stable
+// USA build; its versionCode is above the 1.1.1 preview so Android can upgrade
+// cleanly regardless of which published channel a user installed first.
+val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.3").get()
+val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("10").get().toInt()
 
 android {
     namespace = "com.premiumtv.app"
