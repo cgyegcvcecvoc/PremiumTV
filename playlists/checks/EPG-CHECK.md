@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261016T180038Z-3097`)
-- **Started:** 2026-10-16T18:00:38Z | **Finished:** 2026-10-16T18:00:54Z | **Duration:** 16.0s
+- **Run:** nightly guide check (`20261016T182702Z-2876`)
+- **Started:** 2026-10-16T18:27:02Z | **Finished:** 2026-10-16T18:27:24Z | **Duration:** 21.4s
 - **Guides checked:** 523 across 177 playlists (176 of them are this repository's own published guides)
 - **Working share of upstream guides:** 99.1%
 
@@ -410,18 +410,18 @@
 
 | Own guide | Status | Reason |
 |---|---|---|
-| `PremiumTV.xml` | ok | 9840 channels, 9224 programmes sampled |
+| `PremiumTV.xml` | ok | 9813 channels, 9268 programmes sampled |
 | `Afghanistan.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Albania.xml` | ok | 14 channels, 52 programmes sampled |
+| `Albania.xml` | ok | 14 channels, 51 programmes sampled |
 | `Algeria.xml` | ok | 5 channels, 74 programmes sampled |
 | `Andorra.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Angola.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Antigua_and_Barbuda.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Arab_World.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Argentina.xml` | ok | 159 channels, 1250 programmes sampled |
-| `Armenia.xml` | ok | 10 channels, 117 programmes sampled |
+| `Argentina.xml` | ok | 159 channels, 1246 programmes sampled |
+| `Armenia.xml` | ok | 10 channels, 116 programmes sampled |
 | `Aruba.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Australia.xml` | ok | 31 channels, 851 programmes sampled |
+| `Australia.xml` | ok | 31 channels, 847 programmes sampled |
 | `Austria.xml` | ok | 34 channels, 885 programmes sampled |
 | `Azerbaijan.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Bahamas.xml` | empty | valid XMLTV but no programmes in the sampled window |
