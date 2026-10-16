@@ -35,9 +35,17 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   explain Everyday Polish and Encore. Static APK downloads use release storage
   and authoritative release sizes rather than embedding stale local builds.
   Netlify Drop still requires uploading the rebuilt folder to the existing site.
-- **Manual checked scrape requested.** A run-scrape.txt push requests a full
-  source scrape and stream checks (no skip-check). Status remains available in
-  the Actions run and playlist reports; an app refresh is not a server scrape.
+- **Encore installers published.** The rebuilt APK and all four Mac installers
+  passed their unit/emulator/packaged-app gates and replaced the existing 1.1.1
+  pre-release assets. The preview remains separate from Latest stable 1.0.3.
+- **Manual checked scrape completed.** Run `38969629022` checked 16,722 unique
+  links and published 11,453 confirmed-working entries; 2,317 dead and 2,952
+  unverified links were excluded. Verification reports zero structural playlist
+  or shelf problems. The run carries a warning because three optional sources
+  are not configured. An app refresh downloads published data; it is not a
+  server scrape. These are point-in-time checks, not uptime guarantees.
+- **Final local validation:** 375 Python tests and 46 Mac/website Node tests
+  pass. Both versions also passed their Android and Mac CI smoke gates.
 
 ## 2026-10-16 — PremiumTV 1.0.3 maintenance + download-site reliability
 

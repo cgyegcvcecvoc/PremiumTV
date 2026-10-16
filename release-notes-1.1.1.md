@@ -1,6 +1,6 @@
 # PremiumTV 1.1.1 — Encore Preview: Cable Guide + Everyday Polish
 
-**This is a pre-release, not the default.** Stable users receive 1.0.3 once its complete installer set passes the release gates. Like
+**This is a pre-release, not the default.** Stable users receive the recommended 1.0.3 release. Like
 1.1.0, this build is published with GitHub's pre-release flag so it is never
 handed out as the recommended download.
 

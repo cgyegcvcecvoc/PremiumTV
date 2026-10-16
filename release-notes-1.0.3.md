@@ -1,6 +1,6 @@
 # PremiumTV 1.0.3 — Everyday Polish
 
-PremiumTV 1.0.3 is the next stable Android TV and macOS maintenance build. It
+PremiumTV 1.0.3 is the stable Android TV and macOS maintenance build. It
 keeps the stable USA lineup and the list-style TV guide; the global cable-style
 guide remains preview-only in 1.1.1.
 
@@ -25,8 +25,8 @@ guide remains preview-only in 1.1.1.
   XMLTV guide into each installer. The app remains usable from its bundled
   library at first launch and can refresh from the public repository afterward.
 - **Safe Android upgrade numbering.** Android uses `versionName 1.0.3` and
-  `versionCode 10`, above the 1.1.1 preview's code 9, so installing stable over
-  either 1.0.2 or the preview is an in-place update rather than a downgrade.
+  `versionCode 10`, above the original 1.1.1 preview's code 9, so installing stable over
+  either 1.0.2 or the original preview is an in-place update rather than a downgrade.
 - **Stable-only release routing.** Both platform workflows accept `v1.0.3` only
   as a full release, keep the USA scope for stable, and continue to reject
   stable-tagged 1.1.x previews.
