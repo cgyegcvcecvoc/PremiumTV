@@ -47,28 +47,27 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   files in sync. The refreshed merged guide contains 116,992 programmes across
   1,757 of 9,769 playlist channels (18.0% coverage); guide coverage remains an
   upstream limitation, not an app defect.
-- **The newest main scrape and deep check were reconciled after the merge.**
-  The scheduled main report `20261016T174225Z-2917` (Actions run
+- **The newest main scrape and post-merge deep check are verified.** The
+  scheduled main report `20261016T174225Z-2917` (Actions run
   [38941630689](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38941630689))
   confirmed 11,459 of 16,627 unique source links, with 2,216 reported dead and
   2,952 unverified across 175 country playlists. This newer scrape was kept
-  when resolving PR #47's generated-data conflicts. After a concurrent check
-  could not commit while an earlier scrape updated main, the successful
-  [deep-check run 38943437167](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38943437167)
-  rechecked the newest snapshot: report `20261016T175644Z-2922` found 22,725 of
-  22,969 playlist entries playable (98.9%). It removed 66 confirmed-dead
-  occurrences and retained 165 unreachable / 13 blocked results. The final
-  `PremiumTV.m3u` has 11,421 entries and the USA playlist 2,700. Strict
-  verification found 0 structural problems, 0 published known-dead links, and
-  all 134 category-shelf files in sync. The rebuilt merged guide has 113,656
-  programmes across 1,754 of 9,813 channels (17.9% coverage).
+  when resolving PR #47's generated-data conflicts. The main-branch
+  [deep-check run 38946889717](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38946889717)
+  then rechecked report `20261016T182340Z-2687`: 22,657 of 22,903 playlist
+  entries were playable (98.9%). It removed 46 confirmed-dead occurrences and
+  retained 186 unreachable / 14 blocked results. The final `PremiumTV.m3u`
+  has 11,398 entries and the USA playlist 2,694. Strict verification found 0
+  structural problems, 0 published known-dead links, and all 134
+  category-shelf files in sync. The rebuilt merged guide has 113,236 programmes
+  across 1,750 of 9,797 channels (17.9% coverage).
 - **Final 1.0.3 builds match this latest checked snapshot.** The [Android CI
-  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38945097369)
+  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949178195)
   passed unit tests, emulator cold-launch and stable list-Guide smoke tests;
-  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,700 USA channels, 61 groups,
-  and 25,925 programmes (426 with guide listings). SHA-256:
-  `8b72f3ecbedc545fac197ad2e55b517f992b7378235452e63b57635f9f436483`. The
-  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38945996460)
+  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,694 USA channels, 61 groups,
+  and 25,813 programmes (426 with guide listings). SHA-256:
+  `6c535d986c97e3b57d60059f9b3c1b07843cb675d086c5253a0c32814e2aba5a`. The
+  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949178211)
   passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,
   and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.
   They are ad-hoc signed, not notarized. These remain branch build outputs, not

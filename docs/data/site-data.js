@@ -23,7 +23,7 @@ window.SITE_DATA = {
    "name": "PremiumTV.m3u",
    "description": "Every confirmed-working channel, grouped by category.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u",
-   "count": 11421
+   "count": 11398
   },
   "priority": {
    "name": "Priority_Channels.m3u",
@@ -35,7 +35,7 @@ window.SITE_DATA = {
    "name": "categories/USA.m3u",
    "description": "Every US channel in category order.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/USA.m3u",
-   "count": 2700
+   "count": 2694
   },
   "ae": {
    "name": "AE_Channels.m3u",
@@ -223,7 +223,7 @@ window.SITE_DATA = {
    "name": "United States",
    "iso2": "US",
    "region": false,
-   "count": 2700,
+   "count": 2694,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/USA.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/USA.xml",
    "epg_present": true
@@ -233,7 +233,7 @@ window.SITE_DATA = {
    "name": "India",
    "iso2": "IN",
    "region": false,
-   "count": 691,
+   "count": 685,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/India.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/India.xml",
    "epg_present": true
@@ -353,7 +353,7 @@ window.SITE_DATA = {
    "name": "Ukraine",
    "iso2": "UA",
    "region": false,
-   "count": 176,
+   "count": 175,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Ukraine.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Ukraine.xml",
    "epg_present": true
@@ -363,7 +363,7 @@ window.SITE_DATA = {
    "name": "Argentina",
    "iso2": "AR",
    "region": false,
-   "count": 168,
+   "count": 167,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Argentina.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Argentina.xml",
    "epg_present": true
@@ -383,7 +383,7 @@ window.SITE_DATA = {
    "name": "Peru",
    "iso2": "PE",
    "region": false,
-   "count": 143,
+   "count": 142,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Peru.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Peru.xml",
    "epg_present": true
@@ -483,7 +483,7 @@ window.SITE_DATA = {
    "name": "South Korea",
    "iso2": "KR",
    "region": false,
-   "count": 66,
+   "count": 64,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/South_Korea.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/South_Korea.xml",
    "epg_present": true
@@ -533,7 +533,7 @@ window.SITE_DATA = {
    "name": "Paraguay",
    "iso2": "PY",
    "region": false,
-   "count": 56,
+   "count": 55,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Paraguay.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Paraguay.xml",
    "epg_present": true
@@ -569,16 +569,6 @@ window.SITE_DATA = {
    "epg_present": true
   },
   {
-   "slug": "Vietnam",
-   "name": "Vietnam",
-   "iso2": "VN",
-   "region": false,
-   "count": 53,
-   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Vietnam.m3u",
-   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Vietnam.xml",
-   "epg_present": true
-  },
-  {
    "slug": "Czechia",
    "name": "Czechia",
    "iso2": "CZ",
@@ -589,13 +579,13 @@ window.SITE_DATA = {
    "epg_present": true
   },
   {
-   "slug": "Bolivia",
-   "name": "Bolivia",
-   "iso2": "BO",
+   "slug": "Vietnam",
+   "name": "Vietnam",
+   "iso2": "VN",
    "region": false,
-   "count": 51,
-   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bolivia.m3u",
-   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bolivia.xml",
+   "count": 52,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Vietnam.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Vietnam.xml",
    "epg_present": true
   },
   {
@@ -606,6 +596,16 @@ window.SITE_DATA = {
    "count": 51,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Venezuela.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Venezuela.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Bolivia",
+   "name": "Bolivia",
+   "iso2": "BO",
+   "region": false,
+   "count": 50,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bolivia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bolivia.xml",
    "epg_present": true
   },
   {
@@ -849,16 +849,6 @@ window.SITE_DATA = {
    "epg_present": true
   },
   {
-   "slug": "Serbia",
-   "name": "Serbia",
-   "iso2": "RS",
-   "region": false,
-   "count": 20,
-   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Serbia.m3u",
-   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Serbia.xml",
-   "epg_present": true
-  },
-  {
    "slug": "Cyprus",
    "name": "Cyprus",
    "iso2": "CY",
@@ -876,6 +866,16 @@ window.SITE_DATA = {
    "count": 19,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/North_Macedonia.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/North_Macedonia.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Serbia",
+   "name": "Serbia",
+   "iso2": "RS",
+   "region": false,
+   "count": 19,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Serbia.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Serbia.xml",
    "epg_present": true
   },
   {
@@ -1199,16 +1199,6 @@ window.SITE_DATA = {
    "epg_present": true
   },
   {
-   "slug": "Haiti",
-   "name": "Haiti",
-   "iso2": "HT",
-   "region": false,
-   "count": 8,
-   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Haiti.m3u",
-   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Haiti.xml",
-   "epg_present": true
-  },
-  {
    "slug": "Hong_Kong",
    "name": "Hong Kong",
    "iso2": "HK",
@@ -1246,6 +1236,16 @@ window.SITE_DATA = {
    "count": 7,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Denmark.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Denmark.xml",
+   "epg_present": true
+  },
+  {
+   "slug": "Haiti",
+   "name": "Haiti",
+   "iso2": "HT",
+   "region": false,
+   "count": 7,
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Haiti.m3u",
+   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Haiti.xml",
    "epg_present": true
   },
   {
@@ -1943,7 +1943,7 @@ window.SITE_DATA = {
    "name": "International",
    "iso2": null,
    "region": true,
-   "count": 1137,
+   "count": 1136,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/International.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/International.xml",
    "epg_present": true
@@ -1974,14 +1974,14 @@ window.SITE_DATA = {
    "id": "2026-10-16",
    "date": "2026-10-16",
    "title": "PremiumTV 1.0.3 maintenance + download-site reliability",
-   "body_md": "- **Stable 1.0.3 build prepared.** The Android default now uses `versionName\n  1.0.3` / `versionCode 10` (above preview code 9), the macOS package and\n  bundle defaults are aligned, and both release workflows accept `v1.0.3` only\n  as a full stable release. The USA lineup and list-style guide remain the\n  stable scope; the 1.1.1 cable guide stays preview-only. The current published\n  stable download remains 1.0.2 until 1.0.3 has its complete asset set.\n- **Download site data stays current.** The Pages workflow now runs on\n  `CHANGELOG.md`, playlist/report/country/EPG changes and published releases;\n  it also runs after scheduled/manual data workflows because their bot commits\n  do not trigger push workflows. It refreshes release asset metadata before\n  rebuilding. The download page only\n  promotes a stable release once the APK and all four Mac installers exist.\n  Its live changelog refresh compares entry contents (so editing an existing\n  entry also updates open pages), and generated data/Atom timestamps are\n  reproducible so `build_site_data.py --check` can work reliably.\n- **Public Pages status verified.** The repo is public, but GitHub Pages itself\n  is not enabled: the Pages API returns 404, and this integration is denied\n  permission to create the site (403). The workflow cannot change that admin\n  setting; the owner must set **Settings → Pages → Source: GitHub Actions** once.\n- **Manual checked scrape completed.** Run `20261016T103351Z-2912` finished at\n  10:38 UTC on October 16. It confirmed 11,365 of 16,628 unique source links,\n  reported 2,292 dead and 2,971 unverified candidates, and regenerated the\n  175-country set; the scraper correctly marked this as a warning rather than\n  claiming every source worked.\n- **A full stream and guide check followed.** Deep HLS/segment checks covered\n  11,365 unique links across the published playlists: 22,633 of 22,797 playlist\n  entries (99.3%) returned playable media. It removed 22 confirmed-dead\n  occurrences only, taking `PremiumTV.m3u` from 11,365 to 11,354 entries and\n  the USA playlist from 2,682 to 2,679. The 128 unreachable and 14 blocked\n  results were retained because a timeout/server error or geo/auth block is not\n  proof that a stream is dead. Strict verification passed with no structural\n  problems, no known-dead links left published, and all 134 category-shelf\n  files in sync. The refreshed merged guide contains 116,992 programmes across\n  1,757 of 9,769 playlist channels (18.0% coverage); guide coverage remains an\n  upstream limitation, not an app defect.\n- **The newest main scrape and deep check were reconciled after the merge.**\n  The scheduled main report `20261016T174225Z-2917` (Actions run\n  [38941630689](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38941630689))\n  confirmed 11,459 of 16,627 unique source links, with 2,216 reported dead and\n  2,952 unverified across 175 country playlists. This newer scrape was kept\n  when resolving PR #47's generated-data conflicts. After a concurrent check\n  could not commit while an earlier scrape updated main, the successful\n  [deep-check run 38943437167](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38943437167)\n  rechecked the newest snapshot: report `20261016T175644Z-2922` found 22,725 of\n  22,969 playlist entries playable (98.9%). It removed 66 confirmed-dead\n  occurrences and retained 165 unreachable / 13 blocked results. The final\n  `PremiumTV.m3u` has 11,421 entries and the USA playlist 2,700. Strict\n  verification found 0 structural problems, 0 published known-dead links, and\n  all 134 category-shelf files in sync. The rebuilt merged guide has 113,656\n  programmes across 1,754 of 9,813 channels (17.9% coverage).\n- **Final 1.0.3 builds match this latest checked snapshot.** The [Android CI\n  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38945097369)\n  passed unit tests, emulator cold-launch and stable list-Guide smoke tests;\n  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,700 USA channels, 61 groups,\n  and 25,925 programmes (426 with guide listings). SHA-256:\n  `8b72f3ecbedc545fac197ad2e55b517f992b7378235452e63b57635f9f436483`. The\n  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38945996460)\n  passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,\n  and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.\n  They are ad-hoc signed, not notarized. These remain branch build outputs, not\n  a published 1.0.3 release; 1.0.2 remains the public stable-download fallback\n  until a complete 1.0.3 release is published.",
+   "body_md": "- **Stable 1.0.3 build prepared.** The Android default now uses `versionName\n  1.0.3` / `versionCode 10` (above preview code 9), the macOS package and\n  bundle defaults are aligned, and both release workflows accept `v1.0.3` only\n  as a full stable release. The USA lineup and list-style guide remain the\n  stable scope; the 1.1.1 cable guide stays preview-only. The current published\n  stable download remains 1.0.2 until 1.0.3 has its complete asset set.\n- **Download site data stays current.** The Pages workflow now runs on\n  `CHANGELOG.md`, playlist/report/country/EPG changes and published releases;\n  it also runs after scheduled/manual data workflows because their bot commits\n  do not trigger push workflows. It refreshes release asset metadata before\n  rebuilding. The download page only\n  promotes a stable release once the APK and all four Mac installers exist.\n  Its live changelog refresh compares entry contents (so editing an existing\n  entry also updates open pages), and generated data/Atom timestamps are\n  reproducible so `build_site_data.py --check` can work reliably.\n- **Public Pages status verified.** The repo is public, but GitHub Pages itself\n  is not enabled: the Pages API returns 404, and this integration is denied\n  permission to create the site (403). The workflow cannot change that admin\n  setting; the owner must set **Settings → Pages → Source: GitHub Actions** once.\n- **Manual checked scrape completed.** Run `20261016T103351Z-2912` finished at\n  10:38 UTC on October 16. It confirmed 11,365 of 16,628 unique source links,\n  reported 2,292 dead and 2,971 unverified candidates, and regenerated the\n  175-country set; the scraper correctly marked this as a warning rather than\n  claiming every source worked.\n- **A full stream and guide check followed.** Deep HLS/segment checks covered\n  11,365 unique links across the published playlists: 22,633 of 22,797 playlist\n  entries (99.3%) returned playable media. It removed 22 confirmed-dead\n  occurrences only, taking `PremiumTV.m3u` from 11,365 to 11,354 entries and\n  the USA playlist from 2,682 to 2,679. The 128 unreachable and 14 blocked\n  results were retained because a timeout/server error or geo/auth block is not\n  proof that a stream is dead. Strict verification passed with no structural\n  problems, no known-dead links left published, and all 134 category-shelf\n  files in sync. The refreshed merged guide contains 116,992 programmes across\n  1,757 of 9,769 playlist channels (18.0% coverage); guide coverage remains an\n  upstream limitation, not an app defect.\n- **The newest main scrape and post-merge deep check are verified.** The\n  scheduled main report `20261016T174225Z-2917` (Actions run\n  [38941630689](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38941630689))\n  confirmed 11,459 of 16,627 unique source links, with 2,216 reported dead and\n  2,952 unverified across 175 country playlists. This newer scrape was kept\n  when resolving PR #47's generated-data conflicts. The main-branch\n  [deep-check run 38946889717](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38946889717)\n  then rechecked report `20261016T182340Z-2687`: 22,657 of 22,903 playlist\n  entries were playable (98.9%). It removed 46 confirmed-dead occurrences and\n  retained 186 unreachable / 14 blocked results. The final `PremiumTV.m3u`\n  has 11,398 entries and the USA playlist 2,694. Strict verification found 0\n  structural problems, 0 published known-dead links, and all 134\n  category-shelf files in sync. The rebuilt merged guide has 113,236 programmes\n  across 1,750 of 9,797 channels (17.9% coverage).\n- **Final 1.0.3 builds match this latest checked snapshot.** The [Android CI\n  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949178195)\n  passed unit tests, emulator cold-launch and stable list-Guide smoke tests;\n  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,694 USA channels, 61 groups,\n  and 25,813 programmes (426 with guide listings). SHA-256:\n  `6c535d986c97e3b57d60059f9b3c1b07843cb675d086c5253a0c32814e2aba5a`. The\n  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949178211)\n  passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,\n  and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.\n  They are ad-hoc signed, not notarized. These remain branch build outputs, not\n  a published 1.0.3 release; 1.0.2 remains the public stable-download fallback\n  until a complete 1.0.3 release is published.",
    "bullets": [
     "**Stable 1.0.3 build prepared.** The Android default now uses `versionName",
     "**Download site data stays current.** The Pages workflow now runs on",
     "**Public Pages status verified.** The repo is public, but GitHub Pages itself",
     "**Manual checked scrape completed.** Run `20261016T103351Z-2912` finished at",
     "**A full stream and guide check followed.** Deep HLS/segment checks covered",
-    "**The newest main scrape and deep check were reconciled after the merge.**",
+    "**The newest main scrape and post-merge deep check are verified.** The",
     "**Final 1.0.3 builds match this latest checked snapshot.** The [Android CI"
    ]
   },
