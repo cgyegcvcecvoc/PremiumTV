@@ -550,10 +550,6 @@
     <display-name>Disney Channel Latin America (1080p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/f/ff/2024_Disney_Channel_text_logo.svg" />
   </channel>
-  <channel id="DisneyChannelLatinAmerica.ar@Center">
-    <display-name>Disney Channel Latin America Center (1080p)</display-name>
-    <icon src="https://upload.wikimedia.org/wikipedia/commons/f/ff/2024_Disney_Channel_text_logo.svg" />
-  </channel>
   <channel id="DisneyChannelLatinAmerica.ar@Mexico">
     <display-name>Disney Channel Latin America Mexico (720p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/f/ff/2024_Disney_Channel_text_logo.svg" />
@@ -690,12 +686,6 @@
     <display-name>EuropaEuropa.ar</display-name>
     <icon src="https://iptv-epg.org/images/qYNFaCHZh0-GdgIZnoQ-1di_-MA9T9OMnfOndOXigXKSzepVlKOP2Hlej6OXMUAyESc0y44-EjVwQLrDndCLyTy6tHHheTJ-x-UuWdEd-xZPnPHnPqrr4g" />
   </channel>
-  <programme start="20261015214500 +0000" stop="20261016000000 +0000" channel="ESPNPremium.ar@HD">
-    <title>Fútbol Argentino Torneo de Reserva : Boca Juniors vs. Ferro</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016015000 +0000" channel="ESPNPremium.ar@HD">
-    <title>Fútbol Argentino Primera División : Instituto vs. Boca Juniors</title>
-  </programme>
   <programme start="20261016015000 +0000" stop="20261016034000 +0000" channel="ESPNPremium.ar@HD">
     <title>Fútbol Argentino Primera División : Sarmiento (J) vs. River Plate</title>
   </programme>
@@ -795,20 +785,20 @@
   <programme start="20261017224000 +0000" stop="20261018005500 +0000" channel="ESPNPremium.ar@HD">
     <title>Fútbol Argentino Primera División : Atlético Tucumán vs. Rosario Central</title>
   </programme>
-  <programme start="20261018005500 +0000" stop="20261018010000 +0000" channel="ESPNPremium.ar@HD">
-    <title>ESPN 2 Argentina</title>
-  </programme>
-  <programme start="20261018010000 +0000" stop="20261018024500 +0000" channel="ESPNPremium.ar@HD">
-    <title>ESPN 2 Argentina</title>
+  <programme start="20261018005500 +0000" stop="20261018024500 +0000" channel="ESPNPremium.ar@HD">
+    <title>Fútbol Argentino Primera División : Platense vs. Lanús</title>
   </programme>
   <programme start="20261018024500 +0000" stop="20261018043500 +0000" channel="ESPNPremium.ar@HD">
     <title>Fútbol Argentino Primera División : Banfield vs. Argentinos Juniors</title>
   </programme>
-  <programme start="20261018043500 +0000" stop="20261018050000 +0000" channel="ESPNPremium.ar@HD">
-    <title>ESPN 2 Argentina</title>
+  <programme start="20261018043500 +0000" stop="20261018062500 +0000" channel="ESPNPremium.ar@HD">
+    <title>Fútbol Argentino Primera División : Independiente Rivadavia vs. Tigre</title>
   </programme>
-  <programme start="20261015220000 +0000" stop="20261016000000 +0000" channel="FoxSports.ar@SD">
-    <title>Todo pelota</title>
+  <programme start="20261018062500 +0000" stop="20261018081500 +0000" channel="ESPNPremium.ar@HD">
+    <title>Fútbol Argentino Primera División : Independiente Rivadavia vs. Tigre</title>
+  </programme>
+  <programme start="20261018081500 +0000" stop="20261018100500 +0000" channel="ESPNPremium.ar@HD">
+    <title>Fútbol Argentino Primera División : Vélez Sarsfield vs. Gimnasia y Esgrima (M)</title>
   </programme>
   <programme start="20261016000000 +0000" stop="20261016023000 +0000" channel="FoxSports.ar@SD">
     <title>Estudiantes (LP) (Arg) vs. Flamengo (Bra)</title>
@@ -908,6 +898,12 @@
   </programme>
   <programme start="20261018030000 +0000" stop="20261018050000 +0000" channel="FoxSports.ar@SD">
     <title>Norwich City vs. Portsmouth</title>
+  </programme>
+  <programme start="20261018050000 +0000" stop="20261018070000 +0000" channel="FoxSports.ar@SD">
+    <title>Hannover 96 vs. St. Pauli</title>
+  </programme>
+  <programme start="20261018070000 +0000" stop="20261018090000 +0000" channel="FoxSports.ar@SD">
+    <title>Burnley vs. Wolverhampton Wanderers</title>
   </programme>
   <programme start="20261016010000 +0000" stop="20261016030000 +0000" channel="TyCSports.ar@SD">
     <title>Líbero</title>
@@ -1161,8 +1157,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015220000 +0000" stop="20261016003000 +0000" channel="TyCSports.ar">
-    <title>El análisis de la Liga Profesional y la previa de Estudiantes-Flamengo</title>
+  <programme start="20261018050000 +0000" stop="20261018100000 +0000" channel="TyCSports.ar@SD">
+    <title>Sportia</title>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261016003000 +0000" stop="20261016023000 +0000" channel="TyCSports.ar">
     <title>La cobertura de Estudiantes-Flamengo</title>
@@ -1198,31 +1198,28 @@
     <title>Sportia</title>
   </programme>
   <programme start="20261016130000 +0000" stop="20261016140000 +0000" channel="TyCSports.ar">
-    <title>Superfútbol</title>
+    <title>La previa de Boca-Talleres (Cba) y la fecha 13</title>
   </programme>
   <programme start="20261016140000 +0000" stop="20261016150000 +0000" channel="TyCSports.ar">
-    <title>Sportia</title>
+    <title>La previa de Boca-Talleres (Cba) y la fecha 13</title>
   </programme>
   <programme start="20261016150000 +0000" stop="20261016170000 +0000" channel="TyCSports.ar">
-    <title>Dale al medio</title>
+    <title>La previa de Boca-Talleres (Cba)</title>
   </programme>
   <programme start="20261016170000 +0000" stop="20261016190000 +0000" channel="TyCSports.ar">
-    <title>Líbero</title>
+    <title>La previa de Boca-Talleres (Cba) y la fecha 13</title>
   </programme>
   <programme start="20261016190000 +0000" stop="20261016220000 +0000" channel="TyCSports.ar">
-    <title>Sportia</title>
+    <title>La previa de Boca-Talleres (Cba) y la fecha 13</title>
   </programme>
-  <programme start="20261016220000 +0000" stop="20261017000000 +0000" channel="TyCSports.ar">
-    <title>Presión alta</title>
+  <programme start="20261016220000 +0000" stop="20261017002500 +0000" channel="TyCSports.ar">
+    <title>La previa de Boca-Talleres (Cba) y la fecha 13</title>
   </programme>
-  <programme start="20261017000000 +0000" stop="20261017013000 +0000" channel="TyCSports.ar">
-    <title>Sportia</title>
+  <programme start="20261017002500 +0000" stop="20261017023000 +0000" channel="TyCSports.ar">
+    <title>El relato de Boca-Talleres (Cba) y la cobertura de la fecha 13</title>
   </programme>
-  <programme start="20261017013000 +0000" stop="20261017030000 +0000" channel="TyCSports.ar">
-    <title>La noche de TyC Sports</title>
-  </programme>
-  <programme start="20261017030000 +0000" stop="20261017040000 +0000" channel="TyCSports.ar">
-    <title>Sportia</title>
+  <programme start="20261017023000 +0000" stop="20261017040000 +0000" channel="TyCSports.ar">
+    <title>El análisis y el post partido de Boca- Talleres (Cba)</title>
   </programme>
   <programme start="20261017040000 +0000" stop="20261017050000 +0000" channel="TyCSports.ar">
     <title>Sportia</title>
@@ -1272,26 +1269,14 @@
   <programme start="20261018043000 +0000" stop="20261018053000 +0000" channel="TyCSports.ar">
     <title>Sportia</title>
   </programme>
-  <programme start="20261015220000 +0000" stop="20261015230000 +0000" channel="ElGourmet.ar@Panregional">
-    <title>Me voy a comer el mundo</title>
+  <programme start="20261018053000 +0000" stop="20261018063000 +0000" channel="TyCSports.ar">
+    <title>Sportia</title>
   </programme>
-  <programme start="20261015230000 +0000" stop="20261015233000 +0000" channel="ElGourmet.ar@Panregional">
-    <title>Estefi dulce</title>
+  <programme start="20261018063000 +0000" stop="20261018073000 +0000" channel="TyCSports.ar">
+    <title>Sportia</title>
   </programme>
-  <programme start="20261015233000 +0000" stop="20261016000000 +0000" channel="ElGourmet.ar@Panregional">
-    <title>Ruta 40</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016003000 +0000" channel="ElGourmet.ar@Panregional">
-    <title>Los Petersen en México</title>
-  </programme>
-  <programme start="20261016003000 +0000" stop="20261016010000 +0000" channel="ElGourmet.ar@Panregional">
-    <title>Maestros de la pasta</title>
-  </programme>
-  <programme start="20261016010000 +0000" stop="20261016013000 +0000" channel="ElGourmet.ar@Panregional">
-    <title>Las tartas de Ximena</title>
-  </programme>
-  <programme start="20261016013000 +0000" stop="20261016020000 +0000" channel="ElGourmet.ar@Panregional">
-    <title>Tapeo español</title>
+  <programme start="20261018073000 +0000" stop="20261018083000 +0000" channel="TyCSports.ar">
+    <title>Sportia</title>
   </programme>
   <programme start="20261016020000 +0000" stop="20261016023000 +0000" channel="ElGourmet.ar@Panregional">
     <title>Pueblos para comérselos. México</title>
@@ -1587,26 +1572,26 @@
   <programme start="20261018043000 +0000" stop="20261018050000 +0000" channel="ElGourmet.ar@Panregional">
     <title>Los imperdibles. Buenos Aires</title>
   </programme>
-  <programme start="20261015220000 +0000" stop="20261015230000 +0000" channel="ElGourmet.ar@South">
-    <title>Me voy a comer el mundo</title>
-  </programme>
-  <programme start="20261015230000 +0000" stop="20261015233000 +0000" channel="ElGourmet.ar@South">
-    <title>Estefi dulce</title>
-  </programme>
-  <programme start="20261015233000 +0000" stop="20261016000000 +0000" channel="ElGourmet.ar@South">
-    <title>Ruta 40</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016003000 +0000" channel="ElGourmet.ar@South">
-    <title>Los Petersen en México</title>
-  </programme>
-  <programme start="20261016003000 +0000" stop="20261016010000 +0000" channel="ElGourmet.ar@South">
+  <programme start="20261018050000 +0000" stop="20261018053000 +0000" channel="ElGourmet.ar@Panregional">
     <title>Maestros de la pasta</title>
   </programme>
-  <programme start="20261016010000 +0000" stop="20261016013000 +0000" channel="ElGourmet.ar@South">
-    <title>Las tartas de Ximena</title>
+  <programme start="20261018053000 +0000" stop="20261018060000 +0000" channel="ElGourmet.ar@Panregional">
+    <title>Panes y postres al fuego</title>
   </programme>
-  <programme start="20261016013000 +0000" stop="20261016020000 +0000" channel="ElGourmet.ar@South">
-    <title>Tapeo español</title>
+  <programme start="20261018060000 +0000" stop="20261018063000 +0000" channel="ElGourmet.ar@Panregional">
+    <title>Masas básicas con Gross</title>
+  </programme>
+  <programme start="20261018063000 +0000" stop="20261018070000 +0000" channel="ElGourmet.ar@Panregional">
+    <title>La ruta del cacao</title>
+  </programme>
+  <programme start="20261018070000 +0000" stop="20261018073000 +0000" channel="ElGourmet.ar@Panregional">
+    <title>Amigos con mucho gusto</title>
+  </programme>
+  <programme start="20261018073000 +0000" stop="20261018080000 +0000" channel="ElGourmet.ar@Panregional">
+    <title>La cocina de los clubes</title>
+  </programme>
+  <programme start="20261018080000 +0000" stop="20261018083000 +0000" channel="ElGourmet.ar@Panregional">
+    <title>Meriendas de Buenos Aires</title>
   </programme>
   <programme start="20261016020000 +0000" stop="20261016023000 +0000" channel="ElGourmet.ar@South">
     <title>Pueblos para comérselos. México</title>
@@ -1902,14 +1887,26 @@
   <programme start="20261018043000 +0000" stop="20261018050000 +0000" channel="ElGourmet.ar@South">
     <title>Los imperdibles. Buenos Aires</title>
   </programme>
-  <programme start="20261015220000 +0000" stop="20261015230000 +0000" channel="AmericaTV.ar@SD">
-    <title>Sálvese quien pueda</title>
+  <programme start="20261018050000 +0000" stop="20261018053000 +0000" channel="ElGourmet.ar@South">
+    <title>Maestros de la pasta</title>
   </programme>
-  <programme start="20261015230000 +0000" stop="20261016010000 +0000" channel="AmericaTV.ar@SD">
-    <title>LAM</title>
+  <programme start="20261018053000 +0000" stop="20261018060000 +0000" channel="ElGourmet.ar@South">
+    <title>Panes y postres al fuego</title>
   </programme>
-  <programme start="20261016010000 +0000" stop="20261016020000 +0000" channel="AmericaTV.ar@SD">
-    <title>BTV</title>
+  <programme start="20261018060000 +0000" stop="20261018063000 +0000" channel="ElGourmet.ar@South">
+    <title>Masas básicas con Gross</title>
+  </programme>
+  <programme start="20261018063000 +0000" stop="20261018070000 +0000" channel="ElGourmet.ar@South">
+    <title>La ruta del cacao</title>
+  </programme>
+  <programme start="20261018070000 +0000" stop="20261018073000 +0000" channel="ElGourmet.ar@South">
+    <title>Amigos con mucho gusto</title>
+  </programme>
+  <programme start="20261018073000 +0000" stop="20261018080000 +0000" channel="ElGourmet.ar@South">
+    <title>La cocina de los clubes</title>
+  </programme>
+  <programme start="20261018080000 +0000" stop="20261018083000 +0000" channel="ElGourmet.ar@South">
+    <title>Meriendas de Buenos Aires</title>
   </programme>
   <programme start="20261016020000 +0000" stop="20261016030000 +0000" channel="AmericaTV.ar@SD">
     <title>Pasó en América</title>
@@ -2016,9 +2013,6 @@
   <programme start="20261018040000 +0000" stop="20261018083000 +0000" channel="AmericaTV.ar@SD">
     <title>Pasión de sábado</title>
   </programme>
-  <programme start="20261015210000 +0000" stop="20261016000000 +0000" channel="ArgentinisimaSatelital.ar@SD">
-    <title>Argentinisima satelital</title>
-  </programme>
   <programme start="20261016000000 +0000" stop="20261016030000 +0000" channel="ArgentinisimaSatelital.ar@SD">
     <title>Argentinisima satelital</title>
   </programme>
@@ -2073,12 +2067,8 @@
   <programme start="20261018030000 +0000" stop="20261018060000 +0000" channel="ArgentinisimaSatelital.ar@SD">
     <title>Argentinisima satelital</title>
   </programme>
-  <programme start="20261016000000 +0000" stop="20261016020000 +0000" channel="Canal21TV.ar@SD">
-    <title>Igreja Universal do Reino de Deus</title>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261018060000 +0000" stop="20261018090000 +0000" channel="ArgentinisimaSatelital.ar@SD">
+    <title>Argentinisima satelital</title>
   </programme>
   <programme start="20261016020000 +0000" stop="20261016040000 +0000" channel="Canal21TV.ar@SD">
     <title>Igreja Universal do Reino de Deus</title>
@@ -2409,6 +2399,27 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261018050000 +0000" stop="20261018060000 +0000" channel="Canal21TV.ar@SD">
+    <title>Programme non communiqué</title>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018060000 +0000" stop="20261018070000 +0000" channel="Canal21TV.ar@SD">
+    <title>Programme non communiqué</title>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018070000 +0000" stop="20261019000000 +0000" channel="Canal21TV.ar@SD">
+    <title>Programme non communiqué</title>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261016004000 +0000" stop="20261016024000 +0000" channel="Canal7TV.ar@SD">
     <title>La Gantoise / Aarhus GF</title>
     <desc>Au programme, les plus belles affiches de la Ligue Conférence, compétition européenne de football organisée par l'UEFA.</desc>
@@ -2494,15 +2505,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261015220000 +0000" stop="20261015230000 +0000" channel="CiudadMagazine.ar@SD">
-    <title>La jaula de la moda</title>
-  </programme>
-  <programme start="20261015230000 +0000" stop="20261016000000 +0000" channel="CiudadMagazine.ar@SD">
-    <title>Secretos del paraíso</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016014900 +0000" channel="CiudadMagazine.ar@SD">
-    <title>Tiempo límite</title>
   </programme>
   <programme start="20261016014900 +0000" stop="20261016024700 +0000" channel="CiudadMagazine.ar@SD">
     <title>Las reglas del juego</title>
@@ -2672,19 +2674,26 @@
   <programme start="20261018043000 +0000" stop="20261018050000 +0000" channel="CiudadMagazine.ar@SD">
     <title>Cirujanos</title>
   </programme>
-  <programme start="20261016003700 +0000" stop="20261016012600 +0000" channel="Space.ar@Panregional">
-    <title>C.S.I. Miami</title>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261018050000 +0000" stop="20261018053000 +0000" channel="CiudadMagazine.ar@SD">
+    <title>Construyendo sueños TV</title>
   </programme>
-  <programme start="20261016012600 +0000" stop="20261016021300 +0000" channel="Space.ar@Panregional">
-    <title>C.S.I. Farewell</title>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261018053000 +0000" stop="20261018060000 +0000" channel="CiudadMagazine.ar@SD">
+    <title>Medical Hair TV</title>
+  </programme>
+  <programme start="20261018060000 +0000" stop="20261018063000 +0000" channel="CiudadMagazine.ar@SD">
+    <title>Dar en la nota</title>
+  </programme>
+  <programme start="20261018063000 +0000" stop="20261018070000 +0000" channel="CiudadMagazine.ar@SD">
+    <title>Interés mutuo</title>
+  </programme>
+  <programme start="20261018070000 +0000" stop="20261018073000 +0000" channel="CiudadMagazine.ar@SD">
+    <title>Hair Recovery</title>
+  </programme>
+  <programme start="20261018073000 +0000" stop="20261018080000 +0000" channel="CiudadMagazine.ar@SD">
+    <title>Vida Purita</title>
+  </programme>
+  <programme start="20261018080000 +0000" stop="20261018083000 +0000" channel="CiudadMagazine.ar@SD">
+    <title>Mundo moda</title>
   </programme>
   <programme start="20261016021300 +0000" stop="20261016025800 +0000" channel="Space.ar@Panregional">
     <title>C.S.I</title>
@@ -3085,23 +3094,37 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261015221700 +0000" stop="20261016010000 +0000" channel="Space.ar@South">
-    <title>Spider-Man: Sin camino a casa</title>
+  <programme start="20261018060400 +0000" stop="20261018081700 +0000" channel="Space.ar@Panregional">
+    <title>Romeu tem que Morrer</title>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261016010000 +0000" stop="20261016025800 +0000" channel="Space.ar@South">
+  <programme start="20261018081700 +0000" stop="20261018100000 +0000" channel="Space.ar@Panregional">
+    <title>Quebrando as Regras 4</title>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016010000 +0000" stop="20261016030000 +0000" channel="Space.ar@South">
     <title>Se busca</title>
   </programme>
-  <programme start="20261016025800 +0000" stop="20261016050800 +0000" channel="Space.ar@South">
+  <programme start="20261016030000 +0000" stop="20261016051200 +0000" channel="Space.ar@South">
     <title>La huérfana</title>
   </programme>
-  <programme start="20261016050800 +0000" stop="20261016064400 +0000" channel="Space.ar@South">
+  <programme start="20261016051200 +0000" stop="20261016064700 +0000" channel="Space.ar@South">
     <title>La huérfana: primer asesinato</title>
   </programme>
-  <programme start="20261016064400 +0000" stop="20261016084000 +0000" channel="Space.ar@South">
+  <programme start="20261016064700 +0000" stop="20261016084100 +0000" channel="Space.ar@South">
     <title>SWAT</title>
   </programme>
-  <programme start="20261016084000 +0000" stop="20261016090000 +0000" channel="Space.ar@South">
-    <title>Operación frontera: Brasil</title>
+  <programme start="20261016084100 +0000" stop="20261016085000 +0000" channel="Space.ar@South">
+    <title>Hollywood One on One</title>
+  </programme>
+  <programme start="20261016085000 +0000" stop="20261016090000 +0000" channel="Space.ar@South">
+    <title>Hollywood One on One</title>
   </programme>
   <programme start="20261016090000 +0000" stop="20261016100100 +0000" channel="Space.ar@South">
     <title>Persecución salvaje</title>
@@ -3175,13 +3198,11 @@
   <programme start="20261018031100 +0000" stop="20261018051600 +0000" channel="Space.ar@South">
     <title>Relatos salvajes</title>
   </programme>
-  <programme start="20261016000000 +0000" stop="20261016013000 +0000" channel="TelefeInternacional.ar@SD">
-    <title>Live: El noticiero de la gente</title>
-    <desc>Todas las noticias de la actualidad de Argentina y el mundo, con información en vivo y móviles en los lugares más trascendentes de la jornada.</desc>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261018051600 +0000" stop="20261018064200 +0000" channel="Space.ar@South">
+    <title>Ouija</title>
+  </programme>
+  <programme start="20261018064200 +0000" stop="20261018084700 +0000" channel="Space.ar@South">
+    <title>Escarabajo azul</title>
   </programme>
   <programme start="20261016013000 +0000" stop="20261016034500 +0000" channel="TelefeInternacional.ar@SD">
     <title>Live: Cortá por Lozano</title>
@@ -3606,6 +3627,14 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261018070000 +0000" stop="20261018083000 +0000" channel="TelefeInternacional.ar@SD">
+    <title>Historias de corazón</title>
+    <desc>Las historias más emotivas y reflexivas generalmente basadas en la vida real son presentadas en este ciclo, los televidentes podrán sentirse identificados con las historias y sentir una conexión con los personajes.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261015203000 +0000" stop="20261016030000 +0000" channel="Telemax.ar@SD">
     <title>Selecciones Telemax</title>
   </programme>
@@ -3699,15 +3728,6 @@
   <programme start="20261018030000 +0000" stop="20261018090000 +0000" channel="Telemax.ar@SD">
     <title>Documentales de interés general</title>
   </programme>
-  <programme start="20261015210000 +0000" stop="20261015230000 +0000" channel="247CanaldeNoticias.ar@SD">
-    <title>Grito sagrado</title>
-  </programme>
-  <programme start="20261015230000 +0000" stop="20261016000000 +0000" channel="247CanaldeNoticias.ar@SD">
-    <title>Contenido variado</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016010000 +0000" channel="247CanaldeNoticias.ar@SD">
-    <title>Otro dato</title>
-  </programme>
   <programme start="20261016010000 +0000" stop="20261016090000 +0000" channel="247CanaldeNoticias.ar@SD">
     <title>Trasnoche de 24/7</title>
   </programme>
@@ -3749,18 +3769,6 @@
   </programme>
   <programme start="20261018030000 +0000" stop="20261018090000 +0000" channel="247CanaldeNoticias.ar@SD">
     <title>Trasnoche de 24/7</title>
-  </programme>
-  <programme start="20261015210000 +0000" stop="20261015230000 +0000" channel="A24.ar@SD">
-    <title>El noticiero de A24</title>
-  </programme>
-  <programme start="20261015230000 +0000" stop="20261016000000 +0000" channel="A24.ar@SD">
-    <title>H 20, información clave</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016010000 +0000" channel="A24.ar@SD">
-    <title>Wifi 24</title>
-  </programme>
-  <programme start="20261016010000 +0000" stop="20261016020000 +0000" channel="A24.ar@SD">
-    <title>Noche de noticias</title>
   </programme>
   <programme start="20261016020000 +0000" stop="20261016030000 +0000" channel="A24.ar@SD">
     <title>Basta Baby</title>
@@ -3858,17 +3866,14 @@
   <programme start="20261018043000 +0000" stop="20261018050000 +0000" channel="A24.ar@SD">
     <title>Boca es Boca</title>
   </programme>
-  <programme start="20261015210000 +0000" stop="20261015230000 +0000" channel="Canal26.ar@SD">
-    <title>26 PM</title>
+  <programme start="20261018050000 +0000" stop="20261018060000 +0000" channel="A24.ar@SD">
+    <title>TeveCompras</title>
   </programme>
-  <programme start="20261015230000 +0000" stop="20261016010000 +0000" channel="Canal26.ar@SD">
-    <title>La noche</title>
+  <programme start="20261018060000 +0000" stop="20261018080000 +0000" channel="A24.ar@SD">
+    <title>Lo mejor de A24</title>
   </programme>
-  <programme start="20261016010000 +0000" stop="20261016013000 +0000" channel="Canal26.ar@SD">
-    <title>26 global</title>
-  </programme>
-  <programme start="20261016013000 +0000" stop="20261016014500 +0000" channel="Canal26.ar@SD">
-    <title>France 24</title>
+  <programme start="20261018080000 +0000" stop="20261018090000 +0000" channel="A24.ar@SD">
+    <title>Mundo visual</title>
   </programme>
   <programme start="20261016014500 +0000" stop="20261016034500 +0000" channel="Canal26.ar@SD">
     <title>26 resumen</title>
@@ -3969,15 +3974,6 @@
   <programme start="20261018040000 +0000" stop="20261018110000 +0000" channel="Canal26.ar@SD">
     <title>Resumen 26</title>
   </programme>
-  <programme start="20261015210000 +0000" stop="20261015230000 +0000" channel="TN.ar@SD">
-    <title>TN Central</title>
-  </programme>
-  <programme start="20261015230000 +0000" stop="20261016003000 +0000" channel="TN.ar@SD">
-    <title>¿La ves?</title>
-  </programme>
-  <programme start="20261016003000 +0000" stop="20261016020000 +0000" channel="TN.ar@SD">
-    <title>Solo una vuelta más</title>
-  </programme>
   <programme start="20261016020000 +0000" stop="20261016040000 +0000" channel="TN.ar@SD">
     <title>TN de noche</title>
   </programme>
@@ -4077,41 +4073,17 @@
   <programme start="20261018043000 +0000" stop="20261018053000 +0000" channel="TN.ar@SD">
     <title>El corresponsal</title>
   </programme>
-  <programme start="20261015223000 +0000" stop="20261015224500 +0000" channel="Pakapaka.ar@SD">
-    <title>Siesta</title>
+  <programme start="20261018053000 +0000" stop="20261018060000 +0000" channel="TN.ar@SD">
+    <title>En el camino</title>
   </programme>
-  <programme start="20261015224500 +0000" stop="20261015230000 +0000" channel="Pakapaka.ar@SD">
-    <title>Familia Pampa</title>
+  <programme start="20261018060000 +0000" stop="20261018073000 +0000" channel="TN.ar@SD">
+    <title>Cámara del crimen</title>
   </programme>
-  <programme start="20261015230000 +0000" stop="20261015233000 +0000" channel="Pakapaka.ar@SD">
-    <title>Polinópolis</title>
+  <programme start="20261018073000 +0000" stop="20261018080000 +0000" channel="TN.ar@SD">
+    <title>TN autos</title>
   </programme>
-  <programme start="20261015233000 +0000" stop="20261016000000 +0000" channel="Pakapaka.ar@SD">
-    <title>Vuelta por el universo</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016001500 +0000" channel="Pakapaka.ar@SD">
-    <title>Muchas manos en el plato</title>
-  </programme>
-  <programme start="20261016001500 +0000" stop="20261016003000 +0000" channel="Pakapaka.ar@SD">
-    <title>Misterios submarinos</title>
-  </programme>
-  <programme start="20261016003000 +0000" stop="20261016004500 +0000" channel="Pakapaka.ar@SD">
-    <title>Historias entre tumbas</title>
-  </programme>
-  <programme start="20261016004500 +0000" stop="20261016010000 +0000" channel="Pakapaka.ar@SD">
-    <title>Ciro Todorov</title>
-  </programme>
-  <programme start="20261016010000 +0000" stop="20261016011500 +0000" channel="Pakapaka.ar@SD">
-    <title>De terror</title>
-  </programme>
-  <programme start="20261016011500 +0000" stop="20261016013000 +0000" channel="Pakapaka.ar@SD">
-    <title>Inteligencia animal</title>
-  </programme>
-  <programme start="20261016013000 +0000" stop="20261016020000 +0000" channel="Pakapaka.ar@SD">
-    <title>Ideas rompecráneos</title>
-  </programme>
-  <programme start="20261016020000 +0000" stop="20261016021500 +0000" channel="Pakapaka.ar@SD">
-    <title>Siesta</title>
+  <programme start="20261018080000 +0000" stop="20261018083000 +0000" channel="TN.ar@SD">
+    <title>TN Tecno</title>
   </programme>
   <programme start="20261016021500 +0000" stop="20261016023000 +0000" channel="Pakapaka.ar@SD">
     <title>Medialuna</title>
@@ -4581,14 +4553,41 @@
   <programme start="20261018041500 +0000" stop="20261018044500 +0000" channel="Pakapaka.ar@SD">
     <title>Amigos</title>
   </programme>
-  <programme start="20261015220000 +0000" stop="20261015233000 +0000" channel="ElNueve.ar@SD">
-    <title>Telenueve central</title>
+  <programme start="20261018044500 +0000" stop="20261018050000 +0000" channel="Pakapaka.ar@SD">
+    <title>Ciencia intergaláctica</title>
   </programme>
-  <programme start="20261015233000 +0000" stop="20261016010000 +0000" channel="ElNueve.ar@SD">
-    <title>Bendita</title>
+  <programme start="20261018050000 +0000" stop="20261018051500 +0000" channel="Pakapaka.ar@SD">
+    <title>Cuentos de había una vez</title>
   </programme>
-  <programme start="20261016010000 +0000" stop="20261016020000 +0000" channel="ElNueve.ar@SD">
-    <title>Bienvenidos a ganar</title>
+  <programme start="20261018051500 +0000" stop="20261018053000 +0000" channel="Pakapaka.ar@SD">
+    <title>Petit</title>
+  </programme>
+  <programme start="20261018053000 +0000" stop="20261018054500 +0000" channel="Pakapaka.ar@SD">
+    <title>Pasaba por acá... Chikuchis</title>
+  </programme>
+  <programme start="20261018054500 +0000" stop="20261018061500 +0000" channel="Pakapaka.ar@SD">
+    <title>Puerto papel</title>
+  </programme>
+  <programme start="20261018061500 +0000" stop="20261018063000 +0000" channel="Pakapaka.ar@SD">
+    <title>Medialuna</title>
+  </programme>
+  <programme start="20261018063000 +0000" stop="20261018064500 +0000" channel="Pakapaka.ar@SD">
+    <title>El capitán Nariz de lata</title>
+  </programme>
+  <programme start="20261018064500 +0000" stop="20261018071500 +0000" channel="Pakapaka.ar@SD">
+    <title>Ciencia Zapata</title>
+  </programme>
+  <programme start="20261018071500 +0000" stop="20261018073000 +0000" channel="Pakapaka.ar@SD">
+    <title>La orquestita</title>
+  </programme>
+  <programme start="20261018073000 +0000" stop="20261018074500 +0000" channel="Pakapaka.ar@SD">
+    <title>Pili y el guardián enmascarado</title>
+  </programme>
+  <programme start="20261018074500 +0000" stop="20261018080000 +0000" channel="Pakapaka.ar@SD">
+    <title>Muchas manos en el plato</title>
+  </programme>
+  <programme start="20261018080000 +0000" stop="20261018083000 +0000" channel="Pakapaka.ar@SD">
+    <title>Cazadores de sonidos</title>
   </programme>
   <programme start="20261016020000 +0000" stop="20261016030000 +0000" channel="ElNueve.ar@SD">
     <title>Viviana</title>
@@ -4728,11 +4727,8 @@
   <programme start="20261018040000 +0000" stop="20261018050000 +0000" channel="ElNueve.ar@SD">
     <title>TV compras</title>
   </programme>
-  <programme start="20261015211500 +0000" stop="20261015230000 +0000" channel="ElTrece.ar@SD">
-    <title>Ahora caigo</title>
-  </programme>
-  <programme start="20261015230000 +0000" stop="20261016013000 +0000" channel="ElTrece.ar@SD">
-    <title>Telenoche</title>
+  <programme start="20261018050000 +0000" stop="20261018083000 +0000" channel="ElNueve.ar@SD">
+    <title>Cierre de transmisión</title>
   </programme>
   <programme start="20261016013000 +0000" stop="20261016030000 +0000" channel="ElTrece.ar@SD">
     <title>Otro día perdido</title>
@@ -4817,18 +4813,6 @@
   </programme>
   <programme start="20261018031500 +0000" stop="20261018114500 +0000" channel="ElTrece.ar@SD">
     <title>Fin de transmisión</title>
-  </programme>
-  <programme start="20261015220000 +0000" stop="20261015230000 +0000" channel="NETTV.ar@SD">
-    <title>Biri biri, la vida misma</title>
-  </programme>
-  <programme start="20261015230000 +0000" stop="20261016000000 +0000" channel="NETTV.ar@SD">
-    <title>Caso cerrado</title>
-  </programme>
-  <programme start="20261016000000 +0000" stop="20261016003000 +0000" channel="NETTV.ar@SD">
-    <title>Sombras</title>
-  </programme>
-  <programme start="20261016003000 +0000" stop="20261016013000 +0000" channel="NETTV.ar@SD">
-    <title>Cine Net</title>
   </programme>
   <programme start="20261016013000 +0000" stop="20261016030000 +0000" channel="NETTV.ar@SD">
     <title>El señor de los cielos</title>
@@ -4962,17 +4946,11 @@
   <programme start="20261018040000 +0000" stop="20261018050000 +0000" channel="NETTV.ar@SD">
     <title>TV compras</title>
   </programme>
-  <programme start="20261015204500 +0000" stop="20261015230000 +0000" channel="Telefe.ar@SD">
-    <title>Avenida Brasil</title>
+  <programme start="20261018050000 +0000" stop="20261018053000 +0000" channel="NETTV.ar@SD">
+    <title>Desafío 10 años menos</title>
   </programme>
-  <programme start="20261015230000 +0000" stop="20261016001500 +0000" channel="Telefe.ar@SD">
-    <title>Telefe noticias</title>
-  </programme>
-  <programme start="20261016001500 +0000" stop="20261016003000 +0000" channel="Telefe.ar@SD">
-    <title>Estudiantes (LP) (Arg) vs. Flamengo (Bra)</title>
-  </programme>
-  <programme start="20261016003000 +0000" stop="20261016021500 +0000" channel="Telefe.ar@SD">
-    <title>Estudiantes (LP) (Arg) vs. Flamengo (Bra)</title>
+  <programme start="20261018053000 +0000" stop="20261018100000 +0000" channel="NETTV.ar@SD">
+    <title>El señor de los cielos</title>
   </programme>
   <programme start="20261016021500 +0000" stop="20261016024500 +0000" channel="Telefe.ar@SD">
     <title>Estudiantes (LP) (Arg) vs. Flamengo (Bra)</title>
@@ -5100,20 +5078,20 @@
   <programme start="20261018033000 +0000" stop="20261018053000 +0000" channel="Telefe.ar@SD">
     <title>PH: Podemos hablar</title>
   </programme>
-  <programme start="20261015223000 +0000" stop="20261015230000 +0000" channel="Encuentro.ar@SD">
-    <title>Güemes</title>
+  <programme start="20261018053000 +0000" stop="20261018054500 +0000" channel="Telefe.ar@SD">
+    <title>DirecTV - DGO Presentan: Espiando la casa</title>
   </programme>
-  <programme start="20261015230000 +0000" stop="20261015233000 +0000" channel="Encuentro.ar@SD">
-    <title>Un loco deseo de belleza, la traición de Manuel Puig</title>
+  <programme start="20261018054500 +0000" stop="20261018060000 +0000" channel="Telefe.ar@SD">
+    <title>#JuegoChino</title>
   </programme>
-  <programme start="20261015233000 +0000" stop="20261016003000 +0000" channel="Encuentro.ar@SD">
-    <title>La anteúltima pregunta</title>
+  <programme start="20261018060000 +0000" stop="20261018063000 +0000" channel="Telefe.ar@SD">
+    <title>#JuegoChino</title>
   </programme>
-  <programme start="20261016003000 +0000" stop="20261016010000 +0000" channel="Encuentro.ar@SD">
-    <title>Nacidos por escrito</title>
+  <programme start="20261018063000 +0000" stop="20261018070000 +0000" channel="Telefe.ar@SD">
+    <title>El álbum</title>
   </programme>
-  <programme start="20261016010000 +0000" stop="20261016020000 +0000" channel="Encuentro.ar@SD">
-    <title>Cineastas</title>
+  <programme start="20261018070000 +0000" stop="20261018090000 +0000" channel="Telefe.ar@SD">
+    <title>El Chavo y el Chapulín colorado</title>
   </programme>
   <programme start="20261016020000 +0000" stop="20261016023000 +0000" channel="Encuentro.ar@SD">
     <title>Equilibrios, parques nacionales</title>
@@ -5352,11 +5330,23 @@
   <programme start="20261018040000 +0000" stop="20261018050000 +0000" channel="Encuentro.ar@SD">
     <title>Flora y fauna</title>
   </programme>
-  <programme start="20261015210000 +0000" stop="20261015230500 +0000" channel="EuropaEuropa.ar@SD">
-    <title>El vendedor de tabaco</title>
+  <programme start="20261018050000 +0000" stop="20261018053000 +0000" channel="Encuentro.ar@SD">
+    <title>Espíritu Newbery</title>
   </programme>
-  <programme start="20261015230500 +0000" stop="20261016010000 +0000" channel="EuropaEuropa.ar@SD">
-    <title>Planetarium</title>
+  <programme start="20261018053000 +0000" stop="20261018060000 +0000" channel="Encuentro.ar@SD">
+    <title>Retumbando la palabra</title>
+  </programme>
+  <programme start="20261018060000 +0000" stop="20261018070000 +0000" channel="Encuentro.ar@SD">
+    <title>Caudillos</title>
+  </programme>
+  <programme start="20261018070000 +0000" stop="20261018073000 +0000" channel="Encuentro.ar@SD">
+    <title>El origen de las especies</title>
+  </programme>
+  <programme start="20261018073000 +0000" stop="20261018080000 +0000" channel="Encuentro.ar@SD">
+    <title>Artigas</title>
+  </programme>
+  <programme start="20261018080000 +0000" stop="20261018083000 +0000" channel="Encuentro.ar@SD">
+    <title>Migrantes</title>
   </programme>
   <programme start="20261016010000 +0000" stop="20261016025500 +0000" channel="EuropaEuropa.ar@SD">
     <title>El cuarto pasajero</title>
@@ -5444,5 +5434,8 @@
   </programme>
   <programme start="20261018044000 +0000" stop="20261018063000 +0000" channel="EuropaEuropa.ar@SD">
     <title>Unidos</title>
+  </programme>
+  <programme start="20261018063000 +0000" stop="20261018090000 +0000" channel="EuropaEuropa.ar@SD">
+    <title>12 años de esclavitud</title>
   </programme>
 </tv>
