@@ -350,6 +350,12 @@
     <display-name>CityNews Vancouver (720p)</display-name>
     <icon src="https://m.media-amazon.com/images/I/51Icdznow+L.png" />
   </channel>
+  <channel id="CP24.ca@SD">
+    <display-name>CP24 (720p)</display-name>
+    <display-name>CA - CP 24</display-name>
+    <display-name>CP24.ca</display-name>
+    <icon src="https://iptv-epg.org/images/BTVN5VUkgeZMcdF_FORw9DrVwiMiyUEO-fCpLZFlbAEqfMYH7PP2LOov5buzjFP7RD9cWtYLsSChjSDIRrSbqTdKO-c4LJlr63l92A4" />
+  </channel>
   <channel id="GlobalNews.ca">
     <display-name>Global News</display-name>
     <display-name>Global News (Backup 1)</display-name>
@@ -593,15 +599,6 @@
     <display-name>The Weather Network (Backup 1)</display-name>
     <icon src="https://i.imgur.com/V6ZUwUY.png" />
   </channel>
-  <programme start="20261016073000 +0000" stop="20261016083000 +0000" channel="TSN.1.ca2">
-    <title>SportsCentre</title>
-    <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
-    <category lang="en">News</category>
-    <category lang="en">Sports talk</category>
-    <date>2009</date>
-    <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
   <programme start="20261016083000 +0000" stop="20261016093000 +0000" channel="TSN.1.ca2">
     <title>SportsCentre</title>
     <desc>TSN's flagship show providing news, highlights, analysis and interviews from the world of sports.</desc>
@@ -1211,10 +1208,6 @@
     <icon src="http://dtil.tmsimg.com/assets/p7961212_b_h8_ab.jpg?w=960&amp;h=540" />
     <premiere lang="en" />
   </programme>
-  <programme start="20261016080200 +0000" stop="20261016083300 +0000" channel="TSNTheOcho.ca@SD">
-    <title>2019 Golden Tee World Championship</title>
-    <live />
-  </programme>
   <programme start="20261016083300 +0000" stop="20261016092800 +0000" channel="TSNTheOcho.ca@SD">
     <title>Stupid Robot American Championships</title>
     <live />
@@ -1478,14 +1471,6 @@
   <programme start="20261018140900 +0000" stop="20261018150600 +0000" channel="TSNTheOcho.ca@SD">
     <title>Omegaball Women's Invitational</title>
     <live />
-  </programme>
-  <programme start="20261016063000 +0000" stop="20261016083000 +0000" channel="TSN4.ca@SD">
-    <title>Live: 2026 Rolex Shanghai Masters Tennis</title>
-    <desc>From Qizhong Forest Sports City Arena in Shanghai, China.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="http://dtil.tmsimg.com/assets/p33511409_b_h10_aa.jpg?w=960&amp;h=540" />
-    <premiere lang="en" />
   </programme>
   <programme start="20261016083000 +0000" stop="20261016090000 +0000" channel="TSN4.ca@SD">
     <title>SC With Jay Onrait</title>
@@ -2048,6 +2033,14 @@
     <date>2009</date>
     <icon src="http://dtil.tmsimg.com/assets/p492912_b_h10_ae.jpg?w=960&amp;h=540" />
     <previously-shown />
+  </programme>
+  <programme start="20261018144800 +0000" stop="20261018170000 +0000" channel="TSN4.ca@SD">
+    <title>Live: 2026 FIFA U-17 Women's World Cup</title>
+    <desc>Group C.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p33329083_b_h8_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="en" />
   </programme>
   <programme start="20261016080000 +0000" stop="20261016090000 +0000" channel="TSC.ca@SD">
     <title>Style Matters With Jeanne Beker</title>
@@ -2658,6 +2651,9 @@
   <programme start="20261018140600 +0000" stop="20261018145900 +0000" channel="StingrayClassica.ca@SD">
     <title>Hans van Manen: Moving to Music</title>
   </programme>
+  <programme start="20261018145900 +0000" stop="20261018151300 +0000" channel="StingrayClassica.ca@SD">
+    <title>Bach</title>
+  </programme>
   <programme start="20261016080000 +0000" stop="20261016100000 +0000" channel="StingrayCozyCafe.ca@HD">
     <title>Welcome to Cozy Café</title>
   </programme>
@@ -3178,6 +3174,13 @@
   </programme>
   <programme start="20261018130000 +0000" stop="20261018142100 +0000" channel="StingrayDJAZZ.ca@SD">
     <title>Germeringer Jazztage: Paco de LucĂ­a Group</title>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018142100 +0000" stop="20261018150800 +0000" channel="StingrayDJAZZ.ca@SD">
+    <title>Dee Dee Bridgewater: Motherland</title>
     <date>20261018</date>
     <audio>
       <stereo>stereo</stereo>
@@ -3782,9 +3785,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261016075900 +0000" stop="20261016085900 +0000" channel="StingrayNaturescape.ca@SD">
-    <title>Cascading waterfall: Indonesia</title>
   </programme>
   <programme start="20261016085900 +0000" stop="20261016095900 +0000" channel="StingrayNaturescape.ca@SD">
     <title>Nusa Penida: Indonesia</title>
@@ -5077,14 +5077,6 @@
     <title>Prime Hassiyan</title>
     <desc>Talented artists from around the country perform hilarious sketches and entertain the audience with their wit and humor, bringing diverse comedic styles to a national stage.</desc>
     <date>20261018</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261016080000 +0000" stop="20261016083000 +0000" channel="TamilVisionTV.ca@SD">
-    <title>Comedy Express</title>
-    <desc>A compilation of comic scenes from popular films.</desc>
-    <date>20261016</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -6382,6 +6374,304 @@
     <icon src="http://dtil.tmsimg.com/assets/p19049596_b_h8_aa.jpg?w=960&amp;h=540" />
     <premiere lang="en" />
     <live />
+  </programme>
+  <programme start="20261016083000 +0000" stop="20261016090000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261016090000 +0000" stop="20261016093000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261016093000 +0000" stop="20261016100000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261016100000 +0000" stop="20261016140000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Breakfast</title>
+  </programme>
+  <programme start="20261016140000 +0000" stop="20261016143000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016143000 +0000" stop="20261016150000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016150000 +0000" stop="20261016153000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016153000 +0000" stop="20261016160000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016160000 +0000" stop="20261016170000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto News at 12</title>
+  </programme>
+  <programme start="20261016170000 +0000" stop="20261016173000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016173000 +0000" stop="20261016180000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016180000 +0000" stop="20261016183000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016183000 +0000" stop="20261016190000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016190000 +0000" stop="20261016193000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016193000 +0000" stop="20261016200000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016200000 +0000" stop="20261016203000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016203000 +0000" stop="20261016210000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261016210000 +0000" stop="20261016213000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Live at 5</title>
+  </programme>
+  <programme start="20261016213000 +0000" stop="20261016215900 +0000" channel="CP24.ca@SD">
+    <title>CP24 Live at 5:30</title>
+    <live />
+  </programme>
+  <programme start="20261016215900 +0000" stop="20261016230000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto News at 6</title>
+  </programme>
+  <programme start="20261016230000 +0000" stop="20261016233000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261016233000 +0000" stop="20261017000000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017000000 +0000" stop="20261017003000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017003000 +0000" stop="20261017010000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017010000 +0000" stop="20261017013000 +0000" channel="CP24.ca@SD">
+    <title>Taking Stock</title>
+  </programme>
+  <programme start="20261017013000 +0000" stop="20261017020000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017020000 +0000" stop="20261017023000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017023000 +0000" stop="20261017030000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017030000 +0000" stop="20261017033000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017033000 +0000" stop="20261017040500 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017040500 +0000" stop="20261017043000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017043000 +0000" stop="20261017050000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017050000 +0000" stop="20261017053000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017053000 +0000" stop="20261017060000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017060000 +0000" stop="20261017063000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017063000 +0000" stop="20261017070000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017070000 +0000" stop="20261017073000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017073000 +0000" stop="20261017080000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017080000 +0000" stop="20261017083000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017083000 +0000" stop="20261017090000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017090000 +0000" stop="20261017093000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017093000 +0000" stop="20261017100000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017100000 +0000" stop="20261017103000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261017103000 +0000" stop="20261017110000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017110000 +0000" stop="20261017113000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017113000 +0000" stop="20261017120000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017120000 +0000" stop="20261017123000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017123000 +0000" stop="20261017130000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017130000 +0000" stop="20261017133000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017133000 +0000" stop="20261017140000 +0000" channel="CP24.ca@SD">
+    <title>Things to Know T.O.</title>
+  </programme>
+  <programme start="20261017140000 +0000" stop="20261017143000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017143000 +0000" stop="20261017150000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017150000 +0000" stop="20261017153000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017153000 +0000" stop="20261017160000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017160000 +0000" stop="20261017163000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017163000 +0000" stop="20261017170000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017170000 +0000" stop="20261017173000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017173000 +0000" stop="20261017180000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017180000 +0000" stop="20261017183000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017183000 +0000" stop="20261017190000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017190000 +0000" stop="20261017193000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017193000 +0000" stop="20261017200000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017200000 +0000" stop="20261017203000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017203000 +0000" stop="20261017210000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017210000 +0000" stop="20261017213000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017213000 +0000" stop="20261017220000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261017220000 +0000" stop="20261017230000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto News at 6</title>
+  </programme>
+  <programme start="20261017230000 +0000" stop="20261017233000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261017233000 +0000" stop="20261018000000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018000000 +0000" stop="20261018003000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018003000 +0000" stop="20261018010000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018010000 +0000" stop="20261018013000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018013000 +0000" stop="20261018020000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018020000 +0000" stop="20261018023000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018023000 +0000" stop="20261018030000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018030000 +0000" stop="20261018033000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018033000 +0000" stop="20261018040000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261018040000 +0000" stop="20261018043000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Hot Property</title>
+  </programme>
+  <programme start="20261018043000 +0000" stop="20261018050000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018050000 +0000" stop="20261018053000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018053000 +0000" stop="20261018060000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261018060000 +0000" stop="20261018063000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018063000 +0000" stop="20261018070000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261018070000 +0000" stop="20261018073000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018073000 +0000" stop="20261018080000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261018080000 +0000" stop="20261018083000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261018083000 +0000" stop="20261018090000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018090000 +0000" stop="20261018093000 +0000" channel="CP24.ca@SD">
+    <title>CTV Toronto Late News</title>
+  </programme>
+  <programme start="20261018093000 +0000" stop="20261018100000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018100000 +0000" stop="20261018103000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Nightside</title>
+  </programme>
+  <programme start="20261018103000 +0000" stop="20261018110000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Hot Property</title>
+  </programme>
+  <programme start="20261018110000 +0000" stop="20261018113000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261018113000 +0000" stop="20261018120000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261018120000 +0000" stop="20261018123000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261018123000 +0000" stop="20261018130000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261018130000 +0000" stop="20261018133000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261018133000 +0000" stop="20261018140000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261018140000 +0000" stop="20261018143000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
+  </programme>
+  <programme start="20261018143000 +0000" stop="20261018150000 +0000" channel="CP24.ca@SD">
+    <title>CP24 Dayside</title>
   </programme>
   <programme start="20261016080000 +0000" stop="20261016090000 +0000" channel="IciRDI.ca@SD">
     <title>Les grands reportages</title>
@@ -8437,14 +8727,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261016080000 +0000" stop="20261016083000 +0000" channel="WildTV.ca@SD">
-    <title>The Wild Outdoors</title>
-    <desc>Anson Sutherland finally catches up to a 5-year-old Missouri buck he named Nips after a couple of years of chasing him.</desc>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261016083000 +0000" stop="20261016090000 +0000" channel="WildTV.ca@SD">
     <title>Prairie Pursuit</title>
     <desc>Weeks into the Saskatchewan whitetail season, Mike Bourque is still chasing one giant buck that refuses to make a mistake; with only days left and temperatures dropping, he gets one final chance to close the deal.</desc>
@@ -9253,9 +9535,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261016080000 +0000" stop="20261016083000 +0000" channel="FEVATV.ca@SD">
-    <title>FEVA Late Night</title>
-  </programme>
   <programme start="20261016083000 +0000" stop="20261016090000 +0000" channel="FEVATV.ca@SD">
     <title>FEVA Late Night</title>
   </programme>
@@ -9479,6 +9758,9 @@
   </programme>
   <programme start="20261018140000 +0000" stop="20261018143000 +0000" channel="FEVATV.ca@SD">
     <title>Sermon</title>
+  </programme>
+  <programme start="20261018143000 +0000" stop="20261018150000 +0000" channel="FEVATV.ca@SD">
+    <title>NSHM</title>
   </programme>
   <programme start="20261016080000 +0000" stop="20261016090100 +0000" channel="NTVPlus.ca@SD">
     <title>9-1-1</title>
@@ -10003,6 +10285,14 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261018143000 +0000" stop="20261018150000 +0000" channel="NTVPlus.ca@SD">
+    <title>Border Security: Canada's Front Line</title>
+    <desc>Customs and immigration officials work to protect their borders.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261016060000 +0000" stop="20261016100000 +0000" channel="StingrayClassicRock.ca@SD">
     <title>Stingray Classic Rock</title>
     <desc>Rock music of the late 60s to the 80s.</desc>
@@ -10119,22 +10409,6 @@
     <title>Stingray Classic Rock</title>
     <desc>Rock music of the late 60s to the 80s.</desc>
     <date>20261018</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261016080000 +0000" stop="20261016082000 +0000" channel="Knowledge.Network.ca">
-    <title>Galapagos X</title>
-    <desc>The future is really hot; everybody's too cranky to appreciate Zeph's humor; the team goes back in time to discover a surprising source of the laughter-killing-heat.</desc>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261016082000 +0000" stop="20261016083000 +0000" channel="Knowledge.Network.ca">
-    <title>Luna, Chip &amp; Inkie: Adventure Rangers Go</title>
-    <desc>Beck, Brooke and the Adventure Rangers are in a tizzy getting ready for the big celebration; but when each of them puts off the most important job of all, the party might stop before it even begins.</desc>
-    <date>20261016</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
