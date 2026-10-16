@@ -8,8 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently 1.0.2;
-  1.0.3 is the next maintenance build) and Encore Preview (1.1.1), with every asset
+- **Download the apps.** The latest complete Stable release (currently 1.0.3 — Everyday Polish) and Encore Preview (1.1.1), with every asset
   (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes,
   SHA-256 checksums and install help — all linking at the GitHub release assets.
   The 1.0.3 build is promoted only after its APK and all four Mac installers are

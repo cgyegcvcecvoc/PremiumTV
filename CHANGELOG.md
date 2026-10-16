@@ -27,6 +27,9 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   `[preview-build]` push switch rebuilds only the existing 1.1.1 pre-release,
   recording per-platform source manifests without moving the historical tag;
   stable attachments remain exact-SHA guarded.
+- **Stable 1.0.3 published as Latest.** Android JVM/emulator checks and Mac
+  unit/packaged-app smoke checks passed; the APK, all four Mac installers and
+  platform checksums were attached before promoting the release.
 - **Both download sites updated.** The Netlify hub now shares the published,
   complete-stable gate with the main site instead of hardcoding 1.0.2. Both
   explain Everyday Polish and Encore. Static APK downloads use release storage

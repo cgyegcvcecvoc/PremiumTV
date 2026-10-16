@@ -77,6 +77,14 @@ will not silently downgrade it. Mac installers keep version 1.1.1.
 - **Accurate refresh messages.** The repository is public and refreshes work;
   the old "this repository is private" explanations are gone from both apps.
 
+## Rebuild provenance
+
+The Encore maintenance installers replace the original 1.1.1 preview assets
+without changing its historical source tag. `BUILD-SOURCE-android.txt` and
+`BUILD-SOURCE-macos.txt` on the release record the exact updated source commit
+and smoke-tested Actions run for each platform. Use those manifests, not the
+historical tag, when inspecting the source of the rebuilt installers.
+
 ## Downloads
 
 - Android: `PremiumTV-1.1.1-debug.apk` (`versionCode 11`) — upgrades the original 1.1.1
