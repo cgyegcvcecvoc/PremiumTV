@@ -1,6 +1,6 @@
-# PremiumTV 1.1.1 — Preview: the Cable-Style Guide
+# PremiumTV 1.1.1 — Encore Preview: Cable Guide + Everyday Polish
 
-**This is a pre-release, not the default.** Stable users stay on 1.0.2. Like
+**This is a pre-release, not the default.** Stable users receive 1.0.3 once its complete installer set passes the release gates. Like
 1.1.0, this build is published with GitHub's pre-release flag so it is never
 handed out as the recommended download.
 
@@ -53,6 +53,19 @@ showed the old USA lineup and no Cable tab. 1.1.1 fixes both halves:
   discarded on start (with its HTTP validators), and which preview features
   show is decided by the app's own bundle, never by downloaded data.
 
+## Encore maintenance update
+
+This refresh of the existing preview includes the same loading/activity panels,
+real refresh stages, elapsed time, rotating offline tips and facts, completion
+and failure feedback, and guarded refresh/reset controls as stable 1.0.3.
+The global lineup and cable-style Guide remain preview-only. This is still
+**1.1.1**, still a **pre-release**, and never the default download.
+
+Android's refreshed preview uses `versionCode 11` (the original 1.1.1 used 9),
+so it can upgrade either the earlier preview or stable 1.0.3 in place. Returning
+from code 11 to stable code 10 requires uninstalling the preview first; Android
+will not silently downgrade it. Mac installers keep version 1.1.1.
+
 ## Also in this build
 
 - **Leaner refresh on TVs.** The global guide (~38 MB of XML) is parsed as it
@@ -66,8 +79,8 @@ showed the old USA lineup and no Cable tab. 1.1.1 fixes both halves:
 
 ## Downloads
 
-- Android: `PremiumTV-1.1.1-debug.apk` (`versionCode 9`) — upgrades 1.1.0
-  (`8`) and 1.0.2 (`7`) in place.
+- Android: `PremiumTV-1.1.1-debug.apk` (`versionCode 11`) — upgrades the original 1.1.1
+  (`9`) and stable 1.0.3 (`10`) in place.
 - Mac Apple Silicon: `PremiumTV-1.1.1-mac-arm64.dmg` / `.pkg`.
 - Mac Intel: `PremiumTV-1.1.1-mac-x64.dmg` / `.pkg`.
 - Checksums: `SHA256SUMS-android.txt` and `SHA256SUMS-macos.txt`.
@@ -77,7 +90,7 @@ Open). The Android APK is debug-signed, as with every PremiumTV release.
 
 ## Validation
 
-- 361 Python tests and 42 macOS Node tests pass on this commit; the Android
+- The Python repository tests and macOS Node tests run before publication; the Android
   build runs its JVM and Robolectric unit tests (guide ordering, remote-cursor
   movement, stale-cache discard, streaming XMLTV parsing) before packaging.
 - The Android release gate installs the APK on an emulator, opens the Guide

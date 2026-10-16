@@ -51,7 +51,7 @@ class TvRepository extends EventEmitter {
 
     this.state = { phase: 'loading', source: null, meta: null, guideError: null, message: 'Loading channels…' };
     this.library = { meta: null, groups: [], channels: [], programmes: [] };
-    this.info = this.readState().info || {};
+    this.info = { ...(this.readState().info || {}), inProgress: false };
     this.queue = Promise.resolve();
   }
 
@@ -89,7 +89,16 @@ class TvRepository extends EventEmitter {
    * responses instead of a full guide download.
    */
   refresh(trigger, meta = {}) {
-    return this.serialize(() => this.refreshLocked(trigger, meta));
+    // Repeated clicks / wake checks share one operation instead of queueing downloads.
+    if (this.refreshPromise) return this.refreshPromise;
+    this.refreshPromise = this.serialize(() => this.refreshLocked(trigger, meta)).finally(() => {
+      this.refreshPromise = null;
+      if (this.info.inProgress) {
+        this.info = { ...this.info, inProgress: false };
+        this.emit('info', this.info);
+      }
+    });
+    return this.refreshPromise;
   }
 
   /** Drops the downloaded copy and goes back to what the .app shipped with. */
@@ -181,7 +190,7 @@ class TvRepository extends EventEmitter {
   async refreshLocked(trigger) {
     const isManual = trigger === 'manual';
     const startedAt = Date.now();
-    this.info = { ...this.info, lastAttemptAt: startedAt, lastTrigger: trigger };
+    this.info = { ...this.info, inProgress: true, lastAttemptAt: startedAt, lastTrigger: trigger };
     this.writeState();
     this.emit('info', this.info);
 
@@ -203,7 +212,9 @@ class TvRepository extends EventEmitter {
     let playlistResponse;
     let guideResponse;
     try {
+      this.setStatus(isManual ? 'Downloading the complete channel list…' : 'Checking the channel list…');
       playlistResponse = await this.download(playlistUrl, conditional ? validators.playlist : null);
+      this.setStatus(isManual ? 'Downloading the complete programme guide…' : 'Checking the programme guide…');
       guideResponse = await this.download(guideUrl, conditional ? validators.guide : null);
     } catch (error) {
       return this.finishRefresh(trigger, {
@@ -256,6 +267,7 @@ class TvRepository extends EventEmitter {
 
     let parsed;
     try {
+      this.setStatus('Checking the downloaded channels and programme listings…');
       parsed = this.parseDownloaded(playlistResponse.body, guideResponse.body);
     } catch (error) {
       return this.finishRefresh(trigger, {
@@ -266,6 +278,7 @@ class TvRepository extends EventEmitter {
     }
 
     try {
+      this.setStatus('Saving the checked channel list and guide…');
       await this.publishStaged(parsed);
     } catch (error) {
       return this.finishRefresh(trigger, {
@@ -539,6 +552,7 @@ class TvRepository extends EventEmitter {
 
   finishRefresh(trigger, outcome) {
     const finishedAt = Date.now();
+    this.info = { ...this.info, inProgress: false, lastOutcomeOk: outcome.ok };
     if (outcome.ok) {
       this.info = {
         ...this.info,

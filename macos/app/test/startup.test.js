@@ -192,3 +192,28 @@ test('stable builds keep the list-style Guide', async (t) => {
   assert.equal(doc.querySelectorAll('#guide-list .guide-row').length, 1);
   assert.equal(doc.getElementById('categories').style.display, 'none');
 });
+
+test('library activity stays non-modal and distinguishes progress from failure', async (t) => {
+  const app = setup(t, empty());
+  await tick();
+  const doc = app.window.document;
+  assert.equal(doc.getElementById('library-activity').hidden, false);
+  assert.equal(doc.getElementById('activity-spinner').hidden, false);
+  assert.match(doc.getElementById('activity-tip').textContent, /TIP/);
+  const loading = ready();
+  loading.info = { inProgress: true, lastAttemptAt: Date.now() };
+  loading.state.message = 'Downloading the complete programme guide…';
+  app.set(loading);
+  app.events.state(loading.state);
+  await tick();
+  assert.equal(doc.querySelector('.card-name').textContent, 'Sports One');
+  assert.match(doc.getElementById('activity-message').textContent, /programme guide/);
+  doc.querySelector('[data-tab="settings"]').click();
+  assert.equal(doc.getElementById('force-refresh').disabled, true);
+  assert.equal(doc.getElementById('reset-bundled').disabled, true);
+  app.events.info({ inProgress: false, lastOutcomeOk: false, lastMessage: 'Offline; your library was kept.' });
+  assert.equal(doc.getElementById('activity-spinner').hidden, true);
+  assert.match(doc.getElementById('activity-message').textContent, /library was kept/);
+  assert.equal(doc.getElementById('library-activity').dataset.outcome, 'error');
+  assert.equal(doc.getElementById('force-refresh').disabled, false);
+});

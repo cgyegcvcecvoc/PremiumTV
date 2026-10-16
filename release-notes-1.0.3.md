@@ -1,8 +1,23 @@
-# PremiumTV 1.0.3 — Stable Maintenance Release
+# PremiumTV 1.0.3 — Everyday Polish
 
 PremiumTV 1.0.3 is the next stable Android TV and macOS maintenance build. It
 keeps the stable USA lineup and the list-style TV guide; the global cable-style
 guide remains preview-only in 1.1.1.
+
+## Loading and everyday quality of life
+
+- **Know what is happening.** A non-blocking activity panel shows startup,
+  guide loading and full-refresh stages, with a spinner and elapsed time.
+- **Tips and facts while you wait.** Offline, rotating PremiumTV tips explain
+  refreshes, guide data, navigation and stream availability.
+- **Clear finish states.** Completion and failure messages stay visible for
+  15 seconds; the last refresh result remains in Settings. No pretend
+  percentage or artificial waiting time.
+- **Safer controls.** Refresh/reset controls cannot queue conflicting actions
+  during a refresh. Channels remain browsable while the guide loads, and a
+  failed download preserves the last usable library.
+- **Accessible feedback.** Activity messages do not take keyboard/remote
+  focus. The Mac spinner respects reduced-motion preferences.
 
 ## Maintenance
 

@@ -266,3 +266,42 @@ test('a downloaded copy from this same build is kept', async (t) => {
   assert.equal(repository.library.meta.version, 'test');
 });
 
+
+test('refresh activity reports real stages and coalesces repeated requests', async (t) => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-activity-'));
+  t.after(() => fsp.rm(root, { recursive: true, force: true }));
+  const calls = [];
+  const stages = [];
+  const busy = [];
+  const repository = makeRepository(root, async (url) => {
+    calls.push(url);
+    return makeResponse({ body: url.endsWith('.xml') ? GUIDE_TEXT : PLAYLIST_TEXT });
+  });
+  await repository.load();
+  repository.on('state', (state) => stages.push(state.message));
+  repository.on('info', (info) => busy.push(info.inProgress));
+  const first = repository.refresh('manual');
+  const second = repository.refresh('manual');
+  assert.equal(first, second);
+  assert.equal((await first).ok, true);
+  assert.equal(calls.length, 2);
+  assert.ok(stages.some((s) => /complete channel list/.test(s)));
+  assert.ok(stages.some((s) => /complete programme guide/.test(s)));
+  assert.ok(stages.some((s) => /Checking the downloaded/.test(s)));
+  assert.equal(busy[0], true);
+  assert.equal(busy.at(-1), false);
+  assert.equal(repository.info.lastOutcomeOk, true);
+});
+
+test('failed refresh clears activity, reports failure and keeps the library', async (t) => {
+  const root = await fsp.mkdtemp(path.join(os.tmpdir(), 'ptv-activity-fail-'));
+  t.after(() => fsp.rm(root, { recursive: true, force: true }));
+  const repository = makeRepository(root, async () => { throw new Error('offline'); });
+  await repository.load();
+  const previous = repository.library;
+  const result = await repository.refresh('manual');
+  assert.equal(result.ok, false);
+  assert.equal(repository.info.inProgress, false);
+  assert.equal(repository.info.lastOutcomeOk, false);
+  assert.equal(repository.library, previous);
+});

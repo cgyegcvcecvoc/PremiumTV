@@ -10,6 +10,25 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-16 — Everyday Polish + Encore Preview
+
+- **Shared loading UX for stable 1.0.3 and preview 1.1.1.** Non-modal activity
+  panels show loading/refresh stages, elapsed time, rotating offline tips and
+  facts, then a 15-second result. Settings retains the last refresh outcome;
+  failed downloads keep the current library. Refresh/reset controls are guarded
+  while busy; Mac refresh requests coalesce instead of queueing duplicate work.
+- **Encore Preview.** 1.1.1 is renamed “Encore Preview: Cable Guide + Everyday
+  Polish”, retains the global cable guide and stays a pre-release. Its Android
+  revision uses code 11, above stable code 10 and the original preview code 9.
+  Android cannot downgrade code 11 to stable 10 without uninstalling first.
+- **Release validation.** Added activity lifecycle, failure preservation,
+  duplicate-request and non-modal renderer tests. Both platform build workflows
+  retain their unit-test and packaged-app smoke gates. An explicit
+  `[preview-build]` push switch builds 1.1.1 without changing stable defaults.
+- **Manual checked scrape requested.** A run-scrape.txt push requests a full
+  source scrape and stream checks (no skip-check). Status remains available in
+  the Actions run and playlist reports; an app refresh is not a server scrape.
+
 ## 2026-10-16 — PremiumTV 1.0.3 maintenance + download-site reliability
 
 - **Stable 1.0.3 build prepared.** The Android default now uses `versionName

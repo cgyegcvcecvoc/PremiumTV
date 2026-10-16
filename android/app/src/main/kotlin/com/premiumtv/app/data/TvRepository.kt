@@ -289,6 +289,7 @@ class TvRepository(private val app: Application) {
                 publishedOrder = build.publishedOrder.ifEmpty { meta.publishedOrder },
             )
             val library = buildLibrary(channels, programmes, updatedMeta, refreshed = true)
+            _status.value = "Saving the checked channel list and guide…"
             writeCache(library)
             saveValidator(PLAYLIST_VALIDATOR, playlistUrl, playlistDownload)
             saveValidator(GUIDE_VALIDATOR, guideUrl, guideDownload)
