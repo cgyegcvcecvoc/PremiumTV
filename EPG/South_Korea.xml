@@ -61,6 +61,10 @@
     <display-name>W Shopping (720p)</display-name>
     <icon src="https://i.imgur.com/hfXjVJd.png" />
   </channel>
+  <channel id="premiumtv.south_korea.cartoon_network">
+    <display-name>Cartoon Network</display-name>
+    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-states/cartoon-network-us.png" />
+  </channel>
   <channel id="ABN.kr@SD">
     <display-name>ABN (720p)</display-name>
     <icon src="https://www.abn.co.kr/resources/images/logo.png" />
@@ -93,13 +97,13 @@
     <display-name>HLDH-DTV (1080p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/Srsw4Mi.png" />
   </channel>
-  <channel id="HLDPDTV.kr@SD">
-    <display-name>HLDP-DTV (540p) [Not 24/7]</display-name>
-    <icon src="https://i.imgur.com/BBCoqIf.png" />
-  </channel>
   <channel id="HLDQDTV.kr@SD">
     <display-name>HLDQ-DTV (406p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/byss0Ld.png" />
+  </channel>
+  <channel id="HLDRDTV.kr@SD">
+    <display-name>HLDR-DTV (540p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/zVunmpQ.png" />
   </channel>
   <channel id="TBSTV.kr@SD">
     <display-name>TBS TV (720p)</display-name>
@@ -179,6 +183,13 @@
   <channel id="HLAMDTV.kr@SD">
     <display-name>MBC</display-name>
     <icon src="https://seeklogo.com/images/M/munhwa-broadcasting-company-logo-5F2839F07B-seeklogo.com.png" />
+  </channel>
+  <channel id="premiumtv.south_korea.sbs">
+    <display-name>SBS</display-name>
+    <display-name>SBS HD</display-name>
+    <display-name>464995</display-name>
+    <display-name>442912</display-name>
+    <icon src="https://epg.pw/media/images/epg/2025/07/03/20250703040245305607_62" />
   </channel>
   <channel id="premiumtv.south_korea.tvn">
     <display-name>tvN</display-name>
@@ -866,6 +877,12 @@
   <programme start="20261018173600 +0000" stop="20261018174100 +0000" channel="GSMyShop.kr@SD">
     <title>(패션)스케쳐스 운동화</title>
   </programme>
+  <programme start="20261018174100 +0000" stop="20261018174600 +0000" channel="GSMyShop.kr@SD">
+    <title>한일 히터</title>
+  </programme>
+  <programme start="20261018174600 +0000" stop="20261018175100 +0000" channel="GSMyShop.kr@SD">
+    <title>(패션)제이슨우 니트</title>
+  </programme>
   <programme start="20261016113500 +0000" stop="20261016134500 +0000" channel="GSShop.kr@SD">
     <title>[소유진쇼]BNR17 비에날씬 프로 유산균, 산지애 사과</title>
     <new />
@@ -1056,9 +1073,6 @@
   </programme>
   <programme start="20261018170000 +0000" stop="20261018180000 +0000" channel="GSShop.kr@SD">
     <title>순환방송(재방송)</title>
-  </programme>
-  <programme start="20261016104000 +0000" stop="20261016114000 +0000" channel="LotteOneTV.kr@SD">
-    <title>조르쥬레쉬</title>
   </programme>
   <programme start="20261016114000 +0000" stop="20261016124000 +0000" channel="LotteOneTV.kr@SD">
     <title>대상 뉴케어</title>
@@ -1254,9 +1268,6 @@
   </programme>
   <programme start="20261018170000 +0000" stop="20261018180000 +0000" channel="TVChosun2.kr@SD">
     <title>공연에 반하다</title>
-  </programme>
-  <programme start="20261016110000 +0000" stop="20261016114000 +0000" channel="EBSEnglish.kr@SD">
-    <title>MY WORD COACH</title>
   </programme>
   <programme start="20261016114000 +0000" stop="20261016124000 +0000" channel="EBSEnglish.kr@SD">
     <title>[2027 수능 기출의 미래] 영어 어법 어휘</title>
@@ -3147,23 +3158,7 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261016102500 +0000" stop="20261016114000 +0000" channel="KBSWorld.kr@SD">
-    <title>Love on the Menu</title>
-    <desc>A heartwarming family drama about a man and a woman who rebuild their broken families and discover the recipe for love, healing, and togetherness.</desc>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261016114000 +0000" stop="20261016114500 +0000" channel="KBSWorld.kr@SD">
-    <title>Music Bank K-Chart</title>
-    <desc>Follow the latest trend in the Korean music scene through the K-chart, a summary of the week's hottest songs.</desc>
-    <date>20261016</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261016114500 +0000" stop="20261016130000 +0000" channel="KBSWorld.kr@SD">
+  <programme start="20261016114000 +0000" stop="20261016125500 +0000" channel="KBSWorld.kr@SD">
     <title>2026 Quiz on Korea</title>
     <desc>Hallyu fans from all over the world gather to give a challenge for a Korean culture quiz contest!</desc>
     <date>20261016</date>
@@ -3171,17 +3166,25 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261016130000 +0000" stop="20261016131500 +0000" channel="KBSWorld.kr@SD">
+  <programme start="20261016125500 +0000" stop="20261016131000 +0000" channel="KBSWorld.kr@SD">
     <title>The Seasons W</title>
-    <desc>A music program featuring performances and candid conversations with a diverse range of artists to deliver deep musical resonance.</desc>
+    <desc>A talk show brings you music and stories that will "get rid of all your worries and all your concerns.".</desc>
     <date>20261016</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261016131500 +0000" stop="20261016142500 +0000" channel="KBSWorld.kr@SD">
+  <programme start="20261016131000 +0000" stop="20261016142000 +0000" channel="KBSWorld.kr@SD">
     <title>Descendants of the Sun</title>
-    <desc>Healing Romance set in beautiful Southern Country's nature. Believing in love, not in miracle, they try to make a miracle from their love. Here goes the story of the heroes in our mind.</desc>
+    <desc>"Healing Romance set in beautiful Southern Country's nature. Believing in love, not in miracle, they try to make a miracle from their love. Here goes the story of the heroes in our mind."Every dream is bought for a fortune and some say that happiness is followed by success. Those who compromised only to succeed are extolled and those who fought against for justice are ridiculed for being reckless.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016142000 +0000" stop="20261016142500 +0000" channel="KBSWorld.kr@SD">
+    <title>The Best of Immortal Songs</title>
+    <desc>The true classic of the century is born again! The legendary classic is reinterpreted by the best vocalists in Korea. Don't miss out on the heart-moving moments that transcend generations.</desc>
     <date>20261016</date>
     <audio>
       <stereo>stereo</stereo>
@@ -3686,6 +3689,450 @@
   <programme start="20261018171000 +0000" stop="20261018185000 +0000" channel="KBSWorld.kr@SD">
     <title>Two Days and One Night S4 Ep344</title>
     <desc>Two-day road trip to the beautiful spots in all the corners of Korea! Instead of fancy studio, this on-the-road reality show takes place in the rural sides</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016110000 +0000" stop="20261016120000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS Evening News</title>
+    <desc>A prime time news program delivering local, national, and international news from Korean-American perspectives.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016120000 +0000" stop="20261016123000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>NITV News: Nula</title>
+    <desc>The latest news from the oldest living culture, join Natalie Ahmat and the team of NITV journalists for stories from an Indigenous perspective.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016123000 +0000" stop="20261016130000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>The Cook Up With Adam Liaw</title>
+    <desc>It's an unforgettable night on The Cook Up, as Adam and his guests, chefs Stephannie Liu and Brian Cole, each make a meal to remember!</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016130000 +0000" stop="20261016140500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Secrets Of Britain's Historic Houses</title>
+    <desc>Paul McCartney's childhood home is lovingly restored; uncovering a unique collection of photos in Liverpool, and an intriguing modern art installation is saved from collapse.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016140500 +0000" stop="20261016143000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Jeopardy!</title>
+    <desc>Ken Jennings hosts Jeopardy! Where the answers are revealed, and the contestants must guess the appropriate questions.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016143000 +0000" stop="20261016150000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Letters And Numbers</title>
+    <desc>Two contestants pit their linguistic and numerical skills against each other and the clock in this entertaining quiz show.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016152000 +0000" stop="20261016162000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Hidden Card</title>
+    <desc>Go-ni's nephew, Ham Dae-gil, enters the gambling underworld and becomes a scapegoat in a failed deal; he plans revenge by participating in a high-stakes game.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016163000 +0000" stop="20261016173500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Hotel Portofino</title>
+    <desc>The younger inhabitants of the hotel find ways to let their hair down, while Cecil and Jack shake on a shady deal for the sale of the Ainsworth family heirloom.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016180000 +0000" stop="20261016190000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Good Morning</title>
+    <desc>From popular restaurants all over Korea to workout routines and tips to take care of both body and mind health, Good Morning delivers useful information and talks about various topics together.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016190000 +0000" stop="20261016193000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS News</title>
+    <desc>SBS News delivers major news, weather forecast, and sports news all over the world quickly and accurately. SBS News strives to deliver accurate information to the public regardless of the type of sector.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016193000 +0000" stop="20261016202000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Today Special</title>
+    <desc>The host presents some of the latest and important social, economic and political news stories and updates from all over the country.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016202000 +0000" stop="20261016211000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Intellectual Chitchat</title>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016211000 +0000" stop="20261016221000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Morning Wide</title>
+    <desc>A morning news and current affairs program that delivers up-to-date information. From current issues to health care tips, experts deliver abundant and accurate information.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016221000 +0000" stop="20261016230000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>The Three Witches</title>
+    <desc>Mother-in-law, daughter-in-law and sister-in-law overcoming their differences and becoming the stars of each others' lives.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016230000 +0000" stop="20261016234000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS News</title>
+    <desc>SBS News delivers major news, weather forecast, and sports news all over the world quickly and accurately. SBS News strives to deliver accurate information to the public regardless of the type of sector.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261016235000 +0000" stop="20261017004000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Wisting</title>
+    <desc>Just as Wisting is hailed a national hero for solving The Caveman case, he faces accusations of evidence tampering in a previous murder case.</desc>
+    <date>20261016</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017004000 +0000" stop="20261017013500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Prince's Master Crafters Next Generation</title>
+    <desc>Today is pargetting, a form of ornamental plasterwork. Johanna Welsh is the third generation of pargeters and has tasked the students to create a panel featuring oak leaves and acorns.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017013500 +0000" stop="20261017020000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Bamay</title>
+    <desc>A slow TV showcase of the stunning landscapes found in Wiradjuri Country along the waters of the Murrumbidgee River.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017020000 +0000" stop="20261017023000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>NHK World English News Morning</title>
+    <desc>English news from Japan's Broadcasting Corporation, NHK, delivering the latest in business, technology, health, environmental and world news.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017023000 +0000" stop="20261017030000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>ANC Philippines The World Tonight</title>
+    <desc>Multi-award winning newscast on ABS-CBN and ANC, The World Tonight delivers the top stories of the day, covering political, economic, and social sectors on both local and global fronts.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017030000 +0000" stop="20261017033000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS News</title>
+    <desc>SBS News delivers major news, weather forecast, and sports news all over the world quickly and accurately. SBS News strives to deliver accurate information to the public regardless of the type of sector.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017033000 +0000" stop="20261017040000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Al Jazeera News</title>
+    <desc>News via satellite from Al Jazeera Satellite Network, Qatar, in English.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017040000 +0000" stop="20261017043000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>BBC News At Six</title>
+    <desc>The latest national and international news stories from the BBC News team from London, UK, in English.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017043000 +0000" stop="20261017050000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>France 24 English News</title>
+    <desc>International news and current affairs television from Paris, offering a French perspective on world events, in English.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017050000 +0000" stop="20261017053000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS News</title>
+    <desc>SBS News delivers major news, weather forecast, and sports news all over the world quickly and accurately. SBS News strives to deliver accurate information to the public regardless of the type of sector.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017053000 +0000" stop="20261017060000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS Newstory</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017060000 +0000" stop="20261017080000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>I Am Solo</title>
+    <desc>Following up on the lives of cast members who went viral after the show as they all gather in one place.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017080000 +0000" stop="20261017083000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS News</title>
+    <desc>SBS News delivers major news, weather forecast, and sports news all over the world quickly and accurately. SBS News strives to deliver accurate information to the public regardless of the type of sector.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017083000 +0000" stop="20261017093000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Today Special</title>
+    <desc>The host presents some of the latest and important social, economic and political news stories and updates from all over the country.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017093000 +0000" stop="20261017110000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Curious Stories Y</title>
+    <desc>Covers events or people that have become social issues and delivers detailed stories. Examines the story from various perspectives and explores the other side of the known story through interviews and field visits.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017110000 +0000" stop="20261017115000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS Evening News</title>
+    <desc>A prime time news program delivering local, national, and international news from Korean-American perspectives.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017115000 +0000" stop="20261017120000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Biz Insider</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017120000 +0000" stop="20261017133000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Why Her?</title>
+    <desc>Attorney Oh Soo Jae is forced to teach at a law school after she mishandles an important case. Gong Chan, a student who is in love with her, tries to help her make her way back to the firm.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017140000 +0000" stop="20261017140500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Beautiful Game Changers</title>
+    <desc>At Canarinhos, Gel Freire helps keep alive a Sunday football tradition where Brazilians in Sydney find friendship, community and a lasting connection to home for more than 50 years.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017140500 +0000" stop="20261017143500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Going Places With Ernie Dingo</title>
+    <desc>Ernie travels to Bathurst Island to meet a dedicated and passionate nun, a woman working with young families, and two local artists who share their love for their culture.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017143500 +0000" stop="20261017153000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>WWII Women On The Frontline</title>
+    <desc>Explore the remarkable stories of women who fought Nazi invaders behind enemy lines in occupied Europe and those who infiltrated Allied territory to spy for the Nazis.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017153000 +0000" stop="20261017163000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS World News</title>
+    <desc>Latest reports and analysis of major national and international news of the day from Australia's only world news service.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017163000 +0000" stop="20261017173000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Royals And Their Gardens</title>
+    <desc>At Hampton Court Palace, gardens shaped by Cardinal Wolsey and expanded by Henry VIII boast the world's oldest grapevine and a famous maze, offering centuries of royal stories at every step.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017173000 +0000" stop="20261017182500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>The Langham: Britain's First Grand Hotel</title>
+    <desc>The Spa seeks a new product from a maverick Lord, and a receptionist meets his idol. The 160th party is oversubscribed and the chef gets the birthday cake stuck in a door.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017190000 +0000" stop="20261017193000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS News</title>
+    <desc>SBS News delivers major news, weather forecast, and sports news all over the world quickly and accurately. SBS News strives to deliver accurate information to the public regardless of the type of sector.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017193000 +0000" stop="20261017210000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>I am Solo -- Love Forever</title>
+    <desc>Following up on the lives of cast members who went viral after the show as they all gather in one place.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017212000 +0000" stop="20261017222000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>The Silence</title>
+    <desc>Katya escapes her abductors but is hit by a car. As investigations progress, secrets unravel, pointing to powerful figures, and moral compromises ensue.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017230000 +0000" stop="20261017233000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS News</title>
+    <desc>SBS News delivers major news, weather forecast, and sports news all over the world quickly and accurately. SBS News strives to deliver accurate information to the public regardless of the type of sector.</desc>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261017233000 +0000" stop="20261017234000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Biz Insider</title>
+    <date>20261017</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018000000 +0000" stop="20261018005500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Prince's Master Crafters Next Generation</title>
+    <desc>It's finally time for the students to head to Dumfries House to seek inspiration for their graduation projects in their own discipline for His Royal Highness, the Prince of Wales.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018010000 +0000" stop="20261018020000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Hidden Card</title>
+    <desc>Go-ni's nephew, Ham Dae-gil, enters the gambling underworld and becomes a scapegoat in a failed deal; he plans revenge by participating in a high-stakes game.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018020000 +0000" stop="20261018040000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Shooting Stars</title>
+    <desc>Female celebrities team up to compete against each other in various football matches, with former players of the South Korea women's national football team serving as their mentors.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018040000 +0000" stop="20261018052000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Life Experts</title>
+    <desc>Highlights the stories of masters who have dedicated their lives to a single craft with hard work, passion and perseverance.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018060000 +0000" stop="20261018060500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Beautiful Game Changers</title>
+    <desc>From Kabul to Australia, Fatima Yousufi is using football to make sure Afghan women and girls are not forgotten.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018060500 +0000" stop="20261018063500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Paul O'Grady For The Love Of Dogs</title>
+    <desc>Puppy, Domino won't stop nipping so Paul teams him with the older Freddie. But it seems Freddie is not quite the teacher Paul was hoping for! There's a happy ending though as Freddie is re-homed.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018064000 +0000" stop="20261018084000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>I Am Solo</title>
+    <desc>Following up on the lives of cast members who went viral after the show as they all gather in one place.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018090000 +0000" stop="20261018093000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>PBS News Compass Points</title>
+    <desc>Join PBS News Hour's Nick Schifrin and leading experts as they analyse prominent international affairs topics and their impact on America today.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018093000 +0000" stop="20261018095500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>PBS Washington Week With The Atlantic</title>
+    <desc>PBS Washington Week with The Atlantic is the longest-running primetime news and public affairs program on television.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018095500 +0000" stop="20261018100000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Beautiful Game Changers</title>
+    <desc>Yazidi refugee Sulaiman Zandinan survived IS captivity and rebuilt his life in Australia, where football gave him purpose, community and a path to refereeing.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018100000 +0000" stop="20261018120000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Speedweek</title>
+    <desc>Speedweek is a comprehensive motorsport show that covers many forms of Australian and International motorsport - made specifically for speed enthusiasts.</desc>
+    <date>20261018</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261018120000 +0000" stop="20261019000000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Why Her?</title>
+    <desc>Attorney Oh Soo Jae is forced to teach at a law school after she mishandles an important case. Gong Chan, a student who is in love with her, tries to help her make her way back to the firm.</desc>
     <date>20261018</date>
     <audio>
       <stereo>stereo</stereo>
@@ -5920,6 +6367,9 @@
   </programme>
   <programme start="20261018163000 +0000" stop="20261018174000 +0000" channel="KBSJoy.kr@SD">
     <title>영화가 좋다</title>
+  </programme>
+  <programme start="20261018174000 +0000" stop="20261018190000 +0000" channel="KBSJoy.kr@SD">
+    <title>살림하는 남자들 2</title>
   </programme>
   <programme start="20261016093000 +0000" stop="20261016123000 +0000" channel="KTV.kr@SD">
     <title>Movie - Jeeva</title>
