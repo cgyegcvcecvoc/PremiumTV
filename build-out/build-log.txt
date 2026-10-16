@@ -22,14 +22,14 @@ Daemon will be stopped at the end of the build
 > Task :app:compileDebugJavaWithJavac FROM-CACHE
 > Task :app:preDebugUnitTestBuild UP-TO-DATE
 > Task :app:javaPreCompileDebugUnitTest FROM-CACHE
-> Task :app:mergeDebugShaders
-> Task :app:compileDebugShaders NO-SOURCE
-> Task :app:generateDebugAssets UP-TO-DATE
-> Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:bundleDebugClassesToCompileJar
-> Task :app:mergeDebugAssets
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:mergeDebugShaders
 > Task :app:compileDebugUnitTestKotlin FROM-CACHE
 > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
 > Task :app:packageDebugUnitTestForUnitTest
 > Task :app:generateDebugUnitTestConfig
 > Task :app:processDebugJavaRes
@@ -58,7 +58,7 @@ Unable to strip the following libraries, packaging them as they are: libandroidx
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792176463696.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792176976627.json
 
-BUILD SUCCESSFUL in 22s
+BUILD SUCCESSFUL in 39s
 46 actionable tasks: 24 executed, 22 from cache

@@ -163,6 +163,7 @@ jobs:
           df -h /
 
       - name: Smoke test the built APK (cold launch, relaunch, Guide tab and remote)
+        id: smoke_apk
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
@@ -177,6 +178,7 @@ jobs:
           script: python3 android/tools/smoke_apk.py
 
       - name: Collect the APKs
+        id: collect_apks
         if: success()
         run: |
           set -euo pipefail
@@ -224,6 +226,9 @@ jobs:
 
       - name: Publish build output to the branch
         if: always()
+        env:
+          SMOKE_OUTCOME: ${{ steps.smoke_apk.outcome }}
+          COLLECT_OUTCOME: ${{ steps.collect_apks.outcome }}
         run: |
           set -uo pipefail
           mkdir -p build-out
@@ -234,7 +239,11 @@ jobs:
             mv build-out/build-log.tail.txt build-out/build-log.txt
             grep -E "^(e: |w: .*error|FAILURE:|\\* What went wrong|Execution failed|\> Task .*FAILED)" build-out/build-log.txt | head -120 > build-out/build-errors.txt || true
           fi
-          cp android/app/src/main/assets/bundle/meta.json build-out/bundle-meta.json 2>/dev/null || true
+          if [ "${SMOKE_OUTCOME:-}" = "success" ] && [ "${COLLECT_OUTCOME:-}" = "success" ]; then
+            cp android/app/src/main/assets/bundle/meta.json build-out/bundle-meta.json
+          else
+            echo "Keeping metadata paired with the last smoke-tested APK (smoke=${SMOKE_OUTCOME:-unknown}, collect=${COLLECT_OUTCOME:-unknown})."
+          fi
           if [ "${GITHUB_REF_TYPE}" != "branch" ]; then
             echo "Ref ${GITHUB_REF_NAME} is a ${GITHUB_REF_TYPE}, not a branch: nothing to push."
             exit 0

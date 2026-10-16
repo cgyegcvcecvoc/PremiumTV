@@ -61,16 +61,23 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   structural problems, 0 published known-dead links, and all 134
   category-shelf files in sync. The rebuilt merged guide has 113,236 programmes
   across 1,750 of 9,797 channels (17.9% coverage).
-- **Final 1.0.3 builds match this latest checked snapshot.** The [Android CI
-  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949178195)
+- **The latest 1.0.3 Android bundle is smoke-tested and its sidecar metadata
+  matches the APK.** The [Android CI run
+  38951058846](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38951058846)
   passed unit tests, emulator cold-launch and stable list-Guide smoke tests;
   `build-out/PremiumTV-1.0.3-debug.apk` contains 2,694 USA channels, 61 groups,
-  and 25,813 programmes (426 with guide listings). SHA-256:
-  `6c535d986c97e3b57d60059f9b3c1b07843cb675d086c5253a0c32814e2aba5a`. The
-  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949178211)
+  and 25,764 programmes (426 with guide listings). SHA-256:
+  `c0b68e2dbd816cd97af4020026fdb5506fa81e36023391cf8e081a8296bb32b4`.
+  A duplicate main-branch build (run 38949988205) failed the emulator smoke
+  gate; its always-run publisher had updated the sidecar metadata without
+  collecting a replacement APK. The publisher now refreshes that metadata
+  only after both the smoke gate and APK collection succeed; the sidecar was
+  restored to match the last tested APK before this successful rebuild.
+  The [macOS CI run
+  38949988204](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949988204)
   passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,
   and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.
-  They are ad-hoc signed, not notarized. These remain branch build outputs, not
+  They are ad-hoc signed, not notarized. These remain tested build outputs, not
   a published 1.0.3 release; 1.0.2 remains the public stable-download fallback
   until a complete 1.0.3 release is published.
 
