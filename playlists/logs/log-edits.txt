@@ -2752,3 +2752,19 @@ ISSUES / ERRORS:
   * 2260 links returned a confirmed failure (see dead details).
   * This run started +4h 53m after its scheduled time (2026-10-16T03:29:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261016T103351Z-2912
+TIMESTAMP:    2026-10-16 06:38 AM EDT (2026-10-16T10:33:51Z -> 2026-10-16T10:38:18Z)
+LABEL / TYPE: manual re-scrape (run-scrape.txt) [manual]
+STATUS:       WARNING (checked=True, duration=267.52s)
+PLAYLISTS:    working=11365 / unique=16628 (dead=2292, unverified=2971)
+COUNTRIES:    175 country playlists updated in playlists/countries/
+A&E CHANNELS: 67 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +0 channels added / -2 channels removed (baseline: PremiumTV_all.m3u)
+REMOVED CHANNELS (SAMPLE):
+  - [USA] Nicktoons USA (previous) -> http://tvsen7.aynascope.net/nicktoons/index.m3u8
+  - [USA] Nicktoons USA (previous) -> https://tvsen7.aynascope.net/nicktoons/index.m3u8
+ISSUES / ERRORS:
+  * 2971 links could not be confirmed after retries (see unverified details).
+  * 2292 links returned a confirmed failure (see dead details).
+
