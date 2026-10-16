@@ -61,25 +61,25 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   structural problems, 0 published known-dead links, and all 134
   category-shelf files in sync. The rebuilt merged guide has 113,236 programmes
   across 1,750 of 9,797 channels (17.9% coverage).
-- **The latest 1.0.3 Android bundle is smoke-tested and its sidecar metadata
-  matches the APK.** The [Android CI run
-  38951058846](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38951058846)
-  passed unit tests, emulator cold-launch and stable list-Guide smoke tests;
+- **Final 1.0.3 app builds pass on main, with the APK and sidecar in sync.**
+  The post-merge [Android CI run
+  38951826549](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38951826549)
+  passed unit tests, emulator cold-launch/relaunch and stable list-Guide smoke
+  tests, APK collection, and output publication. At build time,
   `build-out/PremiumTV-1.0.3-debug.apk` contains 2,694 USA channels, 61 groups,
-  and 25,764 programmes (426 with guide listings). SHA-256:
-  `c0b68e2dbd816cd97af4020026fdb5506fa81e36023391cf8e081a8296bb32b4`.
-  A duplicate main-branch build (run 38949988205) failed the emulator smoke
-  gate; its always-run publisher had updated the sidecar metadata without
-  collecting a replacement APK. The publisher now refreshes that metadata
-  only after both the smoke gate and APK collection succeed; the sidecar was
-  restored to match the last tested APK before this successful rebuild.
-  The [macOS CI run
+  and 25,529 programmes (426 with guide listings). SHA-256:
+  `8fc25ecaefb3148f82d73095d3297a5a5f6000e0fc7af9bb45b98f5e1e33f59c`;
+  the sidecar metadata matches the embedded APK metadata. The [macOS CI run
   38949988204](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38949988204)
   passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,
   and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.
-  They are ad-hoc signed, not notarized. These remain tested build outputs, not
-  a published 1.0.3 release; 1.0.2 remains the public stable-download fallback
-  until a complete 1.0.3 release is published.
+  They are ad-hoc signed, not notarized. An earlier main Android build
+  (38949988205) failed the emulator smoke gate and exposed a publisher bug that
+  could update metadata without collecting an APK. PR #49 gated metadata
+  publication on both smoke-test and APK-collection success; the subsequent
+  main build above passed. These remain tested build outputs, not a published
+  1.0.3 release; 1.0.2 remains the public stable-download fallback until a
+  complete 1.0.3 release is published.
 
 ## 2026-10-15 — 1,999 missing channels restored + public download site
 
