@@ -221,7 +221,8 @@ Ordinary pushes and manual builds default to stable 1.0.3 (Android code 10).
 To request the updated 1.1.1 preview (code 11) without Actions-dispatch access,
 append a timestamp to `.github/preview-build.txt` and push with
 `[preview-build]` in the commit message. Both platform workflows build the global
-preview and retain their normal smoke gates. Branch artifacts do not overwrite
-an existing tagged release: release attachments remain exact-SHA guarded.
-Only publish verified artifacts deliberately; label any rebuilt preview with its
-actual source commit in the release notes. The original 1.1.1 tag is historical.
+preview and retain their normal smoke gates. Stable release attachments remain exact-SHA guarded. The explicit switch can
+replace installers only on the existing **pre-release** v1.1.1, after all smoke
+gates pass, and uploads per-platform BUILD-SOURCE manifests recording the commit
+and Actions URL. The original 1.1.1 tag remains historical; release notes name
+the updated installers' actual source commit.

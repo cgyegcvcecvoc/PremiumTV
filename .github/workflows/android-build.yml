@@ -218,6 +218,7 @@ jobs:
         if: success()
         env:
           GH_TOKEN: ${{ github.token }}
+          PUSH_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           tag="${{ github.event.release.tag_name }}"
@@ -233,11 +234,18 @@ jobs:
             tagged=$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if .isDraft then .targetCommitish else "" end')
           fi
           if [ "$tagged" != "$GITHUB_SHA" ]; then
-            echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
-            exit 0
+            # The existing preview is intentionally mutable only via this
+            # explicit switch. Stable releases ALWAYS retain the exact-SHA gate.
+            preview=$(gh release view "$tag" --json isPrerelease --jq '.isPrerelease')
+            if [ "$GITHUB_EVENT_NAME" != "push" ] || [ "$tag" != "v1.1.1" ] || [ "$preview" != "true" ] || [[ "$PUSH_MESSAGE" != *"[preview-build]"* ]]; then
+              echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
+              exit 0
+            fi
+            echo "Explicit Encore preview rebuild from $GITHUB_SHA; historical tag stays unchanged."
           fi
+          printf 'PremiumTV %s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > build-out/BUILD-SOURCE-android.txt
           gh release upload "$tag" \
-            "build-out/PremiumTV-${VERSION}-debug.apk" build-out/SHA256SUMS-android.txt --clobber
+            "build-out/PremiumTV-${VERSION}-debug.apk" build-out/SHA256SUMS-android.txt build-out/BUILD-SOURCE-android.txt --clobber
           gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'
 
       - name: Publish build output to the branch

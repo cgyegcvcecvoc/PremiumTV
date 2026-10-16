@@ -37,6 +37,14 @@ class LoadingUxTests(unittest.TestCase):
         next_stable['assets'].append(missing)
         self.assertEqual(hub.release_channels([stable, next_stable, preview]), '1.0.3')
 
+    def test_preview_rebuild_cannot_overwrite_stable_assets(self):
+        for name in ('android-build.yml', 'macos-build.yml'):
+            workflow = (ROOT / '.github/workflows' / name).read_text()
+            self.assertIn('[ "$tag" != "v1.1.1" ]', workflow)
+            self.assertIn('[ "$preview" != "true" ]', workflow)
+            self.assertIn('[[ "$PUSH_MESSAGE" != *"[preview-build]"* ]]', workflow)
+            self.assertIn('BUILD-SOURCE-', workflow)
+
     def test_netlify_no_longer_hardcodes_old_stable_or_embeds_apks(self):
         script = (ROOT / 'hub/static/assets/app.js').read_text()
         self.assertNotIn('a.version === "1.0.2"', script)

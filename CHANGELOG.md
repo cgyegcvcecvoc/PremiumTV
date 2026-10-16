@@ -24,7 +24,9 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 - **Release validation.** Added activity lifecycle, failure preservation,
   duplicate-request and non-modal renderer tests. Both platform build workflows
   retain their unit-test and packaged-app smoke gates. An explicit
-  `[preview-build]` push switch builds 1.1.1 without changing stable defaults.
+  `[preview-build]` push switch rebuilds only the existing 1.1.1 pre-release,
+  recording per-platform source manifests without moving the historical tag;
+  stable attachments remain exact-SHA guarded.
 - **Both download sites updated.** The Netlify hub now shares the published,
   complete-stable gate with the main site instead of hardcoding 1.0.2. Both
   explain Everyday Polish and Encore. Static APK downloads use release storage
