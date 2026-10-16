@@ -18,9 +18,9 @@ The release workflow prepares two separate channels:
 
 The current stable download is `v1.0.2`; the 1.1.x builds are pre-releases.
 Once `v1.0.3` has its Android APK and all four Mac installers, the site promotes
-it as the recommended stable download. Mac CI rebuilds both architectures from
-the current checked USA playlist and guide whenever app, country-playlist,
-bundle-tool or EPG inputs change. The latest main-branch scrape and follow-up
+it as the recommended stable download. Mac CI rebuilds and smoke-tests both architectures against the current checked
+USA playlist and guide whenever app, country-playlist, bundle-tool or EPG inputs
+change. The latest main-branch scrape and follow-up
 deep check on October 16, 2026 leave 2,700 published USA entries; refresh the
 release build after any later data run.
 Installers are named `PremiumTV-<version>-mac-x64.dmg`,
