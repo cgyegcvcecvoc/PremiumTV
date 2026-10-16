@@ -133,7 +133,7 @@ to Maven Central or `dl.google.com`). Every push that touches `android/`,
 APK and commits the build output to `build-out/`. The stable bundle takes its
 channels only from the checked USA playlist, not the unfiltered all-links
 catalogue; the latest main-branch scrape and follow-up deep check on
-2026-10-16 leave 2,700 published USA entries. The committed bundle metadata
+2026-10-16 leave 2,694 published USA entries. The committed bundle metadata
 records the exact counts and guide window used by each build:
 
 ```text
