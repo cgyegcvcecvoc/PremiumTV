@@ -31,9 +31,22 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   is not enabled: the Pages API returns 404, and this integration is denied
   permission to create the site (403). The workflow cannot change that admin
   setting; the owner must set **Settings → Pages → Source: GitHub Actions** once.
-- Validation: stable version/release gates and site-data coverage have new
-  regression tests. (The manual channel scrape result is recorded below after
-  its checked run completes.)
+- **Manual checked scrape completed.** Run `20261016T103351Z-2912` finished at
+  10:38 UTC on October 16. It confirmed 11,365 of 16,628 unique source links,
+  reported 2,292 dead and 2,971 unverified candidates, and regenerated the
+  175-country set; the scraper correctly marked this as a warning rather than
+  claiming every source worked.
+- **A full stream and guide check followed.** Deep HLS/segment checks covered
+  11,365 unique links across the published playlists: 22,633 of 22,797 playlist
+  entries (99.3%) returned playable media. It removed 22 confirmed-dead
+  occurrences only, taking `PremiumTV.m3u` from 11,365 to 11,354 entries and
+  the USA playlist from 2,682 to 2,679. The 128 unreachable and 14 blocked
+  results were retained because a timeout/server error or geo/auth block is not
+  proof that a stream is dead. Strict verification passed with no structural
+  problems, no known-dead links left published, and all 134 category-shelf
+  files in sync. The refreshed merged guide contains 116,992 programmes across
+  1,757 of 9,769 playlist channels (18.0% coverage); guide coverage remains an
+  upstream limitation, not an app defect.
 
 ## 2026-10-15 — 1,999 missing channels restored + public download site
 
