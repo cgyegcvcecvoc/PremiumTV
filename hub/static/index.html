@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PremiumTV Download Hub — apps, playlists &amp; guides, all in one place</title>
+<meta name="description" content="Self-hosted download hub for PremiumTV: Android TV / Fire TV APKs, macOS installers, 175+ country M3U playlists, category playlists, XMLTV guides, and step-by-step setup directions.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e50914'/%3E%3Cpath d='M24 20l22 12-22 12z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css?v=3">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">▶</span>
+      <span class="brand-name">PremiumTV <em>Hub</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#apps">Apps</a>
+      <a href="#playlists">Playlists</a>
+      <a href="#countries">Countries</a>
+      <a href="#guides">TV Guides</a>
+      <a href="#howto">How-To</a>
+      <a href="#about">About</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ========================= HERO ========================= -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">The everything-downloadable hub</p>
+        <h1>One page.<br><em>Every download.</em></h1>
+        <p class="lede">
+          The PremiumTV apps, 175+ country playlists, every category M3U, the full
+          TV-guide XML — all served <strong>directly from this site</strong>, with
+          plain-English directions for every player. No account, no app store, no nonsense.
+        </p>
+        <div class="hero-actions" id="hero-actions">
+          <a class="btn btn-primary" href="#apps">⬇ Download the app</a>
+          <a class="btn btn-ghost" href="#playlists">Get a playlist</a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong id="stat-channels">—</strong><span>channels confirmed working</span></li>
+          <li><strong id="stat-countries">—</strong><span>countries with a playlist</span></li>
+          <li><strong id="stat-links">—</strong><span>unique links checked</span></li>
+        </ul>
+        <p class="hero-meta" id="hero-meta">Loading library status…</p>
+      </div>
+      <div class="hero-art">
+        <img src="assets/hero.jpg" alt="PremiumTV playing on a living-room TV" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= APPS ========================= -->
+  <section class="section" id="apps">
+    <div class="wrap">
+      <h2>📱 The apps</h2>
+      <p class="section-sub">
+        Native PremiumTV apps with the checked lineup and TV guide built in.
+        Android APKs download <strong>straight from this hub</strong>; macOS installers
+        download from the project's public release storage — either way, one click.
+      </p>
+
+      <div class="app-grid" id="app-grid"><!-- JS --></div>
+
+      <details class="more">
+        <summary>All Android versions &amp; SHA-256 checksums</summary>
+        <div class="table-scroll">
+          <table id="apk-table">
+            <thead><tr><th>Version</th><th>Channel</th><th>Size</th><th>SHA-256</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </details>
+
+      <details class="more">
+        <summary>All macOS installers (Intel &amp; Apple Silicon, DMG &amp; PKG)</summary>
+        <div id="mac-list"></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ========================= PLAYLISTS ========================= -->
+  <section class="section alt" id="playlists">
+    <div class="wrap">
+      <h2>🎞 Playlists (M3U)</h2>
+      <p class="section-sub">
+        Every playlist is a standard <code>.m3u</code> file that works in VLC, TiviMate,
+        IPTV Smarters, Kodi and any other M3U player. <strong>Download</strong> saves the
+        file; <strong>Copy URL</strong> copies a permanent always-up-to-date link to paste
+        into a player.
+      </p>
+      <div class="card-grid" id="featured-grid"><!-- JS --></div>
+
+      <h3 class="subhead">📦 Grab-everything bundles</h3>
+      <p class="section-sub">One zip, no clicking around.</p>
+      <div class="card-grid" id="bundle-grid"><!-- JS --></div>
+
+      <h3 class="subhead">🗂 Category playlists</h3>
+      <p class="section-sub">
+        One M3U per category. <em>Published</em> = the categories inside the main playlist
+        (with backup channel files). <em>USA shelf</em> = US-only category files.
+        <em>Global shelf</em> = each category across the whole library.
+      </p>
+      <div class="tabs" id="cat-tabs">
+        <button class="tab active" data-cat="published">Published</button>
+        <button class="tab" data-cat="usa">USA shelf</button>
+        <button class="tab" data-cat="all">Global shelf</button>
+      </div>
+      <div class="chip-list" id="cat-list"><!-- JS --></div>
+    </div>
+  </section>
+
+  <!-- ========================= COUNTRIES ========================= -->
+  <section class="section" id="countries">
+    <div class="wrap">
+      <h2>🌍 Your country's playlist</h2>
+      <p class="section-sub">
+        175 countries, each with its own confirmed-working playlist — and most with their own
+        TV-guide XML. Type to find yours.
+      </p>
+      <input type="search" class="search" id="country-search" placeholder="Search a country… e.g. USA, Canada, India, UK" autocomplete="off">
+      <div class="country-grid" id="country-grid"><!-- JS --></div>
+    </div>
+  </section>
+
+  <!-- ========================= EPG ========================= -->
+  <section class="section alt" id="guides">
+    <div class="wrap">
+      <h2>📅 TV guide data (EPG)</h2>
+      <p class="section-sub">
+        XMLTV guides that fill in "what's on" in your player. The playlists already
+        advertise their guide URLs, so most players pick the guide up automatically —
+        these downloads are for players you point at a guide manually.
+      </p>
+      <div class="card-grid" id="epg-grid"><!-- JS --></div>
+      <p class="note">Per-country guides (e.g. <code>USA.xml</code>, <code>UK.xml</code>) are on each country card above — look for the <strong>Guide</strong> button.</p>
+    </div>
+  </section>
+
+  <!-- ========================= HOW-TO ========================= -->
+  <section class="section" id="howto">
+    <div class="wrap">
+      <h2>🧭 Directions — pick your device</h2>
+      <p class="section-sub">Honest, step-by-step. Each takes about two minutes.</p>
+
+      <div class="howto-grid">
+
+        <details class="howto" open>
+          <summary>🔥 Fire TV Stick / Fire TV</summary>
+          <ol>
+            <li>On the Fire TV: <strong>Settings → My Fire TV → Developer Options → Install unknown apps</strong> → turn it on for <strong>Downloader</strong>. (If Developer Options is hidden: Settings → My Fire TV → About → click your device name 7 times.)</li>
+            <li>Install the free <strong>Downloader</strong> app from the Amazon Appstore and open it.</li>
+            <li>Type this hub's address followed by the APK path shown on the Android card above (or use the short link the card shows), then press Go.</li>
+            <li>When the APK finishes downloading, choose <strong>Install</strong>, then <strong>Open</strong>.</li>
+            <li>Done — PremiumTV ships with its playlist and guide built in. It refreshes them automatically.</li>
+          </ol>
+        </details>
+
+        <details class="howto">
+          <summary>📺 Android TV / Google TV</summary>
+          <ol>
+            <li>Allow installs from unknown sources: <strong>Settings → Apps → Security &amp; restrictions → Unknown sources</strong> (wording varies by TV) and enable it for your browser or file manager.</li>
+            <li>Download the APK from the <a href="#apps">Apps section</a> using the TV's browser — or download it on your phone/PC and move it over with <em>Send Files to TV</em> or a USB stick.</li>
+            <li>Open the APK from the notification or a file manager and choose <strong>Install</strong>.</li>
+            <li>Launch PremiumTV. The lineup and guide are built in and auto-refresh.</li>
+          </ol>
+        </details>
+
+        <details class="howto">
+          <summary>🍏 macOS</summary>
+          <ol>
+            <li>From the <a href="#apps">Apps section</a> download the <strong>DMG</strong> (drag-and-drop) or <strong>PKG</strong> (guided installer) for your Mac — Apple Silicon for M-series, Intel for older Macs.</li>
+            <li>DMG: open it and drag <strong>PremiumTV</strong> into <strong>Applications</strong>. PKG: double-click and follow the prompts.</li>
+            <li>First launch: right-click the app → <strong>Open</strong> → <strong>Open</strong> (the build isn't notarized with Apple, so macOS asks once).</li>
+            <li>That's it — channels and guide are bundled and refresh on their own.</li>
+          </ol>
+        </details>
+
+        <details class="howto">
+          <summary>🎬 VLC (Windows / Mac / Linux / phone)</summary>
+          <ol>
+            <li>Easiest: <strong>download any .m3u</strong> from this page and double-click it — VLC opens it as a channel list.</li>
+            <li>Or stay always-up-to-date: in VLC choose <strong>Media → Open Network Stream</strong> (⌘N / Ctrl+N), paste a playlist's <strong>Copy URL</strong> link, and press Play.</li>
+            <li>Browse channels via <strong>View → Playlist</strong> (Ctrl+L).</li>
+          </ol>
+        </details>
+
+        <details class="howto">
+          <summary>📡 TiviMate / IPTV Smarters / OTT Navigator</summary>
+          <ol>
+            <li>Add a playlist: choose <strong>M3U Playlist → URL</strong>, and paste the <strong>Copy URL</strong> link of the playlist you want (main, your country, or a category).</li>
+            <li>The guide usually configures itself — these playlists advertise their guide URL in the M3U header. If your app asks for an EPG URL, paste the <strong>Copy URL</strong> link from the <a href="#guides">TV guide section</a> (use the <code>.xml.gz</code> one if supported — it's 10× smaller).</li>
+            <li>Set playlist auto-update to daily; the library is re-checked and republished every day.</li>
+          </ol>
+        </details>
+
+        <details class="howto">
+          <summary>🟦 Kodi (PVR IPTV Simple Client)</summary>
+          <ol>
+            <li>Install <strong>PVR IPTV Simple Client</strong>: Add-ons → Install from repository → PVR clients.</li>
+            <li>Configure it: <strong>General → Location: Remote path</strong>, and paste a playlist's <strong>Copy URL</strong> link as the M3U URL.</li>
+            <li>Under <strong>EPG</strong>, paste the guide URL from the <a href="#guides">TV guide section</a>.</li>
+            <li>Enable the client and restart Kodi — channels appear under <strong>TV</strong>.</li>
+          </ol>
+        </details>
+
+      </div>
+
+      <div class="callout">
+        <strong>Which link do I give my player?</strong> Use the <em>Copy URL</em> buttons.
+        Those links point at the project's public raw-file storage, update automatically every
+        day, and keep working forever — perfect for players that re-download the playlist on a
+        schedule. The <em>Download</em> buttons give you the same file as a one-time copy from this hub.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= ABOUT ========================= -->
+  <section class="section alt" id="about">
+    <div class="wrap about">
+      <h2>🙋 About us</h2>
+      <div class="about-cols">
+        <div>
+          <h3>What PremiumTV is</h3>
+          <p>
+            PremiumTV is a small, independent project that collects <strong>publicly listed,
+            free-to-watch TV streams</strong> from around the web and turns the mess into something
+            you'd actually use: clean playlists, a real TV guide, and native apps for the living room.
+          </p>
+          <p>
+            Every day an automated pipeline pulls from dozens of public sources, removes duplicates,
+            and <strong>actually connects to every single stream</strong> to see if it plays.
+            Only links that pass make it into the playlists on this page. Dead links are retired
+            automatically, new ones are hunted monthly, and every run is logged publicly.
+          </p>
+          <h3>What we believe</h3>
+          <ul class="beliefs">
+            <li><strong>Proof over promises.</strong> "11,000 channels" means 11,000 links a machine verified today — the run reports are public.</li>
+            <li><strong>No gatekeeping.</strong> No accounts, no trackers, no paywall, no "premium tier". Premium is the quality bar, not a price.</li>
+            <li><strong>Bring your own player.</strong> Our apps are the easy path, but every playlist works in any M3U player you already love.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What's in the library</h3>
+          <p id="about-stats">—</p>
+          <h3>The legal bit</h3>
+          <p>
+            PremiumTV hosts <strong>no video</strong>. The playlists are catalogs of stream URLs that
+            broadcasters and aggregators have published openly on the internet — the same links any
+            search engine can find. Availability is up to each broadcaster; if a stream owner wants a
+            link removed, removing it from the public source removes it from the next day's run.
+          </p>
+          <h3>Get in touch / dig deeper</h3>
+          <p>
+            The whole pipeline — scraper, checkers, guide builder, app source — is open at
+            <a href="https://github.com/cgyegcvcecvoc/PremiumTV1" target="_blank" rel="noopener">github.com/cgyegcvcecvoc/PremiumTV1</a>.
+            Found a dead channel or want one added? Open an issue there and the next run will pick it up.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <span class="brand-mark small">▶</span> <strong>PremiumTV Hub</strong> — apps, playlists &amp; guides.
+      <span id="footer-updated"></span>
+    </div>
+    <div class="footer-links">
+      <a href="#apps">Apps</a> · <a href="#playlists">Playlists</a> · <a href="#countries">Countries</a> ·
+      <a href="#howto">How-To</a> · <a href="#about">About</a> ·
+      <a href="https://github.com/cgyegcvcecvoc/PremiumTV1" target="_blank" rel="noopener">Source ↗</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Copied!</div>
+<script src="assets/app.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Render Blueprint — deploy the PremiumTV Download Hub in two clicks:
+#   1. https://dashboard.render.com → New → Blueprint
+#   2. Connect this repository; Render reads this file and builds the Docker image.
+# Free plan note: the service sleeps after ~15 min idle and wakes on the next
+# request (first hit takes a few seconds). The URL is permanent.
+services:
+  - type: web
+    name: premiumtv-hub
+    runtime: docker
+    plan: free
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: MIRROR_MAC
+        value: "0"   # free tier has limited disk; keep macOS installers as release links
