@@ -20,6 +20,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.delay
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.composed
 import androidx.compose.runtime.getValue
@@ -36,6 +38,9 @@ import androidx.compose.ui.input.key.onKeyEvent
 import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.onClick as semanticsOnClick
 import androidx.compose.ui.semantics.role
@@ -200,13 +205,14 @@ fun TabChip(label: String, selected: Boolean, onClick: () -> Unit) {
 // binds to the last parameter, so putting the modifier last would make
 // FocusButton("Refresh") { ... } hand the lambda to the modifier instead.
 @Composable
-fun FocusButton(label: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun FocusButton(label: String, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
     var focused by remember { mutableStateOf(false) }
     Surface(
         modifier = modifier
             .height(52.dp)
             .onFocusChanged { focused = it.isFocused }
-            .tvClickable(onClick),
+            .then(if (enabled) Modifier.tvClickable(onClick) else Modifier)
+            .semantics { if (!enabled) disabled() },
         shape = RoundedCornerShape(26.dp),
         color = if (focused) PremiumGold else Color(0xFF1D2733),
     ) {
@@ -219,7 +225,7 @@ fun FocusButton(label: String, modifier: Modifier = Modifier, onClick: () -> Uni
             Text(
                 text = label,
                 style = MaterialTheme.typography.titleSmall,
-                color = if (focused) Color(0xFF12160B) else Color.White,
+                color = if (!enabled) MutedText else if (focused) Color(0xFF12160B) else Color.White,
             )
         }
     }
@@ -243,6 +249,7 @@ fun LoadingScreen(title: String, detail: String) {
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.White,
             )
+            LoadingTip()
             Text(
                 text = detail,
                 style = MaterialTheme.typography.bodySmall,
@@ -339,3 +346,50 @@ val CARD_GAP = 16.dp
 
 /** Vertical rhythm between category rows. */
 val ROW_ARRANGEMENT: Arrangement.Vertical = Arrangement.spacedBy(4.dp)
+
+/** Product-specific, offline tips: no network request or tracking while loading. */
+private val loadingTips = listOf(
+    "TIP · You can browse and watch channels while the guide loads.",
+    "TIP · Settings → Force refresh downloads both the channel list and guide.",
+    "FACT · XMLTV is the programme-listing format used by PremiumTV.",
+    "TIP · Back from a show returns to your previous tab and guide position.",
+    "FACT · The bundled library works even when a refresh cannot reach the network.",
+    "TIP · A stream may be offline or region-restricted even after a successful check.",
+)
+
+@Composable
+fun LoadingTip() {
+    var index by remember { mutableStateOf(0) }
+    LaunchedEffect(Unit) {
+        while (true) { delay(8_000L); index = (index + 1) % loadingTips.size }
+    }
+    Text(loadingTips[index], color = MutedText, style = MaterialTheme.typography.bodySmall,
+        textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 24.dp))
+}
+
+/** Non-modal: do not steal remote focus or hide the last usable library. */
+@Composable
+fun LibraryActivity(active: Boolean, message: String, startedAt: Long) {
+    var elapsed by remember(startedAt) { mutableStateOf(0L) }
+    LaunchedEffect(active, startedAt) {
+        while (active) {
+            elapsed = ((System.currentTimeMillis() - startedAt) / 1000L).coerceAtLeast(0L)
+            delay(1_000L)
+        }
+    }
+    Column(
+        Modifier.fillMaxWidth().background(CardBackground).padding(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        if (active) androidx.compose.material3.LinearProgressIndicator(
+            modifier = Modifier.fillMaxWidth(), color = PremiumGold,
+        )
+        Text(
+            text = message + if (active) " · ${elapsed}s" else "",
+            color = PremiumGold, style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+        )
+        if (active) LoadingTip()
+    }
+}

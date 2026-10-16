@@ -10,6 +10,43 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-16 — Everyday Polish + Encore Preview
+
+- **Shared loading UX for stable 1.0.3 and preview 1.1.1.** Non-modal activity
+  panels show loading/refresh stages, elapsed time, rotating offline tips and
+  facts, then a 15-second result. Settings retains the last refresh outcome;
+  failed downloads keep the current library. Refresh/reset controls are guarded
+  while busy; Mac refresh requests coalesce instead of queueing duplicate work.
+- **Encore Preview.** 1.1.1 is renamed “Encore Preview: Cable Guide + Everyday
+  Polish”, retains the global cable guide and stays a pre-release. Its Android
+  revision uses code 11, above stable code 10 and the original preview code 9.
+  Android cannot downgrade code 11 to stable 10 without uninstalling first.
+- **Release validation.** Added activity lifecycle, failure preservation,
+  duplicate-request and non-modal renderer tests. Both platform build workflows
+  retain their unit-test and packaged-app smoke gates. An explicit
+  `[preview-build]` push switch rebuilds only the existing 1.1.1 pre-release,
+  recording per-platform source manifests without moving the historical tag;
+  stable attachments remain exact-SHA guarded.
+- **Stable 1.0.3 published as Latest.** Android JVM/emulator checks and Mac
+  unit/packaged-app smoke checks passed; the APK, all four Mac installers and
+  platform checksums were attached before promoting the release.
+- **Both download sites updated.** The Netlify hub now shares the published,
+  complete-stable gate with the main site instead of hardcoding 1.0.2. Both
+  explain Everyday Polish and Encore. Static APK downloads use release storage
+  and authoritative release sizes rather than embedding stale local builds.
+  Netlify Drop still requires uploading the rebuilt folder to the existing site.
+- **Encore installers published.** The rebuilt APK and all four Mac installers
+  passed their unit/emulator/packaged-app gates and replaced the existing 1.1.1
+  pre-release assets. The preview remains separate from Latest stable 1.0.3.
+- **Manual checked scrape completed.** Run `38969629022` checked 16,722 unique
+  links and published 11,453 confirmed-working entries; 2,317 dead and 2,952
+  unverified links were excluded. Verification reports zero structural playlist
+  or shelf problems. The run carries a warning because three optional sources
+  are not configured. An app refresh downloads published data; it is not a
+  server scrape. These are point-in-time checks, not uptime guarantees.
+- **Final local validation:** 375 Python tests and 46 Mac/website Node tests
+  pass. Both versions also passed their Android and Mac CI smoke gates.
+
 ## 2026-10-16 — PremiumTV 1.0.3 maintenance + download-site reliability
 
 - **Stable 1.0.3 build prepared.** The Android default now uses `versionName

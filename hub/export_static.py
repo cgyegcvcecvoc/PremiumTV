@@ -26,7 +26,8 @@ OUT = os.path.join(DIST, "static-site")
 
 RAW = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main"
 REL = "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download"
-RELEASED = {"1.0.0", "1.0.1", "1.0.2", "1.1.0", "1.1.1"}
+# build_data lists only published APKs, never draft/local maintenance builds.
+# These downloads always use release storage; Netlify never embeds stale APKs.
 
 # Files bigger than this stay remote links (they live on GitHub's CDN anyway).
 LOCAL_MAX = 8 * 1024 * 1024
@@ -91,16 +92,9 @@ def main():
         shutil.copy2(src, os.path.join(OUT, "bundles", b["name"]))
         b["dl"] = "bundles/" + b["name"]
 
-    # 4) Android APKs: released -> release storage; unreleased -> copy local
+    # 4) APKs are always linked to the published release, never embedded.
     for a in data["android"]:
-        if a["version"] in RELEASED:
-            a["dl"] = f"{REL}/v{a['version']}/{a['name']}"
-        elif a["dl"].startswith("/get/build-out/"):
-            src = os.path.join(ROOT, "build-out", a["name"])
-            if os.path.isfile(src):
-                a["dl"] = copy_into("build-out/" + a["name"])
-            else:
-                a["dl"] = f"{REL}/v{a['version']}/{a['name']}"
+        a["dl"] = f"{REL}/v{a['version']}/{a['name']}"
 
     # 5) macOS entries already point at release storage unless mirrored locally;
     #    static export always uses the release links.

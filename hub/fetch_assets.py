@@ -20,8 +20,8 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REL = "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download"
 
-APK_VERSIONS = ["1.0.0", "1.0.1", "1.0.2", "1.1.0", "1.1.1"]
-MAC_VERSIONS = ["1.0.2", "1.1.1"]
+APK_VERSIONS = ["1.0.0", "1.0.1", "1.0.2", "1.0.3", "1.1.0", "1.1.1"]
+MAC_VERSIONS = ["1.0.3", "1.1.1"]
 MAC_SUFFIXES = ["mac-arm64.dmg", "mac-arm64.pkg", "mac-x64.dmg", "mac-x64.pkg"]
 
 

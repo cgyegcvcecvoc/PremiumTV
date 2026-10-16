@@ -67,8 +67,12 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertIsNone(build_site_data.latest_complete_stable_release([
             {**api_release, "prerelease": True},
         ]))
-        current_releases = build_site_data.load_releases()
-        fallback_channels, _ = build_site_data.build_apps({}, current_releases + [incomplete])
+        # A fixed fixture must not change meaning when 1.0.3 is published.
+        previous = {
+            "tag_name": "v1.0.2", "prerelease": False, "draft": False,
+            "assets": [{**a, "name": a["name"].replace("1.0.3", "1.0.2")} for a in assets],
+        }
+        fallback_channels, _ = build_site_data.build_apps({}, [previous, incomplete])
         self.assertEqual(fallback_channels[0]["version"], "1.0.2")
         channels, older = build_site_data.build_apps({}, [api_release])
         self.assertEqual(channels[0]["version"], version)

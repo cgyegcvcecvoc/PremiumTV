@@ -12,7 +12,7 @@
 
 `hub/export_static.py` turns the hub into a plain folder of files — no server,
 no Python on the host, nothing to maintain. Small files (every playlist, the
-zip bundles, the gzipped guide, the unreleased 1.0.3 APK) are included in the
+zip bundles and the gzipped guide) are included in the
 folder; huge files that already have a permanent free home (released APKs and
 macOS installers on GitHub's release storage, the 35 MB merged guide on raw
 file storage) are linked directly. Visitors still get one-click downloads for
@@ -21,6 +21,9 @@ everything.
 Build it (already done if `hub/dist/static-site/` exists):
 
 ```bash
+# Refresh release metadata first (including newly completed 1.0.3 installers):
+gh api 'repos/cgyegcvcecvoc/PremiumTV1/releases?per_page=100' > docs/data/releases.src.json
+python3 scripts/build_site_data.py
 python3 hub/build_data.py
 python3 hub/export_static.py
 # -> hub/dist/static-site/  (~76 MB, ~590 files)
@@ -46,6 +49,19 @@ To refresh the site after playlists change: rerun the two build commands and
 drag the folder in again (Netlify keeps the same URL).
 
 ---
+
+## Release routing and refreshing an existing Netlify site
+
+The hub uses the same complete-release gate as `docs/`: stable 1.0.3 becomes
+recommended only when published with its APK and all four Mac installers.
+Encore Preview 1.1.1 stays in the preview card. Local APKs and drafts cannot
+become recommended. APKs in the static export link to release storage, avoiding
+stale installers inside a previously exported zip.
+
+Netlify Drop does **not** synchronize with GitHub. After rebuilding, upload the
+folder to the **existing site's Deploys page** to keep its linked URL. Dropping
+it as a new site creates a different URL. Publishing on GitHub alone does not
+update an existing Netlify Drop deployment.
 
 ## Running it as a real server instead
 

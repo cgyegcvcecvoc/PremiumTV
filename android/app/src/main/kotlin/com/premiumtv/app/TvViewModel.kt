@@ -26,13 +26,14 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
 
     /** Settings action: bypass validators and fetch both playlist and guide. */
     fun forceRefresh() {
-        if (forceRefreshJob?.isActive == true) return
+        if (forceRefreshJob?.isActive == true || refreshInfo.value.inProgress) return
         forceRefreshJob = viewModelScope.launch {
             repository.refresh(RefreshTrigger.Manual)
         }
     }
 
     fun resetToBundled() {
+        if (refreshInfo.value.inProgress) return
         viewModelScope.launch { repository.resetToBundled() }
     }
 }

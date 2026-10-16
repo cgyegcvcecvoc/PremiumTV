@@ -139,17 +139,17 @@ CHANNELS = [
         "badge": "Recommended",
         "summary": "USA lineup + USA guide. The default download.",
         "notes_file": "release-notes-1.0.2.md",
-        "min_os": "macOS 12 (Monterey) or later · Android 5.0+ (TV, tablet, phone)",
+        "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
     },
     {
         "id": "preview",
         "tag": "v1.1.1",
         "version": "1.1.1",
-        "channel": "Preview",
+        "channel": "Encore Preview",
         "badge": "Pre-release",
-        "summary": "Global checked lineup + merged guide + cable-style Guide grid.",
+        "summary": "Encore Preview — global lineup + cable-style guide, with Everyday Polish loading and refresh feedback.",
         "notes_file": "release-notes-1.1.1.md",
-        "min_os": "macOS 12 (Monterey) or later · Android 5.0+ (TV, tablet, phone)",
+        "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
     },
 ]
 
@@ -257,6 +257,8 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
             "version": stable_version,
             "notes_file": f"release-notes-{stable_version}.md",
         })
+        if stable_version == "1.0.3":
+            channel_specs[0]["summary"] = "Everyday Polish — USA lineup + list guide, loading indicators, refresh stages, tips and clear result feedback. The default download."
 
     channels = []
     for spec in channel_specs:

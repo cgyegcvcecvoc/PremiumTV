@@ -86,7 +86,7 @@ class AndroidRefreshWiringTests(unittest.TestCase):
             self.assertNotIn("v1.1.1:false", source)
         android = text(ROOT / ".github" / "workflows" / "android-build.yml")
         self.assertIn("v1.0.3:false) version=1.0.3; scope=usa; code=10 ;;", android)
-        self.assertIn("v1.1.1:true) version=1.1.1; scope=all; code=9 ;;", android)
+        self.assertIn("v1.1.1:true) version=1.1.1; scope=all; code=11 ;;", android)
 
     def test_boot_permission_and_application_scheduler(self):
         manifest = text(ANDROID / "AndroidManifest.xml")

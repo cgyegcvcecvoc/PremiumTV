@@ -922,6 +922,7 @@
       </div>
     `;
 
+    renderActivity();
     document.getElementById('force-refresh').addEventListener('click', () => runRefresh(true, 'force-refresh'));
     document.getElementById('check-now').addEventListener('click', () => runRefresh(false, 'check-now'));
     document.getElementById('reset-bundled').addEventListener('click', resetToBundled);
@@ -967,7 +968,48 @@
     else renderSettings();
   }
 
+  const loadingTips = [
+    'TIP · You can browse and watch channels while the guide loads.',
+    'TIP · Settings → Force refresh downloads both the channel list and guide.',
+    'FACT · XMLTV is the programme-listing format used by PremiumTV.',
+    'TIP · Back from a show returns to your previous tab and guide position.',
+    'FACT · The bundled library works even when a refresh cannot reach the network.',
+    'TIP · A stream may be offline or region-restricted even after a successful check.',
+  ];
+  let activityStartedAt = Date.now();
+  let activityWasBusy = false;
+  let activityResultUntil = 0;
+  let refreshPending = false;
+
+  function renderActivity() {
+    const info = snapshot.info || {};
+    const busy = refreshPending || info.inProgress || snapshot.state.phase === 'loading' || snapshot.library.guideLoading;
+    const panel = document.getElementById('library-activity');
+    if (busy && !activityWasBusy) activityStartedAt = info.inProgress ? info.lastAttemptAt : Date.now();
+    if (!busy && activityWasBusy) activityResultUntil = Date.now() + 15000;
+    activityWasBusy = Boolean(busy);
+    panel.hidden = !busy && Date.now() > activityResultUntil;
+    panel.setAttribute('aria-busy', busy ? 'true' : 'false');
+    panel.dataset.outcome = !busy && info.lastOutcomeOk === false ? 'error' : 'ok';
+    document.getElementById('activity-spinner').hidden = !busy;
+    const elapsed = Math.max(0, Math.floor((Date.now() - activityStartedAt) / 1000));
+    document.getElementById('activity-elapsed').textContent = busy ? `${elapsed}s` : '';
+    document.getElementById('activity-message').textContent = busy
+      ? (refreshPending && !info.inProgress ? 'Starting refresh…' : snapshot.state.message || 'Loading programme guide…')
+      : info.lastMessage || snapshot.state.message || 'Library ready.';
+    const tip = document.getElementById('activity-tip');
+    tip.hidden = !busy;
+    tip.textContent = loadingTips[Math.floor(elapsed / 8) % loadingTips.length];
+    for (const id of ['force-refresh', 'check-now', 'reset-bundled']) {
+      const button = document.getElementById(id);
+      if (button) button.disabled = Boolean(busy);
+    }
+  }
+
   async function runRefresh(force, buttonId) {
+    if (refreshPending || snapshot.info.inProgress) return;
+    refreshPending = true;
+    renderActivity();
     const button = buttonId ? document.getElementById(buttonId) : null;
     if (button) {
       button.disabled = true;
@@ -978,12 +1020,16 @@
       await api.refresh(force);
       snapshot = await api.getSnapshot();
       programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
+    } catch (error) {
+      snapshot.info = { ...snapshot.info, lastOutcomeOk: false, lastMessage: `Refresh failed: ${error.message}. Your current library is still available.` };
     } finally {
+      refreshPending = false;
       if (button) {
         button.disabled = false;
         button.textContent = force ? 'Force refresh all now' : 'Check for changes';
       }
       render();
+      renderActivity();
     }
   }
 
@@ -1123,6 +1169,7 @@
     els.statusText.textContent = snapshot.state.message || '';
     renderCategories();
     render();
+    renderActivity();
     if (snapshot.state.phase === 'error') {
       els.channelsGrid.innerHTML = `<div class="empty-state">${escapeHtml(snapshot.state.message)}</div>`;
     }
@@ -1140,6 +1187,7 @@
     snapshot.info = info;
     els.statusText.textContent = info.lastMessage || snapshot.state.message || '';
     if (ui.tab === 'settings') renderSettings();
+    renderActivity();
   });
 
   api.onProgress(() => {
@@ -1150,12 +1198,14 @@
 
   window.addEventListener('beforeunload', () => {
     window.PremiumPlayer.stop();
+    window.clearInterval(activityTimer);
   });
 
+  const activityTimer = window.setInterval(renderActivity, 1000);
   async function boot() {
     appInfo = await api.getAppInfo();
     const brandTag = document.getElementById('brand-tag');
-    if (brandTag && appInfo.version) brandTag.textContent = appInfo.version;
+    if (brandTag && appInfo.version) brandTag.textContent = appInfo.version + (appInfo.version.startsWith('1.1.1') ? ' · Encore Preview' : '');
     await syncSnapshot();
 
     // Keep "now playing" honest without a full re-render storm.
@@ -1171,5 +1221,7 @@
 
   boot().catch((error) => {
     els.statusText.textContent = `Startup failed: ${error.message}`;
+    snapshot.state = { phase: 'error', message: `Startup failed: ${error.message}. Quit and reopen PremiumTV to retry.` };
+    renderActivity();
   });
 })();

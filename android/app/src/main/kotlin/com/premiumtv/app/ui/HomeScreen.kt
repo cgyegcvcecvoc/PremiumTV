@@ -29,6 +29,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.delay
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -118,7 +120,7 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 VersionPlaque(
-                    if (cableGuide) "${BuildConfig.VERSION_NAME} · PREVIEW" else BuildConfig.VERSION_NAME,
+                    if (cableGuide) "${BuildConfig.VERSION_NAME} · ENCORE PREVIEW" else BuildConfig.VERSION_NAME,
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
@@ -148,6 +150,31 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Settings.label, tab == HomeTab.Settings) { onTabChange(HomeTab.Settings) }
             }
+        }
+
+        var wasRefreshing by remember { mutableStateOf(false) }
+        var showResult by remember { mutableStateOf(false) }
+        val guideStartedAt = remember(library.guideLoading) { System.currentTimeMillis() }
+        LaunchedEffect(refreshInfo.inProgress) {
+            if (refreshInfo.inProgress) {
+                wasRefreshing = true
+                showResult = false
+            } else if (wasRefreshing) {
+                showResult = true
+                delay(15_000L)
+                showResult = false
+            }
+        }
+        if (refreshInfo.inProgress || library.guideLoading || showResult) {
+            LibraryActivity(
+                active = refreshInfo.inProgress || library.guideLoading,
+                message = when {
+                    refreshInfo.inProgress -> status.ifBlank { "Starting refresh…" }
+                    library.guideLoading -> "Channels ready · Loading programme guide…"
+                    else -> refreshInfo.lastMessage
+                },
+                startedAt = if (refreshInfo.inProgress) refreshInfo.lastAttemptAtMillis else guideStartedAt,
+            )
         }
 
         when (tab) {
@@ -588,9 +615,10 @@ private fun SettingsScreen(
         Spacer(modifier = Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             FocusButton(
-                if (refreshInfo.inProgress) "Refreshing all data…" else "Force refresh all now"
+                if (refreshInfo.inProgress) "Refreshing all data…" else "Force refresh all now",
+                enabled = !refreshInfo.inProgress && !library.guideLoading,
             ) { onForceRefresh() }
-            FocusButton("Reset to bundled data") { onReset() }
+            FocusButton("Reset to bundled data", enabled = !refreshInfo.inProgress && !library.guideLoading) { onReset() }
         }
         Spacer(modifier = Modifier.height(12.dp))
         Text(
