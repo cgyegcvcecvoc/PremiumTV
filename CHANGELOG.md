@@ -47,6 +47,18 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   files in sync. The refreshed merged guide contains 116,992 programmes across
   1,757 of 9,769 playlist channels (18.0% coverage); guide coverage remains an
   upstream limitation, not an app defect.
+- **The 1.0.3 apps were rebuilt from that checked snapshot.** The [Android CI
+  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38890743640)
+  passed unit tests, emulator cold-launch and stable list-Guide smoke tests;
+  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,679 USA channels, 62 groups,
+  and 26,658 programmes (430 with guide listings). SHA-256:
+  `20c378f77aae1e03f87bf2ce708c3c442031c0dadea41351b0c4eb195d048b09`. The
+  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38890743535)
+  passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,
+  and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.
+  They are ad-hoc signed, not notarized. These are branch build outputs, not a
+  published 1.0.3 release; 1.0.2 remains the public stable-download fallback
+  until a complete 1.0.3 release is published.
 
 ## 2026-10-15 — 1,999 missing channels restored + public download site
 
