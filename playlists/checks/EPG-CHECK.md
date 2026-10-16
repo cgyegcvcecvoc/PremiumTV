@@ -1,7 +1,7 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261016T170146Z-3057`)
-- **Started:** 2026-10-16T17:01:46Z | **Finished:** 2026-10-16T17:02:14Z | **Duration:** 27.5s
+- **Run:** nightly guide check (`20261016T173928Z-2882`)
+- **Started:** 2026-10-16T17:39:28Z | **Finished:** 2026-10-16T17:39:42Z | **Duration:** 13.2s
 - **Guides checked:** 523 across 177 playlists (176 of them are this repository's own published guides)
 - **Working share of upstream guides:** 99.1%
 
@@ -410,19 +410,19 @@
 
 | Own guide | Status | Reason |
 |---|---|---|
-| `PremiumTV.xml` | ok | 9867 channels, 9162 programmes sampled |
+| `PremiumTV.xml` | ok | 9844 channels, 9196 programmes sampled |
 | `Afghanistan.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Albania.xml` | ok | 15 channels, 54 programmes sampled |
-| `Algeria.xml` | ok | 5 channels, 78 programmes sampled |
+| `Albania.xml` | ok | 15 channels, 52 programmes sampled |
+| `Algeria.xml` | ok | 5 channels, 74 programmes sampled |
 | `Andorra.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Angola.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Antigua_and_Barbuda.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Arab_World.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Argentina.xml` | ok | 158 channels, 1269 programmes sampled |
-| `Armenia.xml` | ok | 10 channels, 112 programmes sampled |
+| `Argentina.xml` | ok | 160 channels, 1248 programmes sampled |
+| `Armenia.xml` | ok | 10 channels, 117 programmes sampled |
 | `Aruba.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Australia.xml` | ok | 31 channels, 856 programmes sampled |
-| `Austria.xml` | ok | 34 channels, 882 programmes sampled |
+| `Australia.xml` | ok | 31 channels, 851 programmes sampled |
+| `Austria.xml` | ok | 34 channels, 888 programmes sampled |
 | `Azerbaijan.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Bahamas.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | … 161 more (one per country playlist) | | |
