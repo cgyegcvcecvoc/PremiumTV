@@ -75,6 +75,17 @@
 
   fetch("data.json").then(function (r) { return r.json(); }).then(function (D) {
     /* ---- hero stats ---- */
+    if (D.server) {
+      var ha = $("#hero-actions");
+      var zipBtn = document.createElement("a");
+      zipBtn.className = "btn btn-ghost";
+      zipBtn.href = "/get/bundles/premiumtv-hub-static-site.zip";
+      zipBtn.setAttribute("download", "");
+      zipBtn.style.borderColor = "rgba(245,192,68,.6)";
+      zipBtn.style.color = "#f5c044";
+      zipBtn.textContent = "🚀 Download this site (deploy zip)";
+      ha.appendChild(zipBtn);
+    }
     $("#stat-channels").textContent = fmtNum(D.stats.working);
     $("#stat-countries").textContent = fmtNum(D.stats.countries);
     $("#stat-links").textContent = fmtNum(D.stats.unique);

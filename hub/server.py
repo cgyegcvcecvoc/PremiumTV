@@ -150,7 +150,7 @@ class Handler(BaseHTTPRequestHandler):
         if path.startswith("/assets/"):
             p = self._safe_join(os.path.join(STATIC, "assets"), path[len("/assets/"):])
             if p and os.path.isfile(p):
-                return self._send_file(p, cache="public, max-age=300")
+                return self._send_file(p, cache="no-cache")
             return self._deny()
 
         if path.startswith("/get/"):
