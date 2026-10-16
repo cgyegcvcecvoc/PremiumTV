@@ -132,8 +132,8 @@ to Maven Central or `dl.google.com`). Every push that touches `android/`,
 `playlists/countries/`, `EPG/` or the workflow rebuilds the installable debug
 APK and commits the build output to `build-out/`. The stable bundle takes its
 channels only from the checked USA playlist, not the unfiltered all-links
-catalogue; the manual scrape, later main-branch recheck, and post-merge deep
-check on 2026-10-16 leave 2,669 USA entries. The committed bundle metadata
+catalogue; the latest main-branch scrape and follow-up deep check on
+2026-10-16 leave 2,705 published USA entries. The committed bundle metadata
 records the exact counts and guide window used by each build:
 
 ```text
