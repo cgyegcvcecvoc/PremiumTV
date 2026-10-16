@@ -47,17 +47,28 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   files in sync. The refreshed merged guide contains 116,992 programmes across
   1,757 of 9,769 playlist channels (18.0% coverage); guide coverage remains an
   upstream limitation, not an app defect.
-- **The 1.0.3 apps were rebuilt from that checked snapshot.** The [Android CI
-  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38890743640)
+- **The PR's moving base was reconciled and rechecked.** The latest main-branch
+  scrape, `20261016T145541Z-2702` (14:59 UTC), confirmed 11,452 of 16,620 unique
+  source links (+112 added / -23 removed) and refreshed 175 countries, so its
+  newer data was merged instead of keeping the older PR snapshot. Post-merge
+  deep run `20261016T165758Z-2911` checked 11,452 unique links across 22,971
+  playlist entries: 22,645 were playable (98.6%). It removed 90 confirmed-dead
+  occurrences and retained 214 unreachable / 22 blocked results. The final
+  `PremiumTV.m3u` has 11,407 entries and the USA playlist 2,669. Strict
+  verification found 0 structural problems, 0 known-dead links published, and
+  all 134 category-shelf files in sync. The rebuilt merged guide has 114,284
+  programmes across 1,764 of 9,834 channels (18.0% coverage).
+- **Final 1.0.3 builds match that checked snapshot.** The [Android CI
+  run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38937739362)
   passed unit tests, emulator cold-launch and stable list-Guide smoke tests;
-  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,679 USA channels, 62 groups,
-  and 26,658 programmes (430 with guide listings). SHA-256:
-  `20c378f77aae1e03f87bf2ce708c3c442031c0dadea41351b0c4eb195d048b09`. The
-  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38890743535)
+  `build-out/PremiumTV-1.0.3-debug.apk` contains 2,669 USA channels, 62 groups,
+  and 26,132 programmes (427 with guide listings). SHA-256:
+  `15ed13cb3ae7b4cfbdec9ba423de62723724c60f7f87587eba9448e68429dbc5`. The
+  [macOS CI run](https://github.com/cgyegcvcecvoc/PremiumTV1/actions/runs/38937739376)
   passed unit and packaged-app smoke tests on Apple Silicon and Intel/Rosetta,
   and produced the four x64/arm64 DMG/PKG installers in its Actions artifact.
-  They are ad-hoc signed, not notarized. These are branch build outputs, not a
-  published 1.0.3 release; 1.0.2 remains the public stable-download fallback
+  They are ad-hoc signed, not notarized. These remain branch build outputs, not
+  a published 1.0.3 release; 1.0.2 remains the public stable-download fallback
   until a complete 1.0.3 release is published.
 
 ## 2026-10-15 — 1,999 missing channels restored + public download site
