@@ -10,6 +10,31 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-16 — PremiumTV 1.0.3 maintenance + download-site reliability
+
+- **Stable 1.0.3 build prepared.** The Android default now uses `versionName
+  1.0.3` / `versionCode 10` (above preview code 9), the macOS package and
+  bundle defaults are aligned, and both release workflows accept `v1.0.3` only
+  as a full stable release. The USA lineup and list-style guide remain the
+  stable scope; the 1.1.1 cable guide stays preview-only. The current published
+  stable download remains 1.0.2 until 1.0.3 has its complete asset set.
+- **Download site data stays current.** The Pages workflow now runs on
+  `CHANGELOG.md`, playlist/report/country/EPG changes and published releases;
+  it also runs after scheduled/manual data workflows because their bot commits
+  do not trigger push workflows. It refreshes release asset metadata before
+  rebuilding. The download page only
+  promotes a stable release once the APK and all four Mac installers exist.
+  Its live changelog refresh compares entry contents (so editing an existing
+  entry also updates open pages), and generated data/Atom timestamps are
+  reproducible so `build_site_data.py --check` can work reliably.
+- **Public Pages status verified.** The repo is public, but GitHub Pages itself
+  is not enabled: the Pages API returns 404, and this integration is denied
+  permission to create the site (403). The workflow cannot change that admin
+  setting; the owner must set **Settings → Pages → Source: GitHub Actions** once.
+- Validation: stable version/release gates and site-data coverage have new
+  regression tests. (The manual channel scrape result is recorded below after
+  its checked run completes.)
+
 ## 2026-10-15 — 1,999 missing channels restored + public download site
 
 - **The missing channels are cleared out and fixed.** The 2026-10-13 deep

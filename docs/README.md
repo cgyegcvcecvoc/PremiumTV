@@ -8,10 +8,12 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** Stable (1.0.2) and Preview (1.1.1) release channels,
-  with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon),
-  file sizes, SHA-256 checksums and install help — all linking at the GitHub
-  release assets.
+- **Download the apps.** The latest complete Stable release (currently 1.0.2;
+  1.0.3 is the next maintenance build) and Preview (1.1.1), with every asset
+  (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes,
+  SHA-256 checksums and install help — all linking at the GitHub release assets.
+  The 1.0.3 build is promoted only after its APK and all four Mac installers are
+  published, so the page never replaces working downloads with empty links.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -33,12 +35,15 @@ server, no build step — published with GitHub Pages.
 | `data/site-data.js` | Generated payload (countries, counts, app assets, stats) loaded via `<script>` so the page works even where `fetch` is blocked. |
 | `data/site.json` | The same payload for tools. |
 | `data/changelog.json`, `data/feed.xml` | Generated changelog timeline + Atom feed. |
-| `data/releases.src.json` | GitHub release asset list (refresh: `gh api repos/cgyegcvcecvoc/PremiumTV1/releases > docs/data/releases.src.json`). |
+| `data/releases.src.json` | Cached GitHub release asset list; Pages refreshes it from the Releases API before building the site. |
 
 ## Regenerating the data
 
-Every change to the repository is recorded in `CHANGELOG.md`, and the site data
-is regenerated so the page and the feed show it:
+Every requested change is recorded in `CHANGELOG.md`, and the site data is
+regenerated so the page and the feed show it. The Pages workflow also runs for
+changelog/release publications and after the scheduled/manual scrape, link-check,
+EPG and cleanup workflows (whose bot commits do not trigger push workflows), so
+live country counts and installer links do not sit stale between deployments:
 
 ```bash
 python scripts/build_site_data.py           # rewrite docs/data/*

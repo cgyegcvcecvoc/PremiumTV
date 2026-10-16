@@ -481,14 +481,17 @@
     var entries = D.changelog || [];
     renderChangelog(entries,
       entries.length + " recorded change" + (entries.length === 1 ? "" : "s") +
-      " · generated " + esc(D.generated_utc || "") +
+      " · repository snapshot " + esc(D.generated_utc || "") +
       " · <a href=\"data/feed.xml\">Atom feed</a>");
-    // Live refresh: pick up changelog entries pushed after this page was built.
+    // Live refresh: compare the entries, not just the count. Editing a bullet
+    // in an existing dated entry must reach open pages without a redeploy too.
+    var bakedSignature = JSON.stringify(entries);
     fetchRepoText("docs/data/changelog.json").then(function (text) {
       var fresh = JSON.parse(text);
-      if (fresh && fresh.length && fresh.length !== entries.length) {
+      if (Array.isArray(fresh) && JSON.stringify(fresh) !== bakedSignature) {
         renderChangelog(fresh,
-          fresh.length + " recorded changes · <strong>updated live from the repository</strong> " +
+          fresh.length + " recorded change" + (fresh.length === 1 ? "" : "s") +
+          " · <strong>updated live from the repository</strong> " +
           "· <a href=\"data/feed.xml\">Atom feed</a>");
       }
     }).catch(function () { /* offline or mirrors blocked - baked data stands */ });

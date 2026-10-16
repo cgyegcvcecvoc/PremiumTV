@@ -47,6 +47,57 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertIn("android", kinds)
         self.assertIn("macos-dmg", kinds)
 
+    def test_site_promotes_only_a_complete_published_stable_release(self):
+        version = "1.0.3"
+        assets = [
+            {"name": f"PremiumTV-{version}-debug.apk", "size": 100},
+            {"name": f"PremiumTV-{version}-mac-arm64.dmg", "size": 100},
+            {"name": f"PremiumTV-{version}-mac-arm64.pkg", "size": 100},
+            {"name": f"PremiumTV-{version}-mac-x64.dmg", "size": 100},
+            {"name": f"PremiumTV-{version}-mac-x64.pkg", "size": 100},
+        ]
+        api_release = {
+            "tag_name": "v1.0.3",
+            "prerelease": False,
+            "draft": False,
+            "assets": assets,
+        }
+        incomplete = {**api_release, "assets": assets[:1]}
+        self.assertIsNone(build_site_data.latest_complete_stable_release([incomplete]))
+        self.assertIsNone(build_site_data.latest_complete_stable_release([
+            {**api_release, "prerelease": True},
+        ]))
+        current_releases = build_site_data.load_releases()
+        fallback_channels, _ = build_site_data.build_apps({}, current_releases + [incomplete])
+        self.assertEqual(fallback_channels[0]["version"], "1.0.2")
+        channels, older = build_site_data.build_apps({}, [api_release])
+        self.assertEqual(channels[0]["version"], version)
+        self.assertEqual(channels[0]["tag"], "v1.0.3")
+        self.assertEqual({asset["name"] for asset in channels[0]["assets"]},
+                         {asset["name"] for asset in assets})
+        self.assertEqual(older, [])
+
+    def test_site_payload_and_feed_are_reproducible(self):
+        payload_again, changelog_again = build_site_data.build_payload()
+        self.assertEqual(self.payload["generated_utc"], payload_again["generated_utc"])
+        self.assertEqual(build_site_data.write_feed(self.changelog),
+                         build_site_data.write_feed(changelog_again))
+
+    def test_download_page_and_deploy_workflow_cover_site_contract(self):
+        page = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "docs" / "assets" / "app.js").read_text(encoding="utf-8")
+        workflow = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
+        for section in ('id="apps"', 'id="playlists"', 'id="changelog"'):
+            self.assertIn(section, page)
+        for asset in ('data/site-data.js', 'assets/style.css', 'assets/app.js', 'assets/qrcode.js'):
+            self.assertIn(asset, page)
+        self.assertIn("JSON.stringify(fresh) !== bakedSignature", script)
+        for path in ('CHANGELOG.md', 'playlists/countries/**', 'playlists/report.json',
+                     'playlists/STATUS.md', 'release:', 'workflow_run:',
+                     'Scrape playlists', 'Quick playlist update', 'Deep link and guide check'):
+            self.assertIn(path, workflow)
+        self.assertIn("repos/${GITHUB_REPOSITORY}/releases?per_page=100", workflow)
+
     def test_changelog_parses_dated_headings_newest_first(self):
         self.assertGreaterEqual(len(self.changelog), 1)
         dates = [e["date"] for e in self.changelog]
