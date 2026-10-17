@@ -1,5 +1,5 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/South_Korea.xml"
-# South Korea working channels (66) - updated 2026-10-17 11:34 UTC (2026-10-17 07:34 AM EDT) - 3:07 AM daily scrape
+# South Korea working channels (64) - updated 2026-10-17 11:52 UTC (2026-10-17 07:52 AM EDT) - manual re-scrape (run-scrape.txt)
 #EXTINF:-1 tvg-id="BTNTV.kr@SD" tvg-logo="https://i.imgur.com/sOoS7RQ.png" group-title="Sports" tvg-country="KR",BTN TV (South Korea) (1080p)
 https://btn.nowcdn.co.kr/btn/btnlive2m/playlist.m3u8
 #EXTINF:-1 tvg-id="CJOnStyle.kr@SD" tvg-logo="https://i.imgur.com/JiSfEBv.png" group-title="Lifestyle" tvg-country="KR",CJ OnStyle (540p)
@@ -28,8 +28,6 @@ https://live.shoppingntmall.com/live/10011.m3u8
 https://liveout.catenoid.net/live-05-wshopping/wshopping_1500k/playlist.m3u8
 #EXTINF:-1 tvg-id="CJOnStyle.kr@SD" tvg-logo="https://i.imgur.com/JiSfEBv.png" group-title="Lifestyle Backups" tvg-country="KR",CJ OnStyle (Backup 1)
 https://live-ch2.cjonstyle.net/cjosplus/live2/playlist.m3u8
-#EXTINF:-1 tvg-id="premiumtv.south_korea.cartoon_network" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-states/cartoon-network-us.png" group-title="Cartoons" tvg-status="stable" tvg-country="KR",Cartoon Network
-https://live-th10.myjktv.com/watch/live.m3u8?video=cartoon_network_540&sid=ibruDlwcarLe4hNycOeEqeww9RLddOcBkRHP5OU3&secret=d85c5f96f376280a040d699f3ebde938&time=1771648839
 #EXTINF:-1 tvg-id="ABN.kr@SD" tvg-logo="https://www.abn.co.kr/resources/images/logo.png" group-title="Asia" tvg-country="KR",ABN (720p)
 https://vod2.abn.co.kr/IPHONE/abn.m3u8
 #EXTINF:-1 tvg-id="HLAJDTV.kr@SD" tvg-logo="https://i.imgur.com/JM4rxGU.png" group-title="Asia" tvg-country="KR",HLAJ-DTV (352p) [Not 24/7]
@@ -48,6 +46,8 @@ https://ns1.tjmbc.co.kr/live/myStream.sdp/playlist.m3u8
 https://vod.ikbc.co.kr/KBCTV/tv/playlist.m3u8
 #EXTINF:-1 tvg-id="HLDPDTV.kr@SD" tvg-logo="https://i.imgur.com/BBCoqIf.png" group-title="Asia" tvg-name="UBC TV" tvg-chno="12" tvg-country="KR",HLDP-DTV (540p) [Not 24/7]
 https://stream.ubc.co.kr/hls/ubctvstream/index.m3u8
+#EXTINF:-1 tvg-id="HLDRDTV.kr@SD" tvg-logo="https://i.imgur.com/zVunmpQ.png" group-title="Asia" tvg-name="CJB TV" tvg-chno="14" tvg-country="KR",HLDR-DTV (540p) [Not 24/7]
+http://1.222.207.80:1935/live/cjbtv/playlist.m3u8
 #EXTINF:-1 tvg-id="TBSTV.kr@SD" tvg-logo="https://i.imgur.com/iOnWS6V.png" group-title="Asia" tvg-country="KR",TBS TV (720p)
 https://cdntv.tbs.seoul.kr/tbs/tbs_tv_web.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="TVChosun2.kr@SD" tvg-logo="https://i.imgur.com/Ev5JoBJ.png" http-referrer="http://broadcast.tvchosun.com/onair/on2.cstv" group-title="Asia" tvg-country="KR",TV Chosun 2 (720p)
@@ -76,8 +76,6 @@ http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/playlist
 http://119.77.96.184:1935/chn05/chn05/playlist.m3u8
 #EXTINF:-1 tvg-id="HLAMDTV.kr@SD" tvg-logo="https://seeklogo.com/images/M/munhwa-broadcasting-company-logo-5F2839F07B-seeklogo.com.png" group-title="International" tvg-status="stable" tvg-country="KR",MBC
 http://vod.mpmbc.co.kr:1935/live/encoder-tv/playlist.m3u8
-#EXTINF:-1 tvg-id="premiumtv.south_korea.sbs" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Seoul_Broadcasting_System_logo.svg/250px-Seoul_Broadcasting_System_logo.svg.png" group-title="International" tvg-status="stable" tvg-country="KR",SBS
-http://1.222.207.80:1935/live/cjbtv/chunklist_w1357270949.m3u8
 #EXTINF:-1 tvg-id="premiumtv.south_korea.tvn" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Logo_tvN.svg/1200px-Logo_tvN.svg.png" group-title="International" tvg-status="stable" tvg-country="KR",tvN
 https://d21dxaer0ypwk1.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-a6m2cy2rylsvo-ssai-prd/54ac8e25_eb5a_4f10_ba20_ffb254f0a16c/hls/playlist.m3u8
 #EXTINF:-1 tvg-id="ArirangTV.kr" tvg-country="KR" group-title="International Backups" tvg-logo="https://i.imgur.com/RuHZ6Dx.png",Arirang (Backup 1)
@@ -126,8 +124,6 @@ http://amdlive-ch03.ctnd.com.edgesuite.net/arirang_3ch/smil:arirang_3ch.smil/pla
 http://amdlive.ctnd.com.edgesuite.net/arirang_3ch/smil:arirang_3ch.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="ArirangRadio.kr@SD" tvg-country="KR" group-title="Music Backups" tvg-logo="https://i.imgur.com/dtfiG9k.png",Arirang Radio (Backup 4)
 https://amdlive-ch02-ctnd-com.akamaized.net/arirang_3ch/smil:arirang_3ch.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="premiumtv.south_korea.discovery_channel" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/united-states/discovery-channel-us.png" group-title="Documentary" tvg-status="stable" tvg-country="KR",Discovery Channel
-https://live-th10.myjktv.com/watch/live.m3u8?video=discovery_540&sid=MMRDBICzkAZmBTDYPGvofmP3KM7rNouvgDL2ofkK&secret=819db6a6233758d48755a6e3505fa934&time=1771650286
 #EXTINF:-1 tvg-id="EBS1TV.kr@SD" tvg-country="KR" group-title="Global TV",EBS 1 (400p) [Not 24/7]
 https://ebsonair.ebs.co.kr/groundwavefamilypc/familypc1m/playlist.m3u8
 #EXTINF:-1 tvg-id="EBSKids.kr@SD" tvg-logo="https://i.imgur.com/62oo8Bx.png" group-title="Kids" tvg-name="EBS Kids" tvg-chno="19" tvg-country="KR",EBS Kids (400p) [Not 24/7]

@@ -3567,3 +3567,16 @@ ISSUES / ERRORS:
   * 2419 links returned a confirmed failure (see dead details).
   * This run started +4h 27m after its scheduled time (2026-10-17T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261017T115149Z-2687
+TIMESTAMP:    2026-10-17 07:55 AM EDT (2026-10-17T11:51:49Z -> 2026-10-17T11:55:40Z)
+LABEL / TYPE: manual re-scrape (run-scrape.txt) [manual]
+STATUS:       WARNING (checked=True, duration=231.51s)
+PLAYLISTS:    working=11340 / unique=16808 (dead=2438, unverified=3030)
+COUNTRIES:    174 country playlists updated in playlists/countries/
+A&E CHANNELS: 67 working / 71 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +0 channels added / -0 channels removed (baseline: PremiumTV_all.m3u)
+ISSUES / ERRORS:
+  * 3030 links could not be confirmed after retries (see unverified details).
+  * 2438 links returned a confirmed failure (see dead details).
+

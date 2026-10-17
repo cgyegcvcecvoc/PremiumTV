@@ -34,6 +34,7 @@ on:
       - "main"
     paths:
       - "docs/**"
+      - "hub/**"
       - "CHANGELOG.md"
       - "release-notes-*.md"
       - "playlists/PremiumTV.m3u"
@@ -42,7 +43,8 @@ on:
       - "playlists/countries/**"
       - "playlists/report.json"
       - "playlists/STATUS.md"
-      - "categories/USA.m3u"
+      - "categories/**"
+      - "playlists/categories/**"
       - "EPG/**"
       - "build-out/SHA256SUMS*.txt"
       - "scripts/build_site_data.py"
@@ -80,6 +82,12 @@ jobs:
 
       - name: Regenerate site data from the repository
         run: python scripts/build_site_data.py
+
+      - name: Build the full download hub alongside the download page
+        run: |
+          python hub/build_data.py
+          python hub/export_static.py
+          cp -a hub/dist/static-site docs/hub
 
       - name: Enable Pages (first run) and configure the deployment
         id: pages

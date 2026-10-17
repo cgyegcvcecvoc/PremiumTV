@@ -104,6 +104,26 @@ class RepairTest(unittest.TestCase):
             written = (Path(tmpdir) / "out" / "list.m3u8").read_text(encoding="utf-8")
         self.assertIn("http://pool.example/nfl.m3u8", written)
 
+    def test_unreachable_backup_is_not_promoted(self):
+        dead, spare = scraper.parse_m3u(PLAYLIST, "test")[0][:2]
+        for status in ("unreachable", "blocked", "unsupported"):
+            results = fake_results({spare.url: status})
+            self.assertIsNone(update_m3u.promote_backup(
+                dead, [spare], results, update_m3u.is_deep_dead))
+
+    def test_pool_replacements_require_working_media_and_honor_deep_mode(self):
+        dead, spare = scraper.parse_m3u(PLAYLIST, "test")[0][:2]
+        key = categorize.channel_key(dead.name, categorize.country_of(dead))
+        for status in ("unreachable", "blocked", "offline", "working"):
+            with self.subTest(status=status), patch.object(
+                    update_m3u, "check_channels",
+                    return_value=fake_results({spare.url: status})) as check:
+                replacements = update_m3u.find_replacements(
+                    [dead], {key: [spare]}, {}, {dead.url}, 2, 1, 5, 0,
+                    update_m3u.is_deep_dead, deep=True)
+                self.assertEqual(bool(replacements), status == "working")
+                self.assertTrue(check.call_args.kwargs["deep"])
+
     def test_hopeless_link_is_removed(self):
         results = fake_results({
             "http://main.example/nfl.m3u8": "offline",

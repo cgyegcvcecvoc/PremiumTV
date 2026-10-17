@@ -1,488 +1,66 @@
 {
   "schema_version": 2,
-  "run_id": "20261017T113410Z-2934",
-  "started_utc_iso": "2026-10-17T11:34:10Z",
-  "finished_utc_iso": "2026-10-17T11:38:15Z",
-  "updated_utc": "2026-10-17 11:38 UTC",
-  "updated_local": "2026-10-17 07:38 AM EDT",
-  "label": "3:07 AM daily scrape",
-  "run_type": "regular_check",
-  "scheduled_for_utc": "2026-10-17T07:07:00Z",
-  "schedule_delay_minutes": 267.2,
+  "run_id": "20261017T115149Z-2687",
+  "started_utc_iso": "2026-10-17T11:51:49Z",
+  "finished_utc_iso": "2026-10-17T11:55:40Z",
+  "updated_utc": "2026-10-17 11:55 UTC",
+  "updated_local": "2026-10-17 07:55 AM EDT",
+  "label": "manual re-scrape (run-scrape.txt)",
+  "run_type": "manual",
+  "scheduled_for_utc": null,
+  "schedule_delay_minutes": null,
   "status": "warning",
   "checked": true,
   "check_started": true,
   "check_completed": true,
   "total_input_entries": 21065,
   "total_unique": 16808,
-  "working": 11364,
-  "dead_count": 2419,
-  "unverified_count": 3025,
+  "working": 11340,
+  "dead_count": 2438,
+  "unverified_count": 3030,
   "unchecked_count": 0,
-  "published": 11364,
+  "published": 11340,
   "final_playlist_written": true,
   "all_playlist_written": true,
-  "duration_seconds": 245.05,
+  "duration_seconds": 231.51,
   "changes": {
     "baseline": "PremiumTV_all.m3u",
-    "added_count": 55,
-    "removed_count": 55,
-    "added_sample": [
-      {
-        "name": "beIN Sports 1 France",
-        "country": "France",
-        "group": "Sports",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca9a2/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Freeform TV",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb225/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "FYI TV",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb22d/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "HBO Comedy",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb234/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "INSP",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb245/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Lifetime",
-        "country": "USA",
-        "group": "Lifestyle",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb247/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Marquee Sports Network",
-        "country": "USA",
-        "group": "Sports",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24a/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "NESN",
-        "country": "USA",
-        "group": "Sports",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb25b/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Oxygen True Crime",
-        "country": "USA",
-        "group": "NBC",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb266/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Pop TV",
-        "country": "USA",
-        "group": "International",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb269/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Showtime Extreme",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb275/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Showtime 2",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb275/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Smithsonian Channel",
-        "country": "USA",
-        "group": "Documentary",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb27d/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Edge",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb284/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Action",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb285/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Black",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb286/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Classic",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb287/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Suspense",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb289/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Westerns",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb28c/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz In Black",
-        "country": "USA",
-        "group": "Movies",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb28d/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Sundance",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb292/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "TV Land",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb2a3/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "TV One",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb2a6/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Cozi TV",
-        "country": "USA",
-        "group": "NBC",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb37f/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "FETV",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb38b/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Hallmark Mystery",
-        "country": "USA",
-        "group": "Lifestyle",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3a1/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Lifetime Movie Network",
-        "country": "USA",
-        "group": "Lifestyle",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3bf/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "MGM+",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3ce/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Reelz Channel",
-        "country": "USA",
-        "group": "Other",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3e4/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "NewsNation",
-        "country": "USA",
-        "group": "News",
-        "source": "doms9",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb4c3/playlist.m3u8?token=%5Bredacted%5D"
-      }
-    ],
-    "removed_sample": [
-      {
-        "name": "beIN Sports 1 France",
-        "country": "France",
-        "group": "Sports",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca9a2/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Freeform TV",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb225/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "FYI TV",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb22d/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "HBO Comedy",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb234/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "INSP",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb245/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Lifetime",
-        "country": "USA",
-        "group": "Lifestyle",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb247/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Marquee Sports Network",
-        "country": "USA",
-        "group": "Sports",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb24a/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "NESN",
-        "country": "USA",
-        "group": "Sports",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb25b/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Oxygen True Crime",
-        "country": "USA",
-        "group": "NBC",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb266/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Pop TV",
-        "country": "USA",
-        "group": "International",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb269/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Showtime Extreme",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb275/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Showtime 2",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb275/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Smithsonian Channel",
-        "country": "USA",
-        "group": "Documentary",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb27d/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Edge",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb284/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Action",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb285/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Black",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb286/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Classic",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb287/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Suspense",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb289/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz Encore Westerns",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb28c/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Starz In Black",
-        "country": "USA",
-        "group": "Movies",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb28d/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Sundance",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb292/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "TV Land",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb2a3/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "TV One",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb2a6/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Cozi TV",
-        "country": "USA",
-        "group": "NBC",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb37f/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "FETV",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb38b/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Hallmark Mystery",
-        "country": "USA",
-        "group": "Lifestyle",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3a1/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Lifetime Movie Network",
-        "country": "USA",
-        "group": "Lifestyle",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3bf/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "MGM+",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3ce/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "Reelz Channel",
-        "country": "USA",
-        "group": "Other",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb3e4/playlist.m3u8?token=%5Bredacted%5D"
-      },
-      {
-        "name": "NewsNation",
-        "country": "USA",
-        "group": "News",
-        "source": "previous",
-        "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb4c3/playlist.m3u8?token=%5Bredacted%5D"
-      }
-    ]
+    "added_count": 0,
+    "removed_count": 0,
+    "added_sample": [],
+    "removed_sample": []
   },
   "categories": {
-    "Sports": 613,
-    "Lifestyle": 483,
-    "Fox Channels": 24,
+    "Sports": 611,
+    "Lifestyle": 482,
+    "Fox Channels": 22,
     "CBS": 43,
     "NBC": 62,
-    "NBC Sports Channels": 9,
-    "Cartoons": 186,
+    "NBC Sports Channels": 8,
+    "Cartoons": 183,
     "PBS": 18,
     "Game Shows": 19,
-    "Movies": 947,
-    "News": 890,
-    "Music": 859,
-    "International": 755,
-    "Entertainment": 747,
-    "Europe": 744,
-    "Religious": 625,
+    "Movies": 943,
+    "News": 887,
+    "Music": 858,
+    "International": 750,
+    "Entertainment": 744,
+    "Europe": 739,
+    "Religious": 632,
     "Series": 513,
-    "South America": 475,
-    "Asia": 442,
+    "South America": 474,
+    "Asia": 444,
     "Documentary": 400,
     "United States": 367,
-    "Kids": 335,
+    "Kids": 332,
     "North America": 278,
-    "Comedy": 171,
-    "Education": 126,
+    "Comedy": 170,
+    "Education": 127,
     "Culture": 118,
     "Legislative": 97,
-    "India": 85,
+    "India": 89,
     "Classic TV": 74,
-    "Business": 65,
+    "Business": 66,
     "Africa": 64,
     "A&E Networks": 50,
     "UK": 36,
@@ -509,29 +87,29 @@
     "TEST": 1,
     "United Kingdom": 1,
     "USA Channels": 1,
-    "Other": 418
+    "Other": 414
   },
   "countries_count": 174,
   "countries": {
     "USA": {
       "file": "countries/USA.m3u",
-      "count": 2740
+      "count": 2708
     },
     "International": {
       "file": "countries/International.m3u",
-      "count": 1143
+      "count": 1140
     },
     "India": {
       "file": "countries/India.m3u",
-      "count": 675
+      "count": 686
     },
     "Italy": {
       "file": "countries/Italy.m3u",
-      "count": 501
+      "count": 497
     },
     "Germany": {
       "file": "countries/Germany.m3u",
-      "count": 389
+      "count": 385
     },
     "Sweden": {
       "file": "countries/Sweden.m3u",
@@ -539,11 +117,11 @@
     },
     "Russia": {
       "file": "countries/Russia.m3u",
-      "count": 374
+      "count": 373
     },
     "UK": {
       "file": "countries/UK.m3u",
-      "count": 239
+      "count": 241
     },
     "Poland": {
       "file": "countries/Poland.m3u",
@@ -557,13 +135,13 @@
       "file": "countries/Chile.m3u",
       "count": 193
     },
+    "Dominican Republic": {
+      "file": "countries/Dominican_Republic.m3u",
+      "count": 187
+    },
     "Spain": {
       "file": "countries/Spain.m3u",
       "count": 185
-    },
-    "Dominican Republic": {
-      "file": "countries/Dominican_Republic.m3u",
-      "count": 184
     },
     "Brazil": {
       "file": "countries/Brazil.m3u",
@@ -591,27 +169,27 @@
     },
     "Turkey": {
       "file": "countries/Turkey.m3u",
-      "count": 131
+      "count": 132
     },
     "Peru": {
       "file": "countries/Peru.m3u",
-      "count": 130
+      "count": 129
     },
     "Mexico": {
       "file": "countries/Mexico.m3u",
-      "count": 114
+      "count": 115
     },
     "Indonesia": {
       "file": "countries/Indonesia.m3u",
-      "count": 112
+      "count": 113
     },
     "Colombia": {
       "file": "countries/Colombia.m3u",
-      "count": 101
+      "count": 102
     },
     "Greece": {
       "file": "countries/Greece.m3u",
-      "count": 81
+      "count": 83
     },
     "Mongolia": {
       "file": "countries/Mongolia.m3u",
@@ -623,11 +201,7 @@
     },
     "South Korea": {
       "file": "countries/South_Korea.m3u",
-      "count": 66
-    },
-    "Czechia": {
-      "file": "countries/Czechia.m3u",
-      "count": 62
+      "count": 64
     },
     "China": {
       "file": "countries/China.m3u",
@@ -636,6 +210,10 @@
     "Iraq": {
       "file": "countries/Iraq.m3u",
       "count": 59
+    },
+    "Czechia": {
+      "file": "countries/Czechia.m3u",
+      "count": 56
     },
     "Iran": {
       "file": "countries/Iran.m3u",
@@ -649,29 +227,33 @@
       "file": "countries/Paraguay.m3u",
       "count": 53
     },
+    "Pakistan": {
+      "file": "countries/Pakistan.m3u",
+      "count": 52
+    },
+    "Vietnam": {
+      "file": "countries/Vietnam.m3u",
+      "count": 52
+    },
     "Costa Rica": {
       "file": "countries/Costa_Rica.m3u",
-      "count": 52
+      "count": 51
     },
     "Ecuador": {
       "file": "countries/Ecuador.m3u",
       "count": 51
     },
-    "Venezuela": {
-      "file": "countries/Venezuela.m3u",
-      "count": 51
+    "Bolivia": {
+      "file": "countries/Bolivia.m3u",
+      "count": 50
     },
     "Saudi Arabia": {
       "file": "countries/Saudi_Arabia.m3u",
       "count": 50
     },
-    "Vietnam": {
-      "file": "countries/Vietnam.m3u",
+    "Venezuela": {
+      "file": "countries/Venezuela.m3u",
       "count": 50
-    },
-    "Bolivia": {
-      "file": "countries/Bolivia.m3u",
-      "count": 49
     },
     "Honduras": {
       "file": "countries/Honduras.m3u",
@@ -685,17 +267,13 @@
       "file": "countries/Slovakia.m3u",
       "count": 44
     },
-    "Pakistan": {
-      "file": "countries/Pakistan.m3u",
-      "count": 42
-    },
     "United Arab Emirates": {
       "file": "countries/United_Arab_Emirates.m3u",
       "count": 42
     },
     "Austria": {
       "file": "countries/Austria.m3u",
-      "count": 39
+      "count": 38
     },
     "Portugal": {
       "file": "countries/Portugal.m3u",
@@ -725,16 +303,12 @@
       "file": "countries/Belarus.m3u",
       "count": 28
     },
-    "Bulgaria": {
-      "file": "countries/Bulgaria.m3u",
-      "count": 27
-    },
     "Lebanon": {
       "file": "countries/Lebanon.m3u",
-      "count": 27
+      "count": 28
     },
-    "Puerto Rico": {
-      "file": "countries/Puerto_Rico.m3u",
+    "Bulgaria": {
+      "file": "countries/Bulgaria.m3u",
       "count": 27
     },
     "Uzbekistan": {
@@ -749,13 +323,17 @@
       "file": "countries/Singapore.m3u",
       "count": 26
     },
-    "Finland": {
-      "file": "countries/Finland.m3u",
+    "Puerto Rico": {
+      "file": "countries/Puerto_Rico.m3u",
       "count": 25
     },
     "Switzerland": {
       "file": "countries/Switzerland.m3u",
       "count": 25
+    },
+    "Finland": {
+      "file": "countries/Finland.m3u",
+      "count": 24
     },
     "Kazakhstan": {
       "file": "countries/Kazakhstan.m3u",
@@ -780,10 +358,6 @@
     "Moldova": {
       "file": "countries/Moldova.m3u",
       "count": 20
-    },
-    "Bangladesh": {
-      "file": "countries/Bangladesh.m3u",
-      "count": 19
     },
     "Serbia": {
       "file": "countries/Serbia.m3u",
@@ -825,6 +399,10 @@
       "file": "countries/Arab_World.m3u",
       "count": 15
     },
+    "Bangladesh": {
+      "file": "countries/Bangladesh.m3u",
+      "count": 15
+    },
     "Croatia": {
       "file": "countries/Croatia.m3u",
       "count": 15
@@ -837,6 +415,10 @@
       "file": "countries/Taiwan.m3u",
       "count": 15
     },
+    "Cambodia": {
+      "file": "countries/Cambodia.m3u",
+      "count": 14
+    },
     "Egypt": {
       "file": "countries/Egypt.m3u",
       "count": 14
@@ -848,10 +430,6 @@
     "Kuwait": {
       "file": "countries/Kuwait.m3u",
       "count": 14
-    },
-    "Cambodia": {
-      "file": "countries/Cambodia.m3u",
-      "count": 13
     },
     "Panama": {
       "file": "countries/Panama.m3u",
@@ -989,6 +567,10 @@
       "file": "countries/Sint_Maarten.m3u",
       "count": 5
     },
+    "Benin": {
+      "file": "countries/Benin.m3u",
+      "count": 4
+    },
     "Caribbean Netherlands": {
       "file": "countries/Caribbean_Netherlands.m3u",
       "count": 4
@@ -1015,6 +597,10 @@
     },
     "Maldives": {
       "file": "countries/Maldives.m3u",
+      "count": 4
+    },
+    "Myanmar": {
+      "file": "countries/Myanmar.m3u",
       "count": 4
     },
     "North Korea": {
@@ -1049,10 +635,6 @@
       "file": "countries/Angola.m3u",
       "count": 3
     },
-    "Benin": {
-      "file": "countries/Benin.m3u",
-      "count": 3
-    },
     "Curacao": {
       "file": "countries/Curacao.m3u",
       "count": 3
@@ -1075,10 +657,6 @@
     },
     "Montenegro": {
       "file": "countries/Montenegro.m3u",
-      "count": 3
-    },
-    "Myanmar": {
-      "file": "countries/Myanmar.m3u",
       "count": 3
     },
     "Republic of the Congo": {
@@ -1141,12 +719,12 @@
       "file": "countries/Togo.m3u",
       "count": 2
     },
-    "Antigua and Barbuda": {
-      "file": "countries/Antigua_and_Barbuda.m3u",
+    "Andorra": {
+      "file": "countries/Andorra.m3u",
       "count": 1
     },
-    "Barbados": {
-      "file": "countries/Barbados.m3u",
+    "Antigua and Barbuda": {
+      "file": "countries/Antigua_and_Barbuda.m3u",
       "count": 1
     },
     "Belize": {
@@ -2132,9 +1710,9 @@
       "found": 19,
       "unique": 19,
       "overlap": 11,
-      "alive": 19,
-      "dead": 0,
-      "unverified": 0,
+      "alive": 17,
+      "dead": 1,
+      "unverified": 1,
       "unchecked": 0,
       "checked": 19,
       "issues": [],
@@ -2172,9 +1750,9 @@
       "found": 319,
       "unique": 315,
       "overlap": 93,
-      "alive": 227,
+      "alive": 224,
       "dead": 20,
-      "unverified": 68,
+      "unverified": 71,
       "unchecked": 0,
       "checked": 315,
       "issues": [],
@@ -2192,9 +1770,9 @@
       "found": 676,
       "unique": 673,
       "overlap": 76,
-      "alive": 241,
-      "dead": 124,
-      "unverified": 308,
+      "alive": 223,
+      "dead": 133,
+      "unverified": 317,
       "unchecked": 0,
       "checked": 673,
       "issues": [],
@@ -2232,9 +1810,9 @@
       "found": 11356,
       "unique": 11356,
       "overlap": 3645,
-      "alive": 7734,
-      "dead": 1457,
-      "unverified": 2165,
+      "alive": 7733,
+      "dead": 1479,
+      "unverified": 2144,
       "unchecked": 0,
       "checked": 11356,
       "issues": [],
@@ -2252,9 +1830,9 @@
       "found": 2023,
       "unique": 1998,
       "overlap": 811,
-      "alive": 1099,
-      "dead": 480,
-      "unverified": 419,
+      "alive": 1096,
+      "dead": 471,
+      "unverified": 431,
       "unchecked": 0,
       "checked": 1998,
       "issues": [],
@@ -2349,9 +1927,9 @@
       "found": 5467,
       "unique": 5467,
       "overlap": 3187,
-      "alive": 5040,
-      "dead": 402,
-      "unverified": 25,
+      "alive": 5048,
+      "dead": 401,
+      "unverified": 18,
       "unchecked": 0,
       "checked": 5467,
       "issues": [],
@@ -2418,30 +1996,29 @@
     }
   },
   "issues": [
-    "3025 links could not be confirmed after retries (see unverified details).",
-    "2419 links returned a confirmed failure (see dead details).",
-    "This run started +4h 27m after its scheduled time (2026-10-17T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots."
+    "3030 links could not be confirmed after retries (see unverified details).",
+    "2438 links returned a confirmed failure (see dead details)."
   ],
   "diagnostics": [
     {
       "reason": "HTTP 403",
       "dead": 0,
-      "unverified": 1232,
-      "count": 1232,
+      "unverified": 1234,
+      "count": 1234,
       "guidance": "Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region."
     },
     {
       "reason": "HTTP 404",
-      "dead": 1132,
+      "dead": 1151,
       "unverified": 0,
-      "count": 1132,
+      "count": 1151,
       "guidance": "The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one."
     },
     {
       "reason": "TimeoutError",
       "dead": 0,
-      "unverified": 848,
-      "count": 848,
+      "unverified": 863,
+      "count": 863,
       "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
     },
     {
@@ -2453,16 +2030,16 @@
     },
     {
       "reason": "html page, not a stream",
-      "dead": 366,
+      "dead": 373,
       "unverified": 0,
-      "count": 366,
+      "count": 373,
       "guidance": "The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect."
     },
     {
       "reason": "HTTP 503",
       "dead": 0,
-      "unverified": 173,
-      "count": 173,
+      "unverified": 177,
+      "count": 177,
       "guidance": "The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link."
     },
     {
@@ -2475,8 +2052,8 @@
     {
       "reason": "ConnectionRefusedError",
       "dead": 0,
-      "unverified": 120,
-      "count": 120,
+      "unverified": 116,
+      "count": 116,
       "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
     },
     {
@@ -2515,13 +2092,6 @@
       "guidance": "Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region."
     },
     {
-      "reason": "OSError",
-      "dead": 0,
-      "unverified": 32,
-      "count": 32,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-10T23:28:01Z)",
       "dead": 31,
       "unverified": 0,
@@ -2536,18 +2106,18 @@
       "guidance": "The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one."
     },
     {
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)",
-      "dead": 29,
-      "unverified": 0,
-      "count": 29,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
       "reason": "HTTP 504",
       "dead": 0,
-      "unverified": 22,
-      "count": 22,
+      "unverified": 23,
+      "count": 23,
       "guidance": "The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link."
+    },
+    {
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-12T13:10:53Z)",
+      "dead": 22,
+      "unverified": 0,
+      "count": 22,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
     },
     {
       "reason": "HTTP 502",
@@ -2564,20 +2134,6 @@
       "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
     },
     {
-      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-12T13:10:53Z)",
-      "dead": 20,
-      "unverified": 0,
-      "count": 20,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
-      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-14T10:10:14Z)",
-      "dead": 20,
-      "unverified": 0,
-      "count": 20,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
       "reason": "SSLEOFError",
       "dead": 0,
       "unverified": 19,
@@ -2585,7 +2141,28 @@
       "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
     },
     {
+      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)",
+      "dead": 19,
+      "unverified": 0,
+      "count": 19,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-14T10:10:14Z)",
+      "dead": 18,
+      "unverified": 0,
+      "count": 18,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
       "reason": "RemoteDisconnected",
+      "dead": 0,
+      "unverified": 17,
+      "count": 17,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
+      "reason": "OSError",
       "dead": 0,
       "unverified": 16,
       "count": 16,
@@ -2618,6 +2195,20 @@
       "unverified": 0,
       "count": 15,
       "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)",
+      "dead": 14,
+      "unverified": 0,
+      "count": 14,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
+      "reason": "HTTP 500",
+      "dead": 0,
+      "unverified": 13,
+      "count": 13,
+      "guidance": "The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link."
     },
     {
       "reason": "empty response",
@@ -2655,13 +2246,6 @@
       "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
     },
     {
-      "reason": "HTTP 500",
-      "dead": 0,
-      "unverified": 12,
-      "count": 12,
-      "guidance": "The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link."
-    },
-    {
       "reason": "quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-14T10:10:14Z)",
       "dead": 12,
       "unverified": 0,
@@ -2687,13 +2271,6 @@
       "dead": 11,
       "unverified": 0,
       "count": 11,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
-      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)",
-      "dead": 10,
-      "unverified": 0,
-      "count": 10,
       "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
     },
     {
@@ -2739,13 +2316,6 @@
       "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
     },
     {
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-11T11:25:41Z)",
-      "dead": 6,
-      "unverified": 0,
-      "count": 6,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
       "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-12T13:10:53Z)",
       "dead": 6,
       "unverified": 0,
@@ -2767,7 +2337,28 @@
       "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
     },
     {
+      "reason": "HTTP 567",
+      "dead": 0,
+      "unverified": 5,
+      "count": 5,
+      "guidance": "The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link."
+    },
+    {
+      "reason": "quarantined: connection refused (failed the deep check 3x, last 2026-10-16T18:00:37Z)",
+      "dead": 5,
+      "unverified": 0,
+      "count": 5,
+      "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
+    },
+    {
       "reason": "quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-11T11:25:41Z)",
+      "dead": 5,
+      "unverified": 0,
+      "count": 5,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
+      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-11T11:25:41Z)",
       "dead": 5,
       "unverified": 0,
       "count": 5,
@@ -2781,21 +2372,7 @@
       "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
     },
     {
-      "reason": "quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)",
-      "dead": 5,
-      "unverified": 0,
-      "count": 5,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
       "reason": "HTTP 521",
-      "dead": 0,
-      "unverified": 4,
-      "count": 4,
-      "guidance": "The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link."
-    },
-    {
-      "reason": "HTTP 567",
       "dead": 0,
       "unverified": 4,
       "count": 4,
@@ -2816,13 +2393,6 @@
       "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
     },
     {
-      "reason": "quarantined: connection refused (failed the deep check 3x, last 2026-10-16T18:00:37Z)",
-      "dead": 4,
-      "unverified": 0,
-      "count": 4,
-      "guidance": "Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network."
-    },
-    {
       "reason": "quarantined: playlist lists no segments (failed the deep check 2x, last 2026-10-10T23:28:01Z)",
       "dead": 4,
       "unverified": 0,
@@ -2838,6 +2408,13 @@
     },
     {
       "reason": "quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-10-10T23:28:01Z)",
+      "dead": 4,
+      "unverified": 0,
+      "count": 4,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
+      "reason": "quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)",
       "dead": 4,
       "unverified": 0,
       "count": 4,
@@ -3117,13 +2694,6 @@
       "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
     },
     {
-      "reason": "HTTP 412",
-      "dead": 1,
-      "unverified": 0,
-      "count": 1,
-      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
-    },
-    {
       "reason": "HTTP 421",
       "dead": 1,
       "unverified": 0,
@@ -3173,7 +2743,7 @@
       "guidance": "This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working."
     },
     {
-      "reason": "quarantined: HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)",
+      "reason": "quarantined: HTTP 400 (failed the deep check 2x, last 2026-10-16T17:01:45Z)",
       "dead": 1,
       "unverified": 0,
       "count": 1,
@@ -3237,6 +2807,13 @@
     },
     {
       "reason": "quarantined: empty response (failed the deep check 2x, last 2026-10-16T17:01:45Z)",
+      "dead": 1,
+      "unverified": 0,
+      "count": 1,
+      "guidance": "Inspect the channel URL and source entry in report.json; this result was not confirmed as playable."
+    },
+    {
+      "reason": "quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-16T10:46:47Z)",
       "dead": 1,
       "unverified": 0,
       "count": 1,
@@ -4189,18 +3766,6 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "[Football] Eintracht Frankfurt vs. FC Cologne | English (STRMCNTR)",
-      "country": "USA",
-      "group": "Sports",
-      "source": "doms9",
-      "sources": [
-        "doms9"
-      ],
-      "url": "https://edgestream4.pro/hls/ueyeztrazb4.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "[Football] Frosinone vs. Sassuolo | English (STRMCNTR)",
       "country": "USA",
       "group": "Sports",
@@ -4646,6 +4211,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "[MLB] Tampa Bay Rays at Cleveland Guardians (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/rays.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "[MLB] Tampa Bay Rays vs Cleveland Guardians | English (STRMGATE)",
       "country": "USA",
       "group": "Sports",
@@ -5018,6 +4595,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "[NBA] Boston Celtics at Philadelphia 76ers (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/76ers.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "[NBA] Boston Celtics vs Philadelphia 76ers | English (STRMGATE)",
       "country": "USA",
       "group": "Sports",
@@ -5040,6 +4629,18 @@
       "url": "https://instreams.pro/live3/tv401901822/index.m3u8?st=OFVoD3cDToHcmH5svB7lwg&e=1792215007",
       "status": "dead",
       "reason": "HTTP 410"
+    },
+    {
+      "name": "[NBA] Denver Nuggets at Los Angeles Lakers (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/lakers.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "[NBA] Denver Nuggets vs Los Angeles Lakers | English (STRMGATE)",
@@ -5078,6 +4679,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "[NBA] Miami Heat at Orlando Magic (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/heat.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "[NBA] Miami Heat vs Orlando Magic | English (STRMGATE)",
       "country": "USA",
       "group": "Sports",
@@ -5088,6 +4701,18 @@
       "url": "https://instreams.pro/live3/tv401898406/index.m3u8?st=ftDpoVom_T72ArKiGr8Xig&e=1792211407",
       "status": "dead",
       "reason": "HTTP 410"
+    },
+    {
+      "name": "[NBA] Milwaukee Bucks at Indiana Pacers (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/bucks.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "[NBA] Milwaukee Bucks vs Indiana Pacers | English (STRMGATE)",
@@ -5112,6 +4737,18 @@
       "url": "https://instreams.live/live3/tv401908943/index.m3u8?st=XqeCela61X7sOUbkZkg9lg&e=1792215008",
       "status": "dead",
       "reason": "HTTP 410"
+    },
+    {
+      "name": "[NBA] Portland Trail Blazers at Golden State Warriors (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/warriors.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "[NBA] Portland Trail Blazers vs Golden State Warriors | English (STRMGATE)",
@@ -5198,6 +4835,18 @@
       "reason": "HTTP 410"
     },
     {
+      "name": "[NBA] Toronto Raptors at Detroit Pistons (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/raptors.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "[NBA] Toronto Raptors vs Detroit Pistons | English (STRMGATE)",
       "country": "USA",
       "group": "Sports",
@@ -5208,6 +4857,18 @@
       "url": "https://instreams.pro/live3/tv401908946/index.m3u8?st=93kAta8--LwxfrEuMwPY7g&e=1792211407",
       "status": "dead",
       "reason": "HTTP 410"
+    },
+    {
+      "name": "[NBA] Utah Jazz at Phoenix Suns (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/suns.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "[NBA] Utah Jazz vs Phoenix Suns | English (STRMGATE)",
@@ -5330,6 +4991,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "[NHL] Boston Bruins at Anaheim Ducks (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/bruins.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "[NHL] Boston Bruins vs Anaheim Ducks | English (STRMGATE)",
       "country": "USA",
       "group": "Sports",
@@ -5362,6 +5035,18 @@
         "doms9"
       ],
       "url": "https://chatgpt.hereisman.net/playlist/58119/load-playlist",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "[NHL] Pittsburgh Penguins at Colorado Avalanche (SPRTSPASS)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://raventheory.s3.us-east-1.amazonaws.com/penguins.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -5620,6 +5305,18 @@
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-14T10:10:14Z)"
     },
     {
+      "name": "Sony Sports Ten 4 Kannada (576p)",
+      "country": "India",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://103.151.60.162:2122/play/a021/index.m3u8?hls=",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "☆ Speed Sport 1 🇺🇸 🏎️",
       "country": "International",
       "group": "Sports",
@@ -5656,30 +5353,6 @@
       "reason": "quarantined: dash manifest has no representations (failed the deep check 2x, last 2026-10-12T13:10:53Z)"
     },
     {
-      "name": "Sportitalia 24 (720p) [Geo-blocked]",
-      "country": "Italy",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:silive24.smil/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Sportitalia Motori (720p) [Geo-blocked]",
-      "country": "Italy",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:simotori.smil/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "SporTV Premiere",
       "country": "International",
       "group": "Sports",
@@ -5704,14 +5377,14 @@
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-11T11:25:41Z)"
     },
     {
-      "name": "Star Sports 2 HD (720p)",
+      "name": "Star Sports 1 (576p)",
       "country": "India",
       "group": "Sports",
       "source": "iptv-org",
       "sources": [
         "iptv-org"
       ],
-      "url": "http://tvsen5.aynascope.net/cXPB2LKkErN9/index.m3u8",
+      "url": "http://103.151.60.162:2122/play/a01a/index.m3u8?hls=",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -5724,6 +5397,18 @@
         "iptv-org"
       ],
       "url": "https://tvsen5.aynaott.com/cXPB2LKkErN9/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "Star Sports 3 (576p)",
+      "country": "India",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://103.151.60.162:2122/play/a029/index.m3u8?hls=",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -5860,6 +5545,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Trace Sport Stars Russia (720p)",
+      "country": "France",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1274/tracks-v1a1/mono.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "☆ Triton Poker 🇺🇸",
       "country": "International",
       "group": "Sports",
@@ -5934,6 +5631,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Unite8 Sports 2 (576p)",
+      "country": "India",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://103.151.60.162:2122/play/a01m/index.m3u8?hls=",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "UPL.TV",
       "country": "Ukraine",
       "group": "Sports",
@@ -5991,18 +5700,6 @@
         "m3u"
       ],
       "url": "https://jmp2.uk/stvp-US300063BQ",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Vinh Long TV 4 (720p)",
-      "country": "Vietnam",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://dethich.pw/thvl4/index.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -6506,6 +6203,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Moya stikhiya HD (1080p)",
+      "country": "Russia",
+      "group": "Lifestyle",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://stream.mcquack.net/141/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "☆ Mundo Viajero 🇪🇸",
       "country": "International",
       "group": "Lifestyle",
@@ -6676,6 +6385,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Zdorovoe TV (576p)",
+      "country": "Russia",
+      "group": "Lifestyle",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1428/tracks-v1a1/mono.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "☆ FoX Kids 🇧🇷",
       "country": "International",
       "group": "Fox Channels",
@@ -6842,7 +6563,7 @@
       ],
       "url": "http://41.205.93.154/CNBC/index.m3u8",
       "status": "dead",
-      "reason": "HTTP 404"
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-12T13:10:53Z)"
     },
     {
       "name": "CNBC Ⓨ",
@@ -7064,6 +6785,20 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Nicktoons",
+      "country": "USA",
+      "group": "Cartoons",
+      "source": "priority-channels",
+      "sources": [
+        "priority-channels",
+        "doms9",
+        "iptv-org"
+      ],
+      "url": "http://41.205.93.154/NICKTOONS/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "Super Hungama (576p)",
       "country": "India",
       "group": "Cartoons",
@@ -7073,7 +6808,7 @@
       ],
       "url": "http://103.185.24.134:3001/SUPER-HUNGAMA/index.m3u8",
       "status": "dead",
-      "reason": "HTTP 404"
+      "reason": "quarantined: connection refused (failed the deep check 3x, last 2026-10-16T18:00:37Z)"
     },
     {
       "name": "Tooncast SouthAmerica (1080p)",
@@ -7450,6 +7185,18 @@
       "url": "https://www.youtube.com/c/ALLTHEKPOP/live",
       "status": "dead",
       "reason": "html page, not a stream"
+    },
+    {
+      "name": "Antena 3",
+      "country": "Spain",
+      "group": "International",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/zapitv/stream/ANTENA_3/test.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "Antenna 3 Veneto Nord Est",
@@ -8382,7 +8129,7 @@
       ],
       "url": "https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Family",
       "status": "dead",
-      "reason": "html page, not a stream"
+      "reason": "HTTP 404"
     },
     {
       "name": "Jojko",
@@ -8492,6 +8239,18 @@
       "url": "https://www.youtube.com/@kbsworldtv/live",
       "status": "dead",
       "reason": "html page, not a stream"
+    },
+    {
+      "name": "KBS World (720p)",
+      "country": "South Korea",
+      "group": "International",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1448/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "KCTV",
@@ -9094,7 +8853,7 @@
       ],
       "url": "https://nuovatv.net:8443/tv2/stream.m3u8",
       "status": "dead",
-      "reason": "HTTP 404"
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)"
     },
     {
       "name": "Nuvola Tv",
@@ -9119,18 +8878,6 @@
       "url": "https://allanf181.github.io/adaptive-streams/streams/kr/OBSGyeonginTV.m3u8",
       "status": "dead",
       "reason": "quarantined: variant HTTP dns lookup failed (failed the deep check 2x, last 2026-10-15T22:37:50Z)"
-    },
-    {
-      "name": "Odeon 24",
-      "country": "Italy",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://streaming.softwarecreation.it/Odeon/Odeon/manifest.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "Öppna Kanalen Skövde",
@@ -9254,30 +9001,6 @@
         "free-tv"
       ],
       "url": "https://stream1.aswifi.it/poptelevision/live/index.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Prima Krimi",
-      "country": "Czechia",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=PrimaKrimi",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Prima MAX",
-      "country": "Czechia",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=PrimaMax",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -9508,18 +9231,6 @@
         "iptv-org"
       ],
       "url": "https://59d7d6f47d7fc.streamlock.net/reteveneta/reteveneta/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Roma Tv 82",
-      "country": "Italy",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://streaming.softwarecreation.it/RomaCH71/RomaCH71/playlist.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -10003,30 +9714,6 @@
       "url": "https://cdn4.skygo.mn/live/disk1/Star/HLSv3-FTA/Star.m3u8",
       "status": "dead",
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-16T17:01:45Z)"
-    },
-    {
-      "name": "STVR :24",
-      "country": "Slovakia",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=STVR+%3A24",
-      "status": "dead",
-      "reason": "html page, not a stream"
-    },
-    {
-      "name": "STVR Live",
-      "country": "Slovakia",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=STVR+Live",
-      "status": "dead",
-      "reason": "html page, not a stream"
     },
     {
       "name": "Sundom TV Ⓨ",
@@ -11027,6 +10714,18 @@
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)"
     },
     {
+      "name": "101tv Malaga",
+      "country": "Spain",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://liveingesta318.cdnmedia.tv/101weblive/smil:malaga.smil/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "2GB (1080p)",
       "country": "Australia",
       "group": "News",
@@ -11357,6 +11056,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "APN (576p)",
+      "country": "India",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://mumt01.tangotv.in/O5aw8Zn3APN/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "Asharq News (1080p)",
       "country": "Saudi Arabia",
       "group": "News",
@@ -11377,18 +11088,6 @@
         "iptv-org"
       ],
       "url": "https://mumt06.tangotv.in/qYyB8fXVASHOMLIVE/index.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Assam Talks (576p)",
-      "country": "India",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://tvsen7.aynascope.net/AssamTalks/index.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -11430,6 +11129,30 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "BBC Alba",
+      "country": "UK",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_ALBA/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "BBC Four",
+      "country": "UK",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_FOUR/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "BBC News Asia Pacific (1080p)",
       "country": "UK",
       "group": "News",
@@ -11445,11 +11168,59 @@
       "name": "BBC One",
       "country": "UK",
       "group": "News",
-      "source": "doms9",
+      "source": "iptv-org",
       "sources": [
-        "doms9"
+        "iptv-org"
       ],
-      "url": "http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8",
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_ONE_LONDON/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "BBC Scotland",
+      "country": "UK",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_SCOTLAND/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "BBC Three HD",
+      "country": "UK",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_THREE/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "BBC Two Northern Ireland",
+      "country": "UK",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_TWO_NORTHERN_IRELAND/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "BBC Two Wales",
+      "country": "UK",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_TWO_WALES/hevc_iptv_mse_v0.mpd",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -11498,6 +11269,18 @@
         "iptv-org"
       ],
       "url": "https://cdn.live.br1.jmvstream.com/w/LVW-11668/ngrp:LVW11668_wiJpjbMrks_all/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "BTV News (720p)",
+      "country": "Cambodia",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://live-evg2.tv360.metfone.com.kh/livetest/bayontest.stream/playlist.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -11753,7 +11536,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv1hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-11T11:25:41Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-13 (720p)",
@@ -11766,7 +11549,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv13hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV+ 2 (600p) [Not 24/7]",
@@ -11790,18 +11573,6 @@
         "iptv-org"
       ],
       "url": "https://cootv.cootel.com.ni:8095/Canal23_CooTel/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "CGTN العربية",
-      "country": "China",
-      "group": "News",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://arabic-livews.cgtn.com/hls/LSveq57bErWLinBnxosqjisZ220802LSTefTAS9zc9mpU08y3np9TH220802cd/playlist.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -11893,6 +11664,30 @@
       "reason": "html page, not a stream"
     },
     {
+      "name": "Cherniveckiy promin (720p)",
+      "country": "Ukraine",
+      "group": "News",
+      "source": "openstream",
+      "sources": [
+        "openstream"
+      ],
+      "url": "http://langate.tv/promin/live_720/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "Cherniveckiy promin (720p)",
+      "country": "Ukraine",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://langate.tv/promin/live_720/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "CNN",
       "country": "USA",
       "group": "News",
@@ -11928,6 +11723,18 @@
       "url": "http://190.110.96.238:8000/play/a0f5/index.m3u8",
       "status": "dead",
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-14T10:10:14Z)"
+    },
+    {
+      "name": "CNN Prima News",
+      "country": "Czechia",
+      "group": "News",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=PrimaNews",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "Contivision (720p)",
@@ -13481,6 +13288,19 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Such TV",
+      "country": "Pakistan",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org",
+        "openstream"
+      ],
+      "url": "https://video.primexsports.com/suchnews/live/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "Swadesh News (720p)",
       "country": "India",
       "group": "News",
@@ -13749,6 +13569,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "AXN Movies (Spain)",
+      "country": "Spain",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/zapitv/stream/AXN_MOVIES/axn_white.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "bTV Action",
       "country": "Bulgaria",
       "group": "Movies",
@@ -13795,7 +13627,7 @@
       ],
       "url": "http://69.30.245.50/live/cctv6.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-Storm Theater (1080p)",
@@ -13880,18 +13712,6 @@
       "url": "http://dksmedia.tv/play/live.php?mac=00%3A1A%3A79%3AB6%3A60%3A3D&stream=946375&extension=ts&play_token=5n2Zexr7WT",
       "status": "dead",
       "reason": "HTTP 456"
-    },
-    {
-      "name": "Colors Cineplex HD (1080p)",
-      "country": "India",
-      "group": "Movies",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a02s/index.m3u8?hls=",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "CS Film",
@@ -14136,18 +13956,6 @@
       "url": "http://103.185.24.134:3001/JALSHA-MOVIES-HD/index.m3u8",
       "status": "dead",
       "reason": "quarantined: connection refused (failed the deep check 2x, last 2026-10-16T09:46:30Z)"
-    },
-    {
-      "name": "JOJ Cinema",
-      "country": "Czechia",
-      "group": "Movies",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Cinema",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "JTBS Classic",
@@ -14463,18 +14271,6 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "Shokiruyushchee HD (1080p)",
-      "country": "Russia",
-      "group": "Movies",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://stream.mcquack.net/75/index.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "Sony Max (576p) [Geo-blocked]",
       "country": "India",
       "group": "Movies",
@@ -14509,18 +14305,6 @@
       "url": "http://103.151.60.162:2122/play/a01d/index.m3u8?hls=",
       "status": "dead",
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-15T22:37:50Z)"
-    },
-    {
-      "name": "Sportitalia LIVE24",
-      "country": "Italy",
-      "group": "Movies",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://di-g7ij0rwh.vo.lswcdn.net/sportitalia/silive24.smil/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "Star Gold HD (1080p)",
@@ -14583,6 +14367,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Sundance TV (Spain)",
+      "country": "Spain",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/zapitv/stream/SUNDANCE_TV/sundance_hd.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "Tamasha",
       "country": "Iran",
       "group": "Movies",
@@ -14594,6 +14390,18 @@
       "url": "https://ncdn.telewebion.ir/hdtest/live/playlist.m3u8",
       "status": "dead",
       "reason": "quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+    },
+    {
+      "name": "&TV (576p)",
+      "country": "India",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://103.151.60.162:2122/play/a020/index.m3u8?hls=",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "TV1000 Russian Kino Global",
@@ -14680,18 +14488,6 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "101tv Sevilla",
-      "country": "Spain",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://liveingesta318.cdnmedia.tv/101weblive/smil:sevilla.smil/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "Север (Нарьян-Мар) (1080p)",
       "country": "Russia",
       "group": "Europe",
@@ -14702,6 +14498,18 @@
       "url": "https://live2.mediacdn.ru/sr1/sever/playlist.m3u8",
       "status": "dead",
       "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-10T23:28:01Z)"
+    },
+    {
+      "name": "9 la Loma TV (1080p) [Geo-blocked]",
+      "country": "Spain",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://9laloma.tv/live.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "Arges TV (720p)",
@@ -14852,18 +14660,6 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "Canal Reus TV (720p)",
-      "country": "Spain",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://liveingesta318.cdnmedia.tv/canalreustvlive/smil:live.smil/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "CanalCosta (1080p)",
       "country": "Spain",
       "group": "Europe",
@@ -14872,18 +14668,6 @@
         "iptv-org"
       ],
       "url": "https://5d8d85cf2c308.streamlock.net:1936/CanalcostaTV/endirecto/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Cugat TV (1080p)",
-      "country": "Spain",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://liveingesta318.cdnmedia.tv/cugatcatlive/smil:rtmp01.smil/playlist.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -14908,6 +14692,18 @@
         "iptv-org"
       ],
       "url": "http://cloudfront44.lexanetwork.com:1732/hlsrelay003/hls/livestream.sdp.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "El 9 TV (1080p)",
+      "country": "Spain",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://liveingesta318.cdnmedia.tv/9tvlive/smil:live.smil/playlist.m3u8?DVR=",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -15045,6 +14841,18 @@
       "url": "https://best-str.umn.cdn.united.cloud/stream?channel=idjhd&p=In%24trum300na765ta&player=m3u8&sp=idjtv&stream=hp1400&u=idjtv",
       "status": "dead",
       "reason": "quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-16T18:27:02Z)"
+    },
+    {
+      "name": "Insayt TV (2160p)",
+      "country": "Russia",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1416/tracks-v1a1/mono.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "Домашний International",
@@ -15407,6 +15215,18 @@
         "iptv-org"
       ],
       "url": "http://5940924978228.streamlock.net:1935/8009/8009/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "Priklyucheniya (576p)",
+      "country": "Russia",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1420/tracks-v1a1/mono.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -16039,7 +15859,7 @@
       ],
       "url": "https://stream2.nmih.hu:4102/live.m3u8",
       "status": "dead",
-      "reason": "HTTP 404"
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-12T13:10:53Z)"
     },
     {
       "name": "TV Regionalna Lubin (1080p)",
@@ -16052,6 +15872,18 @@
       "url": "https://tvregfull.mailfull.pl/tvregfull/memfs/e64b3e05-649c-4939-9ff6-584e79285ccd.m3u8",
       "status": "dead",
       "reason": "quarantined: dns lookup failed (failed the deep check 2x, last 2026-10-16T18:00:37Z)"
+    },
+    {
+      "name": "TV Ripolles (1080p)",
+      "country": "Spain",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://liveingesta318.cdnmedia.tv/tvripolleslive/smil:live.smil/playlist.m3u8?DVR=",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "TV Ruzinov (1080p) [Not 24/7]",
@@ -16215,18 +16047,6 @@
       "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-10-10T23:28:01Z)"
     },
     {
-      "name": "TVP1 (1080i) [Geo-blocked]",
-      "country": "Poland",
-      "group": "Europe",
-      "source": "openstream",
-      "sources": [
-        "openstream"
-      ],
-      "url": "https://cdndai.pl/tvp1hd/index.m3u8",
-      "status": "dead",
-      "reason": "HTTP 412"
-    },
-    {
       "name": "TVR (France) (720p)",
       "country": "France",
       "group": "Europe",
@@ -16287,6 +16107,18 @@
       "url": "https://raw.githubusercontent.com/thomraider12/canaistvpt/main/m3u8s/vmaistvi.m3u8",
       "status": "dead",
       "reason": "quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-10-15T22:37:50Z)"
+    },
+    {
+      "name": "Valles Visio (1080p)",
+      "country": "Spain",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://liveingesta318.cdnmedia.tv/vallesvisiotvlive/smil:live.smil/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "Viasat Explore (Ukraine) (576p)",
@@ -16491,18 +16323,6 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "Zoopark (576i)",
-      "country": "Russia",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1417/tracks-v1a1/mono.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "☆",
       "country": "International",
       "group": "Music",
@@ -16674,18 +16494,6 @@
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-16T09:46:30Z)"
     },
     {
-      "name": "Balle Balle (576p)",
-      "country": "India",
-      "group": "Music",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://streams.tangotv.in/BALLEBALLE/ORIGIN/index.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "Bel RTL (1080p)",
       "country": "Belgium",
       "group": "Music",
@@ -16745,7 +16553,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv11hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-15 (1080p)",
@@ -16914,7 +16722,7 @@
       ],
       "url": "https://live20.bozztv.com/akamaissh101/ssh101/fsradiotv/playlist.m3u8",
       "status": "dead",
-      "reason": "quarantined: HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "HTTP 404"
     },
     {
       "name": "Galactica TV",
@@ -17572,18 +17380,6 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "Radio Mega TV Amazonia (720p)",
-      "country": "Bolivia",
-      "group": "Music",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://ares.disfrutaenlared.com:1936/megatv/megatv/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "Radio Panoramica (720p)",
       "country": "Chile",
       "group": "Music",
@@ -17804,6 +17600,18 @@
       "reason": "quarantined: playlist only, segment too small (94 bytes) (failed the deep check 2x, last 2026-10-10T23:28:01Z)"
     },
     {
+      "name": "Sana Plus (1080p)",
+      "country": "India",
+      "group": "Music",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://mumbai-edge.smartplaytv.in/SanaPlusHD/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "Sharq Radio TV (1080p)",
       "country": "Afghanistan",
       "group": "Music",
@@ -17839,6 +17647,19 @@
       "url": "https://youtu.be/MYOHOOIvu8M",
       "status": "dead",
       "reason": "html page, not a stream"
+    },
+    {
+      "name": "SOY Plancha TV (720p)",
+      "country": "Costa Rica",
+      "group": "Music",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org",
+        "openstream"
+      ],
+      "url": "https://59ef525c24caa.streamlock.net/vmtv/soyplancha/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "SpektraTV (720p)",
@@ -18674,7 +18495,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv3hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "Chandel TV (720p)",
@@ -19264,6 +19085,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Oli TV (India) (1080p)",
+      "country": "India",
+      "group": "Entertainment",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://live.olidigital.in/olitv/olitv/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "ON Vie Drama (720p)",
       "country": "Vietnam",
       "group": "Entertainment",
@@ -19467,7 +19300,7 @@
       ],
       "url": "http://103.151.60.162:2122/play/a00w/index.m3u8?hls=",
       "status": "dead",
-      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-14T10:10:14Z)"
+      "reason": "HTTP 404"
     },
     {
       "name": "Star Kiran (576p)",
@@ -19747,18 +19580,6 @@
         "iptv-org"
       ],
       "url": "https://mumbai-edge.smartplaytv.in/ZeeTeluguHD/index.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Zee TV HD (720p) [Geo-blocked]",
-      "country": "India",
-      "group": "Entertainment",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://41.205.93.154/ZEE-TV/index.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -20518,6 +20339,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Mahimai TV (576p)",
+      "country": "India",
+      "group": "Religious",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://mahimai.iptelevision.live/mahimaitv/video.m3u8",
+      "status": "dead",
+      "reason": "HTTP 400"
+    },
+    {
       "name": "Maria Vision (1080p)",
       "country": "Mexico",
       "group": "Religious",
@@ -21209,7 +21042,7 @@
       ],
       "url": "https://5bf7b725107e5.streamlock.net/abtv/abtv/playlist.m3u8",
       "status": "dead",
-      "reason": "quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)"
+      "reason": "HTTP 404"
     },
     {
       "name": "Atrak TV",
@@ -21356,7 +21189,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv4hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-4K HD (1080p)",
@@ -21380,7 +21213,7 @@
       ],
       "url": "http://192.151.150.154/live/cctv8k.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-Culture of Quality SD (1080p)",
@@ -21440,7 +21273,7 @@
       ],
       "url": "https://dethich.pw/dongnai3/index.m3u8",
       "status": "dead",
-      "reason": "HTTP 404"
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)"
     },
     {
       "name": "Dopa Channel",
@@ -21691,7 +21524,7 @@
       ],
       "url": "https://dethich.pw/htv1/index.m3u8",
       "status": "dead",
-      "reason": "HTTP 404"
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)"
     },
     {
       "name": "HTV7 (720p)",
@@ -21703,7 +21536,7 @@
       ],
       "url": "https://dethich.pw/htv7/index.m3u8",
       "status": "dead",
-      "reason": "HTTP 404"
+      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-17T09:20:11Z)"
     },
     {
       "name": "Ilam TV",
@@ -21802,7 +21635,7 @@
       ],
       "url": "https://live.jobplustv.or.kr/live/wowtvlive1.sdp/playlist.m3u8",
       "status": "dead",
-      "reason": "HTTP 400"
+      "reason": "quarantined: HTTP 400 (failed the deep check 2x, last 2026-10-16T17:01:45Z)"
     },
     {
       "name": "Jogja TV (720p) [Not 24/7]",
@@ -22011,19 +21844,6 @@
       "url": "https://cdn4.skygo.mn/live/disk1/Lotus/HLSv3-FTA/Lotus.m3u8",
       "status": "dead",
       "reason": "quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
-    },
-    {
-      "name": "Madaniyat va ma'rifat (576p)",
-      "country": "Uzbekistan",
-      "group": "Asia",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://stream8.cinerama.uz/1005/tracks-v1a1/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "Magna Channel (1080p) [Not 24/7]",
@@ -22595,18 +22415,6 @@
       "reason": "quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
     },
     {
-      "name": "Taraqqiyot TV",
-      "country": "Uzbekistan",
-      "group": "Asia",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1204/tracks-v1a1/mono.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "TechStorm (720p) [Geo-blocked]",
       "country": "Singapore",
       "group": "Asia",
@@ -22665,7 +22473,7 @@
       ],
       "url": "https://tele1-live.ercdn.net/tele1/tele1.m3u8",
       "status": "dead",
-      "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-14T10:10:14Z)"
+      "reason": "HTTP 404"
     },
     {
       "name": "TGRT Belgesel (576p) [Not 24/7]",
@@ -22814,18 +22622,6 @@
       "url": "https://ncdn.telewebion.ir/velayat/live/playlist.m3u8",
       "status": "dead",
       "reason": "quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
-    },
-    {
-      "name": "VTV8 HD (720p)",
-      "country": "Vietnam",
-      "group": "Asia",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://dethich.pw/vtv8/index.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "West Azerbaijan TV",
@@ -23752,6 +23548,18 @@
         "iptv-org"
       ],
       "url": "http://15.204.246.24:8080/DTVHD/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "Red TVE Ventanas (432p)",
+      "country": "Ecuador",
+      "group": "South America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://s2.tvdatta.com:3825/live/redtvelive.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -24890,18 +24698,6 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "Arsenal (576p)",
-      "country": "Russia",
-      "group": "Documentary",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1414/tracks-v1a1/mono.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "Asharq Documentary (1080p)",
       "country": "Saudi Arabia",
       "group": "Documentary",
@@ -25019,18 +24815,6 @@
         "m3u"
       ],
       "url": "https://jmp2.uk/plu-5ea18cd42ee5410007e349dc.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "CS History",
-      "country": "Czechia",
-      "group": "Documentary",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=CS+History",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -25539,7 +25323,7 @@
       ],
       "url": "https://stream.berosat.live:19360/rlpro-tv/rlpro-tv.m3u8",
       "status": "dead",
-      "reason": "html page, not a stream"
+      "reason": "quarantined: html page, not a stream (failed the deep check 2x, last 2026-10-16T10:46:47Z)"
     },
     {
       "name": "RT Documentary English (1080p) [Geo-blocked]",
@@ -25859,6 +25643,30 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "CBBC HD",
+      "country": "UK",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/CBBC/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "CBeebies (United Kingdom) HD",
+      "country": "UK",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/CBEEBIES/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "CCTV-14 HD (1080p)",
       "country": "China",
       "group": "Kids",
@@ -25931,18 +25739,6 @@
       "url": "https://ztnr.rtve.es/ztnr/5466990.m3u8",
       "status": "dead",
       "reason": "quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-10T23:28:01Z)"
-    },
-    {
-      "name": "Detskiy (576p)",
-      "country": "Russia",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1033/tracks-v1a1/mono.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "Disney Channel (Bulgaria)",
@@ -26138,18 +25934,6 @@
       "reason": "quarantined: HTTP 404 (failed the deep check 2x, last 2026-10-15T22:37:50Z)"
     },
     {
-      "name": "Nickelodeon CIS (1080p)",
-      "country": "Kazakhstan",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1500/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
       "name": "Nickelodeon Latin America (1080p)",
       "country": "USA",
       "group": "Kids",
@@ -26170,18 +25954,6 @@
         "m3u"
       ],
       "url": "https://jmp2.uk/plu-6202a7fcfb1b100008811f54.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Nicktoons CIS (1080p)",
-      "country": "Russia",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1502/playlist.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -26254,6 +26026,18 @@
         "iptv-org"
       ],
       "url": "http://213.91.179.28:8000/play/a06e",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "Ryzhiy (576i)",
+      "country": "Russia",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1407/tracks-v1a1/mono.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -26669,14 +26453,14 @@
       "reason": "HTTP 404"
     },
     {
-      "name": "Canal 15 El Zamorano [Not 24/7]",
+      "name": "Canal 2 (El Salvador) (720p)",
       "country": "El Salvador",
       "group": "North America",
       "source": "iptv-org",
       "sources": [
         "iptv-org"
       ],
-      "url": "https://vdo.tecnoservix.stream:3007/live/canal15zamoranolive.m3u8",
+      "url": "http://186.33.26.18:8000/play/a0qp/index.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -26725,18 +26509,6 @@
         "iptv-org"
       ],
       "url": "http://138.117.4.70:8075/Canal06_CooTel/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "Canal 70 (720p)",
-      "country": "Dominican Republic",
-      "group": "North America",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://183.bozztv.com/giatv/giatv-cnal70tv/cnal70tv/playlist.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -27163,18 +26935,6 @@
         "iptv-org"
       ],
       "url": "https://5caf24a595d94.streamlock.net:1937/stream56/stream56/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "RTV Católica Canal 40 (1080p)",
-      "country": "El Salvador",
-      "group": "North America",
-      "source": "openstream",
-      "sources": [
-        "openstream"
-      ],
-      "url": "https://stream.giostreaming.app/canal40/canal40.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -28254,7 +28014,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv10hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-7 (720p)",
@@ -28267,7 +28027,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv7hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-World Geography SD (1080p)",
@@ -28280,18 +28040,6 @@
       "url": "http://38.75.136.137:98/gslb/dsdqpub/sjdl.m3u8?auth=%5Bredacted%5D",
       "status": "dead",
       "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
-    },
-    {
-      "name": "Collier County Public Schools CCPS Education Channel (Naples FL) (480p)",
-      "country": "USA",
-      "group": "Education",
-      "source": "openstream",
-      "sources": [
-        "openstream"
-      ],
-      "url": "https://watch.collierschools.com/EducationChannel/educhannel.stream/playlist.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
     },
     {
       "name": "DidikTV KPM (1080p) [Geo-blocked]",
@@ -28314,18 +28062,6 @@
         "iptv-org"
       ],
       "url": "https://raw.githubusercontent.com/racitonsen/RacIPTV/refs/heads/main/streams/english-club-global.m3u8",
-      "status": "dead",
-      "reason": "HTTP 404"
-    },
-    {
-      "name": "English Club TV (576i)",
-      "country": "UK",
-      "group": "Education",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1442/tracks-v1a1/mono.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -28598,7 +28334,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv8hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "Channel S (Bangladesh)",
@@ -28772,6 +28508,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Imai TV (1080p)",
+      "country": "Sri Lanka",
+      "group": "Culture",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "IRIB 4",
       "country": "Iran",
       "group": "Culture",
@@ -28897,6 +28645,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Somos Entre Rios (360p)",
+      "country": "Argentina",
+      "group": "Culture",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://live20.bozztv.com/akamaissh101/ssh101/somosentrerios/playlist.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "Teatro TV (720p)",
       "country": "Italy",
       "group": "Culture",
@@ -28932,6 +28692,18 @@
       "url": "https://5f2c1b0d880e5.streamlock.net/tv42/tv42.smil/.m3u8",
       "status": "dead",
       "reason": "quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-10-15T22:37:50Z)"
+    },
+    {
+      "name": "BBC Parliament",
+      "country": "UK",
+      "group": "Legislative",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/bbc/stream/BBC_PARLIAMENT/hevc_iptv_mse_v0.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "Brevard Government Access TV (720p)",
@@ -29383,6 +29155,18 @@
         "iptv-org"
       ],
       "url": "https://goliveafrica.media:9998/live/64d21e682fd26/index.m3u8",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
+      "name": "A12 TV",
+      "country": "Ivory Coast",
+      "group": "Africa",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://video1.getstreamhosting.com:1936/8250/8250/manifest.m3u8",
       "status": "dead",
       "reason": "HTTP 404"
     },
@@ -30242,7 +30026,7 @@
       ],
       "url": "http://74.91.26.218:82/live/cctv2hd.m3u8",
       "status": "dead",
-      "reason": "quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-10-10T23:28:01Z)"
+      "reason": "html page, not a stream"
     },
     {
       "name": "CCTV-Nostalgia Theater (1080p)",
@@ -32011,6 +31795,18 @@
       "reason": "HTTP 404"
     },
     {
+      "name": "Canal Sur",
+      "country": "Spain",
+      "group": "Public TV",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/zapitv/stream/CANAL_SUR/canal_sur_hd.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
+    },
+    {
       "name": "CMM TV HD (1080p)",
       "country": "Spain",
       "group": "Public TV",
@@ -32033,6 +31829,18 @@
       "url": "https://directes-tv-int.3catdirectes.cat/live-origin/esport3-hls/master.m3u8",
       "status": "dead",
       "reason": "quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-10-10T23:28:01Z)"
+    },
+    {
+      "name": "La 1 (1086p)",
+      "country": "Spain",
+      "group": "Public TV",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://cdn.stmify.com/zapitv/stream/LA_1/la1_4k.mpd",
+      "status": "dead",
+      "reason": "HTTP 404"
     },
     {
       "name": "La 1 (720p)",
@@ -34151,6 +33959,31 @@
       "url": "https://lb.iptvnetwork.net/ls28/10041/playlist.m3u8",
       "status": "unverified",
       "reason": "gaierror"
+    },
+    {
+      "name": "ESPN (United States) (432p)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/espn/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "ESPNEWS",
+      "country": "USA",
+      "group": "Sports",
+      "source": "doms9",
+      "sources": [
+        "doms9",
+        "iptv-org"
+      ],
+      "url": "http://41.205.93.154/ESPNNEWS/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Esport3 (1080p) [Geo-blocked]",
@@ -36890,6 +36723,19 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "NFL Network",
+      "country": "USA",
+      "group": "Sports",
+      "source": "priority-channels",
+      "sources": [
+        "priority-channels",
+        "doms9"
+      ],
+      "url": "https://tvsen6.aynaott.com/nfl/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "[NFL] Panthers vs Eagles (WEBCAST)",
       "country": "USA",
       "group": "Sports",
@@ -37936,30 +37782,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Sky Sports F1 (720p)",
-      "country": "UK",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/out/v1/SKY_SPORTS_F1/index.m3u8",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
-      "name": "Sky Sports NFL (720p)",
-      "country": "UK",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/out/v1/SKY_SPORTS_ACTION/index.m3u8",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
       "name": "Sky Sports Racing",
       "country": "UK",
       "group": "Sports",
@@ -37970,54 +37792,6 @@
       "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc333/playlist.m3u8?token=%5Bredacted%5D",
       "status": "unverified",
       "reason": "HTTP 503"
-    },
-    {
-      "name": "Sony Sports Ten 1 (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a01c/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Sony Sports Ten 2 (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a01b/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Sony Sports Ten 4 Kannada (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a021/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Sony Sports Ten 5 (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a028/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Spiler 1",
@@ -38212,6 +37986,30 @@
       "reason": "HTTP 503"
     },
     {
+      "name": "Sportitalia 24 (720p) [Geo-blocked]",
+      "country": "Italy",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:silive24.smil/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
+      "name": "Sportitalia Motori (720p) [Geo-blocked]",
+      "country": "Italy",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://di-yx2saj20.vo.lswcdn.net/sportitalia/smil:simotori.smil/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "Sportitalia Solocalcio (1080p)",
       "country": "Italy",
       "group": "Sports",
@@ -38333,74 +38131,14 @@
       "reason": "HTTP 503"
     },
     {
-      "name": "Star Sports 1 (576p)",
+      "name": "Star Sports 2 HD (720p)",
       "country": "India",
       "group": "Sports",
       "source": "iptv-org",
       "sources": [
         "iptv-org"
       ],
-      "url": "http://103.151.60.162:2122/play/a01a/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Star Sports 2 (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a00v/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Star Sports 2 Telugu HD (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://real-vk.proxy.nellaiiptv.com/SDMEDIA/index.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Star Sports 3 (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a029/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Star Sports Select 1 HD (1080p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a026/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Star Sports Select 2 HD (1080p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a027/index.m3u8?hls=",
+      "url": "http://tvsen5.aynascope.net/cXPB2LKkErN9/index.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -38499,18 +38237,6 @@
         "free-tv"
       ],
       "url": "https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Ten Cricket (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a0fj/index.m3u8?hls=",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -38623,18 +38349,6 @@
       "reason": "HTTP 503"
     },
     {
-      "name": "Trace Sport Stars Russia (720p)",
-      "country": "France",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1274/tracks-v1a1/mono.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "TRT Spor (720p)",
       "country": "Turkey",
       "group": "Sports",
@@ -38659,14 +38373,14 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "TSN 5",
+      "name": "TSN 4",
       "country": "Canada",
       "group": "Sports",
       "source": "doms9",
       "sources": [
         "doms9"
       ],
-      "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc179/playlist.m3u8?token=%5Bredacted%5D",
+      "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2a81d8192bb76cc177/playlist.m3u8?token=%5Bredacted%5D",
       "status": "unverified",
       "reason": "HTTP 503"
     },
@@ -38743,18 +38457,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Unite8 Sports 2 (576p)",
-      "country": "India",
-      "group": "Sports",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a01m/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "Vital Drive",
       "country": "Russia",
       "group": "Sports",
@@ -38789,6 +38491,18 @@
       "url": "https://mediapackage-azf1-source.fullscreen.nz/index.m3u8",
       "status": "unverified",
       "reason": "gaierror"
+    },
+    {
+      "name": "Willow (720p)",
+      "country": "USA",
+      "group": "Sports",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen5.aynascope.net/willowhd/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "☆ World Surf League 🇺🇸 🏄",
@@ -39188,6 +38902,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "HGTV (United States) (720p)",
+      "country": "USA",
+      "group": "Lifestyle",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/hgtv/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Hunan Womens Channel [Geo-blocked]",
       "country": "China",
       "group": "Lifestyle",
@@ -39197,7 +38923,7 @@
       ],
       "url": "http://35848.hlsplay.aodianyun.com/guangdianyun_35848/tv_channel_349.m3u8",
       "status": "unverified",
-      "reason": "HTTP 403"
+      "reason": "TimeoutError"
     },
     {
       "name": "Italian Fishing TV",
@@ -39233,7 +38959,7 @@
       ],
       "url": "https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/0a76740c72b74fabae611845aa21e06a/index.m3u8",
       "status": "unverified",
-      "reason": "TimeoutError"
+      "reason": "HTTP 567"
     },
     {
       "name": "Jilin Rural Channel",
@@ -39270,6 +38996,18 @@
       "url": "https://fhs8036.bd-61.ktcdn.co.kr/klive/smil:klive.smil/playlist.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
+    },
+    {
+      "name": "Lifetime",
+      "country": "USA",
+      "group": "Lifestyle",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb247/playlist.m3u8?token=%5Bredacted%5D",
+      "status": "unverified",
+      "reason": "HTTP 503"
     },
     {
       "name": "Luxe TV (1080p)",
@@ -39352,18 +39090,6 @@
         "iptv-org"
       ],
       "url": "http://91.226.120.120/chid210/tracks-v1a1/mono.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "MRTV Farmer",
-      "country": "Myanmar",
-      "group": "Lifestyle",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://mrtvott.com/cache/MRTV-FARMER/master.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -39632,18 +39358,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Travelxp HD (1080p)",
-      "country": "India",
-      "group": "Lifestyle",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a01s/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "Turismo RDTV (720p)",
       "country": "Dominican Republic",
       "group": "Lifestyle",
@@ -39812,18 +39526,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "Zdorovoe TV (576p)",
-      "country": "Russia",
-      "group": "Lifestyle",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1428/tracks-v1a1/mono.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "Zhivi! (1080p)",
       "country": "Russia",
       "group": "Lifestyle",
@@ -39832,6 +39534,31 @@
         "iptv-org"
       ],
       "url": "http://31.148.48.15/Zhivi/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Fox",
+      "country": "USA",
+      "group": "Fox Channels",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://tvsen6.aynaott.com/fox5/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Fox Business",
+      "country": "USA",
+      "group": "Fox Channels",
+      "source": "doms9",
+      "sources": [
+        "doms9",
+        "iptv-org"
+      ],
+      "url": "https://tvsen6.aynaott.com/foxbusiness/index.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -39884,6 +39611,19 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Bravo TV",
+      "country": "USA",
+      "group": "NBC",
+      "source": "doms9",
+      "sources": [
+        "doms9",
+        "iptv-org"
+      ],
+      "url": "http://41.205.93.154/BRAVO/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "CNBC Indonesia",
       "country": "Indonesia",
       "group": "NBC",
@@ -39894,18 +39634,6 @@
       "url": "https://live.cnbcindonesia.com/livecnbc/smil:cnbctv.smil/chunklist.m3u8",
       "status": "unverified",
       "reason": "RemoteDisconnected"
-    },
-    {
-      "name": "Cozi TV",
-      "country": "USA",
-      "group": "NBC",
-      "source": "doms9",
-      "sources": [
-        "doms9"
-      ],
-      "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb37f/playlist.m3u8?token=%5Bredacted%5D",
-      "status": "unverified",
-      "reason": "HTTP 503"
     },
     {
       "name": "NBC 1 [Not 24/7]",
@@ -40004,6 +39732,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Golf Channel",
+      "country": "USA",
+      "group": "NBC Sports Channels",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://tvsen6.aynaott.com/golfchannel/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Anime Vision (1080p)",
       "country": "Spain",
       "group": "Cartoons",
@@ -40040,6 +39780,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Cartoon Network",
+      "country": "South Korea",
+      "group": "Cartoons",
+      "source": "aria",
+      "sources": [
+        "aria"
+      ],
+      "url": "https://live-th10.myjktv.com/watch/live.m3u8?video=cartoon_network_540&sid=ibruDlwcarLe4hNycOeEqeww9RLddOcBkRHP5OU3&secret=%5Bredacted%5D&time=1771648839",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "Cartoon Network Latin America North Atlantic (1080p)",
       "country": "USA",
       "group": "Cartoons",
@@ -40048,6 +39800,18 @@
         "iptv-org"
       ],
       "url": "http://38.252.238.18:8000/play/a053/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Cartoon Network (United States) (720p)",
+      "country": "USA",
+      "group": "Cartoons",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/cartoonnetwork/index.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -40809,19 +40573,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Andorra TV (1080p)",
-      "country": "Andorra",
-      "group": "International",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "free-tv"
-      ],
-      "url": "https://livesg1.rtva.hiway.media/11a6d6f4-ee13-47c7-9c27-7313cf5424e2/manifest.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "Anibox",
       "country": "South Korea",
       "group": "International",
@@ -40844,18 +40595,6 @@
       "url": "http://177.10.184.193:8000/play/a06a/index.m3u8",
       "status": "unverified",
       "reason": "ConnectionRefusedError"
-    },
-    {
-      "name": "Antena 3",
-      "country": "Spain",
-      "group": "International",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/zapitv/stream/ANTENA_3/test.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "Antenna Sud (720p)",
@@ -41179,6 +40918,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Canale 21 Extra",
+      "country": "Italy",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://ch21extra-cdn.encoders.immergo.tv/master.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 502"
+    },
+    {
       "name": "Canale 5",
       "country": "Italy",
       "group": "International",
@@ -41443,18 +41194,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "Egnatia",
-      "country": "Greece",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://video.streams.ovh:1936/egnatiatv/egnatiatv/index.m3u",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "El 33 Ⓖ",
       "country": "Spain",
       "group": "International",
@@ -41538,18 +41277,6 @@
       "url": "https://directes-tv-es.3catdirectes.cat/live-origin/esport3-hls/master.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "Falestinona Channel",
-      "country": "Lebanon",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://ffs3.gulfsat.com/Falestinona-TV/index.fmp4.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 503"
     },
     {
       "name": "Federalna televizija (FTV) Ⓢ",
@@ -41950,18 +41677,6 @@
       "url": "https://restreamer1.tnt.ba/hls/kanal6.m3u8",
       "status": "unverified",
       "reason": "OSError"
-    },
-    {
-      "name": "KBS World (720p)",
-      "country": "South Korea",
-      "group": "International",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1448/playlist.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Keshet 12",
@@ -42436,6 +42151,30 @@
       "reason": "gaierror"
     },
     {
+      "name": "Nova Action",
+      "country": "Czechia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=NovaAction",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Nova Gold",
+      "country": "Czechia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=NovaGold",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "NOVA LADY",
       "country": "Czechia",
       "group": "International",
@@ -42446,6 +42185,18 @@
       "url": "http://185.236.230.212:9981/play/a0bl",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "Nova Lady",
+      "country": "Czechia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=NovaLady",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "NRT 4 Monclova",
@@ -42468,6 +42219,30 @@
         "free-tv"
       ],
       "url": "https://cdn1tlinkgo.tlink.cl/ntvhd/mono.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Odeon 24",
+      "country": "Italy",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://streaming.softwarecreation.it/Odeon/Odeon/manifest.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Odeon 24 (576p)",
+      "country": "Italy",
+      "group": "International",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://5f11919dca3bd.streamlock.net/odeonjump/_definst_/odeonjump/playlist.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -42629,6 +42404,18 @@
       "reason": "gaierror"
     },
     {
+      "name": "Pop TV",
+      "country": "USA",
+      "group": "International",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb269/playlist.m3u8?token=%5Bredacted%5D",
+      "status": "unverified",
+      "reason": "HTTP 503"
+    },
+    {
       "name": "Pos TV",
       "country": "Georgia",
       "group": "International",
@@ -42653,6 +42440,18 @@
       "reason": "HTTP 503"
     },
     {
+      "name": "Prima Krimi",
+      "country": "Czechia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=PrimaKrimi",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Prima Max",
       "country": "Czechia",
       "group": "International",
@@ -42663,6 +42462,18 @@
       "url": "http://88.212.15.19/live/test_prima_max_cz/playlist.m3u8",
       "status": "unverified",
       "reason": "HTTP 503"
+    },
+    {
+      "name": "Prima MAX",
+      "country": "Czechia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=PrimaMax",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Puntland TV (720p)",
@@ -42796,6 +42607,18 @@
       "url": "http://145.239.5.177/333/index.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "Roma Tv 82",
+      "country": "Italy",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://streaming.softwarecreation.it/RomaCH71/RomaCH71/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "România TV Ⓖ",
@@ -43063,6 +42886,18 @@
       "reason": "gaierror"
     },
     {
+      "name": "SBS",
+      "country": "South Korea",
+      "group": "International",
+      "source": "aria",
+      "sources": [
+        "aria"
+      ],
+      "url": "http://1.222.207.80:1935/live/cjbtv/chunklist_w1357270949.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "SIC (1080p) [Geo-blocked]",
       "country": "Portugal",
       "group": "International",
@@ -43231,6 +43066,30 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "STVR :24",
+      "country": "Slovakia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=STVR+%3A24",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "STVR Live",
+      "country": "Slovakia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=STVR+Live",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Suryoyo Sat",
       "country": "Sweden",
       "group": "International",
@@ -43277,6 +43136,19 @@
       "url": "https://svt-live-channel.akamaized.net/l6/se/svtb/manifest.mpd?format=dash&defaultSubLang=1",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "T9 (288p)",
+      "country": "Italy",
+      "group": "International",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org",
+        "free-tv"
+      ],
+      "url": "https://streaming.softwarecreation.it/tnove/tnove/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Tchad 24",
@@ -43659,6 +43531,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "TN Live",
+      "country": "Czechia",
+      "group": "International",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=Nova+TN+Live",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Top Calcio 24",
       "country": "Italy",
       "group": "International",
@@ -43719,18 +43603,6 @@
       "url": "https://ranapkz.site/RANAPK33k/TVD/play.php?id=195",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "TRT Belgesel",
-      "country": "Turkey",
-      "group": "International",
-      "source": "free-tv",
-      "sources": [
-        "free-tv"
-      ],
-      "url": "https://tv-trtbelgesel-dai.medya.trt.com.tr/master.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 503"
     },
     {
       "name": "TRT Spor Ⓖ",
@@ -44277,18 +44149,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "101tv Malaga",
-      "country": "Spain",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://liveingesta318.cdnmedia.tv/101weblive/smil:malaga.smil/playlist.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": ":24 (1080p)",
       "country": "Slovakia",
       "group": "News",
@@ -44542,6 +44402,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Assam Talks (576p)",
+      "country": "India",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/AssamTalks/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Bada Khabar (576p)",
       "country": "India",
       "group": "News",
@@ -44591,18 +44463,6 @@
       "reason": "HTTP 401"
     },
     {
-      "name": "BBC Alba",
-      "country": "UK",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_ALBA/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
       "name": "☆ BBC Comedy 🇬🇧 (vᴘɴ 🇺🇸)",
       "country": "USA",
       "group": "News",
@@ -44625,18 +44485,6 @@
       "url": "https://bbceu-doctorwho-1-it.samsung.wurl.tv/playlist.m3u8",
       "status": "unverified",
       "reason": "gaierror"
-    },
-    {
-      "name": "BBC Four",
-      "country": "UK",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_FOUR/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "BBC News Ⓖ",
@@ -44685,18 +44533,6 @@
       "url": "http://45.153.96.44:8001",
       "status": "unverified",
       "reason": "TimeoutError"
-    },
-    {
-      "name": "BBC One",
-      "country": "UK",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_ONE_LONDON/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "BBC One Channel Islands (720p) [Geo-blocked]",
@@ -45239,18 +45075,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "BBC Scotland",
-      "country": "UK",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_SCOTLAND/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
       "name": "BBC Three (720p) [Geo-blocked]",
       "country": "UK",
       "group": "News",
@@ -45261,18 +45085,6 @@
       "url": "https://vs-cmaf-pushb-uk-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_three_hd/iptv_hd_abr_v1.mpd",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "BBC Three HD",
-      "country": "UK",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_THREE/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "BBC Two HD (720p)",
@@ -45287,18 +45099,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "BBC Two Northern Ireland",
-      "country": "UK",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_TWO_NORTHERN_IRELAND/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
       "name": "BBC Two Northern Ireland HD (720p) [Geo-blocked]",
       "country": "UK",
       "group": "News",
@@ -45309,18 +45109,6 @@
       "url": "https://vs-cmaf-pushb-uk-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_two_northern_ireland_hd/iptv_hd_abr_v1.mpd",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "BBC Two Wales",
-      "country": "UK",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_TWO_WALES/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "Berita RTM [Geo-blocked]",
@@ -45492,18 +45280,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "BTV News (720p)",
-      "country": "Cambodia",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://live-evg2.tv360.metfone.com.kh/livetest/bayontest.stream/playlist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "BX Inform (1080p)",
       "country": "USA",
       "group": "News",
@@ -45564,6 +45340,18 @@
       "reason": "RemoteDisconnected"
     },
     {
+      "name": "CGTN العربية",
+      "country": "China",
+      "group": "News",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://arabic-livews.cgtn.com/hls/LSveq57bErWLinBnxosqjisZ220802LSTefTAS9zc9mpU08y3np9TH220802cd/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "CGTN Russian (1080p)",
       "country": "China",
       "group": "News",
@@ -45598,30 +45386,6 @@
       "url": "https://cs2.push2stream.com/CHANNELSTV-DVR/playlist.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "Cherniveckiy promin (720p)",
-      "country": "Ukraine",
-      "group": "News",
-      "source": "openstream",
-      "sources": [
-        "openstream"
-      ],
-      "url": "http://langate.tv/promin/live_720/index.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Cherniveckiy promin (720p)",
-      "country": "Ukraine",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://langate.tv/promin/live_720/index.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Cholusat Sur 36 (214p) [Not 24/7]",
@@ -45668,6 +45432,18 @@
         "iptv-org"
       ],
       "url": "http://163.61.227.29:8000/play/a02r/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "CNN (720p)",
+      "country": "USA",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -45853,19 +45629,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "Egnatia TV (576p)",
-      "country": "Greece",
-      "group": "News",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://video.streams.ovh:1936/egnatiatv/egnatiatv/index.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "ETV Andhra Pradesh (1080p)",
       "country": "India",
       "group": "News",
@@ -45888,6 +45651,18 @@
       "url": "https://d37d7pfp7vjqhh.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_TS_H264_cloud_in/index.m3u8",
       "status": "unverified",
       "reason": "gaierror"
+    },
+    {
+      "name": "Fox News Channel (1080p)",
+      "country": "USA",
+      "group": "News",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://tvsen6.aynaott.com/foxnews/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "France 24 English HD (1080p)",
@@ -46217,14 +45992,14 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "MRTV News",
-      "country": "Myanmar",
+      "name": "MS NOW (432p)",
+      "country": "USA",
       "group": "News",
       "source": "iptv-org",
       "sources": [
         "iptv-org"
       ],
-      "url": "https://mrtvott.com/cache/MRTV-NEWS-HD/master.m3u8",
+      "url": "https://tvsen6.aynaott.com/msnbc/index.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -47062,6 +46837,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "All Time Movies (576p)",
+      "country": "India",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "alpha Cinema (1080p)",
       "country": "Russia",
       "group": "Movies",
@@ -47242,18 +47029,6 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "AXN Movies (Spain)",
-      "country": "Spain",
-      "group": "Movies",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/zapitv/stream/AXN_MOVIES/axn_white.mpd",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
       "name": "AXN (Portugal) (1080p)",
       "country": "Portugal",
       "group": "Movies",
@@ -47324,6 +47099,18 @@
       "url": "https://nord.ayakkabiparti.lol/bsturk/index.m3u8",
       "status": "unverified",
       "reason": "gaierror"
+    },
+    {
+      "name": "Bflix Movies (576p)",
+      "country": "India",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://103.151.60.162:2122/play/a01e/index.m3u8?hls=",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Bizzarro Movies",
@@ -47625,6 +47412,30 @@
       "url": "http://live2.rxip.sc96655.com/live/zxs_4000.m3u8?A=&E=&K=&P=&S=&U=",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "Colors Bangla Cinema (576p)",
+      "country": "India",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://103.151.60.162:2122/play/a02m/index.m3u8?hls=",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Colors Cineplex HD (1080p)",
+      "country": "India",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://103.151.60.162:2122/play/a02s/index.m3u8?hls=",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "CS FILM",
@@ -48371,6 +48182,30 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "HBO Hits (720p)",
+      "country": "USA",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/hbo2/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "HBO (United States) (720p)",
+      "country": "USA",
+      "group": "Movies",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/hbo/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Hit HD (1080p)",
       "country": "Russia",
       "group": "Movies",
@@ -48453,6 +48288,18 @@
       "url": "https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/906341e6f19b4c4bacdc89941eb85d12/index.m3u8",
       "status": "unverified",
       "reason": "HTTP 567"
+    },
+    {
+      "name": "JOJ Cinema",
+      "country": "Czechia",
+      "group": "Movies",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=JOJ+Cinema",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "JOJ CINEMA HD",
@@ -48791,6 +48638,18 @@
       "reason": "HTTP 504"
     },
     {
+      "name": "Nova Cinema",
+      "country": "Czechia",
+      "group": "Movies",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=NovaCinema",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Novyi Russkii (720p)",
       "country": "Russia",
       "group": "Movies",
@@ -49117,6 +48976,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Sportitalia LIVE24",
+      "country": "Italy",
+      "group": "Movies",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://di-g7ij0rwh.vo.lswcdn.net/sportitalia/silive24.smil/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "Star Channel (Bulgaria) (720p)",
       "country": "Bulgaria",
       "group": "Movies",
@@ -49151,18 +49022,6 @@
       "url": "http://92.36.202.5:10001/play/a01s",
       "status": "unverified",
       "reason": "ConnectionRefusedError"
-    },
-    {
-      "name": "Star Gold 2 HD (1080p)",
-      "country": "India",
-      "group": "Movies",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a01v/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Star Movies (Portugal)",
@@ -49237,6 +49096,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Starz Encore Westerns",
+      "country": "USA",
+      "group": "Movies",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb28c/playlist.m3u8?token=%5Bredacted%5D",
+      "status": "unverified",
+      "reason": "HTTP 503"
+    },
+    {
       "name": "Stories – Rakuten TV",
       "country": "Italy",
       "group": "Movies",
@@ -49247,18 +49118,6 @@
       "url": "https://rakuten-spotlight-6-eu.rakuten.wurl.tv/playlist.m3u8",
       "status": "unverified",
       "reason": "gaierror"
-    },
-    {
-      "name": "Sundance TV (Spain)",
-      "country": "Spain",
-      "group": "Movies",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/zapitv/stream/SUNDANCE_TV/sundance_hd.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "SuperToons TV",
@@ -49401,18 +49260,6 @@
         "iptv-org"
       ],
       "url": "http://58.8.186.128:10003/bysid/2326",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "&TV (576p)",
-      "country": "India",
-      "group": "Movies",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a020/index.m3u8?hls=",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -49585,18 +49432,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Zee Cinema HD (1080p)",
-      "country": "India",
-      "group": "Movies",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "http://103.151.60.162:2122/play/a024/index.m3u8?hls=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "Zee South Flix (1080p)",
       "country": "India",
       "group": "Movies",
@@ -49621,16 +49456,28 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "9 la Loma TV (1080p) [Geo-blocked]",
+      "name": "101tv Sevilla",
       "country": "Spain",
       "group": "Europe",
       "source": "iptv-org",
       "sources": [
         "iptv-org"
       ],
-      "url": "https://9laloma.tv/live.m3u8",
+      "url": "https://liveingesta318.cdnmedia.tv/101weblive/smil:sevilla.smil/playlist.m3u8",
       "status": "unverified",
-      "reason": "HTTP 403"
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "50 Canale",
+      "country": "Italy",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://load-balancer.azotosolutions.com/cdnedge37/canale50/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Alsat [Geo-blocked]",
@@ -49912,6 +49759,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Canal Reus TV (720p)",
+      "country": "Spain",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://liveingesta318.cdnmedia.tv/canalreustvlive/smil:live.smil/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Canal Zoom [Geo-blocked]",
       "country": "Belgium",
       "group": "Europe",
@@ -50033,6 +49892,18 @@
       "reason": "HTTP 503"
     },
     {
+      "name": "Cugat TV (1080p)",
+      "country": "Spain",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://liveingesta318.cdnmedia.tv/cugatcatlive/smil:rtmp01.smil/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Daru TV (720p)",
       "country": "Hungary",
       "group": "Europe",
@@ -50129,18 +50000,6 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "El 9 TV (1080p)",
-      "country": "Spain",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://liveingesta318.cdnmedia.tv/9tvlive/smil:live.smil/playlist.m3u8?DVR=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "eQtv",
       "country": "Ukraine",
       "group": "Europe",
@@ -50187,19 +50046,6 @@
       "url": "rtmp://89.28.25.122/live/tnt_md",
       "status": "unverified",
       "reason": "not probed: unsupported scheme rtmp"
-    },
-    {
-      "name": "Faros TV2 (480p) [Geo-blocked]",
-      "country": "Greece",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://s1.cystream.net/live/faros2/playlist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
     },
     {
       "name": "Fieri Tv (720p)",
@@ -50348,18 +50194,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Insayt TV (2160p)",
-      "country": "Russia",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1416/tracks-v1a1/mono.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "Jednotka",
       "country": "Slovakia",
       "group": "Europe",
@@ -50420,6 +50254,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Kongress TV (1080p)",
+      "country": "Russia",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://live-3.otcnet.ru/congresstv/index.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 503"
+    },
+    {
       "name": "LA7d (720p)",
       "country": "Italy",
       "group": "Europe",
@@ -50428,6 +50274,18 @@
         "iptv-org"
       ],
       "url": "https://d15umi5iaezxgx.cloudfront.net/LA7D/CLN/HLS-B/Live.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
+      "name": "labor14 (720p)",
+      "country": "Germany",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://5acade5fc0c29.streamlock.net/OKGera/tmbz_live_high.stream/playlist.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
     },
@@ -50889,18 +50747,6 @@
         "iptv-org"
       ],
       "url": "https://pravdatytkievshina.cdn-02.cosmonova.net.ua/hls/pravdatytkievshina_ua.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Priklyucheniya (576p)",
-      "country": "Russia",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1420/tracks-v1a1/mono.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -51771,6 +51617,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Steiermark TV (1080p)",
+      "country": "Austria",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://h056.video-stream-hosting.de/easycast8-live/_definst_/mp4:livestreamhd4/playlist.m3u8?ref=",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "Story4",
       "country": "Hungary",
       "group": "Europe",
@@ -52063,6 +51921,18 @@
       "reason": "HTTP 502"
     },
     {
+      "name": "teltOwkanal (1080p)",
+      "country": "Germany",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://h056.video-stream-hosting.de/easycast8-live/_definst_/mp4:livestreamhd8/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "Teva (1080p)",
       "country": "France",
       "group": "Europe",
@@ -52073,6 +51943,18 @@
       "url": "http://145.239.5.177/356/index.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "Tilemousiki",
+      "country": "Greece",
+      "group": "Europe",
+      "source": "openstream",
+      "sources": [
+        "openstream"
+      ],
+      "url": "https://live20.bozztv.com/akamaissh101/ssh101/tilemousiki/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 502"
     },
     {
       "name": "Timeless Dizi Channel (Poland) (1080p)",
@@ -52363,18 +52245,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "TV Ripolles (1080p)",
-      "country": "Spain",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://liveingesta318.cdnmedia.tv/tvripolleslive/smil:live.smil/playlist.m3u8?DVR=",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "TV Sen (540p)",
       "country": "Slovakia",
       "group": "Europe",
@@ -52663,6 +52533,18 @@
       "reason": "HTTP 401"
     },
     {
+      "name": "TVP1 (1080i) [Geo-blocked]",
+      "country": "Poland",
+      "group": "Europe",
+      "source": "openstream",
+      "sources": [
+        "openstream"
+      ],
+      "url": "https://cdndai.pl/tvp1hd/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "TVT (Poland) (720p)",
       "country": "Poland",
       "group": "Europe",
@@ -52722,18 +52604,6 @@
       "url": "https://vgtrkregion-reg.cdnvideo.ru/vgtrk/chelyabinsk/ural24-hd/index.m3u8",
       "status": "unverified",
       "reason": "gaierror"
-    },
-    {
-      "name": "Valles Visio (1080p)",
-      "country": "Spain",
-      "group": "Europe",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://liveingesta318.cdnmedia.tv/vallesvisiotvlive/smil:live.smil/playlist.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Vedia (1080p)",
@@ -52998,6 +52868,18 @@
         "iptv-org"
       ],
       "url": "http://31.148.48.15/Zoo_TV/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Zoopark (576i)",
+      "country": "Russia",
+      "group": "Europe",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1417/tracks-v1a1/mono.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -53590,6 +53472,19 @@
       "url": "https://6019dcac4147f.streamlock.net:9443/la98/Invosa/playlist.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
+    },
+    {
+      "name": "Lausitzwelle (1080p)",
+      "country": "Germany",
+      "group": "Music",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org",
+        "openstream"
+      ],
+      "url": "https://h056.video-stream-hosting.de/easycast11-live/_definst_/mp4:livestreamhd2/playlist.m3u8?ref=",
+      "status": "unverified",
+      "reason": "HTTP 403"
     },
     {
       "name": "M6 Music (720p)",
@@ -54607,6 +54502,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Aakaash Aath (576p)",
+      "country": "India",
+      "group": "Entertainment",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen5.aynascope.net/Wm9Lv2RjZGT6/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Aathavan TV (720p) [Not 24/7]",
       "country": "UK",
       "group": "Entertainment",
@@ -55465,6 +55372,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Jim (720p)",
+      "country": "Finland",
+      "group": "Entertainment",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://live-fi.tvkaista.net/jim/live.m3u8?hd=true",
+      "status": "unverified",
+      "reason": "RemoteDisconnected"
+    },
+    {
       "name": "Jocky TV",
       "country": "Hungary",
       "group": "Entertainment",
@@ -55584,6 +55503,18 @@
       "url": "http://88.212.15.19/live/m2_hun/index.m3u8",
       "status": "unverified",
       "reason": "HTTP 503"
+    },
+    {
+      "name": "Maasranga TV (720p)",
+      "country": "Bangladesh",
+      "group": "Entertainment",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen5.aynascope.net/maasrangatv/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Manoto",
@@ -56357,19 +56288,6 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "BAMOS TV (1080p) [Not 24/7]",
-      "country": "Mexico",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://video2.getstreamhosting.com:19360/8092/8092.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "Bhakthi Siri (576p)",
       "country": "India",
       "group": "Religious",
@@ -56635,110 +56553,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "God Stands TV",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/mainlive.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands TV Arabic",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/Arabic.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands TV Chinese",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/chineselive.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands TV English",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/EnglishStreaming.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands TV Hindi",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/HindiStreaming.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands TV Punjabi",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/PunjabiStreaming.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands TV Tagalog",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/Tagalog.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands TV Urdu",
-      "country": "Pakistan",
-      "group": "Religious",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/UrduStreaming.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "Good TV (South Korea) (1080p)",
       "country": "South Korea",
       "group": "Religious",
@@ -56943,14 +56757,14 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "Mahimai TV (576p)",
-      "country": "India",
+      "name": "Madani Channel English (720p)",
+      "country": "Pakistan",
       "group": "Religious",
       "source": "iptv-org",
       "sources": [
         "iptv-org"
       ],
-      "url": "https://mahimai.iptelevision.live/mahimaitv/video.m3u8",
+      "url": "http://tvsen7.aynascope.net/MadaniTV/index.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -57243,6 +57057,19 @@
       "reason": "SSLError"
     },
     {
+      "name": "Triunfo 96.9 FM (360p)",
+      "country": "Puerto Rico",
+      "group": "Religious",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org",
+        "openstream"
+      ],
+      "url": "https://59825a54e4454.streamlock.net:8443/william652/william652/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "TV 45 (720p) [Not 24/7]",
       "country": "Nicaragua",
       "group": "Religious",
@@ -57387,18 +57214,6 @@
       "reason": "TimeoutError"
     },
     {
-      "name": "Apsara TV11",
-      "country": "Cambodia",
-      "group": "Asia",
-      "source": "openstream",
-      "sources": [
-        "openstream"
-      ],
-      "url": "https://live-evg5.tv360.metfone.com.kh/app/stream/playlist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "Aqjaiyq (576p)",
       "country": "Kazakhstan",
       "group": "Asia",
@@ -57421,6 +57236,18 @@
       "url": "https://stream.kaztrk.kz/regional/aktobetv/index.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "ATN Bangla (720p)",
+      "country": "Bangladesh",
+      "group": "Asia",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen5.aynascope.net/atnbangla/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "ATV Avrupa (576p)",
@@ -57976,20 +57803,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "HLDR-DTV (540p) [Not 24/7]",
-      "country": "South Korea",
-      "group": "Asia",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "free-tv",
-        "openstream"
-      ],
-      "url": "http://1.222.207.80:1935/live/cjbtv/playlist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "HLKU-DTV (360p) [Not 24/7]",
       "country": "South Korea",
       "group": "Asia",
@@ -58274,6 +58087,19 @@
         "iptv-org"
       ],
       "url": "http://39.134.39.37/PLTV/88888888/224/3221226209/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Madaniyat va ma'rifat (576p)",
+      "country": "Uzbekistan",
+      "group": "Asia",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org",
+        "openstream"
+      ],
+      "url": "https://stream8.cinerama.uz/1005/tracks-v1a1/playlist.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -58579,18 +58405,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Radar Lampung TV (480p)",
-      "country": "Indonesia",
-      "group": "Asia",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://www.streaming.radartv.co.id/hls/test.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "Rasmey Hang Meas HDTV",
       "country": "Cambodia",
       "group": "Asia",
@@ -58698,6 +58512,18 @@
       "url": "https://rthktv34-live.akamaized.net/hls/live/2101642/RTHKTV34/master.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "RTV (Bangladesh) (720p)",
+      "country": "Bangladesh",
+      "group": "Asia",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen5.aynascope.net/RtvHD/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "RTV (South Korea) (720p)",
@@ -58950,6 +58776,18 @@
       "url": "https://bcovlive-a.akamaihd.net/rce33d845cb9e42dfa302c7ac345f7858/ap-northeast-1/6282251407001/playlist.m3u8",
       "status": "unverified",
       "reason": "HTTP 503"
+    },
+    {
+      "name": "Taraqqiyot TV",
+      "country": "Uzbekistan",
+      "group": "Asia",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1204/tracks-v1a1/mono.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "TDM-Macau Satellite (720p)",
@@ -59888,18 +59726,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Emisora Comunitaria 104.1 FM",
-      "country": "Colombia",
-      "group": "South America",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://104florencia.co/wp-admin/admin-ajax.php?action=frp_hls_proxy&url=https%3A%2F%2Fstreamyes.alsolnet.com%2Fcomunitariafm%2Flive%2Fplaylist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "Evavision",
       "country": "Chile",
       "group": "South America",
@@ -59936,6 +59762,18 @@
       "reason": "ConnectionRefusedError"
     },
     {
+      "name": "Genios TV (1080p)",
+      "country": "Peru",
+      "group": "South America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://sc3.wasidata.com/Genios2_1902/video.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 503"
+    },
+    {
       "name": "GlobalTV (480p) [Not 24/7]",
       "country": "Venezuela",
       "group": "South America",
@@ -59970,18 +59808,6 @@
       "url": "https://s2.tvdatta.com:3858/live/gm7digitallive.m3u8",
       "status": "unverified",
       "reason": "ConnectionRefusedError"
-    },
-    {
-      "name": "Hechos Ecuador (1080p) [Not 24/7]",
-      "country": "Ecuador",
-      "group": "South America",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://online.hechosecuador.com:5443/WebRTCApp/streams/hechosecuador.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Huasco Television (360p)",
@@ -60440,6 +60266,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "TV Brasil Oeste (720p)",
+      "country": "Brazil",
+      "group": "South America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://5ad482a77183d.streamlock.net/operacaotbomt.com/operacaotbomt.com/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
       "name": "TV Carioca (720p)",
       "country": "Brazil",
       "group": "South America",
@@ -60572,19 +60410,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "TV Metropole (720p) [Not 24/7]",
-      "country": "Brazil",
-      "group": "South America",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://cdn-fundacao-2110.ciclano.io:1443/fundacao-2110/fundacao-2110/playlist.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "TV Mon (720p)",
       "country": "Brazil",
       "group": "South America",
@@ -60619,6 +60444,18 @@
       "url": "https://cdn-grupo-10049.ciclano.io:1443/grupo-10049/grupo-10049/playlist.m3u8",
       "status": "unverified",
       "reason": "gaierror"
+    },
+    {
+      "name": "TVes (1080p)",
+      "country": "Venezuela",
+      "group": "South America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://vs20.live.opencaster.com/tves_5fd18b1e/index.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
     },
     {
       "name": "TVM (Chile) (720p)",
@@ -61090,6 +60927,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Arsenal (576p)",
+      "country": "Russia",
+      "group": "Documentary",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1414/tracks-v1a1/mono.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "BBC Earth Hungary",
       "country": "UK",
       "group": "Documentary",
@@ -61198,6 +61047,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "CS History",
+      "country": "Czechia",
+      "group": "Documentary",
+      "source": "free-tv",
+      "sources": [
+        "free-tv"
+      ],
+      "url": "https://sktv.mxnticek.eu/new/stream.php?ch=CS+History",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "CT2",
       "country": "Czechia",
       "group": "Documentary",
@@ -61218,6 +61079,18 @@
         "m3u"
       ],
       "url": "https://jmp2.uk/stvp-IT31000026G",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
+      "name": "Discovery Channel",
+      "country": "South Korea",
+      "group": "Documentary",
+      "source": "aria",
+      "sources": [
+        "aria"
+      ],
+      "url": "https://live-th10.myjktv.com/watch/live.m3u8?video=discovery_540&sid=MMRDBICzkAZmBTDYPGvofmP3KM7rNouvgDL2ofkK&secret=%5Bredacted%5D&time=1771650286",
       "status": "unverified",
       "reason": "HTTP 403"
     },
@@ -61628,18 +61501,6 @@
       "url": "https://playmedia-playcrime-goplay-dash.amagi.tv/master.mpd",
       "status": "unverified",
       "reason": "gaierror"
-    },
-    {
-      "name": "Safari TV (576p)",
-      "country": "India",
-      "group": "Documentary",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://mumt04.tangotv.in/m18aqlK4SAFARITV/index.m3u8",
-      "status": "unverified",
-      "reason": "ConnectionRefusedError"
     },
     {
       "name": "Shandong TV Agricultural Science Channel (406p) [Geo-blocked]",
@@ -62122,18 +61983,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "CBBC HD",
-      "country": "UK",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/CBBC/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
       "name": "CBeebies (United Kingdom) (720p) [Geo-blocked]",
       "country": "UK",
       "group": "Kids",
@@ -62144,18 +61993,6 @@
       "url": "https://vs-cmaf-pushb-uk-live.akamaized.net/x=4/i=urn:bbc:pips:service:cbeebies_hd/iptv_hd_abr_v1.mpd",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "CBeebies (United Kingdom) HD",
-      "country": "UK",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/CBEEBIES/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "Clan Internacional (1080p)",
@@ -62204,6 +62041,18 @@
       "url": "https://cdn-5.nxplay.com.br/dcpc/index.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "Detskiy (576p)",
+      "country": "Russia",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1033/tracks-v1a1/mono.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Disney Channel (Czech Republic)",
@@ -62302,6 +62151,18 @@
       "reason": "SSLEOFError"
     },
     {
+      "name": "Disney Junior (United States) (480p)",
+      "country": "USA",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen5.aynascope.net/disney/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "DR Ramasjang (720p) [Geo-blocked]",
       "country": "Denmark",
       "group": "Kids",
@@ -62312,6 +62173,18 @@
       "url": "https://drlive03hls.akamaized.net/hls/live/2014190/drlive03/master.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "Duronto TV (720p)",
+      "country": "Bangladesh",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://tvsen6.aynaott.com/6xyZ3N4oHv2KBJdB6W4p/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Eureka (1080p) [Geo-blocked]",
@@ -62375,6 +62248,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Giggle Mug (576p)",
+      "country": "USA",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://tvsen6.aynaott.com/ytv/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "☆ GLN 🇧🇷",
       "country": "International",
       "group": "Kids",
@@ -62395,54 +62280,6 @@
         "iptv-org"
       ],
       "url": "http://45.235.0.78/Gloob/playlist.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands Kids Club TV",
-      "country": "Pakistan",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/kidsenglish.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands Kids Club TV Arabic",
-      "country": "Pakistan",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/KidsArabic.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands Kids Club TV Chinese",
-      "country": "Pakistan",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/KidsChinese.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "God Stands Kids Club TV Urdu",
-      "country": "Pakistan",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://online.godstands.tv:5443/WebRTCApp/streams/KidsUrdu.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -62529,6 +62366,18 @@
       "url": "https://d24p9tv2w5yorn.cloudfront.net/vod.m3u8",
       "status": "unverified",
       "reason": "HTTP 502"
+    },
+    {
+      "name": "Kids TV",
+      "country": "Indonesia",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://origin5.mediacdn.ru/live/kidstv/index.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 503"
     },
     {
       "name": "Kids Zone (720p)",
@@ -62759,6 +62608,18 @@
       "reason": "TimeoutError"
     },
     {
+      "name": "Nickelodeon CIS (1080p)",
+      "country": "Kazakhstan",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1500/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Nickelodeon (Czech Republic)",
       "country": "Czechia",
       "group": "Kids",
@@ -62829,6 +62690,30 @@
       "url": "https://onyx1.mofta1.cfd/nike/usergenm24qrnd.m3u8",
       "status": "unverified",
       "reason": "SSLEOFError"
+    },
+    {
+      "name": "Nickelodeon (United Kingdom) (576p)",
+      "country": "UK",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/nicklodean/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Nicktoons CIS (1080p)",
+      "country": "Russia",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1502/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Nicktoons (Czech Republic)",
@@ -62940,18 +62825,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Ryzhiy (576i)",
-      "country": "Russia",
-      "group": "Kids",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://stream8.cinerama.uz/1407/tracks-v1a1/mono.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
       "name": "SBT Kids (1080p) [Geo-blocked]",
       "country": "Brazil",
       "group": "Kids",
@@ -63048,6 +62921,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "TeenNick (United States) (432p)",
+      "country": "USA",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/teennick/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Tiny Pop +1 (576p)",
       "country": "UK",
       "group": "Kids",
@@ -63084,6 +62969,18 @@
       "url": "https://us.streaminghd.cl/torococotelevision/video.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
+    },
+    {
+      "name": "Totally Turtles (Germany) (720p)",
+      "country": "Germany",
+      "group": "Kids",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://jmp2.uk/plu-5d6792bd6be2998ad0ccce30.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 500"
     },
     {
       "name": "Tring Kids",
@@ -63226,6 +63123,18 @@
         "iptv-org"
       ],
       "url": "http://190.11.225.124:5000/live/canal11_hd/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "Canal 15 El Zamorano [Not 24/7]",
+      "country": "El Salvador",
+      "group": "North America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://vdo.tecnoservix.stream:3007/live/canal15zamoranolive.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -63374,6 +63283,18 @@
       "reason": "SSLError"
     },
     {
+      "name": "Canal Multivision (720p) [Not 24/7]",
+      "country": "Dominican Republic",
+      "group": "North America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://live20.bozztv.com/akamaissh101/ssh101/canalmulti24/playlist.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 502"
+    },
+    {
       "name": "Carinosa TV (720p) [Not 24/7]",
       "country": "Guatemala",
       "group": "North America",
@@ -63396,6 +63317,30 @@
       "url": "https://acceso.mediosdecostarica.com:3511/stream/play.m3u8",
       "status": "unverified",
       "reason": "ConnectionRefusedError"
+    },
+    {
+      "name": "CAtv (1080p) [Not 24/7]",
+      "country": "Puerto Rico",
+      "group": "North America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://video2.getstreamhosting.com:19360/8216/8216.m3u8",
+      "status": "unverified",
+      "reason": "HTTP 403"
+    },
+    {
+      "name": "CBC TV8 (1080p) [Not 24/7]",
+      "country": "Barbados",
+      "group": "North America",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://1740288887.rsc.cdn77.org/1740288887/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "CVA TV (480p) [Not 24/7]",
@@ -63951,18 +63896,6 @@
       "reason": "ConnectionRefusedError"
     },
     {
-      "name": "UVA TV (720p) [Not 24/7]",
-      "country": "Dominican Republic",
-      "group": "North America",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://www.uvatvhd.com/hls.php?file=live.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "ViaATV (1080p) [Geo-blocked]",
       "country": "Martinique",
       "group": "North America",
@@ -64021,18 +63954,6 @@
       "url": "https://wapa-updater.onrender.com/WAPA-TV-4-1.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "Xtra Tv (720p) [Not 24/7]",
-      "country": "Dominican Republic",
-      "group": "North America",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://edge.essastream.com/xtratv/index.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Access 19",
@@ -64780,6 +64701,18 @@
       "reason": "HTTP 502"
     },
     {
+      "name": "Laff (576p)",
+      "country": "USA",
+      "group": "Comedy",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "http://tvsen7.aynascope.net/laff/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "☆ Os Simpsons 🇧🇷",
       "country": "International",
       "group": "Comedy",
@@ -64961,6 +64894,18 @@
       "reason": "HTTP 403"
     },
     {
+      "name": "Collier County Public Schools CCPS Education Channel (Naples FL) (480p)",
+      "country": "USA",
+      "group": "Education",
+      "source": "openstream",
+      "sources": [
+        "openstream"
+      ],
+      "url": "https://watch.collierschools.com/EducationChannel/educhannel.stream/playlist.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "CreaTV Channel 28 (720p)",
       "country": "USA",
       "group": "Education",
@@ -65137,6 +65082,18 @@
         "iptv-org"
       ],
       "url": "http://31.148.48.15/English_club_TV_HD/index.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "English Club TV (576i)",
+      "country": "UK",
+      "group": "Education",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://stream8.cinerama.uz/1442/tracks-v1a1/mono.m3u8",
       "status": "unverified",
       "reason": "TimeoutError"
     },
@@ -65332,18 +65289,6 @@
       "url": "https://reflect-broadcast-psdschools.cablecast.tv/live-6/live/live.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "Rinjani TV",
-      "country": "Indonesia",
-      "group": "Education",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://rinjanitv.cloud/hls/tvkabel.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "Santa Cecilia TV (1080p)",
@@ -65550,31 +65495,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Guaymate TV (720p) [Not 24/7]",
-      "country": "Dominican Republic",
-      "group": "Culture",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org",
-        "openstream"
-      ],
-      "url": "https://live20.bozztv.com/akamaissh101/ssh101/guaymatetv/playlist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 502"
-    },
-    {
-      "name": "Imai TV (1080p)",
-      "country": "Sri Lanka",
-      "group": "Culture",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 502"
-    },
-    {
       "name": "Indigenous TV (720p)",
       "country": "Taiwan",
       "group": "Culture",
@@ -65669,6 +65589,18 @@
       "url": "https://vipottbpkstream.vip.hr/Content/onevip-hls/Live/Channel(MRT_2)/index.m3u8",
       "status": "unverified",
       "reason": "ConnectionRefusedError"
+    },
+    {
+      "name": "MRTV NRC",
+      "country": "Myanmar",
+      "group": "Culture",
+      "source": "iptv-org",
+      "sources": [
+        "iptv-org"
+      ],
+      "url": "https://mrtvott.com/cache/MRTV-NRC-HD/master.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
     },
     {
       "name": "Museum TV French [Geo-blocked]",
@@ -65803,18 +65735,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "Somos Entre Rios (360p)",
-      "country": "Argentina",
-      "group": "Culture",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://live20.bozztv.com/akamaissh101/ssh101/somosentrerios/playlist.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 502"
-    },
-    {
       "name": "Teatr (576p)",
       "country": "Russia",
       "group": "Culture",
@@ -65886,18 +65806,6 @@
       "url": "https://reflect-batv.cablecast.tv/live-3/live/live.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "BBC Parliament",
-      "country": "UK",
-      "group": "Legislative",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/bbc/stream/BBC_PARLIAMENT/hevc_iptv_mse_v0.mpd",
-      "status": "unverified",
-      "reason": "OSError"
     },
     {
       "name": "BPTV (360p)",
@@ -66503,18 +66411,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "A12 TV",
-      "country": "Ivory Coast",
-      "group": "Africa",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://video1.getstreamhosting.com:1936/8250/8250/manifest.m3u8",
-      "status": "unverified",
-      "reason": "HTTP 403"
-    },
-    {
       "name": "Addis TV (720p)",
       "country": "Ethiopia",
       "group": "Africa",
@@ -66764,7 +66660,7 @@
       ],
       "url": "https://edge12.vedge.infomaniak.com/livecast/ik:rtblive1_8/manifest.m3u8",
       "status": "unverified",
-      "reason": "TimeoutError"
+      "reason": "HTTP 403"
     },
     {
       "name": "RTNC 3",
@@ -66984,54 +66880,6 @@
       "reason": "HTTP 403"
     },
     {
-      "name": "Mei Alai TV (576p)",
-      "country": "India",
-      "group": "India",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://meialai.iptelevishion.com/meialai/2/index.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
-    },
-    {
-      "name": "Puthuyugam TV (576p)",
-      "country": "India",
-      "group": "India",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://mumt04.tangotv.in/m18aqlK4PUTHUYUGAMTV/index.m3u8",
-      "status": "unverified",
-      "reason": "ConnectionRefusedError"
-    },
-    {
-      "name": "Raftaar Media (576p)",
-      "country": "India",
-      "group": "India",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://mumt04.tangotv.in/m18aqlK4RAFTAARMEDIA/index.m3u8",
-      "status": "unverified",
-      "reason": "ConnectionRefusedError"
-    },
-    {
-      "name": "Tamilan TV (576p)",
-      "country": "India",
-      "group": "India",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://mumt04.tangotv.in/m18aqlK4TAMILANTELEVISION/index.m3u8",
-      "status": "unverified",
-      "reason": "ConnectionRefusedError"
-    },
-    {
       "name": "Vision (India) (576p)",
       "country": "India",
       "group": "India",
@@ -67162,18 +67010,6 @@
       "url": "https://d1hz1p2gea2zy4.cloudfront.net/live/rmgtv/RMG-TRENDSZNL-LIVE/index.m3u8",
       "status": "unverified",
       "reason": "HTTP 403"
-    },
-    {
-      "name": "Le Nouveau Manager TV",
-      "country": "Benin",
-      "group": "Business",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://lnmlive.com/live/lnmtv.m3u8",
-      "status": "unverified",
-      "reason": "TimeoutError"
     },
     {
       "name": "NW Economie (576p)",
@@ -68103,7 +67939,7 @@
       ],
       "url": "https://playlist.xtemus.com/play.php?ch=t256y454t415941586u203y2",
       "status": "unverified",
-      "reason": "TimeoutError"
+      "reason": "HTTP 504"
     },
     {
       "name": "CNN",
@@ -69008,30 +68844,6 @@
       "reason": "gaierror"
     },
     {
-      "name": "Canal Sur",
-      "country": "Spain",
-      "group": "Public TV",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/zapitv/stream/CANAL_SUR/canal_sur_hd.mpd",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
-      "name": "La 1 (1086p)",
-      "country": "Spain",
-      "group": "Public TV",
-      "source": "iptv-org",
-      "sources": [
-        "iptv-org"
-      ],
-      "url": "https://cdn.stmify.com/zapitv/stream/LA_1/la1_4k.mpd",
-      "status": "unverified",
-      "reason": "OSError"
-    },
-    {
       "name": "La 1 UHD (2160p)",
       "country": "Spain",
       "group": "Public TV",
@@ -69236,6 +69048,42 @@
       "reason": "gaierror"
     },
     {
+      "name": "宿州新闻综合 (1080p) [Not 24/7]",
+      "country": "International",
+      "group": "Other",
+      "source": "openstream",
+      "sources": [
+        "openstream"
+      ],
+      "url": "http://live.ahsz.tv/video/s10001-szzh/index.m3u8",
+      "status": "unverified",
+      "reason": "OSError"
+    },
+    {
+      "name": "余姚新闻综合 (576p)",
+      "country": "International",
+      "group": "Other",
+      "source": "openstream",
+      "sources": [
+        "openstream"
+      ],
+      "url": "https://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
+      "name": "萧山新闻综合 (720p) [Not 24/7]",
+      "country": "International",
+      "group": "Other",
+      "source": "openstream",
+      "sources": [
+        "openstream"
+      ],
+      "url": "https://l.cztvcloud.com/channels/lantian/SXxiaoshan1/720p.m3u8",
+      "status": "unverified",
+      "reason": "TimeoutError"
+    },
+    {
       "name": "Buy me a Coffee",
       "country": "International",
       "group": "Other",
@@ -69268,6 +69116,18 @@
         "doms9"
       ],
       "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb292/playlist.m3u8?token=%5Bredacted%5D",
+      "status": "unverified",
+      "reason": "HTTP 503"
+    },
+    {
+      "name": "TV One",
+      "country": "USA",
+      "group": "Other",
+      "source": "doms9",
+      "sources": [
+        "doms9"
+      ],
+      "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb2a6/playlist.m3u8?token=%5Bredacted%5D",
       "status": "unverified",
       "reason": "HTTP 503"
     }

@@ -102,6 +102,19 @@ class BuildSiteDataTest(unittest.TestCase):
             self.assertIn(path, workflow)
         self.assertIn("repos/${GITHUB_REPOSITORY}/releases?per_page=100", workflow)
 
+    def test_full_hub_is_built_and_published_on_pages(self):
+        workflow = (ROOT / ".github/workflows/pages.yml").read_text()
+        page = (ROOT / "docs/index.html").read_text()
+        self.assertIn('href="hub/"', page)
+        for required in ('"hub/**"', '"categories/**"', '"playlists/categories/**"',
+                         'python hub/build_data.py', 'python hub/export_static.py',
+                         'cp -a hub/dist/static-site docs/hub'):
+            self.assertIn(required, workflow)
+        self.assertLess(workflow.index('python hub/build_data.py'),
+                        workflow.index('python hub/export_static.py'))
+        self.assertLess(workflow.index('cp -a hub/dist/static-site docs/hub'),
+                        workflow.index('uses: actions/upload-pages-artifact'))
+
     def test_changelog_parses_dated_headings_newest_first(self):
         self.assertGreaterEqual(len(self.changelog), 1)
         dates = [e["date"] for e in self.changelog]

@@ -4,6 +4,12 @@ A playlist builder for publicly listed TV streams. The scraper combines enabled 
 
 **➡️ [Download site](https://cgyegcvcecvoc.github.io/PremiumTV1/)** — app installers (Android TV / Fire TV / macOS), the best working M3U playlist for **your** country, and the change log ([Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml)) — live at [`cgyegcvcecvoc.github.io/PremiumTV1`](https://cgyegcvcecvoc.github.io/PremiumTV1/) from [`docs/`](docs/README.md).
 
+## Website hosting — automatic, no uploads
+
+Use **[GitHub Pages](https://cgyegcvcecvoc.github.io/PremiumTV1/)** instead of the old Netlify Drop copy. The **[full download hub](https://cgyegcvcecvoc.github.io/PremiumTV1/hub/)** is built by the same Pages workflow. Hosting is free for this public repository. Changes to website code, published playlists/categories, guides and releases on `main` rebuild the site; completed automated data workflows rebuild it too (bot pushes alone do not trigger GitHub Actions). Feature-branch work must be merged before it changes the public site.
+
+See [hosting instructions](hub/DEPLOY.md). Netlify Drop uploads are snapshots and do not follow GitHub pushes.
+
 ## Change log
 
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.

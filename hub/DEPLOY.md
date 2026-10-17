@@ -1,6 +1,30 @@
 # Deploying the PremiumTV Download Hub to a permanent URL
 
-**Nothing here costs money.** Two ways to go:
+## Recommended: GitHub Pages (free, follows GitHub updates)
+
+The repository already has GitHub Pages enabled using GitHub Actions:
+
+- Download page: <https://cgyegcvcecvoc.github.io/PremiumTV1/>
+- Full hub: <https://cgyegcvcecvoc.github.io/PremiumTV1/hub/>
+
+`.github/workflows/pages.yml` regenerates release metadata and site data, builds
+and exports the hub, and publishes both together. Relevant pushes to `main`,
+published releases, and completed scrape/repair workflows trigger deployment.
+No external host account, credit card, ZIP upload or Python web server is needed.
+The old Netlify URL is not redirected automatically; replace bookmarks and shared
+links with the Pages URL. Keep the old deployment until the new hub deployment
+has succeeded. Feature branches do not replace the production site; merge the PR
+first, then check **Actions → Deploy download site (GitHub Pages)** for success.
+
+To redeploy manually: **Actions → Deploy download site (GitHub Pages) → Run
+workflow → main**. The one-time Pages setting is **Settings → Pages → Source →
+GitHub Actions** (already enabled). Large installers stay on GitHub Releases;
+local hub files use relative links that work under `/PremiumTV1/hub/`.
+
+The older manual-upload and server alternatives are retained below for reference.
+Their free-tier terms may change; they are not required for the recommended setup.
+
+Two older alternatives:
 
 - **Static export (easiest, $0, no credit card, no terminal):** drag one
   folder into a browser on Netlify Drop or Cloudflare Pages. See Option 0.
