@@ -83,7 +83,7 @@ jobs:
 
       - name: Try verified replacements before removing dead links
         id: repair
-        if: inputs.patch != false
+        if: github.event_name != 'workflow_dispatch' || inputs.patch
         continue-on-error: true
         run: |
           python scripts/update_m3u.py playlists/PremiumTV.m3u playlists/Priority_Channels.m3u \
