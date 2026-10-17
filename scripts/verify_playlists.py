@@ -52,6 +52,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_categories  # noqa: E402  (the shelf this repository publishes)
 import categorize  # noqa: E402  (the taxonomy the published files must match)
 import epg_check  # noqa: E402  (knows which guide URLs this repository publishes itself)
+import legacy_sunset  # noqa: E402  (which USA feed is live and which is pinned)
 import link_check  # noqa: E402
 import scraper  # noqa: E402
 
@@ -447,6 +448,16 @@ def main(argv=None) -> int:
                                            "Priority_Channels.m3u")]
     targets = [path for path in targets if path.exists()]
     targets += sorted((out_dir / "countries").glob("*.m3u"))
+    # playlists/live/ carries the USA feed current builds refresh from, so it is
+    # verified like any published playlist. A *frozen* legacy feed is not: it is
+    # a pinned end-of-support artifact whose channels were verified on the day
+    # they were pinned, and whose sanctioned notice entry is deliberately not a
+    # channel (both apps' parsers drop an entry marked tvg-notice="app-update").
+    targets += sorted((out_dir / "live").glob("*.m3u"))
+    frozen = [path for path in targets if legacy_sunset.is_frozen(path)]
+    targets = [path for path in targets if path not in frozen]
+    for path in frozen:
+        log(f"[verify] FROZEN {relative(path)}: pinned for end-of-support builds, not re-verified")
     if not targets:
         log(f"[verify] ERROR: no playlists found under {relative(out_dir)}")
         return 1
@@ -475,8 +486,11 @@ def main(argv=None) -> int:
         # a copy of the repository checks that copy's shelf, not this one's.
         shelf_dir = (out_dir.parent / build_categories.DEFAULT_SHELF
                      if args.shelf_dir in ("", "auto") else Path(args.shelf_dir))
+        # The shelf is re-planned from the same live USA feed build_categories.py
+        # cuts it from, so a pinned legacy feed cannot make the shelf look stale.
         shelf = verify_category_shelf(
-            shelf_dir, out_dir / "PremiumTV.m3u", out_dir / "countries" / "USA.m3u",
+            shelf_dir, out_dir / "PremiumTV.m3u",
+            legacy_sunset.live_usa_path(out_dir.parent),
             allow_missing=not args.require_shelf)
     totals = {
         "playlists": len(reports),
@@ -484,6 +498,7 @@ def main(argv=None) -> int:
         "playlists_with_issues": len(violating),
         "playlists_with_warnings": len(warned),
         "dead_links_published": sum(len(item["dead_links"]) for item in reports),
+        "frozen_legacy_feeds": [relative(path) for path in frozen],
         "shelf_files": len(shelf.get("files") or []),
         "shelf_problems": len(shelf.get("issues") or []),
         "epg_sources": epg_source_summary(checks_dir),

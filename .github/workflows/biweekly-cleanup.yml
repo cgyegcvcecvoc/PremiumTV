@@ -191,6 +191,18 @@ jobs:
         continue-on-error: true
         run: python scripts/resort_playlists.py --label "biweekly deep cleanup"
 
+      - name: Publish the live app feed and enforce the legacy sunset
+        # PremiumTV 1.0.5+ refreshes playlists/live/USA.m3u; 1.0.0-1.0.4 refresh
+        # playlists/countries/USA.m3u, which this pins on the end-of-support date
+        # published in app-update-notice.json. Running here - after the playlists
+        # are written and before the shelf is built - is what keeps the shelf, the
+        # download site and the next APK on live channels when the legacy feed
+        # freezes, and what puts the "go and update" notice in front of builds
+        # too old to carry the popup.
+        if: always()
+        continue-on-error: true
+        run: python scripts/legacy_sunset.py apply
+
       - name: Rebuild the categories/ shelf
         id: shelf
         continue-on-error: true
@@ -239,6 +251,7 @@ jobs:
         run: |
           python scripts/verify_playlists.py --strict --require-shelf
           python scripts/audit_backups.py --strict
+          python scripts/legacy_sunset.py check
 
       - name: Add the cleanup report to the Actions summary
         if: always()

@@ -49,11 +49,16 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import categorize  # noqa: E402  (the one ordering rule the shelf must preserve)
+import legacy_sunset  # noqa: E402  (which USA feed is still being updated)
 import rebuild_playlists  # noqa: E402  (playlist reading/writing helpers)
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SHELF = "categories"
 DEFAULT_MAIN = "playlists/PremiumTV.m3u"
+# Fallback only: the USA shelf is cut from the live feed that
+# scripts/legacy_sunset.py publishes, resolved by legacy_sunset.live_usa_path().
+# Resolving it there is what lets the shelf follow the live channels on the day
+# playlists/countries/USA.m3u is pinned for end-of-support builds.
 DEFAULT_USA = "playlists/countries/USA.m3u"
 REPO_SLUG = "cgyegcvcecvoc/PremiumTV1"
 USA_SCOPE = "USA"
@@ -392,8 +397,9 @@ def main(argv=None) -> int:
     parser.add_argument("--shelf-dir", default=DEFAULT_SHELF, help="where to write the shelf")
     parser.add_argument("--main", default=DEFAULT_MAIN,
                         help="published playlist the All/ files come from")
-    parser.add_argument("--usa", default=DEFAULT_USA,
-                        help="published USA playlist USA.m3u and USA/ come from")
+    parser.add_argument("--usa", default="",
+                        help="published USA playlist USA.m3u and USA/ come from "
+                             "(default: the live USA feed scripts/legacy_sunset.py publishes)")
     parser.add_argument("--min-size", type=int, default=MIN_SHELF_SIZE,
                         help="smallest group that gets its own file")
     parser.add_argument("--label", default="category shelf",
@@ -409,8 +415,8 @@ def main(argv=None) -> int:
     main_path = Path(args.main)
     if not main_path.is_absolute():
         main_path = ROOT / main_path
-    usa_path = Path(args.usa)
-    if not usa_path.is_absolute():
+    usa_path = legacy_sunset.live_usa_path(ROOT) if not args.usa else Path(args.usa)
+    if args.usa and not usa_path.is_absolute():
         usa_path = ROOT / usa_path
 
     if not main_path.is_file() and not usa_path.is_file():

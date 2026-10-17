@@ -43,6 +43,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import legacy_sunset  # noqa: E402  (which USA feed is still being updated)
+
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 DATA = DOCS / "data"
@@ -345,10 +348,19 @@ def read_release_notes(filename: str) -> tuple[str, str]:
 def build_countries() -> list[dict]:
     countries = []
     epg_dir = ROOT / "EPG"
+    # The USA row advertises the feed current builds actually refresh from, so
+    # the download site keeps pointing at live channels (and counts them without
+    # the sanctioned update notice) after the legacy copy is pinned.
+    live_usa = legacy_sunset.live_usa_path(ROOT)
     for path in sorted((ROOT / "playlists" / "countries").glob("*.m3u")):
         stem = path.stem
         name = DISPLAY_NAME.get(stem, stem.replace("_", " "))
-        count = count_entries(path)
+        source = live_usa if stem == "USA" and live_usa.is_file() else path
+        if source is path and legacy_sunset.is_frozen(path):
+            # A pinned legacy feed is an end-of-support artifact, not a playlist
+            # to hand to somebody choosing what to watch.
+            continue
+        count = count_entries(source)
         if not count:
             continue
         countries.append({
@@ -357,7 +369,7 @@ def build_countries() -> list[dict]:
             "iso2": ISO2.get(stem),
             "region": ISO2.get(stem) is None,
             "count": count,
-            "playlist_url": f"{RAW_BASE}/playlists/countries/{stem}.m3u",
+            "playlist_url": f"{RAW_BASE}/{source.relative_to(ROOT).as_posix()}",
             "epg_url": f"{RAW_BASE}/EPG/{stem}.xml",
             "epg_present": (epg_dir / f"{stem}.xml").is_file(),
         })
