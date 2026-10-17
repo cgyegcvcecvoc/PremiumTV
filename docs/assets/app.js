@@ -458,6 +458,110 @@
   })();
 
   /* ------------------------------------------------------------------ */
+  /* channel lineup                                                     */
+  /* ------------------------------------------------------------------ */
+  (function initLineup() {
+    var lineup = D.lineup;
+    if (!lineup) return;
+    var statsHost = $("lineup-stats");
+    var qualityHost = $("lineup-quality");
+    var featuredHost = $("lineup-featured");
+    var grid = $("lineup-grid");
+    var search = $("lineup-search");
+    var note = $("lineup-note");
+
+    var stats = [
+      [lineup.unique_channels, "unique channels"],
+      [lineup.backup_feeds, "backup feeds"],
+      [lineup.categories, "categories"],
+      [lineup.countries, "countries"],
+      [lineup.hd_channels, "HD-labelled channels"]
+    ].filter(function (item) { return item[0] !== undefined && item[0] !== null; });
+
+    if (statsHost) {
+      statsHost.innerHTML = stats.map(function (item) {
+        return "<div class=\"lineup-stat\"><strong>" +
+          Number(item[0]).toLocaleString() + "</strong><span>" + esc(item[1]) + "</span></div>";
+      }).join("");
+    }
+
+    if (qualityHost && lineup.qualities) {
+      var q = lineup.qualities;
+      var bits = [];
+      if (q["1080p"]) bits.push(Number(q["1080p"]).toLocaleString() + " at 1080p");
+      if (q["720p"]) bits.push(Number(q["720p"]).toLocaleString() + " at 720p");
+      if (q["576p"]) bits.push(Number(q["576p"]).toLocaleString() + " at 576p");
+      if (q["480p"]) bits.push(Number(q["480p"]).toLocaleString() + " at 480p");
+      if (q.unlabelled) bits.push(Number(q.unlabelled).toLocaleString() + " without a quality tag");
+      var covered = Number(lineup.channels_with_backups || 0).toLocaleString();
+      qualityHost.textContent = bits.join(" · ") +
+        (covered ? " · " + covered + " channels have spare feed" +
+          (lineup.channels_with_backups === 1 ? "" : "s") + " ready." : "");
+    }
+
+    if (featuredHost) {
+      featuredHost.innerHTML = (lineup.featured || []).map(function (ch) {
+        var logo = ch.logo
+          ? "<span class=\"lineup-logo\"><img loading=\"lazy\" src=\"" + esc(ch.logo) +
+            "\" alt=\"\" onerror=\"this.style.display='none'\"></span>"
+          : "<span class=\"lineup-logo\">" + esc((ch.name || "?").slice(0, 2).toUpperCase()) + "</span>";
+        return "<div class=\"lineup-feature\">" + logo +
+          "<span class=\"lineup-feature-copy\"><strong>" + esc(ch.name) + "</strong>" +
+          "<span>" + esc(ch.category) + "</span></span></div>";
+      }).join("");
+    }
+
+    var groups = lineup.groups || [];
+    if (!grid) return;
+
+    function card(g) {
+      var samples = (g.samples || []).map(esc).join(" · ");
+      var file = g.file ? g.file.split("/").pop() : "";
+      var link = g.playlist_url
+        ? "<a class=\"lineup-link\" href=\"" + esc(g.playlist_url) + "\" download=\"" +
+          esc(file || "PremiumTV.m3u") + "\">" + esc(file || "PremiumTV.m3u") + "</a>"
+        : "";
+      return "<article class=\"lineup-card\" data-search=\"" +
+        esc(((g.name || "") + " " + (g.samples || []).join(" ")).toLowerCase()) + "\">" +
+        "<div class=\"lineup-card-head\"><h3>" + esc(g.name) + "</h3><span>" +
+        Number(g.channels || 0).toLocaleString() + " channels</span></div>" +
+        "<p class=\"lineup-samples\">" + samples + "</p>" +
+        "<div class=\"lineup-card-foot\"><span>" + Number(g.backups || 0).toLocaleString() +
+        " backup" + (g.backups === 1 ? "" : "s") + "</span>" + link + "</div></article>";
+    }
+
+    grid.innerHTML = groups.map(card).join("");
+    var cards = grid.querySelectorAll(".lineup-card");
+    var totalChannels = lineup.unique_channels;
+
+    function filter(value) {
+      var q = (value || "").trim().toLowerCase();
+      var shown = 0;
+      var empty = grid.querySelector(".lineup-empty");
+      if (empty) empty.remove();
+      for (var i = 0; i < cards.length; i++) {
+        var match = !q || (cards[i].getAttribute("data-search") || "").indexOf(q) >= 0;
+        cards[i].hidden = !match;
+        if (match) shown++;
+      }
+      if (!shown) {
+        grid.insertAdjacentHTML("beforeend",
+          "<p class=\"lineup-empty\">No category or sample channel matches “" + esc(q) +
+          "”. Try “sports”, “news”, “kids” or “movies”.</p>");
+      }
+      if (note) {
+        note.textContent = shown + " of " + groups.length + " categories · " +
+          Number(totalChannels || 0).toLocaleString() + " unique channels" +
+          (lineup.backup_feeds ? " + " + Number(lineup.backup_feeds).toLocaleString() +
+            " backup feeds" : "");
+      }
+    }
+
+    if (search) search.addEventListener("input", function (ev) { filter(ev.target.value); });
+    filter("");
+  })();
+
+  /* ------------------------------------------------------------------ */
   /* changelog                                                          */
   /* ------------------------------------------------------------------ */
   function renderChangelog(entries, note) {
@@ -465,7 +569,7 @@
     timeline.innerHTML = entries.map(function (e) {
       var bullets = (e.bullets && e.bullets.length ? e.bullets : [e.body_md])
         .filter(Boolean)
-        .slice(0, 8)
+        .slice(0, 16)
         .map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("");
       return "<li><div class=\"t-date\">" + esc(e.date) + "</div>" +
         "<div class=\"t-title\">" + esc(e.title) + "</div>" +

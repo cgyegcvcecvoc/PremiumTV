@@ -236,7 +236,9 @@ jobs:
       - name: Verify the published playlists and guides
         id: verify
         continue-on-error: true
-        run: python scripts/verify_playlists.py --strict --require-shelf
+        run: |
+          python scripts/verify_playlists.py --strict --require-shelf
+          python scripts/audit_backups.py --strict
 
       - name: Add the cleanup report to the Actions summary
         if: always()

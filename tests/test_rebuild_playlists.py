@@ -120,8 +120,8 @@ class RebuildTest(unittest.TestCase):
         self.assertEqual(self.playlist.read_text(encoding="utf-8"), before)
 
     def test_category_files_and_index_are_written(self):
-        rebuild_playlists.rebuild_file(self.playlist, self.guide)
-        channels = rebuild_playlists.read_playlist(self.playlist)[0]
+        result = rebuild_playlists.rebuild_file(self.playlist, self.guide)
+        channels = result["channels_parsed"]
         out_dir = self.dir / "categories"
         summary = rebuild_playlists.write_category_playlists(
             channels, "#EXTM3U", out_dir, self.guide, "now", "now", dry_run=False, min_size=1)
@@ -133,6 +133,24 @@ class RebuildTest(unittest.TestCase):
         index = (out_dir / "README.md").read_text(encoding="utf-8")
         self.assertIn("Cartoons", index)          # the published order is documented
         self.assertIn("Sports.m3u", index)
+
+        # The category file is cut from the same ordered list that was just
+        # published, not from the parser's input order.
+        published_sports = [ch.url for ch in rebuild_playlists.read_playlist(self.playlist)[0]
+                            if ch.attrs.get("group-title") == "Sports"]
+        file_sports = [ch.url for ch in rebuild_playlists.read_playlist(out_dir / "Sports.m3u")[0]]
+        self.assertEqual(file_sports, published_sports)
+
+    def test_category_file_for_a_group_that_shrank_is_removed(self):
+        out_dir = self.dir / "categories"
+        out_dir.mkdir(parents=True)
+        stale = out_dir / "Public_TV.m3u"
+        stale.write_text("#EXTM3U\n# old group\nhttp://old.example/dead.m3u8\n", encoding="utf-8")
+        result = rebuild_playlists.rebuild_file(self.playlist, self.guide)
+        rebuild_playlists.write_category_playlists(
+            result["channels_parsed"], "#EXTM3U", out_dir, self.guide, "now", "now",
+            dry_run=False, min_size=1)
+        self.assertFalse(stale.exists())
 
     def test_tiny_groups_do_not_get_their_own_file(self):
         rebuild_playlists.rebuild_file(self.playlist, self.guide)

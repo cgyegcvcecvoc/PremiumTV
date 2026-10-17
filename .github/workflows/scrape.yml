@@ -208,6 +208,14 @@ jobs:
             echo "-----" >> "$GITHUB_STEP_SUMMARY"
             cat playlists/checks/VERIFY.md >> "$GITHUB_STEP_SUMMARY"
           fi
+          # Backup-specific contract: unique "(Backup N)" names, every backup
+          # has its primary, and every playlists/categories file is an exact
+          # slice of the published playlist. Writes checks/BACKUP-AUDIT.md.
+          python scripts/audit_backups.py --strict || code=$?
+          if [ -f playlists/checks/BACKUP-AUDIT.md ]; then
+            echo "-----" >> "$GITHUB_STEP_SUMMARY"
+            cat playlists/checks/BACKUP-AUDIT.md >> "$GITHUB_STEP_SUMMARY"
+          fi
           exit "$code"
 
       - name: Commit playlists and run diagnostics

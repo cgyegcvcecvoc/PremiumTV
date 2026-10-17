@@ -10,6 +10,12 @@ Use **[GitHub Pages](https://cgyegcvcecvoc.github.io/PremiumTV1/)** instead of t
 
 See [hosting instructions](hub/DEPLOY.md). Netlify Drop uploads are snapshots and do not follow GitHub pushes.
 
+The download site's **Channels** section previews the current lineup — the number
+of unique channels and backup feeds, categories and countries, quality labels,
+familiar names, and a searchable category grid — and is generated from
+`playlists/PremiumTV.m3u` by `scripts/build_site_data.py`, so the page cannot
+advertise a channel the playlist does not carry.
+
 ## Change log
 
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.
@@ -393,6 +399,7 @@ python scripts/scraper.py --label "manual verified rescrape"  # refresh and chec
 python scripts/epg_build.py --countries --patch --force         # rebuild every country XMLTV + playlist headers
 python scripts/resort_playlists.py                              # re-sort the committed playlists into categories
 python scripts/verify_playlists.py --strict                     # offline check: categories, order, dead links, EPG coverage
+python scripts/audit_backups.py --strict                        # backup names, orphans, numbering, category files
 ```
 
 The standard scrape safety threshold preserves the last good `PremiumTV.m3u` if a source/network
@@ -683,6 +690,7 @@ python scripts/resort_playlists.py                                          # re
 python scripts/build_categories.py                                          # rebuild the published shelf
 python scripts/cleanup_repo.py --apply                                      # logs, orphans, quarantine
 python scripts/verify_playlists.py --strict --require-shelf                 # audit the result
+python scripts/audit_backups.py --strict                                    # backups + category slices
 ```
 
 **The dead channels the daily runs miss.** `link_check.py --all` (nightly) checks the main playlist, the

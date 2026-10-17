@@ -22,6 +22,7 @@
     <nav class="nav">
       <a href="hub/">Full download hub</a>
       <a href="#apps">Apps</a>
+      <a href="#channels">Channels</a>
       <a href="#playlists">Playlists</a>
       <a href="#changelog">Changelog</a>
       <a href="#help">Help</a>
@@ -63,6 +64,37 @@
         </div>
         <a class="btn btn-primary btn-block" id="hero-get" href="#playlists">Choose a country</a>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================ CHANNELS ============================ -->
+  <section class="section section-alt" id="channels">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What channels are on PremiumTV?</h2>
+        <p>
+          A quick look at the lineup in the current playlist — the categories, the
+          names you’ll recognise, and the spare feeds that keep them playing. Every
+          number is read from <code>PremiumTV.m3u</code> itself, so nothing here is aspirational.
+        </p>
+      </div>
+
+      <div class="lineup-stats" id="lineup-stats"></div>
+      <p class="lineup-quality" id="lineup-quality"></p>
+
+      <h3 class="lineup-subhead">Popular in the lineup</h3>
+      <div class="lineup-featured" id="lineup-featured"></div>
+
+      <div class="lineup-toolbar">
+        <input type="search" id="lineup-search" placeholder="Filter categories or sample channels…" autocomplete="off" aria-label="Filter channels">
+        <span class="muted small" id="lineup-note">Loading the lineup…</span>
+      </div>
+      <div class="lineup-grid" id="lineup-grid"></div>
+
+      <p class="muted small lineup-more">
+        Want the whole thing? The <a href="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u" download="PremiumTV.m3u">main playlist</a>
+        carries every channel and its backups; the <a href="#playlists">country picker</a> narrows it down.
+      </p>
     </div>
   </section>
 
