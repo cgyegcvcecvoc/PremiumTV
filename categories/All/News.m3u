@@ -1,5 +1,5 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml,https://raw.githubusercontent.com/doms9/iptv/refs/heads/default/M3U8/TV.xml,https://epgshare01.online/epgshare01/epg_ripper_AL1.xml.gz"
-# World - News (746 channels) - rebuilt 2026-10-17 11:40 UTC (2026-10-17 07:40 AM EDT) - 3:07 AM daily scrape
+# World - News (746 channels) - rebuilt 2026-10-17 11:57 UTC (2026-10-17 07:57 AM EDT) - manual re-scrape (run-scrape.txt)
 #EXTINF:-1 tvg-id="10TV.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_10TV/images/LOGO_HD/image.png" group-title="News" tvg-country="IN",10 TV (720p)
 https://mumbai-edge.smartplaytv.in/10TV/index.m3u8
 #EXTINF:-1 tvg-id="13SiamThai.th@SD" tvg-logo="https://i.imgur.com/FvEp1S2.png" group-title="News" tvg-country="TH",13 Siam Thai (1080p)
@@ -200,8 +200,6 @@ https://dash4.antik.sk/live/test_infokanal_tizen/playlist.m3u8
 https://cloud.odysee.live/content/f92670235a1ce2bce4cf77671cc4dcc2188baa1d/master.m3u8
 #EXTINF:-1 tvg-id="APATv.az@SD" tvg-logo="https://i.imgur.com/2CSW4V4.png" group-title="News" tvg-country="AZ",APA Tv (1080p)
 http://stream.apa.tv/apastream/index.m3u8
-#EXTINF:-1 tvg-id="APN.in@SD" tvg-logo="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/transparentImages/APN.png" group-title="News" tvg-country="IN",APN (576p)
-https://mumt01.tangotv.in/O5aw8Zn3APN/index.m3u8
 #EXTINF:-1 tvg-id="ApostropheTV.ua@SD" tvg-logo="https://i.imgur.com/LCXvbQX.png" http-user-agent="curl/8.16.0" group-title="News" tvg-country="UA",Apostrophe TV (1080p)
 #EXTVLCOPT:http-user-agent=curl/8.16.0
 https://ext.cdn.nashnet.tv/228.0.2.165/index.m3u8
@@ -284,6 +282,8 @@ http://23.237.104.106:8080/USA_BBC_NEWS/index.m3u8
 https://vs-cmaf-pushb-ww.live.cf.md.bbci.co.uk/x=4/i=urn:bbc:pips:service:bbc_afghan_tv/pc_hd_abr_v2.mpd
 #EXTINF:-1 tvg-id="BBCNews.uk@SouthAsia" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_BBC_NEWS/images/LOGO_HD/image.png" group-title="News" tvg-country="GB",BBC News South Asia (720p)
 https://mumbai-edge.smartplaytv.in/BBCNews/index.m3u8
+#EXTINF:-1 tvg-chno="13" tvg-id="BBC.One.Lon.HD.uk" tvg-name="BBC One" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s67081_dark_360w_270h.png" group-title="News" tvg-country="GB",BBC One
+http://41.205.93.154/BBCONE/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="premiumtv.international.bbc_persian" tvg-logo="" group-title="News" tvg-status="stable",BBC Persian
 https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_persian_tv/t=3840/v=pv14/b=5070016/main.m3u8
 #EXTINF:-1 tvg-id="BBCPersian.uk@SD" tvg-logo="https://i.imgur.com/4uTMnPb.png" group-title="News" tvg-country="GB",BBC Persian (1080p)
@@ -418,8 +418,9 @@ https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/cnew
 https://legitpro.co.in/cnews/cnews/index.fmp4.m3u8
 #EXTINF:-1 tvg-id="CNEWSPRIME.fr@HD" tvg-logo="https://www.cnews.fr/themes/cnews/img/cnews-prime.png" group-title="News" tvg-country="FR",CNEWS PRIME (1080p)
 https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/cnews-prime-dm.m3u8
-#EXTINF:-1 tvg-id="CNN.us@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/CNN.png" group-title="News" tvg-country="US",CNN (720p)
-https://tvsen6.aynaott.com/cnn/index.m3u8
+#EXTINF:-1 tvg-chno="41" tvg-id="CNN.HD.us2" tvg-name="CNN" tvg-logo="http://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s58646_dark_360w_270h.png" group-title="News" tvg-country="US",CNN
+#EXTVLCOPT:http-referrer=https://usnewson.com/watch/cnn-live
+https://p4.usnlive.com/stream/cnn.m3u8
 #EXTINF:-1 tvg-id="CNNBrasil.br@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/CNN_Brasil.svg/960px-CNN_Brasil.svg.png" group-title="News" tvg-country="BR",CNN Brasil (1080p)
 https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8
 #EXTINF:-1 tvg-id="CNNenEspanol.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Logo_de_CNN_en_Espa%C3%B1ol_%282010-2015%29.svg/960px-Logo_de_CNN_en_Espa%C3%B1ol_%282010-2015%29.svg.png" group-title="News" tvg-country="US",CNN en Espanol (1080p)
@@ -441,8 +442,6 @@ https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/master.
 https://amg01918-cnnus-amg01918c2-vizio-us-9192.playouts.now.amagi.tv/playlist/amg01918-cnnus-cnnoriginals-vizious/playlist.m3u8
 #EXTINF:-1 tvg-name="CNN Portugal" tvg-logo="https://i.imgur.com/NYH39xs.png" tvg-id="CNNPortugal.pt" tvg-chno="13" tvg-country="PT" group-title="News",CNN Portugal
 https://github.com/LITUATUI/M3UPT/raw/main/M3U/CNN_Portugal.m3u8
-#EXTINF:-1 tvg-name="CNN Prima News" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/cnn-prima-news-cz.png" tvg-id="CNNPrimaNews.cz" tvg-chno="16" tvg-country="CZ" group-title="News",CNN Prima News
-https://sktv.mxnticek.eu/new/stream.php?ch=PrimaNews
 #EXTINF:-1 tvg-id="Conecta2TV.pe@SD" tvg-logo="https://i.imgur.com/W6FDUwt.png" group-title="News" tvg-country="PE",Conecta2TV (720p) [Not 24/7]
 https://live.obslivestream.com/conecta2/index.m3u8
 #EXTINF:-1 tvg-id="CorfuChannel.gr@SD" tvg-logo="https://i.imgur.com/EFL1Tjg.png" group-title="News" tvg-name="Corfu" tvg-chno="93" tvg-country="GR",Corfu Channel (720p)
@@ -510,6 +509,8 @@ https://dwamdstream110.akamaized.net/hls/live/2017971/dwstream110/master.m3u8
 https://cdn4.skygo.mn/live/disk1/Eagle/DASH-FTA/Eagle.mpd
 #EXTINF:-1 tvg-name="Eagle News HD" tvg-logo="" tvg-id="EagleNews.mn" tvg-chno="11" tvg-country="MN" group-title="News",Eagle News HD
 https://cdn4.skygo.mn/live/disk1/Eagle/HLSv3-FTA/Eagle.m3u8
+#EXTINF:-1 tvg-id="EgnatiaTV.gr@SD" tvg-logo="https://i.imgur.com/zuyYIca.png" group-title="News" tvg-country="GR",Egnatia TV (576p)
+https://video.streams.ovh:1936/egnatiatv/egnatiatv/index.m3u8
 #EXTINF:-1 tvg-id="EkamraBharatOdia.in@SD" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Ekamra_Bharat_Odia.png" group-title="News" tvg-country="IN",Ekamra Bharat Odia (400p)
 https://live.ekamraott.com/bharat/bharat/index.m3u8
 #EXTINF:-1 tvg-id="Ekoturk.tr@SD" tvg-logo="https://www.dsmart.com.tr/epg/images/0x60/5ffc18c6cfef0b15933a8b65" group-title="News" tvg-country="TR",Ekoturk (720p)
@@ -887,6 +888,8 @@ https://webtv.monacoinfo.com/live/prod/index.m3u8
 https://cdn4.skygo.mn/live/disk1/MNCTV/DASH-FTA/MNCTV.mpd
 #EXTINF:-1 tvg-id="MoonTV.in@SD" tvg-logo="https://i.imgur.com/3l25EZI.png" group-title="News" tvg-country="IN",Moon TV (576p)
 https://d1msejlow1t3l4.cloudfront.net/fta/moontv/playlist.m3u8
+#EXTINF:-1 tvg-id="MRTVNews.mm@SD" tvg-logo="https://i.imgur.com/5eK8Bc4.png" group-title="News" tvg-country="MM",MRTV News
+https://mrtvott.com/cache/MRTV-NEWS-HD/master.m3u8
 #EXTINF:-1 tvg-chno="112" tvg-id="MS.NOW.HD.us2" tvg-name="MS NOW" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/GNLZZGG002H5PTP.png_dark_360w_270h.png" group-title="News" tvg-country="US",MS NOW
 #EXTVLCOPT:http-referrer=https://usnewson.com/watch/msnbc-live
 https://p4.usnlive.com/stream/msnbc.m3u8
@@ -1313,8 +1316,6 @@ https://telmaco-cdn.akamaized.net/starcgr/default/index.m3u8
 https://hlspackager.akamaized.net/live/DB/STERK_TV/HLS/STERK_TV.m3u8
 #EXTINF:-1 tvg-id="SucesoTV.py@SD" tvg-logo="https://i.imgur.com/BwRNes1.png" group-title="News" tvg-country="PY",Suceso TV (720p) [Not 24/7]
 https://live.enhdtv.com:8081/8060/index.m3u8
-#EXTINF:-1 tvg-id="SuchTV.pk@SD" tvg-logo="https://i.imgur.com/yYMh3JJ.png" group-title="News" tvg-country="PK",Such TV
-https://video.primexsports.com/suchnews/live/playlist.m3u8
 #EXTINF:-1 tvg-id="SudarshanNews.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_SUDARSHAN_NEWS/images/LOGO_HD/image.png" group-title="News" tvg-country="IN",Sudarshan News (1080p)
 https://ott.livelegitpro.in/sudarshannews/sudarshannews/tracks-v1/index.fmp4.m3u8
 #EXTINF:-1 tvg-id="SuvarnaNews.in@SD" tvg-logo="https://i.imgur.com/0H1HObK.png" group-title="News" tvg-country="IN",Suvarna News SD (576p)
