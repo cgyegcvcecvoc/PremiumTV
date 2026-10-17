@@ -122,7 +122,9 @@ def rebuild_file(path: Path, guide: epg_match.Guide | None, max_backups: int = 0
         "written": not dry_run,
         "epg": dict(epg_stats),
         "counts": dict(counts),
-        "channels_parsed": channels,
+        # The entries exactly as published: every category playlist is cut from
+        # this list, so its per-group order cannot drift from PremiumTV.m3u.
+        "channels_parsed": ordered,
         "epg_urls": epg,
         "header": header,
     }
@@ -141,6 +143,7 @@ def write_category_playlists(ordered: list, header: str, out_dir: Path,
 
     summary: list[dict] = []
     out_dir.mkdir(parents=True, exist_ok=True)
+    written: set[str] = set()
     for category in order:
         members = by_group.get(category, [])
         # Groups with a channel or two are listed in the main playlist but do
@@ -148,6 +151,7 @@ def write_category_playlists(ordered: list, header: str, out_dir: Path,
         if not members or len(members) < min_size:
             continue
         target = out_dir / f"{slugify(category)}.m3u"
+        written.add(target.name)
         title = (f"{category} - {len(members)} channels - rebuilt {utc_s} ({local_s})")
         if not dry_run:
             write_playlist(target, members, header, title)
@@ -161,6 +165,15 @@ def write_category_playlists(ordered: list, header: str, out_dir: Path,
             "with_guide": with_guide,
             "file": str(target.relative_to(ROOT)) if target.is_relative_to(ROOT) else str(target),
         })
+    # A file for a group that no longer reaches min_size (or no longer exists)
+    # is not a slice of the published playlist any more. Leaving it behind
+    # would keep dead links and stale guide headers on a public URL, so remove
+    # it as part of the same publish.
+    if not dry_run:
+        for stale in sorted(out_dir.glob("*.m3u")):
+            if stale.name not in written:
+                stale.unlink()
+                log(f"[rebuild] removed stale category playlist {stale}")
     return summary
 
 

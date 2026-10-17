@@ -291,7 +291,10 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
                 "size": int(asset.get("size") or 0),
                 "url": asset.get("browser_download_url")
                        or f"{RELEASES_BASE}/{spec['tag']}/{asset.get('name', '')}",
-                "sha256": checksums.get(asset.get("name", "")) or asset_digest(asset),
+                # GitHub's digest describes the bytes that are actually on the
+                # release, so it wins over a checksum left in build-out/ by an
+                # earlier local build (those can lag a re-uploaded asset).
+                "sha256": asset_digest(asset) or checksums.get(asset.get("name", "")),
             })
         notes_title, notes_summary = read_release_notes(spec.get("notes_file", ""))
         channels.append({
@@ -362,6 +365,214 @@ def build_countries() -> list[dict]:
     return countries
 
 
+# Channels a visitor is most likely to look for. Each one is only shown when
+# that exact name is in the published lineup; the category is used to pick the
+# samples for that category card too. Order is the order we want to show them.
+FEATURED_BRANDS = (
+    ("ESPN", "Sports"), ("NFL Network", "Sports"), ("MLB Network", "Sports"),
+    ("NHL Network", "Sports"), ("WWE Network", "Sports"), ("Tennis Channel", "Sports"),
+    ("CNN", "News"), ("Fox News", "Fox Channels"), ("Sky News", "News"),
+    ("Al Jazeera", "News"), ("France 24", "News"), ("DW", "News"), ("CNBC", "NBC"),
+    ("HBO", "Movies"), ("AMC", "Movies"),
+    ("Nickelodeon", "Kids"), ("Nick Jr", "Kids"), ("Cartoon Network", "Cartoons"),
+    ("Adult Swim", "Cartoons"), ("Disney Jr.", "Cartoons"),
+    ("Comedy Central", "Entertainment"), ("USA Network", "NBC"), ("Syfy", "NBC"),
+    ("MTV", "Music"), ("Food Network", "Lifestyle"), ("HGTV", "Lifestyle"),
+    ("Travel Channel", "Lifestyle"), ("Lifetime", "Lifestyle"),
+    ("Animal Planet", "Documentary"), ("National Geographic", "Documentary"),
+    ("Investigation Discovery", "Documentary"),
+    ("A&E", "A&E Networks"), ("PBS", "PBS"), ("CBS", "CBS"), ("NBC", "NBC"),
+    ("Fox", "Fox Channels"), ("ABC", "United States"), ("Telemundo", "NBC"),
+    ("Bloomberg", "Business"), ("Golf Channel", "NBC Sports Channels"),
+)
+
+BACKUP_NAME_RE = re.compile(r"^(.*?)\s*\(Backup (\d+)\)\s*$")
+QUALITY_TAG_RE = re.compile(r"\((\d{3,4}p|4K|UHD|SD|HD)\)\s*$", re.IGNORECASE)
+STATUS_TAG_RE = re.compile(r"\s*\[[^\]]*\]\s*$")
+
+
+def read_playlist_entries(path: Path) -> list[dict]:
+    """Entries of an M3U playlist: name, group, id, logo, country and URL.
+
+    ``build_site_data.py`` deliberately stays independent of the scraper: the
+    download site only needs the fields it displays, and reading them here keeps
+    the site generator runnable without the network-side pipeline.
+    """
+    entries: list[dict] = []
+    pending: tuple[str, str] | None = None
+    text = path.read_text(encoding="utf-8", errors="replace")
+    for raw in text.splitlines():
+        line = raw.rstrip("\r")
+        if line.startswith("#EXTINF"):
+            # Attribute values can contain commas (an upstream user-agent does),
+            # so split on the last quote-comma, not the first comma.
+            split = line.rfind('\",')
+            if split != -1:
+                attrs, name = line[: split + 1], line[split + 2:]
+            else:
+                head, _, name = line.partition(",")
+                attrs = head
+            pending = (attrs, name.strip())
+            continue
+        if line.startswith("#"):
+            continue
+        if pending is None or not line.strip():
+            continue
+        attrs, name = pending
+        pending = None
+        if not line.strip().startswith(("http://", "https://")):
+            continue
+
+        def attr(key: str) -> str:
+            match = re.search(rf'{key}="([^"]*)"', attrs)
+            return match.group(1) if match else ""
+
+        entries.append({
+            "name": name,
+            "group": attr("group-title"),
+            "tvg_id": attr("tvg-id"),
+            "logo": attr("tvg-logo"),
+            "country": attr("tvg-country"),
+            "url": line.strip(),
+        })
+    return entries
+
+
+def clean_channel_name(name: str) -> str:
+    """Display name without quality/status/backup decoration."""
+    text = (name or "").strip()
+    previous = None
+    while previous != text:
+        previous = text
+        text = STATUS_TAG_RE.sub("", text)
+        text = QUALITY_TAG_RE.sub("", text)
+        text = re.sub(r"\s*\(\s*(?:Backup \d+|Alt|Alternate|Mirror|Feed \d+)\s*\)\s*$",
+                      "", text, flags=re.IGNORECASE)
+        text = text.strip()
+    return text or (name or "").strip()
+
+
+def build_lineup() -> dict:
+    """A quick, readable preview of what the published playlist actually carries.
+
+    Counts and samples come from ``playlists/PremiumTV.m3u`` itself, so the
+    download page cannot advertise a category or channel the current playlist
+    does not publish. Backups are counted separately: they are spare feeds of a
+    channel, not additional channels.
+    """
+    path = ROOT / "playlists" / "PremiumTV.m3u"
+    entries = read_playlist_entries(path)
+    primary = [entry for entry in entries if not BACKUP_NAME_RE.match(entry["name"])]
+    backups = [entry for entry in entries if BACKUP_NAME_RE.match(entry["name"])]
+
+    groups: list[dict] = []
+    by_group: dict[str, dict] = {}
+    names_by_group: dict[str, list[str]] = {}
+    brand_categories = {name.lower(): category for name, category in FEATURED_BRANDS}
+    available: dict[str, dict] = {}
+
+    for entry in primary:
+        group = entry["group"] or "Other"
+        if group not in by_group:
+            row = {"name": group, "channels": 0, "backups": 0, "samples": [], "file": ""}
+            groups.append(row)
+            by_group[group] = row
+            names_by_group[group] = []
+        row = by_group[group]
+        row["channels"] += 1
+        clean = clean_channel_name(entry["name"])
+        if clean and clean.lower() not in names_by_group[group]:
+            names_by_group[group].append(clean)
+        key = clean.lower()
+        if key in brand_categories and key not in available:
+            available[key] = {"name": clean, "category": group,
+                              "logo": entry["logo"]}
+
+    # Featured channels in the order this file lists them, not playlist order.
+    featured = [available[name.lower()] for name, _ in FEATURED_BRANDS
+                if name.lower() in available][:18]
+
+    # Category samples: well-known channels first, then the next published
+    # names. This is a preview card, so six readable names is enough.
+    for group, row in by_group.items():
+        samples: list[str] = []
+        seen: set[str] = set()
+
+        def add(name: str) -> None:
+            name = (name or "").strip()
+            if (not name or name.startswith("[") or len(name) > 44
+                    or name.lower() in seen or len(samples) >= 6):
+                return
+            samples.append(name)
+            seen.add(name.lower())
+
+        for brand, category in FEATURED_BRANDS:
+            if category == group and brand.lower() in {n.lower() for n in names_by_group[group]}:
+                add(available.get(brand.lower(), {}).get("name", brand))
+        for name in names_by_group[group]:
+            add(name)
+        row["samples"] = samples
+        slug = re.sub(r"[^A-Za-z0-9]+", "_", group).strip("_")
+        candidate = ROOT / "categories" / "All" / f"{slug}.m3u"
+        if candidate.is_file():
+            row["file"] = f"categories/All/{slug}.m3u"
+            row["playlist_url"] = f"{RAW_BASE}/categories/All/{slug}.m3u"
+        else:
+            row["playlist_url"] = f"{RAW_BASE}/playlists/PremiumTV.m3u"
+
+    for entry in backups:
+        group = entry["group"] or ""
+        if group.endswith(" Backups"):
+            base_group = group[: -len(" Backups")]
+            if base_group in by_group:
+                by_group[base_group]["backups"] += 1
+
+    qualities = {"4k": 0, "1080p": 0, "720p": 0, "576p": 0, "480p": 0,
+                 "lower": 0, "generic_hd_sd": 0, "unlabelled": 0}
+    for entry in primary:
+        match = re.search(r"\((2160p|\d{3,4}p|4K|UHD|SD|HD)\)\s*(?:\[[^\]]*\])?\s*$",
+                          entry["name"], re.IGNORECASE)
+        if not match:
+            qualities["unlabelled"] += 1
+            continue
+        tag = match.group(1).lower()
+        if tag in ("4k", "uhd", "2160p"):
+            qualities["4k"] += 1
+        elif tag in ("hd", "sd"):
+            qualities["generic_hd_sd"] += 1
+        else:
+            pixels = int(tag[:-1])
+            if pixels >= 1080:
+                qualities["1080p"] += 1
+            elif pixels >= 720:
+                qualities["720p"] += 1
+            elif pixels >= 576:
+                qualities["576p"] += 1
+            elif pixels >= 480:
+                qualities["480p"] += 1
+            else:
+                qualities["lower"] += 1
+
+    channels_with_backups = len({
+        clean_channel_name(BACKUP_NAME_RE.match(entry["name"]).group(1))
+        for entry in backups
+    })
+    countries = sorted({entry["country"] for entry in entries if entry["country"]})
+
+    return {
+        "entries": len(entries),
+        "unique_channels": len(primary),
+        "backup_feeds": len(backups),
+        "channels_with_backups": channels_with_backups,
+        "categories": len(groups),
+        "countries": len(countries),
+        "qualities": qualities,
+        "hd_channels": qualities["4k"] + qualities["1080p"] + qualities["720p"],
+        "featured": featured,
+        "groups": groups,
+    }
+
+
 def build_stats() -> dict:
     stats = {
         "confirmed_channels": None,
@@ -376,7 +587,11 @@ def build_stats() -> dict:
             report = json.loads(report_path.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             report = {}
-        stats["confirmed_channels"] = report.get("working")
+        # The headline is what a player will actually receive, so count the
+        # published playlist's entries; report["working"] can be one higher when
+        # the rebuild folded a duplicate URL into an existing channel.
+        stats["confirmed_channels"] = (count_entries(ROOT / "playlists" / "PremiumTV.m3u")
+                                       or report.get("working"))
         stats["unique_links"] = report.get("total_unique")
         stats["countries"] = report.get("countries_count")
         stats["last_run_utc"] = report.get("updated_utc")
@@ -543,6 +758,7 @@ def build_payload() -> tuple[dict, list[dict]]:
         },
         "apps": {"channels": channels, "older": older},
         "countries": countries,
+        "lineup": build_lineup(),
         "changelog": changelog,
     }
     return payload, changelog

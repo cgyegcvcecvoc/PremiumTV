@@ -19,6 +19,12 @@ server, no build step — published with GitHub Pages.
   copy URL, download `.m3u`, QR code, and that country's TV-guide URL. A
   multi-country bundle builder merges any set of country playlists into one
   downloadable `.m3u` (client-side, duplicates removed).
+- **Channel-lineup preview.** A **Channels** section generated from
+  `playlists/PremiumTV.m3u` shows the lineup at a glance: unique channel and
+  backup-feed counts, categories and countries, quality labels, recognisable
+  channels, and a searchable category grid with sample names and links to the
+  matching category playlists. Every number comes from the published playlist,
+  so the preview cannot drift from what the apps and players actually receive.
 - **Change log.** Every change recorded in [`CHANGELOG.md`](../CHANGELOG.md)
   is shown as a timeline, with an [Atom feed](data/feed.xml) readers can subscribe
   to. The page also re-fetches `docs/data/changelog.json` from the repository
@@ -42,7 +48,7 @@ and re-upload its export to refresh an existing Netlify deployment.
 | `index.html` | The page. |
 | `assets/style.css`, `assets/app.js` | Styles and logic (no frameworks). |
 | `assets/qrcode.js` | Vendored [qrcode-generator](https://www.npmjs.com/package/qrcode-generator) 1.4.4 (MIT) for on-page QR codes. |
-| `data/site-data.js` | Generated payload (countries, counts, app assets, stats) loaded via `<script>` so the page works even where `fetch` is blocked. |
+| `data/site-data.js` | Generated payload (countries, counts, channel lineup, app assets, stats) loaded via `<script>` so the page works even where `fetch` is blocked. |
 | `data/site.json` | The same payload for tools. |
 | `data/changelog.json`, `data/feed.xml` | Generated changelog timeline + Atom feed. |
 | `data/releases.src.json` | Cached GitHub release asset list; Pages refreshes it from the Releases API before building the site. |

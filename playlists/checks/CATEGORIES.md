@@ -1,18 +1,18 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-10-17 18:57 UTC (2026-10-17 02:57 PM EDT)
+- **Rebuilt:** 2026-10-17 20:22 UTC (2026-10-17 04:22 PM EDT)
 - **Channels in the main playlist:** 11444
 - **Channels in the category files:** 11430 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2356 (20.6%)
+- **With guide data:** 2374 (20.8%)
 - **Categories:** 81 groups (33 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 614 | 290 |
+| 1 | Sports | 614 | 298 |
 | 2 | Sports Backups | 88 | 42 |
-| 3 | Lifestyle | 484 | 118 |
+| 3 | Lifestyle | 484 | 119 |
 | 4 | Lifestyle Backups | 89 | 28 |
 | 5 | Fox Channels | 29 | 10 |
 | 6 | CBS | 34 | 6 |
@@ -26,21 +26,21 @@
 | 14 | PBS Backups | 7 | 3 |
 | 15 | Game Shows | 12 | 6 |
 | 16 | Game Shows Backups | 16 | 9 |
-| 17 | Music | 846 | 141 |
+| 17 | Music | 846 | 142 |
 | 18 | Music Backups | 86 | 36 |
-| 19 | Movies | 845 | 145 |
+| 19 | Movies | 845 | 146 |
 | 20 | Movies Backups | 99 | 11 |
-| 21 | News | 748 | 215 |
+| 21 | News | 748 | 216 |
 | 22 | News Backups | 163 | 110 |
 | 23 | Europe | 696 | 122 |
 | 24 | Europe Backups | 65 | 6 |
 | 25 | Entertainment | 638 | 122 |
 | 26 | Entertainment Backups | 68 | 20 |
-| 27 | International | 587 | 136 |
+| 27 | International | 587 | 135 |
 | 28 | International Backups | 94 | 34 |
 | 29 | Religious | 572 | 62 |
 | 30 | Religious Backups | 36 | 6 |
-| 31 | South America | 459 | 46 |
+| 31 | South America | 459 | 49 |
 | 32 | South America Backups | 22 | 3 |
 | 33 | Asia | 424 | 85 |
 | 34 | Asia Backups | 25 | 1 |
@@ -50,7 +50,7 @@
 | 38 | Series Backups | 104 | 26 |
 | 39 | United States | 327 | 41 |
 | 40 | United States Backups | 57 | 7 |
-| 41 | Kids | 284 | 52 |
+| 41 | Kids | 284 | 53 |
 | 42 | Kids Backups | 53 | 6 |
 | 43 | North America | 281 | 12 |
 | 44 | North America Backups | 4 | 0 |
@@ -67,7 +67,7 @@
 | 55 | Classic TV | 66 | 5 |
 | 56 | Classic TV Backups | 8 | 1 |
 | 57 | Africa | 63 | 9 |
-| 58 | Business | 43 | 9 |
+| 58 | Business | 43 | 10 |
 | 59 | Business Backups | 12 | 10 |
 | 60 | A&E Networks | 29 | 1 |
 | 61 | Family | 29 | 15 |
@@ -89,7 +89,7 @@
 | 77 | Oceania | 4 | 3 |
 | 78 | Online TV | 4 | 0 |
 | 79 | Relax | 3 | 1 |
-| 80 | Other | 250 | 23 |
+| 80 | Other | 250 | 25 |
 | 81 | Other Backups | 134 | 6 |
 
 ## Files rewritten
@@ -103,11 +103,7 @@
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 11380 (99.3%) |
-| matched on the base id (feed qualifier dropped) | 3 (0.0%) |
-| matched on the display name | 4 (0.0%) |
-| matched on a looser spelling of the name | 2 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 74 (0.6%) |
+| already declared in the guide | 11463 (100.0%) |
 
 ## Channels with no schedule yet
 

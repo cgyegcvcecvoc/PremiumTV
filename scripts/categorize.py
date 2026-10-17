@@ -844,8 +844,19 @@ def split_primary_backups(channels: list, max_backups: int = 0) -> tuple[list, l
 
     primary: list = []
     backups: list = []
-    for members in groups.values():
-        members = sorted(members, key=lambda ch: (-quality_score(_get(ch, "name")), _get(ch, "name")))
+    # Number backups per display name across every identity group, not per
+    # group. Two feeds of the same station can resolve to the same display name
+    # without sharing a country or tvg-id; restarting at 1 for each group then
+    # publishes two different streams under one name ("X (Backup 1)"), which a
+    # player cannot tell apart. Continuous numbering keeps every name unique.
+    backup_numbers: dict[str, int] = {}
+    # Sorted identity groups make the numbers independent of the order the
+    # upstream playlist happened to arrive in, so rebuilding a rebuilt playlist
+    # produces the same names again instead of silently renumbering spares.
+    for group_key in sorted(groups):
+        members = sorted(groups[group_key],
+                         key=lambda ch: (-quality_score(_get(ch, "name")),
+                                         _get(ch, "url"), _get(ch, "name")))
         main = members[0]
         main_category = category_of(main) or classify(
             _get(main, "name"), main.attrs.get("group-title", ""),
@@ -857,7 +868,14 @@ def split_primary_backups(channels: list, max_backups: int = 0) -> tuple[list, l
         if max_backups:
             spares = spares[:max_backups]
         display = clean_display_name(_get(main, "name"))
-        for index, spare in enumerate(spares, 1):
+        # Display names can differ only by case between feeds ("MOVIEDOME" vs
+        # "Moviedome"); key the counter case-insensitively for the same reason
+        # the counter is shared across identity groups: one name must not map
+        # to two different streams.
+        number_key = display.casefold()
+        for spare in spares:
+            index = backup_numbers.get(number_key, 0) + 1
+            backup_numbers[number_key] = index
             spare.name = f"{display} (Backup {index})"
             spare.category = backup_group(main_category)
             spare.attrs["group-title"] = spare.category

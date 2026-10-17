@@ -1,4 +1,5 @@
 """Offline tests for the category taxonomy (scripts/categorize.py)."""
+import copy
 import sys
 import unittest
 from pathlib import Path
@@ -126,6 +127,40 @@ class BackupTest(unittest.TestCase):
         self.assertTrue(all(item.attrs.get("tvg-id") == "NFL.Network.HD.us2"
                             for item in backups))
 
+    def test_backup_names_stay_unique_across_name_casing(self):
+        # The international MOVIEDOME feed and the US Moviedome feed clean up to
+        # the same name in different case. Their spare links must not both be
+        # published as "MOVIEDOME/Moviedome (Backup 1)".
+        channels = [
+            channel("MOVIEDOME", "Movies", "premiumtv.international.moviedome", "http://a/1", ""),
+            channel("MOVIEDOME", "Movies", "premiumtv.international.moviedome", "http://a/2", ""),
+            channel("Moviedome (720p)", "Movies", "Moviedome.us@Germany", "http://b/1", "US"),
+            channel("Moviedome (540p)", "Movies", "Moviedome.us@Germany", "http://b/2", "US"),
+        ]
+        _, backups = categorize.split_primary_backups(channels)
+        names = [item.name for item in backups]
+        self.assertEqual(len(names), len(set(names)))
+        lowered = [name.lower() for name in names]
+        self.assertEqual(len(lowered), len(set(lowered)), names)
+
+    def test_rebuilding_a_rebuilt_playlist_keeps_the_same_names(self):
+        # The scraper publishes a playlist that a later pass may rebuild. Name
+        # assignment must not depend on the order the spare names happen to be
+        # in, or every rebuild would renumber the backups.
+        channels = [
+            channel("Billiard TV", "Sports", "premiumtv.international.billiard_tv", "http://a/1", ""),
+            channel("Billiard TV", "Sports", "premiumtv.international.billiard_tv", "http://a/2", ""),
+            channel("Billiard TV (1080p) [Geo-blocked]", "Sports", "BilliardTV.us@SD", "http://b/1", "US"),
+            channel("Billiard TV (720p)", "Sports", "BilliardTV.us@SD", "http://b/2", "US"),
+            channel("Бильярд (1080p)", "Sports", "premiumtv.international.billiard_tv", "http://c/1", "RU"),
+            channel("Бильярд (720p)", "Sports", "premiumtv.international.billiard_tv", "http://c/2", "RU"),
+        ]
+        primary, backups = categorize.split_primary_backups(copy.deepcopy(channels))
+        first = {ch.url: ch.name for ch in primary + backups}
+        primary2, backups2 = categorize.split_primary_backups(copy.deepcopy(primary + backups))
+        second = {ch.url: ch.name for ch in primary2 + backups2}
+        self.assertEqual(first, second)
+
     def test_different_countries_stay_separate_channels(self):
         channels = [
             channel("Nickelodeon (720p)", "Kids", "Nickelodeon.us", "http://a/1.m3u8", "US"),
@@ -141,6 +176,21 @@ class BackupTest(unittest.TestCase):
         primary, backups = categorize.split_primary_backups(channels, max_backups=2)
         self.assertEqual(len(primary), 1)
         self.assertEqual(len(backups), 2)
+
+    def test_backup_names_stay_unique_when_two_feeds_share_a_display_name(self):
+        # International and US feeds of the same station have different ids but
+        # clean up to the same display name. Numbering used to restart at 1 for
+        # each identity group, publishing two different streams as "X (Backup 1)".
+        channels = [
+            channel("World Poker Tour (1080p)", "Sports", "WorldPokerTour.us", "http://a/1", "US"),
+            channel("World Poker Tour (720p)", "Sports", "WorldPokerTour.us", "http://a/2", "US"),
+            channel("World Poker Tour (1080p)", "Sports", "world_poker_tour.intl", "http://b/1", ""),
+            channel("World Poker Tour (720p)", "Sports", "world_poker_tour.intl", "http://b/2", ""),
+        ]
+        primary, backups = categorize.split_primary_backups(channels)
+        self.assertEqual(len(primary), 2)
+        self.assertEqual([item.name for item in backups],
+                         ["World Poker Tour (Backup 1)", "World Poker Tour (Backup 2)"])
 
 
 class OrderTest(unittest.TestCase):

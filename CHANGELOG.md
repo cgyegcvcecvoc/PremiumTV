@@ -37,7 +37,6 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   therefore a one-time clean install (uninstall 1.0.3 or older first); later
   releases install straight over it.
 - **Release guard.** A new `Release version guard` workflow checks every
-- **Release guard.** A new `Release version guard` workflow checks every
   published stable release against the newest stable release. A tag that is not
   above the current stable is converted to a pre-release (so no app can offer
   it) and the run fails with an explanation. Versions and Android versionCodes
@@ -60,6 +59,50 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   `docs/UPDATES.md` (policy plus the process for publishing the next stable
   release), updated both apps' READMEs, the download page and hub copy, and
   added 1.0.4 to the hub's asset mirror list.
+- **Channel-lineup preview on the download site.** A new **Channels** section
+  is generated from `playlists/PremiumTV.m3u`: unique channels and backup feeds,
+  categories and countries, quality labels, a row of recognisable channels
+  (ESPN, NFL Network, CNN, HBO, Nickelodeon, Cartoon Network, …), and a
+  searchable category grid with sample names and direct links to each published
+  category playlist. The counts are read from the playlist, so the page cannot
+  advertise a channel the current lineup does not carry.
+- **Backup integrity fixed and audited.** Backup feeds are now numbered per
+  display name across every identity group, case-insensitively and in a stable
+  identity-group order, so two feeds of the same station can no longer publish
+  as “X (Backup 1)” and re-running the rebuild no longer renumbers them. The
+  rebuild removed the duplicates for Billiard TV, World Poker Tour,
+  Moviedome/MOVIEDOME, Pluto TV Sitcoms, Pluto TV Serie and Action Hollywood
+  Movies, and rebuilding the result reproduces every name. All 1,424 backup names
+  in `PremiumTV.m3u` are unique and each one has a primary channel. The main
+  playlist still carries 11,444 entries (10,020 unique channels) with no
+  duplicate URLs.
+- **Category files cannot drift again.** `scripts/rebuild_playlists.py` now cuts
+  every per-category playlist from the *published* order, not the parser’s
+  pre-sort input, and deletes category files for groups that disappeared or fell
+  below the three-channel threshold. This cleared seven stale playlists
+  (`Public_TV`, `Public_TV_Backups`, `Tv_Reality`, `Tv_Reality_Backups`,
+  `Online_TV_Backups`, `Family_Backups`, `Global_TV_Backups`) that still held
+  channels and guide headers no longer in the lineup; the remaining 81 files
+  match `PremiumTV.m3u` entry for entry.
+- **Verification snapshot.** `scripts/verify_playlists.py --strict` reports 177
+  playlists / 22,974 entries with 0 problems, 0 published links the deep check
+  called dead, and all 132 files on the `categories/` shelf in step. Quality
+  labels in the main playlist: 2,711 channels at 1080p, 8 at 4K, 2,314 at 720p,
+  602 at 576p, 285 at 480p and 3,891 without a resolution tag; 924 channels have
+  at least one spare feed.
+- **Download checksums describe the file you actually get.** The download page
+  preferred a checksum from the checked-in `build-out/` directory, which still
+  described an earlier local 1.0.4 APK (16,079,074 bytes) while the published
+  release asset is 16,090,467 bytes. `build_site_data.py` now trusts GitHub's
+  release digest first and falls back to `build-out/` only when a release has no
+  digest; a site test compares every published asset with its release digest.
+- **Backup audit is now a repeatable check.** Added
+  `scripts/audit_backups.py` and [`playlists/checks/BACKUP-AUDIT.md`](playlists/checks/BACKUP-AUDIT.md).
+  It reports unique backup names, orphan feeds, continuous numbering, duplicate
+  URLs, quality labels, and whether every `playlists/categories/*.m3u` file is
+  an exact slice of the published playlist. Both the scrape and biweekly
+  workflows run it with `--strict`, so a future duplicate backup name or a
+  stale category file fails the verification step instead of shipping.
 
 ## 2026-10-16 — Everyday Polish + Encore Preview
 
