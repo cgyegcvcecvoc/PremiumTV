@@ -169,14 +169,14 @@ def promote_backup(dead, backups: list, results: dict[str, dict], dead_fn) -> ob
         if candidate is dead or candidate.url == dead.url:
             continue
         result = results.get(candidate.url)
-        if result and not dead_fn(result):
+        if result and result.get("status") == "working":
             return candidate
     return None
 
 
 def find_replacements(dead_channels: list, pool: dict[str, list], results: dict[str, dict],
                       used: set[str], workers: int, per_host: int, timeout: float,
-                      retries: int, dead_fn, max_candidates: int = 4) -> dict[str, object]:
+                      retries: int, dead_fn, max_candidates: int = 4, deep: bool = False) -> dict[str, object]:
     """Check pool candidates for channels whose every link died."""
     wanted: list = []
     for dead in dead_channels:
@@ -189,7 +189,7 @@ def find_replacements(dead_channels: list, pool: dict[str, list], results: dict[
 
     log(f"[update] testing {len(wanted)} replacement candidates for "
         f"{len(dead_channels)} dead channels")
-    fresh = check_channels(wanted, workers, per_host, timeout, retries, deep=False)
+    fresh = check_channels(wanted, workers, per_host, timeout, retries, deep=deep)
     results.update(fresh)
 
     replacements: dict[str, object] = {}
@@ -199,7 +199,7 @@ def find_replacements(dead_channels: list, pool: dict[str, list], results: dict[
             if candidate.url in used or candidate.url == dead.url:
                 continue
             result = fresh.get(candidate.url)
-            if result and not dead_fn(result):
+            if result and result.get("status") == "working":
                 replacements[dead.url] = candidate
                 used.add(candidate.url)
                 break
@@ -268,7 +268,7 @@ def update_file(path: Path, args, pool: dict[str, list], guide_check=None) -> di
             replacements = find_replacements(still_dead, pool, results, used, args.workers,
                                              args.per_host_workers, args.timeout,
                                              args.retries, dead_fn,
-                                             max_candidates=args.pool_candidates)
+                                             max_candidates=args.pool_candidates, deep=args.deep)
             stats["replaced"] = len(replacements)
 
         # 3. Whatever is still dead goes, unless the run would gut the file.

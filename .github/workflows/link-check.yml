@@ -81,6 +81,17 @@ jobs:
       - name: Run offline tests
         run: python -m unittest discover -s tests -v
 
+      - name: Try verified replacements before removing dead links
+        id: repair
+        if: inputs.patch != false
+        continue-on-error: true
+        run: |
+          python scripts/update_m3u.py playlists/PremiumTV.m3u playlists/Priority_Channels.m3u \
+            --pool playlists/PremiumTV_all.m3u "playlists/sources/*.m3u" \
+            --deep --workers 96 --per-host-workers 6 --timeout 10 --retries 1 \
+            --min-working-ratio 0.25 --max-remove-ratio 0.20 \
+            --report playlists/checks/deep-repair.json
+
       - name: Deep-check every published link
         id: links
         continue-on-error: true
@@ -188,6 +199,6 @@ jobs:
 
       - name: Fail the workflow if a check crashed
         if: >-
-          steps.links.outcome == 'failure' || steps.epg.outcome == 'failure' ||
+          steps.repair.outcome == 'failure' || steps.links.outcome == 'failure' || steps.epg.outcome == 'failure' ||
           steps.epgbuild.outcome == 'failure' || steps.verify.outcome == 'failure'
         run: exit 1
