@@ -74,10 +74,11 @@ and failure feedback, and guarded refresh/reset controls as stable 1.0.3.
 The global lineup and cable-style Guide remain preview-only. This is still
 **1.1.1**, still a **pre-release**, and never the default download.
 
-Android's refreshed preview uses `versionCode 11` (the original 1.1.1 used 9),
-so it can upgrade either the earlier preview or stable 1.0.3 in place. Returning
-from code 11 to stable code 10 requires uninstalling the preview first; Android
-will not silently downgrade it. Mac installers keep version 1.1.1.
+This rebuilt preview uses the derived `versionCode 100010001` (the original
+1.1.1 used 9, the earlier maintenance build 11), so a future stable above 1.1.1
+can install over it. It is signed with the same long-lived update key as stable
+1.0.4; the earlier 1.1.1 builds used a different random debug key, so installing
+over one of those needs a one-time uninstall. Mac installers keep version 1.1.1.
 
 ## Also in this build
 
@@ -100,14 +101,15 @@ historical tag, when inspecting the source of the rebuilt installers.
 
 ## Downloads
 
-- Android: `PremiumTV-1.1.1-debug.apk` (`versionCode 11`) — upgrades the original 1.1.1
-  (`9`) and stable 1.0.3 (`10`) in place.
+- Android: `PremiumTV-1.1.1-debug.apk` (`versionCode 100010001`) — signed with
+  the long-lived update key; installs over stable 1.0.4 and future previews.
 - Mac Apple Silicon: `PremiumTV-1.1.1-mac-arm64.dmg` / `.pkg`.
 - Mac Intel: `PremiumTV-1.1.1-mac-x64.dmg` / `.pkg`.
 - Checksums: `SHA256SUMS-android.txt` and `SHA256SUMS-macos.txt`.
 
 Mac installers are ad-hoc signed, not notarized (first launch: right-click →
-Open). The Android APK is debug-signed, as with every PremiumTV release.
+Open). The Android APK is signed with the pinned update key (see
+`android/keystore/README.md`), so later releases install in place.
 
 ## Validation
 
