@@ -84,6 +84,25 @@ def release(tag: str, *, draft: bool = False, prerelease: bool = False) -> dict:
     }
 
 
+class GhReleaseListFormatTests(unittest.TestCase):
+    """`gh release list --json` returns camelCase keys, not the REST names."""
+
+    def test_gh_release_list_shape_is_understood(self):
+        releases = [
+            {"tagName": "v1.0.4", "isPrerelease": False, "isDraft": False},
+            {"tagName": "v1.0.3", "isPrerelease": False, "isDraft": False},
+            {"tagName": "v1.1.1", "isPrerelease": True, "isDraft": False},
+            {"tagName": "v1.0.5", "isPrerelease": False, "isDraft": True},
+        ]
+        self.assertEqual(release_version.newest_stable(releases), "1.0.4")
+        status, message = release_version.guard("v1.0.4", releases)
+        self.assertEqual(status, 0)
+        self.assertIn("above the previous stable v1.0.3", message)
+        status, message = release_version.guard("v1.0.3", releases)
+        self.assertEqual(status, 2)
+        self.assertIn("not above the newest stable v1.0.4", message)
+
+
 class ReleaseGuardTests(unittest.TestCase):
     def test_a_newer_stable_release_passes(self):
         releases = [release("v1.0.2"), release("v1.0.3"), release("v1.1.1", prerelease=True)]

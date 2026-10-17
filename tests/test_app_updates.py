@@ -211,6 +211,13 @@ class ReleasePolicyTests(unittest.TestCase):
         self.assertIn('--guard --tag "$TAG" --releases', guard)
         self.assertIn('gh release edit "$TAG" --prerelease', guard)
         self.assertIn('github.event.release.prerelease == false', guard)
+        # `gh release list --json` emits camelCase keys; the parser must read
+        # exactly the fields the workflow requests or the guard silently
+        # treats every release as absent and always passes.
+        self.assertIn("tagName,isPrerelease,isDraft", guard)
+        parser = text(ROOT / "scripts" / "release_version.py")
+        for field in ("tagName", "isPrerelease", "isDraft"):
+            self.assertIn(field, parser)
 
     def test_both_platform_workflows_are_generic_and_build_every_release(self):
         for name in ("android-build.yml", "macos-build.yml"):
