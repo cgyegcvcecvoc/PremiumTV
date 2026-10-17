@@ -1,73 +1,73 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-10-17 12:12 UTC (2026-10-17 08:12 AM EDT)
-- **Channels in the main playlist:** 11317
-- **Channels in the category files:** 11304 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2254 (19.9%)
+- **Rebuilt:** 2026-10-17 13:52 UTC (2026-10-17 09:52 AM EDT)
+- **Channels in the main playlist:** 11338
+- **Channels in the category files:** 11324 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2249 (19.9%)
 - **Categories:** 81 groups (33 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 520 | 207 |
-| 2 | Sports Backups | 86 | 41 |
-| 3 | Lifestyle | 473 | 116 |
-| 4 | Lifestyle Backups | 89 | 28 |
-| 5 | Fox Channels | 29 | 9 |
+| 1 | Sports | 516 | 208 |
+| 2 | Sports Backups | 85 | 40 |
+| 3 | Lifestyle | 475 | 115 |
+| 4 | Lifestyle Backups | 90 | 29 |
+| 5 | Fox Channels | 29 | 10 |
 | 6 | CBS | 34 | 6 |
 | 7 | CBS Backups | 14 | 0 |
-| 8 | NBC | 69 | 18 |
+| 8 | NBC | 71 | 18 |
 | 9 | NBC Backups | 11 | 5 |
 | 10 | NBC Sports Channels | 10 | 8 |
-| 11 | Cartoons | 183 | 20 |
+| 11 | Cartoons | 185 | 20 |
 | 12 | Cartoons Backups | 21 | 3 |
 | 13 | PBS | 35 | 9 |
 | 14 | PBS Backups | 7 | 3 |
 | 15 | Game Shows | 12 | 6 |
 | 16 | Game Shows Backups | 16 | 9 |
-| 17 | Movies | 850 | 142 |
-| 18 | Movies Backups | 99 | 11 |
-| 19 | Music | 846 | 140 |
-| 20 | Music Backups | 86 | 36 |
-| 21 | News | 746 | 214 |
-| 22 | News Backups | 162 | 108 |
-| 23 | Europe | 694 | 121 |
-| 24 | Europe Backups | 66 | 5 |
-| 25 | Entertainment | 637 | 122 |
-| 26 | Entertainment Backups | 69 | 20 |
-| 27 | International | 594 | 132 |
-| 28 | International Backups | 95 | 34 |
-| 29 | Religious | 574 | 62 |
+| 17 | Music | 849 | 140 |
+| 18 | Music Backups | 85 | 36 |
+| 19 | Movies | 847 | 138 |
+| 20 | Movies Backups | 100 | 11 |
+| 21 | News | 749 | 214 |
+| 22 | News Backups | 164 | 110 |
+| 23 | Europe | 693 | 122 |
+| 24 | Europe Backups | 66 | 6 |
+| 25 | Entertainment | 629 | 115 |
+| 26 | Entertainment Backups | 68 | 20 |
+| 27 | International | 602 | 134 |
+| 28 | International Backups | 96 | 36 |
+| 29 | Religious | 573 | 62 |
 | 30 | Religious Backups | 38 | 7 |
-| 31 | South America | 453 | 48 |
+| 31 | South America | 454 | 48 |
 | 32 | South America Backups | 21 | 3 |
-| 33 | Asia | 417 | 84 |
+| 33 | Asia | 418 | 83 |
 | 34 | Asia Backups | 25 | 1 |
-| 35 | Documentary | 381 | 96 |
+| 35 | Documentary | 382 | 95 |
 | 36 | Documentary Backups | 69 | 10 |
-| 37 | Series | 330 | 33 |
-| 38 | Series Backups | 105 | 26 |
-| 39 | United States | 327 | 42 |
+| 37 | Series | 331 | 33 |
+| 38 | Series Backups | 104 | 26 |
+| 39 | United States | 328 | 41 |
 | 40 | United States Backups | 57 | 7 |
-| 41 | North America | 278 | 12 |
+| 41 | North America | 282 | 13 |
 | 42 | North America Backups | 5 | 0 |
-| 43 | Kids | 277 | 51 |
+| 43 | Kids | 279 | 51 |
 | 44 | Kids Backups | 53 | 6 |
 | 45 | Comedy | 114 | 7 |
 | 46 | Comedy Backups | 26 | 4 |
-| 47 | Education | 112 | 11 |
-| 48 | Education Backups | 13 | 1 |
-| 49 | Culture | 108 | 11 |
-| 50 | Culture Backups | 7 | 3 |
-| 51 | Legislative | 93 | 12 |
+| 47 | Culture | 112 | 11 |
+| 48 | Culture Backups | 7 | 3 |
+| 49 | Education | 112 | 11 |
+| 50 | Education Backups | 13 | 1 |
+| 51 | Legislative | 94 | 12 |
 | 52 | Legislative Backups | 3 | 0 |
 | 53 | India | 80 | 27 |
 | 54 | India Backups | 5 | 2 |
 | 55 | Classic TV | 67 | 6 |
 | 56 | Classic TV Backups | 8 | 1 |
-| 57 | Africa | 65 | 9 |
-| 58 | Business | 44 | 10 |
+| 57 | Africa | 63 | 9 |
+| 58 | Business | 43 | 10 |
 | 59 | Business Backups | 12 | 10 |
 | 60 | A&E Networks | 29 | 1 |
 | 61 | Family | 29 | 15 |
@@ -89,24 +89,24 @@
 | 77 | Oceania | 4 | 3 |
 | 78 | Online TV | 4 | 0 |
 | 79 | Relax | 3 | 1 |
-| 80 | Other | 247 | 22 |
-| 81 | Other Backups | 132 | 6 |
+| 80 | Other | 248 | 21 |
+| 81 | Other Backups | 134 | 6 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 11317 | 91 | 1424 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 11338 | 92 | 1428 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 19 | 8 | 2 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 11282 (99.5%) |
-| matched on the base id (feed qualifier dropped) | 1 (0.0%) |
+| already declared in the guide | 11263 (99.2%) |
+| matched on the base id (feed qualifier dropped) | 3 (0.0%) |
 | matched on the display name | 5 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 48 (0.4%) |
+| no guide entry (upstream publishes no schedule for it) | 86 (0.8%) |
 
 ## Channels with no schedule yet
 
@@ -122,13 +122,13 @@ just have nothing to show until an upstream guide picks them up:
 - Adventure Sports TV (1080p) (`AdventureSportsTV.us@SD`)
 - Africa 24 Sport (1080p) (`Africa24Sport.fr@SD`)
 - Al Iraqia Sport (720p) (`AlIraqiaSport.iq@SD`)
-- Arena Sport 1 Premium (Serbia) (360p) (`ArenaSport1Premium.rs@SD`)
-- Arena Sport 1 Premium (Slovenia) (`ArenaSport1Premium.si@SD`)
-- Arena Sport Premium M1 (`ArenaSportPremiumM1.mk@SD`)
-- Arena Sport Premium M2 (`ArenaSportPremiumM2.mk@SD`)
-- Arena Sport Premium M3 (`ArenaSportPremiumM3.mk@SD`)
 - AS3 Sport TV (1080p) (`AS3SportTV.ve@SD`)
 - Astrahan.Ru Sport (720p) (`AstrahanRuSport.ru@SD`)
+- Auto Motor Sport (`AutoMotorogSportTV.no@SD`)
+- Auto Motor Sport (`premiumtv.international.auto_motor_sport`)
+- ☆ AWSN 🇺🇸 (`660e7404e8fba8000853abc0`)
+- Bahrain Sports 1 (720p) [Not 24/7] (`BahrainSports1.bh@SD`)
+- Bahrain Sports 2 (720p) [Not 24/7] (`BahrainSports2.bh@SD`)
 
 Generated by `scripts/rebuild_playlists.py`. Run it after a scrape, or let the
 daily workflow do it - the scraper calls the same `categorize` module, so a
