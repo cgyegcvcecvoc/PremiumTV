@@ -86,6 +86,32 @@ one-file `FileProvider` and Android's normal package installer, so the user
 confirms the update. Android 8+ may ask once for permission to install unknown
 apps. See [`docs/UPDATES.md`](../docs/UPDATES.md).
 
+## The update popup
+
+Settings is where an update is managed; the popup is where an out-of-date build
+is told. `UpdateNotice` resolves `app-update-notice.json` — published at the root
+of the repository and read from `main` during the same daily check — against this
+APK's version, and `AppRoot` shows `UpdateNoticeDialog` above every screen except
+the player.
+
+The document decides the wording, the targeted version range, and the
+end-of-support date, so all three can change without another release. The popup
+is dismissible (a remote can arrive mid-evening, and an app that refuses to run
+turns "please update" into "your TV is broken"), but the dismissal is launch-scoped
+and never written to `SharedPreferences`, so the notice returns every launch. The
+document is cached, so the popup is decided before any network call and still
+appears offline. On the day `support_ends_utc` passes, the same rule escalates to
+its `after_support_ends` wording and turns its accents red by itself.
+
+A notice that cannot be read, is oversized, or names a schema this build has never
+seen keeps the last good copy and can never fail the update check that already
+succeeded. **Update now** opens Settings and re-checks GitHub; the installer still
+downloads only on the Settings button.
+
+`M3uParser` also drops an entry marked `tvg-notice="app-update"` — the sanctioned
+notice row `scripts/legacy_sunset.py` puts in the frozen legacy feed for builds
+too old to carry a popup. It is a message, never a channel.
+
 ## Playback
 
 ExoPlayer (Media3 1.4.1). HLS and progressive streams are both handled, and
@@ -193,6 +219,7 @@ android/
 │   │   └── TvRepository.kt      atomic cache + conditional/full network refresh
 │   ├── update/
 │   │   ├── AutomaticRefreshScheduler.kt  GitHub-aligned WorkManager slots
+│   │   ├── UpdateNotice.kt        the published "go and update" notice policy
 │   │   └── LibraryRefreshWorker.kt       connected background refresh worker
 │   └── ui/
 │       ├── AppRoot.kt           loading / error / home / player routing
