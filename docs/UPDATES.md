@@ -29,6 +29,19 @@ normal installer.
 6. **Checksums are mandatory.** The APK/DMG is compared with the SHA-256 value
    published in that release before it is kept or opened.
 
+## Android signing (why 1.0.4 is the clean install)
+
+Android only installs an update over an existing app when both APKs carry the
+same signing certificate. Every CI build before 1.0.4 generated a brand-new
+debug key on the runner, so 1.0.0-1.0.3 could not update each other in place.
+1.0.4 and every later build are signed with the checked-in long-lived key
+`android/keystore/premiumtv-updates.p12`, and CI verifies the APK certificate
+against `android/keystore/fingerprint.txt` before uploading.
+
+If PremiumTV 1.0.3 (or older) is installed, uninstall it once before installing
+1.0.4 by hand. After that, Android updates install straight over the previous
+release - that is the whole point of 1.0.4.
+
 ## Android
 
 `AppUpdateManager` stores its state in `premiumtv_app_update` preferences and

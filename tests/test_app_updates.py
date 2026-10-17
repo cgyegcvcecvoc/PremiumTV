@@ -156,6 +156,52 @@ class MacUpdateTests(unittest.TestCase):
         self.assertEqual(package["version"], "1.0.4")
 
 
+class AndroidSigningTests(unittest.TestCase):
+    """The update chain only works if every APK shares one signing identity."""
+
+    def test_long_lived_update_keystore_is_committed_and_pinned(self):
+        keystore = ROOT / "android" / "keystore" / "premiumtv-updates.p12"
+        fingerprint = ROOT / "android" / "keystore" / "fingerprint.txt"
+        self.assertTrue(keystore.is_file(), "the update keystore must be committed")
+        self.assertGreater(keystore.stat().st_size, 1000)
+        pin = text(fingerprint).strip()
+        self.assertRegex(pin, r"^[0-9a-f]{64}$")
+        # Pinned deliberately: changing this key breaks in-place updates for
+        # every installed 1.0.4+ app.
+        self.assertEqual(
+            pin,
+            "18baf0dc6ed12d263b02f7cf7d69f1275b9c3d5357a81160182567c917e7a7eb",
+        )
+
+    def test_gradle_signs_every_debug_apk_with_the_pinned_key(self):
+        gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
+        self.assertIn('"keystore/premiumtv-updates.p12"', gradle)
+        self.assertIn('create("updates")', gradle)
+        self.assertIn('storeType = "PKCS12"', gradle)
+        self.assertIn('keyAlias = updateKeyAlias', gradle)
+        self.assertIn('signingConfig = signingConfigs.getByName("updates")', gradle)
+        self.assertIn("PREMIUMTV_ANDROID_KEYSTORE", gradle)
+
+    def test_ci_verifies_the_apk_certificate_matches_the_pin(self):
+        workflow = text(ROOT / ".github" / "workflows" / "android-build.yml")
+        self.assertIn("android/keystore/fingerprint.txt", workflow)
+        self.assertIn("keytool -printcert -jarfile", workflow)
+        self.assertIn("does not match the pinned update key", workflow)
+        self.assertLess(
+            workflow.index("Verify the update signing identity"),
+            workflow.index("Attach the APKs to the release"),
+        )
+
+    def test_upgrade_note_explains_the_one_time_uninstall(self):
+        updates = text(ROOT / "docs" / "UPDATES.md")
+        self.assertIn("same signing certificate", updates)
+        self.assertIn("uninstall it once", updates)
+        notes = text(ROOT / "release-notes-1.0.4.md")
+        self.assertIn("uninstall it once", notes)
+        readme = text(ROOT / "android" / "README.md")
+        self.assertIn("android/keystore/", readme)
+
+
 class ReleasePolicyTests(unittest.TestCase):
     def test_release_guard_demotes_out_of_order_stable_releases(self):
         guard = text(ROOT / ".github" / "workflows" / "release-guard.yml")

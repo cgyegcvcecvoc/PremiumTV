@@ -81,6 +81,32 @@ class BuildSiteDataTest(unittest.TestCase):
                          {asset["name"] for asset in assets})
         self.assertEqual(older, [])
 
+    def test_release_asset_digest_survives_a_missing_build_out(self):
+        version = "1.2.3"
+        digest = "a" * 64
+        names = [
+            f"PremiumTV-{version}-debug.apk",
+            f"PremiumTV-{version}-mac-arm64.dmg",
+            f"PremiumTV-{version}-mac-arm64.pkg",
+            f"PremiumTV-{version}-mac-x64.dmg",
+            f"PremiumTV-{version}-mac-x64.pkg",
+        ]
+        release = {
+            "tag_name": f"v{version}", "prerelease": False, "draft": False,
+            "assets": [{"name": name, "size": 100, "digest": f"sha256:{digest}"}
+                       for name in names],
+        }
+        channels, _ = build_site_data.build_apps({}, [release])
+        self.assertEqual(channels[0]["version"], version)
+        apk = next(a for a in channels[0]["assets"] if a["name"].endswith(".apk"))
+        self.assertEqual(apk["sha256"], digest)
+        self.assertEqual(build_site_data.asset_digest({"digest": "sha256:zzz"}), None)
+
+        workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+        self.assertIn("digest, browser_download_url", workflow)
+        self.assertIn("gh workflow run pages.yml", workflow)
+        self.assertIn("github.event_name != 'release'", workflow)
+
     def test_site_payload_and_feed_are_reproducible(self):
         payload_again, changelog_again = build_site_data.build_payload()
         self.assertEqual(self.payload["generated_utc"], payload_again["generated_utc"])

@@ -31,6 +31,19 @@ an older build. The release guard workflow rejects (and marks as a
 pre-release) any stable release that is not above the current stable, so the
 apps never have to guess.
 
+## One clean install, then never again
+
+Android refuses to install an update over an app signed by a different key.
+Builds before 1.0.4 were each signed by a fresh key generated on the build
+machine, which is why older versions could not update in place. 1.0.4 and all
+later releases share one checked-in update key, and CI verifies the APK's
+certificate on every build.
+
+So: if you have 1.0.3 or older installed, **uninstall it once**, then install
+1.0.4. Every release after this one installs directly over 1.0.4 from
+**Settings → App updates**, with no uninstall and no full re-download of the
+guide.
+
 ## Downloads (this release only)
 
 - Android TV / Google TV / Fire TV / phone / tablet:

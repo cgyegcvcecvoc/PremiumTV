@@ -11,6 +11,25 @@ plugins {
 val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.4").get()
 val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("100000004").get().toInt()
 
+// Every published APK must carry the *same* signing identity, otherwise
+// Android refuses to install a newer PremiumTV over the installed one
+// (INSTALL_FAILED_UPDATE_INCOMPATIBLE).  GitHub's hosted runners start with no
+// debug keystore, so the old "standard debug key" was actually a brand-new
+// random key on every run - which would have broken Settings -> App updates.
+//
+// The long-lived update key is intentionally checked in: this is a sideloaded,
+// open-source TV app, and shipping the key with the build is what lets anyone
+// reproduce an installable, self-updating APK.  Set the PREMIUMTV_ANDROID_*
+// environment variables to use a private key instead.
+val updateKeyStore = rootProject.file(
+    System.getenv("PREMIUMTV_ANDROID_KEYSTORE") ?: "keystore/premiumtv-updates.p12"
+)
+val updateKeyStorePassword =
+    System.getenv("PREMIUMTV_ANDROID_KEYSTORE_PASSWORD") ?: "premiumtv-updates"
+val updateKeyAlias = System.getenv("PREMIUMTV_ANDROID_KEY_ALIAS") ?: "premiumtv-updates"
+val updateKeyPassword =
+    System.getenv("PREMIUMTV_ANDROID_KEY_PASSWORD") ?: updateKeyStorePassword
+
 android {
     namespace = "com.premiumtv.app"
     compileSdk = 34
@@ -24,11 +43,24 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    signingConfigs {
+        create("updates") {
+            storeFile = updateKeyStore
+            storeType = "PKCS12"
+            storePassword = updateKeyStorePassword
+            keyAlias = updateKeyAlias
+            keyPassword = updateKeyPassword
+        }
+    }
+
     buildTypes {
         debug {
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
+            // Signed with the one update key so the next release installs
+            // straight over this build from Settings -> App updates.
+            signingConfig = signingConfigs.getByName("updates")
         }
         release {
             // R8 is off so a stack trace from a TV device maps straight back
@@ -38,8 +70,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // No signing config. CI publishes only the debug build, which is
-            // signed with the standard debug key and installs as-is on a TV.
+            // No release signing config: CI publishes the debug build, which
+            // is signed with the pinned update key and installs as-is on a TV.
             // An unsigned release APK cannot be installed, so it is not built.
         }
     }
