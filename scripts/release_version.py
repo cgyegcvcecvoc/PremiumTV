@@ -97,11 +97,22 @@ def android_version_code(version: str) -> int:
 
 
 def _release_tag(release: dict) -> str:
-    return str(release.get("tag") or release.get("tag_name") or "")
+    # The GitHub REST API uses tag_name, the compact file uses tag, and
+    # `gh release list --json tagName,isPrerelease,isDraft` uses camelCase.
+    return str(
+        release.get("tag")
+        or release.get("tag_name")
+        or release.get("tagName")
+        or ""
+    )
 
 
 def _is_stable(release: dict) -> bool:
-    return not release.get("draft") and not release.get("prerelease")
+    # Accept both the REST API (draft/prerelease) and `gh release list --json`
+    # (isDraft/isPrerelease) shapes.
+    draft = release.get("draft", release.get("isDraft"))
+    prerelease = release.get("prerelease", release.get("isPrerelease"))
+    return not draft and not prerelease
 
 
 def stable_versions(releases: Iterable[dict]) -> list[str]:

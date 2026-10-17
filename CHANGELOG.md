@@ -43,6 +43,9 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   it) and the run fails with an explanation. Versions and Android versionCodes
   now come from one policy, `scripts/release_version.py`:
   `MAJOR * 100000000 + MINOR * 10000 + PATCH`. 1.0.4 is code `100000004`.
+  The guard understands both the REST shape and the camelCase shape emitted by
+  `gh release list --json` (`tagName`, `isPrerelease`, `isDraft`), so a release
+  that is not above the current stable is actually caught and demoted.
 - **Version 1.0.4 is the stable default.** Android and macOS defaults, both
   build workflows, the bundle builder and the download-site data all target
   1.0.4. Both build workflows accept future versions from the release tag or a
