@@ -1,15 +1,15 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261017T092012Z-3073`)
-- **Started:** 2026-10-17T09:20:12Z | **Finished:** 2026-10-17T09:20:35Z | **Duration:** 22.5s
+- **Run:** nightly guide check (`20261017T120453Z-3224`)
+- **Started:** 2026-10-17T12:04:53Z | **Finished:** 2026-10-17T12:05:06Z | **Duration:** 13.4s
 - **Guides checked:** 520 across 176 playlists (175 of them are this repository's own published guides)
 - **Working share of upstream guides:** 100.0%
 
 | Result | Guides |
 |---|---:|
-| ok | 206 |
-| empty | 81 |
-| offline | 233 |
+| ok | 207 |
+| empty | 79 |
+| offline | 234 |
 | own guide (excluded from the share above) | 175 |
 
 ## Working guides (kept)
@@ -404,23 +404,23 @@
 
 ## This repository's own guides
 
-175 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: empty=78, ok=97. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
+175 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: empty=76, offline=1, ok=98. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
 
 | Own guide | Status | Reason |
 |---|---|---|
-| `PremiumTV.xml` | ok | 9798 channels, 9030 programmes sampled |
+| `PremiumTV.xml` | ok | 9758 channels, 8997 programmes sampled |
 | `Afghanistan.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Albania.xml` | ok | 15 channels, 62 programmes sampled |
-| `Algeria.xml` | ok | 4 channels, 74 programmes sampled |
-| `Andorra.xml` | empty | valid XMLTV but no programmes in the sampled window |
+| `Albania.xml` | ok | 15 channels, 107 programmes sampled |
+| `Algeria.xml` | ok | 5 channels, 76 programmes sampled |
+| `Andorra.xml` | offline | HTTP 404 |
 | `Angola.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Antigua_and_Barbuda.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Arab_World.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Argentina.xml` | ok | 149 channels, 912 programmes sampled |
-| `Armenia.xml` | ok | 10 channels, 141 programmes sampled |
+| `Argentina.xml` | ok | 149 channels, 907 programmes sampled |
+| `Armenia.xml` | ok | 10 channels, 107 programmes sampled |
 | `Aruba.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Australia.xml` | ok | 33 channels, 866 programmes sampled |
-| `Austria.xml` | ok | 35 channels, 818 programmes sampled |
+| `Australia.xml` | ok | 33 channels, 853 programmes sampled |
+| `Austria.xml` | ok | 35 channels, 817 programmes sampled |
 | `Azerbaijan.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Bahamas.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | … 160 more (one per country playlist) | | |
