@@ -37,8 +37,8 @@ Daemon will be stopped at the end of the build
 > Task :app:testDebugUnitTest
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :app:desugarDebugFileDependencies FROM-CACHE
-> Task :app:dexBuilderDebug FROM-CACHE
 > Task :app:compressDebugAssets
+> Task :app:dexBuilderDebug FROM-CACHE
 > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
 > Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
@@ -49,16 +49,16 @@ Daemon will be stopped at the end of the build
 > Task :app:mergeProjectDexDebug FROM-CACHE
 > Task :app:validateSigningDebug
 > Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
 
 > Task :app:stripDebugDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so.
 
-> Task :app:writeDebugSigningConfigVersions
 > Task :app:mergeDebugJavaResource
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792260447441.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792260736349.json
 
-BUILD SUCCESSFUL in 30s
+BUILD SUCCESSFUL in 29s
 46 actionable tasks: 24 executed, 22 from cache
