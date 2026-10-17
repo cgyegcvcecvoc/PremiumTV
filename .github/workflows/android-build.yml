@@ -34,6 +34,9 @@ on:
       - "android/**"
       - ".github/preview-build.txt"
       - "playlists/countries/**"
+      # The USA bundle, shelf and site all read the live feed now, so a
+      # change there has to rebuild them too.
+      - "playlists/live/**"
       - "playlists/PremiumTV.m3u"
       - "categories/index.json"
       - "EPG/**"
