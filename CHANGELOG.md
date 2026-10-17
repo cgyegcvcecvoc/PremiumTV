@@ -42,9 +42,13 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   surprise is waiting" into "this build is frozen" and its accents turn red — with
   no fetch, no rebuild and no remote edit.
 - **1.0.0–1.0.4 stop receiving scrape updates 30 days after the first warning.**
-  Those builds ship no updater and no popup (the `v1.0.3` tree has neither
-  `AppUpdateManager.kt` nor `updater.js`), so they can only be reached through the
-  one playlist they refresh. `raw.githubusercontent.com` serves the same bytes to
+  None of them can show this popup: 1.0.0–1.0.3 ship no updater at all (the
+  `v1.0.3` tree has neither `AppUpdateManager.kt` nor `updater.js`), and 1.0.4 has
+  the update centre but was released before this notice existed. So they can only
+  be reached through the one playlist they refresh. 1.0.4 can still escape on its
+  own — its Settings → App updates will offer the next release — it just will not
+  be told to look; 1.0.0–1.0.3 have no such route, which is why the frozen feed
+  carries the message for them. `raw.githubusercontent.com` serves the same bytes to
   every caller and cannot look at a version, so delivery is split in two:
   `playlists/live/USA.m3u` for builds that can still update, and
   `playlists/countries/USA.m3u` for 1.0.0–1.0.4. While support lasts the two are

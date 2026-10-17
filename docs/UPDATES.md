@@ -79,10 +79,16 @@ itself.
 
 ## End of support for 1.0.0-1.0.4
 
-Those builds ship no updater and no popup - the `v1.0.3` tree has neither
-`AppUpdateManager.kt` nor `updater.js` - so no code change can make them show a
-dialog. They do still refresh one playlist, baked into their bundles at build
-time, and that is the only channel into them. `scripts/legacy_sunset.py` uses it:
+None of them can show this popup, so no code change can reach them. 1.0.0-1.0.3
+ship no updater at all - the `v1.0.3` tree has neither `AppUpdateManager.kt` nor
+`updater.js`. 1.0.4 does have the update centre (`AppUpdateManager.kt`,
+`UpdateInstaller.kt`, `update-policy.js`), but it was released before this notice
+existed, so it can never fetch one; it can still escape on its own, because its
+Settings -> App updates will offer the next release - it simply will not be told to
+look. 1.0.0-1.0.3 have no such route.
+
+All of them do still refresh one playlist, baked into their bundles at build time,
+and that is the only channel into them. `scripts/legacy_sunset.py` uses it:
 
 | Feed | Path | Who reads it |
 |---|---|---|

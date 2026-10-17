@@ -172,9 +172,14 @@ release. `1.1.1` (and the earlier `1.1.0`) remain GitHub pre-releases and keep
 their names. The workflows build from the release tag or manual dispatch, and
 use the global `all` scope only when GitHub marks the release as a pre-release.
 
-**1.0.0–1.0.4 have an end-of-support date.** Those builds ship no updater and no
-popup — the `v1.0.3` tree has neither `AppUpdateManager.kt` nor `updater.js` — so
-they cannot be told anything in app except through the one playlist they refresh.
+**1.0.0–1.0.4 have an end-of-support date.** None of them can show this popup:
+1.0.0–1.0.3 ship no updater at all — the `v1.0.3` tree has neither
+`AppUpdateManager.kt` nor `updater.js` — and 1.0.4 has the update centre but was
+released before this notice existed. So they cannot be told anything in app except
+through the one playlist they refresh. 1.0.4 can still escape on its own, because
+its Settings → App updates will offer the next release; it simply will not be told
+to look. 1.0.0–1.0.3 have no such route, which is why the frozen feed carries the
+message for them.
 `scripts/legacy_sunset.py` splits delivery in two: current builds read
 [`playlists/live/USA.m3u`](playlists/live/), and 1.0.0–1.0.4 keep reading
 `playlists/countries/USA.m3u`. While support lasts the two are identical. On the
