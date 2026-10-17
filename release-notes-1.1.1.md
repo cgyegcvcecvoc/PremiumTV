@@ -1,8 +1,21 @@
 # PremiumTV 1.1.1 — Encore Preview: Cable Guide + Everyday Polish
 
-**This is a pre-release, not the default.** Stable users receive the recommended 1.0.3 release. Like
+**This is a pre-release, not the default.** Stable users receive the recommended 1.0.4 release. Like
 1.1.0, this build is published with GitHub's pre-release flag so it is never
 handed out as the recommended download.
+
+## Rebuilt with the in-app update center (same 1.1.1 name)
+
+The preview now carries the same **Settings → App updates** center as stable
+1.0.4: it checks GitHub once a day, offers only a published stable release
+above the installed build, downloads the installer once, verifies its SHA-256
+and reuses it until installed. Previews are never offered to stable users, and
+an installed 1.1.1 preview is never downgraded to 1.0.4.
+
+This rebuild is signed with PremiumTV's long-lived update key (versionCode
+`100010001`), so later releases install in place. If you already have the
+earlier 1.1.1 preview, uninstall it once before installing this build; after
+that, in-app updates work normally.
 
 ## The Guide tab is now a cable-style guide
 

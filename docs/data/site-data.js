@@ -151,7 +151,7 @@ window.SITE_DATA = {
     "published_at": "2026-10-15T21:17:01Z",
     "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.1.1",
     "notes_title": "PremiumTV 1.1.1 — Encore Preview: Cable Guide + Everyday Polish",
-    "notes_summary": "**This is a pre-release, not the default.** Stable users receive the recommended 1.0.3 release. Like 1.1.0, this build is published with GitHub's pre-release flag so it is never handed out as the recommended download.",
+    "notes_summary": "**This is a pre-release, not the default.** Stable users receive the recommended 1.0.4 release. Like 1.1.0, this build is published with GitHub's pre-release flag so it is never handed out as the recommended download.",
     "assets": [
      {
       "name": "BUILD-SOURCE-android.txt",
@@ -159,7 +159,7 @@ window.SITE_DATA = {
       "arch": "—",
       "size": 148,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/BUILD-SOURCE-android.txt",
-      "sha256": "513a96d07b16387b08cc9abf0653b21a8a9e84e830c709b71482e28037a45477"
+      "sha256": "3024db486ffe87444ecdaa2f2e5296d097a06d0054e0ff88c6bc3bfed23aa701"
      },
      {
       "name": "BUILD-SOURCE-macos.txt",
@@ -167,47 +167,47 @@ window.SITE_DATA = {
       "arch": "—",
       "size": 148,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/BUILD-SOURCE-macos.txt",
-      "sha256": "c8f382edce5291daec37c30a5d91a7593f6e6e439502f4313963166c5793d981"
+      "sha256": "3deb8a5e7b067c44173b11811dcbd81d7940ae1268247b740d8f69ad71068669"
      },
      {
       "name": "PremiumTV-1.1.1-debug.apk",
       "kind": "android",
       "arch": "universal",
-      "size": 18988780,
+      "size": 19155219,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-debug.apk",
-      "sha256": "81f9eba2acef9ff3b5b7d71e86de903eac1631c94c31090c2f5c35786b2e21f7"
+      "sha256": "312b415d471222b61c2acc20454b031b05d7e563794ef87e5cfe3377394f4265"
      },
      {
       "name": "PremiumTV-1.1.1-mac-arm64.dmg",
       "kind": "macos-dmg",
       "arch": "arm64",
-      "size": 138129359,
+      "size": 138270064,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-arm64.dmg",
-      "sha256": "458f9590123f21d678efa440e92899e6d12e4a73c4f865f6bcce75a6e4df3d33"
+      "sha256": "f3cddfad550684aceee58741b8e2656ecb6cfc27f8ce4c9d7cea50acb391ab68"
      },
      {
       "name": "PremiumTV-1.1.1-mac-arm64.pkg",
       "kind": "macos-pkg",
       "arch": "arm64",
-      "size": 136161368,
+      "size": 136296002,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-arm64.pkg",
-      "sha256": "e356ec652b872682e6bd271988775bcf39dfc32e515dd0a3503ed05c1c8c1209"
+      "sha256": "22d734d18d42853ba33ba2ba9cf4aeaab7425609eb789c33c254a98e12826719"
      },
      {
       "name": "PremiumTV-1.1.1-mac-x64.dmg",
       "kind": "macos-dmg",
       "arch": "x64",
-      "size": 143612464,
+      "size": 143732852,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-x64.dmg",
-      "sha256": "95445c77759b7eb4a0efd1d46389721d6ed0597452d466e4952406a4f0291cf7"
+      "sha256": "aa74dae07f12f7f31bbe854f24e93197c838d3752dd422f0d23bfae584e07802"
      },
      {
       "name": "PremiumTV-1.1.1-mac-x64.pkg",
       "kind": "macos-pkg",
       "arch": "x64",
-      "size": 141801850,
+      "size": 141941715,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/PremiumTV-1.1.1-mac-x64.pkg",
-      "sha256": "29cc3e19c1ba39aa8b804fabc8ac766b4c1270cd2ebe37b526d3bce57ce395ae"
+      "sha256": "887203f28da6b6f44eb6cfaa93ccb757b6964dc2e1bf5674f97e5da0010ff2c7"
      },
      {
       "name": "SHA256SUMS-android.txt",
@@ -215,7 +215,7 @@ window.SITE_DATA = {
       "arch": "—",
       "size": 92,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/SHA256SUMS-android.txt",
-      "sha256": "2ed8bbcbfacf4b717235301b73d6a64a88d8f1c3352ffc84785c8889e1f80619"
+      "sha256": "09d46fc53040c62e185ecaaa904b59c465bd84591a81342889e685905ebda811"
      },
      {
       "name": "SHA256SUMS-macos.txt",
@@ -223,7 +223,7 @@ window.SITE_DATA = {
       "arch": "—",
       "size": 380,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.1.1/SHA256SUMS-macos.txt",
-      "sha256": "bea34b3b8dd80ba906c0df5a58961165b44acb1107f364138eb9d53c2b54d1b1"
+      "sha256": "52c638982471ed8d8c10146ef447ae473368660884814664440d3371c1c28c61"
      }
     ]
    }
