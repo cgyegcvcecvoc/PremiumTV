@@ -8,7 +8,8 @@ panel that checks GitHub for a newer published stable release, downloads the
 APK once, verifies its SHA-256 checksum, and opens Android's package installer.
 **1.1.1** is the preview build with the global checked lineup and a
 **cable-style Guide tab**; it must be distributed as a GitHub pre-release and
-is never the default. A rebuilt 1.1.1 uses the derived `versionCode`
+is never the default. The rebuilt 1.1.1 also ships the Settings update center
+(same name and channel), signed with the long-lived update key. A rebuilt 1.1.1 uses the derived `versionCode`
 `100010001`, so it stays installable above 1.0.4. The guide is built from the
 repository's curated per-country XMLTV feeds (iptv-epg.org and epg.pw).
 

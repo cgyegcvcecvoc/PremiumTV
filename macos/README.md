@@ -14,7 +14,8 @@ The release workflow prepares two separate channels:
   and opens the installer.
 - **1.1.1 pre-release:** global checked playlist + merged guide, and the Guide
   tab is a **cable-style grid**. This must be published with GitHub's
-  pre-release flag; it never becomes the default build. (1.1.1 supersedes the
+  pre-release flag; it never becomes the default build. The rebuilt 1.1.1
+  preview also carries Settings → App updates. (1.1.1 supersedes the
   1.1.0 preview, whose grid sat in a separate Cable tab.)
 
 The current stable download is `v1.0.4`; the 1.1.x builds are pre-releases.
