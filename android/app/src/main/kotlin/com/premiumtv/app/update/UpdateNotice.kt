@@ -59,9 +59,10 @@ object UpdateNotice {
         newestVersion: String?,
         nowMillis: Long = System.currentTimeMillis(),
     ): AppUpdateNotice? {
-        if (body.isNullOrBlank()) return null
+        val text = body?.trim().orEmpty()
+        if (text.isEmpty()) return null
         val document = try {
-            JSONObject(body)
+            JSONObject(text)
         } catch (e: Exception) {
             return null
         }
@@ -158,9 +159,12 @@ object UpdateNotice {
     }
 
     private fun substitute(text: String?, values: Map<String, String>): String {
-        if (text.isNullOrBlank()) return ""
-        var result = text
-        for ((token, value) in values) result = result.replace(token, value)
+        val source: String = text?.trim().orEmpty()
+        if (source.isEmpty()) return ""
+        var result: String = source
+        for ((token, value) in values) {
+            result = result.replace(token, value)
+        }
         return result.trim()
     }
 
