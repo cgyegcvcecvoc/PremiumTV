@@ -18,8 +18,11 @@ hand-assigned codes (7 to 11) and above every prior release, so Android always
 upgrades in place, including from a preview back to stable. Only a published
 full release above the installed version is offered, and a stable release that
 is not above the current stable is converted to a pre-release by the release
-guard. Each published version carries a debug-signed APK that installs as-is on
-supported devices.
+guard. Each published version carries an APK signed with the long-lived update
+key in `android/keystore/` (verified against a pinned certificate on every
+build), so the next release installs in place from Settings. Builds before
+1.0.4 used a fresh random debug key on every CI run, so upgrading from one of
+those needs one uninstall + install; 1.0.4 onward update in place.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
 The same APK works everywhere — navigation is D-pad first, and touch works too.
@@ -169,7 +172,7 @@ published; an unsigned release APK cannot be installed on a TV or phone.
 ### Installing on a TV
 
 1. Copy `PremiumTV-1.0.4-debug.apk` to the TV (USB stick, a file-sharing
-   app, or `adb install -r PremiumTV-1.0.2-debug.apk` from a computer).
+   app, or `adb install -r PremiumTV-1.0.4-debug.apk` from a computer).
 2. Allow installs from that source (*Install unknown apps*).
 3. Open **PremiumTV**. The Channels tab should list the categories straight away.
 

@@ -3,8 +3,9 @@ name: Build PremiumTV Android APK
 # Builds the Android TV app. This repository cannot be compiled from a plain
 # sandbox (no JDK, no Android SDK, no Maven/Google mirror), so GitHub Actions
 # is the build environment: it bakes the channel list and the guide into the
-# APK and publishes a ready-to-install debug build (signed with the standard
-# debug key, so it installs as-is on a TV).
+# APK and publishes a ready-to-install debug build signed with the long-lived
+# update key in android/keystore, so each release installs over the previous
+# one from Settings -> App updates.
 #
 #   PremiumTV-<version>-debug.apk             install as-is
 #
@@ -149,6 +150,22 @@ jobs:
             -PpremiumTvVersionCode="$VERSION_CODE" \
             testDebugUnitTest assembleDebug 2>&1 \
             | tee "$GITHUB_WORKSPACE/build-out/build-log.txt"
+
+      # An APK can only replace an installed PremiumTV when both are signed by
+      # the same key.  The pinned certificate is the long-lived update identity
+      # in android/keystore; fail the build if a runner falls back to a fresh
+      # debug key, because that APK could never install over the published app.
+      - name: Verify the update signing identity
+        run: |
+          set -euo pipefail
+          expected=$(tr -d '[:space:]' < android/keystore/fingerprint.txt)
+          actual=$(keytool -printcert -jarfile android/app/build/outputs/apk/debug/app-debug.apk \
+            | awk -F'SHA256: ' '/SHA256:/ {gsub(/:/, "", $2); print tolower($2); exit}')
+          if [ "$actual" != "$expected" ]; then
+            echo "::error::APK signing certificate $actual does not match the pinned update key $expected"
+            exit 1
+          fi
+          echo "APK is signed with the pinned PremiumTV update key ($expected)."
 
       - name: Enable KVM for the emulator
         run: |

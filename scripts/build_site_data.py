@@ -216,6 +216,21 @@ def release_tag(release: dict) -> str:
     return str(release.get("tag") or release.get("tag_name") or "")
 
 
+def asset_digest(asset: dict) -> str | None:
+    """Return the bare SHA-256 from GitHub's ``digest`` field, when present.
+
+    The release API exposes ``sha256:<hex>`` for every uploaded asset.  Using
+    it keeps checksums on the download page even when the workflow no longer
+    has that release's build-out/ directory checked out.
+    """
+    digest = str(asset.get("digest") or "").strip()
+    prefix, _, value = digest.partition(":")
+    if prefix.lower() != "sha256" or not value:
+        return None
+    value = value.strip().lower()
+    return value if re.fullmatch(r"[0-9a-f]{64}", value) else None
+
+
 def latest_complete_stable_release(releases: list[dict]) -> dict | None:
     """Pick the newest published stable release only after every app installer exists.
 
@@ -276,7 +291,7 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
                 "size": int(asset.get("size") or 0),
                 "url": asset.get("browser_download_url")
                        or f"{RELEASES_BASE}/{spec['tag']}/{asset.get('name', '')}",
-                "sha256": checksums.get(asset.get("name", "")),
+                "sha256": checksums.get(asset.get("name", "")) or asset_digest(asset),
             })
         notes_title, notes_summary = read_release_notes(spec.get("notes_file", ""))
         channels.append({
