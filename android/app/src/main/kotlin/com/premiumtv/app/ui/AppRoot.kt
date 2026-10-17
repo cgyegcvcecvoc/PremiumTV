@@ -78,4 +78,26 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             }
         }
     }
+
+    // The update popup floats above every screen except the player: cutting
+    // into a programme that is already playing is worse than waiting for the
+    // viewer to come back to the browser.
+    val notice = updateInfo.notice
+    if (notice != null && updateInfo.noticeVisible && playing == null) {
+        UpdateNoticeDialog(
+            notice = notice,
+            installedVersion = updateInfo.currentVersion,
+            newestVersion = updateInfo.latestStableVersion ?: updateInfo.availableVersion,
+            updateAvailable = updateInfo.updateAvailable,
+            onUpdate = {
+                viewModel.dismissUpdateNotice()
+                tab = HomeTab.Settings
+                // Rule 5 in docs/UPDATES.md still holds: no background
+                // downloads. The popup opens the update centre and re-checks
+                // GitHub; the installer downloads on the Settings button.
+                viewModel.checkForUpdates()
+            },
+            onDismiss = { viewModel.dismissUpdateNotice() },
+        )
+    }
 }

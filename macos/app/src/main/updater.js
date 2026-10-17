@@ -29,6 +29,11 @@ const {
   describeState,
   macAssetName,
 } = require('./update-policy');
+const {
+  NOTICE_URL,
+  MAX_NOTICE_BYTES,
+  selectNotice,
+} = require('./update-notice');
 
 const RELEASES_API =
   'https://api.github.com/repos/cgyegcvcecvoc/PremiumTV1/releases?per_page=30';
@@ -56,6 +61,12 @@ function defaultState(currentVersion) {
     message: 'No update check yet.',
     error: null,
     etag: null,
+    /** The resolved "please update" popup for this build, or null. */
+    notice: null,
+    /** Launch-scoped: set by the popup's dismiss button, never written to disk. */
+    noticeDismissedForLaunch: false,
+    /** The published notice document as last fetched; persisted, not emitted. */
+    noticeBody: null,
   };
 }
 
@@ -80,7 +91,11 @@ class AppUpdater extends EventEmitter {
   }
 
   status() {
-    return { ...this.state };
+    // The raw notice document is persisted for the next offline launch but is
+    // not part of what the renderer needs: it only ever shows the resolved
+    // notice, so the body stays out of the IPC payload.
+    const { noticeBody, ...visible } = this.state;
+    return visible;
   }
 
   /** Kick off the daily check and keep a cheap hourly retry while running. */
@@ -103,6 +118,10 @@ class AppUpdater extends EventEmitter {
     if (this.state.downloading) return Promise.resolve(this.status());
     const now = this.now();
     if (!force && now < this.state.nextCheckAtMillis) {
+      // The throttle keeps GitHub off the network, but the cached notice is
+      // still re-evaluated: on the day its published support window closes the
+      // popup has to escalate on that launch without waiting for a check.
+      this.reevaluateNotice(now);
       return Promise.resolve(this.status());
     }
     this.checkPromise = this.runCheck(force).finally(() => {
@@ -112,6 +131,19 @@ class AppUpdater extends EventEmitter {
   }
 
   async runCheck(force) {
+    try {
+      await this.runReleaseCheck(force);
+    } finally {
+      // The notice is a second, tiny request (a static JSON file on `main`,
+      // capped at 64 KB) made once per daily check. It runs after the release
+      // list so an unreachable notice can never cost the update state that was
+      // just computed.
+      await this.refreshNotice();
+    }
+    return this.status();
+  }
+
+  async runReleaseCheck(force) {
     this.patch({
       checking: true,
       error: null,
@@ -182,6 +214,72 @@ class AppUpdater extends EventEmitter {
       });
       return this.status();
     }
+  }
+
+  // ---------------------------------------------------------------- notices
+
+  /**
+   * Fetch the published notice document, then resolve it for this build.
+   *
+   * Every failure mode is swallowed on purpose: the notice is a nudge, and a
+   * nudge must never be the reason an update check reports an error.
+   */
+  async refreshNotice() {
+    try {
+      const response = await this.fetchImpl(NOTICE_URL, {
+        headers: {
+          'User-Agent': `PremiumTV/${this.currentVersion} (macOS)`,
+          Accept: 'application/json',
+        },
+        redirect: 'follow',
+      });
+      if (response && response.ok) {
+        const body = await response.text();
+        if (typeof body === 'string' && body.length > 0 && body.length <= MAX_NOTICE_BYTES) {
+          this.patch({ noticeBody: body }, { emit: false });
+        }
+      }
+    } catch (error) {
+      // Keep the last good document; the next check tries again.
+    }
+    this.reevaluateNotice(this.now());
+    return this.status();
+  }
+
+  /**
+   * Resolve the notice from the cached document.
+   *
+   * Runs on every launch, online or not, so the popup is decided from the last
+   * published wording even with no network - and escalates by itself on the day
+   * the support window closes.
+   */
+  reevaluateNotice(now = this.now()) {
+    const notice = selectNotice({
+      body: this.state.noticeBody,
+      appVersion: this.currentVersion,
+      newestVersion: this.state.latestStableVersion || this.state.availableVersion,
+      platform: 'macos',
+      now,
+    });
+    const before = this.state.notice;
+    const same = JSON.stringify(before) === JSON.stringify(notice);
+    if (same) return this.status();
+    // A changed notice (a new rule, or the same rule escalating to
+    // end-of-support) is worth showing again even within one launch.
+    this.patch({ notice, noticeDismissedForLaunch: false });
+    return this.status();
+  }
+
+  /**
+   * The popup's "Remind me next time".
+   *
+   * The dismissal lives in memory only, so the notice returns the next time the
+   * app opens: an out-of-date build cannot be silenced for good by one click.
+   */
+  dismissNotice() {
+    if (!this.state.notice || this.state.noticeDismissedForLaunch) return this.status();
+    this.patch({ noticeDismissedForLaunch: true });
+    return this.status();
   }
 
   // ------------------------------------------------------------- downloading
@@ -369,7 +467,7 @@ class AppUpdater extends EventEmitter {
   }
 
   readState() {
-    const base = defaultState(this.currentVersion);
+    const base = this.withCachedNotice(defaultState(this.currentVersion));
     let stored = null;
     try {
       stored = JSON.parse(fs.readFileSync(this.stateFile, 'utf8'));
@@ -392,6 +490,23 @@ class AppUpdater extends EventEmitter {
       state.installerPath = null;
       state.progressPercent = -1;
     }
+    return this.withCachedNotice(state);
+  }
+
+  /**
+   * Resolve the notice from the persisted document before any network call, so
+   * the popup is on screen at first paint on every launch - including one with
+   * no connection, which is exactly when an out-of-support build is most stuck.
+   */
+  withCachedNotice(state) {
+    state.noticeDismissedForLaunch = false;
+    state.notice = selectNotice({
+      body: state.noticeBody,
+      appVersion: this.currentVersion,
+      newestVersion: state.latestStableVersion || state.availableVersion,
+      platform: 'macos',
+      now: this.now(),
+    });
     return state;
   }
 
@@ -399,7 +514,10 @@ class AppUpdater extends EventEmitter {
     try {
       fs.mkdirSync(path.dirname(this.stateFile), { recursive: true });
       const temp = `${this.stateFile}.tmp`;
-      fs.writeFileSync(temp, `${JSON.stringify(this.state, null, 2)}\n`, 'utf8');
+      // The dismissal is launch-scoped by contract: writing it would let one
+      // click hide the notice for good, which is the opposite of the point.
+      const persisted = { ...this.state, noticeDismissedForLaunch: false };
+      fs.writeFileSync(temp, `${JSON.stringify(persisted, null, 2)}\n`, 'utf8');
       fs.renameSync(temp, this.stateFile);
     } catch (error) {
       // Update state is a convenience; the next check recreates it.
@@ -435,4 +553,4 @@ function sha256File(file) {
   });
 }
 
-module.exports = { AppUpdater, RELEASES_API, CHECK_INTERVAL_MS };
+module.exports = { AppUpdater, RELEASES_API, NOTICE_URL, CHECK_INTERVAL_MS };

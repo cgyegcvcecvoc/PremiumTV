@@ -58,6 +58,7 @@ class AppUpdateManager(private val app: Application) {
         private const val KEY_APK_SIZE = "apk_size"
         private const val KEY_DOWNLOADED = "downloaded_version"
         private const val KEY_MESSAGE = "message"
+        private const val KEY_NOTICE_BODY = "notice_body"
     }
 
     private val preferences = app.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -110,7 +111,10 @@ class AppUpdateManager(private val app: Application) {
     private fun checkLocked(force: Boolean): AppUpdateState {
         val now = System.currentTimeMillis()
         val before = _state.value
-        if (!force && now < before.nextCheckAtMillis) return before
+        // The throttle keeps GitHub off the network, but the cached notice is
+        // still re-evaluated: the day its published support window closes, the
+        // popup has to escalate on that launch without waiting for a check.
+        if (!force && now < before.nextCheckAtMillis) return reevaluateNotice(before, now)
 
         _state.value = before.copy(
             checking = true,
@@ -126,7 +130,7 @@ class AppUpdateManager(private val app: Application) {
             if (!force && !etag.isNullOrBlank()) {
                 opened.setRequestProperty("If-None-Match", etag)
             }
-            when (val code = opened.responseCode) {
+            val outcome = when (val code = opened.responseCode) {
                 HttpURLConnection.HTTP_NOT_MODIFIED -> {
                     val message = when {
                         before.updateAvailable ->
@@ -173,6 +177,10 @@ class AppUpdateManager(private val app: Application) {
 
                 else -> throw IOException("GitHub returned HTTP $code")
             }
+            // The notice is a second, tiny request. It is fetched after the
+            // release list so a notice failure can never cost the update state
+            // that was just computed.
+            refreshNoticeLocked(outcome)
         } catch (e: Exception) {
             Log.w(TAG, "The app update check failed", e)
             val message = "Could not check for updates: " +
@@ -190,6 +198,75 @@ class AppUpdateManager(private val app: Application) {
         } finally {
             connection?.disconnect()
         }
+    }
+
+    // ---------------------------------------------------------------- notices
+
+    /**
+     * Read the published "please update" notice and fold it into [state].
+     *
+     * This is a second, tiny request (a static JSON file on `main`, capped at
+     * 64 KB) made once per daily check.  It is deliberately independent of the
+     * release list: an unreachable or malformed notice keeps the last good one
+     * and can never break the update check that already succeeded.
+     */
+    private fun refreshNoticeLocked(state: AppUpdateState): AppUpdateState {
+        var connection: HttpURLConnection? = null
+        val body = try {
+            val opened = request(UpdateNotice.NOTICE_URL)
+            connection = opened
+            if (opened.responseCode != HttpURLConnection.HTTP_OK) {
+                null
+            } else {
+                readBody(opened, UpdateNotice.MAX_NOTICE_BYTES)
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "The app update notice could not be read; keeping the last one", e)
+            null
+        } finally {
+            connection?.disconnect()
+        }
+        val now = System.currentTimeMillis()
+        if (body == null) return reevaluateNotice(state, now)
+        preferences.edit().putString(KEY_NOTICE_BODY, body).apply()
+        return reevaluateNotice(state, now, body)
+    }
+
+    /**
+     * Resolve the notice this build should show from the published document.
+     *
+     * The document is cached, so this also runs on a throttled launch: the
+     * popup appears immediately from the last known notice, offline included,
+     * and escalates by itself on the day its support window closes.
+     */
+    private fun reevaluateNotice(
+        state: AppUpdateState,
+        nowMillis: Long = System.currentTimeMillis(),
+        body: String? = preferences.getString(KEY_NOTICE_BODY, null),
+    ): AppUpdateState {
+        val notice = UpdateNotice.select(
+            body = body,
+            appVersion = state.currentVersion,
+            newestVersion = state.latestStableVersion ?: state.availableVersion,
+            nowMillis = nowMillis,
+        )
+        if (notice == state.notice) return state
+        // A changed notice (a new rule, or the same rule escalating to
+        // end-of-support) is worth showing again even within one launch.
+        return publish(state.copy(notice = notice, noticeDismissedForLaunch = false))
+    }
+
+    /**
+     * The popup's "Remind me next time".
+     *
+     * The dismissal lasts for this launch only and is never persisted, so the
+     * notice is back the next time the app opens - a TV that is only ever
+     * suspended still sees it, and no stale preference can hide it for good.
+     */
+    fun dismissNotice() {
+        val current = _state.value
+        if (current.notice == null || current.noticeDismissedForLaunch) return
+        _state.value = current.copy(noticeDismissedForLaunch = true)
     }
 
     private data class SelectedUpdate(
@@ -533,9 +610,10 @@ class AppUpdateManager(private val app: Application) {
             if (keepName == null || file.name != keepName) file.delete()
         }
 
+        val latestStable = preferences.getString(KEY_LATEST_STABLE, null)
         return AppUpdateState(
             currentVersion = current,
-            latestStableVersion = preferences.getString(KEY_LATEST_STABLE, null),
+            latestStableVersion = latestStable,
             availableVersion = available,
             releaseUrl = preferences.getString(KEY_RELEASE_URL, null),
             installerUrl = preferences.getString(KEY_APK_URL, null),
@@ -546,6 +624,15 @@ class AppUpdateManager(private val app: Application) {
             downloadedVersion = downloaded,
             message = preferences.getString(KEY_MESSAGE, null)
                 ?: "PremiumTV checks for a new stable release when the app starts, then once a day.",
+            // Resolved from the cached document before any network call, so the
+            // popup is on screen at first paint on every launch - including one
+            // with no connection, which is exactly when an out-of-support build
+            // is most stuck.
+            notice = UpdateNotice.select(
+                body = preferences.getString(KEY_NOTICE_BODY, null),
+                appVersion = current,
+                newestVersion = latestStable ?: available,
+            ),
         )
     }
 }
@@ -567,9 +654,20 @@ data class AppUpdateState(
     val downloadedVersion: String? = null,
     val message: String = "",
     val error: String? = null,
+    /**
+     * The published "please update" notice that applies to this build, resolved
+     * from `app-update-notice.json`. Null when this build is not targeted, the
+     * document is disabled, or it could not be read.
+     */
+    val notice: AppUpdateNotice? = null,
+    /** True after the user dismissed the popup for this launch. Never persisted. */
+    val noticeDismissedForLaunch: Boolean = false,
 ) {
     val updateAvailable: Boolean get() = availableVersion != null
     val installerReady: Boolean
         get() = downloadedVersion != null && downloadedVersion == availableVersion
     val busy: Boolean get() = checking || downloading
+
+    /** Whether AppRoot should show the update popup right now. */
+    val noticeVisible: Boolean get() = notice != null && !noticeDismissedForLaunch
 }

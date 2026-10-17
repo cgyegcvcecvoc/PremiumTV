@@ -63,4 +63,14 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
     fun installUpdate() {
         updateManager.installDownloaded()
     }
+
+    /**
+     * The startup popup's "Remind me next time" (and the remote's Back key).
+     *
+     * The dismissal lives in memory only, so the notice is back on the next
+     * launch: an out-of-date build cannot be silenced for good by one press.
+     */
+    fun dismissUpdateNotice() {
+        updateManager.dismissNotice()
+    }
 }

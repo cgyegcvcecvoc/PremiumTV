@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "updated_utc": "2026-10-17T00:00:00Z",
+  "notice_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json",
+  "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest",
+  "repo_url": "https://github.com/cgyegcvcecvoc/PremiumTV1",
+  "first_warning_utc": "2026-10-17T00:00:00Z",
+  "support_ends_utc": "2026-11-16T23:59:59Z",
+  "grace_days": 30,
+  "rules": [
+    {
+      "id": "legacy-sunset-2026-11-16",
+      "platforms": ["android", "macos"],
+      "min_version": "0.0.0",
+      "max_version": "1.0.4",
+      "level": "warning",
+      "title": "A newer PremiumTV is waiting — and this is the last manual install",
+      "message": "You are on PremiumTV {version}. The newest release on GitHub is {newest}. Update now and PremiumTV will keep itself current from then on.",
+      "surprise": "Here is the surprise: the newest build updates itself. Settings → App updates checks GitHub, downloads the installer once, verifies it against the release's SHA-256 file and hands it to the normal installer — so you never download an APK or a DMG by hand again.",
+      "action_label": "Update now",
+      "dismiss_label": "Remind me next time",
+      "after_support_ends": {
+        "level": "end_of_support",
+        "title": "Support for PremiumTV {version} ended on {support_ends}",
+        "message": "This build no longer receives the GitHub channel scrape updates, so its channel list and TV guide are frozen at {support_ends}. Install the newest release from GitHub to keep getting live channels, live listings and every future update in-app.",
+        "surprise": "The newest build still updates itself: Settings → App updates checks GitHub, verifies the installer's SHA-256 and installs it for you.",
+        "action_label": "Get the newest version",
+        "dismiss_label": "Not now"
+      }
+    }
+  ]
+}
