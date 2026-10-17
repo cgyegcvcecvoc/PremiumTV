@@ -8,10 +8,10 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently 1.0.3 — Everyday Polish) and Encore Preview (1.1.1), with every asset
+- **Download the apps.** The latest complete Stable release (currently 1.0.4 — One Last Manual Install) and Encore Preview (1.1.1), with every asset
   (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes,
   SHA-256 checksums and install help — all linking at the GitHub release assets.
-  The 1.0.3 build is promoted only after its APK and all four Mac installers are
+  The 1.0.4 build is promoted only after its APK and all four Mac installers are
   published, so the page never replaces working downloads with empty links.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
@@ -24,11 +24,14 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Everyday Polish / Encore
+## One Last Manual Install / Encore
 
-Stable 1.0.3 and the updated 1.1.1 preview share non-blocking loading indicators,
-real refresh stages, elapsed time, rotating tips/facts and result feedback.
-1.0.3 remains USA/list-guide; Encore 1.1.1 remains global/cable-guide and optional.
+Stable 1.0.4 adds the **App updates** panel in Settings. It is the last release
+that has to be downloaded by hand: from here on the app checks GitHub for a
+newer published stable release, downloads the installer once, verifies its
+SHA-256 checksum and opens the platform installer. The policy is documented in
+[`UPDATES.md`](UPDATES.md). Stable 1.0.4 remains USA/list-guide; Encore 1.1.1
+remains global/cable-guide, keeps its name, and ships the same update center.
 The Netlify Drop hub under `hub/` uses the same complete-release gate. Rebuild
 and re-upload its export to refresh an existing Netlify deployment.
 

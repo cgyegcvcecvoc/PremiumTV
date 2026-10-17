@@ -1,21 +1,24 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.0.3 stable**
-(`versionCode` `10`) with the USA lineup. The last published stable download is
-still **1.0.2** (`versionCode` `7`) until the 1.0.3 release has its full asset
-set. **1.1.1** (`versionCode` `9`) is the preview build with the global checked
-lineup and a **cable-style Guide tab**; it must be distributed as a GitHub
-pre-release and is never the default (it supersedes the 1.1.0 preview,
-`versionCode` `8`). The guide is
-built from the repository's curated per-country XMLTV feeds (iptv-epg.org and
-epg.pw).
+TV guide inside the APK. The default build target is **1.0.4 stable**
+(`versionCode` `100000004`) with the USA lineup. **1.0.4 is the last version
+that needs a manual download:** its Settings screen has an **App updates**
+panel that checks GitHub for a newer published stable release, downloads the
+APK once, verifies its SHA-256 checksum, and opens Android's package installer.
+**1.1.1** is the preview build with the global checked lineup and a
+**cable-style Guide tab**; it must be distributed as a GitHub pre-release and
+is never the default. A rebuilt 1.1.1 uses the derived `versionCode`
+`100010001`, so it stays installable above 1.0.4. The guide is built from the
+repository's curated per-country XMLTV feeds (iptv-epg.org and epg.pw).
 
-The next stable target is `v1.0.3`; `v1.0.2` remains the current published
-stable release until the 1.0.3 Android and Mac assets are complete. The 1.1.x
-builds are published with GitHub's pre-release flag. GitHub Actions can build
-all supported versions; the 1.1.x release jobs require that pre-release flag.
-Each published version carries a debug-signed APK that installs as-is on
+Versions and versionCodes come from one policy, `scripts/release_version.py`:
+`MAJOR * 100000000 + MINOR * 10000 + PATCH`. That is always above the older
+hand-assigned codes (7 to 11) and above every prior release, so Android always
+upgrades in place, including from a preview back to stable. Only a published
+full release above the installed version is offered, and a stable release that
+is not above the current stable is converted to a pre-release by the release
+guard. Each published version carries a debug-signed APK that installs as-is on
 supported devices.
 
 Installs on an Android TV, Google TV, Amazon Fire TV stick, tablet or phone.
@@ -25,7 +28,7 @@ The same APK works everywhere — navigation is D-pad first, and touch works too
 
 | Build | Source playlist | Source guide | Preview metadata |
 |---|---|---|---|
-| **1.0.3 stable build target (default)** | `playlists/countries/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no preview features |
+| **1.0.4 stable build target (default)** | `playlists/countries/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no preview features |
 | **1.1.1 pre-release** (and 1.1.0) | `playlists/PremiumTV.m3u` | `EPG/PremiumTV.xml` | `library_scope: all`; `preview_features: ["cable-guide"]` |
 
 Both scopes are converted to JSON Lines by [`tools/build_bundle.py`](tools/build_bundle.py)
@@ -59,11 +62,25 @@ Channels no public guide schedules show "Nothing listed at this hour" or
   page, and the remote's GUIDE key opens it. Touch drags both ways; tap plays.
   It is enabled by the APK's own bundle (`cable-guide`), never by downloaded
   data.
-- **Guide (stable 1.0.3)** — "what's on now" across every channel that has
+- **Guide (stable 1.0.4)** — "what's on now" across every channel that has
   listings: current programme with a progress bar, plus what is next.
 - **Settings** — bundle provenance and counts, automatic-refresh state, next
-  check, last success/result, **Force refresh all now**, and reset to the APK's
-  bundled copy.
+  check, last success/result, **Force refresh all now**, reset to the APK's
+  bundled copy, and **App updates**: newest stable release, check, one-time
+  verified download, and Install update.
+
+## App updates
+
+Settings → App updates is the only place a release is downloaded. The manager
+keeps its state in `premiumtv_app_update` preferences and exactly one verified
+APK in `files/updates/`. It checks GitHub at most once a day (with an ETag, so
+an unchanged list is a `304`), ignores drafts and pre-releases, and requires
+the release's exact `PremiumTV-<version>-debug.apk` to be attached. The
+downloader verifies `SHA256SUMS-android.txt` before keeping the file; a second
+press reuses it instead of downloading again. Installation goes through a
+one-file `FileProvider` and Android's normal package installer, so the user
+confirms the update. Android 8+ may ask once for permission to install unknown
+apps. See [`docs/UPDATES.md`](../docs/UPDATES.md).
 
 ## Playback
 
@@ -108,13 +125,14 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Stable build target (USA, 1.0.3)
-python3 tools/build_bundle.py --scope usa --version 1.0.3
-./gradlew -PpremiumTvVersion=1.0.3 -PpremiumTvVersionCode=10 assembleDebug
+# Stable build target (USA, 1.0.4, versionCode 100000004)
+python3 tools/build_bundle.py --scope usa --version 1.0.4
+./gradlew -PpremiumTvVersion=1.0.4 -PpremiumTvVersionCode=100000004 assembleDebug
 
 # 1.1.1 pre-release data (global lineup + cable-style Guide tab)
+# versionCode 100010001 stays above stable 1.0.4.
 python3 tools/build_bundle.py --scope all --version 1.1.1
-./gradlew -PpremiumTvVersion=1.1.1 -PpremiumTvVersionCode=9 assembleDebug
+./gradlew -PpremiumTvVersion=1.1.1 -PpremiumTvVersionCode=100010001 assembleDebug
 ```
 
 `app/src/main/assets/bundle/` is gitignored: it is derived data and would go
@@ -137,20 +155,20 @@ catalogue; the latest main-branch scrape and follow-up deep check on
 records the exact counts and guide window used by each build:
 
 ```text
-build-out/PremiumTV-1.0.3-debug.apk   stable build default (debug-signed, USA scope)
+build-out/PremiumTV-1.0.4-debug.apk   stable build default (debug-signed, USA scope)
 build-out/PremiumTV-1.1.1-debug.apk   only when the preview version is selected
 build-out/SHA256SUMS-android.txt
 build-out/build-log.txt               full Gradle output
 ```
 
-The workflow attaches 1.0.3 assets only to the full stable `v1.0.3` release
-(and can still rebuild the historical `v1.0.2` release), while 1.1.x assets go
-to the matching pre-release (`v1.1.0`, `v1.1.1`). Only the debug APK is
+The workflow attaches an APK only to the release tag that points at the exact
+commit it built. Stable tags (`v1.0.4` and later) are full releases; preview
+tags (`v1.1.0`, `v1.1.1`) must be GitHub pre-releases. Only the debug APK is
 published; an unsigned release APK cannot be installed on a TV or phone.
 
 ### Installing on a TV
 
-1. Copy `PremiumTV-1.0.2-debug.apk` to the TV (USB stick, a file-sharing
+1. Copy `PremiumTV-1.0.4-debug.apk` to the TV (USB stick, a file-sharing
    app, or `adb install -r PremiumTV-1.0.2-debug.apk` from a computer).
 2. Allow installs from that source (*Install unknown apps*).
 3. Open **PremiumTV**. The Channels tab should list the categories straight away.
@@ -189,7 +207,7 @@ android/
 
 ## Known limits
 
-- Stable 1.0.3 intentionally bundles the USA library. The 1.1.x pre-releases
+- Stable 1.0.4 intentionally bundles the USA library. The 1.1.x pre-releases
   select the checked global playlist and merged guide.
 - No favourites, search, or "continue watching" — browse, play and guide only.
 - The bundled guide is a snapshot of what the repository had published at
@@ -217,12 +235,13 @@ Physical TV and upstream playback checks remain manual.
 
 ### Updated Encore Preview builds
 
-Ordinary pushes and manual builds default to stable 1.0.3 (Android code 10).
-To request the updated 1.1.1 preview (code 11) without Actions-dispatch access,
-append a timestamp to `.github/preview-build.txt` and push with
-`[preview-build]` in the commit message. Both platform workflows build the global
-preview and retain their normal smoke gates. Stable release attachments remain exact-SHA guarded. The explicit switch can
-replace installers only on the existing **pre-release** v1.1.1, after all smoke
-gates pass, and uploads per-platform BUILD-SOURCE manifests recording the commit
-and Actions URL. The original 1.1.1 tag remains historical; release notes name
-the updated installers' actual source commit.
+Ordinary pushes and manual builds default to stable 1.0.4 (Android code
+100000004). To request the updated 1.1.1 preview without Actions-dispatch
+access, append a timestamp to `.github/preview-build.txt` and push with
+`[preview-build]` in the commit message. Both platform workflows build the
+global preview (derived code 100010001, above stable 1.0.4) and retain their
+normal smoke gates. Stable release attachments remain exact-SHA guarded. The
+explicit switch can replace installers only on the existing **pre-release**
+v1.1.1, after all smoke gates pass, and uploads per-platform BUILD-SOURCE
+manifests recording the commit and Actions URL. The original 1.1.1 tag remains
+historical; its name and scope do not change.

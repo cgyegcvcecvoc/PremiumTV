@@ -67,9 +67,9 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable build target** | **1.0.3** (Android `versionCode 10`) | USA lineup + USA guide | Next maintenance build; the site keeps serving published `v1.0.2` until all 1.0.3 installers are published |
-| **Current published stable** | **1.0.2** (Android `versionCode 7`) | USA lineup + USA guide | Existing stable download; retained as the fallback until the full 1.0.3 asset set is ready |
-| **Preview** | **1.1.1** (Android `versionCode 9`) | Global checked lineup + merged guide, **cable-style Guide tab** | Published with GitHub's pre-release flag (`v1.1.1`); never the default |
+| **Stable release** | **1.0.4** (Android `versionCode 100000004`) | USA lineup + USA guide | Default download and the **last manual install**; Settings → App updates handles every later stable release |
+| Previous stable | 1.0.3 (Android `versionCode 10`) | USA lineup + USA guide | Retained as a fallback download |
+| **Preview** | **1.1.1** (Android `versionCode 100010001` when rebuilt) | Global checked lineup + merged guide, **cable-style Guide tab** | Published with GitHub's pre-release flag (`v1.1.1`); never the default; ships the same update center |
 | Preview (superseded) | 1.1.0 (Android `versionCode 8`) | Global lineup + separate Cable tab | Pre-release `v1.1.0`, kept for reference |
 
 In the 1.1.1 pre-release the **Guide tab is a cable-style grid**: channels down the
@@ -77,11 +77,25 @@ left, what each one is playing to the right, half-hour times across the top for
 eight hours, a red NOW line and a detail strip for the highlighted show. It
 works with a TV remote (D-pad highlight, OK to watch, Back to return) and with a
 mouse or touch. The grid is enabled by the bundle the app was built with
-(`preview_features: ["cable-guide"]`, global scope only), so stable 1.0.3 keeps
+(`preview_features: ["cable-guide"]`, global scope only), so stable 1.0.4 keeps
 its list-style Guide. The Android bundle builder and the Mac build default to
-`1.0.3` / `usa`; the release workflows select `all` only for 1.1.x and reject a
-stable-tagged 1.1.x release. See [`release-notes-1.0.3.md`](release-notes-1.0.3.md)
+`1.0.4` / `usa`; the release workflows select `all` for pre-releases and `usa`
+for stable releases. See [`release-notes-1.0.4.md`](release-notes-1.0.4.md)
 and [`release-notes-1.1.1.md`](release-notes-1.1.1.md).
+
+### App updates (1.0.4 and later)
+
+**1.0.4 is the last version that needs a manual download.** From it on,
+Settings → App updates shows the newest published stable release above the
+installed app, downloads that release's installer once, verifies it against the
+release's SHA-256 file, and opens the platform installer. The check runs at
+most once a day using GitHub's ETag; nothing is downloaded in the background,
+and a downloaded installer is reused rather than fetched again. Only full
+stable releases count — previews, drafts, older tags and releases whose
+installers are still uploading are ignored. The release guard workflow marks a
+stable release that is not above the current stable as a pre-release, so the
+apps never see an out-of-order version. Full policy and the release process:
+[`docs/UPDATES.md`](docs/UPDATES.md).
 
 ### macOS app
 
@@ -92,8 +106,8 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.3` — USA lineup; current published fallback is `v1.0.2` until the full 1.0.3 installer set is published |
-| Preview target | `1.1.1` — global lineup + cable-style Guide tab; GitHub pre-release only |
+| Stable target | `1.0.4` — USA lineup; updates itself from Settings → App updates |
+| Preview target | `1.1.1` — global lineup + cable-style Guide tab; GitHub pre-release only, same update center |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
 The macOS regression suite covers startup data delivery, the cable-style guide
@@ -112,8 +126,8 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.0.3` (`versionCode 10`) — USA library |
-| Preview target | `1.1.1` (`versionCode 9`) — global library + cable-style Guide tab |
+| Stable build target | `1.0.4` (`versionCode 100000004`) — USA library |
+| Preview target | `1.1.1` (`versionCode 100010001` when rebuilt) — global library + cable-style Guide tab |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 The stable build bundles the USA playlist and guide; the preview build bundles
@@ -125,23 +139,25 @@ per-country EPG feeds (see [the guide build report](playlists/checks/EPG-BUILD.m
 - **Guide** — in the 1.1.1 preview, a cable-style grid: channels down the left,
   shows to the right, times across the top, a NOW line and a detail strip; the
   remote's D-pad moves a highlight, OK watches, Back returns to the same show.
-  Stable 1.0.3 shows what's on now across channels with listings instead.
+  Stable 1.0.4 shows what's on now across channels with listings instead.
 - **Automatic refresh** — Android WorkManager checks after repository publishing
   windows, using ETag/Last-Modified where possible.
-- **Settings** — bundle provenance, refresh state, force refresh, and reset to
-  bundled data.
+- **Settings** — bundle provenance, refresh state, force refresh, reset to
+  bundled data, and the **App updates** panel (check, download once, install).
 
 Playback is ExoPlayer (Media3), and the app sends the referrer, origin and
 user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.3 is the next stable build target** (`versionCode 10`, USA scope). The
-published stable fallback remains `v1.0.2` until the new release has its Android
-APK and all four Mac installers; the download site promotes only a complete
-published stable release. `1.1.1` (and the earlier `1.1.0`) remain GitHub
-pre-releases. The workflows build from the release tag or manual dispatch, and
-accept a 1.1.x release only when GitHub marks it as a pre-release.
+**1.0.4 is the current stable release** (`versionCode 100000004`, USA scope)
+and the last one that needs a manual download. Later stable releases are
+installed from Settings → App updates; a release is offered only when it is a
+published full release above the installed version with its platform installer
+already attached. The download site promotes only a complete published stable
+release. `1.1.1` (and the earlier `1.1.0`) remain GitHub pre-releases and keep
+their names. The workflows build from the release tag or manual dispatch, and
+use the global `all` scope only when GitHub marks the release as a pre-release.
 
 ### Keeping the categories and the order honest
 

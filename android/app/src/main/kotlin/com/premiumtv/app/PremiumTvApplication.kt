@@ -5,6 +5,7 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import com.premiumtv.app.data.TvRepository
+import com.premiumtv.app.update.AppUpdateManager
 import com.premiumtv.app.update.AutomaticRefreshScheduler
 import java.io.File
 
@@ -14,6 +15,11 @@ class PremiumTvApplication : Application(), ImageLoaderFactory {
     /** Foreground UI and WorkManager use the same mutex-protected repository. */
     val repository: TvRepository by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         TvRepository(this)
+    }
+
+    /** One update checker for the whole process; Settings and startup share it. */
+    val updateManager: AppUpdateManager by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        AppUpdateManager(this)
     }
 
     override fun onCreate() {

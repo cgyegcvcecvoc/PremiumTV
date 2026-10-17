@@ -30,8 +30,16 @@ contextBridge.exposeInMainWorld('premiumtv', {
   logoUrl: (logoUrl) => ipcRenderer.invoke('ptv:logo-url', logoUrl),
   openExternal: (url) => ipcRenderer.invoke('ptv:open-external', url),
 
+  /** App updates: check GitHub, download once, then open the verified DMG. */
+  updateStatus: () => ipcRenderer.invoke('ptv:update-status'),
+  checkForUpdate: (force) => ipcRenderer.invoke('ptv:check-update', Boolean(force)),
+  downloadUpdate: () => ipcRenderer.invoke('ptv:download-update'),
+  installUpdate: () => ipcRenderer.invoke('ptv:install-update'),
+  openReleasePage: () => ipcRenderer.invoke('ptv:open-release'),
+
   onState: (callback) => subscribe('ptv:state', callback),
   onInfo: (callback) => subscribe('ptv:info', callback),
   onProgress: (callback) => subscribe('ptv:progress', callback),
   onSelectTab: (callback) => subscribe('ptv:select-tab', callback),
+  onUpdate: (callback) => subscribe('ptv:update', callback),
 });

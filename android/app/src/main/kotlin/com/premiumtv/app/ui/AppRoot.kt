@@ -19,6 +19,7 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     val state by viewModel.state.collectAsState()
     val status by viewModel.status.collectAsState()
     val refreshInfo by viewModel.refreshInfo.collectAsState()
+    val updateInfo by viewModel.updateInfo.collectAsState()
 
     // The guide's "now" has to move on its own; the listings are keyed to real
     // clock times, so a static value would leave yesterday's show on screen.
@@ -63,12 +64,16 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                     now = now,
                     status = status,
                     refreshInfo = refreshInfo,
+                    updateInfo = updateInfo,
                     tab = tab,
                     onTabChange = { tab = it },
                     guideState = guideState,
                     onSelect = { playing = it },
                     onForceRefresh = { viewModel.forceRefresh() },
                     onReset = { viewModel.resetToBundled() },
+                    onCheckForUpdate = { viewModel.checkForUpdates() },
+                    onDownloadUpdate = { viewModel.downloadUpdate() },
+                    onInstallUpdate = { viewModel.installUpdate() },
                 )
             }
         }

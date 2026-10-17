@@ -54,6 +54,7 @@ import com.premiumtv.app.data.Library
 import com.premiumtv.app.data.Programme
 import com.premiumtv.app.data.RefreshInfo
 import com.premiumtv.app.data.RefreshTrigger
+import com.premiumtv.app.update.AppUpdateState
 
 /** The home screen's sections. AppRoot keeps the choice while a channel plays. */
 enum class HomeTab(val label: String) {
@@ -68,12 +69,16 @@ fun HomeScreen(
     now: Long,
     status: String,
     refreshInfo: RefreshInfo,
+    updateInfo: AppUpdateState,
     tab: HomeTab,
     onTabChange: (HomeTab) -> Unit,
     guideState: CableGuideState,
     onSelect: (Channel) -> Unit,
     onForceRefresh: () -> Unit,
     onReset: () -> Unit,
+    onCheckForUpdate: () -> Unit,
+    onDownloadUpdate: () -> Unit,
+    onInstallUpdate: () -> Unit,
 ) {
     // Back leaves the Guide or Settings for Channels before it leaves the app,
     // the way a cable box's Back/Exit closes its guide.
@@ -188,8 +193,12 @@ fun HomeScreen(
                 library = library,
                 status = status,
                 refreshInfo = refreshInfo,
+                updateInfo = updateInfo,
                 onForceRefresh = onForceRefresh,
                 onReset = onReset,
+                onCheckForUpdate = onCheckForUpdate,
+                onDownloadUpdate = onDownloadUpdate,
+                onInstallUpdate = onInstallUpdate,
             )
         }
     }
@@ -513,13 +522,20 @@ private fun ProgressLine(fraction: Float) {
 
 // --------------------------------------------------------------- settings tab
 
+private fun formatMegabytes(bytes: Long): String =
+    String.format(java.util.Locale.US, "%.1f MB", bytes / (1024.0 * 1024.0))
+
 @Composable
 private fun SettingsScreen(
     library: Library,
     status: String,
     refreshInfo: RefreshInfo,
+    updateInfo: AppUpdateState,
     onForceRefresh: () -> Unit,
     onReset: () -> Unit,
+    onCheckForUpdate: () -> Unit,
+    onDownloadUpdate: () -> Unit,
+    onInstallUpdate: () -> Unit,
 ) {
     val meta = library.meta
     Column(
@@ -559,6 +575,76 @@ private fun SettingsScreen(
         InfoRow(
             "Showing now",
             if (library.refreshed) "Latest copy downloaded by the app" else "Data bundled in this APK",
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = "App updates",
+            style = MaterialTheme.typography.titleMedium,
+            color = Color.White,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        InfoRow("Installed version", updateInfo.currentVersion)
+        InfoRow(
+            "Newest stable release",
+            updateInfo.latestStableVersion ?: "Not checked yet",
+        )
+        if (updateInfo.updateAvailable) {
+            InfoRow(
+                "Update available",
+                buildString {
+                    append(updateInfo.availableVersion.orEmpty())
+                    if (updateInfo.installerSize > 0L) {
+                        append(" · ")
+                        append(formatMegabytes(updateInfo.installerSize))
+                    }
+                },
+            )
+        }
+        InfoRow(
+            "Last update check",
+            if (updateInfo.lastCheckedAtMillis > 0L) {
+                formatRefreshInstant(updateInfo.lastCheckedAtMillis)
+            } else {
+                "Not yet"
+            },
+        )
+        Text(
+            text = updateInfo.message,
+            style = MaterialTheme.typography.bodySmall,
+            color = if (updateInfo.error != null) Color(0xFFFF8A80) else MutedText,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            FocusButton(
+                if (updateInfo.checking) "Checking for updates…" else "Check for updates",
+                enabled = !updateInfo.busy,
+            ) { onCheckForUpdate() }
+            if (updateInfo.updateAvailable) {
+                FocusButton(
+                    when {
+                        updateInfo.downloading && updateInfo.progressPercent >= 0 ->
+                            "Downloading… ${updateInfo.progressPercent}%"
+                        updateInfo.downloading -> "Downloading…"
+                        updateInfo.installerReady -> "Install update"
+                        else -> "Download update"
+                    },
+                    enabled = !updateInfo.busy,
+                ) {
+                    if (updateInfo.installerReady) onInstallUpdate() else onDownloadUpdate()
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Only a published stable release above ${updateInfo.currentVersion} is " +
+                "offered. The check runs at most once a day and sends GitHub the last ETag, " +
+                "so an unchanged release costs one tiny response. The installer downloads " +
+                "only when you press the button, is verified against the release's SHA-256 " +
+                "file, and is reused instead of downloaded again.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MutedText,
         )
 
         Spacer(modifier = Modifier.height(24.dp))

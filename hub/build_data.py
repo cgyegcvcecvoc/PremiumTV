@@ -91,6 +91,7 @@ def main():
     android_meta = {
         "1.0.2": ("Archive", "USA lineup with the USA guide built in."),
         "1.0.3": ("Archive", "Everyday Polish — loading indicators, refresh stages, tips and clear completion feedback. USA lineup + guide."),
+        "1.0.4": ("Stable", "One Last Manual Install — Settings → App updates checks, downloads once and installs every later stable release. USA lineup + guide."),
         "1.1.1": ("Preview", "Encore Preview — global lineup + cable guide, with Everyday Polish loading and refresh feedback."),
         "1.1.0": ("Preview (superseded)", "Earlier preview with the global lineup; kept for reference."),
         "1.0.1": ("Archive", "Channels Back on Air release."),

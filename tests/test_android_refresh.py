@@ -64,29 +64,30 @@ class AndroidRefreshScheduleTests(unittest.TestCase):
 class AndroidRefreshWiringTests(unittest.TestCase):
     def test_release_version_and_workmanager_dependency(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.0.3")', gradle)
-        self.assertIn('orElse("10")', gradle)
+        self.assertIn('orElse("1.0.4")', gradle)
+        self.assertIn('orElse("100000004")', gradle)
         self.assertIn("versionName = premiumTvVersion", gradle)
         self.assertIn("versionCode = premiumTvVersionCode", gradle)
         self.assertIn('androidx.work:work-runtime-ktx:2.9.1', gradle)
 
         builder = text(ROOT / "android" / "tools" / "build_bundle.py")
         self.assertIn('DEFAULT_SCOPE = "usa"', builder)
-        self.assertIn('DEFAULT_VERSION = "1.0.3"', builder)
+        self.assertIn('DEFAULT_VERSION = "1.0.4"', builder)
         for workflow in ("android-build.yml", "macos-build.yml"):
             source = text(ROOT / ".github" / "workflows" / workflow)
-            self.assertIn("v1.0.2:false", source)  # keep historical release rebuilds valid
-            self.assertIn("v1.0.3:false", source)  # current stable release
-            self.assertIn("github.event.release.tag_name == 'v1.0.3' && !github.event.release.prerelease", source)
-            self.assertIn("v1.1.0:true", source)
+            # Versions and scopes are resolved from the tag/channel instead of
+            # a hardcoded tag list, so a future release needs no workflow edit.
+            self.assertIn("scripts/release_version.py", source)
             self.assertIn("scope=all", source)
-            # 1.1.1 is a global preview too: pre-release only, never stable.
-            self.assertIn("v1.1.1:true", source)
-            self.assertIn("github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease", source)
+            self.assertIn("scope=usa", source)
+            self.assertIn("channel=preview", source)
+            self.assertIn("github.event.release.prerelease", source)
             self.assertNotIn("v1.1.1:false", source)
+            self.assertNotIn("v1.0.3:false", source)
+            self.assertNotIn("github.event.release.tag_name ==", source)
         android = text(ROOT / ".github" / "workflows" / "android-build.yml")
-        self.assertIn("v1.0.3:false) version=1.0.3; scope=usa; code=10 ;;", android)
-        self.assertIn("v1.1.1:true) version=1.1.1; scope=all; code=11 ;;", android)
+        self.assertIn('code=$(python3 scripts/release_version.py --code "$version")', android)
+        self.assertIn("RELEASE_TAG=v$version", android)
 
     def test_boot_permission_and_application_scheduler(self):
         manifest = text(ANDROID / "AndroidManifest.xml")

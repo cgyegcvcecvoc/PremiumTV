@@ -4,11 +4,12 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// Release tags can override these properties. The default is the 1.0.3 stable
-// USA build; its versionCode is above the 1.1.1 preview so Android can upgrade
-// cleanly regardless of which published channel a user installed first.
-val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.3").get()
-val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("10").get().toInt()
+// Release tags can override these properties. The default is the 1.0.4 stable
+// USA build. Its derived versionCode (100000004) is above every historical
+// build, including the 1.1.1 preview, so Android always upgrades in place -
+// see scripts/release_version.py for the one shared version policy.
+val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.4").get()
+val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("100000004").get().toInt()
 
 android {
     namespace = "com.premiumtv.app"

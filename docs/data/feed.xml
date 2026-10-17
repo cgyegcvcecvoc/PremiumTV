@@ -4,109 +4,116 @@
   <id>https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml</id>
   <link rel="self" href="https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml"/>
   <link rel="alternate" href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
-  <updated>2026-10-16T12:00:00Z</updated>
+  <updated>2026-10-17T12:00:00Z</updated>
   <subtitle>Every change recorded in the PremiumTV1 repository: playlist fixes, app releases, and site updates.</subtitle>
   <entry>
+    <title>PremiumTV 1.0.4: one last manual install, then updates from Settings</title>
+    <id>urn:premiumtv1:changelog:2026-10-17:0</id>
+    <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
+    <updated>2026-10-17T12:00:00Z</updated>
+    <summary>**In-app update center on both platforms.** Settings → App updates now shows **No repeated downloads.** A verified installer is stored once per version and **Stable only, strictly newer, complete.** Both updaters ignore drafts and **Release guard.** A new `Release version guard` workflow checks every **Version 1.0.4 is the stable default.** Android and macOS defaults, both **Encore Preview stays Encore Preview.** The 1.1.1 pre-release keeps its name, **Documentation and downloads.** Added `release-notes-1.0.4.md` and</summary>
+  </entry>
+  <entry>
     <title>Everyday Polish + Encore Preview</title>
-    <id>urn:premiumtv1:changelog:2026-10-16:0</id>
+    <id>urn:premiumtv1:changelog:2026-10-16:1</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-16T12:00:00Z</updated>
     <summary>**Shared loading UX for stable 1.0.3 and preview 1.1.1.** Non-modal activity **Encore Preview.** 1.1.1 is renamed “Encore Preview: Cable Guide + Everyday **Release validation.** Added activity lifecycle, failure preservation, **Stable 1.0.3 published as Latest.** Android JVM/emulator checks and Mac **Both download sites updated.** The Netlify hub now shares the published, **Encore installers published.** The rebuilt APK and all four Mac installers **Manual checked scrape completed.** Run `38969629022` checked 16,722 unique **Final local validation:** 375 Python tests and 46 Mac/website Node te</summary>
   </entry>
   <entry>
     <title>PremiumTV 1.0.3 maintenance + download-site reliability</title>
-    <id>urn:premiumtv1:changelog:2026-10-16:1</id>
+    <id>urn:premiumtv1:changelog:2026-10-16:2</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-16T12:00:00Z</updated>
     <summary>**Stable 1.0.3 build prepared.** The Android default now uses `versionName **Download site data stays current.** The Pages workflow now runs on **Public Pages status verified.** The repo is public, but GitHub Pages itself **Manual checked scrape completed.** Run `20261016T103351Z-2912` finished at **A full stream and guide check followed.** Deep HLS/segment checks covered **The newest main scrape and post-merge deep check are verified.** The **Final 1.0.3 app builds pass on main, with the APK and sidecar in sync.**</summary>
   </entry>
   <entry>
     <title>1,999 missing channels restored + public download site</title>
-    <id>urn:premiumtv1:changelog:2026-10-15:2</id>
+    <id>urn:premiumtv1:changelog:2026-10-15:3</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-15T12:00:00Z</updated>
     <summary>**The missing channels are cleared out and fixed.** The 2026-10-13 deep **New: the public download site** (`docs/`, GitHub Pages at **"Run it now" switches fire again.** The `playlists/logs/run-*.txt` push **Change-log discipline:** this entry is the first under the policy above —</summary>
   </entry>
   <entry>
     <title>PremiumTV 1.1.1 pre-release: the Guide tab is a cable-style grid</title>
-    <id>urn:premiumtv1:changelog:2026-10-15:3</id>
+    <id>urn:premiumtv1:changelog:2026-10-15:4</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-15T12:00:00Z</updated>
     <summary>**The cable guide is real and visible now.** In the 1.1.1 preview the Guide **Why 1.1.0 did not show it:** its grid was a separate Cable tab gated on the **TV remote:** the grid is one focus stop with a cable-box highlight — up/down **Android refresh** parses the guide off the HTTP stream (the 38 MB global XML **Release gating:** `v1.1.1` builds only as a GitHub pre-release (Android **Deep link check removed working channels.** HLS variants and segments were **"Deep link and guide check" failed on 10-14 and 10-15.** A CDN answering 429 **"Biweekly deep cleanup" failed on 10-15.** `--report-suf</summary>
   </entry>
   <entry>
     <title>PremiumTV 1.0.2 released, 1.1.0 published as a pre-release</title>
-    <id>urn:premiumtv1:changelog:2026-10-14:4</id>
+    <id>urn:premiumtv1:changelog:2026-10-14:5</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-14T12:00:00Z</updated>
     <summary>**1.0.2 is the published stable release.** It is the USA lineup + USA guide **1.1.0 is published as a GitHub pre-release.** Global checked lineup **Android build fix.** The merged preview code called `initialsOf()` from **Preview header fix, found by the release gate.** The 1.1.0 build passed Release CI builds both tagged versions from the release commit and attaches</summary>
   </entry>
   <entry>
     <title>Prepared 1.0.2 stable and 1.1.0 preview</title>
-    <id>urn:premiumtv1:changelog:2026-10-14:5</id>
+    <id>urn:premiumtv1:changelog:2026-10-14:6</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-14T12:00:00Z</updated>
     <summary>Kept **1.0.2** as the default stable target: Android `versionCode 7`, USA Set up **1.1.0** as a separate GitHub pre-release target: Android Added an optional cable-style, eight-hour EPG grid to both apps. The tab is Fixed M3U display names containing commas and tightened XMLTV timestamp/end Reconciled stale dead-link/quarantine evidence against a later successful Updated the macOS XML parser dependency and release-build configuration.</summary>
   </entry>
   <entry>
     <title>PremiumTV 1.0.1 — channel-loading hotfix</title>
-    <id>urn:premiumtv1:changelog:2026-10-13:6</id>
+    <id>urn:premiumtv1:changelog:2026-10-13:7</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-13T12:00:00Z</updated>
     <summary>Fixed the Mac renderer retaining an empty startup snapshot after the main Fixed Mac refresh validators being read from the wrong saved-state field; HLS redirects now resolve relative segments and encryption keys against the Added DOM regression tests, proxy HTTP coverage, five Android/Robolectric Version 1.0.1 on both platforms; Android versionCode 6. Platform-specific Release CI fix (same day): the new Android emulator gate never booted — Upstream stream availability and private-repository refresh access remain</summary>
   </entry>
   <entry>
     <title>PremiumTV 1.0.0 "Marquee" — the first official release</title>
-    <id>urn:premiumtv1:changelog:2026-10-12:7</id>
+    <id>urn:premiumtv1:changelog:2026-10-12:8</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-12T12:00:00Z</updated>
     <summary>**A guide for every channel.** New `sources.json` → `epg_sources` curated **Backup feeds share their station's schedule.** Display-name matching is now **Refreshes verified in both apps.** Settings' *Force refresh all now* and **Marquee UI on both platforms.** Cinema-gold-on-midnight theme with a **One official release page.** `v1.0.0` carries the Android APK</summary>
   </entry>
   <entry>
     <title>release consolidation and Mac experimental display fix</title>
-    <id>urn:premiumtv1:changelog:2026-10-12:8</id>
+    <id>urn:premiumtv1:changelog:2026-10-12:9</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-12T12:00:00Z</updated>
     <summary>The Mac player's `#player { display: flex }` and error panel's `display: grid` Publish one **Mac experimental pre-release** (`v1.0.0-experimental.1`) and Build workflows only attach artifacts to their own platform's matching tag</summary>
   </entry>
   <entry>
     <title>macOS app (v1.0.0-mac1 preview; historical)</title>
-    <id>urn:premiumtv1:changelog:2026-10-12:9</id>
+    <id>urn:premiumtv1:changelog:2026-10-12:10</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-12T12:00:00Z</updated>
     <summary>**A native installer, not a script.** New `macos/` Electron app packaged as a **Same behaviour as the Android app.** Channels / Guide / Settings screens, **Electron pinned to 43.** Electron 44 dropped macOS 12, so the app stays on **Guarded by tests.** `tests/test_macos_app.py` and `macos/app/test/*.test.js`</summary>
   </entry>
   <entry>
     <title>Android TV beta 4 (v1.0.0-beta4 preview)</title>
-    <id>urn:premiumtv1:changelog:2026-10-11:10</id>
+    <id>urn:premiumtv1:changelog:2026-10-11:11</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-11T12:00:00Z</updated>
     <summary>**GitHub-aligned automatic refresh.** Android WorkManager now schedules a **Low-cost unchanged checks.** Automatic runs retain ETag and Last-Modified **Force refresh all.** Settings now has a true force action that bypasses **Safe cache publication.** Foreground and worker operations share one mutex. **Honest private-repository behavior.** 401/403/404 results retain current **Version/release status.** Source is `1.0.0-beta4`, `versionCode 4`, and CI</summary>
   </entry>
   <entry>
     <title>Android TV beta 3 (v1.0.0-beta3; current default release)</title>
-    <id>urn:premiumtv1:changelog:2026-10-11:11</id>
+    <id>urn:premiumtv1:changelog:2026-10-11:12</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-11T12:00:00Z</updated>
     <summary>**Channels open sooner.** The repository reads the channel list first and **Guide failures are isolated.** Missing or damaged metadata/categories use **Smoother browsing.** Channel rows are D-pad focus groups; controls expose **Version** — `1.0.0-beta3`, `versionCode 3`. The Android build workflow now **Release status** — Beta 3 is the</summary>
   </entry>
   <entry>
     <title>Android TV beta 2 (v1.0.0-beta2; superseded by beta 3)</title>
-    <id>urn:premiumtv1:changelog:2026-10-11:12</id>
+    <id>urn:premiumtv1:changelog:2026-10-11:13</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-11T12:00:00Z</updated>
     <summary>**Fixed: channels did not load on launch.** The bundled channel list and guide **Version** — `1.0.0-beta2`, `versionCode 2`. Install **Unsigned release APK dropped.** An unsigned APK cannot be installed on a Rebuilt bundle: 2,217 USA channels in 59 categories; about 9,950 guide</summary>
   </entry>
   <entry>
     <title>first Android TV app (v1.0.0 beta, superseded by beta 2)</title>
-    <id>urn:premiumtv1:changelog:2026-10-11:13</id>
+    <id>urn:premiumtv1:changelog:2026-10-11:14</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-11T12:00:00Z</updated>
     <summary>**Project** — [`android/`](android/README.md): Kotlin + Jetpack Compose, **Bundled data** — 2,158 confirmed-working USA channels in the 59 published **Screens** — category rows, a what's-on-now guide with now/next and **Playback** — ExoPlayer (Media3), honouring the referrer, origin and **D-pad correctness** — focus, the centre/enter keys and taps are each wired **Build** — [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) **Tests** — `tests/test_android_bundle.py` (18 checks) covers header capture,</summary>
   </entry>
   <entry>
     <title>verified playlist maintenance and history backfill</title>
-    <id>urn:premiumtv1:changelog:2026-10-10:14</id>
+    <id>urn:premiumtv1:changelog:2026-10-10:15</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV1/blob/main/CHANGELOG.md"/>
     <updated>2026-10-10T12:00:00Z</updated>
     <summary>21,547 source entries; 17,230 unique URLs. 10,946 confirmed working; 1,915 confirmed dead; 4,369 unverified. 176 country playlists; A&amp;E playlist: 62 confirmed working of 71 unique candidates. The same commit's offline verification: 179 published playlists, 0 structural problems, 0 known-dead links present, and 131/131 category-shelf files in sync. The latest saved live deep check before this baseline (11:08–11:11 UTC) removed 156 confirmed-dead entries across 27 playlists; it retained 48 unreachable and 12 blocked entries rather than risking false removals. The next live check's results ar</summary>
