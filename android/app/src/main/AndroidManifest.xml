@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- WorkManager restores the automatic data-refresh schedule after reboot. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Settings can hand a downloaded release APK to Android's package installer. -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!--
         Installs on a television (leanback) and on a phone or tablet. Neither
@@ -55,6 +57,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+            Shares only the update APKs inside the app's private files/updates
+            directory with Android's package installer. Nothing is exported:
+            the installer receives a one-shot read grant for that one file.
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.updates"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_paths" />
+        </provider>
     </application>
 
 </manifest>

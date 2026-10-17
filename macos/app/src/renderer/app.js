@@ -97,6 +97,11 @@
   }
 
   /** For the few places a value is interpolated into markup rather than textContent. */
+  function formatMegabytes(bytes) {
+    const value = Number(bytes) || 0;
+    return value > 0 ? `${(value / (1024 * 1024)).toFixed(1)} MB` : '';
+  }
+
   function escapeHtml(value) {
     return escapeText(value).replace(/[&<>"']/g, (char) => ({
       '&': '&amp;',
@@ -882,6 +887,53 @@
       </div>
 
       <div class="panel">
+        <h2>App updates</h2>
+        ${(function () {
+          const update = updateState || appInfo.updates || {};
+          const current = update.currentVersion || appInfo.version || '';
+          const latest = update.latestStableVersion || '';
+          const available = update.availableVersion || '';
+          const ready = Boolean(update.downloadedVersion && update.downloadedVersion === available);
+          const busy = Boolean(update.checking || update.downloading);
+          const badge = update.error
+            ? '<span class="badge bad">Check failed</span>'
+            : ready
+              ? '<span class="badge ok">Ready to install</span>'
+              : available
+                ? '<span class="badge ok">Update available</span>'
+                : '<span class="badge">Up to date</span>';
+          const downloadLabel = update.downloading
+            ? `Downloading… ${Math.max(0, Number(update.progressPercent) || 0)}%`
+            : ready
+              ? 'Open installer'
+              : 'Download update';
+          return `
+        <p>${badge} &nbsp; ${escapeHtml(update.message || 'No update check yet.')}</p>
+        <div class="actions">
+          <button class="btn" id="check-update" ${busy ? 'disabled' : ''}>${
+            update.checking ? 'Checking…' : 'Check for updates'
+          }</button>
+          ${available ? `<button class="btn btn-primary" id="download-update" ${busy ? 'disabled' : ''}>${
+            escapeHtml(downloadLabel)
+          }</button>` : ''}
+          ${update.releaseUrl ? '<button class="btn" id="release-page">Release notes</button>' : ''}
+        </div>
+        <dl class="meta">
+          <dt>Installed</dt><dd>${escapeHtml(current)}</dd>
+          <dt>Newest stable</dt><dd>${escapeHtml(latest || 'not checked yet')}</dd>
+          <dt>Last check</dt><dd>${formatStamp(update.lastCheckedAtMillis)}</dd>
+          <dt>Installer</dt><dd>${escapeHtml(
+            update.installerSize ? formatMegabytes(update.installerSize) : 'not downloaded',
+          )}${ready && update.installerPath ? ` · ${escapeHtml(update.installerPath)}` : ''}</dd>
+        </dl>
+        <p class="muted">Only a published stable release above ${escapeHtml(current)} is offered.
+          The daily check sends GitHub the previous ETag, so an unchanged release costs one tiny
+          response. An installer downloads only when you press the button, is checked against the
+          release's SHA-256 file, and is reused rather than downloaded again.</p>`;
+        })()}
+      </div>
+
+      <div class="panel">
         <h2>Automatic checks</h2>
         <p>Checks follow this repository's publishing jobs in <b>${escapeHtml(
           appInfo.repositoryTimeZone || 'America/New_York',
@@ -926,9 +978,39 @@
     document.getElementById('force-refresh').addEventListener('click', () => runRefresh(true, 'force-refresh'));
     document.getElementById('check-now').addEventListener('click', () => runRefresh(false, 'check-now'));
     document.getElementById('reset-bundled').addEventListener('click', resetToBundled);
+
+    const checkUpdate = document.getElementById('check-update');
+    if (checkUpdate) {
+      checkUpdate.addEventListener('click', async () => {
+        checkUpdate.disabled = true;
+        await api.checkForUpdate(true);
+        updateState = await api.updateStatus();
+        renderSettings();
+      });
+    }
+    const downloadUpdate = document.getElementById('download-update');
+    if (downloadUpdate) {
+      downloadUpdate.addEventListener('click', async () => {
+        downloadUpdate.disabled = true;
+        const current = updateState || appInfo.updates || {};
+        if (current.downloadedVersion &&
+            current.downloadedVersion === current.availableVersion) {
+          await api.installUpdate();
+        } else {
+          await api.downloadUpdate();
+        }
+        updateState = await api.updateStatus();
+        renderSettings();
+      });
+    }
+    const releasePage = document.getElementById('release-page');
+    if (releasePage) releasePage.addEventListener('click', () => api.openReleasePage());
   }
 
   let appInfo = {};
+  // The main process owns the update state; Settings renders the last value
+  // pushed on ptv:update and asks for a fresh one after each action.
+  let updateState = null;
 
   // -------------------------------------------------------------- actions
 
@@ -1196,6 +1278,13 @@
 
   api.onSelectTab((tab) => selectTab(tab));
 
+  if (typeof api.onUpdate === 'function') {
+    api.onUpdate((state) => {
+      updateState = state;
+      if (ui.tab === 'settings') renderSettings();
+    });
+  }
+
   window.addEventListener('beforeunload', () => {
     window.PremiumPlayer.stop();
     window.clearInterval(activityTimer);
@@ -1204,6 +1293,7 @@
   const activityTimer = window.setInterval(renderActivity, 1000);
   async function boot() {
     appInfo = await api.getAppInfo();
+    updateState = appInfo.updates || null;
     const brandTag = document.getElementById('brand-tag');
     if (brandTag && appInfo.version) brandTag.textContent = appInfo.version + (appInfo.version.startsWith('1.1.1') ? ' · Encore Preview' : '');
     await syncSnapshot();

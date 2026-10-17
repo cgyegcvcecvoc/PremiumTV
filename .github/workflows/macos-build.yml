@@ -6,8 +6,9 @@ name: Build PremiumTV macOS DMG + PKG
 # for both Intel and Apple Silicon, ad-hoc signs the .app, and publishes the
 # installers to the release page plus an Actions artifact.
 #
-# The global previews (v1.1.0, v1.1.1) attach only to GitHub pre-releases;
-# stable v1.0.3 (and the historical v1.0.2) only to full releases.
+# Stable releases attach only to full releases; 1.1.x previews attach only to
+# GitHub pre-releases. Versions come from scripts/release_version.py, so a new
+# stable release always lands above the installed version.
 
 on:
   push:
@@ -21,18 +22,22 @@ on:
       - "categories/index.json"
       - "EPG/**"
       - "android/tools/build_bundle.py"
+      - "scripts/release_version.py"
       - ".github/workflows/macos-build.yml"
   workflow_dispatch:
     inputs:
       version:
-        description: "Build 1.0.3 stable, or a global preview: 1.1.1 (cable-style Guide tab) or 1.1.0."
+        description: "Version to build (for example 1.0.4 stable or 1.1.1 preview)"
+        type: string
+        default: "1.0.4"
+        required: true
+      channel:
+        description: "Release channel: stable = USA lineup, preview = global lineup"
         type: choice
         options:
-          - 1.0.3
-          - 1.0.2
-          - 1.1.1
-          - 1.1.0
-        default: 1.0.3
+          - stable
+          - preview
+        default: stable
         required: true
   release:
     types: [published]
@@ -47,15 +52,13 @@ concurrency:
 jobs:
   build:
     name: Build DMG + PKG
-    # A release for Android must not start a Mac build (or upload Mac files
-    # to an Android-only release). The official release carries both platforms,
-    # so both build workflows attach to it. Push/dispatch builds still run as
-    # usual.
-    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.0.3' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease)
+    # Every published release is built for both platforms. The upload step
+    # below still requires the release tag to point at this exact commit
+    # (except for the explicit [preview-build] rebuild of v1.1.1).
     runs-on: macos-14
     timeout-minutes: 60
     env:
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.3') }}
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.4') }}
 
     steps:
       - name: Check out the repository
@@ -78,37 +81,33 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
           INPUT_VERSION: ${{ github.event.inputs.version }}
+          INPUT_CHANNEL: ${{ github.event.inputs.channel }}
           PUSH_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           if [ "$GITHUB_EVENT_NAME" = "release" ]; then
-            case "$RELEASE_TAG:$RELEASE_PRERELEASE" in
-              v1.0.2:false) version=1.0.2; scope=usa ;;
-              v1.0.3:false) version=1.0.3; scope=usa ;;
-              v1.1.0:true) version=1.1.0; scope=all ;;
-              v1.1.1:true) version=1.1.1; scope=all ;;
-              *) echo "Unsupported tag/prerelease combination: $RELEASE_TAG:$RELEASE_PRERELEASE"; exit 1 ;;
-            esac
+            version=$(python3 scripts/release_version.py --normalize "$RELEASE_TAG") || {
+              echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
+            if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.0.3}"
+            version="${INPUT_VERSION:-1.0.4}"
+            channel="${INPUT_CHANNEL:-stable}"
             # Explicit push switch; ordinary pushes remain stable builds.
             if [ "$GITHUB_EVENT_NAME" = "push" ] && [[ "$PUSH_MESSAGE" == *"[preview-build]"* ]]; then
               version=1.1.1
+              channel=preview
             fi
-            case "$version" in
-              1.0.2) scope=usa ;;
-              1.0.3) scope=usa ;;
-              1.1.0) scope=all ;;
-              1.1.1) scope=all ;;
-              *) echo "Unsupported PremiumTV version: $version"; exit 1 ;;
-            esac
+            version=$(python3 scripts/release_version.py --normalize "$version") || {
+              echo "Unsupported PremiumTV version: $version"; exit 1; }
           fi
+          if [ "$channel" = "preview" ]; then scope=all; else scope=usa; fi
           {
             echo "VERSION=$version"
             echo "RELEASE_TAG=v$version"
             echo "BUNDLE_SCOPE=$scope"
+            echo "CHANNEL=$channel"
           } >> "$GITHUB_ENV"
-          echo "Building PremiumTV $version (scope=$scope)."
+          echo "Building PremiumTV $version ($channel, scope=$scope)."
 
       - name: Set the packaged app version
         working-directory: macos/app

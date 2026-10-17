@@ -133,12 +133,12 @@ DISPLAY_NAME = {
 CHANNELS = [
     {
         "id": "stable",
-        "tag": "v1.0.2",
-        "version": "1.0.2",
+        "tag": "v1.0.4",
+        "version": "1.0.4",
         "channel": "Stable",
         "badge": "Recommended",
-        "summary": "USA lineup + USA guide. The default download.",
-        "notes_file": "release-notes-1.0.2.md",
+        "summary": "One Last Manual Install — USA lineup + USA guide, with in-app updates from Settings.",
+        "notes_file": "release-notes-1.0.4.md",
         "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
     },
     {
@@ -258,7 +258,10 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
             "notes_file": f"release-notes-{stable_version}.md",
         })
         if stable_version == "1.0.3":
-            channel_specs[0]["summary"] = "Everyday Polish — USA lineup + list guide, loading indicators, refresh stages, tips and clear result feedback. The default download."
+            channel_specs[0]["summary"] = "Everyday Polish — USA lineup + list guide, loading indicators, refresh stages, tips and clear result feedback."
+        if stable_version == "1.0.4":
+            channel_specs[0]["summary"] = ("One Last Manual Install — USA lineup + list guide, with Settings → App updates "
+                                          "for every later stable release. The default download.")
 
     channels = []
     for spec in channel_specs:

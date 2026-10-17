@@ -16,6 +16,7 @@ const os = require('node:os');
 const { TvRepository } = require('./repository');
 const { StreamProxy } = require('./stream-proxy');
 const { AutoRefresh } = require('./auto-refresh');
+const { AppUpdater } = require('./updater');
 const schedule = require('./refresh-schedule');
 
 const WINDOW_STATE_KEY = 'window-bounds';
@@ -29,6 +30,7 @@ let mainWindow = null;
 let repository = null;
 let proxy = null;
 let autoRefresh = null;
+let updater = null;
 
 // ------------------------------------------------------------------- paths
 
@@ -89,6 +91,18 @@ function bootstrap() {
 
     autoRefresh = new AutoRefresh({ repository });
 
+    // App updates are independent of the channel/guide refresh: the same
+    // published stable release is offered to both channels, only when its
+    // version is above this installed app.
+    updater = new AppUpdater({
+      currentVersion: app.getVersion(),
+      stateFile: path.join(app.getPath('userData'), 'update-state.json'),
+      downloadDir: path.join(app.getPath('userData'), 'updates'),
+      arch: process.arch,
+      shell,
+    });
+    updater.on('state', (state) => send('ptv:update', state));
+
     await createWindow();
     if (smokeMode) {
       try {
@@ -103,13 +117,18 @@ function bootstrap() {
     await repository.load();
 
     autoRefresh.start();
+    // The updater throttles itself to once a day; this first call is what
+    // makes a newly published stable release appear in Settings.
+    updater.start();
 
     // A Mac that slept through a publishing window gets its check on wake.
     powerMonitor.on('resume', () => {
       autoRefresh.catchUpIfOverdue().catch(() => {});
+      if (updater) updater.check().catch(() => {});
     });
     app.on('browser-window-focus', () => {
       autoRefresh.catchUpIfOverdue().catch(() => {});
+      if (updater) updater.check().catch(() => {});
     });
   });
 
@@ -216,8 +235,24 @@ ipcMain.handle('ptv:app-info', async () => {
     checkTimes: schedule.slotTimes(),
     refresh: repository.info,
     nextAutomaticAt: repository.info.nextAutomaticAt || null,
+    updates: updater ? updater.status() : null,
   };
 });
+
+ipcMain.handle('ptv:update-status', () => (updater ? updater.status() : null));
+
+ipcMain.handle('ptv:check-update', async (_event, force) => {
+  if (!updater) return null;
+  return updater.check(Boolean(force));
+});
+
+ipcMain.handle('ptv:download-update', async () => (updater ? updater.download() : null));
+
+ipcMain.handle('ptv:install-update', async () =>
+  (updater ? updater.openInstaller() : { ok: false, message: 'The updater is unavailable.' }));
+
+ipcMain.handle('ptv:open-release', async () =>
+  (updater ? updater.openReleasePage() : { ok: false }));
 
 ipcMain.handle('ptv:refresh', async (_event, force) => {
   return force ? autoRefresh.runManual() : repository.refresh('automatic');
@@ -318,6 +353,13 @@ function buildMenu() {
                 `Generated: ${meta.generated_utc || ''}`,
               ].join('\n'),
             });
+          },
+        },
+        {
+          label: 'Check for App Updates…',
+          click: () => {
+            send('ptv:select-tab', 'settings');
+            if (updater) updater.check(true).catch(() => {});
           },
         },
         {

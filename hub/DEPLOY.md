@@ -45,7 +45,7 @@ everything.
 Build it (already done if `hub/dist/static-site/` exists):
 
 ```bash
-# Refresh release metadata first (including newly completed 1.0.3 installers):
+# Refresh release metadata first (including newly completed 1.0.4 installers):
 gh api 'repos/cgyegcvcecvoc/PremiumTV1/releases?per_page=100' > docs/data/releases.src.json
 python3 scripts/build_site_data.py
 python3 hub/build_data.py
@@ -76,7 +76,7 @@ drag the folder in again (Netlify keeps the same URL).
 
 ## Release routing and refreshing an existing Netlify site
 
-The hub uses the same complete-release gate as `docs/`: stable 1.0.3 becomes
+The hub uses the same complete-release gate as `docs/`: stable 1.0.4 becomes
 recommended only when published with its APK and all four Mac installers.
 Encore Preview 1.1.1 stays in the preview card. Local APKs and drafts cannot
 become recommended. APKs in the static export link to release storage, avoiding

@@ -1,0 +1,47 @@
+name: Release version guard
+
+# Every PremiumTV release must be numbered above the newest stable release.
+# That single rule is what lets the apps offer updates safely: an installed
+# 1.0.5 only ever sees a newer stable release, never an equal/older tag and
+# never a preview. If a stable release is published below the current stable,
+# this guard marks it as a pre-release so no app will offer it, and the run
+# fails with an explanation.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  guard:
+    name: Check release ordering
+    # Pre-releases are intentionally outside this rule: they are never offered
+    # by the in-app updater.
+    if: github.event.release.prerelease == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+
+      - name: Compare the new release with the newest stable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -uo pipefail
+          gh release list --limit 100 --json tagName,isPrerelease,isDraft,publishedAt \
+            > "$RUNNER_TEMP/releases.json"
+          status=0
+          message=$(python3 scripts/release_version.py \
+            --guard --tag "$TAG" --releases "$RUNNER_TEMP/releases.json") || status=$?
+          echo "$message"
+          if [ "$status" -eq 2 ]; then
+            # A release below the current stable must never be offered as an
+            # update. Keeping it as a pre-release preserves its files while
+            # removing it from the stable channel.
+            gh release edit "$TAG" --prerelease
+            echo "::error::$TAG is below the newest stable release and was marked as a pre-release. Publish releases with a version above the current stable."
+          fi
+          exit "$status"

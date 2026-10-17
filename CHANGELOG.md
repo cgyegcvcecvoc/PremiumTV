@@ -10,6 +10,45 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-17 — PremiumTV 1.0.4: one last manual install, then updates from Settings
+
+- **In-app update center on both platforms.** Settings → App updates now shows
+  the installed version, the newest published stable release, the last check and
+  a clear status, with **Check for updates**, **Download update** and
+  **Install update** (Android) / **Open installer** (Mac). Checking is manual or
+  once a day at startup; the installer downloads only when the user asks.
+- **No repeated downloads.** A verified installer is stored once per version and
+  reused on every later check or button press; after the update is installed,
+  the old installer is pruned. The daily check sends GitHub its previous ETag,
+  so an unchanged release list is a single `304 Not Modified` response.
+- **Stable only, strictly newer, complete.** Both updaters ignore drafts and
+  pre-releases, compare versions numerically (`1.0.10` > `1.0.9`), and require
+  the platform installer to be attached. An installed preview (1.1.1) is ahead
+  of stable 1.0.4 and is never offered an older build. The Mac updater verifies
+  the DMG against `SHA256SUMS-macos.txt`; the Android updater verifies the APK
+  against `SHA256SUMS-android.txt`, then hands it to Android's package installer
+  through a one-file `FileProvider` (with the normal unknown-sources prompt).
+- **Release guard.** A new `Release version guard` workflow checks every
+  published stable release against the newest stable release. A tag that is not
+  above the current stable is converted to a pre-release (so no app can offer
+  it) and the run fails with an explanation. Versions and Android versionCodes
+  now come from one policy, `scripts/release_version.py`:
+  `MAJOR * 100000000 + MINOR * 10000 + PATCH`. 1.0.4 is code `100000004`.
+- **Version 1.0.4 is the stable default.** Android and macOS defaults, both
+  build workflows, the bundle builder and the download-site data all target
+  1.0.4. Both build workflows accept future versions from the release tag or a
+  manual version/channel dispatch, and every release builds both platforms.
+  Stable builds use the USA scope; pre-releases use the global scope.
+- **Encore Preview stays Encore Preview.** The 1.1.1 pre-release keeps its name,
+  global lineup and cable-style Guide tab, and now carries the same update
+  center. A rebuilt 1.1.1 uses the derived `versionCode 100010001`, so it stays
+  installable above stable 1.0.4; the explicit `[preview-build]` switch still
+  rebuilds only that existing pre-release.
+- **Documentation and downloads.** Added `release-notes-1.0.4.md` and
+  `docs/UPDATES.md` (policy plus the process for publishing the next stable
+  release), updated both apps' READMEs, the download page and hub copy, and
+  added 1.0.4 to the hub's asset mirror list.
+
 ## 2026-10-16 — Everyday Polish + Encore Preview
 
 - **Shared loading UX for stable 1.0.3 and preview 1.1.1.** Non-modal activity

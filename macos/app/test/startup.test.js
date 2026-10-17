@@ -15,24 +15,54 @@ function library(name = 'Sports One') {
     programmes: [{ c: 'one', s: Date.now() / 1000 - 60, e: Date.now() / 1000 + 3600, t: 'Live match' }],
   };
 }
-function setup(t, initial, appInfo = { version: '1.0.2' }) {
+function setup(t, initial, appInfo = { version: '1.0.2' }, updates = null) {
   const dom = new JSDOM(fs.readFileSync(path.join(renderer, 'index.html'), 'utf8'), {
     runScripts: 'outside-only', url: 'http://127.0.0.1:1234',
   });
   t.after(() => dom.window.close());
   let current = initial;
+  let updateState = updates;
   const events = {};
+  const calls = { check: 0, download: 0, install: 0, release: 0 };
   dom.window.premiumtv = {
-    getAppInfo: async () => structuredClone(appInfo),
+    getAppInfo: async () => structuredClone({ ...appInfo, updates: updateState }),
     getSnapshot: async () => structuredClone(current),
+    updateStatus: async () => structuredClone(updateState),
+    checkForUpdate: async (force) => {
+      calls.check += 1;
+      calls.checkForced = Boolean(force);
+      return structuredClone(updateState);
+    },
+    downloadUpdate: async () => {
+      calls.download += 1;
+      if (updateState && updateState.availableVersion) {
+        updateState = {
+          ...updateState,
+          downloadedVersion: updateState.availableVersion,
+          progressPercent: 100,
+          message: `PremiumTV ${updateState.availableVersion} downloaded and verified. ` +
+            'Press Open installer to finish.',
+        };
+      }
+      return structuredClone(updateState);
+    },
+    installUpdate: async () => { calls.install += 1; return { ok: true }; },
+    openReleasePage: async () => { calls.release += 1; return { ok: true }; },
     onState: (fn) => { events.state = fn; },
     onProgress: (fn) => { events.progress = fn; },
     onInfo: (fn) => { events.info = fn; },
+    onUpdate: (fn) => { events.update = fn; },
     onSelectTab() {},
   };
   dom.window.PremiumPlayer = { stop() {} };
   dom.window.eval(fs.readFileSync(path.join(renderer, 'app.js'), 'utf8'));
-  return { window: dom.window, events, set: (value) => { current = value; } };
+  return {
+    window: dom.window,
+    events,
+    calls,
+    set: (value) => { current = value; },
+    setUpdate: (value) => { updateState = value; },
+  };
 }
 const empty = () => ({ state: { phase: 'loading' }, info: {}, library: { channels: [], groups: [], programmes: [] } });
 const ready = (name) => ({ state: { phase: 'ready', message: 'Loaded' }, info: {}, library: library(name) });
@@ -216,4 +246,62 @@ test('library activity stays non-modal and distinguishes progress from failure',
   assert.match(doc.getElementById('activity-message').textContent, /library was kept/);
   assert.equal(doc.getElementById('library-activity').dataset.outcome, 'error');
   assert.equal(doc.getElementById('force-refresh').disabled, false);
+});
+
+test('Settings offers a verified app update and installs it from the same panel', async (t) => {
+  const update = {
+    currentVersion: '1.0.4',
+    latestStableVersion: '1.0.5',
+    availableVersion: '1.0.5',
+    installerSize: 5 * 1024 * 1024,
+    lastCheckedAtMillis: Date.now(),
+    checking: false,
+    downloading: false,
+    progressPercent: -1,
+    downloadedVersion: null,
+    message: 'PremiumTV 1.0.5 is available (installed: 1.0.4).',
+    error: null,
+  };
+  const app = setup(t, ready(), { version: '1.0.4' }, update);
+  await tick();
+  const doc = app.window.document;
+  doc.querySelector('[data-tab="settings"]').click();
+
+  assert.match(doc.getElementById('view-settings').textContent, /App updates/);
+  assert.match(doc.getElementById('view-settings').textContent, /PremiumTV 1\.0\.5 is available/);
+  assert.ok(doc.getElementById('download-update'));
+
+  doc.getElementById('download-update').click();
+  await tick();
+  await tick();
+  assert.equal(app.calls.download, 1);
+  // The same panel now offers the already-verified installer instead of a
+  // second download.
+  assert.equal(doc.getElementById('download-update').textContent, 'Open installer');
+  assert.match(doc.getElementById('view-settings').textContent, /downloaded and verified/);
+
+  doc.getElementById('download-update').click();
+  await tick();
+  await tick();
+  assert.equal(app.calls.download, 1, 'Open installer must not start another download');
+  assert.equal(app.calls.install, 1);
+});
+
+test('Settings can ask GitHub for an app update immediately', async (t) => {
+  const app = setup(t, ready(), { version: '1.0.4' }, {
+    currentVersion: '1.0.4',
+    latestStableVersion: '1.0.5',
+    availableVersion: '1.0.5',
+    checking: false,
+    downloading: false,
+    message: 'PremiumTV 1.0.5 is available (installed: 1.0.4).',
+  });
+  await tick();
+  const doc = app.window.document;
+  doc.querySelector('[data-tab="settings"]').click();
+  doc.getElementById('check-update').click();
+  await tick();
+  await tick();
+  assert.equal(app.calls.check, 1);
+  assert.equal(app.calls.checkForced, true);
 });

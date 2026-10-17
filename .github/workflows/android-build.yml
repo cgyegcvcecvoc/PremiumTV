@@ -17,9 +17,11 @@ name: Build PremiumTV Android APK
 # reachable from every sandbox. The [skip ci] marker and the path filter below
 # keep this from triggering another build.
 #
-# Release flow: artifacts attach only to the exact-SHA release being built;
-# stable v1.0.3 (and the historical v1.0.2) are full releases, while the global
-# previews (v1.1.0, v1.1.1) are accepted only as pre-releases.
+# Release flow: artifacts attach only to the exact-SHA release being built.
+# Every stable release is a full release; every 1.0.x build uses the USA
+# lineup and every preview uses the global lineup. Versions and versionCodes
+# come from scripts/release_version.py, so a future release cannot ship a
+# versionCode below the installed app.
 # emulator smoke gate depends on the "Free disk space for the emulator" step -
 # do not grow the AVD data partition past the runner's free disk.
 
@@ -36,18 +38,22 @@ on:
       - "EPG/**"
       - "tests/test_android_bundle.py"
       - "tests/test_android_refresh.py"
+      - "scripts/release_version.py"
       - ".github/workflows/android-build.yml"
   workflow_dispatch:
     inputs:
       version:
-        description: "Build 1.0.3 stable, or a global preview: 1.1.1 (cable-style Guide tab) or 1.1.0."
+        description: "Version to build (for example 1.0.4 stable or 1.1.1 preview)"
+        type: string
+        default: "1.0.4"
+        required: true
+      channel:
+        description: "Release channel: stable = USA lineup, preview = global lineup"
         type: choice
         options:
-          - 1.0.3
-          - 1.0.2
-          - 1.1.1
-          - 1.1.0
-        default: 1.0.3
+          - stable
+          - preview
+        default: stable
         required: true
   release:
     types: [published]
@@ -62,15 +68,15 @@ concurrency:
 jobs:
   build:
     name: Build APK
-    # Do not attach an Android APK to a Mac-only release; the official release
-    # carries both platforms.
-    if: github.event_name != 'release' || (github.event.release.tag_name == 'v1.0.2' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.0.3' && !github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.0' && github.event.release.prerelease) || (github.event.release.tag_name == 'v1.1.1' && github.event.release.prerelease)
+    # Every published release is built for both platforms. The upload step
+    # below still requires the release tag to point at this exact commit
+    # (except for the explicit [preview-build] rebuild of v1.1.1).
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     env:
-      # Push builds default to the stable draft; release and manual builds
-      # select a tag corresponding to the requested version.
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.3') }}
+      # Push builds default to stable 1.0.4; release and manual builds select
+      # the tag/version they were asked for.
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.4') }}
 
     steps:
       - name: Check out the repository
@@ -88,38 +94,35 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
           INPUT_VERSION: ${{ github.event.inputs.version }}
+          INPUT_CHANNEL: ${{ github.event.inputs.channel }}
           PUSH_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           if [ "$GITHUB_EVENT_NAME" = "release" ]; then
-            case "$RELEASE_TAG:$RELEASE_PRERELEASE" in
-              v1.0.2:false) version=1.0.2; scope=usa; code=7 ;;
-              v1.0.3:false) version=1.0.3; scope=usa; code=10 ;;
-              v1.1.0:true) version=1.1.0; scope=all; code=8 ;;
-              v1.1.1:true) version=1.1.1; scope=all; code=11 ;;
-              *) echo "Unsupported tag/prerelease combination: $RELEASE_TAG:$RELEASE_PRERELEASE"; exit 1 ;;
-            esac
+            version=$(python3 scripts/release_version.py --normalize "$RELEASE_TAG") || {
+              echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
+            if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.0.3}"
+            version="${INPUT_VERSION:-1.0.4}"
+            channel="${INPUT_CHANNEL:-stable}"
             # Explicit push switch; ordinary pushes remain stable builds.
             if [ "$GITHUB_EVENT_NAME" = "push" ] && [[ "$PUSH_MESSAGE" == *"[preview-build]"* ]]; then
               version=1.1.1
+              channel=preview
             fi
-            case "$version" in
-              1.0.2) scope=usa; code=7 ;;
-              1.0.3) scope=usa; code=10 ;;
-              1.1.0) scope=all; code=8 ;;
-              1.1.1) scope=all; code=11 ;;
-              *) echo "Unsupported PremiumTV version: $version"; exit 1 ;;
-            esac
+            version=$(python3 scripts/release_version.py --normalize "$version") || {
+              echo "Unsupported PremiumTV version: $version"; exit 1; }
           fi
+          if [ "$channel" = "preview" ]; then scope=all; else scope=usa; fi
+          code=$(python3 scripts/release_version.py --code "$version")
           {
             echo "VERSION=$version"
             echo "RELEASE_TAG=v$version"
             echo "BUNDLE_SCOPE=$scope"
             echo "VERSION_CODE=$code"
+            echo "CHANNEL=$channel"
           } >> "$GITHUB_ENV"
-          echo "Building PremiumTV $version (scope=$scope, versionCode=$code)."
+          echo "Building PremiumTV $version ($channel, scope=$scope, versionCode=$code)."
 
       - name: Verify the app bundle and refresh wiring
         run: python3 -m unittest tests.test_android_bundle tests.test_android_refresh -v
