@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -51,8 +51,9 @@ import com.premiumtv.app.update.NoticeLevel
  * change what it says. Once the published support window closes the same rule
  * escalates to [NoticeLevel.EndOfSupport] and the accents turn red.
  *
- * @param onUpdate    the primary action: open Settings' update centre and start
- *                    the download, which is the whole point of the newest build.
+ * @param onUpdate    the primary action: open Settings' update centre and check
+ *                    GitHub again. The installer still downloads only on the
+ *                    Settings button - rule 5 in docs/UPDATES.md.
  * @param onDismiss   "Remind me next time" - and the remote's Back key.
  */
 @Composable
@@ -83,10 +84,10 @@ fun UpdateNoticeDialog(
             usePlatformDefaultWidth = false,
         ),
     ) {
+        // The dialog window dims everything behind it already, so this only has
+        // to centre the card and keep it off the screen edges.
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xCC05070B)),
+            modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center,
         ) {
             Surface(

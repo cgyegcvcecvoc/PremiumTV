@@ -254,6 +254,11 @@ ipcMain.handle('ptv:install-update', async () =>
 ipcMain.handle('ptv:open-release', async () =>
   (updater ? updater.openReleasePage() : { ok: false }));
 
+// The dismissal is launch-scoped on purpose: the updater keeps it out of the
+// state file, so the notice is back the next time the app opens.
+ipcMain.handle('ptv:dismiss-update-notice', () =>
+  (updater ? updater.dismissNotice() : null));
+
 ipcMain.handle('ptv:refresh', async (_event, force) => {
   return force ? autoRefresh.runManual() : repository.refresh('automatic');
 });
