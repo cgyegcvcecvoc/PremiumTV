@@ -28,6 +28,15 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   the DMG against `SHA256SUMS-macos.txt`; the Android updater verifies the APK
   against `SHA256SUMS-android.txt`, then hands it to Android's package installer
   through a one-file `FileProvider` (with the normal unknown-sources prompt).
+- **One signing identity for every APK.** Android only installs an update over
+  an app signed by the same certificate. Earlier CI builds each generated a
+  fresh random debug key, so 1.0.0–1.0.3 could not update in place. From 1.0.4
+  on, every APK is signed with the checked-in long-lived key
+  `android/keystore/premiumtv-updates.p12`, and the Android workflow fails the
+  build unless the APK certificate matches the pinned fingerprint. 1.0.4 is
+  therefore a one-time clean install (uninstall 1.0.3 or older first); later
+  releases install straight over it.
+- **Release guard.** A new `Release version guard` workflow checks every
 - **Release guard.** A new `Release version guard` workflow checks every
   published stable release against the newest stable release. A tag that is not
   above the current stable is converted to a pre-release (so no app can offer
