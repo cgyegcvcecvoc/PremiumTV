@@ -71,7 +71,7 @@ window.SITE_DATA = {
       "arch": "—",
       "size": 148,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.4/BUILD-SOURCE-android.txt",
-      "sha256": "cefc8972bbd9484300cbfa2dad09c44148541613052ab6e2f306517b6b223ed1"
+      "sha256": "f64caed13e067893dbf97e7c278020f933015b7f09481a8cee06c3db1b696409"
      },
      {
       "name": "BUILD-SOURCE-macos.txt",
@@ -85,9 +85,9 @@ window.SITE_DATA = {
       "name": "PremiumTV-1.0.4-debug.apk",
       "kind": "android",
       "arch": "universal",
-      "size": 16091301,
+      "size": 16090467,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.4/PremiumTV-1.0.4-debug.apk",
-      "sha256": "c1fa872e3f93120cf1f447611f2cb69ff5379c4e994c6c16b7f111f3d580572d"
+      "sha256": "b452382b875534106bab5b1aa2e29bd708d91c5a86419c2386b6b1c81ffcb001"
      },
      {
       "name": "PremiumTV-1.0.4-mac-arm64.dmg",
@@ -127,7 +127,7 @@ window.SITE_DATA = {
       "arch": "—",
       "size": 92,
       "url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.4/SHA256SUMS-android.txt",
-      "sha256": "290142c3c79db725793d92de487aa106328565bcdcf788211514e70221453e36"
+      "sha256": "cfce2aea2376426cadee69d4e196d9c36f554173f47280a620799fdf2bbb141e"
      },
      {
       "name": "SHA256SUMS-macos.txt",
