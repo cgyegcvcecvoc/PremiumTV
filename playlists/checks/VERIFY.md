@@ -1,12 +1,12 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-18T09:39:53+00:00 UTC
-- **Playlists checked:** 178 (23371 entries)
+- **Generated:** 2026-10-18T13:37:26+00:00 UTC
+- **Playlists checked:** 179 (26100 entries)
 - **Playlists with problems:** 3
 - **Playlists with guide-coverage notes:** 76
 - **Links published that the deep check called dead:** 5
 - **Category shelf files:** 131 (0 problem(s))
-- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, International, International Backups, Religious, Religious Backups, Entertainment, Entertainment Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Africa, Africa Backups, North America, North America Backups, Legislative, Legislative Backups, Series, Series Backups, Business, Business Backups, Family, South America, South America Backups, Classic TV, Comedy, Weather, A&E Networks, A&E Networks Backups, United States, United States Backups, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Online TV, Relax, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
+- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, Religious, Religious Backups, International, International Backups, Entertainment, Entertainment Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Africa, Africa Backups, Legislative, Legislative Backups, North America, North America Backups, Series, Series Backups, Business, Business Backups, Family, South America, South America Backups, Classic TV, Comedy, United States, United States Backups, Weather, A&E Networks, A&E Networks Backups, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Online TV, Relax, TEST, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, USA Channels, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
 
 ## Playlists
@@ -15,7 +15,7 @@
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | `playlists/PremiumTV.m3u` | 11638 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Movies, Music, News, Europe, Entertainment, International, Religious, Asia, South America, Documentary, Series, United States, Kids, North America, Education, Culture, Comedy, Legislative, India, Classic TV, Africa, Business, Family, A&E Networks, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Global TV, Tv Celebrities, Tv Paranormal, Online TV, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, Other, Other Backups, Europe Backups, International Backups, United Kingdom | 0 | 0 | 3 | 0 | 10013/10013 (100.0%) | 1851 (18.5%) |
 | `playlists/AE_Channels.m3u` | 68 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 60/60 (100.0%) | 8 (13.3%) |
-| `playlists/Priority_Channels.m3u` | 19 | Sports, Cartoons, Kids, 3-Radio#Chicago, Classic TV, MeTV, United States | 0 | 0 | 3 | 0 | 17/17 (100.0%) | 11 (64.7%) |
+| `playlists/Priority_Channels.m3u` | 19 | Sports, Cartoons, Kids, 3-Radio#Chicago, Classic TV, MeTV, TEST, United States, USA Channels | 0 | 0 | 3 | 0 | 18/18 (100.0%) | 12 (66.7%) |
 | `playlists/countries/Afghanistan.m3u` | 8 | Asia, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Albania.m3u` | 16 | News, Europe, International, Music | 0 | 0 | 1 | 0 | 16/16 (100.0%) | 4 (25.0%) |
 | `playlists/countries/Algeria.m3u` | 4 | Sports, Africa, Kids | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 1 (25.0%) |
@@ -191,6 +191,7 @@
 | `playlists/countries/Western_Sahara.m3u` | 3 | Other | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Yemen.m3u` | 3 | News, Asia | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Zimbabwe.m3u` | 1 | Religious | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
+| `playlists/live/USA.m3u` | 2729 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Documentary, Religious, Music, Kids, Legislative, News, Comedy, Education, Classic TV, A&E Networks, Business, Culture, Family, International, Weather, Animals & Nature, Global TV, Tv Shows, Aria Web Channels, Australia, Relax, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 2017/2017 (100.0%) | 452 (22.4%) |
 
 ## Problems
 
