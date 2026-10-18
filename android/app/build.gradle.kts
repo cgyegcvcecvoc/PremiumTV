@@ -4,11 +4,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// Release tags can override these properties. The default is the 1.0.5 stable
+// Release tags can override these properties. The default is the 1.0.6 stable
 // USA build. Its derived versionCode (100000005) is above every historical
 // build, including the 1.1.1 preview, so Android always upgrades in place -
 // see scripts/release_version.py for the one shared version policy.
-val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.5").get()
+val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.6").get()
 val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("100000005").get().toInt()
 
 // Every published APK must carry the *same* signing identity, otherwise

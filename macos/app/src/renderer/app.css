@@ -978,3 +978,19 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   background: rgba(10, 12, 16, 0.72); color: var(--gold);
   font-size: 11px; letter-spacing: 0.6px;
 }
+
+/* ---- 1.0.6: personal shelves, click-to-search, manual servers, smoothness */
+/* Search stays inert until clicked: no gold ring, no caret on hover alone. */
+#search[readonly] { cursor: pointer; opacity: 0.85; }
+#search.search-active { border-color: rgba(79, 140, 255, 0.7); box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.18); }
+.cat-personal .cat-name { color: var(--gold); }
+.player-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.player-actions .btn[disabled] { opacity: 0.45; cursor: default; }
+/* Cheaper clicking around: off-screen cards skip layout/paint until near the
+   viewport, and hover no longer lifts cards (transform + shadow repaints were
+   a visible stutter on long grids). Border/background still mark the hover. */
+.card, .guide-row, .event-card { content-visibility: auto; contain-intrinsic-size: auto 140px; }
+.card:hover { transform: none; box-shadow: none; }
+@media (prefers-reduced-motion: reduce) {
+  .card, .guide-row, .btn, .tab, .cat { transition: none; }
+}

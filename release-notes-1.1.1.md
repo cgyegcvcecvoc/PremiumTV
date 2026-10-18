@@ -1,6 +1,6 @@
 # PremiumTV 1.1.1 — Encore Preview: Cable Guide + Everyday Polish
 
-**This is a pre-release, not the default.** Stable users receive the recommended 1.0.4 release. Like
+**This is a pre-release, not the default.** Stable users receive the recommended 1.0.6 release. Like
 1.1.0, this build is published with GitHub's pre-release flag so it is never
 handed out as the recommended download.
 
@@ -79,6 +79,14 @@ This rebuilt preview uses the derived `versionCode 100010001` (the original
 can install over it. It is signed with the same long-lived update key as stable
 1.0.4; the earlier 1.1.1 builds used a different random debug key, so installing
 over one of those needs a one-time uninstall. Mac installers keep version 1.1.1.
+
+## The 1.0.6 features are in this preview too
+
+The newest rebuild of this preview is cut from the same tree as stable 1.0.6
+and carries everything it adds: click-to-activate search (hover/focus no
+longer starts a search), manual ◀ Server / Server ▶ switching in the player
+on top of automatic fallback, the Recently watched and Favorites shelves,
+and the smoother-scrolling fixes. See [`release-notes-1.0.6.md`](release-notes-1.0.6.md).
 
 ## The 1.0.5 features are in this preview too
 

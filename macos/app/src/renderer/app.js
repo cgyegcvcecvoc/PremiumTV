@@ -45,6 +45,9 @@
     playerDetail: document.getElementById('player-detail'),
     playerServer: document.getElementById('player-server'),
     playerClose: document.getElementById('player-close'),
+    playerPrevServer: document.getElementById('player-prev-server'),
+    playerNextServer: document.getElementById('player-next-server'),
+    playerFavorite: document.getElementById('player-favorite'),
     playerRetry: document.getElementById('player-retry'),
     // The startup "go and update" popup.
     updateNotice: document.getElementById('update-notice'),
@@ -60,10 +63,17 @@
     updateNoticeFoot: document.getElementById('update-notice-foot'),
   };
 
+  const RECENT_CATEGORY = '__recent__';
+  const FAVORITE_CATEGORY = '__favorites__';
+
   const ui = {
     tab: 'channels',
-    category: null, // null = every channel
+    category: null, // null = every channel; RECENT/FAVORITE_CATEGORY = personal shelves
     query: '',
+    // Search is click-to-activate (1.0.6): hovering or tabbing past the field
+    // must never start a search. Only an explicit click (or '/' / Enter on the
+    // focused field) makes it editable; typing is debounced before rendering.
+    searchActive: false,
     rendered: 0,
     // The cable-style grid: rows (one per channel) interleaved with category
     // headings, rendered a page at a time as the grid scrolls.
@@ -85,6 +95,10 @@
   // Multi-server playback: the ordered server list of the open player.
   let playQueue = [];
   let playQueueIndex = 0;
+  // Recently watched + Favorites, persisted per machine (personal.js logic).
+  const personal = window.PremiumPersonal;
+  let recentKeys = personal.load(window.localStorage, personal.RECENTS_KEY);
+  let favoriteKeys = personal.load(window.localStorage, personal.FAVORITES_KEY);
   let playingSession = null;
   let clockTimer = null;
 
@@ -262,11 +276,27 @@
       els.categories.appendChild(button);
     }
 
+    const shelves = [
+      [RECENT_CATEGORY, '◷ Recently watched', personal.resolve(recentKeys, snapshot.library.channels || []).length],
+      [FAVORITE_CATEGORY, '★ Favorites', personal.resolve(favoriteKeys, snapshot.library.channels || []).length],
+    ];
+    for (const [key, label, count] of shelves) {
+      const button = document.createElement('button');
+      button.className = 'cat cat-personal';
+      button.setAttribute('aria-current', String(ui.category === key));
+      button.innerHTML = `<span class="cat-name">${label}</span><span class="cat-count">${count}</span>`;
+      button.addEventListener('click', () => selectCategory(key));
+      els.categories.appendChild(button);
+    }
+
     els.footCount.textContent = `${total} channels · ${groups.length} categories`;
   }
 
   function visibleChannels() {
-    const channels = snapshot.library.channels || [];
+    const all = snapshot.library.channels || [];
+    if (ui.category === RECENT_CATEGORY) return personal.resolve(recentKeys, all);
+    if (ui.category === FAVORITE_CATEGORY) return personal.resolve(favoriteKeys, all);
+    const channels = all;
     const query = ui.query.trim().toLowerCase();
     return channels.filter((channel) => {
       if (ui.category && channel.group !== ui.category) return false;
@@ -322,10 +352,19 @@
 
   function renderChannels() {
     const channels = visibleChannels();
-    els.channelsTitle.textContent = ui.query.trim() ? `Search: ${ui.query.trim()}` : ui.category || 'All channels';
-    els.channelsSubtitle.textContent = ui.query.trim()
-      ? `${channels.length} matching channels`
-      : `${channels.length} channels in ${ui.category || 'every category'}`;
+    const specialTitle = ui.category === RECENT_CATEGORY
+      ? 'Recently watched'
+      : ui.category === FAVORITE_CATEGORY ? 'Favorites' : null;
+    els.channelsTitle.textContent = specialTitle || (ui.query.trim() ? `Search: ${ui.query.trim()}` : ui.category || 'All channels');
+    els.channelsSubtitle.textContent = specialTitle
+      ? (channels.length
+        ? `${channels.length} ${ui.category === RECENT_CATEGORY ? 'channels you opened, newest first — pick one to keep watching' : 'favorite channels'}`
+        : ui.category === RECENT_CATEGORY
+          ? 'Channels you open will appear here so you can jump back in quickly.'
+          : 'Star a channel from the player (☆ Favorite) and it will live here.')
+      : ui.query.trim()
+        ? `${channels.length} matching channels`
+        : `${channels.length} channels in ${ui.category || 'every category'}`;
 
     els.channelsGrid.textContent = '';
     ui.rendered = 0;
@@ -343,7 +382,13 @@
     if (!list.length && !els.channelsGrid.querySelector('.empty-state')) {
       const empty = document.createElement('div');
       empty.className = 'empty-state';
-      empty.textContent = snapshot.state.phase === 'error' ? snapshot.state.message : 'No channels match this search.';
+      empty.textContent = snapshot.state.phase === 'error'
+        ? snapshot.state.message
+        : ui.category === RECENT_CATEGORY
+          ? 'Nothing here yet — open any channel and it will appear under Recently watched.'
+          : ui.category === FAVORITE_CATEGORY
+            ? 'No favorites yet — open a channel and press ☆ Favorite in the player.'
+            : 'No channels match this search.';
       els.channelsGrid.appendChild(empty);
     }
   }
@@ -475,7 +520,7 @@
     card.type = 'button';
     card.className = 'event-card';
     const servers = event.servers.length > 1
-      ? `${event.servers.length} streams · automatic fallback`
+      ? `${event.servers.length} streams · switchable in the player`
       : '1 stream';
     card.innerHTML = '<div class="event-head"><span class="now-pill">LIVE</span>' +
       `<span class="event-sport">${window.PremiumIcons.svgForGroup(event.sport, 'ph-icon event-icon')}</span></div>` +
@@ -504,7 +549,7 @@
       0,
     );
     els.liveSubtitle.textContent = games
-      ? `${games} games across ${feeds} streams · grouped by sport · a game with more than one stream switches servers by itself`
+      ? `${games} games across ${feeds} streams · grouped by sport · a game with more than one stream can be switched in the player and falls back by itself`
       : 'Games the repository\u2019s scrapers have on air right now, grouped by sport.';
 
     els.liveList.textContent = '';
@@ -1259,10 +1304,14 @@
 
   /** The server badge over the video: which feed of this channel is playing. */
   function renderServerBadge() {
+    const multi = playQueue.length > 1;
+    if (els.playerPrevServer) els.playerPrevServer.disabled = !multi;
+    if (els.playerNextServer) els.playerNextServer.disabled = !multi;
+    renderFavoriteButton();
     if (!els.playerServer) return;
-    if (playQueue.length > 1) {
+    if (multi) {
       els.playerServer.textContent =
-        `Server ${playQueueIndex + 1} of ${playQueue.length} · automatic fallback on`;
+        `Server ${playQueueIndex + 1} of ${playQueue.length} · use ◀ Server / Server ▶ to switch · automatic fallback on`;
       els.playerServer.hidden = false;
     } else {
       els.playerServer.hidden = true;
@@ -1285,7 +1334,46 @@
    * takes over by itself and the badge above the video says so; the error
    * card appears only when every server has been tried.
    */
+  /** Opening a channel files it under Recently watched (newest first). */
+  function noteWatched(channel) {
+    recentKeys = personal.recordRecent(recentKeys, personal.keyFor(channel));
+    personal.save(window.localStorage, personal.RECENTS_KEY, recentKeys);
+    if (ui.tab === 'channels') renderCategories();
+  }
+
+  function currentChannel() {
+    return playQueue[playQueueIndex] || null;
+  }
+
+  function renderFavoriteButton() {
+    if (!els.playerFavorite) return;
+    const favorite = personal.isFavorite(favoriteKeys, personal.keyFor(currentChannel()));
+    els.playerFavorite.textContent = favorite ? '★ Favorited' : '☆ Favorite';
+    els.playerFavorite.setAttribute('aria-pressed', String(favorite));
+  }
+
+  function toggleFavorite() {
+    const channel = currentChannel();
+    if (!channel) return;
+    favoriteKeys = personal.toggleFavorite(favoriteKeys, personal.keyFor(channel));
+    personal.save(window.localStorage, personal.FAVORITES_KEY, favoriteKeys);
+    renderFavoriteButton();
+    renderCategories();
+    els.statusText.textContent = personal.isFavorite(favoriteKeys, personal.keyFor(channel))
+      ? `${channel.name} added to Favorites`
+      : `${channel.name} removed from Favorites`;
+  }
+
+  /** Manual server switch (Live Events fix): wraps around the server list. */
+  async function switchServer(delta) {
+    if (playQueue.length < 2) return;
+    playQueueIndex = personal.nextServerIndex(playQueueIndex, playQueue.length, delta);
+    els.statusText.textContent = `Switching to server ${playQueueIndex + 1} of ${playQueue.length}…`;
+    await playCurrentServer();
+  }
+
   async function openPlayer(channel, servers) {
+    noteWatched(channel);
     const list = Array.isArray(servers) && servers.length
       ? servers
       : window.PremiumLive.serversFor(channel, snapshot.library.channels || []);
@@ -1354,23 +1442,66 @@
     if (button) selectTab(button.dataset.tab);
   });
 
+  // Click-to-search: the field ships readonly, so hover (and keyboard focus
+  // passing over it) can never start a search. A click — or '/' anywhere, or
+  // Enter on the focused field — activates it; blur/Escape deactivates it.
+  // There is deliberately no mouseover/pointerenter handler on the search box.
+  let searchRenderTimer = null;
+  function activateSearch() {
+    if (ui.searchActive) return;
+    ui.searchActive = true;
+    els.search.readOnly = false;
+    els.search.setAttribute('aria-readonly', 'false');
+    els.search.classList.add('search-active');
+    els.search.focus();
+    els.search.select();
+  }
+  function deactivateSearch() {
+    ui.searchActive = false;
+    els.search.readOnly = true;
+    els.search.setAttribute('aria-readonly', 'true');
+    els.search.classList.remove('search-active');
+  }
+  els.search.addEventListener('click', activateSearch);
+  els.search.addEventListener('keydown', (event) => {
+    if (!ui.searchActive && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      activateSearch();
+    } else if (event.key === 'Escape' || event.key === 'Enter') {
+      deactivateSearch();
+      els.search.blur();
+    }
+  });
+  els.search.addEventListener('blur', deactivateSearch);
   els.search.addEventListener('input', () => {
-    ui.query = els.search.value;
-    if (ui.tab === 'settings') selectTab('channels');
-    render();
+    if (!ui.searchActive) return; // never search without an explicit click
+    window.clearTimeout(searchRenderTimer);
+    searchRenderTimer = window.setTimeout(() => {
+      ui.query = els.search.value;
+      if (ui.tab === 'settings') selectTab('channels');
+      else render();
+    }, 150);
   });
 
   els.playerClose.addEventListener('click', closePlayer);
+  if (els.playerPrevServer) els.playerPrevServer.addEventListener('click', () => switchServer(-1));
+  if (els.playerNextServer) els.playerNextServer.addEventListener('click', () => switchServer(1));
+  if (els.playerFavorite) els.playerFavorite.addEventListener('click', toggleFavorite);
   els.playerRetry.addEventListener('click', () => window.PremiumPlayer.retry());
 
+  // Scroll paging is coalesced through requestAnimationFrame: a scroll burst
+  // used to run visibleChannels() (a full filter over every channel) per event.
+  let channelPageQueued = false;
   document.getElementById('content').addEventListener('scroll', (event) => {
-    if (ui.tab !== 'channels') return;
+    if (ui.tab !== 'channels' || channelPageQueued) return;
     const node = event.target;
-    if (node.scrollTop + node.clientHeight >= node.scrollHeight - 600) {
-      const total = visibleChannels().length;
-      if (ui.rendered < total) appendChannelPage();
-    }
-  });
+    if (node.scrollTop + node.clientHeight < node.scrollHeight - 600) return;
+    channelPageQueued = true;
+    window.requestAnimationFrame(() => {
+      channelPageQueued = false;
+      if (ui.rendered < visibleChannels().length) appendChannelPage();
+    });
+  }, { passive: true });
 
   els.guideGrid.addEventListener('scroll', () => {
     if (ui.tab !== 'guide') return;
@@ -1512,7 +1643,7 @@
     }
     if (event.key === '/' && document.activeElement !== els.search) {
       event.preventDefault();
-      els.search.focus();
+      activateSearch();
     }
   });
 
@@ -1601,8 +1732,10 @@
         // line and the live highlight move, until the next half hour rebuilds it.
         if (cableGuideEnabled()) updateGuideClock();
         else renderGuide();
-      } else if (ui.tab === 'channels' && ui.rendered <= PAGE) renderChannels();
-      else if (ui.tab === 'live') renderLive();
+      } else if (ui.tab === 'live') renderLive();
+      // Channels intentionally not re-rendered here: rebuilding the grid every
+      // 30 s was a visible stutter while clicking around; "on now" text
+      // refreshes on the next navigation/search instead.
     }, 30000);
   }
 

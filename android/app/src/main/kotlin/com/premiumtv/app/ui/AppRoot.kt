@@ -10,6 +10,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.premiumtv.app.TvViewModel
+import androidx.compose.ui.platform.LocalContext
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.LoadState
 import kotlinx.coroutines.delay
@@ -34,6 +35,15 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     // The channel and its server list (backup feeds, or the other streams of
     // the same live game) - resolved when the viewer picks a channel.
     var playing by remember { mutableStateOf<Pair<Channel, List<Channel>>?>(null) }
+    // Recently watched + Favorites (1.0.6), persisted per device.
+    val appContext = LocalContext.current.applicationContext
+    val shelves = remember { PersonalShelves(appContext) }
+    var recentKeys by remember { mutableStateOf(shelves.recentKeys()) }
+    var favoriteKeys by remember { mutableStateOf(shelves.favoriteKeys()) }
+    val toggleFavorite: (Channel) -> Unit = { channel ->
+        favoriteKeys = shelves.toggleFavorite(channel.url)
+    }
+
     // Held here rather than in HomeScreen, which leaves the composition while a
     // channel plays: closing the player returns to the same tab and, in the
     // guide, to the same highlighted show.
@@ -61,6 +71,8 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                     programmes = current.library.programmes[channel.id].orEmpty(),
                     now = now,
                     onClose = { playing = null },
+                    isFavorite = channel.url in favoriteKeys,
+                    onToggleFavorite = { toggleFavorite(channel) },
                 )
             } else {
                 HomeScreen(
@@ -72,7 +84,14 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                     tab = tab,
                     onTabChange = { tab = it },
                     guideState = guideState,
+                    recentChannels = resolveShelf(recentKeys, current.library.channels),
+                    favoriteChannels = resolveShelf(favoriteKeys, current.library.channels),
+                    favoriteUrls = favoriteKeys.toSet(),
+                    onToggleFavorite = toggleFavorite,
                     onSelect = { channel ->
+                        // Opening a channel files it under Recently watched.
+                        shelves.recordRecent(channel.url)
+                        recentKeys = shelves.recentKeys()
                         playing = channel to serversFor(channel, current.library.channels)
                     },
                     onForceRefresh = { viewModel.forceRefresh() },

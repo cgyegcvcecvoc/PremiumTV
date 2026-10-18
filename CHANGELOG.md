@@ -10,6 +10,25 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-18 — Version 1.0.6: click-to-search, personal shelves, manual server switching
+
+- **Stable 1.0.6 is cut and becomes the default release** (Android
+  `versionCode 100000006`); the **1.1.1 Encore Preview is rebuilt from the
+  same tree** and stays a pre-release.
+- **Search no longer activates on hover/focus.** The Mac field ships
+  read-only until clicked (`/` or Enter also activates); the Android field
+  only highlights on D-pad focus and opens editing on OK/click. Typing is
+  debounced on Mac.
+- **Manual server switching:** the player gains ◀ Server / Server ▶ on both
+  platforms — jump between a live game's streams or a channel's backup feeds
+  yourself (wrapping), on top of the existing automatic fallback.
+- **Recently watched + Favorites shelves** lead the Channels tab/sidebar on
+  both platforms, persist on-device, newest-first (30 max for Recents), and
+  drop channels that leave the playlist.
+- **Less stutter:** no 30 s full-grid rebuild on Mac, rAF-coalesced scroll
+  paging, `content-visibility` on cards, no hover-lift repaint; gentler
+  1.03× focus zoom on Android cards.
+
 ## 2026-10-18 — Version 1.0.5: splash, search, placeholder logos, Live Events and multi-server playback
 
 - **Stable 1.0.5 is cut, and the 1.1.1 Encore Preview is rebuilt from the same

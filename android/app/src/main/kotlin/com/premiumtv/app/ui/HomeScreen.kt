@@ -50,6 +50,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -89,6 +91,10 @@ fun HomeScreen(
     tab: HomeTab,
     onTabChange: (HomeTab) -> Unit,
     guideState: CableGuideState,
+    recentChannels: List<Channel> = emptyList(),
+    favoriteChannels: List<Channel> = emptyList(),
+    favoriteUrls: Set<String> = emptySet(),
+    onToggleFavorite: (Channel) -> Unit = {},
     onSelect: (Channel) -> Unit,
     onForceRefresh: () -> Unit,
     onReset: () -> Unit,
@@ -205,7 +211,7 @@ fun HomeScreen(
         }
 
         when (tab) {
-            HomeTab.Channels -> CategoriesScreen(library, now, liveIndex, onSelect)
+            HomeTab.Channels -> CategoriesScreen(library, now, liveIndex, onSelect, recentChannels, favoriteChannels, favoriteUrls, onToggleFavorite)
             HomeTab.Events -> EventsScreen(liveSections, now, onSelect)
             HomeTab.Guide -> if (cableGuide) {
                 CableGuideScreen(library = library, now = now, state = guideState, onSelect = onSelect)
@@ -235,6 +241,10 @@ private fun CategoriesScreen(
     now: Long,
     liveIndex: Map<String, LiveEvent>,
     onSelect: (Channel) -> Unit,
+    recentChannels: List<Channel> = emptyList(),
+    favoriteChannels: List<Channel> = emptyList(),
+    favoriteUrls: Set<String> = emptySet(),
+    onToggleFavorite: (Channel) -> Unit = {},
 ) {
     var query by rememberSaveable { mutableStateOf("") }
     val trimmed = query.trim()
@@ -269,7 +279,13 @@ private fun CategoriesScreen(
         }
 
         if (matches == null) {
-            CategoryList(library, now, liveIndex, onSelect)
+            CategoryList(
+                library, now, liveIndex, onSelect,
+                recentChannels = recentChannels,
+                favoriteChannels = favoriteChannels,
+                favoriteUrls = favoriteUrls,
+                onToggleFavorite = onToggleFavorite,
+            )
             return@Column
         }
 
@@ -299,7 +315,7 @@ private fun CategoriesScreen(
             color = PremiumGold,
             modifier = Modifier.padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 4.dp),
         )
-        CategoryList(library, now, liveIndex, onSelect, only = groups, subset = matches)
+        CategoryList(library, now, liveIndex, onSelect, only = groups, subset = matches, favoriteUrls = favoriteUrls, onToggleFavorite = onToggleFavorite)
     }
 }
 
@@ -311,6 +327,10 @@ private fun CategoryList(
     onSelect: (Channel) -> Unit,
     only: List<CategoryGroup>? = null,
     subset: List<Channel>? = null,
+    recentChannels: List<Channel> = emptyList(),
+    favoriteChannels: List<Channel> = emptyList(),
+    favoriteUrls: Set<String> = emptySet(),
+    onToggleFavorite: (Channel) -> Unit = {},
 ) {
     val source = subset ?: library.channels
     val byGroup = remember(source) { source.groupBy { it.group } }
@@ -319,6 +339,39 @@ private fun CategoryList(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 48.dp),
     ) {
+        // The viewer's own shelves lead the tab (1.0.6): Recently watched is
+        // where a channel you opened goes, so you can jump straight back in;
+        // Favorites is one row below it. Search results skip both shelves.
+        if (subset == null && recentChannels.isNotEmpty()) {
+            item(key = "shelf|recent") {
+                CategoryRow(
+                    name = "Recently watched",
+                    count = recentChannels.size,
+                    channels = recentChannels,
+                    programmes = library.programmes,
+                    liveIndex = liveIndex,
+                    now = now,
+                    onSelect = onSelect,
+                    favoriteUrls = favoriteUrls,
+                    onToggleFavorite = onToggleFavorite,
+                )
+            }
+        }
+        if (subset == null && favoriteChannels.isNotEmpty()) {
+            item(key = "shelf|favorites") {
+                CategoryRow(
+                    name = "Favorites",
+                    count = favoriteChannels.size,
+                    channels = favoriteChannels,
+                    programmes = library.programmes,
+                    liveIndex = liveIndex,
+                    now = now,
+                    onSelect = onSelect,
+                    favoriteUrls = favoriteUrls,
+                    onToggleFavorite = onToggleFavorite,
+                )
+            }
+        }
         items(items = groups, key = { it.name }) { group ->
             val channels = byGroup[group.name].orEmpty()
             if (channels.isNotEmpty()) {
@@ -330,13 +383,22 @@ private fun CategoryList(
                     liveIndex = liveIndex,
                     now = now,
                     onSelect = onSelect,
+                    favoriteUrls = favoriteUrls,
+                    onToggleFavorite = onToggleFavorite,
                 )
             }
         }
     }
 }
 
-/** The TV-friendly search field: one focus stop, an on-screen clear key. */
+/**
+ * The TV-friendly search field: click-to-activate (1.0.6).
+ *
+ * D-pad focus merely passing over the field used to put it straight into
+ * editing mode, so browsing past it "automatically searched". Now focus only
+ * highlights it; an explicit OK/click opens editing (and the keyboard), and
+ * the IME Search action or Back closes it again. One focus stop either way.
+ */
 @Composable
 private fun ChannelSearchField(
     query: String,
@@ -344,12 +406,23 @@ private fun ChannelSearchField(
     modifier: Modifier = Modifier,
 ) {
     var focused by remember { mutableStateOf(false) }
+    var editing by remember { mutableStateOf(false) }
     val keyboard = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
+    val editFocus = remember { FocusRequester() }
+    LaunchedEffect(editing) {
+        if (editing) {
+            editFocus.requestFocus()
+            keyboard?.show()
+        }
+    }
     Surface(
         modifier = modifier
             .height(48.dp)
             .onFocusChanged { focused = it.isFocused }
+            // Activation is a click/OK only: focus (the TV "hover") highlights
+            // the field but must not open the keyboard or start a search.
+            .then(if (editing) Modifier else Modifier.tvClickable { editing = true })
             .border(
                 width = if (focused) 2.dp else 1.dp,
                 color = if (focused) PremiumGold else Color(0x22FFFFFF),
@@ -374,26 +447,39 @@ private fun ChannelSearchField(
             Box(modifier = Modifier.weight(1f)) {
                 if (query.isEmpty()) {
                     Text(
-                        text = "Search channels…",
+                        text = if (editing) "Type to search…" else "Click OK to search channels…",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MutedText,
                     )
                 }
-                BasicTextField(
-                    value = query,
-                    onValueChange = onQueryChange,
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
-                    cursorBrush = SolidColor(PremiumGold),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                    keyboardActions = KeyboardActions(
-                        onSearch = {
-                            keyboard?.hide()
-                            focusManager.clearFocus()
-                        },
-                    ),
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                if (editing) {
+                    BasicTextField(
+                        value = query,
+                        onValueChange = onQueryChange,
+                        singleLine = true,
+                        textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                        cursorBrush = SolidColor(PremiumGold),
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                        keyboardActions = KeyboardActions(
+                            onSearch = {
+                                editing = false
+                                keyboard?.hide()
+                                focusManager.clearFocus()
+                            },
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .focusRequester(editFocus),
+                    )
+                } else if (query.isNotEmpty()) {
+                    Text(
+                        text = query,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.White,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
             }
             if (query.isNotEmpty()) {
                 Spacer(modifier = Modifier.width(8.dp))
@@ -425,6 +511,8 @@ private fun CategoryRow(
     liveIndex: Map<String, LiveEvent>,
     now: Long,
     onSelect: (Channel) -> Unit,
+    favoriteUrls: Set<String> = emptySet(),
+    onToggleFavorite: (Channel) -> Unit = {},
 ) {
     Column(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
         Row(
@@ -461,6 +549,8 @@ private fun CategoryRow(
                 val event = liveIndex[channel.url]
                 ChannelCard(
                     channel = channel,
+                    isFavorite = channel.url in favoriteUrls,
+                    onToggleFavorite = { onToggleFavorite(channel) },
                     subtitle = when {
                         current != null -> current.title
                         event != null -> "LIVE · ${event.sport}"

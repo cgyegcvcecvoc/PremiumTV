@@ -101,10 +101,14 @@ fun ChannelCard(
     subtitle: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isFavorite: Boolean = false,
+    onToggleFavorite: (() -> Unit)? = null,
 ) {
     var focused by remember { mutableStateOf(false) }
+    // 1.0.6 smoothness: a 3% lift instead of 6% — the bigger scale animated
+    // every focus move across a row and read as stutter on TV hardware.
     val scale by animateFloatAsState(
-        targetValue = if (focused) 1.06f else 1f,
+        targetValue = if (focused) 1.03f else 1f,
         label = "channelCardScale",
     )
     Surface(
@@ -153,6 +157,27 @@ fun ChannelCard(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
+            if (onToggleFavorite != null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(26.dp)
+                            .focusable()
+                            .tvClickable { onToggleFavorite() },
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = if (isFavorite) "★" else "☆",
+                            color = if (isFavorite) PremiumGold else MutedText,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
+                }
+            }
             if (!subtitle.isNullOrBlank()) {
                 Text(
                     text = subtitle,
