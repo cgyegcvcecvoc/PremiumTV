@@ -27,6 +27,9 @@ window.PremiumPlayer = (function () {
   let sourceHint = '';
   let attempts = [];
   let index = 0;
+  // Set by play(): called instead of the error card when this URL has been
+  // tried every way, so app.js can switch to the channel's next server.
+  let onFatal = null;
 
   function showSpinner(on) {
     spinner.hidden = !on;
@@ -88,6 +91,12 @@ window.PremiumPlayer = (function () {
 
   function tryNext() {
     if (index >= attempts.length) {
+      if (onFatal) {
+        const handler = onFatal;
+        onFatal = null;
+        handler();
+        return;
+      }
       showError(
         'This stream could not be played. The feed is either offline or refuses this connection; the nightly link check removes links like this.',
       );
@@ -171,13 +180,18 @@ window.PremiumPlayer = (function () {
   });
 
   return {
-    /** Starts playback of an already-resolved loopback URL. */
-    play(url, originalUrl = '') {
+    /**
+     * Starts playback of an already-resolved loopback URL. `handlers.onFatal`
+     * (optional) is called instead of the error card when every strategy for
+     * this URL has failed, so the app can fall back to another server.
+     */
+    play(url, originalUrl = '', handlers = {}) {
       teardown();
       currentUrl = url;
       sourceHint = originalUrl;
       attempts = strategiesFor(originalUrl || url);
       index = 0;
+      onFatal = typeof handlers.onFatal === 'function' ? handlers.onFatal : null;
       clearError();
       showSpinner(true);
       if (!attempts.length) {
@@ -193,12 +207,20 @@ window.PremiumPlayer = (function () {
       sourceHint = '';
       attempts = [];
       index = 0;
+      onFatal = null;
       showSpinner(false);
       clearError();
     },
 
     retry() {
-      if (currentUrl) this.play(currentUrl, sourceHint);
+      if (currentUrl) this.play(currentUrl, sourceHint, { onFatal });
+    },
+
+    /** Show the final error card; the app calls this when its server list ran out. */
+    fail(message) {
+      onFatal = null;
+      showSpinner(false);
+      showError(message);
     },
 
     setMuted(muted) {

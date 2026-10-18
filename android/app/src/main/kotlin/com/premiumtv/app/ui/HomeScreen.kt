@@ -5,6 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusGroup
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -25,7 +27,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,20 +45,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.premiumtv.app.BuildConfig
+import com.premiumtv.app.data.CategoryGroup
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Library
 import com.premiumtv.app.data.Programme
@@ -59,6 +74,7 @@ import com.premiumtv.app.update.AppUpdateState
 /** The home screen's sections. AppRoot keeps the choice while a channel plays. */
 enum class HomeTab(val label: String) {
     Channels("Channels"),
+    Events("Live Events"),
     Guide("Guide"),
     Settings("Settings"),
 }
@@ -108,6 +124,10 @@ fun HomeScreen(
         // cable-style grid as the Guide tab; stable builds keep the "what's on
         // now" list there.
         val cableGuide = library.meta.previewFeatures.contains("cable-guide")
+        // The scraper's live-game feeds, grouped by sport for the Live Events
+        // tab and for the LIVE labels on the channel cards.
+        val liveSections = remember(library.channels) { groupLiveEvents(library.channels) }
+        val liveIndex = remember(library.channels) { liveEventIndex(library.channels) }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -151,6 +171,8 @@ fun HomeScreen(
             ) {
                 TabChip(HomeTab.Channels.label, tab == HomeTab.Channels) { onTabChange(HomeTab.Channels) }
                 Spacer(modifier = Modifier.width(12.dp))
+                TabChip(HomeTab.Events.label, tab == HomeTab.Events) { onTabChange(HomeTab.Events) }
+                Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Guide.label, tab == HomeTab.Guide) { onTabChange(HomeTab.Guide) }
                 Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Settings.label, tab == HomeTab.Settings) { onTabChange(HomeTab.Settings) }
@@ -183,11 +205,12 @@ fun HomeScreen(
         }
 
         when (tab) {
-            HomeTab.Channels -> CategoriesScreen(library, now, onSelect)
+            HomeTab.Channels -> CategoriesScreen(library, now, liveIndex, onSelect)
+            HomeTab.Events -> EventsScreen(liveSections, now, onSelect)
             HomeTab.Guide -> if (cableGuide) {
                 CableGuideScreen(library = library, now = now, state = guideState, onSelect = onSelect)
             } else {
-                GuideScreen(library, now, onSelect)
+                GuideScreen(library, now, liveIndex, onSelect)
             }
             HomeTab.Settings -> SettingsScreen(
                 library = library,
@@ -210,14 +233,93 @@ fun HomeScreen(
 private fun CategoriesScreen(
     library: Library,
     now: Long,
+    liveIndex: Map<String, LiveEvent>,
     onSelect: (Channel) -> Unit,
 ) {
-    val byGroup = remember(library.channels) { library.channels.groupBy { it.group } }
+    var query by rememberSaveable { mutableStateOf("") }
+    val trimmed = query.trim()
+    val matches = remember(library.channels, trimmed) {
+        if (trimmed.isEmpty()) {
+            null
+        } else {
+            val needle = trimmed.lowercase()
+            library.channels.filter { channel ->
+                channel.name.lowercase().contains(needle) ||
+                    channel.group.lowercase().contains(needle) ||
+                    channel.country.lowercase().contains(needle) ||
+                    channel.chno == trimmed
+            }
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        // Search lives above the rows so a remote can jump straight to a
+        // channel name; the field keeps its own focus row on a TV.
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, bottom = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            ChannelSearchField(
+                query = query,
+                onQueryChange = { query = it },
+                modifier = Modifier.weight(1f),
+            )
+        }
+
+        if (matches == null) {
+            CategoryList(library, now, liveIndex, onSelect)
+            return@Column
+        }
+
+        if (matches.isEmpty()) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(
+                    text = "No channels match “$trimmed”.\n\nTry part of a name, a category like News, " +
+                        "or a country like US.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MutedText,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 48.dp),
+                )
+            }
+            return@Column
+        }
+
+        val groups = remember(library.groups, matches) {
+            val present = matches.groupBy { it.group }
+            library.groups.filter { present.containsKey(it.name) } +
+                present.keys.filter { key -> library.groups.none { it.name == key } }
+                    .map { CategoryGroup(it, present.getValue(it).size) }
+        }
+        Text(
+            text = "${matches.size} channels match “$trimmed”",
+            style = MaterialTheme.typography.labelMedium,
+            color = PremiumGold,
+            modifier = Modifier.padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 4.dp),
+        )
+        CategoryList(library, now, liveIndex, onSelect, only = groups, subset = matches)
+    }
+}
+
+@Composable
+private fun CategoryList(
+    library: Library,
+    now: Long,
+    liveIndex: Map<String, LiveEvent>,
+    onSelect: (Channel) -> Unit,
+    only: List<CategoryGroup>? = null,
+    subset: List<Channel>? = null,
+) {
+    val source = subset ?: library.channels
+    val byGroup = remember(source) { source.groupBy { it.group } }
+    val groups = only ?: library.groups
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 48.dp),
     ) {
-        items(items = library.groups, key = { it.name }) { group ->
+        items(items = groups, key = { it.name }) { group ->
             val channels = byGroup[group.name].orEmpty()
             if (channels.isNotEmpty()) {
                 CategoryRow(
@@ -225,9 +327,90 @@ private fun CategoriesScreen(
                     count = channels.size,
                     channels = channels,
                     programmes = library.programmes,
+                    liveIndex = liveIndex,
                     now = now,
                     onSelect = onSelect,
                 )
+            }
+        }
+    }
+}
+
+/** The TV-friendly search field: one focus stop, an on-screen clear key. */
+@Composable
+private fun ChannelSearchField(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var focused by remember { mutableStateOf(false) }
+    val keyboard = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+    Surface(
+        modifier = modifier
+            .height(48.dp)
+            .onFocusChanged { focused = it.isFocused }
+            .border(
+                width = if (focused) 2.dp else 1.dp,
+                color = if (focused) PremiumGold else Color(0x22FFFFFF),
+                shape = RoundedCornerShape(24.dp),
+            ),
+        shape = RoundedCornerShape(24.dp),
+        color = if (focused) CardBackgroundFocused else CardBackground,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = null,
+                tint = if (focused) PremiumGold else MutedText,
+                modifier = Modifier.size(20.dp),
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Box(modifier = Modifier.weight(1f)) {
+                if (query.isEmpty()) {
+                    Text(
+                        text = "Search channels…",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MutedText,
+                    )
+                }
+                BasicTextField(
+                    value = query,
+                    onValueChange = onQueryChange,
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                    cursorBrush = SolidColor(PremiumGold),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                    keyboardActions = KeyboardActions(
+                        onSearch = {
+                            keyboard?.hide()
+                            focusManager.clearFocus()
+                        },
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            if (query.isNotEmpty()) {
+                Spacer(modifier = Modifier.width(8.dp))
+                Box(
+                    modifier = Modifier
+                        .size(28.dp)
+                        .focusable()
+                        .tvClickable { onQueryChange("") },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Clear,
+                        contentDescription = "Clear search",
+                        tint = MutedText,
+                        modifier = Modifier.size(18.dp),
+                    )
+                }
             }
         }
     }
@@ -239,6 +422,7 @@ private fun CategoryRow(
     count: Int,
     channels: List<Channel>,
     programmes: Map<String, List<Programme>>,
+    liveIndex: Map<String, LiveEvent>,
     now: Long,
     onSelect: (Channel) -> Unit,
 ) {
@@ -274,10 +458,193 @@ private fun CategoryRow(
                 key = { index, channel -> "$index|${channel.id}|${channel.url}" },
             ) { _, channel ->
                 val current = nowPlaying(programmes[channel.id].orEmpty(), now)
+                val event = liveIndex[channel.url]
                 ChannelCard(
                     channel = channel,
-                    subtitle = current?.title ?: "No listing",
+                    subtitle = when {
+                        current != null -> current.title
+                        event != null -> "LIVE · ${event.sport}"
+                        else -> "No listing published"
+                    },
                     onClick = { onSelect(channel) },
+                )
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------- live events tab
+
+@Composable
+private fun EventsScreen(
+    sections: List<LiveEventSection>,
+    now: Long,
+    onSelect: (Channel) -> Unit,
+) {
+    if (sections.isEmpty()) {
+        CenteredMessage(
+            "No live games are in the current playlist.\n\n" +
+                "Game feeds appear here while the repository's scrapers find " +
+                "them on air - check back around kickoff, or browse the " +
+                "Sports channels in the Channels tab."
+        )
+        return
+    }
+    val totalGames = sections.sumOf { it.events.size }
+    val totalFeeds = sections.sumOf { section -> section.events.sumOf { it.servers.size } }
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(bottom = 48.dp),
+    ) {
+        item(key = "events-head") {
+            Column(
+                modifier = Modifier.padding(
+                    start = SCREEN_GUTTER,
+                    end = SCREEN_GUTTER,
+                    top = 8.dp,
+                    bottom = 2.dp,
+                ),
+            ) {
+                Text(
+                    text = "Live games on now",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Text(
+                    text = "$totalGames games across $totalFeeds streams · grouped by sport · " +
+                        "a game with more than one stream switches servers by itself",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
+            }
+        }
+        items(items = sections, key = { "section|${it.sport}" }) { section ->
+            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+                Row(
+                    modifier = Modifier.padding(
+                        start = SCREEN_GUTTER,
+                        end = SCREEN_GUTTER,
+                        bottom = 8.dp,
+                    ),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        imageVector = placeholderIconFor(section.sport),
+                        contentDescription = null,
+                        tint = PremiumGold,
+                        modifier = Modifier.size(22.dp),
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = section.sport,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = section.events.size.toString(),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MutedText,
+                    )
+                }
+                LazyRow(
+                    modifier = Modifier.focusGroup(),
+                    contentPadding = PaddingValues(horizontal = SCREEN_GUTTER),
+                    horizontalArrangement = Arrangement.spacedBy(CARD_GAP),
+                ) {
+                    itemsIndexed(
+                        items = section.events,
+                        key = { index, event -> "$index|${event.key}" },
+                    ) { _, event ->
+                        EventCard(event = event, onClick = { onSelect(event.servers.first()) })
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun EventCard(
+    event: LiveEvent,
+    onClick: () -> Unit,
+) {
+    var focused by remember { mutableStateOf(false) }
+    val scale by androidx.compose.animation.core.animateFloatAsState(
+        targetValue = if (focused) 1.04f else 1f,
+        label = "eventCardScale",
+    )
+    Surface(
+        modifier = Modifier
+            .width(280.dp)
+            .height(128.dp)
+            .scale(scale)
+            .onFocusChanged { focused = it.isFocused }
+            .tvClickable(onClick),
+        shape = RoundedCornerShape(12.dp),
+        color = if (focused) CardBackgroundFocused else CardBackground,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .border(
+                    width = if (focused) 3.dp else 1.dp,
+                    color = if (focused) PremiumGold else Color(0x22FFFFFF),
+                    shape = RoundedCornerShape(12.dp),
+                )
+                .padding(12.dp),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .background(LiveRed, RoundedCornerShape(4.dp))
+                        .padding(horizontal = 6.dp, vertical = 2.dp),
+                ) {
+                    Text(
+                        text = "LIVE",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.8.sp,
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = event.sport,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = event.title,
+                style = MaterialTheme.typography.titleSmall,
+                color = Color.White,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f),
+            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Filled.PlayArrow,
+                    contentDescription = null,
+                    tint = PremiumGold,
+                    modifier = Modifier.size(14.dp),
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = if (event.servers.size > 1) {
+                        "${event.servers.size} streams · automatic fallback"
+                    } else {
+                        "1 stream"
+                    },
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                    maxLines = 1,
                 )
             }
         }
@@ -290,6 +657,7 @@ private fun CategoryRow(
 private fun GuideScreen(
     library: Library,
     now: Long,
+    liveIndex: Map<String, LiveEvent>,
     onSelect: (Channel) -> Unit,
 ) {
     if (library.guideLoading) {
@@ -304,13 +672,34 @@ private fun GuideScreen(
         return
     }
 
-    val entries = remember(library.channels, library.programmes) {
-        library.channels
+    val entries = remember(library.channels, library.programmes, liveIndex, now) {
+        val withGuide = library.channels
             .mapNotNull { channel ->
                 val list = library.programmes[channel.id]
                 if (list.isNullOrEmpty()) null else channel to list
             }
-            .sortedBy { it.first.name.lowercase() }
+        // The scrapers' live-game feeds share placeholder EPG ids, so no
+        // upstream guide ever lists them. The name itself says what is on:
+        // show the matchup as the listing instead of "nothing listed".
+        val eventRows = library.channels.mapNotNull { channel ->
+            val event = liveIndex[channel.url] ?: return@mapNotNull null
+            if (!library.programmes[channel.id].isNullOrEmpty()) return@mapNotNull null
+            channel to listOf(
+                Programme(
+                    channelId = channel.id,
+                    start = now - 6L * 3600L,
+                    end = now + 18L * 3600L,
+                    title = event.title,
+                    desc = "Live ${event.sport} event feed. Game streams are " +
+                        "published without an upstream schedule, so the " +
+                        "matchup comes from the playlist itself.",
+                    category = event.sport,
+                    icon = "",
+                    episode = "",
+                ),
+            )
+        }
+        (withGuide + eventRows).sortedBy { it.first.name.lowercase() }
     }
 
     if (entries.isEmpty()) {
@@ -390,21 +779,10 @@ private fun GuideRow(
                     .height(56.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                if (channel.logo.isNotBlank()) {
-                    AsyncImage(
-                        model = channel.logo,
-                        contentDescription = channel.name,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                } else {
-                    Text(
-                        text = channel.name.take(2).uppercase(),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = PremiumGold,
-                        fontWeight = FontWeight.Bold,
-                    )
-                }
+                ChannelLogoBox(
+                    channel = channel,
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {

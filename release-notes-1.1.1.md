@@ -80,6 +80,31 @@ can install over it. It is signed with the same long-lived update key as stable
 1.0.4; the earlier 1.1.1 builds used a different random debug key, so installing
 over one of those needs a one-time uninstall. Mac installers keep version 1.1.1.
 
+## The 1.0.5 features are in this preview too
+
+The newest rebuild of this preview is cut from the same tree as stable 1.0.5
+and carries everything it adds, on top of the global lineup and the
+cable-style Guide:
+
+- **Launch splash** — the drawn PremiumTV mark, a gold spinner and the build's
+  version at the bottom while the library loads.
+- **Channel search (Android)** — a search field above the Channels tab,
+  filtering by name, category, country or channel number; the Mac sidebar
+  search also covers the new Live Events tab.
+- **Category placeholder logos** — a ball for Sports, a smile for Comedy, a
+  balloon for Kids, a television set for everything else, shown while remote
+  art loads, when its URL is dead, and when a channel has no logo at all.
+- **Live Events tab** — the scrapers' live-game feeds grouped by sport
+  (Soccer, American Football, College Football, NHL Hockey, …) with matchup
+  cards and LIVE pills; the games join the "what's on now" lists with the
+  matchup as their listing.
+- **Multi-server playback** — a game published on several streams, and any
+  channel with backup feeds, switches to the next server automatically when
+  one feed dies, and the player says which server is playing.
+
+See [`release-notes-1.0.5.md`](release-notes-1.0.5.md) for the stable side of
+the same release.
+
 ## Also in this build
 
 - **Leaner refresh on TVs.** The global guide (~38 MB of XML) is parsed as it

@@ -8,6 +8,28 @@
   <link rel="stylesheet" href="app.css" />
 </head>
 <body>
+  <!-- The launch splash: the PremiumTV mark, a spinner and the build the
+       viewer is waiting on, pinned at the bottom. app.js fades it out as
+       soon as the first library snapshot arrives. -->
+  <div id="splash" role="status" aria-live="polite">
+    <div class="splash-center">
+      <svg class="splash-logo" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor"
+           stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 3 32 17l13-14" />
+        <rect x="7" y="17" width="50" height="33" rx="5" />
+        <rect x="12" y="23" width="27" height="21" rx="2.5" />
+        <path d="M45 24.5v12" />
+        <circle cx="45" cy="43" r="2" fill="currentColor" stroke="none" />
+        <path d="M19 50l-4 11M45 50l4 11" />
+      </svg>
+      <div class="splash-name">PremiumTV</div>
+      <div class="splash-tag">Every channel, one guide</div>
+      <div class="splash-spinner" aria-hidden="true"></div>
+      <div id="splash-status">Getting your TV library ready…</div>
+    </div>
+    <div class="splash-foot"><span id="splash-version"></span></div>
+  </div>
+
   <div id="app">
     <aside id="sidebar">
       <div id="sidebar-drag">
@@ -19,6 +41,7 @@
 
       <nav id="tabs" role="tablist" aria-label="Sections">
         <button class="tab" role="tab" data-tab="channels" aria-selected="true">Channels</button>
+        <button class="tab" role="tab" data-tab="live" aria-selected="false">Live Events</button>
         <button class="tab" role="tab" data-tab="guide" aria-selected="false">Guide</button>
         <button class="tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
       </nav>
@@ -41,6 +64,14 @@
           <p id="channels-subtitle"></p>
         </header>
         <div id="channels-grid" class="grid"></div>
+      </section>
+
+      <section id="view-live" class="view" role="tabpanel" hidden>
+        <header class="view-head">
+          <h1>Live Events</h1>
+          <p id="live-subtitle">Games the repository's scrapers have on air right now, grouped by sport.</p>
+        </header>
+        <div id="live-list"></div>
       </section>
 
       <section id="view-guide" class="view" role="tabpanel" hidden>
@@ -81,6 +112,7 @@
     <div class="player-stage">
       <video id="video" playsinline></video>
       <div id="player-spinner" class="spinner" hidden></div>
+      <div id="player-server" class="player-server" hidden></div>
       <div id="player-error" hidden>
         <p id="player-error-text"></p>
         <p class="hint">The feed may be offline or refuse this connection. If retrying does not help,
@@ -125,6 +157,8 @@
 
   <script src="vendor/hls.min.js"></script>
   <script src="vendor/mpegts.js"></script>
+  <script src="category-icons.js"></script>
+  <script src="live-events.js"></script>
   <script src="player.js"></script>
   <script src="app.js"></script>
 </body>

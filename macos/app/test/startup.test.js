@@ -54,7 +54,11 @@ function setup(t, initial, appInfo = { version: '1.0.2' }, updates = null) {
     onUpdate: (fn) => { events.update = fn; },
     onSelectTab() {},
   };
-  dom.window.PremiumPlayer = { stop() {} };
+  dom.window.PremiumPlayer = { stop() {}, play() {}, retry() {}, fail() {} };
+  // The renderer's helper modules load before app.js in index.html; the
+  // harness keeps that order so app.js finds them on window.
+  dom.window.eval(fs.readFileSync(path.join(renderer, 'category-icons.js'), 'utf8'));
+  dom.window.eval(fs.readFileSync(path.join(renderer, 'live-events.js'), 'utf8'));
   dom.window.eval(fs.readFileSync(path.join(renderer, 'app.js'), 'utf8'));
   return {
     window: dom.window,

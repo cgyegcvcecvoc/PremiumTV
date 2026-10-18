@@ -25,18 +25,25 @@
     guideGrid: document.getElementById('guide-grid'),
     guideInfo: document.getElementById('guide-info'),
     guideTag: document.getElementById('guide-tag'),
+    liveList: document.getElementById('live-list'),
+    liveSubtitle: document.getElementById('live-subtitle'),
     settingsBody: document.getElementById('settings-body'),
     statusText: document.getElementById('status-text'),
     views: {
       channels: document.getElementById('view-channels'),
+      live: document.getElementById('view-live'),
       guide: document.getElementById('view-guide'),
       settings: document.getElementById('view-settings'),
     },
+    splash: document.getElementById('splash'),
+    splashStatus: document.getElementById('splash-status'),
+    splashVersion: document.getElementById('splash-version'),
     player: document.getElementById('player'),
     playerName: document.getElementById('player-name'),
     playerNow: document.getElementById('player-now'),
     playerNext: document.getElementById('player-next'),
     playerDetail: document.getElementById('player-detail'),
+    playerServer: document.getElementById('player-server'),
     playerClose: document.getElementById('player-close'),
     playerRetry: document.getElementById('player-retry'),
     // The startup "go and update" popup.
@@ -71,6 +78,13 @@
   const PAGE = 240;
   let snapshot = { state: { phase: 'loading' }, info: {}, library: { channels: [], groups: [], programmes: [] } };
   let programmeIndex = new Map();
+  // The scrapers' live-game feeds, grouped by sport (Live Events tab) and
+  // indexed by URL (LIVE labels, server fallback).
+  let liveSections = [];
+  let liveIndex = new Map();
+  // Multi-server playback: the ordered server list of the open player.
+  let playQueue = [];
+  let playQueueIndex = 0;
   let playingSession = null;
   let clockTimer = null;
 
@@ -139,9 +153,42 @@
     return index;
   }
 
+  /** Everything derived from the library: programme index + live-game views. */
+  function rebuildDerivedIndexes(library) {
+    programmeIndex = buildProgrammeIndex((library && library.programmes) || []);
+    const channels = (library && library.channels) || [];
+    liveSections = window.PremiumLive.buildSections(channels);
+    liveIndex = window.PremiumLive.indexByChannel(channels);
+  }
+
   /** What is on now, and what follows, for one channel. */
   function nowPlaying(channelId, atSeconds) {
-    const list = programmeIndex.get(channelId);
+    return nowPlayingFrom(programmeIndex.get(channelId) || [], atSeconds);
+  }
+
+  /**
+   * The listings a channel shows: its real guide when one exists, otherwise
+   * the scrapers' live-game name - event feeds share placeholder EPG ids, so
+   * no upstream guide ever lists them, but the matchup is known.
+   */
+  function listingsFor(channel) {
+    const list = programmeIndex.get(channel.id);
+    if (list && list.length) return list;
+    const event = liveIndex.get(channel.url);
+    if (!event) return [];
+    const at = nowSeconds();
+    return [{
+      c: channel.id,
+      s: at - 21600,
+      e: at + 64800,
+      t: event.title,
+      d: `Live ${event.sport} event feed. Game streams are published without an upstream schedule, so the matchup comes from the playlist itself.`,
+      g: event.sport,
+    }];
+  }
+
+  /** What is on now, and what follows, in one listing track. */
+  function nowPlayingFrom(list, atSeconds) {
     if (!list || !list.length) return { current: null, next: null };
     let current = null;
     let next = null;
@@ -239,32 +286,35 @@
 
     const logo = logoSource(channel);
     const { current } = nowPlaying(channel.id, nowSeconds());
-    // The logo URL is percent-encoded and every piece of channel text is set
-    // through textContent, so a hostile group name or logo URL cannot inject
-    // markup into a card.
-    card.innerHTML = `${logo ? '<img class="card-logo" loading="lazy" alt="" />' : '<div class="card-logo empty"></div>'}<span class="card-name"></span><span class="card-now"></span>`;
+    const event = liveIndex.get(channel.url);
+    // The logo URL is percent-encoded, every piece of channel text is set
+    // through textContent, and the only interpolated markup is the app's own
+    // static placeholder SVG, so nothing remote can inject markup into a card.
+    const placeholder = window.PremiumIcons.svgForGroup(channel.group, 'card-logo placeholder');
+    card.innerHTML = `${logo ? '<img class="card-logo" loading="lazy" alt="" />' : placeholder}<span class="card-name"></span><span class="card-now"></span>`;
 
-    const logoEl = card.querySelector('.card-logo');
-    if (logo) {
+    const logoEl = card.querySelector('img.card-logo');
+    if (logoEl) {
       logoEl.addEventListener('error', () => {
         const fallback = document.createElement('div');
         fallback.className = 'card-logo empty';
-        fallback.textContent = channel.group;
+        fallback.innerHTML = placeholder;
         logoEl.replaceWith(fallback);
       });
       logoEl.src = logo;
-    } else {
-      logoEl.textContent = channel.group;
     }
     card.querySelector('.card-name').textContent = channel.name;
     const nowEl = card.querySelector('.card-now');
     if (current) {
       nowEl.textContent = current.t;
       nowEl.classList.add('live');
+    } else if (event) {
+      nowEl.textContent = `LIVE · ${event.sport}`;
+      nowEl.classList.add('live');
     } else if (programmeIndex.has(channel.id)) {
       nowEl.textContent = 'Nothing listed at this hour';
     } else {
-      nowEl.textContent = channel.country ? `${channel.country} · No listing` : 'No listing';
+      nowEl.textContent = channel.country ? `${channel.country} · No listing published` : 'No listing published';
     }
     card.addEventListener('click', () => openPlayer(channel));
     return card;
@@ -317,10 +367,12 @@
   function renderGuideList() {
     const at = nowSeconds();
     const query = ui.query.trim().toLowerCase();
-    const channels = (snapshot.library.channels || []).filter((channel) => programmeIndex.has(channel.id));
+    const channels = (snapshot.library.channels || []).filter(
+      (channel) => programmeIndex.has(channel.id) || liveIndex.has(channel.url),
+    );
 
     const rows = channels
-      .map((channel) => ({ channel, ...nowPlaying(channel.id, at) }))
+      .map((channel) => ({ channel, ...nowPlayingFrom(listingsFor(channel), at) }))
       .filter((row) => row.current || row.next)
       .filter((row) =>
         !query
@@ -416,6 +468,73 @@
     els.guideList.appendChild(fragment);
   }
 
+  // --------------------------------------------------------- live events tab
+
+  function eventCard(event) {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'event-card';
+    const servers = event.servers.length > 1
+      ? `${event.servers.length} streams · automatic fallback`
+      : '1 stream';
+    card.innerHTML = '<div class="event-head"><span class="now-pill">LIVE</span>' +
+      `<span class="event-sport">${window.PremiumIcons.svgForGroup(event.sport, 'ph-icon event-icon')}</span></div>` +
+      '<span class="event-title"></span><span class="event-servers"></span>';
+    card.querySelector('.event-sport').insertAdjacentText('beforeend', event.sport);
+    card.querySelector('.event-title').textContent = event.title;
+    card.querySelector('.event-servers').textContent = servers;
+    card.addEventListener('click', () => openPlayer(event.servers[0], event.servers));
+    return card;
+  }
+
+  function renderLive() {
+    const query = ui.query.trim().toLowerCase();
+    const sections = liveSections
+      .map((section) => ({
+        sport: section.sport,
+        events: section.events.filter((event) => !query ||
+          event.title.toLowerCase().includes(query) ||
+          event.sport.toLowerCase().includes(query)),
+      }))
+      .filter((section) => section.events.length);
+
+    const games = sections.reduce((total, section) => total + section.events.length, 0);
+    const feeds = sections.reduce(
+      (total, section) => total + section.events.reduce((sum, event) => sum + event.servers.length, 0),
+      0,
+    );
+    els.liveSubtitle.textContent = games
+      ? `${games} games across ${feeds} streams · grouped by sport · a game with more than one stream switches servers by itself`
+      : 'Games the repository\u2019s scrapers have on air right now, grouped by sport.';
+
+    els.liveList.textContent = '';
+    if (!games) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.textContent = query
+        ? 'No live game matches that search.'
+        : 'No live games are in the current playlist. Game feeds appear here while the ' +
+          'repository\u2019s scrapers find them on air - check back around kickoff, or browse ' +
+          'the Sports channels in the Channels tab.';
+      els.liveList.appendChild(empty);
+      return;
+    }
+    for (const section of sections) {
+      const header = document.createElement('div');
+      header.className = 'event-section';
+      header.innerHTML = `<span class="event-section-icon">${window.PremiumIcons.svgForGroup(section.sport, 'ph-icon')}</span>` +
+        '<span class="event-section-name"></span><span class="event-section-count"></span>';
+      header.querySelector('.event-section-name').textContent = section.sport;
+      header.querySelector('.event-section-count').textContent =
+        `${section.events.length} ${section.events.length === 1 ? 'game' : 'games'}`;
+      els.liveList.appendChild(header);
+      const grid = document.createElement('div');
+      grid.className = 'event-grid';
+      for (const event of section.events) grid.appendChild(eventCard(event));
+      els.liveList.appendChild(grid);
+    }
+  }
+
   function guideMetrics() {
     const width = els.guideGrid.clientWidth || 1000;
     const label = Math.round(Math.min(260, Math.max(190, width * 0.24)));
@@ -485,7 +604,6 @@
   function channelLogo(channel, className) {
     const logo = document.createElement('span');
     logo.className = className;
-    const initials = (channel.name.replace(/[^\p{L}\p{N}]/gu, '').slice(0, 2) || 'TV').toUpperCase();
     const logoUrl = logoSource(channel);
     if (logoUrl) {
       const image = document.createElement('img');
@@ -493,12 +611,13 @@
       image.alt = '';
       image.src = logoUrl;
       image.addEventListener('error', () => {
-        logo.textContent = initials;
+        // The category's drawn placeholder replaces art that will not load.
+        logo.innerHTML = window.PremiumIcons.svgForGroup(channel.group);
         logo.classList.add('empty');
       }, { once: true });
       logo.appendChild(image);
     } else {
-      logo.textContent = initials;
+      logo.innerHTML = window.PremiumIcons.svgForGroup(channel.group);
       logo.classList.add('empty');
     }
     return logo;
@@ -1040,7 +1159,9 @@
     els.categories.style.display = categories ? '' : 'none';
     els.search.placeholder = tab === 'guide'
       ? (cableGuideEnabled() ? 'Search channel or show' : 'Search the guide')
-      : 'Search channels';
+      : tab === 'live'
+        ? 'Search live games'
+        : 'Search channels';
     render();
   }
 
@@ -1058,6 +1179,7 @@
 
   function render() {
     if (ui.tab === 'channels') renderChannels();
+    else if (ui.tab === 'live') renderLive();
     else if (ui.tab === 'guide') renderGuide();
     else renderSettings();
   }
@@ -1113,7 +1235,7 @@
     try {
       await api.refresh(force);
       snapshot = await api.getSnapshot();
-      programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
+      rebuildDerivedIndexes(snapshot.library);
     } catch (error) {
       snapshot.info = { ...snapshot.info, lastOutcomeOk: false, lastMessage: `Refresh failed: ${error.message}. Your current library is still available.` };
     } finally {
@@ -1130,35 +1252,94 @@
   async function resetToBundled() {
     els.statusText.textContent = 'Resetting to the bundled copy…';
     snapshot = await api.resetToBundled();
-    programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
+    rebuildDerivedIndexes(snapshot.library);
     renderCategories();
     render();
   }
 
-  async function openPlayer(channel) {
-    const resolved = await api.resolveStream(channel.id, channel.url);
-    if (!resolved.ok) {
-      els.statusText.textContent = resolved.message;
-      return;
+  /** The server badge over the video: which feed of this channel is playing. */
+  function renderServerBadge() {
+    if (!els.playerServer) return;
+    if (playQueue.length > 1) {
+      els.playerServer.textContent =
+        `Server ${playQueueIndex + 1} of ${playQueue.length} · automatic fallback on`;
+      els.playerServer.hidden = false;
+    } else {
+      els.playerServer.hidden = true;
     }
-    playingSession = resolved.sessionId;
+  }
+
+  function describeChannel(channel) {
     els.playerName.textContent = channel.name;
     const at = nowSeconds();
-    const { current, next } = nowPlaying(channel.id, at);
+    const { current, next } = nowPlayingFrom(listingsFor(channel), at);
     els.playerNow.textContent = current ? `Now · ${current.t}` : '';
     els.playerNext.textContent = next ? `Next · ${next.t} at ${formatClock(next.s)}` : '';
     els.playerDetail.textContent = current && current.d ? current.d : channel.group;
+    renderServerBadge();
+  }
+
+  /**
+   * Opens a channel with its server list: the game's other streams or the
+   * channel's backup feeds. When a feed fails every strategy, the next server
+   * takes over by itself and the badge above the video says so; the error
+   * card appears only when every server has been tried.
+   */
+  async function openPlayer(channel, servers) {
+    const list = Array.isArray(servers) && servers.length
+      ? servers
+      : window.PremiumLive.serversFor(channel, snapshot.library.channels || []);
+    playQueue = list;
+    playQueueIndex = Math.max(0, list.findIndex((item) => item.url === channel.url));
     els.player.hidden = false;
-    els.statusText.textContent = `Playing ${channel.name}`;
+    describeChannel(playQueue[playQueueIndex] || channel);
+    await playCurrentServer(channel.name);
+  }
+
+  async function playCurrentServer(displayName) {
+    const channel = playQueue[playQueueIndex];
+    if (!channel) return;
+    describeChannel(channel);
+    if (displayName && channel.name !== displayName) {
+      els.playerName.textContent = displayName;
+    }
+    const resolved = await api.resolveStream(channel.id, channel.url);
+    if (!resolved.ok) {
+      await advanceServer(resolved.message);
+      return;
+    }
+    if (playingSession) await api.releaseStream(playingSession).catch(() => {});
+    playingSession = resolved.sessionId;
+    els.statusText.textContent = `Playing ${displayName || channel.name}`;
     // The proxy URL is /p/<session>, without a file extension. Pass the
     // original stream URL as a format hint so HLS/MPEG-TS gets the right
     // player first instead of trying native playback of every feed.
-    window.PremiumPlayer.play(resolved.url, channel.url);
+    window.PremiumPlayer.play(resolved.url, channel.url, { onFatal: () => advanceServer() });
+  }
+
+  /** Switch to the next server for the open channel, or give up honestly. */
+  async function advanceServer(reason) {
+    if (playQueueIndex < playQueue.length - 1) {
+      playQueueIndex += 1;
+      els.statusText.textContent =
+        `This feed stopped responding - switching to server ${playQueueIndex + 1} of ${playQueue.length}…`;
+      await playCurrentServer();
+      return;
+    }
+    const tried = playQueue.length > 1
+      ? `All ${playQueue.length} servers for this channel were tried.`
+      : '';
+    window.PremiumPlayer.fail(
+      `${tried}${reason ? ` ${reason}` : ' The feed is offline or refuses this connection;'}` +
+      ' the nightly link check removes links like this.',
+    );
   }
 
   async function closePlayer() {
     window.PremiumPlayer.stop();
     els.player.hidden = true;
+    playQueue = [];
+    playQueueIndex = 0;
     if (playingSession) {
       await api.releaseStream(playingSession);
       playingSession = null;
@@ -1344,7 +1525,7 @@
     const next = await api.getSnapshot();
     if (request !== snapshotRequest) return;
     snapshot = next;
-    programmeIndex = buildProgrammeIndex(snapshot.library.programmes || []);
+    rebuildDerivedIndexes(snapshot.library);
     els.statusText.textContent = snapshot.state.message || '';
     renderCategories();
     render();
@@ -1390,13 +1571,28 @@
   });
 
   const activityTimer = window.setInterval(renderActivity, 1000);
+
+  /** Fade the launch splash out; the app underneath is already painted. */
+  function hideSplash() {
+    if (!els.splash || els.splash.classList.contains('done')) return;
+    els.splash.classList.add('done');
+    els.splash.setAttribute('aria-hidden', 'true');
+  }
+
   async function boot() {
     appInfo = await api.getAppInfo();
     updateState = appInfo.updates || null;
     renderUpdateNotice();
     const brandTag = document.getElementById('brand-tag');
     if (brandTag && appInfo.version) brandTag.textContent = appInfo.version + (appInfo.version.startsWith('1.1.1') ? ' · Encore Preview' : '');
+    // The splash names the build the viewer is waiting on, the same way the
+    // sidebar plaque and Settings do.
+    if (els.splashVersion && appInfo.version) {
+      els.splashVersion.textContent =
+        `Version ${appInfo.version}${appInfo.version.startsWith('1.1.1') ? ' · Encore Preview' : ''}`;
+    }
     await syncSnapshot();
+    hideSplash();
 
     // Keep "now playing" honest without a full re-render storm.
     clockTimer = window.setInterval(() => {
@@ -1406,10 +1602,12 @@
         if (cableGuideEnabled()) updateGuideClock();
         else renderGuide();
       } else if (ui.tab === 'channels' && ui.rendered <= PAGE) renderChannels();
+      else if (ui.tab === 'live') renderLive();
     }, 30000);
   }
 
   boot().catch((error) => {
+    hideSplash();
     els.statusText.textContent = `Startup failed: ${error.message}`;
     snapshot.state = { phase: 'error', message: `Startup failed: ${error.message}. Quit and reopen PremiumTV to retry.` };
     renderActivity();

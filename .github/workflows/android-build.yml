@@ -47,9 +47,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to build (for example 1.0.4 stable or 1.1.1 preview)"
+        description: "Version to build (for example 1.0.5 stable or 1.1.1 preview)"
         type: string
-        default: "1.0.4"
+        default: "1.0.5"
         required: true
       channel:
         description: "Release channel: stable = USA lineup, preview = global lineup"
@@ -78,9 +78,9 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     env:
-      # Push builds default to stable 1.0.4; release and manual builds select
+      # Push builds default to stable 1.0.5; release and manual builds select
       # the tag/version they were asked for.
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.4') }}
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.5') }}
 
     steps:
       - name: Check out the repository
@@ -107,7 +107,7 @@ jobs:
               echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
             if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.0.4}"
+            version="${INPUT_VERSION:-1.0.5}"
             channel="${INPUT_CHANNEL:-stable}"
             # Explicit push switch; ordinary pushes remain stable builds.
             if [ "$GITHUB_EVENT_NAME" = "push" ] && [[ "$PUSH_MESSAGE" == *"[preview-build]"* ]]; then

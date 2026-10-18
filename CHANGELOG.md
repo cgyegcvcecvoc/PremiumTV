@@ -10,6 +10,39 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-18 — Version 1.0.5: splash, search, placeholder logos, Live Events and multi-server playback
+
+- **Stable 1.0.5 is cut, and the 1.1.1 Encore Preview is rebuilt from the same
+  tree.** Both apps open on a launch splash - the drawn PremiumTV television
+  mark, a gold spinner and the build's version pinned at the bottom - instead
+  of a bare progress wheel.
+- **Android gets channel search** (the Mac sidebar already had one): a field
+  above the Channels tab filters by name, category, country or channel number,
+  and the Mac search now covers the new Live Events tab too.
+- **Logo-less channels get a drawn category placeholder** - a ball for Sports,
+  a smile for Comedy, a balloon for Kids, a newspaper for News, a cloud for
+  Weather and a television set for everything else - on the cards, in the
+  guide rows and in the cable grid, replacing the old two-initials fallback.
+  The same art shows while remote logos load and when their URLs die.
+- **A Live Events tab groups the scrapers' live-game feeds by sport**
+  (Soccer, American Football, College Football, NHL Hockey, …): each card
+  shows the matchup, a LIVE pill and how many streams carry the game. The
+  games join the stable guide's "what's on now" list with the matchup as
+  their listing - the event feeds share placeholder EPG ids, so no upstream
+  guide ever schedules them - and their channel cards say `LIVE · <sport>`
+  instead of "no listing".
+- **Multi-server playback:** a game published on more than one stream, and
+  any channel with backup feeds (same EPG id, same base name), switches to
+  the next server automatically when a feed dies; the player shows "Server
+  2 of 3" and only gives up after every server was tried. Implemented on
+  ExoPlayer (Android) and the hls.js/mpegts.js chain (macOS).
+- **Honest dead ends:** channels with no published schedule say "No listing
+  published" instead of a blank, on both platforms.
+- Guides: the merged guide already declares every playlist id and matches
+  100% of entries exactly (verified against `EPG/PremiumTV.xml`), so this
+  release improves what the apps *show* for uncovered channels rather than
+  the harvest itself.
+
 ## 2026-10-18 — The popup is readable on a TV, and honest about 1.0.4
 
 - **The buttons can no longer fall off the screen.** The first emulator
