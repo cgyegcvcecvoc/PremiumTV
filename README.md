@@ -150,6 +150,13 @@ per-country EPG feeds (see [the guide build report](playlists/checks/EPG-BUILD.m
   windows, using ETag/Last-Modified where possible.
 - **Settings** — bundle provenance, refresh state, force refresh, reset to
   bundled data, and the **App updates** panel (check, download once, install).
+- **Update popup for older builds** — a build inside the version range published
+  in [`app-update-notice.json`](app-update-notice.json) is told at startup to go
+  and get the newest release from GitHub, and what is waiting when it does. It is
+  dismissible, because a TV remote can arrive mid-evening, but the dismissal
+  lasts one launch and is never persisted, so it comes back until PremiumTV is
+  updated. The wording, the targeted versions and the end-of-support date are all
+  published, so none of them needs a new build to change.
 
 Playback is ExoPlayer (Media3), and the app sends the referrer, origin and
 user-agent a playlist entry publishes when it has one. Some upstream streams can
@@ -164,6 +171,24 @@ already attached. The download site promotes only a complete published stable
 release. `1.1.1` (and the earlier `1.1.0`) remain GitHub pre-releases and keep
 their names. The workflows build from the release tag or manual dispatch, and
 use the global `all` scope only when GitHub marks the release as a pre-release.
+
+**1.0.0–1.0.4 have an end-of-support date.** None of them can show this popup:
+1.0.0–1.0.3 ship no updater at all — the `v1.0.3` tree has neither
+`AppUpdateManager.kt` nor `updater.js` — and 1.0.4 has the update centre but was
+released before this notice existed. So they cannot be told anything in app except
+through the one playlist they refresh. 1.0.4 can still escape on its own, because
+its Settings → App updates will offer the next release; it simply will not be told
+to look. 1.0.0–1.0.3 have no such route, which is why the frozen feed carries the
+message for them.
+`scripts/legacy_sunset.py` splits delivery in two: current builds read
+[`playlists/live/USA.m3u`](playlists/live/), and 1.0.0–1.0.4 keep reading
+`playlists/countries/USA.m3u`. While support lasts the two are identical. On the
+`support_ends_utc` date published in
+[`app-update-notice.json`](app-update-notice.json) — 30 days after the first
+warning — the legacy feed is pinned to the last scraped channel list with one
+sanctioned notice entry on top, and stops receiving scrape updates. `python
+scripts/legacy_sunset.py status` reports the phase and the days left. See
+[`docs/UPDATES.md`](docs/UPDATES.md) and [`playlists/live/README.md`](playlists/live/README.md).
 
 ### Keeping the categories and the order honest
 

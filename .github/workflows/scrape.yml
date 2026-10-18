@@ -175,6 +175,18 @@ jobs:
           python scripts/epg_build.py --patch --countries --max-age-hours 12 \
             --label "guide refresh with the scrape"
 
+      - name: Publish the live app feed and enforce the legacy sunset
+        # PremiumTV 1.0.5+ refreshes playlists/live/USA.m3u; 1.0.0-1.0.4 refresh
+        # playlists/countries/USA.m3u, which this pins on the end-of-support date
+        # published in app-update-notice.json. Running here - after the playlists
+        # are written and before the shelf is built - is what keeps the shelf, the
+        # download site and the next APK on live channels when the legacy feed
+        # freezes, and what puts the "go and update" notice in front of builds
+        # too old to carry the popup.
+        if: always()
+        continue-on-error: true
+        run: python scripts/legacy_sunset.py apply
+
       - name: Publish the categories/ shelf
         # The headline file a player is pointed at: categories/USA.m3u (every US
         # channel, in category order) plus one file per category for the USA and
@@ -212,6 +224,9 @@ jobs:
           # has its primary, and every playlists/categories file is an exact
           # slice of the published playlist. Writes checks/BACKUP-AUDIT.md.
           python scripts/audit_backups.py --strict || code=$?
+          # The legacy feed must be pinned once support ends, and the
+          # live feed must never carry the sanctioned notice entry.
+          python scripts/legacy_sunset.py check || code=$?
           if [ -f playlists/checks/BACKUP-AUDIT.md ]; then
             echo "-----" >> "$GITHUB_STEP_SUMMARY"
             cat playlists/checks/BACKUP-AUDIT.md >> "$GITHUB_STEP_SUMMARY"

@@ -267,7 +267,7 @@
    "iso2": "US",
    "region": false,
    "count": 2797,
-   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/USA.m3u",
+   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/live/USA.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/USA.xml",
    "epg_present": true
   },
@@ -2857,6 +2857,22 @@
   ]
  },
  "changelog": [
+  {
+   "id": "2026-10-17",
+   "date": "2026-10-17",
+   "title": "Older builds are told to update, and 1.0.0–1.0.4 get a sunset date",
+   "body_md": "- **A startup popup sends an out-of-date build to GitHub.** Both apps now show a\n  dialog when the installed version is inside a published notice's range: what is\n  installed, what the newest release is, where to get it, and why it is worth it.\n  On Android it floats above every screen except the player and takes focus on the\n  primary button, so a remote needs one press; on macOS it is a modal that Esc\n  dismisses. **Update now** opens Settings → App updates and re-checks GitHub —\n  the installer still downloads only on the Settings button, so the \"no background\n  downloads\" rule holds whichever button started it.\n- **The surprise is the update center itself.** The copy says plainly that the\n  newest build is the last one anybody has to install by hand: from there\n  PremiumTV checks GitHub, downloads the installer once, verifies it against the\n  release's SHA-256 file and hands it to the platform's normal installer.\n- **Dismissible, but it comes back.** A TV remote can arrive mid-evening, so an\n  app that refuses to run would turn \"please update\" into \"your TV is broken\". The\n  dismissal lasts one launch and is deliberately never persisted — not in\n  `SharedPreferences`, not in `update-state.json` — so the notice returns every\n  launch until PremiumTV is updated, and one press cannot hide it for good.\n- **The wording, the target versions and the sunset date are published, not\n  compiled in.** `app-update-notice.json` at the root of the repository is read\n  during the same daily check that reads the release list, and cached, so the\n  popup is decided before any network call and still appears offline. Changing the\n  message, the version range, or silencing every popup with `enabled: false` needs\n  no new release. A notice that cannot be read, is oversized, or names a schema\n  this build has never seen keeps the last good copy and can never fail the update\n  check that already succeeded.\n- **End of support escalates itself.** Each rule carries its `after_support_ends`\n  wording, so on the day `support_ends_utc` passes the same notice turns from \"a\n  surprise is waiting\" into \"this build is frozen\" and its accents turn red — with\n  no fetch, no rebuild and no remote edit.\n- **1.0.0–1.0.4 stop receiving scrape updates 30 days after the first warning.**\n  None of them can show this popup: 1.0.0–1.0.3 ship no updater at all (the\n  `v1.0.3` tree has neither `AppUpdateManager.kt` nor `updater.js`), and 1.0.4 has\n  the update centre but was released before this notice existed. So they can only\n  be reached through the one playlist they refresh. 1.0.4 can still escape on its\n  own — its Settings → App updates will offer the next release — it just will not\n  be told to look; 1.0.0–1.0.3 have no such route, which is why the frozen feed\n  carries the message for them. `raw.githubusercontent.com` serves the same bytes to\n  every caller and cannot look at a version, so delivery is split in two:\n  `playlists/live/USA.m3u` for builds that can still update, and\n  `playlists/countries/USA.m3u` for 1.0.0–1.0.4. While support lasts the two are\n  identical; on the published date `scripts/legacy_sunset.py` pins the last\n  scraped channel list to `playlists/legacy/USA.m3u` and rewrites the legacy feed\n  from that pin with one sanctioned notice entry on top. Those builds keep the\n  channels that worked that day, see `⚠ UPDATE PremiumTV — support for 1.0.4 and\n  older ended Nov 16, 2026 · get the newest free version at github.com/…` as their\n  first entry, and stop getting new ones. The frozen feed keeps advertising the\n  live `EPG/USA.xml`: what ends is the channel scrape, not the listings.\n- **The notice entry can never become a channel.** It is marked\n  `tvg-notice=\"app-update\"` and both apps' parsers drop an entry carrying that\n  marker, so it cannot reach a channel list, a category, the `categories/` shelf or\n  the download site of any build that understands it. Only builds too old to know\n  the marker render it — which is exactly who it is for. A 1.0.3-era parser was run\n  against a frozen feed to confirm it does.\n- **Nothing that must stay current points at the pin.** `build_bundle.py`,\n  `build_categories.py`, `build_site_data.py` and `verify_playlists.py` all resolve\n  the USA list through `legacy_sunset.live_usa_path()`, so the shelf, the download\n  site, the verifier and the next APK follow the live channels on the day the\n  legacy feed freezes. Every publishing workflow runs `legacy_sunset.py apply`\n  after the playlists are written and before the shelf is built, and\n  `legacy_sunset.py check` fails a run when the sunset has been quietly undone.\n- **Verification.** 470 Python tests (34 new for the sunset, 13 new for the popup\n  contract, and the site-data contract updated for the live USA feed) and 82 Node\n  tests (19 new: version targeting, the escalation, the offline startup path, and\n  the launch-scoped dismissal).",
+   "bullets": [
+    "**A startup popup sends an out-of-date build to GitHub.** Both apps now show a",
+    "**The surprise is the update center itself.** The copy says plainly that the",
+    "**Dismissible, but it comes back.** A TV remote can arrive mid-evening, so an",
+    "**The wording, the target versions and the sunset date are published, not",
+    "**End of support escalates itself.** Each rule carries its `after_support_ends`",
+    "**1.0.0–1.0.4 stop receiving scrape updates 30 days after the first warning.**",
+    "**The notice entry can never become a channel.** It is marked",
+    "**Nothing that must stay current points at the pin.** `build_bundle.py`,"
+   ]
+  },
   {
    "id": "2026-10-17",
    "date": "2026-10-17",

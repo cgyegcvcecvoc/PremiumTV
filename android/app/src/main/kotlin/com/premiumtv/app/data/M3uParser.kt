@@ -10,6 +10,15 @@ package com.premiumtv.app.data
  */
 internal object M3uParser {
 
+    /**
+     * Marks the sanctioned update-notice entry that `scripts/legacy_sunset.py`
+     * publishes into the legacy playlist.  It is a message for builds that have
+     * no popup (1.0.0-1.0.4), never a channel, so any build that understands
+     * the marker drops the entry instead of adding it to the library.
+     */
+    const val NOTICE_ATTR = "tvg-notice"
+    const val NOTICE_VALUE = "app-update"
+
     private val ATTR = Regex("([\\w-]+)=\"([^\"]*)\"")
     private val TVG_URL = Regex("x-tvg-url=\"([^\"]*)\"")
     private val WHITESPACE_RUN = Regex("\\s{2,}")
@@ -33,6 +42,9 @@ internal object M3uParser {
         var optReferrer = ""
         var optUa = ""
         var optOrigin = ""
+        // Set per #EXTINF line: the entry it belongs to is a notice, not a
+        // channel, so its URL line is discarded.
+        var skipEntry = false
 
         for (rawLine in text.lineSequence()) {
             val line = rawLine.trim()
@@ -59,7 +71,9 @@ internal object M3uParser {
                 ua = attrs["http-user-agent"].orEmpty().trim()
                 referrer = attrs["http-referrer"].orEmpty().trim()
                 name = extinfName(line, attrs)
-                pending = true
+                skipEntry = attrs[NOTICE_ATTR].orEmpty().trim()
+                    .equals(NOTICE_VALUE, ignoreCase = true)
+                pending = !skipEntry
                 continue
             }
 
@@ -86,6 +100,11 @@ internal object M3uParser {
 
             // A URL line: it always closes the entry above it.
             val url = line
+            if (skipEntry) {
+                skipEntry = false
+                pending = false
+                continue
+            }
             if (!pending) {
                 id = ""
                 name = cleanName(url.substringAfterLast('/'))

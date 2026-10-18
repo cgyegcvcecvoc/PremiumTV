@@ -21,6 +21,16 @@ const NOISE_PREFIX_RE = /^[\s\u2605\u2606\u2b50\u2728\u2022\u25b6\-\u2013]+/u;
 const MAX_PLAYLIST_CHARS = 16 * 1024 * 1024;
 const MAX_GUIDE_CHARS = 80 * 1024 * 1024;
 
+/**
+ * Marks the sanctioned update-notice entry that `scripts/legacy_sunset.py`
+ * publishes into the legacy playlist. It is a message for builds that have no
+ * popup (1.0.0-1.0.4), never a channel, so any build that understands the
+ * marker drops the entry instead of adding it to the library - the same rule
+ * the Android parser applies.
+ */
+const NOTICE_ATTR = 'tvg-notice';
+const NOTICE_VALUE = 'app-update';
+
 function parseAttrs(line) {
   const attrs = {};
   let match;
@@ -92,6 +102,9 @@ function parseM3u(text) {
         ua: (attrs['http-user-agent'] || '').trim(),
         referrer: (attrs['http-referrer'] || '').trim(),
       };
+      if (String(attrs[NOTICE_ATTR] || '').trim().toLowerCase() === NOTICE_VALUE) {
+        pending.notice = true;
+      }
       continue;
     }
 
@@ -125,6 +138,12 @@ function parseM3u(text) {
         ua: '',
         referrer: '',
       };
+    }
+    if (pending.notice) {
+      // A notice entry is dropped whole: no channel, and so no guide row.
+      pending = null;
+      pendingOpts = {};
+      continue;
     }
     pending.url = url;
     if (!('origin' in pending)) pending.origin = '';
@@ -289,4 +308,6 @@ module.exports = {
   slugify,
   MAX_PLAYLIST_CHARS,
   MAX_GUIDE_CHARS,
+  NOTICE_ATTR,
+  NOTICE_VALUE,
 };

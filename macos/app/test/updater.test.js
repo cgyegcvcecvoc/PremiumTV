@@ -79,18 +79,22 @@ test('a check offers the new stable release without downloading anything', async
   const state = await updater.check(true);
   assert.equal(state.availableVersion, VERSION);
   assert.equal(state.downloadedVersion, null);
-  // Only the release list was requested; no installer was downloaded.
-  assert.equal(calls.length, 1);
+  // Only the release list and the tiny notice document were requested; no
+  // installer was downloaded.
+  assert.equal(calls.length, 2);
   assert.match(calls[0], /\/releases\?per_page=30$/);
+  assert.match(calls[1], /\/main\/app-update-notice\.json$/);
   assert.match(state.message, /1\.0\.5 is available/);
 });
 
 test('the daily throttle prevents repeated GitHub checks', async (t) => {
   const { updater, calls } = harness(t);
   await updater.check(true);
+  const callsAfterCheck = calls.length;
   await updater.check(false);
   await updater.check(false);
-  assert.equal(calls.length, 1, 'an automatic check inside the window must not hit GitHub');
+  assert.equal(calls.length, callsAfterCheck,
+    'an automatic check inside the window must not hit GitHub');
 });
 
 test('a forced re-check keeps the downloaded installer and does not download it again', async (t) => {

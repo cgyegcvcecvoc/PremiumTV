@@ -39,6 +39,18 @@
     playerDetail: document.getElementById('player-detail'),
     playerClose: document.getElementById('player-close'),
     playerRetry: document.getElementById('player-retry'),
+    // The startup "go and update" popup.
+    updateNotice: document.getElementById('update-notice'),
+    updateNoticeEyebrow: document.getElementById('update-notice-eyebrow'),
+    updateNoticeTitle: document.getElementById('update-notice-title'),
+    updateNoticeMessage: document.getElementById('update-notice-message'),
+    updateNoticeSurpriseWrap: document.getElementById('update-notice-surprise-wrap'),
+    updateNoticeSurprise: document.getElementById('update-notice-surprise'),
+    updateNoticeVersions: document.getElementById('update-notice-versions'),
+    updateNoticeUrl: document.getElementById('update-notice-url'),
+    updateNoticeAction: document.getElementById('update-notice-action'),
+    updateNoticeDismiss: document.getElementById('update-notice-dismiss'),
+    updateNoticeFoot: document.getElementById('update-notice-foot'),
   };
 
   const ui = {
@@ -1221,7 +1233,92 @@
     }, 150);
   });
 
+  // ------------------------------------------------------------ update popup
+
+  /**
+   * Show the popup that sends this build to GitHub for the newest release.
+   *
+   * The main process decides *whether* there is a notice (from the published
+   * `app-update-notice.json`, by platform and version range); this only renders
+   * it. Every field goes in through textContent, so a remote wording change can
+   * never inject markup into the window.
+   *
+   * It is dismissible on purpose - an app that refuses to run turns "please
+   * update" into "your Mac is broken" - but the dismissal lasts one launch, so
+   * the notice is back the next time PremiumTV opens.
+   */
+  function renderUpdateNotice() {
+    if (!els.updateNotice) return;
+    const state = updateState || (appInfo && appInfo.updates) || {};
+    const notice = state.notice;
+    if (!notice || state.noticeDismissedForLaunch) {
+      els.updateNotice.hidden = true;
+      return;
+    }
+    const ended = notice.level === 'end_of_support';
+    els.updateNotice.classList.toggle('ended', ended);
+    els.updateNoticeEyebrow.textContent = ended ? 'SUPPORT HAS ENDED' : 'PREMIUMTV UPDATE';
+    els.updateNoticeTitle.textContent = notice.title || 'A newer PremiumTV is available';
+    els.updateNoticeMessage.textContent = notice.message || '';
+    els.updateNoticeSurpriseWrap.hidden = !notice.surprise;
+    els.updateNoticeSurprise.textContent = notice.surprise || '';
+
+    const current = state.currentVersion || (appInfo && appInfo.version) || '';
+    const newest = state.latestStableVersion || state.availableVersion || '';
+    els.updateNoticeVersions.textContent = newest
+      ? `Installed ${current} · newest on GitHub ${newest}`
+      : `Installed ${current}`;
+    els.updateNoticeUrl.textContent = notice.releasesUrl || '';
+    els.updateNoticeAction.textContent = notice.actionLabel || 'Update now';
+    els.updateNoticeDismiss.textContent = notice.dismissLabel || 'Remind me next time';
+    els.updateNoticeFoot.textContent = ended
+      ? 'This build no longer receives channel or guide updates from GitHub. ' +
+        'Esc dismisses this message for now; it returns every launch.'
+      : 'Esc dismisses this message for now; it returns every launch until ' +
+        'PremiumTV is updated.';
+    els.updateNotice.hidden = false;
+    els.updateNoticeAction.focus();
+  }
+
+  /** Ask the main process to hide the notice for this launch. */
+  async function dismissUpdateNotice() {
+    if (typeof api.dismissUpdateNotice === 'function') {
+      const next = await api.dismissUpdateNotice();
+      if (next) updateState = next;
+      else if (updateState) updateState = { ...updateState, noticeDismissedForLaunch: true };
+    } else if (updateState) {
+      updateState = { ...updateState, noticeDismissedForLaunch: true };
+    }
+    renderUpdateNotice();
+  }
+
+  if (els.updateNotice) {
+    els.updateNoticeDismiss.addEventListener('click', () => {
+      dismissUpdateNotice().catch(() => {});
+    });
+    els.updateNoticeAction.addEventListener('click', async () => {
+      await dismissUpdateNotice();
+      // Open the update centre and re-check GitHub. The installer still
+      // downloads only on the Settings button: no background downloads.
+      selectTab('settings');
+      els.updateNoticeAction.disabled = true;
+      try {
+        await api.checkForUpdate(true);
+        updateState = await api.updateStatus();
+        renderSettings();
+      } catch (error) {
+        els.statusText.textContent = `Could not check for updates: ${error.message}`;
+      } finally {
+        els.updateNoticeAction.disabled = false;
+      }
+    });
+  }
+
   document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && els.updateNotice && !els.updateNotice.hidden) {
+      dismissUpdateNotice().catch(() => {});
+      return;
+    }
     if (event.key === 'Escape' && !els.player.hidden) {
       closePlayer();
       return;
@@ -1282,6 +1379,8 @@
     api.onUpdate((state) => {
       updateState = state;
       if (ui.tab === 'settings') renderSettings();
+      // A notice can arrive (or escalate to end-of-support) while the app runs.
+      renderUpdateNotice();
     });
   }
 
@@ -1294,6 +1393,7 @@
   async function boot() {
     appInfo = await api.getAppInfo();
     updateState = appInfo.updates || null;
+    renderUpdateNotice();
     const brandTag = document.getElementById('brand-tag');
     if (brandTag && appInfo.version) brandTag.textContent = appInfo.version + (appInfo.version.startsWith('1.1.1') ? ' · Encore Preview' : '');
     await syncSnapshot();

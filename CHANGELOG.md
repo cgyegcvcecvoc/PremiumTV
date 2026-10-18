@@ -10,6 +10,73 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-17 — Older builds are told to update, and 1.0.0–1.0.4 get a sunset date
+
+- **A startup popup sends an out-of-date build to GitHub.** Both apps now show a
+  dialog when the installed version is inside a published notice's range: what is
+  installed, what the newest release is, where to get it, and why it is worth it.
+  On Android it floats above every screen except the player and takes focus on the
+  primary button, so a remote needs one press; on macOS it is a modal that Esc
+  dismisses. **Update now** opens Settings → App updates and re-checks GitHub —
+  the installer still downloads only on the Settings button, so the "no background
+  downloads" rule holds whichever button started it.
+- **The surprise is the update center itself.** The copy says plainly that the
+  newest build is the last one anybody has to install by hand: from there
+  PremiumTV checks GitHub, downloads the installer once, verifies it against the
+  release's SHA-256 file and hands it to the platform's normal installer.
+- **Dismissible, but it comes back.** A TV remote can arrive mid-evening, so an
+  app that refuses to run would turn "please update" into "your TV is broken". The
+  dismissal lasts one launch and is deliberately never persisted — not in
+  `SharedPreferences`, not in `update-state.json` — so the notice returns every
+  launch until PremiumTV is updated, and one press cannot hide it for good.
+- **The wording, the target versions and the sunset date are published, not
+  compiled in.** `app-update-notice.json` at the root of the repository is read
+  during the same daily check that reads the release list, and cached, so the
+  popup is decided before any network call and still appears offline. Changing the
+  message, the version range, or silencing every popup with `enabled: false` needs
+  no new release. A notice that cannot be read, is oversized, or names a schema
+  this build has never seen keeps the last good copy and can never fail the update
+  check that already succeeded.
+- **End of support escalates itself.** Each rule carries its `after_support_ends`
+  wording, so on the day `support_ends_utc` passes the same notice turns from "a
+  surprise is waiting" into "this build is frozen" and its accents turn red — with
+  no fetch, no rebuild and no remote edit.
+- **1.0.0–1.0.4 stop receiving scrape updates 30 days after the first warning.**
+  None of them can show this popup: 1.0.0–1.0.3 ship no updater at all (the
+  `v1.0.3` tree has neither `AppUpdateManager.kt` nor `updater.js`), and 1.0.4 has
+  the update centre but was released before this notice existed. So they can only
+  be reached through the one playlist they refresh. 1.0.4 can still escape on its
+  own — its Settings → App updates will offer the next release — it just will not
+  be told to look; 1.0.0–1.0.3 have no such route, which is why the frozen feed
+  carries the message for them. `raw.githubusercontent.com` serves the same bytes to
+  every caller and cannot look at a version, so delivery is split in two:
+  `playlists/live/USA.m3u` for builds that can still update, and
+  `playlists/countries/USA.m3u` for 1.0.0–1.0.4. While support lasts the two are
+  identical; on the published date `scripts/legacy_sunset.py` pins the last
+  scraped channel list to `playlists/legacy/USA.m3u` and rewrites the legacy feed
+  from that pin with one sanctioned notice entry on top. Those builds keep the
+  channels that worked that day, see `⚠ UPDATE PremiumTV — support for 1.0.4 and
+  older ended Nov 16, 2026 · get the newest free version at github.com/…` as their
+  first entry, and stop getting new ones. The frozen feed keeps advertising the
+  live `EPG/USA.xml`: what ends is the channel scrape, not the listings.
+- **The notice entry can never become a channel.** It is marked
+  `tvg-notice="app-update"` and both apps' parsers drop an entry carrying that
+  marker, so it cannot reach a channel list, a category, the `categories/` shelf or
+  the download site of any build that understands it. Only builds too old to know
+  the marker render it — which is exactly who it is for. A 1.0.3-era parser was run
+  against a frozen feed to confirm it does.
+- **Nothing that must stay current points at the pin.** `build_bundle.py`,
+  `build_categories.py`, `build_site_data.py` and `verify_playlists.py` all resolve
+  the USA list through `legacy_sunset.live_usa_path()`, so the shelf, the download
+  site, the verifier and the next APK follow the live channels on the day the
+  legacy feed freezes. Every publishing workflow runs `legacy_sunset.py apply`
+  after the playlists are written and before the shelf is built, and
+  `legacy_sunset.py check` fails a run when the sunset has been quietly undone.
+- **Verification.** 470 Python tests (34 new for the sunset, 13 new for the popup
+  contract, and the site-data contract updated for the live USA feed) and 82 Node
+  tests (19 new: version targeting, the escalation, the offline startup path, and
+  the launch-scoped dismissal).
+
 ## 2026-10-17 — PremiumTV 1.0.4: one last manual install, then updates from Settings
 
 - **In-app update center on both platforms.** Settings → App updates now shows

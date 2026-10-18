@@ -8,7 +8,7 @@ repository already publishes.
 
 Inputs (defaults match the USA bundle the app ships):
 
-    playlists/countries/USA.m3u   the checked, confirmed-working channel list
+    playlists/live/USA.m3u        the checked, confirmed-working channel list
     EPG/USA.xml                   the XMLTV guide for exactly those channels
     categories/index.json         the published group order (optional)
 
@@ -41,8 +41,13 @@ from datetime import datetime, timezone
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 DEFAULT_SCOPE = "usa"
+# The stable scope is built from playlists/live/USA.m3u - the feed
+# scripts/legacy_sunset.py keeps current for builds that can still update.
+# playlists/countries/USA.m3u is the *legacy* feed baked into 1.0.0-1.0.4; it
+# is pinned on the published end-of-support date, so a build must not be pointed
+# at it or it would stop receiving channels with the versions it replaces.
 SCOPE_INPUTS = {
-    "usa": ("playlists/countries/USA.m3u", "EPG/USA.xml"),
+    "usa": ("playlists/live/USA.m3u", "EPG/USA.xml"),
     "all": ("playlists/PremiumTV.m3u", "EPG/PremiumTV.xml"),
 }
 DEFAULT_INDEX = "categories/index.json"

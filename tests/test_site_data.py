@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_site_data  # noqa: E402
+import legacy_sunset  # noqa: E402
 
 
 class BuildSiteDataTest(unittest.TestCase):
@@ -23,8 +24,20 @@ class BuildSiteDataTest(unittest.TestCase):
         for c in self.payload["countries"]:
             self.assertGreater(c["count"], 0, c["slug"])
             self.assertTrue(c["playlist_url"].endswith(f"/{c['slug']}.m3u"))
-            self.assertIn(c["epg_url"], c["playlist_url"].replace("playlists/countries", "EPG")
-                          .replace(".m3u", ".xml"))
+            # The guide is named after its country, whichever directory the
+            # playlist it belongs to happens to be published in (the USA feed
+            # moved to playlists/live/ so it survives the legacy freeze).
+            self.assertEqual(c["epg_url"],
+                             f"{build_site_data.RAW_BASE}/EPG/{c['slug']}.xml")
+
+    def test_the_usa_row_advertises_the_live_feed_and_its_real_count(self):
+        by_slug = {c["slug"]: c for c in self.payload["countries"]}
+        live = legacy_sunset.live_usa_path(ROOT)
+        self.assertEqual(
+            by_slug["USA"]["playlist_url"],
+            f"{build_site_data.RAW_BASE}/{live.relative_to(ROOT).as_posix()}",
+            "the download site must not hand out the pinned legacy feed")
+        self.assertEqual(by_slug["USA"]["count"], build_site_data.count_entries(live))
 
     def test_special_regions_have_no_iso_code_but_countries_do(self):
         by_slug = {c["slug"]: c for c in self.payload["countries"]}

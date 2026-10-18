@@ -99,6 +99,30 @@
     </div>
   </div>
 
+  <!-- The startup popup that sends an older build to GitHub for the newest
+       release. Its wording, the versions it targets and the support-end date
+       all come from app-update-notice.json in the repository, so this markup
+       never has to change to reword the message. -->
+  <div id="update-notice" class="notice-overlay" role="dialog" aria-modal="true"
+       aria-labelledby="update-notice-title" hidden>
+    <div class="notice-card">
+      <p id="update-notice-eyebrow" class="notice-eyebrow">PREMIUMTV UPDATE</p>
+      <h2 id="update-notice-title"></h2>
+      <p id="update-notice-message"></p>
+      <div id="update-notice-surprise-wrap" class="notice-surprise" hidden>
+        <p class="notice-surprise-label">THE SURPRISE</p>
+        <p id="update-notice-surprise"></p>
+      </div>
+      <p id="update-notice-versions" class="notice-versions"></p>
+      <p id="update-notice-url" class="notice-url"></p>
+      <div class="notice-actions">
+        <button id="update-notice-action" class="btn btn-primary"></button>
+        <button id="update-notice-dismiss" class="btn btn-quiet"></button>
+      </div>
+      <p id="update-notice-foot" class="notice-foot"></p>
+    </div>
+  </div>
+
   <script src="vendor/hls.min.js"></script>
   <script src="vendor/mpegts.js"></script>
   <script src="player.js"></script>

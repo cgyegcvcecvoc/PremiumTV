@@ -66,6 +66,25 @@ playlist and guide cost two small `304` responses. See
 `src/main/refresh-schedule.js`; `tests/test_macos_app.py` fails the build if
 the in-app slots drift from `scrape.yml` / `quick-update.yml` / `epg-build.yml`.
 
+## The update popup
+
+`src/main/update-notice.js` is the same policy the Android app implements in
+`UpdateNotice.kt`, reading the same published `app-update-notice.json` from the
+root of the repository. `AppUpdater` fetches it during the daily check, caches it
+in `update-state.json`, and resolves the popup for this build before any network
+call — so it appears at startup, offline included.
+
+The renderer paints it into `#update-notice` with `textContent` only: the wording
+is remote, so it is never parsed as HTML. Esc and the dismiss button hide it for
+this launch; the dismissal is deliberately kept out of the state file, so the
+notice returns every launch until PremiumTV is updated. Once the published
+`support_ends_utc` passes, the same rule escalates to its end-of-support wording
+and turns red without a new build.
+
+`src/main/parsers.js` drops an entry marked `tvg-notice="app-update"` — the
+sanctioned notice row in the frozen legacy feed, aimed at builds too old to carry
+a popup. See [`../docs/UPDATES.md`](../docs/UPDATES.md).
+
 Refreshes download from the public repository on `raw.githubusercontent.com`;
 no account or credential is involved. A downloaded copy remembers the version
 and library scope it was refreshed for: when a different build is installed

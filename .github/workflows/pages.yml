@@ -41,6 +41,9 @@ on:
       - "playlists/Priority_Channels.m3u"
       - "playlists/AE_Channels.m3u"
       - "playlists/countries/**"
+      # The USA bundle, shelf and site all read the live feed now, so a
+      # change there has to rebuild them too.
+      - "playlists/live/**"
       - "playlists/report.json"
       - "playlists/STATUS.md"
       - "categories/**"

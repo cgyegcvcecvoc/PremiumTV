@@ -36,6 +36,8 @@ contextBridge.exposeInMainWorld('premiumtv', {
   downloadUpdate: () => ipcRenderer.invoke('ptv:download-update'),
   installUpdate: () => ipcRenderer.invoke('ptv:install-update'),
   openReleasePage: () => ipcRenderer.invoke('ptv:open-release'),
+  /** The popup's "Remind me next time": hides it for this launch only. */
+  dismissUpdateNotice: () => ipcRenderer.invoke('ptv:dismiss-update-notice'),
 
   onState: (callback) => subscribe('ptv:state', callback),
   onInfo: (callback) => subscribe('ptv:info', callback),

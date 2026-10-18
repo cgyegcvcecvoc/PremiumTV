@@ -23,11 +23,107 @@ normal installer.
    data directory and reused. Pressing Download again, rechecking, or reopening
    Settings never downloads the same version twice. After the update is
    installed, the old installer is removed.
-5. **No background downloads.** The daily check only reads the release list
-   (and uses an ETag, so an unchanged list is one `304`). The installer
-   download starts only when the user presses the button in Settings.
+5. **No background downloads.** The daily check reads the release list (and uses
+   an ETag, so an unchanged list is one `304`) plus the small
+   `app-update-notice.json` document that drives the update popup. The installer
+   download starts only when the user presses the button in Settings - and
+   pressing **Update now** in the popup opens Settings and re-checks rather than
+   downloading, so this rule holds whichever button started it.
 6. **Checksums are mandatory.** The APK/DMG is compared with the SHA-256 value
    published in that release before it is kept or opened.
+
+## The popup that sends an older build to GitHub
+
+Settings is where an update is *managed*; the popup is where an out-of-date
+build is *told*. Both apps show one at startup when the installed version is
+inside the range a published notice targets.
+
+Everything about it is published in **`app-update-notice.json`** at the root of
+this repository, which both apps read from
+`https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json`
+during the same daily check that reads the release list:
+
+| Field | What it decides |
+|---|---|
+| `enabled` | `false` silences every popup without a new release |
+| `schema` | A build shows nothing for a schema it has never seen |
+| `rules[].platforms` | `android`, `macos`, or both |
+| `rules[].min_version` / `max_version` | The inclusive version range that is nagged |
+| `rules[].title` / `message` / `surprise` | The wording, with `{version}`, `{newest}` and `{support_ends}` substituted |
+| `rules[].action_label` / `dismiss_label` | The two buttons |
+| `first_warning_utc` / `support_ends_utc` / `grace_days` | The end-of-support window |
+| `rules[].after_support_ends` | The escalated wording used once that window closes |
+
+The rules the popup follows:
+
+1. **Dismissible, and it comes back.** A TV remote can arrive here mid-evening,
+   so an app that refuses to run would turn "please update" into "your TV is
+   broken". The dismissal lasts one launch and is never persisted - on Android it
+   is kept out of `SharedPreferences`, on macOS out of `update-state.json` - so
+   the notice returns every launch until PremiumTV is updated.
+2. **Decided before any network call.** The document is cached, so the popup is
+   resolved at startup from the last copy. An offline launch still shows it,
+   which is exactly when an out-of-support build is most stuck.
+3. **Never over a playing channel.** Android shows it above every screen except
+   the player.
+4. **A notice failure is invisible.** An unreachable, oversized (over 64 KB) or
+   malformed document keeps the last good copy and can never fail the update
+   check that already succeeded.
+5. **The escalation needs no release.** On the day `support_ends_utc` passes, the
+   same rule switches to its `after_support_ends` wording and its accent colour
+   by itself - no fetch, no rebuild, no remote edit.
+
+The "surprise" in the copy is the update centre itself: the newest build is the
+last one anybody has to install by hand, because from there PremiumTV updates
+itself.
+
+## End of support for 1.0.0-1.0.4
+
+None of them can show this popup, so no code change can reach them. 1.0.0-1.0.3
+ship no updater at all - the `v1.0.3` tree has neither `AppUpdateManager.kt` nor
+`updater.js`. 1.0.4 does have the update centre (`AppUpdateManager.kt`,
+`UpdateInstaller.kt`, `update-policy.js`), but it was released before this notice
+existed, so it can never fetch one; it can still escape on its own, because its
+Settings -> App updates will offer the next release - it simply will not be told to
+look. 1.0.0-1.0.3 have no such route.
+
+All of them do still refresh one playlist, baked into their bundles at build time,
+and that is the only channel into them. `scripts/legacy_sunset.py` uses it:
+
+| Feed | Path | Who reads it |
+|---|---|---|
+| **Live** | `playlists/live/USA.m3u` | PremiumTV 1.0.5+, the `categories/` shelf, the download site |
+| **Legacy** | `playlists/countries/USA.m3u` | PremiumTV 1.0.0-1.0.4 only |
+
+`raw.githubusercontent.com` serves the same bytes to every caller and cannot look
+at a version, so the only way to stop feeding one set of builds is to give the
+others a different address. While support lasts the two files are identical.
+
+* **First warning** (`first_warning_utc`) starts the countdown. Nothing changes
+  for any build; every publishing run keeps both feeds in step.
+* **End of support** (`support_ends_utc`, 30 days later) pins the last scraped
+  channel list to `playlists/legacy/USA.m3u` and rewrites the legacy feed from
+  that pin with one sanctioned notice entry on top. Builds 1.0.0-1.0.4 keep the
+  channels that worked that day, see
+  `⚠ UPDATE PremiumTV — support for 1.0.4 and older ended Nov 16, 2026 · get the
+  newest free version at github.com/…` as the first entry in their channel list,
+  and stop receiving scrape updates. The live feed carries on.
+
+The frozen feed keeps advertising the live `EPG/USA.xml`: what ends is the
+channel scrape, not the listings for the channels a legacy build still has.
+
+The notice entry is marked `tvg-notice="app-update"`, and both apps' parsers drop
+an entry carrying that marker - so it can never reach a channel list, a category,
+the shelf or the download site of a build that understands it. Only builds too
+old to know the marker render it, which is exactly who it is for. Its URL is the
+GitHub releases page rather than a stream: selecting it in an old build fails to
+play, which is honest, because the row is a notice and its name is the message.
+
+`python scripts/legacy_sunset.py status` reports the phase and the days left,
+`apply` is what every publishing workflow runs, and `check` fails a run when the
+sunset has been quietly undone - a legacy feed that is still live after its date,
+a frozen feed that no longer matches its pin, or a live feed carrying a notice
+entry.
 
 ## Android signing (why 1.0.4 is the clean install)
 
@@ -72,6 +168,9 @@ check is throttled and the downloaded DMG is reused until it is installed.
 3. The download site promotes the release only after the APK and all four Mac
    installers exist. Installed 1.0.4+ apps see it on their next daily check or
    immediately when the user presses **Check for updates**.
+4. Check `app-update-notice.json`: a release that every older build should move
+   to needs its `max_version` raised to the last version that is being left
+   behind, so their popup names the right build.
 
 A preview is published with GitHub's pre-release flag and keeps its preview
 name; it uses the global bundle scope and never becomes the default download.
