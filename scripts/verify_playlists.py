@@ -159,6 +159,13 @@ def verify_playlist(path: Path, epg_dir: Path, dead: dict[str, str], cache: dict
                     parse_epg: bool, max_bytes: int | None = None) -> dict:
     text = path.read_text(encoding="utf-8", errors="replace")
     header, blocks = link_check.split_blocks(text)
+    # The legacy USA feed carries one sanctioned end-of-support notice so an
+    # installed build with no updater can be told about a newer release. It is a
+    # message, not a channel: it is excluded from every structural check (group,
+    # order, id, dead links) and counted separately, exactly as the live feed is
+    # free of it.
+    sanctioned = [block for block in blocks if link_check.is_notice_block(block)]
+    blocks = [block for block in blocks if not link_check.is_notice_block(block)]
     channels = [link_check.channel_from_block(block, path.name) for block in blocks]
     guides = read_guides(path)
 
@@ -264,6 +271,7 @@ def verify_playlist(path: Path, epg_dir: Path, dead: dict[str, str], cache: dict
     return {
         "file": relative(path),
         "entries": len(channels),
+        "sanctioned_notice": len(sanctioned),
         "unique_urls": len(set(urls)),
         "duplicate_urls": duplicate_urls[:50],
         "guides": guides,

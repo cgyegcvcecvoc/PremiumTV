@@ -97,10 +97,15 @@ and that is the only channel into them. `scripts/legacy_sunset.py` uses it:
 
 `raw.githubusercontent.com` serves the same bytes to every caller and cannot look
 at a version, so the only way to stop feeding one set of builds is to give the
-others a different address. While support lasts the two files are identical.
+others a different address. While support lasts the two files carry the same
+channels; the legacy one also carries the notice, and the live one never does.
 
-* **First warning** (`first_warning_utc`) starts the countdown. Nothing changes
-  for any build; every publishing run keeps both feeds in step.
+* **First warning** (`first_warning_utc`) starts the countdown, and the first
+  publishing run after it puts the sanctioned notice entry at the top of the
+  legacy feed. That is the delivery: every installed 1.0.0-1.0.4 refreshes that
+  playlist on its own schedule and renders the entry as the first channel in a
+  `PremiumTV Notice` group. Builds that understand the marker drop it, so
+  1.0.5+ is unaffected.
 * **End of support** (`support_ends_utc`, 30 days later) pins the last scraped
   channel list to `playlists/legacy/USA.m3u` and rewrites the legacy feed from
   that pin with one sanctioned notice entry on top. Builds 1.0.0-1.0.4 keep the
@@ -111,6 +116,12 @@ others a different address. While support lasts the two files are identical.
 
 The frozen feed keeps advertising the live `EPG/USA.xml`: what ends is the
 channel scrape, not the listings for the channels a legacy build still has.
+
+`scripts/legacy_sunset.py apply` runs on every publishing pass: it refreshes the
+live feed, attaches exactly one fresh notice entry to the legacy feed (replacing
+any earlier one), and freezes on the published date. The deep check, the verifier
+and the guide builder all skip that entry, so a message can never be counted as a
+channel, probed as a dead link or added to a guide.
 
 The notice entry is marked `tvg-notice="app-update"`, and both apps' parsers drop
 an entry carrying that marker - so it can never reach a channel list, a category,

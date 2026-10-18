@@ -64,6 +64,25 @@ test('parseM3u reads stream headers from #EXTVLCOPT / #KODIPROP', () => {
   assert.equal(channels[0].group, 'Sports');
 });
 
+test('parseM3u drops the sanctioned update notice and keeps lookalikes', () => {
+  // scripts/legacy_sunset.py publishes one entry marked tvg-notice="app-update"
+  // into the legacy USA feed so an installed build with no updater can be told
+  // about a newer release. It is a message, never a channel.
+  const sample = [
+    '#EXTM3U x-tvg-url="https://example.org/guide.xml"',
+    '#EXTINF:-1 tvg-id="premiumtv.notice.update" tvg-notice="app-update" ' +
+      'group-title="PremiumTV Notice",⚠ UPDATE PremiumTV — support for 1.0.4 and older ends Nov 16, 2026',
+    'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest',
+    '#EXTINF:-1 tvg-id="notice.tv" tvg-notice="schedule" group-title="News",Notice TV',
+    'https://example.org/notice.m3u8',
+  ].join('\n');
+
+  const { channels, guideUrl } = parseM3u(sample);
+  assert.equal(guideUrl, 'https://example.org/guide.xml');
+  assert.equal(channels.length, 1);
+  assert.equal(channels[0].name, 'Notice TV');
+});
+
 test('parseXmltv parses programmes into the bundle shape and drops stale listings', { timeout: 120000 }, () => {
   const meta = referenceMeta();
   const { channels } = parseM3u(fs.readFileSync(PLAYLIST, 'utf8'));

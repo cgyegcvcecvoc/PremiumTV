@@ -10,6 +10,39 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-18 — The notice is actually delivered to installed 1.0.0–1.0.4
+
+- **The warning now reaches builds that have no notice code.** Until today the
+  notice only existed in builds made from this code: an installed 1.0.0–1.0.3 had
+  nothing to read it, and 1.0.4 shipped before it existed. The one thing they all
+  fetch is the USA playlist baked into their bundles, so
+  `playlists/countries/USA.m3u` now carries one sanctioned entry — marked
+  `tvg-notice="app-update"` — as the first row of the channel list:
+  `⚠ UPDATE PremiumTV — support for 1.0.4 and older ends Nov 16, 2026 · the newest
+  build updates itself: github.com/…/releases`. It appears under a `PremiumTV
+  Notice` group on their next refresh and can be dismissed by updating, which is
+  the point.
+- **Verified against the shipped parser, not a copy of it.** The exact
+  `parsers.js` from the `v1.0.4` tag parses the published file into 2,730
+  channels with the notice first; the 1.0.5 parser drops the marker and sees the
+  2,729 real channels. Android's parser gets the same behaviour with a Robolectric
+  test, and `parseM3u` has a Node test for both cases.
+- **Nothing treats the message as a channel.** `link_check.py` never probes the
+  releases URL and can no longer patch the entry out as a dead link,
+  `verify_playlists.py` excludes it from the group, order, id and dead-link
+  checks, and `epg_build.py` never adds it to a guide. `legacy_sunset.py check`
+  now fails a publishing run that drops the entry, so the warning cannot quietly
+  disappear from the feed before the sunset.
+- **The live feed stays clean.** `playlists/live/USA.m3u` — what 1.0.5+ and the
+  bundle builder read — never carries the entry, so current builds see the proper
+  popup and never a fake channel.
+- **`main`'s pipeline is green again.** Two repeated URLs in
+  `playlists/PremiumTV.m3u` (an otteravision stream and a UniversMotri feed) were
+  failing the offline suite, the Android bundle check and the scrape itself; the
+  repository's own dedupe removed them and the `categories/` shelf was rebuilt.
+  The live USA feed was also re-synced from the last scrape, which is what the
+  38-file shelf drift reported.
+
 ## 2026-10-17 — Older builds are told to update, and 1.0.0–1.0.4 get a sunset date
 
 - **A startup popup sends an out-of-date build to GitHub.** Both apps now show a

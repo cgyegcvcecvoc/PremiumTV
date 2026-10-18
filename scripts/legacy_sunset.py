@@ -19,8 +19,11 @@ on the published end-of-support date this script pins the legacy feed and the
 live one carries on:
 
 * **before** ``support_ends_utc`` - ``playlists/live/USA.m3u`` is refreshed from
-  ``playlists/countries/USA.m3u`` and nothing else changes.  Every build, old
-  and new, keeps getting the scraped channel list.
+  ``playlists/countries/USA.m3u`` and every build, old and new, keeps getting
+  the scraped channel list.  The legacy feed also carries the sanctioned notice
+  entry from the first publishing run after the warning date, because a build
+  with no updater can be told about the new release no other way; the live feed
+  is stripped of it, so 1.0.5+ never sees a fake channel.
 * **on and after** ``support_ends_utc`` - the last scraped USA channel list is
   pinned once to ``playlists/legacy/USA.m3u``, and ``playlists/countries/USA.m3u``
   is rewritten from that pin with one sanctioned notice entry on top.  Legacy
@@ -40,7 +43,7 @@ builds too old to know the marker show it - which is exactly who it is for.
 Usage (every publishing workflow runs this after the playlists are written and
 before the shelf is built)::
 
-    python scripts/legacy_sunset.py apply           # mirror, then freeze if due
+    python scripts/legacy_sunset.py apply           # mirror, warn, freeze if due
     python scripts/legacy_sunset.py status          # what phase, how long left
     python scripts/legacy_sunset.py check           # CI guard, exit 1 on a problem
     python scripts/legacy_sunset.py apply --dry-run # report without writing
@@ -268,8 +271,9 @@ def notice_lines(notice: dict, ended: bool) -> list[str]:
     when = format_day(notice["support_ends"])
     oldest = notice["max_version"] or "1.0.4"
     name = (f"⚠ UPDATE PremiumTV — support for {oldest} and older ended {when} · "
-            f"get the newest free version at {host}") if ended else \
-           (f"⚠ PremiumTV {oldest} and older: support ends {when} — update free at {host}")
+            f"the newest build updates itself: {host}") if ended else \
+           (f"⚠ UPDATE PremiumTV — support for {oldest} and older ends {when} · "
+            f"the newest build updates itself: {host}")
     attrs = (f'#EXTINF:-1 tvg-id="{NOTICE_ID}" {NOTICE_ATTR}="{NOTICE_VALUE}" '
              f'group-title="{NOTICE_GROUP}" tvg-logo="{NOTICE_LOGO}" '
              f'tvg-country="US" tvg-name="{name}",{name}')
@@ -312,6 +316,28 @@ def render_frozen(pinned: str, notice: dict) -> str:
         body.append(line)
     lines = frozen_header(pinned, notice) + notice_lines(notice, ended=True) + body
     return "\n".join(lines) + "\n"
+
+
+def inject_notice(text: str, notice: dict, ended: bool = False) -> str:
+    """The live legacy feed plus exactly one sanctioned notice entry, first.
+
+    This is how an installed build with no updater is told that a newer release
+    exists.  It keeps the freshly scraped channels untouched and only prepends
+    the notice, so a legacy build's library grows by one row instead of losing
+    anything.  Re-running is idempotent: any earlier notice entry is stripped
+    first, then a single fresh one is written in the same place.
+    """
+    lines = strip_notice_entries(text).splitlines()
+    split_at = len(lines)
+    for index, line in enumerate(lines):
+        if line.startswith("#EXTINF"):
+            split_at = index
+            break
+    head, body = lines[:split_at], lines[split_at:]
+    while head and not head[-1].strip():
+        head.pop()
+    out = head + notice_lines(notice, ended) + body
+    return "\n".join(out) + "\n"
 
 
 def write_if_changed(path: Path, text: str, dry_run: bool) -> bool:
@@ -380,6 +406,14 @@ def apply(root: Path = ROOT, now: int | None = None, dry_run: bool = False) -> d
             if write_if_changed(legacy, render_frozen(basis, notice), dry_run):
                 result["wrote"].append(LEGACY_USA)
         result["frozen"] = True
+    elif legacy.is_file():
+        # Still supported, so the legacy feed keeps the channels the scrape just
+        # wrote - but it also carries the sanctioned notice entry.  This is the
+        # delivery: an installed 1.0.0-1.0.4 has no notice code, so the only
+        # place it can read a message is the playlist it already refreshes.
+        warned = inject_notice(legacy.read_text(encoding="utf-8"), notice)
+        if write_if_changed(legacy, warned, dry_run):
+            result["wrote"].append(LEGACY_USA)
 
     return result
 
@@ -427,12 +461,28 @@ def check(root: Path = ROOT, now: int | None = None) -> list[str]:
     if not due and frozen:
         problems.append(
             f"{LEGACY_USA} is frozen {format_day(notice['support_ends'])} before support ends")
+    if legacy.is_file() and not frozen:
+        # The warning phase has to actually warn: this entry is the only message
+        # an installed 1.0.0-1.0.4 can receive, so its absence means the update
+        # was never pushed to the builds that need it.
+        count = count_notice_entries(legacy.read_text(encoding="utf-8"))
+        if count == 0:
+            problems.append(
+                f"{LEGACY_USA} carries no notice entry: legacy builds would never learn "
+                f"about the newer release (run scripts/legacy_sunset.py apply)")
+        elif count > 1:
+            problems.append(
+                f"{LEGACY_USA} carries {count} notice entries; exactly one is allowed")
     return problems
 
 
 def is_notice_entry_text(text: str) -> bool:
-    return any(line.strip().startswith("#EXTINF") and is_notice_entry(line)
-               for line in text.splitlines())
+    return count_notice_entries(text) > 0
+
+
+def count_notice_entries(text: str) -> int:
+    return sum(1 for line in text.splitlines()
+               if line.strip().startswith("#EXTINF") and is_notice_entry(line))
 
 
 def status(root: Path = ROOT, now: int | None = None) -> dict:
@@ -459,7 +509,7 @@ def status(root: Path = ROOT, now: int | None = None) -> dict:
         "legacy_entries": entries(legacy),
         "live_entries": entries(live),
         "pinned_entries": entries(pinned),
-        "legacy_notice": bool(frozen and legacy.is_file() and
+        "legacy_notice": bool(legacy.is_file() and
                               is_notice_entry_text(legacy.read_text(encoding="utf-8"))),
         "problems": list(notice["problems"]),
     }
@@ -470,7 +520,7 @@ def main(argv=None) -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("action", nargs="?", default="apply",
                         choices=("apply", "status", "check"),
-                        help="apply: mirror then freeze if due (default). "
+                        help="apply: mirror, attach the notice, freeze if due (default). "
                              "status: report the phase. check: CI guard, exit 1 on a problem.")
     parser.add_argument("--root", default=str(ROOT), help="repository root")
     parser.add_argument("--now", default="", help="pretend it is this UTC date (testing)")

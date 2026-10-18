@@ -178,8 +178,9 @@ use the global `all` scope only when GitHub marks the release as a pre-release.
 released before this notice existed. So they cannot be told anything in app except
 through the one playlist they refresh. 1.0.4 can still escape on its own, because
 its Settings → App updates will offer the next release; it simply will not be told
-to look. 1.0.0–1.0.3 have no such route, which is why the frozen feed carries the
-message for them.
+to look. 1.0.0–1.0.3 have no such route, which is why the feed they refresh carries the
+message for them — and it has carried it since the first warning, not only
+since the freeze.
 `scripts/legacy_sunset.py` splits delivery in two: current builds read
 [`playlists/live/USA.m3u`](playlists/live/), and 1.0.0–1.0.4 keep reading
 `playlists/countries/USA.m3u`. While support lasts the two are identical. On the
