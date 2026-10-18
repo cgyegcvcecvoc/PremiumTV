@@ -153,7 +153,7 @@ def wait_for(check, label):
             last_texts = texts_of(nodes)
             # The update check is asynchronous: the popup can arrive after the
             # channel list has already drawn and land on top of the Guide tab.
-            if dismiss_update_notice(last_texts):
+            if dismiss_update_notice(last_texts, nodes):
                 continue
             value = check(last_texts, nodes)
             if value:
@@ -178,13 +178,34 @@ NOTICE_EYEBROWS = {"PREMIUMTV UPDATE", "SUPPORT HAS ENDED"}
 _notice_seen = False
 
 
-def dismiss_update_notice(texts):
+def notice_dismiss_labels():
+    """The dialog's dismissal button text, as published in the notice.
+
+    Both the warning rule and its end-of-support escalation are read, so the
+    gate keeps working on either side of the sunset date.
+    """
+    labels = set()
+    try:
+        document = json.loads((ROOT / "app-update-notice.json").read_text(encoding="utf-8"))
+        for rule in document.get("rules") or []:
+            for source in (rule, rule.get("after_support_ends") or {}):
+                label = str(source.get("dismiss_label") or "").strip()
+                if label:
+                    labels.add(label)
+    except (OSError, ValueError):
+        pass
+    return labels
+
+
+def dismiss_update_notice(texts, nodes):
     """Dismisses the startup update popup if this build is showing one.
 
     A targeted build is *supposed* to be told to update, so the gate treats the
-    dialog as expected rather than as a missing channel list: it records the
-    milestone, keeps one screenshot as evidence, and presses Back, which is the
-    dismissal a TV remote has (the dialog sets dismissOnBackPress).
+    dialog as expected rather than as a missing channel list. It records the
+    milestone, keeps one screenshot as evidence, and presses the dialog's own
+    dismissal button - the same press a remote makes. Back alone is not enough:
+    the emulator's key event can land before the dialog window takes focus, and
+    the dialog then simply stays up.
     """
     global _notice_seen
     if not any(text.strip().upper() in NOTICE_EYEBROWS for text in texts):
@@ -193,8 +214,22 @@ def dismiss_update_notice(texts):
         _notice_seen = True
         progress("update popup shown: this build is inside the published notice range")
         screenshot("smoke-update-notice.png")
-    key(4)  # KEYCODE_BACK - dismisses for this launch only, by design
-    time.sleep(1.0)
+    labels = notice_dismiss_labels()
+    target = next((node for node in nodes
+                   if node.get("text", "").strip() in labels), None)
+    if target is None:
+        # Fall back to the last clickable node: the two buttons sit in a row,
+        # dismissal second, so this still presses the safe choice.
+        clickable = [node for node in nodes if node.get("clickable") == "true"
+                     and node.get("text", "").strip()]
+        target = clickable[-1] if clickable else None
+    if target is not None:
+        x, y = centre_of(target)
+        progress(f"tapping '{target.get('text', '').strip()}' to dismiss the popup")
+        adb("shell", "input", "tap", str(x), str(y))
+    else:
+        key(4)  # KEYCODE_BACK, the remote's own dismissal
+    time.sleep(1.5)
     return True
 
 
@@ -271,7 +306,7 @@ def main():
                 last_dump = xml
                 nodes = ET.fromstring(xml)
                 texts = {node.get("text", "") for node in nodes.iter("node")}
-                if dismiss_update_notice(texts):
+                if dismiss_update_notice(texts, list(nodes.iter("node"))):
                     continue
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
                 named = [value for value in texts for name in names if name and name in value]
