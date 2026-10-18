@@ -106,8 +106,8 @@ fun UpdateNoticeDialog(
             Surface(
                 modifier = Modifier
                     .widthIn(max = 620.dp)
-                    .padding(24.dp)
-                    .heightIn(max = (cardMaxHeight - 48.dp).coerceAtLeast(200.dp)),
+                    .padding(16.dp)
+                    .heightIn(max = (cardMaxHeight - 32.dp).coerceAtLeast(200.dp)),
                 shape = RoundedCornerShape(20.dp),
                 color = CardBackground,
                 border = BorderStroke(1.dp, accent.copy(alpha = 0.55f)),
@@ -115,7 +115,7 @@ fun UpdateNoticeDialog(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 28.dp, vertical = 24.dp),
+                        .padding(horizontal = 24.dp, vertical = 18.dp),
                 ) {
                     // The marquee plaque: one short line naming the notice, so
                     // the dialog reads as an announcement and not as an error.
@@ -154,7 +154,7 @@ fun UpdateNoticeDialog(
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = notice.title,
                         style = MaterialTheme.typography.headlineSmall,
@@ -256,7 +256,7 @@ fun UpdateNoticeDialog(
                         color = PremiumGoldDim,
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(14.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
