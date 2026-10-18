@@ -2,6 +2,7 @@ package com.premiumtv.app.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -143,13 +149,34 @@ fun UpdateNoticeDialog(
                         fontWeight = FontWeight.Bold,
                     )
 
+                    // A capped card has less room than the copy sometimes needs,
+                    // and a remote cannot drag a scrollbar. Making this region
+                    // focusable and answering the D-pad means the rest of the
+                    // message is reachable on a TV: Up/Down from either button
+                    // lands here and scrolls.
+                    val bodyScroll = rememberScrollState()
                     Column(
                         modifier = Modifier
                             // weight(fill = false) keeps its natural height when
                             // there is room and shrinks only when the card is
                             // capped, which is what keeps the footer on screen.
                             .weight(1f, fill = false)
-                            .verticalScroll(rememberScrollState()),
+                            .verticalScroll(bodyScroll)
+                            .focusable()
+                            .onKeyEvent { event ->
+                                if (event.type != KeyEventType.KeyDown) return@onKeyEvent false
+                                when (event.key) {
+                                    Key.DirectionDown -> {
+                                        bodyScroll.dispatchRawDelta(72f)
+                                        true
+                                    }
+                                    Key.DirectionUp -> {
+                                        bodyScroll.dispatchRawDelta(-72f)
+                                        true
+                                    }
+                                    else -> false
+                                }
+                            },
                     ) {
                         if (notice.message.isNotBlank()) {
                             Spacer(modifier = Modifier.height(10.dp))
@@ -231,11 +258,9 @@ fun UpdateNoticeDialog(
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = if (ended) {
-                            "This build no longer receives channel or guide updates from GitHub. " +
-                                "Back dismisses this message for now; it returns every launch."
+                            "Back dismisses for now; it returns every launch."
                         } else {
-                            "Back dismisses this message for now; it returns every launch until " +
-                                "PremiumTV is updated."
+                            "Back dismisses for now; it returns every launch until you update."
                         },
                         style = MaterialTheme.typography.labelSmall,
                         color = MutedText,
