@@ -19,6 +19,8 @@ import com.premiumtv.app.data.Channel
 internal data class LiveEvent(
     val sport: String,
     val title: String,
+    /** Stable identity of the matchup, shared by all of its servers. */
+    val key: String,
     val servers: List<Channel>,
 )
 
@@ -155,7 +157,7 @@ internal fun groupLiveEvents(channels: List<Channel>): List<LiveEventSection> {
         val parsed = parseLiveEvent(channel) ?: continue
         val existing = events[parsed.key]
         if (existing == null) {
-            events[parsed.key] = LiveEvent(parsed.sport, parsed.title, emptyList())
+            events[parsed.key] = LiveEvent(parsed.sport, parsed.title, parsed.key, emptyList())
             servers[parsed.key] = mutableListOf(channel)
         } else {
             val list = servers.getValue(parsed.key)
