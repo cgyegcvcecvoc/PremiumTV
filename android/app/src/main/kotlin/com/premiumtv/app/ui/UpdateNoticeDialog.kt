@@ -2,6 +2,7 @@ package com.premiumtv.app.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -67,6 +74,12 @@ fun UpdateNoticeDialog(
 ) {
     val ended = notice.level == NoticeLevel.EndOfSupport
     val accent = if (ended) LiveRed else PremiumGold
+    // A dialog window is clipped by the screen, not scrolled by it: on a short
+    // TV panel the buttons used to fall off the bottom edge, which left the
+    // message with no way to act on it. The card is capped to the screen and
+    // only the middle scrolls, so the two buttons are always on screen.
+    val screenHeightDp = LocalConfiguration.current.screenHeightDp
+    val cardMaxHeight = (screenHeightDp - 32).coerceAtLeast(240).dp
     // A remote has no pointer: the primary action takes focus as soon as the
     // dialog opens, so one press of the centre key starts the update.
     val actionFocus = remember { FocusRequester() }
@@ -93,7 +106,8 @@ fun UpdateNoticeDialog(
             Surface(
                 modifier = Modifier
                     .widthIn(max = 620.dp)
-                    .padding(24.dp),
+                    .padding(24.dp)
+                    .heightIn(max = (cardMaxHeight - 48.dp).coerceAtLeast(200.dp)),
                 shape = RoundedCornerShape(20.dp),
                 color = CardBackground,
                 border = BorderStroke(1.dp, accent.copy(alpha = 0.55f)),
@@ -124,6 +138,19 @@ fun UpdateNoticeDialog(
                             color = accent,
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 1.6.sp,
+                            modifier = Modifier.weight(1f),
+                        )
+                        // The version lives in the plaque rather than on its own
+                        // line: on a short panel every line saved here is a line
+                        // of the surprise that stays above the fold.
+                        Text(
+                            text = if (updateAvailable && newestVersion != null) {
+                                "installed $installedVersion · newest $newestVersion"
+                            } else {
+                                "installed $installedVersion"
+                            },
+                            style = MaterialTheme.typography.labelSmall,
+                            color = accent.copy(alpha = 0.75f),
                         )
                     }
 
@@ -135,10 +162,34 @@ fun UpdateNoticeDialog(
                         fontWeight = FontWeight.Bold,
                     )
 
+                    // A capped card has less room than the copy sometimes needs,
+                    // and a remote cannot drag a scrollbar. Making this region
+                    // focusable and answering the D-pad means the rest of the
+                    // message is reachable on a TV: Up/Down from either button
+                    // lands here and scrolls.
+                    val bodyScroll = rememberScrollState()
                     Column(
                         modifier = Modifier
-                            .heightIn(max = 260.dp)
-                            .verticalScroll(rememberScrollState()),
+                            // weight(fill = false) keeps its natural height when
+                            // there is room and shrinks only when the card is
+                            // capped, which is what keeps the footer on screen.
+                            .weight(1f, fill = false)
+                            .verticalScroll(bodyScroll)
+                            .focusable()
+                            .onKeyEvent { event ->
+                                if (event.type != KeyEventType.KeyDown) return@onKeyEvent false
+                                when (event.key) {
+                                    Key.DirectionDown -> {
+                                        bodyScroll.dispatchRawDelta(72f)
+                                        true
+                                    }
+                                    Key.DirectionUp -> {
+                                        bodyScroll.dispatchRawDelta(-72f)
+                                        true
+                                    }
+                                    else -> false
+                                }
+                            },
                     ) {
                         if (notice.message.isNotBlank()) {
                             Spacer(modifier = Modifier.height(10.dp))
@@ -182,17 +233,7 @@ fun UpdateNoticeDialog(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = if (updateAvailable && newestVersion != null) {
-                            "Installed $installedVersion  ·  newest on GitHub $newestVersion"
-                        } else {
-                            "Installed $installedVersion"
-                        },
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MutedText,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(14.dp))
                     // Named on screen because an Android TV usually has no
                     // browser to open: this is the address to visit on a phone.
                     Text(
@@ -220,11 +261,9 @@ fun UpdateNoticeDialog(
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = if (ended) {
-                            "This build no longer receives channel or guide updates from GitHub. " +
-                                "Back dismisses this message for now; it returns every launch."
+                            "Back dismisses for now; it returns every launch."
                         } else {
-                            "Back dismisses this message for now; it returns every launch until " +
-                                "PremiumTV is updated."
+                            "Back dismisses for now; it returns every launch until you update."
                         },
                         style = MaterialTheme.typography.labelSmall,
                         color = MutedText,

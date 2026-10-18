@@ -8,6 +8,12 @@ start and especially `uiautomator dump` all take much longer there, so the gate
 sizes its waits for the larger library instead of assuming the stable one.
 A dump that times out is retried rather than counted as a failed check.
 
+A build inside the range published in `app-update-notice.json` (1.0.0-1.0.4
+today) opens the update popup over the channel list on first launch. That is the
+behaviour the notice exists for, so the gate records it, screenshots it once and
+presses Back - the remote's own dismissal - instead of failing as though the
+channel list never drew.
+
 After the channel check, the Guide tab is opened. A preview build (bundle
 preview_features: cable-guide) must show the cable-style grid - channels down
 the left, half-hour times across the top, shows to the right - and answer the
@@ -145,6 +151,10 @@ def wait_for(check, label):
         try:
             last_xml, nodes = dump_ui()
             last_texts = texts_of(nodes)
+            # The update check is asynchronous: the popup can arrive after the
+            # channel list has already drawn and land on top of the Guide tab.
+            if dismiss_update_notice(last_texts, nodes):
+                continue
             value = check(last_texts, nodes)
             if value:
                 return value, last_texts, last_xml
@@ -160,6 +170,67 @@ def key(code, times=1):
     for _ in range(times):
         adb("shell", "input", "keyevent", code)
         time.sleep(0.6)
+
+
+# The popup's own headline, not the published copy: the wording in
+# app-update-notice.json can change without breaking this gate.
+NOTICE_EYEBROWS = {"PREMIUMTV UPDATE", "SUPPORT HAS ENDED"}
+_notice_seen = False
+
+
+def notice_dismiss_labels():
+    """The dialog's dismissal button text, as published in the notice.
+
+    Both the warning rule and its end-of-support escalation are read, so the
+    gate keeps working on either side of the sunset date.
+    """
+    labels = set()
+    try:
+        document = json.loads((ROOT / "app-update-notice.json").read_text(encoding="utf-8"))
+        for rule in document.get("rules") or []:
+            for source in (rule, rule.get("after_support_ends") or {}):
+                label = str(source.get("dismiss_label") or "").strip()
+                if label:
+                    labels.add(label)
+    except (OSError, ValueError):
+        pass
+    return labels
+
+
+def dismiss_update_notice(texts, nodes):
+    """Dismisses the startup update popup if this build is showing one.
+
+    A targeted build is *supposed* to be told to update, so the gate treats the
+    dialog as expected rather than as a missing channel list. It records the
+    milestone, keeps one screenshot as evidence, and presses the dialog's own
+    dismissal button - the same press a remote makes. Back alone is not enough:
+    the emulator's key event can land before the dialog window takes focus, and
+    the dialog then simply stays up.
+    """
+    global _notice_seen
+    if not any(text.strip().upper() in NOTICE_EYEBROWS for text in texts):
+        return False
+    if not _notice_seen:
+        _notice_seen = True
+        progress("update popup shown: this build is inside the published notice range")
+        screenshot("smoke-update-notice.png")
+    labels = notice_dismiss_labels()
+    target = next((node for node in nodes
+                   if node.get("text", "").strip() in labels), None)
+    if target is None:
+        # Fall back to the last clickable node: the two buttons sit in a row,
+        # dismissal second, so this still presses the safe choice.
+        clickable = [node for node in nodes if node.get("clickable") == "true"
+                     and node.get("text", "").strip()]
+        target = clickable[-1] if clickable else None
+    if target is not None:
+        x, y = centre_of(target)
+        progress(f"tapping '{target.get('text', '').strip()}' to dismiss the popup")
+        adb("shell", "input", "tap", str(x), str(y))
+    else:
+        key(4)  # KEYCODE_BACK, the remote's own dismissal
+    time.sleep(1.5)
+    return True
 
 
 def check_guide(meta, names):
@@ -235,6 +306,8 @@ def main():
                 last_dump = xml
                 nodes = ET.fromstring(xml)
                 texts = {node.get("text", "") for node in nodes.iter("node")}
+                if dismiss_update_notice(texts, list(nodes.iter("node"))):
+                    continue
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
                 named = [value for value in texts for name in names if name and name in value]
                 if count and named:

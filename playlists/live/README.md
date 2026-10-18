@@ -16,15 +16,16 @@ time:
 
 `raw.githubusercontent.com` serves the same bytes to every caller and cannot
 look at a version, so the only way to stop feeding one set of builds is to give
-the others a different address. While support lasts the two files are identical.
-On the end-of-support date published in `app-update-notice.json` the legacy feed
-is **pinned**: it keeps the channels that worked that day, gains one sanctioned
-notice entry telling those builds to go and get the newest release from GitHub,
-and stops receiving scrape updates. This file carries on.
+the others a different address. While support lasts the two files carry the same
+channels — the legacy copy also carries one sanctioned notice entry, and this
+one never does. On the end-of-support date published in `app-update-notice.json`
+the legacy feed is **pinned**: it keeps the channels that worked that day, keeps
+the notice entry, and stops receiving scrape updates. This file carries on.
 
 ## The notice entry
 
-The pinned legacy feed's first entry is marked `tvg-notice="app-update"`. Both
+From the first warning until the freeze, and then for good, the legacy feed's
+first entry is marked `tvg-notice="app-update"`. Both
 apps' M3U parsers (`android/.../data/M3uParser.kt`, `macos/app/src/main/parsers.js`)
 drop an entry carrying that marker, so it can never reach a channel list, a
 category, the shelf or the download site. Only builds too old to know the marker
@@ -34,13 +35,16 @@ message that can reach them.
 
 Its URL is the GitHub releases page rather than a stream. Selecting it in an old
 build fails to play, which is honest: the row is a notice, not a channel, and its
-name is the message.
+name is the message. `link_check.py` therefore never probes it, never counts it
+as a dead link and can never patch it out, and `verify_playlists.py` leaves it out
+of the group, order, id and dead-link checks.
 
 ## Do not edit these files by hand
 
 `python scripts/legacy_sunset.py check` fails a publishing run when the legacy
-feed no longer matches its pin, when the live feed carries a notice entry, or
-when the sunset date has passed and nothing was pinned. Use:
+feed no longer matches its pin, when it has lost the notice entry while support is
+still running, when the live feed carries a notice entry, or when the sunset date
+has passed and nothing was pinned. Use:
 
 ```bash
 python scripts/legacy_sunset.py status   # which phase, how many days left

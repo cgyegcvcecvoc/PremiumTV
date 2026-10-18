@@ -347,7 +347,7 @@ def playlist_channels(paths: list) -> Wanted:
         with path.open("r", encoding="utf-8", errors="replace") as handle:
             for line in handle:
                 stripped = line.strip()
-                if not stripped.startswith("#EXTINF"):
+                if not stripped.startswith("#EXTINF") or is_notice_line(stripped):
                     continue
                 attrs = dict(scraper.ATTR_RE.findall(stripped))
                 name = stripped.split(",", 1)[1] if "," in stripped else ""
@@ -1002,6 +1002,21 @@ def input_playlist_paths(args, out_dir: Path) -> tuple[list[Path], list[Path]]:
     return ordered, country_paths
 
 
+NOTICE_ATTR = "tvg-notice"
+NOTICE_VALUE = "app-update"
+
+
+def is_notice_line(line: str) -> bool:
+    """True for the sanctioned end-of-support notice in the legacy USA feed.
+
+    ``scripts/legacy_sunset.py`` publishes it so an installed build with no
+    updater can be told about a newer release. It is a message, not a channel,
+    so it must never add a ``<channel>`` row or a schedule to any guide.
+    """
+    match = re.search(rf'{NOTICE_ATTR}="([^"]*)"', line)
+    return bool(match) and match.group(1).strip().lower() == NOTICE_VALUE
+
+
 def country_playlist_ids(path: Path) -> list[str]:
     """Unique non-empty ``tvg-id`` values in a country playlist, in playlist order."""
     ids, seen = [], set()
@@ -1010,7 +1025,7 @@ def country_playlist_ids(path: Path) -> list[str]:
     with path.open("r", encoding="utf-8", errors="replace") as handle:
         for line in handle:
             stripped = line.strip()
-            if not stripped.startswith("#EXTINF"):
+            if not stripped.startswith("#EXTINF") or is_notice_line(stripped):
                 continue
             tvg_id = dict(scraper.ATTR_RE.findall(stripped)).get("tvg-id", "").strip()
             if tvg_id and tvg_id not in seen:
@@ -1031,7 +1046,7 @@ def playlist_fingerprint(paths: list[Path]) -> str:
         with path.open("r", encoding="utf-8", errors="replace") as handle:
             for line in handle:
                 stripped = line.strip()
-                if not stripped.startswith("#EXTINF"):
+                if not stripped.startswith("#EXTINF") or is_notice_line(stripped):
                     continue
                 attrs = dict(scraper.ATTR_RE.findall(stripped))
                 name = stripped.split(",", 1)[1] if "," in stripped else ""

@@ -87,6 +87,13 @@ SEGMENT_RANGE = f"bytes=0-{SEGMENT_READ_BYTES - 1}"
 MIN_SEGMENT_BYTES = 512
 # Statuses that are confirmed dead and therefore safe to patch out.
 DEAD_STATUSES = {"offline", "invalid"}
+
+# The sanctioned end-of-support notice (scripts/legacy_sunset.py) is a message
+# for builds that have no updater, not a stream.  It is never probed, never
+# counted as a dead link and never removed: its URL is the GitHub releases page,
+# which would answer like an HTML page and be "patched out" on the first run.
+NOTICE_ATTR = "tvg-notice"
+NOTICE_VALUE = "app-update"
 # A run whose working share falls below this is treated as a network problem.
 DEFAULT_MIN_WORKING_RATIO = 0.20
 # Never delete more than this share of one playlist in a single patch.
@@ -183,6 +190,20 @@ def blocks_to_text(header: list, blocks: list) -> str:
 
 
 EXTINF_GROUP_RE = re.compile(r'\s*group-title="[^"]*"')
+
+
+def is_notice_block(block: Block) -> bool:
+    """True for the sanctioned end-of-support notice entry.
+
+    It lives in the legacy USA playlist so an installed 1.0.0-1.0.4 can see it,
+    but it is a message rather than a channel: the deep check must leave it
+    alone, or the first nightly ``--patch`` would delete it as a dead link.
+    """
+    lines = getattr(block, "lines", None) or []
+    if not lines:
+        return False
+    match = re.search(rf'{NOTICE_ATTR}="([^"]*)"', lines[0])
+    return bool(match) and match.group(1).strip().lower() == NOTICE_VALUE
 
 
 def set_block_group(block: Block, group: str) -> bool:
@@ -642,7 +663,9 @@ def load_playlists(paths: list) -> dict:
     for path in paths:
         text = path.read_text(encoding="utf-8", errors="replace")
         header, blocks = split_blocks(text)
-        channels = [channel_from_block(block, path.name) for block in blocks]
+        # The sanctioned notice is a message, not a stream: nothing to probe.
+        channels = [channel_from_block(block, path.name) for block in blocks
+                    if not is_notice_block(block)]
         loaded[path] = {"header": header, "blocks": blocks, "channels": channels}
     return loaded
 
@@ -749,11 +772,13 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
         return patch_report
 
     for path, data in loaded.items():
-        entries = len(data["blocks"])
+        notices = [block for block in data["blocks"] if is_notice_block(block)]
+        real_blocks = [block for block in data["blocks"] if not is_notice_block(block)]
+        entries = len(real_blocks)
         if path in report_only:
             # Checked (and its dead links feed the quarantine), but never rewritten:
             # see is_report_only().
-            dead_here = sum(1 for block in data["blocks"]
+            dead_here = sum(1 for block in real_blocks
                             if results.get(block.url or "", {}).get("status")
                             in DEAD_STATUSES)
             patch_report["reported_only"].append({
@@ -765,7 +790,7 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
                 f"file left complete (documented archive)")
             continue
         kept, removed = [], []
-        for block in data["blocks"]:
+        for block in real_blocks:
             status = results.get(block.url or "", {}).get("status", "unchecked")
             if status in DEAD_STATUSES:
                 removed.append({"name": block.name, "url": block.url,
@@ -790,6 +815,9 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
         # every group title is one of the fixed categories, so a patched file
         # matches what the next scrape would publish.
         kept, regrouped = tidy_blocks(kept, path.name)
+        # The notice stays first, exactly where legacy_sunset.py puts it: a
+        # legacy build shows the top of its channel list first.
+        kept = notices + kept
         if not dry_run:
             path.write_text(blocks_to_text(data["header"], kept), encoding="utf-8")
         patch_report["regrouped"] = patch_report.get("regrouped", 0) + regrouped

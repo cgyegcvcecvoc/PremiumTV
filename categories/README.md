@@ -1,6 +1,6 @@
 # Category shelf
 
-- **Shelf rebuilt:** 2026-10-18 13:37 UTC (2026-10-18 09:37 AM EDT) — _scheduled guide build_
+- **Shelf rebuilt:** 2026-10-18 14:17 UTC (2026-10-18 10:17 AM EDT) — _remove repeated URLs and publish the app-update notice_
 - **Sources:** [`playlists/PremiumTV.m3u`](../playlists/PremiumTV.m3u) for `All/`, [`playlists/live/USA.m3u`](../playlists/live/USA.m3u) for `USA.m3u` and `USA/`
 - **Order:** Sports -> Lifestyle -> Fox Channels -> CBS -> NBC -> NBC Sports Channels -> Cartoons -> PBS -> Game Shows (each followed by its own Backups group), then the long tail by size, `Other` last — the published order from `scripts/categorize.py`.
 - **One entry per channel:** a channel's spare feeds sit right after it in its `<category> Backups` group, best quality first.
@@ -112,7 +112,7 @@ One file per category for the whole library (US channels first inside a category
 | 39 | United States | 325 | [`United_States.m3u`](All/United_States.m3u) |
 | 40 | United States Backups | 59 | [`United_States_Backups.m3u`](All/United_States_Backups.m3u) |
 | 41 | Kids | 305 | [`Kids.m3u`](All/Kids.m3u) |
-| 42 | Kids Backups | 57 | [`Kids_Backups.m3u`](All/Kids_Backups.m3u) |
+| 42 | Kids Backups | 56 | [`Kids_Backups.m3u`](All/Kids_Backups.m3u) |
 | 43 | North America | 280 | [`North_America.m3u`](All/North_America.m3u) |
 | 44 | North America Backups | 5 | [`North_America_Backups.m3u`](All/North_America_Backups.m3u) |
 | 45 | Education | 117 | [`Education.m3u`](All/Education.m3u) |

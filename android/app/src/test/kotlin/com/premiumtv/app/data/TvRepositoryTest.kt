@@ -107,6 +107,36 @@ https://example.org/news.m3u8"""
         assertEquals("News, Local", channels.single().group)
     }
 
+    /**
+     * The legacy USA feed carries one sanctioned end-of-support entry
+     * (`tvg-notice="app-update"`, written by scripts/legacy_sunset.py) so an
+     * installed build with no updater can be told about the newer release. It is
+     * a message: it must never become a channel, a category or a guide row in a
+     * build that understands the marker.
+     */
+    @Test fun m3uParserDropsTheSanctionedUpdateNoticeEntry() {
+        val playlist = """#EXTM3U x-tvg-url="https://example.org/guide.xml"
+#EXTINF:-1 tvg-id="premiumtv.notice.update" tvg-notice="app-update" group-title="PremiumTV Notice" tvg-name="⚠ UPDATE PremiumTV",⚠ UPDATE PremiumTV — support for 1.0.4 and older ends Nov 16, 2026
+https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest
+#EXTINF:-1 tvg-id="news.local" group-title="News",News, Local
+https://example.org/news.m3u8"""
+        val (channels, guideUrl) = M3uParser.parse(playlist)
+        assertEquals(1, channels.size)
+        assertEquals("News, Local", channels.single().name)
+        assertEquals("https://example.org/guide.xml", guideUrl)
+    }
+
+    @Test fun m3uParserKeepsAnEntryThatOnlyLooksLikeTheNotice() {
+        // Only the exact marker is a notice; a channel that happens to be called
+        // "notice" is an ordinary channel and must survive.
+        val playlist = """#EXTM3U
+#EXTINF:-1 tvg-id="notice.tv" tvg-notice="schedule" group-title="News",Notice TV
+https://example.org/notice.m3u8"""
+        val (channels, _) = M3uParser.parse(playlist)
+        assertEquals(1, channels.size)
+        assertEquals("Notice TV", channels.single().name)
+    }
+
     @Test fun xmltvParserRejectsInvalidDatesAndRepairsNonPositiveDurations() {
         val guide = """<tv>
 <programme channel="demo" start="20261101010000 +0000" stop="20261101000000 +0000">

@@ -141,8 +141,34 @@ class WarningPhaseTests(unittest.TestCase):
         self.tree.apply(day_before_support_ends())
         self.assertFalse(self.tree.pinned.exists())
         self.assertFalse(legacy_sunset.is_frozen(self.tree.legacy))
-        self.assertEqual(self.tree.legacy.read_text(encoding="utf-8"), self.tree.channels,
+        # The channels still arrive; the notice rides in front of them.
+        warned = self.tree.legacy.read_text(encoding="utf-8")
+        self.assertEqual(legacy_sunset.strip_notice_entries(warned), self.tree.channels,
                          "a legacy build must keep receiving scrape updates until the sunset")
+        self.assertEqual(legacy_sunset.count_notice_entries(warned), 1,
+                         "the warning phase must actually warn: one sanctioned entry")
+
+    def test_the_warning_entry_is_first_so_an_old_build_shows_it(self):
+        self.tree.apply(day_before_support_ends())
+        lines = self.tree.legacy.read_text(encoding="utf-8").splitlines()
+        first_entry = next(index for index, line in enumerate(lines)
+                           if line.startswith("#EXTINF"))
+        self.assertTrue(legacy_sunset.is_notice_entry(lines[first_entry]), lines[first_entry])
+        self.assertIn("UPDATE PremiumTV", lines[first_entry])
+        self.assertIn("updates itself", lines[first_entry])
+
+    def test_the_live_feed_never_carries_the_notice(self):
+        self.tree.apply(day_before_support_ends())
+        self.assertEqual(legacy_sunset.count_notice_entries(
+            self.tree.live.read_text(encoding="utf-8")), 0,
+            "current builds must never see a fake channel")
+
+    def test_a_missing_notice_entry_is_a_problem(self):
+        self.tree.apply(day_before_support_ends())
+        self.tree.legacy.write_text(self.tree.channels, encoding="utf-8")
+        problems = legacy_sunset.check(self.tree.root, now=day_before_support_ends())
+        self.assertTrue(any("carries no notice entry" in problem for problem in problems),
+                        problems)
 
     def test_a_second_run_changes_nothing(self):
         self.tree.apply(day_before_support_ends())
@@ -359,6 +385,81 @@ class GuardTests(unittest.TestCase):
         self.assertTrue(any("grace period" in problem for problem in problems), problems)
 
 
+class ToolingToleranceTests(unittest.TestCase):
+    """Every publisher must treat the notice as a message, not a dead channel."""
+
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp(prefix="premiumtv-notice-tools-"))
+        self.addCleanup(shutil.rmtree, self.dir, True)
+        self.notice = legacy_sunset.read_notice(ROOT)
+        body = (
+            '#EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/'
+            'PremiumTV1/main/EPG/USA.xml"\n'
+            '# USA working channels (2) - updated 2026-10-17 18:54 UTC\n'
+            '#EXTINF:-1 tvg-id="one.us" group-title="Sports" tvg-country="US",One Sports\n'
+            "https://example.com/one.m3u8\n"
+            '#EXTINF:-1 tvg-id="two.us" group-title="News" tvg-country="US",Two News\n'
+            "https://example.com/two.m3u8\n"
+        )
+        self.text = legacy_sunset.inject_notice(body, self.notice)
+        self.path = self.dir / "USA.m3u"
+        self.path.write_text(self.text, encoding="utf-8")
+
+    def test_verify_playlists_excludes_the_notice_from_every_structural_check(self):
+        import verify_playlists
+
+        result = verify_playlists.verify_playlist(
+            self.path, self.dir / "EPG", dead={}, cache={}, parse_epg=False)
+        self.assertEqual(result["entries"], 2)
+        self.assertEqual(result["sanctioned_notice"], 1)
+        joined = " ".join(result["issues"])
+        self.assertNotIn("PremiumTV Notice", joined)
+        self.assertNotIn("taxonomy never writes", joined)
+        self.assertNotIn("out of order", joined)
+        self.assertEqual(result["out_of_order"], 0)
+
+    def test_the_deep_check_never_probes_the_notice_url(self):
+        import link_check
+
+        loaded = link_check.load_playlists([self.path])
+        urls = [channel.url for channel in loaded[self.path]["channels"]]
+        self.assertEqual(urls, ["https://example.com/one.m3u8",
+                                "https://example.com/two.m3u8"])
+
+    def test_the_deep_check_cannot_patch_the_notice_out(self):
+        import link_check
+
+        loaded = link_check.load_playlists([self.path])
+        results = {
+            "https://example.com/one.m3u8": {"status": "offline", "reason": "404"},
+            # Even if the notice URL were probed and called dead, it must survive.
+            self.notice["releases_url"]: {"status": "offline", "reason": "HTML"},
+        }
+        link_check.patch_playlists(loaded, results, min_working_ratio=0.0,
+                                   max_remove_ratio=1.0, dry_run=False)
+        patched = self.path.read_text(encoding="utf-8")
+        self.assertEqual(legacy_sunset.count_notice_entries(patched), 1)
+        self.assertTrue(legacy_sunset.is_notice_entry(patched.splitlines()[2]))
+        self.assertIn("https://example.com/two.m3u8", patched)
+        self.assertNotIn("https://example.com/one.m3u8", patched)
+
+    def test_the_guide_builder_never_turns_the_notice_into_a_channel(self):
+        import epg_build
+
+        ids = epg_build.country_playlist_ids(self.path)
+        self.assertNotIn(legacy_sunset.NOTICE_ID, ids)
+        self.assertEqual(ids, ["one.us", "two.us"])
+
+    def test_both_app_parsers_drop_the_same_marker_the_script_writes(self):
+        kotlin = (ROOT / "android/app/src/main/kotlin/com/premiumtv/app/data/"
+                         "M3uParser.kt").read_text(encoding="utf-8")
+        script = (ROOT / "scripts/link_check.py").read_text(encoding="utf-8")
+        self.assertIn('const val NOTICE_ATTR = "tvg-notice"', kotlin)
+        self.assertIn('const val NOTICE_VALUE = "app-update"', kotlin)
+        self.assertIn(legacy_sunset.NOTICE_ATTR, script)
+        self.assertIn(legacy_sunset.NOTICE_VALUE, script)
+
+
 class ConsumerWiringTests(unittest.TestCase):
     """Nothing that must stay current may be pointed at the pinned feed."""
 
@@ -370,8 +471,14 @@ class ConsumerWiringTests(unittest.TestCase):
                          "the legacy feed must not be frozen before its published sunset")
         self.assertFalse(legacy_sunset.is_notice_entry_text(LIVE.read_text(encoding="utf-8")))
 
-    def test_the_live_feed_is_the_legacy_feed_while_support_lasts(self):
-        self.assertEqual(LIVE.read_text(encoding="utf-8"), LEGACY.read_text(encoding="utf-8"))
+    def test_the_live_feed_is_the_legacy_feed_without_the_notice(self):
+        live = LIVE.read_text(encoding="utf-8")
+        legacy = LEGACY.read_text(encoding="utf-8")
+        self.assertEqual(live, legacy_sunset.strip_notice_entries(legacy),
+                         "while support lasts the two feeds carry the same channels")
+        self.assertEqual(legacy_sunset.count_notice_entries(legacy), 1,
+                         "an installed 1.0.0-1.0.4 must be told about the newer release")
+        self.assertEqual(legacy_sunset.count_notice_entries(live), 0)
 
     def test_apps_are_built_from_the_live_feed(self):
         playlist, guide = build_bundle.SCOPE_INPUTS["usa"]
