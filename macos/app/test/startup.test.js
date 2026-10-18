@@ -59,6 +59,7 @@ function setup(t, initial, appInfo = { version: '1.0.2' }, updates = null) {
   // harness keeps that order so app.js finds them on window.
   dom.window.eval(fs.readFileSync(path.join(renderer, 'category-icons.js'), 'utf8'));
   dom.window.eval(fs.readFileSync(path.join(renderer, 'live-events.js'), 'utf8'));
+  dom.window.eval(fs.readFileSync(path.join(renderer, 'personal.js'), 'utf8'));
   dom.window.eval(fs.readFileSync(path.join(renderer, 'app.js'), 'utf8'));
   return {
     window: dom.window,
