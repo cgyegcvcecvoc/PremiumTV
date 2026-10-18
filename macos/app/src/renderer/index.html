@@ -47,7 +47,7 @@
       </nav>
 
       <div class="search-wrap">
-        <input id="search" type="search" placeholder="Search channels" autocomplete="off" spellcheck="false" />
+        <input id="search" type="search" placeholder="Click to search channels" autocomplete="off" spellcheck="false" readonly aria-readonly="true" title="Click to search" />
       </div>
 
       <div id="categories" class="scroll" aria-label="Categories"></div>
@@ -127,7 +127,12 @@
         <p id="player-next" class="muted"></p>
         <p id="player-detail" class="muted small"></p>
       </div>
-      <button id="player-close" class="btn btn-quiet" aria-label="Close player">Close ⎋</button>
+      <div class="player-actions">
+        <button id="player-prev-server" class="btn btn-quiet" aria-label="Previous server">◀ Server</button>
+        <button id="player-next-server" class="btn btn-quiet" aria-label="Next server">Server ▶</button>
+        <button id="player-favorite" class="btn btn-quiet" aria-label="Toggle favorite">☆ Favorite</button>
+        <button id="player-close" class="btn btn-quiet" aria-label="Close player">Close ⎋</button>
+      </div>
     </div>
   </div>
 
@@ -159,6 +164,7 @@
   <script src="vendor/mpegts.js"></script>
   <script src="category-icons.js"></script>
   <script src="live-events.js"></script>
+  <script src="personal.js"></script>
   <script src="player.js"></script>
   <script src="app.js"></script>
 </body>

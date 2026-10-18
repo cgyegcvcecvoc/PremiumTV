@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -57,6 +58,8 @@ fun PlayerScreen(
     programmes: List<Programme>,
     now: Long,
     onClose: () -> Unit,
+    isFavorite: Boolean = false,
+    onToggleFavorite: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val playlist = remember(channel.url) {
@@ -246,6 +249,32 @@ fun PlayerScreen(
                 color = Color.White,
                 modifier = Modifier.align(Alignment.Center),
             )
+        }
+
+        // Manual server switching (1.0.6): automatic fallback still walks the
+        // list on failure, but a viewer whose live event is buffering can jump
+        // to the next/previous server themselves instead of waiting it out.
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 32.dp, bottom = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            if (playlist.size > 1) {
+                FocusButton("◀ Server") {
+                    errorMessage = null
+                    buffering = true
+                    serverIndex = nextServerIndex(serverIndex, playlist.size, -1)
+                    switchNotice = "Server ${serverIndex + 1} of ${playlist.size} · selected by you"
+                }
+                FocusButton("Server ▶") {
+                    errorMessage = null
+                    buffering = true
+                    serverIndex = nextServerIndex(serverIndex, playlist.size, 1)
+                    switchNotice = "Server ${serverIndex + 1} of ${playlist.size} · selected by you"
+                }
+            }
+            FocusButton(if (isFavorite) "★ Favorited" else "☆ Favorite") { onToggleFavorite() }
         }
 
         Text(

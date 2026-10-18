@@ -64,7 +64,7 @@ class AndroidRefreshScheduleTests(unittest.TestCase):
 class AndroidRefreshWiringTests(unittest.TestCase):
     def test_release_version_and_workmanager_dependency(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.0.5")', gradle)
+        self.assertIn('orElse("1.0.6")', gradle)
         self.assertIn('orElse("100000005")', gradle)
         self.assertIn("versionName = premiumTvVersion", gradle)
         self.assertIn("versionCode = premiumTvVersionCode", gradle)
@@ -72,7 +72,7 @@ class AndroidRefreshWiringTests(unittest.TestCase):
 
         builder = text(ROOT / "android" / "tools" / "build_bundle.py")
         self.assertIn('DEFAULT_SCOPE = "usa"', builder)
-        self.assertIn('DEFAULT_VERSION = "1.0.5"', builder)
+        self.assertIn('DEFAULT_VERSION = "1.0.6"', builder)
         for workflow in ("android-build.yml", "macos-build.yml"):
             source = text(ROOT / ".github" / "workflows" / workflow)
             # Versions and scopes are resolved from the tag/channel instead of
