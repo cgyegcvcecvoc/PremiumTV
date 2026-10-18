@@ -8,6 +8,12 @@ start and especially `uiautomator dump` all take much longer there, so the gate
 sizes its waits for the larger library instead of assuming the stable one.
 A dump that times out is retried rather than counted as a failed check.
 
+A build inside the range published in `app-update-notice.json` (1.0.0-1.0.4
+today) opens the update popup over the channel list on first launch. That is the
+behaviour the notice exists for, so the gate records it, screenshots it once and
+presses Back - the remote's own dismissal - instead of failing as though the
+channel list never drew.
+
 After the channel check, the Guide tab is opened. A preview build (bundle
 preview_features: cable-guide) must show the cable-style grid - channels down
 the left, half-hour times across the top, shows to the right - and answer the
@@ -145,6 +151,10 @@ def wait_for(check, label):
         try:
             last_xml, nodes = dump_ui()
             last_texts = texts_of(nodes)
+            # The update check is asynchronous: the popup can arrive after the
+            # channel list has already drawn and land on top of the Guide tab.
+            if dismiss_update_notice(last_texts):
+                continue
             value = check(last_texts, nodes)
             if value:
                 return value, last_texts, last_xml
@@ -160,6 +170,32 @@ def key(code, times=1):
     for _ in range(times):
         adb("shell", "input", "keyevent", code)
         time.sleep(0.6)
+
+
+# The popup's own headline, not the published copy: the wording in
+# app-update-notice.json can change without breaking this gate.
+NOTICE_EYEBROWS = {"PREMIUMTV UPDATE", "SUPPORT HAS ENDED"}
+_notice_seen = False
+
+
+def dismiss_update_notice(texts):
+    """Dismisses the startup update popup if this build is showing one.
+
+    A targeted build is *supposed* to be told to update, so the gate treats the
+    dialog as expected rather than as a missing channel list: it records the
+    milestone, keeps one screenshot as evidence, and presses Back, which is the
+    dismissal a TV remote has (the dialog sets dismissOnBackPress).
+    """
+    global _notice_seen
+    if not any(text.strip().upper() in NOTICE_EYEBROWS for text in texts):
+        return False
+    if not _notice_seen:
+        _notice_seen = True
+        progress("update popup shown: this build is inside the published notice range")
+        screenshot("smoke-update-notice.png")
+    key(4)  # KEYCODE_BACK - dismisses for this launch only, by design
+    time.sleep(1.0)
+    return True
 
 
 def check_guide(meta, names):
@@ -235,6 +271,8 @@ def main():
                 last_dump = xml
                 nodes = ET.fromstring(xml)
                 texts = {node.get("text", "") for node in nodes.iter("node")}
+                if dismiss_update_notice(texts):
+                    continue
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
                 named = [value for value in texts for name in names if name and name in value]
                 if count and named:
