@@ -18,6 +18,10 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
   away — a message with no way to act on it. The card is now capped to the
   screen height, only the middle paragraph scrolls, and the buttons sit in a
   fixed footer, so the primary action is always one press away.
+- **The copy fits, and says so when it does not.** A 1.0.4 build's message is
+  shorter now, so the whole thing reads above the buttons on a short panel; when
+  a longer notice still overflows, the card says *"D-pad up on the message for
+  the rest"* instead of stopping mid-sentence, which read as a bug.
 - **1.0.4 is no longer told a newer release is waiting.** Until 1.0.5 exists,
   the newest release on GitHub *is* 1.0.4, so the old single rule produced "You
   are on PremiumTV 1.0.4. The newest release on GitHub is 1.0.4." The notice
