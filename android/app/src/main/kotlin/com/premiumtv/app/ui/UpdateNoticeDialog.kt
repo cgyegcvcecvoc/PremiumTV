@@ -138,6 +138,19 @@ fun UpdateNoticeDialog(
                             color = accent,
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 1.6.sp,
+                            modifier = Modifier.weight(1f),
+                        )
+                        // The version lives in the plaque rather than on its own
+                        // line: on a short panel every line saved here is a line
+                        // of the surprise that stays above the fold.
+                        Text(
+                            text = if (updateAvailable && newestVersion != null) {
+                                "installed $installedVersion · newest $newestVersion"
+                            } else {
+                                "installed $installedVersion"
+                            },
+                            style = MaterialTheme.typography.labelSmall,
+                            color = accent.copy(alpha = 0.75f),
                         )
                     }
 
@@ -220,17 +233,7 @@ fun UpdateNoticeDialog(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = if (updateAvailable && newestVersion != null) {
-                            "Installed $installedVersion  ·  newest on GitHub $newestVersion"
-                        } else {
-                            "Installed $installedVersion"
-                        },
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MutedText,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(14.dp))
                     // Named on screen because an Android TV usually has no
                     // browser to open: this is the address to visit on a phone.
                     Text(
