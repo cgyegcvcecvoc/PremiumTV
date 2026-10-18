@@ -233,7 +233,21 @@ fun UpdateNoticeDialog(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(14.dp))
+                    if (bodyScroll.canScrollForward) {
+                        // A capped card clips the copy, so say so: a remote has
+                        // no scrollbar to notice, and a sentence that stops
+                        // mid-word reads as a bug rather than as a hint. The
+                        // line sits under the message, never over it.
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "D-pad up on the message for the rest",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = PremiumGoldDim,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
                     // Named on screen because an Android TV usually has no
                     // browser to open: this is the address to visit on a phone.
                     Text(

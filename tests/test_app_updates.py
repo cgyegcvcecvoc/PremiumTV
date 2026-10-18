@@ -286,8 +286,9 @@ class UpdateNoticePopupTests(unittest.TestCase):
             self.assertIn("min_version", rule)
             self.assertIn("android", rule["platforms"])
             self.assertIn("macos", rule["platforms"])
-            # The surprise is the reason to update, so it must be spelled out.
-            self.assertIn("itself", rule["surprise"])
+            # The surprise is the reason to update, so it must be spelled out:
+            # "updates itself" for an upgrade, "arrives in Settings" for 1.0.4.
+            self.assertRegex(rule["surprise"], r"itself|Settings")
             self.assertIn("after_support_ends", rule,
                           "the escalation copy ships in the document, not in a build")
             self.assertEqual(rule["after_support_ends"]["level"], "end_of_support")
