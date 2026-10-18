@@ -77,7 +77,7 @@ test('support ends exactly the published grace period after the first warning', 
 test('an older stable build is told to update, with the surprise spelled out', () => {
   const notice = selectNotice({
     body: DOCUMENT,
-    appVersion: '1.0.4',
+    appVersion: '1.0.2',
     newestVersion: '1.0.5',
     now: BEFORE_SUPPORT_ENDS,
   });
@@ -86,7 +86,7 @@ test('an older stable build is told to update, with the surprise spelled out', (
   assert.equal(notice.supportEnded, false);
   assert.match(notice.title, /newer PremiumTV/i);
   // The placeholders are resolved, never shown raw.
-  assert.match(notice.message, /1\.0\.4/);
+  assert.match(notice.message, /1\.0\.2/);
   assert.match(notice.message, /1\.0\.5/);
   assert.ok(!notice.message.includes('{'), 'no unsubstituted placeholder may survive');
   // The surprise is the point of the message: updating ends manual installs.
@@ -148,9 +148,11 @@ test('a disabled, malformed or unknown-schema document shows nothing', () => {
 });
 
 test('a rule aimed at the other platform does not fire here', () => {
+  const targetsCurrent = PUBLISHED.rules.find((rule) => rule.max_version === '1.0.4');
+  assert.ok(targetsCurrent, 'the document must still target the last manual install');
   const androidOnly = JSON.stringify({
     ...PUBLISHED,
-    rules: [{ ...PUBLISHED.rules[0], platforms: ['android'] }],
+    rules: [{ ...targetsCurrent, platforms: ['android'] }],
   });
   assert.equal(selectNotice({
     body: androidOnly, appVersion: '1.0.4', now: BEFORE_SUPPORT_ENDS, platform: 'macos',

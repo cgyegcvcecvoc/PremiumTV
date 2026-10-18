@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -67,6 +68,12 @@ fun UpdateNoticeDialog(
 ) {
     val ended = notice.level == NoticeLevel.EndOfSupport
     val accent = if (ended) LiveRed else PremiumGold
+    // A dialog window is clipped by the screen, not scrolled by it: on a short
+    // TV panel the buttons used to fall off the bottom edge, which left the
+    // message with no way to act on it. The card is capped to the screen and
+    // only the middle scrolls, so the two buttons are always on screen.
+    val screenHeightDp = LocalConfiguration.current.screenHeightDp
+    val cardMaxHeight = (screenHeightDp - 32).coerceAtLeast(240).dp
     // A remote has no pointer: the primary action takes focus as soon as the
     // dialog opens, so one press of the centre key starts the update.
     val actionFocus = remember { FocusRequester() }
@@ -93,7 +100,8 @@ fun UpdateNoticeDialog(
             Surface(
                 modifier = Modifier
                     .widthIn(max = 620.dp)
-                    .padding(24.dp),
+                    .padding(24.dp)
+                    .heightIn(max = (cardMaxHeight - 48.dp).coerceAtLeast(200.dp)),
                 shape = RoundedCornerShape(20.dp),
                 color = CardBackground,
                 border = BorderStroke(1.dp, accent.copy(alpha = 0.55f)),
@@ -137,7 +145,10 @@ fun UpdateNoticeDialog(
 
                     Column(
                         modifier = Modifier
-                            .heightIn(max = 260.dp)
+                            // weight(fill = false) keeps its natural height when
+                            // there is room and shrinks only when the card is
+                            // capped, which is what keeps the footer on screen.
+                            .weight(1f, fill = false)
                             .verticalScroll(rememberScrollState()),
                     ) {
                         if (notice.message.isNotBlank()) {

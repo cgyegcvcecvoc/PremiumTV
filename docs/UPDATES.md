@@ -179,9 +179,14 @@ check is throttled and the downloaded DMG is reused until it is installed.
 3. The download site promotes the release only after the APK and all four Mac
    installers exist. Installed 1.0.4+ apps see it on their next daily check or
    immediately when the user presses **Check for updates**.
-4. Check `app-update-notice.json`: a release that every older build should move
-   to needs its `max_version` raised to the last version that is being left
-   behind, so their popup names the right build.
+4. Check `app-update-notice.json`. Its rules are read in order and the first
+   one whose range contains the installed version is shown, so the document
+   keeps two of them: `legacy-upgrade` (0.0.0-1.0.3) promises a newer release
+   because there always is one, and `last-manual-install` (1.0.4) never does -
+   it can be read on the day 1.0.4 is the newest release, when telling somebody
+   a newer one is waiting would simply be false. When a release leaves another
+   version behind, move that version out of the first rule's range and into the
+   second's, or add a third rule for it.
 
 A preview is published with GitHub's pre-release flag and keeps its preview
 name; it uses the global bundle scope and never becomes the default download.

@@ -10,6 +10,27 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-18 — The popup is readable on a TV, and honest about 1.0.4
+
+- **The buttons can no longer fall off the screen.** The first emulator
+  screenshot of the popup on a short panel showed the card running past the
+  bottom edge with the *Update now* and *Remind me next time* buttons clipped
+  away — a message with no way to act on it. The card is now capped to the
+  screen height, only the middle paragraph scrolls, and the buttons sit in a
+  fixed footer, so the primary action is always one press away.
+- **1.0.4 is no longer told a newer release is waiting.** Until 1.0.5 exists,
+  the newest release on GitHub *is* 1.0.4, so the old single rule produced "You
+  are on PremiumTV 1.0.4. The newest release on GitHub is 1.0.4." The notice
+  document now carries two ordered rules: `legacy-upgrade` (0.0.0–1.0.3) names
+  the release that is waiting, and `last-manual-install` (1.0.4) explains that
+  this build is the one that updates itself and when its support ends, without
+  claiming a download that does not exist yet.
+- **The emulator gate exercises the popup instead of tripping over it.** It
+  recognises the dialog, records `build-out/smoke-update-notice.png` as
+  evidence, and presses the published dismiss button — read from
+  `app-update-notice.json`, including the after-support-ends wording — so the
+  gate keeps working on either side of the sunset.
+
 ## 2026-10-18 — The notice is actually delivered to installed 1.0.0–1.0.4
 
 - **The warning now reaches builds that have no notice code.** Until today the

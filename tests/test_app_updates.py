@@ -278,13 +278,16 @@ class UpdateNoticePopupTests(unittest.TestCase):
         self.assertIs(document["enabled"], True)
         self.assertEqual(document["grace_days"], 30)
         self.assertTrue(document["rules"], "a notice with no rules can never be shown")
+        targets = [rule["max_version"] for rule in document["rules"]]
+        self.assertEqual(max(targets), "1.0.4", "1.0.5 is the first build that can show the popup")
         for rule in document["rules"]:
-            self.assertEqual(rule["max_version"], "1.0.4",
-                             "1.0.5 is the first build that can show the popup")
+            self.assertLess(rule["max_version"], "1.0.5",
+                            "a rule must never nag the build that can show the popup")
+            self.assertIn("min_version", rule)
             self.assertIn("android", rule["platforms"])
             self.assertIn("macos", rule["platforms"])
             # The surprise is the reason to update, so it must be spelled out.
-            self.assertIn("updates itself", rule["surprise"])
+            self.assertIn("itself", rule["surprise"])
             self.assertIn("after_support_ends", rule,
                           "the escalation copy ships in the document, not in a build")
             self.assertEqual(rule["after_support_ends"]["level"], "end_of_support")
