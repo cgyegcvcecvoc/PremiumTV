@@ -73,9 +73,9 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.0.4** (Android `versionCode 100000004`) | USA lineup + USA guide | Default download and the **last manual install**; Settings → App updates handles every later stable release |
-| Previous stable | 1.0.3 (Android `versionCode 10`) | USA lineup + USA guide | Retained as a fallback download |
-| **Preview** | **1.1.1** (Android `versionCode 100010001` when rebuilt) | Global checked lineup + merged guide, **cable-style Guide tab** | Published with GitHub's pre-release flag (`v1.1.1`); never the default; ships the same update center |
+| **Stable release** | **1.0.5** (Android `versionCode 100000005`) | USA lineup + USA guide | Default download; installs over 1.0.4 from Settings → App updates, which 1.0.4 already ships |
+| Previous stable | 1.0.4 (Android `versionCode 100000004`) | USA lineup + USA guide | The **last manual install**; retained as a fallback download |
+| **Preview** | **1.1.1** (Android `versionCode 100010001` when rebuilt) | Global checked lineup + merged guide, **cable-style Guide tab** | Published with GitHub's pre-release flag (`v1.1.1`); never the default; ships the same update center and the same 1.0.5-era features |
 | Preview (superseded) | 1.1.0 (Android `versionCode 8`) | Global lineup + separate Cable tab | Pre-release `v1.1.0`, kept for reference |
 
 In the 1.1.1 pre-release the **Guide tab is a cable-style grid**: channels down the
@@ -83,11 +83,29 @@ left, what each one is playing to the right, half-hour times across the top for
 eight hours, a red NOW line and a detail strip for the highlighted show. It
 works with a TV remote (D-pad highlight, OK to watch, Back to return) and with a
 mouse or touch. The grid is enabled by the bundle the app was built with
-(`preview_features: ["cable-guide"]`, global scope only), so stable 1.0.4 keeps
+(`preview_features: ["cable-guide"]`, global scope only), so stable 1.0.5 keeps
 its list-style Guide. The Android bundle builder and the Mac build default to
-`1.0.4` / `usa`; the release workflows select `all` for pre-releases and `usa`
-for stable releases. See [`release-notes-1.0.4.md`](release-notes-1.0.4.md)
+`1.0.5` / `usa`; the release workflows select `all` for pre-releases and `usa`
+for stable releases. See [`release-notes-1.0.5.md`](release-notes-1.0.5.md),
+[`release-notes-1.0.4.md`](release-notes-1.0.4.md)
 and [`release-notes-1.1.1.md`](release-notes-1.1.1.md).
+
+### What 1.0.5 adds (and the rebuilt 1.1.1 preview carries too)
+
+- **Launch splash** — the PremiumTV television mark, a spinner and the build's
+  version pinned at the bottom while the library loads.
+- **Channel search** — one field above the Channels tab (Android; the Mac
+  sidebar keeps its own) that filters by name, category, country or channel
+  number.
+- **Category placeholders** — a channel with no logo gets a drawn picture of
+  its category (a ball for Sports, a smile for Comedy, a balloon for Kids,
+  a television set for everything else) instead of bare initials.
+- **Live Events tab** — the scrapers' live-game feeds, grouped by sport
+  (Soccer, American Football, College Football, NHL Hockey, and the rest),
+  each card showing the matchup and how many streams carry it.
+- **Multi-server playback** — a game published on more than one stream, and
+  a channel with backup feeds, switch to the next server automatically when
+  one feed dies; the player says which server is playing.
 
 ### App updates (1.0.4 and later)
 
@@ -112,7 +130,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.4` — USA lineup; updates itself from Settings → App updates |
+| Stable target | `1.0.5` — USA lineup; 1.0.4 installs it from Settings → App updates |
 | Preview target | `1.1.1` — global lineup + cable-style Guide tab; GitHub pre-release only, same update center |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
@@ -132,7 +150,7 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.0.4` (`versionCode 100000004`) — USA library |
+| Stable build target | `1.0.5` (`versionCode 100000005`) — USA library |
 | Preview target | `1.1.1` (`versionCode 100010001` when rebuilt) — global library + cable-style Guide tab |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
@@ -141,11 +159,13 @@ the checked global playlist and merged guide. Both guides are built from curated
 per-country EPG feeds (see [the guide build report](playlists/checks/EPG-BUILD.md)).
 
 - **Channels** — one row per category, in published order; each card shows its
-  logo and current programme when the guide has one.
+  logo (or its category's drawn placeholder) and current programme when the
+  guide has one, with a search field above the rows.
 - **Guide** — in the 1.1.1 preview, a cable-style grid: channels down the left,
   shows to the right, times across the top, a NOW line and a detail strip; the
   remote's D-pad moves a highlight, OK watches, Back returns to the same show.
-  Stable 1.0.4 shows what's on now across channels with listings instead.
+  Stable 1.0.5 shows what's on now across channels with listings instead —
+  live-game feeds included, with the matchup as their listing.
 - **Automatic refresh** — Android WorkManager checks after repository publishing
   windows, using ETag/Last-Modified where possible.
 - **Settings** — bundle provenance, refresh state, force refresh, reset to
@@ -163,9 +183,9 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.4 is the current stable release** (`versionCode 100000004`, USA scope)
-and the last one that needs a manual download. Later stable releases are
-installed from Settings → App updates; a release is offered only when it is a
+**1.0.5 is the current stable release** (`versionCode 100000005`, USA scope).
+1.0.4 was the last version that needed a manual download: it installs 1.0.5
+from Settings → App updates on its own. A release is offered only when it is a
 published full release above the installed version with its platform installer
 already attached. The download site promotes only a complete published stable
 release. `1.1.1` (and the earlier `1.1.0`) remain GitHub pre-releases and keep

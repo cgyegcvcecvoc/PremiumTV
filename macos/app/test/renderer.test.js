@@ -51,3 +51,55 @@ test('playback chooses HLS using the original feed, not the extensionless proxy 
   window.PremiumPlayer.retry();
   assert.deepEqual(called, [['hls', proxy], ['hls', proxy]]);
 });
+
+test('the launch splash shows the mark, a spinner and the version at the bottom', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(renderer, 'app.css'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+
+  assert.match(html, /<div id="splash" role="status"/);
+  assert.match(html, /class="splash-logo"/);
+  assert.match(html, /class="splash-spinner"/);
+  assert.match(html, /id="splash-version"/);
+  assert.match(html, /class="splash-foot"/);
+  assert.match(css, /\.splash-foot \{[^}]*bottom:/);
+  assert.match(css, /#splash\.done \{ opacity: 0; visibility: hidden;/);
+  // The splash fades out once the first library snapshot is painted, and a
+  // failed startup must not leave it in front of the error.
+  assert.match(js, /await syncSnapshot\(\);\s*hideSplash\(\);/);
+  assert.match(js, /boot\(\)\.catch\(\(error\) => \{\s*hideSplash\(\);/);
+  assert.match(js, /Version \$\{appInfo\.version\}/);
+});
+
+test('logo-less channels fall back to their category placeholder, not bare text', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+
+  assert.match(html, /<script src="category-icons.js"><\/script>/);
+  assert.match(html, /<script src="live-events.js"><\/script>/);
+  assert.match(js, /window\.PremiumIcons\.svgForGroup\(channel\.group, 'card-logo placeholder'\)/);
+  assert.match(js, /logo\.innerHTML = window\.PremiumIcons\.svgForGroup\(channel\.group\)/);
+});
+
+test('the Live Events tab lists games by sport and opens them with every server', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+
+  assert.match(html, /data-tab="live"[^>]*>Live Events</);
+  assert.match(html, /<div id="live-list"><\/div>/);
+  assert.match(js, /live: document\.getElementById\('view-live'\)/);
+  assert.match(js, /else if \(ui\.tab === 'live'\) renderLive\(\);/);
+  assert.match(js, /openPlayer\(event\.servers\[0\], event\.servers\)/);
+});
+
+test('a dead feed hands over to the next server before the error card appears', () => {
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+  const player = fs.readFileSync(path.join(renderer, 'player.js'), 'utf8');
+
+  assert.match(js, /window\.PremiumLive\.serversFor\(channel, snapshot\.library\.channels \|\| \[\]\)/);
+  assert.match(js, /window\.PremiumPlayer\.play\(resolved\.url, channel\.url, \{ onFatal: \(\) => advanceServer\(\) \}\)/);
+  assert.match(js, /switching to server \$\{playQueueIndex \+ 1\} of \$\{playQueue\.length\}/);
+  assert.match(js, /window\.PremiumPlayer\.fail\(/);
+  assert.match(player, /onFatal = typeof handlers\.onFatal === 'function' \? handlers\.onFatal : null;/);
+  assert.match(player, /fail\(message\) \{/);
+});

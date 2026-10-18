@@ -51,7 +51,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -62,7 +61,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Library
 import com.premiumtv.app.data.Programme
@@ -687,7 +685,6 @@ private fun GuideChannelCell(channel: Channel, width: Dp, highlighted: Boolean, 
                 modifier = Modifier.width(34.dp),
             )
         }
-        var logoShown by remember(channel.logo) { mutableStateOf(false) }
         Box(
             modifier = Modifier
                 .width(42.dp)
@@ -696,23 +693,12 @@ private fun GuideChannelCell(channel: Channel, width: Dp, highlighted: Boolean, 
                 .background(Color(0xFF202A36)),
             contentAlignment = Alignment.Center,
         ) {
-            if (!logoShown) {
-                Text(
-                    text = initialsOf(channel.name),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = PremiumGold,
-                    fontWeight = FontWeight.Bold,
-                )
-            }
-            if (channel.logo.isNotBlank()) {
-                AsyncImage(
-                    model = channel.logo,
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier.fillMaxSize(),
-                    onSuccess = { logoShown = true },
-                )
-            }
+            // The category placeholder (or a TV set) shows under the remote
+            // art while it loads and stays when its URL is dead.
+            ChannelLogoBox(
+                channel = channel,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
         Spacer(modifier = Modifier.width(8.dp))
         Column(modifier = Modifier.weight(1f)) {

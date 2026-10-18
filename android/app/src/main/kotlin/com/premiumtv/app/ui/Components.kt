@@ -1,6 +1,7 @@
 package com.premiumtv.app.ui
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,11 +35,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.key.onKeyEvent
 import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -49,7 +55,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import androidx.compose.ui.unit.sp
+import com.premiumtv.app.BuildConfig
 import com.premiumtv.app.data.Channel
 
 /**
@@ -124,24 +131,17 @@ fun ChannelCard(
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(top = 4.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                if (channel.logo.isNotBlank()) {
-                    AsyncImage(
-                        model = channel.logo,
-                        contentDescription = channel.name,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                } else {
-                    Text(
-                        text = initialsOf(channel.name),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = PremiumGold,
-                        fontWeight = FontWeight.Bold,
-                    )
-                }
+                // Channels without art get their category's drawn placeholder
+                // (a ball for Sports, a smile for Comedy, a TV set for the
+                // rest) instead of two initials that read as broken art.
+                ChannelLogoBox(
+                    channel = channel,
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
             Spacer(modifier = Modifier.height(6.dp))
             Text(
@@ -231,19 +231,80 @@ fun FocusButton(label: String, modifier: Modifier = Modifier, enabled: Boolean =
     }
 }
 
+/**
+ * The PremiumTV mark: the marquee television set the launcher icon uses,
+ * drawn at any size from the same strokes as the drawn category icons.
+ */
+@Composable
+fun BrandLogo(modifier: Modifier = Modifier) {
+    Canvas(modifier) {
+        val w = size.width
+        val h = size.height
+        val stroke = minOf(w, h) * 0.055f
+        val gold = PremiumGold
+        val cap = StrokeCap.Round
+        // antennas
+        drawLine(gold, Offset(w * 0.30f, h * 0.04f), Offset(w * 0.50f, h * 0.26f), stroke, cap = cap)
+        drawLine(gold, Offset(w * 0.70f, h * 0.04f), Offset(w * 0.50f, h * 0.26f), stroke, cap = cap)
+        // body
+        drawRoundRect(
+            color = gold,
+            topLeft = Offset(w * 0.12f, h * 0.26f),
+            size = Size(w * 0.76f, h * 0.52f),
+            cornerRadius = CornerRadius(w * 0.07f, w * 0.07f),
+            style = Stroke(stroke),
+        )
+        // screen
+        drawRoundRect(
+            color = gold,
+            topLeft = Offset(w * 0.19f, h * 0.35f),
+            size = Size(w * 0.42f, h * 0.34f),
+            cornerRadius = CornerRadius(w * 0.03f, w * 0.03f),
+            style = Stroke(stroke * 0.8f),
+        )
+        // speaker grille and knob
+        drawLine(gold, Offset(w * 0.70f, h * 0.38f), Offset(w * 0.70f, h * 0.58f), stroke * 0.8f, cap = cap)
+        drawCircle(gold, radius = stroke * 0.62f, center = Offset(w * 0.70f, h * 0.68f))
+        // feet
+        drawLine(gold, Offset(w * 0.30f, h * 0.78f), Offset(w * 0.24f, h * 0.94f), stroke, cap = cap)
+        drawLine(gold, Offset(w * 0.70f, h * 0.78f), Offset(w * 0.76f, h * 0.94f), stroke, cap = cap)
+    }
+}
+
 @Composable
 fun LoadingScreen(title: String, detail: String) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF070A0F)),
-        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(horizontal = 48.dp),
         ) {
-            CircularProgressIndicator(color = PremiumGold, strokeWidth = 3.dp)
+            BrandLogo(modifier = Modifier.size(104.dp))
+            Text(
+                text = "PremiumTV",
+                style = MaterialTheme.typography.headlineMedium,
+                color = PremiumGold,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 3.sp,
+            )
+            Text(
+                text = "Every channel, one guide",
+                style = MaterialTheme.typography.labelMedium,
+                color = MutedText,
+                letterSpacing = 1.5.sp,
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            CircularProgressIndicator(
+                color = PremiumGold,
+                strokeWidth = 3.dp,
+                modifier = Modifier.size(34.dp),
+            )
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
@@ -257,6 +318,16 @@ fun LoadingScreen(title: String, detail: String) {
                 textAlign = TextAlign.Center,
             )
         }
+        // The build the viewer is waiting on, pinned where a TV puts credits.
+        Text(
+            text = "Version ${BuildConfig.VERSION_NAME}",
+            style = MaterialTheme.typography.labelSmall,
+            color = MutedText,
+            letterSpacing = 1.2.sp,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 26.dp),
+        )
     }
 }
 
@@ -321,20 +392,6 @@ fun InfoRow(label: String, value: String) {
             style = MaterialTheme.typography.bodyMedium,
             color = Color.White,
         )
-    }
-}
-
-/**
- * Two clean initials for a channel that has no logo, used by the channel cards
- * and by the cable-grid channel column. It lives here rather than in either
- * screen so both surfaces fall back to the same label.
- */
-internal fun initialsOf(name: String): String {
-    val letters = name.filter { it.isLetterOrDigit() }
-    return when {
-        letters.length >= 2 -> letters.substring(0, 2).uppercase()
-        letters.length == 1 -> letters.uppercase()
-        else -> "TV"
     }
 }
 

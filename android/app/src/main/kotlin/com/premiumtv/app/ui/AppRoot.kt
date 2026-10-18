@@ -31,7 +31,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
         }
     }
 
-    var playing by remember { mutableStateOf<Channel?>(null) }
+    // The channel and its server list (backup feeds, or the other streams of
+    // the same live game) - resolved when the viewer picks a channel.
+    var playing by remember { mutableStateOf<Pair<Channel, List<Channel>>?>(null) }
     // Held here rather than in HomeScreen, which leaves the composition while a
     // channel plays: closing the player returns to the same tab and, in the
     // guide, to the same highlighted show.
@@ -50,10 +52,12 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
         )
 
         is LoadState.Ready -> {
-            val channel = playing
-            if (channel != null) {
+            val selection = playing
+            if (selection != null) {
+                val channel = selection.first
                 PlayerScreen(
                     channel = channel,
+                    servers = selection.second,
                     programmes = current.library.programmes[channel.id].orEmpty(),
                     now = now,
                     onClose = { playing = null },
@@ -68,7 +72,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                     tab = tab,
                     onTabChange = { tab = it },
                     guideState = guideState,
-                    onSelect = { playing = it },
+                    onSelect = { channel ->
+                        playing = channel to serversFor(channel, current.library.channels)
+                    },
                     onForceRefresh = { viewModel.forceRefresh() },
                     onReset = { viewModel.resetToBundled() },
                     onCheckForUpdate = { viewModel.checkForUpdates() },

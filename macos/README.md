@@ -8,17 +8,18 @@ and Apple Silicon.
 
 The release workflow prepares two separate channels:
 
-- **1.0.4 stable build target (default):** USA playlist + USA guide. This is
-  the last release that needs a manual download; Settings → App updates checks
-  GitHub, downloads the DMG for this Mac once, verifies its SHA-256 checksum,
-  and opens the installer.
+- **1.0.5 stable build target (default):** USA playlist + USA guide, with the
+  launch splash, category placeholder logos, the Live Events tab and automatic
+  multi-server playback. 1.0.4 was the last release that needed a manual
+  download; its Settings → App updates checks GitHub, downloads the 1.0.5 DMG
+  for this Mac once, verifies its SHA-256 checksum, and opens the installer.
 - **1.1.1 pre-release:** global checked playlist + merged guide, and the Guide
   tab is a **cable-style grid**. This must be published with GitHub's
   pre-release flag; it never becomes the default build. The rebuilt 1.1.1
   preview also carries Settings → App updates. (1.1.1 supersedes the
   1.1.0 preview, whose grid sat in a separate Cable tab.)
 
-The current stable download is `v1.0.4`; the 1.1.x builds are pre-releases.
+The current stable download is `v1.0.5`; the 1.1.x builds are pre-releases.
 Only a published full release above the installed version is offered, and a
 downloaded DMG is reused until it is installed. Mac CI rebuilds and smoke-tests both architectures against the current checked
 USA playlist and guide whenever app, country-playlist, bundle-tool or EPG inputs
@@ -48,9 +49,10 @@ the installers are ad-hoc signed, not notarized.
 
 | Screen | Behaviour (mirrors the Android app) |
 |---|---|
-| **Channels** | One card per channel, grouped in the repository's published category order (`Sports`, `Lifestyle`, `Fox Channels`, …). Each card shows the logo and, when the guide covers it, what is on right now. |
+| **Channels** | One card per channel, grouped in the repository's published category order (`Sports`, `Lifestyle`, `Fox Channels`, …). Each card shows the logo — or its category's drawn placeholder (a ball for Sports, a smile for Comedy, a TV set for the rest) — and, when the guide covers it, what is on right now. |
+| **Live Events** | The scrapers' live-game feeds grouped by sport (Soccer, American Football, College Football, NHL Hockey, …): matchup, LIVE pill and stream count per card. A game with several streams, and any channel with backup feeds, switches to the next server automatically when one feed dies; a badge shows which server is playing. |
 | **Guide (1.1.1 preview)** | A cable-style grid: channels down the left (sticky), each channel's shows to the right sized by running time, half-hour times across the top (sticky) for eight hours, a red NOW line and time pill, category headings, and a detail strip for the show under the pointer or keyboard focus. The sidebar categories filter it, search finds a channel or show, arrow keys move through it keeping the time column, click or Enter plays. Enabled by the bundle inside the .app (`cable-guide`), never by downloaded data. |
-| **Guide (stable 1.0.4)** | "What's on now" for every channel with listings: current programme with a progress bar plus what is next. |
+| **Guide (stable 1.0.5)** | "What's on now" for every channel with listings: current programme with a progress bar plus what is next. Live-game feeds join the list with their matchup as the listing. |
 | **Settings** | Bundle provenance and counts, library scope/preview features, automatic-refresh state, next check, last success/result, **Force refresh all now**, and **Reset to the bundled copy**. |
 
 Playback uses hls.js / mpegts.js behind a loopback proxy, so the referrer,

@@ -1,10 +1,13 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.0.4 stable**
-(`versionCode` `100000004`) with the USA lineup. **1.0.4 is the last version
-that needs a manual download:** its Settings screen has an **App updates**
-panel that checks GitHub for a newer published stable release, downloads the
+TV guide inside the APK. The default build target is **1.0.5 stable**
+(`versionCode` `100000005`) with the USA lineup: a launch splash with the
+PremiumTV mark and the build's version, channel search, category placeholder
+logos, a **Live Events** tab grouped by sport, and automatic multi-server
+playback. **1.0.4 was the last version that needed a manual download:** its
+Settings screen has an **App updates** panel that checks GitHub for a newer
+published stable release — so it installs 1.0.5 by itself — downloads the
 APK once, verifies its SHA-256 checksum, and opens Android's package installer.
 **1.1.1** is the preview build with the global checked lineup and a
 **cable-style Guide tab**; it must be distributed as a GitHub pre-release and
@@ -32,7 +35,7 @@ The same APK works everywhere — navigation is D-pad first, and touch works too
 
 | Build | Source playlist | Source guide | Preview metadata |
 |---|---|---|---|
-| **1.0.4 stable build target (default)** | `playlists/countries/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no preview features |
+| **1.0.5 stable build target (default)** | `playlists/live/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no preview features |
 | **1.1.1 pre-release** (and 1.1.0) | `playlists/PremiumTV.m3u` | `EPG/PremiumTV.xml` | `library_scope: all`; `preview_features: ["cable-guide"]` |
 
 Both scopes are converted to JSON Lines by [`tools/build_bundle.py`](tools/build_bundle.py)
@@ -53,9 +56,18 @@ Channels no public guide schedules show "Nothing listed at this hour" or
 
 ## Screens
 
+- **Launch splash** — the drawn PremiumTV television mark, a gold spinner and
+  `Version <build>` pinned at the bottom while the library loads.
 - **Channels** — one row per category, in the order the repository publishes
   (`Sports`, `Lifestyle`, `Fox Channels`, `CBS`, `NBC`, …). Each card shows the
-  channel logo and, when the guide covers it, what is on right now.
+  channel logo — or its category's drawn placeholder when it has none — and,
+  when the guide covers it, what is on right now. A search field above the rows
+  filters by name, category, country or channel number.
+- **Live Events** — the scrapers' live-game feeds grouped by sport (Soccer,
+  American Football, College Football, NHL Hockey, …): each card shows the
+  matchup, a LIVE pill and how many streams carry it. A game with more than one
+  stream, and any channel with backup feeds, switches to the next server
+  automatically when one feed dies.
 - **Guide (1.1.1 preview)** — a cable-style grid: channels down the left
   (number, logo, name, category), each channel's shows to the right sized by
   running time, half-hour times across the top for eight hours, a red NOW line,
@@ -66,8 +78,9 @@ Channels no public guide schedules show "Nothing listed at this hour" or
   page, and the remote's GUIDE key opens it. Touch drags both ways; tap plays.
   It is enabled by the APK's own bundle (`cable-guide`), never by downloaded
   data.
-- **Guide (stable 1.0.4)** — "what's on now" across every channel that has
-  listings: current programme with a progress bar, plus what is next.
+- **Guide (stable 1.0.5)** — "what's on now" across every channel that has
+  listings: current programme with a progress bar, plus what is next. The
+  live-game feeds join the list with their matchup as the listing.
 - **Settings** — bundle provenance and counts, automatic-refresh state, next
   check, last success/result, **Force refresh all now**, reset to the APK's
   bundled copy, and **App updates**: newest stable release, check, one-time
@@ -155,12 +168,12 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Stable build target (USA, 1.0.4, versionCode 100000004)
-python3 tools/build_bundle.py --scope usa --version 1.0.4
-./gradlew -PpremiumTvVersion=1.0.4 -PpremiumTvVersionCode=100000004 assembleDebug
+# Stable build target (USA, 1.0.5, versionCode 100000005)
+python3 tools/build_bundle.py --scope usa --version 1.0.5
+./gradlew -PpremiumTvVersion=1.0.5 -PpremiumTvVersionCode=100000005 assembleDebug
 
 # 1.1.1 pre-release data (global lineup + cable-style Guide tab)
-# versionCode 100010001 stays above stable 1.0.4.
+# versionCode 100010001 stays above stable 1.0.5.
 python3 tools/build_bundle.py --scope all --version 1.1.1
 ./gradlew -PpremiumTvVersion=1.1.1 -PpremiumTvVersionCode=100010001 assembleDebug
 ```
@@ -185,7 +198,7 @@ catalogue; the latest main-branch scrape and follow-up deep check on
 records the exact counts and guide window used by each build:
 
 ```text
-build-out/PremiumTV-1.0.4-debug.apk   stable build default (debug-signed, USA scope)
+build-out/PremiumTV-1.0.5-debug.apk   stable build default (debug-signed, USA scope)
 build-out/PremiumTV-1.1.1-debug.apk   only when the preview version is selected
 build-out/SHA256SUMS-android.txt
 build-out/build-log.txt               full Gradle output
@@ -198,8 +211,8 @@ published; an unsigned release APK cannot be installed on a TV or phone.
 
 ### Installing on a TV
 
-1. Copy `PremiumTV-1.0.4-debug.apk` to the TV (USB stick, a file-sharing
-   app, or `adb install -r PremiumTV-1.0.4-debug.apk` from a computer).
+1. Copy `PremiumTV-1.0.5-debug.apk` to the TV (USB stick, a file-sharing
+   app, or `adb install -r PremiumTV-1.0.5-debug.apk` from a computer).
 2. Allow installs from that source (*Install unknown apps*).
 3. Open **PremiumTV**. The Channels tab should list the categories straight away.
 
@@ -238,9 +251,9 @@ android/
 
 ## Known limits
 
-- Stable 1.0.4 intentionally bundles the USA library. The 1.1.x pre-releases
-  select the checked global playlist and merged guide.
-- No favourites, search, or "continue watching" — browse, play and guide only.
+- The stable build intentionally bundles the USA library. The 1.1.x
+  pre-releases select the checked global playlist and merged guide.
+- No favourites or "continue watching" — browse, search, play and guide only.
 - The bundled guide is a snapshot of what the repository had published at
   build time; automatic refreshes keep it current after install.
 - Android may defer background work, and force-stopping the app suspends its
@@ -266,11 +279,11 @@ Physical TV and upstream playback checks remain manual.
 
 ### Updated Encore Preview builds
 
-Ordinary pushes and manual builds default to stable 1.0.4 (Android code
-100000004). To request the updated 1.1.1 preview without Actions-dispatch
+Ordinary pushes and manual builds default to stable 1.0.5 (Android code
+100000005). To request the updated 1.1.1 preview without Actions-dispatch
 access, append a timestamp to `.github/preview-build.txt` and push with
 `[preview-build]` in the commit message. Both platform workflows build the
-global preview (derived code 100010001, above stable 1.0.4) and retain their
+global preview (derived code 100010001, above stable 1.0.5) and retain their
 normal smoke gates. Stable release attachments remain exact-SHA guarded. The
 explicit switch can replace installers only on the existing **pre-release**
 v1.1.1, after all smoke gates pass, and uploads per-platform BUILD-SOURCE

@@ -889,3 +889,92 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   line-height: 1.45;
   color: var(--muted);
 }
+
+/* ------------------------------------------------------------- launch splash */
+/* The first thing the window shows: the PremiumTV mark, a spinner and the
+   build number pinned at the bottom. app.js adds .done after the first
+   library snapshot; the splash fades out over the painted app. */
+#splash {
+  position: fixed; inset: 0; z-index: 70;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(120% 90% at 50% 0%, #1a1c22 0%, #0d0e12 60%, #08090c 100%);
+  color: var(--gold);
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+#splash.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash-center { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.splash-logo { width: 96px; height: 96px; }
+.splash-name {
+  color: var(--gold); font-size: 26px; font-weight: 700; letter-spacing: 4px;
+}
+.splash-tag { color: var(--muted); font-size: 12px; letter-spacing: 2px; }
+.splash-spinner {
+  width: 30px; height: 30px; margin-top: 12px;
+  border: 3px solid rgba(255, 255, 255, 0.14);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+#splash-status { color: var(--text); font-size: 13px; }
+.splash-foot {
+  position: absolute; left: 0; right: 0; bottom: 18px;
+  text-align: center; color: var(--muted); font-size: 11px; letter-spacing: 1.2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .splash-spinner { animation-duration: 2.4s; }
+  #splash { transition: none; }
+}
+
+/* --------------------------------------------------- category placeholders */
+/* The drawn picture a channel shows while its logo loads, when its logo URL
+   is dead, and when it never had one: gold line art on the card's own tile. */
+.card-logo.placeholder {
+  display: grid; place-items: center;
+  color: var(--gold);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+.card-logo.placeholder .ph-icon { width: 62%; height: 62%; }
+.card-logo.empty { color: var(--gold); }
+.card-logo.empty .ph-icon { width: 58%; height: 58%; }
+.cable-logo.empty, .guide-info-logo.empty { display: grid; place-items: center; color: var(--gold); }
+.cable-logo .ph-icon, .guide-info-logo .ph-icon { width: 62%; height: 62%; }
+.ph-icon { width: 100%; height: 100%; }
+
+/* --------------------------------------------------------- live events tab */
+.event-section {
+  display: flex; align-items: center; gap: 10px;
+  margin: 18px 0 10px; color: var(--text);
+}
+.event-section-icon { width: 22px; height: 22px; color: var(--gold); display: inline-flex; }
+.event-section-name { font-size: 15px; font-weight: 680; }
+.event-section-count { color: var(--muted); font-size: 12px; }
+.event-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px;
+}
+.event-card {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 12px 14px; text-align: left;
+  background: var(--bg-elevated); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  cursor: pointer; font: inherit; min-height: 108px;
+}
+.event-card:hover, .event-card:focus-visible {
+  border-color: var(--gold-deep); background: #22222a; outline: none;
+}
+.event-head { display: flex; align-items: center; gap: 8px; }
+.event-sport {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--muted); font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase;
+}
+.event-icon { width: 16px; height: 16px; color: var(--gold); }
+.event-title { font-size: 13.5px; font-weight: 640; line-height: 1.35; }
+.event-servers { color: var(--muted); font-size: 11.5px; margin-top: auto; }
+
+/* The server badge over the video while a multi-server channel plays. */
+.player-server {
+  position: absolute; top: 14px; right: 16px; z-index: 5;
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(10, 12, 16, 0.72); color: var(--gold);
+  font-size: 11px; letter-spacing: 0.6px;
+}

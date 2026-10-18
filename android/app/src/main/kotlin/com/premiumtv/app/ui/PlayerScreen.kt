@@ -5,11 +5,13 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -39,28 +41,59 @@ import androidx.media3.ui.PlayerView
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Programme
 
+/**
+ * Playback with automatic multi-server fallback.
+ *
+ * A backup feed, a second stream of the same live game or a dead upstream
+ * link all used to end in the same dead-end error card. The player now walks
+ * the channel's server list by itself: when a feed fails fatally it switches
+ * to the next one, says so on screen, and only shows the error card when
+ * every server for this channel has been tried.
+ */
 @Composable
 fun PlayerScreen(
     channel: Channel,
+    servers: List<Channel>,
     programmes: List<Programme>,
     now: Long,
     onClose: () -> Unit,
 ) {
     val context = LocalContext.current
+    val playlist = remember(channel.url) {
+        if (servers.any { it.url == channel.url }) servers else listOf(channel) + servers
+    }
+    var serverIndex by remember(channel.url) {
+        mutableStateOf(playlist.indexOfFirst { it.url == channel.url }.coerceAtLeast(0))
+    }
+    val current = playlist[serverIndex.coerceIn(0, playlist.lastIndex)]
+
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var switchNotice by remember { mutableStateOf<String?>(null) }
     var buffering by remember { mutableStateOf(true) }
-    val player = remember(channel.url) { buildPlayer(context, channel) }
+    val player = remember(current) { buildPlayer(context, current) }
 
     DisposableEffect(player) {
         val listener = object : Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
-                errorMessage = error.message ?: "This stream could not be played."
                 buffering = false
+                if (serverIndex < playlist.lastIndex) {
+                    // The next server takes over without the viewer doing
+                    // anything; the notice explains the jump.
+                    serverIndex += 1
+                    switchNotice = "This feed stopped responding - switching to server " +
+                        "${serverIndex + 1} of ${playlist.size}…"
+                } else {
+                    switchNotice = null
+                    errorMessage = error.message ?: "This stream could not be played."
+                }
             }
 
             override fun onPlaybackStateChanged(playbackState: Int) {
                 buffering = playbackState == Player.STATE_BUFFERING
-                if (playbackState == Player.STATE_READY) errorMessage = null
+                if (playbackState == Player.STATE_READY) {
+                    errorMessage = null
+                    switchNotice = null
+                }
             }
         }
         player.addListener(listener)
@@ -88,7 +121,7 @@ fun PlayerScreen(
             },
         )
 
-        val current = nowPlaying(programmes, now)
+        val currentProgramme = nowPlaying(programmes, now)
         Column(
             modifier = Modifier
                 .align(Alignment.TopStart)
@@ -102,19 +135,27 @@ fun PlayerScreen(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            if (current != null) {
+            if (playlist.size > 1) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Now · ${current.title}",
+                    text = "Server ${serverIndex + 1} of ${playlist.size} · automatic fallback on",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = PremiumGold,
+                )
+            }
+            if (currentProgramme != null) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Now · ${currentProgramme.title}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = PremiumGold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                if (current.desc.isNotBlank()) {
+                if (currentProgramme.desc.isNotBlank()) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = current.desc,
+                        text = currentProgramme.desc,
                         style = MaterialTheme.typography.bodySmall,
                         color = MutedText,
                         maxLines = 2,
@@ -151,7 +192,12 @@ fun PlayerScreen(
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = errorMessage.orEmpty(),
+                        text = if (playlist.size > 1) {
+                            "All ${playlist.size} servers for this channel were tried. " +
+                                (errorMessage.orEmpty())
+                        } else {
+                            errorMessage.orEmpty()
+                        },
                         style = MaterialTheme.typography.bodySmall,
                         color = MutedText,
                         textAlign = TextAlign.Center,
@@ -165,8 +211,33 @@ fun PlayerScreen(
                         textAlign = TextAlign.Center,
                     )
                     Spacer(modifier = Modifier.height(18.dp))
-                    FocusButton("Back to channels") { onClose() }
+                    Row {
+                        FocusButton("Back to channels") { onClose() }
+                        if (playlist.size > 1) {
+                            Spacer(modifier = Modifier.width(16.dp))
+                            FocusButton("Try the servers again") {
+                                errorMessage = null
+                                buffering = true
+                                serverIndex = (serverIndex + 1) % playlist.size
+                            }
+                        }
+                    }
                 }
+            }
+        } else if (switchNotice != null) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .widthIn(max = 560.dp)
+                    .background(Color(0xEE101720), RoundedCornerShape(14.dp))
+                    .padding(horizontal = 24.dp, vertical = 16.dp),
+            ) {
+                Text(
+                    text = switchNotice.orEmpty(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = PremiumGold,
+                    textAlign = TextAlign.Center,
+                )
             }
         } else if (buffering) {
             Text(
