@@ -32,7 +32,6 @@ on:
       - "**"
     paths:
       - "android/**"
-      - ".github/preview-build.txt"
       - "playlists/countries/**"
       # The USA bundle, shelf and site all read the live feed now, so a
       # change there has to rebuild them too.
@@ -47,9 +46,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to build (for example 1.0.6 stable or 1.1.1 preview)"
+        description: "Version to build (for example 1.0.6.1 stable)"
         type: string
-        default: "1.0.6"
+        default: "1.0.6.1"
         required: true
       channel:
         description: "Release channel: stable = USA lineup, preview = global lineup"
@@ -74,13 +73,12 @@ jobs:
     name: Build APK
     # Every published release is built for both platforms. The upload step
     # below still requires the release tag to point at this exact commit
-    # (except for the explicit [preview-build] rebuild of v1.1.1).
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     env:
-      # Push builds default to stable 1.0.6; release and manual builds select
-      # the tag/version they were asked for.
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.6') }}
+      # Push builds default to stable 1.0.6.1; release and manual builds
+      # select the tag/version they were asked for.
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.6.1') }}
 
     steps:
       - name: Check out the repository
@@ -99,7 +97,6 @@ jobs:
           RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
           INPUT_VERSION: ${{ github.event.inputs.version }}
           INPUT_CHANNEL: ${{ github.event.inputs.channel }}
-          PUSH_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           if [ "$GITHUB_EVENT_NAME" = "release" ]; then
@@ -107,13 +104,8 @@ jobs:
               echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
             if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.0.6}"
+            version="${INPUT_VERSION:-1.0.6.1}"
             channel="${INPUT_CHANNEL:-stable}"
-            # Explicit push switch; ordinary pushes remain stable builds.
-            if [ "$GITHUB_EVENT_NAME" = "push" ] && [[ "$PUSH_MESSAGE" == *"[preview-build]"* ]]; then
-              version=1.1.1
-              channel=preview
-            fi
             version=$(python3 scripts/release_version.py --normalize "$version") || {
               echo "Unsupported PremiumTV version: $version"; exit 1; }
           fi
@@ -241,7 +233,6 @@ jobs:
         if: success()
         env:
           GH_TOKEN: ${{ github.token }}
-          PUSH_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           tag="${{ github.event.release.tag_name }}"
@@ -257,14 +248,10 @@ jobs:
             tagged=$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if .isDraft then .targetCommitish else "" end')
           fi
           if [ "$tagged" != "$GITHUB_SHA" ]; then
-            # The existing preview is intentionally mutable only via this
-            # explicit switch. Stable releases ALWAYS retain the exact-SHA gate.
-            preview=$(gh release view "$tag" --json isPrerelease --jq '.isPrerelease')
-            if [ "$GITHUB_EVENT_NAME" != "push" ] || [ "$tag" != "v1.1.1" ] || [ "$preview" != "true" ] || [[ "$PUSH_MESSAGE" != *"[preview-build]"* ]]; then
-              echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
-              exit 0
-            fi
-            echo "Explicit Encore preview rebuild from $GITHUB_SHA; historical tag stays unchanged."
+            # Every release keeps the exact-SHA gate: a later branch build must
+            # never overwrite the installers attached to a published tag.
+            echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
+            exit 0
           fi
           printf 'PremiumTV %s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > build-out/BUILD-SOURCE-android.txt
           gh release upload "$tag" \

@@ -19,7 +19,7 @@ contextBridge.exposeInMainWorld('premiumtv', {
   getSnapshot: () => ipcRenderer.invoke('ptv:snapshot'),
   /** Versions, paths, refresh slots and the bundle provenance. */
   getAppInfo: () => ipcRenderer.invoke('ptv:app-info'),
-  /** Settings → Force refresh all now (true) or a validator-based check (false). */
+  /** Settings → Force refresh (true) or a validator-based check (false). */
   refresh: (force) => ipcRenderer.invoke('ptv:refresh', Boolean(force)),
   /** Settings → Reset to the bundled copy. */
   resetToBundled: () => ipcRenderer.invoke('ptv:reset'),
@@ -38,6 +38,8 @@ contextBridge.exposeInMainWorld('premiumtv', {
   openReleasePage: () => ipcRenderer.invoke('ptv:open-release'),
   /** The popup's "Remind me next time": hides it for this launch only. */
   dismissUpdateNotice: () => ipcRenderer.invoke('ptv:dismiss-update-notice'),
+  /** Settings → Check for bugs: read-only environment facts. */
+  diagnostics: () => ipcRenderer.invoke('ptv:diagnostics'),
 
   onState: (callback) => subscribe('ptv:state', callback),
   onInfo: (callback) => subscribe('ptv:info', callback),

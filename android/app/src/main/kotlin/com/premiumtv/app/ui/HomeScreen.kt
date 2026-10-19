@@ -2,6 +2,7 @@ package com.premiumtv.app.ui
 
 import android.view.KeyEvent as NativeKey
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusGroup
@@ -72,6 +73,8 @@ import com.premiumtv.app.data.Programme
 import com.premiumtv.app.data.RefreshInfo
 import com.premiumtv.app.data.RefreshTrigger
 import com.premiumtv.app.update.AppUpdateState
+import com.premiumtv.app.update.DiagnosticStatus
+import com.premiumtv.app.update.DiagnosticsReport
 
 /** The home screen's sections. AppRoot keeps the choice while a channel plays. */
 enum class HomeTab(val label: String) {
@@ -88,6 +91,8 @@ fun HomeScreen(
     status: String,
     refreshInfo: RefreshInfo,
     updateInfo: AppUpdateState,
+    diagnostics: DiagnosticsReport?,
+    diagnosticsRunning: Boolean,
     tab: HomeTab,
     onTabChange: (HomeTab) -> Unit,
     guideState: CableGuideState,
@@ -101,6 +106,7 @@ fun HomeScreen(
     onCheckForUpdate: () -> Unit,
     onDownloadUpdate: () -> Unit,
     onInstallUpdate: () -> Unit,
+    onCheckForBugs: () -> Unit,
 ) {
     // Back leaves the Guide or Settings for Channels before it leaves the app,
     // the way a cable box's Back/Exit closes its guide.
@@ -150,9 +156,7 @@ fun HomeScreen(
                     fontWeight = FontWeight.Bold,
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                VersionPlaque(
-                    if (cableGuide) "${BuildConfig.VERSION_NAME} · ENCORE PREVIEW" else BuildConfig.VERSION_NAME,
-                )
+                VersionPlaque(BuildConfig.VERSION_NAME)
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
                     text = when {
@@ -223,11 +227,14 @@ fun HomeScreen(
                 status = status,
                 refreshInfo = refreshInfo,
                 updateInfo = updateInfo,
+                diagnostics = diagnostics,
+                diagnosticsRunning = diagnosticsRunning,
                 onForceRefresh = onForceRefresh,
                 onReset = onReset,
                 onCheckForUpdate = onCheckForUpdate,
                 onDownloadUpdate = onDownloadUpdate,
                 onInstallUpdate = onInstallUpdate,
+                onCheckForBugs = onCheckForBugs,
             )
         }
     }
@@ -999,96 +1006,100 @@ private fun SettingsScreen(
     status: String,
     refreshInfo: RefreshInfo,
     updateInfo: AppUpdateState,
+    diagnostics: DiagnosticsReport?,
+    diagnosticsRunning: Boolean,
     onForceRefresh: () -> Unit,
     onReset: () -> Unit,
     onCheckForUpdate: () -> Unit,
     onDownloadUpdate: () -> Unit,
     onInstallUpdate: () -> Unit,
+    onCheckForBugs: () -> Unit,
 ) {
     val meta = library.meta
+    var showDetails by rememberSaveable { mutableStateOf(false) }
+    val busy = refreshInfo.inProgress || library.guideLoading
+    val guideLine = when {
+        library.guideLoading -> "loading…"
+        library.guideError != null -> "unavailable"
+        else -> "${library.programmes.size} channels with guide"
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, bottom = 48.dp),
     ) {
-        Text(
-            text = "Data bundle",
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        InfoRow("App version", BuildConfig.VERSION_NAME)
-        InfoRow("Library scope", if (meta.libraryScope == "all") "Global · preview" else "USA · stable")
-        if (meta.previewFeatures.isNotEmpty()) {
-            InfoRow("Preview features", meta.previewFeatures.sorted().joinToString())
-        }
-        InfoRow("Bundle built", meta.generatedUtc.ifBlank { "unknown" })
-        InfoRow("Source playlist", meta.playlist.ifBlank { "unknown" })
-        InfoRow("Source guide", meta.guide.ifBlank { "unknown" })
-        InfoRow("Channels", library.channels.size.toString())
-        InfoRow("Categories", library.groups.size.toString())
-        InfoRow(
-            "Guide listings",
-            when {
-                library.guideLoading -> "Loading programme listings…"
-                library.guideError != null -> "Unavailable — channels are still ready"
-                else -> "${library.meta.programmeCount} across ${library.programmes.size} channels"
-            },
-        )
-        if (meta.windowStart > 0L) {
-            InfoRow("Guide window", "${formatDay(meta.windowStart)} – ${formatDay(meta.windowEnd)}")
-        }
-        InfoRow(
-            "Showing now",
-            if (library.refreshed) "Latest copy downloaded by the app" else "Data bundled in this APK",
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            text = "App updates",
-            style = MaterialTheme.typography.titleMedium,
-            color = Color.White,
-            fontWeight = FontWeight.SemiBold,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        InfoRow("Installed version", updateInfo.currentVersion)
-        InfoRow(
-            "Newest stable release",
-            updateInfo.latestStableVersion ?: "Not checked yet",
-        )
-        if (updateInfo.updateAvailable) {
-            InfoRow(
-                "Update available",
-                buildString {
-                    append(updateInfo.availableVersion.orEmpty())
-                    if (updateInfo.installerSize > 0L) {
-                        append(" · ")
-                        append(formatMegabytes(updateInfo.installerSize))
+        // ---------------------------------------------------- version card
+        // One compact card replaces the old three headings: the version, what
+        // it carries and the only three actions most people need.
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            color = CardBackground,
+            border = BorderStroke(1.dp, PremiumGoldDim.copy(alpha = 0.45f)),
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "PremiumTV",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = PremiumGoldDim,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.4.sp,
+                        )
+                        Text(
+                            text = "Version ${BuildConfig.VERSION_NAME}",
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                        )
                     }
-                },
-            )
+                    Text(
+                        text = if (meta.libraryScope == "all") "PREVIEW" else "STABLE · USA",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = if (meta.libraryScope == "all") PremiumGold else MutedText,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.2.sp,
+                    )
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    CompactStat("Channels", library.channels.size.toString(), Modifier.weight(1f))
+                    CompactStat("Categories", library.groups.size.toString(), Modifier.weight(1f))
+                    CompactStat("Guide", guideLine, Modifier.weight(1.4f))
+                }
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = "Library built ${meta.generatedUtc.ifBlank { "unknown" }}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
+            }
         }
-        InfoRow(
-            "Last update check",
-            if (updateInfo.lastCheckedAtMillis > 0L) {
-                formatRefreshInstant(updateInfo.lastCheckedAtMillis)
-            } else {
-                "Not yet"
-            },
-        )
-        Text(
-            text = updateInfo.message,
-            style = MaterialTheme.typography.bodySmall,
-            color = if (updateInfo.error != null) Color(0xFFFF8A80) else MutedText,
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // ------------------------------------------------------- actions
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
             FocusButton(
-                if (updateInfo.checking) "Checking for updates…" else "Check for updates",
+                if (busy) "Refreshing…" else "Force refresh",
+                enabled = !busy,
+            ) { onForceRefresh() }
+            FocusButton(
+                if (updateInfo.checking) "Checking…" else "Check for update",
                 enabled = !updateInfo.busy,
             ) { onCheckForUpdate() }
+            FocusButton(
+                if (diagnosticsRunning) "Checking for bugs…" else "Check for bugs",
+                enabled = !diagnosticsRunning,
+            ) { onCheckForBugs() }
             if (updateInfo.updateAvailable) {
                 FocusButton(
                     when {
@@ -1104,141 +1115,230 @@ private fun SettingsScreen(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Only a published stable release above ${updateInfo.currentVersion} is " +
-                "offered. The check runs at most once a day and sends GitHub the last ETag, " +
-                "so an unchanged release costs one tiny response. The installer downloads " +
-                "only when you press the button, is verified against the release's SHA-256 " +
-                "file, and is reused instead of downloaded again.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
-        )
 
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            text = "Automatic refresh",
-            style = MaterialTheme.typography.titleMedium,
-            color = Color.White,
-            fontWeight = FontWeight.SemiBold,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        InfoRow(
-            "Background updates",
-            when {
-                refreshInfo.inProgress && refreshInfo.lastTrigger == RefreshTrigger.Automatic ->
-                    "On — checking now"
-                else -> "On — waits for a connected network"
-            },
-        )
-        InfoRow(
-            "Next background check",
-            if (refreshInfo.nextAutomaticAtMillis > 0L) {
-                formatRefreshInstant(refreshInfo.nextAutomaticAtMillis)
-            } else {
-                "Being scheduled"
-            },
-        )
-        InfoRow(
-            "Last successful refresh",
-            if (refreshInfo.lastSuccessAtMillis > 0L) {
-                formatRefreshInstant(refreshInfo.lastSuccessAtMillis)
-            } else {
-                "Not yet"
-            },
-        )
-        if (refreshInfo.lastAttemptAtMillis > 0L) {
-            InfoRow("Last refresh result", refreshInfo.lastMessage)
+        // One status line, not a paragraph: whichever action ran last wins.
+        val statusLine = when {
+            refreshInfo.inProgress -> status.ifBlank { "Refreshing all data…" }
+            library.guideLoading -> "Channels ready · loading the guide…"
+            updateInfo.error != null -> updateInfo.error
+            diagnosticsRunning -> "Checking the library for bugs…"
+            diagnostics != null -> diagnostics.headline
+            status.isNotBlank() -> status
+            else -> updateInfo.message
         }
+        Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "PremiumTV checks shortly after the repository's playlist, " +
-                "quick-update and guide publishing windows. Android may defer a " +
-                "background check while the device is asleep. Unchanged files use " +
-                "HTTP validators, so they are not downloaded again.",
+            text = statusLine,
             style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            text = "Refresh now",
-            style = MaterialTheme.typography.titleMedium,
-            color = Color.White,
-            fontWeight = FontWeight.SemiBold,
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            FocusButton(
-                if (refreshInfo.inProgress) "Refreshing all data…" else "Force refresh all now",
-                enabled = !refreshInfo.inProgress && !library.guideLoading,
-            ) { onForceRefresh() }
-            FocusButton("Reset to bundled data", enabled = !refreshInfo.inProgress && !library.guideLoading) { onReset() }
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-        Text(
-            text = status.ifBlank {
-                "Force refresh bypasses saved validators and downloads both the complete " +
-                    "channel list and programme guide, then replaces the cache only after " +
-                    "both files parse successfully."
+            color = when {
+                updateInfo.error != null -> Color(0xFFFF8A80)
+                refreshInfo.inProgress || diagnosticsRunning -> PremiumGold
+                else -> MutedText
             },
-            style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Refreshes download the playlist and the guide from the public " +
-                "repository on raw.githubusercontent.com; no account is needed. If a " +
-                "download fails, the copy already on this device stays in use. The " +
-                "global preview's guide is a large file (about 38 MB of XML), so a " +
-                "forced refresh can take a minute on a TV.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            text = "Update URLs",
-            style = MaterialTheme.typography.titleMedium,
-            color = Color.White,
-            fontWeight = FontWeight.SemiBold,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = meta.playlistUrl.ifBlank { "(no playlist URL bundled)" },
-            style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
-        )
-        Text(
-            text = meta.guideUrl.ifBlank { "(no guide URL bundled)" },
-            style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
-        )
+        // --------------------------------------------------- bug check card
+        if (diagnostics != null) {
+            Spacer(modifier = Modifier.height(12.dp))
+            DiagnosticsCard(diagnostics)
+        }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // ------------------------------------------------------ quick facts
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(14.dp),
+            color = CardBackground,
+            border = BorderStroke(1.dp, PanelStroke),
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp)) {
+                CompactRow("Newest stable release", updateInfo.latestStableVersion ?: "Not checked yet")
+                CompactRow(
+                    "Last update check",
+                    if (updateInfo.lastCheckedAtMillis > 0L) {
+                        formatRefreshInstant(updateInfo.lastCheckedAtMillis)
+                    } else {
+                        "Not yet"
+                    },
+                )
+                CompactRow(
+                    "Last successful refresh",
+                    if (refreshInfo.lastSuccessAtMillis > 0L) {
+                        formatRefreshInstant(refreshInfo.lastSuccessAtMillis)
+                    } else {
+                        "Not yet"
+                    },
+                )
+                CompactRow(
+                    "Next background check",
+                    if (refreshInfo.nextAutomaticAtMillis > 0L) {
+                        formatRefreshInstant(refreshInfo.nextAutomaticAtMillis)
+                    } else {
+                        "Being scheduled"
+                    },
+                )
+                CompactRow(
+                    "Showing",
+                    if (library.refreshed) "Latest copy downloaded by the app" else "Data bundled in this APK",
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            FocusButton(if (showDetails) "Hide details" else "Show details", enabled = true) {
+                showDetails = !showDetails
+            }
+            FocusButton("Reset to bundled data", enabled = !busy) { onReset() }
+        }
+
+        if (showDetails) {
+            Spacer(modifier = Modifier.height(12.dp))
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(14.dp),
+                color = Color(0xFF0E141B),
+                border = BorderStroke(1.dp, PanelStroke),
+            ) {
+                Column(modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp)) {
+                    CompactRow("Source playlist", meta.playlist.ifBlank { "unknown" })
+                    CompactRow("Source guide", meta.guide.ifBlank { "unknown" })
+                    CompactRow("Playlist URL", meta.playlistUrl.ifBlank { "(not bundled)" })
+                    CompactRow("Guide URL", meta.guideUrl.ifBlank { "(not bundled)" })
+                    if (meta.windowStart > 0L) {
+                        CompactRow("Guide window", "${formatDay(meta.windowStart)} – ${formatDay(meta.windowEnd)}")
+                    }
+                    if (meta.previewFeatures.isNotEmpty()) {
+                        CompactRow("Preview features", meta.previewFeatures.sorted().joinToString())
+                    }
+                    CompactRow("Last refresh result", refreshInfo.lastMessage)
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "About playback",
-            style = MaterialTheme.typography.titleMedium,
-            color = Color.White,
-            fontWeight = FontWeight.SemiBold,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Streams are played with ExoPlayer (Media3). When a playlist entry " +
-                "publishes a referrer, an origin or a user-agent, the app sends them, " +
-                "because several public feeds refuse the connection without them. " +
-                "Plain http streams are allowed for the same reason. A channel that " +
-                "will not play is almost always a dead upstream link: the repository's " +
-                "nightly link check drops those on its next run.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
-        )
-        Spacer(modifier = Modifier.height(32.dp))
-        Text(
-            text = "PremiumTV ${BuildConfig.VERSION_NAME} — every channel, one guide. " +
-                "Publicly listed streams only; nothing is hosted by this app.",
+            text = "Force refresh downloads the playlist and guide again. Checks and " +
+                "downloads use GitHub only; the bug check stays on this device. " +
+                "PremiumTV ${BuildConfig.VERSION_NAME} — publicly listed streams only.",
             style = MaterialTheme.typography.labelSmall,
             color = MutedText,
-            textAlign = TextAlign.Start,
         )
+    }
+}
+
+@Composable
+private fun CompactStat(label: String, value: String, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(end = 8.dp)) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MutedText,
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
+}
+
+@Composable
+private fun CompactRow(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MutedText,
+            modifier = Modifier.width(190.dp),
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.White,
+            modifier = Modifier.weight(1f),
+        )
+    }
+}
+
+@Composable
+private fun DiagnosticsCard(report: DiagnosticsReport) {
+    val accent = when {
+        report.problemCount > 0 -> Color(0xFFFF8A80)
+        report.warningCount > 0 -> PremiumGold
+        else -> Color(0xFF7EDCA2)
+    }
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(14.dp),
+        color = CardBackground,
+        border = BorderStroke(1.dp, accent.copy(alpha = 0.55f)),
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = report.headline,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = accent,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f),
+                )
+                Text(
+                    text = "${report.okCount} ok · ${report.warningCount} warn · ${report.problemCount} fail",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
+            }
+            Spacer(modifier = Modifier.height(6.dp))
+            for (check in report.checks) {
+                val color = when (check.status) {
+                    DiagnosticStatus.Ok -> Color(0xFF7EDCA2)
+                    DiagnosticStatus.Warning -> PremiumGold
+                    DiagnosticStatus.Problem -> Color(0xFFFF8A80)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 3.dp),
+                    verticalAlignment = Alignment.Top,
+                ) {
+                    Text(
+                        text = when (check.status) {
+                            DiagnosticStatus.Ok -> "OK"
+                            DiagnosticStatus.Warning -> "WARN"
+                            DiagnosticStatus.Problem -> "FAIL"
+                        },
+                        style = MaterialTheme.typography.labelSmall,
+                        color = color,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.width(52.dp),
+                    )
+                    Text(
+                        text = check.label,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.width(150.dp),
+                    )
+                    Text(
+                        text = check.detail,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MutedText,
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+            }
+        }
     }
 }

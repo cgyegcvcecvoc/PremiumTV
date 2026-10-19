@@ -1010,7 +1010,17 @@
   function renderSettings() {
     const meta = snapshot.library.meta || {};
     const info = snapshot.info || {};
+    const update = updateState || appInfo.updates || {};
     const source = snapshot.state.source;
+    const current = update.currentVersion || appInfo.version || '';
+    const latest = update.latestStableVersion || '';
+    const available = update.availableVersion || '';
+    const ready = Boolean(update.downloadedVersion && update.downloadedVersion === available);
+    const updateBusy = Boolean(update.checking || update.downloading);
+    const refreshing = refreshPending || info.inProgress || snapshot.state.phase === 'loading' ||
+      snapshot.library.guideLoading;
+    const guideCount = meta.guide_channels || new Set(programmeIndex.keys()).size;
+    const status = diagnoseStatusLine(info, update, refreshing);
 
     const sourceBadge =
       source === 'cache'
@@ -1019,82 +1029,52 @@
           ? '<span class="badge">Bundled in the app</span>'
           : '<span class="badge bad">Unavailable</span>';
 
-    const lastResult = info.lastMessage
-      ? `${info.lastMessage}`
-      : 'No refresh has been attempted in this install yet.';
-    const resultClass = info.lastSuccessAt && info.lastSuccessAt >= (info.lastAttemptAt || 0) ? 'ok' : 'warn';
+    const downloadLabel = update.downloading
+      ? `Downloading… ${Math.max(0, Number(update.progressPercent) || 0)}%`
+      : ready
+        ? 'Open installer'
+        : 'Download update';
 
     els.settingsBody.innerHTML = `
-      <div class="panel">
-        <h2>Library</h2>
-        <div class="actions">
-          <button class="btn btn-primary" id="force-refresh">Force refresh all now</button>
-          <button class="btn" id="check-now">Check for changes</button>
-          <button class="btn btn-danger" id="reset-bundled">Reset to the bundled copy</button>
+      <div class="panel settings-hero">
+        <div class="settings-version">
+          <div>
+            <p class="eyebrow">PREMIUMTV</p>
+            <h2>Version ${escapeHtml(current || appInfo.version || 'unknown')}</h2>
+          </div>
+          <span class="badge ${meta.library_scope === 'all' ? 'warn' : 'ok'}">${
+            meta.library_scope === 'all' ? 'PREVIEW' : 'STABLE · USA'
+          }</span>
         </div>
-        <p><span id="busy" class="badge ${resultClass}">${escapeHtml(info.lastTrigger || 'idle')}</span> &nbsp; ${sourceBadge}</p>
-        <dl class="meta">
-          <dt>Last attempt</dt><dd>${formatStamp(info.lastAttemptAt)}${info.lastTrigger ? ` · ${escapeHtml(info.lastTrigger)}` : ''}</dd>
-          <dt>Last success</dt><dd>${formatStamp(info.lastSuccessAt)}</dd>
-          <dt>Last result</dt><dd>${escapeHtml(lastResult)}</dd>
-          <dt>Next automatic check</dt><dd>${formatStamp(info.nextAutomaticAt)} <span class="muted">${escapeHtml(
-            relativeFromNow(info.nextAutomaticAt),
-          )}</span></dd>
-        </dl>
+        <div class="settings-stats">
+          <div><strong>${escapeHtml(String((snapshot.library.channels || []).length))}</strong><span>channels</span></div>
+          <div><strong>${escapeHtml(String((snapshot.library.groups || []).length))}</strong><span>categories</span></div>
+          <div><strong>${escapeHtml(String(guideCount))}</strong><span>with guide</span></div>
+          <div><strong>${escapeHtml(meta.version || 'unknown')}</strong><span>library build</span></div>
+        </div>
+        <p class="muted">Built ${escapeHtml(meta.generated_utc || 'unknown')} · ${sourceBadge}</p>
+        <div class="actions">
+          <button class="btn btn-primary" id="force-refresh" ${refreshing ? 'disabled' : ''}>${
+            refreshing ? 'Refreshing…' : 'Force refresh'
+          }</button>
+          <button class="btn" id="check-update" ${updateBusy ? 'disabled' : ''}>${
+            update.checking ? 'Checking…' : 'Check for update'
+          }</button>
+          <button class="btn" id="check-bugs" ${bugCheckRunning ? 'disabled' : ''}>${
+            bugCheckRunning ? 'Checking for bugs…' : 'Check for bugs'
+          }</button>
+          ${available ? `<button class="btn btn-primary" id="download-update" ${updateBusy ? 'disabled' : ''}>${
+            escapeHtml(downloadLabel)
+          }</button>` : ''}
+        </div>
+        <p class="settings-status ${update.error ? 'bad' : ''}">${escapeHtml(status)}</p>
       </div>
 
-      <div class="panel">
-        <h2>What is installed</h2>
-        <dl class="meta">
-          <dt>Version</dt><dd>${escapeHtml(meta.version || 'unknown')}${meta.library_scope === 'all' ? ' · preview (global lineup, cable guide)' : ''}</dd>
-          <dt>Library scope</dt><dd>${escapeHtml(meta.library_scope || 'usa')}${Array.isArray(meta.preview_features) && meta.preview_features.length ? ` · preview: ${escapeHtml(meta.preview_features.join(', '))}` : ''}</dd>
-          <dt>Channels</dt><dd>${escapeHtml(meta.channel_count || (snapshot.library.channels || []).length)}</dd>
-          <dt>Categories</dt><dd>${escapeHtml(meta.group_count || (snapshot.library.groups || []).length)}</dd>
-          <dt>Guide listings</dt><dd>${escapeHtml(meta.programme_count || (snapshot.library.programmes || []).length)} for ${escapeHtml(
-            meta.guide_channels || new Set(programmeIndex.keys()).size,
-          )} channels</dd>
-          <dt>Guide window</dt><dd>${meta.window_start ? `${formatClock(meta.window_start)} – ${formatClock(meta.window_end)}` : 'unknown'}</dd>
-          <dt>Playlist source</dt><dd>${escapeHtml(meta.playlist || '')}</dd>
-          <dt>Guide source</dt><dd>${escapeHtml(meta.guide || '')}</dd>
-          <dt>Built</dt><dd>${escapeHtml(meta.generated_utc || '')}</dd>
-          <dt>Refresh URL (playlist)</dt><dd>${escapeHtml(meta.playlist_url || '')}</dd>
-          <dt>Refresh URL (guide)</dt><dd>${escapeHtml(meta.guide_url || '')}</dd>
-        </dl>
-      </div>
+      ${bugReport ? renderBugReport(bugReport) : ''}
 
       <div class="panel">
         <h2>App updates</h2>
-        ${(function () {
-          const update = updateState || appInfo.updates || {};
-          const current = update.currentVersion || appInfo.version || '';
-          const latest = update.latestStableVersion || '';
-          const available = update.availableVersion || '';
-          const ready = Boolean(update.downloadedVersion && update.downloadedVersion === available);
-          const busy = Boolean(update.checking || update.downloading);
-          const badge = update.error
-            ? '<span class="badge bad">Check failed</span>'
-            : ready
-              ? '<span class="badge ok">Ready to install</span>'
-              : available
-                ? '<span class="badge ok">Update available</span>'
-                : '<span class="badge">Up to date</span>';
-          const downloadLabel = update.downloading
-            ? `Downloading… ${Math.max(0, Number(update.progressPercent) || 0)}%`
-            : ready
-              ? 'Open installer'
-              : 'Download update';
-          return `
-        <p>${badge} &nbsp; ${escapeHtml(update.message || 'No update check yet.')}</p>
-        <div class="actions">
-          <button class="btn" id="check-update" ${busy ? 'disabled' : ''}>${
-            update.checking ? 'Checking…' : 'Check for updates'
-          }</button>
-          ${available ? `<button class="btn btn-primary" id="download-update" ${busy ? 'disabled' : ''}>${
-            escapeHtml(downloadLabel)
-          }</button>` : ''}
-          ${update.releaseUrl ? '<button class="btn" id="release-page">Release notes</button>' : ''}
-        </div>
-        <dl class="meta">
+        <dl class="meta compact">
           <dt>Installed</dt><dd>${escapeHtml(current)}</dd>
           <dt>Newest stable</dt><dd>${escapeHtml(latest || 'not checked yet')}</dd>
           <dt>Last check</dt><dd>${formatStamp(update.lastCheckedAtMillis)}</dd>
@@ -1102,43 +1082,47 @@
             update.installerSize ? formatMegabytes(update.installerSize) : 'not downloaded',
           )}${ready && update.installerPath ? ` · ${escapeHtml(update.installerPath)}` : ''}</dd>
         </dl>
-        <p class="muted">Only a published stable release above ${escapeHtml(current)} is offered.
-          The daily check sends GitHub the previous ETag, so an unchanged release costs one tiny
-          response. An installer downloads only when you press the button, is checked against the
-          release's SHA-256 file, and is reused rather than downloaded again.</p>`;
-        })()}
+        <p class="muted">Only a published stable release above ${escapeHtml(current)} is offered. The daily
+          check sends GitHub the previous ETag; the installer downloads only when you press the button,
+          is checked against the release's SHA-256 file and is reused rather than downloaded again.</p>
       </div>
 
       <div class="panel">
-        <h2>Automatic checks</h2>
-        <p>Checks follow this repository's publishing jobs in <b>${escapeHtml(
-          appInfo.repositoryTimeZone || 'America/New_York',
-        )}</b>, ${escapeHtml(String(appInfo.publishingGraceMinutes || 45))} minutes after each slot so the
-        publishing job has finished writing. A check sends the last ETag and Last-Modified value, so an
-        unchanged playlist and guide cost two small <code>304 Not Modified</code> responses instead of a
-        full guide download (about 15 MB for the USA lineup, about 38 MB for the global preview).</p>
-        <p class="muted">Check times: ${escapeHtml((appInfo.checkTimes || []).join(', '))}</p>
-      </div>
-
-      <div class="panel">
-        <h2>Known limitations</h2>
-        <div class="note">
-          <p><b>Refreshes download from the public repository.</b> The playlist and the guide come from
-          <code>raw.githubusercontent.com</code> with no account or credential. If a download fails, the copy
-          already on this Mac stays in use and the result above says why.</p>
+        <h2>Refresh &amp; files</h2>
+        <dl class="meta compact">
+          <dt>Last attempt</dt><dd>${formatStamp(info.lastAttemptAt)}${info.lastTrigger ? ` · ${escapeHtml(info.lastTrigger)}` : ''}</dd>
+          <dt>Last success</dt><dd>${formatStamp(info.lastSuccessAt)}</dd>
+          <dt>Last result</dt><dd>${escapeHtml(info.lastMessage || 'No refresh has been attempted in this install yet.')}</dd>
+          <dt>Next automatic check</dt><dd>${formatStamp(info.nextAutomaticAt)} <span class="muted">${escapeHtml(
+            relativeFromNow(info.nextAutomaticAt),
+          )}</span></dd>
+        </dl>
+        <div class="actions">
+          <button class="btn" id="check-now" ${refreshing ? 'disabled' : ''}>Check for changes</button>
+          <button class="btn btn-danger" id="reset-bundled" ${refreshing ? 'disabled' : ''}>Reset to bundled copy</button>
         </div>
-        <ul class="plain">
-          <li>Only ${escapeHtml(String(meta.guide_channels || new Set(programmeIndex.keys()).size))} of the bundled
-            channels have real listings. The rest show "Nothing listed at this hour" rather than an invented schedule.</li>
-          <li>A link stays in the playlist until the nightly deep check confirms it is dead, so a few channels
-            will not play.</li>
-          <li>This app is ad-hoc signed: it is not notarized by Apple. On first launch, right-click it in
-            Applications and choose Open, or clear the quarantine attribute.</li>
-        </ul>
       </div>
 
-      <div class="panel">
-        <h2>About this build</h2>
+      <details class="panel">
+        <summary><h2>Details</h2></summary>
+        <dl class="meta">
+          <dt>Library scope</dt><dd>${escapeHtml(meta.library_scope || 'usa')}${Array.isArray(meta.preview_features) && meta.preview_features.length ? ` · preview: ${escapeHtml(meta.preview_features.join(', '))}` : ''}</dd>
+          <dt>Guide listings</dt><dd>${escapeHtml(String(meta.programme_count || (snapshot.library.programmes || []).length))} for ${escapeHtml(String(guideCount))} channels</dd>
+          <dt>Guide window</dt><dd>${meta.window_start ? `${formatClock(meta.window_start)} – ${formatClock(meta.window_end)}` : 'unknown'}</dd>
+          <dt>Playlist source</dt><dd>${escapeHtml(meta.playlist || '')}</dd>
+          <dt>Guide source</dt><dd>${escapeHtml(meta.guide || '')}</dd>
+          <dt>Refresh URL (playlist)</dt><dd>${escapeHtml(meta.playlist_url || '')}</dd>
+          <dt>Refresh URL (guide)</dt><dd>${escapeHtml(meta.guide_url || '')}</dd>
+          <dt>Check times</dt><dd>${escapeHtml((appInfo.checkTimes || []).join(', '))}</dd>
+        </dl>
+        <p class="muted">Refreshes follow the repository's publishing jobs in ${escapeHtml(
+          appInfo.repositoryTimeZone || 'America/New_York',
+        )}, ${escapeHtml(String(appInfo.publishingGraceMinutes || 45))} minutes after each slot. Unchanged
+          playlist and guide files use ETag / Last-Modified, so they cost two small 304 responses.</p>
+      </details>
+
+      <details class="panel">
+        <summary><h2>About this build</h2></summary>
         <dl class="meta">
           <dt>PremiumTV</dt><dd>${escapeHtml(appInfo.version || '')}</dd>
           <dt>Electron</dt><dd>${escapeHtml(appInfo.electron || '')}</dd>
@@ -1147,40 +1131,223 @@
           <dt>App data</dt><dd>${escapeHtml(appInfo.userData || '')}</dd>
           <dt>Bundled data</dt><dd>${escapeHtml(appInfo.bundleDir || '')}</dd>
         </dl>
-      </div>
+        <p class="muted">This app is ad-hoc signed and not notarized by Apple. On first launch, right-click it
+          in Applications and choose Open. A channel that will not play is almost always a dead upstream link.</p>
+      </details>
     `;
 
     renderActivity();
-    document.getElementById('force-refresh').addEventListener('click', () => runRefresh(true, 'force-refresh'));
-    document.getElementById('check-now').addEventListener('click', () => runRefresh(false, 'check-now'));
-    document.getElementById('reset-bundled').addEventListener('click', resetToBundled);
+    const bind = (id, event, handler) => {
+      const element = document.getElementById(id);
+      if (element) element.addEventListener(event, handler);
+    };
+    bind('force-refresh', 'click', () => runRefresh(true, 'force-refresh'));
+    bind('check-now', 'click', () => runRefresh(false, 'check-now'));
+    bind('reset-bundled', 'click', resetToBundled);
+    bind('check-update', 'click', async (event) => {
+      event.currentTarget.disabled = true;
+      await api.checkForUpdate(true);
+      updateState = await api.updateStatus();
+      renderSettings();
+    });
+    bind('download-update', 'click', async (event) => {
+      event.currentTarget.disabled = true;
+      const state = updateState || appInfo.updates || {};
+      if (state.downloadedVersion && state.downloadedVersion === state.availableVersion) {
+        await api.installUpdate();
+      } else {
+        await api.downloadUpdate();
+      }
+      updateState = await api.updateStatus();
+      renderSettings();
+    });
+    bind('check-bugs', 'click', () => runBugCheck());
+  }
 
-    const checkUpdate = document.getElementById('check-update');
-    if (checkUpdate) {
-      checkUpdate.addEventListener('click', async () => {
-        checkUpdate.disabled = true;
-        await api.checkForUpdate(true);
-        updateState = await api.updateStatus();
-        renderSettings();
-      });
+  // ------------------------------------------------------------- bug check
+  //
+  // The renderer already has the loaded library, the refresh result and the
+  // update state. The main process adds environment facts (bundle present,
+  // data directory writable) through one read-only IPC call. Nothing here
+  // changes data, so a bug check can never make a working install worse.
+
+  let bugReport = null;
+  let bugCheckRunning = false;
+
+  function diagnoseStatusLine(info, update, refreshing) {
+    if (refreshing) return 'Refreshing the channel list and guide…';
+    if (update && update.error) return `Update check failed: ${update.error}`;
+    if (bugCheckRunning) return 'Checking the library for bugs…';
+    if (bugReport) {
+      if (bugReport.fail) return `${bugReport.fail} bug${bugReport.fail === 1 ? '' : 's'} found — see the report below.`;
+      if (bugReport.warn) return `No blocking bugs · ${bugReport.warn} warning${bugReport.warn === 1 ? '' : 's'}.`;
+      return `All ${bugReport.checks.length} checks passed.`;
     }
-    const downloadUpdate = document.getElementById('download-update');
-    if (downloadUpdate) {
-      downloadUpdate.addEventListener('click', async () => {
-        downloadUpdate.disabled = true;
-        const current = updateState || appInfo.updates || {};
-        if (current.downloadedVersion &&
-            current.downloadedVersion === current.availableVersion) {
-          await api.installUpdate();
-        } else {
-          await api.downloadUpdate();
-        }
-        updateState = await api.updateStatus();
-        renderSettings();
-      });
+    if (info.lastMessage) return info.lastMessage;
+    if (update && update.message) return update.message;
+    return 'Everything is ready.';
+  }
+
+  async function runBugCheck() {
+    if (bugCheckRunning) return;
+    bugCheckRunning = true;
+    if (ui.tab === 'settings') renderSettings();
+    let environment = null;
+    try {
+      environment = typeof api.diagnostics === 'function' ? await api.diagnostics() : null;
+    } catch (error) {
+      environment = { error: error && error.message ? error.message : String(error) };
     }
-    const releasePage = document.getElementById('release-page');
-    if (releasePage) releasePage.addEventListener('click', () => api.openReleasePage());
+    bugReport = buildBugReport(environment);
+    bugCheckRunning = false;
+    if (ui.tab === 'settings') renderSettings();
+  }
+
+  function buildBugReport(environment) {
+    const library = snapshot.library || {};
+    const meta = library.meta || {};
+    const info = snapshot.info || {};
+    const update = updateState || appInfo.updates || {};
+    const channels = Array.isArray(library.channels) ? library.channels : [];
+    const programmes = Array.isArray(library.programmes) ? library.programmes : [];
+    const checks = [];
+    const add = (label, status, detail) => checks.push({ label, status, detail });
+
+    const blank = channels.filter((c) => !c || !c.name || !c.url).length;
+    const badScheme = channels.filter((c) => c && c.url && !/^https?:\/\//i.test(c.url)).length;
+    const seen = new Set();
+    let duplicates = 0;
+    for (const channel of channels) {
+      if (!channel || !channel.url) continue;
+      if (seen.has(channel.url)) duplicates += 1;
+      seen.add(channel.url);
+    }
+    add(
+      'Channel list',
+      channels.length === 0 || blank || badScheme ? 'fail' : duplicates ? 'warn' : 'ok',
+      channels.length === 0
+        ? 'No channels were loaded.'
+        : blank
+          ? `${blank} channel(s) have no name or stream URL.`
+          : badScheme
+            ? `${badScheme} channel(s) have an unusable stream URL.`
+            : duplicates
+              ? `${duplicates} duplicate stream URL(s).`
+              : `${channels.length} channels, every entry playable in format.`,
+    );
+
+    const groups = Array.isArray(library.groups) ? library.groups : [];
+    const groupNames = new Set(groups.map((g) => g && g.name));
+    const ungrouped = channels.filter((c) => c && c.group && !groupNames.has(c.group)).length;
+    add(
+      'Categories',
+      groups.length === 0 ? 'fail' : ungrouped ? 'warn' : 'ok',
+      groups.length === 0
+        ? 'No categories were loaded.'
+        : ungrouped
+          ? `${ungrouped} channel(s) name a category that is not in the sidebar.`
+          : `${groups.length} categories, every channel grouped.`,
+    );
+
+    add(
+      'TV guide',
+      library.guideError ? 'warn' : programmes.length === 0 ? 'fail' : 'ok',
+      library.guideError
+        ? `Guide unavailable: ${library.guideError}`
+        : library.guideLoading
+          ? 'The guide is still loading; channels remain usable.'
+          : programmes.length === 0
+            ? 'No programme listings parsed.'
+            : `${programmes.length} listings across ${meta.guide_channels || new Set(programmes.map((p) => p.c)).size} channels.`,
+    );
+
+    const sourceProblems = [];
+    if (!String(meta.playlist_url || '').startsWith('https://')) sourceProblems.push('playlist URL');
+    if (!String(meta.guide_url || '').startsWith('https://')) sourceProblems.push('guide URL');
+    if (!meta.version) sourceProblems.push('bundle version');
+    add(
+      'Data bundle',
+      sourceProblems.length ? 'fail' : 'ok',
+      sourceProblems.length
+        ? `Missing or unsafe ${sourceProblems.join(', ')}.`
+        : `Built ${meta.generated_utc || 'unknown'} · scope ${meta.library_scope || 'usa'}.`,
+    );
+
+    const refreshFailed = info.lastAttemptAt && Number(info.lastSuccessAt || 0) < Number(info.lastAttemptAt);
+    add(
+      'Refresh pipeline',
+      refreshFailed ? 'warn' : 'ok',
+      info.inProgress
+        ? 'A refresh is running now.'
+        : refreshFailed
+          ? (info.lastMessage || 'The last refresh did not finish.')
+          : info.lastTrigger
+            ? 'Last success and last attempt agree.'
+            : 'No refresh yet; the bundled copy is in use.',
+    );
+
+    add(
+      'App updates',
+      update.error ? 'fail' : 'ok',
+      update.error
+        ? update.error
+        : update.availableVersion
+          ? `PremiumTV ${update.availableVersion} is ready in App updates.`
+          : update.latestStableVersion
+            ? `Newest stable ${update.latestStableVersion}; this build is current.`
+            : 'Not checked yet; press Check for update.',
+    );
+
+    const installed = String(update.currentVersion || appInfo.version || '');
+    add(
+      'Version',
+      installed && meta.version ? 'ok' : 'warn',
+      `Installed ${installed || 'unknown'} · library built for ${meta.version || 'unknown'}.`,
+    );
+
+    if (environment) {
+      const ok = environment.bundleOk !== false && environment.userDataWritable !== false;
+      add(
+        'Files & storage',
+        environment.error || !ok ? 'warn' : 'ok',
+        environment.error
+          ? environment.error
+          : `Bundle ${environment.bundleOk ? 'present' : 'missing'} · data folder ${
+            environment.userDataWritable ? 'writable' : 'not writable'
+          }.`,
+      );
+    }
+
+    const fail = checks.filter((c) => c.status === 'fail').length;
+    const warn = checks.filter((c) => c.status === 'warn').length;
+    return { checks, fail, warn, ok: checks.filter((c) => c.status === 'ok').length };
+  }
+
+  function renderBugReport(report) {
+    const accent = report.fail ? 'bad' : report.warn ? 'warn' : 'ok';
+    const title = report.fail
+      ? `${report.fail} bug${report.fail === 1 ? '' : 's'} found`
+      : report.warn
+        ? `No blocking bugs · ${report.warn} warning${report.warn === 1 ? '' : 's'}`
+        : `All ${report.checks.length} checks passed`;
+    const icon = { ok: '✓', warn: '!', fail: '×' };
+    return `
+      <div class="panel bug-report">
+        <div class="bug-head">
+          <h2>Check for bugs</h2>
+          <span class="badge ${accent}">${escapeHtml(title)}</span>
+        </div>
+        <ul class="bug-list">
+          ${report.checks.map((check) => `
+            <li class="bug-${check.status}">
+              <span class="bug-mark">${icon[check.status]}</span>
+              <strong>${escapeHtml(check.label)}</strong>
+              <span>${escapeHtml(check.detail)}</span>
+            </li>`).join('')}
+        </ul>
+        <p class="muted">Offline, read-only check of the loaded library, refresh state and update
+          configuration. Press it again after a refresh to confirm a fix.</p>
+      </div>`;
   }
 
   let appInfo = {};
@@ -1287,7 +1454,7 @@
       refreshPending = false;
       if (button) {
         button.disabled = false;
-        button.textContent = force ? 'Force refresh all now' : 'Check for changes';
+        button.textContent = force ? 'Force refresh' : 'Check for changes';
       }
       render();
       renderActivity();
@@ -1568,11 +1735,18 @@
       return;
     }
     const ended = notice.level === 'end_of_support';
-    els.updateNotice.classList.toggle('ended', ended);
-    els.updateNoticeEyebrow.textContent = ended ? 'SUPPORT HAS ENDED' : 'PREMIUMTV UPDATE';
+    const blocked = notice.level === 'blocked';
+    els.updateNotice.classList.toggle('ended', ended || blocked);
+    els.updateNoticeEyebrow.textContent = blocked
+      ? 'BUILD RETIRED'
+      : ended
+        ? 'SUPPORT HAS ENDED'
+        : 'PREMIUMTV UPDATE';
     els.updateNoticeTitle.textContent = notice.title || 'A newer PremiumTV is available';
     els.updateNoticeMessage.textContent = notice.message || '';
     els.updateNoticeSurpriseWrap.hidden = !notice.surprise;
+    const surpriseLabel = els.updateNoticeSurpriseWrap.querySelector('.notice-surprise-label');
+    if (surpriseLabel) surpriseLabel.textContent = blocked ? 'WHAT REPLACES IT' : 'THE SURPRISE';
     els.updateNoticeSurprise.textContent = notice.surprise || '';
 
     const current = state.currentVersion || (appInfo && appInfo.version) || '';
@@ -1583,11 +1757,14 @@
     els.updateNoticeUrl.textContent = notice.releasesUrl || '';
     els.updateNoticeAction.textContent = notice.actionLabel || 'Update now';
     els.updateNoticeDismiss.textContent = notice.dismissLabel || 'Remind me next time';
-    els.updateNoticeFoot.textContent = ended
-      ? 'This build no longer receives channel or guide updates from GitHub. ' +
-        'Esc dismisses this message for now; it returns every launch.'
-      : 'Esc dismisses this message for now; it returns every launch until ' +
-        'PremiumTV is updated.';
+    els.updateNoticeFoot.textContent = blocked
+      ? 'This retired preview is blocked from download. Install the current stable ' +
+        'release; it replaces this build and keeps updating itself.'
+      : ended
+        ? 'This build no longer receives channel or guide updates from GitHub. ' +
+          'Esc dismisses this message for now; it returns every launch.'
+        : 'Esc dismisses this message for now; it returns every launch until ' +
+          'PremiumTV is updated.';
     els.updateNotice.hidden = false;
     els.updateNoticeAction.focus();
   }
@@ -1715,12 +1892,12 @@
     updateState = appInfo.updates || null;
     renderUpdateNotice();
     const brandTag = document.getElementById('brand-tag');
-    if (brandTag && appInfo.version) brandTag.textContent = appInfo.version + (appInfo.version.startsWith('1.1.1') ? ' · Encore Preview' : '');
+    if (brandTag && appInfo.version) brandTag.textContent = appInfo.version;
     // The splash names the build the viewer is waiting on, the same way the
     // sidebar plaque and Settings do.
     if (els.splashVersion && appInfo.version) {
       els.splashVersion.textContent =
-        `Version ${appInfo.version}${appInfo.version.startsWith('1.1.1') ? ' · Encore Preview' : ''}`;
+        `Version ${appInfo.version}`;
     }
     await syncSnapshot();
     hideSplash();

@@ -994,3 +994,44 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
 @media (prefers-reduced-motion: reduce) {
   .card, .guide-row, .btn, .tab, .cat { transition: none; }
 }
+
+/* ---- 1.0.6.1: compact Settings + built-in bug check ---- */
+.settings-hero { display: flex; flex-direction: column; gap: 10px; }
+.settings-version { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.settings-version h2 { margin: 2px 0 0; font-size: 22px; letter-spacing: -0.2px; }
+.settings-version .eyebrow { margin: 0; color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 1.6px; }
+.settings-stats {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px;
+  padding: 10px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.settings-stats div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.settings-stats strong { font-size: 16px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.settings-stats span { color: var(--muted); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.7px; }
+.settings-status { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+.settings-status.bad { color: var(--danger); }
+dl.meta.compact { margin: 6px 0 10px; }
+dl.meta.compact dt, dl.meta.compact dd { padding-top: 4px; padding-bottom: 4px; }
+details.panel > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px;
+  margin: -2px 0 8px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+}
+details.panel > summary::-webkit-details-marker { display: none; }
+details.panel > summary::before { content: '▸'; color: var(--gold); font-size: 12px; }
+details.panel[open] > summary::before { content: '▾'; }
+details.panel > summary h2 { margin: 0; font-size: 12px; letter-spacing: 1px; color: var(--text); }
+.bug-report { border-color: rgba(79, 209, 139, 0.32); }
+.bug-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.bug-head h2 { margin: 0; }
+.bug-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.bug-list li {
+  display: grid; grid-template-columns: 22px 138px 1fr; gap: 8px;
+  padding: 6px 0; border-top: 1px solid var(--border); font-size: 12px; line-height: 1.4;
+}
+.bug-list li:first-child { border-top: 0; }
+.bug-mark { font-weight: 700; }
+.bug-list li strong { font-weight: 620; }
+.bug-list li span:last-child { color: var(--muted); }
+.bug-ok .bug-mark { color: var(--ok); }
+.bug-warn .bug-mark { color: var(--gold); }
+.bug-fail .bug-mark { color: var(--danger); }
+.bug-fail strong { color: var(--danger); }

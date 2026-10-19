@@ -8,26 +8,30 @@
  *   1. the GitHub release is published (`draft` is false);
  *   2. it is not a pre-release (`prerelease` is false) - previews are never
  *      pushed to stable users, and an installed preview is ahead of them;
- *   3. its MAJOR.MINOR.PATCH version is numerically above the installed app;
+ *   3. its MAJOR.MINOR.PATCH[.HOTFIX] version is numerically above the app;
  *   4. the installer for *this* Mac (arm64 or x64) is already attached, so a
  *      release whose build jobs are still uploading cannot send someone to a
  *      missing download.
  *
- * Comparing numbers - not strings - is what keeps 1.0.10 above 1.0.9 and stops
- * an older release from being offered over a newer preview.
+ * Comparing numbers - not strings - is what keeps 1.0.10 above 1.0.9 and
+ * 1.0.6.1 above 1.0.6 without treating it as 1.0.7.
  */
 
-const VERSION_RE = /^v?(\d+)\.(\d+)\.(\d+)(?:[-+][0-9A-Za-z][0-9A-Za-z.-]*)?$/;
+const VERSION_RE = /^v?(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:[-+][0-9A-Za-z][0-9A-Za-z.-]*)?$/;
 
 function parseVersion(value) {
   const match = VERSION_RE.exec(String(value == null ? '' : value).trim());
   if (!match) return null;
-  return match.slice(1, 4).map((part) => Number(part));
+  const parts = match.slice(1).filter((part) => part !== undefined).map(Number);
+  while (parts.length < 4) parts.push(0);
+  return parts;
 }
 
 function normalizeVersion(value) {
   const parts = parseVersion(value);
-  return parts ? parts.join('.') : null;
+  if (!parts) return null;
+  while (parts.length > 3 && parts[parts.length - 1] === 0) parts.pop();
+  return parts.join('.');
 }
 
 /** 1 when a is newer, -1 when older, 0 when equal; null for unreadable input. */
@@ -35,7 +39,7 @@ function compareVersions(a, b) {
   const left = parseVersion(a);
   const right = parseVersion(b);
   if (!left || !right) return null;
-  for (let index = 0; index < 3; index += 1) {
+  for (let index = 0; index < 4; index += 1) {
     if (left[index] !== right[index]) return left[index] > right[index] ? 1 : -1;
   }
   return 0;
@@ -43,6 +47,27 @@ function compareVersions(a, b) {
 
 function isNewer(candidate, current) {
   return compareVersions(candidate, current) === 1;
+}
+
+/**
+ * Releases published only so an updater that reads three-part versions
+ * (1.0.4-1.0.6) can reach the canonical build. They carry the same app code:
+ * offering the alias to a Mac already running the canonical version would be
+ * a pointless full-size download, so it is skipped for that machine.
+ */
+const COMPATIBILITY_ALIASES = { '1.0.7': '1.0.6.1' };
+
+function canonicalVersion(value) {
+  const version = normalizeVersion(value);
+  return version ? (COMPATIBILITY_ALIASES[version] || version) : null;
+}
+
+function isCompatibilityAlias(candidate, current) {
+  // Only a registered alias qualifies; the canonical version is not itself an
+  // alias even though canonicalVersion() maps it to itself.
+  const version = normalizeVersion(candidate);
+  const canonical = version ? COMPATIBILITY_ALIASES[version] : null;
+  return canonical != null && canonical === canonicalVersion(current);
 }
 
 function macArch(arch) {
@@ -74,6 +99,16 @@ function selectStableUpdate(releases, currentVersion, arch = 'arm64') {
     if (!release || release.draft || release.prerelease) continue;
     const version = normalizeVersion(releaseTag(release));
     if (!version) continue;
+    // A compatibility alias of the installed build is the same code under a
+    // second name; it must not read as a newer stable release. The canonical
+    // version behind it is still what "newest stable" means for this Mac.
+    if (isCompatibilityAlias(version, current)) {
+      const canonical = canonicalVersion(version);
+      if (canonical && (!newestStable || isNewer(canonical, newestStable))) {
+        newestStable = canonical;
+      }
+      continue;
+    }
     if (!newestStable || isNewer(version, newestStable)) newestStable = version;
     if (!isNewer(version, current)) continue;
 
@@ -117,6 +152,9 @@ function describeState(currentVersion, newestStable, update) {
 }
 
 module.exports = {
+  COMPATIBILITY_ALIASES,
+  canonicalVersion,
+  isCompatibilityAlias,
   parseVersion,
   normalizeVersion,
   compareVersions,

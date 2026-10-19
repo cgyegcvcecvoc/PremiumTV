@@ -47,9 +47,9 @@ data class BundleMeta(
     val playlistUrl: String,
     val guideUrl: String,
     val rawBase: String,
-    /** "usa" for the stable lineup; "all" for the global preview (1.1.x). */
+    /** "usa" for the stable lineup; "all" for the global guide bundle. */
     val libraryScope: String = "usa",
-    /** Preview-only UI features enabled by the generated bundle ("cable-guide"). */
+    /** Optional UI features enabled by the generated bundle ("cable-guide"). */
     val previewFeatures: Set<String> = emptySet(),
     /** The repository's category order, so a refreshed playlist keeps it. */
     val publishedOrder: List<String> = emptyList(),

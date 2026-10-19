@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "enabled": true,
-  "updated_utc": "2026-10-18T00:00:00Z",
+  "updated_utc": "2026-10-19T00:00:00Z",
   "notice_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json",
   "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest",
   "repo_url": "https://github.com/cgyegcvcecvoc/PremiumTV1",
@@ -9,6 +9,45 @@
   "support_ends_utc": "2026-11-16T23:59:59Z",
   "grace_days": 30,
   "rules": [
+    {
+      "id": "retired-preview-1-1",
+      "platforms": [
+        "android",
+        "macos"
+      ],
+      "min_version": "1.1.0",
+      "max_version": "1.1.1",
+      "level": "blocked",
+      "title": "This preview is retired — install PremiumTV 1.0.6.1",
+      "message": "You are on PremiumTV {version}. The 1.1.x preview channel has been removed: its downloads are gone, it receives no more support, and it is not the stable app. Install stable {newest} from the download page. On Android it installs over this preview with no uninstall; on Mac the DMG replaces this copy.",
+      "surprise": "1.0.6.1 is the current stable: compact Settings with Force refresh, Check for update and Check for bugs, the USA lineup and the full USA guide.",
+      "action_label": "Get 1.0.6.1",
+      "dismiss_label": "Not now",
+      "releases_url": "https://cgyegcvcecvoc.github.io/PremiumTV1/blocked/"
+    },
+    {
+      "id": "update-to-1-0-6-1",
+      "platforms": [
+        "android",
+        "macos"
+      ],
+      "min_version": "1.0.4",
+      "max_version": "1.0.6",
+      "level": "warning",
+      "title": "PremiumTV 1.0.6.1 is ready — you are on {version}",
+      "message": "You are on PremiumTV {version}, and a newer stable release is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It is the same 1.0.6.1 build even if the updater lists it as 1.0.7. Support for builds below 1.0.6.1 ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
+      "surprise": "Settings → App updates downloads it once, verifies it against the release's SHA-256 file and installs it over this build — no uninstall, no manual APK or DMG download.",
+      "action_label": "Update now",
+      "dismiss_label": "Remind me next time",
+      "after_support_ends": {
+        "level": "end_of_support",
+        "title": "Support for PremiumTV {version} ended on {support_ends}",
+        "message": "This build no longer receives channel or guide updates. Install {newest} to keep live channels and every future update in-app.",
+        "surprise": "Stable {newest} still updates itself: Settings → App updates verifies the installer's SHA-256 and installs it for you.",
+        "action_label": "Get {newest}",
+        "dismiss_label": "Not now"
+      }
+    },
     {
       "id": "legacy-upgrade-2026-11",
       "platforms": [
@@ -19,32 +58,9 @@
       "max_version": "1.0.3",
       "level": "warning",
       "title": "A newer PremiumTV is waiting — and this is the last manual install",
-      "message": "You are on PremiumTV {version}, and {newest} is waiting on GitHub. Update once and PremiumTV keeps itself current from then on.",
+      "message": "You are on PremiumTV {version}, and {newest} is waiting on GitHub. Update once and PremiumTV keeps itself current from then on. Support for this build ends {support_ends}.",
       "surprise": "Here is the surprise: the newest build updates itself. Settings → App updates checks GitHub, downloads the installer once, verifies it against the release's SHA-256 file and hands it to the normal installer — so you never download an APK or a DMG by hand again.",
       "action_label": "Update now",
-      "dismiss_label": "Remind me next time",
-      "after_support_ends": {
-        "level": "end_of_support",
-        "title": "Support for PremiumTV {version} ended on {support_ends}",
-        "message": "This build no longer receives the GitHub channel scrape updates, so its channel list is frozen at {support_ends}. Install the newest release from GitHub to keep getting live channels and every future update in-app.",
-        "surprise": "The newest build still updates itself: Settings → App updates checks GitHub, verifies the installer's SHA-256 and installs it for you.",
-        "action_label": "Get the newest version",
-        "dismiss_label": "Not now"
-      }
-    },
-    {
-      "id": "last-manual-install-2026-11",
-      "platforms": [
-        "android",
-        "macos"
-      ],
-      "min_version": "1.0.4",
-      "max_version": "1.0.4",
-      "level": "warning",
-      "title": "You are on the last PremiumTV that installs by hand",
-      "message": "1.0.4 updates itself: Settings → App updates fetches each new release from GitHub, checks its SHA-256 and installs it. Support for 1.0.4 and older ends {support_ends}.",
-      "surprise": "Every later release arrives in Settings → App updates — this is the last PremiumTV anybody installs by hand.",
-      "action_label": "Open App updates",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {
         "level": "end_of_support",

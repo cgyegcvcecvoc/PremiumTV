@@ -171,7 +171,7 @@ class TvRepository extends EventEmitter {
         phase: 'error',
         source: null,
         message:
-          'The bundled channel list could not be read. Reinstall PremiumTV, or use Settings → Force refresh all now.',
+          'The bundled channel list could not be read. Reinstall PremiumTV, or use Settings → Force refresh.',
       });
       return;
     }

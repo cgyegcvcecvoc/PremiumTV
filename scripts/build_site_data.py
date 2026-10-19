@@ -136,25 +136,29 @@ DISPLAY_NAME = {
 CHANNELS = [
     {
         "id": "stable",
-        "tag": "v1.0.4",
-        "version": "1.0.4",
+        "tag": "v1.0.6.1",
+        "version": "1.0.6.1",
         "channel": "Stable",
         "badge": "Recommended",
-        "summary": "One Last Manual Install — USA lineup + USA guide, with in-app updates from Settings.",
-        "notes_file": "release-notes-1.0.4.md",
-        "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
-    },
-    {
-        "id": "preview",
-        "tag": "v1.1.1",
-        "version": "1.1.1",
-        "channel": "Encore Preview",
-        "badge": "Pre-release",
-        "summary": "Encore Preview — global lineup + cable-style guide, with Everyday Polish loading and refresh feedback.",
-        "notes_file": "release-notes-1.1.1.md",
+        "summary": "Settings 2.0 — compact version card, one-tap force refresh, update check and a built-in bug check. USA lineup + USA guide.",
+        "notes_file": "release-notes-1.0.6.1.md",
         "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
     },
 ]
+
+# Retired preview builds are deliberately absent from the download page. Their
+# release pages may still exist for the historical record, but the site must
+# never offer a download that points at a retired channel.
+RETIRED_TAGS = {"v1.1.0", "v1.1.1"}
+
+# Releases published only so an updater that reads three-part versions
+# (1.0.4-1.0.6) can reach the canonical build.  They are the same code and
+# never replace it as the advertised download.  The policy lives in
+# scripts/release_version.py so the workflows, the site and both apps agree.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from release_version import COMPATIBILITY_ALIASES, macos_version  # noqa: E402
+
+ALIAS_TAGS = {f"v{alias}" for alias in COMPATIBILITY_ALIASES}
 
 
 def log(msg: str) -> None:
@@ -234,6 +238,32 @@ def asset_digest(asset: dict) -> str | None:
     return value if re.fullmatch(r"[0-9a-f]{64}", value) else None
 
 
+MAC_ASSET_SUFFIXES = ("mac-arm64.dmg", "mac-arm64.pkg", "mac-x64.dmg", "mac-x64.pkg")
+
+
+def mac_assets_for(version: str, releases: list[dict]) -> tuple[set[str], dict | None, str | None]:
+    """The Mac installer names belonging to a canonical stable version.
+
+    macOS packaging only accepts three-part versions, so a four-part hotfix is
+    built as its compatibility alias and those installers live on the alias
+    release (1.0.6.1 -> v1.0.7).  Returns the required asset names, the release
+    that carries them, and the version printed in their file names.
+    """
+    mac_version = macos_version(version)
+    if mac_version is None:
+        return set(), None, None
+    required = {f"PremiumTV-{mac_version}-{suffix}" for suffix in MAC_ASSET_SUFFIXES}
+    for release in releases:
+        if release_tag(release) != f"v{mac_version}":
+            continue
+        if release.get("draft") or release.get("prerelease"):
+            continue
+        available = {a.get("name", "") for a in release.get("assets") or []}
+        if required.issubset(available):
+            return required, release, mac_version
+    return set(), None, mac_version
+
+
 def latest_complete_stable_release(releases: list[dict]) -> dict | None:
     """Pick the newest published stable release only after every app installer exists.
 
@@ -246,20 +276,21 @@ def latest_complete_stable_release(releases: list[dict]) -> dict | None:
         tag = release_tag(release)
         if release.get("draft") or release.get("prerelease"):
             continue
-        match = re.fullmatch(r"v(\d+)\.(\d+)\.(\d+)", tag)
+        match = re.fullmatch(r"v(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?", tag)
         if not match:
             continue
-        version = ".".join(match.groups())
+        version = ".".join(part for part in match.groups() if part is not None)
+        if tag in RETIRED_TAGS or tag in ALIAS_TAGS:
+            continue
         available = {a.get("name", "") for a in release.get("assets") or []}
-        required = {
-            f"PremiumTV-{version}-debug.apk",
-            f"PremiumTV-{version}-mac-arm64.dmg",
-            f"PremiumTV-{version}-mac-arm64.pkg",
-            f"PremiumTV-{version}-mac-x64.dmg",
-            f"PremiumTV-{version}-mac-x64.pkg",
-        }
-        if required.issubset(available):
-            candidates.append((tuple(int(part) for part in match.groups()), release))
+        # The APK belongs to this release; the Mac installers may live on the
+        # compatibility alias, because macOS packaging needs three parts.
+        mac_required, mac_release, _ = mac_assets_for(version, releases)
+        mac_available = {a.get("name", "") for a in (mac_release or {}).get("assets") or []}
+        if (f"PremiumTV-{version}-debug.apk" in available
+                and mac_release is not None and mac_required <= mac_available):
+            numbers = tuple(int(part) for part in match.groups() if part is not None)
+            candidates.append((numbers + (0,) * (4 - len(numbers)), release))
     return max(candidates, key=lambda item: item[0])[1] if candidates else None
 
 
@@ -267,6 +298,7 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
     by_tag = {release_tag(r): r for r in releases if release_tag(r)}
     channel_specs = [dict(spec) for spec in CHANNELS]
     current_stable = latest_complete_stable_release(releases)
+    stable_version = ""
     if current_stable:
         stable_tag = release_tag(current_stable)
         stable_version = stable_tag[1:]
@@ -279,7 +311,16 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
             channel_specs[0]["summary"] = "Everyday Polish — USA lineup + list guide, loading indicators, refresh stages, tips and clear result feedback."
         if stable_version == "1.0.4":
             channel_specs[0]["summary"] = ("One Last Manual Install — USA lineup + list guide, with Settings → App updates "
-                                          "for every later stable release. The default download.")
+                                          "for every later stable release.")
+        if stable_version == "1.0.5":
+            channel_specs[0]["summary"] = ("Splash, search, placeholder logos, Live Events and multi-server playback — "
+                                          "USA lineup + guide, with in-app updates.")
+        if stable_version == "1.0.6":
+            channel_specs[0]["summary"] = ("Click-to-search, Recently watched + Favorites, and manual server switching — "
+                                          "USA lineup + guide, with in-app updates.")
+        if stable_version == "1.0.6.1":
+            channel_specs[0]["summary"] = ("Settings 2.0 — compact version card, one-tap force refresh, update check and "
+                                          "a built-in bug check. USA lineup + guide, with in-app updates.")
 
     channels = []
     for spec in channel_specs:
@@ -300,8 +341,30 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
                 "sha256": asset_digest(asset) or checksums.get(asset.get("name", "")),
             })
         notes_title, notes_summary = read_release_notes(spec.get("notes_file", ""))
+        mac_version = None
+        if spec["id"] == "stable" and current_stable:
+            required, mac_release, mac_version = mac_assets_for(stable_version, releases)
+            if mac_release is not None and release_tag(mac_release) != spec["tag"]:
+                for asset in mac_release.get("assets") or []:
+                    kind, arch = classify_asset(asset.get("name", ""))
+                    if kind not in ("macos-dmg", "macos-pkg", "checksum"):
+                        continue
+                    if asset.get("name") in {a["name"] for a in assets}:
+                        continue
+                    if asset.get("name") == "SHA256SUMS-macos.txt" or \
+                            asset.get("name", "").startswith(f"PremiumTV-{mac_version}-mac-"):
+                        assets.append({
+                            "name": asset.get("name", ""),
+                            "kind": kind,
+                            "arch": arch,
+                            "size": int(asset.get("size") or 0),
+                            "url": asset.get("browser_download_url")
+                                   or f"{RELEASES_BASE}/{release_tag(mac_release)}/{asset.get('name', '')}",
+                            "sha256": asset_digest(asset) or checksums.get(asset.get("name", "")),
+                        })
         channels.append({
             **spec,
+            "macos_version": mac_version if mac_version and mac_version != spec["version"] else spec["version"],
             "published_at": release.get("published_at", ""),
             "html_url": release.get("html_url",
                                     f"https://github.com/{REPO_OWNER}/{REPO_NAME}"
@@ -313,7 +376,13 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
     older = []
     active_tags = {c["tag"] for c in channel_specs}
     for tag, release in sorted(by_tag.items(), reverse=True):
-        if tag in active_tags or not tag:
+        if tag in active_tags or not tag or tag in RETIRED_TAGS:
+            continue
+        # A compatibility alias is not an "older release" while it stands for
+        # the stable build the page is promoting.
+        if tag in ALIAS_TAGS and COMPATIBILITY_ALIASES.get(tag[1:]) == stable_version:
+            continue
+        if release.get("draft") or release.get("prerelease"):
             continue
         older.append({
             "tag": tag,

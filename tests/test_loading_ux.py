@@ -16,7 +16,7 @@ class LoadingUxTests(unittest.TestCase):
         self.assertIn('LibraryActivity(', source)
         self.assertIn('delay(15_000L)', source)
         self.assertIn('refreshInfo.lastMessage', source)
-        self.assertIn('enabled = !refreshInfo.inProgress && !library.guideLoading', source)
+        self.assertIn('val busy = refreshInfo.inProgress || library.guideLoading', source)
         components = (UI / 'Components.kt').read_text()
         self.assertIn('LinearProgressIndicator', components)
         self.assertIn('delay(8_000L)', components)
@@ -37,17 +37,19 @@ class LoadingUxTests(unittest.TestCase):
         next_stable['assets'].append(missing)
         self.assertEqual(hub.release_channels([stable, next_stable, preview]), '1.0.3')
 
-    def test_preview_rebuild_cannot_overwrite_stable_assets(self):
+    def test_retired_preview_switch_is_gone_and_assets_stay_exact_sha_guarded(self):
         for name in ('android-build.yml', 'macos-build.yml'):
             workflow = (ROOT / '.github/workflows' / name).read_text()
-            self.assertIn('[ "$tag" != "v1.1.1" ]', workflow)
-            self.assertIn('[ "$preview" != "true" ]', workflow)
-            self.assertIn('[[ "$PUSH_MESSAGE" != *"[preview-build]"* ]]', workflow)
+            self.assertNotIn('v1.1.1', workflow)
+            self.assertNotIn('[preview-build]', workflow)
+            self.assertIn('keeping its assets', workflow)
             self.assertIn('BUILD-SOURCE-', workflow)
+        self.assertFalse((ROOT / '.github/preview-build.txt').exists())
 
     def test_netlify_no_longer_hardcodes_old_stable_or_embeds_apks(self):
         script = (ROOT / 'hub/static/assets/app.js').read_text()
         self.assertNotIn('a.version === "1.0.2"', script)
         export = (ROOT / 'hub/export_static.py').read_text()
         self.assertNotIn('copy_into("build-out/', export)
-        self.assertIn('Encore Preview', script)
+        self.assertNotIn('Encore Preview', script)
+        self.assertNotIn('previewApk', script)

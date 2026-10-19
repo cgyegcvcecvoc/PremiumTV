@@ -8,11 +8,13 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently 1.0.4 — One Last Manual Install) and Encore Preview (1.1.1), with every asset
-  (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes,
-  SHA-256 checksums and install help — all linking at the GitHub release assets.
-  The 1.0.4 build is promoted only after its APK and all four Mac installers are
-  published, so the page never replaces working downloads with empty links.
+- **Download the apps.** The latest complete Stable release (currently 1.0.6.1 —
+  Settings 2.0 + built-in bug check), with every asset (Android APK, macOS
+  .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and
+  install help — all linking at the GitHub release assets. The build is
+  promoted only after its APK and all four Mac installers are published, so the
+  page never replaces working downloads with empty links. Retired preview
+  builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -30,16 +32,21 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## One Last Manual Install / Encore
+## Current stable: 1.0.6.1
 
-Stable 1.0.4 adds the **App updates** panel in Settings. It is the last release
-that has to be downloaded by hand: from here on the app checks GitHub for a
-newer published stable release, downloads the installer once, verifies its
-SHA-256 checksum and opens the platform installer. The policy is documented in
-[`UPDATES.md`](UPDATES.md). Stable 1.0.4 remains USA/list-guide; Encore 1.1.1
-remains global/cable-guide, keeps its name, and ships the same update center.
-The Netlify Drop hub under `hub/` uses the same complete-release gate. Rebuild
-and re-upload its export to refresh an existing Netlify deployment.
+Settings is now one compact screen: a version card, **Force refresh**, **Check
+for update**, **Check for bugs**, and a collapsible details panel. The app
+checks GitHub for a newer published stable release, downloads the installer
+once, verifies its SHA-256 checksum and opens the platform installer. The
+policy is documented in [`UPDATES.md`](UPDATES.md).
+
+The **1.1.x Encore preview is retired and blocked**. Its release, installers and
+download links were removed; any old link goes to
+[`blocked/`](blocked/index.html), which points at 1.0.6.1 and explains how to
+replace the preview without uninstalling on Android. The Netlify Drop hub under
+`hub/` uses the same complete-release gate and no longer renders a preview
+card. Rebuild and re-upload its export to refresh an existing Netlify
+deployment.
 
 ## Files
 

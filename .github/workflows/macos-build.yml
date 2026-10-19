@@ -6,9 +6,9 @@ name: Build PremiumTV macOS DMG + PKG
 # for both Intel and Apple Silicon, ad-hoc signs the .app, and publishes the
 # installers to the release page plus an Actions artifact.
 #
-# Stable releases attach only to full releases; 1.1.x previews attach only to
-# GitHub pre-releases. Versions come from scripts/release_version.py, so a new
-# stable release always lands above the installed version.
+# Stable releases attach only to full releases. Versions come from
+# scripts/release_version.py, so a new stable release always lands above the
+# installed version.
 
 on:
   push:
@@ -16,7 +16,6 @@ on:
       - "**"
     paths:
       - "macos/**"
-      - ".github/preview-build.txt"
       - "playlists/countries/**"
       # The USA bundle, shelf and site all read the live feed now, so a
       # change there has to rebuild them too.
@@ -30,9 +29,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to build (for example 1.0.6 stable or 1.1.1 preview)"
+        description: "Version to build (for example 1.0.6.1 stable)"
         type: string
-        default: "1.0.6"
+        default: "1.0.6.1"
         required: true
       channel:
         description: "Release channel: stable = USA lineup, preview = global lineup"
@@ -57,11 +56,10 @@ jobs:
     name: Build DMG + PKG
     # Every published release is built for both platforms. The upload step
     # below still requires the release tag to point at this exact commit
-    # (except for the explicit [preview-build] rebuild of v1.1.1).
     runs-on: macos-14
     timeout-minutes: 60
     env:
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.6') }}
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.6.1') }}
 
     steps:
       - name: Check out the repository
@@ -85,7 +83,6 @@ jobs:
           RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
           INPUT_VERSION: ${{ github.event.inputs.version }}
           INPUT_CHANNEL: ${{ github.event.inputs.channel }}
-          PUSH_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           if [ "$GITHUB_EVENT_NAME" = "release" ]; then
@@ -93,36 +90,47 @@ jobs:
               echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
             if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.0.6}"
+            version="${INPUT_VERSION:-1.0.6.1}"
             channel="${INPUT_CHANNEL:-stable}"
-            # Explicit push switch; ordinary pushes remain stable builds.
-            if [ "$GITHUB_EVENT_NAME" = "push" ] && [[ "$PUSH_MESSAGE" == *"[preview-build]"* ]]; then
-              version=1.1.1
-              channel=preview
-            fi
             version=$(python3 scripts/release_version.py --normalize "$version") || {
               echo "Unsupported PremiumTV version: $version"; exit 1; }
           fi
           if [ "$channel" = "preview" ]; then scope=all; else scope=usa; fi
+          # macOS packaging rejects four-part versions. A hotfix such as 1.0.6.1
+          # is therefore packaged as its three-part compatibility alias (1.0.7);
+          # that alias release carries the Mac installers.
+          macos_version=$(python3 scripts/release_version.py --macos "$version")
           {
             echo "VERSION=$version"
+            echo "MACOS_VERSION=$macos_version"
             echo "RELEASE_TAG=v$version"
             echo "BUNDLE_SCOPE=$scope"
             echo "CHANNEL=$channel"
           } >> "$GITHUB_ENV"
-          echo "Building PremiumTV $version ($channel, scope=$scope)."
+          echo "Building PremiumTV $macos_version for macOS ($channel, scope=$scope; release version $version)."
 
       - name: Set the packaged app version
         working-directory: macos/app
         run: |
-          current_version=$(node -p "require('./package.json').version")
-          if [ "$current_version" != "$VERSION" ]; then
-            npm version "$VERSION" --no-git-tag-version --ignore-scripts
-          fi
+          # npm's own `npm version` rejects a four-part version such as 1.0.6.1,
+          # and this release line uses one. Write the two files electron-builder
+          # and app.getVersion() read instead; the lockfile's root entry must
+          # agree or `npm ci` refuses the tree.
+          node - "$MACOS_VERSION" <<'NODE'
+          const fs = require('node:fs');
+          const version = process.argv[2];
+          for (const file of ['package.json', 'package-lock.json']) {
+            const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+            data.version = version;
+            if (data.packages && data.packages['']) data.packages[''].version = version;
+            fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
+          }
+          NODE
+          node -p "'packaged app version: ' + require('./package.json').version"
 
       - name: Bake the selected playlist and guide into the app
         working-directory: macos/app
-        run: PREMIUMTV_SCOPE="$BUNDLE_SCOPE" PREMIUMTV_VERSION="$VERSION" npm run bundle
+        run: PREMIUMTV_SCOPE="$BUNDLE_SCOPE" PREMIUMTV_VERSION="$MACOS_VERSION" npm run bundle
 
       - name: Vendor the player libraries
         working-directory: macos/app
@@ -166,7 +174,7 @@ jobs:
             test -s "$resources/bundle/channels.jsonl"
             test -s "$resources/bundle/meta.json"
             test -s "$resources/app.asar"
-            node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1])); if(meta.channel_count < 1 || meta.version !== process.env.VERSION) process.exit(1); if(process.env.BUNDLE_SCOPE === "all" && !meta.preview_features.includes("cable-guide")) process.exit(1); if(process.env.BUNDLE_SCOPE === "usa" && meta.preview_features.includes("cable-guide")) process.exit(1)' "$resources/bundle/meta.json"
+            node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1])); if(meta.channel_count < 1 || meta.version !== process.env.MACOS_VERSION) process.exit(1); if(process.env.BUNDLE_SCOPE === "all" && !meta.preview_features.includes("cable-guide")) process.exit(1); if(process.env.BUNDLE_SCOPE === "usa" && meta.preview_features.includes("cable-guide")) process.exit(1)' "$resources/bundle/meta.json"
           done
 
       - name: Smoke test the packaged app on Apple Silicon and Intel (Rosetta)
@@ -189,7 +197,7 @@ jobs:
       - name: Upload installers as an Actions artifact
         uses: actions/upload-artifact@v6
         with:
-          name: PremiumTV-macOS-installers-${{ env.VERSION }}
+          name: PremiumTV-macOS-installers-${{ env.MACOS_VERSION }}
           path: |
             macos/app/dist/*.dmg
             macos/app/dist/*.pkg
@@ -199,11 +207,16 @@ jobs:
       - name: Attach the installers to the release
         env:
           GH_TOKEN: ${{ github.token }}
-          PUSH_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           tag="${{ github.event.release.tag_name }}"
           tag="${tag:-$RELEASE_TAG}"
+          # A four-part release (1.0.6.1) has no macOS build of its own: the Mac
+          # installers are 1.0.7 and attach to the v1.0.7 release.
+          if [ "v$MACOS_VERSION" != "$tag" ]; then
+            echo "Mac installers are $MACOS_VERSION; leaving them for v$MACOS_VERSION."
+            exit 0
+          fi
           if ! gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag does not exist; installers remain in the Actions artifact."
             exit 0
@@ -217,16 +230,12 @@ jobs:
             tagged=$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if .isDraft then .targetCommitish else "" end')
           fi
           if [ "$tagged" != "$GITHUB_SHA" ]; then
-            # The existing preview is intentionally mutable only via this
-            # explicit switch. Stable releases ALWAYS retain the exact-SHA gate.
-            preview=$(gh release view "$tag" --json isPrerelease --jq '.isPrerelease')
-            if [ "$GITHUB_EVENT_NAME" != "push" ] || [ "$tag" != "v1.1.1" ] || [ "$preview" != "true" ] || [[ "$PUSH_MESSAGE" != *"[preview-build]"* ]]; then
-              echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
-              exit 0
-            fi
-            echo "Explicit Encore preview rebuild from $GITHUB_SHA; historical tag stays unchanged."
+            # Every release keeps the exact-SHA gate: a later branch build must
+            # never overwrite the installers attached to a published tag.
+            echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
+            exit 0
           fi
-          printf 'PremiumTV %s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > macos/app/dist/BUILD-SOURCE-macos.txt
+          printf 'PremiumTV %s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$MACOS_VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > macos/app/dist/BUILD-SOURCE-macos.txt
           gh release upload "$tag" \
             macos/app/dist/*.dmg \
             macos/app/dist/*.pkg \

@@ -74,6 +74,14 @@
   }
 
   fetch("data.json").then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(function (D) {
+    /* The 1.1.x preview is retired: never render it, even if an old export or a
+       stale data.json still carries it. Stable is the only download channel. */
+    function retired(entry) {
+      return entry && (/^v?1\.1\./.test(String(entry.version || "")) || entry.channel === "Preview");
+    }
+    D.android = (D.android || []).filter(function (a) { return !retired(a); });
+    D.macos = (D.macos || []).filter(function (m) { return !retired(m); });
+
     /* ---- hero stats ---- */
     if (D.server) {
       var ha = $("#hero-actions");
@@ -98,14 +106,12 @@
       " countries</strong> and " + fmtNum(D.stats.categories) + "+ category playlists, with XMLTV guide data for most of the lineup.";
 
     /* ---- apps: featured cards ---- */
-    var stableApk = null, previewApk = null;
+    var stableApk = null;
     D.android.forEach(function (a) {
       if (!stableApk && a.channel === "Stable") stableApk = a;
-      if (!previewApk && a.channel === "Preview") previewApk = a;
     });
 
     var macStable = D.macos.find(function (m) { return m.channel === "Stable"; });
-    var macPreview = D.macos.find(function (m) { return m.channel === "Preview"; });
     var appCards = "";
 
     function absUrl(dl) { return /^https?:/.test(dl) ? dl : location.origin + dl; }
@@ -133,19 +139,6 @@
         '<div class="dl-row"><span class="fname">Intel Macs</span><a class="dl" href="' + esc(dmgIntel.url) + '">⬇ DMG</a></div>' +
         "</div></div>";
     }
-    if (previewApk) {
-      appCards +=
-        '<div class="app-card"><span class="badge preview">Preview</span>' +
-        "<h3>Encore Preview — cable-style guide</h3>" +
-        '<p class="app-kind">Android APK v' + esc(previewApk.version) + (previewApk.size ? " · " + fmtSize(previewApk.size) : "") +
-        (macPreview ? " · also for macOS below" : "") + "</p>" +
-        '<p class="app-desc">' + esc(previewApk.desc) + "</p>" +
-        '<div class="app-actions"><div class="dl-row"><span class="fname">' + esc(previewApk.name) + "</span>" +
-        '<a class="dl" href="' + esc(previewApk.dl) + '" download>⬇ APK</a></div>' +
-        (macPreview ? '<div class="dl-row"><span class="fname">macOS preview (Apple Silicon)</span><a class="dl alt2" href="' +
-          esc(macPreview.assets[0].url) + '">⬇ DMG</a></div>' : "") +
-        "</div></div>";
-    }
     $("#app-grid").innerHTML = appCards;
 
     /* ---- apps: full APK table ---- */
@@ -157,7 +150,8 @@
 
     /* ---- apps: all mac installers ---- */
     $("#mac-list").innerHTML = D.macos.map(function (m) {
-      return "<h4 style='margin:10px 0 8px'>PremiumTV " + esc(m.version) + " — " + esc(m.channel) + "</h4>" +
+      var compat = m.compat_of ? " <span class='meta'>(same build as PremiumTV " + esc(m.compat_of) + ")</span>" : "";
+      return "<h4 style='margin:10px 0 8px'>PremiumTV " + esc(m.version) + " — " + esc(m.channel) + "</h4>" + compat +
         m.assets.map(function (a) {
           return '<div class="dl-row" style="margin-bottom:8px"><span class="fname">' + esc(a.label) +
             ' <span class="meta">(' + esc(a.name) + ')</span></span><a class="dl" href="' + esc(a.url) + '">⬇ Download</a></div>';

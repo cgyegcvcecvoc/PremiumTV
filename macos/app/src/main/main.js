@@ -12,6 +12,7 @@
 const { app, BrowserWindow, Menu, ipcMain, powerMonitor, shell, dialog } = require('electron');
 const path = require('node:path');
 const os = require('node:os');
+const fs = require('node:fs');
 
 const { TvRepository } = require('./repository');
 const { StreamProxy } = require('./stream-proxy');
@@ -240,6 +241,32 @@ ipcMain.handle('ptv:app-info', async () => {
 });
 
 ipcMain.handle('ptv:update-status', () => (updater ? updater.status() : null));
+
+// Settings → Check for bugs: read-only environment facts for the renderer's
+// report. The renderer owns the library checks; this adds only what a web page
+// cannot see (whether the bundled data and the writable data folder are there).
+ipcMain.handle('ptv:diagnostics', async () => {
+  const options = paths();
+  let bundleOk = false;
+  let userDataWritable = false;
+  try {
+    bundleOk = fs.existsSync(path.join(options.bundleDir, 'channels.jsonl')) &&
+      fs.existsSync(path.join(options.bundleDir, 'meta.json'));
+    fs.accessSync(app.getPath('userData'), fs.constants.W_OK);
+    userDataWritable = true;
+  } catch (error) {
+    userDataWritable = false;
+  }
+  return {
+    version: app.getVersion(),
+    packaged: app.isPackaged,
+    bundleDir: options.bundleDir,
+    bundleOk,
+    userData: app.getPath('userData'),
+    userDataWritable,
+    arch: process.arch,
+  };
+});
 
 ipcMain.handle('ptv:check-update', async (_event, force) => {
   if (!updater) return null;

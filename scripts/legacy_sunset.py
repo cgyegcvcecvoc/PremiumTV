@@ -192,12 +192,23 @@ def read_notice(root: Path = ROOT) -> dict:
 
 
 def max_version(document: dict) -> str:
-    """The highest version the published rules target, for the notice wording."""
+    """The oldest build that must still upgrade, for the notice wording.
+
+    Retired builds carry a ``blocked`` rule that stops downloads rather than
+    promising an in-app update (1.1.x), so those rules are skipped: the legacy
+    playlist's "support for X and older ended" line names the newest build that
+    still has to replace itself, not the highest version in the document.
+    """
+    def key(value: str) -> tuple:
+        parts = [int(p) for p in value.split(".") if p.isdigit()]
+        return tuple(parts + [0] * (4 - len(parts)))[:4]
+
     highest = ""
     for rule in document.get("rules") or []:
+        if str((rule or {}).get("level") or "").strip().lower() == "blocked":
+            continue
         candidate = str((rule or {}).get("max_version") or "").strip()
-        if candidate and (not highest or tuple(int(p) for p in candidate.split("."))
-                          > tuple(int(p) for p in highest.split("."))):
+        if candidate and (not highest or key(candidate) > key(highest)):
             highest = candidate
     return highest
 

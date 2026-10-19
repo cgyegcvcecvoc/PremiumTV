@@ -64,15 +64,15 @@ class AndroidRefreshScheduleTests(unittest.TestCase):
 class AndroidRefreshWiringTests(unittest.TestCase):
     def test_release_version_and_workmanager_dependency(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.0.6")', gradle)
-        self.assertIn('orElse("100000005")', gradle)
+        self.assertIn('orElse("1.0.6.1")', gradle)
+        self.assertIn('orElse("100060001")', gradle)
         self.assertIn("versionName = premiumTvVersion", gradle)
         self.assertIn("versionCode = premiumTvVersionCode", gradle)
         self.assertIn('androidx.work:work-runtime-ktx:2.9.1', gradle)
 
         builder = text(ROOT / "android" / "tools" / "build_bundle.py")
         self.assertIn('DEFAULT_SCOPE = "usa"', builder)
-        self.assertIn('DEFAULT_VERSION = "1.0.6"', builder)
+        self.assertIn('DEFAULT_VERSION = "1.0.6.1"', builder)
         for workflow in ("android-build.yml", "macos-build.yml"):
             source = text(ROOT / ".github" / "workflows" / workflow)
             # Versions and scopes are resolved from the tag/channel instead of
@@ -107,7 +107,7 @@ class AndroidRefreshWiringTests(unittest.TestCase):
         )
         repository = text(REPOSITORY)
         self.assertIn("repository.refresh(RefreshTrigger.Manual)", view_model)
-        self.assertIn('"Force refresh all now"', settings)
+        self.assertIn('"Force refresh"', settings)
         self.assertIn("val conditional = !isManual && current.refreshed", repository)
 
     def test_refresh_streams_the_guide_instead_of_buffering_it(self):

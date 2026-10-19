@@ -76,11 +76,12 @@ drag the folder in again (Netlify keeps the same URL).
 
 ## Release routing and refreshing an existing Netlify site
 
-The hub uses the same complete-release gate as `docs/`: stable 1.0.4 becomes
+The hub uses the same complete-release gate as `docs/`: stable 1.0.6.1 becomes
 recommended only when published with its APK and all four Mac installers.
-Encore Preview 1.1.1 stays in the preview card. Local APKs and drafts cannot
-become recommended. APKs in the static export link to release storage, avoiding
-stale installers inside a previously exported zip.
+The retired 1.1.x preview is filtered out entirely (`prerelease` releases and
+`RETIRED_TAGS`), so it has no card, table row or download link. Local APKs and
+drafts cannot become recommended. APKs in the static export link to release
+storage, avoiding stale installers inside a previously exported zip.
 
 Netlify Drop does **not** synchronize with GitHub. After rebuilding, upload the
 folder to the **existing site's Deploys page** to keep its linked URL. Dropping

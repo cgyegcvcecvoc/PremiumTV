@@ -2,7 +2,7 @@
 """Cold-launch the built APK and verify its channel UI on an Android emulator.
 
 Every adb call gets an explicit timeout. The stable USA bundle is ~6 MB
-(2,133 channels, 24k programmes) while the 1.1.0 preview bundles the global
+(2,133 channels, 24k programmes) while the global bundle carries the
 library at ~21 MB (9,788 channels, 105k programmes): the APK install, the cold
 start and especially `uiautomator dump` all take much longer there, so the gate
 sizes its waits for the larger library instead of assuming the stable one.
@@ -14,12 +14,12 @@ behaviour the notice exists for, so the gate records it, screenshots it once and
 presses Back - the remote's own dismissal - instead of failing as though the
 channel list never drew.
 
-After the channel check, the Guide tab is opened. A preview build (bundle
+After the channel check, the Guide tab is opened. A cable-guide build (bundle
 preview_features: cable-guide) must show the cable-style grid - channels down
 the left, half-hour times across the top, shows to the right - and answer the
 remote: the highlight moves with the D-pad, OK opens the player, and Back
 returns to the same guide. A stable build must show the "what's on now" list.
-Preview runs save screenshots of the guide to build-out/ so the grid can be
+Cable-guide runs save screenshots of the guide to build-out/ so the grid can be
 checked by eye.
 
 On failure the logcat tail and the last UI dump are written to

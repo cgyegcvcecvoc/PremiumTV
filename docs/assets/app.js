@@ -146,6 +146,9 @@
       "<span class=\"badge badge-" + esc(ch.id) + "\">" + esc(ch.badge) + "</span></div>" +
       "<div class=\"channel-meta\">" + esc(ch.min_os || "") +
       (ch.published_at ? " · released " + esc(String(ch.published_at).slice(0, 10)) : "") +
+      (ch.macos_version && ch.macos_version !== ch.version
+        ? " · macOS installers are " + esc(ch.macos_version) + " (same build, three-part packaging)"
+        : "") +
       (ch.notes_file ? " · <a target=\"_blank\" rel=\"noopener\" href=\"" +
         esc(D.repo.url + "/blob/" + D.repo.branch + "/" + ch.notes_file) + "\">release notes</a>" : "") +
       " · <a target=\"_blank\" rel=\"noopener\" href=\"" + esc(ch.html_url) + "\">GitHub release</a>" +

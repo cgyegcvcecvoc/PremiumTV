@@ -104,6 +104,7 @@ object UpdateNotice {
 
         val level = when (active.optString("level", "warning")) {
             "end_of_support" -> NoticeLevel.EndOfSupport
+            "blocked" -> NoticeLevel.Blocked
             "critical" -> NoticeLevel.Critical
             else -> NoticeLevel.Warning
         }
@@ -220,6 +221,13 @@ enum class NoticeLevel {
 
     /** The published support window has closed; this build is frozen. */
     EndOfSupport,
+
+    /**
+     * A retired preview that must not be used. It still runs and still
+     * dismisses, but the popup names the stable replacement and the download
+     * path, and the accent is the same alarm red as end-of-support.
+     */
+    Blocked,
 }
 
 /** One resolved notice, ready for the dialog to render. */
@@ -237,4 +245,7 @@ data class AppUpdateNotice(
 ) {
     /** True once the support window closed: the copy is about a frozen build. */
     val isEndOfSupport: Boolean get() = level == NoticeLevel.EndOfSupport
+
+    /** True for a retired preview that should be replaced immediately. */
+    val isBlocked: Boolean get() = level == NoticeLevel.Blocked
 }
