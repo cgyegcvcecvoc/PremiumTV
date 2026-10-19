@@ -11,7 +11,8 @@ The macOS app is packaged as **1.0.7**, because electron-builder and macOS
 require a three-part version number. The `.dmg` and `.pkg` installers therefore
 appear on the **1.0.7** release; they are the same code as this one.
 
-The same code is also published as **1.0.7** (Android `100070000`): apps shipped
+The same code is also published as **1.0.7** (Android `100070000`, installing
+as `1.0.6.1`): apps shipped
 before this release only read three-part versions, so 1.0.6.1 alone would be
 invisible to their updater. 1.0.6.1 remains the recommended download and the
 version named everywhere in the app; 1.0.7 is the compatibility twin that lets

@@ -130,6 +130,16 @@ test('the 1.0.7 compatibility alias reaches 1.0.6 but not 1.0.6.1', () => {
     'PremiumTV 1.0.6.1 is the newest stable release.',
   );
 
+  // The Mac build packaged as 1.0.7 is the same code; it must describe
+  // itself as being on the newest stable, not as a preview above it.
+  const aliasInstall = policy.selectStableUpdate(releases, '1.0.7', 'arm64');
+  assert.equal(aliasInstall.update, null);
+  assert.equal(aliasInstall.newestStable, '1.0.6.1');
+  assert.equal(
+    policy.describeState('1.0.7', aliasInstall.newestStable, aliasInstall.update),
+    'PremiumTV 1.0.7 is the newest stable release.',
+  );
+
   assert.equal(policy.canonicalVersion('1.0.7'), '1.0.6.1');
   assert.equal(policy.isCompatibilityAlias('1.0.7', '1.0.6.1'), true);
   assert.equal(policy.isCompatibilityAlias('1.0.7', '1.0.6'), false);

@@ -190,8 +190,11 @@ check is throttled and the downloaded DMG is reused until it is installed.
    parses only `MAJOR.MINOR.PATCH`, so it cannot see a `v1.0.6.1` release. After
    the canonical release is complete, publish a second full release from the
    **same commit and tag tree** one patch above it — `v1.0.7` for `1.0.6.1` —
-   with the same Android APK. Its macOS build is version `1.0.7` as well, so
-   that release also carries the four Mac installers for the canonical stable.
+   with the same Android APK, built so its package reports the canonical
+   version (`1.0.6.1`) while keeping the alias versionCode. Its macOS build is
+   version `1.0.7`, so that release also carries the four Mac installers for
+   the canonical stable; the Mac policy treats an alias install as the
+   canonical build when it describes the update state.
    Run both workflows with the alias version to attach them:
    `python3 scripts/release_version.py --macos 1.0.6.1` prints `1.0.7`.
    It is listed in `COMPATIBILITY_ALIASES` in
