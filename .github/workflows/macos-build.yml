@@ -96,13 +96,18 @@ jobs:
               echo "Unsupported PremiumTV version: $version"; exit 1; }
           fi
           if [ "$channel" = "preview" ]; then scope=all; else scope=usa; fi
+          # macOS packaging rejects four-part versions. A hotfix such as 1.0.6.1
+          # is therefore packaged as its three-part compatibility alias (1.0.7);
+          # that alias release carries the Mac installers.
+          macos_version=$(python3 scripts/release_version.py --macos "$version")
           {
             echo "VERSION=$version"
+            echo "MACOS_VERSION=$macos_version"
             echo "RELEASE_TAG=v$version"
             echo "BUNDLE_SCOPE=$scope"
             echo "CHANNEL=$channel"
           } >> "$GITHUB_ENV"
-          echo "Building PremiumTV $version ($channel, scope=$scope)."
+          echo "Building PremiumTV $macos_version for macOS ($channel, scope=$scope; release version $version)."
 
       - name: Set the packaged app version
         working-directory: macos/app
@@ -111,7 +116,7 @@ jobs:
           # and this release line uses one. Write the two files electron-builder
           # and app.getVersion() read instead; the lockfile's root entry must
           # agree or `npm ci` refuses the tree.
-          node - "$VERSION" <<'NODE'
+          node - "$MACOS_VERSION" <<'NODE'
           const fs = require('node:fs');
           const version = process.argv[2];
           for (const file of ['package.json', 'package-lock.json']) {
@@ -125,7 +130,7 @@ jobs:
 
       - name: Bake the selected playlist and guide into the app
         working-directory: macos/app
-        run: PREMIUMTV_SCOPE="$BUNDLE_SCOPE" PREMIUMTV_VERSION="$VERSION" npm run bundle
+        run: PREMIUMTV_SCOPE="$BUNDLE_SCOPE" PREMIUMTV_VERSION="$MACOS_VERSION" npm run bundle
 
       - name: Vendor the player libraries
         working-directory: macos/app
@@ -169,7 +174,7 @@ jobs:
             test -s "$resources/bundle/channels.jsonl"
             test -s "$resources/bundle/meta.json"
             test -s "$resources/app.asar"
-            node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1])); if(meta.channel_count < 1 || meta.version !== process.env.VERSION) process.exit(1); if(process.env.BUNDLE_SCOPE === "all" && !meta.preview_features.includes("cable-guide")) process.exit(1); if(process.env.BUNDLE_SCOPE === "usa" && meta.preview_features.includes("cable-guide")) process.exit(1)' "$resources/bundle/meta.json"
+            node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1])); if(meta.channel_count < 1 || meta.version !== process.env.MACOS_VERSION) process.exit(1); if(process.env.BUNDLE_SCOPE === "all" && !meta.preview_features.includes("cable-guide")) process.exit(1); if(process.env.BUNDLE_SCOPE === "usa" && meta.preview_features.includes("cable-guide")) process.exit(1)' "$resources/bundle/meta.json"
           done
 
       - name: Smoke test the packaged app on Apple Silicon and Intel (Rosetta)
@@ -192,7 +197,7 @@ jobs:
       - name: Upload installers as an Actions artifact
         uses: actions/upload-artifact@v6
         with:
-          name: PremiumTV-macOS-installers-${{ env.VERSION }}
+          name: PremiumTV-macOS-installers-${{ env.MACOS_VERSION }}
           path: |
             macos/app/dist/*.dmg
             macos/app/dist/*.pkg
@@ -206,6 +211,12 @@ jobs:
           set -euo pipefail
           tag="${{ github.event.release.tag_name }}"
           tag="${tag:-$RELEASE_TAG}"
+          # A four-part release (1.0.6.1) has no macOS build of its own: the Mac
+          # installers are 1.0.7 and attach to the v1.0.7 release.
+          if [ "v$MACOS_VERSION" != "$tag" ]; then
+            echo "Mac installers are $MACOS_VERSION; leaving them for v$MACOS_VERSION."
+            exit 0
+          fi
           if ! gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag does not exist; installers remain in the Actions artifact."
             exit 0
@@ -224,7 +235,7 @@ jobs:
             echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
             exit 0
           fi
-          printf 'PremiumTV %s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > macos/app/dist/BUILD-SOURCE-macos.txt
+          printf 'PremiumTV %s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$MACOS_VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > macos/app/dist/BUILD-SOURCE-macos.txt
           gh release upload "$tag" \
             macos/app/dist/*.dmg \
             macos/app/dist/*.pkg \

@@ -180,14 +180,21 @@ check is throttled and the downloaded DMG is reused until it is installed.
    the `v1.0.6.1` tag. The release guard checks the ordering; the build
    workflows attach the APK and all four Mac installers when the tag points at
    their commit.
-3. The download site promotes the release only after the APK and all four Mac
-   installers exist. Installed 1.0.4+ apps see it on their next daily check or
+3. The download site promotes the release only after its APK exists **and**
+   all four Mac installers exist. For a four-part version the installers are
+   read from the three-part alias release below (macOS packaging cannot carry
+   `1.0.6.1`), and the site lists them on the canonical stable card.
+   Installed 1.0.4+ apps see the release on their next daily check or
    immediately when the user presses **Check for update**.
 4. **Four-part versions need a compatibility twin.** The updater in 1.0.4–1.0.6
    parses only `MAJOR.MINOR.PATCH`, so it cannot see a `v1.0.6.1` release. After
    the canonical release is complete, publish a second full release from the
    **same commit and tag tree** one patch above it — `v1.0.7` for `1.0.6.1` —
-   with the same assets. It is listed in `COMPATIBILITY_ALIASES` in
+   with the same Android APK. Its macOS build is version `1.0.7` as well, so
+   that release also carries the four Mac installers for the canonical stable.
+   Run both workflows with the alias version to attach them:
+   `python3 scripts/release_version.py --macos 1.0.6.1` prints `1.0.7`.
+   It is listed in `COMPATIBILITY_ALIASES` in
    `scripts/release_version.py` (and mirrored in both updaters), so:
    - the download page keeps promoting the canonical 1.0.6.1;
    - 1.0.4–1.0.6 find 1.0.7 and update themselves;

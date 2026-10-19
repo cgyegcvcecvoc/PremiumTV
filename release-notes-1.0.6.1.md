@@ -4,8 +4,12 @@
 every future 1.0.7/1.1 release, so nobody has to wait for a new minor version to
 get a cleaner Settings screen or a repaired channel list.
 
-Android `versionCode 100060001`, Mac app version `1.0.6.1`. Both are built from
-the same tree and carry the same data scope: the USA lineup and the USA guide.
+Android `versionCode 100060001`. Both platforms are built from the same tree and
+carry the same data scope: the USA lineup and the USA guide.
+
+The macOS app is packaged as **1.0.7**, because electron-builder and macOS
+require a three-part version number. The `.dmg` and `.pkg` installers therefore
+appear on the **1.0.7** release; they are the same code as this one.
 
 The same code is also published as **1.0.7** (Android `100070000`): apps shipped
 before this release only read three-part versions, so 1.0.6.1 alone would be

@@ -63,7 +63,10 @@ function canonicalVersion(value) {
 }
 
 function isCompatibilityAlias(candidate, current) {
-  const canonical = canonicalVersion(candidate);
+  // Only a registered alias qualifies; the canonical version is not itself an
+  // alias even though canonicalVersion() maps it to itself.
+  const version = normalizeVersion(candidate);
+  const canonical = version ? COMPATIBILITY_ALIASES[version] : null;
   return canonical != null && canonical === canonicalVersion(current);
 }
 

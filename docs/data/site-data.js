@@ -60,6 +60,7 @@ window.SITE_DATA = {
     "summary": "Click-to-search, Recently watched + Favorites, and manual server switching — USA lineup + guide, with in-app updates.",
     "notes_file": "release-notes-1.0.6.md",
     "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
+    "macos_version": "1.0.6",
     "published_at": "2026-10-18T19:11:47Z",
     "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.6",
     "notes_title": "PremiumTV 1.0.6 — Click-to-Search, Your Shelves, Server Switching",

@@ -109,6 +109,25 @@ def canonical_version(value: str) -> str | None:
     return COMPATIBILITY_ALIASES.get(normalized, normalized)
 
 
+def macos_version(value: str) -> str | None:
+    """The version the macOS build can carry.
+
+    electron-builder and macOS packaging require a three-part version, so a
+    four-part hotfix is built as its compatibility alias (1.0.6.1 -> 1.0.7) and
+    the alias release carries the Mac installers.  Every three-part version is
+    returned unchanged.
+    """
+    normalized = normalize_version(value)
+    if normalized is None:
+        return None
+    if len(parse_version(normalized)) <= 3:
+        return normalized
+    for alias, canonical in COMPATIBILITY_ALIASES.items():
+        if canonical == normalized:
+            return alias
+    return None
+
+
 def is_compatibility_alias(candidate: str, current: str) -> bool:
     """True when [candidate] is the alias of the build [current] runs.
 
@@ -229,6 +248,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--normalize", metavar="VERSION", help="print MAJOR.MINOR.PATCH[.HOTFIX]")
     parser.add_argument("--canonical", metavar="VERSION",
                         help="print the canonical version behind a compatibility alias")
+    parser.add_argument("--macos", metavar="VERSION",
+                        help="print the three-part version the Mac build carries")
     parser.add_argument("--compare", nargs=2, metavar=("CANDIDATE", "CURRENT"),
                         help="exit 0 when candidate is newer, 1 otherwise")
     parser.add_argument("--tag", help="release tag to guard (with --guard)")
@@ -258,6 +279,14 @@ def main(argv: list[str] | None = None) -> int:
             print(f"error: not a PremiumTV version: {args.canonical!r}", file=sys.stderr)
             return 1
         print(canonical)
+        return 0
+
+    if args.macos:
+        version = macos_version(args.macos)
+        if version is None:
+            print(f"error: {args.macos!r} has no three-part macOS build version", file=sys.stderr)
+            return 1
+        print(version)
         return 0
 
     if args.compare:

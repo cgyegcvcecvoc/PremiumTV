@@ -133,4 +133,5 @@ test('the 1.0.7 compatibility alias reaches 1.0.6 but not 1.0.6.1', () => {
   assert.equal(policy.canonicalVersion('1.0.7'), '1.0.6.1');
   assert.equal(policy.isCompatibilityAlias('1.0.7', '1.0.6.1'), true);
   assert.equal(policy.isCompatibilityAlias('1.0.7', '1.0.6'), false);
+  assert.equal(policy.isCompatibilityAlias('1.0.6.1', '1.0.6.1'), false);
 });

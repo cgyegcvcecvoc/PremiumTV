@@ -43,6 +43,17 @@ class VersionParsingTests(unittest.TestCase):
         for value in ("", "latest", "1.0", "1.0.4.1.2", "v1.0.x", "1.0.4 beta"):
             self.assertIsNone(release_version.parse_version(value), value)
 
+    def test_macos_version_uses_the_three_part_compatibility_build(self):
+        # electron-builder rejects a four-part version, so the Mac installers
+        # are built as the alias and live on that alias release.
+        self.assertEqual(release_version.macos_version("1.0.6.1"), "1.0.7")
+        self.assertEqual(release_version.macos_version("v1.0.5-debug"), "1.0.5")
+        self.assertEqual(release_version.macos_version("1.0.7"), "1.0.7")
+        self.assertEqual(release_version.macos_version("1.1.1"), "1.1.1")
+        self.assertIsNone(release_version.macos_version("nonsense"))
+        self.assertIsNone(release_version.macos_version("1.0.9.2"),
+                          "a four-part version without an alias cannot be packaged")
+
     def test_semantic_ordering_is_numeric_not_lexical(self):
         self.assertTrue(release_version.is_newer("1.0.10", "1.0.9"))
         self.assertTrue(release_version.is_newer("1.0.6.1", "1.0.6"))

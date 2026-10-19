@@ -152,6 +152,55 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertNotIn("v1.0.7", {row["tag"] for row in older},
                          "the alias is not an older release")
 
+    def test_a_four_part_stable_borrows_the_alias_mac_installers(self):
+        # The canonical 1.0.6.1 publishes the APK; the Mac installers can only
+        # carry a three-part version, so they live on the 1.0.7 alias release.
+        def release(version, names):
+            return {
+                "tag": f"v{version}", "draft": False, "prerelease": False,
+                "published_at": "2026-10-19T00:00:00Z",
+                "html_url": f"https://github.com/x/releases/tag/v{version}",
+                "assets": [
+                    {"name": name, "size": 10,
+                     "browser_download_url": f"https://github.com/x/v{version}/{name}"}
+                    for name in names
+                ],
+            }
+        canonical = release("1.0.6.1", [
+            "PremiumTV-1.0.6.1-debug.apk", "SHA256SUMS-android.txt",
+        ])
+        alias = release("1.0.7", [
+            "PremiumTV-1.0.7-debug.apk", "SHA256SUMS-android.txt",
+            "PremiumTV-1.0.7-mac-arm64.dmg", "PremiumTV-1.0.7-mac-arm64.pkg",
+            "PremiumTV-1.0.7-mac-x64.dmg", "PremiumTV-1.0.7-mac-x64.pkg",
+            "SHA256SUMS-macos.txt",
+        ])
+        chosen = build_site_data.latest_complete_stable_release([canonical, alias])
+        self.assertEqual(build_site_data.release_tag(chosen), "v1.0.6.1")
+        channels, older = build_site_data.build_apps({}, [canonical, alias])
+        stable = channels[0]
+        self.assertEqual(stable["version"], "1.0.6.1")
+        self.assertEqual(stable["macos_version"], "1.0.7")
+        names = {asset["name"] for asset in stable["assets"]}
+        self.assertIn("PremiumTV-1.0.6.1-debug.apk", names)
+        self.assertIn("PremiumTV-1.0.7-mac-arm64.dmg", names)
+        self.assertIn("PremiumTV-1.0.7-mac-x64.pkg", names)
+        self.assertIn("SHA256SUMS-macos.txt", names)
+        self.assertNotIn("PremiumTV-1.0.7-debug.apk", names,
+                         "the alias APK must never replace the canonical download")
+        self.assertEqual([row["tag"] for row in older], [])
+        # Without the alias installers the release is incomplete, so the site
+        # keeps advertising the previous complete stable instead.
+        older_complete = release("1.0.6", [
+            "PremiumTV-1.0.6-debug.apk",
+            "PremiumTV-1.0.6-mac-arm64.dmg", "PremiumTV-1.0.6-mac-arm64.pkg",
+            "PremiumTV-1.0.6-mac-x64.dmg", "PremiumTV-1.0.6-mac-x64.pkg",
+        ])
+        self.assertEqual(
+            build_site_data.release_tag(
+                build_site_data.latest_complete_stable_release([canonical, older_complete])),
+            "v1.0.6")
+
     def test_release_asset_digest_survives_a_missing_build_out(self):
         version = "1.2.3"
         digest = "a" * 64

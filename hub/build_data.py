@@ -25,6 +25,7 @@ REL = "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download"
 # must never change the recommended Netlify download.
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from build_site_data import load_releases, latest_complete_stable_release, release_tag
+from release_version import macos_version
 
 
 def release_channels(releases):
@@ -149,8 +150,17 @@ def main():
                 out.append({"label": label, "name": name, "url": f"{base}/{name}"})
         return out
 
+    # macOS packaging needs a three-part version, so a four-part stable build
+    # ships its installers under the compatibility alias (1.0.6.1 -> 1.0.7).
+    mac_version = (macos_version(stable_version) or stable_version) if stable_version else None
     macos = [
-        *([{"version": stable_version, "channel": "Stable", "desc": android_meta[stable_version][1], "assets": mac_assets("v" + stable_version, stable_version)}] if stable_version else []),
+        *([{
+            "version": mac_version,
+            "channel": "Stable",
+            "compat_of": stable_version if mac_version != stable_version else None,
+            "desc": android_meta[stable_version][1],
+            "assets": mac_assets("v" + mac_version, mac_version),
+        }] if stable_version else []),
     ]
 
     # ---------------- Playlists --------------------------------------------

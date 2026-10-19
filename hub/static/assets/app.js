@@ -150,7 +150,8 @@
 
     /* ---- apps: all mac installers ---- */
     $("#mac-list").innerHTML = D.macos.map(function (m) {
-      return "<h4 style='margin:10px 0 8px'>PremiumTV " + esc(m.version) + " — " + esc(m.channel) + "</h4>" +
+      var compat = m.compat_of ? " <span class='meta'>(same build as PremiumTV " + esc(m.compat_of) + ")</span>" : "";
+      return "<h4 style='margin:10px 0 8px'>PremiumTV " + esc(m.version) + " — " + esc(m.channel) + "</h4>" + compat +
         m.assets.map(function (a) {
           return '<div class="dl-row" style="margin-bottom:8px"><span class="fname">' + esc(a.label) +
             ' <span class="meta">(' + esc(a.name) + ')</span></span><a class="dl" href="' + esc(a.url) + '">⬇ Download</a></div>';

@@ -25,9 +25,15 @@ object AppVersions {
         return COMPATIBILITY_ALIASES[normalized] ?: normalized
     }
 
-    /** True when [candidate] is the alias of the build [current] runs. */
+    /**
+     * True when [candidate] is a registered alias of the build [current] runs.
+     *
+     * The canonical version itself is not an alias, even though [canonical]
+     * maps it to itself: only 1.0.7 stands for 1.0.6.1, never the other way.
+     */
     fun isCompatibilityAlias(candidate: String, current: String): Boolean {
-        val canonicalCandidate = canonical(candidate) ?: return false
+        val normalized = normalize(candidate) ?: return false
+        val canonicalCandidate = COMPATIBILITY_ALIASES[normalized] ?: return false
         return canonicalCandidate == canonical(current)
     }
 

@@ -8,10 +8,13 @@ download and install from **Settings → App updates** without a manual APK or
 DMG download.
 
 - Android `versionCode 100070000`, Mac app version `1.0.7`.
+- **The macOS `.dmg` and `.pkg` installers for 1.0.6.1 live on this release.**
+  macOS packaging rejects a four-part version, so the Mac build is packaged as
+  1.0.7 while staying the same application code.
 - Same code as 1.0.6.1: compact Settings, **Force refresh**, **Check for
   update**, **Check for bugs**, the USA lineup and the USA guide.
-- The download page keeps **1.0.6.1** as the recommended build. 1.0.7 is listed
-  as a compatibility release and exists for the updater.
+- The download page keeps **1.0.6.1** as the recommended build and shows this
+  release's Mac installers as its own; 1.0.7 also exists for the updater.
 - An install already running 1.0.6.1 ignores 1.0.7 (it is the same code behind a
   second name), so nobody is asked to download 19 MB twice.
 
