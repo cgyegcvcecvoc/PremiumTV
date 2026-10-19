@@ -111,14 +111,22 @@ jobs:
           fi
           if [ "$channel" = "preview" ]; then scope=all; else scope=usa; fi
           code=$(python3 scripts/release_version.py --code "$version")
+          # A compatibility alias (1.0.7 for 1.0.6.1) exists so a three-part
+          # updater can reach the canonical build. The APK is named and tagged
+          # with the alias, but its package must report the canonical version:
+          # otherwise the updated app calls itself a preview above the stable
+          # release on the next update check. The versionCode stays the alias'
+          # higher code so it installs over 1.0.6.
+          app_version=$(python3 scripts/release_version.py --canonical "$version")
           {
             echo "VERSION=$version"
+            echo "APP_VERSION=$app_version"
             echo "RELEASE_TAG=v$version"
             echo "BUNDLE_SCOPE=$scope"
             echo "VERSION_CODE=$code"
             echo "CHANNEL=$channel"
           } >> "$GITHUB_ENV"
-          echo "Building PremiumTV $version ($channel, scope=$scope, versionCode=$code)."
+          echo "Building PremiumTV $app_version (release $version, $channel, scope=$scope, versionCode=$code)."
 
       - name: Verify the app bundle and refresh wiring
         run: python3 -m unittest tests.test_android_bundle tests.test_android_refresh -v
@@ -127,7 +135,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p build-out
-          python3 android/tools/build_bundle.py --scope "$BUNDLE_SCOPE" --version "$VERSION" | tee build-out/bundle-log.txt
+          python3 android/tools/build_bundle.py --scope "$BUNDLE_SCOPE" --version "$APP_VERSION" | tee build-out/bundle-log.txt
           ls -la android/app/src/main/assets/bundle
 
       - name: Set up Gradle
@@ -141,7 +149,7 @@ jobs:
           chmod +x gradlew
           mkdir -p "$GITHUB_WORKSPACE/build-out"
           ./gradlew --no-daemon --stacktrace \
-            -PpremiumTvVersion="$VERSION" \
+            -PpremiumTvVersion="$APP_VERSION" \
             -PpremiumTvVersionCode="$VERSION_CODE" \
             testDebugUnitTest assembleDebug 2>&1 \
             | tee "$GITHUB_WORKSPACE/build-out/build-log.txt"
@@ -253,7 +261,8 @@ jobs:
             echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
             exit 0
           fi
-          printf 'PremiumTV %s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > build-out/BUILD-SOURCE-android.txt
+          printf 'PremiumTV %s%s\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' "$VERSION" \
+            "$([ "$APP_VERSION" != "$VERSION" ] && printf ' (installs as %s)' "$APP_VERSION")" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > build-out/BUILD-SOURCE-android.txt
           gh release upload "$tag" \
             "build-out/PremiumTV-${VERSION}-debug.apk" build-out/SHA256SUMS-android.txt build-out/BUILD-SOURCE-android.txt --clobber
           gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'

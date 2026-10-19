@@ -7,7 +7,11 @@ release is invisible to their updater. 1.0.7 is the release those apps can find,
 download and install from **Settings → App updates** without a manual APK or
 DMG download.
 
-- Android `versionCode 100070000`, Mac app version `1.0.7`.
+- Android `versionCode 100070000`. The APK is named 1.0.7 so a three-part
+  updater can find it, but it installs as **1.0.6.1** — the version Settings
+  reports afterwards. That keeps the updated app on the canonical stable
+  identity instead of calling itself a preview above it.
+- Mac app version `1.0.7` (macOS packaging requires three parts).
 - **The macOS `.dmg` and `.pkg` installers for 1.0.6.1 live on this release.**
   macOS packaging rejects a four-part version, so the Mac build is packaged as
   1.0.7 while staying the same application code.

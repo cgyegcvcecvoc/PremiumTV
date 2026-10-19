@@ -142,10 +142,13 @@ function selectStableUpdate(releases, currentVersion, arch = 'arm64') {
 function describeState(currentVersion, newestStable, update) {
   if (update) return `PremiumTV ${update.version} is available (installed: ${currentVersion}).`;
   if (!newestStable) return 'No stable release was found on GitHub.';
-  if (isNewer(newestStable, currentVersion)) {
+  // A Mac packaged as the three-part compatibility alias (1.0.7) is the same
+  // build as 1.0.6.1, so it is not a preview above the stable release.
+  const installed = canonicalVersion(currentVersion) || currentVersion;
+  if (isNewer(newestStable, installed)) {
     return `PremiumTV ${newestStable} is newer, but its Mac installer has not finished uploading yet.`;
   }
-  if (isNewer(currentVersion, newestStable)) {
+  if (isNewer(installed, newestStable)) {
     return `This build (${currentVersion}) is a preview above the newest stable release (${newestStable}).`;
   }
   return `PremiumTV ${currentVersion} is the newest stable release.`;

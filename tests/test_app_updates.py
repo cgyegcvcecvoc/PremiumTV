@@ -214,6 +214,20 @@ class AndroidSigningTests(unittest.TestCase):
             workflow.index("Attach the APKs to the release"),
         )
 
+    def test_a_compatibility_alias_apk_reports_the_canonical_version(self):
+        # 1.0.4-1.0.6 can only parse a three-part tag, so they download the
+        # 1.0.7 APK. Its package must report 1.0.6.1 (with the alias' higher
+        # versionCode) or the updated app calls itself a preview on the next
+        # update check.
+        workflow = text(ROOT / ".github" / "workflows" / "android-build.yml")
+        self.assertIn('app_version=$(python3 scripts/release_version.py --canonical "$version")', workflow)
+        self.assertIn('echo "APP_VERSION=$app_version"', workflow)
+        self.assertIn('--version "$APP_VERSION"', workflow)
+        self.assertIn('-PpremiumTvVersion="$APP_VERSION"', workflow)
+        self.assertIn('-PpremiumTvVersionCode="$VERSION_CODE"', workflow)
+        notes = text(ROOT / "release-notes-1.0.7.md")
+        self.assertIn("1.0.6.1", notes)
+
     def test_upgrade_note_explains_the_one_time_uninstall(self):
         updates = text(ROOT / "docs" / "UPDATES.md")
         self.assertIn("same signing certificate", updates)
