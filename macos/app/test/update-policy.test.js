@@ -100,3 +100,37 @@ test('pre-releases never become the newest stable release', () => {
   assert.equal(newestStable, '1.0.4');
   assert.equal(update.version, '1.0.4');
 });
+
+test('four-part stable releases are understood, not rejected', () => {
+  assert.equal(policy.normalizeVersion('v1.0.6.1-debug'), '1.0.6.1');
+  assert.equal(policy.compareVersions('1.0.6.1', '1.0.6'), 1);
+  assert.equal(policy.compareVersions('1.1.0', '1.0.6.1'), 1);
+  assert.equal(policy.compareVersions('1.0.6.1', '1.1.0'), -1);
+  const { update, newestStable } = policy.selectStableUpdate([release('1.0.6.1')], '1.0.6', 'arm64');
+  assert.equal(newestStable, '1.0.6.1');
+  assert.equal(update.version, '1.0.6.1');
+  assert.equal(update.assetName, 'PremiumTV-1.0.6.1-mac-arm64.dmg');
+});
+
+test('the 1.0.7 compatibility alias reaches 1.0.6 but not 1.0.6.1', () => {
+  const releases = [release('1.0.6.1'), release('1.0.7')];
+
+  // 1.0.4-1.0.6 cannot parse 1.0.6.1; the alias is the release they can see.
+  const older = policy.selectStableUpdate(releases, '1.0.6', 'arm64');
+  assert.equal(older.update.version, '1.0.7');
+  assert.equal(older.newestStable, '1.0.7');
+
+  // A Mac already on the canonical build must not download the same code
+  // again under the alias' name.
+  const current = policy.selectStableUpdate(releases, '1.0.6.1', 'arm64');
+  assert.equal(current.update, null);
+  assert.equal(current.newestStable, '1.0.6.1');
+  assert.equal(
+    policy.describeState('1.0.6.1', current.newestStable, current.update),
+    'PremiumTV 1.0.6.1 is the newest stable release.',
+  );
+
+  assert.equal(policy.canonicalVersion('1.0.7'), '1.0.6.1');
+  assert.equal(policy.isCompatibilityAlias('1.0.7', '1.0.6.1'), true);
+  assert.equal(policy.isCompatibilityAlias('1.0.7', '1.0.6'), false);
+});

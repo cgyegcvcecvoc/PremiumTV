@@ -136,25 +136,29 @@ DISPLAY_NAME = {
 CHANNELS = [
     {
         "id": "stable",
-        "tag": "v1.0.4",
-        "version": "1.0.4",
+        "tag": "v1.0.6.1",
+        "version": "1.0.6.1",
         "channel": "Stable",
         "badge": "Recommended",
-        "summary": "One Last Manual Install — USA lineup + USA guide, with in-app updates from Settings.",
-        "notes_file": "release-notes-1.0.4.md",
-        "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
-    },
-    {
-        "id": "preview",
-        "tag": "v1.1.1",
-        "version": "1.1.1",
-        "channel": "Encore Preview",
-        "badge": "Pre-release",
-        "summary": "Encore Preview — global lineup + cable-style guide, with Everyday Polish loading and refresh feedback.",
-        "notes_file": "release-notes-1.1.1.md",
+        "summary": "Settings 2.0 — compact version card, one-tap force refresh, update check and a built-in bug check. USA lineup + USA guide.",
+        "notes_file": "release-notes-1.0.6.1.md",
         "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
     },
 ]
+
+# Retired preview builds are deliberately absent from the download page. Their
+# release pages may still exist for the historical record, but the site must
+# never offer a download that points at a retired channel.
+RETIRED_TAGS = {"v1.1.0", "v1.1.1"}
+
+# Releases published only so an updater that reads three-part versions
+# (1.0.4-1.0.6) can reach the canonical build.  They are the same code and
+# never replace it as the advertised download.  The policy lives in
+# scripts/release_version.py so the workflows, the site and both apps agree.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from release_version import COMPATIBILITY_ALIASES  # noqa: E402
+
+ALIAS_TAGS = {f"v{alias}" for alias in COMPATIBILITY_ALIASES}
 
 
 def log(msg: str) -> None:
@@ -246,10 +250,12 @@ def latest_complete_stable_release(releases: list[dict]) -> dict | None:
         tag = release_tag(release)
         if release.get("draft") or release.get("prerelease"):
             continue
-        match = re.fullmatch(r"v(\d+)\.(\d+)\.(\d+)", tag)
+        match = re.fullmatch(r"v(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?", tag)
         if not match:
             continue
-        version = ".".join(match.groups())
+        version = ".".join(part for part in match.groups() if part is not None)
+        if tag in RETIRED_TAGS or tag in ALIAS_TAGS:
+            continue
         available = {a.get("name", "") for a in release.get("assets") or []}
         required = {
             f"PremiumTV-{version}-debug.apk",
@@ -259,7 +265,8 @@ def latest_complete_stable_release(releases: list[dict]) -> dict | None:
             f"PremiumTV-{version}-mac-x64.pkg",
         }
         if required.issubset(available):
-            candidates.append((tuple(int(part) for part in match.groups()), release))
+            numbers = tuple(int(part) for part in match.groups() if part is not None)
+            candidates.append((numbers + (0,) * (4 - len(numbers)), release))
     return max(candidates, key=lambda item: item[0])[1] if candidates else None
 
 
@@ -267,6 +274,7 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
     by_tag = {release_tag(r): r for r in releases if release_tag(r)}
     channel_specs = [dict(spec) for spec in CHANNELS]
     current_stable = latest_complete_stable_release(releases)
+    stable_version = ""
     if current_stable:
         stable_tag = release_tag(current_stable)
         stable_version = stable_tag[1:]
@@ -279,7 +287,16 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
             channel_specs[0]["summary"] = "Everyday Polish — USA lineup + list guide, loading indicators, refresh stages, tips and clear result feedback."
         if stable_version == "1.0.4":
             channel_specs[0]["summary"] = ("One Last Manual Install — USA lineup + list guide, with Settings → App updates "
-                                          "for every later stable release. The default download.")
+                                          "for every later stable release.")
+        if stable_version == "1.0.5":
+            channel_specs[0]["summary"] = ("Splash, search, placeholder logos, Live Events and multi-server playback — "
+                                          "USA lineup + guide, with in-app updates.")
+        if stable_version == "1.0.6":
+            channel_specs[0]["summary"] = ("Click-to-search, Recently watched + Favorites, and manual server switching — "
+                                          "USA lineup + guide, with in-app updates.")
+        if stable_version == "1.0.6.1":
+            channel_specs[0]["summary"] = ("Settings 2.0 — compact version card, one-tap force refresh, update check and "
+                                          "a built-in bug check. USA lineup + guide, with in-app updates.")
 
     channels = []
     for spec in channel_specs:
@@ -313,7 +330,13 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
     older = []
     active_tags = {c["tag"] for c in channel_specs}
     for tag, release in sorted(by_tag.items(), reverse=True):
-        if tag in active_tags or not tag:
+        if tag in active_tags or not tag or tag in RETIRED_TAGS:
+            continue
+        # A compatibility alias is not an "older release" while it stands for
+        # the stable build the page is promoting.
+        if tag in ALIAS_TAGS and COMPATIBILITY_ALIASES.get(tag[1:]) == stable_version:
+            continue
+        if release.get("draft") or release.get("prerelease"):
             continue
         older.append({
             "tag": tag,

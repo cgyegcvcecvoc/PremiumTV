@@ -304,6 +304,17 @@ class AppUpdateManager(private val app: Application) {
             val release = releases.optJSONObject(index) ?: continue
             if (release.optBoolean("draft") || release.optBoolean("prerelease")) continue
             val version = AppVersions.normalize(release.optString("tag_name")) ?: continue
+            // A compatibility alias of the installed build is the same code
+            // under a second name (1.0.7 for 1.0.6.1): it must not read as a
+            // newer release, nor cost this user a pointless full download.
+            if (AppVersions.isCompatibilityAlias(version, currentVersion)) {
+                AppVersions.canonical(version)?.let { canonical ->
+                    if (newestStable == null || AppVersions.isNewer(canonical, newestStable!!)) {
+                        newestStable = canonical
+                    }
+                }
+                continue
+            }
             if (newestStable == null || AppVersions.isNewer(version, newestStable)) {
                 newestStable = version
             }

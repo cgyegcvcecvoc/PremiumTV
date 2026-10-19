@@ -107,6 +107,7 @@ function targetsVersion(rule, appVersion) {
 
 function levelOf(value) {
   if (value === 'end_of_support') return 'end_of_support';
+  if (value === 'blocked') return 'blocked';
   if (value === 'critical') return 'critical';
   return 'warning';
 }

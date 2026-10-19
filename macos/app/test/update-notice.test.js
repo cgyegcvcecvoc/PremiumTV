@@ -78,16 +78,16 @@ test('an older stable build is told to update, with the surprise spelled out', (
   const notice = selectNotice({
     body: DOCUMENT,
     appVersion: '1.0.2',
-    newestVersion: '1.0.5',
+    newestVersion: '1.0.6.1',
     now: BEFORE_SUPPORT_ENDS,
   });
   assert.ok(notice, 'a build inside the targeted range must get a notice');
   assert.equal(notice.level, 'warning');
   assert.equal(notice.supportEnded, false);
-  assert.match(notice.title, /newer PremiumTV/i);
+  assert.match(notice.title, /newer PremiumTV|1\.0\.6\.1/i);
   // The placeholders are resolved, never shown raw.
   assert.match(notice.message, /1\.0\.2/);
-  assert.match(notice.message, /1\.0\.5/);
+  assert.match(notice.message, /1\.0\.6\.1/);
   assert.ok(!notice.message.includes('{'), 'no unsubstituted placeholder may survive');
   // The surprise is the point of the message: updating ends manual installs.
   assert.ok(notice.surprise.length > 40, 'the surprise must actually say something');
@@ -96,28 +96,44 @@ test('an older stable build is told to update, with the surprise spelled out', (
   assert.match(notice.releasesUrl, /^https:\/\//);
 });
 
-test('every targeted older version is reached, and 1.0.0 is not left out', () => {
-  for (const version of ['1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4']) {
+test('every targeted older stable build is reached, and 1.0.0 is not left out', () => {
+  for (const version of ['1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4', '1.0.5', '1.0.6']) {
     const notice = selectNotice({
-      body: DOCUMENT, appVersion: version, newestVersion: '1.0.5', now: BEFORE_SUPPORT_ENDS,
+      body: DOCUMENT, appVersion: version, newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
     });
     assert.ok(notice, `${version} must be told to update`);
+    assert.equal(notice.level, 'warning', version);
     assert.match(notice.message, new RegExp(version.replace(/\./g, '\\.')));
   }
 });
 
-test('a build at or above the newest release is never nagged', () => {
-  for (const version of ['1.0.5', '1.0.6', '1.1.0', '1.1.1', '2.0.0']) {
+test('a build at or above the newest stable release is never nagged', () => {
+  for (const version of ['1.0.6.1', '1.0.7', '1.2.0', '2.0.0']) {
     const notice = selectNotice({
-      body: DOCUMENT, appVersion: version, newestVersion: '1.0.5', now: BEFORE_SUPPORT_ENDS,
+      body: DOCUMENT, appVersion: version, newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
     });
     assert.equal(notice, null, `${version} is not inside the targeted range`);
   }
 });
 
+test('a retired preview is blocked instead of offered an update', () => {
+  for (const version of ['1.1.0', '1.1.1']) {
+    const notice = selectNotice({
+      body: DOCUMENT, appVersion: version, newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
+    });
+    assert.ok(notice, `${version} must be told the preview is retired`);
+    assert.equal(notice.level, 'blocked');
+    assert.equal(notice.id, 'retired-preview-1-1');
+    assert.match(notice.title, /retired/i);
+    assert.match(notice.message, /1\.0\.6\.1/);
+    assert.match(notice.releasesUrl, /\/blocked\/$/,
+      'the blocked popup must send people to the banner page');
+  }
+});
+
 test('the same rule escalates by itself once support ends', () => {
   const notice = selectNotice({
-    body: DOCUMENT, appVersion: '1.0.3', newestVersion: '1.0.5', now: AFTER_SUPPORT_ENDS,
+    body: DOCUMENT, appVersion: '1.0.3', newestVersion: '1.0.6.1', now: AFTER_SUPPORT_ENDS,
   });
   assert.ok(notice);
   assert.equal(notice.level, 'end_of_support');
@@ -141,24 +157,24 @@ test('a disabled, malformed or unknown-schema document shows nothing', () => {
   };
   for (const [name, body] of Object.entries(cases)) {
     const notice = selectNotice({
-      body, appVersion: '1.0.4', newestVersion: '1.0.5', now: BEFORE_SUPPORT_ENDS,
+      body, appVersion: '1.0.4', newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
     });
     assert.equal(notice, null, `${name} must never produce a popup`);
   }
 });
 
 test('a rule aimed at the other platform does not fire here', () => {
-  const targetsCurrent = PUBLISHED.rules.find((rule) => rule.max_version === '1.0.4');
+  const targetsCurrent = PUBLISHED.rules.find((rule) => rule.max_version === '1.0.3');
   assert.ok(targetsCurrent, 'the document must still target the last manual install');
   const androidOnly = JSON.stringify({
     ...PUBLISHED,
     rules: [{ ...targetsCurrent, platforms: ['android'] }],
   });
   assert.equal(selectNotice({
-    body: androidOnly, appVersion: '1.0.4', now: BEFORE_SUPPORT_ENDS, platform: 'macos',
+    body: androidOnly, appVersion: '1.0.3', now: BEFORE_SUPPORT_ENDS, platform: 'macos',
   }), null);
   assert.ok(selectNotice({
-    body: androidOnly, appVersion: '1.0.4', now: BEFORE_SUPPORT_ENDS, platform: 'android',
+    body: androidOnly, appVersion: '1.0.3', now: BEFORE_SUPPORT_ENDS, platform: 'android',
   }), 'the same document must still reach Android');
 });
 
@@ -205,14 +221,14 @@ function noticeHarness(t, { currentVersion = '1.0.4', noticeBody = DOCUMENT, now
     calls.push(url);
     if (url.includes('/releases?')) {
       return new Response(JSON.stringify([{
-        tag_name: 'v1.0.5',
+        tag_name: 'v1.0.6.1',
         draft: false,
         prerelease: false,
-        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.5',
+        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.6.1',
         assets: [{
-          name: 'PremiumTV-1.0.5-mac-arm64.dmg',
+          name: 'PremiumTV-1.0.6.1-mac-arm64.dmg',
           size: 10,
-          browser_download_url: 'https://github.com/releases/PremiumTV-1.0.5-mac-arm64.dmg',
+          browser_download_url: 'https://github.com/releases/PremiumTV-1.0.6.1-mac-arm64.dmg',
         }],
       }]), { status: 200, headers: { etag: 'W/"r1"' } });
     }
@@ -248,7 +264,7 @@ test('the daily check resolves a popup for an older build', async (t) => {
 });
 
 test('a build that is already current gets no popup', async (t) => {
-  const { build } = noticeHarness(t, { currentVersion: '1.0.5', now: BEFORE_SUPPORT_ENDS });
+  const { build } = noticeHarness(t, { currentVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS });
   const state = await build().check(true);
   assert.equal(state.notice, null);
 });
@@ -258,7 +274,7 @@ test('an unreachable notice keeps the app working and shows nothing new', async 
   const state = await build().check(true);
   assert.equal(state.error, null, 'a missing notice must never fail the update check');
   assert.equal(state.notice, null);
-  assert.equal(state.availableVersion, '1.0.5', 'the release list still resolves normally');
+  assert.equal(state.availableVersion, '1.0.6.1', 'the release list still resolves normally');
 });
 
 test('dismissing hides the popup for this launch only', async (t) => {

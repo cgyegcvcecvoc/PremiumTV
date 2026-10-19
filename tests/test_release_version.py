@@ -29,15 +29,25 @@ class VersionParsingTests(unittest.TestCase):
         self.assertEqual(release_version.parse_version("v1.0.4"), (1, 0, 4))
         self.assertEqual(release_version.parse_version("1.0.4-debug"), (1, 0, 4))
         self.assertEqual(release_version.parse_version("v1.1.1-preview"), (1, 1, 1))
+        self.assertEqual(release_version.parse_version("1.0.6.1"), (1, 0, 6, 1))
+        self.assertEqual(release_version.parse_version("v1.0.6.1-debug"), (1, 0, 6, 1))
         self.assertEqual(release_version.normalize_version("v1.0.4-debug"), "1.0.4")
+        self.assertEqual(release_version.normalize_version("v1.0.6.1-debug"), "1.0.6.1")
         self.assertEqual(release_version.tag_for("1.0.4"), "v1.0.4")
+        self.assertEqual(release_version.canonical_version("1.0.7"), "1.0.6.1")
+        self.assertEqual(release_version.canonical_version("1.0.6.1"), "1.0.6.1")
+        self.assertTrue(release_version.is_compatibility_alias("1.0.7", "1.0.6.1"))
+        self.assertFalse(release_version.is_compatibility_alias("1.0.7", "1.0.6"))
 
     def test_rejects_versions_this_project_does_not_write(self):
-        for value in ("", "latest", "1.0", "1.0.4.1", "v1.0.x", "1.0.4 beta"):
+        for value in ("", "latest", "1.0", "1.0.4.1.2", "v1.0.x", "1.0.4 beta"):
             self.assertIsNone(release_version.parse_version(value), value)
 
     def test_semantic_ordering_is_numeric_not_lexical(self):
         self.assertTrue(release_version.is_newer("1.0.10", "1.0.9"))
+        self.assertTrue(release_version.is_newer("1.0.6.1", "1.0.6"))
+        self.assertTrue(release_version.is_newer("1.1.0", "1.0.6.1"))
+        self.assertFalse(release_version.is_newer("1.0.6.1", "1.1.0"))
         self.assertTrue(release_version.is_newer("1.1.0", "1.0.99"))
         self.assertTrue(release_version.is_newer("2.0.0", "1.99.99"))
         self.assertFalse(release_version.is_newer("1.0.3", "1.0.4"))
@@ -47,28 +57,45 @@ class VersionParsingTests(unittest.TestCase):
 
 class AndroidVersionCodeTests(unittest.TestCase):
     def test_codes_are_monotonic_and_above_every_historical_code(self):
-        versions = ["1.0.4", "1.0.5", "1.0.10", "1.1.0", "1.1.1", "1.2.0", "2.0.0"]
+        versions = ["1.0.4", "1.0.5", "1.0.10", "1.0.6.1", "1.1.0", "1.1.1", "1.2.0", "2.0.0"]
+        versions = sorted(versions, key=lambda value: release_version._pad(release_version.parse_version(value)))
         codes = [release_version.android_version_code(v) for v in versions]
         self.assertEqual(codes, sorted(codes))
         self.assertEqual(len(codes), len(set(codes)))
         # The original published previews used 7, 8, 9, 10 and 11.  Every
         # future code must install over all of them.
         self.assertGreater(min(codes), 11)
-        self.assertEqual(release_version.android_version_code("1.0.4"), 100_000_004)
-        self.assertEqual(release_version.android_version_code("1.1.1"), 100_010_001)
+        self.assertEqual(release_version.android_version_code("1.0.4"), 100_040_000)
+        self.assertEqual(release_version.android_version_code("1.1.1"), 101_010_000)
+        # 1.0.6.1 must install over the retired preview's published code.
+        self.assertGreater(release_version.android_version_code("1.0.6.1"), 100_010_001)
+        self.assertEqual(release_version.android_version_code("1.0.6.1"), 100_060_001)
+        self.assertGreater(
+            release_version.android_version_code("1.0.6.1"),
+            release_version.android_version_code("1.0.6"),
+        )
 
     def test_the_derived_code_fits_an_android_int(self):
         code = release_version.android_version_code("21.0.0")
         self.assertLessEqual(code, release_version.ANDROID_CODE_MAX)
         with self.assertRaises(ValueError):
             release_version.android_version_code("22.0.0")
+        with self.assertRaises(ValueError):
+            release_version.android_version_code("1.100.0")
 
     def test_cli_prints_the_code(self):
         result = subprocess.run(
-            [sys.executable, str(SCRIPT), "--code", "1.0.4"],
+            [sys.executable, str(SCRIPT), "--code", "1.0.6.1"],
             capture_output=True, text=True, check=True,
         )
-        self.assertEqual(result.stdout.strip(), "100000004")
+        self.assertEqual(result.stdout.strip(), "100060001")
+
+    def test_cli_prints_the_canonical_version_behind_an_alias(self):
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), "--canonical", "v1.0.7"],
+            capture_output=True, text=True, check=True,
+        )
+        self.assertEqual(result.stdout.strip(), "1.0.6.1")
 
 
 def release(tag: str, *, draft: bool = False, prerelease: bool = False) -> dict:
@@ -136,7 +163,7 @@ class ReleaseGuardTests(unittest.TestCase):
 
     def test_malformed_tags_fail_closed(self):
         self.assertEqual(release_version.guard("latest", [])[0], 1)
-        self.assertEqual(release_version.guard("v1.0.4.1", [])[0], 1)
+        self.assertEqual(release_version.guard("v1.0.4.1.2", [])[0], 1)
 
     def test_guard_reads_the_release_list_from_disk(self):
         releases = [release("v1.0.4")]

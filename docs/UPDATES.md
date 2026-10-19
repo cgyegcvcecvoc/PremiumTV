@@ -1,19 +1,20 @@
 # PremiumTV app updates
 
-Version 1.0.4 is the last release that has to be installed by hand. From then
+Version 1.0.4 was the last release that had to be installed by hand. From then
 on, **Settings → App updates** checks GitHub, downloads the installer once,
 verifies it against the release's SHA-256 file, and hands it to the platform's
-normal installer.
+normal installer. The current stable release is **1.0.6.1**.
 
 ## The rules every release follows
 
 1. **Stable only.** The updater reads
    `https://api.github.com/repos/cgyegcvcecvoc/PremiumTV1/releases` and ignores
-   drafts and pre-releases. Preview builds such as 1.1.1 are never offered to
-   stable users, and an installed preview is never offered an older stable
-   build.
+   drafts and pre-releases. The 1.1.x preview channel is retired: its release,
+   installers and download links were removed, and installed previews see a
+   blocked-build notice instead of an update offer.
 2. **Strictly above the installed version.** Versions are compared numerically
-   (`1.0.10` is above `1.0.9`). The release guard workflow fails a stable
+   (`1.0.10` is above `1.0.9`, and `1.0.6.1` is above `1.0.6` without being
+   mistaken for `1.0.7`). The release guard workflow fails a stable
    release whose version is not above the newest stable release and marks it
    as a pre-release, so no app will offer it.
 3. **Complete for the platform.** The Android APK or the Mac DMG for this
@@ -77,7 +78,7 @@ The "surprise" in the copy is the update centre itself: the newest build is the
 last one anybody has to install by hand, because from there PremiumTV updates
 itself.
 
-## End of support for 1.0.0-1.0.4
+## End of support for builds below 1.0.6.1
 
 None of them can show this popup, so no code change can reach them. 1.0.0-1.0.3
 ship no updater at all - the `v1.0.3` tree has neither `AppUpdateManager.kt` nor
@@ -105,12 +106,12 @@ channels; the legacy one also carries the notice, and the live one never does.
   legacy feed. That is the delivery: every installed 1.0.0-1.0.4 refreshes that
   playlist on its own schedule and renders the entry as the first channel in a
   `PremiumTV Notice` group. Builds that understand the marker drop it, so
-  1.0.5+ is unaffected.
+  1.0.5+ is unaffected (they get the JSON popup instead).
 * **End of support** (`support_ends_utc`, 30 days later) pins the last scraped
   channel list to `playlists/legacy/USA.m3u` and rewrites the legacy feed from
   that pin with one sanctioned notice entry on top. Builds 1.0.0-1.0.4 keep the
   channels that worked that day, see
-  `⚠ UPDATE PremiumTV — support for 1.0.4 and older ended Nov 16, 2026 · get the
+  `⚠ UPDATE PremiumTV — support for 1.0.6 and older ended Nov 16, 2026 · get the
   newest free version at github.com/…` as the first entry in their channel list,
   and stop receiving scrape updates. The live feed carries on.
 
@@ -156,8 +157,11 @@ the verified APK in `files/updates/PremiumTV-<version>-debug.apk`. Installing
 opens Android's package installer through a one-file `FileProvider`; Android 8
 and newer may first ask the user to allow PremiumTV to install unknown apps.
 The versionCode is derived by `scripts/release_version.py`
-(`MAJOR * 100000000 + MINOR * 10000 + PATCH`), so every new release installs as
-an upgrade over both stable and preview builds.
+(`MAJOR * 100000000 + MINOR * 1000000 + PATCH * 10000 + HOTFIX`), so every new
+release installs as an upgrade over both stable and retired preview builds.
+`1.0.6.1` is `100060001`, above 1.0.6's published `100000006` and the retired preview's
+`100010001`; the APK and the preview share the same update signing key, so it
+installs straight over 1.1.1 without uninstalling.
 
 ## macOS
 
@@ -171,22 +175,36 @@ check is throttled and the downloaded DMG is reused until it is installed.
 
 1. Bump the version and let CI build both platforms. Manual runs use
    *Actions → Build PremiumTV Android APK / macOS DMG + PKG → Run workflow*
-   with the version (for example `1.0.5`) and channel `stable`.
+   with the version (for example `1.0.6.1`) and channel `stable`.
 2. Publish the GitHub release as a **full release** (not a pre-release) with
-   the `v1.0.5` tag. The release guard checks the ordering; the build workflows
-   attach the APK and all four Mac installers when the tag points at their
-   commit.
+   the `v1.0.6.1` tag. The release guard checks the ordering; the build
+   workflows attach the APK and all four Mac installers when the tag points at
+   their commit.
 3. The download site promotes the release only after the APK and all four Mac
    installers exist. Installed 1.0.4+ apps see it on their next daily check or
-   immediately when the user presses **Check for updates**.
-4. Check `app-update-notice.json`. Its rules are read in order and the first
-   one whose range contains the installed version is shown, so the document
-   keeps two of them: `legacy-upgrade` (0.0.0-1.0.3) promises a newer release
-   because there always is one, and `last-manual-install` (1.0.4) never does -
-   it can be read on the day 1.0.4 is the newest release, when telling somebody
-   a newer one is waiting would simply be false. When a release leaves another
-   version behind, move that version out of the first rule's range and into the
-   second's, or add a third rule for it.
+   immediately when the user presses **Check for update**.
+4. **Four-part versions need a compatibility twin.** The updater in 1.0.4–1.0.6
+   parses only `MAJOR.MINOR.PATCH`, so it cannot see a `v1.0.6.1` release. After
+   the canonical release is complete, publish a second full release from the
+   **same commit and tag tree** one patch above it — `v1.0.7` for `1.0.6.1` —
+   with the same assets. It is listed in `COMPATIBILITY_ALIASES` in
+   `scripts/release_version.py` (and mirrored in both updaters), so:
+   - the download page keeps promoting the canonical 1.0.6.1;
+   - 1.0.4–1.0.6 find 1.0.7 and update themselves;
+   - an install already on 1.0.6.1 ignores 1.0.7 instead of downloading the
+     same build again.
+   Do this only while older builds are still in the field. A three-part stable
+   release needs no twin.
+5. Check `app-update-notice.json`. Its rules are read in order and the first
+   one whose range contains the installed version is shown. The current
+   document targets three ranges: `retired-preview-1-1` (1.1.0-1.1.1, level
+   `blocked`, linking to the blocked page), `update-to-1-0-6-1` (1.0.4-1.0.6,
+   a warning whose action opens Settings so the normal updater finishes the
+   job), and `legacy-upgrade-2026-11` (0.0.0-1.0.3, the last manual install).
+   When a release leaves another version behind, move that version's range.
 
-A preview is published with GitHub's pre-release flag and keeps its preview
-name; it uses the global bundle scope and never becomes the default download.
+The 1.1.x preview channel is retired. There is no preview release, no preview
+download and no preview rebuild switch; do not create a GitHub pre-release for
+a 1.x build. The `all` bundle scope remains available for a future experimental
+dispatch, but it does not become a published download unless this policy is
+deliberately changed.

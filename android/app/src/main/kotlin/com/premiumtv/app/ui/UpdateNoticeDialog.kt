@@ -73,7 +73,9 @@ fun UpdateNoticeDialog(
     onDismiss: () -> Unit,
 ) {
     val ended = notice.level == NoticeLevel.EndOfSupport
-    val accent = if (ended) LiveRed else PremiumGold
+    val blocked = notice.level == NoticeLevel.Blocked
+    val alarm = ended || blocked
+    val accent = if (alarm) LiveRed else PremiumGold
     // A dialog window is clipped by the screen, not scrolled by it: on a short
     // TV panel the buttons used to fall off the bottom edge, which left the
     // message with no way to act on it. The card is capped to the screen and
@@ -133,7 +135,11 @@ fun UpdateNoticeDialog(
                                 .background(accent, RoundedCornerShape(4.dp)),
                         )
                         Text(
-                            text = if (ended) "SUPPORT HAS ENDED" else "PREMIUMTV UPDATE",
+                            text = when {
+                                blocked -> "BUILD RETIRED"
+                                ended -> "SUPPORT HAS ENDED"
+                                else -> "PREMIUMTV UPDATE"
+                            },
                             style = MaterialTheme.typography.labelMedium,
                             color = accent,
                             fontWeight = FontWeight.Bold,
@@ -216,9 +222,9 @@ fun UpdateNoticeDialog(
                                     .padding(14.dp),
                             ) {
                                 Text(
-                                    text = "THE SURPRISE",
+                                    text = if (blocked) "WHAT REPLACES IT" else "THE SURPRISE",
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = PremiumGold,
+                                    color = if (alarm) accent else PremiumGold,
                                     fontWeight = FontWeight.Bold,
                                     letterSpacing = 1.4.sp,
                                 )
@@ -274,10 +280,10 @@ fun UpdateNoticeDialog(
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = if (ended) {
-                            "Back dismisses for now; it returns every launch."
-                        } else {
-                            "Back dismisses for now; it returns every launch until you update."
+                        text = when {
+                            blocked -> "Back dismisses for now; this retired build is blocked from download."
+                            ended -> "Back dismisses for now; it returns every launch."
+                            else -> "Back dismisses for now; it returns every launch until you update."
                         },
                         style = MaterialTheme.typography.labelSmall,
                         color = MutedText,

@@ -49,7 +49,9 @@ class BuildSiteDataTest(unittest.TestCase):
 
     def test_release_channels_carry_download_assets(self):
         channels = self.payload["apps"]["channels"]
-        self.assertGreaterEqual(len(channels), 2)
+        self.assertEqual(len(channels), 1)
+        self.assertEqual(channels[0]["id"], "stable")
+        self.assertNotIn("preview", {ch["id"] for ch in channels})
         kinds = set()
         for ch in channels:
             self.assertTrue(ch["assets"], ch["id"])
@@ -119,6 +121,36 @@ class BuildSiteDataTest(unittest.TestCase):
                 digest = str(published.get(asset["name"], {}).get("digest") or "")
                 if digest.startswith("sha256:"):
                     self.assertEqual(asset["sha256"], digest.split(":", 1)[1], asset["name"])
+
+    def test_compatibility_alias_never_replaces_the_canonical_download(self):
+        names = [
+            "PremiumTV-{v}-debug.apk",
+            "PremiumTV-{v}-mac-arm64.dmg",
+            "PremiumTV-{v}-mac-arm64.pkg",
+            "PremiumTV-{v}-mac-x64.dmg",
+            "PremiumTV-{v}-mac-x64.pkg",
+        ]
+        def published(version, day):
+            return {
+                "tag": f"v{version}",
+                "draft": False,
+                "prerelease": False,
+                "published_at": f"2026-10-{day}T00:00:00Z",
+                "html_url": f"https://github.com/x/releases/tag/v{version}",
+                "assets": [
+                    {"name": name.format(v=version), "size": 10,
+                     "browser_download_url": f"https://github.com/x/v{version}/{name.format(v=version)}"}
+                    for name in names
+                ],
+            }
+        releases = [published("1.0.6.1", "19"), published("1.0.7", "20")]
+        chosen = build_site_data.latest_complete_stable_release(releases)
+        self.assertEqual(build_site_data.release_tag(chosen), "v1.0.6.1",
+                         "1.0.7 exists only for three-part updaters")
+        channels, older = build_site_data.build_apps({}, releases)
+        self.assertEqual(channels[0]["version"], "1.0.6.1")
+        self.assertNotIn("v1.0.7", {row["tag"] for row in older},
+                         "the alias is not an older release")
 
     def test_release_asset_digest_survives_a_missing_build_out(self):
         version = "1.2.3"

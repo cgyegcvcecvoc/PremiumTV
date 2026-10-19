@@ -10,6 +10,45 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-19 — Version 1.0.6.1: Settings 2.0, Check for bugs, preview retired
+
+- **Stable 1.0.6.1 is cut** (Android `versionCode 100060001`, Mac `1.0.6.1`) with
+  a four-part version policy: `1.0.6.1` sorts above `1.0.6` and below `1.1.0`.
+  The derived code is `MAJOR * 100000000 + MINOR * 1000000 + PATCH * 10000 +
+  HOTFIX`, which is above the retired preview's `100010001`, so the new APK
+  installs straight over 1.1.1.
+- **A 1.0.7 compatibility build ships the same code.** The updater in
+  1.0.4–1.0.6 reads only three-part versions, so 1.0.6.1 alone is invisible to
+  it. The same tree is published as `v1.0.7` (`versionCode 100070000`) for those
+  apps to find in Settings → App updates. `1.0.6.1` stays the recommended
+  download; both updaters skip the alias when the installed build is already
+  the canonical one. See [`release-notes-1.0.7.md`](release-notes-1.0.7.md).
+- **Settings is one compact screen.** A single version/stat card replaces the
+  old three headings; **Force refresh**, **Check for update** and **Check for
+  bugs** sit in one action row; one status line replaces competing messages;
+  sources, URLs, guide window and Reset moved into a collapsible Details panel.
+  The Mac Settings screen gets the same structure.
+- **New built-in bug check on both platforms.** Offline and read-only, it
+  verifies channels, categories, guide, bundle provenance, refresh pipeline,
+  update state, installed version and (on Mac) the bundled files and writable
+  data folder, reporting every finding as OK / WARN / FAIL.
+- **Fresh rescrape before the release.** The scrape workflow re-tested the
+  published sources, rebuilt the category shelf and refreshed the guide before
+  the release build baked its bundle.
+- **The 1.1.x preview is retired.** The `v1.1.1` release and all of its
+  installers are deleted, the download page and hub no longer list a preview,
+  the `[preview-build]` switch is gone, and `release-notes-1.1.1.md` was removed.
+  A new `docs/blocked/` page is the permanent banner for every old 1.1.1 link,
+  and `app-update-notice.json` shows a **BUILD RETIRED** banner to anyone still
+  running 1.1.0/1.1.1, with the 1.0.6.1 replacement path.
+- **Older builds are warned and can upgrade.** Notices now target 0.0.0–1.0.3,
+  1.0.4–1.0.6 and 1.1.0–1.1.1 separately. 1.0.5/1.0.6 users can press Update
+  now and finish from Settings; support for builds below 1.0.6.1 ends
+  **Nov 16, 2026**.
+- **Release routing simplified.** Both build workflows default to `1.0.6.1`,
+  keep the exact-SHA asset gate for every release, and no longer contain a
+  special mutable-preview branch.
+
 ## 2026-10-18 — Version 1.0.6: click-to-search, personal shelves, manual server switching
 
 - **Stable 1.0.6 is cut and becomes the default release** (Android

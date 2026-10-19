@@ -100,16 +100,20 @@ class AndroidUpdateTests(unittest.TestCase):
     def test_settings_exposes_the_update_actions(self):
         home = text(HOME)
         for expected in (
-            '"App updates"',
-            '"Check for updates"',
+            '"Check for update"',
+            '"Check for bugs"',
+            '"Force refresh"',
             '"Download update"',
             '"Install update"',
             "updateInfo.updateAvailable",
             "onCheckForUpdate",
             "onDownloadUpdate",
             "onInstallUpdate",
+            "onCheckForBugs",
         ):
             self.assertIn(expected, home)
+        self.assertIn("fun runDiagnostics()", text(VIEW_MODEL))
+        self.assertIn("Diagnostics.run(", text(VIEW_MODEL))
         view_model = text(ANDROID / "kotlin" / "com" / "premiumtv" / "app" / "TvViewModel.kt")
         self.assertIn("updateManager.checkIfDue()", view_model)
         self.assertIn("updateManager.check(force = true)", view_model)
@@ -118,8 +122,8 @@ class AndroidUpdateTests(unittest.TestCase):
 
     def test_version_is_one_policy_above_every_historical_code(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.0.6")', gradle)
-        self.assertIn('orElse("100000005")', gradle)
+        self.assertIn('orElse("1.0.6.1")', gradle)
+        self.assertIn('orElse("100060001")', gradle)
 
 
 class MacUpdateTests(unittest.TestCase):
@@ -159,17 +163,19 @@ class MacUpdateTests(unittest.TestCase):
         renderer = text(MAC / "src" / "renderer" / "app.js")
         for expected in (
             "<h2>App updates</h2>",
-            "Check for updates",
+            "Check for update",
+            "Check for bugs",
             "Download update",
             "Open installer",
             "api.checkForUpdate(true)",
             "api.installUpdate()",
+            "api.diagnostics()",
         ):
             self.assertIn(expected, renderer)
 
     def test_app_version_is_1_0_5(self):
         package = json.loads(text(MAC / "package.json"))
-        self.assertEqual(package["version"], "1.0.6")
+        self.assertEqual(package["version"], "1.0.6.1")
 
 
 class AndroidSigningTests(unittest.TestCase):
@@ -272,26 +278,31 @@ class UpdateNoticePopupTests(unittest.TestCase):
         document = json.loads(text(NOTICE_DOCUMENT))
         self.assertEqual(document["notice_url"], NOTICE_URL)
 
-    def test_the_document_targets_every_build_below_the_one_with_a_popup(self):
+    def test_the_document_targets_every_build_below_the_current_stable(self):
         document = json.loads(text(NOTICE_DOCUMENT))
         self.assertEqual(document["schema"], 1)
         self.assertIs(document["enabled"], True)
         self.assertEqual(document["grace_days"], 30)
         self.assertTrue(document["rules"], "a notice with no rules can never be shown")
-        targets = [rule["max_version"] for rule in document["rules"]]
-        self.assertEqual(max(targets), "1.0.4", "1.0.5 is the first build that can show the popup")
+        rules = {rule["id"]: rule for rule in document["rules"]}
+        # The retired preview is blocked, not offered an update.
+        blocked = rules["retired-preview-1-1"]
+        self.assertEqual(blocked["level"], "blocked")
+        self.assertEqual((blocked["min_version"], blocked["max_version"]), ("1.1.0", "1.1.1"))
+        self.assertIn("/blocked/", blocked["releases_url"])
+        # Every stable build below 1.0.6.1 is warned.
+        stable = rules["update-to-1-0-6-1"]
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.0.6"))
+        self.assertEqual(stable["level"], "warning")
+        self.assertIn("after_support_ends", stable,
+                      "the escalation copy ships in the document, not in a build")
+        self.assertEqual(stable["after_support_ends"]["level"], "end_of_support")
+        legacy = rules["legacy-upgrade-2026-11"]
+        self.assertEqual(legacy["max_version"], "1.0.3")
         for rule in document["rules"]:
-            self.assertLess(rule["max_version"], "1.0.5",
-                            "a rule must never nag the build that can show the popup")
-            self.assertIn("min_version", rule)
             self.assertIn("android", rule["platforms"])
             self.assertIn("macos", rule["platforms"])
-            # The surprise is the reason to update, so it must be spelled out:
-            # "updates itself" for an upgrade, "arrives in Settings" for 1.0.4.
-            self.assertRegex(rule["surprise"], r"itself|Settings")
-            self.assertIn("after_support_ends", rule,
-                          "the escalation copy ships in the document, not in a build")
-            self.assertEqual(rule["after_support_ends"]["level"], "end_of_support")
+            self.assertRegex(rule["surprise"], r"itself|Settings|compact", rule["id"])
 
     def test_the_notice_is_refused_unless_it_is_enabled_and_a_known_schema(self):
         kotlin = text(NOTICE_POLICY)

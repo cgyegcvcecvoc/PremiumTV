@@ -69,8 +69,9 @@ class MacRefreshScheduleTests(unittest.TestCase):
 
     def test_settings_force_refresh_and_reset_exist(self):
         renderer = text(MAC / "src" / "renderer" / "app.js")
-        self.assertIn("Force refresh all now", renderer)
-        self.assertIn("Reset to the bundled copy", renderer)
+        self.assertIn("Force refresh", renderer)
+        self.assertIn("Reset to bundled copy", renderer)
+        self.assertIn("Check for bugs", renderer)
         self.assertIn("runRefresh(true, 'force-refresh')", renderer)
         self.assertIn("runRefresh(false, 'check-now')", renderer)
 

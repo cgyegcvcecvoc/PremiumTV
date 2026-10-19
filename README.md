@@ -73,24 +73,31 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.0.5** (Android `versionCode 100000005`) | USA lineup + USA guide | Default download; installs over 1.0.4 from Settings → App updates, which 1.0.4 already ships |
-| Previous stable | 1.0.4 (Android `versionCode 100000004`) | USA lineup + USA guide | The **last manual install**; retained as a fallback download |
-| **Preview** | **1.1.1** (Android `versionCode 100010001` when rebuilt) | Global checked lineup + merged guide, **cable-style Guide tab** | Published with GitHub's pre-release flag (`v1.1.1`); never the default; ships the same update center and the same 1.0.5-era features |
-| Preview (superseded) | 1.1.0 (Android `versionCode 8`) | Global lineup + separate Cable tab | Pre-release `v1.1.0`, kept for reference |
+| **Stable release** | **1.0.6.1** (Android `versionCode 100060001`) | USA lineup + USA guide | Default and only download; installs over 1.0.4–1.0.6 and the retired 1.1.x previews from Settings → App updates |
+| Compatibility build | **1.0.7** (Android `versionCode 100070000`) | USA lineup + USA guide | Identical to 1.0.6.1, published so 1.0.4–1.0.6 can see and install it from Settings → App updates |
+| Previous stable | 1.0.6 (Android `versionCode 100000006`) | USA lineup + USA guide | Superseded; kept as a fallback release |
+| Archived stable | 1.0.4 / 1.0.5 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.6.1 ends Nov 16, 2026 |
 
-In the 1.1.1 pre-release the **Guide tab is a cable-style grid**: channels down the
-left, what each one is playing to the right, half-hour times across the top for
-eight hours, a red NOW line and a detail strip for the highlighted show. It
-works with a TV remote (D-pad highlight, OK to watch, Back to return) and with a
-mouse or touch. The grid is enabled by the bundle the app was built with
-(`preview_features: ["cable-guide"]`, global scope only), so stable 1.0.5 keeps
-its list-style Guide. The Android bundle builder and the Mac build default to
-`1.0.5` / `usa`; the release workflows select `all` for pre-releases and `usa`
-for stable releases. See [`release-notes-1.0.5.md`](release-notes-1.0.5.md),
-[`release-notes-1.0.4.md`](release-notes-1.0.4.md)
-and [`release-notes-1.1.1.md`](release-notes-1.1.1.md).
+The **1.1.0/1.1.1 Encore preview channel is retired**. Its release, installers
+and download links were removed (old release-asset URLs now 404); every
+retired-preview pointer the project controls, including the startup notice,
+goes to the [blocked-build page](docs/blocked/index.html). A 1.1.1 install
+shows a **BUILD RETIRED** notice at startup; on Android, 1.0.6.1 installs
+straight over it because `100060001` is above `100010001` and both APKs share
+the update key.
 
-### What 1.0.5 adds (and the rebuilt 1.1.1 preview carries too)
+Versions are `MAJOR.MINOR.PATCH` or `MAJOR.MINOR.PATCH.HOTFIX`: 1.0.6.1 is a
+small stable increment, not a new minor release. Builds shipped before 1.0.6.1
+only understand three-part versions, so the same code is also published as
+**1.0.7** — the alias their updater can see. 1.0.6.1 stays the recommended
+download; an install already on 1.0.6.1 ignores the alias instead of
+downloading the same build twice. See
+[`release-notes-1.0.6.1.md`](release-notes-1.0.6.1.md)
+(and its [1.0.7 compatibility note](release-notes-1.0.7.md)),
+[`release-notes-1.0.6.md`](release-notes-1.0.6.md) and
+[`release-notes-1.0.5.md`](release-notes-1.0.5.md).
+
+### What earlier 1.0.x releases added
 
 - **Launch splash** — the PremiumTV television mark, a spinner and the build's
   version pinned at the bottom while the library loads.
@@ -130,8 +137,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.5` — USA lineup; 1.0.4 installs it from Settings → App updates |
-| Preview target | `1.1.1` — global lineup + cable-style Guide tab; GitHub pre-release only, same update center |
+| Stable target | `1.0.6.1` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
 The macOS regression suite covers startup data delivery, the cable-style guide
@@ -150,26 +156,22 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.0.5` (`versionCode 100000005`) — USA library |
-| Preview target | `1.1.1` (`versionCode 100010001` when rebuilt) — global library + cable-style Guide tab |
+| Stable build target | `1.0.6.1` (`versionCode 100060001`) — USA library |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
-The stable build bundles the USA playlist and guide; the preview build bundles
-the checked global playlist and merged guide. Both guides are built from curated
+The stable build bundles the USA playlist and guide. Both are built from curated
 per-country EPG feeds (see [the guide build report](playlists/checks/EPG-BUILD.md)).
 
 - **Channels** — one row per category, in published order; each card shows its
   logo (or its category's drawn placeholder) and current programme when the
   guide has one, with a search field above the rows.
-- **Guide** — in the 1.1.1 preview, a cable-style grid: channels down the left,
-  shows to the right, times across the top, a NOW line and a detail strip; the
-  remote's D-pad moves a highlight, OK watches, Back returns to the same show.
-  Stable 1.0.5 shows what's on now across channels with listings instead —
-  live-game feeds included, with the matchup as their listing.
+- **Guide** — what's on now across every channel with listings, live-game feeds
+  included (with the matchup as their listing), plus the next programme.
 - **Automatic refresh** — Android WorkManager checks after repository publishing
   windows, using ETag/Last-Modified where possible.
-- **Settings** — bundle provenance, refresh state, force refresh, reset to
-  bundled data, and the **App updates** panel (check, download once, install).
+- **Settings** — one compact version card with **Force refresh**, **Check for
+  update** and **Check for bugs**, plus collapsible details, reset to bundled
+  data and the **App updates** panel (check, download once, install).
 - **Update popup for older builds** — a build inside the version range published
   in [`app-update-notice.json`](app-update-notice.json) is told at startup to go
   and get the newest release from GitHub, and what is waiting when it does. It is
@@ -183,22 +185,20 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.5 is the current stable release** (`versionCode 100000005`, USA scope).
-1.0.4 was the last version that needed a manual download: it installs 1.0.5
-from Settings → App updates on its own. A release is offered only when it is a
+**1.0.6.1 is the current stable release** (`versionCode 100060001`, USA scope).
+1.0.4 was the last version that needed a manual download: every 1.0.5/1.0.6
+build upgrades from Settings → App updates, and 1.0.6.1 installs over the
+retired 1.1.x previews as well. A release is offered only when it is a
 published full release above the installed version with its platform installer
 already attached. The download site promotes only a complete published stable
-release. `1.1.1` (and the earlier `1.1.0`) remain GitHub pre-releases and keep
-their names. The workflows build from the release tag or manual dispatch, and
-use the global `all` scope only when GitHub marks the release as a pre-release.
+release and no longer publishes preview builds.
 
-**1.0.0–1.0.4 have an end-of-support date.** None of them can show this popup:
-1.0.0–1.0.3 ship no updater at all — the `v1.0.3` tree has neither
-`AppUpdateManager.kt` nor `updater.js` — and 1.0.4 has the update centre but was
-released before this notice existed. So they cannot be told anything in app except
-through the one playlist they refresh. 1.0.4 can still escape on its own, because
-its Settings → App updates will offer the next release; it simply will not be told
-to look. 1.0.0–1.0.3 have no such route, which is why the feed they refresh carries the
+**Builds below 1.0.6.1 have an end-of-support date.** 1.0.5/1.0.6 show the
+popup directly and can finish the upgrade from Settings. 1.0.4 has the update
+centre but predates the popup; its Settings still offers 1.0.6.1. 1.0.0–1.0.3
+ship no updater at all — the `v1.0.3` tree has neither `AppUpdateManager.kt` nor
+`updater.js` — so they can only be reached through the one playlist they
+refresh, and they need one manual install to join the self-updating line. 1.0.0–1.0.3 have no such route, which is why the feed they refresh carries the
 message for them — and it has carried it since the first warning, not only
 since the freeze.
 `scripts/legacy_sunset.py` splits delivery in two: current builds read

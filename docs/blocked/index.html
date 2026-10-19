@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PremiumTV 1.1.1 is blocked — install 1.0.6.1</title>
+<style>
+  :root {
+    --bg: #0b0d11;
+    --panel: #151a22;
+    --gold: #f3c24b;
+    --red: #ff5d5d;
+    --text: #f5f7fb;
+    --muted: #a8b0bd;
+    --line: rgba(255,255,255,.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background:
+      radial-gradient(1000px 500px at 50% -10%, rgba(255,93,93,.18), transparent 70%),
+      var(--bg);
+    color: var(--text);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  main {
+    width: min(760px, 100%); background: var(--panel);
+    border: 1px solid rgba(255,93,93,.55); border-radius: 20px;
+    box-shadow: 0 30px 90px rgba(0,0,0,.55); overflow: hidden;
+  }
+  .banner {
+    background: linear-gradient(90deg, #ba1f1f, #7e1414);
+    padding: 18px 26px; display: flex; align-items: center; gap: 14px;
+  }
+  .banner .dot { width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px rgba(255,255,255,.18); }
+  .banner strong { font-size: 13px; letter-spacing: 2.4px; text-transform: uppercase; }
+  .inner { padding: 30px 30px 34px; }
+  h1 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; letter-spacing: -.5px; }
+  h1 span { color: var(--red); }
+  .version {
+    display: inline-block; margin-bottom: 18px; padding: 4px 12px; border-radius: 999px;
+    border: 1px solid rgba(255,93,93,.5); color: #ffb3b3; font-size: 13px; letter-spacing: 1px;
+  }
+  p { margin: 0 0 14px; color: #dbe1ea; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .actions { display: grid; gap: 10px; margin: 22px 0 18px; }
+  a.btn {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    text-decoration: none; color: #12160b; background: var(--gold);
+    border-radius: 12px; padding: 13px 17px; font-weight: 700;
+  }
+  a.btn.secondary { background: #222a36; color: var(--text); border: 1px solid var(--line); }
+  a.btn small { font-weight: 500; opacity: .72; font-size: 12px; }
+  .note {
+    margin-top: 20px; padding: 15px 17px; border-radius: 12px;
+    background: #0f141b; border: 1px solid var(--line); font-size: 14px; color: var(--muted);
+  }
+  code { color: #ffd98a; }
+  footer { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <div class="banner"><span class="dot"></span><strong>Blocked build · do not install</strong></div>
+  <div class="inner">
+    <span class="version">PremiumTV 1.1.0 / 1.1.1 — retired preview</span>
+    <h1>This preview is <span>blocked</span>.<br>Install stable 1.0.6.1 instead.</h1>
+    <p>
+      The 1.1.x Encore preview channel is retired. Version 1.1.1's release page,
+      installers and download links were deleted, and every retired-preview link
+      this project still controls points here. The preview no longer receives support.
+    </p>
+    <p>
+      <strong>PremiumTV 1.0.6.1 is the current stable release.</strong> It carries the same
+      USA lineup and guide, the compact Settings screen, a one-tap Force refresh,
+      Check for update, and a built-in Check for bugs report.
+    </p>
+
+    <div class="actions">
+      <a class="btn" href="https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.6.1/PremiumTV-1.0.6.1-debug.apk">
+        <span>Android TV / Fire TV APK<br><small>Version 1.0.6.1 · installs over 1.1.1, no uninstall</small></span>
+        <span>Download →</span>
+      </a>
+      <a class="btn secondary" href="https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.6.1/PremiumTV-1.0.6.1-mac-arm64.dmg">
+        <span>macOS — Apple Silicon<br><small>DMG · replaces the retired preview</small></span>
+        <span>Download →</span>
+      </a>
+      <a class="btn secondary" href="https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download/v1.0.6.1/PremiumTV-1.0.6.1-mac-x64.dmg">
+        <span>macOS — Intel<br><small>DMG · replaces the retired preview</small></span>
+        <span>Download →</span>
+      </a>
+      <a class="btn secondary" href="https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest">
+        <span>All downloads and release notes<br><small>If a direct link is still uploading, this page lists it</small></span>
+        <span>Open →</span>
+      </a>
+    </div>
+
+    <div class="note">
+      <strong>Android:</strong> 1.0.6.1 uses <code>versionCode 100060001</code>, above the retired
+      preview's <code>100010001</code>, so Android installs it straight over 1.1.1. If your device
+      still refuses, uninstall the preview once and install the APK again.
+      <br><br>
+      <strong>Mac:</strong> open the DMG and drag PremiumTV to Applications, replacing the old copy.
+      Settings → Check for update keeps both platforms current from then on.
+    </div>
+
+    <footer>
+      The retired 1.1.1 installer files have been deleted. This page is served so an old
+      bookmark, release link or shortcut can never offer 1.1.1 again.
+      PremiumTV plays publicly listed streams only.
+    </footer>
+  </div>
+</main>
+</body>
+</html>

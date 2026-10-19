@@ -91,9 +91,10 @@ def main():
     android_meta = {
         "1.0.2": ("Archive", "USA lineup with the USA guide built in."),
         "1.0.3": ("Archive", "Everyday Polish — loading indicators, refresh stages, tips and clear completion feedback. USA lineup + guide."),
-        "1.0.4": ("Stable", "One Last Manual Install — Settings → App updates checks, downloads once and installs every later stable release. USA lineup + guide."),
-        "1.1.1": ("Preview", "Encore Preview — global lineup + cable guide, with Everyday Polish loading and refresh feedback."),
-        "1.1.0": ("Preview (superseded)", "Earlier preview with the global lineup; kept for reference."),
+        "1.0.4": ("Archive", "Settings → App updates checks, downloads once and installs every later stable release. USA lineup + guide."),
+        "1.0.5": ("Archive", "Splash, search, placeholder logos, Live Events and multi-server playback. USA lineup + guide."),
+        "1.0.6": ("Archive", "Click-to-search, Recently watched + Favorites, and manual server switching. USA lineup + guide."),
+        "1.0.7": ("Compatibility", "Identical build to 1.0.6.1, published so 1.0.4-1.0.6 can update themselves."),
         "1.0.1": ("Archive", "Channels Back on Air release."),
         "1.0.0": ("Archive", "The original Marquee release."),
     }
@@ -102,9 +103,11 @@ def main():
         android_meta[stable_version] = ("Stable", description)
     android = []
     # Release metadata is authoritative, not possibly old build-out APKs. In
-    # particular, a rebuilt 1.1.1 must not advertise the original APK's hash.
+    # particular, a rebuilt preview must not advertise the original APK's hash.
     for release in releases:
-        if not re.fullmatch(r"v\d+\.\d+\.\d+", release_tag(release)):
+        if release.get("prerelease") or release.get("draft"):
+            continue
+        if not re.fullmatch(r"v\d+\.\d+\.\d+(?:\.\d+)?", release_tag(release)):
             continue
         ver = release_tag(release).removeprefix("v")
         name = f"PremiumTV-{ver}-debug.apk"
@@ -118,7 +121,11 @@ def main():
             "dl": asset.get("browser_download_url") or f"{REL}/v{ver}/{name}",
             "checksums": f"{REL}/v{ver}/SHA256SUMS-android.txt",
         })
-    android.sort(key=lambda a: tuple(int(p) for p in a["version"].split(".")), reverse=True)
+    def version_key(version):
+        parts = tuple(int(p) for p in version.split("."))
+        return parts + (0,) * (4 - len(parts))
+
+    android.sort(key=lambda a: version_key(a["version"]), reverse=True)
 
     # ---------------- macOS apps (GitHub release direct-download links) ----
     mac_local = os.path.join(DIST, "mac")
@@ -144,7 +151,6 @@ def main():
 
     macos = [
         *([{"version": stable_version, "channel": "Stable", "desc": android_meta[stable_version][1], "assets": mac_assets("v" + stable_version, stable_version)}] if stable_version else []),
-        {"version": "1.1.1", "channel": "Preview", "desc": android_meta["1.1.1"][1], "assets": mac_assets("v1.1.1", "1.1.1")},
     ]
 
     # ---------------- Playlists --------------------------------------------

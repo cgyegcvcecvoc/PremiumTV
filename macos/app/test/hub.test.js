@@ -6,7 +6,7 @@ const path = require('node:path');
 const { JSDOM } = require('jsdom');
 const hub = path.resolve(__dirname, '../../../hub/static');
 
-test('Netlify cards recommend stable independently of preview order and link release checksums', async (t) => {
+test('Netlify cards recommend stable independently of input order and ignore the retired preview', async (t) => {
   const dom = new JSDOM(fs.readFileSync(path.join(hub, 'index.html'), 'utf8'), {
     runScripts: 'outside-only', url: 'https://premiumtv.example/',
   });
@@ -26,12 +26,14 @@ test('Netlify cards recommend stable independently of preview order and link rel
   await new Promise((resolve) => setImmediate(resolve));
   const doc = dom.window.document;
   const cards = [...doc.querySelectorAll('#app-grid .app-card')];
-  assert.equal(cards.length, 3);
+  assert.equal(cards.length, 2, 'one stable Android card and one stable macOS card');
   assert.match(cards[0].textContent, /1\.0\.3/);
   assert.match(cards[0].querySelector('a.dl').href, /v1\.0\.3/);
   assert.match(cards[1].textContent, /1\.0\.3/);
-  assert.match(cards[2].textContent, /Encore Preview/);
-  assert.match(cards[2].textContent, /1\.1\.1/);
-  assert.equal(doc.querySelectorAll('#apk-table a[href$="SHA256SUMS-android.txt"]').length, 3);
+  assert.doesNotMatch(doc.body.textContent, /Encore Preview/);
+  assert.doesNotMatch(doc.body.textContent, /1\.1\.1/);
+  assert.equal(doc.querySelectorAll('#apk-table a[href$="SHA256SUMS-android.txt"]').length, 2,
+    'the retired preview row is filtered from the table too');
+  assert.equal(doc.querySelectorAll('#apk-table tbody tr').length, 2);
   assert.doesNotMatch(doc.getElementById('hero-meta').textContent, /Could not load/);
 });
