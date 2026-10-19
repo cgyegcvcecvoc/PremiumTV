@@ -77,6 +77,7 @@ the same data scope and version policy:
 | Compatibility build | **1.0.7** (Android `versionCode 100070000`) | USA lineup + USA guide | Identical to 1.0.6.1, published so 1.0.4–1.0.6 can see and install it from Settings → App updates |
 | Previous stable | 1.0.6 (Android `versionCode 100000006`) | USA lineup + USA guide | Superseded; kept as a fallback release |
 | Archived stable | 1.0.4 / 1.0.5 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.6.1 ends Nov 16, 2026 |
+| Next (in source) | **1.0.8** (Android `versionCode 100080000`) | USA lineup + USA guide | Marked as the default build version in source; not yet a published release — the site promotes it only once a complete `v1.0.8` release exists. Categories are shown as a list with the channel count small on the right ([notes](release-notes-1.0.8.md)) |
 
 The **1.1.0/1.1.1 Encore preview channel is retired**. Its release, installers
 and download links were removed (old release-asset URLs now 404); every

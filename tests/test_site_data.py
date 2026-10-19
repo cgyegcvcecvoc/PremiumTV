@@ -273,6 +273,25 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertIn("initLineup", script)
         self.assertIn("lineup.featured", script)
 
+    def test_categories_are_a_list_with_the_count_small_on_the_right(self):
+        # 1.0.8 layout contract on every surface that lists categories:
+        # one row per category, channel count small at the right edge.
+        site_js = (ROOT / "docs" / "assets" / "app.js").read_text(encoding="utf-8")
+        site_css = (ROOT / "docs" / "assets" / "style.css").read_text(encoding="utf-8")
+        self.assertIn("lineup-list", site_js)
+        self.assertIn("lineup-count", site_js)
+        self.assertIn(".lineup-count", site_css)
+        hub_js = (ROOT / "hub" / "static" / "assets" / "app.js").read_text(encoding="utf-8")
+        hub_css = (ROOT / "hub" / "static" / "assets" / "style.css").read_text(encoding="utf-8")
+        self.assertIn("cat-list", hub_js)
+        self.assertIn("cat-row", hub_js)
+        self.assertIn(".cat-row .n", hub_css)
+        home = (ROOT / "android" / "app" / "src" / "main" / "kotlin" / "com" /
+                "premiumtv" / "app" / "ui" / "HomeScreen.kt").read_text(encoding="utf-8")
+        self.assertIn("channel count sits small on the right", home)
+        mac_css = (ROOT / "macos" / "app" / "src" / "renderer" / "app.css").read_text(encoding="utf-8")
+        self.assertIn(".cat .cat-count", mac_css)
+
     def test_download_page_and_deploy_workflow_cover_site_contract(self):
         page = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "docs" / "assets" / "app.js").read_text(encoding="utf-8")

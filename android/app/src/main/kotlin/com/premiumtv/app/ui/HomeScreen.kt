@@ -535,12 +535,15 @@ private fun CategoryRow(
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.weight(1f),
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            // Categories read as a list: the name leads the row and the
+            // channel count sits small on the right edge.
             Text(
                 text = count.toString(),
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.labelSmall,
                 color = MutedText,
+                textAlign = TextAlign.End,
             )
         }
         LazyRow(

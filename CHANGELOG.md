@@ -10,6 +10,45 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-19 — Missing channels restored: unverified links no longer delete channels (no version change)
+
+- **Root cause:** the scraper published only links marked `alive`. A channel
+  whose only feed timed out, answered 403 (geo/auth from the runner) or hit a
+  transient 5xx in a single run was marked `unverified` and deleted from
+  `PremiumTV.m3u`, every country/category playlist, the live USA feed the apps
+  refresh from, and therefore the apps themselves. In the last checked run
+  that was 2,710 unverified links; e.g. ESPN (United States), HBO (United
+  States), Cartoon Network (United States) and HGTV (United States) had
+  vanished, and NickToons hung on a single bare-IP feed.
+- **Durable fix (`scripts/scraper.py`):** previously published links that a
+  run can only mark unverified now stay published for a 7-day grace window
+  (`--retention-days`, state in `playlists/checks/retention.json`, seeded
+  from the run that first failed to verify them). Confirmed-dead links —
+  including quarantine and deep-check verdicts — are still removed at once,
+  and non-HTTP links are never retained. Reports now carry `retained` /
+  `retained_links` so the kept-but-unverified set stays visible.
+- **Restored now:** 2,237 feeds across ~2,190 stations that had lost every
+  feed to an unverified verdict (and were not dead, quarantined or
+  deep-check-dead) are back in `playlists/PremiumTV.m3u` (11,640 → 13,877
+  entries) and in every derived country, category, A&E and live-USA file, so
+  the next in-app refresh brings them back. `verify_playlists.py --strict`
+  passes. NickToons is present in the main, Priority, live-USA, USA-shelf and
+  Cartoons files with two US feeds.
+
+## 2026-10-19 — Version 1.0.8 (in source): categories as a list, count small on the right
+
+- **Version marked as 1.0.8 in source** (Android `versionCode 100080000`):
+  the Gradle, bundle-tool, macOS package and both build-workflow defaults now
+  build 1.0.8. It is not a published release yet — the download site promotes
+  it only once a complete `v1.0.8` release exists, so 1.0.6.1 (alias 1.0.7)
+  stays the recommended download until then. See
+  [`release-notes-1.0.8.md`](release-notes-1.0.8.md).
+- **Categories are now a list with the channel number small on the right:**
+  the download site's category grid and the hub's category chips became
+  one-row-per-category lists (name left, small count at the right edge), and
+  the Android Channels category headers moved their small count to the right
+  edge. The macOS sidebar already used this layout and is unchanged.
+
 ## 2026-10-19 — Version 1.0.6.1: Settings 2.0, Check for bugs, preview retired
 
 - **Stable 1.0.6.1 is cut** (Android `versionCode 100060001`, Mac `1.0.6.1`) with

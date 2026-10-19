@@ -122,8 +122,8 @@ class AndroidUpdateTests(unittest.TestCase):
 
     def test_version_is_one_policy_above_every_historical_code(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.0.6.1")', gradle)
-        self.assertIn('orElse("100060001")', gradle)
+        self.assertIn('orElse("1.0.8")', gradle)
+        self.assertIn('orElse("100080000")', gradle)
 
 
 class MacUpdateTests(unittest.TestCase):
@@ -175,7 +175,7 @@ class MacUpdateTests(unittest.TestCase):
 
     def test_app_version_is_1_0_5(self):
         package = json.loads(text(MAC / "package.json"))
-        self.assertEqual(package["version"], "1.0.6.1")
+        self.assertEqual(package["version"], "1.0.8")
 
 
 class AndroidSigningTests(unittest.TestCase):

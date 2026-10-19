@@ -524,16 +524,21 @@
         ? "<a class=\"lineup-link\" href=\"" + esc(g.playlist_url) + "\" download=\"" +
           esc(file || "PremiumTV.m3u") + "\">" + esc(file || "PremiumTV.m3u") + "</a>"
         : "";
-      return "<article class=\"lineup-card\" data-search=\"" +
+      // Categories are a list, not a card grid: one row per category, the
+      // name and its sample channels on the left, and the channel count
+      // small on the right (backups and the playlist file sit under it).
+      return "<li class=\"lineup-card lineup-row\" data-search=\"" +
         esc(((g.name || "") + " " + (g.samples || []).join(" ")).toLowerCase()) + "\">" +
-        "<div class=\"lineup-card-head\"><h3>" + esc(g.name) + "</h3><span>" +
-        Number(g.channels || 0).toLocaleString() + " channels</span></div>" +
-        "<p class=\"lineup-samples\">" + samples + "</p>" +
-        "<div class=\"lineup-card-foot\"><span>" + Number(g.backups || 0).toLocaleString() +
-        " backup" + (g.backups === 1 ? "" : "s") + "</span>" + link + "</div></article>";
+        "<span class=\"lineup-row-main\"><span class=\"lineup-row-name\">" + esc(g.name) + "</span>" +
+        "<span class=\"lineup-samples\">" + samples + "</span></span>" +
+        "<span class=\"lineup-row-side\"><span class=\"lineup-count\">" +
+        Number(g.channels || 0).toLocaleString() + "</span>" +
+        "<span class=\"lineup-row-meta\">" + Number(g.backups || 0).toLocaleString() +
+        " backup" + (g.backups === 1 ? "" : "s") + (link ? " · " + link : "") +
+        "</span></span></li>";
     }
 
-    grid.innerHTML = groups.map(card).join("");
+    grid.innerHTML = "<ul class=\"lineup-list\">" + groups.map(card).join("") + "</ul>";
     var cards = grid.querySelectorAll(".lineup-card");
     var totalChannels = lineup.unique_channels;
 

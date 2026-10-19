@@ -131,18 +131,32 @@ class ScraperIntegrationTest(unittest.TestCase):
             self.assertTrue((out / "sources" / "m3u.m3u").exists())
             self.assertTrue((out / "sources" / "w3u.m3u").exists())
 
-            # An upstream outage uses the local caches; an unsuccessful check
-            # must not wipe the last good player playlist.
-            def dead(ch, timeout):
+            # An upstream outage uses the local caches. A check that can only
+            # mark the old links unverified (the mock's signature mismatch
+            # makes every probe a checker error) retains them within grace
+            # instead of wiping their channels from the player playlist.
+            def dead(ch, *args):
                 ch.status, ch.reason = "dead", "simulated outage"
                 return ch
 
             with patch.object(sys, "argv", args), \
                  patch.object(scraper, "fetch_source_text", side_effect=RuntimeError("offline")), \
+                 patch.object(scraper, "check_channel", side_effect=RuntimeError("probe failed")), \
+                 redirect_stdout(StringIO()):
+                self.assertEqual(scraper.main(), 0)
+            retained = (out / "PremiumTV.m3u").read_text(encoding="utf-8")
+            self.assertEqual(retained.count("#EXTINF"), 2)
+            report = json.loads((out / "report.json").read_text(encoding="utf-8"))
+            self.assertEqual(report["retained"], 2)
+
+            # A check that confirms every link dead still aborts the publish:
+            # the last good player playlist is left byte-for-byte untouched.
+            with patch.object(sys, "argv", args), \
+                 patch.object(scraper, "fetch_source_text", side_effect=RuntimeError("offline")), \
                  patch.object(scraper, "check_channel", side_effect=dead), \
                  redirect_stdout(StringIO()):
                 self.assertEqual(scraper.main(), 1)
-            self.assertEqual((out / "PremiumTV.m3u").read_text(encoding="utf-8"), verified)
+            self.assertEqual((out / "PremiumTV.m3u").read_text(encoding="utf-8"), retained)
 
     def test_country_separation_ae_playlist_and_txt_logs(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -240,3 +254,93 @@ class ScraperIntegrationTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RetentionTest(unittest.TestCase):
+    """Unverified-but-previously-published links must not vanish in one run."""
+
+    NOW = scraper.dt.datetime(2026, 10, 19, tzinfo=scraper.dt.timezone.utc)
+
+    def channel(self, name, url, status, reason="TimeoutError"):
+        ch = scraper.Channel(name, url, "test", attrs={"group-title": "Kids"})
+        ch.status, ch.reason = status, reason
+        return ch
+
+    def test_unverified_published_link_is_retained_and_state_starts(self):
+        nick = self.channel("Nicktoons", "http://x/nick.m3u8", "unverified")
+        retained, state = scraper.plan_retention(
+            [nick], {"http://x/nick.m3u8"}, {}, 7.0, now=self.NOW)
+        self.assertEqual(retained, [nick])
+        entry = state["links"]["http://x/nick.m3u8"]
+        self.assertEqual(entry["hits"], 1)
+        self.assertEqual(entry["name"], "Nicktoons")
+
+    def test_unpublished_unverified_link_is_not_retained(self):
+        new = self.channel("New", "http://x/new.m3u8", "unverified")
+        retained, state = scraper.plan_retention([new], set(), {}, 7.0, now=self.NOW)
+        self.assertEqual(retained, [])
+        self.assertEqual(state["links"], {})
+
+    def test_dead_link_is_never_retained(self):
+        dead = self.channel("Gone", "http://x/gone.m3u8", "dead", "HTTP 404")
+        retained, _ = scraper.plan_retention(
+            [dead], {"http://x/gone.m3u8"}, {}, 7.0, now=self.NOW)
+        self.assertEqual(retained, [])
+
+    def test_grace_expiry_drops_the_link(self):
+        old = (self.NOW - scraper.dt.timedelta(days=8)).isoformat()
+        state = {"http://x/nick.m3u8": {"first_unverified_utc": old, "hits": 9}}
+        nick = self.channel("Nicktoons", "http://x/nick.m3u8", "unverified")
+        retained, new_state = scraper.plan_retention(
+            [nick], {"http://x/nick.m3u8"}, state, 7.0, now=self.NOW)
+        self.assertEqual(retained, [])
+        self.assertNotIn("http://x/nick.m3u8", new_state["links"])
+
+    def test_hits_accumulate_inside_the_grace_window(self):
+        first = (self.NOW - scraper.dt.timedelta(days=2)).isoformat()
+        state = {"http://x/nick.m3u8": {"first_unverified_utc": first, "hits": 3}}
+        nick = self.channel("Nicktoons", "http://x/nick.m3u8", "unverified")
+        retained, new_state = scraper.plan_retention(
+            [nick], {"http://x/nick.m3u8"}, state, 7.0, now=self.NOW)
+        self.assertEqual(retained, [nick])
+        self.assertEqual(new_state["links"]["http://x/nick.m3u8"]["hits"], 4)
+        self.assertEqual(
+            new_state["links"]["http://x/nick.m3u8"]["first_unverified_utc"], first)
+
+    def test_retention_disabled_by_zero_days(self):
+        nick = self.channel("Nicktoons", "http://x/nick.m3u8", "unverified")
+        retained, _ = scraper.plan_retention(
+            [nick], {"http://x/nick.m3u8"}, {}, 0, now=self.NOW)
+        self.assertEqual(retained, [])
+
+    def test_retention_state_round_trips_and_prunes_alive_links(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "checks" / scraper.RETENTION_FILENAME
+            nick = self.channel("Nicktoons", "http://x/nick.m3u8", "unverified")
+            _, state = scraper.plan_retention(
+                [nick], {"http://x/nick.m3u8"}, {}, 7.0, now=self.NOW)
+            scraper.save_retention(path, state)
+            self.assertEqual(scraper.load_retention(path), state["links"])
+            nick.status = "alive"
+            _, state2 = scraper.plan_retention(
+                [nick], {"http://x/nick.m3u8"}, state["links"], 7.0, now=self.NOW)
+            self.assertEqual(state2["links"], {})
+
+    def test_previous_published_urls_reads_only_the_player_playlist(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            (out / "PremiumTV.m3u").write_text(
+                "#EXTM3U\n#EXTINF:-1 group-title=\"Kids\",Nicktoons\n"
+                "http://x/nick.m3u8\n", encoding="utf-8")
+            (out / "PremiumTV_all.m3u").write_text(
+                "#EXTM3U\n#EXTINF:-1 group-title=\"Kids\",Never Published\n"
+                "http://x/never.m3u8\n", encoding="utf-8")
+            self.assertEqual(scraper.previous_published_urls(out),
+                             {"http://x/nick.m3u8"})
+
+    def test_non_http_link_is_not_retained(self):
+        rtmp = self.channel("Legacy", "rtmp://x/live", "unverified",
+                            "not probed: unsupported scheme rtmp")
+        retained, _ = scraper.plan_retention(
+            [rtmp], {"rtmp://x/live"}, {}, 7.0, now=self.NOW)
+        self.assertEqual(retained, [])

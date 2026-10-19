@@ -142,14 +142,19 @@ td .hash { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-siz
 .tabs { display: flex; gap: 8px; margin: 14px 0 16px; flex-wrap: wrap; }
 .tab { background: var(--panel); border: 1px solid var(--line); color: var(--muted); padding: 8px 16px; border-radius: 99px; cursor: pointer; font-weight: 600; font-size: .88rem; }
 .tab.active { background: var(--red); border-color: var(--red); color: #fff; }
-.chip-list { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-  display: inline-flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line);
+/* Categories are a list: one row per category, channel count small on the right. */
+.chip-list { display: block; }
+.cat-list { list-style: none; margin: 0; padding: 0; }
+.cat-row {
+  display: flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line);
   border-radius: 10px; padding: 7px 7px 7px 12px; font-size: .85rem;
 }
-.chip .n { color: var(--muted); font-size: .75rem; }
-.chip a { background: #2a3350; color: #fff; border-radius: 7px; padding: 3px 10px; font-size: .78rem; font-weight: 700; }
-.chip a:hover { background: var(--red); text-decoration: none; }
+.cat-list .cat-row + .cat-row { margin-top: 8px; }
+.cat-row-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cat-row-actions { display: inline-flex; gap: 6px; flex-shrink: 0; }
+.cat-row .n { color: var(--muted); font-size: .75rem; font-variant-numeric: tabular-nums; margin-left: auto; text-align: right; white-space: nowrap; }
+.cat-row a { background: #2a3350; color: #fff; border-radius: 7px; padding: 3px 10px; font-size: .78rem; font-weight: 700; }
+.cat-row a:hover { background: var(--red); text-decoration: none; }
 
 /* ---------- countries ---------- */
 .search {
