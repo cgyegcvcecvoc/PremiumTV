@@ -1494,6 +1494,96 @@ def apply_deep_check_evidence(channels: list, checks_dir: Path,
     return held
 
 
+RETENTION_FILENAME = "retention.json"
+
+
+def previous_published_urls(out_dir: Path) -> set[str]:
+    """URLs the player playlist published last run (PremiumTV.m3u only).
+
+    ``previous_playlist_index`` prefers PremiumTV_all.m3u, which is the
+    catalogue of everything ever found - including links that were never
+    published. Retention must be anchored to what viewers actually had, so
+    this reads only the published player playlist.
+    """
+    path = out_dir / "PremiumTV.m3u"
+    if not path.exists():
+        return set()
+    try:
+        channels, _ = parse_m3u(path.read_text(encoding="utf-8"), "PremiumTV")
+    except Exception:  # noqa: BLE001
+        return set()
+    return {channel.url for channel in channels if channel.url}
+
+
+def load_retention(path: Path) -> dict:
+    """Read the retention state ({url: entry}); {} when absent or unreadable."""
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    links = data.get("links") if isinstance(data, dict) else None
+    return links if isinstance(links, dict) else {}
+
+
+def plan_retention(channels: list, published_urls: set[str], state: dict,
+                   days: float, now: dt.datetime | None = None,
+                   ) -> tuple[list, dict]:
+    """Links to keep publishing although this run could not verify them.
+
+    A channel whose only feed times out, answers 403 (geo/auth from the
+    runner's region) or hits a transient 5xx is *unverified*, not dead - yet
+    publishing only ``alive`` links deletes that channel from every playlist
+    (and therefore from the apps on their next refresh) after a single bad
+    run. Links that were published last run are therefore kept for a bounded
+    grace window (``days`` from the first unverified run), then dropped if
+    they still cannot be verified. Confirmed-dead links never reach this
+    function as ``unverified``: quarantine and deep-check evidence have
+    already marked them ``dead``, so they are still removed at once.
+
+    Returns ``(retained_channels, new_state)``; the caller saves the state
+    only when the run actually publishes, so an aborted run cannot burn
+    grace time. Entries for links that are alive, dead or gone are pruned.
+    """
+    now = now or dt.datetime.now(dt.timezone.utc)
+    retained: list = []
+    links: dict = {}
+    if days <= 0:
+        return retained, {"updated_utc": now.isoformat(), "links": links}
+    for channel in channels:
+        if channel.status != "unverified" or not channel.url:
+            continue
+        if not channel.url.lower().startswith(("http://", "https://")):
+            continue  # never probed (rtmp/rtsp/...), not a transient failure
+        if channel.url not in published_urls:
+            continue
+        entry = state.get(channel.url) if isinstance(state, dict) else None
+        first = parse_utc_iso(str(entry.get("first_unverified_utc") or "")) if isinstance(entry, dict) else None
+        if first is None:
+            first = now
+        if (now - first).total_seconds() > days * 86400:
+            continue  # grace exhausted: the channel leaves the playlist
+        retained.append(channel)
+        links[channel.url] = {
+            "first_unverified_utc": first.isoformat(),
+            "last_unverified_utc": now.isoformat(),
+            "hits": (int(entry.get("hits") or 0) + 1) if isinstance(entry, dict) else 1,
+            "name": channel.name,
+            "reason": channel.reason,
+        }
+    return retained, {"updated_utc": now.isoformat(), "links": links}
+
+
+def save_retention(path: Path, state: dict) -> None:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n",
+                        encoding="utf-8")
+    except OSError:
+        pass
+
+
 def check_channel(
     channel: Channel,
     timeout: float,
@@ -2106,6 +2196,12 @@ def make_status_markdown(report: dict) -> str:
             f"- **Confirmed working:** {report['working']} / {report['total_unique']} unique links\n"
             f"- **Dead:** {report['dead_count']}  |  **Unverified:** {report['unverified_count']}"
         )
+        if report.get("retained"):
+            link_summary += (
+                f"\n- **Retained (unverified, within grace):** {report['retained']} "
+                "previously published links kept so their channels do not "
+                "vanish after one unverifiable run"
+            )
     else:
         link_summary = (
             "- **Link check:** not completed in this run; the existing player playlist was left untouched.\n"
@@ -2584,6 +2680,10 @@ def main() -> int:
     ap.add_argument("--deep-check-days", type=float, default=3.0,
                     help="also hold back links the last deep link check confirmed dead "
                          "(offline/invalid) within this many days (0 disables)")
+    ap.add_argument("--retention-days", type=float, default=7.0,
+                    help="keep previously published links that a run could only "
+                         "mark unverified (timeout/403/transient) for this many "
+                         "days before dropping them (0 disables retention)")
     ap.add_argument("--max-header-guides", type=int, default=MAX_HEADER_GUIDES,
                     help="how many verified upstream guides a published playlist keeps behind "
                          "the repository's own merged guide in its x-tvg-url header "
@@ -2635,6 +2735,9 @@ def main() -> int:
     countries_summary: dict[str, dict] = {}
     category_counts: dict[str, int] = {}
     published_categories: dict[str, int] = {}
+    retained_channels: list[Channel] = []  # unverified links kept within grace
+    retention_state: dict = {"links": {}}
+    retention_path = Path(args.out) / "checks" / RETENTION_FILENAME
     checked = False
     check_completed = False
     final_playlist_written = False
@@ -2877,7 +2980,24 @@ def main() -> int:
                 if deep_evidence:
                     log(f"[links] {deep_evidence} links held back by confirmed-dead "
                         f"results from the last deep check (link-check.json)")
+                # Retention: a link that was published last run and is now
+                # merely unverified (timeout / 403 / transient 5xx from the
+                # runner) stays published for a bounded grace window instead
+                # of deleting its channel from every playlist - and from the
+                # apps on their next refresh - after one bad run. Confirmed
+                # dead links (incl. quarantine/deep-check verdicts above,
+                # already marked dead) are still removed immediately.
+                retention_path = out_dir / "checks" / RETENTION_FILENAME
+                retained_channels, retention_state = plan_retention(
+                    channels, previous_published_urls(out_dir),
+                    load_retention(retention_path), args.retention_days)
+                if retained_channels:
+                    log(f"[links] {len(retained_channels)} unverified links "
+                        f"retained from the previous playlist "
+                        f"(grace {args.retention_days:g} days, "
+                        f"{RETENTION_FILENAME})")
                 working = [channel for channel in channels if channel.status == "alive"]
+                working = working + retained_channels
                 published_categories = canonicalize_channels(
                     working, args.max_feeds_per_channel)
                 minimum_working = max(1, args.min_working_ratio * len(channels))
@@ -2915,6 +3035,8 @@ def main() -> int:
                     log(f"[playlists] separated {len(published)} working channels into "
                         f"{len(countries_summary)} country playlists and {ae_written} A&E channels")
                     final_playlist_written = True
+                    # Grace time is only consumed by runs that publish.
+                    save_retention(retention_path, retention_state)
                     has_source_problem = any(
                         stat.get("status") in ("failed", "from_cache") or stat.get("issues")
                         for stat in source_stats.values()
@@ -2979,6 +3101,8 @@ def main() -> int:
         "unverified_count": status_counts.get("unverified", 0),
         "unchecked_count": status_counts.get("unchecked", 0),
         "published": len(published) if final_playlist_written else None,
+        "retained": len(retained_channels) if checked else 0,
+        "retained_links": [report_channel(channel) for channel in retained_channels],
         "final_playlist_written": final_playlist_written,
         "all_playlist_written": all_playlist_written,
         "duration_seconds": round((finished - started).total_seconds(), 2),

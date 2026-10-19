@@ -175,16 +175,15 @@
     }
     $("#bundle-grid").innerHTML = bundleCards;
 
-    /* ---- category chips ---- */
+    /* ---- categories: a list, channel count small on the right ---- */
     function renderCats(which) {
       var list = D.categories[which] || [];
-      $("#cat-list").innerHTML = list.map(function (c) {
-        return '<span class="chip">' + esc(c.label) +
-          ' <span class="n">' + fmtNum(c.channels) + "</span>" +
-          ' <a href="' + esc(c.dl + "?dl=1") + '" download>⬇</a>' +
+      $("#cat-list").innerHTML = '<ul class="cat-list">' + list.map(function (c) {
+        return '<li class="cat-row"><span class="cat-row-name">' + esc(c.label) + "</span>" +
+          '<span class="cat-row-actions"><a href="' + esc(c.dl + "?dl=1") + '" download>⬇</a>' +
           (c.raw ? ' <a href="#" data-copy="' + esc(c.raw) + '" title="Copy playlist URL">🔗</a>' : "") +
-          "</span>";
-      }).join("");
+          '</span><span class="n lineup-count">' + fmtNum(c.channels) + "</span></li>";
+      }).join("") + "</ul>";
     }
     renderCats("published");
     document.querySelectorAll("#cat-tabs .tab").forEach(function (t) {

@@ -96,6 +96,7 @@ def main():
         "1.0.5": ("Archive", "Splash, search, placeholder logos, Live Events and multi-server playback. USA lineup + guide."),
         "1.0.6": ("Archive", "Click-to-search, Recently watched + Favorites, and manual server switching. USA lineup + guide."),
         "1.0.7": ("Compatibility", "Identical build to 1.0.6.1, published so 1.0.4-1.0.6 can update themselves."),
+        "1.0.8": ("Stable", "Categories shown as a list with the channel count small on the right. USA lineup + guide."),
         "1.0.1": ("Archive", "Channels Back on Air release."),
         "1.0.0": ("Archive", "The original Marquee release."),
     }
