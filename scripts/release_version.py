@@ -210,9 +210,19 @@ def stable_versions(releases: Iterable[dict]) -> list[str]:
     return versions
 
 
-def newest_stable(releases: Iterable[dict], exclude: str | None = None) -> str | None:
+def newest_stable(releases: Iterable[dict], exclude: str | None = None,
+                  ignore_aliases: bool = False) -> str | None:
+    """The newest stable version in [releases].
+
+    [ignore_aliases] leaves out compatibility aliases (1.0.7 for 1.0.6.1).
+    A canonical release must be compared with real stable releases only: its
+    alias is usually published afterwards, and it is the same build.
+    """
     wanted = normalize_version(exclude or "")
-    versions = [version for version in stable_versions(releases) if version != wanted]
+    versions = [
+        version for version in stable_versions(releases)
+        if version != wanted and not (ignore_aliases and version in COMPATIBILITY_ALIASES)
+    ]
     return max(versions, key=lambda value: _pad(parse_version(value) or (0, 0, 0, 0))) if versions else None
 
 
@@ -229,7 +239,11 @@ def guard(tag: str, releases: list[dict]) -> tuple[int, str]:
     version = normalize_version(tag)
     if version is None:
         return 1, f"{tag!r} is not a version tag (expected vMAJOR.MINOR.PATCH[.HOTFIX])"
-    previous = newest_stable(releases, exclude=version)
+    # A compatibility alias is published after the canonical release it
+    # mirrors (v1.0.7 after v1.0.6.1), so it must not make that canonical
+    # release look older than the current stable and demote it to a preview.
+    previous = newest_stable(
+        releases, exclude=version, ignore_aliases=version not in COMPATIBILITY_ALIASES)
     if previous is None:
         return 0, f"v{version} is the first stable release; nothing earlier to compare."
     if is_newer(version, previous):
