@@ -1,72 +1,72 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-10-19 21:10 UTC (2026-10-19 05:10 PM EDT)
-- **Channels in the main playlist:** 11644
-- **Channels in the category files:** 11631 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2388 (20.5%)
+- **Rebuilt:** 2026-10-19 21:27 UTC (2026-10-19 05:27 PM EDT)
+- **Channels in the main playlist:** 11640
+- **Channels in the category files:** 11627 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2385 (20.5%)
 - **Categories:** 82 groups (34 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 538 | 194 |
+| 1 | Sports | 534 | 188 |
 | 2 | Sports Backups | 89 | 39 |
-| 3 | Lifestyle | 493 | 124 |
+| 3 | Lifestyle | 492 | 124 |
 | 4 | Lifestyle Backups | 90 | 29 |
-| 5 | Fox Channels | 28 | 10 |
+| 5 | Fox Channels | 29 | 10 |
 | 6 | CBS | 34 | 6 |
 | 7 | CBS Backups | 14 | 0 |
 | 8 | NBC | 70 | 19 |
 | 9 | NBC Backups | 11 | 5 |
 | 10 | NBC Sports Channels | 10 | 7 |
-| 11 | Cartoons | 189 | 22 |
+| 11 | Cartoons | 188 | 22 |
 | 12 | Cartoons Backups | 18 | 0 |
 | 13 | PBS | 35 | 9 |
 | 14 | PBS Backups | 8 | 3 |
 | 15 | Game Shows | 12 | 6 |
 | 16 | Game Shows Backups | 15 | 9 |
-| 17 | Music | 856 | 151 |
-| 18 | Music Backups | 88 | 36 |
+| 17 | Music | 855 | 151 |
+| 18 | Music Backups | 86 | 36 |
 | 19 | Movies | 852 | 142 |
 | 20 | Movies Backups | 97 | 11 |
-| 21 | News | 753 | 222 |
+| 21 | News | 752 | 223 |
 | 22 | News Backups | 161 | 107 |
-| 23 | Europe | 730 | 150 |
+| 23 | Europe | 731 | 150 |
 | 24 | Europe Backups | 67 | 39 |
-| 25 | Entertainment | 658 | 127 |
+| 25 | Entertainment | 658 | 128 |
 | 26 | Entertainment Backups | 69 | 22 |
-| 27 | International | 626 | 147 |
-| 28 | International Backups | 100 | 38 |
+| 27 | International | 634 | 150 |
+| 28 | International Backups | 101 | 39 |
 | 29 | Religious | 571 | 64 |
 | 30 | Religious Backups | 36 | 9 |
-| 31 | South America | 474 | 48 |
-| 32 | South America Backups | 22 | 3 |
-| 33 | Asia | 459 | 89 |
+| 31 | South America | 469 | 47 |
+| 32 | South America Backups | 21 | 3 |
+| 33 | Asia | 457 | 88 |
 | 34 | Asia Backups | 23 | 1 |
-| 35 | Documentary | 394 | 95 |
+| 35 | Documentary | 393 | 95 |
 | 36 | Documentary Backups | 73 | 12 |
 | 37 | Series | 333 | 33 |
 | 38 | Series Backups | 108 | 26 |
 | 39 | United States | 331 | 43 |
 | 40 | United States Backups | 56 | 6 |
-| 41 | Kids | 297 | 57 |
+| 41 | Kids | 298 | 56 |
 | 42 | Kids Backups | 56 | 9 |
-| 43 | North America | 288 | 12 |
-| 44 | North America Backups | 5 | 0 |
+| 43 | North America | 293 | 12 |
+| 44 | North America Backups | 6 | 0 |
 | 45 | Comedy | 119 | 7 |
 | 46 | Comedy Backups | 26 | 4 |
 | 47 | Education | 119 | 14 |
 | 48 | Education Backups | 13 | 1 |
-| 49 | Culture | 116 | 15 |
+| 49 | Culture | 115 | 15 |
 | 50 | Culture Backups | 8 | 3 |
 | 51 | Legislative | 98 | 11 |
 | 52 | Legislative Backups | 3 | 0 |
-| 53 | India | 84 | 28 |
+| 53 | India | 83 | 28 |
 | 54 | India Backups | 5 | 2 |
 | 55 | Classic TV | 68 | 6 |
 | 56 | Classic TV Backups | 8 | 1 |
-| 57 | Africa | 62 | 8 |
+| 57 | Africa | 61 | 8 |
 | 58 | Business | 45 | 14 |
 | 59 | Business Backups | 12 | 10 |
 | 60 | Family | 31 | 15 |
@@ -97,17 +97,17 @@
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 11644 | 92 | 1448 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 11640 | 92 | 1447 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 21 | 7 | 2 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 11611 (99.5%) |
-| matched on the base id (feed qualifier dropped) | 3 (0.0%) |
-| matched on the display name | 5 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 46 (0.4%) |
+| already declared in the guide | 11626 (99.7%) |
+| matched on the base id (feed qualifier dropped) | 2 (0.0%) |
+| matched on the display name | 1 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 32 (0.3%) |
 
 ## Channels with no schedule yet
 
