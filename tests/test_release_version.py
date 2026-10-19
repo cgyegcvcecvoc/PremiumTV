@@ -142,6 +142,27 @@ class GhReleaseListFormatTests(unittest.TestCase):
 
 
 class ReleaseGuardTests(unittest.TestCase):
+    def test_a_later_compatibility_alias_does_not_demote_the_canonical_release(self):
+        # Both releases are published from the same tree; the alias is created
+        # after the canonical one, so the guard must not treat it as "newer
+        # stable" when it checks 1.0.6.1 (this really happened once and marked
+        # 1.0.6.1 as a pre-release).
+        releases = [
+            {"tag_name": "v1.0.6", "draft": False, "prerelease": False},
+            {"tag_name": "v1.0.6.1", "draft": False, "prerelease": False},
+            {"tag_name": "v1.0.7", "draft": False, "prerelease": False},
+        ]
+        status, message = release_version.guard("v1.0.6.1", releases)
+        self.assertEqual(status, 0, message)
+        self.assertIn("above the previous stable v1.0.6", message)
+        status, message = release_version.guard("v1.0.7", releases)
+        self.assertEqual(status, 0, message)
+        self.assertIn("above the previous stable v1.0.6.1", message)
+        # A genuinely newer stable still blocks an older canonical release.
+        status, message = release_version.guard("v1.0.6", releases)
+        self.assertEqual(status, 2, message)
+        self.assertIn("not above the newest stable v1.0.6.1", message)
+
     def test_a_newer_stable_release_passes(self):
         releases = [release("v1.0.2"), release("v1.0.3"), release("v1.1.1", prerelease=True)]
         status, message = release_version.guard("v1.0.4", releases)
