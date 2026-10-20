@@ -1,0 +1,68 @@
+name: Repository checks
+
+# The data pipelines (scrape, quick-update, link-check, cleanup, discovery) all
+# run the offline suite as their first step, so a broken script or test merged
+# into main stops every playlist publication - hours later, inside a data run's
+# log. This is the pre-merge gate: the same suite, plus the repository's own
+# playlist/EPG/shelf invariants, run against the commit itself.
+#
+# Read-only by design (no commit, no push), so it can never race a data
+# workflow's publishing push.
+
+on:
+  pull_request:
+    branches:
+      - "main"
+  push:
+    branches:
+      - "**"
+    # Tag pushes (release tags) must not run the checks; path filters are not
+    # evaluated for tags and would fire this workflow on each release. The
+    # explicit branches filter is required for the paths filter to be evaluated
+    # at all on branch pushes (the same shape as the data workflows).
+    tags-ignore:
+      - "**"
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "playlists/PremiumTV.m3u"
+      - "playlists/countries/**"
+      - "playlists/live/**"
+      - "categories/**"
+      - "EPG/**"
+      - ".github/workflows/ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Offline checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Compile every script and test module
+        run: python -m compileall -q scripts tests
+
+      - name: Run the offline test suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Verify published playlists, guides and the categories/ shelf
+        # Rewrites playlists/checks/VERIFY.md and verify.json with a fresh
+        # generated_utc stamp. Harmless here: the job never commits.
+        run: python scripts/verify_playlists.py --strict --require-shelf
+
+      - name: Report the shelf plan
+        run: python scripts/build_categories.py --dry-run
