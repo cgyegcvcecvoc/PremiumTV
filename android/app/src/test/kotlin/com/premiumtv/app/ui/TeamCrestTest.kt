@@ -27,7 +27,8 @@ class TeamCrestTest {
     @Test fun initialsComeFromTheFirstTwoWords() {
         assertEquals("BS", teamInitials("Ball State Cardinals"))
         assertEquals("AR", teamInitials("Arsenal"))
-        assertEquals("AS", teamInitials("AS Roma"))
+        // First letters of the first two words: A-S Roma -> A + R.
+        assertEquals("AR", teamInitials("AS Roma"))
         assertEquals("?", teamInitials("   "))
     }
 
