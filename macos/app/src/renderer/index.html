@@ -8,9 +8,10 @@
   <link rel="stylesheet" href="app.css" />
 </head>
 <body>
-  <!-- The launch splash: the PremiumTV mark, a spinner and the build the
-       viewer is waiting on, pinned at the bottom. app.js fades it out as
-       soon as the first library snapshot arrives. -->
+  <!-- The launch splash: 1.0.8 V1 Patch brings a layered marquee animation
+       (breathing logo, orbiting dots, shimmer bar) that tells the viewer the
+       app is not frozen. app.js fades it out as soon as the first library
+       snapshot arrives. -->
   <div id="splash" role="status" aria-live="polite">
     <div class="splash-center">
       <svg class="splash-logo" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor"
@@ -25,9 +26,10 @@
       <div class="splash-name">PremiumTV</div>
       <div class="splash-tag">Every channel, one guide</div>
       <div class="splash-spinner" aria-hidden="true"></div>
-      <div id="splash-status">Getting your TV library ready…</div>
+      <div class="splash-bar" aria-hidden="true"><div class="splash-bar-fill"></div><div class="splash-bar-shine"></div></div>
+      <div id="splash-status">Getting your TV library ready…<span class="splash-dots" aria-hidden="true"><span></span><span></span><span></span></span></div>
     </div>
-    <div class="splash-foot"><span id="splash-version"></span></div>
+    <div class="splash-foot"><span id="splash-version"></span> <span class="splash-foot-plaque" id="splash-plaque" hidden>Patched · V1</span></div>
   </div>
 
   <div id="app">

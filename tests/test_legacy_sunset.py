@@ -103,7 +103,7 @@ class PublishedNoticeTests(unittest.TestCase):
         notice = legacy_sunset.read_notice(ROOT)
         self.assertTrue(notice["releases_url"].startswith(
             "https://github.com/cgyegcvcecvoc/PremiumTV1/releases"), notice["releases_url"])
-        self.assertEqual(notice["max_version"], "1.0.6",
+        self.assertEqual(notice["max_version"], "1.0.8",
                          "the sunset targets every stable build below the current one; "
                          "the blocked preview rule is not an upgrade promise")
 
@@ -113,15 +113,15 @@ class PublishedNoticeTests(unittest.TestCase):
             self.assertIsNone(legacy_sunset.parse_instant(value), value)
 
     def test_the_two_published_date_shapes_are_read_as_utc(self):
-        self.assertEqual(legacy_sunset.parse_instant("2026-11-16T23:59:59Z"),
-                         legacy_sunset.parse_instant("2026-11-16T23:59:59"))
+        self.assertEqual(legacy_sunset.parse_instant("2026-11-19T23:59:59Z"),
+                         legacy_sunset.parse_instant("2026-11-19T23:59:59"))
         # A bare date means "that whole day", so it ends on its last second.
-        self.assertEqual(legacy_sunset.parse_instant("2026-11-16"),
-                         legacy_sunset.parse_instant("2026-11-16T23:59:59Z"))
+        self.assertEqual(legacy_sunset.parse_instant("2026-11-19"),
+                         legacy_sunset.parse_instant("2026-11-19T23:59:59Z"))
 
     def test_the_support_date_reads_the_same_on_screen_as_in_the_playlist(self):
         ends = legacy_sunset.parse_instant(DOCUMENT["support_ends_utc"])
-        self.assertEqual(legacy_sunset.format_day(ends), "Nov 16, 2026")
+        self.assertEqual(legacy_sunset.format_day(ends), "Nov 19, 2026")
 
 
 class WarningPhaseTests(unittest.TestCase):
@@ -204,7 +204,7 @@ class FreezeTests(unittest.TestCase):
         self.assertTrue(legacy_sunset.is_frozen(self.tree.legacy))
         self.assertIn(legacy_sunset.FROZEN_MARKER, frozen)
         self.assertIn(legacy_sunset.NOTICE_VALUE, frozen)
-        self.assertIn("Nov 16, 2026", frozen, "the frozen feed must name the day support ended")
+        self.assertIn("Nov 19, 2026", frozen, "the frozen feed must name the day support ended")
         self.assertIn(DOCUMENT["releases_url"], frozen,
                       "the frozen feed must say where the newest release is")
 

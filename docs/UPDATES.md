@@ -3,7 +3,7 @@
 Version 1.0.4 was the last release that had to be installed by hand. From then
 on, **Settings → App updates** checks GitHub, downloads the installer once,
 verifies it against the release's SHA-256 file, and hands it to the platform's
-normal installer. The current stable release is **1.0.6.1**.
+normal installer. The current stable release is **1.0.8 V1 Patch (1.0.8.1, alias 1.0.9 on macOS)** — the V series that this patch sets in stone: V1=1.0.8.1, V2=1.0.8.2 … each V increments the fourth number and its versionCode by one.
 
 ## The rules every release follows
 
@@ -175,43 +175,48 @@ check is throttled and the downloaded DMG is reused until it is installed.
 
 1. Bump the version and let CI build both platforms. Manual runs use
    *Actions → Build PremiumTV Android APK / macOS DMG + PKG → Run workflow*
-   with the version (for example `1.0.6.1`) and channel `stable`.
+   with the version (for example `1.0.8.1` / alias `1.0.9`) and channel `stable`.
+   The V series is set in stone: V1=1.0.8.1 (alias 1.0.9, code 100080001/100090000),
+   V2=1.0.8.2 (alias 1.0.10, code 100080002/100100000) … each V adds one.
 2. Publish the GitHub release as a **full release** (not a pre-release) with
-   the `v1.0.6.1` tag. The release guard checks the ordering; the build
-   workflows attach the APK and all four Mac installers when the tag points at
-   their commit.
+   the canonical tag (for example `v1.0.8.1`). The release guard checks the ordering;
+   the build workflows attach the APK and all four Mac installers when the tag
+   points at their commit. The V display name (`1.0.8 V1`) is derived by
+   `python3 scripts/release_version.py --display 1.0.8.1`.
 3. The download site promotes the release only after its APK exists **and**
-   all four Mac installers exist. For a four-part version the installers are
+   all four Mac installers exist. For a four-part patch version the installers are
    read from the three-part alias release below (macOS packaging cannot carry
-   `1.0.6.1`), and the site lists them on the canonical stable card.
+   `1.0.8.1`), and the site lists them on the canonical stable card.
    Installed 1.0.4+ apps see the release on their next daily check or
    immediately when the user presses **Check for update**.
-4. **Four-part versions need a compatibility twin.** The updater in 1.0.4–1.0.6
-   parses only `MAJOR.MINOR.PATCH`, so it cannot see a `v1.0.6.1` release. After
+4. **Four-part / V patches need a compatibility twin.** The updater in 1.0.4–1.0.6
+   parses only `MAJOR.MINOR.PATCH`, so it cannot see a `v1.0.8.1` release. After
    the canonical release is complete, publish a second full release from the
-   **same commit and tag tree** one patch above it — `v1.0.7` for `1.0.6.1` —
-   with the same Android APK, built so its package reports the canonical
-   version (`1.0.6.1`) while keeping the alias versionCode. Its macOS build is
-   version `1.0.7`, so that release also carries the four Mac installers for
-   the canonical stable; the Mac policy treats an alias install as the
-   canonical build when it describes the update state.
-   Run both workflows with the alias version to attach them:
-   `python3 scripts/release_version.py --macos 1.0.6.1` prints `1.0.7`.
-   It is listed in `COMPATIBILITY_ALIASES` in
-   `scripts/release_version.py` (and mirrored in both updaters), so:
-   - the download page keeps promoting the canonical 1.0.6.1;
-   - 1.0.4–1.0.6 find 1.0.7 and update themselves;
-   - an install already on 1.0.6.1 ignores 1.0.7 instead of downloading the
+   **same commit and tag tree** one patch above it — `v1.0.9` for `1.0.8.1`
+   (V1), `v1.0.10` for `1.0.8.2` (V2) … — with the same Android APK, built so
+   its package reports the canonical version (`1.0.8.1`) while keeping the alias
+   versionCode. Its macOS build is the alias version, so that release also
+   carries the four Mac installers for the canonical stable; the Mac policy
+   treats an alias install as the canonical build when it describes the update
+   state.
+   Run both workflows with the alias version to attach its installers:
+   `python3 scripts/release_version.py --macos 1.0.8.1` prints `1.0.9`,
+   `--display 1.0.8.1` prints `1.0.8 V1`. It is listed in `COMPATIBILITY_ALIASES`
+   in `scripts/release_version.py` (and mirrored in both updaters), so:
+   - the download page keeps promoting the canonical 1.0.8.1;
+   - 1.0.4–1.0.6 find 1.0.9 and update themselves;
+   - an install already on 1.0.8.1 ignores 1.0.9 instead of downloading the
      same build again.
    Do this only while older builds are still in the field. A three-part stable
-   release needs no twin.
+   release needs no twin — but V patches always will until those updaters retire.
 5. Check `app-update-notice.json`. Its rules are read in order and the first
    one whose range contains the installed version is shown. The current
    document targets three ranges: `retired-preview-1-1` (1.1.0-1.1.1, level
-   `blocked`, linking to the blocked page), `update-to-1-0-6-1` (1.0.4-1.0.6,
+   `blocked`, linking to the blocked page), `update-below-newest` (1.0.4–1.0.6,
    a warning whose action opens Settings so the normal updater finishes the
    job), and `legacy-upgrade-2026-11` (0.0.0-1.0.3, the last manual install).
-   When a release leaves another version behind, move that version's range.
+   When a V patch ships, move that version's range to start above it (e.g.
+   `max_version` 1.0.6 stays, newest becomes V1).
 
 The 1.1.x preview channel is retired. There is no preview release, no preview
 download and no preview rebuild switch; do not create a GitHub pre-release for

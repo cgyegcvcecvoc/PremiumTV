@@ -10,7 +10,15 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
-## 2026-10-20 — Version 1.0.8: the all-new look, the side player, and a Live Events revamp
+## 2026-10-20 — Version 1.0.8 V1 Patch (1.0.8.1): animated loading, hardened diagnostics, V series in stone
+
+- **Stable 1.0.8 V1 Patch is published** (Android `1.0.8.1` → `versionCode 100080001`, alias `1.0.9` → `100090000`; Mac `1.0.9` alias of `1.0.8.1`) and pushed through the in-app updaters: every 1.0.4+ build finds it in Settings → App updates, and 1.0.8 installs it in place over itself. See [`release-notes-1.0.8.1.md`](release-notes-1.0.8.1.md). This patch sets the V series in stone: V1=1.0.8.1, V2=1.0.8.2 … each V increments the fourth number and its versionCode by one and ships an alias (1.0.9, 1.0.10 …) so 1.0.4–1.0.6 updaters still see it.
+- **More animated loading screen.** Both platforms now breathe: a drifting gold haze, a halo that pulses around the TV mark, a sweeping shimmer underline, a segmented progress bar with a racing highlight, and pulsing dots beside the title so the TV never looks frozen. Motion is transform/opacity only, so it stays smooth on TV sticks. Reduced-motion users get a static splash.
+- **Better bug detection.** Settings → **Check for bugs** runs 11 checks (was 7): channel list, categories, guide, bundle, refresh, updates, version — plus new **Patch chain** (V ordering this patch establishes), **Stream hygiene** (spaces/malformed URLs), **Guide freshness** (window age in days) and **Library health** (empty/oversized categories).
+- **Version plumbing:** `scripts/release_version.py` now understands V display (`--display 1.0.8.1` → `1.0.8 V1`), maps aliases for V1–V5 (1.0.9→1.0.8.1 …), and the Mac/Android updaters share the same alias table. The download page and change log now promote only a complete `v1.0.8.1` (with its alias) as the recommended build.
+- **No playlist, scraper, guide or refresh logic changes** — the USA lineup + USA guide are unchanged, and the 1.0.7→1.0.6.1 alias mapping stays alongside the new V aliases.
+
+## 2026-10-20 — Version 1.0.8: the all-new look, the side player, and a Live Events revamp (superseded by V1 Patch)
 
 - **Stable 1.0.8 is published** (Android `versionCode 100080000`, Mac `1.0.8`)
   and pushed through the in-app updaters: every 1.0.4+ build finds it in
