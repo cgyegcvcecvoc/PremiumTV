@@ -28,6 +28,8 @@ contextBridge.exposeInMainWorld('premiumtv', {
   releaseStream: (sessionId) => ipcRenderer.invoke('ptv:release-stream', sessionId),
   /** Logo URLs go through the main process so they can be cached and proxied. */
   logoUrl: (logoUrl) => ipcRenderer.invoke('ptv:logo-url', logoUrl),
+  /** Live Events' live check: does this game's server still answer at all? */
+  probeStream: (streamUrl) => ipcRenderer.invoke('ptv:probe-stream', streamUrl),
   openExternal: (url) => ipcRenderer.invoke('ptv:open-external', url),
 
   /** App updates: check GitHub, download once, then open the verified DMG. */

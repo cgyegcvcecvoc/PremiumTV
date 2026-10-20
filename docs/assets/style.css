@@ -280,6 +280,18 @@ input[type="search"]:focus, select:focus { outline: 2px solid var(--accent); out
   flex-wrap: wrap; margin-bottom: 16px;
 }
 .lineup-toolbar input { max-width: 320px; }
+/* 1.0.8: the category list is sortable, like the list in the apps. */
+.lineup-sort { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.lineup-sort-btn {
+  appearance: none; border: 1px solid var(--line); border-radius: 999px;
+  background: transparent; color: var(--muted);
+  font: inherit; font-size: 0.78rem; font-weight: 600;
+  padding: 4px 12px; cursor: pointer;
+}
+.lineup-sort-btn:hover { color: var(--text); background: var(--panel); }
+.lineup-sort-btn[aria-pressed="true"] {
+  border-color: var(--accent); color: var(--accent); background: rgba(240, 192, 64, 0.12);
+}
 /* Categories are a list: one row per category, channel count small on the right. */
 .lineup-grid { display: block; }
 .lineup-list { list-style: none; margin: 0; padding: 0; }

@@ -70,6 +70,13 @@
     tab: 'channels',
     category: null, // null = every channel; RECENT/FAVORITE_CATEGORY = personal shelves
     query: '',
+    // 1.0.8 sorting: the sidebar's category list and the channel page's grid
+    // each get an order the viewer picks (published / A-Z / Z-A / biggest).
+    categorySort: 'published',
+    channelSort: 'default',
+    // 1.0.8 Live Events: per-game feed check results, keyed by game key —
+    // 'checking' | 'live' | 'silent'.
+    liveStatus: new Map(),
     // Search is click-to-activate (1.0.6): hovering or tabbing past the field
     // must never start a search. Only an explicit click (or '/' / Enter on the
     // focused field) makes it editable; typing is debounced before rendering.
@@ -87,6 +94,55 @@
 
   const PAGE = 240;
   let snapshot = { state: { phase: 'loading' }, info: {}, library: { channels: [], groups: [], programmes: [] } };
+
+  // ------------------------------------------------------- 1.0.8 sorting
+
+  /** The sidebar's category list in the viewer's chosen order. */
+  function sortedGroups() {
+    const groups = [...(snapshot.library.groups || [])];
+    const byName = (a, b) => channelCollator.compare(a.name, b.name);
+    if (ui.categorySort === 'az') return groups.sort(byName);
+    if (ui.categorySort === 'za') return groups.sort((a, b) => byName(b, a));
+    if (ui.categorySort === 'big') {
+      return groups.sort((a, b) => b.count - a.count || byName(a, b));
+    }
+    return groups; // 'published': the order the repository publishes
+  }
+
+  /** The channel page's grid in the viewer's chosen order. */
+  function sortedChannels(channels) {
+    const list = [...channels];
+    const byName = (a, b) => channelCollator.compare(a.name, b.name);
+    const byNumber = (a, b) => {
+      const left = parseInt(a.chno, 10);
+      const right = parseInt(b.chno, 10);
+      return (Number.isNaN(left) ? Number.MAX_SAFE_INTEGER : left) -
+        (Number.isNaN(right) ? Number.MAX_SAFE_INTEGER : right) || byName(a, b);
+    };
+    if (ui.channelSort === 'az') return list.sort(byName);
+    if (ui.channelSort === 'za') return list.sort((a, b) => byName(b, a));
+    if (ui.channelSort === 'number') return list.sort(byNumber);
+    return list; // 'default': playlist order
+  }
+
+  /** Keeps the sidebar sort chips' gold state honest. */
+  function updateCategorySortControls() {
+    if (!els.catSort) return;
+    for (const button of els.catSort.querySelectorAll('.cat-sort-btn')) {
+      button.setAttribute('aria-pressed', String(button.dataset.sort === ui.categorySort));
+    }
+  }
+
+  /** Keeps the channel page's sort chips and back button honest. */
+  function updateChannelSortControls() {
+    if (!els.channelSort) return;
+    for (const button of els.channelSort.querySelectorAll('.cat-sort-btn')) {
+      button.setAttribute('aria-pressed', String(button.dataset.chsort === ui.channelSort));
+    }
+    const onCategoryPage = Boolean(ui.category);
+    if (els.categoryPageTools) els.categoryPageTools.hidden = !onCategoryPage;
+  }
+
   let programmeIndex = new Map();
   // The scrapers' live-game feeds, grouped by sport (Live Events tab) and
   // indexed by URL (LIVE labels, server fallback).
@@ -95,6 +151,9 @@
   // Multi-server playback: the ordered server list of the open player.
   let playQueue = [];
   let playQueueIndex = 0;
+  // The 1.0.8 side player: true while the picture is tucked into the corner
+  // and the browser is up. The stream itself keeps playing either way.
+  let playerMini = false;
   // Recently watched + Favorites, persisted per machine (personal.js logic).
   const personal = window.PremiumPersonal;
   let recentKeys = personal.load(window.localStorage, personal.RECENTS_KEY);
@@ -255,9 +314,10 @@
   // -------------------------------------------------------------- rendering
 
   function renderCategories() {
-    const groups = snapshot.library.groups || [];
+    const groups = sortedGroups();
     const total = (snapshot.library.channels || []).length;
     els.categories.textContent = '';
+    updateCategorySortControls();
 
     const all = document.createElement('button');
     all.className = 'cat';
@@ -298,7 +358,7 @@
     if (ui.category === FAVORITE_CATEGORY) return personal.resolve(favoriteKeys, all);
     const channels = all;
     const query = ui.query.trim().toLowerCase();
-    return channels.filter((channel) => {
+    const filtered = channels.filter((channel) => {
       if (ui.category && channel.group !== ui.category) return false;
       if (!query) return true;
       return (
@@ -307,6 +367,7 @@
         (channel.country || '').toLowerCase().includes(query)
       );
     });
+    return sortedChannels(filtered);
   }
 
   function channelCard(channel) {
@@ -352,6 +413,7 @@
 
   function renderChannels() {
     const channels = visibleChannels();
+    updateChannelSortControls();
     const specialTitle = ui.category === RECENT_CATEGORY
       ? 'Recently watched'
       : ui.category === FAVORITE_CATEGORY ? 'Favorites' : null;
@@ -515,6 +577,27 @@
 
   // --------------------------------------------------------- live events tab
 
+  /**
+   * A team's drawn badge: the team's two colours and its initials, from the
+   * name alone — the same badge on every launch, nothing to load in.
+   */
+  function teamBadge(name) {
+    const span = document.createElement('span');
+    span.className = 'team-crest';
+    const [start, end] = window.PremiumLive.crestColorsFor(name);
+    span.style.background = `linear-gradient(135deg, ${start}, ${end})`;
+    span.textContent = window.PremiumLive.initialsFor(name);
+    return span;
+  }
+
+  /** The live-or-not pill: red while a feed answers, grey once none does. */
+  function livePill(status) {
+    const pill = document.createElement('span');
+    pill.className = `now-pill${status === 'silent' ? ' silent' : status === 'checking' ? ' checking' : ''}`;
+    pill.textContent = status === 'silent' ? 'NO SIGNAL' : status === 'checking' ? 'CHECKING' : 'LIVE';
+    return pill;
+  }
+
   function eventCard(event) {
     const card = document.createElement('button');
     card.type = 'button';
@@ -522,14 +605,89 @@
     const servers = event.servers.length > 1
       ? `${event.servers.length} streams · switchable in the player`
       : '1 stream';
-    card.innerHTML = '<div class="event-head"><span class="now-pill">LIVE</span>' +
-      `<span class="event-sport">${window.PremiumIcons.svgForGroup(event.sport, 'ph-icon event-icon')}</span></div>` +
-      '<span class="event-title"></span><span class="event-servers"></span>';
+    card.innerHTML = '<div class="event-head"></div>' +
+      '<span class="event-teams"></span>' +
+      `<span class="event-sport">${window.PremiumIcons.svgForGroup(event.sport, 'ph-icon event-icon')}</span>` +
+      '<span class="event-servers"></span>';
+    card.querySelector('.event-head').append(livePill(ui.liveStatus.get(event.key)));
     card.querySelector('.event-sport').insertAdjacentText('beforeend', event.sport);
-    card.querySelector('.event-title').textContent = event.title;
+
+    // The matchup as two badge-and-name rows, the way a score bug reads.
+    const teams = window.PremiumLive.teamsOf(event.title);
+    const teamsHost = card.querySelector('.event-teams');
+    if (teams) {
+      for (const team of teams) {
+        const row = document.createElement('span');
+        row.className = 'event-team';
+        row.append(teamBadge(team));
+        const name = document.createElement('span');
+        name.className = 'event-team-name';
+        name.textContent = team;
+        row.append(name);
+        teamsHost.append(row);
+      }
+    } else {
+      // Not a two-team matchup (a fight card, for instance): the full title.
+      const title = document.createElement('span');
+      title.className = 'event-title';
+      title.textContent = event.title;
+      teamsHost.append(title);
+    }
     card.querySelector('.event-servers').textContent = servers;
     card.addEventListener('click', () => openPlayer(event.servers[0], event.servers));
     return card;
+  }
+
+  /** One game finished its check: repaint soon, not once per answer. */
+  let liveRenderQueued = false;
+  function scheduleLiveRender() {
+    if (liveRenderQueued) return;
+    liveRenderQueued = true;
+    window.requestAnimationFrame(() => {
+      liveRenderQueued = false;
+      if (ui.tab === 'live') renderLive();
+    });
+  }
+
+  /**
+   * Asks every game's feeds whether anything still answers, six at a time.
+   * Opening the tab checks the games it has no answer for; the tab's refresh
+   * button re-checks all of them and pulls the newest playlist.
+   */
+  let liveProbeToken = 0;
+  async function probeLiveGames(force = false) {
+    const events = liveSections.flatMap((section) => section.events);
+    if (!events.length || typeof api.probeStream !== 'function') return;
+    const token = ++liveProbeToken;
+    let pending = 0;
+    for (const event of events) {
+      if (force || !ui.liveStatus.has(event.key) || ui.liveStatus.get(event.key) === 'checking') {
+        ui.liveStatus.set(event.key, 'checking');
+        pending += 1;
+      }
+    }
+    if (!pending) return;
+    els.liveSubtitle.setAttribute('data-probing', 'true');
+    scheduleLiveRender();
+
+    const queue = events.filter((event) => ui.liveStatus.get(event.key) === 'checking');
+    async function worker() {
+      while (queue.length && token === liveProbeToken) {
+        const event = queue.shift();
+        let live = false;
+        for (const server of event.servers) {
+          if (await api.probeStream(server.url)) {
+            live = true;
+            break;
+          }
+        }
+        if (token !== liveProbeToken) return;
+        ui.liveStatus.set(event.key, live ? 'live' : 'silent');
+        scheduleLiveRender();
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(6, queue.length) }, worker));
+    if (token === liveProbeToken) els.liveSubtitle.removeAttribute('data-probing');
   }
 
   function renderLive() {
@@ -548,9 +706,20 @@
       (total, section) => total + section.events.reduce((sum, event) => sum + event.servers.length, 0),
       0,
     );
-    els.liveSubtitle.textContent = games
-      ? `${games} games across ${feeds} streams · grouped by sport · a game with more than one stream can be switched in the player and falls back by itself`
-      : 'Games the repository\u2019s scrapers have on air right now, grouped by sport.';
+    const statuses = [...ui.liveStatus.values()];
+    const answering = statuses.filter((status) => status === 'live').length;
+    const decided = statuses.filter((status) => status !== 'checking').length;
+    const probing = els.liveSubtitle.getAttribute('data-probing') === 'true';
+    if (games) {
+      els.liveSubtitle.textContent = probing
+        ? `Checking which games are still on air… (${games} games, ${feeds} streams)`
+        : decided > 0
+          ? `${games} games across ${feeds} streams · ${answering} of ${decided} checked are live · Refresh live games re-checks every feed`
+          : `${games} games across ${feeds} streams · grouped by sport · a game with more than one stream can be switched in the player and falls back by itself`;
+    } else {
+      els.liveSubtitle.textContent =
+        'Games the repository\u2019s scrapers have on air right now, grouped by sport.';
+    }
 
     els.liveList.textContent = '';
     if (!games) {
@@ -1369,12 +1538,17 @@
     // The category list filters the grid too, like a cable box's guide filter.
     const categories = tab === 'channels' || (tab === 'guide' && cableGuideEnabled());
     els.categories.style.display = categories ? '' : 'none';
+    // The sidebar's sort row belongs with the category list.
+    if (els.catSort) els.catSort.style.display = categories ? '' : 'none';
     els.search.placeholder = tab === 'guide'
       ? (cableGuideEnabled() ? 'Search channel or show' : 'Search the guide')
       : tab === 'live'
         ? 'Search live games'
         : 'Search channels';
     render();
+    // Opening the Live Events tab checks the games it has no answer for yet;
+    // the refresh button re-asks every game on demand.
+    if (ui.tab === 'live') probeLiveGames(false);
   }
 
   function selectCategory(name) {
@@ -1458,6 +1632,9 @@
       }
       render();
       renderActivity();
+      // A refresh swaps games in and out of the playlist; whatever the Live
+      // Events tab has no answer for yet gets checked right away.
+      if (ui.tab === 'live') probeLiveGames(false);
     }
   }
 
@@ -1547,8 +1724,37 @@
     playQueue = list;
     playQueueIndex = Math.max(0, list.findIndex((item) => item.url === channel.url));
     els.player.hidden = false;
+    updatePlayerMode();
     describeChannel(playQueue[playQueueIndex] || channel);
     await playCurrentServer(channel.name);
+  }
+
+  /**
+   * The side player (1.0.8): the same player element rendered as a small
+   * corner card (#player.mini) so the stream never restarts while the viewer
+   * browses. Clicking the corner picture — or the button, once it says
+   * "⤢ Big screen" — grows it back to the full window.
+   */
+  function minimizePlayer() {
+    if (els.player.hidden) return;
+    playerMini = true;
+    updatePlayerMode();
+  }
+
+  function expandPlayer() {
+    playerMini = false;
+    updatePlayerMode();
+  }
+
+  function updatePlayerMode() {
+    els.player.classList.toggle('mini', playerMini);
+    if (els.playerMinimize) {
+      els.playerMinimize.textContent = playerMini ? '⤢ Big screen' : '⧉ Side player';
+      els.playerMinimize.setAttribute(
+        'aria-label',
+        playerMini ? 'Grow the side player back to the big screen' : 'Tuck the player into the side of the window',
+      );
+    }
   }
 
   async function playCurrentServer(displayName) {
@@ -1593,6 +1799,8 @@
   async function closePlayer() {
     window.PremiumPlayer.stop();
     els.player.hidden = true;
+    playerMini = false;
+    els.player.classList.remove('mini');
     playQueue = [];
     playQueueIndex = 0;
     if (playingSession) {
@@ -1608,6 +1816,34 @@
     const button = event.target.closest('.tab');
     if (button) selectTab(button.dataset.tab);
   });
+
+  // 1.0.8 sorting: the sidebar chips order the category list; the chips on a
+  // category page order that page's channels.
+  if (els.catSort) {
+    els.catSort.addEventListener('click', (event) => {
+      const button = event.target.closest('.cat-sort-btn');
+      if (!button) return;
+      ui.categorySort = button.dataset.sort;
+      renderCategories();
+    });
+  }
+  if (els.channelSort) {
+    els.channelSort.addEventListener('click', (event) => {
+      const button = event.target.closest('.cat-sort-btn');
+      if (!button) return;
+      ui.channelSort = button.dataset.chsort;
+      renderChannels();
+    });
+  }
+  if (els.catBack) els.catBack.addEventListener('click', () => selectCategory(null));
+  if (els.liveRefresh) {
+    els.liveRefresh.addEventListener('click', () => {
+      // The tab's own refresh: the newest playlist (ended games drop out,
+      // new games appear) plus a fresh live check of every game on the card.
+      runRefresh(true);
+      probeLiveGames(true);
+    });
+  }
 
   // Click-to-search: the field ships readonly, so hover (and keyboard focus
   // passing over it) can never start a search. A click — or '/' anywhere, or
@@ -1651,6 +1887,19 @@
   });
 
   els.playerClose.addEventListener('click', closePlayer);
+  // The side player toggle: tuck on the big screen, grow in the corner.
+  if (els.playerMinimize) {
+    els.playerMinimize.addEventListener('click', () => {
+      if (playerMini) expandPlayer();
+      else minimizePlayer();
+    });
+  }
+  // Clicking the corner picture grows the side player back to the big screen.
+  if (window.PremiumPlayer.element) {
+    window.PremiumPlayer.element.addEventListener('click', () => {
+      if (playerMini && !els.player.hidden) expandPlayer();
+    });
+  }
   if (els.playerPrevServer) els.playerPrevServer.addEventListener('click', () => switchServer(-1));
   if (els.playerNextServer) els.playerNextServer.addEventListener('click', () => switchServer(1));
   if (els.playerFavorite) els.playerFavorite.addEventListener('click', toggleFavorite);
@@ -1809,7 +2058,10 @@
       return;
     }
     if (event.key === 'Escape' && !els.player.hidden) {
-      closePlayer();
+      // On the big screen Esc tucks the picture into the side player and
+      // hands the window back to the browser; in the corner it stops.
+      if (playerMini) closePlayer();
+      else minimizePlayer();
       return;
     }
     if (event.key === ' ' && !els.player.hidden && event.target === document.body) {

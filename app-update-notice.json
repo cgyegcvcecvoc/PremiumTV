@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "enabled": true,
-  "updated_utc": "2026-10-19T00:00:00Z",
+  "updated_utc": "2026-10-20T00:00:00Z",
   "notice_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json",
   "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest",
   "repo_url": "https://github.com/cgyegcvcecvoc/PremiumTV1",
@@ -18,15 +18,15 @@
       "min_version": "1.1.0",
       "max_version": "1.1.1",
       "level": "blocked",
-      "title": "This preview is retired — install PremiumTV 1.0.6.1",
+      "title": "This preview is retired — install PremiumTV {newest}",
       "message": "You are on PremiumTV {version}. The 1.1.x preview channel has been removed: its downloads are gone, it receives no more support, and it is not the stable app. Install stable {newest} from the download page. On Android it installs over this preview with no uninstall; on Mac the DMG replaces this copy.",
-      "surprise": "1.0.6.1 is the current stable: compact Settings with Force refresh, Check for update and Check for bugs, the USA lineup and the full USA guide.",
-      "action_label": "Get 1.0.6.1",
+      "surprise": "{newest} is the current stable: the category list with its own sort, the side player, and the revamped Live Events tab with live checks.",
+      "action_label": "Get {newest}",
       "dismiss_label": "Not now",
       "releases_url": "https://cgyegcvcecvoc.github.io/PremiumTV1/blocked/"
     },
     {
-      "id": "update-to-1-0-6-1",
+      "id": "update-below-newest",
       "platforms": [
         "android",
         "macos"
@@ -34,9 +34,9 @@
       "min_version": "1.0.4",
       "max_version": "1.0.6",
       "level": "warning",
-      "title": "PremiumTV 1.0.6.1 is ready — you are on {version}",
-      "message": "You are on PremiumTV {version}, and a newer stable release is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It is the same 1.0.6.1 build even if the updater lists it as 1.0.7. Support for builds below 1.0.6.1 ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
-      "surprise": "Settings → App updates downloads it once, verifies it against the release's SHA-256 file and installs it over this build — no uninstall, no manual APK or DMG download.",
+      "title": "PremiumTV {newest} is ready — you are on {version}",
+      "message": "You are on PremiumTV {version}, and a newer stable release is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It downloads once, verifies against the release SHA-256 file, and installs over this build. Support for builds below {newest} ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
+      "surprise": "The newest stable brings the all-new look: categories as a sorted list with their own pages, the side player for watching while you browse, and a Live Events tab that checks which games are still live.",
       "action_label": "Update now",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {

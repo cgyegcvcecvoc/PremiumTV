@@ -1,7 +1,7 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.0.6.1 stable**
+TV guide inside the APK. The default build target is **1.0.8 stable**
 (`versionCode` `100060001`) with the USA lineup: a launch splash with the
 PremiumTV mark and the build's version, channel search, category placeholder
 logos, a **Live Events** tab grouped by sport, automatic multi-server playback,
@@ -31,7 +31,7 @@ The same APK works everywhere — navigation is D-pad first, and touch works too
 
 | Build | Source playlist | Source guide | Bundle metadata |
 |---|---|---|---|
-| **1.0.6.1 stable build target (default)** | `playlists/live/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no optional features |
+| **1.0.8 stable build target (default)** | `playlists/live/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no optional features |
 
 Both scopes are converted to JSON Lines by [`tools/build_bundle.py`](tools/build_bundle.py)
 and read with `android.util.JsonReader`. This keeps the large XML source off the
@@ -72,8 +72,8 @@ Channels no public guide schedules show "Nothing listed at this hour" or
   returns to the same show, ▲ from the first row returns to the tabs, CH+/CH−
   page, and the remote's GUIDE key opens it. Touch drags both ways; tap plays.
   It is enabled by the APK's own bundle (`cable-guide`), never by downloaded
-  data, and the published stable 1.0.6.1 build does not enable it.
-- **Guide (stable 1.0.6.1)** — "what's on now" across every channel that has
+  data, and the published stable 1.0.8 build does not enable it.
+- **Guide (stable 1.0.8)** — "what's on now" across every channel that has
   listings: current programme with a progress bar, plus what is next. The
   live-game feeds join the list with their matchup as the listing.
 - **Settings** — one compact version card (installed version, scope, counts,
@@ -162,7 +162,7 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Stable build target (USA, 1.0.6.1, versionCode 100060001)
+# Stable build target (USA, 1.0.8, versionCode 100080000)
 python3 tools/build_bundle.py --scope usa --version 1.0.6.1
 ./gradlew -PpremiumTvVersion=1.0.6.1 -PpremiumTvVersionCode=100060001 assembleDebug
 ```
@@ -187,7 +187,7 @@ catalogue; the latest main-branch scrape and follow-up deep check on
 records the exact counts and guide window used by each build:
 
 ```text
-build-out/PremiumTV-1.0.6.1-debug.apk   stable build (debug-signed, USA scope)
+build-out/PremiumTV-1.0.8-debug.apk     stable build (debug-signed, USA scope)
 build-out/SHA256SUMS-android.txt
 build-out/build-log.txt               full Gradle output
 ```
@@ -266,7 +266,7 @@ Physical TV and upstream playback checks remain manual.
 
 ### Stable build publication
 
-Ordinary pushes and manual builds default to stable 1.0.6.1 (Android code
+Ordinary pushes and manual builds default to stable 1.0.8 (Android code
 100060001). The 1.0.7 compatibility release is built from the same tree by
 publishing `v1.0.7`; nothing in the default build changes. The
 `[preview-build]` switch and `.github/preview-build.txt` were removed when the

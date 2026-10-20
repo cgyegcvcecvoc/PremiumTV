@@ -10,6 +10,37 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-20 — Version 1.0.8: the all-new look, the side player, and a Live Events revamp
+
+- **Stable 1.0.8 is published** (Android `versionCode 100080000`, Mac `1.0.8`)
+  and pushed through the in-app updaters: every 1.0.4+ build finds it in
+  Settings → App updates. See [`release-notes-1.0.8.md`](release-notes-1.0.8.md).
+- **Categories are a list — and every list sorts.** The download site, the
+  hub, the Mac sidebar and the Android Channels tab all read as one row per
+  category (name left, small count right). The site's list, the Mac sidebar
+  and the Android tab each get a **Sort** control (Published order, A-Z, Z-A,
+  biggest first); a category's channels sort by playlist order, A-Z, Z-A or
+  channel number.
+- **Click a category and you're in it.** The Android Channels tab is a
+  two-level browser now: a category list, then the category's own page with a
+  back button and its own channel grid. The Mac category page gets an
+  explicit **◀ All categories** back button and channel-sort chips.
+- **The side player.** Android's **⤢ Side player** and the Mac's **⧉ Side
+  player** tuck the running stream into a corner card while the channel
+  browser stays up; clicking the corner picture grows it back to the big
+  screen, and the card's close button stops playback. The stream never
+  restarts across the flip.
+- **Live Events gets its own refresh and tells live from dead.** The tab's
+  **⟳ Refresh live games** pulls the newest playlist and re-checks every
+  game's feeds; each card's pill reads LIVE (a feed answers), CHECKING, or
+  NO SIGNAL (every feed silent), with the checked-live count in the subtitle.
+  Two-team matchups show drawn team crests — initials in colours derived from
+  the team name, so the same team always wears the same badge, offline.
+- **Old-build notice wording goes generic.** `app-update-notice.json` now
+  says "{newest}" instead of hard-coding 1.0.6.1, so the popup, the blocked
+  preview banner and the end-of-support escalation all name whatever the
+  newest stable actually is without another edit.
+
 ## 2026-10-19 — Missing channels restored: unverified links no longer delete channels (no version change)
 
 - **Root cause:** the scraper published only links marked `alive`. A channel

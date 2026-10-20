@@ -141,3 +141,33 @@ test('categories get their own placeholder picture and the rest get the TV set',
   // and it comes from the app, never from the playlist.
   assert.doesNotMatch(icons.svgForGroup('<img src=x onerror=alert(1)>'), /<img/);
 });
+
+test('1.0.8: a matchup splits into its two teams for the badges', () => {
+  const live = loadLive();
+  // teamsOf runs in the module's VM realm, so copy the array out before
+  // comparing it with a same-realm literal.
+  assert.deepEqual([...live.teamsOf('Ball State Cardinals vs. Bowling Green Falcons')], [
+    'Ball State Cardinals',
+    'Bowling Green Falcons',
+  ]);
+  assert.deepEqual([...live.teamsOf('Roma vs Genoa')], ['Roma', 'Genoa']);
+  assert.equal(live.teamsOf('Pregame Show'), null);
+  assert.equal(live.teamsOf(''), null);
+});
+
+test('1.0.8: badges take two initials and stable colours from the name', () => {
+  const live = loadLive();
+  assert.equal(live.initialsFor('Ball State Cardinals'), 'BS');
+  assert.equal(live.initialsFor('Arsenal'), 'AR');
+  assert.equal(live.initialsFor('AS Roma'), 'AR');
+  assert.equal(live.initialsFor('   '), '?');
+  // Same team, same colours — every launch, no network involved.
+  assert.deepEqual([...live.crestColorsFor('Boston Bruins')], [...live.crestColorsFor('Boston Bruins')]);
+  assert.notDeepEqual(live.crestColorsFor('Boston Bruins'), live.crestColorsFor('Montreal Canadiens'));
+  const [start, end] = live.crestColorsFor('Boston Bruins');
+  assert.match(start, /^hsl\(\d+, 58%, 44%\)$/);
+  assert.match(end, /^hsl\(\d+, 52%, 28%\)$/);
+  const hue = live.teamHue('Boston');
+  assert.ok(hue >= 0 && hue < 360, `hue in range, got ${hue}`);
+  assert.equal(live.teamHue('Boston'), live.teamHue('Boston'));
+});

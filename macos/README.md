@@ -8,7 +8,7 @@ and Apple Silicon.
 
 The release workflow prepares one published channel:
 
-- **1.0.6.1 stable build (default):** USA playlist + USA guide, with the
+- **1.0.8 stable build (default):** USA playlist + USA guide, with the
   compact Settings screen, the built-in bug check, the launch splash, category
   placeholder logos, the Live Events tab and automatic multi-server playback.
   1.0.4 was the last release that needed a manual download; from there on
@@ -20,7 +20,7 @@ The release workflow prepares one published channel:
   sees a blocked-build notice and is sent to
   [`docs/blocked/`](../docs/blocked/index.html).
 
-The current stable download is `v1.0.6.1`. The same tree is also published as
+The current stable download is `v1.0.8`. The same tree is also published as
 `v1.0.7` so the updater in 1.0.4–1.0.6 (which reads only three-part versions)
 can find it; an app already on 1.0.6.1 ignores that alias. Only a published
 full release above the installed version is offered, and a downloaded DMG is
@@ -54,7 +54,7 @@ the installers are ad-hoc signed, not notarized.
 | **Channels** | One card per channel, grouped in the repository's published category order (`Sports`, `Lifestyle`, `Fox Channels`, …). Each card shows the logo — or its category's drawn placeholder (a ball for Sports, a smile for Comedy, a TV set for the rest) — and, when the guide covers it, what is on right now. |
 | **Live Events** | The scrapers' live-game feeds grouped by sport (Soccer, American Football, College Football, NHL Hockey, …): matchup, LIVE pill and stream count per card. A game with several streams, and any channel with backup feeds, switches to the next server automatically when one feed dies; a badge shows which server is playing. |
 | **Guide (optional cable bundle)** | A cable-style grid: channels down the left (sticky), each channel's shows to the right sized by running time, half-hour times across the top (sticky) for eight hours, a red NOW line and time pill, category headings, and a detail strip for the show under the pointer or keyboard focus. The sidebar categories filter it, search finds a channel or show, arrow keys move through it keeping the time column, click or Enter plays. Enabled by the bundle inside the .app (`cable-guide`), never by downloaded data. |
-| **Guide (stable 1.0.6.1)** | "What's on now" for every channel with listings: current programme with a progress bar plus what is next. Live-game feeds join the list with their matchup as the listing. |
+| **Guide (stable 1.0.8)** | "What's on now" for every channel with listings: current programme with a progress bar plus what is next. Live-game feeds join the list with their matchup as the listing. |
 | **Settings** | One compact version/stat card, then **Force refresh**, **Check for update** and **Check for bugs**, a single status line, a collapsible bug report, App updates, and a Details panel with sources, URLs, refresh state and **Reset to bundled copy**. |
 
 Playback uses hls.js / mpegts.js behind a loopback proxy, so the referrer,

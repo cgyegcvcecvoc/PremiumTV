@@ -304,19 +304,23 @@ class UpdateNoticePopupTests(unittest.TestCase):
         self.assertEqual(blocked["level"], "blocked")
         self.assertEqual((blocked["min_version"], blocked["max_version"]), ("1.1.0", "1.1.1"))
         self.assertIn("/blocked/", blocked["releases_url"])
-        # Every stable build below 1.0.6.1 is warned.
-        stable = rules["update-to-1-0-6-1"]
+        # Every stable build below the current stable is warned, and the
+        # wording names whatever the newest stable actually is.
+        stable = rules["update-below-newest"]
         self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.0.6"))
         self.assertEqual(stable["level"], "warning")
         self.assertIn("after_support_ends", stable,
                       "the escalation copy ships in the document, not in a build")
         self.assertEqual(stable["after_support_ends"]["level"], "end_of_support")
+        self.assertIn("{newest}", stable["title"])
+        self.assertNotIn("1.0.6.1", stable["title"] + stable["message"] + stable["action_label"],
+                         "the warning must not hard-code a version the next release retires")
         legacy = rules["legacy-upgrade-2026-11"]
         self.assertEqual(legacy["max_version"], "1.0.3")
         for rule in document["rules"]:
             self.assertIn("android", rule["platforms"])
             self.assertIn("macos", rule["platforms"])
-            self.assertRegex(rule["surprise"], r"itself|Settings|compact", rule["id"])
+            self.assertRegex(rule["surprise"], r"itself|Settings|stable", rule["id"])
 
     def test_the_notice_is_refused_unless_it_is_enabled_and_a_known_schema(self):
         kotlin = text(NOTICE_POLICY)

@@ -73,10 +73,10 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.0.6.1** (Android `versionCode 100060001`) | USA lineup + USA guide | Default and only download; installs over 1.0.4–1.0.6 and the retired 1.1.x previews from Settings → App updates |
+| **Stable release** | **1.0.8** (Android `versionCode 100080000`) | USA lineup + USA guide | Default and only download; installs over every earlier build from Settings → App updates. Categories as a sorted list with category pages, the side player, and the Live Events live-check revamp |
 | Compatibility build | **1.0.7** (Android `versionCode 100070000`) | USA lineup + USA guide | Identical to 1.0.6.1, published so 1.0.4–1.0.6 can see and install it from Settings → App updates |
 | Previous stable | 1.0.6 (Android `versionCode 100000006`) | USA lineup + USA guide | Superseded; kept as a fallback release |
-| Archived stable | 1.0.4 / 1.0.5 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.6.1 ends Nov 16, 2026 |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.8 ends Nov 16, 2026 |
 | Next (in source) | **1.0.8** (Android `versionCode 100080000`) | USA lineup + USA guide | Marked as the default build version in source; not yet a published release — the site promotes it only once a complete `v1.0.8` release exists. Categories are shown as a list with the channel count small on the right ([notes](release-notes-1.0.8.md)) |
 
 The **1.1.0/1.1.1 Encore preview channel is retired**. Its release, installers
@@ -87,16 +87,36 @@ shows a **BUILD RETIRED** notice at startup; on Android, 1.0.6.1 installs
 straight over it because `100060001` is above `100010001` and both APKs share
 the update key.
 
-Versions are `MAJOR.MINOR.PATCH` or `MAJOR.MINOR.PATCH.HOTFIX`: 1.0.6.1 is a
+Versions are `MAJOR.MINOR.PATCH` or `MAJOR.MINOR.PATCH.HOTFIX`: 1.0.6.1 was a
 small stable increment, not a new minor release. Builds shipped before 1.0.6.1
-only understand three-part versions, so the same code is also published as
-**1.0.7** — the alias their updater can see. 1.0.6.1 stays the recommended
-download; an install already on 1.0.6.1 ignores the alias instead of
-downloading the same build twice. See
+only understand three-part versions, so the same code was also published as
+**1.0.7** — the alias their updater could see. That mapping is historical: the
+recommended download is now **1.0.8**, and an install already on 1.0.6.1
+skips the alias and takes 1.0.8 from Settings → App updates instead. See
 [`release-notes-1.0.6.1.md`](release-notes-1.0.6.1.md)
 (and its [1.0.7 compatibility note](release-notes-1.0.7.md)),
 [`release-notes-1.0.6.md`](release-notes-1.0.6.md) and
 [`release-notes-1.0.5.md`](release-notes-1.0.5.md).
+
+### What 1.0.8 added
+
+- **Categories as a sorted list, with category pages.** Every category list
+  (download site, Mac sidebar, Android Channels tab) is one row per category
+  with the count small on the right and a **Sort** control (Published order,
+  A-Z, Z-A, biggest first). Clicking a category opens that category's own
+  page — Android gets a full drill-in page with a back button and its own
+  channel sort (playlist order, A-Z, Z-A, channel number); the Mac category
+  view gets an explicit **◀ All categories** back button and the same chips.
+- **The side player.** **⤢ Side player** (Android) / **⧉ Side player** (Mac)
+  tucks the running stream into a corner card while the browser stays up —
+  the stream never restarts across the flip. Clicking the corner picture
+  grows it back to the big screen; the card's close button stops playback.
+- **Live Events, revamped.** The tab has its own **⟳ Refresh live games**
+  button, and every game is live-checked: the card's pill reads LIVE,
+  CHECKING or NO SIGNAL, with the checked-live count in the subtitle.
+  Two-team matchups show drawn team crests — the team's initials in colours
+  derived from its name, so the same team always wears the same badge, fully
+  offline. See [`release-notes-1.0.8.md`](release-notes-1.0.8.md).
 
 ### What earlier 1.0.x releases added
 
@@ -138,7 +158,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.6.1` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
+| Stable target | `1.0.8` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
 The macOS regression suite covers startup data delivery, the cable-style guide
@@ -157,7 +177,7 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.0.6.1` (`versionCode 100060001`) — USA library |
+| Stable build target | `1.0.8` (`versionCode 100080000`) — USA library |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 The stable build bundles the USA playlist and guide. Both are built from curated
@@ -186,17 +206,17 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.6.1 is the current stable release** (`versionCode 100060001`, USA scope).
-1.0.4 was the last version that needed a manual download: every 1.0.5/1.0.6
-build upgrades from Settings → App updates, and 1.0.6.1 installs over the
-retired 1.1.x previews as well. A release is offered only when it is a
+**1.0.8 is the current stable release** (`versionCode 100080000`, USA scope).
+1.0.4 was the last version that needed a manual download: every later build
+upgrades from Settings → App updates, and 1.0.8 installs over the retired
+1.1.x previews as well. A release is offered only when it is a
 published full release above the installed version with its platform installer
 already attached. The download site promotes only a complete published stable
 release and no longer publishes preview builds.
 
-**Builds below 1.0.6.1 have an end-of-support date.** 1.0.5/1.0.6 show the
+**Builds below 1.0.8 have an end-of-support date.** 1.0.5/1.0.6 show the
 popup directly and can finish the upgrade from Settings. 1.0.4 has the update
-centre but predates the popup; its Settings still offers 1.0.6.1. 1.0.0–1.0.3
+centre but predates the popup; its Settings still offers the newest release. 1.0.0–1.0.3
 ship no updater at all — the `v1.0.3` tree has neither `AppUpdateManager.kt` nor
 `updater.js` — so they can only be reached through the one playlist they
 refresh, and they need one manual install to join the self-updating line. 1.0.0–1.0.3 have no such route, which is why the feed they refresh carries the

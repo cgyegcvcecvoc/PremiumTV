@@ -24,6 +24,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items as gridItems
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
@@ -56,6 +59,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -107,6 +111,10 @@ fun HomeScreen(
     onDownloadUpdate: () -> Unit,
     onInstallUpdate: () -> Unit,
     onCheckForBugs: () -> Unit,
+    // 1.0.8 Live Events: which games' feeds answered the live check.
+    liveFeedStatus: Map<String, LiveFeedStatus> = emptyMap(),
+    liveProbeRunning: Boolean = false,
+    onProbeLiveEvents: () -> Unit = {},
 ) {
     // Back leaves the Guide or Settings for Channels before it leaves the app,
     // the way a cable box's Back/Exit closes its guide.
@@ -140,6 +148,13 @@ fun HomeScreen(
         // tab and for the LIVE labels on the channel cards.
         val liveSections = remember(library.channels) { groupLiveEvents(library.channels) }
         val liveIndex = remember(library.channels) { liveEventIndex(library.channels) }
+        // Opening the Live Events tab asks each game's feed whether it still
+        // answers (once); the tab's own refresh button re-asks on demand.
+        LaunchedEffect(tab, liveSections) {
+            if (tab == HomeTab.Events && liveSections.isNotEmpty() && liveFeedStatus.isEmpty()) {
+                onProbeLiveEvents()
+            }
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -216,7 +231,13 @@ fun HomeScreen(
 
         when (tab) {
             HomeTab.Channels -> CategoriesScreen(library, now, liveIndex, onSelect, recentChannels, favoriteChannels, favoriteUrls, onToggleFavorite)
-            HomeTab.Events -> EventsScreen(liveSections, now, onSelect)
+            HomeTab.Events -> EventsScreen(
+                sections = liveSections,
+                feedStatus = liveFeedStatus,
+                probeRunning = liveProbeRunning,
+                onSelect = onSelect,
+                onRefresh = onProbeLiveEvents,
+            )
             HomeTab.Guide -> if (cableGuide) {
                 CableGuideScreen(library = library, now = now, state = guideState, onSelect = onSelect)
             } else {
@@ -253,14 +274,30 @@ private fun CategoriesScreen(
     favoriteUrls: Set<String> = emptySet(),
     onToggleFavorite: (Channel) -> Unit = {},
 ) {
+    // 1.0.8, two levels like a cable box: the tab is a LIST of categories,
+    // and opening one lands on that category's own page. Back leaves the
+    // page before it leaves the tab.
+    var selectedCategory by rememberSaveable { mutableStateOf<String?>(null) }
+    var categorySort by rememberSaveable { mutableStateOf(CategorySort.Published) }
+    var channelSort by rememberSaveable { mutableStateOf(ChannelSort.Default) }
     var query by rememberSaveable { mutableStateOf("") }
     val trimmed = query.trim()
-    val matches = remember(library.channels, trimmed) {
+
+    BackHandler(enabled = selectedCategory != null) { selectedCategory = null }
+
+    // Without a category open, the search field matches every channel; on a
+    // category page the same field narrows just that category.
+    val matches = remember(library.channels, trimmed, selectedCategory) {
         if (trimmed.isEmpty()) {
             null
         } else {
             val needle = trimmed.lowercase()
-            library.channels.filter { channel ->
+            val pool = if (selectedCategory == null) {
+                library.channels
+            } else {
+                library.channels.filter { it.group == selectedCategory }
+            }
+            pool.filter { channel ->
                 channel.name.lowercase().contains(needle) ||
                     channel.group.lowercase().contains(needle) ||
                     channel.country.lowercase().contains(needle) ||
@@ -285,115 +322,329 @@ private fun CategoriesScreen(
             )
         }
 
-        if (matches == null) {
-            CategoryList(
-                library, now, liveIndex, onSelect,
-                recentChannels = recentChannels,
-                favoriteChannels = favoriteChannels,
-                favoriteUrls = favoriteUrls,
-                onToggleFavorite = onToggleFavorite,
-            )
-            return@Column
-        }
-
-        if (matches.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(
-                    text = "No channels match “$trimmed”.\n\nTry part of a name, a category like News, " +
-                        "or a country like US.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MutedText,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(horizontal = 48.dp),
+        val category = selectedCategory
+        when {
+            // ------------------------------------------------ category list
+            category == null && matches == null -> {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 2.dp, bottom = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    // One cycling button: Published -> A-Z -> Z-A -> biggest.
+                    FocusButton("Sort · ${categorySort.label}") { categorySort = categorySort.next }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = "Sort the category list",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MutedText,
+                    )
+                }
+                CategoryListScreen(
+                    library = library,
+                    sort = categorySort,
+                    recentChannels = recentChannels,
+                    favoriteChannels = favoriteChannels,
+                    onSelectCategory = {
+                        selectedCategory = it
+                        query = ""
+                    },
                 )
             }
-            return@Column
-        }
 
-        val groups = remember(library.groups, matches) {
-            val present = matches.groupBy { it.group }
-            library.groups.filter { present.containsKey(it.name) } +
-                present.keys.filter { key -> library.groups.none { it.name == key } }
-                    .map { CategoryGroup(it, present.getValue(it).size) }
+            // ---------------------------------------------- search results
+            category == null -> {
+                val found = matches.orEmpty()
+                Text(
+                    text = "${found.size} channels match “$trimmed”",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = PremiumGold,
+                    modifier = Modifier.padding(
+                        start = SCREEN_GUTTER,
+                        end = SCREEN_GUTTER,
+                        top = 4.dp,
+                        bottom = 4.dp,
+                    ),
+                )
+                if (found.isEmpty()) {
+                    CenteredMessage(
+                        "No channels match “$trimmed”.\n\nTry part of a name, a category like News, " +
+                            "or a country like US.",
+                    )
+                } else {
+                    ChannelGrid(
+                        channels = channelSort.sort(found),
+                        programmes = library.programmes,
+                        liveIndex = liveIndex,
+                        now = now,
+                        favoriteUrls = favoriteUrls,
+                        onToggleFavorite = onToggleFavorite,
+                        onSelect = onSelect,
+                    )
+                }
+            }
+
+            // --------------------------------------------- category page
+            else -> {
+                val channels = remember(library.channels, category) {
+                    when (category) {
+                        SHELF_RECENT -> recentChannels
+                        SHELF_FAVORITES -> favoriteChannels
+                        else -> library.channels.filter { it.group == category }
+                    }
+                }
+                val visible = remember(channels, trimmed, channelSort) {
+                    val needle = trimmed.lowercase()
+                    val filtered = if (trimmed.isEmpty()) {
+                        channels
+                    } else {
+                        channels.filter { channel ->
+                            channel.name.lowercase().contains(needle) ||
+                                channel.country.lowercase().contains(needle) ||
+                                channel.chno == trimmed
+                        }
+                    }
+                    channelSort.sort(filtered)
+                }
+                CategoryPageScreen(
+                    name = category,
+                    totalCount = channels.size,
+                    visibleCount = visible.size,
+                    query = trimmed,
+                    sortLabel = "Sort · ${channelSort.label}",
+                    onSortChange = { channelSort = channelSort.next },
+                    onBack = { selectedCategory = null },
+                ) {
+                    if (visible.isEmpty()) {
+                        CenteredMessage("No channels in $category match “$trimmed”.")
+                    } else {
+                        ChannelGrid(
+                            channels = visible,
+                            programmes = library.programmes,
+                            liveIndex = liveIndex,
+                            now = now,
+                            favoriteUrls = favoriteUrls,
+                            onToggleFavorite = onToggleFavorite,
+                            onSelect = onSelect,
+                        )
+                    }
+                }
+            }
         }
-        Text(
-            text = "${matches.size} channels match “$trimmed”",
-            style = MaterialTheme.typography.labelMedium,
-            color = PremiumGold,
-            modifier = Modifier.padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 4.dp),
-        )
-        CategoryList(library, now, liveIndex, onSelect, only = groups, subset = matches, favoriteUrls = favoriteUrls, onToggleFavorite = onToggleFavorite)
     }
 }
 
+/** The two personal shelves, which open like categories but hold their own lists. */
+private const val SHELF_RECENT = "Recently watched"
+private const val SHELF_FAVORITES = "Favorites"
+
+/** The category page: back to the list, the category's own channels, its own sort. */
 @Composable
-private fun CategoryList(
-    library: Library,
-    now: Long,
-    liveIndex: Map<String, LiveEvent>,
-    onSelect: (Channel) -> Unit,
-    only: List<CategoryGroup>? = null,
-    subset: List<Channel>? = null,
-    recentChannels: List<Channel> = emptyList(),
-    favoriteChannels: List<Channel> = emptyList(),
-    favoriteUrls: Set<String> = emptySet(),
-    onToggleFavorite: (Channel) -> Unit = {},
+private fun CategoryPageScreen(
+    name: String,
+    totalCount: Int,
+    visibleCount: Int,
+    query: String,
+    sortLabel: String,
+    onSortChange: () -> Unit,
+    onBack: () -> Unit,
+    content: @Composable () -> Unit,
 ) {
-    val source = subset ?: library.channels
-    val byGroup = remember(source) { source.groupBy { it.group } }
-    val groups = only ?: library.groups
+    Column(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 2.dp, bottom = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            FocusButton("◀ All categories") { onBack() }
+            Spacer(modifier = Modifier.width(14.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(
+                    text = if (query.isBlank()) "$totalCount channels" else "$visibleCount of $totalCount channels match",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
+            }
+            Spacer(modifier = Modifier.width(12.dp))
+            FocusButton(sortLabel) { onSortChange() }
+        }
+        content()
+    }
+}
+
+/** The tab-level category list: one row per category, name left, count right. */
+@Composable
+private fun CategoryListScreen(
+    library: Library,
+    sort: CategorySort,
+    recentChannels: List<Channel>,
+    favoriteChannels: List<Channel>,
+    onSelectCategory: (String) -> Unit,
+) {
+    val byGroup = remember(library.channels) { library.channels.groupBy { it.group } }
+    val categories = remember(library.groups, sort) { sort.sort(library.groups) }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(bottom = 48.dp),
+        contentPadding = PaddingValues(top = 2.dp, bottom = 48.dp),
     ) {
-        // The viewer's own shelves lead the tab (1.0.6): Recently watched is
-        // where a channel you opened goes, so you can jump straight back in;
-        // Favorites is one row below it. Search results skip both shelves.
-        if (subset == null && recentChannels.isNotEmpty()) {
+        // The viewer's own shelves lead the list (1.0.6): Recently watched is
+        // where a channel you opened goes, so you can jump straight back in.
+        if (recentChannels.isNotEmpty()) {
             item(key = "shelf|recent") {
-                CategoryRow(
-                    name = "Recently watched",
+                CategoryListRow(
+                    name = SHELF_RECENT,
                     count = recentChannels.size,
-                    channels = recentChannels,
-                    programmes = library.programmes,
-                    liveIndex = liveIndex,
-                    now = now,
-                    onSelect = onSelect,
-                    favoriteUrls = favoriteUrls,
-                    onToggleFavorite = onToggleFavorite,
+                    glyph = "◷",
+                    onClick = { onSelectCategory(SHELF_RECENT) },
                 )
             }
         }
-        if (subset == null && favoriteChannels.isNotEmpty()) {
+        if (favoriteChannels.isNotEmpty()) {
             item(key = "shelf|favorites") {
-                CategoryRow(
-                    name = "Favorites",
+                CategoryListRow(
+                    name = SHELF_FAVORITES,
                     count = favoriteChannels.size,
-                    channels = favoriteChannels,
-                    programmes = library.programmes,
-                    liveIndex = liveIndex,
-                    now = now,
-                    onSelect = onSelect,
-                    favoriteUrls = favoriteUrls,
-                    onToggleFavorite = onToggleFavorite,
+                    glyph = "★",
+                    onClick = { onSelectCategory(SHELF_FAVORITES) },
                 )
             }
         }
-        items(items = groups, key = { it.name }) { group ->
+        items(items = categories, key = { it.name }) { group ->
             val channels = byGroup[group.name].orEmpty()
             if (channels.isNotEmpty()) {
-                CategoryRow(
+                CategoryListRow(
                     name = group.name,
                     count = channels.size,
-                    channels = channels,
-                    programmes = library.programmes,
-                    liveIndex = liveIndex,
-                    now = now,
-                    onSelect = onSelect,
-                    favoriteUrls = favoriteUrls,
-                    onToggleFavorite = onToggleFavorite,
+                    icon = placeholderIconFor(group.name),
+                    onClick = { onSelectCategory(group.name) },
                 )
             }
+        }
+    }
+}
+
+/** One row of the category list: the drawn category mark, the name, the count. */
+@Composable
+private fun CategoryListRow(
+    name: String,
+    count: Int,
+    onClick: () -> Unit,
+    icon: ImageVector? = null,
+    glyph: String? = null,
+) {
+    var focused by remember { mutableStateOf(false) }
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = SCREEN_GUTTER)
+            .onFocusChanged { focused = it.isFocused }
+            .tvClickable(onClick)
+            .border(
+                width = if (focused) 2.dp else 1.dp,
+                color = if (focused) PremiumGold else Color(0x22FFFFFF),
+                shape = RoundedCornerShape(12.dp),
+            ),
+        shape = RoundedCornerShape(12.dp),
+        color = if (focused) CardBackgroundFocused else CardBackground,
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = PremiumGold,
+                    modifier = Modifier.size(24.dp),
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+            }
+            if (glyph != null) {
+                Text(
+                    text = glyph,
+                    color = PremiumGold,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 17.sp,
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+            }
+            Text(
+                text = name,
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f),
+            )
+            // Categories read as a list: the channel count sits small on the right edge,
+            // with a chevron saying the row opens a page.
+            Text(
+                text = count.toString(),
+                style = MaterialTheme.typography.labelMedium,
+                color = MutedText,
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                text = "❯",
+                color = if (focused) PremiumGold else MutedText,
+                fontWeight = FontWeight.Bold,
+            )
+        }
+    }
+}
+
+/** The full-width card grid a category page (or a search) shows its channels in. */
+@Composable
+private fun ChannelGrid(
+    channels: List<Channel>,
+    programmes: Map<String, List<Programme>>,
+    liveIndex: Map<String, LiveEvent>,
+    now: Long,
+    favoriteUrls: Set<String>,
+    onToggleFavorite: (Channel) -> Unit,
+    onSelect: (Channel) -> Unit,
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(168.dp),
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(
+            start = SCREEN_GUTTER,
+            end = SCREEN_GUTTER,
+            top = 4.dp,
+            bottom = 48.dp,
+        ),
+        horizontalArrangement = Arrangement.spacedBy(CARD_GAP),
+        verticalArrangement = Arrangement.spacedBy(CARD_GAP),
+    ) {
+        gridItems(
+            items = channels,
+            key = { "${it.id}|${it.url}" },
+        ) { channel ->
+            val current = nowPlaying(programmes[channel.id].orEmpty(), now)
+            val event = liveIndex[channel.url]
+            ChannelCard(
+                channel = channel,
+                isFavorite = channel.url in favoriteUrls,
+                onToggleFavorite = { onToggleFavorite(channel) },
+                subtitle = when {
+                    current != null -> current.title
+                    event != null -> "LIVE · ${event.sport}"
+                    else -> "No listing published"
+                },
+                onClick = { onSelect(channel) },
+            )
         }
     }
 }
@@ -510,76 +761,15 @@ private fun ChannelSearchField(
 }
 
 @Composable
-private fun CategoryRow(
-    name: String,
-    count: Int,
-    channels: List<Channel>,
-    programmes: Map<String, List<Programme>>,
-    liveIndex: Map<String, LiveEvent>,
-    now: Long,
-    onSelect: (Channel) -> Unit,
-    favoriteUrls: Set<String> = emptySet(),
-    onToggleFavorite: (Channel) -> Unit = {},
-) {
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
-        Row(
-            modifier = Modifier.padding(
-                start = SCREEN_GUTTER,
-                end = SCREEN_GUTTER,
-                bottom = 8.dp,
-            ),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.White,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.weight(1f),
-            )
-            // Categories read as a list: the name leads the row and the
-            // channel count sits small on the right edge.
-            Text(
-                text = count.toString(),
-                style = MaterialTheme.typography.labelSmall,
-                color = MutedText,
-                textAlign = TextAlign.End,
-            )
-        }
-        LazyRow(
-            modifier = Modifier.focusGroup(),
-            contentPadding = PaddingValues(horizontal = SCREEN_GUTTER),
-            horizontalArrangement = Arrangement.spacedBy(CARD_GAP),
-        ) {
-            itemsIndexed(
-                items = channels,
-                key = { index, channel -> "$index|${channel.id}|${channel.url}" },
-            ) { _, channel ->
-                val current = nowPlaying(programmes[channel.id].orEmpty(), now)
-                val event = liveIndex[channel.url]
-                ChannelCard(
-                    channel = channel,
-                    isFavorite = channel.url in favoriteUrls,
-                    onToggleFavorite = { onToggleFavorite(channel) },
-                    subtitle = when {
-                        current != null -> current.title
-                        event != null -> "LIVE · ${event.sport}"
-                        else -> "No listing published"
-                    },
-                    onClick = { onSelect(channel) },
-                )
-            }
-        }
-    }
-}
-
 // ---------------------------------------------------------- live events tab
 
 @Composable
 private fun EventsScreen(
     sections: List<LiveEventSection>,
-    now: Long,
+    feedStatus: Map<String, LiveFeedStatus>,
+    probeRunning: Boolean,
     onSelect: (Channel) -> Unit,
+    onRefresh: () -> Unit,
 ) {
     if (sections.isEmpty()) {
         CenteredMessage(
@@ -592,31 +782,47 @@ private fun EventsScreen(
     }
     val totalGames = sections.sumOf { it.events.size }
     val totalFeeds = sections.sumOf { section -> section.events.sumOf { it.servers.size } }
+    // The refresh button (and opening this tab) asks every game's feed
+    // whether it still answers, so the tab can show which games are live.
+    val answering = feedStatus.values.count { it == LiveFeedStatus.Answering }
+    val decided = feedStatus.values.count { it != LiveFeedStatus.Checking }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 48.dp),
     ) {
         item(key = "events-head") {
-            Column(
-                modifier = Modifier.padding(
-                    start = SCREEN_GUTTER,
-                    end = SCREEN_GUTTER,
-                    top = 8.dp,
-                    bottom = 2.dp,
-                ),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 8.dp, bottom = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    text = "Live games on now",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = Color.White,
-                    fontWeight = FontWeight.SemiBold,
-                )
-                Text(
-                    text = "$totalGames games across $totalFeeds streams · grouped by sport · " +
-                        "a game with more than one stream switches servers by itself",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MutedText,
-                )
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Live games on now",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                    Text(
+                        text = when {
+                            probeRunning -> "Checking which games are still on air…"
+                            decided > 0 -> "$totalGames games across $totalFeeds streams · " +
+                                "$answering of $decided checked live"
+                            else -> "$totalGames games across $totalFeeds streams · grouped by sport · " +
+                                "a game with more than one stream switches servers by itself"
+                        },
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (probeRunning) PremiumGold else MutedText,
+                    )
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                // The tab's own refresh: pulls the newest playlist, then
+                // re-asks every game whether its feed is still answering.
+                FocusButton(
+                    if (probeRunning) "Refreshing…" else "⟳ Refresh live games",
+                    enabled = !probeRunning,
+                ) { onRefresh() }
             }
         }
         items(items = sections, key = { "section|${it.sport}" }) { section ->
@@ -656,9 +862,13 @@ private fun EventsScreen(
                 ) {
                     itemsIndexed(
                         items = section.events,
-                        key = { index, event -> "$index|${event.key}" },
+                        key = { _, event -> event.key },
                     ) { _, event ->
-                        EventCard(event = event, onClick = { onSelect(event.servers.first()) })
+                        EventCard(
+                            event = event,
+                            status = feedStatus[event.key],
+                            onClick = { onSelect(event.servers.first()) },
+                        )
                     }
                 }
             }
@@ -669,17 +879,19 @@ private fun EventsScreen(
 @Composable
 private fun EventCard(
     event: LiveEvent,
+    status: LiveFeedStatus?,
     onClick: () -> Unit,
 ) {
     var focused by remember { mutableStateOf(false) }
     val scale by androidx.compose.animation.core.animateFloatAsState(
-        targetValue = if (focused) 1.04f else 1f,
+        targetValue = if (focused) 1.03f else 1f,
         label = "eventCardScale",
     )
+    val teams = remember(event.title) { teamsOf(event.title) }
     Surface(
         modifier = Modifier
-            .width(280.dp)
-            .height(128.dp)
+            .width(320.dp)
+            .height(172.dp)
             .scale(scale)
             .onFocusChanged { focused = it.isFocused }
             .tvClickable(onClick),
@@ -697,13 +909,21 @@ private fun EventCard(
                 .padding(12.dp),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
+                // Live or not: the pill answers it. A game nobody has checked
+                // yet keeps the plain LIVE pill; a check that got an answer
+                // confirms it; silence turns the pill grey.
+                val (pillColor, pillText) = when (status) {
+                    LiveFeedStatus.Answering -> LiveRed to "LIVE"
+                    LiveFeedStatus.Silent -> Color(0xFF57626F) to "NO SIGNAL"
+                    LiveFeedStatus.Checking, null -> PremiumGoldDim to "CHECKING"
+                }
                 Box(
                     modifier = Modifier
-                        .background(LiveRed, RoundedCornerShape(4.dp))
+                        .background(pillColor, RoundedCornerShape(4.dp))
                         .padding(horizontal = 6.dp, vertical = 2.dp),
                 ) {
                     Text(
-                        text = "LIVE",
+                        text = pillText,
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
@@ -720,14 +940,28 @@ private fun EventCard(
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = event.title,
-                style = MaterialTheme.typography.titleSmall,
-                color = Color.White,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.weight(1f),
-            )
+            if (teams != null) {
+                EventTeamRow(name = teams.first)
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = "vs",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                    modifier = Modifier.padding(start = 44.dp),
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                EventTeamRow(name = teams.second)
+            } else {
+                Text(
+                    text = event.title,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f),
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.PlayArrow,
@@ -748,6 +982,23 @@ private fun EventCard(
                 )
             }
         }
+    }
+}
+
+/** One team line of an event card: its badge and its name. */
+@Composable
+private fun EventTeamRow(name: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        TeamCrest(name = name, size = 34.dp)
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(
+            text = name,
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
 
