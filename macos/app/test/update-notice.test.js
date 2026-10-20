@@ -78,16 +78,16 @@ test('an older stable build is told to update, with the surprise spelled out', (
   const notice = selectNotice({
     body: DOCUMENT,
     appVersion: '1.0.2',
-    newestVersion: '1.0.6.1',
+    newestVersion: '1.0.8.1',
     now: BEFORE_SUPPORT_ENDS,
   });
   assert.ok(notice, 'a build inside the targeted range must get a notice');
   assert.equal(notice.level, 'warning');
   assert.equal(notice.supportEnded, false);
-  assert.match(notice.title, /newer PremiumTV|1\.0\.6\.1/i);
+  assert.match(notice.title, /newer PremiumTV|1\.0\.8\.1/i);
   // The placeholders are resolved, never shown raw.
   assert.match(notice.message, /1\.0\.2/);
-  assert.match(notice.message, /1\.0\.6\.1/);
+  assert.match(notice.message, /1\.0\.8\.1/);
   assert.ok(!notice.message.includes('{'), 'no unsubstituted placeholder may survive');
   // The surprise is the point of the message: updating ends manual installs.
   assert.ok(notice.surprise.length > 40, 'the surprise must actually say something');
@@ -97,9 +97,11 @@ test('an older stable build is told to update, with the surprise spelled out', (
 });
 
 test('every targeted older stable build is reached, and 1.0.0 is not left out', () => {
-  for (const version of ['1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4', '1.0.5', '1.0.6']) {
+  // 1.0.8 V1 (1.0.8.1) widened update-below-newest to 1.0.4-1.0.8, so the
+  // 1.0.6.1 and 1.0.8 builds that used to be "current" are now targeted too.
+  for (const version of ['1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4', '1.0.5', '1.0.6', '1.0.6.1', '1.0.8']) {
     const notice = selectNotice({
-      body: DOCUMENT, appVersion: version, newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
+      body: DOCUMENT, appVersion: version, newestVersion: '1.0.8.1', now: BEFORE_SUPPORT_ENDS,
     });
     assert.ok(notice, `${version} must be told to update`);
     assert.equal(notice.level, 'warning', version);
@@ -108,9 +110,11 @@ test('every targeted older stable build is reached, and 1.0.0 is not left out', 
 });
 
 test('a build at or above the newest stable release is never nagged', () => {
-  for (const version of ['1.0.6.1', '1.0.7', '1.2.0', '2.0.0']) {
+  // The newest stable is 1.0.8.1 (1.0.8 V1); a Mac packaged as its 1.0.9
+  // compatibility alias is that same build, so it must not be nagged either.
+  for (const version of ['1.0.8.1', '1.0.9', '1.2.0', '2.0.0']) {
     const notice = selectNotice({
-      body: DOCUMENT, appVersion: version, newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
+      body: DOCUMENT, appVersion: version, newestVersion: '1.0.8.1', now: BEFORE_SUPPORT_ENDS,
     });
     assert.equal(notice, null, `${version} is not inside the targeted range`);
   }
@@ -119,13 +123,13 @@ test('a build at or above the newest stable release is never nagged', () => {
 test('a retired preview is blocked instead of offered an update', () => {
   for (const version of ['1.1.0', '1.1.1']) {
     const notice = selectNotice({
-      body: DOCUMENT, appVersion: version, newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
+      body: DOCUMENT, appVersion: version, newestVersion: '1.0.8.1', now: BEFORE_SUPPORT_ENDS,
     });
     assert.ok(notice, `${version} must be told the preview is retired`);
     assert.equal(notice.level, 'blocked');
     assert.equal(notice.id, 'retired-preview-1-1');
     assert.match(notice.title, /retired/i);
-    assert.match(notice.message, /1\.0\.6\.1/);
+    assert.match(notice.message, /1\.0\.8\.1/);
     assert.match(notice.releasesUrl, /\/blocked\/$/,
       'the blocked popup must send people to the banner page');
   }
@@ -133,7 +137,7 @@ test('a retired preview is blocked instead of offered an update', () => {
 
 test('the same rule escalates by itself once support ends', () => {
   const notice = selectNotice({
-    body: DOCUMENT, appVersion: '1.0.3', newestVersion: '1.0.6.1', now: AFTER_SUPPORT_ENDS,
+    body: DOCUMENT, appVersion: '1.0.3', newestVersion: '1.0.8.1', now: AFTER_SUPPORT_ENDS,
   });
   assert.ok(notice);
   assert.equal(notice.level, 'end_of_support');
@@ -141,7 +145,7 @@ test('the same rule escalates by itself once support ends', () => {
   assert.match(notice.title, /support .* ended/i);
   // The escalation has to say what actually stopped: the scraped data.
   assert.match(notice.message, /scrape|frozen/i);
-  assert.match(notice.message, /Nov 16, 2026/);
+  assert.match(notice.message, /Nov 19, 2026/);
   assert.ok(!notice.message.includes('{support_ends}'));
 });
 
@@ -157,7 +161,7 @@ test('a disabled, malformed or unknown-schema document shows nothing', () => {
   };
   for (const [name, body] of Object.entries(cases)) {
     const notice = selectNotice({
-      body, appVersion: '1.0.4', newestVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS,
+      body, appVersion: '1.0.4', newestVersion: '1.0.8.1', now: BEFORE_SUPPORT_ENDS,
     });
     assert.equal(notice, null, `${name} must never produce a popup`);
   }
@@ -208,7 +212,7 @@ test('parseInstant reads the two published shapes and refuses anything else', ()
 
 test('formatDay is UTC, so the date reads the same in every time zone', () => {
   assert.equal(formatDay(Date.UTC(2026, 10, 16, 23, 59, 59)), 'Nov 16, 2026');
-  assert.equal(formatDay(parseInstant(PUBLISHED.support_ends_utc)), 'Nov 16, 2026');
+  assert.equal(formatDay(parseInstant(PUBLISHED.support_ends_utc)), 'Nov 19, 2026');
 });
 
 // ------------------------------------------------------- updater integration
@@ -220,15 +224,25 @@ function noticeHarness(t, { currentVersion = '1.0.4', noticeBody = DOCUMENT, now
   const fetchImpl = async (url) => {
     calls.push(url);
     if (url.includes('/releases?')) {
+      // The published V1 pair, as GitHub serves it: the canonical 1.0.8.1
+      // release carries no Mac installer (macOS packaging needs three
+      // parts); its 1.0.9 compatibility alias carries the DMG a Mac on an
+      // older build downloads. A current Mac reports packaged version 1.0.9.
       return new Response(JSON.stringify([{
-        tag_name: 'v1.0.6.1',
+        tag_name: 'v1.0.8.1',
         draft: false,
         prerelease: false,
-        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.6.1',
+        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.8.1',
+        assets: [],
+      }, {
+        tag_name: 'v1.0.9',
+        draft: false,
+        prerelease: false,
+        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.9',
         assets: [{
-          name: 'PremiumTV-1.0.6.1-mac-arm64.dmg',
+          name: 'PremiumTV-1.0.9-mac-arm64.dmg',
           size: 10,
-          browser_download_url: 'https://github.com/releases/PremiumTV-1.0.6.1-mac-arm64.dmg',
+          browser_download_url: 'https://github.com/releases/PremiumTV-1.0.9-mac-arm64.dmg',
         }],
       }]), { status: 200, headers: { etag: 'W/"r1"' } });
     }
@@ -264,7 +278,8 @@ test('the daily check resolves a popup for an older build', async (t) => {
 });
 
 test('a build that is already current gets no popup', async (t) => {
-  const { build } = noticeHarness(t, { currentVersion: '1.0.6.1', now: BEFORE_SUPPORT_ENDS });
+  // A Mac on 1.0.8 V1 reports its packaged alias version, 1.0.9.
+  const { build } = noticeHarness(t, { currentVersion: '1.0.9', now: BEFORE_SUPPORT_ENDS });
   const state = await build().check(true);
   assert.equal(state.notice, null);
 });
@@ -274,7 +289,7 @@ test('an unreachable notice keeps the app working and shows nothing new', async 
   const state = await build().check(true);
   assert.equal(state.error, null, 'a missing notice must never fail the update check');
   assert.equal(state.notice, null);
-  assert.equal(state.availableVersion, '1.0.6.1', 'the release list still resolves normally');
+  assert.equal(state.availableVersion, '1.0.9', 'the release list still resolves normally');
 });
 
 test('dismissing hides the popup for this launch only', async (t) => {

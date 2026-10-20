@@ -68,7 +68,11 @@ test('the launch splash shows the mark, a spinner and the version at the bottom'
   // failed startup must not leave it in front of the error.
   assert.match(js, /await syncSnapshot\(\);\s*hideSplash\(\);/);
   assert.match(js, /boot\(\)\.catch\(\(error\) => \{\s*hideSplash\(\);/);
-  assert.match(js, /Version \$\{appInfo\.version\}/);
+  // 1.0.8 V1: the splash derives a V display name from the packaged version
+  // (a four-part 1.0.8.1 reads "1.0.8 V1 Patch"; the Mac's three-part alias
+  // 1.0.9 reads as itself) and prints it in the foot as the build on show.
+  assert.match(js, /const p = String\(appInfo\.version\)\.split\('\.'\);/);
+  assert.match(js, /els\.splashVersion\.textContent = `Version \$\{display\}`;/);
 });
 
 test('logo-less channels fall back to their category placeholder, not bare text', () => {
