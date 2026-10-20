@@ -8,8 +8,9 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently 1.0.6.1 —
-  Settings 2.0 + built-in bug check), with every asset (Android APK, macOS
+- **Download the apps.** The latest complete Stable release (currently 1.0.8 —
+  sorted category lists with category pages, the side player, and the Live
+  Events live-check revamp), with every asset (Android APK, macOS
   .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and
   install help — all linking at the GitHub release assets. The build is
   promoted only after its APK and all four Mac installers are published, so the
@@ -32,10 +33,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.0.6.1
+## Current stable: 1.0.8
 
-Settings is now one compact screen: a version card, **Force refresh**, **Check
-for update**, **Check for bugs**, and a collapsible details panel. The app
+Categories read as a sorted list everywhere, clicking one opens the category's
+own page, the side player keeps a channel playing while you browse, and Live
+Events checks which games are still live. Settings is one compact screen: a
+version card, **Force refresh**, **Check for update**, **Check for bugs**, and
+a collapsible details panel. The app
 checks GitHub for a newer published stable release, downloads the installer
 once, verifies its SHA-256 checksum and opens the platform installer. The
 policy is documented in [`UPDATES.md`](UPDATES.md).

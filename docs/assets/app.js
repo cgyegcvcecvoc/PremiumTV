@@ -517,6 +517,22 @@
     var groups = lineup.groups || [];
     if (!grid) return;
 
+    // 1.0.8: the category list is sortable, like the list in the apps.
+    var lineupSort = "published";
+    function sortedGroups() {
+      var list = groups.slice();
+      function byName(a, b) { return String(a.name || "").localeCompare(String(b.name || ""), undefined, { sensitivity: "base", numeric: true }); }
+      if (lineupSort === "az") return list.sort(byName);
+      if (lineupSort === "za") return list.sort(function (a, b) { return byName(b, a); });
+      if (lineupSort === "big") return list.sort(function (a, b) { return (b.channels || 0) - (a.channels || 0) || byName(a, b); });
+      return list; // published: the repository's own order
+    }
+    function renderList() {
+      grid.innerHTML = "<ul class=\"lineup-list\">" + sortedGroups().map(card).join("") + "</ul>";
+      cards = grid.querySelectorAll(".lineup-card");
+      filter(search && search.value || "");
+    }
+
     function card(g) {
       var samples = (g.samples || []).map(esc).join(" · ");
       var file = g.file ? g.file.split("/").pop() : "";
@@ -538,9 +554,9 @@
         "</span></span></li>";
     }
 
-    grid.innerHTML = "<ul class=\"lineup-list\">" + groups.map(card).join("") + "</ul>";
-    var cards = grid.querySelectorAll(".lineup-card");
+    var cards = [];
     var totalChannels = lineup.unique_channels;
+    renderList();
 
     function filter(value) {
       var q = (value || "").trim().toLowerCase();
@@ -566,6 +582,19 @@
     }
 
     if (search) search.addEventListener("input", function (ev) { filter(ev.target.value); });
+    var sortHost = $("lineup-sort");
+    if (sortHost) {
+      sortHost.addEventListener("click", function (ev) {
+        var button = ev.target.closest ? ev.target.closest(".lineup-sort-btn") : null;
+        if (!button) return;
+        lineupSort = button.getAttribute("data-lsort");
+        var chips = sortHost.querySelectorAll(".lineup-sort-btn");
+        for (var i = 0; i < chips.length; i++) {
+          chips[i].setAttribute("aria-pressed", String(chips[i] === button));
+        }
+        renderList();
+      });
+    }
     filter("");
   })();
 

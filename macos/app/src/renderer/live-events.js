@@ -103,6 +103,46 @@ window.PremiumLive = (function () {
     return fromTag || tag;
   }
 
+  /**
+   * Splits a matchup title into its two team names, in playlist order.
+   * "Arsenal vs. Chelsea" -> ["Arsenal", "Chelsea"]. Returns null when the
+   * title is not a two-team matchup (a boxing card keeps its full title).
+   */
+  function teamsOf(title) {
+    const parts = String(title || '').split(VERSUS);
+    if (parts.length < 2) return null;
+    const first = parts[0].trim();
+    const second = parts.slice(1).join(' vs. ').trim();
+    if (!first || !second) return null;
+    return [first, second];
+  }
+
+  /** Up to two initials for a team's badge (same rule on Android). */
+  function initialsFor(name) {
+    const words = String(name || '').trim().split(/\s+/).filter(Boolean);
+    if (!words.length) return '?';
+    if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+
+  /**
+   * A stable hue in 0..360 for a team name: the same team always wears the
+   * same drawn badge, with no network request and nothing to load in.
+   */
+  function teamHue(name) {
+    let hash = 7;
+    const text = String(name || '').toLowerCase().trim();
+    for (let i = 0; i < text.length; i += 1) hash = (hash * 31 + text.charCodeAt(i)) | 0;
+    return ((hash % 360) + 360) % 360;
+  }
+
+  /** The badge's gradient pair as CSS colors, in the app's saturation band. */
+  function crestColorsFor(name) {
+    const hue = teamHue(name);
+    const hsl = (h, s, l) => `hsl(${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%)`;
+    return [hsl(hue, 58, 44), hsl((hue + 26) % 360, 52, 28)];
+  }
+
   /** One parsed game: { sport, title, key } or null. */
   function parseLiveEvent(channel) {
     const sport = sportOfEvent(channel);
@@ -219,5 +259,9 @@ window.PremiumLive = (function () {
     indexByChannel,
     serversFor,
     baseDisplayName,
+    teamsOf,
+    initialsFor,
+    crestColorsFor,
+    teamHue,
   };
 })();

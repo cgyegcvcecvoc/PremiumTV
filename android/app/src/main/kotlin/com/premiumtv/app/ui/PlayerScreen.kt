@@ -2,12 +2,14 @@ package com.premiumtv.app.ui
 
 import android.content.Context
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -26,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -50,6 +54,13 @@ import com.premiumtv.app.data.Programme
  * the channel's server list by itself: when a feed fails fatally it switches
  * to the next one, says so on screen, and only shows the error card when
  * every server for this channel has been tried.
+ *
+ * 1.0.8 adds the side player: [expanded] = false renders the same player as
+ * a small corner card while the channel browser stays up. The ExoPlayer
+ * instance is remembered across the flip — the stream keeps playing when the
+ * card grows to the big screen or tucks back into the corner. Clicking the
+ * side card ([onExpand]) goes to the big screen; Back on the big screen
+ * tucks it into the corner; the card's ✕ is what actually stops playback.
  */
 @Composable
 fun PlayerScreen(
@@ -57,6 +68,9 @@ fun PlayerScreen(
     servers: List<Channel>,
     programmes: List<Programme>,
     now: Long,
+    expanded: Boolean = true,
+    onExpand: () -> Unit = {},
+    onMinimize: () -> Unit = {},
     onClose: () -> Unit,
     isFavorite: Boolean = false,
     onToggleFavorite: () -> Unit = {},
@@ -106,184 +120,299 @@ fun PlayerScreen(
         }
     }
 
-    BackHandler { onClose() }
+    // On the big screen, Back tucks the channel into the side player instead
+    // of stopping it. With the side player up, Back belongs to the browser
+    // underneath (navigating categories and tabs), so no handler is set.
+    BackHandler(enabled = expanded) { onMinimize() }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black),
+        modifier = if (expanded) {
+            Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        } else {
+            // Transparent: touches outside the card fall through to the
+            // browser underneath.
+            Modifier.fillMaxSize()
+        },
+        contentAlignment = if (expanded) Alignment.TopStart else Alignment.BottomEnd,
     ) {
-        AndroidView(
-            modifier = Modifier.fillMaxSize(),
-            factory = { ctx ->
-                PlayerView(ctx).also { view ->
-                    view.player = player
-                    view.useController = true
-                    view.controllerShowTimeoutMs = 5000
-                }
+        Surface(
+            modifier = if (expanded) {
+                Modifier.fillMaxSize()
+            } else {
+                Modifier
+                    .padding(16.dp)
+                    .width(352.dp)
             },
-        )
-
-        val currentProgramme = nowPlaying(programmes, now)
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(start = 32.dp, top = 24.dp, end = 32.dp),
+            shape = if (expanded) RectangleShape else RoundedCornerShape(14.dp),
+            color = Color.Black,
+            border = if (expanded) {
+                null
+            } else {
+                BorderStroke(2.dp, PremiumGold)
+            },
         ) {
-            Text(
-                text = channel.name,
-                style = MaterialTheme.typography.headlineSmall,
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            if (playlist.size > 1) {
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Server ${serverIndex + 1} of ${playlist.size} · automatic fallback on",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = PremiumGold,
-                )
-            }
-            if (currentProgramme != null) {
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Now · ${currentProgramme.title}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = PremiumGold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                if (currentProgramme.desc.isNotBlank()) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = currentProgramme.desc,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MutedText,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.fillMaxWidth(0.55f),
+            Column {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .then(
+                            if (expanded) {
+                                Modifier.weight(1f)
+                            } else {
+                                // Clicking the picture (or pressing OK on it)
+                                // grows the side player to the big screen.
+                                Modifier
+                                    .aspectRatio(16f / 9f)
+                                    .tvClickable(onExpand)
+                            }
+                        ),
+                ) {
+                    AndroidView(
+                        modifier = Modifier.fillMaxSize(),
+                        factory = { ctx ->
+                            PlayerView(ctx).also { view ->
+                                view.player = player
+                                view.useController = expanded
+                                view.controllerShowTimeoutMs = 5000
+                            }
+                        },
+                        update = { view ->
+                            view.useController = expanded
+                        },
                     )
+                    if (!expanded && buffering) {
+                        Text(
+                            text = "Loading…",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.White,
+                            modifier = Modifier.align(Alignment.Center),
+                        )
+                    }
+                    if (!expanded && errorMessage != null) {
+                        Text(
+                            text = "All ${playlist.size} servers tried — nothing is answering. " +
+                                "The nightly link check removes feeds like this.",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MutedText,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(horizontal = 12.dp),
+                        )
+                    }
                 }
-            }
-            if (channel.group.isNotBlank()) {
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = channel.group,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MutedText,
-                )
+                if (!expanded) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color(0xFF0B0F14))
+                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = channel.name,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.White,
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        MiniChip("⤢ Big screen") { onExpand() }
+                        Spacer(modifier = Modifier.width(6.dp))
+                        MiniChip("✕ Close") { onClose() }
+                    }
+                }
             }
         }
 
-        if (errorMessage != null) {
-            Box(
+        if (expanded) {
+            val currentProgramme = nowPlaying(programmes, now)
+            Column(
                 modifier = Modifier
-                    .align(Alignment.Center)
-                    .widthIn(max = 640.dp)
-                    .background(Color(0xEE101720), RoundedCornerShape(16.dp))
-                    .padding(28.dp),
+                    .align(Alignment.TopStart)
+                    .padding(start = 32.dp, top = 24.dp, end = 32.dp),
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = channel.name,
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                if (playlist.size > 1) {
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "This stream is not playing",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
+                        text = "Server ${serverIndex + 1} of ${playlist.size} · automatic fallback on",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = PremiumGold,
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                }
+                if (currentProgramme != null) {
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = if (playlist.size > 1) {
-                            "All ${playlist.size} servers for this channel were tried. " +
-                                (errorMessage.orEmpty())
-                        } else {
-                            errorMessage.orEmpty()
-                        },
-                        style = MaterialTheme.typography.bodySmall,
+                        text = "Now · ${currentProgramme.title}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = PremiumGold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    if (currentProgramme.desc.isNotBlank()) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = currentProgramme.desc,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MutedText,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.fillMaxWidth(0.55f),
+                        )
+                    }
+                }
+                if (channel.group.isNotBlank()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = channel.group,
+                        style = MaterialTheme.typography.labelSmall,
                         color = MutedText,
-                        textAlign = TextAlign.Center,
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Text(
-                        text = "Most failures are dead upstream links. The repository's " +
-                            "nightly link check removes them on its next run.",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MutedText,
-                        textAlign = TextAlign.Center,
-                    )
-                    Spacer(modifier = Modifier.height(18.dp))
-                    Row {
-                        FocusButton("Back to channels") { onClose() }
-                        if (playlist.size > 1) {
-                            Spacer(modifier = Modifier.width(16.dp))
-                            FocusButton("Try the servers again") {
-                                errorMessage = null
-                                buffering = true
-                                serverIndex = (serverIndex + 1) % playlist.size
+                }
+            }
+
+            if (errorMessage != null) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .widthIn(max = 640.dp)
+                        .background(Color(0xEE101720), RoundedCornerShape(16.dp))
+                        .padding(28.dp),
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "This stream is not playing",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = if (playlist.size > 1) {
+                                "All ${playlist.size} servers for this channel were tried. " +
+                                    (errorMessage.orEmpty())
+                            } else {
+                                errorMessage.orEmpty()
+                            },
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MutedText,
+                            textAlign = TextAlign.Center,
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = "Most failures are dead upstream links. The repository's " +
+                                "nightly link check removes them on its next run.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MutedText,
+                            textAlign = TextAlign.Center,
+                        )
+                        Spacer(modifier = Modifier.height(18.dp))
+                        Row {
+                            FocusButton("Back to channels") { onClose() }
+                            if (playlist.size > 1) {
+                                Spacer(modifier = Modifier.width(16.dp))
+                                FocusButton("Try the servers again") {
+                                    errorMessage = null
+                                    buffering = true
+                                    serverIndex = (serverIndex + 1) % playlist.size
+                                }
                             }
                         }
                     }
                 }
-            }
-        } else if (switchNotice != null) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .widthIn(max = 560.dp)
-                    .background(Color(0xEE101720), RoundedCornerShape(14.dp))
-                    .padding(horizontal = 24.dp, vertical = 16.dp),
-            ) {
+            } else if (switchNotice != null) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .widthIn(max = 560.dp)
+                        .background(Color(0xEE101720), RoundedCornerShape(14.dp))
+                        .padding(horizontal = 24.dp, vertical = 16.dp),
+                ) {
+                    Text(
+                        text = switchNotice.orEmpty(),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = PremiumGold,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            } else if (buffering) {
                 Text(
-                    text = switchNotice.orEmpty(),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = PremiumGold,
-                    textAlign = TextAlign.Center,
+                    text = "Loading…",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    modifier = Modifier.align(Alignment.Center),
                 )
             }
-        } else if (buffering) {
+
+            // Manual server switching (1.0.6): automatic fallback still walks
+            // the list on failure, but a viewer whose live event is buffering
+            // can jump to the next/previous server themselves.
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 32.dp, bottom = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                if (playlist.size > 1) {
+                    FocusButton("◀ Server") {
+                        errorMessage = null
+                        buffering = true
+                        serverIndex = nextServerIndex(serverIndex, playlist.size, -1)
+                        switchNotice = "Server ${serverIndex + 1} of ${playlist.size} · selected by you"
+                    }
+                    FocusButton("Server ▶") {
+                        errorMessage = null
+                        buffering = true
+                        serverIndex = nextServerIndex(serverIndex, playlist.size, 1)
+                        switchNotice = "Server ${serverIndex + 1} of ${playlist.size} · selected by you"
+                    }
+                }
+                FocusButton(if (isFavorite) "★ Favorited" else "☆ Favorite") { onToggleFavorite() }
+                // 1.0.8 side player: keep the channel playing in the corner
+                // while the channel browser comes back up.
+                FocusButton("⤢ Side player") { onMinimize() }
+                FocusButton("✕ Close") { onClose() }
+            }
+
             Text(
-                text = "Loading…",
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.Center),
+                text = "Press Back to tuck this into the side player — it keeps playing while you browse",
+                style = MaterialTheme.typography.labelSmall,
+                color = MutedText,
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(start = 32.dp, bottom = 20.dp),
             )
         }
+    }
+}
 
-        // Manual server switching (1.0.6): automatic fallback still walks the
-        // list on failure, but a viewer whose live event is buffering can jump
-        // to the next/previous server themselves instead of waiting it out.
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 32.dp, bottom = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            if (playlist.size > 1) {
-                FocusButton("◀ Server") {
-                    errorMessage = null
-                    buffering = true
-                    serverIndex = nextServerIndex(serverIndex, playlist.size, -1)
-                    switchNotice = "Server ${serverIndex + 1} of ${playlist.size} · selected by you"
-                }
-                FocusButton("Server ▶") {
-                    errorMessage = null
-                    buffering = true
-                    serverIndex = nextServerIndex(serverIndex, playlist.size, 1)
-                    switchNotice = "Server ${serverIndex + 1} of ${playlist.size} · selected by you"
-                }
-            }
-            FocusButton(if (isFavorite) "★ Favorited" else "☆ Favorite") { onToggleFavorite() }
-        }
-
+/** One of the small buttons on the side player's bar. */
+@Composable
+private fun MiniChip(label: String, onClick: () -> Unit) {
+    Surface(
+        modifier = Modifier.tvClickable(onClick),
+        shape = RoundedCornerShape(14.dp),
+        color = Color(0xFF1D2733),
+    ) {
         Text(
-            text = "Press Back to return to the channel list",
+            text = label,
             style = MaterialTheme.typography.labelSmall,
-            color = MutedText,
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(start = 32.dp, bottom = 20.dp),
+            color = Color.White,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
         )
     }
 }

@@ -313,6 +313,33 @@ ipcMain.handle('ptv:logo-url', (_event, logoUrl) => {
   return `${proxy.origin}/logo/?u=${encodeURIComponent(logoUrl)}`;
 });
 
+// The Live Events tab's live check (1.0.8): asks a game's stream server
+// whether anything still answers. The renderer cannot reach these hosts
+// itself (CSP keeps it on the loopback origin), so the main process asks:
+// any HTTP answer counts — even 403 from a geo-blocked edge — because the
+// viewer's question is "is anything still answering on this game". Only a
+// timeout, abort or refused connection means nothing is. One byte of Range
+// keeps a cooperating server from sending a body.
+ipcMain.handle('ptv:probe-stream', async (_event, streamUrl) => {
+  if (!streamUrl || !/^https?:\/\//i.test(streamUrl)) return false;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5000);
+  try {
+    const response = await fetch(streamUrl, {
+      method: 'GET',
+      headers: { Range: 'bytes=0-1' },
+      redirect: 'follow',
+      signal: controller.signal,
+    });
+    return Number(response.status) > 0;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+});
+
+
 ipcMain.handle('ptv:open-external', (_event, url) => {
   if (/^https?:\/\//i.test(url)) shell.openExternal(url);
   return { ok: true };

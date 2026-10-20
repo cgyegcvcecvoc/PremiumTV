@@ -103,3 +103,59 @@ test('a dead feed hands over to the next server before the error card appears', 
   assert.match(player, /onFatal = typeof handlers\.onFatal === 'function' \? handlers\.onFatal : null;/);
   assert.match(player, /fail\(message\) \{/);
 });
+
+test('1.0.8: the sidebar sorts categories and a category page sorts its channels', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+
+  assert.match(html, /id="cat-sort"[^]*/);
+  assert.match(html, /data-sort="az"/);
+  assert.match(html, /id="cat-back"/);
+  assert.match(html, /id="channel-sort"/);
+  assert.match(html, /data-chsort="number"/);
+  assert.match(js, /function sortedGroups\(\)/);
+  assert.match(js, /function sortedChannels\(channels\)/);
+  assert.match(js, /return sortedChannels\(filtered\);/);
+  assert.match(js, /ui\.categorySort = button\.dataset\.sort;/);
+  assert.match(js, /ui\.channelSort = button\.dataset\.chsort;/);
+  assert.match(js, /els\.catBack\.addEventListener\('click', \(\) => selectCategory\(null\)\);/);
+  assert.match(css(), /#cat-sort \{/);
+});
+
+test('1.0.8: the side player tucks into the corner and grows back', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(renderer, 'app.css'), 'utf8');
+
+  assert.match(html, /id="player-minimize"/);
+  assert.match(js, /let playerMini = false;/);
+  assert.match(js, /function minimizePlayer\(\)/);
+  assert.match(js, /function expandPlayer\(\)/);
+  assert.match(js, /els\.player\.classList\.toggle\('mini', playerMini\)/);
+  assert.match(js, /playerMini \? '⤢ Big screen' : '⧉ Side player'/);
+  assert.match(js, /if \(playerMini\) closePlayer\(\);\s*else minimizePlayer\(\);/);
+  assert.match(css, /#player\.mini \{/);
+});
+
+test('1.0.8: the Live Events tab has its own refresh and a live check per game', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+  const live = fs.readFileSync(path.join(renderer, 'live-events.js'), 'utf8');
+  const preload = fs.readFileSync(path.join(__dirname, '..', 'src', 'main', 'preload.js'), 'utf8');
+  const main = fs.readFileSync(path.join(__dirname, '..', 'src', 'main', 'main.js'), 'utf8');
+
+  assert.match(html, /id="live-refresh"/);
+  assert.match(html, />⟳ Refresh live games</);
+  assert.match(js, /els\.liveRefresh\.addEventListener\('click'/);
+  assert.match(js, /async function probeLiveGames\(force = false\)/);
+  assert.match(js, /await api\.probeStream\(server\.url\)/);
+  assert.match(js, /NO SIGNAL/);
+  assert.match(live, /function teamsOf\(title\)/);
+  assert.match(live, /function crestColorsFor\(name\)/);
+  assert.match(preload, /probeStream: \(streamUrl\) => ipcRenderer\.invoke\('ptv:probe-stream', streamUrl\)/);
+  assert.match(main, /ipcMain\.handle\('ptv:probe-stream'/);
+});
+
+function css() {
+  return fs.readFileSync(path.join(renderer, 'app.css'), 'utf8');
+}

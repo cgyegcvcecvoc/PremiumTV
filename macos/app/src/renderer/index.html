@@ -50,6 +50,15 @@
         <input id="search" type="search" placeholder="Click to search channels" autocomplete="off" spellcheck="false" readonly aria-readonly="true" title="Click to search" />
       </div>
 
+      <!-- 1.0.8: the category list gets the sorting a long list needs. One
+           row of small chips; the active one is gold. -->
+      <div id="cat-sort" role="toolbar" aria-label="Sort categories">
+        <button class="cat-sort-btn" data-sort="published" aria-pressed="true" title="The repository's published order">Published</button>
+        <button class="cat-sort-btn" data-sort="az" aria-pressed="false" title="Category name, A to Z">A-Z</button>
+        <button class="cat-sort-btn" data-sort="za" aria-pressed="false" title="Category name, Z to A">Z-A</button>
+        <button class="cat-sort-btn" data-sort="big" aria-pressed="false" title="Most channels first">Biggest</button>
+      </div>
+
       <div id="categories" class="scroll" aria-label="Categories"></div>
 
       <footer id="sidebar-foot">
@@ -60,16 +69,34 @@
     <main id="content" class="scroll">
       <section id="view-channels" class="view" role="tabpanel">
         <header class="view-head">
-          <h1 id="channels-title">Channels</h1>
-          <p id="channels-subtitle"></p>
+          <div class="view-head-text">
+            <h1 id="channels-title">Channels</h1>
+            <p id="channels-subtitle"></p>
+          </div>
+          <div class="view-head-tools" id="category-page-tools" hidden>
+            <button id="cat-back" class="btn btn-quiet" title="Back to every category">◀ All categories</button>
+            <span id="channel-sort" role="toolbar" aria-label="Sort channels">
+              <button class="cat-sort-btn" data-chsort="default" aria-pressed="true">Published</button>
+              <button class="cat-sort-btn" data-chsort="az" aria-pressed="false">A-Z</button>
+              <button class="cat-sort-btn" data-chsort="za" aria-pressed="false">Z-A</button>
+              <button class="cat-sort-btn" data-chsort="number" aria-pressed="false">Number</button>
+            </span>
+          </div>
         </header>
         <div id="channels-grid" class="grid"></div>
       </section>
 
       <section id="view-live" class="view" role="tabpanel" hidden>
-        <header class="view-head">
-          <h1>Live Events</h1>
-          <p id="live-subtitle">Games the repository's scrapers have on air right now, grouped by sport.</p>
+        <header class="view-head live-head">
+          <div class="view-head-text">
+            <h1>Live Events</h1>
+            <p id="live-subtitle">Games the repository's scrapers have on air right now, grouped by sport.</p>
+          </div>
+          <div class="live-tools">
+            <!-- The tab's own refresh: pulls the newest playlist and re-asks
+                 every game's feed whether it still answers. -->
+            <button id="live-refresh" class="btn btn-quiet" title="Re-check every game and pull the newest playlist">⟳ Refresh live games</button>
+          </div>
         </header>
         <div id="live-list"></div>
       </section>
@@ -131,6 +158,9 @@
         <button id="player-prev-server" class="btn btn-quiet" aria-label="Previous server">◀ Server</button>
         <button id="player-next-server" class="btn btn-quiet" aria-label="Next server">Server ▶</button>
         <button id="player-favorite" class="btn btn-quiet" aria-label="Toggle favorite">☆ Favorite</button>
+        <!-- 1.0.8 side player: tucks the picture into the corner while you
+             browse; in the corner the same button grows it back. -->
+        <button id="player-minimize" class="btn btn-quiet" aria-label="Tuck the player into the side of the window">⧉ Side player</button>
         <button id="player-close" class="btn btn-quiet" aria-label="Close player">Close ⎋</button>
       </div>
     </div>

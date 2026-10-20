@@ -146,6 +146,22 @@ internal fun parseLiveEvent(channel: Channel): ParsedEvent? {
 internal fun isLiveEventChannel(channel: Channel): Boolean = parseLiveEvent(channel) != null
 
 /**
+ * Splits a matchup title into its two team names, in playlist order.
+ *
+ * "Arsenal vs. Chelsea" -> ("Arsenal", "Chelsea"). Returns null when the
+ * title is not a two-team matchup (a boxing or UFC card, for instance, keeps
+ * its full title on the card instead of team badges).
+ */
+internal fun teamsOf(title: String): Pair<String, String>? {
+    val parts = VERSUS.split(title)
+    if (parts.size < 2) return null
+    val first = parts[0].trim()
+    val second = parts.drop(1).joinToString(" vs. ").trim()
+    if (first.isEmpty() || second.isEmpty()) return null
+    return first to second
+}
+
+/**
  * Every game in the playlist, grouped into sport sections and with each
  * game's duplicate feeds collected as its server list (playlist order kept,
  * identical URLs deduplicated).

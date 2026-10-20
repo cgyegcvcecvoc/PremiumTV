@@ -87,6 +87,12 @@
 
       <div class="lineup-toolbar">
         <input type="search" id="lineup-search" placeholder="Filter categories or sample channels…" autocomplete="off" aria-label="Filter channels">
+        <span class="lineup-sort" id="lineup-sort" role="toolbar" aria-label="Sort categories">
+          <button class="lineup-sort-btn" data-lsort="published" aria-pressed="true">Published</button>
+          <button class="lineup-sort-btn" data-lsort="az" aria-pressed="false">A-Z</button>
+          <button class="lineup-sort-btn" data-lsort="za" aria-pressed="false">Z-A</button>
+          <button class="lineup-sort-btn" data-lsort="big" aria-pressed="false">Most channels</button>
+        </span>
         <span class="muted small" id="lineup-note">Loading the lineup…</span>
       </div>
       <div class="lineup-grid" id="lineup-grid"></div>
