@@ -9,10 +9,15 @@ import com.premiumtv.app.update.AppUpdateManager
 import com.premiumtv.app.update.Diagnostics
 import com.premiumtv.app.update.DiagnosticsReport
 import com.premiumtv.app.BuildConfig
+import com.premiumtv.app.ui.LiveFeedStatus
+import com.premiumtv.app.ui.feedAnswers
+import com.premiumtv.app.ui.groupLiveEvents
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -61,7 +66,7 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
         probeLiveEvents()
     }
 
-    /** Asks every live game's feeds (six at a time) whether anything answers. */
+    /** Asks every live game's feeds (six games at a time) whether anything answers. */
     fun probeLiveEvents() {
         if (liveProbeJob?.isActive == true) return
         val library = (state.value as? LoadState.Ready)?.library ?: return
@@ -75,26 +80,30 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 if (started.isEmpty()) return@launch
                 _liveFeedStatus.value = started
-                // Six parallel probes: fast enough for a full card on a
-                // remote press, gentle enough for the scrapers' edges.
-                val limiter = Semaphore(6)
+                // Six games in parallel, chunk by chunk: fast enough for a
+                // full card on a remote press, gentle enough for the
+                // scrapers' edges.
+                val games = sections.flatMap { it.events }
                 coroutineScope {
-                    for (section in sections) {
-                        for (event in section.events) {
+                    games.chunked(PROBE_CONCURRENCY).forEach { chunk ->
+                        val jobs = chunk.map { event ->
                             launch {
-                                limiter.withPermit {
-                                    val answers = event.servers.any { feedAnswers(it) }
-                                    _liveFeedStatus.value = _liveFeedStatus.value +
-                                        (event.key to if (answers) LiveFeedStatus.Answering else LiveFeedStatus.Silent)
-                                }
+                                val answers = event.servers.any { feedAnswers(it) }
+                                _liveFeedStatus.value = _liveFeedStatus.value +
+                                    (event.key to if (answers) LiveFeedStatus.Answering else LiveFeedStatus.Silent)
                             }
                         }
+                        jobs.joinAll()
                     }
                 }
             } finally {
                 _liveProbeRunning.value = false
             }
         }
+    }
+
+    private companion object {
+        const val PROBE_CONCURRENCY = 6
     }
 
     init {
