@@ -455,7 +455,8 @@ def check_player(meta, channels):
 def main():
     bundle = ROOT / "android/app/src/main/assets/bundle"
     meta = json.loads((bundle / "meta.json").read_text())
-    names = {json.loads(row)["name"] for row in (bundle / "channels.jsonl").read_text().splitlines() if row}
+    channels = [json.loads(row) for row in (bundle / "channels.jsonl").read_text().splitlines() if row]
+    names = {channel["name"] for channel in channels}
     progress(f"bundled library: {meta['channel_count']} channels, {len(names)} names, version {meta['version']}, "
              f"preview features {meta.get('preview_features') or []}")
     adb("install", "-r", str(ROOT / "android/app/build/outputs/apk/debug/app-debug.apk"),
