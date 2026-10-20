@@ -193,7 +193,7 @@ jobs:
           sudo docker image prune --all --force || true
           df -h /
 
-      - name: Smoke test the built APK (cold launch, relaunch, Guide tab and remote)
+      - name: Smoke test the built APK (cold launch, relaunch, Guide tab, remote and player)
         id: smoke_apk
         uses: reactivecircus/android-emulator-runner@v2
         with:
