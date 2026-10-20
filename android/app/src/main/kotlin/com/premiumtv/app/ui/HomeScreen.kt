@@ -760,7 +760,6 @@ private fun ChannelSearchField(
     }
 }
 
-@Composable
 // ---------------------------------------------------------- live events tab
 
 @Composable
