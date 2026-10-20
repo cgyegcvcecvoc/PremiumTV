@@ -50,3 +50,5 @@ class TeamCrestTest {
         assertTrue(teamInitials("Arsenal FC").length == 2)
     }
 }
+
+// Retrigger note: the previous run died to a flaky Kotlin test daemon startup, not to any test.
