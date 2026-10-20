@@ -532,10 +532,6 @@
     <display-name>Radio Fiessta (720p)</display-name>
     <icon src="https://cdn.m3u.cl/logo/401_Radio_Fiessta.png" />
   </channel>
-  <channel id="RadioFrecuenciaUno.cl@SD">
-    <display-name>Radio Frecuencia Uno (720p)</display-name>
-    <icon src="https://cdn.m3u.cl/logo/1646_Radio_Frecuencia_Uno.png" />
-  </channel>
   <channel id="RadioLaSerenaTV.cl@SD">
     <display-name>Radio La Serena TV (720p)</display-name>
     <icon src="https://i.imgur.com/65ftM3v.png" />
@@ -604,9 +600,9 @@
     <display-name>Rewind TV (1080p)</display-name>
     <display-name>Rewind HD</display-name>
     <display-name>465097</display-name>
+    <display-name>470465</display-name>
     <display-name>Rewind TV</display-name>
     <display-name>496605</display-name>
-    <display-name>470465</display-name>
     <icon src="https://i.imgur.com/OG0RC2e.png" />
   </channel>
   <channel id="RitoqueTV.cl@SD">
@@ -733,6 +729,10 @@
   <channel id="TelecanalSantaCruz.cl@SD">
     <display-name>Telecanal Santa Cruz (720p)</display-name>
     <icon src="https://i.imgur.com/5byPkd7.png" />
+  </channel>
+  <channel id="TeleCauquenes.cl@SD">
+    <display-name>TeleCauquenes (720p)</display-name>
+    <icon src="https://i.imgur.com/cNYDqhp.png" />
   </channel>
   <channel id="13Realities.cl@SD">
     <display-name>13 Realities (1080p)</display-name>
@@ -904,12 +904,6 @@
     <display-name>Funbox.cl</display-name>
     <icon src="https://epg.pw/media/images/epg/2025/03/21/20250321022313720466_23.png" />
   </channel>
-  <programme start="20261019220500 +0000" stop="20261020000000 +0000" channel="Canal13.cl@SD">
-    <title>¡Qué dice Chile!</title>
-  </programme>
-  <programme start="20261020000000 +0000" stop="20261020013000 +0000" channel="Canal13.cl@SD">
-    <title>Teletrece</title>
-  </programme>
   <programme start="20261020013000 +0000" stop="20261020035000 +0000" channel="Canal13.cl@SD">
     <title>Vertigo extremo</title>
   </programme>
@@ -1009,8 +1003,14 @@
   <programme start="20261022050000 +0000" stop="20261022060000 +0000" channel="Canal13.cl@SD">
     <title>MILF</title>
   </programme>
-  <programme start="20261019210000 +0000" stop="20261020000000 +0000" channel="CanaldelSur.cl@SD">
-    <title>Canal del sur</title>
+  <programme start="20261022060000 +0000" stop="20261022070000 +0000" channel="Canal13.cl@SD">
+    <title>Teletrece noche</title>
+  </programme>
+  <programme start="20261022070000 +0000" stop="20261022080000 +0000" channel="Canal13.cl@SD">
+    <title>Tu día</title>
+  </programme>
+  <programme start="20261022080000 +0000" stop="20261022090000 +0000" channel="Canal13.cl@SD">
+    <title>3x3</title>
   </programme>
   <programme start="20261020000000 +0000" stop="20261020030000 +0000" channel="CanaldelSur.cl@SD">
     <title>Canal del sur</title>
@@ -1066,11 +1066,8 @@
   <programme start="20261022030000 +0000" stop="20261022060000 +0000" channel="CanaldelSur.cl@SD">
     <title>Canal del sur</title>
   </programme>
-  <programme start="20261019210000 +0000" stop="20261020000000 +0000" channel="LaRed.cl@SD">
-    <title>El auto fantástico</title>
-  </programme>
-  <programme start="20261020000000 +0000" stop="20261020010000 +0000" channel="LaRed.cl@SD">
-    <title>Miami Vice</title>
+  <programme start="20261022060000 +0000" stop="20261022090000 +0000" channel="CanaldelSur.cl@SD">
+    <title>Canal del sur</title>
   </programme>
   <programme start="20261020010000 +0000" stop="20261020030000 +0000" channel="LaRed.cl@SD">
     <title>Cine en La Red</title>
@@ -1158,15 +1155,6 @@
   </programme>
   <programme start="20261022033000 +0000" stop="20261022100000 +0000" channel="LaRed.cl@SD">
     <title>Fin de transmisión</title>
-  </programme>
-  <programme start="20261019225000 +0000" stop="20261019232500 +0000" channel="TVSenado.cl@SD">
-    <title>Humanidad, ¿Hacia dónde vamos?</title>
-  </programme>
-  <programme start="20261019232500 +0000" stop="20261020010500 +0000" channel="TVSenado.cl@SD">
-    <title>Sesión de comisión</title>
-  </programme>
-  <programme start="20261020010500 +0000" stop="20261020014000 +0000" channel="TVSenado.cl@SD">
-    <title>Resumen legislativo</title>
   </programme>
   <programme start="20261020014000 +0000" stop="20261020035000 +0000" channel="TVSenado.cl@SD">
     <title>La historia sumergida</title>
@@ -1264,14 +1252,14 @@
   <programme start="20261022034500 +0000" stop="20261022054500 +0000" channel="TVSenado.cl@SD">
     <title>La historia sumergida</title>
   </programme>
-  <programme start="20261019220000 +0000" stop="20261020000000 +0000" channel="TVN.cl@SD">
-    <title>¡Ahora caigo!</title>
+  <programme start="20261022054500 +0000" stop="20261022063500 +0000" channel="TVSenado.cl@SD">
+    <title>Neruda, el hombre y su obra</title>
   </programme>
-  <programme start="20261020000000 +0000" stop="20261020013500 +0000" channel="TVN.cl@SD">
-    <title>24 Horas Central</title>
+  <programme start="20261022063500 +0000" stop="20261022075500 +0000" channel="TVSenado.cl@SD">
+    <title>Sesión de comisión</title>
   </programme>
-  <programme start="20261020013500 +0000" stop="20261020014000 +0000" channel="TVN.cl@SD">
-    <title>TV Tiempo</title>
+  <programme start="20261022075500 +0000" stop="20261022100000 +0000" channel="TVSenado.cl@SD">
+    <title>Cierre de transmisión</title>
   </programme>
   <programme start="20261020014000 +0000" stop="20261020034500 +0000" channel="TVN.cl@SD">
     <title>Masterchef Chile</title>
@@ -1390,20 +1378,20 @@
   <programme start="20261022044500 +0000" stop="20261022051500 +0000" channel="TVN.cl@SD">
     <title>24 Horas - Al cierre</title>
   </programme>
-  <programme start="20261019230000 +0000" stop="20261019233000 +0000" channel="TVU.cl@SD">
-    <title>TVU Noticias</title>
+  <programme start="20261022051500 +0000" stop="20261022053000 +0000" channel="TVN.cl@SD">
+    <title>TV Tiempo - Informe final</title>
   </programme>
-  <programme start="20261019233000 +0000" stop="20261020000000 +0000" channel="TVU.cl@SD">
-    <title>Portavoz noticias</title>
+  <programme start="20261022053000 +0000" stop="20261022061500 +0000" channel="TVN.cl@SD">
+    <title>Pampa ilusión</title>
   </programme>
-  <programme start="20261020000000 +0000" stop="20261020013000 +0000" channel="TVU.cl@SD">
-    <title>BiobioDiversidad</title>
+  <programme start="20261022061500 +0000" stop="20261022080000 +0000" channel="TVN.cl@SD">
+    <title>El mediodía</title>
   </programme>
-  <programme start="20261020013000 +0000" stop="20261020020000 +0000" channel="TVU.cl@SD">
-    <title>TVU Noticias</title>
+  <programme start="20261022080000 +0000" stop="20261022083000 +0000" channel="TVN.cl@SD">
+    <title>Hora 24</title>
   </programme>
-  <programme start="20261020020000 +0000" stop="20261020023000 +0000" channel="TVU.cl@SD">
-    <title>Portavoz noticias</title>
+  <programme start="20261022083000 +0000" stop="20261022090000 +0000" channel="TVN.cl@SD">
+    <title>La previa</title>
   </programme>
   <programme start="20261020023000 +0000" stop="20261020103000 +0000" channel="TVU.cl@SD">
     <title>Cartelera nocturna</title>
@@ -1522,12 +1510,6 @@
   <programme start="20261022030000 +0000" stop="20261022103000 +0000" channel="TVU.cl@SD">
     <title>Fin de transmisión</title>
   </programme>
-  <programme start="20261019223000 +0000" stop="20261020000000 +0000" channel="ViaX.cl@SD">
-    <title>Cadena Nacional</title>
-  </programme>
-  <programme start="20261020000000 +0000" stop="20261020013000 +0000" channel="ViaX.cl@SD">
-    <title>Not News</title>
-  </programme>
   <programme start="20261020013000 +0000" stop="20261020030000 +0000" channel="ViaX.cl@SD">
     <title>Todo va a estar bien</title>
   </programme>
@@ -1633,11 +1615,11 @@
   <programme start="20261022043000 +0000" stop="20261022060000 +0000" channel="ViaX.cl@SD">
     <title>Cadena Nacional</title>
   </programme>
-  <programme start="20261019223000 +0000" stop="20261020003000 +0000" channel="ZonaLatina.cl@SD">
-    <title>Que te lo digo</title>
+  <programme start="20261022060000 +0000" stop="20261022073000 +0000" channel="ViaX.cl@SD">
+    <title>Not News</title>
   </programme>
-  <programme start="20261020003000 +0000" stop="20261020023000 +0000" channel="ZonaLatina.cl@SD">
-    <title>Zona de estrellas</title>
+  <programme start="20261022073000 +0000" stop="20261022090000 +0000" channel="ViaX.cl@SD">
+    <title>Todo va a estar bien</title>
   </programme>
   <programme start="20261020023000 +0000" stop="20261020043000 +0000" channel="ZonaLatina.cl@SD">
     <title>Que te lo digo</title>
@@ -1747,45 +1729,14 @@
   <programme start="20261022043000 +0000" stop="20261022053000 +0000" channel="ZonaLatina.cl@SD">
     <title>Encantadas</title>
   </programme>
-  <programme start="20261020000000 +0000" stop="20261020003000 +0000" channel="RewindTV.cl@SD">
-    <title>Who's the Boss?</title>
-    <desc>Tony and Angela relive old memories when they hike a mountain to Kissing Rock.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022053000 +0000" stop="20261022073000 +0000" channel="ZonaLatina.cl@SD">
+    <title>Zona de estrellas</title>
   </programme>
-  <programme start="20261020003000 +0000" stop="20261020010000 +0000" channel="RewindTV.cl@SD">
-    <title>Who's the Boss?</title>
-    <desc>A raging thunderstorm at Kissing Rock forces Angela and Tony to spend the night at a secluded motel.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022073000 +0000" stop="20261022080000 +0000" channel="ZonaLatina.cl@SD">
+    <title>Videos musicales</title>
   </programme>
-  <programme start="20261020010000 +0000" stop="20261020013000 +0000" channel="RewindTV.cl@SD">
-    <title>The Hogan Family</title>
-    <desc>Sandy (Sandy Duncan), prompted by her wild friend Rita (Cristine Rose), goes to a singles bar. With Edie McClurg and Jason Bateman.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261020013000 +0000" stop="20261020020000 +0000" channel="RewindTV.cl@SD">
-    <title>The Hogan Family</title>
-    <desc>A hesitant Sandy (Sandy Duncan) dates a dentist who is separated from his wife. With Jason Bateman and Josh Taylor.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261020020000 +0000" stop="20261020023000 +0000" channel="RewindTV.cl@SD">
-    <title>Dear John</title>
-    <desc>The tabloid tale of a sexually compulsive movie star (Robin Strasser) dating John (Judd Hirsch) has serious repercussions. With Jere Burns.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022080000 +0000" stop="20261022090000 +0000" channel="ZonaLatina.cl@SD">
+    <title>Encantadas</title>
   </programme>
   <programme start="20261020023000 +0000" stop="20261020030000 +0000" channel="RewindTV.cl@SD">
     <title>Dear John</title>
@@ -2603,26 +2554,61 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261019230000 +0000" stop="20261020000000 +0000" channel="24Horas.cl">
-    <title>24 Horas deportes</title>
+  <programme start="20261022053000 +0000" stop="20261022060000 +0000" channel="RewindTV.cl@SD">
+    <title>Wings</title>
+    <desc>Brian makes weekend wedding plans with his adventurous new girlfriend (Lisa Darr).</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020000000 +0000" stop="20261020013000 +0000" channel="24Horas.cl">
-    <title>24 Horas Central</title>
+  <programme start="20261022060000 +0000" stop="20261022063000 +0000" channel="RewindTV.cl@SD">
+    <title>Mad About You</title>
+    <desc>Jamie plans a shower for Lisa; Fran gets back with Mark and quits her job; Paul leaves in a huff after Jamie confesses that she was kissed by a co-worker.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020013000 +0000" stop="20261020014500 +0000" channel="24Horas.cl">
-    <title>Conciencia 24/7</title>
+  <programme start="20261022063000 +0000" stop="20261022070000 +0000" channel="RewindTV.cl@SD">
+    <title>Mad About You</title>
+    <desc>Paul and Jamie deal with marital problems while planning parties for Lisa's engagement and Paul's parents' anniversary.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020014500 +0000" stop="20261020020000 +0000" channel="24Horas.cl">
-    <title>Entrevistas 24 horas</title>
+  <programme start="20261022070000 +0000" stop="20261022073000 +0000" channel="RewindTV.cl@SD">
+    <title>227</title>
+    <desc>Olympic gold medalist Florence Griffith-Joyner shows Brenda that there is still honor in not finishing first.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020020000 +0000" stop="20261020021500 +0000" channel="24Horas.cl">
-    <title>Economía</title>
+  <programme start="20261022073000 +0000" stop="20261022080000 +0000" channel="RewindTV.cl@SD">
+    <title>227</title>
+    <desc>Mary and Sandra head opposing teams on TV's "Family Feud" game show.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020021500 +0000" stop="20261020023000 +0000" channel="24Horas.cl">
-    <title>Conciencia 24/7</title>
+  <programme start="20261022080000 +0000" stop="20261022083000 +0000" channel="RewindTV.cl@SD">
+    <title>Designing Women</title>
+    <desc>Julia refurbishes Sugarbakers when the Historical League places it on the tour of historical homes.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020023000 +0000" stop="20261020024500 +0000" channel="24Horas.cl">
-    <title>Entrevistas 24 horas</title>
+  <programme start="20261022083000 +0000" stop="20261022090000 +0000" channel="RewindTV.cl@SD">
+    <title>Designing Women</title>
+    <desc>To surprise Anthony on his birthday, the Sugarbaker women look for his long-lost father.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261020024500 +0000" stop="20261020030000 +0000" channel="24Horas.cl">
     <title>24 cuadros</title>
@@ -2816,8 +2802,23 @@
   <programme start="20261022050000 +0000" stop="20261022053000 +0000" channel="24Horas.cl">
     <title>24 horas a la hora</title>
   </programme>
-  <programme start="20261019230000 +0000" stop="20261020013500 +0000" channel="ChileVision.cl@SD">
-    <title>CHV noticias Central</title>
+  <programme start="20261022053000 +0000" stop="20261022061500 +0000" channel="24Horas.cl">
+    <title>24 horas a la hora</title>
+  </programme>
+  <programme start="20261022061500 +0000" stop="20261022064500 +0000" channel="24Horas.cl">
+    <title>24 horas a la hora</title>
+  </programme>
+  <programme start="20261022064500 +0000" stop="20261022073000 +0000" channel="24Horas.cl">
+    <title>24 horas a la hora</title>
+  </programme>
+  <programme start="20261022073000 +0000" stop="20261022080000 +0000" channel="24Horas.cl">
+    <title>24 Horas deportes</title>
+  </programme>
+  <programme start="20261022080000 +0000" stop="20261022083000 +0000" channel="24Horas.cl">
+    <title>Hora 24</title>
+  </programme>
+  <programme start="20261022083000 +0000" stop="20261022090000 +0000" channel="24Horas.cl">
+    <title>La previa</title>
   </programme>
   <programme start="20261020013500 +0000" stop="20261020033000 +0000" channel="ChileVision.cl@SD">
     <title>Fiebre de baile</title>
@@ -2894,17 +2895,11 @@
   <programme start="20261022043000 +0000" stop="20261022053000 +0000" channel="ChileVision.cl@SD">
     <title>Traicionada</title>
   </programme>
-  <programme start="20261019230000 +0000" stop="20261020000500 +0000" channel="mega.cl">
-    <title>Meganoticias Prime</title>
+  <programme start="20261022053000 +0000" stop="20261022083000 +0000" channel="ChileVision.cl@SD">
+    <title>Programación de trasnoche</title>
   </programme>
-  <programme start="20261020000500 +0000" stop="20261020001000 +0000" channel="mega.cl">
-    <title>El tiempo</title>
-  </programme>
-  <programme start="20261020001000 +0000" stop="20261020011000 +0000" channel="mega.cl">
-    <title>Reunión de superados</title>
-  </programme>
-  <programme start="20261020011000 +0000" stop="20261020020000 +0000" channel="mega.cl">
-    <title>Prohibida obsesión</title>
+  <programme start="20261022083000 +0000" stop="20261022090000 +0000" channel="ChileVision.cl@SD">
+    <title>Primera página</title>
   </programme>
   <programme start="20261020020000 +0000" stop="20261020041500 +0000" channel="mega.cl">
     <title>¿Volverías con tu ex? 2</title>
@@ -3002,13 +2997,11 @@
   <programme start="20261022041500 +0000" stop="20261022070000 +0000" channel="mega.cl">
     <title>Dale play</title>
   </programme>
-  <programme start="20261020000000 +0000" stop="20261020020000 +0000" channel="TVChile.cl@SD">
-    <title>24 Tarde</title>
-    <desc>La información más relevante a nivel internacional, nacional y regional.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022070000 +0000" stop="20261022084500 +0000" channel="mega.cl">
+    <title>Meganoticias ahora</title>
+  </programme>
+  <programme start="20261022084500 +0000" stop="20261022110000 +0000" channel="mega.cl">
+    <title>Meganoticias amanece</title>
   </programme>
   <programme start="20261020020000 +0000" stop="20261020030000 +0000" channel="TVChile.cl@SD">
     <title>Chile circular</title>
@@ -3330,14 +3323,37 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261019220000 +0000" stop="20261020000000 +0000" channel="UCVTV.cl">
-    <title>Sígueme</title>
+  <programme start="20261022053000 +0000" stop="20261022060000 +0000" channel="TVChile.cl@SD">
+    <title>Programa pagado</title>
+    <desc>Programa que muestra diversos productos para la venta.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020000000 +0000" stop="20261020010000 +0000" channel="UCVTV.cl">
-    <title>Tipsters</title>
+  <programme start="20261022060000 +0000" stop="20261022070000 +0000" channel="TVChile.cl@SD">
+    <title>Pampa Ilusión</title>
+    <desc>Una apasionada historia donde el amor no respeta tradiciones y suele quebrar con los esquemas de la época, todo ello enmarcado en la salitrera chilena Pampa Ilusión.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020010000 +0000" stop="20261020023000 +0000" channel="UCVTV.cl">
-    <title>Tal cual</title>
+  <programme start="20261022070000 +0000" stop="20261022080000 +0000" channel="TVChile.cl@SD">
+    <title>Aquelarre</title>
+    <desc>Una historia de misterios y amores apasionados que se desarrollan en un mágico ambiente en la zona central de Chile.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261022080000 +0000" stop="20261022094000 +0000" channel="TVChile.cl@SD">
+    <title>24 horas central</title>
+    <desc>La información de mayor importancia internacional, nacional y regional.</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261020023000 +0000" stop="20261020033000 +0000" channel="UCVTV.cl">
     <title>No estoy pa esto</title>
@@ -3510,20 +3526,17 @@
   <programme start="20261022050000 +0000" stop="20261022053000 +0000" channel="UCVTV.cl">
     <title>Pachamama y Putumayo</title>
   </programme>
-  <programme start="20261019230000 +0000" stop="20261019233000 +0000" channel="13C.cl@SD">
-    <title>Vamos mujer</title>
+  <programme start="20261022053000 +0000" stop="20261022070000 +0000" channel="UCVTV.cl">
+    <title>Sígueme</title>
   </programme>
-  <programme start="20261019233000 +0000" stop="20261020000000 +0000" channel="13C.cl@SD">
-    <title>Aerials</title>
+  <programme start="20261022070000 +0000" stop="20261022080000 +0000" channel="UCVTV.cl">
+    <title>Tal cual</title>
   </programme>
-  <programme start="20261020000000 +0000" stop="20261020010000 +0000" channel="13C.cl@SD">
-    <title>Cultura indómita</title>
+  <programme start="20261022080000 +0000" stop="20261022083000 +0000" channel="UCVTV.cl">
+    <title>Pachamama madre tierra</title>
   </programme>
-  <programme start="20261020010000 +0000" stop="20261020013000 +0000" channel="13C.cl@SD">
-    <title>Depto 401</title>
-  </programme>
-  <programme start="20261020013000 +0000" stop="20261020023000 +0000" channel="13C.cl@SD">
-    <title>Only Comparini</title>
+  <programme start="20261022083000 +0000" stop="20261022090000 +0000" channel="UCVTV.cl">
+    <title>Swisslab</title>
   </programme>
   <programme start="20261020023000 +0000" stop="20261020033000 +0000" channel="13C.cl@SD">
     <title>Lugares que hablan</title>
@@ -3705,11 +3718,14 @@
   <programme start="20261022050000 +0000" stop="20261022060000 +0000" channel="13C.cl@SD">
     <title>Cultura indómita</title>
   </programme>
-  <programme start="20261019224100 +0000" stop="20261020015300 +0000" channel="StarChannel.cl@SD">
-    <title>El callejón de las almas perdidas</title>
+  <programme start="20261022060000 +0000" stop="20261022070000 +0000" channel="13C.cl@SD">
+    <title>Recomiendo Chile</title>
   </programme>
-  <programme start="20261020015300 +0000" stop="20261020022700 +0000" channel="StarChannel.cl@SD">
-    <title>Los Simpson</title>
+  <programme start="20261022070000 +0000" stop="20261022080000 +0000" channel="13C.cl@SD">
+    <title>Lugares que hablan</title>
+  </programme>
+  <programme start="20261022080000 +0000" stop="20261022090000 +0000" channel="13C.cl@SD">
+    <title>Cultura indómita</title>
   </programme>
   <programme start="20261020022700 +0000" stop="20261020030000 +0000" channel="StarChannel.cl@SD">
     <title>Los Simpson</title>
@@ -3816,39 +3832,11 @@
   <programme start="20261022030000 +0000" stop="20261022050400 +0000" channel="StarChannel.cl@SD">
     <title>Aguanta la respiración</title>
   </programme>
-  <programme start="20261019230000 +0000" stop="20261019233000 +0000" channel="FunBox.cl@SD">
-    <title>Dr. Pantástico</title>
+  <programme start="20261022050400 +0000" stop="20261022075200 +0000" channel="StarChannel.cl@SD">
+    <title>El más buscado</title>
   </programme>
-  <programme start="20261019233000 +0000" stop="20261020000000 +0000" channel="FunBox.cl@SD">
-    <title>Chuck's Choice</title>
-  </programme>
-  <programme start="20261020002000 +0000" stop="20261020010500 +0000" channel="FunBox.cl@SD">
-    <title>Ink Therapy | E03</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261020010500 +0000" stop="20261020015000 +0000" channel="FunBox.cl@SD">
-    <title>Photo Number 6 | E04</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261020015000 +0000" stop="20261020021500 +0000" channel="FunBox.cl@SD">
-    <title>Wild Spirit 17 | E14</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261020021500 +0000" stop="20261020024000 +0000" channel="FunBox.cl@SD">
-    <title>Going South – Alaska and Bogota | E01</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022075200 +0000" stop="20261022095800 +0000" channel="StarChannel.cl@SD">
+    <title>Queen y Slim: los fugitivos</title>
   </programme>
   <programme start="20261020024000 +0000" stop="20261020033500 +0000" channel="FunBox.cl@SD">
     <title>Drone Wars | E01</title>
@@ -4391,6 +4379,41 @@
   </programme>
   <programme start="20261022045000 +0000" stop="20261022051500 +0000" channel="FunBox.cl@SD">
     <title>The Global Barber 2 – Mark's Barbershop – Picton, Ontario, Canada | E06</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261022051500 +0000" stop="20261022060000 +0000" channel="FunBox.cl@SD">
+    <title>Photo Number 6 | E07</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261022060000 +0000" stop="20261022065500 +0000" channel="FunBox.cl@SD">
+    <title>Going Beyond – Going Beyond: Pattaya And Phai | E04</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261022065500 +0000" stop="20261022074000 +0000" channel="FunBox.cl@SD">
+    <title>Ink Therapy | E03</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261022074000 +0000" stop="20261022083500 +0000" channel="FunBox.cl@SD">
+    <title>In Concert – Mystiki Kompania | E03</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261022083500 +0000" stop="20261022092500 +0000" channel="FunBox.cl@SD">
+    <title>Action Sports World 4 | E16</title>
     <date>20261022</date>
     <audio>
       <stereo>stereo</stereo>
