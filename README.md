@@ -73,11 +73,11 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.0.8** (Android `versionCode 100080000`) | USA lineup + USA guide | Default and only download; installs over every earlier build from Settings → App updates. Categories as a sorted list with category pages, the side player, and the Live Events live-check revamp |
-| Compatibility build | **1.0.7** (Android `versionCode 100070000`) | USA lineup + USA guide | Identical to 1.0.6.1, published so 1.0.4–1.0.6 can see and install it from Settings → App updates |
-| Previous stable | 1.0.6 (Android `versionCode 100000006`) | USA lineup + USA guide | Superseded; kept as a fallback release |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.8 ends Nov 16, 2026 |
-| Next (in source) | **1.0.8** (Android `versionCode 100080000`) | USA lineup + USA guide | Marked as the default build version in source; not yet a published release — the site promotes it only once a complete `v1.0.8` release exists. Categories are shown as a list with the channel count small on the right ([notes](release-notes-1.0.8.md)) |
+| **Stable release** | **1.0.8 V1 Patch** `1.0.8.1` (Android `versionCode 100080001`) | USA lineup + USA guide | Default and only download; installs over every earlier build from Settings → App updates. Same 1.0.8 look plus V1 fixes: animated loading screen, hardened bug detection (patch chain, stream hygiene, guide freshness, library health) |
+| Compatibility build | **1.0.9** (Android `versionCode 100090000`) | USA lineup + USA guide | Identical to 1.0.8.1, published so 1.0.4–1.0.6 can see and install it from Settings → App updates (V1's alias, like 1.0.7 for 1.0.6.1) |
+| Previous stable | **1.0.8** (Android `versionCode 100080000`) | USA lineup + USA guide | Superseded by V1 Patch; installs in place over every earlier build |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.8 V1 ends Nov 19, 2026 |
+| Next (in source) | **1.0.8 V1 Patch** `1.0.8.1` (Android `versionCode 100080001`) | USA lineup + USA guide | Marked as the default build version in source. Sets the V patch series in stone: V2=1.0.8.2, V3=1.0.8.3 … each V increments versionCode by 1 ([notes](release-notes-1.0.8.1.md)) |
 
 The **1.1.0/1.1.1 Encore preview channel is retired**. Its release, installers
 and download links were removed (old release-asset URLs now 404); every
@@ -88,15 +88,36 @@ straight over it because `100060001` is above `100010001` and both APKs share
 the update key.
 
 Versions are `MAJOR.MINOR.PATCH` or `MAJOR.MINOR.PATCH.HOTFIX`: 1.0.6.1 was a
-small stable increment, not a new minor release. Builds shipped before 1.0.6.1
-only understand three-part versions, so the same code was also published as
-**1.0.7** — the alias their updater could see. That mapping is historical: the
-recommended download is now **1.0.8**, and an install already on 1.0.6.1
-skips the alias and takes 1.0.8 from Settings → App updates instead. See
-[`release-notes-1.0.6.1.md`](release-notes-1.0.6.1.md)
-(and its [1.0.7 compatibility note](release-notes-1.0.7.md)),
-[`release-notes-1.0.6.md`](release-notes-1.0.6.md) and
-[`release-notes-1.0.5.md`](release-notes-1.0.5.md).
+small stable increment, not a new minor release; 1.0.8 V1 Patch is **1.0.8.1**
+and uses the same rule — each future V increments the fourth number
+(1.0.8.1, 1.0.8.2 …) and its `versionCode` by one, so every V installs in place
+and orders above the last. Builds shipped before 1.0.6.1 only understand
+three-part versions, so the same code was also published as an alias:
+**1.0.7** for 1.0.6.1, **1.0.9** for 1.0.8.1 (V1), 1.0.10 for V2 … That mapping
+is how an old updater still finds a V patch. See
+[`release-notes-1.0.8.1.md`](release-notes-1.0.8.1.md),
+[`release-notes-1.0.8.md`](release-notes-1.0.8.md),
+[`release-notes-1.0.6.1.md`](release-notes-1.0.6.1.md) and its
+[1.0.7 compatibility note](release-notes-1.0.7.md).
+
+### What 1.0.8 V1 Patch adds on top of 1.0.8
+
+- **More animated loading screen.** The Android and macOS launch splashes now
+  breathe: a gold haze that drifts, a breathing halo around the TV mark, a
+  sweeping shimmer underline, a segmented progress bar with a racing shine, and
+  animated dots that tell the viewer the app is not frozen. All motion is
+  transform/opacity only so it stays smooth on TV hardware.
+- **Better bug detection.** Settings → **Check for bugs** now runs 11 checks
+  (was 7): it still verifies channel list, categories, guide, bundle, refresh,
+  updates and version, but adds **Patch chain** (V ordering that this patch
+  sets in stone: V1=1.0.8.1, V2=1.0.8.2 …), **Stream hygiene** (spaces/malformed
+  URLs that fail on players), **Guide freshness** (window age in days) and
+  **Library health** (empty categories, oversized groups that stress low-memory
+  sticks).
+- **V patch versioning, locked in.** 1.0.8.1 displays as **1.0.8 V1 Patch** —
+  and every follow-up V increments the fourth number (`1.0.8.2` = V2,
+  `1.0.8.3` = V3 …) with alias releases (`1.0.9`, `1.0.10` …) so 1.0.4–1.0.6
+  updaters still find them. No playlist, scraper or guide logic changed.
 
 ### What 1.0.8 added
 
@@ -116,7 +137,8 @@ skips the alias and takes 1.0.8 from Settings → App updates instead. See
   CHECKING or NO SIGNAL, with the checked-live count in the subtitle.
   Two-team matchups show drawn team crests — the team's initials in colours
   derived from its name, so the same team always wears the same badge, fully
-  offline. See [`release-notes-1.0.8.md`](release-notes-1.0.8.md).
+  offline. See [`release-notes-1.0.8.md`](release-notes-1.0.8.md) and the V1
+  follow-up [`release-notes-1.0.8.1.md`](release-notes-1.0.8.1.md).
 
 ### What earlier 1.0.x releases added
 
@@ -158,7 +180,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.8` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
+| Stable target | `1.0.8.1` / **1.0.8 V1 Patch** — USA lineup; every 1.0.4+ build installs it from Settings → App updates (alias `1.0.9` for old updaters) |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
 The macOS regression suite covers startup data delivery, the cable-style guide
@@ -177,7 +199,7 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.0.8` (`versionCode 100080000`) — USA library |
+| Stable build target | `1.0.8.1` — **1.0.8 V1 Patch** (`versionCode 100080001`) — USA library |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 The stable build bundles the USA playlist and guide. Both are built from curated
@@ -206,15 +228,15 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.8 is the current stable release** (`versionCode 100080000`, USA scope).
+**1.0.8 V1 Patch (1.0.8.1) is the current stable release** (`versionCode 100080001`, USA scope; alias `1.0.9` with `100090000` for old updaters).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.0.8 installs over the retired
-1.1.x previews as well. A release is offered only when it is a
+upgrades from Settings → App updates, and 1.0.8 V1 installs over 1.0.8 and the
+retired 1.1.x previews as well. A release is offered only when it is a
 published full release above the installed version with its platform installer
 already attached. The download site promotes only a complete published stable
 release and no longer publishes preview builds.
 
-**Builds below 1.0.8 have an end-of-support date.** 1.0.5/1.0.6 show the
+**Builds below 1.0.8 V1 have an end-of-support date.** 1.0.5/1.0.6 show the
 popup directly and can finish the upgrade from Settings. 1.0.4 has the update
 centre but predates the popup; its Settings still offers the newest release. 1.0.0–1.0.3
 ship no updater at all — the `v1.0.3` tree has neither `AppUpdateManager.kt` nor

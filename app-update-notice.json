@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "enabled": true,
-  "updated_utc": "2026-10-20T00:00:00Z",
+  "updated_utc": "2026-10-20T12:00:00Z",
   "notice_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json",
   "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest",
   "repo_url": "https://github.com/cgyegcvcecvoc/PremiumTV1",
-  "first_warning_utc": "2026-10-17T00:00:00Z",
-  "support_ends_utc": "2026-11-16T23:59:59Z",
+  "first_warning_utc": "2026-10-20T12:00:00Z",
+  "support_ends_utc": "2026-11-19T23:59:59Z",
   "grace_days": 30,
   "rules": [
     {
@@ -20,7 +20,7 @@
       "level": "blocked",
       "title": "This preview is retired — install PremiumTV {newest}",
       "message": "You are on PremiumTV {version}. The 1.1.x preview channel has been removed: its downloads are gone, it receives no more support, and it is not the stable app. Install stable {newest} from the download page. On Android it installs over this preview with no uninstall; on Mac the DMG replaces this copy.",
-      "surprise": "{newest} is the current stable: the category list with its own sort, the side player, and the revamped Live Events tab with live checks.",
+      "surprise": "{newest} is the current stable: the category list with its own sort, the side player, the revamped Live Events tab with live checks, plus the animated loading screen and 11-check bug detection locked in from V1 — every future V patch follows the same simple update.",
       "action_label": "Get {newest}",
       "dismiss_label": "Not now",
       "releases_url": "https://cgyegcvcecvoc.github.io/PremiumTV1/blocked/"
@@ -32,11 +32,11 @@
         "macos"
       ],
       "min_version": "1.0.4",
-      "max_version": "1.0.6",
+      "max_version": "1.0.8",
       "level": "warning",
       "title": "PremiumTV {newest} is ready — you are on {version}",
       "message": "You are on PremiumTV {version}, and a newer stable release is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It downloads once, verifies against the release SHA-256 file, and installs over this build. Support for builds below {newest} ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
-      "surprise": "The newest stable brings the all-new look: categories as a sorted list with their own pages, the side player for watching while you browse, and a Live Events tab that checks which games are still live.",
+      "surprise": "The newest stable brings the all-new look: categories as a sorted list with their own pages, the side player for watching while you browse, a Live Events tab that checks which games are still live, plus the 1.0.8 V1 animated loading screen and hardened bug detection — and every future V patch installs the same way.",
       "action_label": "Update now",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {

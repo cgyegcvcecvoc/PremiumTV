@@ -1,6 +1,12 @@
 package com.premiumtv.app.ui
 
+import androidx.compose.animation.core.EaseInOutCubic
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -9,6 +15,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,16 +36,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.composed
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -296,45 +307,189 @@ fun BrandLogo(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * 1.0.8 V1 Patch loading screen: layered marquee animation that stays light
+ * on TV hardware — a breathing logo, sweeping gold underline, pulsing spinner
+ * orbit and shimmering title. The stream of tips still cycles every 8 s, but
+ * now fades rather than cuts, and the version plaque shows the V patch name.
+ */
 @Composable
 fun LoadingScreen(title: String, detail: String) {
+    val infinite = rememberInfiniteTransition(label = "loading")
+    val logoPulse by infinite.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.06f,
+        animationSpec = infiniteRepeatable(tween(1400, easing = EaseInOutCubic), RepeatMode.Reverse),
+        label = "logoPulse",
+    )
+    val logoGlow by infinite.animateFloat(
+        initialValue = 0.55f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(tween(1400, easing = EaseInOutCubic), RepeatMode.Reverse),
+        label = "logoGlow",
+    )
+    val shimmerShift by infinite.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(tween(2200, easing = EaseInOutCubic), RepeatMode.Restart),
+        label = "shimmer",
+    )
+    val barProgress by infinite.animateFloat(
+        initialValue = 0.08f,
+        targetValue = 0.92f,
+        animationSpec = infiniteRepeatable(tween(1600, easing = EaseInOutCubic), RepeatMode.Reverse),
+        label = "bar",
+    )
+    // Animated ellipsis for the loading title.
+    var dotCount by remember { mutableIntStateOf(0) }
+    LaunchedEffect(Unit) {
+        while (true) { delay(420L); dotCount = (dotCount + 1) % 4 }
+    }
+    val dots = ".".repeat(dotCount)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF070A0F)),
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(Color(0xFF070A0F), Color(0xFF0C1320), Color(0xFF070A0F)),
+                ),
+            ),
     ) {
+        // Subtle drifting gold haze behind the logo — two soft circles that
+        // breathe with the same pulse, cheap to draw on a TV GPU.
+        Canvas(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(420.dp)
+                .alpha(0.12f * logoGlow),
+        ) {
+            drawCircle(
+                color = PremiumGold,
+                radius = size.minDimension * 0.38f * logoPulse,
+                center = Offset(size.width * 0.5f, size.height * 0.42f),
+            )
+            drawCircle(
+                color = PremiumGoldDim,
+                radius = size.minDimension * 0.22f * (1.04f - (logoPulse - 1f)),
+                center = Offset(size.width * 0.5f, size.height * 0.44f),
+            )
+        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(horizontal = 48.dp),
         ) {
-            BrandLogo(modifier = Modifier.size(104.dp))
+            Box(
+                modifier = Modifier.size(112.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                // Outer halo ring that breathes with the logo.
+                Canvas(modifier = Modifier.fillMaxSize().alpha(0.18f * logoGlow)) {
+                    drawCircle(
+                        color = PremiumGold,
+                        radius = size.minDimension * 0.48f * logoPulse,
+                        center = center,
+                        style = Stroke(width = 1.5.dp.toPx()),
+                    )
+                }
+                BrandLogo(modifier = Modifier.size(104.dp).scale(logoPulse).alpha(0.85f + 0.15f * logoGlow))
+            }
             Text(
                 text = "PremiumTV",
                 style = MaterialTheme.typography.headlineMedium,
                 color = PremiumGold,
                 fontWeight = FontWeight.Bold,
-                letterSpacing = 3.sp,
+                letterSpacing = 4.sp,
+            )
+            // Shimmer underline — a thin gold gradient that sweeps endlessly.
+            Box(
+                modifier = Modifier
+                    .width(110.dp)
+                    .height(2.dp)
+                    .background(
+                        Brush.linearGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                PremiumGold.copy(alpha = 0.9f),
+                                Color.Transparent,
+                            ),
+                            start = Offset(x = 110.dp.toPx() * (shimmerShift - 1f), y = 0f),
+                            end = Offset(x = 110.dp.toPx() * shimmerShift, y = 0f),
+                        ),
+                    ),
             )
             Text(
                 text = "Every channel, one guide",
                 style = MaterialTheme.typography.labelMedium,
                 color = MutedText,
-                letterSpacing = 1.5.sp,
+                letterSpacing = 2.sp,
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            CircularProgressIndicator(
-                color = PremiumGold,
-                strokeWidth = 3.dp,
-                modifier = Modifier.size(34.dp),
-            )
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.White,
-            )
+            Spacer(modifier = Modifier.height(6.dp))
+            // Orbit spinner: gold arc with trailing dots around a dim track.
+            Box(modifier = Modifier.size(38.dp), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(
+                    color = PremiumGold,
+                    strokeWidth = 3.dp,
+                    modifier = Modifier.size(38.dp),
+                )
+                Canvas(modifier = Modifier.size(8.dp).alpha(logoGlow)) {
+                    drawCircle(color = PremiumGold, radius = size.minDimension / 2)
+                }
+            }
+            // Thin shimmer loading bar.
+            Box(
+                modifier = Modifier
+                    .width(160.dp)
+                    .height(3.dp)
+                    .background(Color(0x22FFFFFF), RoundedCornerShape(999.dp)),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .fillMaxWidth(barProgress)
+                        .background(PremiumGold, RoundedCornerShape(999.dp)),
+                )
+                // Sweep highlight
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .fillMaxWidth(0.3f)
+                        .background(
+                            Brush.horizontalGradient(
+                                listOf(Color.Transparent, Color.White.copy(alpha = 0.55f), Color.Transparent),
+                                startX = 160.dp.toPx() * (shimmerShift - 0.5f),
+                                endX = 160.dp.toPx() * (shimmerShift + 0.2f),
+                            ),
+                        ),
+                )
+            }
+            // Title with animated ellipsis so the TV never looks frozen.
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    text = title + dots,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                // Tiny pulsing dot cluster beside the title.
+                repeat(3) { index ->
+                    val dotAlpha by infinite.animateFloat(
+                        initialValue = 0.25f,
+                        targetValue = 1f,
+                        animationSpec = infiniteRepeatable(
+                            tween(700, delayMillis = index * 160, easing = EaseInOutCubic),
+                            RepeatMode.Reverse,
+                        ),
+                        label = "dot$index",
+                    )
+                    Canvas(modifier = Modifier.size(4.dp).alpha(dotAlpha)) {
+                        drawCircle(color = PremiumGold, radius = size.minDimension / 2)
+                    }
+                }
+            }
             LoadingTip()
             Text(
                 text = detail,
@@ -344,15 +499,35 @@ fun LoadingScreen(title: String, detail: String) {
             )
         }
         // The build the viewer is waiting on, pinned where a TV puts credits.
-        Text(
-            text = "Version ${BuildConfig.VERSION_NAME}",
-            style = MaterialTheme.typography.labelSmall,
-            color = MutedText,
-            letterSpacing = 1.2.sp,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 26.dp),
-        )
+                .padding(bottom = 22.dp),
+        ) {
+            val displayName = remember(BuildConfig.VERSION_NAME) {
+                // Show V patch name when this is a V release (1.0.8.1 -> 1.0.8 V1).
+                val raw = BuildConfig.VERSION_NAME
+                val parts = raw.split(".")
+                if (parts.size == 4 && parts[3].toIntOrNull() != null && parts[3] != "0") {
+                    "${parts[0]}.${parts[1]}.${parts[2]} V${parts[3]} Patch"
+                } else raw
+            }
+            Text(
+                text = "Version $displayName",
+                style = MaterialTheme.typography.labelSmall,
+                color = PremiumGold.copy(alpha = 0.85f),
+                letterSpacing = 1.4.sp,
+                fontWeight = FontWeight.Medium,
+            )
+            Text(
+                text = "${BuildConfig.VERSION_NAME} · TV build · patched",
+                style = MaterialTheme.typography.labelSmall,
+                color = MutedText.copy(alpha = 0.9f),
+                letterSpacing = 0.8.sp,
+                modifier = Modifier.alpha(0.9f),
+            )
+        }
     }
 }
 

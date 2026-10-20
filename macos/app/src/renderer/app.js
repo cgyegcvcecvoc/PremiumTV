@@ -1468,10 +1468,57 @@
     );
 
     const installed = String(update.currentVersion || appInfo.version || '');
+    // Display V name for patch builds: 1.0.8.1 -> 1.0.8 V1
+    const patchDisplay = (() => {
+      const p = String(installed).split('.');
+      if (p.length === 4 && p[3] !== '0' && Number.isFinite(Number(p[3]))) return `${p[0]}.${p[1]}.${p[2]} V${p[3]}`;
+      return installed;
+    })();
     add(
       'Version',
       installed && meta.version ? 'ok' : 'warn',
-      `Installed ${installed || 'unknown'} · library built for ${meta.version || 'unknown'}.`,
+      `Installed ${installed || 'unknown'}${patchDisplay !== installed ? ` (${patchDisplay})` : ''} · library built for ${meta.version || 'unknown'} · V patches order by fourth number.`,
+    );
+
+    // 1.0.8 V1 Patch: patch chain integrity — each V must raise the fourth number.
+    if (/^\d+\.\d+\.\d+\.\d+$/.test(installed)) {
+      const parts = String(installed).split('.').map(Number);
+      const patchOk = parts.length === 4 && parts[3] >= 1 && parts[3] <= 9999;
+      add(
+        'Patch chain',
+        patchOk ? 'ok' : 'warn',
+        patchOk ? `Patch V${parts[3]} of ${parts[0]}.${parts[1]}.${parts[2]} — chain intact, next V is V${parts[3] + 1}.` : `Patch version ${installed} has an unexpected format.`,
+      );
+    }
+
+    // Stream hygiene: spaces in URLs and malformed logos are common breakage on TVs.
+    const spacedUrls = channels.filter((c) => c && c.url && String(c.url).includes(' ')).length;
+    const logoProblems = channels.filter((c) => c && c.logo && !/^https?:\/\//i.test(c.logo)).length;
+    add(
+      'Stream hygiene',
+      spacedUrls ? 'warn' : logoProblems ? 'warn' : 'ok',
+      spacedUrls ? `${spacedUrls} stream URL(s) contain spaces — they may fail on some players.` : logoProblems ? `${logoProblems} logo URL(s) look malformed.` : 'All stream and logo URLs are clean.',
+    );
+
+    // Guide freshness: how old is the advertised window start?
+    const windowStart = Number(meta.window_start || meta.windowStart || 0);
+    if (library.guideError) {
+      add('Guide freshness', 'warn', `Guide error hides freshness: ${library.guideError}`);
+    } else if (!windowStart) {
+      add('Guide freshness', 'warn', 'Guide window not reported — freshness unknown.');
+    } else {
+      const ageDays = (Date.now() / 1000 - windowStart) / 86400;
+      const text = ageDays > 14 ? `Guide window is ${ageDays.toFixed(1)} days old — a refresh may be overdue.` : ageDays > 7 ? `Guide window is ${ageDays.toFixed(1)} days old.` : `Guide window is ${ageDays.toFixed(1)} days old — fresh.`;
+      add('Guide freshness', ageDays > 7 ? 'warn' : 'ok', text);
+    }
+
+    // Library health: empty categories and oversized groups stress TV hardware.
+    const emptyGroups = groups.filter((g) => !g || Number(g.count) === 0).length;
+    const hugeGroup = groups.reduce((m, g) => Math.max(m, Number(g && g.count) || 0), 0);
+    add(
+      'Library health',
+      emptyGroups ? 'warn' : hugeGroup > 5000 ? 'warn' : 'ok',
+      emptyGroups ? `${emptyGroups} categories report 0 channels — shelf may be stale.` : hugeGroup > 5000 ? `Largest category holds ${hugeGroup} channels — UI paging is active, but verify on low-memory devices.` : `No empty categories; largest holds ${hugeGroup} channels.`,
     );
 
     if (environment) {
@@ -2144,12 +2191,26 @@
     updateState = appInfo.updates || null;
     renderUpdateNotice();
     const brandTag = document.getElementById('brand-tag');
-    if (brandTag && appInfo.version) brandTag.textContent = appInfo.version;
+    if (brandTag && appInfo.version) {
+      const p = String(appInfo.version).split('.');
+      const display = p.length === 4 && p[3] !== '0' ? `${p[0]}.${p[1]}.${p[2]} V${p[3]}` : appInfo.version;
+      brandTag.textContent = display;
+    }
     // The splash names the build the viewer is waiting on, the same way the
-    // sidebar plaque and Settings do.
+    // sidebar plaque and Settings do. 1.0.8 V1 Patch shows the V plaque.
     if (els.splashVersion && appInfo.version) {
-      els.splashVersion.textContent =
-        `Version ${appInfo.version}`;
+      const p = String(appInfo.version).split('.');
+      const display = p.length === 4 && p[3] !== '0' ? `${p[0]}.${p[1]}.${p[2]} V${p[3]} Patch` : appInfo.version;
+      els.splashVersion.textContent = `Version ${display}`;
+      const plaque = document.getElementById('splash-plaque');
+      if (plaque) {
+        if (p.length === 4 && p[3] !== '0') {
+          plaque.textContent = `Patched · V${p[3]} · ${display}`;
+          plaque.hidden = false;
+        } else {
+          plaque.hidden = true;
+        }
+      }
     }
     await syncSnapshot();
     hideSplash();

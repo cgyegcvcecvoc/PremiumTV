@@ -893,35 +893,118 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
 /* ------------------------------------------------------------- launch splash */
 /* The first thing the window shows: the PremiumTV mark, a spinner and the
    build number pinned at the bottom. app.js adds .done after the first
-   library snapshot; the splash fades out over the painted app. */
+   library snapshot; the splash fades out over the painted app.
+   1.0.8 V1 Patch: layered marquee animation — breathing logo, orbiting
+   dots, sweeping shimmer bar and progress dots that tell the viewer the app
+   is not frozen. All motion is cheap (transform/opacity) for smooth paint. */
 #splash {
   position: fixed; inset: 0; z-index: 70;
   display: flex; align-items: center; justify-content: center;
   background: radial-gradient(120% 90% at 50% 0%, #1a1c22 0%, #0d0e12 60%, #08090c 100%);
   color: var(--gold);
   transition: opacity 0.45s ease, visibility 0.45s ease;
+  overflow: hidden;
 }
 #splash.done { opacity: 0; visibility: hidden; pointer-events: none; }
-.splash-center { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.splash-logo { width: 96px; height: 96px; }
+#splash::before {
+  content: "";
+  position: absolute; inset: -40%;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 18%, rgba(240,192,64,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 25% at 50% 50%, rgba(240,192,64,0.06) 0%, transparent 60%);
+  animation: splash-haze 6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+#splash::after {
+  content: "";
+  position: absolute; left: -60%; top: 52%; width: 220%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(240,192,64,0.55), transparent);
+  animation: splash-sweep 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+.splash-center { display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; z-index: 1; }
+.splash-logo {
+  width: 96px; height: 96px;
+  filter: drop-shadow(0 0 14px rgba(240,192,64,0.35));
+  animation: splash-breathe 2.2s ease-in-out infinite alternate, splash-float 4s ease-in-out infinite;
+}
 .splash-name {
   color: var(--gold); font-size: 26px; font-weight: 700; letter-spacing: 4px;
+  animation: splash-title-in 0.7s ease both;
 }
-.splash-tag { color: var(--muted); font-size: 12px; letter-spacing: 2px; }
+.splash-tag {
+  color: var(--muted); font-size: 12px; letter-spacing: 2px;
+  animation: splash-title-in 0.7s 0.15s ease both;
+}
 .splash-spinner {
   width: 30px; height: 30px; margin-top: 12px;
   border: 3px solid rgba(255, 255, 255, 0.14);
   border-top-color: var(--gold);
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
+  position: relative;
 }
-#splash-status { color: var(--text); font-size: 13px; }
+.splash-spinner::after {
+  content: "";
+  position: absolute; inset: -6px;
+  border: 1px solid rgba(240,192,64,0.18);
+  border-radius: 50%;
+  animation: splash-ring 1.6s ease-in-out infinite alternate;
+}
+#splash-status {
+  color: var(--text); font-size: 13px;
+  min-height: 18px;
+  animation: splash-fade-in 0.5s ease both;
+}
+#splash-status .splash-dots {
+  display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: middle;
+}
+#splash-status .splash-dots span {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); opacity: 0.35;
+  animation: splash-dot 0.9s ease-in-out infinite;
+}
+#splash-status .splash-dots span:nth-child(2) { animation-delay: 0.16s; }
+#splash-status .splash-dots span:nth-child(3) { animation-delay: 0.32s; }
+.splash-bar {
+  width: 140px; height: 3px; margin-top: 4px;
+  background: rgba(255,255,255,0.10); border-radius: 999px; overflow: hidden;
+  position: relative;
+}
+.splash-bar-fill {
+  position: absolute; inset: 0 30% 0 0;
+  background: linear-gradient(90deg, var(--gold), #ffe28a);
+  border-radius: 999px;
+  animation: splash-bar 1.7s ease-in-out infinite alternate;
+}
+.splash-bar-shine {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
+  animation: splash-shine 1.5s ease-in-out infinite;
+}
 .splash-foot {
   position: absolute; left: 0; right: 0; bottom: 18px;
-  text-align: center; color: var(--muted); font-size: 11px; letter-spacing: 1.2px;
+  text-align: center; color: var(--muted); font-size: 11px; letter-spacing: 1.2px; z-index: 1;
 }
+.splash-foot-plaque {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 4px 12px; border-radius: 999px;
+  border: 1px solid rgba(240,192,64,0.22);
+  background: rgba(240,192,64,0.08);
+  color: var(--gold); font-weight: 600; letter-spacing: 0.9px;
+}
+@keyframes splash-haze { from { opacity: 0.85; transform: scale(1); } to { opacity: 1; transform: scale(1.05); } }
+@keyframes splash-sweep { 0% { transform: translateX(-55%); opacity: 0; } 45% { opacity: 1; } 100% { transform: translateX(55%); opacity: 0; } }
+@keyframes splash-breathe { from { transform: scale(1); } to { transform: scale(1.04); } }
+@keyframes splash-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes splash-ring { from { transform: scale(0.96); opacity: 0.55; } to { transform: scale(1.08); opacity: 0.18; } }
+@keyframes splash-title-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes splash-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes splash-dot { 0%, 100% { opacity: 0.25; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.15); } }
+@keyframes splash-bar { from { inset: 0 55% 0 0; } to { inset: 0 15% 0 0; } }
+@keyframes splash-shine { from { transform: translateX(-75%); } to { transform: translateX(75%); } }
 @media (prefers-reduced-motion: reduce) {
-  .splash-spinner { animation-duration: 2.4s; }
+  .splash-spinner, .splash-logo, #splash::before, #splash::after, .splash-bar-fill, .splash-bar-shine, #splash-status .splash-dots span { animation: none; }
   #splash { transition: none; }
 }
 

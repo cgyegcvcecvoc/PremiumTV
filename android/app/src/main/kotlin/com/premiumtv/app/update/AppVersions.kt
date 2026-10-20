@@ -8,6 +8,10 @@ package com.premiumtv.app.update
  * 1.0.6 can be offered 1.0.6.1 without waiting for 1.0.7.  A missing component
  * counts as zero, and only the numeric parts decide whether a release is an
  * update, so a debug APK's `-debug` suffix cannot change the answer.
+ *
+ * 1.0.8 V1 Patch establishes the V series: 1.0.8 V1 = 1.0.8.1 (alias 1.0.9),
+ * V2 = 1.0.8.2 (alias 1.0.10) ... the same compatibility-alias rule as 1.0.7,
+ * with the V name shown in Settings so future Vs order predictably.
  */
 object AppVersions {
 
@@ -17,7 +21,28 @@ object AppVersions {
      * same app code; an install already running the canonical build ignores
      * them instead of downloading the same APK again.
      */
-    private val COMPATIBILITY_ALIASES = mapOf("1.0.7" to "1.0.6.1")
+    private val COMPATIBILITY_ALIASES = mapOf(
+        "1.0.7" to "1.0.6.1",
+        "1.0.9" to "1.0.8.1",
+        "1.0.10" to "1.0.8.2",
+        "1.0.11" to "1.0.8.3",
+        "1.0.12" to "1.0.8.4",
+        "1.0.13" to "1.0.8.5",
+    )
+
+    /** Human-facing V display: 1.0.8.1 -> 1.0.8 V1, 1.0.8 stays 1.0.8. */
+    fun display(version: String): String? {
+        val normalized = normalize(version) ?: return null
+        val parts = normalized.split(".")
+        return if (parts.size == 4) "${parts[0]}.${parts[1]}.${parts[2]} V${parts[3]}" else normalized
+    }
+
+    /** Next V patch after a base: patch("1.0.8", 1) -> "1.0.8.1". */
+    fun patch(base: String, v: Int): String? {
+        val n = normalize(base) ?: return null
+        if (n.split(".").size != 3 || v < 1 || v > 9999) return null
+        return "$n.$v"
+    }
 
     /** The version a compatibility alias stands for, or the version itself. */
     fun canonical(version: String): String? {

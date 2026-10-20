@@ -1,20 +1,25 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.0.8 stable**
-(`versionCode` `100060001`) with the USA lineup: a launch splash with the
-PremiumTV mark and the build's version, channel search, category placeholder
-logos, a **Live Events** tab grouped by sport, automatic multi-server playback,
-and a compact Settings screen with **Force refresh**, **Check for update** and
-**Check for bugs**. The 1.1.x preview channel is retired; its APK is no longer
-published, and 1.0.6.1 installs over an existing 1.1.1 build. The same tree is
-also published as **1.0.7** (`100070000`) — the compatibility twin that the
-updater in 1.0.4–1.0.6 can read, because it only parses three-part versions.
+TV guide inside the APK. The default build target is **1.0.8 V1 Patch**
+`1.0.8.1` (`versionCode` `100080001`) with the USA lineup: an animated launch
+splash (breathing logo, shimmer bar, pulsing dots) that tells the viewer the
+app is not frozen, channel search, category placeholder logos, a **Live Events**
+tab grouped by sport, automatic multi-server playback, and a compact Settings
+screen with **Force refresh**, **Check for update** and an expanded
+**Check for bugs** (11 checks now: patch chain, stream hygiene, guide
+freshness, library health plus the original 7). The 1.1.x preview channel is
+retired; its APK is no longer published, and 1.0.6.1 installs over an existing
+1.1.1 build. The same tree is also published as **1.0.9** (`100090000`) — the
+compatibility twin that the updater in 1.0.4–1.0.6 can read, because it only
+parses three-part versions; it is the V1 alias for 1.0.8.1.
 
 Versions and versionCodes come from one policy, `scripts/release_version.py`.
 Versions are `MAJOR.MINOR.PATCH` or `MAJOR.MINOR.PATCH.HOTFIX`; the code is
 `MAJOR * 100000000 + MINOR * 1000000 + PATCH * 10000 + HOTFIX`, so `1.0.6.1`
-is `100060001` — above 1.0.6 and above the retired preview's `100010001`.
+is `100060001` and `1.0.8.1` (V1) is `100080001` — above 1.0.8 and above the
+retired preview's `100010001`. The V patch series sets the rule in stone:
+V1=1.0.8.1, V2=1.0.8.2, each V adds 1 to the code and orders above the last.
 Only a published full release above the installed version is offered, and a
 stable release that is not above the current stable is converted to a
 pre-release by the release guard. Each published version carries an APK signed
@@ -31,7 +36,7 @@ The same APK works everywhere — navigation is D-pad first, and touch works too
 
 | Build | Source playlist | Source guide | Bundle metadata |
 |---|---|---|---|
-| **1.0.8 stable build target (default)** | `playlists/live/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no optional features |
+| **1.0.8 V1 Patch build target (default)** `1.0.8.1` / alias `1.0.9` | `playlists/live/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no optional features · V1 adds animated splash + hardened bug detection |
 
 Both scopes are converted to JSON Lines by [`tools/build_bundle.py`](tools/build_bundle.py)
 and read with `android.util.JsonReader`. This keeps the large XML source off the
@@ -51,8 +56,9 @@ Channels no public guide schedules show "Nothing listed at this hour" or
 
 ## Screens
 
-- **Launch splash** — the drawn PremiumTV television mark, a gold spinner and
-  `Version <build>` pinned at the bottom while the library loads.
+- **Launch splash** — the drawn PremiumTV television mark with a breathing
+  gold halo, sweeping shimmer bar and pulsing dots, plus `Version 1.0.8 V1 Patch`
+  pinned at the bottom while the library loads (V1 establishes the V patch line).
 - **Channels** — one row per category, in the order the repository publishes
   (`Sports`, `Lifestyle`, `Fox Channels`, `CBS`, `NBC`, …). Each card shows the
   channel logo — or its category's drawn placeholder when it has none — and,
@@ -73,7 +79,7 @@ Channels no public guide schedules show "Nothing listed at this hour" or
   page, and the remote's GUIDE key opens it. Touch drags both ways; tap plays.
   It is enabled by the APK's own bundle (`cable-guide`), never by downloaded
   data, and the published stable 1.0.8 build does not enable it.
-- **Guide (stable 1.0.8)** — "what's on now" across every channel that has
+- **Guide (stable 1.0.8 V1)** — "what's on now" across every channel that has
   listings: current programme with a progress bar, plus what is next. The
   live-game feeds join the list with their matchup as the listing.
 - **Settings** — one compact version card (installed version, scope, counts,
@@ -162,9 +168,9 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Stable build target (USA, 1.0.8, versionCode 100080000)
-python3 tools/build_bundle.py --scope usa --version 1.0.6.1
-./gradlew -PpremiumTvVersion=1.0.6.1 -PpremiumTvVersionCode=100060001 assembleDebug
+# Stable build target (USA, 1.0.8 V1 Patch 1.0.8.1, versionCode 100080001)
+python3 tools/build_bundle.py --scope usa --version 1.0.8.1
+./gradlew -PpremiumTvVersion=1.0.8.1 -PpremiumTvVersionCode=100080001 assembleDebug
 ```
 
 `app/src/main/assets/bundle/` is gitignored: it is derived data and would go
@@ -266,11 +272,13 @@ Physical TV and upstream playback checks remain manual.
 
 ### Stable build publication
 
-Ordinary pushes and manual builds default to stable 1.0.8 (Android code
-100060001). The 1.0.7 compatibility release is built from the same tree by
-publishing `v1.0.7`; nothing in the default build changes. The
-`[preview-build]` switch and `.github/preview-build.txt` were removed when the
-1.1.x preview channel was retired; there is no preview build to dispatch.
+Ordinary pushes and manual builds default to stable 1.0.8 V1 Patch
+`1.0.8.1` (Android code 100080001, alias `1.0.9` with 100090000). The `1.0.9`
+compatibility release is built from the same tree by publishing `v1.0.9`; it is
+the V1 alias that old three-part updaters (1.0.4–1.0.6) can read, like `1.0.7`
+was for `1.0.6.1`. Future Vs add one each time (V2=`1.0.8.2` → alias `1.0.10` …).
+The `[preview-build]` switch and `.github/preview-build.txt` were removed when
+the 1.1.x preview channel was retired; there is no preview build to dispatch.
 Both platform workflows build the stable lineup and retain their normal smoke
 gates. Every release attachment remains exact-SHA guarded, and
 per-platform BUILD-SOURCE manifests record the commit and Actions URL.

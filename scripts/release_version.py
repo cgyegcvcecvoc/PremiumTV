@@ -14,6 +14,12 @@ Small fixes to a stable line use the fourth component (``1.0.6.1``): it sorts
 above ``1.0.6`` but below every later release, so shipping it never consumes a
 minor or patch number the roadmap still needs.
 
+Patch builds after 1.0.8 use the ``V`` naming the download page shows:
+``1.0.8 V1`` is ``1.0.8.1``, ``1.0.8 V2`` is ``1.0.8.2`` and so on.  Each V
+increments the fourth component and its ``versionCode`` by one
+(``1.0.8.1`` → ``100080001``) so every V installs in place over the last one
+and future Vs are ordered by asking this module for ``--code``.
+
 Android also needs a *monotonic* versionCode: Android refuses to install an
 older code over a newer one.  Deriving it from the semantic version means a
 future release cannot accidentally ship a code below the installed app.  The
@@ -66,8 +72,16 @@ ANDROID_CODE_MAX = 2_147_483_647
 
 # Releases that exist only so an updater which cannot read a four-part version
 # can still reach the canonical build.  They carry the same application code.
+# Patch releases after 1.0.8 use the V scheme: 1.0.8 V1 = 1.0.8.1, V2 = 1.0.8.2 …
+# Their Mac aliases consume the next patch numbers (1.0.9, 1.0.10 …) so an old
+# three-part updater still finds them.
 COMPATIBILITY_ALIASES = {
     "1.0.7": "1.0.6.1",
+    "1.0.9": "1.0.8.1",
+    "1.0.10": "1.0.8.2",
+    "1.0.11": "1.0.8.3",
+    "1.0.12": "1.0.8.4",
+    "1.0.13": "1.0.8.5",
 }
 
 
@@ -109,13 +123,37 @@ def canonical_version(value: str) -> str | None:
     return COMPATIBILITY_ALIASES.get(normalized, normalized)
 
 
+def display_version(value: str) -> str | None:
+    """Human-facing V name: 1.0.8.1 -> "1.0.8 V1", 1.0.8 -> "1.0.8"."""
+    normalized = normalize_version(value)
+    if normalized is None:
+        return None
+    parts = parse_version(normalized)
+    if parts is None:
+        return None
+    if len(parts) == 4 and parts[3] != 0:
+        base = f"{parts[0]}.{parts[1]}.{parts[2]}"
+        return f"{base} V{parts[3]}"
+    return normalized
+
+def patch_version(base: str, patch_number: int) -> str | None:
+    """Build the next V patch from a base: patch_version("1.0.8", 1) -> "1.0.8.1"."""
+    normalized = normalize_version(base)
+    if normalized is None or patch_number < 1 or patch_number > 9999:
+        return None
+    parts = parse_version(normalized)
+    if parts is None or len(parts) != 3:
+        return None
+    return f"{parts[0]}.{parts[1]}.{parts[2]}.{patch_number}"
+
+
 def macos_version(value: str) -> str | None:
     """The version the macOS build can carry.
 
     electron-builder and macOS packaging require a three-part version, so a
-    four-part hotfix is built as its compatibility alias (1.0.6.1 -> 1.0.7) and
-    the alias release carries the Mac installers.  Every three-part version is
-    returned unchanged.
+    four-part hotfix is built as its compatibility alias (1.0.6.1 -> 1.0.7,
+    1.0.8.1 -> 1.0.9) and the alias release carries the Mac installers.  Every
+    three-part version is returned unchanged.
     """
     normalized = normalize_version(value)
     if normalized is None:
@@ -264,6 +302,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="print the canonical version behind a compatibility alias")
     parser.add_argument("--macos", metavar="VERSION",
                         help="print the three-part version the Mac build carries")
+    parser.add_argument("--display", metavar="VERSION",
+                        help="print the V display name (1.0.8.1 -> 1.0.8 V1)")
     parser.add_argument("--compare", nargs=2, metavar=("CANDIDATE", "CURRENT"),
                         help="exit 0 when candidate is newer, 1 otherwise")
     parser.add_argument("--tag", help="release tag to guard (with --guard)")
@@ -301,6 +341,14 @@ def main(argv: list[str] | None = None) -> int:
             print(f"error: {args.macos!r} has no three-part macOS build version", file=sys.stderr)
             return 1
         print(version)
+        return 0
+
+    if args.display:
+        displayed = display_version(args.display)
+        if displayed is None:
+            print(f"error: not a PremiumTV version: {args.display!r}", file=sys.stderr)
+            return 1
+        print(displayed)
         return 0
 
     if args.compare:

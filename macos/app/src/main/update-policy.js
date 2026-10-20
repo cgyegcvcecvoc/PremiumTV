@@ -54,8 +54,17 @@ function isNewer(candidate, current) {
  * (1.0.4-1.0.6) can reach the canonical build. They carry the same app code:
  * offering the alias to a Mac already running the canonical version would be
  * a pointless full-size download, so it is skipped for that machine.
+ * Patch releases after 1.0.8 use the V scheme: 1.0.8 V1 = 1.0.8.1 (alias 1.0.9),
+ * V2 = 1.0.8.2 (alias 1.0.10) and so on — the same rule, new numbers.
  */
-const COMPATIBILITY_ALIASES = { '1.0.7': '1.0.6.1' };
+const COMPATIBILITY_ALIASES = {
+  '1.0.7': '1.0.6.1',
+  '1.0.9': '1.0.8.1',
+  '1.0.10': '1.0.8.2',
+  '1.0.11': '1.0.8.3',
+  '1.0.12': '1.0.8.4',
+  '1.0.13': '1.0.8.5',
+};
 
 function canonicalVersion(value) {
   const version = normalizeVersion(value);

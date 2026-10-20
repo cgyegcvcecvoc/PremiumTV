@@ -176,6 +176,11 @@ object Diagnostics {
         // ----------------------------------------------------------- version
         val installed = AppVersions.normalize(installedVersion) ?: installedVersion
         val reported = AppVersions.normalize(update.currentVersion) ?: update.currentVersion
+        val patchDisplay = run {
+            val raw = installed
+            val p = raw.split(".")
+            if (p.size == 4 && p[3].toIntOrNull() != null && p[3] != "0") "${p[0]}.${p[1]}.${p[2]} V${p[3]}" else raw
+        }
         checks += DiagnosticCheck(
             label = "Version",
             status = if (installed == reported && meta.version.isNotBlank()) {
@@ -183,7 +188,82 @@ object Diagnostics {
             } else {
                 DiagnosticStatus.Warning
             },
-            detail = "Installed $installed · library built for ${meta.version.ifBlank { "unknown" }}.",
+            detail = "Installed $installed${if (patchDisplay != installed) " ($patchDisplay)" else ""} · library built for ${meta.version.ifBlank { "unknown" }} · V patches order by fourth number.",
+        )
+
+        // ------------------------------------------------------ patch chain (V series)
+        // Validates the V patch ordering that 1.0.8 V1 establishes. Future Vs
+        // must keep increasing the fourth component; this check flags a build
+        // that pretends to be a patch but broke the monotonic code.
+        val isPatchV = Regex("""^\d+\.\d+\.\d+\.\d+$""").matches(installed)
+        if (isPatchV) {
+            val parts = installed.split(".").mapNotNull { it.toIntOrNull() }
+            val patchOk = parts.size == 4 && parts[3] in 1..9999
+            checks += DiagnosticCheck(
+                label = "Patch chain",
+                status = if (patchOk) DiagnosticStatus.Ok else DiagnosticStatus.Warning,
+                detail = if (patchOk) "Patch V${parts[3]} of ${parts[0]}.${parts[1]}.${parts[2]} — chain intact, next V is V${parts[3] + 1}." else "Patch version $installed has an unexpected format.",
+            )
+        }
+
+        // ------------------------------------------------------ channel hygiene (new 1.0.8 V1)
+        val spacedUrls = library.channels.count { it.url.contains(" ") }
+        val encodedIssues = library.channels.count { it.url.contains("%") && it.url.contains("% ") }
+        val blankLogos = library.channels.count { it.logo.isNotBlank() && !it.logo.startsWith("http") }
+        val hygieneStatus = when {
+            spacedUrls > 0 -> DiagnosticStatus.Warning
+            blankLogos > 0 -> DiagnosticStatus.Warning
+            else -> DiagnosticStatus.Ok
+        }
+        checks += DiagnosticCheck(
+            label = "Stream hygiene",
+            status = hygieneStatus,
+            detail = when {
+                spacedUrls > 0 -> "$spacedUrls stream URL(s) contain spaces — they may fail on some players."
+                blankLogos > 0 -> "$blankLogos logo URL(s) look malformed."
+                else -> "All stream and logo URLs are clean."
+            },
+        )
+
+        // ------------------------------------------------------ guide freshness (new)
+        val windowAgeDays = if (meta.windowStart > 0L) {
+            val nowSec = System.currentTimeMillis() / 1000L
+            (nowSec - meta.windowStart) / 86400.0
+        } else null
+        val freshnessStatus = when {
+            library.guideError != null -> DiagnosticStatus.Warning
+            windowAgeDays != null && windowAgeDays > 14 -> DiagnosticStatus.Warning
+            windowAgeDays != null && windowAgeDays > 7 -> DiagnosticStatus.Warning
+            else -> DiagnosticStatus.Ok
+        }
+        checks += DiagnosticCheck(
+            label = "Guide freshness",
+            status = freshnessStatus,
+            detail = when {
+                library.guideError != null -> "Guide error hides freshness: ${library.guideError}"
+                windowAgeDays == null -> "Guide window not reported — freshness unknown."
+                windowAgeDays > 14 -> String.format("Guide window is %.1f days old — a refresh may be overdue.", windowAgeDays)
+                windowAgeDays > 7 -> String.format("Guide window is %.1f days old.", windowAgeDays)
+                else -> String.format("Guide window is %.1f days old — fresh.", windowAgeDays)
+            },
+        )
+
+        // ------------------------------------------------------ storage & cache (new)
+        val emptyGroups = library.groups.count { it.count == 0 }
+        val hugeGroup = library.groups.maxOfOrNull { it.count } ?: 0
+        val storageStatus = when {
+            emptyGroups > 0 -> DiagnosticStatus.Warning
+            hugeGroup > 5000 -> DiagnosticStatus.Warning
+            else -> DiagnosticStatus.Ok
+        }
+        checks += DiagnosticCheck(
+            label = "Library health",
+            status = storageStatus,
+            detail = when {
+                emptyGroups > 0 -> "$emptyGroups categories report 0 channels — shelf may be stale."
+                hugeGroup > 5000 -> "Largest category holds $hugeGroup channels — UI paging is active, but verify on low-memory devices."
+                else -> "No empty categories; largest holds $hugeGroup channels."
+            },
         )
 
         return DiagnosticsReport(checks)

@@ -4,13 +4,15 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// Release tags can override these properties. The default is the 1.0.8
-// stable USA build. Its derived versionCode (100080000) is above every
-// historical build - including the old 1.1.x preview codes (100010000 and
-// 100010001) - so Android upgrades in place, even from a retired preview.
-// See scripts/release_version.py for the one shared version policy.
-val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.8").get()
-val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("100080000").get().toInt()
+// Release tags can override these properties. The default is the 1.0.8 V1
+// Patch stable USA build (1.0.8.1, V1 of the 1.0.8 line). Its derived
+// versionCode (100080001) is above every historical build - including the old
+// 1.1.x preview codes (100010000 and 100010001) and 1.0.8's 100080000 - so
+// Android upgrades in place, even from a retired preview.
+// See scripts/release_version.py for the one shared version policy: V1 = 1.0.8.1,
+// V2 = 1.0.8.2, and so on.
+val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.0.8.1").get()
+val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("100080001").get().toInt()
 
 // Every published APK must carry the *same* signing identity, otherwise
 // Android refuses to install a newer PremiumTV over the installed one
