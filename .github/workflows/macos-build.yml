@@ -188,7 +188,12 @@ jobs:
             # screenshot of the cable-style grid next to the build log.
             shot=""
             if [ "$BUNDLE_SCOPE" = "all" ]; then shot="$GITHUB_WORKSPACE/macos/build-out/guide-$arch.png"; fi
-            PREMIUMTV_SMOKE_SHOT="$shot" "dist/$arch/PremiumTV.app/Contents/MacOS/PremiumTV" --smoke-test
+            # Tee into the build log: Actions logs live behind a host some
+            # sandboxes cannot reach, and build-out/ is committed back to the
+            # branch - the only channel that makes a smoke failure readable.
+            # pipefail (set above) keeps tee from masking the app's exit code.
+            PREMIUMTV_SMOKE_SHOT="$shot" "dist/$arch/PremiumTV.app/Contents/MacOS/PremiumTV" --smoke-test 2>&1 \
+              | tee -a "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
           done
 
       - name: Checksum the installers

@@ -43,6 +43,28 @@ module.exports = async function smokeTest(window, repository, proxy) {
   // the feed is dead); what must hold is the whole non-crash path: the
   // player opens over the browser, names the channel, reaches the spinner
   // or the honest error card, tucks into the side player and closes back.
+  try {
+    await checkPlayer(window, waitFor);
+  } catch (error) {
+    // Say what the renderer looked like when it failed: the Actions log is
+    // not reachable from every sandbox, so this dump rides the build log.
+    try {
+      const dump = await window.webContents.executeJavaScript(`({
+        playerHidden: document.getElementById('player')?.hidden,
+        name: document.getElementById('player-name')?.textContent,
+        spinner: document.getElementById('player-spinner')?.hidden,
+        error: document.getElementById('player-error')?.hidden,
+        mini: document.getElementById('player')?.classList.contains('mini'),
+        cards: document.querySelectorAll('#channels-grid .card').length,
+      })`);
+      console.log(`PLAYER SMOKE STATE AT FAILURE: ${JSON.stringify(dump)}`);
+    } catch (dumpError) {
+      console.log(`PLAYER SMOKE STATE AT FAILURE: unreadable (${dumpError.message})`);
+    }
+    throw error;
+  }
+
+  async function checkPlayer(window, waitFor) {
   await window.webContents.executeJavaScript("document.querySelector('[data-tab=\"channels\"]').click()");
   await waitFor("document.querySelectorAll('#channels-grid .card').length > 0");
   await window.webContents.executeJavaScript("document.querySelector('#channels-grid .card').click()");
@@ -74,6 +96,7 @@ module.exports = async function smokeTest(window, repository, proxy) {
   console.log(`PLAYER SMOKE PASS: opened '${playerName}', ` +
     `${playerState.errorShown ? 'reached the error card' : 'stream machinery sane'}, ` +
     'side-player flip and close all survived');
+  }
 
   // The Guide tab: the cable-style grid on preview builds, the list on stable.
   const bundled = (await repository.bundledMeta()) || {};
