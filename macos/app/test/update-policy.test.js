@@ -145,3 +145,35 @@ test('the 1.0.7 compatibility alias reaches 1.0.6 but not 1.0.6.1', () => {
   assert.equal(policy.isCompatibilityAlias('1.0.7', '1.0.6'), false);
   assert.equal(policy.isCompatibilityAlias('1.0.6.1', '1.0.6.1'), false);
 });
+
+test('the 1.0.9 alias carries 1.0.8 V1 (1.0.8.1) to 1.0.8 but not to itself', () => {
+  // The real pair: canonical 1.0.8.1 has no Mac installer of its own (the
+  // fixture release('1.0.8.1') would invent one, so strip its assets); the
+  // alias 1.0.9 release carries PremiumTV-1.0.9-mac-*.dmg.
+  const canonical = release('1.0.8.1', { assets: [] });
+  const releases = [canonical, release('1.0.9')];
+
+  const older = policy.selectStableUpdate(releases, '1.0.8', 'arm64');
+  assert.equal(older.update.version, '1.0.9');
+  assert.equal(older.update.assetName, 'PremiumTV-1.0.9-mac-arm64.dmg');
+  assert.equal(older.newestStable, '1.0.9');
+
+  const current = policy.selectStableUpdate(releases, '1.0.8.1', 'arm64');
+  assert.equal(current.update, null);
+  assert.equal(current.newestStable, '1.0.8.1');
+
+  // A Mac that installed the alias reports packaged version 1.0.9 and is
+  // already on the newest stable, not a preview above 1.0.8.1.
+  const aliasInstall = policy.selectStableUpdate(releases, '1.0.9', 'arm64');
+  assert.equal(aliasInstall.update, null);
+  assert.equal(aliasInstall.newestStable, '1.0.8.1');
+  assert.equal(
+    policy.describeState('1.0.9', aliasInstall.newestStable, aliasInstall.update),
+    'PremiumTV 1.0.9 is the newest stable release.',
+  );
+
+  assert.equal(policy.canonicalVersion('1.0.9'), '1.0.8.1');
+  assert.equal(policy.isCompatibilityAlias('1.0.9', '1.0.8.1'), true);
+  assert.equal(policy.isCompatibilityAlias('1.0.9', '1.0.8'), false);
+  assert.equal(policy.isCompatibilityAlias('1.0.8.1', '1.0.8.1'), false);
+});

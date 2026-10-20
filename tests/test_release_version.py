@@ -54,6 +54,25 @@ class VersionParsingTests(unittest.TestCase):
         self.assertIsNone(release_version.macos_version("1.0.9.2"),
                           "a four-part version without an alias cannot be packaged")
 
+    def test_the_1_0_8_v_series_is_locked_in(self):
+        # 1.0.8 V1 is 1.0.8.1: the display name, the Android code, the Mac
+        # packaging version and the compatibility alias are one policy, so
+        # V2/V3 can be derived without another numbering decision.
+        self.assertEqual(release_version.display_version("1.0.8.1"), "1.0.8 V1")
+        self.assertEqual(release_version.display_version("1.0.8.2"), "1.0.8 V2")
+        self.assertEqual(release_version.display_version("1.0.8"), "1.0.8")
+        self.assertEqual(release_version.patch_version("1.0.8", 1), "1.0.8.1")
+        self.assertEqual(release_version.patch_version("1.0.8", 2), "1.0.8.2")
+        self.assertEqual(release_version.canonical_version("1.0.9"), "1.0.8.1")
+        self.assertEqual(release_version.canonical_version("1.0.10"), "1.0.8.2")
+        self.assertEqual(release_version.macos_version("1.0.8.1"), "1.0.9")
+        self.assertTrue(release_version.is_compatibility_alias("1.0.9", "1.0.8.1"))
+        self.assertFalse(release_version.is_compatibility_alias("1.0.9", "1.0.8"))
+        self.assertEqual(release_version.android_version_code("1.0.8"), 100_080_000)
+        self.assertEqual(release_version.android_version_code("1.0.8.1"), 100_080_001)
+        self.assertEqual(release_version.android_version_code("1.0.9"), 100_090_000)
+        self.assertTrue(release_version.is_newer("1.0.8.1", "1.0.8"))
+
     def test_semantic_ordering_is_numeric_not_lexical(self):
         self.assertTrue(release_version.is_newer("1.0.10", "1.0.9"))
         self.assertTrue(release_version.is_newer("1.0.6.1", "1.0.6"))
@@ -162,6 +181,25 @@ class ReleaseGuardTests(unittest.TestCase):
         status, message = release_version.guard("v1.0.6", releases)
         self.assertEqual(status, 2, message)
         self.assertIn("not above the newest stable v1.0.6.1", message)
+
+    def test_the_v1_pair_guards_in_publish_order(self):
+        # The exact sequence the V1 release uses: canonical v1.0.8.1 above
+        # v1.0.8, then its alias v1.0.9 above the canonical, and neither is
+        # demoted by the other's existence afterwards.
+        before = [{"tag_name": "v1.0.8", "draft": False, "prerelease": False}]
+        status, message = release_version.guard("v1.0.8.1", before)
+        self.assertEqual(status, 0, message)
+        self.assertIn("above the previous stable v1.0.8", message)
+        both = before + [
+            {"tag_name": "v1.0.8.1", "draft": False, "prerelease": False},
+            {"tag_name": "v1.0.9", "draft": False, "prerelease": False},
+        ]
+        status, message = release_version.guard("v1.0.9", both)
+        self.assertEqual(status, 0, message)
+        self.assertIn("above the previous stable v1.0.8.1", message)
+        status, message = release_version.guard("v1.0.8.1", both)
+        self.assertEqual(status, 0, message)
+        self.assertIn("above the previous stable v1.0.8", message)
 
     def test_a_newer_stable_release_passes(self):
         releases = [release("v1.0.2"), release("v1.0.3"), release("v1.1.1", prerelease=True)]

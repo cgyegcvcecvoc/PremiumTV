@@ -55,6 +55,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.key.onKeyEvent
 import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -315,6 +316,13 @@ fun BrandLogo(modifier: Modifier = Modifier) {
  */
 @Composable
 fun LoadingScreen(title: String, detail: String) {
+    // Brush offsets are in pixels, and Dp.toPx() only exists inside a Density
+    // receiver (a Canvas draw scope has one; this composable body does not).
+    // Resolve the two animated widths once here instead of calling toPx() in
+    // the Modifier chain below, which does not compile.
+    val density = LocalDensity.current
+    val underlineWidthPx = with(density) { 110.dp.toPx() }
+    val barWidthPx = with(density) { 160.dp.toPx() }
     val infinite = rememberInfiniteTransition(label = "loading")
     val logoPulse by infinite.animateFloat(
         initialValue = 1f,
@@ -416,8 +424,8 @@ fun LoadingScreen(title: String, detail: String) {
                                 PremiumGold.copy(alpha = 0.9f),
                                 Color.Transparent,
                             ),
-                            start = Offset(x = 110.dp.toPx() * (shimmerShift - 1f), y = 0f),
-                            end = Offset(x = 110.dp.toPx() * shimmerShift, y = 0f),
+                            start = Offset(x = underlineWidthPx * (shimmerShift - 1f), y = 0f),
+                            end = Offset(x = underlineWidthPx * shimmerShift, y = 0f),
                         ),
                     ),
             )
@@ -460,8 +468,8 @@ fun LoadingScreen(title: String, detail: String) {
                         .background(
                             Brush.horizontalGradient(
                                 listOf(Color.Transparent, Color.White.copy(alpha = 0.55f), Color.Transparent),
-                                startX = 160.dp.toPx() * (shimmerShift - 0.5f),
-                                endX = 160.dp.toPx() * (shimmerShift + 0.2f),
+                                startX = barWidthPx * (shimmerShift - 0.5f),
+                                endX = barWidthPx * (shimmerShift + 0.2f),
                             ),
                         ),
                 )
