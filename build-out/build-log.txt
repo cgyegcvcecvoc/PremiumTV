@@ -42,28 +42,26 @@ Daemon will be stopped at the end of the build
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so.
 
 > Task :app:writeDebugSigningConfigVersions
+> Task :app:compileDebugKotlin
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics FROM-CACHE
+> Task :app:mergeProjectDexDebug
 
-> Task :app:compileDebugKotlin FAILED
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:766:1 This annotation is not repeatable.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt:137:9 Unresolved reference 'Surface'.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt:150:17 Unresolved reference 'BorderStroke'.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt:153:13 @Composable invocations can only happen from the context of a @Composable function
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt:164:38 Unresolved reference 'aspectRatio'.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt:402:5 Unresolved reference 'Surface'.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt:407:9 @Composable invocations can only happen from the context of a @Composable function
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt:409:35 @Composable invocations can only happen from the context of a @Composable function
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/Sorting.kt:15:34 Enum entry 'Alpha' is uninitialized here.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/Sorting.kt:16:21 Enum entry 'AlphaDesc' is uninitialized here.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/Sorting.kt:17:25 Enum entry 'Biggest' is uninitialized here.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/Sorting.kt:38:31 Enum entry 'Alpha' is uninitialized here.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/Sorting.kt:39:21 Enum entry 'AlphaDesc' is uninitialized here.
-e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/main/kotlin/com/premiumtv/app/ui/Sorting.kt:40:25 Enum entry 'Number' is uninitialized here.
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792493445472.json
+> Task :app:compileDebugUnitTestKotlin
+e: file:///home/runner/work/PremiumTV1/PremiumTV1/android/app/src/test/kotlin/com/premiumtv/app/ui/TeamCrestTest.kt:48:9 Unresolved reference 'assertFalse'.
+
+> Task :app:compileDebugUnitTestKotlin FAILED
+> Task :app:mergeDebugJavaResource
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1792493676460.json
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Execution failed for task ':app:compileDebugKotlin'.
+Execution failed for task ':app:compileDebugUnitTestKotlin'.
 > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
    > Compilation error. See log for more details
 
@@ -73,7 +71,7 @@ Execution failed for task ':app:compileDebugKotlin'.
 > Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugKotlin'.
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugUnitTestKotlin'.
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:130)
 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:282)
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:128)
@@ -272,5 +270,5 @@ Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Compilat
 	... 2 more
 
 
-BUILD FAILED in 29s
-33 actionable tasks: 17 executed, 16 from cache
+BUILD FAILED in 41s
+42 actionable tasks: 25 executed, 17 from cache
