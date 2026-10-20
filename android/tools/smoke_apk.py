@@ -472,7 +472,11 @@ def exercise_player_transitions(meta, context):
     close_side_player()
 
     def browser_back(texts, nodes):
-        return any(re.search(rf"\b{meta['channel_count']} channels\b", text) for text in texts) \
+        # Any "<n> channels" header, not the bundled count: the app may have
+        # refreshed its library from the live feed while the player was up
+        # (the emulator has internet), and the newer count is just as much
+        # "the browser is back" as the baked one.
+        return any(re.search(r"\b\d+ channels\b", text) for text in texts) \
             and not any(text == "⤢ Big screen" for text in texts)
 
     wait_alive(browser_back, f"the browser after closing the player ({context})")
