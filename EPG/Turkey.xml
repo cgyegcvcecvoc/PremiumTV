@@ -141,10 +141,6 @@
     <display-name>Elsharq TV (1080p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/8vmfZb5.png" />
   </channel>
-  <channel id="ERTV.tr@SD">
-    <display-name>ERTV (1080p) [Geo-blocked]</display-name>
-    <icon src="https://i.imgur.com/VDGEPrD.png" />
-  </channel>
   <channel id="ErzurumWebTV.tr@SD">
     <display-name>Erzurum Web TV (720p)</display-name>
     <icon src="https://i.imgur.com/HF7N4Li.png" />
@@ -235,10 +231,6 @@
   <channel id="KentTurk.tr@SD">
     <display-name>Kent Turk (1080p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/FQKPjsm.png" />
-  </channel>
-  <channel id="KocaeliTV.tr@SD">
-    <display-name>Kocaeli TV (1080p)</display-name>
-    <icon src="https://i.imgur.com/LeTP4zq.png" />
   </channel>
   <channel id="KonyaOlayTV.tr@SD">
     <display-name>Konya Olay TV (720p)</display-name>
@@ -562,6 +554,8 @@
     <display-name>TRT Spor Ⓖ</display-name>
     <display-name>TR - TRT SPOR</display-name>
     <display-name>TRTSPOR.tr</display-name>
+    <display-name>TRT Spor</display-name>
+    <display-name>TRT.Spor.al</display-name>
     <icon src="https://iptv-epg.org/images/i9L9a2aa8chOfMMsFhxPmNEYtPieslsHjRhwa56TYz8_jioQUw3gfGSF0_hdDOOa4q6hS46OGxb_MNJCSTvRL-J05GwuNc7Xk36QdMg3-K0" />
   </channel>
   <channel id="premiumtv.turkey.trt_spor_2_g">
@@ -879,6 +873,12 @@
     <category lang="sq">Sporte Të Tjera</category>
     <category lang="sq">Program Informues</category>
     <icon src="https://vimg.ipko.tv/mtcms/7f/d/c/7fdcb5d3-7187-4080-adc9-48c67ea2e7fd.jpg" />
+    <new />
+  </programme>
+  <programme start="20261022150000 +0000" stop="20261022170000 +0000" channel="ASpor.tr@SD">
+    <title>Ana Haber</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/61/c/a/61ca28e0-2866-4938-8bae-e3196604f2c5.jpg" />
     <new />
   </programme>
   <programme start="20261020080000 +0000" stop="20261020093000 +0000" channel="beINSportsHaber.tr@SD">
@@ -1350,8 +1350,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020081500 +0000" stop="20261020090000 +0000" channel="FBTV.tr@SD">
-    <title>EuroLeague Analiz</title>
+  <programme start="20261022143000 +0000" stop="20261022150000 +0000" channel="beINSportsHaber.tr@SD">
+    <title>Trendyol 1. Lig Maç Özetleri</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261022150000 +0000" stop="20261022170000 +0000" channel="beINSportsHaber.tr@SD">
+    <title>beIN Sabah</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020091500 +0000" channel="FBTV.tr@SD">
     <title>Haber</title>
@@ -1551,12 +1562,8 @@
   <programme start="20261022133000 +0000" stop="20261022150000 +0000" channel="FBTV.tr@SD">
     <title>Basketbol: Kadınlar Süper Ligi</title>
   </programme>
-  <programme start="20261020082000 +0000" stop="20261020090000 +0000" channel="ATVAvrupa.tr@SD">
-    <title>ATV Ana Haber Bülteni</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022150000 +0000" stop="20261022154500 +0000" channel="FBTV.tr@SD">
+    <title>Tarih Ve Fenerbahçe</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020110000 +0000" channel="ATVAvrupa.tr@SD">
     <title>Aldatmak</title>
@@ -2338,57 +2345,153 @@
   <programme start="20261022134500 +0000" stop="20261022160000 +0000" channel="KanalD.tr@SD">
     <title>Üç Kız Kardeş</title>
   </programme>
-  <programme start="20261020071000 +0000" stop="20261020090500 +0000" channel="NOWTV.tr@SD">
-    <title>急凍奇俠</title>
-    <desc>元彪及元華是明朝武士, 被冰凍雪封三個半世紀, 兩人在一次偶然機會下被解凍甦醒, 在現代之香港了結他們未完成之決戰。</desc>
+  <programme start="20261020082500 +0000" stop="20261020102000 +0000" channel="NOWTV.tr@SD">
+    <title>新．超人</title>
+    <desc>巨大不明生物「禍威獸」相繼在日本出現, 一般兵器完全沒有作用, 無計可施的日本政府集合對付禍威獸的專家, 成立俗稱「禍特對」的「禍威獸特設對策室專從組」。由組長.田村君男領軍, 帶領作戰策劃負責人.神永新二、非粒子物理學者.滝明久、泛用生物學者.船緣由美, 負責任務。在禍威獸來襲的陰霾下, 一個銀色巨人突然穿越大氣層到來。為了應付此特殊狀況, 分析官.淺見弘子被指派至禍特對, 並與神永成為拍檔。而在淺見的報告上, 她寫著: 「超人 (暫稱) , 身分不明」...</desc>
     <date>20261020</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020090500 +0000" stop="20261020105000 +0000" channel="NOWTV.tr@SD">
-    <title>阿郎的故事</title>
-    <desc>阿郎青年時為出色賽車手, 亞嘉深愛著他。亞嘉臨盆時, 亞郎竟因參加非法賽車, 撞死警察而被捕入獄。嘉母訛稱嬰兒夭折, 強迫嘉赴美。十年後, 在一次單車比賽中, 波仔意外摔倒, 令亞嘉與亞郎碰個照面。亞嘉決取回波仔撫養權。亞郎決意參加大賽車, 企奪回芳心及波仔...</desc>
+  <programme start="20261020102000 +0000" stop="20261020120500 +0000" channel="NOWTV.tr@SD">
+    <title>金雞</title>
+    <desc>一個風雨交加的晚上, 四十歲的阿金在銀行櫃員機中心被賊人阿邦持刀行劫, 但阿金戶口結餘只得$98.2, 無法提款；阿金一生色情事業, 更與香港廿年來的起落息息相關, 時至現今節衣縮食的關頭下, 阿金仍與香港共渡時艱, 投身「一樓一」自僱行列, 與香港市民同唱「獅子山下」﹗</desc>
     <date>20261020</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020105000 +0000" stop="20261020122500 +0000" channel="NOWTV.tr@SD">
-    <title>靈幻先生</title>
-    <desc>茅山明乃一為學道不成之半桶水茅山道士, 法術不精, 經常帶同大寶、細寶二鬼騙吃騙喝。在為富豪譚百萬驅鬼之時遇到厲鬼, 連夜逃走, 卻闖進了寂靜之村。當時村莊遭受邪祟馬賊騷擾, 戒備森嚴。茅山明被保安隊長誤作馬賊抓獲, 幸虧道長九叔及時出現才逃過一劫, 但因一場紛爭, 大寶細寶被九叔收去。九叔表示人鬼不能同途合作搵食, 否則徒費精力, 茅山明必須與二鬼分道揚鑣, 然而他們分手未幾, 大寶卻被擅長法術的馬賊擄去...</desc>
+  <programme start="20261020120500 +0000" stop="20261020142500 +0000" channel="NOWTV.tr@SD">
+    <title>與神同行：終極審判</title>
+    <desc>地獄三使者(河正宇、朱智勛、金香起 飾) 引渡千年最後一個貴人金秀鴻(金東旭 飾)展開七七四十九天審判, 準備四人一起投胎轉世之際, 鎮守家宅的家神「成造神」(馬東石 飾)為搶救爺爺亡魂, 不惜挑戰一切規則, 翻轉陽間, 觸怒了閻羅王(李政宰 飾)。地獄三使者為了重整陽間秩序, 一方面帶領秀鴻繼續地獄審判；另一方面於陽間與成造神正面交鋒! 陰間與陽間翻天覆地, 意外驚醒了所有人的前世記憶!因果迴旋之下, 各大神祇將在49日狹路重逢, 迎戰終極審判...</desc>
     <date>20261020</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020122500 +0000" stop="20261020141500 +0000" channel="NOWTV.tr@SD">
-    <title>錦繡前程</title>
-    <desc>典型都市小男人愛情和友情喜劇。榮任職保險經紀, 事業、愛情失意, 遂厚顏無恥地投靠初戀女友Elaine, 並向老友生借錢到澳門一博, 卻敗北而回, 此際, 兩人遇上當黑市情人的Winnie, 且向她展開追求, 榮誤打誤撞獲Bosco賞識, 後來見利忘義賣掉生管理的老人院, 最後, 兩人從不同處境中學曉事業與愛情的真諦。</desc>
+  <programme start="20261020142500 +0000" stop="20261020143000 +0000" channel="NOWTV.tr@SD">
+    <title>世味天下</title>
+    <desc>「世味天下」每日從全球報章中揀選特別的時事報道, 有趣的花邊新聞, 助你擴闊視野。</desc>
     <date>20261020</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020141500 +0000" stop="20261020155500 +0000" channel="NOWTV.tr@SD">
-    <title>洗黑錢</title>
-    <desc>律師David為犯罪集團攜帶一筆鉅額美金抵港, 交予名律師周偉生。豈料David抵港時, 黑錢即遭劫, 其助手傑仔被殺, 周下屬張文慧律師於劫案現場被脅持, 周懷疑慧吞失款, 派人追殺。周女友李佩華律師得知周為非作歹, 準備報警, 周派殺手行刺華, 並嫁禍慧, 慧被通緝, 唯有與龍聯手對付周。其後遇上David, 卻遭周埋伏, David找慧與龍協助...</desc>
+  <programme start="20261020143000 +0000" stop="20261020145500 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
     <date>20261020</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020155500 +0000" stop="20261020174000 +0000" channel="NOWTV.tr@SD">
-    <title>暗戰2</title>
-    <desc>高級督察何尚生被一名身份神秘的罪犯伊健點名挑戰, 並提出玩一個「取贖金遊戲」, 兩人初步交手, 旗鼓相當, 最後被伊健逃脫先贏一局。原來伊健正計劃勒索保險公司鉅額贖款, 並要保險公司高層Teresa親身運送。尚生與伊健在互相追逐的過程中, 猜度對方的下一步行動, 在既欣賞對方之餘又處敵對境況, 尚生亦逐漸了解伊健策劃整件事的背後動機...</desc>
+  <programme start="20261020145500 +0000" stop="20261020150000 +0000" channel="NOWTV.tr@SD">
+    <title>世味天下</title>
+    <desc>「世味天下」每日從全球報章中揀選特別的時事報道, 有趣的花邊新聞, 助你擴闊視野。</desc>
     <date>20261020</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020174000 +0000" stop="20261020192500 +0000" channel="NOWTV.tr@SD">
-    <title>人嚇人</title>
-    <desc>在紙紮店工作的朱宏利道術不精, 自小由道士二叔公帶大, 並有一位指腹為婚的未婚妻阿雲, 他因不想拖累未婚妻, 而經常冷淡對待她。朱宏利與鎮中望族馬家的後代馬麟祥乃好朋友, 馬麟祥敗光家財, 離鄉出走, 最後卻變成一具屍體回來, 而同時一名身懷六甲, 自稱是馬麟祥妻子的女子, 與幾名男子一同回鄉, 朱宏利心中有懷疑, 決定暗中調查...</desc>
+  <programme start="20261020150000 +0000" stop="20261020153000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020153000 +0000" stop="20261020160000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020160000 +0000" stop="20261020161600 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020161600 +0000" stop="20261020163000 +0000" channel="NOWTV.tr@SD">
+    <title>杏林在線</title>
+    <desc>「杏林在線」精選醫學專題, 邀請醫生討論及分析各類型醫學報告。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020163000 +0000" stop="20261020165000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020165000 +0000" stop="20261020170000 +0000" channel="NOWTV.tr@SD">
+    <title>國際兩岸評論</title>
+    <desc>世界局勢風雲變幻, 兩岸四地互動頻繁, 每個動作息息相關。「國際兩岸評論」, 有不同專家由淺入深, 助你掌握發展脈絡, 解構大趨勢, 洞察新領域。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020170000 +0000" stop="20261020172500 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020172500 +0000" stop="20261020173000 +0000" channel="NOWTV.tr@SD">
+    <title>世味天下</title>
+    <desc>「世味天下」每日從全球報章中揀選特別的時事報道, 有趣的花邊新聞, 助你擴闊視野。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020173000 +0000" stop="20261020175500 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020175500 +0000" stop="20261020180000 +0000" channel="NOWTV.tr@SD">
+    <title>世味天下</title>
+    <desc>「世味天下」每日從全球報章中揀選特別的時事報道, 有趣的花邊新聞, 助你擴闊視野。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020180000 +0000" stop="20261020183000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020183000 +0000" stop="20261020190000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261020</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261020190000 +0000" stop="20261020192500 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
     <date>20261020</date>
     <audio>
       <stereo>stereo</stereo>
@@ -2986,23 +3089,29 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020084000 +0000" channel="NTV.tr@SD">
-    <title>Haber Merkezi</title>
+  <programme start="20261022143000 +0000" stop="20261022145500 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020084000 +0000" stop="20261020084500 +0000" channel="NTV.tr@SD">
-    <title>Piyasalar</title>
+  <programme start="20261022145500 +0000" stop="20261022150000 +0000" channel="NOWTV.tr@SD">
+    <title>世味天下</title>
+    <desc>「世味天下」每日從全球報章中揀選特別的時事報道, 有趣的花邊新聞, 助你擴闊視野。</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020084500 +0000" stop="20261020085500 +0000" channel="NTV.tr@SD">
-    <title>Spor</title>
-  </programme>
-  <programme start="20261020085500 +0000" stop="20261020090000 +0000" channel="NTV.tr@SD">
-    <title>Hava Durumu</title>
-  </programme>
-  <programme start="20261020090000 +0000" stop="20261020090500 +0000" channel="NTV.tr@SD">
-    <title>Haber Merkezi</title>
-  </programme>
-  <programme start="20261020090500 +0000" stop="20261020091000 +0000" channel="NTV.tr@SD">
-    <title>Piyasalar</title>
+  <programme start="20261022150000 +0000" stop="20261022153000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261020091000 +0000" stop="20261020091500 +0000" channel="NTV.tr@SD">
     <title>Nasıl Azaltırım?</title>
@@ -3529,6 +3638,18 @@
   <programme start="20261022140000 +0000" stop="20261022143000 +0000" channel="NTV.tr@SD">
     <title>Günün İçinden</title>
   </programme>
+  <programme start="20261022143000 +0000" stop="20261022143500 +0000" channel="NTV.tr@SD">
+    <title>Paranın Nabzı</title>
+  </programme>
+  <programme start="20261022143500 +0000" stop="20261022145500 +0000" channel="NTV.tr@SD">
+    <title>Gece Gündüz</title>
+  </programme>
+  <programme start="20261022145500 +0000" stop="20261022150000 +0000" channel="NTV.tr@SD">
+    <title>Hava Durumu</title>
+  </programme>
+  <programme start="20261022150000 +0000" stop="20261022153500 +0000" channel="NTV.tr@SD">
+    <title>Günün İçinden</title>
+  </programme>
   <programme start="20261020080000 +0000" stop="20261020103000 +0000" channel="PowerTurkTV.tr@SD">
     <title>Hit</title>
     <category lang="sq">Dramë</category>
@@ -3783,21 +3904,17 @@
     <date>1984</date>
     <icon src="https://vimg.ipko.tv/mtcms/d7/8/3/d7839010-75c3-43e2-a3fa-252e64a177f1.jpg" />
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020083000 +0000" channel="PowerTV.tr@SD">
-    <title>Filmy Power</title>
-    <desc>The host sheds light on all the latest news and happenings surrounding well-known actors and renowned celebrities from the film industry.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022143000 +0000" stop="20261022150000 +0000" channel="PowerTurkTV.tr@SD">
+    <title>Hit</title>
+    <category lang="sq">Dramë</category>
+    <date>1984</date>
+    <icon src="https://vimg.ipko.tv/mtcms/d7/8/3/d7839010-75c3-43e2-a3fa-252e64a177f1.jpg" />
   </programme>
-  <programme start="20261020083000 +0000" stop="20261020090000 +0000" channel="PowerTV.tr@SD">
-    <title>Namaste India</title>
-    <desc>The host presents the latest updates pertaining to the political and socio-economic matters and developments from all over India.</desc>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022150000 +0000" stop="20261022152500 +0000" channel="PowerTurkTV.tr@SD">
+    <title>40 X Pop</title>
+    <category lang="sq">Emision Argëtues</category>
+    <category lang="sq">Muzike</category>
+    <icon src="https://vimg.ipko.tv/mtcms/c7/f/c/c7fca52d-8e97-4d71-af0b-b3e0b5603a64.jpg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020093000 +0000" channel="PowerTV.tr@SD">
     <title>Sakhath Viral</title>
@@ -4111,15 +4228,6 @@
   </programme>
   <programme start="20261022120000 +0000" stop="20261022160000 +0000" channel="StarTV.tr@SD">
     <title>Didem Arslan Yılmaz'la Vazgeçme</title>
-  </programme>
-  <programme start="20261020081500 +0000" stop="20261020083000 +0000" channel="TVDen.tr@SD">
-    <title>ntv Wirtschaft</title>
-  </programme>
-  <programme start="20261020083000 +0000" stop="20261020084000 +0000" channel="TVDen.tr@SD">
-    <title>Nachrichten</title>
-  </programme>
-  <programme start="20261020084000 +0000" stop="20261020090000 +0000" channel="TVDen.tr@SD">
-    <title>ntv Wirtschaft</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020091500 +0000" channel="TVDen.tr@SD">
     <title>Nachrichten</title>
@@ -4490,9 +4598,11 @@
   <programme start="20261022141500 +0000" stop="20261022143000 +0000" channel="TVDen.tr@SD">
     <title>ntv Wirtschaft</title>
   </programme>
-  <programme start="20261020060000 +0000" stop="20261020090000 +0000" channel="TV8.tr@SD">
-    <title>Gel Konuşalım</title>
-    <new />
+  <programme start="20261022143000 +0000" stop="20261022150000 +0000" channel="TVDen.tr@SD">
+    <title>News Spezial</title>
+  </programme>
+  <programme start="20261022150000 +0000" stop="20261022151500 +0000" channel="TVDen.tr@SD">
+    <title>Nachrichten</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020130000 +0000" channel="TV8.tr@SD">
     <title>MasterChef Türkiye</title>
@@ -4567,10 +4677,6 @@
   </programme>
   <programme start="20261022130000 +0000" stop="20261022160000 +0000" channel="TV8.tr@SD">
     <title>Zuhal Topal'la Yemekteyiz</title>
-  </programme>
-  <programme start="20261020070000 +0000" stop="20261020090000 +0000" channel="UlkeTV.tr@SD">
-    <title>Ülke’de Hayat</title>
-    <icon src="https://vimg.ipko.tv/mtcms/dev/0b/f/f/0bff2b48-588e-4a3a-b69d-943d1ea62a11.jpeg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020094500 +0000" channel="UlkeTV.tr@SD">
     <title>Ülke’de Bugün</title>
@@ -4758,12 +4864,6 @@
     <title>Ülke’nin Manşeti</title>
     <icon src="https://vimg.ipko.tv/mtcms/dev/0b/f/f/0bff2b48-588e-4a3a-b69d-943d1ea62a11.jpeg" />
   </programme>
-  <programme start="20261020070000 +0000" stop="20261020084500 +0000" channel="VavTV.tr@SD">
-    <title>Kendini Bilmek</title>
-  </programme>
-  <programme start="20261020084500 +0000" stop="20261020090000 +0000" channel="VavTV.tr@SD">
-    <title>Hikayelerle 40 Hadis</title>
-  </programme>
   <programme start="20261020090000 +0000" stop="20261020100000 +0000" channel="VavTV.tr@SD">
     <title>Vaktin Nakti</title>
   </programme>
@@ -4908,8 +5008,8 @@
   <programme start="20261022130000 +0000" stop="20261022150000 +0000" channel="VavTV.tr@SD">
     <title>Son Davet</title>
   </programme>
-  <programme start="20261020072000 +0000" stop="20261020085500 +0000" channel="ZarokTV.tr@SD">
-    <title>Doctors In Love And War</title>
+  <programme start="20261022150000 +0000" stop="20261022160000 +0000" channel="VavTV.tr@SD">
+    <title>Mevlid Belgeseli</title>
   </programme>
   <programme start="20261020085500 +0000" stop="20261020092500 +0000" channel="ZarokTV.tr@SD">
     <title>The Scoop</title>
@@ -5107,6 +5207,9 @@
   </programme>
   <programme start="20261022124500 +0000" stop="20261022143000 +0000" channel="360.tr@SD">
     <title>Hakanlar Çarpışıyor</title>
+  </programme>
+  <programme start="20261022143000 +0000" stop="20261022160000 +0000" channel="360.tr@SD">
+    <title>Seksenler</title>
   </programme>
   <programme start="20261020080000 +0000" stop="20261020100000 +0000" channel="AHaber.tr@SD">
     <title>Melih Altınok ile Sebep Sonuç</title>
@@ -5477,17 +5580,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020083000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Efsanelerin Ayak İzleri</title>
+  <programme start="20261022145500 +0000" stop="20261022150000 +0000" channel="AHaber.tr@SD">
+    <title>Hava Durumu</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261020083000 +0000" stop="20261020084000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Derya Kayaş Belgesel Haberleri</title>
-  </programme>
-  <programme start="20261020084000 +0000" stop="20261020085500 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Yeşil Hat</title>
-  </programme>
-  <programme start="20261020085500 +0000" stop="20261020090000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Kuş Bakışı</title>
+  <programme start="20261022150000 +0000" stop="20261022160000 +0000" channel="AHaber.tr@SD">
+    <title>Ajans Bugün</title>
+    <date>20261022</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020092500 +0000" channel="FlashHaberTV.tr@SD">
     <title>Donanım Günlüğü</title>
@@ -6158,8 +6263,11 @@
   <programme start="20261022142500 +0000" stop="20261022145500 +0000" channel="FlashHaberTV.tr@SD">
     <title>Yeşil Hat</title>
   </programme>
-  <programme start="20261020070000 +0000" stop="20261020090000 +0000" channel="HaberGlobal.tr@SD">
-    <title>Yeni Gün</title>
+  <programme start="20261022145500 +0000" stop="20261022150000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Kuş Bakışı</title>
+  </programme>
+  <programme start="20261022150000 +0000" stop="20261022151500 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Oto Flash</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020120000 +0000" channel="HaberGlobal.tr@SD">
     <title>Gündem</title>
@@ -6253,17 +6361,6 @@
   </programme>
   <programme start="20261022140000 +0000" stop="20261022160000 +0000" channel="HaberGlobal.tr@SD">
     <title>Günün Nabzı</title>
-  </programme>
-  <programme start="20261020070000 +0000" stop="20261020084500 +0000" channel="HaberturkTV.tr@SD">
-    <title>Para Gündem</title>
-    <category lang="sq">Program Informues</category>
-    <icon src="https://vimg.ipko.tv/mtcms/27/7/c/277c5b03-68c6-4b29-92d8-6d3d8ff0303e.jpg" />
-  </programme>
-  <programme start="20261020084500 +0000" stop="20261020090000 +0000" channel="HaberturkTV.tr@SD">
-    <title>Spor Bülteni</title>
-    <category lang="sq">Sporte Të Tjera</category>
-    <category lang="sq">Serial</category>
-    <icon src="https://vimg.ipko.tv/mtcms/17/6/a/176af71d-d735-47eb-af6c-58767f439504.jpg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020110000 +0000" channel="HaberturkTV.tr@SD">
     <title>Gün Ortası</title>
@@ -6443,6 +6540,11 @@
     <category lang="sq">Program Informues</category>
     <icon src="https://vimg.ipko.tv/mtcms/48/1/4/4814a748-69da-4f64-8ed6-3e9af4aacfaf.jpg" />
   </programme>
+  <programme start="20261022150000 +0000" stop="20261022160000 +0000" channel="HaberturkTV.tr@SD">
+    <title>Akşam Haberleri</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/98/5/4/9854ca33-dbcd-4166-9680-e5b616583252.jpg" />
+  </programme>
   <programme start="20261020080000 +0000" stop="20261020100000 +0000" channel="HalkTV.tr@SD">
     <title>Neden Sonuç</title>
     <category lang="sq">Program Informues</category>
@@ -6593,11 +6695,10 @@
     <category lang="sq">Program Informues</category>
     <icon src="https://vimg.ipko.tv/mtcms/13/a/3/13a3fe88-d644-442d-94be-1bbc49ded302.jpg" />
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020083000 +0000" channel="TRTArabi.tr@SD">
-    <title>News</title>
-  </programme>
-  <programme start="20261020083000 +0000" stop="20261020090000 +0000" channel="TRTArabi.tr@SD">
-    <title>Al Malab</title>
+  <programme start="20261022150000 +0000" stop="20261022170000 +0000" channel="HalkTV.tr@SD">
+    <title>Ana Haber Halk TV</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/c6/e/e/c6ee8094-dc8e-4c4f-90dd-9b0fea14ecf6.jpg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020093000 +0000" channel="TRTArabi.tr@SD">
     <title>Wa Lana Waqfa</title>
@@ -6914,8 +7015,11 @@
   <programme start="20261022140000 +0000" stop="20261022145000 +0000" channel="TRTArabi.tr@SD">
     <title>News</title>
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020090000 +0000" channel="TRTWorld.tr@SD">
-    <title>Newshour</title>
+  <programme start="20261022145000 +0000" stop="20261022150000 +0000" channel="TRTArabi.tr@SD">
+    <title>Müzelerin Yıldızları</title>
+  </programme>
+  <programme start="20261022150000 +0000" stop="20261022153000 +0000" channel="TRTArabi.tr@SD">
+    <title>News</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020093000 +0000" channel="TRTWorld.tr@SD">
     <title>Africa Matters</title>
@@ -7220,8 +7324,11 @@
   <programme start="20261022140000 +0000" stop="20261022143000 +0000" channel="TRTWorld.tr@SD">
     <title>News</title>
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020090000 +0000" channel="TurkHaberTV.tr@SD">
-    <title>Haber Bülteni</title>
+  <programme start="20261022143000 +0000" stop="20261022150000 +0000" channel="TRTWorld.tr@SD">
+    <title>Across The Balkans</title>
+  </programme>
+  <programme start="20261022150000 +0000" stop="20261022153000 +0000" channel="TRTWorld.tr@SD">
+    <title>Roundtable</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020100000 +0000" channel="TurkHaberTV.tr@SD">
     <title>Haber Bülteni</title>
@@ -7373,10 +7480,8 @@
   <programme start="20261022140000 +0000" stop="20261022150000 +0000" channel="TurkHaberTV.tr@SD">
     <title>Haber Bülteni</title>
   </programme>
-  <programme start="20261020040000 +0000" stop="20261020090000 +0000" channel="DreamTurk.tr@SD">
-    <title>Dream Türk En İyiler</title>
-    <category lang="sq">Të Tjera</category>
-    <icon src="https://vimg.ipko.tv/mtcms/ae/9/2/ae926fb8-b73e-4940-a05a-0ddef149bd9b.jpg" />
+  <programme start="20261022150000 +0000" stop="20261022160000 +0000" channel="TurkHaberTV.tr@SD">
+    <title>Beslenme Rehberi</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020091500 +0000" channel="DreamTurk.tr@SD">
     <title>DREAM 10</title>
@@ -7521,11 +7626,10 @@
     <category lang="sq">Muzike</category>
     <icon src="https://vimg.ipko.tv/mtcms/0a/6/6/0a661dfc-f2ca-4e4c-9e6e-4b3988036a9b.jpg" />
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020084500 +0000" channel="TRTMuzik.tr@SD">
-    <title>Nağmeler</title>
-    <category lang="sq">Muzikë</category>
-    <category lang="sq">Muzike</category>
-    <icon src="https://vimg.ipko.tv/mtcms/cf/8/c/cf8cadb0-78a0-4b13-b184-bb7e05c7ad71.jpg" />
+  <programme start="20261022143000 +0000" stop="20261022160000 +0000" channel="DreamTurk.tr@SD">
+    <title>Dream Türk En İyiler</title>
+    <category lang="sq">Të Tjera</category>
+    <icon src="https://vimg.ipko.tv/mtcms/ae/9/2/ae926fb8-b73e-4940-a05a-0ddef149bd9b.jpg" />
   </programme>
   <programme start="20261020084500 +0000" stop="20261020094500 +0000" channel="TRTMuzik.tr@SD">
     <title>Ezgiler</title>
@@ -7890,6 +7994,12 @@
     <category lang="sq">Muzike</category>
     <icon src="https://vimg.ipko.tv/mtcms/1c/e/5/1ce559cc-04e7-4e04-af61-bbf21123f01c.jpg" />
   </programme>
+  <programme start="20261022150000 +0000" stop="20261022160000 +0000" channel="TRTMuzik.tr@SD">
+    <title>Klipark</title>
+    <category lang="sq">Muzikë</category>
+    <category lang="sq">Muzike</category>
+    <icon src="https://vimg.ipko.tv/mtcms/ed/a/c/edac488d-75c3-473e-8bb0-fea349b47ff4.jpg" />
+  </programme>
   <programme start="20261020101500 +0000" stop="20261020111500 +0000" channel="TRT1.tr@SD">
     <title>Seksenler</title>
     <category lang="sq">Komedi</category>
@@ -8072,19 +8182,11 @@
     <date>2021</date>
     <icon src="https://vimg.ipko.tv/mtcms/cb/4/c/cb4c48ab-21b0-4c2b-8a91-2628a3b52ec7.jpg" />
   </programme>
-  <programme start="20261020074500 +0000" stop="20261020083000 +0000" channel="TRT2.tr@SD">
-    <title>Kilit Taşı</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261020083000 +0000" stop="20261020090000 +0000" channel="TRT2.tr@SD">
-    <title>Hatır</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022143000 +0000" stop="20261022155500 +0000" channel="TRT1.tr@SD">
+    <title>Lingo Türkiye</title>
+    <category lang="sq">Game Show</category>
+    <category lang="sq">Serial</category>
+    <icon src="https://vimg.ipko.tv/mtcms/4a/5/8/4a58d5fa-0e5c-4b20-9395-ad144d68b1c4.jpg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020093000 +0000" channel="TRT2.tr@SD">
     <title>Divanyolu</title>
@@ -8559,6 +8661,10 @@
     <title>Günün İçinden</title>
     <new />
   </programme>
+  <programme start="20261022150000 +0000" stop="20261022155500 +0000" channel="TRTHaber.tr@SD">
+    <title>Günün İçinden</title>
+    <new />
+  </programme>
   <programme start="20261020080500 +0000" stop="20261020094000 +0000" channel="TRTKurdi.tr@SD">
     <title>Türkülerimiz (Stranbêj)</title>
   </programme>
@@ -8616,21 +8722,215 @@
   <programme start="20261021023000 +0000" stop="20261022040000 +0000" channel="TRTKurdi.tr@SD">
     <title>Kuran Öğreniyorum (Quranê Hîn Dibim)</title>
   </programme>
-  <programme start="20261020034500 +0000" stop="20261021050000 +0000" channel="TRTSpor.tr">
-    <title>UEFA Şampiyonlar Ligi Goller</title>
+  <programme start="20261020080000 +0000" stop="20261020093000 +0000" channel="TRTSpor.tr">
+    <title>Spor Manşet</title>
+    <category lang="sq">Sporte Të Tjera</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/34/2/2/34221f0a-4a0e-4a1a-a9d5-0dd0654f1550.jpg" />
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020083000 +0000" channel="TRTTurk.tr@SD">
-    <title>Şef Olacak Çocuk</title>
-    <category lang="sq">Emision Gatimi</category>
-    <category lang="sq">Serial</category>
-    <date>2024</date>
-    <icon src="https://vimg.ipko.tv/mtcms/2e/1/8/2e1896c7-64ea-4055-81a7-b54700deadd2.jpg" />
+  <programme start="20261020093000 +0000" stop="20261020102000 +0000" channel="TRTSpor.tr">
+    <title>GÜN ORTASI</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/a1/7/9/a17943d0-539a-44b8-bb05-6624f6fa7a16.jpg" />
   </programme>
-  <programme start="20261020083000 +0000" stop="20261020090000 +0000" channel="TRTTurk.tr@SD">
-    <title>Rumeli Lezzetleri</title>
-    <category lang="sq">Emision Gatimi</category>
-    <category lang="sq">Serial</category>
-    <icon src="https://vimg.ipko.tv/mtcms/25/3/6/2536a57e-f286-44ff-86dc-53c1381a1701.jpg" />
+  <programme start="20261020102000 +0000" stop="20261020110000 +0000" channel="TRTSpor.tr">
+    <title>UEFA Şampiyonlar Ligi Özetler</title>
+    <desc>Liga e Kampionëve është kompeticioni kryesor vjetor i UEFA-s për klubet e futbollit, që bashkon ekipet më të mira nga ligat kombëtare të Evropës. E themeluar në vitin 1955 si Kupa e Klubeve Kampione të Evropës dhe e riemërtuar në vitin 1992, ajo ka evoluar nga një turne me eliminim të drejtpërdrejtë në një fazë lige me 36 skuadra, të pasuar nga raunde me eliminim të drejtpërdrejtë dhe një finale me një ndeshje të vetme. Kualifikimi bazohet kryesisht në paraqitjen në ligat kombëtare dhe në koeficientët e federatave anëtare të UEFA-s, ndërsa kompeticioni përfaqëson nivelin më të lartë të futbollit evropian për klube. Fituesi shpallet kampion i Evropës për klube dhe kualifikohet gjithashtu për kompeticione të tjera të rëndësishme të UEFA-s dhe FIFA-s.</desc>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/69/6/c/696c169e-e25c-4481-89cc-a2ab215991cd.jpg" />
+  </programme>
+  <programme start="20261020110000 +0000" stop="20261020120000 +0000" channel="TRTSpor.tr">
+    <title>Spor Stüdyosu</title>
+    <category lang="sq">Sporte Të Tjera</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/9b/4/a/9b4a5b69-2783-4085-890d-4cf23b0ce581.jpg" />
+  </programme>
+  <programme start="20261020120000 +0000" stop="20261020123000 +0000" channel="TRTSpor.tr">
+    <title>Spor Merkezi</title>
+    <category lang="sq">Sporte Të Tjera</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/10/5/a/105a6394-e68b-4a13-9f81-6f8f5d8837fb.jpg" />
+  </programme>
+  <programme start="20261020123000 +0000" stop="20261020130000 +0000" channel="TRTSpor.tr">
+    <title>UEFA Avrupa Ligi Özetler</title>
+    <desc>Liga e Evropës e UEFA-s është një kompeticion vjetor i futbollit për klube, i organizuar që nga viti 1971 nga UEFA për klubet evropiane të kualifikueshme. Është kompeticioni i nivelit të dytë i futbollit evropian për klube, duke u renditur poshtë Ligës së Kampionëve të UEFA-s dhe mbi Ligën e Konferencës të UEFA-s. I prezantuar në vitin 1971 si Kupa UEFA, ai zëvendësoi Kupën e Panaireve Ndërqytetëse. Kompeticioni mori emrin e tij aktual në vitin 2009, pas një ndryshimi të formatit që përfshinte një bashkim me Kupën Intertoto të UEFA-s, duke zgjeruar fazën e grupeve dhe duke ndryshuar kualifikimin. Në sezonin 2024–25, faza e grupeve u zëvendësua nga një fazë lige me 36 ekipe. Fituesit e Ligës së Evropës të UEFA-s kualifikohen për Superkupën e UEFA-s dhe Ligën e Kampionëve të UEFA-s të sezonit pasardhës.</desc>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/79/c/c/79cc14e5-4cab-48ca-ae43-88c9d2d61406.jpg" />
+  </programme>
+  <programme start="20261020130000 +0000" stop="20261020143000 +0000" channel="TRTSpor.tr">
+    <title>Hedef Süper Lig</title>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/d2/8/d/d28d8817-d620-4aed-aeed-f6ca56047de4.jpg" />
+  </programme>
+  <programme start="20261020143000 +0000" stop="20261020150000 +0000" channel="TRTSpor.tr">
+    <title>Spor Dijital</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/dev/8e/1/8/8e183db3-02c5-4e02-9d31-ff946d27cea1.png" />
+  </programme>
+  <programme start="20261020150000 +0000" stop="20261020163000 +0000" channel="TRTSpor.tr">
+    <title>MAÇ ÖZEL</title>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/e3/3/7/e337d7b7-51bd-4901-a167-590d9bc76070.jpg" />
+  </programme>
+  <programme start="20261020163000 +0000" stop="20261020183000 +0000" channel="TRTSpor.tr">
+    <title>BKT EuroCup Basketbol Karşılaşması Türk Telekom - Siauliai Basketball</title>
+    <desc>EuroCup është një garë vjetore evropiane e basketbollit për klube, e organizuar nga Euroleague Basketball. E themeluar në vitin 2002 me emrin Kupa ULEB dhe e riemërtuar EuroCup në vitin 2008, ajo miratoi një format të ri duke nisur nga sezoni 2026–27, me 32 skuadra të ndara në katër grupe me nga tetë. Gjatë sezonit të rregullt, skuadrat luajnë ndeshje vajtje-ardhje, pas të cilave katër të parat e secilit grup kalojnë në fazën eliminatore, ku çdo seri, deri në finale, fitohet nga skuadra që arrin e para dy fitore në maksimumi tri ndeshje. Që nga sezoni 2021–22, të dyja skuadrat finaliste të EuroCup kualifikohen për EuroLeague të sezonit pasardhës, duke siguruar kështu një rrugë të drejtpërdrejtë drejt garës evropiane të nivelit më të lartë.</desc>
+    <category lang="sq">Basketboll</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/90/6/4/9064d19a-f3cc-406c-8479-47093e2b7869.jpg" />
+  </programme>
+  <programme start="20261020183000 +0000" stop="20261020184500 +0000" channel="TRTSpor.tr">
+    <title>UEFA Avrupa Ligi Özetler</title>
+    <desc>Liga e Evropës e UEFA-s është një kompeticion vjetor i futbollit për klube, i organizuar që nga viti 1971 nga UEFA për klubet evropiane të kualifikueshme. Është kompeticioni i nivelit të dytë i futbollit evropian për klube, duke u renditur poshtë Ligës së Kampionëve të UEFA-s dhe mbi Ligën e Konferencës të UEFA-s. I prezantuar në vitin 1971 si Kupa UEFA, ai zëvendësoi Kupën e Panaireve Ndërqytetëse. Kompeticioni mori emrin e tij aktual në vitin 2009, pas një ndryshimi të formatit që përfshinte një bashkim me Kupën Intertoto të UEFA-s, duke zgjeruar fazën e grupeve dhe duke ndryshuar kualifikimin. Në sezonin 2024–25, faza e grupeve u zëvendësua nga një fazë lige me 36 ekipe. Fituesit e Ligës së Evropës të UEFA-s kualifikohen për Superkupën e UEFA-s dhe Ligën e Kampionëve të UEFA-s të sezonit pasardhës.</desc>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/79/c/c/79cc14e5-4cab-48ca-ae43-88c9d2d61406.jpg" />
+  </programme>
+  <programme start="20261020184500 +0000" stop="20261020204500 +0000" channel="TRTSpor.tr">
+    <title>MAÇ ÖZEL</title>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/e3/3/7/e337d7b7-51bd-4901-a167-590d9bc76070.jpg" />
+  </programme>
+  <programme start="20261020204500 +0000" stop="20261020210000 +0000" channel="TRTSpor.tr">
+    <title>Şampiyonlar Ligi Özetler</title>
+    <desc>Liga e Kampionëve është kompeticioni kryesor vjetor i UEFA-s për klubet e futbollit, që bashkon ekipet më të mira nga ligat kombëtare të Evropës. E themeluar në vitin 1955 si Kupa e Klubeve Kampione të Evropës dhe e riemërtuar në vitin 1992, ajo ka evoluar nga një turne me eliminim të drejtpërdrejtë në një fazë lige me 36 skuadra, të pasuar nga raunde me eliminim të drejtpërdrejtë dhe një finale me një ndeshje të vetme. Kualifikimi bazohet kryesisht në paraqitjen në ligat kombëtare dhe në koeficientët e federatave anëtare të UEFA-s, ndërsa kompeticioni përfaqëson nivelin më të lartë të futbollit evropian për klube. Fituesi shpallet kampion i Evropës për klube dhe kualifikohet gjithashtu për kompeticione të tjera të rëndësishme të UEFA-s dhe FIFA-s.</desc>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/97/c/b/97cbd58c-ccaa-4b9d-a66d-099a91956849.jpg" />
+  </programme>
+  <programme start="20261020210000 +0000" stop="20261020223000 +0000" channel="TRTSpor.tr">
+    <title>Avrupa Stüdyosu</title>
+    <category lang="sq">Sporte Të Tjera</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/27/0/7/27073750-882b-4534-9ed9-49465ac75d15.jpg" />
+  </programme>
+  <programme start="20261020223000 +0000" stop="20261020231500 +0000" channel="TRTSpor.tr">
+    <title>UEFA Şampiyonlar Ligi Özetler</title>
+    <desc>Liga e Kampionëve është kompeticioni kryesor vjetor i UEFA-s për klubet e futbollit, që bashkon ekipet më të mira nga ligat kombëtare të Evropës. E themeluar në vitin 1955 si Kupa e Klubeve Kampione të Evropës dhe e riemërtuar në vitin 1992, ajo ka evoluar nga një turne me eliminim të drejtpërdrejtë në një fazë lige me 36 skuadra, të pasuar nga raunde me eliminim të drejtpërdrejtë dhe një finale me një ndeshje të vetme. Kualifikimi bazohet kryesisht në paraqitjen në ligat kombëtare dhe në koeficientët e federatave anëtare të UEFA-s, ndërsa kompeticioni përfaqëson nivelin më të lartë të futbollit evropian për klube. Fituesi shpallet kampion i Evropës për klube dhe kualifikohet gjithashtu për kompeticione të tjera të rëndësishme të UEFA-s dhe FIFA-s.</desc>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/69/6/c/696c169e-e25c-4481-89cc-a2ab215991cd.jpg" />
+  </programme>
+  <programme start="20261020231500 +0000" stop="20261021011500 +0000" channel="TRTSpor.tr">
+    <title>MAÇ ÖZEL</title>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/e3/3/7/e337d7b7-51bd-4901-a167-590d9bc76070.jpg" />
+  </programme>
+  <programme start="20261021011500 +0000" stop="20261021024500 +0000" channel="TRTSpor.tr">
+    <title>Avrupa Stüdyosu</title>
+    <category lang="sq">Sporte Të Tjera</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/27/0/7/27073750-882b-4534-9ed9-49465ac75d15.jpg" />
+  </programme>
+  <programme start="20261021024500 +0000" stop="20261021030000 +0000" channel="TRTSpor.tr">
+    <title>TRENDYOL SÜPER LİG GOLLER</title>
+    <desc>Superliga është kategoria më e lartë e futbollit profesionist të klubeve për meshkuj në Turqi, e organizuar nga Federata Turke e Futbollit (TFF). E themeluar në vitin 1959, kjo garë mbledh 18 klube që përballen me njëri-tjetrin në ndeshje vajtje-ardhje, brenda dhe jashtë fushës së tyre, ku çdo skuadër luan 34 ndeshje gjatë sezonit. Klubi që grumbullon më shumë pikë shpallet kampion kombëtar i Turqisë, ndërsa renditja përfundimtare e kampionatit përcakton kualifikimin për garat e UEFA-s për klube dhe rënien në kategorinë e dytë, TFF 1. Lig.</desc>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/3f/2/3/3f23bd8a-efbf-48a6-9f72-d954176bb470.jpg" />
+  </programme>
+  <programme start="20261021030000 +0000" stop="20261021040000 +0000" channel="TRTSpor.tr">
+    <title>UEFA Avrupa Ligi Özetler</title>
+    <desc>Liga e Evropës e UEFA-s është një kompeticion vjetor i futbollit për klube, i organizuar që nga viti 1971 nga UEFA për klubet evropiane të kualifikueshme. Është kompeticioni i nivelit të dytë i futbollit evropian për klube, duke u renditur poshtë Ligës së Kampionëve të UEFA-s dhe mbi Ligën e Konferencës të UEFA-s. I prezantuar në vitin 1971 si Kupa UEFA, ai zëvendësoi Kupën e Panaireve Ndërqytetëse. Kompeticioni mori emrin e tij aktual në vitin 2009, pas një ndryshimi të formatit që përfshinte një bashkim me Kupën Intertoto të UEFA-s, duke zgjeruar fazën e grupeve dhe duke ndryshuar kualifikimin. Në sezonin 2024–25, faza e grupeve u zëvendësua nga një fazë lige me 36 ekipe. Fituesit e Ligës së Evropës të UEFA-s kualifikohen për Superkupën e UEFA-s dhe Ligën e Kampionëve të UEFA-s të sezonit pasardhës.</desc>
+    <category lang="sq">Futbolli</category>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/79/c/c/79cc14e5-4cab-48ca-ae43-88c9d2d61406.jpg" />
+  </programme>
+  <programme start="20261021040000 +0000" stop="20261021060000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021060000 +0000" stop="20261021080000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021080000 +0000" stop="20261021100000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021100000 +0000" stop="20261021120000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021120000 +0000" stop="20261021140000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021140000 +0000" stop="20261021160000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021160000 +0000" stop="20261021180000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021180000 +0000" stop="20261021200000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021200000 +0000" stop="20261021220000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261021220000 +0000" stop="20261022000000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022000000 +0000" stop="20261022020000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022020000 +0000" stop="20261022040000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022040000 +0000" stop="20261022060000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022060000 +0000" stop="20261022080000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022080000 +0000" stop="20261022100000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022100000 +0000" stop="20261022120000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022120000 +0000" stop="20261022140000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
+  </programme>
+  <programme start="20261022140000 +0000" stop="20261022160000 +0000" channel="TRTSpor.tr">
+    <title>TRT Spor</title>
+    <category lang="sq">Sport</category>
+    <icon src="https://vimg.ipko.tv/mtcms/40/0/b/400b10bf-0eb7-42bb-a4f3-d1a4faea145e.jpg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020093500 +0000" channel="TRTTurk.tr@SD">
     <title>Annem Yapardı</title>
@@ -9108,9 +9408,10 @@
     <date>2023</date>
     <icon src="https://vimg.ipko.tv/mtcms/9a/6/a/9a6a0ab7-cef7-4c37-9176-5ae107a32628.jpg" />
   </programme>
-  <programme start="20261020073000 +0000" stop="20261020090000 +0000" channel="DiyanetTV.tr@SD">
-    <title>Yeni Güne Merhaba</title>
-    <new />
+  <programme start="20261022150000 +0000" stop="20261022154500 +0000" channel="TRTTurk.tr@SD">
+    <title>Günün İçinden</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/57/e/2/57e2d68e-451f-49a7-a8bb-fcb0c5066b3e.jpg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020101500 +0000" channel="DiyanetTV.tr@SD">
     <title>Mavera</title>
@@ -9333,12 +9634,8 @@
   <programme start="20261022130000 +0000" stop="20261022143000 +0000" channel="DiyanetTV.tr@SD">
     <title>Selman Tuna ile Güzergah</title>
   </programme>
-  <programme start="20261020061500 +0000" stop="20261020090000 +0000" channel="Kanal7Avrupa.tr@SD">
-    <title>Can Yoldaşım</title>
-    <date>20261020</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261022143000 +0000" stop="20261022151500 +0000" channel="DiyanetTV.tr@SD">
+    <title>Hz. Ömer</title>
   </programme>
   <programme start="20261020090000 +0000" stop="20261020120000 +0000" channel="Kanal7Avrupa.tr@SD">
     <title>Tekrar</title>
@@ -9507,14 +9804,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261020074000 +0000" stop="20261020083000 +0000" channel="KanalDDrama.tr@SD">
-    <title>S0E185 - Pothuajse i Famshëm</title>
-    <desc>Pas operacionit, Tylaji përpiqet të mos humbasë mundësinë për album, megjithëse e ka të ndaluar të flasë. Selahatini përfundon në polici dhe mëson se dikush ka përdorur dokumentet e tij për mashtrime.</desc>
-    <category lang="sq">Komedi</category>
-    <category lang="sq">Serial</category>
-    <date>2012</date>
-    <icon src="https://vimg.ipko.tv/mtcms/05/e/4/05e412ab-705f-49d6-add8-7d3c2c45d800.jpg" />
   </programme>
   <programme start="20261020083000 +0000" stop="20261020092000 +0000" channel="KanalDDrama.tr@SD">
     <title>S0E109 - Nëna Ime</title>
@@ -10017,6 +10306,14 @@
     <category lang="sq">Serial</category>
     <date>2015</date>
     <icon src="https://vimg.ipko.tv/mtcms/73/5/d/735ddf5f-0e0d-4b42-be1d-6e84e46d701b.jpg" />
+  </programme>
+  <programme start="20261022150500 +0000" stop="20261022155000 +0000" channel="KanalDDrama.tr@SD">
+    <title>Kad lišće pada</title>
+    <desc>Pas dorëheqjes së Ali Rizait dhe pranimit të Nexhlës në universitet, familja Tekin zhvendoset në Stamboll për një jetë të re. Mes vështirësive të përshtatjes dhe sfidave të qytetit të madh, Ali Rizai përpiqet ta mbajë familjen të bashkuar dhe të ruajë vlerat e ndershmërisë që e kanë udhëhequr gjithë jetën.</desc>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2006</date>
+    <icon src="https://vimg.ipko.tv/mtcms/b5/4/3/b543257f-583c-4d85-b13e-64324a487c5f.jpg" />
   </programme>
   <programme start="20261020044500 +0000" stop="20261020170000 +0000" channel="MinikaGo.tr@SD">
     <title>Neşeli Dünyam</title>
@@ -10878,26 +11175,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261020080000 +0000" stop="20261020083000 +0000" channel="TRTCocuk.tr@SD">
-    <title>Rafadan Tayfa</title>
-    <category lang="sq">Animacion</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <date>2013</date>
-    <icon src="https://vimg.ipko.tv/mtcms/26/a/d/26ad9912-5511-4b3c-bcc8-5387809575cf.jpg" />
-  </programme>
-  <programme start="20261020083000 +0000" stop="20261020084500 +0000" channel="TRTCocuk.tr@SD">
-    <title>Anadolu Rock</title>
-    <category lang="sq">Muzikë</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <icon src="https://vimg.ipko.tv/mtcms/51/a/b/51abf46e-c78c-441b-aea4-680308ff6b4e.jpg" />
-  </programme>
-  <programme start="20261020084500 +0000" stop="20261020085500 +0000" channel="TRTCocuk.tr@SD">
-    <title>Baston Dedektiflik Bürosu</title>
-    <category lang="sq">Animacion</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <date>2026</date>
-    <icon src="https://vimg.ipko.tv/mtcms/0c/6/e/0c6e0099-9441-4ff5-b5b5-371aebd303dc.jpg" />
   </programme>
   <programme start="20261020085500 +0000" stop="20261020092000 +0000" channel="TRTCocuk.tr@SD">
     <title>Maysa ve Bulut</title>
@@ -11905,9 +12182,19 @@
     <date>2017</date>
     <icon src="https://vimg.ipko.tv/mtcms/5f/a/7/5fa7aa88-d34e-4c1d-a602-6c7b28cea484.jpg" />
   </programme>
-  <programme start="20261020081500 +0000" stop="20261020090000 +0000" channel="BloombergHT.tr@SD">
-    <title>Fokus</title>
-    <new />
+  <programme start="20261022144000 +0000" stop="20261022150500 +0000" channel="TRTCocuk.tr@SD">
+    <title>Nils Holgersson</title>
+    <category lang="sq">Animacion</category>
+    <category lang="sq">Fëmijë/të Rinj</category>
+    <date>2017</date>
+    <icon src="https://vimg.ipko.tv/mtcms/3a/c/9/3ac9c2bd-c977-41af-9ce8-d1a21aa9cbc6.jpg" />
+  </programme>
+  <programme start="20261022150500 +0000" stop="20261022153000 +0000" channel="TRTCocuk.tr@SD">
+    <title>Belle and Sebastian</title>
+    <category lang="sq">Animacion</category>
+    <category lang="sq">Fëmijë/të Rinj</category>
+    <date>2017</date>
+    <icon src="https://vimg.ipko.tv/mtcms/9b/3/3/9b33169f-a3fb-43d3-8b33-44d2d1efea89.jpg" />
   </programme>
   <programme start="20261020090000 +0000" stop="20261020093000 +0000" channel="BloombergHT.tr@SD">
     <title>Maden Dünyası</title>
@@ -12146,12 +12433,8 @@
     <title>Kapanışa Doğru</title>
     <new />
   </programme>
-  <programme start="20261020080000 +0000" stop="20261020084500 +0000" channel="TRTBelgesel.tr@SD">
-    <title>Secrets of the Elephants</title>
-    <category lang="sq">Aventurë</category>
-    <category lang="sq">Program Dokumentar</category>
-    <date>2023</date>
-    <icon src="https://vimg.ipko.tv/mtcms/bf/7/9/bf793ee9-7369-43a6-b39d-a2229a86c213.jpg" />
+  <programme start="20261022144500 +0000" stop="20261022152000 +0000" channel="BloombergHT.tr@SD">
+    <title>Seans Notları</title>
   </programme>
   <programme start="20261020084500 +0000" stop="20261020091500 +0000" channel="TRTBelgesel.tr@SD">
     <title>Aile Sofrası</title>
@@ -12579,5 +12862,10 @@
     <title>Çocuğum İçin</title>
     <category lang="sq">Program Dokumentar</category>
     <icon src="https://vimg.ipko.tv/mtcms/66/f/a/66fa8706-3983-4360-aa41-0369176b2f8c.jpg" />
+  </programme>
+  <programme start="20261022144000 +0000" stop="20261022154000 +0000" channel="TRTBelgesel.tr@SD">
+    <title>Türkiye’nin Dev Yapıları</title>
+    <category lang="sq">Program Dokumentar</category>
+    <icon src="https://vimg.ipko.tv/mtcms/9a/5/5/9a552ad4-8a7f-4b3d-8680-94d70ce0c143.jpg" />
   </programme>
 </tv>
