@@ -37,6 +37,44 @@ module.exports = async function smokeTest(window, repository, proxy) {
   const response = await fetch(`${proxy.origin}/healthz`);
   assert.equal(response.status, 200);
 
+  // Watch a channel - the one click this gate never made before 1.0.9,
+  // which is how the Android crash-on-watch shipped under a green gate.
+  // The stream itself will not play in CI (the runner is geo-blocked or
+  // the feed is dead); what must hold is the whole non-crash path: the
+  // player opens over the browser, names the channel, reaches the spinner
+  // or the honest error card, tucks into the side player and closes back.
+  await window.webContents.executeJavaScript("document.querySelector('[data-tab=\"channels\"]').click()");
+  await waitFor("document.querySelectorAll('#channels-grid .card').length > 0");
+  await window.webContents.executeJavaScript("document.querySelector('#channels-grid .card').click()");
+  await waitFor("document.getElementById('player').hidden === false");
+  const playerName = await window.webContents.executeJavaScript(
+    "document.getElementById('player-name').textContent");
+  assert.ok(playerName.trim().length > 0, 'the player names the channel it opened');
+  await delay(3000);
+  const playerState = await window.webContents.executeJavaScript(`({
+    hidden: document.getElementById('player').hidden,
+    spinning: !document.getElementById('player-spinner').hidden,
+    errorShown: !document.getElementById('player-error').hidden,
+    errorText: document.getElementById('player-error-text').textContent,
+    readyState: document.getElementById('video').readyState,
+    rendererAlive: document.querySelectorAll('#channels-grid .card').length > 0,
+  })`);
+  assert.equal(playerState.hidden, false, 'the player is still open after the stream machinery ran');
+  assert.ok(
+    playerState.spinning || playerState.errorShown || playerState.readyState > 0,
+    `the player reached a sane state (${JSON.stringify(playerState)})`);
+  assert.equal(playerState.rendererAlive, true, 'the browser behind the player is still rendered');
+  // The 1.0.8 side player flip, then a real close.
+  await window.webContents.executeJavaScript("document.getElementById('player-minimize').click()");
+  await waitFor("document.getElementById('player').classList.contains('mini')");
+  await window.webContents.executeJavaScript("document.getElementById('player-minimize').click()");
+  await waitFor("!document.getElementById('player').classList.contains('mini')");
+  await window.webContents.executeJavaScript("document.getElementById('player-close').click()");
+  await waitFor("document.getElementById('player').hidden === true");
+  console.log(`PLAYER SMOKE PASS: opened '${playerName}', ` +
+    `${playerState.errorShown ? 'reached the error card' : 'stream machinery sane'}, ` +
+    'side-player flip and close all survived');
+
   // The Guide tab: the cable-style grid on preview builds, the list on stable.
   const bundled = (await repository.bundledMeta()) || {};
   const cableGuide = Array.isArray(bundled.preview_features) && bundled.preview_features.includes('cable-guide');
