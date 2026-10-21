@@ -10,6 +10,13 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-21 — Version 1.0.8.2 Bridge + Player Hardening + Updater UX Polish (1.0.9 still newest stable)
+
+- **Bridge release 1.0.8.2 for stranded 1.0.8.1 users.** 1.0.8.1's frozen `COMPATIBILITY_ALIASES` listed `1.0.9 → 1.0.8.1`, so its Settings → App updates wrongly said “up to date”. 1.0.8.2 (`versionCode 100080002`, same fixed 1.0.9 code) is *not* in that alias table, so it *is* seen as newer and installs over 1.0.8.1; after it, 1.0.9 appears automatically. This is the last V-style tag — V patches remain retired otherwise. Tag `v1.0.8.2` at `9ca499c` with Android APK built from that commit; Mac has no crash bug and stays on 1.0.9. See [`release-notes-1.0.8.2.md`](release-notes-1.0.8.2.md).
+- **Player hardening (non-crash).** `PlayerScreen.kt`: server fallback index now clamped with `coerceIn` so a rapid double-error cannot overshoot, and a 30-second buffering watchdog auto-advances to the next server if a feed stalls silently (geo-block timeout, stuck HLS). Retains the 1.0.9 single-player + surface-rebind invariant.
+- **Updater UX polish for the crash cohort.** `UpdateNoticeDialog.kt` (Android) now shows an “Open download page” button for `blocked` builds — one tap opens the GitHub release in the browser, cutting through the “up to date” white lie. `macos/app/src/renderer/app.js` does the same: a `blocked` popup now calls `api.openExternal(releasesUrl)` instead of opening Settings that would lie. `app-update-notice.json` wording updated to mention the bridge and the new button.
+- **Site data regenerated** after `v1.0.9` retag and `v1.0.8.2` publish.
+
 ## 2026-10-20 — Version 1.0.9: crash-on-watch fixed; V patches retired
 
 - **Fixed: opening a channel could freeze on black or crash the app (Android).** The player created and released a whole media player per server while the video surface stayed attached to the first, already-released player — after a server fallback, a manual server hop or a side-player flip the picture was dead. 1.0.9 keeps one player per watch screen and swaps the stream inside it (`PlayerScreen.kt`), rebinds the surface on every flip, pauses on background, and only releases the player when you leave the screen. See [`release-notes-1.0.9.md`](release-notes-1.0.9.md).
