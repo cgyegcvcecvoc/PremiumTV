@@ -122,8 +122,8 @@ class AndroidUpdateTests(unittest.TestCase):
 
     def test_version_is_one_policy_above_every_historical_code(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.0.8.1")', gradle)
-        self.assertIn('orElse("100080001")', gradle)
+        self.assertIn('orElse("1.0.9")', gradle)
+        self.assertIn('orElse("100090000")', gradle)
 
 
 class MacUpdateTests(unittest.TestCase):
@@ -317,9 +317,26 @@ class UpdateNoticePopupTests(unittest.TestCase):
                          "the warning must not hard-code a version the next release retires")
         legacy = rules["legacy-upgrade-2026-11"]
         self.assertEqual(legacy["max_version"], "1.0.3")
+        # The crash-on-watch warning is Android-only on purpose: the frozen
+        # player never existed on Mac, and an extreme popup must only ever
+        # reach builds that can actually crash. It is also first, so an
+        # affected build sees it before the gentler warning below it.
+        crash = document["rules"][0]
+        self.assertEqual(crash["id"], "crash-on-watch-1-0-8")
+        self.assertEqual(crash["platforms"], ["android"])
+        self.assertEqual((crash["min_version"], crash["max_version"]), ("1.0.8", "1.0.8.1"))
+        self.assertEqual(crash["level"], "blocked")
+        # 1.0.8.1's frozen updater reads 1.0.9 as an alias of itself, so its
+        # {newest} would render as 1.0.8.1; the copy must hard-code 1.0.9 and
+        # carry the manual-install fallback instead.
+        self.assertNotIn("{newest}", crash["title"] + crash["message"] + crash["surprise"])
+        self.assertIn("1.0.9", crash["message"])
+        self.assertIn("v1.0.9", crash["releases_url"])
         for rule in document["rules"]:
-            self.assertIn("android", rule["platforms"])
-            self.assertIn("macos", rule["platforms"])
+            self.assertTrue(rule["platforms"], rule["id"])
+            if rule["id"] != crash["id"]:
+                self.assertIn("android", rule["platforms"])
+                self.assertIn("macos", rule["platforms"])
             self.assertRegex(rule["surprise"], r"itself|Settings|stable", rule["id"])
 
     def test_the_notice_is_refused_unless_it_is_enabled_and_a_known_schema(self):

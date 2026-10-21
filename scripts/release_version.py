@@ -9,16 +9,13 @@ came before it.  That is what lets the apps trust a simple rule:
   2. the app downloads that installer once and keeps it until it is installed;
   3. retired previews never become an update target for stable builds.
 
-Versions are written as ``MAJOR.MINOR.PATCH`` or ``MAJOR.MINOR.PATCH.HOTFIX``.
-Small fixes to a stable line use the fourth component (``1.0.6.1``): it sorts
-above ``1.0.6`` but below every later release, so shipping it never consumes a
-minor or patch number the roadmap still needs.
-
-Patch builds after 1.0.8 use the ``V`` naming the download page shows:
-``1.0.8 V1`` is ``1.0.8.1``, ``1.0.8 V2`` is ``1.0.8.2`` and so on.  Each V
-increments the fourth component and its ``versionCode`` by one
-(``1.0.8.1`` → ``100080001``) so every V installs in place over the last one
-and future Vs are ordered by asking this module for ``--code``.
+Versions are written as ``MAJOR.MINOR.PATCH``.  Four-part versions
+(``MAJOR.MINOR.PATCH.HOTFIX``, "V patches" such as ``1.0.8.1`` = ``1.0.8 V1``)
+were retired at 1.0.9: every release from 1.0.9 on is a plain three-part
+version, and a fix simply takes the next number.  Four-part versions are
+still *parsed* forever - installed 1.0.6.1/1.0.8.1 builds and their release
+tags do not go away - but no new one is ever published, so nothing below
+has to mint them.
 
 Android also needs a *monotonic* versionCode: Android refuses to install an
 older code over a newer one.  Deriving it from the semantic version means a
@@ -29,13 +26,15 @@ scale is ``MAJOR * 100000000 + MINOR * 1000000 + PATCH * 10000 + HOTFIX``:
 previews published (7-11 and ``100010001``), so 1.0.6.1 installs straight over
 an installed 1.1.1 preview.
 
-A four-part version cannot be read by the updater in 1.0.4-1.0.6, which only
-accepts three numeric parts.  Such a release is therefore paired with a
+A four-part version could not be read by the updater in 1.0.4-1.0.6, which only
+accepts three numeric parts.  Such a release was therefore paired with a
 *compatibility alias*: a second, identical build published one patch above it
-(``1.0.7`` for ``1.0.6.1``) whose only job is to be visible to those updaters.
-The alias never replaces the canonical version on the download page, and an app
-already running the canonical build ignores it instead of downloading the same
-code again.
+(``1.0.7`` for ``1.0.6.1``, ``1.0.9`` briefly for ``1.0.8.1``) whose only job
+was to be visible to those updaters.  The alias scheme retired with the V
+patches: ``1.0.9`` stopped being an alias and became a real release (the
+crash-on-watch fix), and no future release is paired.  Only the historical
+``1.0.7`` mapping remains, because installs and tags from that era still
+resolve through it.
 
 Usage::
 
@@ -70,18 +69,14 @@ MINOR_SCALE = 1_000_000
 PATCH_SCALE = 10_000
 ANDROID_CODE_MAX = 2_147_483_647
 
-# Releases that exist only so an updater which cannot read a four-part version
-# can still reach the canonical build.  They carry the same application code.
-# Patch releases after 1.0.8 use the V scheme: 1.0.8 V1 = 1.0.8.1, V2 = 1.0.8.2 …
-# Their Mac aliases consume the next patch numbers (1.0.9, 1.0.10 …) so an old
-# three-part updater still finds them.
+# Releases that existed only so an updater which cannot read a four-part
+# version could still reach the canonical build.  They carry the same
+# application code.  Only the historical 1.0.7 mapping remains: 1.0.9 (the
+# brief alias of 1.0.8.1) became a real release, and the forward V aliases
+# (1.0.10 for a never-published 1.0.8.2, and so on) were removed with the
+# scheme - leaving them in would mislabel the real 1.0.10 the day it ships.
 COMPATIBILITY_ALIASES = {
     "1.0.7": "1.0.6.1",
-    "1.0.9": "1.0.8.1",
-    "1.0.10": "1.0.8.2",
-    "1.0.11": "1.0.8.3",
-    "1.0.12": "1.0.8.4",
-    "1.0.13": "1.0.8.5",
 }
 
 
@@ -124,7 +119,8 @@ def canonical_version(value: str) -> str | None:
 
 
 def display_version(value: str) -> str | None:
-    """Human-facing V name: 1.0.8.1 -> "1.0.8 V1", 1.0.8 -> "1.0.8"."""
+    """Human-facing name: a historical V patch reads "1.0.8 V1"; every
+    three-part version (all releases from 1.0.9 on) reads as itself."""
     normalized = normalize_version(value)
     if normalized is None:
         return None
@@ -137,7 +133,11 @@ def display_version(value: str) -> str | None:
     return normalized
 
 def patch_version(base: str, patch_number: int) -> str | None:
-    """Build the next V patch from a base: patch_version("1.0.8", 1) -> "1.0.8.1"."""
+    """Historical V-patch name: patch_version("1.0.8", 1) -> "1.0.8.1".
+
+    Retired with the V scheme at 1.0.9 - kept so old tags and documents
+    still resolve, never used to number a new release.
+    """
     normalized = normalize_version(base)
     if normalized is None or patch_number < 1 or patch_number > 9999:
         return None
@@ -151,9 +151,11 @@ def macos_version(value: str) -> str | None:
     """The version the macOS build can carry.
 
     electron-builder and macOS packaging require a three-part version, so a
-    four-part hotfix is built as its compatibility alias (1.0.6.1 -> 1.0.7,
-    1.0.8.1 -> 1.0.9) and the alias release carries the Mac installers.  Every
-    three-part version is returned unchanged.
+    four-part hotfix was built as its compatibility alias (1.0.6.1 -> 1.0.7)
+    and the alias release carried the Mac installers.  Every three-part
+    version - all releases from 1.0.9 on - is returned unchanged; a four-part
+    version without a historical alias can no longer be packaged, which is
+    the point: patches are retired.
     """
     normalized = normalize_version(value)
     if normalized is None:

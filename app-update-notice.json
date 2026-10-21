@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "enabled": true,
-  "updated_utc": "2026-10-20T12:00:00Z",
+  "updated_utc": "2026-10-21T00:00:23Z",
   "notice_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json",
   "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest",
   "repo_url": "https://github.com/cgyegcvcecvoc/PremiumTV1",
@@ -9,6 +9,21 @@
   "support_ends_utc": "2026-11-19T23:59:59Z",
   "grace_days": 30,
   "rules": [
+    {
+      "id": "crash-on-watch-1-0-8",
+      "platforms": [
+        "android"
+      ],
+      "min_version": "1.0.8",
+      "max_version": "1.0.8.1",
+      "level": "blocked",
+      "title": "⚠️ Update now — this version can freeze or crash when you open a channel",
+      "message": "You are on PremiumTV {version}. This build has a serious bug: opening a channel can leave the picture frozen on black or crash the app, especially when a channel switches to another server. PremiumTV 1.0.9 fixes it — please update right away. Tap “Get 1.0.9 now” and use Settings → App updates; if it wrongly says you are up to date, install PremiumTV-1.0.9.apk by hand from the address below. It installs over this build and keeps your settings and favorites.",
+      "surprise": "Why Settings may say “up to date”: this build still thinks 1.0.9 is a copy of itself, so the in-app check can miss the fix — the manual install below is the sure path. From 1.0.9 on there are no more “V patches”: every fix is simply the next version, and the app updates itself again.",
+      "action_label": "Get 1.0.9 now",
+      "dismiss_label": "Not now",
+      "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.9"
+    },
     {
       "id": "retired-preview-1-1",
       "platforms": [
@@ -20,7 +35,7 @@
       "level": "blocked",
       "title": "This preview is retired — install PremiumTV {newest}",
       "message": "You are on PremiumTV {version}. The 1.1.x preview channel has been removed: its downloads are gone, it receives no more support, and it is not the stable app. Install stable {newest} from the download page. On Android it installs over this preview with no uninstall; on Mac the DMG replaces this copy.",
-      "surprise": "{newest} is the current stable: the category list with its own sort, the side player, the revamped Live Events tab with live checks, plus the animated loading screen and 11-check bug detection locked in from V1 — every future V patch follows the same simple update.",
+      "surprise": "{newest} is the current stable: the category list with its own sort, the side player, the revamped Live Events tab with live checks, plus the animated loading screen and 11-check bug detection — and from 1.0.9 on, every fix is simply the next version, no more V patches.",
       "action_label": "Get {newest}",
       "dismiss_label": "Not now",
       "releases_url": "https://cgyegcvcecvoc.github.io/PremiumTV1/blocked/"
@@ -36,7 +51,7 @@
       "level": "warning",
       "title": "PremiumTV {newest} is ready — you are on {version}",
       "message": "You are on PremiumTV {version}, and a newer stable release is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It downloads once, verifies against the release SHA-256 file, and installs over this build. Support for builds below {newest} ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
-      "surprise": "The newest stable brings the all-new look: categories as a sorted list with their own pages, the side player for watching while you browse, a Live Events tab that checks which games are still live, plus the 1.0.8 V1 animated loading screen and hardened bug detection — and every future V patch installs the same way.",
+      "surprise": "The newest stable brings the all-new look: categories as a sorted list with their own pages, the side player for watching while you browse, a Live Events tab that checks which games are still live, the animated loading screen and hardened bug detection — and 1.0.9 fixes channels freezing or crashing when opened. From 1.0.9 on, each fix is just the next version.",
       "action_label": "Update now",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {

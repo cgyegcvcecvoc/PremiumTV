@@ -9,9 +9,10 @@ package com.premiumtv.app.update
  * counts as zero, and only the numeric parts decide whether a release is an
  * update, so a debug APK's `-debug` suffix cannot change the answer.
  *
- * 1.0.8 V1 Patch establishes the V series: 1.0.8 V1 = 1.0.8.1 (alias 1.0.9),
- * V2 = 1.0.8.2 (alias 1.0.10) ... the same compatibility-alias rule as 1.0.7,
- * with the V name shown in Settings so future Vs order predictably.
+ * The V series (1.0.8 V1 = 1.0.8.1, briefly aliased as 1.0.9) was retired at
+ * 1.0.9: 1.0.9 is a real release, every release from here on is a plain
+ * three-part version, and no new compatibility aliases are minted.  The
+ * historical helpers below stay so old tags and installs still resolve.
  */
 object AppVersions {
 
@@ -22,12 +23,11 @@ object AppVersions {
      * them instead of downloading the same APK again.
      */
     private val COMPATIBILITY_ALIASES = mapOf(
+        // Only the historical mapping remains. 1.0.9 stopped being the alias
+        // of 1.0.8.1 when it became a real release, and the forward V aliases
+        // (1.0.10 for a never-published 1.0.8.2, ...) left with the scheme:
+        // keeping them would mislabel the real 1.0.10 the day it ships.
         "1.0.7" to "1.0.6.1",
-        "1.0.9" to "1.0.8.1",
-        "1.0.10" to "1.0.8.2",
-        "1.0.11" to "1.0.8.3",
-        "1.0.12" to "1.0.8.4",
-        "1.0.13" to "1.0.8.5",
     )
 
     /** Human-facing V display: 1.0.8.1 -> 1.0.8 V1, 1.0.8 stays 1.0.8. */

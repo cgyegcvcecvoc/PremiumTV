@@ -1,6 +1,8 @@
 # PremiumTV 1.0.8
 
-**Status: the newest stable release.** Android `versionCode 100080000` (derived by
+> ⚠️ **CRASH WARNING — update to [1.0.9](release-notes-1.0.9.md) now.** This version can freeze on a black picture or crash when you open a channel (on Android the video surface stays attached to a released player after a server switch). 1.0.9 fixes it and installs in place. Do not stay on this build.
+
+**Status: superseded by 1.0.9.** Android `versionCode 100080000` (derived by
 `scripts/release_version.py`: `1.0.8` → `100080000` — above `1.0.7` /
 `100070000` and every older build, so it installs in place over every previous
 stable and the retired 1.1.x previews). Every 1.0.4+ app finds it in

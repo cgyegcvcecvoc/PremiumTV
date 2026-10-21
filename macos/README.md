@@ -8,25 +8,29 @@ and Apple Silicon.
 
 The release workflow prepares one published channel:
 
-- **1.0.8 V1 Patch stable build (default, 1.0.8.1):** USA playlist + USA guide,
+- **1.0.9 stable build (default):** USA playlist + USA guide,
   with the animated launch splash (breathing gold halo, sweeping shimmer bar,
   pulsing dots), the compact Settings screen, the hardened bug check (11 checks:
   patch chain, stream hygiene, guide freshness, library health plus the original
   7), category placeholder logos, the Live Events tab and automatic multi-server
   playback. 1.0.4 was the last release that needed a manual download; from
   there on Settings → App updates checks GitHub, downloads the DMG for this Mac
-  once, verifies its SHA-256 checksum, and opens the installer. This V1 patch
-  sets the V series in stone: V2=1.0.8.2 (alias 1.0.10), V3=1.0.8.3 …
+  once, verifies its SHA-256 checksum, and opens the installer. 1.0.9 is the
+  crash-on-watch fix (an Android player defect; the Mac player was unaffected,
+  but its packaged smoke test now opens a channel too). The V-patch/alias
+  scheme is retired: 1.0.8.1 was the only V patch, and fixes now take the next
+  plain version.
 - **The 1.1.x preview is retired.** Its release, installers and download links
   were removed; the `cable-guide` bundle scope still exists for a future
   experimental build, but no preview is published. An installed 1.1.x build
   sees a blocked-build notice and is sent to
   [`docs/blocked/`](../docs/blocked/index.html).
 
-The current stable download is `v1.0.8.1` (shown as **1.0.8 V1 Patch**, packaged
-as `1.0.9` on macOS). The same tree is also published as `v1.0.9` so the updater
-in 1.0.4–1.0.6 (which reads only three-part versions) can find it; an app already
-on 1.0.8.1 ignores that alias, just as 1.0.6.1 ignored 1.0.7. Only a published
+The current stable download is `v1.0.9`. (Historically, `v1.0.8.1` — shown as
+**1.0.8 V1 Patch** — was packaged as `1.0.9` on macOS and briefly published as a
+same-code alias release so the three-part updater in 1.0.4–1.0.6 could find it;
+the fixed 1.0.9 replaced that build, so a Mac already reporting 1.0.9 should
+reinstall from the current `v1.0.9` release to get the fixed code.) Only a published
 full release above the installed version is offered, and a downloaded DMG is
 reused until it is installed. Mac CI rebuilds and smoke-tests both architectures
 against the current checked USA playlist and guide whenever app,
