@@ -14,9 +14,9 @@
   • building        target=DMG arch=x64 file=dist/PremiumTV-1.0.9-mac-x64.dmg
   • executing @electron/rebuild  electronVersion=43.7.9 arch=arm64 buildFromSource=false workspaceRoot=/Users/runner/work/PremiumTV1/PremiumTV1/macos/app projectDir=./ appDir=./
   • installing native dependencies  arch=arm64
-  • downloaded      label=dmgbuild-bundle-arm64-75c8a6c.tar.gz progress=100%
   • completed installing native dependencies
   • packaging       platform=darwin arch=arm64 electron=43.7.9 appOutDir=dist/mac-arm64
+  • downloaded      label=dmgbuild-bundle-arm64-75c8a6c.tar.gz progress=100%
   • downloaded      label=electron progress=100%
   • downloaded electron zip extracted successfully  output=/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac-arm64
   • searching for node modules  pm=npm searchDir=/Users/runner/work/PremiumTV1/PremiumTV1/macos/app
@@ -36,21 +36,18 @@
   • loaded configuration  file=/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/electron-builder.yml
   • building        target=pkg arch=arm64 file=dist/PremiumTV-1.0.9-mac-arm64.pkg
   • skipped macOS notarization  reason=`notarize` options were unable to be generated
-2026-10-21 00:11:55.744 PremiumTV Helper[15191:43363] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-21 00:11:55.745 PremiumTV Helper[15191:43362] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-21 00:11:55.748 PremiumTV Helper[15191:43358] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-21 00:11:55.761 PremiumTV Helper[15191:43362] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-21 00:11:55.761 PremiumTV Helper[15191:43363] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-21 00:11:55.765 PremiumTV Helper[15191:43363] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-21 00:18:14.394 PremiumTV Helper[7208:24550] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-21 00:18:14.394 PremiumTV Helper[7208:24543] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-21 00:18:14.394 PremiumTV Helper[7208:24549] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-21 00:18:14.409 PremiumTV Helper[7208:24543] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-21 00:18:14.409 PremiumTV Helper[7208:24549] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-21 00:18:14.411 PremiumTV Helper[7208:24543] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
 PLAYER SMOKE: clicking the first channel card
 PLAYER SMOKE: player open for '30A Golf Kingdom (720p)', letting the stream machinery run
 PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":0,"rendererAlive":true}; flipping the side player
-PLAYER SMOKE STATE AT FAILURE: unreadable (Object has been destroyed)
-TypeError: Object has been destroyed
-    at evalInPage (/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:12:28)
-    at waitFor (/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:24:17)
-    at runNextTicks (node:internal/process/task_queues:65:5)
-    at process.processTimers (node:internal/timers:615:9)
+PLAYER SMOKE STATE AT FAILURE: {"playerHidden":false,"name":"30A Golf Kingdom (720p)","spinner":true,"error":true,"mini":false,"cards":240}
+Error: Renderer timeout: document.getElementById('player').classList.contains('mini')
+    at waitFor (/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:27:11)
     at async checkPlayer (/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:107:3)
     at async smokeTest (/Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:60:5)
-    at async /Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/main.js:110:9
+    at async /Users/runner/work/PremiumTV1/PremiumTV1/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/main.js:119:9
