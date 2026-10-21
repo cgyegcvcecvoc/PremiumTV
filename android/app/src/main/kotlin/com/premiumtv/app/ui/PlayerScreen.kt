@@ -22,6 +22,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,7 +44,10 @@ import androidx.media3.common.Player
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.ui.PlayerView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Programme
 
@@ -54,6 +59,14 @@ import com.premiumtv.app.data.Programme
  * the channel's server list by itself: when a feed fails fatally it switches
  * to the next one, says so on screen, and only shows the error card when
  * every server for this channel has been tried.
+ *
+ * 1.0.9 keeps the walk but changes what a switch means: ONE ExoPlayer lives
+ * for the whole screen and a switch hands it the next server's media source.
+ * Up to 1.0.8.1 each switch built a new player and released the old one
+ * while the PlayerView still pointed at the released instance, so the first
+ * dead feed left a black, lifeless screen - the crash-on-watch viewers hit
+ * in 1.0.8/1.0.8.1. The single player also keeps its surface across the
+ * side-player flip, so growing the corner card never restarts the stream.
  *
  * 1.0.8 adds the side player: [expanded] = false renders the same player as
  * a small corner card while the channel browser stays up. The ExoPlayer
@@ -84,12 +97,62 @@ fun PlayerScreen(
     }
     val current = playlist[serverIndex.coerceIn(0, playlist.lastIndex)]
 
-    var errorMessage by remember { mutableStateOf<String?>(null) }
-    var switchNotice by remember { mutableStateOf<String?>(null) }
-    var buffering by remember { mutableStateOf(true) }
-    val player = remember(current) { buildPlayer(context, current) }
+    // Keyed by the channel like the playlist above: opening a different
+    // channel over the side player must not inherit the last one's error
+    // card or its "switching servers" notice.
+    var errorMessage by remember(channel.url) { mutableStateOf<String?>(null) }
+    var switchNotice by remember(channel.url) { mutableStateOf<String?>(null) }
+    var buffering by remember(channel.url) { mutableStateOf(true) }
 
+    // ONE ExoPlayer for the whole screen, however many servers it walks
+    // (1.0.9 crash fix). Every server switch used to build a brand-new
+    // player and release the old one, but the PlayerView below only ever
+    // binds in its factory - so after the first automatic fallback the
+    // picture stayed attached to the released player: a permanent black
+    // screen (sometimes with the new server's sound) that read as a crash
+    // the moment a viewer opened a channel whose first feed was dead.
+    // The player now lives for the screen; a server switch just hands it
+    // a new media source, built with that server's own headers.
+    val player = remember {
+        ExoPlayer.Builder(context).build().apply { playWhenReady = true }
+    }
+    LaunchedEffect(player, current) {
+        buffering = true
+        player.setMediaSource(mediaSourceFor(context, current))
+        player.prepare()
+    }
+
+    // Leaving the app (Home on the remote) pauses; coming back resumes only
+    // if the viewer had not paused it themselves. Without this the stream
+    // kept playing to an empty room after the TV went back to its launcher.
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(player, lifecycleOwner) {
+        var resumeOnStart = false
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_STOP -> {
+                    resumeOnStart = player.playWhenReady
+                    player.pause()
+                }
+                Lifecycle.Event.ON_START -> if (resumeOnStart) player.play()
+                else -> Unit
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
+
+    // The player is released only when the screen itself goes away.
     DisposableEffect(player) {
+        onDispose { player.release() }
+    }
+
+    // The listener is keyed by the channel, like the state it drives: the
+    // playlist and server index it closes over are remembered per channel,
+    // so a listener outliving a channel change would advance a server list
+    // the screen no longer shows. Rebuilt per channel, it always walks the
+    // list on screen.
+    DisposableEffect(player, channel.url) {
         val listener = object : Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
                 buffering = false
@@ -114,10 +177,7 @@ fun PlayerScreen(
             }
         }
         player.addListener(listener)
-        onDispose {
-            player.removeListener(listener)
-            player.release()
-        }
+        onDispose { player.removeListener(listener) }
     }
 
     // On the big screen, Back tucks the channel into the side player instead
@@ -179,6 +239,11 @@ fun PlayerScreen(
                             }
                         },
                         update = { view ->
+                            // Rebind on every recomposition as a seatbelt: the
+                            // view must never be left pointing at a player the
+                            // screen has moved on from (the 1.0.8 black-screen
+                            // bug). With one player per screen this is a no-op.
+                            if (view.player !== player) view.player = player
                             view.useController = expanded
                         },
                     )
@@ -192,8 +257,13 @@ fun PlayerScreen(
                     }
                     if (!expanded && errorMessage != null) {
                         Text(
-                            text = "All ${playlist.size} servers tried — nothing is answering. " +
-                                "The nightly link check removes feeds like this.",
+                            text = if (playlist.size > 1) {
+                                "All ${playlist.size} servers tried — nothing is answering. " +
+                                    "The nightly link check removes feeds like this."
+                            } else {
+                                "This feed is not answering. " +
+                                    "The nightly link check removes feeds like this."
+                            },
                             style = MaterialTheme.typography.labelSmall,
                             color = MutedText,
                             textAlign = TextAlign.Center,
@@ -417,7 +487,13 @@ private fun MiniChip(label: String, onClick: () -> Unit) {
     }
 }
 
-private fun buildPlayer(context: Context, channel: Channel): ExoPlayer {
+/**
+ * One server's media source, carrying that feed's own referrer / origin /
+ * user-agent. Built per server (not per player) so the screen's single
+ * ExoPlayer can walk a channel's feeds - each published with its own
+ * headers - without being rebuilt and rebound at every hop.
+ */
+private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
     val headers = HashMap<String, String>()
     if (channel.referrer.isNotBlank()) headers["Referer"] = channel.referrer
     if (channel.origin.isNotBlank()) headers["Origin"] = channel.origin
@@ -429,13 +505,7 @@ private fun buildPlayer(context: Context, channel: Channel): ExoPlayer {
     if (headers.isNotEmpty()) http = http.setDefaultRequestProperties(headers)
     if (channel.userAgent.isNotBlank()) http = http.setUserAgent(channel.userAgent)
 
-    val mediaSourceFactory = DefaultMediaSourceFactory(context).setDataSourceFactory(http)
-    return ExoPlayer.Builder(context)
-        .setMediaSourceFactory(mediaSourceFactory)
-        .build()
-        .apply {
-            setMediaItem(MediaItem.fromUri(channel.url))
-            playWhenReady = true
-            prepare()
-        }
+    return DefaultMediaSourceFactory(context)
+        .setDataSourceFactory(http)
+        .createMediaSource(MediaItem.fromUri(channel.url))
 }

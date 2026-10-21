@@ -292,7 +292,7 @@ class BuildBundleTests(unittest.TestCase):
 
     def test_all_scope_is_explicit_preview_and_stable_default_stays_usa(self):
         self.assertEqual(build_bundle.DEFAULT_SCOPE, "usa")
-        self.assertEqual(build_bundle.DEFAULT_VERSION, "1.0.8.1")
+        self.assertEqual(build_bundle.DEFAULT_VERSION, "1.0.9")
         meta = build_bundle.build(
             self.playlist,
             self.guide,

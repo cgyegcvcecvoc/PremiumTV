@@ -146,10 +146,11 @@ test('the 1.0.7 compatibility alias reaches 1.0.6 but not 1.0.6.1', () => {
   assert.equal(policy.isCompatibilityAlias('1.0.6.1', '1.0.6.1'), false);
 });
 
-test('the 1.0.9 alias carries 1.0.8 V1 (1.0.8.1) to 1.0.8 but not to itself', () => {
-  // The real pair: canonical 1.0.8.1 has no Mac installer of its own (the
-  // fixture release('1.0.8.1') would invent one, so strip its assets); the
-  // alias 1.0.9 release carries PremiumTV-1.0.9-mac-*.dmg.
+test('1.0.9 is a real release offered to every older build', () => {
+  // 1.0.9 briefly existed as the alias of 1.0.8.1 (whose release never
+  // carried a Mac installer - four-part versions cannot be packaged - so
+  // strip its fixture assets). As a real release it now simply outranks
+  // both: no alias folding anywhere, and the V scheme is retired.
   const canonical = release('1.0.8.1', { assets: [] });
   const releases = [canonical, release('1.0.9')];
 
@@ -158,22 +159,22 @@ test('the 1.0.9 alias carries 1.0.8 V1 (1.0.8.1) to 1.0.8 but not to itself', ()
   assert.equal(older.update.assetName, 'PremiumTV-1.0.9-mac-arm64.dmg');
   assert.equal(older.newestStable, '1.0.9');
 
-  const current = policy.selectStableUpdate(releases, '1.0.8.1', 'arm64');
-  assert.equal(current.update, null);
-  assert.equal(current.newestStable, '1.0.8.1');
+  // A build still reporting 1.0.8.1 is offered 1.0.9 like any other update
+  // (the old alias table used to hide it as "the same code, second name").
+  const patchEra = policy.selectStableUpdate(releases, '1.0.8.1', 'arm64');
+  assert.equal(patchEra.update.version, '1.0.9');
+  assert.equal(patchEra.newestStable, '1.0.9');
 
-  // A Mac that installed the alias reports packaged version 1.0.9 and is
-  // already on the newest stable, not a preview above 1.0.8.1.
-  const aliasInstall = policy.selectStableUpdate(releases, '1.0.9', 'arm64');
-  assert.equal(aliasInstall.update, null);
-  assert.equal(aliasInstall.newestStable, '1.0.8.1');
+  const current = policy.selectStableUpdate(releases, '1.0.9', 'arm64');
+  assert.equal(current.update, null);
+  assert.equal(current.newestStable, '1.0.9');
   assert.equal(
-    policy.describeState('1.0.9', aliasInstall.newestStable, aliasInstall.update),
+    policy.describeState('1.0.9', current.newestStable, current.update),
     'PremiumTV 1.0.9 is the newest stable release.',
   );
 
-  assert.equal(policy.canonicalVersion('1.0.9'), '1.0.8.1');
-  assert.equal(policy.isCompatibilityAlias('1.0.9', '1.0.8.1'), true);
-  assert.equal(policy.isCompatibilityAlias('1.0.9', '1.0.8'), false);
-  assert.equal(policy.isCompatibilityAlias('1.0.8.1', '1.0.8.1'), false);
+  assert.equal(policy.canonicalVersion('1.0.9'), '1.0.9');
+  assert.equal(policy.canonicalVersion('1.0.10'), '1.0.10');
+  assert.equal(policy.isCompatibilityAlias('1.0.9', '1.0.8.1'), false);
+  assert.equal(policy.isCompatibilityAlias('1.0.10', '1.0.8.2'), false);
 });

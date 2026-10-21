@@ -73,11 +73,10 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.0.8 V1 Patch** `1.0.8.1` (Android `versionCode 100080001`) | USA lineup + USA guide | Default and only download; installs over every earlier build from Settings → App updates. Same 1.0.8 look plus V1 fixes: animated loading screen, hardened bug detection (patch chain, stream hygiene, guide freshness, library health) |
-| Compatibility build | **1.0.9** (Android `versionCode 100090000`) | USA lineup + USA guide | Identical to 1.0.8.1, published so 1.0.4–1.0.6 can see and install it from Settings → App updates (V1's alias, like 1.0.7 for 1.0.6.1) |
-| Previous stable | **1.0.8** (Android `versionCode 100080000`) | USA lineup + USA guide | Superseded by V1 Patch; installs in place over every earlier build |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.8 V1 ends Nov 19, 2026 |
-| Next (in source) | **1.0.8 V1 Patch** `1.0.8.1` (Android `versionCode 100080001`) | USA lineup + USA guide | Marked as the default build version in source. Sets the V patch series in stone: V2=1.0.8.2, V3=1.0.8.3 … each V increments versionCode by 1 ([notes](release-notes-1.0.8.1.md)) |
+| **Stable release** | **1.0.9** (Android `versionCode 100090000`) | USA lineup + USA guide | Default and only download — the crash-on-watch fix. Installs over every earlier build from Settings → App updates (1.0.8.1 installs use the APK by hand; see the warning row below) |
+| Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update to 1.0.9 now.** 1.0.9 briefly existed as 1.0.8.1's same-code alias; it is now the fixed release above, and these builds show an extreme update popup on launch |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.9 ends Nov 19, 2026 |
+| Next (in source) | **1.0.9** (Android `versionCode 100090000`) | USA lineup + USA guide | Marked as the default build version in source. The V patch series is retired: future fixes are plain next versions ([notes](release-notes-1.0.9.md)) |
 
 The **1.1.0/1.1.1 Encore preview channel is retired**. Its release, installers
 and download links were removed (old release-asset URLs now 404); every
@@ -87,18 +86,29 @@ shows a **BUILD RETIRED** notice at startup; on Android, 1.0.6.1 installs
 straight over it because `100060001` is above `100010001` and both APKs share
 the update key.
 
-Versions are `MAJOR.MINOR.PATCH` or `MAJOR.MINOR.PATCH.HOTFIX`: 1.0.6.1 was a
-small stable increment, not a new minor release; 1.0.8 V1 Patch is **1.0.8.1**
-and uses the same rule — each future V increments the fourth number
-(1.0.8.1, 1.0.8.2 …) and its `versionCode` by one, so every V installs in place
-and orders above the last. Builds shipped before 1.0.6.1 only understand
-three-part versions, so the same code was also published as an alias:
-**1.0.7** for 1.0.6.1, **1.0.9** for 1.0.8.1 (V1), 1.0.10 for V2 … That mapping
-is how an old updater still finds a V patch. See
+Versions are `MAJOR.MINOR.PATCH`. Four-part hotfixes existed briefly —
+1.0.6.1, and **1.0.8.1** ("1.0.8 V1 Patch") — each paired with a same-code
+three-part alias (**1.0.7** for 1.0.6.1; **1.0.9** briefly for 1.0.8.1) so
+older updaters could find them. **That scheme is retired:** 1.0.9 became a
+real release — the crash-on-watch fix — and every future fix is simply the
+next version. Four-part versions are still parsed so old tags and installs
+resolve. See
+[`release-notes-1.0.9.md`](release-notes-1.0.9.md),
 [`release-notes-1.0.8.1.md`](release-notes-1.0.8.1.md),
 [`release-notes-1.0.8.md`](release-notes-1.0.8.md),
 [`release-notes-1.0.6.1.md`](release-notes-1.0.6.1.md) and its
 [1.0.7 compatibility note](release-notes-1.0.7.md).
+
+### What 1.0.9 fixes
+
+- **Opening a channel no longer freezes on black or crashes (Android).** The
+  player used to create and release a whole media player per server while the
+  video surface stayed attached to the first, released player — after a server
+  fallback or a side-player flip the picture was dead. 1.0.9 keeps one player
+  per watch screen and swaps the stream inside it. Both platforms' packaged
+  tests now open a channel for real before a build may publish.
+- **Plain versions from now on.** The V-patch/alias scheme is retired (see
+  above); 1.0.8 and 1.0.8.1 carry an extreme update warning instead.
 
 ### What 1.0.8 V1 Patch adds on top of 1.0.8
 
@@ -109,15 +119,14 @@ is how an old updater still finds a V patch. See
   transform/opacity only so it stays smooth on TV hardware.
 - **Better bug detection.** Settings → **Check for bugs** now runs 11 checks
   (was 7): it still verifies channel list, categories, guide, bundle, refresh,
-  updates and version, but adds **Patch chain** (V ordering that this patch
-  sets in stone: V1=1.0.8.1, V2=1.0.8.2 …), **Stream hygiene** (spaces/malformed
+  updates and version, but adds **Patch chain** (V ordering: 1.0.8.1 above
+  1.0.8 — kept so historical patch builds still verify), **Stream hygiene** (spaces/malformed
   URLs that fail on players), **Guide freshness** (window age in days) and
   **Library health** (empty categories, oversized groups that stress low-memory
   sticks).
-- **V patch versioning, locked in.** 1.0.8.1 displays as **1.0.8 V1 Patch** —
-  and every follow-up V increments the fourth number (`1.0.8.2` = V2,
-  `1.0.8.3` = V3 …) with alias releases (`1.0.9`, `1.0.10` …) so 1.0.4–1.0.6
-  updaters still find them. No playlist, scraper or guide logic changed.
+- **V patch versioning (retired at 1.0.9).** 1.0.8.1 displays as **1.0.8 V1
+  Patch** and was the only V patch ever cut; from 1.0.9 on, fixes take the
+  next plain version number. No playlist, scraper or guide logic changed.
 
 ### What 1.0.8 added
 
@@ -180,7 +189,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.8.1` / **1.0.8 V1 Patch** — USA lineup; every 1.0.4+ build installs it from Settings → App updates (alias `1.0.9` for old updaters) |
+| Stable target | `1.0.9` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
 The macOS regression suite covers startup data delivery, the cable-style guide
@@ -199,7 +208,7 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.0.8.1` — **1.0.8 V1 Patch** (`versionCode 100080001`) — USA library |
+| Stable build target | `1.0.9` (`versionCode 100090000`) — USA library |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 The stable build bundles the USA playlist and guide. Both are built from curated
@@ -228,10 +237,12 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.8 V1 Patch (1.0.8.1) is the current stable release** (`versionCode 100080001`, USA scope; alias `1.0.9` with `100090000` for old updaters).
+**1.0.9 is the current stable release** (`versionCode 100090000`, USA scope).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.0.8 V1 installs over 1.0.8 and the
-retired 1.1.x previews as well. A release is offered only when it is a
+upgrades from Settings → App updates, and 1.0.9 installs over 1.0.8, 1.0.8.1
+and the retired 1.1.x previews as well. (One exception: an installed 1.0.8.1
+still reads "1.0.9" as another name for itself, so its in-app check can miss
+this release — install the APK by hand; it upgrades in place.) A release is offered only when it is a
 published full release above the installed version with its platform installer
 already attached. The download site promotes only a complete published stable
 release and no longer publishes preview builds.

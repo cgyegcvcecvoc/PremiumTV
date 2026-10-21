@@ -281,7 +281,7 @@ fun UpdateNoticeDialog(
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = when {
-                            blocked -> "Back dismisses for now; this retired build is blocked from download."
+                            blocked -> "Back dismisses for now; this warning returns until you update."
                             ended -> "Back dismisses for now; it returns every launch."
                             else -> "Back dismisses for now; it returns every launch until you update."
                         },

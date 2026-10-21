@@ -1,8 +1,10 @@
 # PremiumTV 1.0.8 V1 Patch — 1.0.8.1
 
-**Status: the newest stable patch release — the V series, set in stone.** Android `versionCode 100080001` (`1.0.8.1` → `100080001`; alias `1.0.9` → `100090000` for 1.0.4–1.0.6 updaters), Mac `1.0.9` (alias of `1.0.8.1`, both carry the same code). Every 1.0.4+ app finds it in Settings → App updates: check, download once, verify the SHA-256, install. It installs in place over every previous stable and the retired 1.1.x previews.
+> ⚠️ **CRASH WARNING — update to [1.0.9](release-notes-1.0.9.md) now.** This version can freeze on a black picture or crash when you open a channel (on Android the video surface stays attached to a released player after a server switch). 1.0.9 fixes it and installs in place. Do not stay on this build.
 
-> **V naming, locked in.** `1.0.8 V1` is `1.0.8.1`, `V2` is `1.0.8.2`, `V3` is `1.0.8.3` … each V increments the fourth number and its `versionCode` by one, so every V installs over the last and orders above it. Old three-part updaters (1.0.4–1.0.6) see the same code under its alias (`1.0.9`, `1.0.10` …), just as `1.0.7` was the alias for `1.0.6.1`. No minor/patch number the roadmap needs is consumed — the base stays `1.0.8` until a real `1.0.9` ships.
+**Status: superseded by 1.0.9 — the only V patch ever cut; the V series is retired.** Android `versionCode 100080001` (`1.0.8.1` → `100080001`; alias `1.0.9` → `100090000` for 1.0.4–1.0.6 updaters), Mac `1.0.9` (alias of `1.0.8.1`, both carry the same code). Every 1.0.4+ app finds it in Settings → App updates: check, download once, verify the SHA-256, install. It installs in place over every previous stable and the retired 1.1.x previews.
+
+> **V naming, locked in.** `1.0.8 V1` is `1.0.8.1`, `V2` is `1.0.8.2`, `V3` is `1.0.8.3` … each V increments the fourth number and its `versionCode` by one, so every V installs over the last and orders above it. Old three-part updaters (1.0.4–1.0.6) see the same code under its alias (`1.0.9`, `1.0.10` …), just as `1.0.7` was the alias for `1.0.6.1`. The real `1.0.9` has since shipped as the crash-on-watch fix, retiring this naming scheme — there is no V2.
 
 ## The more animated loading screen
 

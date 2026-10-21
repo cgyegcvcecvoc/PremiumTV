@@ -46,9 +46,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to build (for example 1.0.8.1 stable)"
+        description: "Version to build (for example 1.0.9 stable)"
         type: string
-        default: "1.0.8.1"
+        default: "1.0.9"
         required: true
       channel:
         description: "Release channel: stable = USA lineup, preview = global lineup"
@@ -76,9 +76,9 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     env:
-      # Push builds default to stable 1.0.8.1 (1.0.8 V1 Patch); release and manual builds
+      # Push builds default to stable 1.0.9; release and manual builds
       # select the tag/version they were asked for.
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.8.1') }}
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.0.9') }}
 
     steps:
       - name: Check out the repository
@@ -104,20 +104,21 @@ jobs:
               echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
             if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.0.8.1}"
+            version="${INPUT_VERSION:-1.0.9}"
             channel="${INPUT_CHANNEL:-stable}"
             version=$(python3 scripts/release_version.py --normalize "$version") || {
               echo "Unsupported PremiumTV version: $version"; exit 1; }
           fi
           if [ "$channel" = "preview" ]; then scope=all; else scope=usa; fi
           code=$(python3 scripts/release_version.py --code "$version")
-          # A compatibility alias (1.0.7 for 1.0.6.1, 1.0.9 for 1.0.8.1 …) exists
-          # so a three-part updater can reach the canonical build. The APK is
-          # named and tagged with the alias, but its package must report the
-          # canonical version: otherwise the updated app calls itself a preview
-          # above the stable release on the next update check. The versionCode
-          # stays the alias' higher code so it installs over the prior patch.
-          # Patch releases after 1.0.8 follow the V scheme: V1=1.0.8.1, V2=1.0.8.2 …
+          # A compatibility alias (historically 1.0.7 for 1.0.6.1) exists so a
+          # three-part updater can reach the canonical build. The APK is named
+          # and tagged with the alias, but its package must report the canonical
+          # version: otherwise the updated app calls itself a preview above the
+          # stable release on the next update check. The versionCode stays the
+          # alias' higher code so it installs over the prior build. Since 1.0.9
+          # every release is its own canonical version (V patches retired), so
+          # this only matters when rebuilding the historical 1.0.7 pair.
           app_version=$(python3 scripts/release_version.py --canonical "$version")
           {
             echo "VERSION=$version"
@@ -193,8 +194,11 @@ jobs:
           sudo docker image prune --all --force || true
           df -h /
 
-      - name: Smoke test the built APK (cold launch, relaunch, Guide tab and remote)
+      - name: Smoke test the built APK (cold launch, relaunch, Guide tab, remote and player)
         id: smoke_apk
+        # The watch gate normally finishes in a few minutes; a wedged
+        # emulator must fail this step, not eat the whole 45-minute job.
+        timeout-minutes: 25
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30

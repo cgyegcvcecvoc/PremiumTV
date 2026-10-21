@@ -163,3 +163,23 @@ test('1.0.8: the Live Events tab has its own refresh and a live check per game',
 function css() {
   return fs.readFileSync(path.join(renderer, 'app.css'), 'utf8');
 }
+
+test('every els.<name> the renderer uses is collected in the els map and exists in the page', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+  const mapBlock = js.match(/const els = \{([\s\S]*?)\n  \};/);
+  assert.ok(mapBlock, 'the els map exists');
+  const defined = new Set([...mapBlock[1].matchAll(/^\s{4}(\w+):/gm)].map((m) => m[1]));
+  const used = new Set([...js.matchAll(/\bels\.(\w+)/g)].map((m) => m[1]));
+  // 1.0.8 shipped six dead controls exactly this way: the HTML and the
+  // `if (els.X)`-guarded handlers existed, but the els entries did not, so
+  // every guard was permanently false - the side-player button, both sort
+  // toolbars, the category back button and the live refresh button did
+  // nothing when clicked. Only keyboard paths still worked.
+  for (const name of used) {
+    assert.ok(defined.has(name), `els.${name} is used but never collected in the els map`);
+  }
+  for (const [, name, id] of mapBlock[1].matchAll(/^\s{4}(\w+): document\.getElementById\('([^']+)'\)/gm)) {
+    assert.ok(html.includes(`id="${id}"`), `els.${name} looks up #${id}, which index.html does not contain`);
+  }
+});

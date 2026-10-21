@@ -22,6 +22,14 @@ returns to the same guide. A stable build must show the "what's on now" list.
 Cable-guide runs save screenshots of the guide to build-out/ so the grid can be
 checked by eye.
 
+Every build - stable included - then opens a channel end to end: Channels tab,
+first category, first card, and the player must stay alive through the
+buffering/error machinery, tuck into the side player on Back, and close back
+to the browser. The stable gate never played a channel before 1.0.9, which is
+how the 1.0.8/1.0.8.1 crash-on-watch shipped with every check green; if the
+process dies anywhere in this stretch, the crash buffer lands in
+build-out/smoke-log.txt with the stack trace.
+
 On failure the logcat tail and the last UI dump are written to
 build-out/smoke-log.txt. Actions logs live behind a host some sandboxes cannot
 reach, and for branch builds build-out/ is committed back to the branch, which
@@ -168,7 +176,7 @@ def wait_for(check, label):
 
 def key(code, times=1):
     for _ in range(times):
-        adb("shell", "input", "keyevent", code)
+        adb("shell", "input", "keyevent", str(code))
         time.sleep(0.6)
 
 
@@ -228,7 +236,7 @@ def dismiss_update_notice(texts, nodes):
         progress(f"tapping '{target.get('text', '').strip()}' to dismiss the popup")
         adb("shell", "input", "tap", str(x), str(y))
     else:
-        key(4)  # KEYCODE_BACK, the remote's own dismissal
+        key("KEYCODE_BACK")  # the remote's own dismissal
     time.sleep(1.5)
     return True
 
@@ -274,18 +282,290 @@ def check_guide(meta, names):
     progress("GUIDE PASS (remote): the highlight and the detail strip follow the D-pad")
     screenshot("android-guide-remote.png")
 
-    # OK plays the highlighted channel; Back returns to the same guide.
+    # OK plays the highlighted channel; Back returns to the same guide. Since
+    # 1.0.8 Back only tucks the channel into the side player, so close the
+    # card as well: the player check below starts from a clean browser.
     key("KEYCODE_DPAD_CENTER")
     wait_for(lambda t, n: not grid(t, n), "the player after OK in the guide")
     key("KEYCODE_BACK")
     wait_for(grid, "the guide again after Back from the player")
+    close_side_player()
     progress("GUIDE PASS (player): OK opened the channel and Back returned to the guide")
+
+
+# How long the player may take to appear (or to confess via the error card)
+# after a channel is tapped. Far shorter than the guide deadline: the player
+# screen composes immediately, and on a crash the dead process is the answer.
+PLAYER_DEADLINE_SECONDS = 90
+# PlayerScreen's own words. Any one of these means the player composed; the
+# stream itself may still buffer or fall through every server to the error
+# card, which is a data outcome, not an app failure.
+PLAYER_TEXTS = ("⤢ Side player", "✕ Close", "Press Back to tuck this into the side player")
+
+
+def process_alive():
+    try:
+        return bool(adb("shell", "pidof", PACKAGE, timeout=30).strip())
+    except subprocess.SubprocessError:
+        return False
+
+
+def wait_alive(check, label, deadline_seconds=PLAYER_DEADLINE_SECONDS):
+    """wait_for with a shorter fuse and a dead-process short-circuit.
+
+    A crash leaves the UI empty rather than merely wrong, so the missing
+    process ends the wait at once and diagnose() captures the crash buffer
+    (with the stack trace) instead of polling a launcher desktop for minutes.
+    """
+    deadline = time.monotonic() + deadline_seconds
+    last_xml, last_texts, last_error = "", [], ""
+    while time.monotonic() < deadline:
+        if not process_alive():
+            diagnose(f"{label}: the app process is gone (crash while opening/using the player). "
+                     f"Last texts: {sorted(set(last_texts))[:40]}", last_xml)
+            raise RuntimeError(f"{label}: app process died")
+        try:
+            last_xml, nodes = dump_ui()
+            last_texts = texts_of(nodes)
+            if dismiss_update_notice(last_texts, nodes):
+                continue
+            value = check(last_texts, nodes)
+            if value:
+                return value, last_texts, last_xml
+        except (subprocess.SubprocessError, ET.ParseError) as error:
+            last_error = f"{type(error).__name__}: {error}"
+        time.sleep(2)
+    diagnose(f"{label} not seen within {deadline_seconds} seconds. "
+             f"Process alive: {process_alive()}. Texts: {sorted(set(last_texts))[:40]} {last_error}",
+             last_xml)
+    raise RuntimeError(f"{label} not seen in time")
+
+
+def tap_text(nodes, predicate, label):
+    """Taps the centre of the first node whose text satisfies predicate."""
+    node = next((node for node in nodes if predicate(node.get("text", ""))), None)
+    if node is None:
+        return False
+    x, y = centre_of(node)
+    progress(f"tapping '{node.get('text', '').strip()}' ({label}) at {x},{y}")
+    adb("shell", "input", "tap", str(x), str(y))
+    time.sleep(1.5)
+    return True
+
+
+def close_side_player():
+    """If the side player card is up, close it so playback actually stops."""
+    try:
+        _, nodes = dump_ui()
+    except (subprocess.SubprocessError, ET.ParseError):
+        return
+    texts = texts_of(nodes)
+    if any(text == "⤢ Big screen" for text in texts):
+        tap_text(nodes, lambda text: text == "✕ Close", "side player close")
+        time.sleep(1.5)
+
+
+def poll_ui(check, seconds):
+    """Quietly polls the UI for check(texts, nodes); None when time runs out.
+
+    For outcomes that are allowed not to happen (a feed that simply plays, a
+    bundle with no live games): wait_alive's diagnose-on-timeout would bury
+    the real evidence under a non-failure.
+    """
+    deadline = time.monotonic() + seconds
+    while time.monotonic() < deadline:
+        if not process_alive():
+            return None
+        try:
+            _, nodes = dump_ui()
+            value = check(texts_of(nodes), nodes)
+            if value:
+                return value
+        except (subprocess.SubprocessError, ET.ParseError):
+            pass
+        time.sleep(3)
+    return None
+
+
+def player_marker(texts, nodes):
+    return next((text for text in texts
+                 if any(marker in text for marker in PLAYER_TEXTS)), None)
+
+
+def side_card_marker(texts, nodes):
+    return next((text for text in texts if text == "⤢ Big screen"), None)
+
+
+def tap_tab(label):
+    def find(texts, nodes):
+        node = next((node for node in nodes if node.get("text") == label), None)
+        return centre_of(node) if node is not None else None
+
+    (x, y), _, _ = wait_for(find, f"the {label} tab")
+    adb("shell", "input", "tap", str(x), str(y))
+    time.sleep(1.5)
+
+
+def exercise_player_transitions(meta, context):
+    """Once the player is up: fallback walk, manual server hop, side player.
+
+    The 1.0.8 player rebuilds its ExoPlayer on every server switch and keeps
+    the same PlayerScreen alive across the big-screen/side-player flip, so
+    this walks the whole chain and demands a living process after each hop.
+    """
+    marker, _, _ = wait_alive(player_marker, f"the player ({context})")
+    progress(f"player composed ({context}; saw '{marker.strip()}')")
+
+    # Let the stream machinery run: buffering, a dead feed walking the server
+    # list (each hop rebuilds the player under the same view), the error
+    # card. Whatever it does, the process must still be there at the end.
+    def settled(texts, nodes):
+        return next((text for text in texts
+                     if "This stream is not playing" in text
+                     or "servers for this channel were tried" in text
+                     or "switching to server" in text
+                     or re.search(r"Server [2-9] of \d+", text)), None)
+
+    outcome = poll_ui(settled, 90)
+    if outcome:
+        progress(f"player settled ({context}): '{outcome.strip()}'")
+    else:
+        # A feed that quietly plays (or buffers forever) never shows those
+        # texts; that is fine as long as the app is alive.
+        progress(f"player still working after the settle window ({context})")
+    if not process_alive():
+        diagnose(f"the app died while the player was up ({context})")
+        raise RuntimeError("app process died with the player up")
+    screenshot("android-player.png")
+
+    # Manual server hop, when this channel has more than one server: the same
+    # player-rebuild path the automatic fallback takes, on demand.
+    try:
+        _, nodes = dump_ui()
+        if tap_text(nodes, lambda text: text == "Server ▶", "manual server hop"):
+            time.sleep(6)
+            if not process_alive():
+                diagnose(f"the app died on a manual server hop ({context})")
+                raise RuntimeError("app process died on a manual server hop")
+            progress(f"manual server hop survived ({context})")
+    except (subprocess.SubprocessError, ET.ParseError):
+        pass
+
+    # Back tucks the channel into the side player (1.0.8) instead of stopping.
+    key("KEYCODE_BACK")
+    wait_alive(side_card_marker, f"the side player after Back ({context})")
+    screenshot("android-side-player.png")
+    progress(f"side player composed ({context}); growing it back")
+
+    # Grow it back to the big screen: the remembered player must survive.
+    _, nodes = dump_ui()
+    tap_text(nodes, lambda text: text == "⤢ Big screen", "side player grow")
+    wait_alive(player_marker, f"the big screen again ({context})")
+    time.sleep(3)
+    if not process_alive():
+        diagnose(f"the app died growing the side player ({context})")
+        raise RuntimeError("app process died growing the side player")
+    progress(f"big screen again ({context}); tucking and closing")
+
+    key("KEYCODE_BACK")
+    wait_alive(side_card_marker, f"the side player again ({context})")
+    close_side_player()
+
+    def browser_back(texts, nodes):
+        # Any "<n> channels" header, not the bundled count: the app may have
+        # refreshed its library from the live feed while the player was up
+        # (the emulator has internet), and the newer count is just as much
+        # "the browser is back" as the baked one.
+        return any(re.search(r"\b\d+ channels\b", text) for text in texts) \
+            and not any(text == "⤢ Big screen" for text in texts)
+
+    wait_alive(browser_back, f"the browser after closing the player ({context})")
+    if not process_alive():
+        diagnose(f"the app died on the way back from the player ({context})")
+        raise RuntimeError("app process died leaving the player")
+
+
+def check_player(meta, channels):
+    """Opens a channel from the Channels tab and proves the player survives.
+
+    This is the tap a viewer makes first and the one 1.0.8/1.0.8.1 crashed on
+    while the stable gate only ever looked at the guide. Screenshots of the
+    full player and the side player land in build-out/ for an eyeball check.
+    The target channel carries backup feeds (same EPG id, several URLs) when
+    the bundle has one, so the player's automatic server fallback - the path
+    that rebuilds the player mid-screen - is exercised, not just first paint.
+    """
+    urls_by_id = {}
+    for channel in channels:
+        if channel.get("id") and channel.get("url"):
+            urls_by_id.setdefault(channel["id"], set()).add(channel["url"])
+    multi = [channel for channel in channels
+             if len(urls_by_id.get(channel.get("id", ""), ())) > 1
+             and 0 < len(channel.get("name", "")) <= 28]
+    pool = multi or channels
+    target_channel = pool[0]
+    group = target_channel.get("group") or ""
+    target = (target_channel.get("name") or "").strip()
+    servers = len(urls_by_id.get(target_channel.get("id", ""), ()))
+    progress(f"player check: category '{group}', channel '{target}' "
+             f"({servers} feed(s) under its EPG id)")
+
+    tap_tab("Channels")
+
+    def category_row(texts, nodes):
+        node = next((node for node in nodes if node.get("text", "") == group), None)
+        return centre_of(node) if node is not None else None
+
+    (x, y), _, _ = wait_alive(category_row, f"the '{group}' category row")
+    adb("shell", "input", "tap", str(x), str(y))
+    time.sleep(1.5)
+
+    def card(texts, nodes):
+        node = next((node for node in nodes
+                     if node.get("text", "") == target
+                     or (node.get("text", "") and target.startswith(node.get("text", "").rstrip("…")))),
+                    None)
+        return centre_of(node) if node is not None else None
+
+    (x, y), _, _ = wait_alive(card, f"the '{target}' channel card")
+    adb("shell", "input", "tap", str(x), str(y))
+
+    exercise_player_transitions(meta, f"channel '{target}'")
+    progress(f"PLAYER PASS: '{target}' opened, survived the stream machinery, "
+             "the server hops and both side-player flips")
+
+
+def check_live_event(meta, channels):
+    """Opens a game from the Live Events tab - the other tap-to-watch path.
+
+    A game's card hands the player its whole server list, so this is the
+    multi-server path with the largest lists in the app. Bundles with no
+    games in them skip quietly.
+    """
+    tap_tab("Live Events")
+
+    def pill(texts, nodes):
+        node = next((node for node in nodes
+                     if node.get("text", "") in ("LIVE", "CHECKING", "NO SIGNAL")), None)
+        return centre_of(node) if node is not None else None
+
+    centre = poll_ui(pill, 45)
+    if not centre:
+        progress("no live games in this bundle; skipping the Live Events player check")
+        return
+    x, y = centre
+    progress("tapping the first live event card")
+    adb("shell", "input", "tap", str(x), str(y))
+
+    exercise_player_transitions(meta, "live event")
+    progress("LIVE EVENT PASS: a game opened and survived the same chain")
 
 
 def main():
     bundle = ROOT / "android/app/src/main/assets/bundle"
     meta = json.loads((bundle / "meta.json").read_text())
-    names = {json.loads(row)["name"] for row in (bundle / "channels.jsonl").read_text().splitlines() if row}
+    channels = [json.loads(row) for row in (bundle / "channels.jsonl").read_text().splitlines() if row]
+    names = {channel["name"] for channel in channels}
     progress(f"bundled library: {meta['channel_count']} channels, {len(names)} names, version {meta['version']}, "
              f"preview features {meta.get('preview_features') or []}")
     adb("install", "-r", str(ROOT / "android/app/build/outputs/apk/debug/app-debug.apk"),
@@ -315,10 +595,18 @@ def main():
                              f"{meta['channel_count']} channels and visible channel cards")
                     try:
                         check_guide(meta, names)
+                        check_player(meta, channels)
+                        check_live_event(meta, channels)
                     except Exception as error:  # noqa: BLE001 - always leave a diagnosable log
                         import traceback
-                        if not (ROOT / "build-out" / "smoke-log.txt").exists():
-                            diagnose(f"Guide check crashed: {type(error).__name__}: {error}\n"
+                        # A gate failure writes a fresh smoke-log via diagnose();
+                        # the committed file from older runs must not mask it, so
+                        # only skip when this run already wrote one (mtime check
+                        # via the progress file's own trail is overkill - the log
+                        # existing AND the failure coming from wait_alive means
+                        # diagnose() has just run).
+                        if "process died" not in str(error) and "not seen" not in str(error):
+                            diagnose(f"Guide/player check crashed: {type(error).__name__}: {error}\n"
                                      f"{traceback.format_exc()}", last_dump)
                         raise
                     return
