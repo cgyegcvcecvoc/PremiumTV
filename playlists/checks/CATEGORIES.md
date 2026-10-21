@@ -1,20 +1,20 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-10-21 18:05 UTC (2026-10-21 02:05 PM EDT)
+- **Rebuilt:** 2026-10-21 18:20 UTC (2026-10-21 02:20 PM EDT)
 - **Channels in the main playlist:** 13419
 - **Channels in the category files:** 13406 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2656 (19.8%)
+- **With guide data:** 2657 (19.8%)
 - **Categories:** 82 groups (34 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 635 | 216 |
+| 1 | Sports | 635 | 217 |
 | 2 | Sports Backups | 94 | 41 |
 | 3 | Lifestyle | 543 | 127 |
 | 4 | Lifestyle Backups | 91 | 29 |
-| 5 | Fox Channels | 31 | 9 |
+| 5 | Fox Channels | 32 | 9 |
 | 6 | CBS | 33 | 5 |
 | 7 | CBS Backups | 14 | 0 |
 | 8 | NBC | 74 | 17 |
@@ -30,31 +30,31 @@
 | 18 | Movies Backups | 101 | 13 |
 | 19 | Music | 946 | 158 |
 | 20 | Music Backups | 87 | 34 |
-| 21 | News | 932 | 254 |
+| 21 | News | 931 | 254 |
 | 22 | News Backups | 173 | 114 |
-| 23 | Europe | 912 | 179 |
+| 23 | Europe | 913 | 179 |
 | 24 | Europe Backups | 66 | 38 |
 | 25 | International | 791 | 184 |
 | 26 | International Backups | 110 | 45 |
-| 27 | Entertainment | 762 | 152 |
+| 27 | Entertainment | 761 | 152 |
 | 28 | Entertainment Backups | 77 | 27 |
 | 29 | Religious | 614 | 66 |
 | 30 | Religious Backups | 34 | 5 |
 | 31 | Asia | 605 | 104 |
 | 32 | Asia Backups | 25 | 2 |
-| 33 | South America | 535 | 58 |
+| 33 | South America | 537 | 58 |
 | 34 | South America Backups | 23 | 3 |
 | 35 | Documentary | 423 | 96 |
 | 36 | Documentary Backups | 80 | 15 |
-| 37 | United States | 382 | 47 |
+| 37 | United States | 383 | 47 |
 | 38 | United States Backups | 57 | 7 |
 | 39 | Kids | 354 | 75 |
 | 40 | Kids Backups | 60 | 13 |
 | 41 | Series | 344 | 35 |
 | 42 | Series Backups | 108 | 26 |
-| 43 | North America | 329 | 12 |
+| 43 | North America | 327 | 12 |
 | 44 | North America Backups | 8 | 0 |
-| 45 | Education | 161 | 18 |
+| 45 | Education | 160 | 18 |
 | 46 | Education Backups | 13 | 1 |
 | 47 | Culture | 142 | 17 |
 | 48 | Culture Backups | 10 | 4 |
@@ -104,9 +104,8 @@
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 13424 (99.9%) |
-| matched on the base id (feed qualifier dropped) | 1 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 13 (0.1%) |
+| already declared in the guide | 13431 (99.9%) |
+| no guide entry (upstream publishes no schedule for it) | 7 (0.1%) |
 
 ## Channels with no schedule yet
 
