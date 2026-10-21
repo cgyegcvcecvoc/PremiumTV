@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tv generator-info-name="PremiumTV1 epg_build.py" generator-info-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Chile.xml">
+<tv generator-info-name="PremiumTV1 epg_build.py" generator-info-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Chile.xml">
   <channel id="CRTV.cl@SD">
     <display-name>CRTV (Chile) (720p)</display-name>
     <icon src="https://i2.paste.pics/bf68b159547597c39574aec9dd7c626a.png" />
@@ -233,6 +233,10 @@
     <display-name>Maray TV</display-name>
     <icon src="https://i.imgur.com/YinMA8c.png" />
   </channel>
+  <channel id="MargaMargaTV.cl@SD">
+    <display-name>Marga Marga TV (720p)</display-name>
+    <icon src="https://i.imgur.com/4cg51eE.png" />
+  </channel>
   <channel id="Mega.cl@SD">
     <display-name>Mega (Chile) (1080p)</display-name>
     <icon src="https://i.imgur.com/RlZfR84.png" />
@@ -248,6 +252,10 @@
   <channel id="NinaTV.cl@SD">
     <display-name>Nina TV (720p)</display-name>
     <icon src="https://cdn.m3u.cl/logo/1552_Nina_TV.png" />
+  </channel>
+  <channel id="OdiseaTV.cl@SD">
+    <display-name>Odisea TV (720p)</display-name>
+    <icon src="https://i.imgur.com/8SCnoiZ.png" />
   </channel>
   <channel id="PichilemuTV.cl@SD">
     <display-name>Pichilemu TV (1080p)</display-name>
@@ -426,6 +434,10 @@
   <channel id="GenialTV.cl@SD">
     <display-name>Genial TV (720p)</display-name>
     <icon src="https://i.imgur.com/uBC8e96.png" />
+  </channel>
+  <channel id="LaClave.cl@SD">
+    <display-name>La Clave (720p)</display-name>
+    <icon src="https://cdn.m3u.cl/logo/1270_La_Clave.png" />
   </channel>
   <channel id="LaGranjaTV.cl@SD">
     <display-name>La Granja TV</display-name>
@@ -867,9 +879,6 @@
     <display-name>Funbox.cl</display-name>
     <icon src="https://epg.pw/media/images/epg/2025/03/21/20250321022313720466_23.png" />
   </channel>
-  <programme start="20261021090000 +0000" stop="20261021105000 +0000" channel="Canal13.cl@SD">
-    <title>Teletrece AM</title>
-  </programme>
   <programme start="20261021105000 +0000" stop="20261021160000 +0000" channel="Canal13.cl@SD">
     <title>Tu día</title>
   </programme>
@@ -963,6 +972,9 @@
   <programme start="20261023105000 +0000" stop="20261023160000 +0000" channel="Canal13.cl@SD">
     <title>Tu día</title>
   </programme>
+  <programme start="20261023160000 +0000" stop="20261023182000 +0000" channel="Canal13.cl@SD">
+    <title>Teletrece tarde</title>
+  </programme>
   <programme start="20261021090000 +0000" stop="20261021120000 +0000" channel="CanaldelSur.cl@SD">
     <title>Canal del sur</title>
   </programme>
@@ -1019,15 +1031,6 @@
   </programme>
   <programme start="20261023150000 +0000" stop="20261023180000 +0000" channel="CanaldelSur.cl@SD">
     <title>Canal del sur</title>
-  </programme>
-  <programme start="20261021074000 +0000" stop="20261021100000 +0000" channel="TVSenado.cl@SD">
-    <title>Cierre de transmisión</title>
-  </programme>
-  <programme start="20261021100000 +0000" stop="20261021101000 +0000" channel="TVSenado.cl@SD">
-    <title>Inicio de transmisiones</title>
-  </programme>
-  <programme start="20261021101000 +0000" stop="20261021110000 +0000" channel="TVSenado.cl@SD">
-    <title>Speakers CF 2026</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021123000 +0000" channel="TVSenado.cl@SD">
     <title>Sesión de comisión</title>
@@ -1116,8 +1119,8 @@
   <programme start="20261023103000 +0000" stop="20261023153000 +0000" channel="TVSenado.cl@SD">
     <title>Sesión de comisión</title>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021110000 +0000" channel="TVN.cl@SD">
-    <title>24 Horas - Tu mañana</title>
+  <programme start="20261023153000 +0000" stop="20261023183000 +0000" channel="TVSenado.cl@SD">
+    <title>Sesión de sala</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021140000 +0000" channel="TVN.cl@SD">
     <title>Buenos días a todos</title>
@@ -1233,11 +1236,8 @@
   <programme start="20261023140000 +0000" stop="20261023160000 +0000" channel="TVN.cl@SD">
     <title>El mediodía</title>
   </programme>
-  <programme start="20261021020000 +0000" stop="20261021103000 +0000" channel="TVU.cl@SD">
-    <title>Cartelera nocturna</title>
-  </programme>
-  <programme start="20261021103000 +0000" stop="20261021110000 +0000" channel="TVU.cl@SD">
-    <title>Portavoz noticias</title>
+  <programme start="20261023160000 +0000" stop="20261023180000 +0000" channel="TVN.cl@SD">
+    <title>24 horas al día</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021120000 +0000" channel="TVU.cl@SD">
     <title>Nuestra pauta</title>
@@ -1365,8 +1365,11 @@
   <programme start="20261023150000 +0000" stop="20261023160000 +0000" channel="TVU.cl@SD">
     <title>La cancha es nuestra</title>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021103000 +0000" channel="ViaX.cl@SD">
-    <title>Cadena Nacional</title>
+  <programme start="20261023160000 +0000" stop="20261023170000 +0000" channel="TVU.cl@SD">
+    <title>Reportajes</title>
+  </programme>
+  <programme start="20261023170000 +0000" stop="20261023180000 +0000" channel="TVU.cl@SD">
+    <title>TVU Noticias</title>
   </programme>
   <programme start="20261021103000 +0000" stop="20261021120000 +0000" channel="ViaX.cl@SD">
     <title>Not News</title>
@@ -1476,8 +1479,8 @@
   <programme start="20261023150000 +0000" stop="20261023163000 +0000" channel="ViaX.cl@SD">
     <title>Not News</title>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021110000 +0000" channel="ZonaLatina.cl@SD">
-    <title>Que te lo digo</title>
+  <programme start="20261023163000 +0000" stop="20261023180000 +0000" channel="ViaX.cl@SD">
+    <title>Todo va a estar bien</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021120000 +0000" channel="ZonaLatina.cl@SD">
     <title>Bloque de a dos</title>
@@ -1593,37 +1596,8 @@
   <programme start="20261023150000 +0000" stop="20261023153000 +0000" channel="ZonaLatina.cl@SD">
     <title>Videos musicales</title>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021093000 +0000" channel="RewindTV.cl@SD">
-    <title>NewsRadio</title>
-    <desc>Dave tries to convince the staffers they have a shot at winning at a broadcast awards ceremony hosted by Bob Costas.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021093000 +0000" stop="20261021100000 +0000" channel="RewindTV.cl@SD">
-    <title>NewsRadio</title>
-    <desc>All have wild daydreams after the office air-conditioning breaks down.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021100000 +0000" stop="20261021103000 +0000" channel="RewindTV.cl@SD">
-    <title>Just Shoot Me</title>
-    <desc>After Jack hires a woman (Rena Sofer) to make changes at Blush, the staff gets her to quit, then tries to woo her back.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021103000 +0000" stop="20261021110000 +0000" channel="RewindTV.cl@SD">
-    <title>Just Shoot Me</title>
-    <desc>Finch tries to make Vicki look bad; Nina ushers in a deranged street person (Meagen Fay) to show Jack he was wrong to hire Vicki.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261023153000 +0000" stop="20261023173000 +0000" channel="ZonaLatina.cl@SD">
+    <title>Que te lo digo</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021113000 +0000" channel="RewindTV.cl@SD">
     <title>The Drew Carey Show</title>
@@ -2169,12 +2143,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021100000 +0000" channel="CNNChile.cl@SD">
-    <title>Futuro 360</title>
-  </programme>
-  <programme start="20261021100000 +0000" stop="20261021110000 +0000" channel="CNNChile.cl@SD">
-    <title>CNN AM</title>
-  </programme>
   <programme start="20261021110000 +0000" stop="20261021113000 +0000" channel="CNNChile.cl@SD">
     <title>Agenda económica AM</title>
   </programme>
@@ -2349,8 +2317,8 @@
   <programme start="20261023150000 +0000" stop="20261023160000 +0000" channel="CNNChile.cl@SD">
     <title>Sana Mente</title>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021110000 +0000" channel="24Horas.cl">
-    <title>24horas tu mañana</title>
+  <programme start="20261023160000 +0000" stop="20261023174500 +0000" channel="CNNChile.cl@SD">
+    <title>CNN Tarde</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021113000 +0000" channel="24Horas.cl">
     <title>Reporte agrícola</title>
@@ -2541,8 +2509,11 @@
   <programme start="20261023140000 +0000" stop="20261023153000 +0000" channel="24Horas.cl">
     <title>La mañana informativa</title>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021110000 +0000" channel="ChileVision.cl@SD">
-    <title>Contigo CHV Noticias A.M.</title>
+  <programme start="20261023153000 +0000" stop="20261023160000 +0000" channel="24Horas.cl">
+    <title>Estado nacional</title>
+  </programme>
+  <programme start="20261023160000 +0000" stop="20261023180000 +0000" channel="24Horas.cl">
+    <title>24 horas al día</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021160000 +0000" channel="ChileVision.cl@SD">
     <title>Contigo en la mañana</title>
@@ -2613,8 +2584,8 @@
   <programme start="20261023110000 +0000" stop="20261023160000 +0000" channel="ChileVision.cl@SD">
     <title>Contigo en la mañana</title>
   </programme>
-  <programme start="20261021084500 +0000" stop="20261021110000 +0000" channel="mega.cl">
-    <title>Meganoticias amanece</title>
+  <programme start="20261023160000 +0000" stop="20261023183000 +0000" channel="ChileVision.cl@SD">
+    <title>CHV Noticias tarde</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021160000 +0000" channel="mega.cl">
     <title>Mucho gusto</title>
@@ -2709,21 +2680,8 @@
   <programme start="20261023110000 +0000" stop="20261023160000 +0000" channel="mega.cl">
     <title>Mucho gusto</title>
   </programme>
-  <programme start="20261021080000 +0000" stop="20261021094000 +0000" channel="TVChile.cl@SD">
-    <title>24 horas central</title>
-    <desc>La información de mayor importancia internacional, nacional y regional.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021094000 +0000" stop="20261021104500 +0000" channel="TVChile.cl@SD">
-    <title>Pampa Ilusión</title>
-    <desc>Una apasionada historia donde el amor no respeta tradiciones y suele quebrar con los esquemas de la época, todo ello enmarcado en la salitrera chilena Pampa Ilusión.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261023160000 +0000" stop="20261023175500 +0000" channel="mega.cl">
+    <title>Meganoticias alerta</title>
   </programme>
   <programme start="20261021104500 +0000" stop="20261021114500 +0000" channel="TVChile.cl@SD">
     <title>Chile conectado</title>
@@ -2892,18 +2850,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261021090000 +0000" stop="20261021093000 +0000" channel="UCVTV.cl">
-    <title>Swisslab</title>
-  </programme>
-  <programme start="20261021093000 +0000" stop="20261021100000 +0000" channel="UCVTV.cl">
-    <title>Swisslab</title>
-  </programme>
-  <programme start="20261021100000 +0000" stop="20261021103000 +0000" channel="UCVTV.cl">
-    <title>Swisslab</title>
-  </programme>
-  <programme start="20261021103000 +0000" stop="20261021110000 +0000" channel="UCVTV.cl">
-    <title>Swisslab</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021113000 +0000" channel="UCVTV.cl">
     <title>Swisslab</title>
@@ -3094,11 +3040,14 @@
   <programme start="20261023150000 +0000" stop="20261023153000 +0000" channel="UCVTV.cl">
     <title>Salud es belleza - Lo mejor</title>
   </programme>
-  <programme start="20261021090000 +0000" stop="20261021100000 +0000" channel="13C.cl@SD">
-    <title>Recomiendo Chile</title>
+  <programme start="20261023153000 +0000" stop="20261023160000 +0000" channel="UCVTV.cl">
+    <title>No es lo mismo</title>
   </programme>
-  <programme start="20261021100000 +0000" stop="20261021110000 +0000" channel="13C.cl@SD">
-    <title>Al sur del mundo - Remasterizado</title>
+  <programme start="20261023160000 +0000" stop="20261023170000 +0000" channel="UCVTV.cl">
+    <title>Aires de Chile</title>
+  </programme>
+  <programme start="20261023170000 +0000" stop="20261023173000 +0000" channel="UCVTV.cl">
+    <title>Newyorkers from Chile</title>
   </programme>
   <programme start="20261021110000 +0000" stop="20261021120000 +0000" channel="13C.cl@SD">
     <title>Cultura indómita</title>
@@ -3286,11 +3235,17 @@
   <programme start="20261023150000 +0000" stop="20261023153000 +0000" channel="13C.cl@SD">
     <title>Yo veo Bío Bío</title>
   </programme>
-  <programme start="20261021091100 +0000" stop="20261021095400 +0000" channel="StarChannel.cl@SD">
-    <title>Castle</title>
+  <programme start="20261023153000 +0000" stop="20261023160000 +0000" channel="13C.cl@SD">
+    <title>Hacedores de Pan Invita</title>
   </programme>
-  <programme start="20261021095400 +0000" stop="20261021103700 +0000" channel="StarChannel.cl@SD">
-    <title>Castle</title>
+  <programme start="20261023160000 +0000" stop="20261023163000 +0000" channel="13C.cl@SD">
+    <title>A la vereda</title>
+  </programme>
+  <programme start="20261023163000 +0000" stop="20261023170000 +0000" channel="13C.cl@SD">
+    <title>Mamá chasquilla</title>
+  </programme>
+  <programme start="20261023170000 +0000" stop="20261023180000 +0000" channel="13C.cl@SD">
+    <title>Recomiendo Chile</title>
   </programme>
   <programme start="20261021103700 +0000" stop="20261021120000 +0000" channel="StarChannel.cl@SD">
     <title>Castle</title>
@@ -3394,26 +3349,8 @@
   <programme start="20261023140200 +0000" stop="20261023162400 +0000" channel="StarChannel.cl@SD">
     <title>Mi amigo Enzo</title>
   </programme>
-  <programme start="20261021092500 +0000" stop="20261021095500 +0000" channel="FunBox.cl@SD">
-    <title>Boat Show 7 – Boat Show 4K | E09</title>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021095500 +0000" stop="20261021102500 +0000" channel="FunBox.cl@SD">
-    <title>Boat Show 7 – Boat Show 4K | E10</title>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021102500 +0000" stop="20261021105500 +0000" channel="FunBox.cl@SD">
-    <title>Boat Show 7 – Boat Show 4K | E15</title>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261023162400 +0000" stop="20261023184200 +0000" channel="StarChannel.cl@SD">
+    <title>El día que la Tierra se detuvo</title>
   </programme>
   <programme start="20261021105500 +0000" stop="20261021120000 +0000" channel="FunBox.cl@SD">
     <title>In Concert – José Maria Gianelli | E02</title>
@@ -3984,6 +3921,20 @@
   </programme>
   <programme start="20261023150500 +0000" stop="20261023160000 +0000" channel="FunBox.cl@SD">
     <title>Drone Wars | E09</title>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023160000 +0000" stop="20261023165500 +0000" channel="FunBox.cl@SD">
+    <title>Drone Wars | E10</title>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023165500 +0000" stop="20261023175000 +0000" channel="FunBox.cl@SD">
+    <title>Going Beyond – Going Beyond: Koh Phangan | E06</title>
     <date>20261023</date>
     <audio>
       <stereo>stereo</stereo>

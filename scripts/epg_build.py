@@ -1393,14 +1393,18 @@ def build(args) -> dict:
     # Never re-ingest this repository's generated XMLTV outputs. They are
     # checked as public URLs for players, but feeding them back into the harvest
     # would make each build depend on yesterday's copy and add all country files
-    # as redundant upstream sources.
-    own_raw_prefix = f"https://raw.githubusercontent.com/{repo}/{branch}/"
-    legacy_epg_prefix = own_raw_prefix + "playlists/epg/"
-    generated_epg_prefix = own_raw_prefix + f"{epg_dir.relative_to(ROOT).as_posix()}/" \
-        if epg_dir.is_relative_to(ROOT) else ""
+    # as redundant upstream sources. Match every slug the repository has been
+    # published under (it was renamed 2026-10-21): older playlists still point
+    # at the previous name, which raw.githubusercontent.com redirects.
+    own_raw_prefixes = tuple(
+        f"https://raw.githubusercontent.com/{slug}/{branch}/"
+        for slug in epg_check.self_repo_slugs(repo))
+    legacy_epg_prefixes = tuple(prefix + "playlists/epg/" for prefix in own_raw_prefixes)
+    generated_epg_prefixes = tuple(
+        prefix + f"{epg_dir.relative_to(ROOT).as_posix()}/"
+        for prefix in own_raw_prefixes) if epg_dir.is_relative_to(ROOT) else ()
     guides = [url for url in guides
-              if not url.startswith(legacy_epg_prefix)
-              and not (generated_epg_prefix and url.startswith(generated_epg_prefix))]
+              if not url.startswith(legacy_epg_prefixes + generated_epg_prefixes)]
     if args.max_guides:
         guides = guides[:args.max_guides]
     log(f"[epg-build] merging {len(guides)} upstream guides")
@@ -1813,14 +1817,22 @@ def patch_playlists(targets: list, raw_url: str,
     removed_count = 0
     advertised_count = 0
     repo_branch = raw_url.rsplit("/EPG/", 1)[0]
-    generated_prefix = repo_branch + "/EPG/"
-    legacy_prefix = repo_branch + "/playlists/epg/"
+    # Retire self-published guides under every slug this repository has used
+    # (it was renamed 2026-10-21), not only its current name: headers written
+    # before the rename still carry the old slug, which redirects to the new
+    # one, and both are our own generated files - never fallback candidates.
+    branch_part = "/".join(repo_branch.split("/")[5:])
+    self_prefixes = tuple(
+        f"https://raw.githubusercontent.com/{slug}/{branch_part}"
+        for slug in epg_check.self_repo_slugs())
+    generated_prefixes = tuple(prefix + "/EPG/" for prefix in self_prefixes) + (repo_branch + "/EPG/",)
+    legacy_prefixes = tuple(prefix + "/playlists/epg/" for prefix in self_prefixes) + (repo_branch + "/playlists/epg/",)
     for path in targets:
         if not path.exists():
             continue
         current = epg_check.extract_guides(path)
         retired = [url for url in current if url != raw_url and (
-            url in dead_urls or url.startswith(generated_prefix) or url.startswith(legacy_prefix))]
+            url in dead_urls or url.startswith(generated_prefixes) or url.startswith(legacy_prefixes))]
         fallbacks = [url for url in current if url != raw_url and url not in retired]
         if max_fallbacks >= 0:
             fallbacks = fallbacks[:max_fallbacks]

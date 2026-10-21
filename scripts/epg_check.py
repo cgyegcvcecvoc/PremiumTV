@@ -91,6 +91,23 @@ DEAD_STATUSES = {"offline", "invalid"}
 # which tripped the --min-working-ratio guard on every nightly run and disabled
 # guide patching altogether.
 OWN_REPO = (os.environ.get("GITHUB_REPOSITORY") or "cgyegcvcecvoc/PremiumTV1").strip("/")
+# The repository was renamed (PremiumTV1 -> PremiumTV) on 2026-10-21 while
+# published playlists already advertised guide URLs under the old slug. Every
+# slug the repository has ever published under identifies our own guides -
+# matching only the current slug would make the pipeline treat its own
+# published (still redirecting) guides as foreign upstreams and re-ingest
+# them.
+LEGACY_REPO_SLUGS = ("cgyegcvcecvoc/PremiumTV1", "cgyegcvcecvoc/PremiumTV")
+
+
+def self_repo_slugs(*extra: str) -> tuple:
+    """Every owner/repo slug that identifies this repository, past and present."""
+    slugs = []
+    for slug in (OWN_REPO, *extra, *LEGACY_REPO_SLUGS):
+        slug = str(slug or "").strip().strip("/")
+        if slug and slug not in slugs:
+            slugs.append(slug)
+    return tuple(slugs)
 
 
 def log(msg: str) -> None:
@@ -99,11 +116,13 @@ def log(msg: str) -> None:
 
 def own_guide_prefixes() -> tuple:
     """URL prefixes of the guide files this repository publishes for its players."""
-    prefixes = [f"https://raw.githubusercontent.com/{OWN_REPO}/",
-                f"https://raw.githubusercontent.com/{OWN_REPO.lower()}/"]
-    owner, _, name = OWN_REPO.partition("/")
-    if owner and name:
-        prefixes.append(f"https://{owner.lower()}.github.io/{name}/")
+    prefixes = []
+    for repo in self_repo_slugs():
+        prefixes.append(f"https://raw.githubusercontent.com/{repo}/")
+        prefixes.append(f"https://raw.githubusercontent.com/{repo.lower()}/")
+        owner, _, name = repo.partition("/")
+        if owner and name:
+            prefixes.append(f"https://{owner.lower()}.github.io/{name}/")
     return tuple(prefixes)
 
 
