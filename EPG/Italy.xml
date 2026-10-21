@@ -216,10 +216,6 @@
     <display-name>AltoAdige TV (720p)</display-name>
     <icon src="https://i.imgur.com/yt7JJrn.png" />
   </channel>
-  <channel id="premiumtv.italy.am_terni_television">
-    <display-name>AM Terni Television</display-name>
-    <icon src="https://i.imgur.com/XLuIz5j.png" />
-  </channel>
   <channel id="premiumtv.italy.antenna_3_massa">
     <display-name>Antenna 3 Massa</display-name>
     <icon src="https://i.imgur.com/CHDU86j.png" />
@@ -1739,6 +1735,10 @@
     <display-name>RTL 102.5 Caliente (1080p)</display-name>
     <icon src="https://i.imgur.com/P0zsi6I.png" />
   </channel>
+  <channel id="RTL1025Disco.it@SD">
+    <display-name>RTL 102.5 Disco (1080p)</display-name>
+    <icon src="https://i.imgur.com/JA1OPrz.png" />
+  </channel>
   <channel id="RTL1025Napule.it@SD">
     <display-name>RTL 102.5 Napule (1080p)</display-name>
     <icon src="https://i.imgur.com/HFPw1YW.png" />
@@ -2474,6 +2474,9 @@
   <programme start="20261023143000 +0000" stop="20261023150000 +0000" channel="HorseTV.it@SD">
     <title>Global Champions League 2023</title>
   </programme>
+  <programme start="20261023150000 +0000" stop="20261023160000 +0000" channel="HorseTV.it@SD">
+    <title>Polo Rider Cup Competition 2021</title>
+  </programme>
   <programme start="20261021071500 +0000" stop="20261021102500 +0000" channel="RaiSport.it">
     <title>Ginnastica Artistica: Camp. Mondiali Rotterdam 2026 Finali A Squadre Maschili</title>
     <date>20261021</date>
@@ -2613,6 +2616,9 @@
   </programme>
   <programme start="20261023124500 +0000" stop="20261023151500 +0000" channel="RaiSport.it">
     <title>Ginnastica Artistica</title>
+  </programme>
+  <programme start="20261023151500 +0000" stop="20261023155000 +0000" channel="RaiSport.it">
+    <title>Reparto Corse</title>
   </programme>
   <programme start="20261021040000 +0000" stop="20261021110000 +0000" channel="Sportitalia.it@SD">
     <title>Sportitaliamercato</title>
@@ -2761,13 +2767,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021070000 +0000" stop="20261021090000 +0000" channel="SportitaliaSolocalcio.it@SD">
-    <title>Campionato Argentino Belgrano-River Plate</title>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261021090000 +0000" stop="20261021110000 +0000" channel="SportitaliaSolocalcio.it@SD">
     <title>Liverpool-Manchester City</title>
     <date>20261021</date>
@@ -2798,13 +2797,6 @@
   </programme>
   <programme start="20261021130000 +0000" stop="20261022000000 +0000" channel="SportitaliaSolocalcio.it@SD">
     <title>Si Live 24</title>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021070000 +0000" stop="20261021090000 +0000" channel="SuperTennis.it@SD">
-    <title>Laver Cup. Alcaraz vs Fritz</title>
     <date>20261021</date>
     <audio>
       <stereo>stereo</stereo>
@@ -3090,8 +3082,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021074000 +0000" stop="20261021092000 +0000" channel="DMAX.it@SD">
-    <title>Real TV: agenti in prima linea</title>
+  <programme start="20261023144500 +0000" stop="20261023150000 +0000" channel="SuperTennis.it@SD">
+    <title>Tennis Parade</title>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023150000 +0000" stop="20261023164500 +0000" channel="SuperTennis.it@SD">
+    <title>⋗ WTA 500 Ningbo</title>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261021092000 +0000" stop="20261021112500 +0000" channel="DMAX.it@SD">
     <title>Operazione N.A.S.</title>
@@ -3240,11 +3243,8 @@
   <programme start="20261023141000 +0000" stop="20261023150000 +0000" channel="DMAX.it@SD">
     <title>Affari al buio - Texas</title>
   </programme>
-  <programme start="20261021081000 +0000" stop="20261021084500 +0000" channel="FoodNetwork.it@SD">
-    <title>Fatto in casa per voi</title>
-  </programme>
-  <programme start="20261021084500 +0000" stop="20261021092000 +0000" channel="FoodNetwork.it@SD">
-    <title>Fatto in casa per voi</title>
+  <programme start="20261023150000 +0000" stop="20261023161000 +0000" channel="DMAX.it@SD">
+    <title>Affari al buio - Texas</title>
   </programme>
   <programme start="20261021092000 +0000" stop="20261021095500 +0000" channel="FoodNetwork.it@SD">
     <title>Fatto in casa per voi</title>
@@ -3501,11 +3501,8 @@
   <programme start="20261023142000 +0000" stop="20261023145500 +0000" channel="FoodNetwork.it@SD">
     <title>In cucina con Luca Pappagallo</title>
   </programme>
-  <programme start="20261021082000 +0000" stop="20261021085000 +0000" channel="HGTV.it@SD">
-    <title>House Hunters International</title>
-  </programme>
-  <programme start="20261021085000 +0000" stop="20261021091500 +0000" channel="HGTV.it@SD">
-    <title>House Hunters International</title>
+  <programme start="20261023145500 +0000" stop="20261023153000 +0000" channel="FoodNetwork.it@SD">
+    <title>In cucina con Luca Pappagallo</title>
   </programme>
   <programme start="20261021091500 +0000" stop="20261021094500 +0000" channel="HGTV.it@SD">
     <title>Affari da sogno nel mondo</title>
@@ -3717,8 +3714,8 @@
   <programme start="20261023135500 +0000" stop="20261023145000 +0000" channel="HGTV.it@SD">
     <title>Chi cerca trova</title>
   </programme>
-  <programme start="20261021080000 +0000" stop="20261021090000 +0000" channel="ClassCNBC.it@SD">
-    <title>Tradingroom</title>
+  <programme start="20261023145000 +0000" stop="20261023155000 +0000" channel="HGTV.it@SD">
+    <title>Chi cerca trova</title>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021100000 +0000" channel="ClassCNBC.it@SD">
     <title>Analisi Tecnica</title>
@@ -3873,33 +3870,12 @@
   <programme start="20261023140000 +0000" stop="20261023150000 +0000" channel="ClassCNBC.it@SD">
     <title>Gli speciali di Class CNBC</title>
   </programme>
-  <programme start="20261021083000 +0000" stop="20261021090000 +0000" channel="Cartoonito.it">
+  <programme start="20261023150000 +0000" stop="20261023155500 +0000" channel="ClassCNBC.it@SD">
+    <title>Report</title>
+  </programme>
+  <programme start="20261021090000 +0000" stop="20261021093000 +0000" channel="Cartoonito.it">
     <title>大砲與小惡魔</title>
     <desc>加拿大的一座森林由強壯聰穎的大砲當家，但愛搗蛋的旅鼠一家人，卻老是讓他手忙「爪」亂。</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021090000 +0000" stop="20261021091000 +0000" channel="Cartoonito.it">
-    <title>Bugs Bunny Constructeurs</title>
-    <desc>Yoyo Dodo demande aux bricoleurs de lui construire une maison remplie d'activités amusantes mais Looney Construction ne semble pas avoir compris ce qu'il voulait vraiment.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021091000 +0000" stop="20261021092000 +0000" channel="Cartoonito.it">
-    <title>Bugs Bunny Constructeurs</title>
-    <desc>Les frères Castor Ron et Jon demandent aux Bricoleurs de leur construire une cabane en rondins au bord d'une rivière. Tout aurait pu très bien se passer si les deux Frères Castor n'avaient pas été si turbulent.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021092000 +0000" stop="20261021093000 +0000" channel="Cartoonito.it">
-    <title>Bugs Bunny Constructeurs</title>
-    <desc>Les Looney Constructions sont sollicités par Miss Prissy pour lui construire un supermarché. Elle a une façon bien à elle de ranger les articles dans les rayons.</desc>
     <date>20261021</date>
     <audio>
       <stereo>stereo</stereo>
@@ -6706,9 +6682,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021083000 +0000" stop="20261021090000 +0000" channel="AlmaTV.it">
-    <title>K Around The World</title>
-  </programme>
   <programme start="20261021090000 +0000" stop="20261021093000 +0000" channel="AlmaTV.it">
     <title>L'Argonauta</title>
   </programme>
@@ -6949,13 +6922,8 @@
   <programme start="20261023143000 +0000" stop="20261023150000 +0000" channel="AlmaTV.it">
     <title>Viaggio di gusto: si parte con Erika</title>
   </programme>
-  <programme start="20261021082500 +0000" stop="20261021084500 +0000" channel="Boing.it">
-    <title>Lo straordinario mondo di Gumball</title>
-    <new />
-  </programme>
-  <programme start="20261021084500 +0000" stop="20261021091500 +0000" channel="Boing.it">
-    <title>Tiny Toons Looniversity</title>
-    <new />
+  <programme start="20261023150000 +0000" stop="20261023153000 +0000" channel="AlmaTV.it">
+    <title>Andata e ritorno</title>
   </programme>
   <programme start="20261021091500 +0000" stop="20261021094000 +0000" channel="Boing.it">
     <title>Tiny Toons Looniversity</title>
@@ -7893,13 +7861,17 @@
     <title>Lo straordinario mondo di Gumball</title>
     <new />
   </programme>
-  <programme start="20261021073600 +0000" stop="20261021085600 +0000" channel="premiumtv.italy.canale_5">
-    <title>Caduta libera</title>
-    <desc>Max Giusti conduce la nuova edizione insieme a Isobel Fetiyera: studio rinnovato, band dal vivo, nuova prova finale e un montepremi che puo' raggiungere i 500.000 euro. (Senderinfo).</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261023144500 +0000" stop="20261023150500 +0000" channel="Boing.it">
+    <title>Lo straordinario mondo di Gumball</title>
+    <new />
+  </programme>
+  <programme start="20261023150500 +0000" stop="20261023151500 +0000" channel="Boing.it">
+    <title>Lo straordinario mondo di Gumball</title>
+    <new />
+  </programme>
+  <programme start="20261023151500 +0000" stop="20261023154500 +0000" channel="Boing.it">
+    <title>Big Nate</title>
+    <new />
   </programme>
   <programme start="20261021085600 +0000" stop="20261021102800 +0000" channel="premiumtv.italy.canale_5">
     <title>Uomini e donne</title>
@@ -8609,8 +8581,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021080900 +0000" stop="20261021090500 +0000" channel="Focus.it">
-    <title>Primo indiziato: La terra!</title>
+  <programme start="20261023150000 +0000" stop="20261023160000 +0000" channel="DeejayTV.it@SD">
+    <title>Playlist Radio Linetti</title>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261021090500 +0000" stop="20261021101200 +0000" channel="Focus.it">
     <title>Visti dal cielo - Misteri di questo mondo</title>
@@ -8795,8 +8771,8 @@
   <programme start="20261023141000 +0000" stop="20261023150900 +0000" channel="Focus.it">
     <title>Storie segrete</title>
   </programme>
-  <programme start="20261021082500 +0000" stop="20261021090000 +0000" channel="GamberoRosso.it">
-    <title>Come e' profondo il mare: Costiera..</title>
+  <programme start="20261023150900 +0000" stop="20261023160400 +0000" channel="Focus.it">
+    <title>La terra dopo l'uomo</title>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021093500 +0000" channel="GamberoRosso.it">
     <title>Viaggi nel gusto</title>
@@ -9125,6 +9101,9 @@
   <programme start="20261023143500 +0000" stop="20261023151000 +0000" channel="GamberoRosso.it">
     <title>Viaggi nel gusto</title>
   </programme>
+  <programme start="20261023151000 +0000" stop="20261023153500 +0000" channel="GamberoRosso.it">
+    <title>Parola di chef - Stag. 12 Ep. 24</title>
+  </programme>
   <programme start="20261021082700 +0000" stop="20261021092600 +0000" channel="Italia.1.it">
     <title>Law &amp; Order: Special Victims Unit</title>
     <new />
@@ -9421,8 +9400,9 @@
     <title>The Mentalist</title>
     <new />
   </programme>
-  <programme start="20261021080100 +0000" stop="20261021090000 +0000" channel="La5.it">
-    <title>Tutto per la mia famiglia</title>
+  <programme start="20261023150400 +0000" stop="20261023155600 +0000" channel="Italia.1.it">
+    <title>The Mentalist</title>
+    <new />
   </programme>
   <programme start="20261021090000 +0000" stop="20261021093500 +0000" channel="La5.it">
     <title>Beautiful</title>
@@ -9679,8 +9659,9 @@
     <title>Grande Fratello Vip Live</title>
     <new />
   </programme>
-  <programme start="20261021083000 +0000" stop="20261021090500 +0000" channel="Nove.it@SD">
-    <title>Alta infedelta'</title>
+  <programme start="20261023144400 +0000" stop="20261023164400 +0000" channel="Mediaset.Extra.it">
+    <title>Grande Fratello Vip Live</title>
+    <new />
   </programme>
   <programme start="20261021090500 +0000" stop="20261021102000 +0000" channel="Nove.it@SD">
     <title>Cash or Trash - Chi offre di piu'?</title>
@@ -9900,13 +9881,6 @@
   </programme>
   <programme start="20261023140000 +0000" stop="20261023160000 +0000" channel="RadioItaliaTV.it">
     <title>Radio Italia new</title>
-  </programme>
-  <programme start="20261021073000 +0000" stop="20261021085500 +0000" channel="Rai1.it@SD">
-    <title>Reazione a catena</title>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261021085500 +0000" stop="20261021103000 +0000" channel="Rai1.it@SD">
     <title>Provaci ancora prof!</title>
@@ -11282,12 +11256,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021075900 +0000" stop="20261021084100 +0000" channel="Rai4.it">
-    <title>Alert: Missing Persons Unit</title>
-  </programme>
-  <programme start="20261021084100 +0000" stop="20261021092400 +0000" channel="Rai4.it">
-    <title>Senza traccia</title>
-  </programme>
   <programme start="20261021092400 +0000" stop="20261021100800 +0000" channel="Rai4.it">
     <title>Senza traccia</title>
   </programme>
@@ -11471,8 +11439,8 @@
   <programme start="20261023142600 +0000" stop="20261023151000 +0000" channel="Rai4.it">
     <title>Hudson &amp; Rex</title>
   </programme>
-  <programme start="20261021081000 +0000" stop="20261021085800 +0000" channel="Rai5.it">
-    <title>Progetto Scienza 2023</title>
+  <programme start="20261023151000 +0000" stop="20261023155600 +0000" channel="Rai4.it">
+    <title>Private Eyes</title>
   </programme>
   <programme start="20261021085800 +0000" stop="20261021113200 +0000" channel="Rai5.it">
     <title>Geo</title>
@@ -11669,14 +11637,8 @@
   <programme start="20261023135400 +0000" stop="20261023144700 +0000" channel="Rai5.it">
     <title>Gange</title>
   </programme>
-  <programme start="20261021083500 +0000" stop="20261021084500 +0000" channel="RaiGulp.it">
-    <title>Coop Troop</title>
-  </programme>
-  <programme start="20261021084500 +0000" stop="20261021090000 +0000" channel="RaiGulp.it">
-    <title>Coop Troop</title>
-  </programme>
-  <programme start="20261021090000 +0000" stop="20261021091500 +0000" channel="RaiGulp.it">
-    <title>Coop Troop</title>
+  <programme start="20261023144700 +0000" stop="20261023162000 +0000" channel="Rai5.it">
+    <title>Signor Faletti</title>
   </programme>
   <programme start="20261021091500 +0000" stop="20261021094000 +0000" channel="RaiGulp.it">
     <title>Heidi 3D</title>
@@ -12239,13 +12201,17 @@
   <programme start="20261023142000 +0000" stop="20261023144500 +0000" channel="RaiGulp.it">
     <title>Alex &amp; Co.</title>
   </programme>
-  <programme start="20261021081500 +0000" stop="20261021090000 +0000" channel="RaiPremium.it">
-    <title>Il paradiso delle signore</title>
-    <desc>A 3 anni dalla tragica morte di Pietro Mori, Vittorio Conti investe le energie per riaprire il grande magazzino dell'amico. L'uomo si mette però in affari con la potente famiglia Guarnieri, gente senza scrupoli disposta a tutto.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261023144500 +0000" stop="20261023151000 +0000" channel="RaiGulp.it">
+    <title>Mermaid Magic</title>
+  </programme>
+  <programme start="20261023151000 +0000" stop="20261023151500 +0000" channel="RaiGulp.it">
+    <title>Prova a non ridere</title>
+  </programme>
+  <programme start="20261023151500 +0000" stop="20261023152500 +0000" channel="RaiGulp.it">
+    <title>Prova a non ridere</title>
+  </programme>
+  <programme start="20261023152500 +0000" stop="20261023153500 +0000" channel="RaiGulp.it">
+    <title>Prova a non ridere</title>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021104000 +0000" channel="RaiPremium.it">
     <title>Le indagini di Lolita Lobosco</title>
@@ -12512,6 +12478,9 @@
     <title>Appuntamento al cinema</title>
   </programme>
   <programme start="20261023140500 +0000" stop="20261023145000 +0000" channel="RaiPremium.it">
+    <title>Heartland</title>
+  </programme>
+  <programme start="20261023145000 +0000" stop="20261023154000 +0000" channel="RaiPremium.it">
     <title>Heartland</title>
   </programme>
   <programme start="20261021083000 +0000" stop="20261021093000 +0000" channel="RaiScuola.it">
@@ -12818,12 +12787,11 @@
   <programme start="20261023142000 +0000" stop="20261023144500 +0000" channel="RaiScuola.it">
     <title>Camper In Viaggio</title>
   </programme>
-  <programme start="20261021080500 +0000" stop="20261021090000 +0000" channel="RaiStoria.it@SD">
-    <title>Controvacanza</title>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261023144500 +0000" stop="20261023150500 +0000" channel="RaiScuola.it">
+    <title>Generazione Bellezza</title>
+  </programme>
+  <programme start="20261023150500 +0000" stop="20261023153000 +0000" channel="RaiScuola.it">
+    <title>I mestieri di Mirko</title>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021100000 +0000" channel="RaiStoria.it@SD">
     <title>La storia sotto inchiesta</title>
@@ -13147,29 +13115,8 @@
   <programme start="20261023140000 +0000" stop="20261023152000 +0000" channel="RaiStoria.it@SD">
     <title>Gloria. Apoteosi del soldato ignoto</title>
   </programme>
-  <programme start="20261021084000 +0000" stop="20261021084500 +0000" channel="RaiYoyo.it">
-    <title>Carletto</title>
-  </programme>
-  <programme start="20261021084500 +0000" stop="20261021085500 +0000" channel="RaiYoyo.it">
-    <title>Carletto</title>
-  </programme>
-  <programme start="20261021085500 +0000" stop="20261021090000 +0000" channel="RaiYoyo.it">
-    <title>Carletto</title>
-  </programme>
-  <programme start="20261021090000 +0000" stop="20261021090500 +0000" channel="RaiYoyo.it">
-    <title>Pino &amp; Shinoby</title>
-  </programme>
-  <programme start="20261021090500 +0000" stop="20261021091000 +0000" channel="RaiYoyo.it">
-    <title>Pino &amp; Shinoby</title>
-  </programme>
-  <programme start="20261021091000 +0000" stop="20261021091500 +0000" channel="RaiYoyo.it">
-    <title>Pino &amp; Shinoby</title>
-  </programme>
-  <programme start="20261021091500 +0000" stop="20261021092000 +0000" channel="RaiYoyo.it">
-    <title>Pino &amp; Shinoby</title>
-  </programme>
-  <programme start="20261021092000 +0000" stop="20261021092500 +0000" channel="RaiYoyo.it">
-    <title>Pino &amp; Shinoby</title>
+  <programme start="20261023152000 +0000" stop="20261023161000 +0000" channel="RaiStoria.it@SD">
+    <title>Storie della TV</title>
   </programme>
   <programme start="20261021092500 +0000" stop="20261021093000 +0000" channel="RaiYoyo.it">
     <title>Pino &amp; Shinoby</title>
@@ -14320,13 +14267,14 @@
   <programme start="20261023144000 +0000" stop="20261023145000 +0000" channel="RaiYoyo.it">
     <title>Masha e Orso</title>
   </programme>
-  <programme start="20261021083500 +0000" stop="20261021092000 +0000" channel="RealTime.it@SD">
-    <title>The Vet Life</title>
-    <desc>'S3/E10 - This Little Piggy Has Mites'. Dr. Lavigne uses a unique method to fix a dog's leg. And, a mini pig with a big bite tries to take a chunk out of Dr. Blue and Dr. Ross helps a hedgehog.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261023145000 +0000" stop="20261023150000 +0000" channel="RaiYoyo.it">
+    <title>Le storie di paura di Masha</title>
+  </programme>
+  <programme start="20261023150000 +0000" stop="20261023151500 +0000" channel="RaiYoyo.it">
+    <title>La posta di YoYo</title>
+  </programme>
+  <programme start="20261023151500 +0000" stop="20261023153000 +0000" channel="RaiYoyo.it">
+    <title>L'Albero Azzurro</title>
   </programme>
   <programme start="20261021092000 +0000" stop="20261021100500 +0000" channel="RealTime.it@SD">
     <title>Dogs 101</title>
@@ -14904,10 +14852,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021074700 +0000" stop="20261021085400 +0000" channel="Rete.4.it">
-    <title>Tempesta d'amore - PrimaTv</title>
-    <new />
-  </programme>
   <programme start="20261021100000 +0000" stop="20261021101800 +0000" channel="Rete.4.it">
     <title>Tg4</title>
     <new />
@@ -15124,8 +15068,9 @@
     <title>Diario del giorno</title>
     <new />
   </programme>
-  <programme start="20261021080000 +0000" stop="20261021090000 +0000" channel="Sportitalia.it">
-    <title>Tutti in campo</title>
+  <programme start="20261023144200 +0000" stop="20261023165800 +0000" channel="Rete.4.it">
+    <title>Inga Lindstrom - Eredita' contesa</title>
+    <new />
   </programme>
   <programme start="20261021090000 +0000" stop="20261021093000 +0000" channel="Sportitalia.it">
     <title>Si Live 24 (diretta)</title>
@@ -15319,6 +15264,9 @@
   <programme start="20261023130000 +0000" stop="20261023150000 +0000" channel="Sportitalia.it">
     <title>Campionato Primavera Atalanta-Lazio (diretta)</title>
   </programme>
+  <programme start="20261023150000 +0000" stop="20261023170000 +0000" channel="Sportitalia.it">
+    <title>Campionato Primavera Sassuolo-Torino (diretta)</title>
+  </programme>
   <programme start="20261021084000 +0000" stop="20261021101800 +0000" channel="Cine34.it@HD">
     <title>Ricky &amp; Barabba</title>
     <new />
@@ -15443,6 +15391,10 @@
     <title>Incastrati</title>
     <new />
   </programme>
+  <programme start="20261023152000 +0000" stop="20261023170600 +0000" channel="Cine34.it@HD">
+    <title>Incastrati</title>
+    <new />
+  </programme>
   <programme start="20261021083000 +0000" stop="20261021101500 +0000" channel="RaiMovie.it">
     <title>Delivery Man</title>
   </programme>
@@ -15533,6 +15485,9 @@
   <programme start="20261023135000 +0000" stop="20261023152500 +0000" channel="RaiMovie.it">
     <title>C'è Sartana... vendi la pistola e comprati la bara</title>
   </programme>
+  <programme start="20261023152500 +0000" stop="20261023171000 +0000" channel="RaiMovie.it">
+    <title>La vendetta è un piatto che si serve freddo</title>
+  </programme>
   <programme start="20261021080000 +0000" stop="20261021120000 +0000" channel="Radiofreccia.it@SD">
     <title>Good vibrations</title>
   </programme>
@@ -15581,6 +15536,9 @@
   <programme start="20261023120000 +0000" stop="20261023150000 +0000" channel="Radiofreccia.it@SD">
     <title>Electric Ladyland</title>
   </programme>
+  <programme start="20261023150000 +0000" stop="20261023160000 +0000" channel="Radiofreccia.it@SD">
+    <title>Terra di nessuno</title>
+  </programme>
   <programme start="20261021040000 +0000" stop="20261021160000 +0000" channel="RadioItaliaTrendTV.it">
     <title>Radio Italia Live</title>
   </programme>
@@ -15595,9 +15553,6 @@
   </programme>
   <programme start="20261023040000 +0000" stop="20261023160000 +0000" channel="RadioItaliaTrendTV.it">
     <title>Radio Italia Live</title>
-  </programme>
-  <programme start="20261021071000 +0000" stop="20261021085500 +0000" channel="RadioNorbaTV.it@SD">
-    <title>Il Mattino con Radio Norba</title>
   </programme>
   <programme start="20261021085500 +0000" stop="20261021095000 +0000" channel="RadioNorbaTV.it@SD">
     <title>LIVE Alan Palmieri e Veronica</title>
@@ -15754,14 +15709,6 @@
   </programme>
   <programme start="20261023122500 +0000" stop="20261023163000 +0000" channel="RadioNorbaTV.it@SD">
     <title>Il Mezzogiorno con Radio Norba</title>
-  </programme>
-  <programme start="20261021080000 +0000" stop="20261021090000 +0000" channel="VideoRola.it@SD">
-    <title>En concierto</title>
-    <desc>Se presentan los grandes jefes de la música: Cuisillos.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021093000 +0000" channel="VideoRola.it@SD">
     <title>Las 3 más pedidas</title>
@@ -16153,14 +16100,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021050000 +0000" stop="20261021090000 +0000" channel="VirginRadioTV.it">
-    <title>Ben Jones</title>
-    <desc>Your weekend starts with Ben! He's got the biggest songs to soundtrack your evening!</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261021090000 +0000" stop="20261021130000 +0000" channel="VirginRadioTV.it">
     <title>Geoff Lloyd</title>
     <desc>The great Geoff Lloyd is back on Virgin Radio playing the biggest songs to soundtrack your evening. WhatsApp him on +44 333 00 333 00.</desc>
@@ -16272,9 +16211,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261021074000 +0000" stop="20261021090000 +0000" channel="LA7.it@HD">
-    <title>Coffee Break</title>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021113000 +0000" channel="LA7.it@HD">
     <title>L'aria che tira</title>
@@ -16584,30 +16520,6 @@
   </programme>
   <programme start="20261023144000 +0000" stop="20261023154000 +0000" channel="LA7d.it@SD">
     <title>L'uomo della pioggia</title>
-  </programme>
-  <programme start="20261021083000 +0000" stop="20261021084500 +0000" channel="RaiNews24.it">
-    <title>Rassegna stampa</title>
-    <desc>Una panoramica sulla rassegna stampa italiana e internazionale, a cura della redazione della rete, in cui vengono analizzati e approfonditi i principali titoli quotidiani.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021084500 +0000" stop="20261021090000 +0000" channel="RaiNews24.it">
-    <title>Futuro24</title>
-    <desc>Scopriamo la nuova stazione spaziale privata di Axiom Space, che sarà costruita in gran parte in Italia. Esploriamo progetti spaziali dell'ESA e un'intervista al Premio Nobel per la Fisica 2019 Michel Mayor.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021090000 +0000" stop="20261021091500 +0000" channel="RaiNews24.it">
-    <title>News</title>
-    <desc>Le principali notizie del momento a cura della redazione della rete RaiNews24. Aggiornamenti e approfondimenti riguardanti politica, cronaca, esteri, economia, sport e attualità.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261021091500 +0000" stop="20261021093000 +0000" channel="RaiNews24.it">
     <title>Rassegna stampa</title>
@@ -17284,30 +17196,6 @@
     <title>Meteo</title>
     <desc>Uno sguardo alle previsioni del tempo in Italia per oggi e i prossimi giorni. Un'analisi delle temperature, i venti e le eventuali precipitazioni.</desc>
     <date>20261022</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021083000 +0000" stop="20261021084500 +0000" channel="RaiNews24.it@HD">
-    <title>Rassegna stampa</title>
-    <desc>Una panoramica sulla rassegna stampa italiana e internazionale, a cura della redazione della rete, in cui vengono analizzati e approfonditi i principali titoli quotidiani.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021084500 +0000" stop="20261021090000 +0000" channel="RaiNews24.it@HD">
-    <title>Futuro24</title>
-    <desc>Scopriamo la nuova stazione spaziale privata di Axiom Space, che sarà costruita in gran parte in Italia. Esploriamo progetti spaziali dell'ESA e un'intervista al Premio Nobel per la Fisica 2019 Michel Mayor.</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261021090000 +0000" stop="20261021091500 +0000" channel="RaiNews24.it@HD">
-    <title>News</title>
-    <desc>Le principali notizie del momento a cura della redazione della rete RaiNews24. Aggiornamenti e approfondimenti riguardanti politica, cronaca, esteri, economia, sport e attualità.</desc>
-    <date>20261021</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -18292,8 +18180,17 @@
   <programme start="20261023143600 +0000" stop="20261023144300 +0000" channel="TGCom24.it@SD">
     <title>Diario del giorno</title>
   </programme>
-  <programme start="20261021080000 +0000" stop="20261021090000 +0000" channel="TV2000.it@SD">
-    <title>Udienza Generale</title>
+  <programme start="20261023144300 +0000" stop="20261023145500 +0000" channel="TGCom24.it@SD">
+    <title>Tgcom24 diretta 2026</title>
+  </programme>
+  <programme start="20261023145500 +0000" stop="20261023151100 +0000" channel="TGCom24.it@SD">
+    <title>Dentro la notizia</title>
+  </programme>
+  <programme start="20261023151100 +0000" stop="20261023151700 +0000" channel="TGCom24.it@SD">
+    <title>Tgcom24 - meteo</title>
+  </programme>
+  <programme start="20261023151700 +0000" stop="20261023153400 +0000" channel="TGCom24.it@SD">
+    <title>Dentro la notizia</title>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021095500 +0000" channel="TV2000.it@SD">
     <title>Avanzi il prossimo</title>
@@ -18543,14 +18440,6 @@
   </programme>
   <programme start="20261023140000 +0000" stop="20261023153000 +0000" channel="TV2000.it@SD">
     <title>Terra nostra</title>
-  </programme>
-  <programme start="20261021073600 +0000" stop="20261021085600 +0000" channel="Canale5.it@HD">
-    <title>Caduta libera</title>
-    <desc>Max Giusti conduce la nuova edizione insieme a Isobel Fetiyera: studio rinnovato, band dal vivo, nuova prova finale e un montepremi che puo' raggiungere i 500.000 euro. (Senderinfo).</desc>
-    <date>20261021</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261021085600 +0000" stop="20261021102800 +0000" channel="Canale5.it@HD">
     <title>Uomini e donne</title>
@@ -19085,9 +18974,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261021082000 +0000" stop="20261021092000 +0000" channel="Giallo.it@SD">
-    <title>SOKO - Misteri tra le montagne</title>
-  </programme>
   <programme start="20261021092000 +0000" stop="20261021111500 +0000" channel="Giallo.it@SD">
     <title>Jacobs: un veterinario per agente</title>
   </programme>
@@ -19211,13 +19097,8 @@
   <programme start="20261023141000 +0000" stop="20261023151000 +0000" channel="Giallo.it@SD">
     <title>La stagista del crimine</title>
   </programme>
-  <programme start="20261021071000 +0000" stop="20261021090000 +0000" channel="GoldTV.it@SD">
-    <title>Toy Story 5</title>
-    <desc>Udi, Bazi dhe miqtë e tyre rikthehen në një aventurë të re. Kur bota e fëmijëve ndryshon dhe teknologjia zë gjithnjë e më shumë vend në jetën e tyre, lodrat përballen me sfida të reja që vënë në provë miqësinë dhe rolin e tyre në jetën e Boni-t. Mes surprizave dhe situatave të papritura, Udi, Bazi dhe shokët e tyre zbulojnë se, edhe kur kohët ndryshojnë, miqësia e vërtetë mbetet përgjithmonë.</desc>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <date>2026</date>
-    <icon src="https://vimg.ipko.tv/mtcms/e5/1/4/e514e853-6342-48cc-8e8e-c09aaa45361b.jpg" />
+  <programme start="20261023151000 +0000" stop="20261023171000 +0000" channel="Giallo.it@SD">
+    <title>Vera</title>
   </programme>
   <programme start="20261021090000 +0000" stop="20261021110000 +0000" channel="GoldTV.it@SD">
     <title>Pëshpëritësi</title>
@@ -19608,12 +19489,8 @@
     <title>L' uomo senza paura</title>
     <new />
   </programme>
-  <programme start="20261021082500 +0000" stop="20261021085200 +0000" channel="Italia2.it@SD">
-    <title>Dragon Ball Super</title>
-    <new />
-  </programme>
-  <programme start="20261021085200 +0000" stop="20261021092000 +0000" channel="Italia2.it@SD">
-    <title>Dragon Ball Super</title>
+  <programme start="20261023144300 +0000" stop="20261023171400 +0000" channel="Iris.it@HD">
+    <title>Insomnia</title>
     <new />
   </programme>
   <programme start="20261021092000 +0000" stop="20261021094900 +0000" channel="Italia2.it@SD">
@@ -20040,6 +19917,14 @@
     <title>Dragon Ball Super</title>
     <new />
   </programme>
+  <programme start="20261023144400 +0000" stop="20261023151300 +0000" channel="Italia2.it@SD">
+    <title>Dragon Ball Super</title>
+    <new />
+  </programme>
+  <programme start="20261023151300 +0000" stop="20261023154300 +0000" channel="Italia2.it@SD">
+    <title>I cavalieri dello zodiaco</title>
+    <new />
+  </programme>
   <programme start="20261021083500 +0000" stop="20261021092700 +0000" channel="Top.Crime.it">
     <title>C.S.I. Miami</title>
     <new />
@@ -20296,11 +20181,9 @@
     <title>Monk</title>
     <new />
   </programme>
-  <programme start="20261021084000 +0000" stop="20261021090000 +0000" channel="Nickelodeon.it@SD">
-    <title>SpongeBob</title>
-  </programme>
-  <programme start="20261021090000 +0000" stop="20261021091500 +0000" channel="Nickelodeon.it@SD">
-    <title>SpongeBob</title>
+  <programme start="20261023144300 +0000" stop="20261023154100 +0000" channel="Top.Crime.it">
+    <title>Monk</title>
+    <new />
   </programme>
   <programme start="20261021091500 +0000" stop="20261021094000 +0000" channel="Nickelodeon.it@SD">
     <title>Lo show di Patrick Stella</title>
@@ -20845,11 +20728,8 @@
   <programme start="20261023143000 +0000" stop="20261023150000 +0000" channel="Nickelodeon.it@SD">
     <title>I Marsupilami</title>
   </programme>
-  <programme start="20261021082500 +0000" stop="20261021084500 +0000" channel="Super.it@SD">
-    <title>Ghostforce</title>
-  </programme>
-  <programme start="20261021084500 +0000" stop="20261021091000 +0000" channel="Super.it@SD">
-    <title>Miraculous - Le storie di Ladybug e Chat</title>
+  <programme start="20261023150000 +0000" stop="20261023154500 +0000" channel="Nickelodeon.it@SD">
+    <title>Lo show di Patrick Stella</title>
   </programme>
   <programme start="20261021091000 +0000" stop="20261021093500 +0000" channel="Super.it@SD">
     <title>Miraculous - Le storie di Ladybug e Chat</title>
@@ -21230,6 +21110,9 @@
     <title>Miraculous - Le storie di Ladybug e Chat</title>
   </programme>
   <programme start="20261023141500 +0000" stop="20261023144500 +0000" channel="Super.it@SD">
+    <title>A casa dei Loud</title>
+  </programme>
+  <programme start="20261023144500 +0000" stop="20261023150500 +0000" channel="Super.it@SD">
     <title>A casa dei Loud</title>
   </programme>
 </tv>
