@@ -5379,3 +5379,22 @@ ISSUES / ERRORS:
   * 2771 links returned a confirmed failure (see dead details).
   * This run started +5h 16m after its scheduled time (2026-10-21T03:29:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261021T125351Z-2712
+TIMESTAMP:    2026-10-21 08:57 AM EDT (2026-10-21T12:53:51Z -> 2026-10-21T12:57:31Z)
+LABEL / TYPE: 3:07 AM daily scrape [regular_check]
+STATUS:       WARNING (checked=True, duration=220.86s)
+PLAYLISTS:    working=11525 / unique=16719 (dead=2698, unverified=2496)
+COUNTRIES:    177 country playlists updated in playlists/countries/
+A&E CHANNELS: 67 working / 72 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +1 channels added / -2 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [USA] NFL Network US (priority-channels) -> http://463758a0.ucomist.net/iptv/V4ZVP6G52HVXDE/31011/index.m3u8
+REMOVED CHANNELS (SAMPLE):
+  - [USA] [NFL] NFL RedZone (GSPORTS) (previous) -> https://karimianian.store/folder2/1
+  - [USA] [NFL] NFL Network (GSPORTS) (previous) -> https://karimianian.store/folder2/2
+ISSUES / ERRORS:
+  * 2496 links could not be confirmed after retries (see unverified details).
+  * 2698 links returned a confirmed failure (see dead details).
+  * This run started +5h 47m after its scheduled time (2026-10-21T07:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+
