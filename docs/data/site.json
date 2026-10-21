@@ -142,6 +142,12 @@
   ],
   "older": [
    {
+    "tag": "v1.0.8.2",
+    "name": "PremiumTV 1.0.8.2 — Bridge for 1.0.8.1 (one-time)",
+    "published_at": "2026-10-21T14:30:00Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.8.2"
+   },
+   {
     "tag": "v1.0.8.1",
     "name": "PremiumTV 1.0.8 V1 Patch — 1.0.8.1 (⚠️ update to 1.0.9 — crash bug)",
     "published_at": "2026-10-20T22:30:18Z",
@@ -2842,6 +2848,18 @@
   ]
  },
  "changelog": [
+  {
+   "id": "2026-10-21",
+   "date": "2026-10-21",
+   "title": "Version 1.0.8.2 Bridge + Player Hardening + Updater UX Polish (1.0.9 still newest stable)",
+   "body_md": "- **Bridge release 1.0.8.2 for stranded 1.0.8.1 users.** 1.0.8.1's frozen `COMPATIBILITY_ALIASES` listed `1.0.9 → 1.0.8.1`, so its Settings → App updates wrongly said “up to date”. 1.0.8.2 (`versionCode 100080002`, same fixed 1.0.9 code) is *not* in that alias table, so it *is* seen as newer and installs over 1.0.8.1; after it, 1.0.9 appears automatically. This is the last V-style tag — V patches remain retired otherwise. Tag `v1.0.8.2` at `9ca499c` with Android APK built from that commit; Mac has no crash bug and stays on 1.0.9. See [`release-notes-1.0.8.2.md`](release-notes-1.0.8.2.md).\n- **Player hardening (non-crash).** `PlayerScreen.kt`: server fallback index now clamped with `coerceIn` so a rapid double-error cannot overshoot, and a 30-second buffering watchdog auto-advances to the next server if a feed stalls silently (geo-block timeout, stuck HLS). Retains the 1.0.9 single-player + surface-rebind invariant.\n- **Updater UX polish for the crash cohort.** `UpdateNoticeDialog.kt` (Android) now shows an “Open download page” button for `blocked` builds — one tap opens the GitHub release in the browser, cutting through the “up to date” white lie. `macos/app/src/renderer/app.js` does the same: a `blocked` popup now calls `api.openExternal(releasesUrl)` instead of opening Settings that would lie. `app-update-notice.json` wording updated to mention the bridge and the new button.\n- **Site data regenerated** after `v1.0.9` retag and `v1.0.8.2` publish.",
+   "bullets": [
+    "**Bridge release 1.0.8.2 for stranded 1.0.8.1 users.** 1.0.8.1's frozen `COMPATIBILITY_ALIASES` listed `1.0.9 → 1.0.8.1`, so its Settings → App updates wrongly said “up to date”. 1.0.8.2 (`versionCode 100080002`, same fixed 1.0.9 code) is *not* in that alias table, so it *is* seen as newer and installs over 1.0.8.1; after it, 1.0.9 appears automatically. This is the last V-style tag — V patches remain retired otherwise. Tag `v1.0.8.2` at `9ca499c` with Android APK built from that commit; Mac has no crash bug and stays on 1.0.9. See [`release-notes-1.0.8.2.md`](release-notes-1.0.8.2.md).",
+    "**Player hardening (non-crash).** `PlayerScreen.kt`: server fallback index now clamped with `coerceIn` so a rapid double-error cannot overshoot, and a 30-second buffering watchdog auto-advances to the next server if a feed stalls silently (geo-block timeout, stuck HLS). Retains the 1.0.9 single-player + surface-rebind invariant.",
+    "**Updater UX polish for the crash cohort.** `UpdateNoticeDialog.kt` (Android) now shows an “Open download page” button for `blocked` builds — one tap opens the GitHub release in the browser, cutting through the “up to date” white lie. `macos/app/src/renderer/app.js` does the same: a `blocked` popup now calls `api.openExternal(releasesUrl)` instead of opening Settings that would lie. `app-update-notice.json` wording updated to mention the bridge and the new button.",
+    "**Site data regenerated** after `v1.0.9` retag and `v1.0.8.2` publish."
+   ]
+  },
   {
    "id": "2026-10-20",
    "date": "2026-10-20",

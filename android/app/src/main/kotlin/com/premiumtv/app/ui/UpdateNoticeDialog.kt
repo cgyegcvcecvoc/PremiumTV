@@ -38,6 +38,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -277,6 +280,28 @@ fun UpdateNoticeDialog(
                             label = notice.dismissLabel,
                             modifier = Modifier.weight(1f),
                         ) { onDismiss() }
+                    }
+                    // For stranded 1.0.8.1 builds the primary action opens
+                    // Settings, which still says “up to date” because its alias
+                    // table is frozen. A direct browser button cuts through
+                    // that white lie — one press opens the GitHub release where
+                    // the APK installs in place. Every other build already
+                    // updates from Settings, so this only appears for blocked.
+                    if (blocked && notice.releasesUrl.isNotBlank()) {
+                        val context = LocalContext.current
+                        Spacer(modifier = Modifier.height(10.dp))
+                        FocusButton(
+                            label = "Open download page",
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            runCatching {
+                                val intent = Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(notice.releasesUrl),
+                                ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+                                context.startActivity(intent)
+                            }
+                        }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(

@@ -122,6 +122,20 @@ fun PlayerScreen(
         player.prepare()
     }
 
+    // Buffering watchdog: if a feed never leaves buffering (stuck manifest,
+    // geo-block timeout, dead HLS variant), advance to the next server after
+    // 30s instead of leaving the spinner forever. The player already walks
+    // on error; this covers the silent-stall case.
+    LaunchedEffect(buffering, serverIndex, playlist.size, errorMessage) {
+        if (!buffering || errorMessage != null) return@LaunchedEffect
+        kotlinx.coroutines.delay(30_000L)
+        if (buffering && errorMessage == null && serverIndex < playlist.lastIndex) {
+            val next = (serverIndex + 1).coerceIn(0, playlist.lastIndex)
+            serverIndex = next
+            switchNotice = "This feed is taking too long — switching to server ${next + 1} of ${playlist.size}…"
+        }
+    }
+
     // Leaving the app (Home on the remote) pauses; coming back resumes only
     // if the viewer had not paused it themselves. Without this the stream
     // kept playing to an empty room after the TV went back to its launcher.
@@ -158,10 +172,12 @@ fun PlayerScreen(
                 buffering = false
                 if (serverIndex < playlist.lastIndex) {
                     // The next server takes over without the viewer doing
-                    // anything; the notice explains the jump.
-                    serverIndex += 1
+                    // anything; the notice explains the jump. Clamped so a
+                    // rapid double-error cannot overshoot the playlist.
+                    val next = (serverIndex + 1).coerceIn(0, playlist.lastIndex)
+                    serverIndex = next
                     switchNotice = "This feed stopped responding - switching to server " +
-                        "${serverIndex + 1} of ${playlist.size}…"
+                        "${next + 1} of ${playlist.size}…"
                 } else {
                     switchNotice = null
                     errorMessage = error.message ?: "This stream could not be played."

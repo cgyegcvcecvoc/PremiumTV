@@ -2088,6 +2088,20 @@
       dismissUpdateNotice().catch(() => {});
     });
     els.updateNoticeAction.addEventListener('click', async () => {
+      const blocked = updateState && updateState.notice && updateState.notice.level === 'blocked';
+      const releasesUrl = updateState && updateState.notice && updateState.notice.releasesUrl;
+      if (blocked && releasesUrl) {
+        // Stranded builds (retired preview, or 1.0.8.1's frozen alias) would
+        // see Settings say “up to date”. Open the download page directly
+        // so one press gets the installer without a second white lie.
+        await dismissUpdateNotice();
+        try {
+          await api.openExternal(releasesUrl);
+        } catch (error) {
+          // Fall through to Settings if the shell cannot open a browser.
+        }
+        return;
+      }
       await dismissUpdateNotice();
       // Open the update centre and re-check GitHub. The installer still
       // downloads only on the Settings button: no background downloads.
