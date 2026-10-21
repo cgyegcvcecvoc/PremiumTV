@@ -27,7 +27,16 @@ and this release carries the Android APK and the Mac `.dmg`/`.pkg`.
   instead of playing on blind.
 - The Mac app never had this defect (its player is a different design), but
   the packaged-app test on both platforms now **opens a channel for real**
-  before a build may publish. The Android gate taps a channel, rides the
+  before a build may publish — and that new Mac check caught a different
+  1.0.8 bug the day it landed (below).
+- **Mac: six controls that never worked now work.** The **⧉ Side player**
+  button, the category **Sort** toolbar, the **◀ All categories** back
+  button (and the whole category-page toolbar it lives in), the channel
+  sort chips and **⟳ Refresh live games** were all wired to elements the
+  app never collected, so clicking them did nothing since 1.0.8 shipped
+  (keyboard shortcuts still worked, which hid it). All six are wired up in
+  1.0.9, with a regression test so a control can never ship uncollected
+  again. The Android gate taps a channel, rides the
   automatic server fallback, hops servers by hand, flips the side player
   both ways, and watches a live event end-to-end — the exact taps that used
   to break.

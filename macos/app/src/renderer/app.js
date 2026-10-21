@@ -15,6 +15,10 @@
   const els = {
     tabs: document.getElementById('tabs'),
     categories: document.getElementById('categories'),
+    catSort: document.getElementById('cat-sort'),
+    categoryPageTools: document.getElementById('category-page-tools'),
+    catBack: document.getElementById('cat-back'),
+    channelSort: document.getElementById('channel-sort'),
     footCount: document.getElementById('foot-count'),
     search: document.getElementById('search'),
     channelsTitle: document.getElementById('channels-title'),
@@ -27,6 +31,7 @@
     guideTag: document.getElementById('guide-tag'),
     liveList: document.getElementById('live-list'),
     liveSubtitle: document.getElementById('live-subtitle'),
+    liveRefresh: document.getElementById('live-refresh'),
     settingsBody: document.getElementById('settings-body'),
     statusText: document.getElementById('status-text'),
     views: {
@@ -45,6 +50,7 @@
     playerDetail: document.getElementById('player-detail'),
     playerServer: document.getElementById('player-server'),
     playerClose: document.getElementById('player-close'),
+    playerMinimize: document.getElementById('player-minimize'),
     playerPrevServer: document.getElementById('player-prev-server'),
     playerNextServer: document.getElementById('player-next-server'),
     playerFavorite: document.getElementById('player-favorite'),
