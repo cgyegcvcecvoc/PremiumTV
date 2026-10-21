@@ -182,6 +182,7 @@ jobs:
 
       - name: Smoke test the packaged app on Apple Silicon and Intel (Rosetta)
         working-directory: macos/app
+        timeout-minutes: 15
         run: |
           set -euo pipefail
           mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
@@ -190,12 +191,18 @@ jobs:
             # screenshot of the cable-style grid next to the build log.
             shot=""
             if [ "$BUNDLE_SCOPE" = "all" ]; then shot="$GITHUB_WORKSPACE/macos/build-out/guide-$arch.png"; fi
-            # Tee into the build log: Actions logs live behind a host some
+            # Record into the build log: Actions logs live behind a host some
             # sandboxes cannot reach, and build-out/ is committed back to the
             # branch - the only channel that makes a smoke failure readable.
-            # pipefail (set above) keeps tee from masking the app's exit code.
-            PREMIUMTV_SMOKE_SHOT="$shot" "dist/$arch/PremiumTV.app/Contents/MacOS/PremiumTV" --smoke-test 2>&1 \
-              | tee -a "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
+            # Redirect to a file, never a pipe: Electron's helper processes
+            # inherit stdout and can hold a pipe (and this step) open long
+            # after the app itself has exited.
+            log="$GITHUB_WORKSPACE/macos/build-out/smoke-$arch.txt"
+            status=0
+            PREMIUMTV_SMOKE_SHOT="$shot" "dist/$arch/PremiumTV.app/Contents/MacOS/PremiumTV" --smoke-test >"$log" 2>&1 || status=$?
+            cat "$log" >> "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
+            cat "$log"
+            [ "$status" -eq 0 ] || exit "$status"
           done
 
       - name: Checksum the installers

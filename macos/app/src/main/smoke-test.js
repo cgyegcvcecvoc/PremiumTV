@@ -5,10 +5,23 @@ const assert = require('node:assert/strict');
 const { setTimeout: delay } = require('node:timers/promises');
 
 module.exports = async function smokeTest(window, repository, proxy) {
+  // executeJavaScript never answers while the renderer main thread is
+  // blocked, so race every call: a wedged renderer must fail this gate in
+  // seconds with a readable message, not hang the CI job for an hour.
+  async function evalInPage(expression) {
+    const pending = window.webContents.executeJavaScript(expression);
+    pending.catch(() => {});
+    return Promise.race([
+      pending,
+      delay(10000).then(() => {
+        throw new Error(`renderer did not answer within 10s: ${expression}`);
+      }),
+    ]);
+  }
   async function waitFor(expression) {
     const deadline = Date.now() + 45000;
     while (Date.now() < deadline) {
-      if (await window.webContents.executeJavaScript(expression)) return;
+      if (await evalInPage(expression)) return;
       await delay(100);
     }
     throw new Error(`Renderer timeout: ${expression}`);
@@ -19,10 +32,10 @@ module.exports = async function smokeTest(window, repository, proxy) {
   assert.equal(repository.state.phase, 'ready');
   assert.ok(repository.library.channels.length > 0);
   await waitFor("document.querySelectorAll('#channels-grid .card').length > 0");
-  const count = await window.webContents.executeJavaScript("document.getElementById('foot-count').textContent");
+  const count = await evalInPage("document.getElementById('foot-count').textContent");
   assert.ok(count.includes(`${repository.library.channels.length} channels`), count);
-  assert.equal(await window.webContents.executeJavaScript('document.getElementById("player").hidden'), true);
-  assert.equal(await window.webContents.executeJavaScript('Boolean(window.Hls && window.mpegts)'), true);
+  assert.equal(await evalInPage('document.getElementById("player").hidden'), true);
+  assert.equal(await evalInPage('Boolean(window.Hls && window.mpegts)'), true);
 
   // Prove a second state transition updates the library, not just the status.
   repository.library = {
@@ -49,7 +62,7 @@ module.exports = async function smokeTest(window, repository, proxy) {
     // Say what the renderer looked like when it failed: the Actions log is
     // not reachable from every sandbox, so this dump rides the build log.
     try {
-      const dump = await window.webContents.executeJavaScript(`({
+      const dump = await evalInPage(`({
         playerHidden: document.getElementById('player')?.hidden,
         name: document.getElementById('player-name')?.textContent,
         spinner: document.getElementById('player-spinner')?.hidden,
@@ -65,15 +78,17 @@ module.exports = async function smokeTest(window, repository, proxy) {
   }
 
   async function checkPlayer(window, waitFor) {
-  await window.webContents.executeJavaScript("document.querySelector('[data-tab=\"channels\"]').click()");
+  console.log('PLAYER SMOKE: clicking the first channel card');
+  await evalInPage("document.querySelector('[data-tab=\"channels\"]').click()");
   await waitFor("document.querySelectorAll('#channels-grid .card').length > 0");
-  await window.webContents.executeJavaScript("document.querySelector('#channels-grid .card').click()");
+  await evalInPage("document.querySelector('#channels-grid .card').click()");
   await waitFor("document.getElementById('player').hidden === false");
-  const playerName = await window.webContents.executeJavaScript(
+  const playerName = await evalInPage(
     "document.getElementById('player-name').textContent");
   assert.ok(playerName.trim().length > 0, 'the player names the channel it opened');
+  console.log(`PLAYER SMOKE: player open for '${playerName}', letting the stream machinery run`);
   await delay(3000);
-  const playerState = await window.webContents.executeJavaScript(`({
+  const playerState = await evalInPage(`({
     hidden: document.getElementById('player').hidden,
     spinning: !document.getElementById('player-spinner').hidden,
     errorShown: !document.getElementById('player-error').hidden,
@@ -86,12 +101,13 @@ module.exports = async function smokeTest(window, repository, proxy) {
     playerState.spinning || playerState.errorShown || playerState.readyState > 0,
     `the player reached a sane state (${JSON.stringify(playerState)})`);
   assert.equal(playerState.rendererAlive, true, 'the browser behind the player is still rendered');
+  console.log(`PLAYER SMOKE: settled state ${JSON.stringify(playerState)}; flipping the side player`);
   // The 1.0.8 side player flip, then a real close.
-  await window.webContents.executeJavaScript("document.getElementById('player-minimize').click()");
+  await evalInPage("document.getElementById('player-minimize').click()");
   await waitFor("document.getElementById('player').classList.contains('mini')");
-  await window.webContents.executeJavaScript("document.getElementById('player-minimize').click()");
+  await evalInPage("document.getElementById('player-minimize').click()");
   await waitFor("!document.getElementById('player').classList.contains('mini')");
-  await window.webContents.executeJavaScript("document.getElementById('player-close').click()");
+  await evalInPage("document.getElementById('player-close').click()");
   await waitFor("document.getElementById('player').hidden === true");
   console.log(`PLAYER SMOKE PASS: opened '${playerName}', ` +
     `${playerState.errorShown ? 'reached the error card' : 'stream machinery sane'}, ` +
@@ -101,11 +117,11 @@ module.exports = async function smokeTest(window, repository, proxy) {
   // The Guide tab: the cable-style grid on preview builds, the list on stable.
   const bundled = (await repository.bundledMeta()) || {};
   const cableGuide = Array.isArray(bundled.preview_features) && bundled.preview_features.includes('cable-guide');
-  await window.webContents.executeJavaScript("document.querySelector('[data-tab=\"guide\"]').click()");
+  await evalInPage("document.querySelector('[data-tab=\"guide\"]').click()");
   let guide;
   if (cableGuide) {
     await waitFor("document.querySelectorAll('#guide-grid .cable-programme').length > 0");
-    guide = await window.webContents.executeJavaScript(`({
+    guide = await evalInPage(`({
       ticks: document.querySelectorAll('#guide-grid .cable-header-row .cable-time-tick').length,
       rows: document.querySelectorAll('#guide-grid .cable-row:not(.cable-header-row)').length,
       shows: document.querySelectorAll('#guide-grid .cable-programme').length,
