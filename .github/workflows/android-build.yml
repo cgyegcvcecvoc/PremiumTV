@@ -196,6 +196,9 @@ jobs:
 
       - name: Smoke test the built APK (cold launch, relaunch, Guide tab, remote and player)
         id: smoke_apk
+        # The watch gate normally finishes in a few minutes; a wedged
+        # emulator must fail this step, not eat the whole 45-minute job.
+        timeout-minutes: 25
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
