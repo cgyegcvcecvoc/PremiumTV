@@ -24,7 +24,16 @@ const WINDOW_STATE_KEY = 'window-bounds';
 const smokeMode = process.argv.includes('--smoke-test');
 if (smokeMode) {
   app.setPath('userData', require('node:fs').mkdtempSync(path.join(os.tmpdir(), 'premiumtv-smoke-')));
-  setTimeout(() => app.exit(1), 90000).unref();
+  // Backstop so a wedged smoke cannot hang CI - sized for the whole gate,
+  // not the old library-only pass: since 1.0.9 the smoke also opens a
+  // channel, and the stream machinery legitimately spends tens of seconds
+  // on manifest timeouts and server fallback (doubly so under Rosetta).
+  // 90s here used to guillotine the app mid-check, which read exactly like
+  // a crash ("Object has been destroyed") in the smoke output.
+  setTimeout(() => {
+    console.error('SMOKE WATCHDOG: still running after 300s, exiting');
+    app.exit(1);
+  }, 300000).unref();
 }
 
 let mainWindow = null;
