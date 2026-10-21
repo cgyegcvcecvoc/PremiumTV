@@ -87,20 +87,7 @@ jobs:
           python-version: "3.12"
 
       - name: Run offline scraper tests
-        id: tests
-        # TEMP (arena health-audit branch): continue past a test failure so the
-        # diagnostic capture below can record it and the scrape can proceed.
-        continue-on-error: true
         run: python -m unittest discover -s tests -v
-
-      - name: Capture failing test output
-        if: steps.tests.outcome == 'failure'
-        # TEMP (arena health-audit branch): rerun the suite into a committed
-        # file so the failure is visible without Actions log access.
-        run: |
-          echo "test step failed at $(date -u +%Y-%m-%dT%H:%M:%SZ); rerunning verbose" 
-          { python -m unittest discover -s tests -v ; echo "exit=$?" ; } \
-            > playlists/logs/test-diagnose.txt 2>&1 || true
 
       - name: Pick run label and scheduled time
         id: label
