@@ -169,9 +169,20 @@ Installed **1.0.8.1** still believes `1.0.9` is an alias of itself (`COMPATIBILI
 
 - [x] Retag `v1.0.9` to fix commit
 - [x] Update release notes for `v1.0.8`, `v1.0.8.1`, `v1.0.9` with crash banner
-- [ ] Wait ~25 min for Android CI to finish and auto-upload APK (no action — will happen)
-- [ ] Push a follow-up commit (or approve Suggestion #1) to trigger macOS rebuild + upload of DMGs — I can do this immediately if you approve
-- [ ] Refresh `docs/data/releases.src.json` + `python scripts/build_site_data.py` after DMGs land (so download site shows correct checksums)
+- [x] Wait ~25 min for Android CI to finish and auto-upload APK (no action — will happen) — done 2026-10-21 11:35 UTC: `v1.0.9` was republished, `v1.0.9` was retagged to `e90d7677c` and CI attached a fresh APK from that commit.
+- [x] Push a follow-up commit (or approve Suggestion #1) to trigger macOS rebuild + upload of DMGs — I can do this immediately if you approve — done 2026-10-21 11:19 UTC: republishing `v1.0.9` rebuilt and re-attached both `x64` and `arm64` DMGs/PKGs from `e90d7677c`.
+- [x] Refresh `docs/data/releases.src.json` + `python scripts/build_site_data.py` after DMGs land (so download site shows correct checksums) — done 2026-10-21: refreshed from the Releases API, site data regenerated, `496/496` + `111/111` still green.
+
+### 6b. Added while publishing (2026-10-21)
+
+- `v1.0.9` had stopped being the **Latest** release: GitHub still resolved `/releases/latest` to
+  `v1.0.8.1`, so every "Get 1.0.9 now" link and the release page badge pointed at the buggy build.
+  Republishing it (draft → published) after moving the tag to `e90d7677c` restored it; it is a
+  non-draft, non-pre-release release again and passes the release-version guard.
+- `v1.0.8.2` (the bridge for stranded 1.0.8.1 installs) had been demoted to a pre-release by that
+  guard, and the updaters skip pre-releases, so 1.0.8.1 could never be offered it. It is now a full
+  stable release: 1.0.8.1 → 1.0.8.2 → 1.0.9 inside Settings → App updates, with the manual APK as
+  the fallback.
 
 ---
 
