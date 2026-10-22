@@ -233,6 +233,10 @@
     <display-name>Region TV Callao (720p)</display-name>
     <icon src="https://i.imgur.com/I4grcqk.png" />
   </channel>
+  <channel id="RNTelevision.pe@SD">
+    <display-name>RN Television (720p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/oFGiW7u.png" />
+  </channel>
   <channel id="RTP.pe@SD">
     <display-name>RTP (Peru) (720p)</display-name>
     <icon src="https://i.imgur.com/nHMqAHn.jpeg" />
@@ -469,10 +473,6 @@
     <display-name>Exitosa TV (1080p)</display-name>
     <icon src="https://i.imgur.com/pu0BSB7.png" />
   </channel>
-  <channel id="FuegoTV.pe@SD">
-    <display-name>like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="News" tvg-country="PE",FuegoTV (1080p)</display-name>
-    <icon src="https://i.imgur.com/1LuNEX4.png" />
-  </channel>
   <channel id="LatinaNoticias247.pe@SD">
     <display-name>Latina Noticias 24/7 (1080p)</display-name>
     <icon src="https://assets.rudo.video/assets/latina/live/logoApi_4b43aad719f5bbf7aa2813c2199e6e3e1755620584.png" />
@@ -539,7 +539,6 @@
     <display-name>Latina (1080p)</display-name>
     <display-name>PE - Latina</display-name>
     <display-name>Latina.pe</display-name>
-    <display-name>Latina TV (1080p)</display-name>
     <display-name>Latina (Backup 1)</display-name>
     <icon src="https://iptv-epg.org/images/6We4vqZogD01aiN50OQ3rw4iDNtijkRBUDSrwMCkqiQt7_NqdcGPBB-Z87Q3k0rSVfNFfiqel7qsj7o4A4lUKX3Gq3_IRlaeFy6mP50" />
   </channel>
@@ -778,8 +777,8 @@
   <programme start="20261024180000 +0000" stop="20261024190000 +0000" channel="ATV.pe@SD">
     <title>Documentales</title>
   </programme>
-  <programme start="20261022110000 +0000" stop="20261022140000 +0000" channel="ATVSur.pe@SD">
-    <title>Nuevo día</title>
+  <programme start="20261024190000 +0000" stop="20261024230000 +0000" channel="ATV.pe@SD">
+    <title>Cámara loca</title>
   </programme>
   <programme start="20261022140000 +0000" stop="20261022180000 +0000" channel="ATVSur.pe@SD">
     <title>Nuevo día</title>
@@ -910,11 +909,11 @@
   <programme start="20261024180000 +0000" stop="20261024190000 +0000" channel="ATVSur.pe@SD">
     <title>Desafío Marruecos</title>
   </programme>
-  <programme start="20261022120000 +0000" stop="20261022140000 +0000" channel="DTV.pe@SD">
-    <title>DTV</title>
-    <category lang="sq">Emision Debatues</category>
-    <category lang="sq">Serial</category>
-    <icon src="https://vimg.ipko.tv/mtcms/f1/6/6/f16602d5-dd42-42a6-be4f-0cdad3caccc5.jpg" />
+  <programme start="20261024190000 +0000" stop="20261024193000 +0000" channel="ATVSur.pe@SD">
+    <title>Nutrissa</title>
+  </programme>
+  <programme start="20261024193000 +0000" stop="20261024210000 +0000" channel="ATVSur.pe@SD">
+    <title>Nutrissa</title>
   </programme>
   <programme start="20261022140000 +0000" stop="20261022160000 +0000" channel="DTV.pe@SD">
     <title>DTV</title>
@@ -1017,30 +1016,6 @@
     <category lang="sq">Emision Debatues</category>
     <category lang="sq">Serial</category>
     <icon src="https://vimg.ipko.tv/mtcms/f1/6/6/f16602d5-dd42-42a6-be4f-0cdad3caccc5.jpg" />
-  </programme>
-  <programme start="20261022120000 +0000" stop="20261022123000 +0000" channel="ForoTV.pe@SD">
-    <title>Live: Las noticias</title>
-    <desc>Programa informativo donde se presentan los sucesos más importantes y recientes de las noticias mexicanas e internacionales.</desc>
-    <date>20261022</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261022123000 +0000" stop="20261022133000 +0000" channel="ForoTV.pe@SD">
-    <title>Live: Es la Hora de Opinar</title>
-    <desc>Se analizan y debaten temas de actualidad nacional e internacional, con la participación de colaboradores reconocidos en la esfera política.</desc>
-    <date>20261022</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261022133000 +0000" stop="20261022140000 +0000" channel="ForoTV.pe@SD">
-    <title>Live: Las noticias</title>
-    <desc>Programa informativo donde se presentan los sucesos más importantes y recientes de las noticias mexicanas e internacionales.</desc>
-    <date>20261022</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261022140000 +0000" stop="20261022143000 +0000" channel="ForoTV.pe@SD">
     <title>CV directo</title>
@@ -1464,12 +1439,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261022110000 +0000" stop="20261022133000 +0000" channel="TVPeru.pe@SD">
-    <title>Primera hora</title>
-  </programme>
-  <programme start="20261022133000 +0000" stop="20261022140000 +0000" channel="TVPeru.pe@SD">
-    <title>Deporte express</title>
-  </programme>
   <programme start="20261022140000 +0000" stop="20261022150000 +0000" channel="TVPeru.pe@SD">
     <title>Chicos IPe</title>
   </programme>
@@ -1626,8 +1595,8 @@
   <programme start="20261024180000 +0000" stop="20261024190000 +0000" channel="TVPeru.pe@SD">
     <title>¿Y tú, tú que vas a hacer?</title>
   </programme>
-  <programme start="20261022100000 +0000" stop="20261022130000 +0000" channel="Unitel.pe@SD">
-    <title>La revista</title>
+  <programme start="20261024190000 +0000" stop="20261024210000 +0000" channel="TVPeru.pe@SD">
+    <title>Miski Takiy</title>
   </programme>
   <programme start="20261022130000 +0000" stop="20261022143000 +0000" channel="Unitel.pe@SD">
     <title>La batidora</title>
@@ -1740,21 +1709,15 @@
   <programme start="20261024180000 +0000" stop="20261024200000 +0000" channel="Unitel.pe@SD">
     <title>Lo mejor - Hercai</title>
   </programme>
+  <programme start="20261024200000 +0000" stop="20261024220000 +0000" channel="Unitel.pe@SD">
+    <title>Lo mejor de La hija del embajador</title>
+  </programme>
   <programme start="20261022013000 +0000" stop="20261023000000 +0000" channel="PBO.pe@SD">
     <title>Kambyo</title>
     <date>20261022</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261022120000 +0000" stop="20261022123000 +0000" channel="LaTele.pe@SD">
-    <title>Nutrissa</title>
-  </programme>
-  <programme start="20261022123000 +0000" stop="20261022132000 +0000" channel="LaTele.pe@SD">
-    <title>Nutrissa</title>
-  </programme>
-  <programme start="20261022132000 +0000" stop="20261022142000 +0000" channel="LaTele.pe@SD">
-    <title>Manny a la obra</title>
   </programme>
   <programme start="20261022142000 +0000" stop="20261022150000 +0000" channel="LaTele.pe@SD">
     <title>Lloyd del espacio</title>
@@ -1942,8 +1905,11 @@
   <programme start="20261024160000 +0000" stop="20261024190000 +0000" channel="LaTele.pe@SD">
     <title>Hombre al agua</title>
   </programme>
-  <programme start="20261022120000 +0000" stop="20261022140000 +0000" channel="Latina.pe@SD">
-    <title>Latina noticias - Matinal</title>
+  <programme start="20261024190000 +0000" stop="20261024200000 +0000" channel="LaTele.pe@SD">
+    <title>Nutrissa</title>
+  </programme>
+  <programme start="20261024200000 +0000" stop="20261024210000 +0000" channel="LaTele.pe@SD">
+    <title>Desafío África</title>
   </programme>
   <programme start="20261022140000 +0000" stop="20261022170000 +0000" channel="Latina.pe@SD">
     <title>Arriba mi gente</title>
@@ -2062,8 +2028,11 @@
   <programme start="20261024170000 +0000" stop="20261024190000 +0000" channel="Latina.pe@SD">
     <title>Latina noticias - Mediodía</title>
   </programme>
-  <programme start="20261022110000 +0000" stop="20261022123000 +0000" channel="PanamericanaTV.pe@SD">
-    <title>Buenos días, Perú - Primera edición</title>
+  <programme start="20261024190000 +0000" stop="20261024193000 +0000" channel="Latina.pe@SD">
+    <title>Somos vóley</title>
+  </programme>
+  <programme start="20261024193000 +0000" stop="20261024214500 +0000" channel="Latina.pe@SD">
+    <title>Equipo Perú vs. Olva Latino</title>
   </programme>
   <programme start="20261022123000 +0000" stop="20261022143000 +0000" channel="PanamericanaTV.pe@SD">
     <title>Buenos días, Perú - Segunda edición</title>
@@ -2196,5 +2165,8 @@
   </programme>
   <programme start="20261024180000 +0000" stop="20261024190000 +0000" channel="PanamericanaTV.pe@SD">
     <title>Vende +</title>
+  </programme>
+  <programme start="20261024190000 +0000" stop="20261024210000 +0000" channel="PanamericanaTV.pe@SD">
+    <title>Saras y Kumud</title>
   </programme>
 </tv>
