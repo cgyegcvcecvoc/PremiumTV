@@ -20,6 +20,18 @@ import androidx.compose.ui.unit.sp
 val PremiumGold = Color(0xFFF3C24B)
 val PremiumGoldDim = Color(0xFFB8892F)
 val LiveRed = Color(0xFFE2483C)
+
+/**
+ * The remote's pointer (1.1.0): a strong amber outline drawn around whatever
+ * the D-pad is on right now.
+ *
+ * Gold is the app's brand colour and is also used for static accents, which is
+ * why focus used to be easy to lose on a busy row of cards. This amber is
+ * deliberately hotter than brand gold, always drawn at 3 dp with a soft glow,
+ * and never used for anything except "you are here".
+ */
+val FocusRing = Color(0xFFFFB020)
+val FocusRingGlow = Color(0xFFFFB020)
 val CardBackground = Color(0xFF121820)
 val CardBackgroundFocused = Color(0xFF1C2530)
 val MutedText = Color(0xFF9FB0C4)

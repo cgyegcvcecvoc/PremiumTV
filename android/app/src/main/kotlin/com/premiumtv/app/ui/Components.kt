@@ -1,12 +1,6 @@
 package com.premiumtv.app.ui
 
-import androidx.compose.animation.core.EaseInOutCubic
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -36,13 +29,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.composed
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
@@ -50,12 +42,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.key.onKeyEvent
 import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -107,6 +99,34 @@ fun Modifier.tvClickable(onClick: () -> Unit): Modifier = composed {
         }
 }
 
+/**
+ * The 1.1.0 pointer outline: one amber ring around whatever the D-pad is on.
+ *
+ * Every focusable surface in the app uses this instead of its own colour, so
+ * "where am I" looks the same on a channel card, a category row, a tab and a
+ * button. Focused items get a 3 dp amber ring plus a soft outer glow; resting
+ * items keep the quiet hairline they always had.
+ */
+internal fun Modifier.focusOutline(
+    focused: Boolean,
+    shape: Shape = RoundedCornerShape(12.dp),
+    restColor: Color = Color(0x22FFFFFF),
+): Modifier {
+    if (!focused) return this.border(1.dp, restColor, shape)
+    return this
+        .drawBehind {
+            val glow = 8.dp.toPx()
+            drawRoundRect(
+                color = FocusRingGlow.copy(alpha = 0.20f),
+                topLeft = Offset(-glow / 2f, -glow / 2f),
+                size = Size(size.width + glow, size.height + glow),
+                cornerRadius = CornerRadius(15.dp.toPx()),
+                style = Stroke(glow),
+            )
+        }
+        .border(3.dp, FocusRing, shape)
+}
+
 @Composable
 fun ChannelCard(
     channel: Channel,
@@ -130,11 +150,7 @@ fun ChannelCard(
             .scale(scale)
             .onFocusChanged { focused = it.isFocused }
             .tvClickable(onClick)
-            .border(
-                width = if (focused) 3.dp else 1.dp,
-                color = if (focused) PremiumGold else Color(0x22FFFFFF),
-                shape = RoundedCornerShape(12.dp),
-            ),
+            .focusOutline(focused, RoundedCornerShape(12.dp)),
         shape = RoundedCornerShape(12.dp),
         color = if (focused) CardBackgroundFocused else CardBackground,
     ) {
@@ -218,6 +234,7 @@ fun TabChip(label: String, selected: Boolean, onClick: () -> Unit) {
         modifier = Modifier
             .height(44.dp)
             .onFocusChanged { focused = it.isFocused }
+            .focusOutline(focused, RoundedCornerShape(22.dp), restColor = Color.Transparent)
             .tvClickable(onClick),
         shape = RoundedCornerShape(22.dp),
         color = background,
@@ -248,6 +265,7 @@ fun FocusButton(label: String, modifier: Modifier = Modifier, enabled: Boolean =
         modifier = modifier
             .height(52.dp)
             .onFocusChanged { focused = it.isFocused }
+            .focusOutline(focused, RoundedCornerShape(26.dp), restColor = Color.Transparent)
             .then(if (enabled) Modifier.tvClickable(onClick) else Modifier)
             .semantics { if (!enabled) disabled() },
         shape = RoundedCornerShape(26.dp),
@@ -309,52 +327,21 @@ fun BrandLogo(modifier: Modifier = Modifier) {
 }
 
 /**
- * 1.0.8 V1 Patch loading screen: layered marquee animation that stays light
- * on TV hardware — a breathing logo, sweeping gold underline, pulsing spinner
- * orbit and shimmering title. The stream of tips still cycles every 8 s, but
- * now fades rather than cuts, and the version plaque shows the V patch name.
+ * The 1.1.0 loading screen: calm, static and honest.
+ *
+ * 1.0.8 V1's version breathed, glowed, shimmered, orbited a spinner and
+ * animated its own ellipsis — six animations before a single channel had
+ * loaded, all of it work for a TV GPU that is usually the slowest chip in the
+ * room. The wordmark, the tagline and a real progress line are all a viewer
+ * needs; the line is driven by the loader's own stages instead of a decorative
+ * loop.
  */
 @Composable
-fun LoadingScreen(title: String, detail: String) {
-    // Brush offsets are in pixels, and Dp.toPx() only exists inside a Density
-    // receiver (a Canvas draw scope has one; this composable body does not).
-    // Resolve the two animated widths once here instead of calling toPx() in
-    // the Modifier chain below, which does not compile.
-    val density = LocalDensity.current
-    val underlineWidthPx = with(density) { 110.dp.toPx() }
-    val barWidthPx = with(density) { 160.dp.toPx() }
-    val infinite = rememberInfiniteTransition(label = "loading")
-    val logoPulse by infinite.animateFloat(
-        initialValue = 1f,
-        targetValue = 1.06f,
-        animationSpec = infiniteRepeatable(tween(1400, easing = EaseInOutCubic), RepeatMode.Reverse),
-        label = "logoPulse",
-    )
-    val logoGlow by infinite.animateFloat(
-        initialValue = 0.55f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(tween(1400, easing = EaseInOutCubic), RepeatMode.Reverse),
-        label = "logoGlow",
-    )
-    val shimmerShift by infinite.animateFloat(
-        initialValue = 0f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(tween(2200, easing = EaseInOutCubic), RepeatMode.Restart),
-        label = "shimmer",
-    )
-    val barProgress by infinite.animateFloat(
-        initialValue = 0.08f,
-        targetValue = 0.92f,
-        animationSpec = infiniteRepeatable(tween(1600, easing = EaseInOutCubic), RepeatMode.Reverse),
-        label = "bar",
-    )
-    // Animated ellipsis for the loading title.
-    var dotCount by remember { mutableIntStateOf(0) }
-    LaunchedEffect(Unit) {
-        while (true) { delay(420L); dotCount = (dotCount + 1) % 4 }
-    }
-    val dots = ".".repeat(dotCount)
-
+fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
+    // A determinate bar: the repository reports how far the load actually got.
+    // Before the first stage arrives the bar simply sits at a sliver instead of
+    // pretending to sweep.
+    val fraction = (progress ?: 0.08f).coerceIn(0.04f, 1f)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -364,47 +351,14 @@ fun LoadingScreen(title: String, detail: String) {
                 ),
             ),
     ) {
-        // Subtle drifting gold haze behind the logo — two soft circles that
-        // breathe with the same pulse, cheap to draw on a TV GPU.
-        Canvas(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(420.dp)
-                .alpha(0.12f * logoGlow),
-        ) {
-            drawCircle(
-                color = PremiumGold,
-                radius = size.minDimension * 0.38f * logoPulse,
-                center = Offset(size.width * 0.5f, size.height * 0.42f),
-            )
-            drawCircle(
-                color = PremiumGoldDim,
-                radius = size.minDimension * 0.22f * (1.04f - (logoPulse - 1f)),
-                center = Offset(size.width * 0.5f, size.height * 0.44f),
-            )
-        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(horizontal = 48.dp),
         ) {
-            Box(
-                modifier = Modifier.size(112.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                // Outer halo ring that breathes with the logo.
-                Canvas(modifier = Modifier.fillMaxSize().alpha(0.18f * logoGlow)) {
-                    drawCircle(
-                        color = PremiumGold,
-                        radius = size.minDimension * 0.48f * logoPulse,
-                        center = center,
-                        style = Stroke(width = 1.5.dp.toPx()),
-                    )
-                }
-                BrandLogo(modifier = Modifier.size(104.dp).scale(logoPulse).alpha(0.85f + 0.15f * logoGlow))
-            }
+            BrandLogo(modifier = Modifier.size(104.dp))
             Text(
                 text = "PremiumTV",
                 style = MaterialTheme.typography.headlineMedium,
@@ -412,92 +366,35 @@ fun LoadingScreen(title: String, detail: String) {
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 4.sp,
             )
-            // Shimmer underline — a thin gold gradient that sweeps endlessly.
-            Box(
-                modifier = Modifier
-                    .width(110.dp)
-                    .height(2.dp)
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                PremiumGold.copy(alpha = 0.9f),
-                                Color.Transparent,
-                            ),
-                            start = Offset(x = underlineWidthPx * (shimmerShift - 1f), y = 0f),
-                            end = Offset(x = underlineWidthPx * shimmerShift, y = 0f),
-                        ),
-                    ),
-            )
             Text(
                 text = "Every channel, one guide",
                 style = MaterialTheme.typography.labelMedium,
                 color = MutedText,
                 letterSpacing = 2.sp,
             )
-            Spacer(modifier = Modifier.height(6.dp))
-            // Orbit spinner: gold arc with trailing dots around a dim track.
-            Box(modifier = Modifier.size(38.dp), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(
-                    color = PremiumGold,
-                    strokeWidth = 3.dp,
-                    modifier = Modifier.size(38.dp),
-                )
-                Canvas(modifier = Modifier.size(8.dp).alpha(logoGlow)) {
-                    drawCircle(color = PremiumGold, radius = size.minDimension / 2)
-                }
-            }
-            // Thin shimmer loading bar.
+            Spacer(modifier = Modifier.height(12.dp))
+            // The loading line bar the viewer asked to keep: a plain gold line
+            // that fills as the channel list and the guide come in.
             Box(
                 modifier = Modifier
-                    .width(160.dp)
-                    .height(3.dp)
+                    .width(220.dp)
+                    .height(4.dp)
                     .background(Color(0x22FFFFFF), RoundedCornerShape(999.dp)),
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .fillMaxWidth(barProgress)
+                        .fillMaxWidth(fraction)
                         .background(PremiumGold, RoundedCornerShape(999.dp)),
                 )
-                // Sweep highlight
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth(0.3f)
-                        .background(
-                            Brush.horizontalGradient(
-                                listOf(Color.Transparent, Color.White.copy(alpha = 0.55f), Color.Transparent),
-                                startX = barWidthPx * (shimmerShift - 0.5f),
-                                endX = barWidthPx * (shimmerShift + 0.2f),
-                            ),
-                        ),
-                )
             }
-            // Title with animated ellipsis so the TV never looks frozen.
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(
-                    text = title + dots,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = Color.White,
-                    fontWeight = FontWeight.SemiBold,
-                )
-                // Tiny pulsing dot cluster beside the title.
-                repeat(3) { index ->
-                    val dotAlpha by infinite.animateFloat(
-                        initialValue = 0.25f,
-                        targetValue = 1f,
-                        animationSpec = infiniteRepeatable(
-                            tween(700, delayMillis = index * 160, easing = EaseInOutCubic),
-                            RepeatMode.Reverse,
-                        ),
-                        label = "dot$index",
-                    )
-                    Canvas(modifier = Modifier.size(4.dp).alpha(dotAlpha)) {
-                        drawCircle(color = PremiumGold, radius = size.minDimension / 2)
-                    }
-                }
-            }
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.White,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+            )
             LoadingTip()
             Text(
                 text = detail,
@@ -513,27 +410,18 @@ fun LoadingScreen(title: String, detail: String) {
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 22.dp),
         ) {
-            val displayName = remember(BuildConfig.VERSION_NAME) {
-                // Show V patch name when this is a V release (1.0.8.1 -> 1.0.8 V1).
-                val raw = BuildConfig.VERSION_NAME
-                val parts = raw.split(".")
-                if (parts.size == 4 && parts[3].toIntOrNull() != null && parts[3] != "0") {
-                    "${parts[0]}.${parts[1]}.${parts[2]} V${parts[3]} Patch"
-                } else raw
-            }
             Text(
-                text = "Version $displayName",
+                text = "Version ${BuildConfig.VERSION_NAME}",
                 style = MaterialTheme.typography.labelSmall,
                 color = PremiumGold.copy(alpha = 0.85f),
                 letterSpacing = 1.4.sp,
                 fontWeight = FontWeight.Medium,
             )
             Text(
-                text = "${BuildConfig.VERSION_NAME} · TV build · patched",
+                text = "TV build · stable",
                 style = MaterialTheme.typography.labelSmall,
                 color = MutedText.copy(alpha = 0.9f),
                 letterSpacing = 0.8.sp,
-                modifier = Modifier.alpha(0.9f),
             )
         }
     }

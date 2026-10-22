@@ -669,7 +669,7 @@ private fun GuideChannelCell(channel: Channel, width: Dp, highlighted: Boolean, 
             .padding(vertical = 1.dp)
             .clip(shape)
             .background(if (highlighted) CardBackgroundFocused else CardBackground)
-            .then(if (highlighted) Modifier.border(2.dp, Color.White, shape) else Modifier)
+            .then(if (highlighted) Modifier.border(3.dp, FocusRing, shape) else Modifier)
             .pointerInput(Unit) { detectTapGestures(onTap = { currentOnClick() }) }
             .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -758,9 +758,9 @@ private fun GuideProgrammeCell(
                 },
             )
             .border(
-                width = if (highlighted) 2.dp else 1.dp,
+                width = if (highlighted) 3.dp else 1.dp,
                 color = when {
-                    highlighted -> Color.White
+                    highlighted -> FocusRing
                     live -> PremiumGold
                     else -> CellStroke
                 },

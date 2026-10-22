@@ -8,10 +8,11 @@
   <link rel="stylesheet" href="app.css" />
 </head>
 <body>
-  <!-- The launch splash: 1.0.8 V1 Patch brings a layered marquee animation
-       (breathing logo, orbiting dots, shimmer bar) that tells the viewer the
-       app is not frozen. app.js fades it out as soon as the first library
-       snapshot arrives. -->
+  <!-- The launch splash: 1.1.0 is deliberately still. The mark, the name and
+       the loading line bar are the whole screen - no breathing logo, orbiting
+       spinner or shimmer, all of which cost frames before anything has
+       loaded. app.js fades it out as soon as the first library snapshot
+       arrives. -->
   <div id="splash" role="status" aria-live="polite">
     <div class="splash-center">
       <svg class="splash-logo" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor"
@@ -25,9 +26,8 @@
       </svg>
       <div class="splash-name">PremiumTV</div>
       <div class="splash-tag">Every channel, one guide</div>
-      <div class="splash-spinner" aria-hidden="true"></div>
-      <div class="splash-bar" aria-hidden="true"><div class="splash-bar-fill"></div><div class="splash-bar-shine"></div></div>
-      <div id="splash-status">Getting your TV library ready…<span class="splash-dots" aria-hidden="true"><span></span><span></span><span></span></span></div>
+      <div class="splash-bar" aria-hidden="true"><div class="splash-bar-fill"></div></div>
+      <div id="splash-status">Getting your TV library ready…</div>
     </div>
     <div class="splash-foot"><span id="splash-version"></span> <span class="splash-foot-plaque" id="splash-plaque" hidden>Patched · V1</span></div>
   </div>
@@ -197,6 +197,7 @@
   <script src="category-icons.js"></script>
   <script src="live-events.js"></script>
   <script src="personal.js"></script>
+  <script src="health.js"></script>
   <script src="player.js"></script>
   <script src="app.js"></script>
 </body>

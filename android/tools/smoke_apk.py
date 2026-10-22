@@ -182,7 +182,15 @@ def key(code, times=1):
 
 # The popup's own headline, not the published copy: the wording in
 # app-update-notice.json can change without breaking this gate.
-NOTICE_EYEBROWS = {"PREMIUMTV UPDATE", "SUPPORT HAS ENDED"}
+# Every popup the notice document can raise. "BUILD RETIRED" matters most: a
+# stale copy of app-update-notice.json in the repository can still call the
+# build under test a retired preview, and the gate must dismiss that dialog and
+# go on testing the app rather than sit on it until the 240 s deadline.
+NOTICE_EYEBROWS = {"PREMIUMTV UPDATE", "SUPPORT HAS ENDED", "BUILD RETIRED", "UPDATE REQUIRED"}
+# Used when the document cannot be read, or names a label this list forgot: the
+# dismissal button is always the safe press, so a missing entry must not wedge
+# the gate.
+DEFAULT_DISMISS_LABELS = {"Not now", "Later", "Remind me next time", "Dismiss"}
 _notice_seen = False
 
 
@@ -192,7 +200,7 @@ def notice_dismiss_labels():
     Both the warning rule and its end-of-support escalation are read, so the
     gate keeps working on either side of the sunset date.
     """
-    labels = set()
+    labels = set(DEFAULT_DISMISS_LABELS)
     try:
         document = json.loads((ROOT / "app-update-notice.json").read_text(encoding="utf-8"))
         for rule in document.get("rules") or []:

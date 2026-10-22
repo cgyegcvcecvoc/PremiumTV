@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.0.8 V1 Patch** — `1.0.8.1`, alias `1.0.9` for old updaters — with the animated loading screen, hardened bug detection and the V series locked in, plus the 1.0.8 sorted lists, category pages, side player and Live Events live-check revamp), with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.0** — the category rail with the side player docked on the right, tap-to-full-screen, automatic server backup, dead channels filtered out, amber pointer outlines and a calm loading screen with the gold loading line kept, plus every 1.0.9 fix), with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,9 +26,9 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.0.8 V1 Patch (1.0.8.1 · alias 1.0.9)
+## Current stable: 1.1.0
 
-1.0.8 V1 adds the animated loading screen (breathing logo, shimmer bar, pulsing dots), 11-check bug detection (patch chain, stream hygiene, guide freshness, library health on top of the original 7) and locks in the V series: V1=1.0.8.1, V2=1.0.8.2 … each V increments versionCode by one (alias 1.0.9, 1.0.10 … for old updaters). Categories still read as a sorted list everywhere, clicking one opens the category's own page, the side player keeps a channel playing while you browse, and Live Events checks which games are still live. Settings is one compact screen: a version card that shows **1.0.8 V1 Patch**, **Force refresh**, **Check for update**, **Check for bugs**, and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the V1 notes in [`release-notes-1.0.8.1.md`](../release-notes-1.0.8.1.md).
+1.1.0 turns the Channels tab into a category rail beside the channel list and docks the side player on the right, where one press on the picture grows it to full screen without restarting the stream. A feed that fails or stalls moves to the next server automatically (known-dead feeds are tried last), a channel whose every feed failed is hidden until Settings → Restore hidden channels brings it back, every focusable control carries the same amber outline, and the animated splash is gone — the gold loading line bar stays and reports real load stages. Settings is one compact screen — a version card that shows **1.1.0**, plus **Force refresh**, **Check for update**, **Check for bugs**, a hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.0.md`](../release-notes-1.1.0.md).
 
 The **1.1.x Encore preview is retired and blocked**. Its release, installers and
 download links were removed; any old link goes to

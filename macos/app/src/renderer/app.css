@@ -891,12 +891,10 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
 }
 
 /* ------------------------------------------------------------- launch splash */
-/* The first thing the window shows: the PremiumTV mark, a spinner and the
-   build number pinned at the bottom. app.js adds .done after the first
-   library snapshot; the splash fades out over the painted app.
-   1.0.8 V1 Patch: layered marquee animation — breathing logo, orbiting
-   dots, sweeping shimmer bar and progress dots that tell the viewer the app
-   is not frozen. All motion is cheap (transform/opacity) for smooth paint. */
+/* 1.1.0: a still screen. The mark, the name, the tagline and the loading line
+   bar — the bar is kept because viewers liked it, but nothing breathes,
+   spins, sweeps or shimmers while the library loads. app.js adds .done after
+   the first library snapshot and the splash fades over the painted app. */
 #splash {
   position: fixed; inset: 0; z-index: 70;
   display: flex; align-items: center; justify-content: center;
@@ -912,75 +910,33 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   background:
     radial-gradient(ellipse 60% 40% at 50% 18%, rgba(240,192,64,0.10) 0%, transparent 70%),
     radial-gradient(ellipse 35% 25% at 50% 50%, rgba(240,192,64,0.06) 0%, transparent 60%);
-  animation: splash-haze 6s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-#splash::after {
-  content: "";
-  position: absolute; left: -60%; top: 52%; width: 220%; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(240,192,64,0.55), transparent);
-  animation: splash-sweep 3.2s ease-in-out infinite;
   pointer-events: none;
 }
 .splash-center { display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; z-index: 1; }
 .splash-logo {
   width: 96px; height: 96px;
   filter: drop-shadow(0 0 14px rgba(240,192,64,0.35));
-  animation: splash-breathe 2.2s ease-in-out infinite alternate, splash-float 4s ease-in-out infinite;
 }
 .splash-name {
   color: var(--gold); font-size: 26px; font-weight: 700; letter-spacing: 4px;
-  animation: splash-title-in 0.7s ease both;
 }
 .splash-tag {
   color: var(--muted); font-size: 12px; letter-spacing: 2px;
-  animation: splash-title-in 0.7s 0.15s ease both;
-}
-.splash-spinner {
-  width: 30px; height: 30px; margin-top: 12px;
-  border: 3px solid rgba(255, 255, 255, 0.14);
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
-  position: relative;
-}
-.splash-spinner::after {
-  content: "";
-  position: absolute; inset: -6px;
-  border: 1px solid rgba(240,192,64,0.18);
-  border-radius: 50%;
-  animation: splash-ring 1.6s ease-in-out infinite alternate;
 }
 #splash-status {
   color: var(--text); font-size: 13px;
   min-height: 18px;
-  animation: splash-fade-in 0.5s ease both;
 }
-#splash-status .splash-dots {
-  display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: middle;
-}
-#splash-status .splash-dots span {
-  width: 4px; height: 4px; border-radius: 50%;
-  background: var(--gold); opacity: 0.35;
-  animation: splash-dot 0.9s ease-in-out infinite;
-}
-#splash-status .splash-dots span:nth-child(2) { animation-delay: 0.16s; }
-#splash-status .splash-dots span:nth-child(3) { animation-delay: 0.32s; }
 .splash-bar {
-  width: 140px; height: 3px; margin-top: 4px;
+  width: 180px; height: 3px; margin-top: 8px;
   background: rgba(255,255,255,0.10); border-radius: 999px; overflow: hidden;
   position: relative;
 }
 .splash-bar-fill {
-  position: absolute; inset: 0 30% 0 0;
+  position: absolute; inset: 0 auto 0 0;
+  width: 62%;
   background: linear-gradient(90deg, var(--gold), #ffe28a);
   border-radius: 999px;
-  animation: splash-bar 1.7s ease-in-out infinite alternate;
-}
-.splash-bar-shine {
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
-  animation: splash-shine 1.5s ease-in-out infinite;
 }
 .splash-foot {
   position: absolute; left: 0; right: 0; bottom: 18px;
@@ -993,18 +949,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px
   background: rgba(240,192,64,0.08);
   color: var(--gold); font-weight: 600; letter-spacing: 0.9px;
 }
-@keyframes splash-haze { from { opacity: 0.85; transform: scale(1); } to { opacity: 1; transform: scale(1.05); } }
-@keyframes splash-sweep { 0% { transform: translateX(-55%); opacity: 0; } 45% { opacity: 1; } 100% { transform: translateX(55%); opacity: 0; } }
-@keyframes splash-breathe { from { transform: scale(1); } to { transform: scale(1.04); } }
-@keyframes splash-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@keyframes splash-ring { from { transform: scale(0.96); opacity: 0.55; } to { transform: scale(1.08); opacity: 0.18; } }
-@keyframes splash-title-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes splash-fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes splash-dot { 0%, 100% { opacity: 0.25; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.15); } }
-@keyframes splash-bar { from { inset: 0 55% 0 0; } to { inset: 0 15% 0 0; } }
-@keyframes splash-shine { from { transform: translateX(-75%); } to { transform: translateX(75%); } }
 @media (prefers-reduced-motion: reduce) {
-  .splash-spinner, .splash-logo, #splash::before, #splash::after, .splash-bar-fill, .splash-bar-shine, #splash-status .splash-dots span { animation: none; }
   #splash { transition: none; }
 }
 
@@ -1179,9 +1124,11 @@ details.panel > summary h2 { margin: 0; font-size: 12px; letter-spacing: 1px; co
 /* The side player: the same #player element tucked into the corner. The
    stream keeps playing — only the box changes. */
 #player.mini {
-  inset: auto; left: auto; top: auto;
-  right: 18px; bottom: 18px;
-  width: 384px; height: 266px;
+  /* 1.1.0: a docked panel on the right, not a card floating over the bottom
+     corner. It stays small while you browse, and one click on the picture (or
+     on "⤢ Big screen") grows it to the whole window. */
+  inset: 18px 18px auto auto;
+  width: 384px; height: 300px;
   border: 1px solid rgba(240, 192, 64, 0.55);
   border-radius: 14px;
   overflow: hidden;
@@ -1209,3 +1156,22 @@ details.panel > summary h2 { margin: 0; font-size: 12px; letter-spacing: 1px; co
 /* The corner card keeps only its two controls; server switching and the
    favorite star live on the big screen. */
 #player.mini .player-actions .btn:not(#player-minimize):not(#player-close) { display: none; }
+
+
+/* ------------------------------------------------- 1.1.0 pointer outline */
+/* One amber ring everywhere: buttons, cards, category rows, the guide and the
+   side player's picture. It is brighter than brand gold on purpose, so "where
+   am I" is never confused with a decorative accent. */
+button:focus-visible,
+.card:focus-visible,
+.cat:focus-visible,
+.event-card:focus-visible,
+.cable-channel:focus-visible,
+.cable-programme:focus-visible,
+#player.mini .player-stage:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #ffb020;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(255, 176, 32, 0.18);
+}
