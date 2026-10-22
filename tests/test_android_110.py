@@ -221,3 +221,21 @@ class ComposableAnnotationTests(unittest.TestCase):
                 )
                 checked += 1
         self.assertGreater(checked, 10, "the scan must actually see the UI composables")
+
+
+class SidePanelReachabilityTests(unittest.TestCase):
+    """The dock's buttons must survive a 720p TV, where the panel is short."""
+
+    def test_the_side_panel_details_scroll_instead_of_clipping(self):
+        player = text(UI / "PlayerScreen.kt")
+        self.assertIn("modifier = Modifier.weight(1f),\n                    channel = channel,", player)
+        self.assertIn("verticalScroll(rememberScrollState())", player)
+
+
+class UpdateGateTests(unittest.TestCase):
+    """A stale published notice must not wedge the emulator gate."""
+
+    def test_the_gate_dismisses_a_retired_build_popup(self):
+        gate = text(ROOT / "android/tools/smoke_apk.py")
+        self.assertIn('"BUILD RETIRED"', gate)
+        self.assertIn("DEFAULT_DISMISS_LABELS", gate)

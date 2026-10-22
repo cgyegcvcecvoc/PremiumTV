@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -291,6 +293,7 @@ fun PlayerScreen(
 
             if (!expanded) {
                 SidePanelDetails(
+                    modifier = Modifier.weight(1f),
                     channel = channel,
                     programmes = programmes,
                     now = now,
@@ -371,6 +374,7 @@ private fun SidePlayerPicture(
  */
 @Composable
 private fun SidePanelDetails(
+    modifier: Modifier = Modifier,
     channel: Channel,
     programmes: List<Programme>,
     now: Long,
@@ -386,9 +390,13 @@ private fun SidePanelDetails(
     onClose: () -> Unit,
 ) {
     val currentProgramme = nowPlaying(programmes, now)
+    // The details get whatever height the picture leaves. A 1280x720 TV leaves
+    // little of it, so the column scrolls instead of pushing the two buttons
+    // off the panel - the buttons must always be reachable by a remote.
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
             .padding(start = 14.dp, end = 14.dp, top = 2.dp, bottom = 12.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
