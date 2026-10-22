@@ -4,17 +4,21 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// Release tags can override these properties. The default is the 1.1.0
-// stable USA build. Its derived versionCode (101000000) is above every
-// historical build - 1.0.9's 100090000, 1.0.8's 100080000, the one V patch
-// (1.0.8.1, 100080001) and the retired 1.1.x preview codes (100010000 and
-// 100010001) - so Android upgrades in place, even from the old preview.
-// The retired preview's name (1.1.0) matches this release, but its code
-// (100010000) is far below 101000000, so the APK still installs over it.
+// Release tags can override these properties. The default is the 1.1.1
+// stable USA build. Its derived versionCode (101010000) is above every
+// historical build - 1.1.0's 101000000, 1.0.9's 100090000, 1.0.8's
+// 100080000, the one V patch (1.0.8.1, 100080001) and the retired 1.1.x
+// preview codes (100010000 and 100010001) - so Android upgrades in place,
+// even from the old preview.
+// The retired 1.1.x preview carried this same name (1.1.1); now that 1.1.1
+// is the stable release, its blocking rule was removed from
+// app-update-notice.json - a stable release cannot be blocked by a rule that
+// matches its own version. A device still on the 1.1.1 preview sees "up to
+// date" (same version) and installs 1.1.1 by hand once.
 // See scripts/release_version.py for the one shared version policy: plain
 // three-part versions from 1.0.9 on; the V-patch/alias scheme is retired.
-val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.1.0").get()
-val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("101000000").get().toInt()
+val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.1.1").get()
+val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("101010000").get().toInt()
 
 // Every published APK must carry the *same* signing identity, otherwise
 // Android refuses to install a newer PremiumTV over the installed one

@@ -34,6 +34,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -52,7 +53,7 @@ SCOPE_INPUTS = {
 }
 DEFAULT_INDEX = "categories/index.json"
 DEFAULT_OUT = os.path.join("android", "app", "src", "main", "assets", "bundle")
-DEFAULT_VERSION = "1.1.0"
+DEFAULT_VERSION = "1.1.1"
 
 # The repository the app refreshes from.  These are the same raw URLs the
 # playlists advertise; they only resolve for a device if the repository is
@@ -267,6 +268,15 @@ def write_jsonl(path: str, rows: list[dict]) -> None:
             handle.write("\n")
 
 
+# Repository data shipped inside the bundle beyond channels, groups and the
+# guide. Both are optional: the app falls back gracefully (drawn team
+# badges, no countdown) when they are absent.
+EXTRA_BUNDLE_FILES = (
+    os.path.join(REPO_ROOT, "playlists", "team-logos.json"),
+    os.path.join(REPO_ROOT, "playlists", "live-schedule.json"),
+)
+
+
 def build(playlist: str, guide: str, index: str, out_dir: str, version: str,
           scope: str = DEFAULT_SCOPE) -> dict:
     channels, header_guide = parse_m3u(playlist)
@@ -291,6 +301,20 @@ def build(playlist: str, guide: str, index: str, out_dir: str, version: str,
     write_jsonl(os.path.join(out_dir, "groups.jsonl"), groups)
     write_jsonl(os.path.join(out_dir, "epg.jsonl"), programmes)
 
+    meta_extra: dict = {}
+    # Ship the live-event extras beside the channel list so every build carries
+    # identical team crests and kickoff times.
+    for source_path in EXTRA_BUNDLE_FILES:
+        if os.path.isfile(source_path):
+            try:
+                with open(source_path, "r", encoding="utf-8") as handle:
+                    data = json.load(handle)
+            except (OSError, ValueError):
+                continue
+            key = os.path.basename(source_path).removesuffix(".json").replace("-", "_")
+            meta_extra[key] = data
+            shutil.copyfile(source_path, os.path.join(out_dir, f"{key}.json"))
+
     meta = {
         "version": version,
         "library_scope": scope,
@@ -312,6 +336,7 @@ def build(playlist: str, guide: str, index: str, out_dir: str, version: str,
         # app rebuilds categories from this after a download).
         "published_order": published_order,
     }
+    meta.update(meta_extra)
     with open(os.path.join(out_dir, "meta.json"), "w", encoding="utf-8") as handle:
         json.dump(meta, handle, indent=2, ensure_ascii=False)
         handle.write("\n")

@@ -29,9 +29,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to build (for example 1.1.0 stable)"
+        description: "Version to build (for example 1.1.1 stable)"
         type: string
-        default: "1.1.0"
+        default: "1.1.1"
         required: true
       channel:
         description: "Release channel: stable = USA lineup, preview = global lineup"
@@ -59,7 +59,7 @@ jobs:
     runs-on: macos-14
     timeout-minutes: 60
     env:
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.1.0') }}
+      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.1.1') }}
 
     steps:
       - name: Check out the repository
@@ -90,7 +90,7 @@ jobs:
               echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
             if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.1.0}"
+            version="${INPUT_VERSION:-1.1.1}"
             channel="${INPUT_CHANNEL:-stable}"
             version=$(python3 scripts/release_version.py --normalize "$version") || {
               echo "Unsupported PremiumTV version: $version"; exit 1; }

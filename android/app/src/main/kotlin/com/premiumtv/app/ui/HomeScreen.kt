@@ -62,29 +62,46 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.premiumtv.app.BuildConfig
+import com.premiumtv.app.data.Channel
+import com.premiumtv.app.data.Library
+import com.premiumtv.app.data.Programme
+import com.premiumtv.app.data.RefreshInfo
+import com.premiumtv.app.data.RefreshTrigger
+import com.premiumtv.app.ui.LiveFeedStatus.Answering
+import com.premiumtv.app.ui.LiveFeedStatus.Checking
+import com.premiumtv.app.ui.LiveFeedStatus.Silent
+import com.premiumtv.app.ui.parseKickoff
+import com.premiumtv.app.ui.teamKey
+import com.premiumtv.app.update.AppUpdateState
+import com.premiumtv.app.update.DiagnosticStatus
+import com.premiumtv.app.update.DiagnosticsReport
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import org.json.JSONArray
+import org.json.JSONObject
 import com.premiumtv.app.data.CategoryGroup
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Library
 import com.premiumtv.app.data.Programme
 import com.premiumtv.app.data.RefreshInfo
 import com.premiumtv.app.data.RefreshTrigger
-import com.premiumtv.app.update.AppUpdateState
-import com.premiumtv.app.update.DiagnosticStatus
-import com.premiumtv.app.update.DiagnosticsReport
 
 /** The home screen's sections. AppRoot keeps the choice while a channel plays. */
 enum class HomeTab(val label: String) {
     Channels("Channels"),
     Events("Live Events"),
+    Movies("Movies & Shows"),
     Guide("Guide"),
     Settings("Settings"),
 }
@@ -149,9 +166,21 @@ fun HomeScreen(
         // cable-style grid as the Guide tab; stable builds keep the "what's on
         // now" list there.
         val cableGuide = library.meta.previewFeatures.contains("cable-guide")
+        // Scheduled kickoff times and the curated team crest URLs, both
+        // bundled with the app data by build_bundle.py. Read off the UI
+        // thread once; they are small static files.
+        val context = LocalContext.current.applicationContext
+        var teamLogos by remember { mutableStateOf(emptyMap<String, String>()) }
+        var schedule by remember { mutableStateOf(emptyMap<String, Long>()) }
+        LaunchedEffect(Unit) {
+            teamLogos = withContext(Dispatchers.Default) { readTeamLogos(context) }
+            schedule = withContext(Dispatchers.Default) { readSchedule(context) }
+        }
         // The scraper's live-game feeds, grouped by sport for the Live Events
         // tab and for the LIVE labels on the channel cards.
-        val liveSections = remember(library.channels) { groupLiveEvents(library.channels) }
+        val liveSections = remember(library.channels, schedule) {
+            groupLiveEvents(library.channels, schedule)
+        }
         val liveIndex = remember(library.channels) { liveEventIndex(library.channels) }
         // Opening the Live Events tab asks each game's feed whether it still
         // answers (once); the tab's own refresh button re-asks on demand.
@@ -203,6 +232,8 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Events.label, tab == HomeTab.Events) { onTabChange(HomeTab.Events) }
                 Spacer(modifier = Modifier.width(12.dp))
+                TabChip(HomeTab.Movies.label, tab == HomeTab.Movies) { onTabChange(HomeTab.Movies) }
+                Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Guide.label, tab == HomeTab.Guide) { onTabChange(HomeTab.Guide) }
                 Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Settings.label, tab == HomeTab.Settings) { onTabChange(HomeTab.Settings) }
@@ -242,7 +273,10 @@ fun HomeScreen(
                 probeRunning = liveProbeRunning,
                 onSelect = onSelect,
                 onRefresh = onProbeLiveEvents,
+                teamLogos = teamLogos,
+                schedule = schedule,
             )
+            HomeTab.Movies -> MoviesComingSoonScreen(onBrowse = { onTabChange(HomeTab.Channels) })
             HomeTab.Guide -> if (cableGuide) {
                 CableGuideScreen(library = library, now = now, state = guideState, onSelect = onSelect)
             } else {
@@ -806,6 +840,8 @@ private fun EventsScreen(
     sections: List<LiveEventSection>,
     feedStatus: Map<String, LiveFeedStatus>,
     probeRunning: Boolean,
+    teamLogos: Map<String, String>,
+    schedule: Map<String, Long>,
     onSelect: (Channel) -> Unit,
     onRefresh: () -> Unit,
 ) {
@@ -820,10 +856,43 @@ private fun EventsScreen(
     }
     val totalGames = sections.sumOf { it.events.size }
     val totalFeeds = sections.sumOf { section -> section.events.sumOf { it.servers.size } }
-    // The refresh button (and opening this tab) asks every game's feed
-    // whether it still answers, so the tab can show which games are live.
-    val answering = feedStatus.values.count { it == LiveFeedStatus.Answering }
-    val decided = feedStatus.values.count { it != LiveFeedStatus.Checking }
+    // A second-accurate clock for the "Not live yet" countdowns. It only runs
+    // while this tab is composed, so leaving the tab stops the ticker.
+    var now by remember { mutableStateOf(System.currentTimeMillis() / 1000L) }
+    LaunchedEffect(Unit) {
+        while (isActive) {
+            delay(1000L)
+            now = System.currentTimeMillis() / 1000L
+        }
+    }
+    val upcomingCount = sections.sumOf { section ->
+        section.events.count { it.kickoffUtc != null && it.kickoffUtc > now }
+    }
+    // Live games first, then games counted down to kickoff, then the rest;
+    // within each group the sooner kickoff wins.
+    val ordered = remember(sections, feedStatus, now) {
+        sections.map { section ->
+            val ordered = section.events.sortedWith(
+                compareBy(
+                    { event ->
+                        val status = feedStatus[event.key]
+                        val upcoming = event.kickoffUtc != null && event.kickoffUtc > now
+                        when {
+                            status == Answering -> 0
+                            upcoming -> 1
+                            status == Checking -> 2
+                            else -> 3
+                        }
+                    },
+                    { event -> event.kickoffUtc ?: Long.MAX_VALUE },
+                    { event -> event.title.lowercase() },
+                )
+            )
+            section.copy(events = ordered)
+        }
+    }
+    val answering = feedStatus.values.count { it == Answering }
+    val decided = feedStatus.values.count { it != Checking }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 48.dp),
@@ -837,7 +906,7 @@ private fun EventsScreen(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Live games on now",
+                        text = "Live & upcoming games",
                         style = MaterialTheme.typography.titleMedium,
                         color = Color.White,
                         fontWeight = FontWeight.SemiBold,
@@ -846,7 +915,7 @@ private fun EventsScreen(
                         text = when {
                             probeRunning -> "Checking which games are still on air…"
                             decided > 0 -> "$totalGames games across $totalFeeds streams · " +
-                                "$answering of $decided checked live"
+                                "$answering live · $upcomingCount not live yet"
                             else -> "$totalGames games across $totalFeeds streams · grouped by sport · " +
                                 "a game with more than one stream switches servers by itself"
                         },
@@ -855,15 +924,13 @@ private fun EventsScreen(
                     )
                 }
                 Spacer(modifier = Modifier.width(12.dp))
-                // The tab's own refresh: pulls the newest playlist, then
-                // re-asks every game whether its feed is still answering.
                 FocusButton(
                     if (probeRunning) "Refreshing…" else "⟳ Refresh live games",
                     enabled = !probeRunning,
                 ) { onRefresh() }
             }
         }
-        items(items = sections, key = { "section|${it.sport}" }) { section ->
+        items(items = ordered, key = { "section|${it.sport}" }) { section ->
             Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
                 Row(
                     modifier = Modifier.padding(
@@ -905,6 +972,8 @@ private fun EventsScreen(
                         EventCard(
                             event = event,
                             status = feedStatus[event.key],
+                            now = now,
+                            teamLogos = teamLogos,
                             onClick = { onSelect(event.servers.first()) },
                         )
                     }
@@ -918,18 +987,22 @@ private fun EventsScreen(
 private fun EventCard(
     event: LiveEvent,
     status: LiveFeedStatus?,
+    now: Long,
+    teamLogos: Map<String, String>,
     onClick: () -> Unit,
 ) {
+    val teams = remember(event.title) { teamsOf(event.title) }
+    val upcoming = event.kickoffUtc != null && event.kickoffUtc > now
+    val secondsLeft = event.kickoffUtc?.let { it - now }.takeIf { it > 0 }
     var focused by remember { mutableStateOf(false) }
     val scale by androidx.compose.animation.core.animateFloatAsState(
         targetValue = if (focused) 1.03f else 1f,
         label = "eventCardScale",
     )
-    val teams = remember(event.title) { teamsOf(event.title) }
     Surface(
         modifier = Modifier
             .width(320.dp)
-            .height(172.dp)
+            .height(196.dp)
             .scale(scale)
             .onFocusChanged { focused = it.isFocused }
             .tvClickable(onClick)
@@ -943,13 +1016,11 @@ private fun EventCard(
                 .padding(12.dp),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                // Live or not: the pill answers it. A game nobody has checked
-                // yet keeps the plain LIVE pill; a check that got an answer
-                // confirms it; silence turns the pill grey.
-                val (pillColor, pillText) = when (status) {
-                    LiveFeedStatus.Answering -> LiveRed to "LIVE"
-                    LiveFeedStatus.Silent -> Color(0xFF57626F) to "NO SIGNAL"
-                    LiveFeedStatus.Checking, null -> PremiumGoldDim to "CHECKING"
+                val (pillColor, pillText) = when {
+                    status == Answering -> LiveRed to "LIVE"
+                    upcoming -> Color(0xFF3E5066) to "Not live yet"
+                    status == Silent -> Color(0xFF57626F) to "NO SIGNAL"
+                    status == Checking, null -> PremiumGoldDim to "CHECKING"
                 }
                 Box(
                     modifier = Modifier
@@ -975,7 +1046,7 @@ private fun EventCard(
             }
             Spacer(modifier = Modifier.height(8.dp))
             if (teams != null) {
-                EventTeamRow(name = teams.first)
+                EventTeamRow(name = teams.first, logoUrl = teamLogos[teamKey(teams.first)])
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
                     text = "vs",
@@ -984,7 +1055,7 @@ private fun EventCard(
                     modifier = Modifier.padding(start = 44.dp),
                 )
                 Spacer(modifier = Modifier.height(2.dp))
-                EventTeamRow(name = teams.second)
+                EventTeamRow(name = teams.second, logoUrl = teamLogos[teamKey(teams.second)])
             } else {
                 Text(
                     text = event.title,
@@ -995,7 +1066,22 @@ private fun EventCard(
                     modifier = Modifier.weight(1f),
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
+            if (upcoming) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Kickoff in ${countdownText(secondsLeft ?: 0)}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = PremiumGold,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Text(
+                    text = "Starts ${kickoffTime(event.kickoffUtc ?: 0L)}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
+            } else {
+                Spacer(modifier = Modifier.weight(1f))
+            }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.PlayArrow,
@@ -1019,11 +1105,11 @@ private fun EventCard(
     }
 }
 
-/** One team line of an event card: its badge and its name. */
+/** One team line of an event card: its crest and its name. */
 @Composable
-private fun EventTeamRow(name: String) {
+private fun EventTeamRow(name: String, logoUrl: String?) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        TeamCrest(name = name, size = 34.dp)
+        TeamLogo(name = name, logoUrl = logoUrl, size = 34.dp)
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = name,
@@ -1036,6 +1122,27 @@ private fun EventTeamRow(name: String) {
     }
 }
 
+/** A team's official crest when the repository has one, the drawn badge otherwise. */
+@Composable
+private fun TeamLogo(name: String, logoUrl: String?, size: Dp = 32.dp) {
+    var failed by remember { mutableStateOf(false) }
+    Box(modifier = Modifier.size(size), contentAlignment = Alignment.Center) {
+        TeamCrest(name = name, modifier = Modifier.fillMaxSize(), size = size)
+        if (logoUrl != null && !failed) {
+            AsyncImage(
+                model = logoUrl,
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier.fillMaxSize(),
+                onState = { state ->
+                    if (state is AsyncImagePainter.State.Error) failed = true
+                },
+            )
+        }
+    }
+}
+
+// ------------------------------------------------------------------ guide tab
 // ------------------------------------------------------------------ guide tab
 
 @Composable
@@ -1653,4 +1760,143 @@ private fun DiagnosticsCard(report: DiagnosticsReport) {
             }
         }
     }
+}
+
+// ----------------------------------------------- movies & shows tab
+
+/** The coming-soon page behind the Movies & Shows tab (1.1.1). */
+@Composable
+private fun MoviesComingSoonScreen(onBrowse: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(SCREEN_GUTTER)
+            .verticalScroll(rememberScrollState()),
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 400.dp),
+            shape = RoundedCornerShape(18.dp),
+            color = CardBackground,
+            border = BorderStroke(1.dp, PremiumGoldDim.copy(alpha = 0.5f)),
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 32.dp, vertical = 34.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "MOVIES & SHOWS",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = PremiumGoldDim,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.6.sp,
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = "COMING SOON",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = PremiumGold,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+                Spacer(modifier = Modifier.height(26.dp))
+                Text(
+                    text = "A film and series library is being built into PremiumTV.",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "The Movies & Shows tab will live here, right next to Channels, Live Events " +
+                        "and the Guide. Everything you already have - channels, guide, favourites - " +
+                        "stays exactly as it is.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MutedText,
+                    maxLines = 4,
+                )
+                Spacer(modifier = Modifier.height(26.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    ComingSoonPoint("A growing film and series library")
+                    ComingSoonPoint("Resume where you left off")
+                    ComingSoonPoint("4K where the source allows it")
+                }
+                Spacer(modifier = Modifier.height(34.dp))
+                FocusButton("Browse live TV") { onBrowse() }
+            }
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+/** One coming-soon feature bullet. */
+@Composable
+private fun ComingSoonPoint(text: String) {
+    Column(modifier = Modifier.weight(1f)) {
+        Text(
+            text = "➤",
+            style = MaterialTheme.typography.bodyMedium,
+            color = PremiumGold,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodySmall,
+            color = MutedText,
+            maxLines = 4,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
+}
+
+/** Seconds remaining until kickoff, as "mm:ss", "h:mm:ss" or "dd hh:mm:ss". */
+private fun countdownText(seconds: Long): String =
+    when {
+        seconds < 3600 -> String.format(Locale.US, "%02d:%02d", seconds / 60, seconds % 60)
+        seconds < 86400 ->
+            String.format(Locale.US, "%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60)
+        else ->
+            String.format(
+                Locale.US, "%dd %02d:%02d:%02d",
+                seconds / 86400, (seconds % 86400) / 3600, (seconds % 3600) / 60, seconds % 60,
+            )
+    }
+
+/** A scheduled kickoff in the device's local time, e.g. "5:45 PM". */
+private fun kickoffTime(kickoffUtcSeconds: Long): String {
+    val formatter = SimpleDateFormat("h:mm a", Locale.getDefault())
+    formatter.timeZone = TimeZone.getDefault()
+    return formatter.format(java.util.Date(kickoffUtcSeconds * 1000L))
+}
+
+/** Reads one bundled JSON asset. */
+private fun Context.readAsset(name: String, block: (String) -> Any?): Any? =
+    assets.open("bundle/$name").use { input ->
+        block(input.bufferedReader().readText())
+    }
+
+/** Team crest URLs keyed by the alias-collapsed team name key. */
+private fun Context.readTeamLogos(): Map<String, String> {
+    return readAsset("bundle/team-logos.json") { text ->
+        val logos = JSONObject(text).getJSONObject("logos")
+        buildMap {
+            for (i in 0 until logos.length()) {
+                put(logos.names().getString(i), logos.getString(i))
+            }
+        }
+    }.orEmpty()
+}
+
+/** Matchup key -> kickoff epoch seconds. */
+private fun Context.readSchedule(): Map<String, Long> {
+    return readAsset("bundle/live-schedule.json") { text ->
+        val games = JSONObject(text).getJSONArray("games")
+        buildMap {
+            for (i in 0 until games.length()) {
+                val game = games.getJSONObject(i)
+                parseKickoff(game.optString("kickoff_utc"))?.let {
+                    put(game.getString("key"), it)
+                }
+            }
+        }
+    }.orEmpty()
 }

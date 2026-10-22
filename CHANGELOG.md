@@ -10,6 +10,16 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV1/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-22 — Version 1.1.1: Live Events crests and countdowns, Movies & Shows (stable)
+
+- **Stable 1.1.1 is published** for Android TV / Fire TV (`versionCode 101010000`) and macOS (`1.1.1`). It installs in place over 1.1.0 and every earlier build, including the retired 1.1.x preview (`101010000` > `100010001`). See [`release-notes-1.1.1.md`](release-notes-1.1.1.md).
+- **Live Events now shows official club crests.** Every team name on the tab is paired with its official crest next to the name, on Android and macOS alike; teams without a published crest keep the drawn badge. New `ui/TeamLogo.kt` (Android) and `renderer/live-events.js` (Mac) load the crest with the drawn badge as fallback.
+- **"Not live yet" with a real countdown.** Listed games that haven't kicked off stay on the tab with a "Not live yet" pill and a ticking countdown to the scheduled start (`playlists/live-schedule.json`, built by `scripts/build_live_schedule.py` and bundled with the app data by `android/tools/build_bundle.py`); after kickoff the pill reads "NO SIGNAL" until a feed answers, then "LIVE".
+- **One card per game.** Feed copies ("… 1", "… 2") of the same matchup merge into a single game card with all of its streams as backups.
+- **Movies & Shows (coming soon).** New tab on both platforms opening a polished coming-soon page for the on-demand section landing in a future release; channels and the guide are unchanged.
+- **The update notice no longer blocks 1.1.1.** The `retired-preview-1-1` rule was removed from `app-update-notice.json` (a stable release cannot be blocked by a rule matching its own version), and `update-below-newest` now covers every build below 1.1.1, so 1.1.0 installs are nudged to update from Settings → App updates.
+- **Validation:** the emulator smoke gate (cold launch, Guide, open a channel, server hop, both side-player flips, close, Live Events) plus the macOS renderer/health/personal suites and the repository Python suite run on this commit.
+
 ## 2026-10-22 — Version 1.1.0: side player docked right, automatic server backup, dead channels filtered (stable)
 
 - **Stable 1.1.0 is published** for Android TV / Fire TV (`versionCode 101000000`) and macOS (`1.1.0`). It installs over 1.0.9 and every earlier build, and over the retired 1.1.x preview (`101000000` > `100010001`). See [`release-notes-1.1.0.md`](release-notes-1.1.0.md).
