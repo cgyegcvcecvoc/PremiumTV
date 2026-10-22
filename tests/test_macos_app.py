@@ -98,6 +98,40 @@ class MacPackagingTests(unittest.TestCase):
         self.assertIn("dmg", workflow)
         self.assertIn("pkg", workflow)
 
+    def test_android_only_bridge_release_skips_the_mac_build(self):
+        # The v1.0.8.2 bridge is a four-part release with no three-part Mac
+        # alias. macOS cannot package it, so the release run must skip the Mac
+        # steps green instead of failing the whole release. Manual dispatch
+        # still fails, since asking for a Mac build of an invalid version is a
+        # real mistake worth surfacing.
+        workflow = text(WORKFLOW)
+        self.assertIn('echo "skip=true" >> "$GITHUB_OUTPUT"', workflow)
+        self.assertIn('if [ "$GITHUB_EVENT_NAME" = "release" ]', workflow)
+        # The manual-dispatch path keeps the hard failure.
+        self.assertIn("no three-part alias exists", workflow)
+
+        # Every step after version resolution has to honour the flag, so a new
+        # packaging step cannot silently run against an empty MACOS_VERSION.
+        lines = workflow.splitlines()
+        resolve_index = next(
+            i for i, line in enumerate(lines) if "id: release-config" in line
+        )
+        step_starts = [
+            i for i, line in enumerate(lines)
+            if i > resolve_index and line.lstrip().startswith("- name:")
+        ]
+        self.assertTrue(step_starts, "the workflow must define build steps")
+        for index, start in enumerate(step_starts):
+            end = step_starts[index + 1] if index + 1 < len(step_starts) else len(lines)
+            condition = [line.strip() for line in lines[start + 1:end]
+                         if line.strip().startswith("if:")]
+            self.assertTrue(condition, f"step {lines[start].strip()} has no if: guard")
+            self.assertTrue(
+                "steps.release_config.outputs.skip" in condition[0]
+                or condition[0] == "if: always()",
+                f"step {lines[start].strip()} is not covered by the skip flag",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

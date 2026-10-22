@@ -207,6 +207,31 @@ class ReleaseGuardTests(unittest.TestCase):
         self.assertEqual(status, 2, message)
         self.assertIn("not above the newest stable v1.0.9", message)
 
+    def test_a_documented_bridge_release_passes_even_below_the_stable(self):
+        # 1.0.8.2 is the one-time rescue for stranded 1.0.8.1 installs. It is
+        # published below the current stable on purpose and must stay a full
+        # stable release: the builds it rescues ignore pre-releases, so the
+        # guard must neither fail nor demote it. This is the red guard run the
+        # v1.0.8.2 release produced before the allowlist existed.
+        releases = [
+            release("v1.0.8.1"),
+            release("v1.0.8.2"),
+            release("v1.0.9"),
+            release("v1.1.0"),
+        ]
+        status, message = release_version.guard("v1.0.8.2", releases)
+        self.assertEqual(status, 0, message)
+        self.assertIn("bridge", message)
+        self.assertIn("1.0.9", message)
+        # The allowlist is opt-in: any other below-stable tag is still rejected.
+        status, message = release_version.guard("v1.0.8.1", releases)
+        self.assertEqual(status, 2, message)
+        self.assertIn("not above the newest stable", message)
+
+    def test_bridge_release_is_still_version_checked(self):
+        # A malformed tag fails closed before the bridge lookup.
+        self.assertEqual(release_version.guard("v1.0.8.2.1", [])[0], 1)
+
     def test_a_newer_stable_release_passes(self):
         releases = [release("v1.0.2"), release("v1.0.3"), release("v1.1.1", prerelease=True)]
         status, message = release_version.guard("v1.0.4", releases)
