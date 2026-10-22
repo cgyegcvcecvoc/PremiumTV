@@ -164,6 +164,10 @@
   const personal = window.PremiumPersonal;
   let recentKeys = personal.load(window.localStorage, personal.RECENTS_KEY);
   let favoriteKeys = personal.load(window.localStorage, personal.FAVORITES_KEY);
+  // 1.1.0 dead-feed memory: a channel whose every server failed is hidden
+  // from the browser for seven days (health.js), with a Settings restore.
+  const health = window.PremiumHealth;
+  let deadFeeds = health ? health.load(window.localStorage) : new Set();
   let playingSession = null;
   let clockTimer = null;
 
@@ -319,9 +323,15 @@
 
   // -------------------------------------------------------------- rendering
 
+  /** Every published channel the browser is allowed to show right now. */
+  function liveChannels() {
+    const channels = snapshot.library.channels || [];
+    return health ? health.filterChannels(channels, deadFeeds) : channels;
+  }
+
   function renderCategories() {
     const groups = sortedGroups();
-    const total = (snapshot.library.channels || []).length;
+    const total = liveChannels().length;
     els.categories.textContent = '';
     updateCategorySortControls();
 
@@ -359,7 +369,7 @@
   }
 
   function visibleChannels() {
-    const all = snapshot.library.channels || [];
+    const all = liveChannels();
     if (ui.category === RECENT_CATEGORY) return personal.resolve(recentKeys, all);
     if (ui.category === FAVORITE_CATEGORY) return personal.resolve(favoriteKeys, all);
     const channels = all;
@@ -1218,7 +1228,7 @@
             <h2>Version ${escapeHtml(current || appInfo.version || 'unknown')}</h2>
           </div>
           <span class="badge ${meta.library_scope === 'all' ? 'warn' : 'ok'}">${
-            meta.library_scope === 'all' ? 'PREVIEW' : 'STABLE · USA'
+            meta.library_scope === 'all' ? 'GLOBAL LIBRARY' : 'STABLE · USA'
           }</span>
         </div>
         <div class="settings-stats">
@@ -1275,7 +1285,12 @@
         <div class="actions">
           <button class="btn" id="check-now" ${refreshing ? 'disabled' : ''}>Check for changes</button>
           <button class="btn btn-danger" id="reset-bundled" ${refreshing ? 'disabled' : ''}>Reset to bundled copy</button>
+          <button class="btn" id="restore-hidden" ${deadFeeds.size ? '' : 'disabled'}>${
+            deadFeeds.size ? `Restore ${deadFeeds.size} hidden channel${deadFeeds.size === 1 ? '' : 's'}` : 'No hidden channels'
+          }</button>
         </div>
+        <p class="muted">Channels the player watched fail on every server are hidden for seven days so
+          they cannot be opened again by mistake. Restore them to try again — a dead link may have come back.</p>
       </div>
 
       <details class="panel">
@@ -1319,6 +1334,12 @@
     bind('force-refresh', 'click', () => runRefresh(true, 'force-refresh'));
     bind('check-now', 'click', () => runRefresh(false, 'check-now'));
     bind('reset-bundled', 'click', resetToBundled);
+    bind('restore-hidden', 'click', () => {
+      deadFeeds = health ? health.clear(window.localStorage) : new Set();
+      renderCategories();
+      renderChannels();
+      renderSettings();
+    });
     bind('check-update', 'click', async (event) => {
       event.currentTarget.disabled = true;
       await api.checkForUpdate(true);
@@ -1839,6 +1860,14 @@
         `This feed stopped responding - switching to server ${playQueueIndex + 1} of ${playQueue.length}…`;
       await playCurrentServer();
       return;
+    }
+    // Every feed failed: remember the feed so the browser stops offering this
+    // dead channel, and redraw the list behind the player.
+    const dead = playQueue[playQueueIndex];
+    if (health && dead && dead.url) {
+      deadFeeds = health.record(window.localStorage, dead.url);
+      renderCategories();
+      if (ui.tab === 'channels') renderChannels();
     }
     const tried = playQueue.length > 1
       ? `All ${playQueue.length} servers for this channel were tried.`

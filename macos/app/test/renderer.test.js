@@ -52,14 +52,20 @@ test('playback chooses HLS using the original feed, not the extensionless proxy 
   assert.deepEqual(called, [['hls', proxy], ['hls', proxy]]);
 });
 
-test('the launch splash shows the mark, a spinner and the version at the bottom', () => {
+test('the launch splash is still: mark, loading line bar and version at the bottom', () => {
   const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
   const css = fs.readFileSync(path.join(renderer, 'app.css'), 'utf8');
   const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
 
   assert.match(html, /<div id="splash" role="status"/);
   assert.match(html, /class="splash-logo"/);
-  assert.match(html, /class="splash-spinner"/);
+  // 1.1.0 retired the animated splash: no spinner, shimmer or dots on screen.
+  assert.doesNotMatch(html, /class="splash-spinner"/);
+  assert.doesNotMatch(html, /class="splash-dots"/);
+  // The loading line bar the viewer asked to keep is still there.
+  assert.match(html, /class="splash-bar"/);
+  assert.match(html, /class="splash-bar-fill"/);
+  assert.doesNotMatch(css, /@keyframes splash-/);
   assert.match(html, /id="splash-version"/);
   assert.match(html, /class="splash-foot"/);
   assert.match(css, /\.splash-foot \{[^}]*bottom:/);

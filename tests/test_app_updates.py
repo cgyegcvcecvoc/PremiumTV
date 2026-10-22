@@ -122,8 +122,8 @@ class AndroidUpdateTests(unittest.TestCase):
 
     def test_version_is_one_policy_above_every_historical_code(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.0.9")', gradle)
-        self.assertIn('orElse("100090000")', gradle)
+        self.assertIn('orElse("1.1.0")', gradle)
+        self.assertIn('orElse("101000000")', gradle)
 
 
 class MacUpdateTests(unittest.TestCase):
@@ -175,7 +175,7 @@ class MacUpdateTests(unittest.TestCase):
 
     def test_app_version_is_1_0_9(self):
         package = json.loads(text(MAC / "package.json"))
-        self.assertEqual(package["version"], "1.0.9")
+        self.assertEqual(package["version"], "1.1.0")
 
 
 class AndroidSigningTests(unittest.TestCase):
@@ -300,14 +300,16 @@ class UpdateNoticePopupTests(unittest.TestCase):
         self.assertTrue(document["rules"], "a notice with no rules can never be shown")
         rules = {rule["id"]: rule for rule in document["rules"]}
         # The retired preview is blocked, not offered an update.
+        # 1.1.0 became the stable release, so it is never blocked; only the
+        # deleted 1.1.1 preview build is still routed to the blocked page.
         blocked = rules["retired-preview-1-1"]
         self.assertEqual(blocked["level"], "blocked")
-        self.assertEqual((blocked["min_version"], blocked["max_version"]), ("1.1.0", "1.1.1"))
+        self.assertEqual((blocked["min_version"], blocked["max_version"]), ("1.1.1", "1.1.1"))
         self.assertIn("/blocked/", blocked["releases_url"])
         # Every stable build below the current stable is warned, and the
         # wording names whatever the newest stable actually is.
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.0.8"))
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.0.9"))
         self.assertEqual(stable["level"], "warning")
         self.assertIn("after_support_ends", stable,
                       "the escalation copy ships in the document, not in a build")

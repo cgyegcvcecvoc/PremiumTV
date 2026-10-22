@@ -289,10 +289,11 @@ class BuildSiteDataTest(unittest.TestCase):
         home = (ROOT / "android" / "app" / "src" / "main" / "kotlin" / "com" /
                 "premiumtv" / "app" / "ui" / "HomeScreen.kt").read_text(encoding="utf-8")
         self.assertIn("channel count sits small on the right", home)
-        # 1.0.8: the tab is a two-level browser — category list, sort chips,
-        # and a category page with its own channel sort.
-        for marker in ("CategoryListScreen", "CategoryPageScreen", "ChannelGrid",
-                       '"Sort · ${categorySort.label}"', '"◀ All categories"'):
+        # 1.1.0: the tab is a side-by-side browser — a category rail on the
+        # left and the selected category's channels in the pane beside it, each
+        # pane carrying its own sort control.
+        for marker in ("CategoryRail", "CategoryListRow", "ChannelGrid",
+                       '"⇅ ${sort.label}"', '"Sort · ${channelSort.label}"'):
             self.assertIn(marker, home)
         sorting = (ROOT / "android" / "app" / "src" / "main" / "kotlin" / "com" /
                    "premiumtv" / "app" / "ui" / "Sorting.kt").read_text(encoding="utf-8")

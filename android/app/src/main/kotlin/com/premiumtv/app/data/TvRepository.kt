@@ -73,6 +73,16 @@ class TvRepository(private val app: Application) {
     private val _status = MutableStateFlow("")
     val status: StateFlow<String> = _status
 
+    /**
+     * Real load progress for the 1.1.0 loading screen's line bar.
+     *
+     * 1.0.8's splash animated a decorative bar because the loader had nothing
+     * honest to report. The loader now reports its own stages, so the bar on
+     * screen is the bar the app is actually on.
+     */
+    private val _loadProgress = MutableStateFlow(0f)
+    val loadProgress: StateFlow<Float> = _loadProgress
+
     private val _refreshInfo = MutableStateFlow(readRefreshInfo())
     val refreshInfo: StateFlow<RefreshInfo> = _refreshInfo
 
@@ -136,15 +146,18 @@ class TvRepository(private val app: Application) {
         discardCacheFromAnotherBuild()
         _state.value = LoadState.Loading
         _status.value = "Loading channels…"
+        _loadProgress.value = 0.15f
 
         // Publish the channel rows as soon as their small files are ready. The
         // larger guide can finish without holding Channels behind a full parse.
         val cached = readCache { partial ->
             _state.value = LoadState.Ready(partial)
+            _loadProgress.value = if (partial.guideLoading) 0.6f else 1f
             _status.value = if (partial.guideLoading) "Channels ready; loading guide…" else ""
         }
         if (cached != null) {
             _state.value = LoadState.Ready(cached)
+            _loadProgress.value = 1f
             _status.value = when {
                 cached.guideError != null -> "Channels loaded; the programme guide is unavailable."
                 else -> "Showing the latest copy downloaded in the app."
@@ -156,9 +169,11 @@ class TvRepository(private val app: Application) {
         try {
             val bundled = readBundled { partial ->
                 _state.value = LoadState.Ready(partial)
+                _loadProgress.value = if (partial.guideLoading) 0.6f else 1f
                 _status.value = if (partial.guideLoading) "Channels ready; loading guide…" else ""
             }
             _state.value = LoadState.Ready(bundled)
+            _loadProgress.value = 1f
             _status.value = if (bundled.guideError != null) {
                 "Channels loaded; the programme guide is unavailable."
             } else {
@@ -166,6 +181,7 @@ class TvRepository(private val app: Application) {
             }
         } catch (e: Exception) {
             Log.e(TAG, "The channel data bundled in this APK could not be read", e)
+            _loadProgress.value = 1f
             _state.value = LoadState.Error(
                 "The channel data inside this app could not be read.\n" +
                     "Install the latest PremiumTV release and retry.\n\n" +

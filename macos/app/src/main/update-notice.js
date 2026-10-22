@@ -170,6 +170,17 @@ function selectNotice(options = {}) {
     const active = (supportEnded && rule.after_support_ends && typeof rule.after_support_ends === 'object')
       ? { ...rule, ...rule.after_support_ends }
       : rule;
+    const level = levelOf(active.level);
+
+    // A build that is already the newest stable must never be told to update to
+    // itself. That happened to 1.0.9 the moment the document started covering
+    // every build below 1.1.0: the newest release was still 1.0.9, so the
+    // warning would have nagged a current app. "blocked" rules are exempt on
+    // purpose - a retired preview can be newer by name than the stable release.
+    if (level !== 'blocked' && newestVersion
+        && !isNewer(newestVersion, appVersion)) {
+      continue;
+    }
 
     const title = substitute(active.title, values);
     const message = substitute(active.message, values);
@@ -177,7 +188,7 @@ function selectNotice(options = {}) {
 
     return {
       id: String(rule.id || 'notice'),
-      level: levelOf(active.level),
+      level,
       title: title || 'A newer PremiumTV is available',
       message,
       surprise: substitute(active.surprise, values),

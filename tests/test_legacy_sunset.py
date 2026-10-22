@@ -103,9 +103,9 @@ class PublishedNoticeTests(unittest.TestCase):
         notice = legacy_sunset.read_notice(ROOT)
         self.assertTrue(notice["releases_url"].startswith(
             "https://github.com/cgyegcvcecvoc/PremiumTV1/releases"), notice["releases_url"])
-        self.assertEqual(notice["max_version"], "1.0.8",
-                         "the sunset targets every stable build below the current one; "
-                         "the blocked preview rule is not an upgrade promise")
+        self.assertEqual(notice["max_version"], "1.0.9",
+                         "the sunset targets every stable build below the current stable "
+                         "(1.1.0); the blocked preview rule is not an upgrade promise")
 
     def test_an_impossible_sunset_date_is_rejected_not_rolled_forward(self):
         for value in ["2026-11-31", "2026-13-01", "2026-02-30T00:00:00Z",

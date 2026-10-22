@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "enabled": true,
-  "updated_utc": "2026-10-21T14:30:00Z",
+  "updated_utc": "2026-10-22T14:00:00Z",
   "notice_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json",
   "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest",
   "repo_url": "https://github.com/cgyegcvcecvoc/PremiumTV1",
@@ -30,12 +30,12 @@
         "android",
         "macos"
       ],
-      "min_version": "1.1.0",
+      "min_version": "1.1.1",
       "max_version": "1.1.1",
       "level": "blocked",
-      "title": "This preview is retired — install PremiumTV {newest}",
-      "message": "You are on PremiumTV {version}. The 1.1.x preview channel has been removed: its downloads are gone, it receives no more support, and it is not the stable app. Install stable {newest} from the download page. On Android it installs over this preview with no uninstall; on Mac the DMG replaces this copy.",
-      "surprise": "{newest} is the current stable: the category list with its own sort, the side player, the revamped Live Events tab with live checks, plus the animated loading screen and 11-check bug detection — and from 1.0.9 on, every fix is simply the next version, no more V patches.",
+      "title": "This preview was retired — install PremiumTV {newest}",
+      "message": "You are on PremiumTV {version}. That 1.1.x preview channel was retired: its downloads are gone and it is not the stable app. PremiumTV {newest} is the stable release now — install it from the download page. On Android it installs over this build with no uninstall; on Mac the DMG replaces this copy.",
+      "surprise": "1.1.0 is a full stable release: the category rail with the docked side player, tap-to-full-screen, automatic server backup, amber pointer outlines, dead channels filtered out and a calm loading screen — plus every fix from 1.0.9.",
       "action_label": "Get {newest}",
       "dismiss_label": "Not now",
       "releases_url": "https://cgyegcvcecvoc.github.io/PremiumTV1/blocked/"
@@ -47,11 +47,11 @@
         "macos"
       ],
       "min_version": "1.0.4",
-      "max_version": "1.0.8",
+      "max_version": "1.0.9",
       "level": "warning",
       "title": "PremiumTV {newest} is ready — you are on {version}",
-      "message": "You are on PremiumTV {version}, and a newer stable release is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It downloads once, verifies against the release SHA-256 file, and installs over this build. Support for builds below {newest} ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
-      "surprise": "The newest stable brings the all-new look: categories as a sorted list with their own pages, the side player for watching while you browse, a Live Events tab that checks which games are still live, the animated loading screen and hardened bug detection — and 1.0.9 fixes channels freezing or crashing when opened. From 1.0.9 on, each fix is just the next version.",
+      "message": "You are on PremiumTV {version}, and PremiumTV {newest} is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It downloads once, verifies against the release SHA-256 file, and installs right over this build. Support for builds below {newest} ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
+      "surprise": "PremiumTV 1.1.0 is the biggest release yet: a category rail beside the channel list, a side player docked on the right that goes full screen on one press, automatic server backup that keeps a live event playing when a feed dies, an amber outline on whatever the remote is pointing at, dead channels filtered out of the browser, and a calm loading screen with the gold loading line kept. Settings → App updates installs it for you.",
       "action_label": "Update now",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {
@@ -74,7 +74,7 @@
       "level": "warning",
       "title": "A newer PremiumTV is waiting — and this is the last manual install",
       "message": "You are on PremiumTV {version}, and {newest} is waiting on GitHub. Update once and PremiumTV keeps itself current from then on. Support for this build ends {support_ends}.",
-      "surprise": "Here is the surprise: the newest build updates itself. Settings → App updates checks GitHub, downloads the installer once, verifies it against the release's SHA-256 file and hands it to the normal installer — so you never download an APK or a DMG by hand again.",
+      "surprise": "Here is the surprise: the newest build updates itself. Settings → App updates checks GitHub, downloads the installer once, verifies it against the release's SHA-256 file and hands it to the normal installer — so you never download an APK or a DMG by hand again. 1.1.0 adds the category rail, the docked side player, automatic server backup and dead-channel filtering.",
       "action_label": "Update now",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {

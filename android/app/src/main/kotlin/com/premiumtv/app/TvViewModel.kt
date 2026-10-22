@@ -34,6 +34,9 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
     val status = repository.status
     val refreshInfo = repository.refreshInfo
 
+    /** 0..1 load progress, so the loading screen's line bar is honest. */
+    val loadProgress = repository.loadProgress
+
     /** App updates: newest stable release, download progress, installer state. */
     val updateInfo = updateManager.state
 

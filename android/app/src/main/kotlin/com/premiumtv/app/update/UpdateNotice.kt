@@ -108,6 +108,16 @@ object UpdateNotice {
             "critical" -> NoticeLevel.Critical
             else -> NoticeLevel.Warning
         }
+        // A build that is already the newest stable must never be told to
+        // update to itself: 1.1.0 covers every build below it, and GitHub can
+        // still report the running build as newest while a release is
+        // uploading. "blocked" rules are exempt on purpose - a retired preview
+        // can be newer by name than the stable release.
+        if (level != NoticeLevel.Blocked && newestVersion != null &&
+            !AppVersions.isNewer(newestVersion, appVersion)
+        ) {
+            return null
+        }
         val values = mapOf(
             "{version}" to appVersion,
             "{newest}" to (newestVersion?.takeIf { it.isNotBlank() } ?: "the newest release"),

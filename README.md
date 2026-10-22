@@ -73,18 +73,20 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.0.9** (Android `versionCode 100090000`) | USA lineup + USA guide | Default and only download — the crash-on-watch fix. Installs over every earlier build from Settings → App updates (1.0.8.1 installs use the APK by hand; see the warning row below) |
-| Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update to 1.0.9 now.** 1.0.9 briefly existed as 1.0.8.1's same-code alias; it is now the fixed release above, and these builds show an extreme update popup on launch |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.0.9 ends Nov 19, 2026 |
-| Next (in source) | **1.0.9** (Android `versionCode 100090000`) | USA lineup + USA guide | Marked as the default build version in source. The V patch series is retired: future fixes are plain next versions ([notes](release-notes-1.0.9.md)) |
+| **Stable release** | **1.1.0** (Android `versionCode 101000000`) | USA lineup + USA guide | Default and only download — the side player done right, automatic server backup, dead channels filtered, amber pointer outlines and a calm loading screen ([notes](release-notes-1.1.0.md)) |
+| Superseded | **1.0.9** (`100090000`) | USA lineup + USA guide | The crash-on-watch fix. Still installs in place, and Settings → App updates finds 1.1.0 automatically |
+| Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.0 ends Nov 19, 2026 |
+| Next (in source) | — | USA lineup + USA guide | 1.1.0 is the current source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.1; the V-patch/alias series stays retired |
 
-The **1.1.0/1.1.1 Encore preview channel is retired**. Its release, installers
-and download links were removed (old release-asset URLs now 404); every
-retired-preview pointer the project controls, including the startup notice,
-goes to the [blocked-build page](docs/blocked/index.html). A 1.1.1 install
-shows a **BUILD RETIRED** notice at startup; on Android, 1.0.6.1 installs
-straight over it because `100060001` is above `100010001` and both APKs share
-the update key.
+The old **1.1.x Encore preview channel is retired**, and the 1.1.0 name now
+belongs to this stable release. The deleted 1.1.1 preview still shows a
+**BUILD RETIRED** notice and is routed to the
+[blocked-build page](docs/blocked/index.html). A device still on the retired
+1.1.0 or 1.1.1 preview must install 1.1.0 **by hand once**: its name equals this
+release, so the in-app updater cannot see it as newer. Android accepts it over
+the preview (`101000000` > `100010001`) and the Mac DMG replaces the preview
+copy; every build from 1.1.0 on updates itself normally.
 
 Versions are `MAJOR.MINOR.PATCH`. Four-part hotfixes existed briefly —
 1.0.6.1, and **1.0.8.1** ("1.0.8 V1 Patch") — each paired with a same-code
@@ -98,6 +100,18 @@ resolve. See
 [`release-notes-1.0.8.md`](release-notes-1.0.8.md),
 [`release-notes-1.0.6.1.md`](release-notes-1.0.6.1.md) and its
 [1.0.7 compatibility note](release-notes-1.0.7.md).
+
+### What 1.1.0 adds
+
+- **The side player is docked on the right** while the category rail and
+  channel list stay usable beside it; one press on the small picture grows it to
+  full screen without restarting the stream.
+- **Automatic server backup** moves you to the next server when a feed fails or
+  stalls, tries known-dead feeds last, and hides a channel once every feed has
+  failed (Settings → Restore hidden channels brings them back).
+- **One amber outline** marks whatever the remote is on, everywhere in the app.
+- **The animated loading screen is gone** — the gold loading line bar stays and
+  now reports real load stages ([notes](release-notes-1.1.0.md)).
 
 ### What 1.0.9 fixes
 
