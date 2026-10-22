@@ -1,69 +1,69 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-10-22 05:01 UTC (2026-10-22 01:01 AM EDT)
-- **Channels in the main playlist:** 13413
-- **Channels in the category files:** 13400 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2704 (20.2%)
+- **Rebuilt:** 2026-10-22 08:51 UTC (2026-10-22 04:51 AM EDT)
+- **Channels in the main playlist:** 13368
+- **Channels in the category files:** 13355 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2750 (20.6%)
 - **Categories:** 82 groups (34 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 643 | 233 |
+| 1 | Sports | 614 | 210 |
 | 2 | Sports Backups | 94 | 42 |
 | 3 | Lifestyle | 546 | 133 |
 | 4 | Lifestyle Backups | 92 | 30 |
 | 5 | Fox Channels | 32 | 10 |
 | 6 | CBS | 33 | 6 |
 | 7 | CBS Backups | 14 | 0 |
-| 8 | NBC | 74 | 18 |
+| 8 | NBC | 74 | 22 |
 | 9 | NBC Backups | 11 | 5 |
 | 10 | NBC Sports Channels | 11 | 6 |
-| 11 | Cartoons | 214 | 31 |
+| 11 | Cartoons | 214 | 30 |
 | 12 | Cartoons Backups | 18 | 0 |
 | 13 | PBS | 37 | 10 |
 | 14 | PBS Backups | 8 | 3 |
 | 15 | Game Shows | 12 | 6 |
 | 16 | Game Shows Backups | 15 | 9 |
-| 17 | Movies | 974 | 162 |
+| 17 | Movies | 972 | 169 |
 | 18 | Movies Backups | 102 | 14 |
-| 19 | Music | 940 | 159 |
-| 20 | Music Backups | 87 | 34 |
-| 21 | News | 926 | 256 |
-| 22 | News Backups | 172 | 114 |
-| 23 | Europe | 910 | 178 |
+| 19 | Music | 937 | 169 |
+| 20 | Music Backups | 85 | 34 |
+| 21 | News | 928 | 273 |
+| 22 | News Backups | 171 | 113 |
+| 23 | Europe | 911 | 179 |
 | 24 | Europe Backups | 66 | 38 |
-| 25 | International | 788 | 185 |
-| 26 | International Backups | 114 | 45 |
-| 27 | Entertainment | 761 | 152 |
+| 25 | International | 791 | 186 |
+| 26 | International Backups | 111 | 45 |
+| 27 | Entertainment | 757 | 155 |
 | 28 | Entertainment Backups | 77 | 27 |
-| 29 | Religious | 615 | 66 |
+| 29 | Religious | 617 | 76 |
 | 30 | Religious Backups | 33 | 6 |
-| 31 | Asia | 611 | 105 |
+| 31 | Asia | 612 | 107 |
 | 32 | Asia Backups | 25 | 2 |
-| 33 | South America | 525 | 57 |
+| 33 | South America | 522 | 56 |
 | 34 | South America Backups | 22 | 3 |
-| 35 | Documentary | 424 | 97 |
-| 36 | Documentary Backups | 79 | 14 |
-| 37 | United States | 382 | 50 |
+| 35 | Documentary | 423 | 102 |
+| 36 | Documentary Backups | 79 | 15 |
+| 37 | United States | 383 | 50 |
 | 38 | United States Backups | 57 | 7 |
-| 39 | Kids | 356 | 78 |
+| 39 | Kids | 355 | 78 |
 | 40 | Kids Backups | 59 | 12 |
-| 41 | Series | 345 | 34 |
+| 41 | Series | 345 | 35 |
 | 42 | Series Backups | 108 | 26 |
-| 43 | North America | 323 | 11 |
+| 43 | North America | 319 | 10 |
 | 44 | North America Backups | 8 | 0 |
-| 45 | Education | 160 | 18 |
+| 45 | Education | 159 | 18 |
 | 46 | Education Backups | 13 | 1 |
 | 47 | Culture | 141 | 17 |
 | 48 | Culture Backups | 10 | 4 |
-| 49 | Legislative | 141 | 12 |
+| 49 | Legislative | 140 | 11 |
 | 50 | Legislative Backups | 3 | 0 |
 | 51 | Comedy | 124 | 8 |
 | 52 | Comedy Backups | 27 | 5 |
 | 53 | Africa | 98 | 13 |
-| 54 | India | 86 | 18 |
+| 54 | India | 86 | 30 |
 | 55 | India Backups | 5 | 2 |
 | 56 | Classic TV | 71 | 5 |
 | 57 | Classic TV Backups | 9 | 2 |
@@ -97,17 +97,16 @@
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 13413 | 92 | 1505 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 13368 | 92 | 1499 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 19 | 7 | 3 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 13375 (99.6%) |
-| matched on the base id (feed qualifier dropped) | 4 (0.0%) |
-| matched on the display name | 2 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 51 (0.4%) |
+| already declared in the guide | 13355 (99.8%) |
+| matched on the display name | 1 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 31 (0.2%) |
 
 ## Channels with no schedule yet
 
