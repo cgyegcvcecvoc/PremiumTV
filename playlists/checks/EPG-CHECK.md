@@ -1,167 +1,167 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261021T101732Z-3372`)
-- **Started:** 2026-10-21T10:17:32Z | **Finished:** 2026-10-21T10:17:49Z | **Duration:** 17.6s
-- **Guides checked:** 526 across 178 playlists (177 of them are this repository's own published guides)
+- **Run:** nightly guide check (`20261022T101948Z-3361`)
+- **Started:** 2026-10-22T10:19:48Z | **Finished:** 2026-10-22T10:20:09Z | **Duration:** 20.5s
+- **Guides checked:** 535 across 181 playlists (180 of them are this repository's own published guides)
 - **Working share of upstream guides:** 100.0%
 
 | Result | Guides |
 |---|---:|
-| ok | 213 |
-| empty | 76 |
-| offline | 237 |
-| own guide (excluded from the share above) | 177 |
+| ok | 214 |
+| empty | 78 |
+| offline | 243 |
+| own guide (excluded from the share above) | 180 |
 
 ## Working guides (kept)
 
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
-| `TV.xml` | 199 | 6931 | 2026-10-25 06:00 UTC | 4096 KB |
+| `TV.xml` | 198 | 6842 | 2026-10-25 06:00 UTC | 4096 KB |
 | `epg_ripper_AL1.xml.gz` | 178 | 9892 | 2026-10-24 06:30 UTC | 359 KB |
-| `epg.xml.gz` | 15762 | 5617 | 2026-10-29 00:00 UTC | 4096 KB |
-| `epg-us.xml.gz` | 12991 | 2442 | 2026-11-19 08:00 UTC | 4096 KB |
-| `epg_US.xml.gz` | 5493 | 9542 | 2026-10-23 00:00 UTC | 4096 KB |
-| `epg_CA.xml.gz` | 696 | 10789 | 2026-10-24 00:00 UTC | 1647 KB |
-| `epg_GB.xml.gz` | 752 | 10834 | 2026-10-24 00:00 UTC | 1997 KB |
-| `epg_AU.xml.gz` | 208 | 13062 | 2026-10-28 00:00 UTC | 466 KB |
-| `epg_IN.xml.gz` | 528 | 1489 | 2026-10-24 00:00 UTC | 42 KB |
-| `epg-al.xml.gz` | 203 | 7948 | 2026-10-24 07:00 UTC | 549 KB |
-| `epg-ar.xml.gz` | 185 | 7163 | 2026-10-26 03:00 UTC | 2418 KB |
-| `epg-am.xml.gz` | 74 | 7934 | 2026-10-25 22:46 UTC | 846 KB |
-| `epg-au.xml.gz` | 490 | 7094 | 2026-10-30 17:00 UTC | 4096 KB |
-| `epg-at.xml.gz` | 286 | 5936 | 2026-10-25 01:40 UTC | 4096 KB |
-| `epg-bs.xml.gz` | 27 | 3797 | 2026-10-27 03:00 UTC | 353 KB |
-| `epg-by.xml.gz` | 114 | 4139 | 2026-10-26 01:30 UTC | 2083 KB |
-| `epg-be.xml.gz` | 282 | 6134 | 2026-10-27 00:55 UTC | 4096 KB |
-| `epg-bo.xml.gz` | 92 | 11779 | 2026-10-26 01:00 UTC | 307 KB |
-| `epg-ba.xml.gz` | 201 | 7164 | 2026-10-27 02:30 UTC | 1306 KB |
-| `epg-br.xml.gz` | 182 | 7049 | 2026-10-26 01:30 UTC | 3195 KB |
-| `epg-bg.xml.gz` | 116 | 17531 | 2026-10-25 22:00 UTC | 364 KB |
-| `epg-ca.xml.gz` | 741 | 6765 | 2026-10-28 02:00 UTC | 4096 KB |
-| `epg-cl.xml.gz` | 181 | 7336 | 2026-10-27 03:30 UTC | 2764 KB |
-| `epg-co.xml.gz` | 180 | 7158 | 2026-10-26 13:00 UTC | 2523 KB |
-| `epg-cr.xml.gz` | 84 | 9846 | 2026-10-25 02:00 UTC | 223 KB |
-| `epg-hr.xml.gz` | 248 | 6748 | 2026-10-27 04:15 UTC | 3556 KB |
-| `epg-cw.xml.gz` | 110 | 8071 | 2026-10-26 04:00 UTC | 1496 KB |
-| `epg-cz.xml.gz` | 323 | 13284 | 2026-10-28 03:25 UTC | 170 KB |
-| `epg-dk.xml.gz` | 237 | 7662 | 2026-10-28 23:30 UTC | 2248 KB |
-| `epg-do.xml.gz` | 97 | 11937 | 2026-10-25 02:00 UTC | 294 KB |
-| `epg-ec.xml.gz` | 104 | 12825 | 2026-10-25 05:00 UTC | 203 KB |
-| `epg-eg.xml.gz` | 88 | 8597 | 2026-10-25 00:39 UTC | 142 KB |
-| `epg-sv.xml.gz` | 87 | 6675 | 2026-10-26 01:55 UTC | 1526 KB |
-| `epg-fi.xml.gz` | 133 | 5810 | 2026-10-27 01:58 UTC | 1747 KB |
-| `epg-fr.xml.gz` | 485 | 8088 | 2026-10-30 01:00 UTC | 2906 KB |
-| `epg-ge.xml.gz` | 53 | 5677 | 2026-10-30 01:00 UTC | 81 KB |
-| `epg-de.xml.gz` | 438 | 6055 | 2026-10-29 22:00 UTC | 4096 KB |
-| `epg-gh.xml.gz` | 142 | 7552 | 2026-10-25 23:59 UTC | 1145 KB |
-| `epg-gr.xml.gz` | 177 | 5894 | 2026-10-27 00:00 UTC | 1927 KB |
-| `epg-gt.xml.gz` | 95 | 6730 | 2026-10-25 02:00 UTC | 1536 KB |
-| `epg-hn.xml.gz` | 127 | 6805 | 2026-10-26 03:00 UTC | 1613 KB |
-| `epg-hk.xml.gz` | 176 | 9127 | 2026-10-26 02:00 UTC | 883 KB |
-| `epg-hu.xml.gz` | 152 | 10843 | 2026-10-24 06:00 UTC | 81 KB |
-| `epg-is.xml.gz` | 70 | 9248 | 2026-10-27 05:58 UTC | 597 KB |
-| `epg-in.xml.gz` | 415 | 6534 | 2026-10-25 21:30 UTC | 2760 KB |
-| `epg-id.xml.gz` | 141 | 19979 | 2026-10-30 20:00 UTC | 217 KB |
-| `epg-il.xml.gz` | 154 | 9723 | 2026-10-27 00:00 UTC | 1731 KB |
-| `epg-it.xml.gz` | 306 | 7606 | 2026-10-28 01:10 UTC | 1786 KB |
-| `epg-jm.xml.gz` | 128 | 12885 | 2026-10-31 02:00 UTC | 385 KB |
+| `epg.xml.gz` | 15761 | 5629 | 2026-10-30 00:00 UTC | 4096 KB |
+| `epg-us.xml.gz` | 12991 | 2435 | 2026-11-21 08:00 UTC | 4096 KB |
+| `epg_US.xml.gz` | 5493 | 9650 | 2026-10-25 00:00 UTC | 4096 KB |
+| `epg_CA.xml.gz` | 696 | 10790 | 2026-10-26 00:00 UTC | 2520 KB |
+| `epg_GB.xml.gz` | 752 | 10892 | 2026-10-25 00:00 UTC | 2395 KB |
+| `epg_AU.xml.gz` | 203 | 13040 | 2026-10-29 00:00 UTC | 461 KB |
+| `epg_IN.xml.gz` | 528 | 10940 | 2026-10-26 00:00 UTC | 660 KB |
+| `epg-al.xml.gz` | 203 | 8104 | 2026-10-25 07:00 UTC | 557 KB |
+| `epg-ar.xml.gz` | 185 | 7167 | 2026-10-27 01:00 UTC | 2447 KB |
+| `epg-am.xml.gz` | 74 | 8510 | 2026-10-26 19:35 UTC | 713 KB |
+| `epg-au.xml.gz` | 490 | 7122 | 2026-10-31 17:00 UTC | 4096 KB |
+| `epg-at.xml.gz` | 286 | 6075 | 2026-10-27 01:00 UTC | 4096 KB |
+| `epg-bs.xml.gz` | 27 | 3829 | 2026-10-29 03:00 UTC | 353 KB |
+| `epg-by.xml.gz` | 114 | 4143 | 2026-10-26 01:30 UTC | 1798 KB |
+| `epg-be.xml.gz` | 282 | 6213 | 2026-10-29 00:00 UTC | 4096 KB |
+| `epg-bo.xml.gz` | 92 | 11675 | 2026-10-26 23:05 UTC | 303 KB |
+| `epg-ba.xml.gz` | 201 | 7106 | 2026-10-28 02:15 UTC | 1319 KB |
+| `epg-br.xml.gz` | 182 | 7056 | 2026-10-27 01:30 UTC | 3200 KB |
+| `epg-bg.xml.gz` | 116 | 17569 | 2026-10-27 21:00 UTC | 329 KB |
+| `epg-ca.xml.gz` | 741 | 6747 | 2026-10-29 02:00 UTC | 4096 KB |
+| `epg-cl.xml.gz` | 181 | 7344 | 2026-10-27 03:30 UTC | 2511 KB |
+| `epg-co.xml.gz` | 180 | 7188 | 2026-10-27 13:00 UTC | 2543 KB |
+| `epg-cr.xml.gz` | 84 | 11008 | 2026-10-27 06:00 UTC | 247 KB |
+| `epg-hr.xml.gz` | 248 | 6316 | 2026-10-27 04:15 UTC | 3186 KB |
+| `epg-cw.xml.gz` | 110 | 8006 | 2026-10-26 06:45 UTC | 1342 KB |
+| `epg-cz.xml.gz` | 323 | 13289 | 2026-10-28 03:25 UTC | 170 KB |
+| `epg-dk.xml.gz` | 237 | 7049 | 2026-10-28 23:30 UTC | 2043 KB |
+| `epg-do.xml.gz` | 97 | 11602 | 2026-10-27 02:00 UTC | 284 KB |
+| `epg-ec.xml.gz` | 104 | 10700 | 2026-10-25 05:00 UTC | 172 KB |
+| `epg-eg.xml.gz` | 88 | 8134 | 2026-10-27 00:51 UTC | 134 KB |
+| `epg-sv.xml.gz` | 87 | 6654 | 2026-10-26 01:55 UTC | 1359 KB |
+| `epg-fi.xml.gz` | 133 | 5842 | 2026-10-28 02:15 UTC | 1748 KB |
+| `epg-fr.xml.gz` | 485 | 8066 | 2026-10-31 01:00 UTC | 3012 KB |
+| `epg-ge.xml.gz` | 53 | 4442 | 2026-11-01 01:00 UTC | 64 KB |
+| `epg-de.xml.gz` | 438 | 6111 | 2026-10-30 22:00 UTC | 4096 KB |
+| `epg-gh.xml.gz` | 142 | 7578 | 2026-10-26 23:55 UTC | 1162 KB |
+| `epg-gr.xml.gz` | 177 | 6081 | 2026-10-28 01:00 UTC | 2042 KB |
+| `epg-gt.xml.gz` | 95 | 6650 | 2026-10-26 02:00 UTC | 1469 KB |
+| `epg-hn.xml.gz` | 127 | 6815 | 2026-10-27 04:00 UTC | 1623 KB |
+| `epg-hk.xml.gz` | 176 | 9125 | 2026-10-28 02:00 UTC | 978 KB |
+| `epg-hu.xml.gz` | 152 | 10788 | 2026-10-25 02:00 UTC | 77 KB |
+| `epg-is.xml.gz` | 70 | 9245 | 2026-10-27 05:58 UTC | 596 KB |
+| `epg-in.xml.gz` | 415 | 6552 | 2026-10-26 21:30 UTC | 2872 KB |
+| `epg-id.xml.gz` | 141 | 19098 | 2026-10-31 15:00 UTC | 209 KB |
+| `epg-il.xml.gz` | 154 | 9501 | 2026-10-27 00:00 UTC | 1574 KB |
+| `epg-it.xml.gz` | 306 | 7698 | 2026-10-28 01:10 UTC | 1647 KB |
+| `epg-jm.xml.gz` | 128 | 12881 | 2026-11-01 02:00 UTC | 386 KB |
 | `epg-jp.xml.gz` | 121 | 8730 | 2026-08-26 21:00 UTC | 4096 KB |
-| `epg-lv.xml.gz` | 107 | 11623 | 2026-10-25 20:00 UTC | 751 KB |
-| `epg-lb.xml.gz` | 58 | 4129 | 2026-10-24 03:00 UTC | 26 KB |
-| `epg-lt.xml.gz` | 184 | 9733 | 2026-10-26 19:00 UTC | 1126 KB |
-| `epg-lu.xml.gz` | 324 | 5483 | 2026-10-27 00:30 UTC | 4096 KB |
-| `epg-my.xml.gz` | 150 | 6535 | 2026-10-27 03:00 UTC | 1577 KB |
-| `epg-mt.xml.gz` | 129 | 12001 | 2026-10-26 17:45 UTC | 1062 KB |
-| `epg-mx.xml.gz` | 174 | 8177 | 2026-10-25 08:30 UTC | 1630 KB |
-| `epg-me.xml.gz` | 212 | 5365 | 2026-10-26 06:00 UTC | 4096 KB |
-| `epg-nl.xml.gz` | 184 | 4396 | 2026-10-26 23:55 UTC | 4096 KB |
+| `epg-lv.xml.gz` | 107 | 11631 | 2026-10-25 20:00 UTC | 730 KB |
+| `epg-lb.xml.gz` | 58 | 4137 | 2026-10-25 03:00 UTC | 26 KB |
+| `epg-lt.xml.gz` | 184 | 9898 | 2026-10-27 01:00 UTC | 1030 KB |
+| `epg-lu.xml.gz` | 324 | 5504 | 2026-10-29 00:10 UTC | 4096 KB |
+| `epg-my.xml.gz` | 150 | 6533 | 2026-10-27 03:00 UTC | 1460 KB |
+| `epg-mt.xml.gz` | 129 | 11999 | 2026-10-27 17:50 UTC | 1069 KB |
+| `epg-mx.xml.gz` | 174 | 8177 | 2026-10-26 08:00 UTC | 1671 KB |
+| `epg-me.xml.gz` | 212 | 5356 | 2026-10-27 06:00 UTC | 4096 KB |
+| `epg-nl.xml.gz` | 184 | 4358 | 2026-10-27 23:55 UTC | 4096 KB |
 | `epg-nz.xml.gz` | 100 | 10036 | 2026-10-27 17:00 UTC | 608 KB |
-| `epg-ni.xml.gz` | 107 | 12655 | 2026-10-26 00:00 UTC | 373 KB |
-| `epg-ng.xml.gz` | 157 | 7513 | 2026-10-25 22:55 UTC | 1231 KB |
-| `epg-mk.xml.gz` | 109 | 7848 | 2026-10-24 01:00 UTC | 47 KB |
-| `epg-no.xml.gz` | 96 | 4100 | 2026-10-26 01:00 UTC | 3670 KB |
-| `epg-pa.xml.gz` | 121 | 13008 | 2026-10-26 01:40 UTC | 390 KB |
-| `epg-py.xml.gz` | 79 | 6632 | 2026-10-25 04:00 UTC | 1238 KB |
-| `epg-pe.xml.gz` | 126 | 6940 | 2026-10-26 03:00 UTC | 1603 KB |
-| `epg-ph.xml.gz` | 80 | 5760 | 2026-10-24 09:00 UTC | 36 KB |
-| `epg-pl.xml.gz` | 447 | 4677 | 2026-10-26 02:00 UTC | 4096 KB |
-| `epg-pt.xml.gz` | 195 | 4760 | 2026-10-26 08:53 UTC | 4096 KB |
-| `epg-ro.xml.gz` | 282 | 8756 | 2026-10-25 04:59 UTC | 1586 KB |
-| `epg-ru.xml.gz` | 223 | 1881 | 2026-10-26 03:20 UTC | 4067 KB |
-| `epg-sa.xml.gz` | 138 | 9720 | 2026-10-31 00:00 UTC | 59 KB |
-| `epg-rs.xml.gz` | 265 | 11843 | 2026-10-24 19:00 UTC | 1016 KB |
-| `epg-sg.xml.gz` | 209 | 10948 | 2026-10-26 15:57 UTC | 1005 KB |
-| `epg-si.xml.gz` | 435 | 13582 | 2026-10-24 05:00 UTC | 174 KB |
-| `epg-za.xml.gz` | 174 | 7639 | 2026-10-26 21:55 UTC | 973 KB |
-| `epg-kr.xml.gz` | 251 | 11864 | 2026-10-26 17:30 UTC | 763 KB |
-| `epg-es.xml.gz` | 295 | 5286 | 2026-10-26 04:53 UTC | 3573 KB |
-| `epg-lk.xml.gz` | 129 | 9288 | 2026-10-24 00:00 UTC | 55 KB |
-| `epg-se.xml.gz` | 95 | 7956 | 2026-10-28 06:00 UTC | 1187 KB |
-| `epg-ch.xml.gz` | 705 | 6423 | 2026-10-27 05:00 UTC | 4096 KB |
-| `epg-tw.xml.gz` | 182 | 18914 | 2026-10-26 00:55 UTC | 466 KB |
-| `epg-th.xml.gz` | 70 | 6921 | 2026-10-24 16:55 UTC | 420 KB |
-| `epg-tt.xml.gz` | 8 | 2137 | 2026-10-27 03:00 UTC | 55 KB |
-| `epg-tr.xml.gz` | 108 | 8681 | 2026-10-27 00:30 UTC | 2377 KB |
-| `epg-gb.xml.gz` | 934 | 11761 | 2026-11-21 08:00 UTC | 4096 KB |
-| `epg-ug.xml.gz` | 154 | 7512 | 2026-10-25 20:55 UTC | 1087 KB |
-| `epg-ua.xml.gz` | 231 | 8987 | 2026-10-26 23:08 UTC | 1287 KB |
-| `epg-ae.xml.gz` | 58 | 4134 | 2026-10-24 04:00 UTC | 26 KB |
-| `epg-uy.xml.gz` | 149 | 9400 | 2026-10-26 01:50 UTC | 1548 KB |
-| `epg-ve.xml.gz` | 56 | 5362 | 2026-10-25 22:05 UTC | 140 KB |
-| `epg-vn.xml.gz` | 186 | 14478 | 2026-10-24 02:00 UTC | 142 KB |
-| `epg-zw.xml.gz` | 130 | 7658 | 2026-10-25 21:55 UTC | 1144 KB |
-| `epg_BR.xml.gz` | 204 | 13726 | 2026-10-24 00:00 UTC | 345 KB |
-| `epg_CN.xml.gz` | 712 | 16798 | 2026-10-28 00:00 UTC | 467 KB |
-| `epg_FR.xml.gz` | 507 | 11403 | 2026-10-24 00:00 UTC | 1207 KB |
-| `epg_DE.xml.gz` | 250 | 9193 | 2026-10-24 00:00 UTC | 1173 KB |
-| `epg_HK.xml.gz` | 230 | 10593 | 2026-10-29 00:00 UTC | 1706 KB |
-| `epg_ID.xml.gz` | 156 | 7861 | 2026-10-24 00:00 UTC | 109 KB |
-| `epg_JP.xml.gz` | 227 | 9692 | 2026-10-28 00:00 UTC | 2339 KB |
-| `epg_MY.xml.gz` | 344 | 11039 | 2026-10-28 00:00 UTC | 1134 KB |
-| `epg_NZ.xml.gz` | 37 | 5129 | 2026-10-29 00:00 UTC | 215 KB |
-| `epg_PH.xml.gz` | 48 | 2026 | 2026-10-24 00:00 UTC | 51 KB |
-| `epg_RU.xml.gz` | 4079 | 13408 | 2026-10-27 00:00 UTC | 4096 KB |
-| `epg_SG.xml.gz` | 360 | 10170 | 2026-10-29 00:00 UTC | 1064 KB |
-| `epg_ZA.xml.gz` | 270 | 12521 | 2026-10-24 00:00 UTC | 633 KB |
-| `epg_TW.xml.gz` | 519 | 12520 | 2026-10-29 00:00 UTC | 2061 KB |
+| `epg-ni.xml.gz` | 107 | 12796 | 2026-10-27 00:45 UTC | 368 KB |
+| `epg-ng.xml.gz` | 157 | 7524 | 2026-10-27 22:55 UTC | 1367 KB |
+| `epg-mk.xml.gz` | 109 | 7848 | 2026-10-25 08:00 UTC | 47 KB |
+| `epg-no.xml.gz` | 96 | 4055 | 2026-10-27 01:00 UTC | 3732 KB |
+| `epg-pa.xml.gz` | 121 | 12183 | 2026-10-26 01:40 UTC | 335 KB |
+| `epg-py.xml.gz` | 79 | 6633 | 2026-10-26 04:00 UTC | 1241 KB |
+| `epg-pe.xml.gz` | 126 | 7004 | 2026-10-28 02:00 UTC | 1613 KB |
+| `epg-ph.xml.gz` | 80 | 5760 | 2026-10-25 05:00 UTC | 36 KB |
+| `epg-pl.xml.gz` | 447 | 4679 | 2026-10-27 02:00 UTC | 4096 KB |
+| `epg-pt.xml.gz` | 195 | 4758 | 2026-10-27 08:53 UTC | 4096 KB |
+| `epg-ro.xml.gz` | 282 | 8601 | 2026-10-26 08:00 UTC | 1760 KB |
+| `epg-ru.xml.gz` | 223 | 2228 | 2026-10-26 22:40 UTC | 3483 KB |
+| `epg-sa.xml.gz` | 138 | 9720 | 2026-11-01 00:00 UTC | 59 KB |
+| `epg-rs.xml.gz` | 265 | 11843 | 2026-10-24 19:00 UTC | 1013 KB |
+| `epg-sg.xml.gz` | 209 | 11052 | 2026-10-27 15:57 UTC | 1003 KB |
+| `epg-si.xml.gz` | 435 | 13582 | 2026-10-25 10:00 UTC | 174 KB |
+| `epg-za.xml.gz` | 174 | 7521 | 2026-10-27 21:55 UTC | 1093 KB |
+| `epg-kr.xml.gz` | 251 | 11876 | 2026-10-27 17:00 UTC | 763 KB |
+| `epg-es.xml.gz` | 295 | 5386 | 2026-10-28 04:50 UTC | 4096 KB |
+| `epg-lk.xml.gz` | 129 | 9288 | 2026-10-25 02:00 UTC | 55 KB |
+| `epg-se.xml.gz` | 95 | 7954 | 2026-10-29 06:00 UTC | 1191 KB |
+| `epg-ch.xml.gz` | 705 | 6415 | 2026-10-27 05:00 UTC | 4096 KB |
+| `epg-tw.xml.gz` | 182 | 18894 | 2026-10-27 00:57 UTC | 468 KB |
+| `epg-th.xml.gz` | 70 | 6921 | 2026-10-24 21:00 UTC | 420 KB |
+| `epg-tt.xml.gz` | 8 | 2077 | 2026-10-29 03:00 UTC | 49 KB |
+| `epg-tr.xml.gz` | 108 | 8736 | 2026-10-29 02:00 UTC | 2286 KB |
+| `epg-gb.xml.gz` | 934 | 11671 | 2026-11-22 08:00 UTC | 4096 KB |
+| `epg-ug.xml.gz` | 154 | 7524 | 2026-10-26 20:55 UTC | 1106 KB |
+| `epg-ua.xml.gz` | 231 | 9381 | 2026-10-27 22:58 UTC | 1225 KB |
+| `epg-ae.xml.gz` | 58 | 4139 | 2026-10-25 00:00 UTC | 26 KB |
+| `epg-uy.xml.gz` | 149 | 9391 | 2026-10-28 01:00 UTC | 1592 KB |
+| `epg-ve.xml.gz` | 56 | 5975 | 2026-10-27 23:00 UTC | 151 KB |
+| `epg-vn.xml.gz` | 186 | 14448 | 2026-10-24 23:00 UTC | 139 KB |
+| `epg-zw.xml.gz` | 130 | 7626 | 2026-10-27 21:55 UTC | 1272 KB |
+| `epg_BR.xml.gz` | 207 | 13800 | 2026-10-26 00:00 UTC | 528 KB |
+| `epg_CN.xml.gz` | 712 | 16830 | 2026-10-29 00:00 UTC | 400 KB |
+| `epg_FR.xml.gz` | 506 | 11825 | 2026-10-26 00:00 UTC | 1836 KB |
+| `epg_DE.xml.gz` | 250 | 8944 | 2026-10-26 00:00 UTC | 1646 KB |
+| `epg_HK.xml.gz` | 230 | 10965 | 2026-10-30 00:00 UTC | 1711 KB |
+| `epg_ID.xml.gz` | 156 | 11860 | 2026-10-26 00:00 UTC | 162 KB |
+| `epg_JP.xml.gz` | 227 | 9568 | 2026-10-28 00:00 UTC | 2156 KB |
+| `epg_MY.xml.gz` | 345 | 11042 | 2026-10-30 00:00 UTC | 1304 KB |
+| `epg_NZ.xml.gz` | 37 | 5126 | 2026-10-30 00:00 UTC | 213 KB |
+| `epg_PH.xml.gz` | 49 | 3002 | 2026-10-26 00:00 UTC | 71 KB |
+| `epg_RU.xml.gz` | 4079 | 13328 | 2026-10-27 00:00 UTC | 4096 KB |
+| `epg_SG.xml.gz` | 360 | 10148 | 2026-10-30 00:00 UTC | 1202 KB |
+| `epg_ZA.xml.gz` | 270 | 13056 | 2026-10-26 00:00 UTC | 682 KB |
+| `epg_TW.xml.gz` | 519 | 12409 | 2026-10-30 00:00 UTC | 2066 KB |
 
 ## Curated per-country sources
 
-347 guide URL(s) from `sources.json` (`epg_sources`) are verified on every run and merged by `scripts/epg_build.py` ahead of the guides found in playlist headers. They are never advertised in an `x-tvg-url` header - the merged guide already carries their listings. Status this run: empty=4, offline=237, ok=106.
+353 guide URL(s) from `sources.json` (`epg_sources`) are verified on every run and merged by `scripts/epg_build.py` ahead of the guides found in playlist headers. They are never advertised in an `x-tvg-url` header - the merged guide already carries their listings. Status this run: empty=4, offline=243, ok=106.
 
 | Source | Status | Channels | Programmes sampled |
 |---|---|---:|---:|
-| `epg.xml.gz` | ok | 15762 | 5617 |
-| `epg-us.xml.gz` | ok | 12991 | 2442 |
-| `epg_US.xml.gz` | ok | 5493 | 9542 |
-| `epg_CA.xml.gz` | ok | 696 | 10789 |
-| `epg_GB.xml.gz` | ok | 752 | 10834 |
-| `epg_AU.xml.gz` | ok | 208 | 13062 |
-| `epg_IN.xml.gz` | ok | 528 | 1489 |
+| `epg.xml.gz` | ok | 15761 | 5629 |
+| `epg-us.xml.gz` | ok | 12991 | 2435 |
+| `epg_US.xml.gz` | ok | 5493 | 9650 |
+| `epg_CA.xml.gz` | ok | 696 | 10790 |
+| `epg_GB.xml.gz` | ok | 752 | 10892 |
+| `epg_AU.xml.gz` | ok | 203 | 13040 |
+| `epg_IN.xml.gz` | ok | 528 | 10940 |
 | `epg-af.xml.gz` | offline | 0 | 0 |
-| `epg-al.xml.gz` | ok | 203 | 7948 |
+| `epg-al.xml.gz` | ok | 203 | 8104 |
 | `epg-dz.xml.gz` | offline | 0 | 0 |
 | `epg-ad.xml.gz` | offline | 0 | 0 |
 | `epg-ao.xml.gz` | offline | 0 | 0 |
-| `epg-ar.xml.gz` | ok | 185 | 7163 |
-| `epg-am.xml.gz` | ok | 74 | 7934 |
+| `epg-ag.xml.gz` | offline | 0 | 0 |
+| `epg-ar.xml.gz` | ok | 185 | 7167 |
+| `epg-am.xml.gz` | ok | 74 | 8510 |
 | `epg-aw.xml.gz` | offline | 0 | 0 |
-| `epg-au.xml.gz` | ok | 490 | 7094 |
-| `epg-at.xml.gz` | ok | 286 | 5936 |
+| `epg-au.xml.gz` | ok | 490 | 7122 |
+| `epg-at.xml.gz` | ok | 286 | 6075 |
 | `epg-az.xml.gz` | offline | 0 | 0 |
-| `epg-bs.xml.gz` | ok | 27 | 3797 |
+| `epg-bs.xml.gz` | ok | 27 | 3829 |
 | `epg-bh.xml.gz` | offline | 0 | 0 |
 | `epg-bd.xml.gz` | offline | 0 | 0 |
 | `epg-bb.xml.gz` | offline | 0 | 0 |
-| `epg-by.xml.gz` | ok | 114 | 4139 |
-| `epg-be.xml.gz` | ok | 282 | 6134 |
+| `epg-by.xml.gz` | ok | 114 | 4143 |
+| `epg-be.xml.gz` | ok | 282 | 6213 |
 | `epg-bz.xml.gz` | offline | 0 | 0 |
 | `epg-bj.xml.gz` | offline | 0 | 0 |
-| `epg-bo.xml.gz` | ok | 92 | 11779 |
-| `epg-ba.xml.gz` | ok | 201 | 7164 |
-| `epg-br.xml.gz` | ok | 182 | 7049 |
-| `epg-vg.xml.gz` | offline | 0 | 0 |
-| … 317 more | | | |
+| `epg-bo.xml.gz` | ok | 92 | 11675 |
+| `epg-ba.xml.gz` | ok | 201 | 7106 |
+| `epg-br.xml.gz` | ok | 182 | 7056 |
+| … 323 more | | | |
 
 ## Guides that failed
 
@@ -171,6 +171,7 @@
 | `https://iptv-epg.org/files/epg-dz.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-ad.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-ao.xml.gz` | offline | HTTP 404 |
+| `https://iptv-epg.org/files/epg-ag.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-aw.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-az.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-bh.xml.gz` | offline | HTTP 404 |
@@ -219,6 +220,7 @@
 | `https://iptv-epg.org/files/epg-mv.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-ml.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-mq.xml.gz` | offline | HTTP 404 |
+| `https://iptv-epg.org/files/epg-mr.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-md.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-mc.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-mn.xml.gz` | offline | HTTP 404 |
@@ -240,6 +242,7 @@
 | `https://iptv-epg.org/files/epg-kn.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-lc.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-sn.xml.gz` | offline | HTTP 404 |
+| `https://iptv-epg.org/files/epg-sl.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-sx.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-sk.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-so.xml.gz` | offline | HTTP 404 |
@@ -259,6 +262,7 @@
 | `https://epg.pw/xmltv/epg_DZ.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_AD.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_AO.xml.gz` | offline | HTTP 404 |
+| `https://epg.pw/xmltv/epg_AG.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_AR.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_AM.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_AW.xml.gz` | offline | HTTP 404 |
@@ -342,6 +346,7 @@
 | `https://epg.pw/xmltv/epg_ML.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_MT.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_MQ.xml.gz` | offline | HTTP 404 |
+| `https://epg.pw/xmltv/epg_MR.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_MX.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_MD.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_MC.xml.gz` | offline | HTTP 404 |
@@ -378,6 +383,7 @@
 | `https://epg.pw/xmltv/epg_SA.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SN.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_RS.xml.gz` | offline | HTTP 404 |
+| `https://epg.pw/xmltv/epg_SL.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SX.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SK.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SI.xml.gz` | offline | HTTP 404 |
@@ -407,26 +413,26 @@
 
 ## This repository's own guides
 
-177 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: empty=72, ok=105. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
+180 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: empty=74, ok=106. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
 
 | Own guide | Status | Reason |
 |---|---|---|
-| `PremiumTV.xml` | ok | 11690 channels, 8679 programmes sampled |
+| `PremiumTV.xml` | ok | 11701 channels, 8194 programmes sampled |
 | `Afghanistan.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Albania.xml` | ok | 27 channels, 488 programmes sampled |
-| `Algeria.xml` | ok | 7 channels, 67 programmes sampled |
+| `Albania.xml` | ok | 26 channels, 352 programmes sampled |
+| `Algeria.xml` | ok | 7 channels, 64 programmes sampled |
 | `Andorra.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Angola.xml` | empty | valid XMLTV but no programmes in the sampled window |
+| `Antigua_and_Barbuda.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Arab_World.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Argentina.xml` | ok | 162 channels, 1272 programmes sampled |
-| `Armenia.xml` | ok | 10 channels, 135 programmes sampled |
+| `Argentina.xml` | ok | 161 channels, 1330 programmes sampled |
+| `Armenia.xml` | ok | 10 channels, 120 programmes sampled |
 | `Aruba.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Australia.xml` | ok | 44 channels, 1499 programmes sampled |
-| `Austria.xml` | ok | 42 channels, 1019 programmes sampled |
-| `Azerbaijan.xml` | ok | 17 channels, 48 programmes sampled |
+| `Australia.xml` | ok | 44 channels, 1477 programmes sampled |
+| `Austria.xml` | ok | 42 channels, 1031 programmes sampled |
+| `Azerbaijan.xml` | ok | 17 channels, 52 programmes sampled |
 | `Bahamas.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Bahrain.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| … 162 more (one per country playlist) | | |
+| … 165 more (one per country playlist) | | |
 
 ## Patch
 
