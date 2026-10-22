@@ -148,8 +148,9 @@ CHANNELS = [
 
 # Retired preview builds are deliberately absent from the download page. Their
 # release pages may still exist for the historical record, but the site must
-# never offer a download that points at a retired channel.
-RETIRED_TAGS = {"v1.1.0", "v1.1.1"}
+# never offer a download that points at a retired channel. Only the deleted
+# 1.1.1 preview is retired now: the 1.1.0 name belongs to the stable release.
+RETIRED_TAGS = {"v1.1.1"}
 
 # Releases published only so an updater that reads three-part versions
 # (1.0.4-1.0.6) can reach the canonical build.  They are the same code and
@@ -321,6 +322,10 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
         if stable_version == "1.0.6.1":
             channel_specs[0]["summary"] = ("Settings 2.0 — compact version card, one-tap force refresh, update check and "
                                           "a built-in bug check. USA lineup + guide, with in-app updates.")
+        if stable_version == "1.1.0":
+            channel_specs[0]["summary"] = ("Side player docked on the right with the category rail beside it, tap-to-full-screen, "
+                                          "automatic server backup, dead channels filtered out, an amber pointer outline and a "
+                                          "still loading screen that keeps the gold line bar. USA lineup + USA guide.")
 
     channels = []
     for spec in channel_specs:
