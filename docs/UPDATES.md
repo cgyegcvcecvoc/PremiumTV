@@ -3,15 +3,16 @@
 Version 1.0.4 was the last release that had to be installed by hand. From then
 on, **Settings → App updates** checks GitHub, downloads the installer once,
 verifies it against the release's SHA-256 file, and hands it to the platform's
-normal installer. The current stable release is **1.0.9** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
+normal installer. The current stable release is **1.1.1** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
 
 ## The rules every release follows
 
 1. **Stable only.** The updater reads
    `https://api.github.com/repos/cgyegcvcecvoc/PremiumTV1/releases` and ignores
-   drafts and pre-releases. The 1.1.x preview channel is retired: its release,
-   installers and download links were removed, and installed previews see a
-   blocked-build notice instead of an update offer.
+   drafts and pre-releases. The 1.1.x preview channel is retired: its release
+   was promoted to the stable 1.1.1 release (same name, new versionCode), and
+   its old blocked-build notice rule was removed with it — a stable release
+   cannot be blocked by a notice rule that matches its own version.
 2. **Strictly above the installed version.** Versions are compared numerically
    (`1.0.10` is above `1.0.9`, and `1.0.6.1` is above `1.0.6` without being
    mistaken for `1.0.7`). The release guard workflow fails a stable
@@ -202,18 +203,21 @@ check is throttled and the downloaded DMG is reused until it is installed.
    `app-update-notice.json` tells those users to install the APK by hand.
 5. Check `app-update-notice.json`. Its rules are read in order and the first
    one whose range contains the installed version is shown. The current
-   document targets four ranges: `crash-on-watch-1-0-8` (Android 1.0.8–1.0.8.1,
+   document targets three ranges: `crash-on-watch-1-0-8` (Android 1.0.8–1.0.8.1,
    level `blocked` — the extreme update-now warning for the frozen-player bug,
    with 1.0.9 hard-coded because that cohort's `{newest}` would render as
-   itself), `retired-preview-1-1` (1.1.0-1.1.1, level `blocked`, linking to
-   the blocked page), `update-below-newest` (1.0.4–1.0.8,
+   itself), `update-below-newest` (1.0.4–1.1.0,
    a warning whose action opens Settings so the normal updater finishes the
    job), and `legacy-upgrade-2026-11` (0.0.0-1.0.3, the last manual install).
+   The old `retired-preview-1-1` rule was removed when 1.1.1 shipped as the
+   stable release: a stable release cannot be blocked by a notice rule that
+   matches its own version.
    When a V patch ships, move that version's range to start above it (e.g.
    `max_version` 1.0.6 stays, newest becomes V1).
 
-The 1.1.x preview channel is retired. There is no preview release, no preview
-download and no preview rebuild switch; do not create a GitHub pre-release for
-a 1.x build. The `all` bundle scope remains available for a future experimental
-dispatch, but it does not become a published download unless this policy is
-deliberately changed.
+The 1.1.x preview channel is retired. Its 1.1.1 release was promoted to
+stable; there is no separate preview release, preview download or preview
+rebuild switch — do not create a GitHub pre-release for a 1.x build. The
+`all` bundle scope remains available for a future experimental dispatch, but
+it does not become a published download unless this policy is deliberately
+changed.

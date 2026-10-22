@@ -171,3 +171,84 @@ test('1.0.8: badges take two initials and stable colours from the name', () => {
   assert.ok(hue >= 0 && hue < 360, `hue in range, got ${hue}`);
   assert.equal(live.teamHue('Boston'), live.teamHue('Boston'));
 });
+
+test('team keys collapse spelling variants and merge reversed matchups', () => {
+  const live = loadLive();
+  // "F.C. København" and "FC Copenhagen" are the same club.
+  assert.equal(live.teamKey('F.C. København'), live.teamKey('FC Copenhagen'));
+  // "Stade Rennais" and "Rennes" are the same club.
+  assert.equal(live.teamKey('Stade Rennais'), live.teamKey('Rennes'));
+  // Reversed matchups key identically.
+  const a = live.parseLiveEvent({
+    id: 'Soccer.Dummy.us', name: '[UEFA Conference League] A vs. B (FAWA)', url: 'u/1',
+  });
+  const b = live.parseLiveEvent({
+    id: 'Soccer.Dummy.us', name: '[UEFA Conference League] B vs. A (FAWA)', url: 'u/2',
+  });
+  assert.equal(a.key, b.key);
+  // Feed-copy numbers are stripped from the identity.
+  const c = live.parseLiveEvent({
+    id: 'Soccer.Dummy.us', name: '[UEFA Conference League] C vs. D 2 (FAWA)', url: 'u/3',
+  });
+  const d = live.parseLiveEvent({
+    id: 'Soccer.Dummy.us', name: '[UEFA Conference League] C vs. D (FAWA)', url: 'u/4',
+  });
+  assert.equal(c.key, d.key);
+});
+
+test('source markers are stripped from team names', () => {
+  const live = loadLive();
+  assert.equal(live.cleanTeam('Ferencváros vs Torreense (DAMITV) (Backup 1)'), 'Ferencváros vs Torreense');
+  assert.equal(live.cleanTeam('Union St.-Gilloise vs. Hapoel Be\'er (DAMITV)'), 'Union St.-Gilloise vs. Hapoel Be\'er');
+});
+
+test('buildSections attaches scheduled kickoffs and deduplicates feeds', () => {
+  const live = loadLive();
+  const schedule = {
+    'uefachampionsleague|arsenal|chelsea': 1_792_646_000, // a future kickoff on 2026-10-22
+  };
+  const sections = live.buildSections([
+    { id: 'e/1', name: '[UEFA Champions League] Arsenal vs. Chelsea', url: 'https://e/1', group: 'Sports' },
+    { id: 'e/2', name: '[UEFA Champions League] Chelsea vs. Arsenal', url: 'https://e/2', group: 'Sports' },
+    { id: 'e/3', name: '[UEFA Champions League] Arsenal vs. Chelsea 2', url: 'https://e/3', group: 'Sports' },
+  ], schedule);
+  assert.equal(sections.length, 1);
+  assert.equal(sections[0].events.length, 1);
+  const event = sections[0].events[0];
+  assert.equal(event.title, 'Arsenal vs. Chelsea');
+  assert.deepEqual([...event.servers.map((s) => s.url)], ['https://e/1', 'https://e/2', 'https://e/3']);
+  assert.equal(event.kickoffMs, 1_792_646_000 * 1000);
+});
+
+test('eventStatus reports not-live-yet before kickoff', () => {
+  const live = loadLive();
+  const now = 1_792_640_000; // before kickoff
+  assert.equal(live.eventStatus('live', null, now), 'live');
+  assert.equal(live.eventStatus('checking', 1_792_700_000, now), 'checking');
+  assert.equal(live.eventStatus(null, 1_792_700_000, now), 'notlive');
+  assert.equal(live.eventStatus('silent', 1_792_700_000, now), 'notlive');
+  assert.equal(live.eventStatus('silent', 1_792_600_000, now), 'silent');
+  assert.equal(live.eventStatus('checking', null, now), 'checking');
+});
+
+test('countdownText formats seconds remaining', () => {
+  const live = loadLive();
+  assert.equal(live.countdownText(45), '00:45');
+  assert.equal(live.countdownText(90), '01:30');
+  assert.equal(live.countdownText(3700), '1:01:40');
+  assert.equal(live.countdownText(90061), '1d 1:01:01');
+});
+
+test('kickoffLabel renders local kickoff time', () => {
+  const live = loadLive();
+  const label = live.kickoffLabel(1_792_702_800); // 2026-10-22T21:00:00Z
+  assert.ok(/^\d{1,2}:\d{2}( AM| PM)$/.test(label), `unexpected label: ${label}`);
+});
+
+test('teamLogoUrl reads bundled crest URLs', () => {
+  const live = loadLive();
+  const doc = { team_logos: { chelsea: 'https://example.org/chelsea.svg' } };
+  assert.equal(live.teamLogoUrl(doc, 'Chelsea'), 'https://example.org/chelsea.svg');
+  assert.equal(live.teamLogoUrl(doc, 'Nobody'), null);
+  assert.equal(live.teamLogoUrl(null, 'Chelsea'), null);
+});

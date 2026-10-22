@@ -166,6 +166,20 @@ test('1.0.8: the Live Events tab has its own refresh and a live check per game',
   assert.match(main, /ipcMain\.handle\('ptv:probe-stream'/);
 });
 
+test('the Movies & Shows tab is a static coming-soon page', () => {
+  const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+
+  assert.match(html, /data-tab="movies"[^>]*>Movies &amp; Shows</);
+  assert.match(html, /id="view-movies"/);
+  assert.match(html, /id="movies-browse"/);
+  assert.match(js, /movies: document\.getElementById\('view-movies'\)/);
+  assert.match(js, /els\.moviesBrowse\.addEventListener\('click', \(\) => selectTab\('channels'\)\)/);
+  assert.match(js, /tab === 'movies'\s*\?\s*'Browse movies \& shows'/);
+  assert.match(css(), /\.movies-coming-soon \{/);
+  assert.match(css(), /\.coming-badge \{/);
+});
+
 function css() {
   return fs.readFileSync(path.join(renderer, 'app.css'), 'utf8');
 }

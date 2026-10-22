@@ -37,6 +37,8 @@
     views: {
       channels: document.getElementById('view-channels'),
       live: document.getElementById('view-live'),
+    movies: document.getElementById('view-movies'),
+    moviesBrowse: document.getElementById('movies-browse'),
       guide: document.getElementById('view-guide'),
       settings: document.getElementById('view-settings'),
     },
@@ -83,6 +85,12 @@
     // 1.0.8 Live Events: per-game feed check results, keyed by game key —
     // 'checking' | 'live' | 'silent'.
     liveStatus: new Map(),
+    // 1.1.1 Live Events: curated team crests and scheduled kickoffs, both
+    // bundled with the app data and shipped through the library snapshot's
+    // meta ("team-logos" and "live-schedule").
+    teamLogos: {},
+    schedule: {},
+    sportsDoc: null,
     // Search is click-to-activate (1.0.6): hovering or tabbing past the field
     // must never start a search. Only an explicit click (or '/' / Enter on the
     // focused field) makes it editable; typing is debounced before rendering.
@@ -240,7 +248,7 @@
   function rebuildDerivedIndexes(library) {
     programmeIndex = buildProgrammeIndex((library && library.programmes) || []);
     const channels = (library && library.channels) || [];
-    liveSections = window.PremiumLive.buildSections(channels);
+    liveSections = window.PremiumLive.buildSections(channels, ui.schedule || {});
     liveIndex = window.PremiumLive.indexByChannel(channels);
   }
 
@@ -603,14 +611,30 @@
     const [start, end] = window.PremiumLive.crestColorsFor(name);
     span.style.background = `linear-gradient(135deg, ${start}, ${end})`;
     span.textContent = window.PremiumLive.initialsFor(name);
+    // Official crest when the repository has one for this team; the drawn
+    // badge shows while it loads and forever when it does not.
+    const logo = window.PremiumLive.teamLogoUrl(ui.sportsDoc, name);
+    if (logo) {
+      const img = document.createElement('img');
+      img.className = 'team-crest-img';
+      img.alt = '';
+      img.addEventListener('error', () => img.remove(), { once: true });
+      api.logoUrl(logo).then((resolved) => {
+        if (img.isConnected) img.src = resolved;
+      }).catch(() => img.remove());
+      span.append(img);
+    }
     return span;
   }
 
   /** The live-or-not pill: red while a feed answers, grey once none does. */
   function livePill(status) {
     const pill = document.createElement('span');
-    pill.className = `now-pill${status === 'silent' ? ' silent' : status === 'checking' ? ' checking' : ''}`;
-    pill.textContent = status === 'silent' ? 'NO SIGNAL' : status === 'checking' ? 'CHECKING' : 'LIVE';
+    pill.className = `now-pill${status === 'silent' ? ' silent' : status === 'checking' ? ' checking' : status === 'notlive' ? ' upcoming' : ''}`;
+    pill.textContent = status === 'silent' ? 'NO SIGNAL'
+      : status === 'checking' ? 'CHECKING'
+      : status === 'notlive' ? 'Not live yet'
+      : 'LIVE';
     return pill;
   }
 
@@ -625,8 +649,20 @@
       '<span class="event-teams"></span>' +
       `<span class="event-sport">${window.PremiumIcons.svgForGroup(event.sport, 'ph-icon event-icon')}</span>` +
       '<span class="event-servers"></span>';
-    card.querySelector('.event-head').append(livePill(ui.liveStatus.get(event.key)));
+    const status = window.PremiumLive.eventStatus(
+      ui.liveStatus.get(event.key), event.kickoffMs, Date.now(),
+    );
+    card.querySelector('.event-head').append(livePill(status));
     card.querySelector('.event-sport').insertAdjacentText('beforeend', event.sport);
+    if (status === 'notlive') {
+      const kickoff = document.createElement('span');
+      kickoff.className = 'event-kickoff';
+      kickoff.dataset.kickoff = String(event.kickoffMs);
+      kickoff.textContent = `Starts in ${window.PremiumLive.countdownText(
+        Math.max(0, ((event.kickoffMs || 0) - Date.now()) / 1000),
+      )} · ${window.PremiumLive.kickoffLabel(event.kickoffMs)}`;
+      card.querySelector('.event-head').append(kickoff);
+    }
 
     // The matchup as two badge-and-name rows, the way a score bug reads.
     const teams = window.PremiumLive.teamsOf(event.title);
@@ -1618,7 +1654,9 @@
       ? (cableGuideEnabled() ? 'Search channel or show' : 'Search the guide')
       : tab === 'live'
         ? 'Search live games'
-        : 'Search channels';
+        : tab === 'movies'
+          ? 'Browse movies & shows'
+          : 'Search channels';
     render();
     // Opening the Live Events tab checks the games it has no answer for yet;
     // the refresh button re-asks every game on demand.
@@ -1641,7 +1679,8 @@
     if (ui.tab === 'channels') renderChannels();
     else if (ui.tab === 'live') renderLive();
     else if (ui.tab === 'guide') renderGuide();
-    else renderSettings();
+    // Movies & Shows is a static coming-soon page; nothing to render.
+    else if (ui.tab !== 'movies') renderSettings();
   }
 
   const loadingTips = [
@@ -1918,6 +1957,9 @@
     });
   }
   if (els.catBack) els.catBack.addEventListener('click', () => selectCategory(null));
+  if (els.moviesBrowse) {
+    els.moviesBrowse.addEventListener('click', () => selectTab('channels'));
+  }
   if (els.liveRefresh) {
     els.liveRefresh.addEventListener('click', () => {
       // The tab's own refresh: the newest playlist (ended games drop out,
@@ -2182,6 +2224,10 @@
     if (request !== snapshotRequest) return;
     snapshot = next;
     rebuildDerivedIndexes(snapshot.library);
+    const meta = (snapshot.library && snapshot.library.meta) || {};
+    ui.teamLogos = meta['team-logos'] || {};
+    ui.schedule = meta['live-schedule'] || {};
+    ui.sportsDoc = meta;
     els.statusText.textContent = snapshot.state.message || '';
     renderCategories();
     render();
@@ -2276,6 +2322,34 @@
       // 30 s was a visible stutter while clicking around; "on now" text
       // refreshes on the next navigation/search instead.
     }, 30000);
+
+    // Second-accurate "Not live yet" countdowns on the Live Events tab.
+    // The ticker itself runs constantly, but it only touches the DOM while
+    // the tab is open, so it costs nothing elsewhere.
+    let liveCountdownTimer = null;
+    function ensureLiveCountdownClock() {
+      if (liveCountdownTimer) return;
+      liveCountdownTimer = window.setInterval(updateLiveCountdowns, 1000);
+      updateLiveCountdowns();
+    }
+    function updateLiveCountdowns() {
+      const now = Date.now();
+      let flipped = false;
+      for (const node of els.liveList.querySelectorAll('[data-kickoff]')) {
+        const kickoff = Number(node.dataset.kickoff);
+        if (kickoff > now) {
+          node.textContent = `Starts in ${window.PremiumLive.countdownText(
+            Math.max(0, ((kickoff - now) / 1000) | 0),
+          )} · ${window.PremiumLive.kickoffLabel(kickoff)}`;
+        } else if (node.dataset.flipped !== 'true') {
+          node.dataset.flipped = 'true';
+          node.textContent = 'Kickoff time';
+          flipped = true;
+        }
+      }
+      if (flipped) renderLive();
+    }
+    ensureLiveCountdownClock();
   }
 
   boot().catch((error) => {

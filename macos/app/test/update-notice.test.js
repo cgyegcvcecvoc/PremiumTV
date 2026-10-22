@@ -121,20 +121,25 @@ test('a build at or above the newest stable release is never nagged', () => {
   }
 });
 
-test('a retired preview is blocked instead of offered an update', () => {
-  // 1.1.0 is the stable release now; only the deleted 1.1.1 preview is blocked.
-  for (const version of ['1.1.1']) {
+test('the retired preview rule no longer blocks the 1.1.1 stable release', () => {
+  // 1.1.1 shipped as the stable release, so the deleted preview's blocking
+  // rule was removed from app-update-notice.json: a stable release cannot be
+  // blocked by a notice rule matching its own version.
+  const ruleIds = new Set(PUBLISHED.rules.map((rule) => rule.id));
+  assert.ok(!ruleIds.has('retired-preview-1-1'), 'the retired-preview rule is gone');
+  // 1.1.1 is the newest stable: nothing at or above it is blocked or nagged.
+  for (const version of ['1.1.1', '1.2.0', '2.0.0']) {
     const notice = selectNotice({
-      body: DOCUMENT, appVersion: version, newestVersion: '1.1.0', now: BEFORE_SUPPORT_ENDS,
+      body: DOCUMENT, appVersion: version, newestVersion: '1.1.1', now: BEFORE_SUPPORT_ENDS,
     });
-    assert.ok(notice, `${version} must be told the preview is retired`);
-    assert.equal(notice.level, 'blocked');
-    assert.equal(notice.id, 'retired-preview-1-1');
-    assert.match(notice.title, /retired/i);
-    assert.match(notice.message, /1\.1\.0/);
-    assert.match(notice.releasesUrl, /\/blocked\/$/,
-      'the blocked popup must send people to the banner page');
+    assert.equal(notice, null, `${version} must not be blocked or nagged`);
   }
+  // 1.1.0 builds are still nudged toward the new stable release.
+  const notice = selectNotice({
+    body: DOCUMENT, appVersion: '1.1.0', newestVersion: '1.1.1', now: BEFORE_SUPPORT_ENDS,
+  });
+  assert.ok(notice, '1.1.0 must be told to update to 1.1.1');
+  assert.equal(notice.level, 'warning');
 });
 
 test('the same rule escalates by itself once support ends', () => {

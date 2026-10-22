@@ -19,7 +19,43 @@ window.PremiumLive = (function () {
   const VERSUS = /\s+vs\.?\s+/i;
   const TRAILER = /\s*\|.*$/;
   const SOURCE_SUFFIX = /\s*\((?:STRMCNTR|[A-Z0-9]{3,14})\)\s*$/;
+  /** Source/backup markers the scrapers append to team names, removed wherever they appear. */
+  const MARKERS = /\s*\((?:STRMCNTR|[A-Z0-9]{3,14}|[Bb]ackup(?:\s+\d{1,2})?|iSTRMEAST|FAWA)\)/g;
+  const FEED_COPY = /\s+\d{1,2}$/;
   const PARENS = /\([^)]*\)/;
+
+  /** Team-name variants the scrapers use for the same club, normalized through normKey. */
+  const TEAM_ALIASES = {
+    fckbenhavn: 'fccopenhagen',
+    fclugano: 'lugano',
+    hapoelbeer: 'hapoelbeersheva',
+    mjallbyaif: 'mjallby',
+    royaleunionsg: 'unionstgilloise',
+    univcraiova: 'csucraiova',
+    interdescaldes: 'interescaldes',
+    staderennais: 'rennes',
+    fcnordsjaelland: 'nordsjaelland',
+    skbrann: 'brann',
+    rigafc: 'riga',
+  };
+
+  function normKey(value) {
+    return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  }
+
+  /** Norm key for one team, alias-collapsed so spelling variants match. */
+  function teamKey(name) {
+    return TEAM_ALIASES[normKey(name)] || normKey(name);
+  }
+
+  /** One team name with source/backup markers and feed-copy numbers stripped. */
+  function cleanTeam(name) {
+    let text = String(name || '').replace(MARKERS, ' ').trim();
+    text = text.replace(TRAILER, '').trim();
+    text = text.replace(SOURCE_SUFFIX, '').trim();
+    text = text.replace(FEED_COPY, '').trim();
+    return text.replace(/\s{2,}/g, ' ').trim();
+  }
 
   const SPORT_LABELS = {
     soccer: 'Soccer',
@@ -148,34 +184,49 @@ window.PremiumLive = (function () {
     const sport = sportOfEvent(channel);
     if (!sport) return null;
     const match = BRACKET_TAG.exec(channel.name || '');
-    let title = (match ? match[2] : '').replace(TRAILER, '').trim();
-    title = title.replace(SOURCE_SUFFIX, '').trim();
+    const title = cleanTeam(match ? match[2] : '');
     const parts = title.split(VERSUS);
     if (parts.length < 2) return null;
     const home = parts[0].trim();
     const away = parts.slice(1).join(' vs. ').trim();
     if (!home || !away) return null;
+    // Identity is order-insensitive: "A vs. B" and "B vs. A" are one game.
+    const teams = [teamKey(home), teamKey(away)].sort();
     return {
       sport,
       title: `${home} vs. ${away}`,
-      key: `${normKey(sport)}|${normKey(home)}|${normKey(away)}`,
+      key: `${normKey(sortKey(sport))}|${teams[0]}|${teams[1]}`,
     };
+  }
+
+  function sortKey(value) {
+    return normKey(value);
   }
 
   /**
    * Every game in the playlist, grouped into sport sections, each game with
    * all of its streams as servers (playlist order kept, URLs deduplicated).
-   * Returns [{ sport, events: [{ sport, title, key, servers: [channel] }] }].
+   * `schedule` maps matchup keys to kickoff epoch milliseconds (from the
+   * bundled live-schedule.json); matches are annotated on the returned events.
+   * Returns [{ sport, events: [{ sport, title, key, servers, kickoffMs }] }].
    */
-  function buildSections(channels) {
+  function buildSections(channels, schedule = {}) {
     const events = new Map();
     for (const channel of channels || []) {
       const parsed = parseLiveEvent(channel);
       if (!parsed) continue;
       let event = events.get(parsed.key);
       if (!event) {
-        event = { sport: parsed.sport, title: parsed.title, key: parsed.key, servers: [] };
+        event = {
+          sport: parsed.sport,
+          title: parsed.title,
+          key: parsed.key,
+          servers: [],
+          kickoffMs: schedule[parsed.key] ? schedule[parsed.key] * 1000 : null,
+        };
         events.set(parsed.key, event);
+      } else if (schedule[parsed.key] && event.kickoffMs == null) {
+        event.kickoffMs = schedule[parsed.key] * 1000;
       }
       if (!event.servers.some((server) => server.url === channel.url)) {
         event.servers.push(channel);
@@ -252,6 +303,50 @@ window.PremiumLive = (function () {
     return ordered;
   }
 
+  /**
+   * The live-or-not state of one game right now.
+   * 'live' - a feed is answering; 'notlive' - kickoff is still in the future;
+   * 'silent' - kickoff passed and nothing answers; 'checking' - not probed yet.
+   */
+  function eventStatus(status, kickoffMs, nowMs) {
+    if (status === 'live') return 'live';
+    if (status === 'checking') return 'checking';
+    if (kickoffMs && kickoffMs > nowMs) return 'notlive';
+    return 'silent';
+  }
+
+  /** Seconds remaining until kickoff, as "mm:ss", "h:mm:ss" or "dd hh:mm:ss". */
+  function countdownText(seconds) {
+    seconds = Math.max(0, seconds | 0);
+    if (seconds < 3600) {
+      const m = (seconds / 60) | 0;
+      return String(m).padStart(2, '0') + ':' + String(seconds % 60).padStart(2, '0');
+    }
+    if (seconds < 86400) {
+      const h = (seconds / 3600) | 0;
+      return h + ':' + String((seconds % 3600) / 60 | 0).padStart(2, '0') +
+        ':' + String(seconds % 60).padStart(2, '0');
+    }
+    const d = (seconds / 86400) | 0;
+    const h = ((seconds % 86400) / 3600) | 0;
+    return d + 'd ' + h + ':' + String((seconds % 3600) / 60 | 0).padStart(2, '0') +
+      ':' + String(seconds % 60).padStart(2, '0');
+  }
+
+  /** A scheduled kickoff in the viewer's local time, e.g. "5:45 PM". */
+  function kickoffLabel(kickoffMs) {
+    const df = new Intl.DateTimeFormat(undefined, {
+      hour: 'numeric', minute: '2-digit',
+    });
+    return df.format(new Date(kickoffMs));
+  }
+
+  /** Official crest URL for a team, from the bundled schedule metadata. */
+  function teamLogoUrl(doc, name) {
+    const logos = (doc && doc.team_logos) || {};
+    return logos[teamKey(name)] || null;
+  }
+
   return {
     sportOfEvent,
     parseLiveEvent,
@@ -263,5 +358,11 @@ window.PremiumLive = (function () {
     initialsFor,
     crestColorsFor,
     teamHue,
+    cleanTeam,
+    teamKey,
+    eventStatus,
+    countdownText,
+    kickoffLabel,
+    teamLogoUrl,
   };
 })();

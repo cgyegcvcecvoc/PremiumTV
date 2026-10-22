@@ -9,7 +9,10 @@ emulator smoke gate in android-build.yml prove the rest.
 """
 
 from pathlib import Path
+import json
 import re
+import subprocess
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -171,28 +174,89 @@ class CategoryRailTests(unittest.TestCase):
 
 
 class VersionTests(unittest.TestCase):
-    def test_every_surface_agrees_on_1_1_0(self):
+    def test_every_surface_agrees_on_1_1_1(self):
         gradle = text(ROOT / "android/app/build.gradle.kts")
-        self.assertIn('orElse("1.1.0")', gradle)
-        self.assertIn('orElse("101000000")', gradle)
+        self.assertIn('orElse("1.1.1")', gradle)
+        self.assertIn('orElse("101010000")', gradle)
         builder = text(ROOT / "android/tools/build_bundle.py")
-        self.assertIn('DEFAULT_VERSION = "1.1.0"', builder)
+        self.assertIn('DEFAULT_VERSION = "1.1.1"', builder)
         self.assertEqual(
-            __import__("json").loads(text(ROOT / "macos/app/package.json"))["version"], "1.1.0")
-        self.assertIn("PremiumTV 1.1.0", text(ROOT / "release-notes-1.1.0.md"))
+            __import__("json").loads(text(ROOT / "macos/app/package.json"))["version"], "1.1.1")
+        self.assertIn("PremiumTV 1.1.1", text(ROOT / "release-notes-1.1.1.md"))
 
     def test_the_notice_never_blocks_the_new_stable(self):
         document = __import__("json").loads(text(ROOT / "app-update-notice.json"))
         rules = {rule["id"]: rule for rule in document["rules"]}
-        blocked = rules["retired-preview-1-1"]
-        self.assertEqual((blocked["min_version"], blocked["max_version"]), ("1.1.1", "1.1.1"))
+        # The retired-preview rule is gone: 1.1.1 is the stable release, and a
+        # stable release cannot be blocked by a notice rule matching itself.
+        self.assertNotIn("retired-preview-1-1", rules)
+        # Every build below the newest stable is nudged toward it.
         stable = rules["update-below-newest"]
-        self.assertEqual(stable["max_version"], "1.0.9")
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.0"))
+        self.assertEqual(stable["level"], "warning")
 
     def test_version_code_is_above_every_published_build(self):
         source = text(ROOT / "scripts/release_version.py")
         self.assertIn("MAJOR_SCALE = 100_000_000", source)
-        self.assertIn("1.1.0\" ->", source.replace("``1.1.0`` ->", "1.1.0\" ->"))
+        self.assertIn("1.1.1\" ->", source.replace("``1.1.1`` ->", "1.1.1\" ->"))
+
+
+class LiveEvents111Tests(unittest.TestCase):
+    """1.1.1: official team crests, "Not live yet" countdowns, Movies & Shows."""
+
+    def test_live_events_carries_team_crests_and_kickoff_times(self):
+        home = text(UI / "HomeScreen.kt")
+        self.assertIn("private fun TeamLogo(", home)
+        self.assertIn("MoviesComingSoonScreen(", home)
+        self.assertIn("countdownText(", home)
+        self.assertIn("kickoffTime(", home)
+        live = text(UI / "LiveEvents.kt")
+        self.assertIn("val kickoffUtc: Long? = null", live)
+        self.assertIn("internal fun parseKickoff", live)
+        self.assertIn("internal fun secondsUntilKickoff", live)
+
+    def test_group_live_events_merges_duplicate_feeds_and_annotates_kickoffs(self):
+        live = text(UI / "LiveEvents.kt")
+        self.assertIn("schedule: Map<String, Long> = emptyMap()", live)
+        self.assertIn("val teams = listOf(teamKey(home), teamKey(away)).sorted()", live)
+        self.assertIn('"${normKey(sport)}|${teams.first}|${teams.second}"', live)
+        self.assertIn("event.copy(servers = servers.getValue(key).toList(), kickoffUtc = schedule[key])", live)
+
+    def test_home_screen_switches_to_the_movies_tab(self):
+        home = text(UI / "HomeScreen.kt")
+        self.assertIn('Movies("Movies & Shows")', home)
+        self.assertIn("HomeTab.Movies -> MoviesComingSoonScreen(onBrowse = { onTabChange(HomeTab.Channels) })", home)
+
+    def test_the_bundle_ships_team_crests_and_the_schedule(self):
+        builder = text(ROOT / "android/tools/build_bundle.py")
+        self.assertIn('os.path.join(REPO_ROOT, "playlists", "team-logos.json")', builder)
+        self.assertIn('os.path.join(REPO_ROOT, "playlists", "live-schedule.json")', builder)
+        self.assertIn("meta_extra[key] = data", builder)
+        self.assertIn("meta.update(meta_extra)", builder)
+
+    def test_the_live_data_files_exist_and_parse(self):
+        logos = json.loads(text(ROOT / "playlists/team-logos.json"))
+        self.assertEqual(logos["schema"], 1)
+        self.assertTrue(logos["logos"], "team logos must not be empty")
+        schedule = json.loads(text(ROOT / "playlists/live-schedule.json"))
+        self.assertEqual(schedule["schema"], 1)
+        self.assertTrue(schedule["games"], "the schedule must list games")
+        keys = [g["key"] for g in schedule["games"]]
+        self.assertEqual(len(keys), len(set(keys)), "schedule keys must be unique")
+        self.assertGreater(
+            sum(1 for g in schedule["games"] if g.get("kickoff_utc")),
+            0,
+            "some fixtures must carry scheduled kickoffs",
+        )
+
+    def test_the_live_schedule_generator_is_deterministic(self):
+        path = ROOT / "playlists/live-schedule.json"
+        before = json.loads(path.read_text())
+        before.pop("generated_utc", None)
+        subprocess.run([sys.executable, str(ROOT / "scripts/build_live_schedule.py")], check=True, capture_output=True)
+        after = json.loads(path.read_text())
+        after.pop("generated_utc", None)
+        self.assertEqual(before, after, "the schedule generator must be deterministic")
 
 
 if __name__ == "__main__":

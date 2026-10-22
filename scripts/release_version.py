@@ -21,8 +21,8 @@ Android also needs a *monotonic* versionCode: Android refuses to install an
 older code over a newer one.  Deriving it from the semantic version means a
 future release cannot accidentally ship a code below the installed app.  The
 scale is ``MAJOR * 100000000 + MINOR * 1000000 + PATCH * 10000 + HOTFIX``:
-``1.0.6`` -> ``100060000``, ``1.0.6.1`` -> ``100060001``, ``1.1.0`` ->
-``101000000``.  Every code from 1.0.2 on is above the codes the original
+``1.0.6`` -> ``100060000``, ``1.0.6.1`` -> ``100060001``, ``1.1.1`` ->
+``101010000``.  Every code from 1.0.2 on is above the codes the original
 previews published (7-11 and ``100010001``), so 1.0.6.1 installs straight over
 an installed 1.1.1 preview.
 

@@ -44,6 +44,7 @@
       <nav id="tabs" role="tablist" aria-label="Sections">
         <button class="tab" role="tab" data-tab="channels" aria-selected="true">Channels</button>
         <button class="tab" role="tab" data-tab="live" aria-selected="false">Live Events</button>
+        <button class="tab" role="tab" data-tab="movies" aria-selected="false">Movies &amp; Shows</button>
         <button class="tab" role="tab" data-tab="guide" aria-selected="false">Guide</button>
         <button class="tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
       </nav>
@@ -101,6 +102,22 @@
           </div>
         </header>
         <div id="live-list"></div>
+      </section>
+
+      <!-- 1.1.1: a static coming-soon page for the on-demand section. -->
+      <section id="view-movies" class="view" role="tabpanel" hidden>
+        <header class="view-head">
+          <div class="view-head-text">
+            <h1>Movies &amp; Shows</h1>
+            <p>A film and series library is being built into PremiumTV. This tab will open right here.</p>
+          </div>
+        </header>
+        <div class="movies-coming-soon">
+          <span class="coming-badge">COMING SOON</span>
+          <h2>A growing film and series library</h2>
+          <p class="movies-lead">Thousands of films and series. Resume where you left off. 4K where the source allows it.</p>
+          <button id="movies-browse" class="btn btn-primary">Browse live TV</button>
+        </div>
       </section>
 
       <section id="view-guide" class="view" role="tabpanel" hidden>
