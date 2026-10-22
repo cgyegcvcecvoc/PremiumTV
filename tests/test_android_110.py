@@ -197,3 +197,27 @@ class VersionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ComposableAnnotationTests(unittest.TestCase):
+    """A dropped @Composable is a compile error the offline suite can catch.
+
+    1.1.0 rewrote most of the loading screen; while doing so the annotation on
+    `LoadErrorScreen` went missing and only the Gradle build noticed. Compose
+    composables are capitalised and plain helpers are not, so the convention is
+    enough to pin the annotation offline.
+    """
+
+    def test_every_capitalised_ui_function_is_composable(self):
+        pattern = re.compile(r"^fun ([A-Z]\w*)\(", re.MULTILINE)
+        checked = 0
+        for path in sorted(UI.glob("*.kt")):
+            source = text(path)
+            for match in pattern.finditer(source):
+                before = source[:match.start()].rstrip().splitlines()
+                self.assertTrue(
+                    before and before[-1].strip() == "@Composable",
+                    f"{path.name}: fun {match.group(1)}() is capitalised but has no @Composable",
+                )
+                checked += 1
+        self.assertGreater(checked, 10, "the scan must actually see the UI composables")

@@ -427,6 +427,7 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
     }
 }
 
+@Composable
 fun LoadErrorScreen(message: String, onRetry: () -> Unit) {
     Box(
         modifier = Modifier
