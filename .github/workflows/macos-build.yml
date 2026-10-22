@@ -102,7 +102,24 @@ jobs:
           # Mac installers. Since 1.0.9 every release is three-part (the V
           # patch scheme is retired), so this resolves to the version itself;
           # the --macos lookup stays for rebuilding the 1.0.7 pair.
-          macos_version=$(python3 scripts/release_version.py --macos "$version")
+          macos_version=$(python3 scripts/release_version.py --macos "$version" || true)
+          if [ -z "$macos_version" ]; then
+            if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+              # An intentionally Android-only release - a four-part bridge such
+              # as 1.0.8.2 that has no three-part Mac alias - has nothing to
+              # package. Publish a skip flag the build steps below honour, so
+              # the release run stays green instead of failing on a version
+              # macOS cannot package (the v1.0.8.2 red run). The release's
+              # Android APK already carries the same code for Mac users via
+              # the canonical 1.0.9 release. Manual dispatch still fails below,
+              # because a human explicitly asked for a Mac build of it.
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              echo "::notice::$version has no macOS-packagable version (no three-part alias); skipping the Mac build for this Android-only release."
+            else
+              echo "::error::macOS cannot package $version: no three-part alias exists."
+              exit 1
+            fi
+          fi
           {
             echo "VERSION=$version"
             echo "MACOS_VERSION=$macos_version"
@@ -110,9 +127,10 @@ jobs:
             echo "BUNDLE_SCOPE=$scope"
             echo "CHANNEL=$channel"
           } >> "$GITHUB_ENV"
-          echo "Building PremiumTV $macos_version for macOS ($channel, scope=$scope; release version $version)."
+          echo "Building PremiumTV ${macos_version:-'(skipped)'} for macOS ($channel, scope=$scope; release version $version)."
 
       - name: Set the packaged app version
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: |
           # npm's own `npm version` rejects a four-part version such as the
@@ -132,14 +150,17 @@ jobs:
           node -p "'packaged app version: ' + require('./package.json').version"
 
       - name: Bake the selected playlist and guide into the app
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: PREMIUMTV_SCOPE="$BUNDLE_SCOPE" PREMIUMTV_VERSION="$MACOS_VERSION" npm run bundle
 
       - name: Vendor the player libraries
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: npm run assets
 
       - name: Run the app's unit tests
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: npm test
 
@@ -148,6 +169,7 @@ jobs:
       # other's file. Build dmg+zip for both archs, then pkg per arch from the
       # already-signed app.
       - name: Build .dmg and .zip for Intel and Apple Silicon
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: |
           set -o pipefail
@@ -156,6 +178,7 @@ jobs:
             | tee "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
 
       - name: Build the Intel .pkg
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: |
           set -o pipefail
@@ -163,6 +186,7 @@ jobs:
             | tee -a "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
 
       - name: Build the Apple Silicon .pkg
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: |
           set -o pipefail
@@ -170,6 +194,7 @@ jobs:
             | tee -a "$GITHUB_WORKSPACE/macos/build-out/build-log.txt"
 
       - name: Verify the installed app contains channels and the renderer
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: |
           for arch in mac mac-arm64; do
@@ -181,6 +206,7 @@ jobs:
           done
 
       - name: Smoke test the packaged app on Apple Silicon and Intel (Rosetta)
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         timeout-minutes: 15
         run: |
@@ -206,10 +232,12 @@ jobs:
           done
 
       - name: Checksum the installers
+        if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app/dist
         run: shasum -a 256 *.dmg *.pkg > SHA256SUMS-macos.txt
 
       - name: Upload installers as an Actions artifact
+        if: steps.release_config.outputs.skip != 'true'
         uses: actions/upload-artifact@v6
         with:
           name: PremiumTV-macOS-installers-${{ env.MACOS_VERSION }}
@@ -220,6 +248,7 @@ jobs:
           if-no-files-found: error
 
       - name: Attach the installers to the release
+        if: steps.release_config.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

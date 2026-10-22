@@ -1,5 +1,4 @@
 """Tests for the download-site data generator (scripts/build_site_data.py)."""
-import json
 import sys
 import unittest
 import xml.etree.ElementTree as ET

@@ -79,6 +79,22 @@ COMPATIBILITY_ALIASES = {
     "1.0.7": "1.0.6.1",
 }
 
+# Intentional rescue releases published *below* the then-current stable line.
+#
+# 1.0.8.1 shipped with a frozen alias table that made its updater read 1.0.9 as
+# another name for itself, so it could never see the crash-on-watch fix. The
+# 1.0.8.2 bridge carries that same fixed code under a version the stranded
+# builds *can* see as newer. It is deliberately below 1.0.9/1.1.0, and it has
+# to stay a *full* stable release: the in-app updaters ignore pre-releases, so
+# the release guard's normal "always above the current stable" rule would
+# demote it and hide it from exactly the installs it rescues. Each entry maps
+# the bridge to the real release it moves users toward. This does not affect
+# the app updaters, which only ever offer the newest release above the
+# installed version that already has its installer attached.
+BRIDGE_RELEASES = {
+    "1.0.8.2": "1.0.9",
+}
+
 
 def parse_version(value: str) -> tuple[int, ...] | None:
     """Return the numeric parts of ``v1.2.3`` / ``1.2.3.1-beta``.
@@ -279,6 +295,17 @@ def guard(tag: str, releases: list[dict]) -> tuple[int, str]:
     version = normalize_version(tag)
     if version is None:
         return 1, f"{tag!r} is not a version tag (expected vMAJOR.MINOR.PATCH[.HOTFIX])"
+    bridge_target = BRIDGE_RELEASES.get(version)
+    if bridge_target is not None:
+        # A documented below-stable rescue release must stay full-stable so
+        # the stranded updaters it targets (which skip pre-releases) can see
+        # it; do not demote it and do not fail the guard run.
+        return (
+            0,
+            f"v{version} is the documented one-time bridge release toward "
+            f"v{bridge_target}: it is intentionally below the current stable "
+            "and stays a full stable release on purpose.",
+        )
     # A compatibility alias is published after the canonical release it
     # mirrors (v1.0.7 after v1.0.6.1), so it must not make that canonical
     # release look older than the current stable and demote it to a preview.
