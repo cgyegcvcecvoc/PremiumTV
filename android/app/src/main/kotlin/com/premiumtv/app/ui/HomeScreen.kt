@@ -176,8 +176,8 @@ fun HomeScreen(
         var teamLogos by remember { mutableStateOf(emptyMap<String, String>()) }
         var schedule by remember { mutableStateOf(emptyMap<String, Long>()) }
         LaunchedEffect(Unit) {
-            teamLogos = withContext(Dispatchers.Default) { readTeamLogos(context) }
-            schedule = withContext(Dispatchers.Default) { readSchedule(context) }
+            teamLogos = withContext(Dispatchers.Default) { context.readTeamLogos() }
+            schedule = withContext(Dispatchers.Default) { context.readSchedule() }
         }
         // The scraper's live-game feeds, grouped by sport for the Live Events
         // tab and for the LIVE labels on the channel cards.
@@ -1024,7 +1024,7 @@ private fun EventCard(
                     status == Answering -> LiveRed to "LIVE"
                     upcoming -> Color(0xFF3E5066) to "Not live yet"
                     status == Silent -> Color(0xFF57626F) to "NO SIGNAL"
-                    status == null || status == Checking -> PremiumGoldDim to "CHECKING"
+                    else -> PremiumGoldDim to "CHECKING"
                 }
                 Box(
                     modifier = Modifier
@@ -1886,7 +1886,8 @@ private fun Context.readTeamLogos(): Map<String, String> {
         val logos = JSONObject(text).getJSONObject("logos")
         buildMap {
             for (i in 0 until logos.length()) {
-                put(logos.names().getString(i), logos.getString(i))
+                val key = logos.names().getString(i)
+                put(key, logos.getString(key))
             }
         }
     } catch (_: Exception) {

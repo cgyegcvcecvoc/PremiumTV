@@ -190,7 +190,7 @@ internal fun parseLiveEvent(channel: Channel): ParsedEvent? {
     if (home.isEmpty() || away.isEmpty()) return null
     val clean = "$home vs. $away"
     val teams = listOf(teamKey(home), teamKey(away)).sorted()
-    return ParsedEvent(sport, clean, "${normKey(sport)}|${teams.first}|${teams.second}")
+    return ParsedEvent(sport, clean, "${normKey(sport)}|${teams[0]}|${teams[1]}")
 }
 
 /** True when this channel is one of the scraper's live-game entries. */

@@ -219,7 +219,7 @@ class LiveEvents111Tests(unittest.TestCase):
         live = text(UI / "LiveEvents.kt")
         self.assertIn("schedule: Map<String, Long> = emptyMap()", live)
         self.assertIn("val teams = listOf(teamKey(home), teamKey(away)).sorted()", live)
-        self.assertIn('"${normKey(sport)}|${teams.first}|${teams.second}"', live)
+        self.assertIn('"${normKey(sport)}|${teams[0]}|${teams[1]}"', live)
         self.assertIn("event.copy(servers = servers.getValue(key).toList(), kickoffUtc = schedule[key])", live)
 
     def test_home_screen_switches_to_the_movies_tab(self):
