@@ -1,110 +1,113 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-10-23 19:00 UTC (2026-10-23 03:00 PM EDT)
-- **Channels in the main playlist:** 13748
-- **Channels in the category files:** 13734 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2755 (20.1%)
+- **Rebuilt:** 2026-10-23 23:31 UTC (2026-10-23 07:31 PM EDT)
+- **Channels in the main playlist:** 13530
+- **Channels in the category files:** 13516 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2692 (19.9%)
 - **Categories:** 82 groups (34 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 698 | 295 |
-| 2 | Sports Backups | 95 | 41 |
-| 3 | Lifestyle | 543 | 126 |
-| 4 | Lifestyle Backups | 93 | 30 |
+| 1 | Sports | 656 | 258 |
+| 2 | Sports Backups | 98 | 45 |
+| 3 | Lifestyle | 534 | 125 |
+| 4 | Lifestyle Backups | 94 | 30 |
 | 5 | Fox Channels | 31 | 10 |
 | 6 | CBS | 33 | 5 |
 | 7 | CBS Backups | 24 | 2 |
-| 8 | NBC | 76 | 19 |
+| 8 | NBC | 75 | 19 |
 | 9 | NBC Backups | 10 | 4 |
-| 10 | NBC Sports Channels | 10 | 5 |
-| 11 | Cartoons | 216 | 29 |
+| 10 | NBC Sports Channels | 9 | 4 |
+| 11 | Cartoons | 210 | 29 |
 | 12 | Cartoons Backups | 20 | 1 |
-| 13 | PBS | 37 | 10 |
+| 13 | PBS | 36 | 10 |
 | 14 | PBS Backups | 7 | 3 |
 | 15 | Game Shows | 12 | 6 |
 | 16 | Game Shows Backups | 15 | 9 |
-| 17 | News | 975 | 259 |
-| 18 | News Backups | 193 | 119 |
-| 19 | Music | 965 | 158 |
+| 17 | News | 967 | 259 |
+| 18 | News Backups | 190 | 119 |
+| 19 | Music | 962 | 156 |
 | 20 | Music Backups | 88 | 35 |
-| 21 | Movies | 956 | 150 |
-| 22 | Movies Backups | 102 | 15 |
-| 23 | Europe | 916 | 168 |
+| 21 | Movies | 932 | 143 |
+| 22 | Movies Backups | 102 | 14 |
+| 23 | Europe | 882 | 167 |
 | 24 | Europe Backups | 69 | 39 |
-| 25 | International | 825 | 193 |
-| 26 | International Backups | 122 | 53 |
-| 27 | Entertainment | 760 | 146 |
-| 28 | Entertainment Backups | 83 | 30 |
-| 29 | Religious | 638 | 67 |
+| 25 | International | 819 | 191 |
+| 26 | International Backups | 118 | 51 |
+| 27 | Entertainment | 745 | 144 |
+| 28 | Entertainment Backups | 81 | 29 |
+| 29 | Religious | 633 | 66 |
 | 30 | Religious Backups | 39 | 9 |
-| 31 | Asia | 619 | 108 |
+| 31 | Asia | 624 | 108 |
 | 32 | Asia Backups | 31 | 2 |
-| 33 | South America | 549 | 54 |
+| 33 | South America | 552 | 54 |
 | 34 | South America Backups | 23 | 3 |
-| 35 | Documentary | 417 | 89 |
-| 36 | Documentary Backups | 77 | 13 |
+| 35 | Documentary | 393 | 87 |
+| 36 | Documentary Backups | 74 | 11 |
 | 37 | United States | 387 | 50 |
 | 38 | United States Backups | 61 | 9 |
-| 39 | Kids | 355 | 72 |
-| 40 | Kids Backups | 59 | 12 |
-| 41 | Series | 347 | 35 |
-| 42 | Series Backups | 108 | 27 |
-| 43 | North America | 335 | 13 |
+| 39 | Series | 343 | 32 |
+| 40 | Series Backups | 104 | 22 |
+| 41 | Kids | 342 | 72 |
+| 42 | Kids Backups | 59 | 12 |
+| 43 | North America | 334 | 13 |
 | 44 | North America Backups | 5 | 0 |
-| 45 | Education | 162 | 18 |
-| 46 | Education Backups | 14 | 2 |
+| 45 | Education | 160 | 18 |
+| 46 | Education Backups | 13 | 2 |
 | 47 | Legislative | 147 | 12 |
 | 48 | Legislative Backups | 3 | 0 |
-| 49 | Culture | 145 | 17 |
+| 49 | Culture | 144 | 17 |
 | 50 | Culture Backups | 11 | 4 |
 | 51 | Comedy | 126 | 9 |
 | 52 | Comedy Backups | 27 | 5 |
-| 53 | Africa | 100 | 13 |
-| 54 | India | 86 | 18 |
+| 53 | Africa | 99 | 13 |
+| 54 | India | 82 | 17 |
 | 55 | India Backups | 5 | 2 |
-| 56 | Classic TV | 72 | 5 |
-| 57 | Classic TV Backups | 8 | 1 |
+| 56 | Classic TV | 70 | 5 |
+| 57 | Classic TV Backups | 6 | 1 |
 | 58 | Business | 57 | 17 |
 | 59 | Business Backups | 12 | 10 |
 | 60 | Canada | 46 | 4 |
-| 61 | UK | 35 | 19 |
+| 61 | UK | 36 | 19 |
 | 62 | UK Backups | 5 | 1 |
-| 63 | Digital TV | 33 | 2 |
-| 64 | Family | 33 | 14 |
-| 65 | A&E Networks | 29 | 1 |
-| 66 | Australia | 24 | 11 |
-| 67 | Global TV | 16 | 2 |
-| 68 | Weather | 14 | 5 |
-| 69 | Weather Backups | 4 | 3 |
-| 70 | Animals & Nature | 10 | 0 |
-| 71 | Animals & Nature Backups | 3 | 0 |
+| 63 | Family | 33 | 14 |
+| 64 | A&E Networks | 29 | 1 |
+| 65 | Australia | 24 | 11 |
+| 66 | Global TV | 16 | 2 |
+| 67 | Digital TV | 15 | 1 |
+| 68 | Animals & Nature | 14 | 1 |
+| 69 | Animals & Nature Backups | 7 | 1 |
+| 70 | Weather | 14 | 5 |
+| 71 | Weather Backups | 4 | 3 |
 | 72 | DLTV | 10 | 0 |
-| 73 | Online TV | 10 | 1 |
-| 74 | Online TV Backups | 5 | 1 |
-| 75 | Tv Celebrities | 9 | 0 |
-| 76 | Tv Paranormal | 8 | 1 |
-| 77 | Tv Paranormal Backups | 3 | 0 |
+| 73 | Tv Paranormal | 10 | 2 |
+| 74 | Tv Paranormal Backups | 5 | 2 |
+| 75 | Online TV | 9 | 1 |
+| 76 | Online TV Backups | 5 | 1 |
+| 77 | Tv Celebrities | 9 | 0 |
 | 78 | Tv Shows | 6 | 0 |
 | 79 | Aria Web Channels | 5 | 0 |
 | 80 | Oceania | 4 | 3 |
-| 81 | Other | 283 | 25 |
-| 82 | Other Backups | 140 | 6 |
+| 81 | Other | 284 | 25 |
+| 82 | Other Backups | 141 | 6 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 13748 | 92 | 1573 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 13530 | 92 | 1565 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 18 | 8 | 4 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 13766 (100.0%) |
+| already declared in the guide | 13486 (99.5%) |
+| matched on the base id (feed qualifier dropped) | 5 (0.0%) |
+| matched on the display name | 5 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 52 (0.4%) |
 
 ## Channels with no schedule yet
 
@@ -124,9 +127,9 @@ just have nothing to show until an upstream guide picks them up:
 - Al Iraqia Sport (720p) (`AlIraqiaSport.iq@SD`)
 - American Ninja Warrior (`premiumtv.international.american_ninja_warrior`)
 - American Ninja Warrior (1080p) (`AmericanNinjaWarrior.us@SD`)
-- Arena Sport 1 (`ArenaSport1.sk@SD`)
 - Arena Sport 1 Premium (Serbia) (360p) (`ArenaSport1Premium.rs@SD`)
 - Arena Sport 1 Premium (Slovenia) (`ArenaSport1Premium.si@SD`)
+- Arena Sport Premium M1 (`ArenaSportPremiumM1.mk@SD`)
 
 Generated by `scripts/rebuild_playlists.py`. Run it after a scrape, or let the
 daily workflow do it - the scraper calls the same `categorize` module, so a
