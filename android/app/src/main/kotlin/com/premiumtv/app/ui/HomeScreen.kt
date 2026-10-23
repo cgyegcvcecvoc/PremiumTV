@@ -279,7 +279,10 @@ fun HomeScreen(
         }
 
         when (tab) {
-            HomeTab.Channels -> CategoriesScreen(library, now, liveIndex, onSelect, recentChannels, favoriteChannels, favoriteUrls, onToggleFavorite)
+            HomeTab.Channels -> CategoriesScreen(
+                library, now, liveIndex, onSelect, recentChannels, favoriteChannels,
+                favoriteUrls, onToggleFavorite, playerDocked,
+            )
             HomeTab.Events -> EventsScreen(
                 sections = liveSections,
                 feedStatus = liveFeedStatus,
@@ -332,6 +335,8 @@ private fun CategoriesScreen(
     favoriteChannels: List<Channel> = emptyList(),
     favoriteUrls: Set<String> = emptySet(),
     onToggleFavorite: (Channel) -> Unit = {},
+    // The docked side player owns Back while it is up (1.1.2); see HomeScreen.
+    playerDocked: Boolean = false,
 ) {
     // 1.1.0 side-by-side browser: the category rail on the left, the selected
     // category's channels on the right — the layout IPTV Smarters Pro uses,
