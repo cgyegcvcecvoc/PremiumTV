@@ -1,6 +1,6 @@
 # PremiumTV 1.1.1 — Live Events crests and countdowns, Movies & Shows (stable)
 
-Published 2026-10-22. Android `1.1.1` / `versionCode 101010000`, macOS `1.1.1`.
+Published 2026-10-23. Android `1.1.1` / `versionCode 101010000`, macOS `1.1.1`.
 
 It installs straight over 1.1.0 (and every earlier build) on both platforms — no uninstall needed. The retired 1.1.x preview carried this same name; now that 1.1.1 is the stable release, the old "preview retired" notice rule was removed from `app-update-notice.json`, and Settings → App updates offers 1.1.1 to every build below it.
 
@@ -18,5 +18,6 @@ It installs straight over 1.1.0 (and every earlier build) on both platforms — 
 
 - The Live Events tab refreshes and re-checks feeds faster, and the countdown ticker runs only while the tab is open.
 - Release plumbing: version `1.1.1` / Android `versionCode 101010000` everywhere, with the matching GitHub release tag `v1.1.1`.
+- The Android build is green again: the 1.1.1 merge had duplicated imports/declarations and dropped a regex paren, which failed `compileDebugKotlin` and left this release without an APK. The bundled crest and kickoff files now ship under the names both apps open, and the Mac renderer reads them from the bundle metadata.
 
 See [`CHANGELOG.md`](CHANGELOG.md) for the full history and [`docs/UPDATES.md`](docs/UPDATES.md) for how the in-app updater delivers this release.
