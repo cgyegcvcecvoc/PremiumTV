@@ -166,18 +166,34 @@ test('1.0.8: the Live Events tab has its own refresh and a live check per game',
   assert.match(main, /ipcMain\.handle\('ptv:probe-stream'/);
 });
 
-test('the Movies & Shows tab is a static coming-soon page', () => {
+test('1.1.2: Movies & Shows renders the on-demand catalogue in the side player', () => {
   const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
   const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
 
   assert.match(html, /data-tab="movies"[^>]*>Movies &amp; Shows</);
   assert.match(html, /id="view-movies"/);
-  assert.match(html, /id="movies-browse"/);
+  assert.match(html, /id="movies-grid"/);
+  assert.match(html, /data-vod-filter="movie"/);
+  assert.match(html, /data-vod-filter="episode"/);
+  assert.doesNotMatch(html, /movies-browse/);
   assert.match(js, /movies: document\.getElementById\('view-movies'\)/);
-  assert.match(js, /els\.moviesBrowse\.addEventListener\('click', \(\) => selectTab\('channels'\)\)/);
-  assert.match(js, /tab === 'movies'\s*\?\s*'Browse movies \& shows'/);
-  assert.match(css(), /\.movies-coming-soon \{/);
-  assert.match(css(), /\.coming-badge \{/);
+  assert.match(js, /else if \(ui\.tab === 'movies'\) renderMovies\(\)/);
+  assert.match(js, /function renderMovies\(\)/);
+  assert.match(js, /function watchVod\(item\)/);
+  assert.match(js, /meta\.vod_catalog/);
+  assert.match(js, /data-vod-id/);
+  // The image host must be reachable from the packaged renderer's CSP.
+  assert.match(html, /img-src 'self' data: blob: https:\/\/archive\.org/);
+  assert.match(css(), /\.vod-grid \{/);
+  assert.match(css(), /\.vod-card \{/);
+});
+
+test('1.1.2: opening a channel starts in the side player, a click grows it', () => {
+  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+  const openPlayer = js.slice(js.indexOf('async function openPlayer'), js.indexOf('function minimizePlayer'));
+  assert.match(openPlayer, /playerMini = true;/);
+  assert.match(js, /if \(playerMini && !els\.player\.hidden\) expandPlayer\(\)/);
+  assert.match(js, /function expandPlayer\(\)/);
 });
 
 function css() {

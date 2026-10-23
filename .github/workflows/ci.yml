@@ -30,6 +30,18 @@ on:
       - "playlists/live/**"
       - "categories/**"
       - "EPG/**"
+      - "VERSION"
+      - "README.md"
+      - "app-update-notice.json"
+      - "docs/UPDATES.md"
+      - "release-notes-*.md"
+      - "android/version.properties"
+      - "android/app/build.gradle.kts"
+      - "android/tools/build_bundle.py"
+      - "macos/app/package.json"
+      - "macos/app/package-lock.json"
+      - ".github/workflows/android-build.yml"
+      - ".github/workflows/macos-build.yml"
       - ".github/workflows/ci.yml"
 
 permissions:
@@ -55,6 +67,11 @@ jobs:
 
       - name: Compile every script and test module
         run: python -m compileall -q scripts tests
+
+      - name: Check the release version has one source
+        # VERSION is the only hand-edited copy; the README, update notice,
+        # Gradle, Mac package, site generator and workflows are verified here.
+        run: python scripts/version_sync.py --check
 
       - name: Run the offline test suite
         run: python -m unittest discover -s tests -v

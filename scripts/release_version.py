@@ -22,7 +22,7 @@ older code over a newer one.  Deriving it from the semantic version means a
 future release cannot accidentally ship a code below the installed app.  The
 scale is ``MAJOR * 100000000 + MINOR * 1000000 + PATCH * 10000 + HOTFIX``:
 ``1.0.6`` -> ``100060000``, ``1.0.6.1`` -> ``100060001``, ``1.1.1`` ->
-``101010000``.  Every code from 1.0.2 on is above the codes the original
+``101010000``, ``1.1.2`` -> ``101020000``.  Every code from 1.0.2 on is above the codes the original
 previews published (7-11 and ``100010001``), so 1.0.6.1 installs straight over
 an installed 1.1.1 preview.
 
@@ -55,7 +55,13 @@ import argparse
 import json
 import re
 import sys
+from pathlib import Path
 from typing import Iterable
+
+ROOT = Path(__file__).resolve().parent.parent
+# The one hand-edited version in the repository.  Every build, package, site
+# and document reads it (directly or through scripts/version_sync.py).
+VERSION_FILE = ROOT / "VERSION"
 
 VERSION_RE = re.compile(
     r"^v?(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:[-+][0-9A-Za-z][0-9A-Za-z.-]*)?$"
@@ -94,6 +100,26 @@ COMPATIBILITY_ALIASES = {
 BRIDGE_RELEASES = {
     "1.0.8.2": "1.0.9",
 }
+
+
+def current_version() -> str:
+    """Read the repository's single source of truth for the release version."""
+    try:
+        text = VERSION_FILE.read_text(encoding="utf-8").strip()
+    except OSError as error:
+        raise ValueError(f"cannot read {VERSION_FILE}: {error}") from error
+    normalized = normalize_version(text)
+    if normalized is None:
+        raise ValueError(
+            f"{VERSION_FILE.name} must contain MAJOR.MINOR.PATCH (optionally .HOTFIX), "
+            f"got {text!r}"
+        )
+    return normalized
+
+
+def current_version_code() -> int:
+    """The Android versionCode derived from the current version."""
+    return android_version_code(current_version())
 
 
 def parse_version(value: str) -> tuple[int, ...] | None:
@@ -325,6 +351,10 @@ def guard(tag: str, releases: list[dict]) -> tuple[int, str]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--current", action="store_true",
+                        help="print the version in the repository's VERSION file")
+    parser.add_argument("--current-code", action="store_true",
+                        help="print the Android versionCode for the VERSION file")
     parser.add_argument("--code", metavar="VERSION", help="print the Android versionCode")
     parser.add_argument("--normalize", metavar="VERSION", help="print MAJOR.MINOR.PATCH[.HOTFIX]")
     parser.add_argument("--canonical", metavar="VERSION",
@@ -339,6 +369,22 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--releases", help="JSON release list (with --guard)")
     parser.add_argument("--guard", action="store_true", help="enforce the release-order policy")
     args = parser.parse_args(argv)
+
+    if args.current:
+        try:
+            print(current_version())
+        except ValueError as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 1
+        return 0
+
+    if args.current_code:
+        try:
+            print(current_version_code())
+        except ValueError as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 1
+        return 0
 
     if args.code:
         try:

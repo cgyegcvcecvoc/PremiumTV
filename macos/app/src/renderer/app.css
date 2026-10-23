@@ -1181,21 +1181,55 @@ input:focus-visible,
   box-shadow: 0 0 0 6px rgba(255, 176, 32, 0.18);
 }
 
-/* ---- 1.1.1: Movies & Shows coming-soon page ---- */
-.movies-coming-soon {
-  display: flex; flex-direction: column; align-items: center; text-align: center;
-  padding: 44px 24px; max-width: 600px; margin: 0 auto;
+/* ---- 1.1.2: Movies & Shows on-demand shelf ---- */
+.vod-filters { display: flex; gap: 8px; flex-shrink: 0; }
+.vod-chip {
+  appearance: none; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--bg-elevated); color: var(--text);
+  font: inherit; font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 7px 14px; cursor: pointer;
 }
-.coming-badge {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 4px 10px; border-radius: 999px;
-  background: rgba(240, 192, 64, 0.12); color: var(--gold);
-  font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
-  margin-bottom: 18px;
+.vod-chip[aria-pressed="true"] {
+  background: var(--gold); border-color: var(--gold); color: #12160b;
 }
-.movies-coming-soon h2 {
-  font-size: 22px; font-weight: 700; margin: 0 0 10px; letter-spacing: -0.4px;
+.vod-chip:focus-visible { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255, 176, 32, 0.25); }
+.vod-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 18px; padding: 4px 24px 48px;
 }
-.movies-lead {
-  color: var(--muted); font-size: 14px; margin: 0 0 30px; line-height: 1.7;
+.vod-card {
+  display: flex; flex-direction: column; text-align: left; padding: 0;
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  background: var(--bg-elevated); color: var(--text); font: inherit; cursor: pointer;
+}
+.vod-card:hover, .vod-card:focus-visible {
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(240, 192, 64, 0.18);
+}
+.vod-poster {
+  position: relative; display: block; aspect-ratio: 2 / 3;
+  background: #0b1017; overflow: hidden;
+}
+.vod-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vod-play {
+  position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%);
+  display: grid; place-items: center; width: 46px; height: 46px; border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6); color: var(--gold); font-size: 18px;
+  opacity: 0; transition: opacity 120ms ease;
+}
+.vod-card:hover .vod-play, .vod-card:focus-visible .vod-play { opacity: 1; }
+.vod-label {
+  position: absolute; top: 8px; left: 8px;
+  background: var(--gold); color: #12160b; border-radius: 999px;
+  font-size: 10px; font-weight: 800; letter-spacing: 1px; padding: 2px 8px;
+}
+.vod-body { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px 12px; }
+.vod-title {
+  font-size: 14px; font-weight: 700; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.vod-detail { color: var(--gold); font-size: 11px; font-weight: 600; }
+.vod-summary {
+  margin: 2px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }

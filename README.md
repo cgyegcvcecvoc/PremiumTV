@@ -54,6 +54,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/Premiu
 | [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: verified source guides, per-country channel/programme coverage, XML sizes and validation results. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
 | [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons, NFL Network, NFL RedZone) and the same guides as the main playlist. |
+| [`playlists/vod/`](playlists/vod/FEASIBILITY.md) | The Movies & Shows on-demand test catalogue: public-domain films and classic TV episodes with direct MP4 streams, posters and licences, built and probed by `scripts/vod_catalog.py`. Separate from the M3U and the guide. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
@@ -68,20 +69,47 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.0** (Android `versionCode 101000000`) | USA lineup + USA guide | Default and only download — the side player done right, automatic server backup, dead channels filtered, amber pointer outlines and a calm loading screen ([notes](release-notes-1.1.0.md)) |
-| Superseded | **1.0.9** (`100090000`) | USA lineup + USA guide | The crash-on-watch fix. Still installs in place, and Settings → App updates finds 1.1.0 automatically |
+| **Stable release** | **1.1.2** (Android `versionCode 101020000`) | USA lineup + USA guide | Default and only download — a channel opens in the docked side player, one press on the picture goes full screen, and Movies & Shows is a working on-demand test shelf ([notes](release-notes-1.1.2.md)) |
+| Superseded | **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Install in place over these builds; Settings → App updates finds 1.1.2 automatically |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.0 ends Nov 19, 2026 |
-| Next (in source) | — | USA lineup + USA guide | 1.1.0 is the current source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.1; the V-patch/alias series stays retired |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.2 ends Nov 19, 2026 |
+| Next (in source) | — | USA lineup + USA guide | 1.1.2 is the current source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.3; the V-patch/alias series stays retired |
 
-The old **1.1.x Encore preview channel is retired**, and the 1.1.0 name now
-belongs to this stable release. The deleted 1.1.1 preview still shows a
-**BUILD RETIRED** notice and is routed to the
-[blocked-build page](docs/blocked/index.html). A device still on the retired
-1.1.0 or 1.1.1 preview must install 1.1.0 **by hand once**: its name equals this
-release, so the in-app updater cannot see it as newer. Android accepts it over
-the preview (`101000000` > `100010001`) and the Mac DMG replaces the preview
-copy; every build from 1.1.0 on updates itself normally.
+The old **1.1.x Encore preview channel is retired**, and 1.1.2 is the stable
+release. The deleted preview still shows a **BUILD RETIRED** notice and is
+routed to the [blocked-build page](docs/blocked/index.html). A device still on
+the retired preview must install the current release **by hand once**: the
+preview's name equals a stable release, so the in-app updater cannot see it as
+newer. Android accepts 1.1.2 over the preview (`101020000` > `100010001`) and
+the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
+normally.
+
+### What 1.1.2 adds
+
+- **A channel opens in the side player first.** Clicking any channel — from the
+  browser, the Guide or Live Events — docks it in the right-hand panel with the
+  category rail and channel list still usable. One click (or OK) on the picture
+  grows the *same* running stream to full screen; Back tucks it away again and
+  ✕ closes it.
+- **Movies & Shows is now a real shelf.** The coming-soon page is replaced by a
+  working on-demand test: a poster grid of public-domain films and classic TV
+  episodes with All / Movies / TV Shows filters, a runtime and genre line, and
+  playback in the same side player. `scripts/vod_catalog.py` resolves, verifies
+  and reports the catalogue ([feasibility report](playlists/vod/FEASIBILITY.md));
+  it stays separate from the M3U lineup and the XMLTV guide.
+- **The side player reads better at a glance.** The docked card names the
+  channel or on-demand title, marks what is playing, keeps the server/backup
+  line and the ⤢ affordance visible on every feed.
+- **Version plumbing.** Android `1.1.2` / `versionCode 101020000`, macOS
+  `1.1.2`, no alias or V-patch twin; `app-update-notice.json` nudges every build
+  below 1.1.1 ([notes](release-notes-1.1.2.md)).
+
+The current version lives in [`VERSION`](VERSION) and nowhere else.
+`python scripts/version_sync.py` derives `android/version.properties` and the
+Mac package versions, then verifies the README, the update notice, Gradle, the
+site generator, the release notes and both build workflows — a mismatch fails
+CI instead of shipping half a release. `python scripts/release_version.py
+--current` prints it for scripts; both build workflows default to it.
 
 Versions are `MAJOR.MINOR.PATCH`. Four-part hotfixes existed briefly —
 1.0.6.1, and **1.0.8.1** ("1.0.8 V1 Patch") — each paired with a same-code

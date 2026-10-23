@@ -1,16 +1,15 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.0.9**
-(`versionCode` `100090000`) with the USA lineup: an animated launch
-splash (breathing logo, shimmer bar, pulsing dots) that tells the viewer the
-app is not frozen, channel search, category placeholder logos, a **Live Events**
-tab grouped by sport, automatic multi-server playback, and a compact Settings
+TV guide inside the APK. The default build target is **1.1.2**
+(`versionCode` `101020000`) with the USA lineup: a channel opens in the docked
+side player and one press on the picture goes full screen, a **Movies & Shows**
+on-demand shelf of public-domain films and classic TV, channel search, category
+placeholder logos, a **Live Events** tab grouped by sport with team crests and
+kickoff countdowns, automatic multi-server playback, and a compact Settings
 screen with **Force refresh**, **Check for update** and an expanded
-**Check for bugs** (11 checks now: patch chain, stream hygiene, guide
-freshness, library health plus the original 7). The 1.1.x preview channel is
-retired; its APK is no longer published, and 1.0.6.1 installs over an existing
-1.1.1 build. 1.0.9 is the crash-on-watch fix: earlier, opening a channel could
+**Check for bugs** (11 checks). 1.1.2 installs over 1.1.1 and every earlier
+build, including the retired 1.1.x preview. 1.0.9 is the crash-on-watch fix: earlier, opening a channel could
 freeze on black after a server fallback because the video surface stayed
 attached to a released player; the player now lives for the whole watch
 screen. (1.0.9 briefly existed as the same-code alias of 1.0.8.1; that

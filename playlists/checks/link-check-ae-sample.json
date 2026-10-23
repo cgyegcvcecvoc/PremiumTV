@@ -1,0 +1,60 @@
+{
+  "run_id": "20261023T185739Z-14666",
+  "label": "manual deep quality check (AE sample)",
+  "started_utc": "2026-10-23T18:57:39Z",
+  "finished_utc": "2026-10-23T18:57:41Z",
+  "duration_seconds": 2.3,
+  "deep": true,
+  "playlist_count": 1,
+  "entry_count": 69,
+  "unique_links": 69,
+  "workers": 96,
+  "timeout": 8.0,
+  "retries": 1,
+  "per_playlist": {
+    "/workspace/chats/a008e968ff844d76442f8bf4/playlists/AE_Channels.m3u": {
+      "file": "playlists/AE_Channels.m3u",
+      "entries": 69,
+      "counts": {
+        "working": 68,
+        "offline": 1,
+        "unreachable": 0,
+        "blocked": 0,
+        "unsupported": 0,
+        "invalid": 0,
+        "unchecked": 0
+      },
+      "dead": [
+        {
+          "name": "Crime + Investigation CEE",
+          "url": "http://88.212.15.17/live/test_cai_hevc/playlist.m3u8",
+          "group": "Documentary",
+          "status": "offline",
+          "reason": "connection refused",
+          "http_status": 0,
+          "content_type": "",
+          "bytes": 0,
+          "kind": "",
+          "variant": "",
+          "segment_ok": null,
+          "elapsed": 0.174
+        }
+      ]
+    }
+  },
+  "totals": {
+    "working": 68,
+    "offline": 1,
+    "unreachable": 0,
+    "blocked": 0,
+    "unsupported": 0,
+    "invalid": 0,
+    "unchecked": 0
+  },
+  "host_failures": {
+    "88.212.15.17": {
+      "offline": 1,
+      "unreachable": 0
+    }
+  }
+}

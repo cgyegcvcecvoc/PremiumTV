@@ -161,6 +161,11 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                     shelves.recordRecent(channel.url)
                                     recentKeys = shelves.recentKeys()
                                     playing = channel to serversFor(channel, current.library.channels)
+                                    // 1.1.2: a channel opens in the docked side player first,
+                                    // with the browser still usable beside it. One press on
+                                    // the picture (or “⤢ Big screen”) grows the same player
+                                    // to full screen; Back tucks it away again.
+                                    sidePlayer = true
                                 },
                                 onForceRefresh = { viewModel.forceRefresh() },
                                 onReset = { viewModel.resetToBundled() },

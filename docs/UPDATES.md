@@ -3,16 +3,23 @@
 Version 1.0.4 was the last release that had to be installed by hand. From then
 on, **Settings → App updates** checks GitHub, downloads the installer once,
 verifies it against the release's SHA-256 file, and hands it to the platform's
-normal installer. The current stable release is **1.1.1** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
+normal installer. The current stable release is **1.1.2** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
+
+The current version is stored once, in [`VERSION`](../VERSION).
+`python scripts/version_sync.py` generates the Android version properties and
+the Mac package versions from it and verifies the README, this document, the
+update notice, the release notes and both build workflows; CI fails when any of
+them disagrees.
 
 ## The rules every release follows
 
 1. **Stable only.** The updater reads
    `https://api.github.com/repos/cgyegcvcecvoc/PremiumTV1/releases` and ignores
    drafts and pre-releases. The 1.1.x preview channel is retired: its release
-   was promoted to the stable 1.1.1 release (same name, new versionCode), and
-   its old blocked-build notice rule was removed with it — a stable release
-   cannot be blocked by a notice rule that matches its own version.
+   was promoted to a stable release (same name, new versionCode), and its old
+   blocked-build notice rule was removed with it — a stable release cannot be
+   blocked by a notice rule that matches its own version. 1.1.2 follows 1.1.1
+   as a normal plain version.
 2. **Strictly above the installed version.** Versions are compared numerically
    (`1.0.10` is above `1.0.9`, and `1.0.6.1` is above `1.0.6` without being
    mistaken for `1.0.7`). The release guard workflow fails a stable
