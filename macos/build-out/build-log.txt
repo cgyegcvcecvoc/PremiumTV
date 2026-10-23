@@ -10,8 +10,8 @@
   • searching for node modules  pm=npm searchDir=/Users/runner/work/PremiumTV/PremiumTV/macos/app
   • downloaded      label=icons-bundle.tar.gz progress=100%
   • skipped macOS code signing  reason=identity explicitly is set to null
-  • building        target=macOS zip arch=x64 file=dist/PremiumTV-1.1.1-mac-x64.zip
-  • building        target=DMG arch=x64 file=dist/PremiumTV-1.1.1-mac-x64.dmg
+  • building        target=macOS zip arch=x64 file=dist/PremiumTV-1.1.2-mac-x64.zip
+  • building        target=DMG arch=x64 file=dist/PremiumTV-1.1.2-mac-x64.dmg
   • executing @electron/rebuild  electronVersion=43.7.9 arch=arm64 buildFromSource=false workspaceRoot=/Users/runner/work/PremiumTV/PremiumTV/macos/app projectDir=./ appDir=./
   • installing native dependencies  arch=arm64
   • downloaded      label=dmgbuild-bundle-arm64-75c8a6c.tar.gz progress=100%
@@ -22,39 +22,34 @@
   • searching for node modules  pm=npm searchDir=/Users/runner/work/PremiumTV/PremiumTV/macos/app
 /Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac-arm64/PremiumTV.app: replacing existing signature
   • skipped macOS code signing  reason=identity explicitly is set to null
-  • building        target=macOS zip arch=arm64 file=dist/PremiumTV-1.1.1-mac-arm64.zip
-  • building        target=DMG arch=arm64 file=dist/PremiumTV-1.1.1-mac-arm64.dmg
-  • building block map  blockMapFile=dist/PremiumTV-1.1.1-mac-x64.zip.blockmap
-  • building block map  blockMapFile=dist/PremiumTV-1.1.1-mac-arm64.zip.blockmap
+  • building        target=macOS zip arch=arm64 file=dist/PremiumTV-1.1.2-mac-arm64.zip
+  • building        target=DMG arch=arm64 file=dist/PremiumTV-1.1.2-mac-arm64.dmg
+  • building block map  blockMapFile=dist/PremiumTV-1.1.2-mac-x64.zip.blockmap
+  • building block map  blockMapFile=dist/PremiumTV-1.1.2-mac-arm64.zip.blockmap
   • electron-builder  version=26.15.3 os=23.6.0
   • Implicit publishing triggered by CI detection. This behavior will be disabled in electron-builder v27. Please use --publish explicitly.
   • loaded configuration  file=/Users/runner/work/PremiumTV/PremiumTV/macos/app/electron-builder.yml
-  • building        target=pkg arch=x64 file=dist/PremiumTV-1.1.1-mac-x64.pkg
+  • building        target=pkg arch=x64 file=dist/PremiumTV-1.1.2-mac-x64.pkg
   • skipped macOS notarization  reason=`notarize` options were unable to be generated
   • electron-builder  version=26.15.3 os=23.6.0
   • Implicit publishing triggered by CI detection. This behavior will be disabled in electron-builder v27. Please use --publish explicitly.
   • loaded configuration  file=/Users/runner/work/PremiumTV/PremiumTV/macos/app/electron-builder.yml
-  • building        target=pkg arch=arm64 file=dist/PremiumTV-1.1.1-mac-arm64.pkg
+  • building        target=pkg arch=arm64 file=dist/PremiumTV-1.1.2-mac-arm64.pkg
   • skipped macOS notarization  reason=`notarize` options were unable to be generated
-2026-10-23 14:36:21.145 PremiumTV Helper[4312:14586] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:36:21.145 PremiumTV Helper[4312:14593] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:36:21.145 PremiumTV Helper[4312:14592] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:36:21.163 PremiumTV Helper[4312:14586] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:36:21.163 PremiumTV Helper[4312:14592] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:36:21.184 PremiumTV Helper[4312:14586] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-23 19:44:26.467 PremiumTV Helper[4174:15226] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-23 19:44:26.468 PremiumTV Helper[4174:15225] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-23 19:44:26.472 PremiumTV Helper[4174:15219] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-23 19:44:26.483 PremiumTV Helper[4174:15225] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-23 19:44:26.483 PremiumTV Helper[4174:15226] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-10-23 19:44:26.488 PremiumTV Helper[4174:15226] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
 PLAYER SMOKE: clicking the first channel card
 PLAYER SMOKE: player open for '30A Golf Kingdom (720p)', letting the stream machinery run
 PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":0,"rendererAlive":true}; flipping the side player
-PLAYER SMOKE PASS: opened '30A Golf Kingdom (720p)', stream machinery sane, side-player flip and close all survived
-PACKAGED SMOKE PASS: 2919 channels, bridge, players, refresh, reset and the guide list
-2026-10-23 14:37:27.429 PremiumTV Helper[5560:17996] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:37:27.429 PremiumTV Helper[5560:18001] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:37:27.434 PremiumTV Helper[5560:18002] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:37:27.440 PremiumTV Helper[5560:18002] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:37:27.440 PremiumTV Helper[5560:18001] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-10-23 14:37:27.444 PremiumTV Helper[5560:18002] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-PLAYER SMOKE: clicking the first channel card
-PLAYER SMOKE: player open for '30A Golf Kingdom (720p)', letting the stream machinery run
-PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":1,"rendererAlive":true}; flipping the side player
-PLAYER SMOKE PASS: opened '30A Golf Kingdom (720p)', stream machinery sane, side-player flip and close all survived
-PACKAGED SMOKE PASS: 2919 channels, bridge, players, refresh, reset and the guide list
+PLAYER SMOKE STATE AT FAILURE: {"playerHidden":false,"name":"30A Golf Kingdom (720p)","spinner":false,"error":true,"mini":false,"cards":240}
+Error: Renderer timeout: document.getElementById('player').classList.contains('mini')
+    at waitFor (/Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:27:11)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processTimers (node:internal/timers:615:9)
+    at async checkPlayer (/Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:107:3)
+    at async smokeTest (/Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:60:5)
+    at async /Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/main.js:119:9
