@@ -140,10 +140,15 @@ fun HomeScreen(
     liveFeedStatus: Map<String, LiveFeedStatus> = emptyMap(),
     liveProbeRunning: Boolean = false,
     onProbeLiveEvents: () -> Unit = {},
+    // A channel playing in the docked side player (1.1.2): its panel owns the
+    // first Back press, so the browser's own navigation stands aside for it.
+    playerDocked: Boolean = false,
 ) {
     // Back leaves the Guide or Settings for Channels before it leaves the app,
     // the way a cable box's Back/Exit closes its guide.
-    BackHandler(enabled = tab != HomeTab.Channels) { onTabChange(HomeTab.Channels) }
+    BackHandler(enabled = tab != HomeTab.Channels && !playerDocked) {
+        onTabChange(HomeTab.Channels)
+    }
 
     Column(
         modifier = Modifier
@@ -175,9 +180,14 @@ fun HomeScreen(
         val context = LocalContext.current.applicationContext
         var teamLogos by remember { mutableStateOf(emptyMap<String, String>()) }
         var schedule by remember { mutableStateOf(emptyMap<String, Long>()) }
+        // 1.1.2 on-demand test shelf, bundled from playlists/vod/vod-catalog.json.
+        var vodItems by remember { mutableStateOf(emptyList<VodItem>()) }
+        var vodLoaded by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             teamLogos = withContext(Dispatchers.Default) { context.readTeamLogos() }
             schedule = withContext(Dispatchers.Default) { context.readSchedule() }
+            vodItems = withContext(Dispatchers.Default) { context.readVodCatalog() }
+            vodLoaded = true
         }
         // The scraper's live-game feeds, grouped by sport for the Live Events
         // tab and for the LIVE labels on the channel cards.
@@ -269,7 +279,10 @@ fun HomeScreen(
         }
 
         when (tab) {
-            HomeTab.Channels -> CategoriesScreen(library, now, liveIndex, onSelect, recentChannels, favoriteChannels, favoriteUrls, onToggleFavorite)
+            HomeTab.Channels -> CategoriesScreen(
+                library, now, liveIndex, onSelect, recentChannels, favoriteChannels,
+                favoriteUrls, onToggleFavorite, playerDocked,
+            )
             HomeTab.Events -> EventsScreen(
                 sections = liveSections,
                 feedStatus = liveFeedStatus,
@@ -279,7 +292,12 @@ fun HomeScreen(
                 teamLogos = teamLogos,
                 schedule = schedule,
             )
-            HomeTab.Movies -> MoviesComingSoonScreen(onBrowse = { onTabChange(HomeTab.Channels) })
+            HomeTab.Movies -> VodShelfScreen(
+                items = vodItems,
+                loading = !vodLoaded,
+                onWatch = { onSelect(it.asChannel()) },
+                onBrowseChannels = { onTabChange(HomeTab.Channels) },
+            )
             HomeTab.Guide -> if (cableGuide) {
                 CableGuideScreen(library = library, now = now, state = guideState, onSelect = onSelect)
             } else {
@@ -317,6 +335,8 @@ private fun CategoriesScreen(
     favoriteChannels: List<Channel> = emptyList(),
     favoriteUrls: Set<String> = emptySet(),
     onToggleFavorite: (Channel) -> Unit = {},
+    // The docked side player owns Back while it is up (1.1.2); see HomeScreen.
+    playerDocked: Boolean = false,
 ) {
     // 1.1.0 side-by-side browser: the category rail on the left, the selected
     // category's channels on the right — the layout IPTV Smarters Pro uses,
@@ -329,7 +349,9 @@ private fun CategoriesScreen(
     var query by rememberSaveable { mutableStateOf("") }
     val trimmed = query.trim()
 
-    BackHandler(enabled = selectedCategory != null) { selectedCategory = null }
+    BackHandler(enabled = selectedCategory != null && !playerDocked) {
+        selectedCategory = null
+    }
 
     // Search is library-wide: a remote's on-screen keyboard is painful enough
     // without having to be in the right category first.
@@ -1768,90 +1790,6 @@ private fun DiagnosticsCard(report: DiagnosticsReport) {
 
 // ----------------------------------------------- movies & shows tab
 
-/** The coming-soon page behind the Movies & Shows tab (1.1.1). */
-@Composable
-private fun MoviesComingSoonScreen(onBrowse: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(SCREEN_GUTTER)
-            .verticalScroll(rememberScrollState()),
-    ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 400.dp),
-            shape = RoundedCornerShape(18.dp),
-            color = CardBackground,
-            border = BorderStroke(1.dp, PremiumGoldDim.copy(alpha = 0.5f)),
-        ) {
-            Column(modifier = Modifier.padding(horizontal = 32.dp, vertical = 34.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "MOVIES & SHOWS",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = PremiumGoldDim,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.6.sp,
-                    )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Text(
-                        text = "COMING SOON",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = PremiumGold,
-                        fontWeight = FontWeight.Bold,
-                    )
-                }
-                Spacer(modifier = Modifier.height(26.dp))
-                Text(
-                    text = "A film and series library is being built into PremiumTV.",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = Color.White,
-                    fontWeight = FontWeight.SemiBold,
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = "The Movies & Shows tab will live here, right next to Channels, Live Events " +
-                        "and the Guide. Everything you already have - channels, guide, favourites - " +
-                        "stays exactly as it is.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MutedText,
-                    maxLines = 4,
-                )
-                Spacer(modifier = Modifier.height(26.dp))
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    ComingSoonPoint("A growing film and series library", Modifier.weight(1f))
-                    ComingSoonPoint("Resume where you left off", Modifier.weight(1f))
-                    ComingSoonPoint("4K where the source allows it", Modifier.weight(1f))
-                }
-                Spacer(modifier = Modifier.height(34.dp))
-                FocusButton("Browse live TV") { onBrowse() }
-            }
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-    }
-}
-
-/** One coming-soon feature bullet. */
-@Composable
-private fun ComingSoonPoint(text: String, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        Text(
-            text = "➤",
-            style = MaterialTheme.typography.bodyMedium,
-            color = PremiumGold,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = text,
-            style = MaterialTheme.typography.bodySmall,
-            color = MutedText,
-            maxLines = 4,
-            overflow = TextOverflow.Ellipsis,
-        )
-    }
-}
-
 /** Seconds remaining until kickoff, as "mm:ss", "h:mm:ss" or "dd hh:mm:ss". */
 private fun countdownText(seconds: Long): String =
     when {
@@ -1871,6 +1809,9 @@ private fun kickoffTime(kickoffUtcSeconds: Long): String {
     formatter.timeZone = TimeZone.getDefault()
     return formatter.format(java.util.Date(kickoffUtcSeconds * 1000L))
 }
+
+/** The on-demand test catalogue shipped beside the channel list. */
+private fun Context.readVodCatalog(): List<VodItem> = parseVodCatalog(readAsset("vod-catalog.json"))
 
 /** Reads one bundled JSON asset, or null when it is absent or unreadable. */
 private fun Context.readAsset(name: String): String? = try {

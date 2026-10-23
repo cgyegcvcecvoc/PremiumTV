@@ -174,15 +174,19 @@ class CategoryRailTests(unittest.TestCase):
 
 
 class VersionTests(unittest.TestCase):
-    def test_every_surface_agrees_on_1_1_1(self):
+    def test_every_surface_reads_the_one_version_file(self):
+        current = text(ROOT / "VERSION").strip()
         gradle = text(ROOT / "android/app/build.gradle.kts")
-        self.assertIn('orElse("1.1.1")', gradle)
-        self.assertIn('orElse("101010000")', gradle)
+        # The Gradle default comes from the generated properties, not a literal.
+        self.assertIn('rootProject.file("version.properties")', gradle)
+        self.assertIn('generatedVersion.getProperty("version"', gradle)
+        self.assertIn('generatedVersion.getProperty("versionCode"', gradle)
+        self.assertNotIn('orElse("1.1.', gradle)
         builder = text(ROOT / "android/tools/build_bundle.py")
-        self.assertIn('DEFAULT_VERSION = "1.1.1"', builder)
+        self.assertIn("DEFAULT_VERSION = release_version.current_version()", builder)
         self.assertEqual(
-            __import__("json").loads(text(ROOT / "macos/app/package.json"))["version"], "1.1.1")
-        self.assertIn("PremiumTV 1.1.1", text(ROOT / "release-notes-1.1.1.md"))
+            __import__("json").loads(text(ROOT / "macos/app/package.json"))["version"], current)
+        self.assertIn(f"PremiumTV {current}", text(ROOT / f"release-notes-{current}.md"))
 
     def test_the_notice_never_blocks_the_new_stable(self):
         document = __import__("json").loads(text(ROOT / "app-update-notice.json"))
@@ -192,13 +196,14 @@ class VersionTests(unittest.TestCase):
         self.assertNotIn("retired-preview-1-1", rules)
         # Every build below the newest stable is nudged toward it.
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.0"))
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.1"))
         self.assertEqual(stable["level"], "warning")
 
     def test_version_code_is_above_every_published_build(self):
         source = text(ROOT / "scripts/release_version.py")
         self.assertIn("MAJOR_SCALE = 100_000_000", source)
-        self.assertIn("1.1.1\" ->", source.replace("``1.1.1`` ->", "1.1.1\" ->"))
+        self.assertIn("1.1.2\" ->", source.replace("``1.1.2`` ->", "1.1.2\" ->"))
+        self.assertIn("def current_version()", source)
 
 
 class LiveEvents111Tests(unittest.TestCase):
@@ -207,7 +212,7 @@ class LiveEvents111Tests(unittest.TestCase):
     def test_live_events_carries_team_crests_and_kickoff_times(self):
         home = text(UI / "HomeScreen.kt")
         self.assertIn("private fun TeamLogo(", home)
-        self.assertIn("MoviesComingSoonScreen(", home)
+        self.assertIn("VodShelfScreen(", home)
         self.assertIn("countdownText(", home)
         self.assertIn("kickoffTime(", home)
         live = text(UI / "LiveEvents.kt")
@@ -225,7 +230,8 @@ class LiveEvents111Tests(unittest.TestCase):
     def test_home_screen_switches_to_the_movies_tab(self):
         home = text(UI / "HomeScreen.kt")
         self.assertIn('Movies("Movies & Shows")', home)
-        self.assertIn("HomeTab.Movies -> MoviesComingSoonScreen(onBrowse = { onTabChange(HomeTab.Channels) })", home)
+        self.assertIn("HomeTab.Movies -> VodShelfScreen(", home)
+        self.assertIn("onWatch = { onSelect(it.asChannel()) }", home)
 
     def test_the_bundle_ships_team_crests_and_the_schedule(self):
         builder = text(ROOT / "android/tools/build_bundle.py")

@@ -29,10 +29,10 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to build (for example 1.1.1 stable)"
+        description: "Version to build; leave blank for the version in VERSION (for example 1.2.0)"
         type: string
-        default: "1.1.1"
-        required: true
+        default: ""
+        required: false
       channel:
         description: "Release channel: stable = USA lineup, preview = global lineup"
         type: choice
@@ -58,9 +58,6 @@ jobs:
     # below still requires the release tag to point at this exact commit
     runs-on: macos-14
     timeout-minutes: 60
-    env:
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.1.1') }}
-
     steps:
       - name: Check out the repository
         uses: actions/checkout@v5
@@ -90,7 +87,7 @@ jobs:
               echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
             if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.1.1}"
+            version="${INPUT_VERSION:-$(python3 scripts/release_version.py --current)}"
             channel="${INPUT_CHANNEL:-stable}"
             version=$(python3 scripts/release_version.py --normalize "$version") || {
               echo "Unsupported PremiumTV version: $version"; exit 1; }
@@ -254,7 +251,7 @@ jobs:
         run: |
           set -euo pipefail
           tag="${{ github.event.release.tag_name }}"
-          tag="${tag:-$RELEASE_TAG}"
+          tag="${tag:-v$(python3 scripts/release_version.py --current)}"
           # A four-part release (1.0.6.1) has no macOS build of its own: the Mac
           # installers are 1.0.7 and attach to the v1.0.7 release.
           if [ "v$MACOS_VERSION" != "$tag" ]; then

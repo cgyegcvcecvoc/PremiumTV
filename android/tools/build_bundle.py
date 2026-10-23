@@ -40,6 +40,8 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(REPO_ROOT, "scripts"))
+import release_version  # noqa: E402  (the single source of the release version)
 
 DEFAULT_SCOPE = "usa"
 # The stable scope is built from playlists/live/USA.m3u - the feed
@@ -53,7 +55,9 @@ SCOPE_INPUTS = {
 }
 DEFAULT_INDEX = "categories/index.json"
 DEFAULT_OUT = os.path.join("android", "app", "src", "main", "assets", "bundle")
-DEFAULT_VERSION = "1.1.1"
+# Read from VERSION, never written here: the bundle, the site and both apps all
+# follow the same one line.
+DEFAULT_VERSION = release_version.current_version()
 
 # The repository the app refreshes from.  These are the same raw URLs the
 # playlists advertise; they only resolve for a device if the repository is
@@ -269,11 +273,15 @@ def write_jsonl(path: str, rows: list[dict]) -> None:
 
 
 # Repository data shipped inside the bundle beyond channels, groups and the
-# guide. Both are optional: the app falls back gracefully (drawn team
-# badges, no countdown) when they are absent.
+# guide. All are optional: the app falls back gracefully (drawn team badges,
+# no countdown, an empty on-demand shelf) when they are absent.
 EXTRA_BUNDLE_FILES = (
     os.path.join(REPO_ROOT, "playlists", "team-logos.json"),
     os.path.join(REPO_ROOT, "playlists", "live-schedule.json"),
+    # 1.1.2: the Movies & Shows test shelf, built and verified by
+    # scripts/vod_catalog.py. It ships as bundle/vod-catalog.json and as
+    # meta.vod_catalog, the same way the crests and kickoff times do.
+    os.path.join(REPO_ROOT, "playlists", "vod", "vod-catalog.json"),
 )
 
 

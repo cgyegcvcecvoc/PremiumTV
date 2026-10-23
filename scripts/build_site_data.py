@@ -45,6 +45,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import legacy_sunset  # noqa: E402  (which USA feed is still being updated)
+import release_version  # noqa: E402  (the single source of the current version)
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
@@ -133,15 +134,20 @@ DISPLAY_NAME = {
 
 # Which channel each published release is. Anything not listed here shows on
 # the site as an older release. Sizes come from docs/data/releases.src.json.
+#
+# The fallback card follows the repository's VERSION file, so it can never
+# advertise an old build when the release data has not been refreshed yet.
+# A complete stable release in releases.src.json still overrides it.
+CURRENT_VERSION = release_version.current_version()
 CHANNELS = [
     {
         "id": "stable",
-        "tag": "v1.0.6.1",
-        "version": "1.0.6.1",
+        "tag": f"v{CURRENT_VERSION}",
+        "version": CURRENT_VERSION,
         "channel": "Stable",
         "badge": "Recommended",
-        "summary": "Settings 2.0 — compact version card, one-tap force refresh, update check and a built-in bug check. USA lineup + USA guide.",
-        "notes_file": "release-notes-1.0.6.1.md",
+        "summary": "The current stable release. USA lineup + USA guide.",
+        "notes_file": f"release-notes-{CURRENT_VERSION}.md",
         "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
     },
 ]
@@ -149,13 +155,18 @@ CHANNELS = [
 # Retired preview builds are deliberately absent from the download page. Their
 # release pages may still exist for the historical record, but the site must
 # never offer a download that points at a retired channel.
-RETIRED_TAGS = {"v1.1.0", "v1.1.1"}
+#
+# 1.1.2: empty on purpose. v1.1.0 and v1.1.1 used to be listed here because
+# those names once belonged to the deleted Encore preview; both are published
+# stable releases now, so hiding them would also stop the site promoting them
+# as the newest stable. Nothing is retired at the moment - add a tag here only
+# when its download really must disappear.
+RETIRED_TAGS: set[str] = set()
 
 # Releases published only so an updater that reads three-part versions
 # (1.0.4-1.0.6) can reach the canonical build.  They are the same code and
 # never replace it as the advertised download.  The policy lives in
 # scripts/release_version.py so the workflows, the site and both apps agree.
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 from release_version import COMPATIBILITY_ALIASES, macos_version  # noqa: E402
 
 ALIAS_TAGS = {f"v{alias}" for alias in COMPATIBILITY_ALIASES}

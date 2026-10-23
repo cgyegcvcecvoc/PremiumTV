@@ -12,11 +12,13 @@ name: Build PremiumTV Android APK
 # The unsigned release APK was dropped in beta 2: an unsigned APK cannot be
 # installed on a device, so it was never a usable download.
 #
-# Output goes to build-out/ and is committed back to the branch, because that
-# is the only channel every environment can read: uploaded Actions artifacts
-# live behind results-receiver.actions.githubusercontent.com, which is not
-# reachable from every sandbox. The [skip ci] marker and the path filter below
-# keep this from triggering another build.
+# The APK and its checksum are uploaded as Actions artifacts and attached to
+# the matching GitHub release. Only the small build logs, screenshots and
+# bundle metadata are committed back to the branch, because uploaded Actions
+# artifacts live behind results-receiver.actions.githubusercontent.com, which
+# is not reachable from every sandbox. Installers are never tracked in Git.
+# The [skip ci] marker and the path filter below keep the log commit from
+# triggering another build.
 #
 # Release flow: artifacts attach only to the exact-SHA release being built.
 # Every stable release is a full release; every 1.0.x build uses the USA
@@ -46,10 +48,10 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to build (for example 1.1.1 stable)"
+        description: "Version to build; leave blank for the version in VERSION (for example 1.2.0)"
         type: string
-        default: "1.1.1"
-        required: true
+        default: ""
+        required: false
       channel:
         description: "Release channel: stable = USA lineup, preview = global lineup"
         type: choice
@@ -75,11 +77,6 @@ jobs:
     # below still requires the release tag to point at this exact commit
     runs-on: ubuntu-22.04
     timeout-minutes: 45
-    env:
-      # Push builds default to stable 1.1.1; release and manual builds
-      # select the tag/version they were asked for.
-      RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', github.event.inputs.version || '1.1.1') }}
-
     steps:
       - name: Check out the repository
         uses: actions/checkout@v5
@@ -104,7 +101,7 @@ jobs:
               echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
             if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
           else
-            version="${INPUT_VERSION:-1.1.1}"
+            version="${INPUT_VERSION:-$(python3 scripts/release_version.py --current)}"
             channel="${INPUT_CHANNEL:-stable}"
             version=$(python3 scripts/release_version.py --normalize "$version") || {
               echo "Unsupported PremiumTV version: $version"; exit 1; }
@@ -222,10 +219,10 @@ jobs:
           cp android/app/build/outputs/apk/debug/app-debug.apk "build-out/PremiumTV-${version}-debug.apk"
           # Only the debug APK is published; drop any unsigned leftovers.
           rm -f build-out/*-release-unsigned.apk
-          # build-out/ is committed back to the branch, so it can still hold
-          # APKs from older releases; checksum only the APK this run built or
-          # SHA256SUMS-android.txt gains a line for a file the release lacks
-          # (the earlier release shipped with a stray PremiumTV-1.0.0-debug.apk line).
+          # Checksum only the APK this run built. build-out/ is a clean, ignored
+          # workspace now, and the checksum is a release asset - it is not
+          # committed back with the logs (an older release once shipped with a
+          # stray PremiumTV-1.0.0-debug.apk line in this file).
           (cd build-out && sha256sum "PremiumTV-${version}-debug.apk" > SHA256SUMS-android.txt)
           ls -la build-out
 
@@ -249,7 +246,7 @@ jobs:
         run: |
           set -euo pipefail
           tag="${{ github.event.release.tag_name }}"
-          tag="${tag:-$RELEASE_TAG}"
+          tag="${tag:-v$(python3 scripts/release_version.py --current)}"
           if ! gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag does not exist; the APK stays in build-out/."
             exit 0
@@ -298,12 +295,27 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f build-out
+          # Publish the small diagnostics only. The APK, its checksum and the
+          # release provenance file are release assets / Actions artifacts; a
+          # `git add -f build-out` would track an installer again.
+          for path in \
+            build-out/build-log.txt \
+            build-out/build-errors.txt \
+            build-out/smoke-log.txt \
+            build-out/smoke-progress.txt \
+            build-out/bundle-log.txt \
+            build-out/bundle-meta.json \
+            build-out/BUILD-SOURCE-android.txt \
+            build-out/*.png; do
+            if [ -e "$path" ]; then
+              git add -f "$path"
+            fi
+          done
           if git diff --cached --quiet; then
             echo "Nothing new to publish."
             exit 0
           fi
-          git commit -m "ci: publish APK build output (run ${{ github.run_number }}) [skip ci]"
+          git commit -m "ci: publish Android build logs (run ${{ github.run_number }}) [skip ci]"
           # The guide build, the Mac build and this one all publish to the same
           # branch and may finish in any order. Rebase over the other jobs'
           # commits instead of failing the build on a non-fast-forward push.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+        content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://archive.org; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
   <title>PremiumTV</title>
   <link rel="stylesheet" href="app.css" />
 </head>
@@ -104,19 +104,23 @@
         <div id="live-list"></div>
       </section>
 
-      <!-- 1.1.1: a static coming-soon page for the on-demand section. -->
+      <!-- 1.1.2: the on-demand feasibility shelf. The catalogue is built and
+           verified by scripts/vod_catalog.py and bundled by build_bundle.py. -->
       <section id="view-movies" class="view" role="tabpanel" hidden>
         <header class="view-head">
           <div class="view-head-text">
             <h1>Movies &amp; Shows</h1>
-            <p>A film and series library is being built into PremiumTV. This tab will open right here.</p>
+            <p id="movies-subtitle">Public-domain films and classic TV episodes, on demand.</p>
+          </div>
+          <div id="movies-filters" class="vod-filters" role="group" aria-label="Filter the on-demand shelf">
+            <button class="vod-chip" data-vod-filter="all" aria-pressed="true">All</button>
+            <button class="vod-chip" data-vod-filter="movie" aria-pressed="false">Movies</button>
+            <button class="vod-chip" data-vod-filter="episode" aria-pressed="false">TV Shows</button>
           </div>
         </header>
-        <div class="movies-coming-soon">
-          <span class="coming-badge">COMING SOON</span>
-          <h2>A growing film and series library</h2>
-          <p class="movies-lead">Thousands of films and series. Resume where you left off. 4K where the source allows it.</p>
-          <button id="movies-browse" class="btn btn-primary">Browse live TV</button>
+        <div id="movies-grid" class="vod-grid"></div>
+        <div id="movies-empty" class="empty-state" hidden>
+          No on-demand catalogue in this build. Run scripts/vod_catalog.py and rebuild the bundle.
         </div>
       </section>
 

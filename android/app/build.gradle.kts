@@ -1,24 +1,34 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// Release tags can override these properties. The default is the 1.1.1
-// stable USA build. Its derived versionCode (101010000) is above every
-// historical build - 1.1.0's 101000000, 1.0.9's 100090000, 1.0.8's
-// 100080000, the one V patch (1.0.8.1, 100080001) and the retired 1.1.x
-// preview codes (100010000 and 100010001) - so Android upgrades in place,
-// even from the old preview.
-// The retired 1.1.x preview carried this same name (1.1.1); now that 1.1.1
-// is the stable release, its blocking rule was removed from
-// app-update-notice.json - a stable release cannot be blocked by a rule that
-// matches its own version. A device still on the 1.1.1 preview sees "up to
-// date" (same version) and installs 1.1.1 by hand once.
+// The current version is NOT written here. `VERSION` at the repository root is
+// the single source of truth, and scripts/version_sync.py generates
+// android/version.properties (version + the versionCode derived by
+// scripts/release_version.py) from it. A release build can still override both
+// with -PpremiumTvVersion=... -PpremiumTvVersionCode=..., which is what the
+// Android build workflow does for a tag; a plain local build reads the
+// generated properties.
+//
 // See scripts/release_version.py for the one shared version policy: plain
 // three-part versions from 1.0.9 on; the V-patch/alias scheme is retired.
-val premiumTvVersion = providers.gradleProperty("premiumTvVersion").orElse("1.1.1").get()
-val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode").orElse("101010000").get().toInt()
+val generatedVersion = Properties().apply {
+    val file = rootProject.file("version.properties")
+    if (file.isFile) {
+        file.inputStream().use { load(it) }
+    }
+}
+val premiumTvVersion = providers.gradleProperty("premiumTvVersion")
+    .orElse(generatedVersion.getProperty("version", "0.0.0"))
+    .get()
+val premiumTvVersionCode = providers.gradleProperty("premiumTvVersionCode")
+    .orElse(generatedVersion.getProperty("versionCode", "0"))
+    .get()
+    .toInt()
 
 // Every published APK must carry the *same* signing identity, otherwise
 // Android refuses to install a newer PremiumTV over the installed one

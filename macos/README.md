@@ -8,7 +8,11 @@ and Apple Silicon.
 
 The release workflow prepares one published channel:
 
-- **1.0.9 stable build (default):** USA playlist + USA guide,
+- **1.1.2 stable build (default):** USA playlist + USA guide. A channel opens
+  in the docked side player and one click on the picture grows it to the full
+  window, and **Movies & Shows** is a working on-demand shelf of public-domain
+  films and classic TV episodes (bundled from `playlists/vod/vod-catalog.json`).
+- **1.0.9 (superseded):** USA playlist + USA guide,
   with the animated launch splash (breathing gold halo, sweeping shimmer bar,
   pulsing dots), the compact Settings screen, the hardened bug check (11 checks:
   patch chain, stream hygiene, guide freshness, library health plus the original
@@ -26,7 +30,7 @@ The release workflow prepares one published channel:
   sees a blocked-build notice and is sent to
   [`docs/blocked/`](../docs/blocked/index.html).
 
-The current stable download is `v1.0.9`. (Historically, `v1.0.8.1` — shown as
+The current stable download is `v1.1.2`. (Historically, `v1.0.8.1` — shown as
 **1.0.8 V1 Patch** — was packaged as `1.0.9` on macOS and briefly published as a
 same-code alias release so the three-part updater in 1.0.4–1.0.6 could find it;
 the fixed 1.0.9 replaced that build, so a Mac already reporting 1.0.9 should

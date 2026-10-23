@@ -37,11 +37,14 @@
     views: {
       channels: document.getElementById('view-channels'),
       live: document.getElementById('view-live'),
-    movies: document.getElementById('view-movies'),
-    moviesBrowse: document.getElementById('movies-browse'),
+      movies: document.getElementById('view-movies'),
       guide: document.getElementById('view-guide'),
       settings: document.getElementById('view-settings'),
     },
+    moviesGrid: document.getElementById('movies-grid'),
+    moviesEmpty: document.getElementById('movies-empty'),
+    moviesSubtitle: document.getElementById('movies-subtitle'),
+    moviesFilters: document.getElementById('movies-filters'),
     splash: document.getElementById('splash'),
     splashStatus: document.getElementById('splash-status'),
     splashVersion: document.getElementById('splash-version'),
@@ -90,6 +93,10 @@
     // meta ("team-logos" and "live-schedule").
     teamLogos: {},
     schedule: {},
+    // 1.1.2 Movies & Shows: the on-demand test catalogue shipped in the
+    // bundle (meta.vod_catalog) and the filter the viewer picked.
+    vodItems: [],
+    vodFilter: 'all',
     sportsDoc: null,
     // Search is click-to-activate (1.0.6): hovering or tabbing past the field
     // must never start a search. Only an explicit click (or '/' / Enter on the
@@ -1679,8 +1686,92 @@
     if (ui.tab === 'channels') renderChannels();
     else if (ui.tab === 'live') renderLive();
     else if (ui.tab === 'guide') renderGuide();
-    // Movies & Shows is a static coming-soon page; nothing to render.
-    else if (ui.tab !== 'movies') renderSettings();
+    else if (ui.tab === 'movies') renderMovies();
+    else renderSettings();
+  }
+
+  // ------------------------------------------------ 1.1.2 Movies & Shows
+  //
+  // The 1.1.1 tab was a coming-soon page. This one renders the on-demand test
+  // catalogue: public-domain films and classic TV episodes resolved by
+  // scripts/vod_catalog.py, shipped in the bundle and played through the same
+  // side player as a channel. An item is one finite stream, so it has no
+  // guide listings and no backup servers - the player simply opens it.
+
+  function vodLabel(item) {
+    if (item.kind === 'movie') return 'FILM';
+    if (item.season > 0 && item.episode > 0) return `S${item.season} E${item.episode}`;
+    if (item.season > 0) return `S${item.season}`;
+    return 'EPISODE';
+  }
+
+  function vodDetail(item) {
+    return [
+      item.year > 0 ? String(item.year) : '',
+      item.genre || '',
+      item.runtime_seconds > 0 ? `${Math.round(item.runtime_seconds / 60)} min` : '',
+    ].filter(Boolean).join(' · ');
+  }
+
+  /** The player's input: the same shape a channel has, minus the live bits. */
+  function vodChannel(item) {
+    return {
+      id: item.id,
+      name: item.kind === 'movie' ? item.title : `${item.show || item.title} · ${vodLabel(item)}`,
+      url: item.stream,
+      logo: item.poster || '',
+      group: item.kind === 'movie' ? 'Movies' : 'TV Shows',
+      country: 'US',
+    };
+  }
+
+  function watchVod(item) {
+    const channel = vodChannel(item);
+    openPlayer(channel, [channel]);
+  }
+
+  function renderMovies() {
+    if (!els.moviesGrid) return;
+    const items = Array.isArray(ui.vodItems) ? ui.vodItems : [];
+    const shown = ui.vodFilter === 'all' ? items : items.filter((item) => item.kind === ui.vodFilter);
+    if (els.moviesSubtitle) {
+      els.moviesSubtitle.textContent = items.length
+        ? `${items.length} on demand · public-domain films and classic TV · plays in the side player`
+        : 'Public-domain films and classic TV episodes, on demand.';
+    }
+    for (const chip of document.querySelectorAll('#movies-filters .vod-chip')) {
+      chip.setAttribute('aria-pressed', String(chip.dataset.vodFilter === ui.vodFilter));
+    }
+    els.moviesGrid.innerHTML = shown.map((item) => {
+      const kind = item.kind === 'movie' ? 'movie' : 'episode';
+      const summary = item.summary ? `<p class="vod-summary">${escapeHtml(item.summary)}</p>` : '';
+      const detail = vodDetail(item);
+      return `
+        <button class="vod-card" data-vod-id="${escapeHtml(item.id)}" data-vod-kind="${kind}" aria-label="Play ${escapeHtml(item.title)}">
+          <span class="vod-poster">
+            <img src="${escapeHtml(item.poster || '')}" alt="" loading="lazy" />
+            <span class="vod-play">▶</span>
+            <span class="vod-label">${escapeHtml(vodLabel(item))}</span>
+          </span>
+          <span class="vod-body">
+            <span class="vod-title">${escapeHtml(item.title)}</span>
+            ${detail ? `<span class="vod-detail">${escapeHtml(detail)}</span>` : ''}
+            ${summary}
+          </span>
+        </button>`;
+    }).join('');
+    for (const card of els.moviesGrid.querySelectorAll('[data-vod-id]')) {
+      card.addEventListener('click', () => {
+        const item = shown.find((candidate) => candidate.id === card.dataset.vodId);
+        if (item) watchVod(item);
+      });
+    }
+    if (els.moviesEmpty) {
+      els.moviesEmpty.hidden = shown.length > 0;
+      els.moviesEmpty.textContent = items.length
+        ? 'No titles match this filter.'
+        : 'No on-demand catalogue in this build. Run scripts/vod_catalog.py and rebuild the bundle.';
+    }
   }
 
   const loadingTips = [
@@ -1837,6 +1928,9 @@
     playQueue = list;
     playQueueIndex = Math.max(0, list.findIndex((item) => item.url === channel.url));
     els.player.hidden = false;
+    // 1.1.2: a channel (or an on-demand item) opens in the side player; one
+    // click on the picture grows it to the full window.
+    playerMini = true;
     updatePlayerMode();
     describeChannel(playQueue[playQueueIndex] || channel);
     await playCurrentServer(channel.name);
@@ -1957,8 +2051,13 @@
     });
   }
   if (els.catBack) els.catBack.addEventListener('click', () => selectCategory(null));
-  if (els.moviesBrowse) {
-    els.moviesBrowse.addEventListener('click', () => selectTab('channels'));
+  if (els.moviesFilters) {
+    els.moviesFilters.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-vod-filter]');
+      if (!button) return;
+      ui.vodFilter = button.dataset.vodFilter;
+      renderMovies();
+    });
   }
   if (els.liveRefresh) {
     els.liveRefresh.addEventListener('click', () => {
@@ -2238,6 +2337,10 @@
       if (game && game.key && Number.isFinite(kickoff)) ui.schedule[game.key] = kickoff / 1000;
     }
     ui.sportsDoc = { team_logos: ui.teamLogos };
+    // 1.1.2: the on-demand catalogue rides beside the crests in the bundle.
+    const vodDoc = meta.vod_catalog || meta['vod-catalog'] || {};
+    ui.vodItems = Array.isArray(vodDoc.items) ? vodDoc.items.filter((item) =>
+      item && item.id && item.title && item.stream) : [];
     rebuildDerivedIndexes(snapshot.library);
     els.statusText.textContent = snapshot.state.message || '';
     renderCategories();

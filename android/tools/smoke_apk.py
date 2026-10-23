@@ -17,15 +17,17 @@ channel list never drew.
 After the channel check, the Guide tab is opened. A cable-guide build (bundle
 preview_features: cable-guide) must show the cable-style grid - channels down
 the left, half-hour times across the top, shows to the right - and answer the
-remote: the highlight moves with the D-pad, OK opens the player, and Back
-returns to the same guide. A stable build must show the "what's on now" list.
+remote: the highlight moves with the D-pad, OK opens the channel in the docked
+side player beside the still-visible guide, and Back closes it on the same
+guide. A stable build must show the "what's on now" list.
 Cable-guide runs save screenshots of the guide to build-out/ so the grid can be
 checked by eye.
 
 Every build - stable included - then opens a channel end to end: Channels tab,
 first category, first card, and the player must stay alive through the
-buffering/error machinery, tuck into the side player on Back, and close back
-to the browser. The stable gate never played a channel before 1.0.9, which is
+buffering/error machinery, grow from the side player to the big screen, tuck
+back into the dock, and close to the browser again. The stable gate never
+played a channel before 1.0.9, which is
 how the 1.0.8/1.0.8.1 crash-on-watch shipped with every check green; if the
 process dies anywhere in this stretch, the crash buffer lands in
 build-out/smoke-log.txt with the stack trace.
@@ -290,25 +292,24 @@ def check_guide(meta, names):
     progress("GUIDE PASS (remote): the highlight and the detail strip follow the D-pad")
     screenshot("android-guide-remote.png")
 
-    # OK plays the highlighted channel; Back returns to the same guide. Since
-    # 1.0.8 Back only tucks the channel into the side player, so close the
-    # card as well: the player check below starts from a clean browser.
+    # OK plays the highlighted channel in the docked side player (1.1.2), so the
+    # guide stays on screen beside it; Back in the dock closes the player and
+    # hands the same guide back. The player check below then starts from a
+    # clean browser.
     key("KEYCODE_DPAD_CENTER")
-    wait_for(lambda t, n: not grid(t, n), "the player after OK in the guide")
+    wait_alive(side_card_marker, "the side player after OK in the guide")
+    wait_for(grid, "the guide still on screen beside the side player")
     key("KEYCODE_BACK")
-    wait_for(grid, "the guide again after Back from the player")
+    wait_for(dock_closed, "the side player to close on Back")
+    wait_for(grid, "the guide again after Back from the side player")
     close_side_player()
-    progress("GUIDE PASS (player): OK opened the channel and Back returned to the guide")
+    progress("GUIDE PASS (player): OK opened the docked channel and Back closed it")
 
 
 # How long the player may take to appear (or to confess via the error card)
 # after a channel is tapped. Far shorter than the guide deadline: the player
 # screen composes immediately, and on a crash the dead process is the answer.
 PLAYER_DEADLINE_SECONDS = 90
-# PlayerScreen's own words. Any one of these means the player composed; the
-# stream itself may still buffer or fall through every server to the error
-# card, which is a data outcome, not an app failure.
-PLAYER_TEXTS = ("⤢ Side player", "✕ Close", "Press Back to tuck this into the side player")
 
 
 def process_alive():
@@ -395,13 +396,19 @@ def poll_ui(check, seconds):
     return None
 
 
-def player_marker(texts, nodes):
-    return next((text for text in texts
-                 if any(marker in text for marker in PLAYER_TEXTS)), None)
-
-
 def side_card_marker(texts, nodes):
+    """The docked side player: only its layout carries "⤢ Big screen"."""
     return next((text for text in texts if text == "⤢ Big screen"), None)
+
+
+def big_screen_marker(texts, nodes):
+    """The full-screen player: its chrome carries "⤢ Side player" instead."""
+    return next((text for text in texts if text == "⤢ Side player"), None)
+
+
+def dock_closed(texts, nodes):
+    """No docked panel on screen any more."""
+    return None if any(text == "⤢ Big screen" for text in texts) else texts
 
 
 def tap_tab(label):
@@ -421,8 +428,10 @@ def exercise_player_transitions(meta, context):
     the same PlayerScreen alive across the big-screen/side-player flip, so
     this walks the whole chain and demands a living process after each hop.
     """
-    marker, _, _ = wait_alive(player_marker, f"the player ({context})")
-    progress(f"player composed ({context}; saw '{marker.strip()}')")
+    # 1.1.2 opens a channel in the docked side player, so the walk starts there
+    # and climbs to the big screen before coming back down.
+    wait_alive(side_card_marker, f"the side player ({context})")
+    progress(f"channel opened docked in the side player ({context})")
 
     # Let the stream machinery run: buffering, a dead feed walking the server
     # list (each hop rebuilds the player under the same view), the error
@@ -444,7 +453,7 @@ def exercise_player_transitions(meta, context):
     if not process_alive():
         diagnose(f"the app died while the player was up ({context})")
         raise RuntimeError("app process died with the player up")
-    screenshot("android-player.png")
+    screenshot("android-side-player.png")
 
     # Manual server hop, when this channel has more than one server: the same
     # player-rebuild path the automatic fallback takes, on demand.
@@ -459,25 +468,27 @@ def exercise_player_transitions(meta, context):
     except (subprocess.SubprocessError, ET.ParseError):
         pass
 
-    # Back tucks the channel into the side player (1.0.8) instead of stopping.
-    key("KEYCODE_BACK")
-    wait_alive(side_card_marker, f"the side player after Back ({context})")
-    screenshot("android-side-player.png")
-    progress(f"side player composed ({context}); growing it back")
-
-    # Grow it back to the big screen: the remembered player must survive.
+    # Grow the docked picture to the big screen: the same PlayerScreen and the
+    # same ExoPlayer, so the stream must not restart.
     _, nodes = dump_ui()
     tap_text(nodes, lambda text: text == "⤢ Big screen", "side player grow")
-    wait_alive(player_marker, f"the big screen again ({context})")
+    wait_alive(big_screen_marker, f"the big screen ({context})")
     time.sleep(3)
     if not process_alive():
         diagnose(f"the app died growing the side player ({context})")
         raise RuntimeError("app process died growing the side player")
-    progress(f"big screen again ({context}); tucking and closing")
+    screenshot("android-player.png")
+    progress(f"big screen composed ({context}); tucking it back")
 
+    # Back tucks the big screen into the dock again, and Back in the dock closes
+    # the panel and hands the browser back. The dock's own hint promises that;
+    # with nothing listening for the key it used to leave the app instead.
     key("KEYCODE_BACK")
     wait_alive(side_card_marker, f"the side player again ({context})")
+    key("KEYCODE_BACK")
+    wait_alive(dock_closed, f"the closed side player ({context})")
     close_side_player()
+    progress(f"side player closed on Back ({context})")
 
     def browser_back(texts, nodes):
         # Any "<n> channels" header, not the bundled count: the app may have

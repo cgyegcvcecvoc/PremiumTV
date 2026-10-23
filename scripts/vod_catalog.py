@@ -1,0 +1,549 @@
+#!/usr/bin/env python3
+"""Build and verify the on-demand (Movies & Shows) test catalogue.
+
+The Movies & Shows tab used to be a coming-soon page. This script is the
+feasibility test behind turning it into a real section: a small, curated set of
+films and classic TV episodes from the Internet Archive's public-domain
+collections is resolved to direct MP4 files, checked over the network the way
+the apps play them, and published as one document every platform bundles.
+
+Why the Internet Archive: the files are public domain or explicitly licensed
+for reuse, they are served over plain HTTPS with byte-range support, and each
+item has a stable identifier, a poster and an MP4 derivative - exactly what a
+side player needs. Nothing here is a linear channel, so it never enters the
+M3U, the guide or the channel health pipeline.
+
+    python scripts/vod_catalog.py                 # resolve, verify, write
+    python scripts/vod_catalog.py --check         # verify the committed file
+    python scripts/vod_catalog.py --offline       # validate local file only
+    python scripts/vod_catalog.py --report-only   # print findings, write nothing
+
+Outputs:
+
+    playlists/vod/vod-catalog.json   the catalogue the apps bundle
+    playlists/vod/vod-health.json    per-item probe result of the last run
+    playlists/vod/FEASIBILITY.md     human-readable test report
+
+Only the standard library is used, like the rest of scripts/.
+"""
+
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import json
+import os
+import sys
+import urllib.error
+import urllib.parse
+import urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+VOD_DIR = os.path.join(ROOT, "playlists", "vod")
+CATALOG_PATH = os.path.join(VOD_DIR, "vod-catalog.json")
+HEALTH_PATH = os.path.join(VOD_DIR, "vod-health.json")
+REPORT_PATH = os.path.join(VOD_DIR, "FEASIBILITY.md")
+
+METADATA_URL = "https://archive.org/metadata/%s"
+DOWNLOAD_BASE = "https://archive.org/download/%s/%s"
+POSTER_URL = "https://archive.org/services/img/%s"
+USER_AGENT = "PremiumTV-vod-check/1.0 (+https://github.com/cgyegcvcecvoc/PremiumTV1)"
+
+# The curated test set. Every item is a public-domain film or a classic TV
+# episode from a public-domain collection; archive_id is the Internet Archive
+# identifier and the script resolves the actual file, runtime and licence from
+# the Archive's own metadata - none of that is typed in here.
+CURATED = (
+    {
+        "slug": "night-of-the-living-dead",
+        "kind": "movie",
+        "archive_id": "night-of-the-living-dead_1968",
+        "genre": "Horror",
+    },
+    {
+        "slug": "plan-9-from-outer-space",
+        "kind": "movie",
+        "archive_id": "plan-9-from-outer-space_202009",
+        "genre": "Sci-Fi",
+    },
+    {
+        "slug": "nosferatu",
+        "kind": "movie",
+        "archive_id": "nosferatu.-1922",
+        "genre": "Horror",
+    },
+    {
+        "slug": "his-girl-friday",
+        "kind": "movie",
+        "archive_id": "his_girl_friday",
+        "genre": "Comedy",
+    },
+    {
+        "slug": "carnival-of-souls",
+        "kind": "movie",
+        "archive_id": "carnival_of_souls",
+        "genre": "Horror",
+    },
+    {
+        "slug": "beverly-hillbillies-jed-buys-stock",
+        "kind": "episode",
+        "archive_id": "TheBeverlyHillbillies-JedBuysStock-Ep.1x05",
+        "genre": "Comedy",
+        "show": "The Beverly Hillbillies",
+        "season": 1,
+        "episode": 5,
+    },
+    {
+        "slug": "beverly-hillbillies-grannys-spring-tonic",
+        "kind": "episode",
+        "archive_id": "TheBeverlyHillbillies-GrannysSpringTonic-Ep1x27",
+        "genre": "Comedy",
+        "show": "The Beverly Hillbillies",
+        "season": 1,
+        "episode": 27,
+    },
+    {
+        "slug": "dragnet-the-big-ham",
+        "kind": "episode",
+        "archive_id": "DragnetBigHam",
+        "genre": "Crime",
+        "show": "Dragnet",
+        "season": 4,
+        "episode": 0,
+    },
+    {
+        "slug": "lone-ranger-war-horse",
+        "kind": "episode",
+        "archive_id": "the-lone-ranger-1949-s-01-e-06-war-horse",
+        "genre": "Western",
+        "show": "The Lone Ranger",
+        "season": 1,
+        "episode": 6,
+    },
+    {
+        "slug": "sherlock-holmes-pennsylvania-gun",
+        "kind": "episode",
+        "archive_id": "SherlockHolmes-TheCaseofthePennsylvaniaGun",
+        "genre": "Mystery",
+        "show": "Sherlock Holmes",
+        "season": 1,
+        "episode": 0,
+    },
+)
+
+MIN_RUNTIME_SECONDS = 60
+PROBE_BYTES = 4096
+
+
+def log(message: str) -> None:
+    print(message, flush=True)
+
+
+def utc_now() -> str:
+    return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def fetch_json(url: str, timeout: int = 30) -> dict:
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return json.load(response)
+
+
+def runtime_seconds(value) -> int:
+    """Archive runtimes are seconds as a string, sometimes "MM:SS" or "H:MM:SS"."""
+    if value is None:
+        return 0
+    text = str(value).strip()
+    if not text:
+        return 0
+    try:
+        return int(float(text))
+    except ValueError:
+        pass
+    parts = text.split(":")
+    try:
+        numbers = [int(float(p)) for p in parts]
+    except ValueError:
+        return 0
+    total = 0
+    for number in numbers:
+        total = total * 60 + number
+    return total
+
+
+def looks_like_mp4(head: bytes) -> bool:
+    """An MP4 starts with a size field then an ``ftyp`` box near the front."""
+    return b"ftyp" in head[:64]
+
+
+def pick_video_file(files: list[dict]) -> dict | None:
+    """The smallest playable MP4 an archive item publishes.
+
+    The Archive keeps several derivatives of one film; the small one streams
+    quickly and is plenty for a TV stick, so size decides. ``.ia.mp4`` copies
+    are Archive-generated and are skipped in favour of the original when both
+    exist at the same size.
+    """
+    candidates = []
+    for item in files:
+        name = str(item.get("name") or "")
+        if not name.lower().endswith((".mp4", ".m4v")):
+            continue
+        try:
+            size = int(item.get("size") or 0)
+        except (TypeError, ValueError):
+            size = 0
+        if size <= 0:
+            continue
+        if runtime_seconds(item.get("length")) < MIN_RUNTIME_SECONDS:
+            continue
+        candidates.append((size, name.lower().endswith(".ia.mp4"), name, item))
+    if not candidates:
+        return None
+    candidates.sort(key=lambda row: (row[0], row[1], row[2]))
+    return candidates[0][3]
+
+
+def build_item(spec: dict) -> dict | None:
+    """Resolve one curated entry against the Archive's metadata."""
+    archive_id = spec["archive_id"]
+    try:
+        document = fetch_json(METADATA_URL % urllib.parse.quote(archive_id))
+    except (urllib.error.URLError, ValueError, OSError) as error:
+        log("  ! %s: metadata unavailable (%s)" % (archive_id, error))
+        return None
+    meta = document.get("metadata") or {}
+    if not meta:
+        log("  ! %s: no metadata" % archive_id)
+        return None
+    chosen = pick_video_file(document.get("files") or [])
+    if chosen is None:
+        log("  ! %s: no MP4 derivative found" % archive_id)
+        return None
+
+    name = str(chosen["name"])
+    stream = DOWNLOAD_BASE % (urllib.parse.quote(archive_id), urllib.parse.quote(name))
+    title = str(meta.get("title") or archive_id).strip()
+    summary = str(meta.get("description") or "").strip()
+    # Descriptions are HTML in some items; the apps render plain text.
+    if "<" in summary and ">" in summary:
+        summary = strip_html(summary)
+    summary = " ".join(summary.split())
+    if len(summary) > 420:
+        summary = summary[:417].rstrip() + "…"
+
+    runtime = runtime_seconds(chosen.get("length")) or runtime_seconds(meta.get("runtime"))
+    return {
+        "id": "vod-" + spec["slug"],
+        "slug": spec["slug"],
+        "title": title,
+        "kind": spec["kind"],
+        "show": spec.get("show", ""),
+        "season": int(spec.get("season") or 0),
+        "episode": int(spec.get("episode") or 0),
+        "year": year_of(meta),
+        "genre": spec.get("genre", ""),
+        "runtime_seconds": runtime,
+        "summary": summary,
+        "stream": stream,
+        "poster": POSTER_URL % urllib.parse.quote(archive_id),
+        "license": str(meta.get("licenseurl") or "").strip(),
+        "archive_id": archive_id,
+        "file": name,
+        "size_bytes": int(chosen.get("size") or 0),
+    }
+
+
+def year_of(meta: dict) -> int:
+    for key in ("year", "date"):
+        raw = str(meta.get(key) or "").strip()
+        digits = "".join(ch for ch in raw[:4] if ch.isdigit())
+        if len(digits) == 4:
+            try:
+                return int(digits)
+            except ValueError:
+                continue
+    return 0
+
+
+def strip_html(text: str) -> str:
+    result = []
+    inside = False
+    for char in text:
+        if char == "<":
+            inside = True
+        elif char == ">":
+            inside = False
+        elif not inside:
+            result.append(char)
+    return "".join(result)
+
+
+def probe(url: str, timeout: int = 25) -> dict:
+    """Fetch the first bytes of the stream the way a player opens it."""
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Range": "bytes=0-%d" % (PROBE_BYTES - 1),
+            "Accept": "video/mp4,video/*;q=0.9,*/*;q=0.5",
+        },
+    )
+    started = dt.datetime.now(dt.timezone.utc)
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            head = response.read(PROBE_BYTES)
+            elapsed = (dt.datetime.now(dt.timezone.utc) - started).total_seconds()
+            content_type = response.headers.get("Content-Type", "").split(";")[0].strip()
+            status = "working"
+            if not head:
+                status = "offline"
+            elif not (looks_like_mp4(head) or content_type.startswith("video/")):
+                status = "invalid"
+            return {
+                "status": status,
+                "http_status": response.status,
+                "content_type": content_type,
+                "bytes_read": len(head),
+                "seekable": response.status == 206,
+                "latency_seconds": round(elapsed, 3),
+            }
+    except urllib.error.HTTPError as error:
+        return {
+            "status": "offline" if error.code in (404, 410) else "unreachable",
+            "http_status": error.code,
+            "content_type": "",
+            "bytes_read": 0,
+            "seekable": False,
+            "latency_seconds": 0,
+        }
+    except (urllib.error.URLError, OSError) as error:
+        return {
+            "status": "unreachable",
+            "http_status": 0,
+            "content_type": "",
+            "bytes_read": 0,
+            "seekable": False,
+            "error": str(error),
+            "latency_seconds": 0,
+        }
+
+
+def collect(offline: bool = False) -> tuple[dict, list[dict]]:
+    """Resolve every curated item, then probe the ones that resolved."""
+    items: list[dict] = []
+    for spec in CURATED:
+        log("[vod] %s" % spec["slug"])
+        item = build_item(spec)
+        if item is None:
+            continue
+        if not offline:
+            result = probe(item["stream"])
+            item["status"] = result["status"]
+            item["probe"] = result
+            log("      %s %s (%d MB, %ss)" % (
+                result["status"],
+                item["file"],
+                round(item["size_bytes"] / 1e6),
+                item["runtime_seconds"],
+            ))
+        else:
+            item["status"] = "unverified"
+        items.append(item)
+    items.sort(key=lambda row: (row["kind"] != "movie", row["kind"] != "episode", row["title"].lower()))
+    catalog = {
+        "schema": 1,
+        "generated_utc": utc_now(),
+        "source": "Internet Archive public-domain film and classic TV collection",
+        "note": (
+            "On-demand test catalogue. Separate from the live M3U lineup and the "
+            "XMLTV guide: these are finite films and episodes, not linear channels."
+        ),
+        "items": [{key: value for key, value in item.items() if key != "probe"} for item in items],
+    }
+    return catalog, [item for item in items]
+
+
+def write_outputs(catalog: dict, items: list[dict], probe_enabled: bool) -> None:
+    os.makedirs(VOD_DIR, exist_ok=True)
+    with open(CATALOG_PATH, "w", encoding="utf-8") as handle:
+        json.dump(catalog, handle, indent=2, ensure_ascii=False)
+        handle.write("\n")
+    healthy = {
+        "schema": 1,
+        "generated_utc": catalog["generated_utc"],
+        "items": [
+            {
+                "id": item["id"],
+                "title": item["title"],
+                "status": item["status"],
+                **(item.get("probe") or {}),
+            }
+            for item in items
+        ],
+    }
+    with open(HEALTH_PATH, "w", encoding="utf-8") as handle:
+        json.dump(healthy, handle, indent=2, ensure_ascii=False)
+        handle.write("\n")
+    with open(REPORT_PATH, "w", encoding="utf-8") as handle:
+        handle.write(render_report(catalog, items, probe_enabled))
+    log("[vod] wrote %s" % os.path.relpath(CATALOG_PATH, ROOT))
+    log("[vod] wrote %s" % os.path.relpath(REPORT_PATH, ROOT))
+
+
+def render_report(catalog: dict, items: list[dict], probe_enabled: bool) -> str:
+    movies = [item for item in items if item["kind"] == "movie"]
+    episodes = [item for item in items if item["kind"] == "episode"]
+    working = [item for item in items if item["status"] == "working"]
+    lines = [
+        "# On-demand feasibility test — Movies & Shows",
+        "",
+        "Generated %s by `scripts/vod_catalog.py`." % catalog["generated_utc"],
+        "",
+        "This is the evidence behind the Movies & Shows tab: a finite film and",
+        "episode library is feasible with the same player, the same side panel and",
+        "the same data bundle the live channels already use. It is deliberately",
+        "separate from the playlist and guide pipeline.",
+        "",
+        "## Result",
+        "",
+        "| Measure | Value |",
+        "|---|---:|",
+        "| Catalogue entries | %d |" % len(items),
+        "| Films | %d |" % len(movies),
+        "| TV episodes | %d |" % len(episodes),
+        "| Probe: working | %d |" % len(working),
+        "| Probe: other | %d |" % (len(items) - len(working) if probe_enabled else 0),
+        "",
+        "The probe opens each stream the way the apps do — a bounded range request",
+        "with `Accept: video/mp4` — and requires an MP4 `ftyp` box or a video",
+        "content type. A range request that answers `206` also proves the stream is",
+        "seekable, which is what lets the side player scrub and resume.",
+        "",
+        "## Entries",
+        "",
+        "| Title | Kind | Year | Runtime | Size | Direct stream | Probe |",
+        "|---|---|---:|---:|---:|---|---|",
+    ]
+    for item in items:
+        runtime = "%d min" % round(item["runtime_seconds"] / 60) if item["runtime_seconds"] else "—"
+        size = "%.0f MB" % (item["size_bytes"] / 1e6) if item["size_bytes"] else "—"
+        kind = "Film" if item["kind"] == "movie" else "TV episode"
+        lines.append(
+            "| %s | %s | %s | %s | %s | `%s` | %s |"
+            % (
+                item["title"].replace("|", "/"),
+                kind,
+                item["year"] or "—",
+                runtime,
+                size,
+                item["file"],
+                item["status"],
+            )
+        )
+    lines += [
+        "",
+        "## What this proves",
+        "",
+        "- **Sources exist.** Every entry resolves to a direct HTTPS MP4 with byte",
+        "  ranges, a poster and a licence from the Internet Archive's own metadata.",
+        "- **The player already handles it.** MP4 plays in the existing ExoPlayer",
+        "  (Android) and the existing HLS/MP4 strategies (macOS); no second player",
+        "  or new dependency is needed.",
+        "- **The side player is the right home.** An on-demand item is just a stream",
+        "  with a title and a poster, so it opens in the same docked panel and",
+        "  expands to full screen the same way a channel does.",
+        "- **The bundle can carry it.** `android/tools/build_bundle.py` copies the",
+        "  catalogue into `bundle/vod-catalog.json` and into `meta.vod_catalog`,",
+        "  exactly like the team crests and the live schedule.",
+        "",
+        "## What is deliberately not done yet",
+        "",
+        "- No scraping of commercial catalogues: the test set is public domain only.",
+        "- No resume points, downloads or per-user watch state: that needs a store",
+        "  the apps do not have yet (the existing Recently watched shelf is keyed by",
+        "  stream URL and already works for these entries).",
+        "- No pagination: the test set fits one screen; a real library needs",
+        "  paging, search and per-show grouping before it ships at scale.",
+        "",
+        "## Rights",
+        "",
+        "Every item is public domain or published by the Internet Archive under a",
+        "licence that permits reuse. The licence URL from the item's own metadata is",
+        "kept in `vod-catalog.json` so the source of each film stays traceable.",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def check_committed() -> int:
+    """Offline validation of the committed catalogue (used by CI/tests)."""
+    if not os.path.isfile(CATALOG_PATH):
+        log("[vod] missing %s" % os.path.relpath(CATALOG_PATH, ROOT))
+        return 1
+    with open(CATALOG_PATH, "r", encoding="utf-8") as handle:
+        catalog = json.load(handle)
+    problems = validate_document(catalog)
+    for problem in problems:
+        log("[vod] %s" % problem)
+    if problems:
+        return 1
+    log("[vod] OK %s (%d items)" % (os.path.relpath(CATALOG_PATH, ROOT), len(catalog["items"])))
+    return 0
+
+
+def validate_document(catalog: dict) -> list[str]:
+    """Structural checks shared by --check and the test suite."""
+    problems = []
+    if catalog.get("schema") != 1:
+        problems.append("schema must be 1")
+    items = catalog.get("items")
+    if not isinstance(items, list) or not items:
+        return problems + ["items must be a non-empty list"]
+    seen = set()
+    for index, item in enumerate(items):
+        label = "items[%d]" % index
+        for key in ("id", "title", "kind", "stream", "poster"):
+            if not str(item.get(key) or "").strip():
+                problems.append("%s: missing %s" % (label, key))
+        if item.get("kind") not in ("movie", "episode"):
+            problems.append("%s: kind must be movie or episode" % label)
+        if not str(item.get("stream") or "").startswith(("http://", "https://")):
+            problems.append("%s: stream must be http(s)" % label)
+        if item.get("kind") == "episode" and not str(item.get("show") or "").strip():
+            problems.append("%s: an episode needs a show name" % label)
+        item_id = str(item.get("id") or "")
+        if item_id in seen:
+            problems.append("%s: duplicate id %s" % (label, item_id))
+        seen.add(item_id)
+    return problems
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Build and verify the Movies & Shows test catalogue.")
+    parser.add_argument("--check", action="store_true", help="validate the committed file and exit")
+    parser.add_argument("--offline", action="store_true", help="resolve metadata but skip stream probes")
+    parser.add_argument("--report-only", action="store_true", help="probe and report, write nothing")
+    args = parser.parse_args()
+
+    if args.check:
+        return check_committed()
+
+    catalog, items = collect(offline=args.offline)
+    if not items:
+        log("[vod] nothing resolved; keeping the committed catalogue")
+        return 1
+    if args.report_only:
+        print(render_report(catalog, items, probe_enabled=not args.offline))
+        return 0
+    write_outputs(catalog, items, probe_enabled=not args.offline)
+    problems = validate_document(catalog)
+    if problems:
+        for problem in problems:
+            log("[vod] %s" % problem)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

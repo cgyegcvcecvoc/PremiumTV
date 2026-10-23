@@ -161,6 +161,11 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                     shelves.recordRecent(channel.url)
                                     recentKeys = shelves.recentKeys()
                                     playing = channel to serversFor(channel, current.library.channels)
+                                    // 1.1.2: a channel opens in the docked side player first,
+                                    // with the browser still usable beside it. One press on
+                                    // the picture (or “⤢ Big screen”) grows the same player
+                                    // to full screen; Back tucks it away again.
+                                    sidePlayer = true
                                 },
                                 onForceRefresh = { viewModel.forceRefresh() },
                                 onReset = { viewModel.resetToBundled() },
@@ -171,6 +176,10 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 liveFeedStatus = liveFeedStatus,
                                 liveProbeRunning = liveProbeRunning,
                                 onProbeLiveEvents = { viewModel.refreshLiveEvents() },
+                                // The docked panel owns Back while it is up: its
+                                // own hint promises that, and without it the
+                                // press fell through to the app and exited.
+                                playerDocked = sidePlayer && selection != null,
                             )
                         }
                     }

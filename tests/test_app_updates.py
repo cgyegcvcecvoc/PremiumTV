@@ -121,8 +121,8 @@ class AndroidUpdateTests(unittest.TestCase):
 
     def test_version_is_one_policy_above_every_historical_code(self):
         gradle = text(ROOT / "android" / "app" / "build.gradle.kts")
-        self.assertIn('orElse("1.1.1")', gradle)
-        self.assertIn('orElse("101010000")', gradle)
+        self.assertIn('rootProject.file("version.properties")', gradle)
+        self.assertIn('generatedVersion.getProperty("version"', gradle)
 
 
 class MacUpdateTests(unittest.TestCase):
@@ -172,9 +172,9 @@ class MacUpdateTests(unittest.TestCase):
         ):
             self.assertIn(expected, renderer)
 
-    def test_app_version_is_1_1_1(self):
+    def test_app_version_is_1_1_2(self):
         package = json.loads(text(MAC / "package.json"))
-        self.assertEqual(package["version"], "1.1.1")
+        self.assertEqual(package["version"], text(ROOT / "VERSION").strip())
 
 
 class AndroidSigningTests(unittest.TestCase):
@@ -305,7 +305,7 @@ class UpdateNoticePopupTests(unittest.TestCase):
         # Every stable build below the current stable is warned, and the
         # wording names whatever the newest stable actually is.
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.0"))
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.1"))
         self.assertEqual(stable["level"], "warning")
         self.assertIn("after_support_ends", stable,
                       "the escalation copy ships in the document, not in a build")

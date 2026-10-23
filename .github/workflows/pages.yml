@@ -49,7 +49,9 @@ on:
       - "categories/**"
       - "playlists/categories/**"
       - "EPG/**"
-      - "build-out/SHA256SUMS*.txt"
+      # build-out/ is otherwise ignored/ignored-on-push now; only this small
+      # checksum file is still tracked and read by the site generator.
+      - "build-out/SHA256SUMS.txt"
       - "scripts/build_site_data.py"
       - ".github/workflows/pages.yml"
 
