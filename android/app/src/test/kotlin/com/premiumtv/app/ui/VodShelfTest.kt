@@ -1,5 +1,6 @@
 package com.premiumtv.app.ui
 
+import android.app.Application
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -11,7 +12,10 @@ import org.robolectric.annotation.Config
 
 /** The Movies & Shows catalogue: parsing, labels and the player's input. */
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [28])
+// Plain Application, like TvRepositoryTest: PremiumTvApplication.onCreate()
+// schedules the background refresh through WorkManager, which a JVM unit test
+// has no configuration for (IllegalStateException from WorkManagerImpl).
+@Config(sdk = [28], application = Application::class)
 class VodShelfTest {
 
     private fun item(
