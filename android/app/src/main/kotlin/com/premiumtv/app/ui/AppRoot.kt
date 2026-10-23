@@ -176,6 +176,10 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 liveFeedStatus = liveFeedStatus,
                                 liveProbeRunning = liveProbeRunning,
                                 onProbeLiveEvents = { viewModel.refreshLiveEvents() },
+                                // The docked panel owns Back while it is up: its
+                                // own hint promises that, and without it the
+                                // press fell through to the app and exited.
+                                playerDocked = sidePlayer && selection != null,
                             )
                         }
                     }

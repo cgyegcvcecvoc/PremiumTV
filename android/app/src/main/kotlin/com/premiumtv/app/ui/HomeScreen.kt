@@ -140,10 +140,15 @@ fun HomeScreen(
     liveFeedStatus: Map<String, LiveFeedStatus> = emptyMap(),
     liveProbeRunning: Boolean = false,
     onProbeLiveEvents: () -> Unit = {},
+    // A channel playing in the docked side player (1.1.2): its panel owns the
+    // first Back press, so the browser's own navigation stands aside for it.
+    playerDocked: Boolean = false,
 ) {
     // Back leaves the Guide or Settings for Channels before it leaves the app,
     // the way a cable box's Back/Exit closes its guide.
-    BackHandler(enabled = tab != HomeTab.Channels) { onTabChange(HomeTab.Channels) }
+    BackHandler(enabled = tab != HomeTab.Channels && !playerDocked) {
+        onTabChange(HomeTab.Channels)
+    }
 
     Column(
         modifier = Modifier
@@ -339,7 +344,9 @@ private fun CategoriesScreen(
     var query by rememberSaveable { mutableStateOf("") }
     val trimmed = query.trim()
 
-    BackHandler(enabled = selectedCategory != null) { selectedCategory = null }
+    BackHandler(enabled = selectedCategory != null && !playerDocked) {
+        selectedCategory = null
+    }
 
     // Search is library-wide: a remote's on-screen keyboard is painful enough
     // without having to be in the right category first.
