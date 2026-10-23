@@ -101,12 +101,24 @@ module.exports = async function smokeTest(window, repository, proxy) {
     playerState.spinning || playerState.errorShown || playerState.readyState > 0,
     `the player reached a sane state (${JSON.stringify(playerState)})`);
   assert.equal(playerState.rendererAlive, true, 'the browser behind the player is still rendered');
-  console.log(`PLAYER SMOKE: settled state ${JSON.stringify(playerState)}; flipping the side player`);
-  // The 1.0.8 side player flip, then a real close.
-  await evalInPage("document.getElementById('player-minimize').click()");
-  await waitFor("document.getElementById('player').classList.contains('mini')");
+  console.log(`PLAYER SMOKE: settled state ${JSON.stringify(playerState)}; walking the side player`);
+  // 1.1.2: a channel starts in the side player, so the ladder begins docked —
+  // the button grows the picture to the big screen, the next press tucks it
+  // back into the corner, and close stops it for good.
+  assert.equal(
+    await evalInPage("document.getElementById('player').classList.contains('mini')"),
+    true,
+    'the player opens docked in the side player',
+  );
+  assert.match(
+    await evalInPage("document.getElementById('player-minimize').textContent"),
+    /Big screen/,
+    'the docked button offers the big screen',
+  );
   await evalInPage("document.getElementById('player-minimize').click()");
   await waitFor("!document.getElementById('player').classList.contains('mini')");
+  await evalInPage("document.getElementById('player-minimize').click()");
+  await waitFor("document.getElementById('player').classList.contains('mini')");
   await evalInPage("document.getElementById('player-close').click()");
   await waitFor("document.getElementById('player').hidden === true");
   console.log(`PLAYER SMOKE PASS: opened '${playerName}', ` +

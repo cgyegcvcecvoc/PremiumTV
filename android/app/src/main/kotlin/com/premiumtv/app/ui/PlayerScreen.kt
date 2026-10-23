@@ -219,9 +219,14 @@ fun PlayerScreen(
         switchNotice = serverSwitchNotice(ServerSwitchReason.Manual, next, playlist.size)
     }
 
-    // On the big screen, Back tucks the channel into the side player instead
-    // of stopping it. With the panel up, Back belongs to the browser.
-    BackHandler(enabled = expanded) { onMinimize() }
+    // Back rides the same ladder as the layout, exactly as the hints under both
+    // layouts promise: on the big screen it tucks the channel into the docked
+    // side player, and in the dock it closes the panel and hands the browser
+    // back. 1.1.2 opens channels docked, so the closing press is now the same
+    // one the viewer makes first - without a handler for it, Back left the app.
+    BackHandler(enabled = true) {
+        if (expanded) onMinimize() else onClose()
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),

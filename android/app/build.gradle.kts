@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -14,7 +16,7 @@ plugins {
 //
 // See scripts/release_version.py for the one shared version policy: plain
 // three-part versions from 1.0.9 on; the V-patch/alias scheme is retired.
-val generatedVersion = java.util.Properties().apply {
+val generatedVersion = Properties().apply {
     val file = rootProject.file("version.properties")
     if (file.isFile) {
         file.inputStream().use { load(it) }
