@@ -2223,11 +2223,22 @@
     const next = await api.getSnapshot();
     if (request !== snapshotRequest) return;
     snapshot = next;
-    rebuildDerivedIndexes(snapshot.library);
     const meta = (snapshot.library && snapshot.library.meta) || {};
-    ui.teamLogos = meta['team-logos'] || {};
-    ui.schedule = meta['live-schedule'] || {};
-    ui.sportsDoc = meta;
+    // 1.1.1: the bundle ships two documents - "team_logos" ({ schema, source,
+    // logos: { teamKey: url } }) and "live_schedule" ({ schema, games: [{ key,
+    // kickoff_utc }] }). Flatten them into the maps the renderer looks up by
+    // team key and matchup key, and do it before the derived indexes are
+    // rebuilt so the first paint already has the crests and countdowns.
+    const logoDoc = meta.team_logos || meta['team-logos'] || {};
+    ui.teamLogos = logoDoc.logos || logoDoc;
+    const scheduleDoc = meta.live_schedule || meta['live-schedule'] || {};
+    ui.schedule = {};
+    for (const game of scheduleDoc.games || []) {
+      const kickoff = game && game.kickoff_utc ? Date.parse(game.kickoff_utc) : NaN;
+      if (game && game.key && Number.isFinite(kickoff)) ui.schedule[game.key] = kickoff / 1000;
+    }
+    ui.sportsDoc = { team_logos: ui.teamLogos };
+    rebuildDerivedIndexes(snapshot.library);
     els.statusText.textContent = snapshot.state.message || '';
     renderCategories();
     render();

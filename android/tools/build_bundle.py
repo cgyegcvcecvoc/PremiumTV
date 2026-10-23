@@ -311,9 +311,14 @@ def build(playlist: str, guide: str, index: str, out_dir: str, version: str,
                     data = json.load(handle)
             except (OSError, ValueError):
                 continue
-            key = os.path.basename(source_path).removesuffix(".json").replace("-", "_")
+            # meta.json carries the document under an underscore key
+            # ("team_logos"), while the copy beside the channel list keeps the
+            # repository's hyphenated file name ("team-logos.json") - that is
+            # the path the Android app opens from its assets.
+            name = os.path.basename(source_path)
+            key = name.removesuffix(".json").replace("-", "_")
             meta_extra[key] = data
-            shutil.copyfile(source_path, os.path.join(out_dir, f"{key}.json"))
+            shutil.copyfile(source_path, os.path.join(out_dir, name))
 
     meta = {
         "version": version,
