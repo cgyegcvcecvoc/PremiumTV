@@ -1,5 +1,6 @@
 package com.premiumtv.app.ui
 
+import android.content.Context
 import android.view.KeyEvent as NativeKey
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
@@ -61,6 +62,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -69,10 +71,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.premiumtv.app.BuildConfig
+import com.premiumtv.app.data.CategoryGroup
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Library
 import com.premiumtv.app.data.Programme
@@ -88,14 +91,14 @@ import com.premiumtv.app.update.DiagnosticStatus
 import com.premiumtv.app.update.DiagnosticsReport
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
-import com.premiumtv.app.data.CategoryGroup
-import com.premiumtv.app.data.Channel
-import com.premiumtv.app.data.Library
-import com.premiumtv.app.data.Programme
-import com.premiumtv.app.data.RefreshInfo
-import com.premiumtv.app.data.RefreshTrigger
 
 /** The home screen's sections. AppRoot keeps the choice while a channel plays. */
 enum class HomeTab(val label: String) {
@@ -992,8 +995,9 @@ private fun EventCard(
     onClick: () -> Unit,
 ) {
     val teams = remember(event.title) { teamsOf(event.title) }
-    val upcoming = event.kickoffUtc != null && event.kickoffUtc > now
-    val secondsLeft = event.kickoffUtc?.let { it - now }.takeIf { it > 0 }
+    val kickoffUtc = event.kickoffUtc
+    val upcoming = kickoffUtc != null && kickoffUtc > now
+    val secondsLeft = kickoffUtc?.let { kickoff -> (kickoff - now).takeIf { left -> left > 0 } }
     var focused by remember { mutableStateOf(false) }
     val scale by androidx.compose.animation.core.animateFloatAsState(
         targetValue = if (focused) 1.03f else 1f,
@@ -1020,7 +1024,7 @@ private fun EventCard(
                     status == Answering -> LiveRed to "LIVE"
                     upcoming -> Color(0xFF3E5066) to "Not live yet"
                     status == Silent -> Color(0xFF57626F) to "NO SIGNAL"
-                    status == Checking, null -> PremiumGoldDim to "CHECKING"
+                    status == null || status == Checking -> PremiumGoldDim to "CHECKING"
                 }
                 Box(
                     modifier = Modifier
@@ -1816,9 +1820,9 @@ private fun MoviesComingSoonScreen(onBrowse: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(26.dp))
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    ComingSoonPoint("A growing film and series library")
-                    ComingSoonPoint("Resume where you left off")
-                    ComingSoonPoint("4K where the source allows it")
+                    ComingSoonPoint("A growing film and series library", Modifier.weight(1f))
+                    ComingSoonPoint("Resume where you left off", Modifier.weight(1f))
+                    ComingSoonPoint("4K where the source allows it", Modifier.weight(1f))
                 }
                 Spacer(modifier = Modifier.height(34.dp))
                 FocusButton("Browse live TV") { onBrowse() }
@@ -1830,8 +1834,8 @@ private fun MoviesComingSoonScreen(onBrowse: () -> Unit) {
 
 /** One coming-soon feature bullet. */
 @Composable
-private fun ComingSoonPoint(text: String) {
-    Column(modifier = Modifier.weight(1f)) {
+private fun ComingSoonPoint(text: String, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
         Text(
             text = "➤",
             style = MaterialTheme.typography.bodyMedium,
@@ -1868,35 +1872,42 @@ private fun kickoffTime(kickoffUtcSeconds: Long): String {
     return formatter.format(java.util.Date(kickoffUtcSeconds * 1000L))
 }
 
-/** Reads one bundled JSON asset. */
-private fun Context.readAsset(name: String, block: (String) -> Any?): Any? =
-    assets.open("bundle/$name").use { input ->
-        block(input.bufferedReader().readText())
-    }
+/** Reads one bundled JSON asset, or null when it is absent or unreadable. */
+private fun Context.readAsset(name: String): String? = try {
+    assets.open("bundle/$name").use { input -> input.bufferedReader().readText() }
+} catch (_: Exception) {
+    null
+}
 
 /** Team crest URLs keyed by the alias-collapsed team name key. */
 private fun Context.readTeamLogos(): Map<String, String> {
-    return readAsset("bundle/team-logos.json") { text ->
+    val text = readAsset("team-logos.json") ?: return emptyMap()
+    return try {
         val logos = JSONObject(text).getJSONObject("logos")
         buildMap {
             for (i in 0 until logos.length()) {
                 put(logos.names().getString(i), logos.getString(i))
             }
         }
-    }.orEmpty()
+    } catch (_: Exception) {
+        emptyMap()
+    }
 }
 
 /** Matchup key -> kickoff epoch seconds. */
 private fun Context.readSchedule(): Map<String, Long> {
-    return readAsset("bundle/live-schedule.json") { text ->
+    val text = readAsset("live-schedule.json") ?: return emptyMap()
+    return try {
         val games = JSONObject(text).getJSONArray("games")
         buildMap {
             for (i in 0 until games.length()) {
                 val game = games.getJSONObject(i)
-                parseKickoff(game.optString("kickoff_utc"))?.let {
-                    put(game.getString("key"), it)
-                }
+                val key = game.optString("key")
+                if (key.isBlank()) continue
+                parseKickoff(game.optString("kickoff_utc"))?.let { put(key, it) }
             }
         }
-    }.orEmpty()
+    } catch (_: Exception) {
+        emptyMap()
+    }
 }

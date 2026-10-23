@@ -243,20 +243,67 @@ class LiveEvents111Tests(unittest.TestCase):
         self.assertTrue(schedule["games"], "the schedule must list games")
         keys = [g["key"] for g in schedule["games"]]
         self.assertEqual(len(keys), len(set(keys)), "schedule keys must be unique")
-        self.assertGreater(
-            sum(1 for g in schedule["games"] if g.get("kickoff_utc")),
-            0,
-            "some fixtures must carry scheduled kickoffs",
+        # A kickoff is optional: the curated table only covers a few
+        # competitions, and a matchday with none of them published legitimately
+        # ships no countdowns. Every kickoff that *is* published must be a real
+        # UTC instant, though - a malformed one would break the countdown.
+        for game in schedule["games"]:
+            kickoff = game.get("kickoff_utc")
+            if kickoff is not None:
+                self.assertRegex(kickoff, r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
+
+    def test_the_schedule_describes_the_published_playlist(self):
+        # The bundle bakes this file, so a stale key would ship a ghost game.
+        schedule = json.loads(text(ROOT / "playlists/live-schedule.json"))
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import build_live_schedule
+        events = build_live_schedule.parse_events(
+            text(ROOT / "playlists/PremiumTV.m3u")
+        )
+        self.assertEqual(
+            sorted(g["key"] for g in schedule["games"]),
+            sorted({event["key"] for event in events}),
+            "live-schedule.json must be regenerated after the playlist changes",
         )
 
     def test_the_live_schedule_generator_is_deterministic(self):
-        path = ROOT / "playlists/live-schedule.json"
-        before = json.loads(path.read_text())
-        before.pop("generated_utc", None)
-        subprocess.run([sys.executable, str(ROOT / "scripts/build_live_schedule.py")], check=True, capture_output=True)
-        after = json.loads(path.read_text())
-        after.pop("generated_utc", None)
-        self.assertEqual(before, after, "the schedule generator must be deterministic")
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import build_live_schedule
+        events = build_live_schedule.parse_events(
+            text(ROOT / "playlists/PremiumTV.m3u")
+        )
+        first = build_live_schedule.assign_kickoffs(events, reference_date="2026-10-23")
+        second = build_live_schedule.assign_kickoffs(events, reference_date="2026-10-23")
+        self.assertEqual(first, second, "the schedule generator must be deterministic")
+
+    def test_curated_slots_still_produce_a_countdown(self):
+        # The countdown itself stays covered even when the current matchday
+        # publishes only competitions the table has no slots for.
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import build_live_schedule
+        events = [{
+            "sport": "Soccer",
+            "league": "UEFA Conference League",
+            "home": "A",
+            "away": "B",
+            "title": "A vs. B",
+            "key": "soccer|a|b",
+        }]
+        games = build_live_schedule.assign_kickoffs(events, reference_date="2026-10-23")
+        self.assertEqual(games[0]["kickoff_utc"], "2026-10-23T16:45:00Z")
+
+    def test_the_apps_open_the_files_under_the_names_the_bundle_writes(self):
+        # The bundle writes the repository's hyphenated file name beside the
+        # channel list; both apps must read exactly that name, and the Mac
+        # renderer must flatten the documents held in meta.json.
+        builder = text(ROOT / "android/tools/build_bundle.py")
+        self.assertIn("shutil.copyfile(source_path, os.path.join(out_dir, name))", builder)
+        home = text(UI / "HomeScreen.kt")
+        self.assertIn('readAsset("team-logos.json")', home)
+        self.assertIn('readAsset("live-schedule.json")', home)
+        renderer = text(MAC_RENDERER / "app.js")
+        self.assertIn("meta.team_logos", renderer)
+        self.assertIn("scheduleDoc.games", renderer)
 
 
 if __name__ == "__main__":

@@ -53,7 +53,7 @@ internal data class LiveEventSection(
     val events: List<LiveEvent>,
 )
 
-private val BRACKET_TAG = Regex("""^\[([^\]]{2,48}]\s*(.*)$""")
+private val BRACKET_TAG = Regex("""^\[([^\]]{2,48})]\s*(.*)$""")
 private val VERSUS = Regex("""\s+vs\.?\s+""", RegexOption.IGNORE_CASE)
 private val TRAILER = Regex("""\s*\|.*$""")
 /** Source/backup markers the scrapers append to team names, removed wherever they appear. */
@@ -139,46 +139,16 @@ private val TEAM_ALIASES = mapOf(
 )
 
 /** Norm key for one team, alias-collapsed so spelling variants match. */
-private fun teamKey(name: String): String =
+internal fun teamKey(name: String): String =
     TEAM_ALIASES[normKey(name)] ?: normKey(name)
 
 /** One team name with source/backup markers and feed-copy numbers stripped. */
 private fun cleanTeam(name: String): String {
     var text = MARKERS.replace(name, " ").trim()
     text = TRAILER.replace(text, "").trim()
-    text = SOURCE_SUFFIX.replace(text, "").trim()
     text = FEED_COPY.replace(text, "").trim()
     return text.replace(Regex("""\s{2,}"""), " ").trim()
 }
-
-/** Canonical section labels, keyed by the playlist's own bracket tag. */
-private val SPORT_LABELS = mapOf(
-    "soccer" to "Soccer",
-    "football" to "American Football",
-    "american football" to "American Football",
-    "nfl" to "American Football",
-    "ncaaf" to "College Football",
-    "college football" to "College Football",
-    "nhl" to "NHL Hockey",
-    "nhl hockey" to "NHL Hockey",
-    "hockey" to "Hockey",
-    "basketball" to "Basketball",
-    "nba" to "NBA Basketball",
-    "ncaa basketball" to "College Basketball",
-    "mlb" to "MLB Baseball",
-    "baseball" to "Baseball",
-    "ufc" to "UFC / MMA",
-    "mma" to "UFC / MMA",
-    "boxing" to "Boxing",
-    "wrestling" to "Wrestling",
-    "golf" to "Golf",
-    "tennis" to "Tennis",
-    "f1" to "Formula 1",
-    "nascar" to "NASCAR",
-    "cricket" to "Cricket",
-    "rugby" to "Rugby",
-    "sports" to "Sports",
-)
 
 /** The sport one event entry belongs to, or null when the name is not an event. */
 internal fun sportOfEvent(channel: Channel): String? {

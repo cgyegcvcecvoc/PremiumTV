@@ -8,8 +8,10 @@ script is the repository's schedule source: it reads the live-event entries
 from ``playlists/PremiumTV.m3u`` and assigns each fixture a kickoff time from
 the documented table below, then writes ``playlists/live-schedule.json`` for
 the apps to bundle. Kickoff times here are curated fixture times for the
-matchday the scrapers published (2026-10-22), not scraper data - when the
-scrapers start publishing real start times this script reads them instead.
+current UTC matchday, not scraper data - when the scrapers start publishing
+real start times this script reads them instead. Competitions the table does
+not cover keep their games and carry no kickoff time, so the apps show
+checking / live / no signal for them instead of a countdown to a guess.
 
 Run:
 
@@ -212,15 +214,21 @@ def parse_events(text: str):
     return events
 
 
-def assign_kickoffs(events, reference_date="2026-10-22"):
+def assign_kickoffs(events, reference_date=None):
     """Give every game whose competition has a table a kickoff on the day.
 
     Duplicate feeds of one game (same key) collapse to a single fixture,
     keeping the first title seen. Competitions without a table entry keep
     their games with no kickoff time - they show checking / live / no signal
     without a countdown.
+
+    [reference_date] defaults to the current UTC date: a curated matchday slot
+    only means anything for the day it is published, and a hardcoded date
+    turned every countdown into an instant in the past the next morning.
     """
     slots = {league: list(times) for league, times in KICKOFF_TABLE.items()}
+    if reference_date is None:
+        reference_date = datetime.now(timezone.utc).date().isoformat()
     day = datetime.fromisoformat(reference_date).replace(tzinfo=timezone.utc)
 
     # Collapse duplicate feeds of one game into one fixture.
@@ -259,12 +267,17 @@ def main() -> int:
         "schema": 1,
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source": "curated fixture kickoff times for the published matchday "
-        "(scripts/build_live_schedule.py); not scraper data",
+        "(scripts/build_live_schedule.py); not scraper data - competitions "
+        "without a curated slot keep kickoff_utc = null",
         "kickoff_table": KICKOFF_TABLE,
         "games": games,
     }
     OUT.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"{len(events)} event entries, {len(games)} with scheduled kickoffs -> {OUT}")
+    scheduled = sum(1 for game in games if game.get("kickoff_utc"))
+    print(
+        f"{len(events)} event entries, {len(games)} fixtures, "
+        f"{scheduled} with a curated kickoff -> {OUT}"
+    )
     return 0
 
 
