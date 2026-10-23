@@ -530,10 +530,6 @@
     <display-name>TVM Cordoba (1080p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/jN5k8Ob.png" />
   </channel>
-  <channel id="TVR.es@SD">
-    <display-name>TVR (Spain) (360p) [Not 24/7]</display-name>
-    <icon src="https://i.ibb.co/nRq3YfT/Logo-Rioja-Televisi-n-S-A.png" />
-  </channel>
   <channel id="TVReus.es@SD">
     <display-name>TVReus (720p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/Ee0C8UH.jpg" />
@@ -1007,6 +1003,12 @@
     <display-name>XPTV2 (720p)</display-name>
     <icon src="https://i.imgur.com/74Z8ATB.png" />
   </channel>
+  <channel id="Boing.es@SD">
+    <display-name>Boing (Spain)</display-name>
+    <display-name>ES - Boing</display-name>
+    <display-name>Boing.es</display-name>
+    <icon src="https://iptv-epg.org/images/pIgxVDDjQ7_1dkbeN5A9yg_7a2lRRdIbt6fkK39fU5zDRXsB__brEGIgx1fNbPuNeRoInIV5Jjolgz_wbTSwzkCymvRZd0ZMYWJ_PTw" />
+  </channel>
   <channel id="Clan.es@SD">
     <display-name>Clan (1080p)</display-name>
     <icon src="https://i.ibb.co/vv3FC2Nv/clan.png" />
@@ -1062,9 +1064,6 @@
     <display-name>Platzi TV (1080p)</display-name>
     <icon src="https://i.imgur.com/vEzeqHP.png" />
   </channel>
-  <programme start="20261023054900 +0000" stop="20261023083500 +0000" channel="BarcaTV.es@SD">
-    <title>La hora de La 1: La hora de la actualidad</title>
-  </programme>
   <programme start="20261023083500 +0000" stop="20261023125500 +0000" channel="BarcaTV.es@SD">
     <title>Mañaneros 360</title>
   </programme>
@@ -1185,8 +1184,17 @@
   <programme start="20261025135500 +0000" stop="20261025143000 +0000" channel="BarcaTV.es@SD">
     <title>Telediario 1</title>
   </programme>
-  <programme start="20261023080000 +0000" stop="20261023085800 +0000" channel="Esport3.es@SD">
-    <title>Arrelats</title>
+  <programme start="20261025143000 +0000" stop="20261025143500 +0000" channel="BarcaTV.es@SD">
+    <title>Deportes 1</title>
+  </programme>
+  <programme start="20261025143500 +0000" stop="20261025144000 +0000" channel="BarcaTV.es@SD">
+    <title>El tiempo</title>
+  </programme>
+  <programme start="20261025144000 +0000" stop="20261025145000 +0000" channel="BarcaTV.es@SD">
+    <title>Informativo territorial 2</title>
+  </programme>
+  <programme start="20261025145000 +0000" stop="20261025164500 +0000" channel="BarcaTV.es@SD">
+    <title>Directo al grano</title>
   </programme>
   <programme start="20261023085800 +0000" stop="20261023093000 +0000" channel="Esport3.es@SD">
     <title>GR Barcelona</title>
@@ -1377,6 +1385,9 @@
     <title>LALIGA HYPERMOTION (T26/27): CE Sabadell - CD Tenerife</title>
     <live />
   </programme>
+  <programme start="20261025145500 +0000" stop="20261025162500 +0000" channel="Esport3.es@SD">
+    <title>Supercopa de España de Hockey Patines : Liceo - Barcelona</title>
+  </programme>
   <programme start="20261023061500 +0000" stop="20261023101500 +0000" channel="Real.Madrid.TV.es">
     <title>Ciudad Real Madrid</title>
   </programme>
@@ -1532,9 +1543,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261023080000 +0000" stop="20261023083000 +0000" channel="APunt.es@SD">
-    <title>Gormandia</title>
-  </programme>
   <programme start="20261023083000 +0000" stop="20261023111000 +0000" channel="APunt.es@SD">
     <title>Connexió Comunitat Valenciana</title>
   </programme>
@@ -1682,6 +1690,9 @@
   <programme start="20261025134500 +0000" stop="20261025144500 +0000" channel="APunt.es@SD">
     <title>Atrapa'm si pots</title>
   </programme>
+  <programme start="20261025144500 +0000" stop="20261025165500 +0000" channel="APunt.es@SD">
+    <title>Està Passant Comunitat Valenciana</title>
+  </programme>
   <programme start="20261023073000 +0000" stop="20261023102500 +0000" channel="CanalSurAndalucia.es@SD">
     <title>Hoy en día</title>
   </programme>
@@ -1783,9 +1794,6 @@
   </programme>
   <programme start="20261025133500 +0000" stop="20261025173500 +0000" channel="CanalSurAndalucia.es@SD">
     <title>Andalucía por el mundo</title>
-  </programme>
-  <programme start="20261023070000 +0000" stop="20261023090000 +0000" channel="ETB1.es@SD">
-    <title>Egun on Euskadi</title>
   </programme>
   <programme start="20261023090000 +0000" stop="20261023094000 +0000" channel="ETB1.es@SD">
     <title>Adinberri</title>
@@ -2006,12 +2014,8 @@
   <programme start="20261025140500 +0000" stop="20261025150500 +0000" channel="ETB1.es@SD">
     <title>Herri kirolak</title>
   </programme>
-  <programme start="20261023074000 +0000" stop="20261023091000 +0000" channel="ETB2.es@SD">
-    <title>Cine</title>
-    <date>20261023</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261025150500 +0000" stop="20261025180000 +0000" channel="ETB1.es@SD">
+    <title>Pilota: ETB Kantxa</title>
   </programme>
   <programme start="20261023091000 +0000" stop="20261023102500 +0000" channel="ETB2.es@SD">
     <title>Euskadi quédate</title>
@@ -2725,8 +2729,165 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261023081100 +0000" stop="20261023083200 +0000" channel="ElToroTV.es@SD">
-    <title>Deportes en libertad</title>
+  <programme start="20261023083000 +0000" stop="20261023093000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Pasapalabra</title>
+    <desc>El mítico concurso regresa, renovado de la mano de Roberto Leal. Uno de los puntos fuertes del concurso son los invitados, que ayudan a los concursantes a conseguir el mayor número de segundos posible para la prueba final.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023093000 +0000" stop="20261023103000 +0000" channel="Antena3Internacional.es@SD">
+    <title>El Hormiguero</title>
+    <desc>Se presentan contenidos que giran en torno al humor, las entrevistas y los experimentos de divulgación científica.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023103000 +0000" stop="20261023120000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Honor</title>
+    <desc>Martín Romero es un juez cuya vida da un giro cuando su hijo Álex atropella a una persona y se da a la fuga. La víctima forma parte de una familia de la mafia por lo que comienza un arriesgado plan para proteger a su hijo.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023120000 +0000" stop="20261023130000 +0000" channel="Antena3Internacional.es@SD">
+    <title>La mesa</title>
+    <desc>Programa de actualidad de debate político y entrevistas.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023130000 +0000" stop="20261023150000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Noticias</title>
+    <desc>Todas las noticias de actualidad del acontecer español e internacional.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023150000 +0000" stop="20261023190000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Espejo público</title>
+    <desc>Reportajes sobre temas variados que atañen a diferentes clases sociales, noticias de interés público que están haciendo parte de los titulares en los medios de comunicación, las mejores entrevistas políticas, son una parte de este magazín informativo que ha estado vigente por más de una década. El programa además incluye investigaciones especiales de toda índole y analiza las problemáticas de form</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023190000 +0000" stop="20261023200000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Zapeando</title>
+    <desc>Se abordan temas de interés en las redes sociales, comentarios, divertidos montajes, y por supuesto, videos de zapping.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023200000 +0000" stop="20261023210000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Zapeando</title>
+    <desc>Se abordan temas de interés en las redes sociales, comentarios, divertidos montajes, y por supuesto, videos de zapping.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023210000 +0000" stop="20261023214500 +0000" channel="Antena3Internacional.es@SD">
+    <title>Noticias</title>
+    <desc>Todas las noticias de actualidad del acontecer español e internacional.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023214500 +0000" stop="20261023224500 +0000" channel="Antena3Internacional.es@SD">
+    <title>Espejo público</title>
+    <desc>Reportajes sobre temas variados que atañen a diferentes clases sociales, noticias de interés público que están haciendo parte de los titulares en los medios de comunicación, las mejores entrevistas políticas, son una parte de este magazín informativo que ha estado vigente por más de una década. El programa además incluye investigaciones especiales de toda índole y analiza las problemáticas de form</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261023224500 +0000" stop="20261024004500 +0000" channel="Antena3Internacional.es@SD">
+    <title>Tu Tiempo con Roberto Brasero</title>
+    <desc>Una nueva manera de ver la información meteorológica. Previsiones del tiempo de una forma sencilla y amena.</desc>
+    <date>20261023</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024004500 +0000" stop="20261024014500 +0000" channel="Antena3Internacional.es@SD">
+    <title>Cocina abierta de Karlos Arguiñano</title>
+    <desc>Karlos Arguiñano ofrece diversión e innovación para que comer cada día no sea una tarea monótona. Los niños son los que dan más guerra a la hora de comer, por eso Arguiñano no se olvidará de ellos y propondrá platos divertidos para sus paladares.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024014500 +0000" stop="20261024030000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Pasapalabra</title>
+    <desc>El mítico concurso regresa, renovado de la mano de Roberto Leal. Uno de los puntos fuertes del concurso son los invitados, que ayudan a los concursantes a conseguir el mayor número de segundos posible para la prueba final.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024030000 +0000" stop="20261024034500 +0000" channel="Antena3Internacional.es@SD">
+    <title>Noticias</title>
+    <desc>Todas las noticias de actualidad del acontecer español e internacional.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024034500 +0000" stop="20261024061500 +0000" channel="Antena3Internacional.es@SD">
+    <title>Y ahora Sonsoles</title>
+    <desc>Se aborda la crónica social y toda la actualidad del día con un grupo de colaboradores de diversos ámbitos. El espacio se divide en diferentes secciones y cuenta con un equipo de reporteros que salen a la calle.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024061500 +0000" stop="20261024073000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Sueños de libertad</title>
+    <desc>Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958. Amor, rivalidad, familia, amistad, duelos de clases y, una historia optimista y esperanzadora.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024073000 +0000" stop="20261024083000 +0000" channel="Antena3Internacional.es@SD">
+    <title>La ruleta de la suerte</title>
+    <desc>Una de las versiones españolas del programa de concurso clásico norteamericano de gran acogida que se inició en los años setenta, titulado "Wheel of Fortune" o la "Ruleta de la fortuna" en español. Este formato se ha realizado en más de 25 países y se ha extendido al público internacional. Los concursantes deben adivinar oraciones sobre temas variados, llenando los vacíos con letras adivinadas que</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024083000 +0000" stop="20261024093000 +0000" channel="Antena3Internacional.es@SD">
+    <title>Pasapalabra</title>
+    <desc>El mítico concurso regresa, renovado de la mano de Roberto Leal. Uno de los puntos fuertes del concurso son los invitados, que ayudan a los concursantes a conseguir el mayor número de segundos posible para la prueba final.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024093000 +0000" stop="20261024103000 +0000" channel="Antena3Internacional.es@SD">
+    <title>El Hormiguero</title>
+    <desc>Se presentan contenidos que giran en torno al humor, las entrevistas y los experimentos de divulgación científica.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261024103000 +0000" stop="20261025000000 +0000" channel="Antena3Internacional.es@SD">
+    <title>La Voz</title>
+    <desc>Este programa consiste en elegir entre un grupo de concursantes a aquellos que destaquen por sus cualidades vocales sin que su imagen influya en la decisión del jurado.</desc>
+    <date>20261024</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261023083200 +0000" stop="20261023100000 +0000" channel="ElToroTV.es@SD">
     <title>El gato al agua</title>
@@ -2913,13 +3074,6 @@
   </programme>
   <programme start="20261023213000 +0000" stop="20261023220000 +0000" channel="TeleElx.es@SD">
     <title>El camp d'Elx</title>
-  </programme>
-  <programme start="20261023060100 +0000" stop="20261023083600 +0000" channel="Telemadrid.es@HD">
-    <title>El análisis: el diario de la noche</title>
-    <date>20261023</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261023083600 +0000" stop="20261023092900 +0000" channel="Telemadrid.es@HD">
     <title>Nos vemos en el bar</title>
@@ -3113,8 +3267,11 @@
   <programme start="20261025141000 +0000" stop="20261025143600 +0000" channel="Telemadrid.es@HD">
     <title>Deportes 1</title>
   </programme>
-  <programme start="20261023060000 +0000" stop="20261023083000 +0000" channel="TV3.es@SD">
-    <title>Matins</title>
+  <programme start="20261025143600 +0000" stop="20261025144400 +0000" channel="Telemadrid.es@HD">
+    <title>El tiempo 1</title>
+  </programme>
+  <programme start="20261025144400 +0000" stop="20261025163000 +0000" channel="Telemadrid.es@HD">
+    <title>La Tarde de Telemadrid</title>
   </programme>
   <programme start="20261023083000 +0000" stop="20261023115500 +0000" channel="TV3.es@SD">
     <title>Tot es mou</title>
@@ -3265,8 +3422,8 @@
   <programme start="20261025133000 +0000" stop="20261025143500 +0000" channel="TV3.es@SD">
     <title>Telenotícies migdia</title>
   </programme>
-  <programme start="20261023081500 +0000" stop="20261023084300 +0000" channel="TVG2.es@SD">
-    <title>Polo Rego</title>
+  <programme start="20261025143500 +0000" stop="20261025162000 +0000" channel="TV3.es@SD">
+    <title>Assassinats a Meaux</title>
   </programme>
   <programme start="20261023084300 +0000" stop="20261023092900 +0000" channel="TVG2.es@SD">
     <title>Fontealba</title>
@@ -3634,8 +3791,11 @@
   <programme start="20261025140200 +0000" stop="20261025143000 +0000" channel="TVG2.es@SD">
     <title>Resetéame</title>
   </programme>
-  <programme start="20261023054900 +0000" stop="20261023083500 +0000" channel="SolMusica.es@SD">
-    <title>La hora de La 1: La hora de la actualidad</title>
+  <programme start="20261025143000 +0000" stop="20261025151000 +0000" channel="TVG2.es@SD">
+    <title>Telexornal Mediodía Fin de semana</title>
+  </programme>
+  <programme start="20261025151000 +0000" stop="20261025151700 +0000" channel="TVG2.es@SD">
+    <title>O Tempo</title>
   </programme>
   <programme start="20261023083500 +0000" stop="20261023125500 +0000" channel="SolMusica.es@SD">
     <title>Mañaneros 360</title>
@@ -3757,19 +3917,17 @@
   <programme start="20261025135500 +0000" stop="20261025143000 +0000" channel="SolMusica.es@SD">
     <title>Telediario 1</title>
   </programme>
-  <programme start="20261023080000 +0000" stop="20261023083000 +0000" channel="24h.es">
-    <title>TD Internacional 24 Horas</title>
-    <date>20261023</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261025143000 +0000" stop="20261025143500 +0000" channel="SolMusica.es@SD">
+    <title>Deportes 1</title>
   </programme>
-  <programme start="20261023083000 +0000" stop="20261023090000 +0000" channel="24h.es">
-    <title>TD Internacional 24 Horas</title>
-    <date>20261023</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261025143500 +0000" stop="20261025144000 +0000" channel="SolMusica.es@SD">
+    <title>El tiempo</title>
+  </programme>
+  <programme start="20261025144000 +0000" stop="20261025145000 +0000" channel="SolMusica.es@SD">
+    <title>Informativo territorial 2</title>
+  </programme>
+  <programme start="20261025145000 +0000" stop="20261025164500 +0000" channel="SolMusica.es@SD">
+    <title>Directo al grano</title>
   </programme>
   <programme start="20261023090000 +0000" stop="20261023093000 +0000" channel="24h.es">
     <title>TD Internacional 24 Horas</title>
@@ -3981,15 +4139,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261023082000 +0000" stop="20261023084500 +0000" channel="La7.es">
-    <title>Mundo Natural</title>
-  </programme>
-  <programme start="20261023084500 +0000" stop="20261023085000 +0000" channel="La7.es">
-    <title>Vuelve a verlo en CyLTVplay</title>
-  </programme>
-  <programme start="20261023085000 +0000" stop="20261023090000 +0000" channel="La7.es">
-    <title>Vuelve a verlo en CyLTVplay</title>
-  </programme>
   <programme start="20261023090000 +0000" stop="20261023095500 +0000" channel="La7.es">
     <title>Grana y oro</title>
   </programme>
@@ -4200,6 +4349,9 @@
   <programme start="20261025142000 +0000" stop="20261025145000 +0000" channel="La7.es">
     <title>Surcos Castilla y León</title>
   </programme>
+  <programme start="20261025145000 +0000" stop="20261025162000 +0000" channel="La7.es">
+    <title>Cine</title>
+  </programme>
   <programme start="20261023080000 +0000" stop="20261023120000 +0000" channel="BeMad.es">
     <title>Be Mad</title>
   </programme>
@@ -4229,9 +4381,6 @@
   </programme>
   <programme start="20261025040000 +0000" stop="20261025160000 +0000" channel="BeMad.es">
     <title>BE MAD</title>
-  </programme>
-  <programme start="20261023073000 +0000" stop="20261023083000 +0000" channel="CanalExtremadura.es">
-    <title>Informe Extremadura</title>
   </programme>
   <programme start="20261023083000 +0000" stop="20261023093000 +0000" channel="CanalExtremadura.es">
     <title>Conexión Extremadura</title>
@@ -4479,9 +4628,6 @@
   <programme start="20261025142000 +0000" stop="20261025160000 +0000" channel="CanalExtremadura.es">
     <title>¿Dónde estará mi niño</title>
   </programme>
-  <programme start="20261023074500 +0000" stop="20261023084500 +0000" channel="Divinity.es">
-    <title>Bones</title>
-  </programme>
   <programme start="20261023084500 +0000" stop="20261023094500 +0000" channel="Divinity.es">
     <title>Bones</title>
   </programme>
@@ -4658,9 +4804,6 @@
   </programme>
   <programme start="20261025142500 +0000" stop="20261025153000 +0000" channel="Divinity.es">
     <title>Tu casa a juicio</title>
-  </programme>
-  <programme start="20261023080000 +0000" stop="20261023090000 +0000" channel="Energy.es">
-    <title>NCIS: Nueva Orleans</title>
   </programme>
   <programme start="20261023090000 +0000" stop="20261023100000 +0000" channel="Energy.es">
     <title>NCIS: Nueva Orleans</title>
@@ -4851,6 +4994,9 @@
   <programme start="20261025135000 +0000" stop="20261025145000 +0000" channel="Energy.es">
     <title>Mentes criminales</title>
   </programme>
+  <programme start="20261025145000 +0000" stop="20261025154500 +0000" channel="Energy.es">
+    <title>Mentes criminales</title>
+  </programme>
   <programme start="20261023070000 +0000" stop="20261023130000 +0000" channel="TVEStar.es@HD">
     <title>Chaîne espagnole pour le continent américain</title>
     <date>20261023</date>
@@ -4906,9 +5052,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261023060000 +0000" stop="20261023083000 +0000" channel="TV3CAT.es">
-    <title>Matins</title>
   </programme>
   <programme start="20261023083000 +0000" stop="20261023115500 +0000" channel="TV3CAT.es">
     <title>Tot es mou</title>
@@ -5061,11 +5204,8 @@
   <programme start="20261025133000 +0000" stop="20261025143500 +0000" channel="TV3CAT.es">
     <title>Telenotícies migdia</title>
   </programme>
-  <programme start="20261023055000 +0000" stop="20261023083500 +0000" channel="24Horas.es@SD">
-    <title>La hora de La 1: La hora de la actualidad</title>
-  </programme>
-  <programme start="20261023083500 +0000" stop="20261023090000 +0000" channel="24Horas.es@SD">
-    <title>Diario 24</title>
+  <programme start="20261025143500 +0000" stop="20261025162000 +0000" channel="TV3CAT.es">
+    <title>Assassinats a Meaux</title>
   </programme>
   <programme start="20261023090000 +0000" stop="20261023120000 +0000" channel="24Horas.es@SD">
     <title>Diario 24</title>
@@ -5370,8 +5510,11 @@
   <programme start="20261025135400 +0000" stop="20261025144100 +0000" channel="24Horas.es@SD">
     <title>Telediario 1 Fin de Semana</title>
   </programme>
-  <programme start="20261023060000 +0000" stop="20261023083000 +0000" channel="3CatInfo.es@SD">
-    <title>Matins</title>
+  <programme start="20261025144100 +0000" stop="20261025144900 +0000" channel="24Horas.es@SD">
+    <title>Deportes 1</title>
+  </programme>
+  <programme start="20261025144900 +0000" stop="20261025153100 +0000" channel="24Horas.es@SD">
+    <title>En Portada</title>
   </programme>
   <programme start="20261023083000 +0000" stop="20261023100000 +0000" channel="3CatInfo.es@SD">
     <title>Notícies 3CatInfo</title>
@@ -5475,11 +5618,8 @@
   <programme start="20261025134000 +0000" stop="20261025143000 +0000" channel="3CatInfo.es@SD">
     <title>Telenotícies migdia cap de setmana</title>
   </programme>
-  <programme start="20261023060000 +0000" stop="20261023085500 +0000" channel="Trece.es@SD">
-    <title>De compras</title>
-  </programme>
-  <programme start="20261023085500 +0000" stop="20261023090000 +0000" channel="Trece.es@SD">
-    <title>Palabra de vida</title>
+  <programme start="20261025143000 +0000" stop="20261025163000 +0000" channel="3CatInfo.es@SD">
+    <title>Notícies 3CatInfo</title>
   </programme>
   <programme start="20261023090000 +0000" stop="20261023094000 +0000" channel="Trece.es@SD">
     <title>Santa Misa</title>
@@ -5598,21 +5738,8 @@
   <programme start="20261025124000 +0000" stop="20261025143000 +0000" channel="Trece.es@SD">
     <title>Préstame 15 días</title>
   </programme>
-  <programme start="20261023080000 +0000" stop="20261023083000 +0000" channel="Historia.es@SD">
-    <title>Zombie Cars: sauvés de la scrap</title>
-    <desc>Au début des années 70, les voitures japonaises ne sont pas prises au sérieux par les amateurs de chars au Québec, les voitures américaines régnant sur nos routes; plus de 30 ans après Pearl Harbour, les Japonais s'apprêtent alors à envahir l'Amérique! Vendue plus de 14,5 millions de fois en Amérique du Nord depuis ses débuts, la Civic est la voiture la plus vendue au Canada; Rémi-Pierre en décons</desc>
-    <date>20261023</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261023083000 +0000" stop="20261023090000 +0000" channel="Historia.es@SD">
-    <title>Transmission impossible</title>
-    <desc>Michel et Sophie visitent un client d'Ottawa afin de lui livrer le superbe Charger Triple Black qu'ils ont ressuscité des morts ; à Saguenay, Yannick entend profiter du marché à la hausse des camions des années 70 en restaurant un vieux Ford Ranger.</desc>
-    <date>20261023</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261025143000 +0000" stop="20261025161000 +0000" channel="Trece.es@SD">
+    <title>No firmes más letras, cielo</title>
   </programme>
   <programme start="20261023090000 +0000" stop="20261023093000 +0000" channel="Historia.es@SD">
     <title>Transmission impossible</title>
@@ -6094,6 +6221,450 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261023091100 +0000" stop="20261023092000 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261023092000 +0000" stop="20261023092700 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261023092700 +0000" stop="20261023093400 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261023093400 +0000" stop="20261023094100 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261023094100 +0000" stop="20261023095100 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261023095100 +0000" stop="20261023100200 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023100200 +0000" stop="20261023101500 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023101500 +0000" stop="20261023102600 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023102600 +0000" stop="20261023103700 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023103700 +0000" stop="20261023105200 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023105200 +0000" stop="20261023110300 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261023110300 +0000" stop="20261023111900 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261023111900 +0000" stop="20261023113100 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261023113100 +0000" stop="20261023115000 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261023115000 +0000" stop="20261023121900 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261023121900 +0000" stop="20261023124500 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261023124500 +0000" stop="20261023131500 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261023131500 +0000" stop="20261023134300 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261023134300 +0000" stop="20261023140900 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261023140900 +0000" stop="20261023142000 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023142000 +0000" stop="20261023143800 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023143800 +0000" stop="20261023144900 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023144900 +0000" stop="20261023150000 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023150000 +0000" stop="20261023151800 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261023151800 +0000" stop="20261023154800 +0000" channel="Boing.es@SD">
+    <title>Los Thunderman: Infiltrados</title>
+  </programme>
+  <programme start="20261023154800 +0000" stop="20261023155800 +0000" channel="Boing.es@SD">
+    <title>Teen Titans Go! Single Story</title>
+  </programme>
+  <programme start="20261023155800 +0000" stop="20261023161300 +0000" channel="Boing.es@SD">
+    <title>Teen Titans Go! Single Story</title>
+  </programme>
+  <programme start="20261023161300 +0000" stop="20261023164500 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261023164500 +0000" stop="20261023171300 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261023171300 +0000" stop="20261023192800 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261023192800 +0000" stop="20261023205200 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261023205200 +0000" stop="20261023211800 +0000" channel="Boing.es@SD">
+    <title>Los Thunderman: Infiltrados</title>
+  </programme>
+  <programme start="20261023211800 +0000" stop="20261023214200 +0000" channel="Boing.es@SD">
+    <title>Los Thundermans</title>
+  </programme>
+  <programme start="20261023214200 +0000" stop="20261023215300 +0000" channel="Boing.es@SD">
+    <title>Historias corrientes: las cintas perdidas</title>
+  </programme>
+  <programme start="20261023215300 +0000" stop="20261023220700 +0000" channel="Boing.es@SD">
+    <title>Historias corrientes: las cintas perdidas</title>
+  </programme>
+  <programme start="20261023220700 +0000" stop="20261023223000 +0000" channel="Boing.es@SD">
+    <title>Dragon Ball Super</title>
+  </programme>
+  <programme start="20261023223000 +0000" stop="20261023225100 +0000" channel="Boing.es@SD">
+    <title>Dragon Ball Super</title>
+  </programme>
+  <programme start="20261023225100 +0000" stop="20261023231300 +0000" channel="Boing.es@SD">
+    <title>Hora de aventuras</title>
+  </programme>
+  <programme start="20261023231300 +0000" stop="20261023233600 +0000" channel="Boing.es@SD">
+    <title>Hora de aventuras</title>
+  </programme>
+  <programme start="20261023233600 +0000" stop="20261023234600 +0000" channel="Boing.es@SD">
+    <title>Teen Titans Go! Single Story</title>
+  </programme>
+  <programme start="20261023234600 +0000" stop="20261023235700 +0000" channel="Boing.es@SD">
+    <title>Teen Titans Go! Single Story</title>
+  </programme>
+  <programme start="20261023235700 +0000" stop="20261024000700 +0000" channel="Boing.es@SD">
+    <title>Teen Titans Go! Single Story</title>
+  </programme>
+  <programme start="20261024000700 +0000" stop="20261024001700 +0000" channel="Boing.es@SD">
+    <title>Teen Titans Go! Single Story</title>
+  </programme>
+  <programme start="20261024001700 +0000" stop="20261024002800 +0000" channel="Boing.es@SD">
+    <title>Steven Universe Future</title>
+  </programme>
+  <programme start="20261024002800 +0000" stop="20261024003900 +0000" channel="Boing.es@SD">
+    <title>Steven Universe Future</title>
+  </programme>
+  <programme start="20261024003900 +0000" stop="20261024004900 +0000" channel="Boing.es@SD">
+    <title>Steven Universe Future</title>
+  </programme>
+  <programme start="20261024004900 +0000" stop="20261024010000 +0000" channel="Boing.es@SD">
+    <title>Steven Universe Future</title>
+  </programme>
+  <programme start="20261024010000 +0000" stop="20261024011200 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261024011200 +0000" stop="20261024012400 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261024012400 +0000" stop="20261024014500 +0000" channel="Boing.es@SD">
+    <title>Jade Armor</title>
+  </programme>
+  <programme start="20261024014500 +0000" stop="20261024015600 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024015600 +0000" stop="20261024020700 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024020700 +0000" stop="20261024021800 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024021800 +0000" stop="20261024022900 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024022900 +0000" stop="20261024024100 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261024024100 +0000" stop="20261024025300 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261024025300 +0000" stop="20261024030400 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024030400 +0000" stop="20261024031500 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024031500 +0000" stop="20261024032600 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024032600 +0000" stop="20261024034800 +0000" channel="Boing.es@SD">
+    <title>Chowder</title>
+  </programme>
+  <programme start="20261024034800 +0000" stop="20261024040000 +0000" channel="Boing.es@SD">
+    <title>Chowder</title>
+  </programme>
+  <programme start="20261024040000 +0000" stop="20261024041100 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261024041100 +0000" stop="20261024042300 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261024042300 +0000" stop="20261024042900 +0000" channel="Boing.es@SD">
+    <title>¡Krypto salva el día</title>
+  </programme>
+  <programme start="20261024042900 +0000" stop="20261024045100 +0000" channel="Boing.es@SD">
+    <title>Jade Armor</title>
+  </programme>
+  <programme start="20261024045100 +0000" stop="20261024050200 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024050200 +0000" stop="20261024051500 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024051500 +0000" stop="20261024052600 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024052600 +0000" stop="20261024053800 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024053800 +0000" stop="20261024054500 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261024054500 +0000" stop="20261024055200 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261024055200 +0000" stop="20261024060000 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261024060000 +0000" stop="20261024061100 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261024061100 +0000" stop="20261024062400 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261024062400 +0000" stop="20261024063500 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261024063500 +0000" stop="20261024064900 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261024064900 +0000" stop="20261024071500 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261024071500 +0000" stop="20261024074300 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261024074300 +0000" stop="20261024080900 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261024080900 +0000" stop="20261024083200 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261024083200 +0000" stop="20261024100900 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261024100900 +0000" stop="20261024102000 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024102000 +0000" stop="20261024103800 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261024103800 +0000" stop="20261024104900 +0000" channel="Boing.es@SD">
+    <title>El maravillosamente extraño mundo de Gumball</title>
+  </programme>
+  <programme start="20261024104900 +0000" stop="20261024110600 +0000" channel="Boing.es@SD">
+    <title>El maravillosamente extraño mundo de Gumball</title>
+  </programme>
+  <programme start="20261024110600 +0000" stop="20261024111700 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261024111700 +0000" stop="20261024113400 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261024113400 +0000" stop="20261024120100 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261024120100 +0000" stop="20261024122800 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261024122800 +0000" stop="20261024141100 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261024141100 +0000" stop="20261024161200 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261024161200 +0000" stop="20261024175600 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261024175600 +0000" stop="20261024193100 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261024193100 +0000" stop="20261024210800 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261024210800 +0000" stop="20261024213600 +0000" channel="Boing.es@SD">
+    <title>Los Thunderman: Infiltrados</title>
+  </programme>
+  <programme start="20261024213600 +0000" stop="20261024215800 +0000" channel="Boing.es@SD">
+    <title>Los Thundermans</title>
+  </programme>
+  <programme start="20261024215800 +0000" stop="20261024222200 +0000" channel="Boing.es@SD">
+    <title>Dragon Ball Super</title>
+  </programme>
+  <programme start="20261024222200 +0000" stop="20261024224400 +0000" channel="Boing.es@SD">
+    <title>Dragon Ball Super</title>
+  </programme>
+  <programme start="20261024224400 +0000" stop="20261024230700 +0000" channel="Boing.es@SD">
+    <title>Hora de aventuras</title>
+  </programme>
+  <programme start="20261024230700 +0000" stop="20261024232900 +0000" channel="Boing.es@SD">
+    <title>Hora de aventuras</title>
+  </programme>
+  <programme start="20261024232900 +0000" stop="20261024234000 +0000" channel="Boing.es@SD">
+    <title>Historias corrientes</title>
+  </programme>
+  <programme start="20261024234000 +0000" stop="20261024235100 +0000" channel="Boing.es@SD">
+    <title>Historias corrientes</title>
+  </programme>
+  <programme start="20261024235100 +0000" stop="20261025000600 +0000" channel="Boing.es@SD">
+    <title>Totally Spies</title>
+  </programme>
+  <programme start="20261025000600 +0000" stop="20261025001300 +0000" channel="Boing.es@SD">
+    <title>Hero Inside</title>
+  </programme>
+  <programme start="20261025001300 +0000" stop="20261025001800 +0000" channel="Boing.es@SD">
+    <title>Hero Inside</title>
+  </programme>
+  <programme start="20261025001800 +0000" stop="20261025002400 +0000" channel="Boing.es@SD">
+    <title>Bugs Bunny Builders: A ponerse el casco</title>
+  </programme>
+  <programme start="20261025002400 +0000" stop="20261025002900 +0000" channel="Boing.es@SD">
+    <title>Bugs Bunny Builders: A ponerse el casco</title>
+  </programme>
+  <programme start="20261025002900 +0000" stop="20261025003400 +0000" channel="Boing.es@SD">
+    <title>Bugs Bunny Builders: A ponerse el casco</title>
+  </programme>
+  <programme start="20261025003400 +0000" stop="20261025004000 +0000" channel="Boing.es@SD">
+    <title>Bugs Bunny Builders: A ponerse el casco</title>
+  </programme>
+  <programme start="20261025004000 +0000" stop="20261025005000 +0000" channel="Boing.es@SD">
+    <title>Tiny Toons: Looniversidad</title>
+  </programme>
+  <programme start="20261025005000 +0000" stop="20261025020100 +0000" channel="Boing.es@SD">
+    <title>Tiny Toons: Looniversidad</title>
+  </programme>
+  <programme start="20261025020100 +0000" stop="20261025022300 +0000" channel="Boing.es@SD">
+    <title>LEGO NInjago: El renacer de los dragones</title>
+  </programme>
+  <programme start="20261025022300 +0000" stop="20261025024400 +0000" channel="Boing.es@SD">
+    <title>Escuela secundaria de monstruos</title>
+  </programme>
+  <programme start="20261025024400 +0000" stop="20261025030500 +0000" channel="Boing.es@SD">
+    <title>Escuela secundaria de monstruos</title>
+  </programme>
+  <programme start="20261025030500 +0000" stop="20261025031600 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025031600 +0000" stop="20261025032700 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025032700 +0000" stop="20261025034800 +0000" channel="Boing.es@SD">
+    <title>Chowder</title>
+  </programme>
+  <programme start="20261025034800 +0000" stop="20261025040000 +0000" channel="Boing.es@SD">
+    <title>Chowder</title>
+  </programme>
+  <programme start="20261025040000 +0000" stop="20261025041100 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261025041100 +0000" stop="20261025042400 +0000" channel="Boing.es@SD">
+    <title>El valiente príncipe Ivandoe</title>
+  </programme>
+  <programme start="20261025042400 +0000" stop="20261025044700 +0000" channel="Boing.es@SD">
+    <title>Jade Armor</title>
+  </programme>
+  <programme start="20261025044700 +0000" stop="20261025045800 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025045800 +0000" stop="20261025051000 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025051000 +0000" stop="20261025052100 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025052100 +0000" stop="20261025053400 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025053400 +0000" stop="20261025054100 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261025054100 +0000" stop="20261025054800 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261025054800 +0000" stop="20261025055600 +0000" channel="Boing.es@SD">
+    <title>El show de Tom y Jerry</title>
+  </programme>
+  <programme start="20261025055600 +0000" stop="20261025060700 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261025060700 +0000" stop="20261025061800 +0000" channel="Boing.es@SD">
+    <title>Looney Tunes Cartoons</title>
+  </programme>
+  <programme start="20261025061800 +0000" stop="20261025063100 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261025063100 +0000" stop="20261025064800 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261025064800 +0000" stop="20261025071400 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261025071400 +0000" stop="20261025074000 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261025074000 +0000" stop="20261025080500 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261025080500 +0000" stop="20261025083000 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261025083000 +0000" stop="20261025101000 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261025101000 +0000" stop="20261025102100 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025102100 +0000" stop="20261025103600 +0000" channel="Boing.es@SD">
+    <title>El asombroso mundo de Gumball</title>
+  </programme>
+  <programme start="20261025103600 +0000" stop="20261025104700 +0000" channel="Boing.es@SD">
+    <title>El maravillosamente extraño mundo de Gumball</title>
+  </programme>
+  <programme start="20261025104700 +0000" stop="20261025105900 +0000" channel="Boing.es@SD">
+    <title>El maravillosamente extraño mundo de Gumball</title>
+  </programme>
+  <programme start="20261025105900 +0000" stop="20261025111000 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261025111000 +0000" stop="20261025112400 +0000" channel="Boing.es@SD">
+    <title>La pelu del Señor Pan</title>
+  </programme>
+  <programme start="20261025112400 +0000" stop="20261025115400 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261025115400 +0000" stop="20261025121800 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261025121800 +0000" stop="20261025124700 +0000" channel="Boing.es@SD">
+    <title>Doraemon</title>
+  </programme>
+  <programme start="20261025124700 +0000" stop="20261025141100 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
+  <programme start="20261025141100 +0000" stop="20261025161300 +0000" channel="Boing.es@SD">
+    <title>Cine</title>
+  </programme>
   <programme start="20261023080000 +0000" stop="20261023100000 +0000" channel="NegociosTV.es@SD">
     <title>Miradas Viajeras Tv</title>
   </programme>
@@ -6185,6 +6756,9 @@
     <title>Money&amp;Markets</title>
   </programme>
   <programme start="20261025140000 +0000" stop="20261025150000 +0000" channel="NegociosTV.es@SD">
+    <title>Claves Vizner</title>
+  </programme>
+  <programme start="20261025150000 +0000" stop="20261025160000 +0000" channel="NegociosTV.es@SD">
     <title>Claves Vizner</title>
   </programme>
 </tv>
