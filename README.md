@@ -73,7 +73,7 @@ the same data scope and version policy:
 | Superseded | **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Install in place over these builds; Settings → App updates finds 1.1.2 automatically |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
 | Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.2 ends Nov 19, 2026 |
-| Next (in source) | — | USA lineup + USA guide | 1.1.2 is the current source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.3; the V-patch/alias series stays retired |
+| Next | — | USA lineup + USA guide | 1.1.2 is published and is the source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.3 — `.github/workflows/publish-release.yml` publishes it from `VERSION`; the V-patch/alias series stays retired |
 
 The old **1.1.x Encore preview channel is retired**, and 1.1.2 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
