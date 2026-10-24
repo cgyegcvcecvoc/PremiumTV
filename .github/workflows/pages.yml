@@ -73,10 +73,56 @@ jobs:
     name: Redeploy after a release
     if: github.event_name == 'release'
     runs-on: ubuntu-24.04
+    timeout-minutes: 60
     permissions:
       actions: write
       contents: read
     steps:
+      - uses: actions/checkout@v5
+
+      - name: Wait for this release's installers
+        # The release event fires the moment the release exists, minutes before
+        # the APK (emulator smoke gate) and the four Mac installers finish
+        # uploading. Redeploying straight away would publish the *previous*
+        # complete release as the stable card and leave 1.1.2 unpromoted until
+        # the next data run happened to touch the site. Wait for the files
+        # instead, so the page and the release agree, then redeploy.
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -uo pipefail
+          version="${TAG#v}"
+          mac=$(python3 scripts/release_version.py --macos "$version" 2>/dev/null || printf '%s' "$version")
+          required="PremiumTV-$version-debug.apk"
+          for arch in arm64 x64; do
+            for ext in dmg pkg; do
+              required="$required PremiumTV-$mac-mac-$arch.$ext"
+            done
+          done
+          deadline=$((SECONDS + 2700))
+          while :; do
+            assets=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$TAG" \
+              --jq '[.assets[].name] | join(" ")' 2>/dev/null || true)
+            missing=""
+            for want in $required; do
+              case " $assets " in
+                *" $want "*) ;;
+                *) missing="$missing $want" ;;
+              esac
+            done
+            if [ -z "$missing" ]; then
+              echo "Every installer for $TAG is attached."
+              break
+            fi
+            if [ "$SECONDS" -ge "$deadline" ]; then
+              echo "::warning::Still waiting for:$missing - redeploying with the newest complete release."
+              break
+            fi
+            echo "Waiting for:$missing"
+            sleep 60
+          done
+
       - name: Ask the main-branch site deploy to pick up the new release
         env:
           GH_TOKEN: ${{ github.token }}
