@@ -1,12 +1,12 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-24T12:33:45+00:00 UTC
-- **Playlists checked:** 184 (29429 entries)
+- **Generated:** 2026-10-24T13:38:00+00:00 UTC
+- **Playlists checked:** 184 (29428 entries)
 - **Playlists with problems:** 3
 - **Playlists with guide-coverage notes:** 79
 - **Links published that the deep check called dead:** 3
 - **Category shelf files:** 133 (0 problem(s))
-- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, Cartoons Backups, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, Religious, Religious Backups, Entertainment, Entertainment Backups, International, International Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Legislative, Legislative Backups, Africa, Africa Backups, North America, North America Backups, Series, Series Backups, Business, Family, South America, South America Backups, Classic TV, Comedy, United States, United States Backups, Weather, A&E Networks, A&E Networks Backups, Digital TV, Global TV, Online TV, Online TV Backups, 3-Radio#Chicago, Australia, Canada, DLTV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
+- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, Religious, Religious Backups, Entertainment, Entertainment Backups, International, International Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Legislative, Legislative Backups, Africa, Africa Backups, North America, North America Backups, Series, Series Backups, Business, Family, South America, South America Backups, Classic TV, Comedy, United States, United States Backups, Weather, A&E Networks, A&E Networks Backups, Digital TV, Global TV, Online TV, Online TV Backups, 3-Radio#Chicago, Australia, Canada, DLTV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, TEST, Tv Paranormal, Tv Shows, UK, UK Backups, USA Channels, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
 
 ## Playlists
@@ -15,7 +15,7 @@
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | `playlists/PremiumTV.m3u` | 13230 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Movies, Europe, International, Entertainment, Religious, Asia, South America, Documentary, United States, Series, Kids, North America, Education, Culture, Legislative, Comedy, Africa, India, Classic TV, Business, Canada, UK, Family, A&E Networks, Australia, Global TV, Digital TV, Weather, Animals & Nature, DLTV, Online TV, Tv Celebrities, Tv Paranormal, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 11546/11546 (100.0%) | 2483 (21.5%) |
 | `playlists/AE_Channels.m3u` | 69 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 61/61 (100.0%) | 21 (34.4%) |
-| `playlists/Priority_Channels.m3u` | 18 | Sports, Cartoons, Kids, 3-Radio#Chicago, MeTV, United States | 0 | 0 | 3 | 0 | 13/13 (100.0%) | 7 (53.8%) |
+| `playlists/Priority_Channels.m3u` | 17 | Sports, Cartoons, Kids, 3-Radio#Chicago, MeTV, TEST, USA Channels | 0 | 0 | 3 | 0 | 14/14 (100.0%) | 8 (57.1%) |
 | `playlists/countries/Afghanistan.m3u` | 11 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 11/11 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Albania.m3u` | 25 | Sports, News, Europe, International, Movies, Music | 0 | 0 | 1 | 0 | 24/24 (100.0%) | 6 (25.0%) |
 | `playlists/countries/Algeria.m3u` | 7 | Sports, Africa, Kids, News, Religious | 0 | 0 | 1 | 0 | 7/7 (100.0%) | 0 (0.0%) |
