@@ -225,11 +225,17 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
         }
     }
 
-    // The update popup floats above every screen except a full-screen player:
-    // cutting into a programme that is already playing is worse than waiting
-    // for the viewer to come back to the browser.
+    // The update popup floats above every screen except a player that is
+    // actually up - full screen *or* docked. Cutting into a programme that is
+    // already playing is worse than waiting for the viewer to come back, and a
+    // dialog window takes the remote's focus and its Back key with it: with the
+    // dock open, Back is promised to the dock ("Back to tuck, Back to close"),
+    // so a popup arriving late over a docked channel would swallow the press
+    // and leave the panel stuck open. The check is decided from the last cached
+    // notice at startup, so a viewer with nothing playing still sees it on the
+    // next launch.
     val notice = updateInfo.notice
-    if (notice != null && updateInfo.noticeVisible && (playing == null || sidePlayer)) {
+    if (notice != null && updateInfo.noticeVisible && playing == null) {
         UpdateNoticeDialog(
             notice = notice,
             installedVersion = updateInfo.currentVersion,

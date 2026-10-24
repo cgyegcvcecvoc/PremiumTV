@@ -74,7 +74,12 @@ The rules the popup follows:
    resolved at startup from the last copy. An offline launch still shows it,
    which is exactly when an out-of-support build is most stuck.
 3. **Never over a playing channel.** Android shows it above every screen except
-   the player.
+   the player - and since 1.1.2 the *docked* player counts as playing. A dialog
+   window takes the remote's focus and its Back key, and Back over the dock is
+   promised to the dock (tuck from full screen, close from the dock), so a popup
+   arriving over a docked channel would swallow that press and leave the panel
+   stuck. A viewer with nothing playing still sees the notice at the next
+   launch.
 4. **A notice failure is invisible.** An unreachable, oversized (over 64 KB) or
    malformed document keeps the last good copy and can never fail the update
    check that already succeeded.
@@ -187,14 +192,22 @@ check is throttled and the downloaded DMG is reused until it is installed.
    plain three-part numbers; the matching Android versionCode comes from
    `python3 scripts/release_version.py --code <version>`.
 2. Publish the GitHub release as a **full release** (not a pre-release) with
-   the tag (for example `v1.0.9`). The release guard checks the ordering;
-   the build workflows attach the APK and all four Mac installers when the tag
-   points at their commit. (`--display` still resolves the one historical V
-   patch: `python3 scripts/release_version.py --display 1.0.8.1` → `1.0.8 V1`.)
+   the tag (for example `v1.1.2`). Use *Actions → Publish a release → Run
+   workflow*: it publishes `VERSION`, refuses a tag that already exists, runs
+   the version-drift check first and takes the release title and notes from
+   `release-notes-<version>.md`. Publishing by hand works too, but nothing in
+   the tree creates the release for you - 1.1.2 reached `main` with no tag, no
+   APK and no Mac installers for exactly that reason. The release guard checks
+   the ordering; the build workflows attach the APK and all four Mac installers
+   when the tag points at their commit. (`--display` still resolves the one
+   historical V patch: `python3 scripts/release_version.py --display 1.0.8.1` →
+   `1.0.8 V1`.)
 3. The download site promotes the release only after its APK exists **and**
-   all four Mac installers exist. Only the historical four-part releases
-   (1.0.6.1, 1.0.8.1) borrow Mac installers from their alias release, since
-   macOS packaging cannot carry a four-part version.
+   all four Mac installers exist; its release-triggered job waits for those
+   files (up to 45 minutes) before redeploying, so the page and the release
+   agree without anyone re-running anything. Only the historical four-part
+   releases (1.0.6.1, 1.0.8.1) borrow Mac installers from their alias release,
+   since macOS packaging cannot carry a four-part version.
    Installed 1.0.4+ apps see the release on their next daily check or
    immediately when the user presses **Check for update**.
 4. **No compatibility twin — that scheme is retired.** Four-part patch
@@ -211,11 +224,13 @@ check is throttled and the downloaded DMG is reused until it is installed.
 5. Check `app-update-notice.json`. Its rules are read in order and the first
    one whose range contains the installed version is shown. The current
    document targets three ranges: `crash-on-watch-1-0-8` (Android 1.0.8–1.0.8.1,
-   level `blocked` — the extreme update-now warning for the frozen-player bug,
-   with 1.0.9 hard-coded because that cohort's `{newest}` would render as
-   itself), `update-below-newest` (1.0.4–1.1.0,
-   a warning whose action opens Settings so the normal updater finishes the
-   job), and `legacy-upgrade-2026-11` (0.0.0-1.0.3, the last manual install).
+   level `blocked` — the extreme update-now warning for the frozen-player bug;
+   it names no current version at all, because that cohort's frozen alias table
+   makes `{newest}` render as itself, and it follows `/releases/latest` so the
+   button can never point at a superseded release), `update-below-newest`
+   (1.0.4–1.1.1, a warning whose action opens Settings so the normal updater
+   finishes the job), and `legacy-upgrade-2026-11` (0.0.0-1.0.3, the last manual
+   install).
    The old `retired-preview-1-1` rule was removed when 1.1.1 shipped as the
    stable release: a stable release cannot be blocked by a notice rule that
    matches its own version.

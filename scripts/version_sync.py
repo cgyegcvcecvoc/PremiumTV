@@ -10,8 +10,10 @@ Everything a machine reads is derived from it:
 
 Everything that has to stay readable prose is *checked*, never rewritten:
 the README release table, the two app READMEs, docs/UPDATES.md, the update
-notice, the release notes file and both build workflows.  When one of them
-disagrees the check names the file and the expected value, and CI fails.
+notice, the release notes file, both build workflows and the published
+download pages (docs/README.md, docs/blocked/index.html, hub/static/index.html).
+When one of them disagrees the check names the file and the expected value, and
+CI fails.
 
     python scripts/version_sync.py            # check (CI uses this)
     python scripts/version_sync.py --write    # update the generated surfaces
@@ -236,6 +238,29 @@ def check() -> list[str]:
         [f"PremiumTV {version}"],
         "release notes for the current version",
     )
+    # The published download pages. 1.1.2 shipped with docs/README.md still
+    # calling 1.1.0 current, the hub landing page still advertising 1.1.0 and
+    # the blocked-build page claiming the *stable* 1.1.1 had been deleted -
+    # three prose surfaces no check looked at. The site is the first thing a
+    # person sees, so its version has to fail CI like the README's does.
+    _require_text(
+        problems, ROOT / "docs" / "README.md",
+        [f"## Current stable: {version}", f"currently **{version}**",
+         f"release-notes-{version}.md"],
+        "download-site README",
+    )
+    _require_text(
+        problems, ROOT / "docs" / "blocked" / "index.html",
+        [f"stable {version} instead",
+         f"releases/download/v{version}/PremiumTV-{version}-debug.apk",
+         f"versionCode {code}"],
+        "retired-preview page",
+    )
+    _require_text(
+        problems, ROOT / "hub" / "static" / "index.html",
+        [f"Stable {version} ", f"code {code}"],
+        "hub landing page",
+    )
 
     notice_path = ROOT / "app-update-notice.json"
     try:
@@ -274,6 +299,21 @@ def check() -> list[str]:
                 problems.append(
                     "app-update-notice.json: update-below-newest.surprise should name "
                     f"{version} so the popup describes the current release"
+                )
+        # The builds a blocked rule targets are the most vulnerable, and they
+        # are the ones most likely to read a stale sentence for months. Its
+        # button therefore has to follow /releases/latest: the crash warning
+        # used to say "Get 1.0.9 now" and link that tag long after 1.1.x was
+        # current, which would have sent those builds to a superseded release.
+        for rule in notice.get("rules") or []:
+            if rule.get("level") != "blocked":
+                continue
+            url = str(rule.get("releases_url") or "")
+            if "/tag/" in url or not url.endswith("/releases/latest"):
+                problems.append(
+                    "app-update-notice.json: blocked rule "
+                    f"{rule.get('id')!r} must link /releases/latest, not a fixed tag "
+                    f"(got {url or 'no url'!r})"
                 )
 
     return problems

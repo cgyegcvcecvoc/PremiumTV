@@ -4,11 +4,11 @@ The public download page for PremiumTV: app installers, the best working M3U
 playlist per country, and the project change log. It is a static site — no
 server, no build step — published with GitHub Pages.
 
-**Live URL:** https://cgyegcvcecvoc.github.io/PremiumTV1/
+**Live URL:** https://cgyegcvcecvoc.github.io/PremiumTV/
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.0** — the category rail with the side player docked on the right, tap-to-full-screen, automatic server backup, dead channels filtered out, amber pointer outlines and a calm loading screen with the gold loading line kept, plus every 1.0.9 fix), with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.2** — a channel opens in the docked side player first and grows to full screen on one press, Movies & Shows is a working on-demand shelf, plus the category rail, automatic server backup, dead channels filtered out, amber pointer outlines and every 1.0.9/1.1.0/1.1.1 fix), with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,15 +26,24 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.0
+## Current stable: 1.1.2
 
-1.1.0 turns the Channels tab into a category rail beside the channel list and docks the side player on the right, where one press on the picture grows it to full screen without restarting the stream. A feed that fails or stalls moves to the next server automatically (known-dead feeds are tried last), a channel whose every feed failed is hidden until Settings → Restore hidden channels brings it back, every focusable control carries the same amber outline, and the animated splash is gone — the gold loading line bar stays and reports real load stages. Settings is one compact screen — a version card that shows **1.1.0**, plus **Force refresh**, **Check for update**, **Check for bugs**, a hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.0.md`](../release-notes-1.1.0.md).
+1.1.2 opens every channel in the docked side player first — the picture (or **⤢ Big screen**) grows the same running stream to full screen, Back tucks it into the dock and ✕ closes it — and turns Movies & Shows into a working on-demand shelf of ten public-domain films and classic TV episodes, verified by `scripts/vod_catalog.py`. It keeps the rest of the 1.1.x line: the category rail beside the channel list, automatic server backup when a feed dies, dead channels filtered out until Settings → Restore hidden channels, the same amber outline on every focusable control, a calm loading screen with the gold loading line bar, and a compact Settings screen — a version card that shows **1.1.2**, plus **Force refresh**, **Check for update**, **Check for bugs**, the hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.2.md`](../release-notes-1.1.2.md).
 
-The **1.1.x Encore preview is retired and blocked**. Its release, installers and
+It installs in place over every earlier build: Android `101020000` is above
+every released versionCode, and the Mac DMG replaces the old copy. Builds from
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.2 in
+**Settings → App updates**; the downloaded installer is checksum-verified before
+it is opened.
+
+The **1.1.x Encore preview is retired**. That preview's release, installers and
 download links were removed; any old link goes to
-[`blocked/`](blocked/index.html), which points at 1.0.6.1 and explains how to
-replace the preview without uninstalling on Android. The Netlify Drop hub under
-`hub/` uses the same complete-release gate and no longer renders a preview
+[`blocked/`](blocked/index.html), which now points at the current stable release
+and explains how to replace the preview without uninstalling on Android. **The
+`1.1.0` and `1.1.1` names are ordinary stable releases** — the deleted preview
+shared those names, and the project promoted them back, so a device on either is
+on a supported build and simply updates to 1.1.2 in-app. The Netlify Drop hub
+under `hub/` uses the same complete-release gate and never renders a preview
 card. Rebuild and re-upload its export to refresh an existing Netlify
 deployment.
 

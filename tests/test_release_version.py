@@ -287,5 +287,42 @@ class ReleaseGuardTests(unittest.TestCase):
         self.assertEqual(release_version.newest_stable(releases), "1.0.4")
 
 
+class ReleasePublicationTests(unittest.TestCase):
+    """A version bump has to reach the Releases page, or the apps can't see it.
+
+    This is the 1.1.2 lesson: VERSION, both READMEs, the update notice and the
+    site generator all said 1.1.2 while the Releases page stopped at 1.1.1, so
+    no installed app could be offered the build. Publishing is now a workflow,
+    and the site waits for the installers before promoting the version.
+    """
+
+    def test_publishing_is_a_workflow_that_uses_the_version_file(self):
+        text = (ROOT / ".github" / "workflows" / "publish-release.yml").read_text(encoding="utf-8")
+        self.assertIn("workflow_dispatch:", text)
+        self.assertIn("release_version.py --current", text)
+        self.assertIn("version_sync.py --check", text)
+        self.assertIn('gh release create "$tag"', text)
+        self.assertIn('--target "$GITHUB_SHA"', text)
+        self.assertIn("--notes-file", text)
+        self.assertIn("already published", text)
+
+    def test_the_site_waits_for_the_installers_before_promoting(self):
+        text = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
+        self.assertIn("Wait for this release's installers", text)
+        self.assertIn("PremiumTV-$version-debug.apk", text)
+        self.assertIn("PremiumTV-$mac-mac-$arch.$ext", text)
+        self.assertIn("release_version.py --macos", text)
+        self.assertLess(text.index("Wait for this release's installers"),
+                        text.index("gh workflow run pages.yml"),
+                        "the wait has to finish before the redeploy is asked for")
+
+    def test_the_current_version_has_release_notes_to_publish(self):
+        version = release_version.current_version()
+        notes = ROOT / f"release-notes-{version}.md"
+        self.assertTrue(notes.is_file(), notes.name)
+        first = notes.read_text(encoding="utf-8").splitlines()[0]
+        self.assertTrue(first.startswith("# "), "the workflow takes the release title from it")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,136 @@
+name: Publish a release
+
+# VERSION is the single source of the release number, but bumping it on main
+# creates nothing on the Releases page. That is how 1.1.2 ended up advertised
+# as the stable release - in the README, both app READMEs, the update notice,
+# the release notes and the site generator - with no v1.1.2 tag, no APK and no
+# Mac installers for anyone to install. This workflow makes publishing the one
+# deliberate click, and starts the rest of the chain from there:
+#
+#   Release version guard   fails a version that is not above the newest stable
+#   Build PremiumTV Android APK   builds, smoke-tests and attaches the APK
+#   Build PremiumTV macOS DMG + PKG   builds and attaches both arch installers
+#   Deploy download site    waits for those files, then promotes the version
+#
+# Until the installers exist the download site keeps the previous complete
+# release live and no app is offered the new version, so publishing early is
+# safe - it can only go stale, never lie.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish; leave blank for the version in VERSION (for example 1.1.3)"
+        type: string
+        default: ""
+        required: false
+      dry_run:
+        description: "Check everything, but do not create the release"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: publish-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Create the GitHub release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Resolve the version and its release notes
+        id: release
+        run: |
+          set -euo pipefail
+          version="${{ inputs.version }}"
+          if [ -z "$version" ]; then
+            version=$(python3 scripts/release_version.py --current)
+          fi
+          version=$(python3 scripts/release_version.py --normalize "$version")
+          case "$version" in
+            ""|*[!0-9.]*)
+              echo "::error::'$version' is not a PremiumTV version"
+              exit 1
+              ;;
+          esac
+          notes="release-notes-$version.md"
+          if [ ! -f "$notes" ]; then
+            echo "::error::$notes is missing - write the release notes before publishing $version"
+            exit 1
+          fi
+          # The title the existing releases use: the notes' own first heading.
+          title=$(head -1 "$notes" | sed 's/^# *//')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "notes=$notes" >> "$GITHUB_OUTPUT"
+          echo "title=$title" >> "$GITHUB_OUTPUT"
+
+      - name: Confirm the tree is release-ready
+        run: |
+          set -euo pipefail
+          # Every prose surface, the Gradle/Mac properties and the update notice
+          # must already agree with VERSION; publishing a split version is the
+          # exact failure this whole check exists for.
+          python3 scripts/version_sync.py --check
+          # The release notes must name their own version.
+          grep -q "PremiumTV ${{ steps.release.outputs.version }}" \
+            "${{ steps.release.outputs.notes }}"
+
+      - name: Refuse a version that is already published
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="${{ steps.release.outputs.tag }}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "::error::$tag is already published. Bump VERSION (and the release notes) for a new release."
+            exit 1
+          fi
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "::error::tag $tag already exists without a published release."
+            exit 1
+          fi
+
+      - name: Publish
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="${{ steps.release.outputs.tag }}"
+          # The tag points at this commit, so both build workflows attach their
+          # installers to the release for the exact source they built.
+          gh release create "$tag" \
+            --target "$GITHUB_SHA" \
+            --title "${{ steps.release.outputs.title }}" \
+            --notes-file "${{ steps.release.outputs.notes }}"
+          echo "Published $tag. The Android and macOS builds will attach their installers,"
+          echo "and the download site deploys once every installer exists."
+          gh release view "$tag" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Dry run summary
+        if: ${{ inputs.dry_run }}
+        run: |
+          {
+            echo "### Dry run - nothing was published"
+            echo ""
+            echo "* version: \`${{ steps.release.outputs.version }}\`"
+            echo "* tag: \`${{ steps.release.outputs.tag }}\`"
+            echo "* title: ${{ steps.release.outputs.title }}"
+            echo "* notes: \`${{ steps.release.outputs.notes }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

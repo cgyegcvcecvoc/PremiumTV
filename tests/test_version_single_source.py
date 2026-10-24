@@ -48,7 +48,9 @@ class SingleSourceTests(unittest.TestCase):
         joined = "\n".join(problems)
         # Gradle itself cannot drift: it reads the generated properties. The
         # hand-written surfaces are what the check has to catch.
-        for expected in ("version.properties", "package.json", "README.md", "release-notes-9.9.9.md"):
+        for expected in ("version.properties", "package.json", "README.md",
+                         "release-notes-9.9.9.md", "docs/README.md",
+                         "docs/blocked/index.html", "hub/static/index.html"):
             self.assertIn(expected, joined)
 
 
