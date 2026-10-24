@@ -272,6 +272,33 @@ class LiveEvents111Tests(unittest.TestCase):
             "live-schedule.json must be regenerated after the playlist changes",
         )
 
+    def test_the_data_workflows_rebuild_the_schedule_they_publish(self):
+        """A playlist change must never leave the schedule behind again.
+
+        No workflow ran `build_live_schedule.py`, so every scrape that added or
+        removed a live-game feed left `playlists/live-schedule.json` stale; the
+        next data run then died in `Run offline tests` (this test's sibling),
+        and since the tests run before the scrape nothing could repair it -
+        three scrapes and four quick updates failed that way on 2026-10-23/24
+        and no channel was re-verified. Each publishing workflow now rebuilds
+        it once before the tests (self-heal) and once after the playlists are
+        rewritten (publish), before it commits.
+        """
+        for name in ("scrape.yml", "quick-update.yml", "link-check.yml"):
+            workflow = (ROOT / ".github" / "workflows" / name).read_text(encoding="utf-8")
+            self.assertGreaterEqual(
+                workflow.count("python3 scripts/build_live_schedule.py"), 2,
+                f"{name} must rebuild the schedule before the tests and before the commit",
+            )
+            self.assertLess(
+                workflow.index("build_live_schedule.py"), workflow.index("unittest discover"),
+                f"{name}: the self-heal pass has to run before the offline suite",
+            )
+            self.assertLess(
+                workflow.index("Rebuild the Live Events schedule"), workflow.index("git commit"),
+                f"{name}: the schedule has to be rebuilt before the run commits",
+            )
+
     def test_the_live_schedule_generator_is_deterministic(self):
         sys.path.insert(0, str(ROOT / "scripts"))
         import build_live_schedule
