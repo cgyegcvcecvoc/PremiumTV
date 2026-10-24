@@ -300,6 +300,21 @@ def check() -> list[str]:
                     "app-update-notice.json: update-below-newest.surprise should name "
                     f"{version} so the popup describes the current release"
                 )
+        # The builds a blocked rule targets are the most vulnerable, and they
+        # are the ones most likely to read a stale sentence for months. Its
+        # button therefore has to follow /releases/latest: the crash warning
+        # used to say "Get 1.0.9 now" and link that tag long after 1.1.x was
+        # current, which would have sent those builds to a superseded release.
+        for rule in notice.get("rules") or []:
+            if rule.get("level") != "blocked":
+                continue
+            url = str(rule.get("releases_url") or "")
+            if "/tag/" in url or not url.endswith("/releases/latest"):
+                problems.append(
+                    "app-update-notice.json: blocked rule "
+                    f"{rule.get('id')!r} must link /releases/latest, not a fixed tag "
+                    f"(got {url or 'no url'!r})"
+                )
 
     return problems
 

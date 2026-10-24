@@ -17,6 +17,7 @@ contracts that make updates safe and repeatable:
 from __future__ import annotations
 
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -324,12 +325,20 @@ class UpdateNoticePopupTests(unittest.TestCase):
         self.assertEqual(crash["platforms"], ["android"])
         self.assertEqual((crash["min_version"], crash["max_version"]), ("1.0.8", "1.0.8.1"))
         self.assertEqual(crash["level"], "blocked")
-        # 1.0.8.1's frozen updater reads 1.0.9 as an alias of itself, so its
-        # {newest} would render as 1.0.8.1; the copy must hard-code 1.0.9 and
-        # carry the manual-install fallback instead.
-        self.assertNotIn("{newest}", crash["title"] + crash["message"] + crash["surprise"])
-        self.assertIn("1.0.9", crash["message"])
-        self.assertIn("v1.0.9", crash["releases_url"])
+        # 1.0.8.1's frozen updater reads the newer release as an alias of
+        # itself, so {newest} would render as "1.0.8.1"; the copy therefore
+        # names no current version at all. Hard-coding one (the old copy said
+        # "Get 1.0.9 now") is how this rule went stale while 1.1.2 was current,
+        # so the only version literals allowed are the affected builds and the
+        # one-time 1.0.8.2 bridge.
+        copy = crash["title"] + crash["message"] + crash["surprise"] + crash["action_label"]
+        self.assertNotIn("{newest}", copy)
+        self.assertIn("1.0.8.2", crash["message"])
+        self.assertLessEqual(set(re.findall(r"\b\d+\.\d+(?:\.\d+)?\b", copy)),
+                             {"1.0.8", "1.0.8.1", "1.0.8.2", "1.0.9"})
+        self.assertEqual(crash["releases_url"],
+                         "https://github.com/cgyegcvcecvoc/PremiumTV/releases/latest")
+        self.assertNotIn("/tag/", crash["releases_url"])
         for rule in document["rules"]:
             self.assertTrue(rule["platforms"], rule["id"])
             if rule["id"] != crash["id"]:
