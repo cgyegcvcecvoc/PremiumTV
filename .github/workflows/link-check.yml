@@ -78,6 +78,15 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Refresh the Live Events schedule from the committed playlist
+        # The apps bundle playlists/live-schedule.json and the offline suite
+        # fails when it disagrees with playlists/PremiumTV.m3u. Regenerating it
+        # before the tests means a playlist change published by an earlier run
+        # can never wedge every following data run - which is exactly what
+        # happened between 2026-10-23 and 10-24, when three scrapes and four
+        # quick updates died in `Run offline tests` and no channel was re-checked.
+        run: python3 scripts/build_live_schedule.py
+
       - name: Run offline tests
         run: python -m unittest discover -s tests -v
 
@@ -165,6 +174,12 @@ jobs:
         run: |
           python scripts/verify_playlists.py --strict --require-shelf
           python scripts/legacy_sunset.py check
+
+      - name: Rebuild the Live Events schedule this run has to publish
+        # The scrape/link repair above can add, remove or rename live-game
+        # feeds, so the schedule the bundle reads has to be rebuilt from the
+        # playlist this step now sees, before it is committed.
+        run: python3 scripts/build_live_schedule.py
 
       - name: Hunt for priority channels
         id: hunt
