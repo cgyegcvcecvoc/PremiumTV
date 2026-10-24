@@ -1,6 +1,6 @@
 {
-  "run_id": "20261024T120850Z",
-  "generated_utc": "2026-10-24T12:08:50+00:00",
+  "run_id": "20261024T123104Z",
+  "generated_utc": "2026-10-24T12:31:04+00:00",
   "group_order": [
     "Sports",
     "Sports Backups",
@@ -93,21 +93,21 @@
   "max_header_guides": 2,
   "totals": {
     "playlists": 184,
-    "entries": 29911,
-    "playlists_with_issues": 0,
+    "entries": 29406,
+    "playlists_with_issues": 3,
     "playlists_with_warnings": 79,
-    "dead_links_published": 0,
+    "dead_links_published": 3,
     "frozen_legacy_feeds": [],
     "shelf_files": 133,
     "shelf_problems": 0,
     "epg_sources": {
-      "finished_utc": "2026-10-22T10:20:09Z",
+      "finished_utc": "2026-10-24T12:29:35Z",
       "counts": {
         "ok": 108,
-        "offline": 243,
+        "offline": 245,
         "empty": 4
       },
-      "own_repo_guides": 180,
+      "own_repo_guides": 181,
       "verified": null,
       "unreachable": null
     }
@@ -115,10 +115,13 @@
   "playlists": [
     {
       "file": "playlists/PremiumTV.m3u",
-      "entries": 13462,
+      "entries": 13222,
       "sanctioned_notice": 0,
-      "unique_urls": 13462,
-      "duplicate_urls": [],
+      "unique_urls": 13220,
+      "duplicate_urls": [
+        "https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8",
+        "https://ndtvprofit.akamaized.net/hls/live/2107404/ndtvprofit/chunklist_5.m3u8"
+      ],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml",
         "https://raw.githubusercontent.com/doms9/iptv/refs/heads/default/M3U8/TV.xml",
@@ -208,65 +211,65 @@
         ]
       },
       "groups": {
-        "News": 983,
-        "Music": 966,
-        "Movies": 936,
-        "Europe": 888,
-        "International": 823,
-        "Entertainment": 747,
-        "Religious": 646,
-        "Asia": 627,
-        "Sports": 577,
-        "South America": 537,
-        "Lifestyle": 526,
-        "Documentary": 395,
-        "United States": 387,
+        "Music": 956,
+        "News": 949,
+        "Movies": 928,
+        "Europe": 866,
+        "International": 794,
+        "Entertainment": 740,
+        "Religious": 641,
+        "Asia": 617,
+        "Sports": 574,
+        "South America": 532,
+        "Lifestyle": 520,
+        "Documentary": 391,
+        "United States": 382,
         "Series": 346,
         "Kids": 344,
-        "North America": 327,
-        "Other": 276,
+        "North America": 322,
+        "Other": 248,
         "Cartoons": 210,
-        "News Backups": 191,
-        "Education": 158
+        "News Backups": 177,
+        "Education": 157
       },
       "non_canonical_groups": {},
       "categories": {
-        "Sports": 670,
-        "Lifestyle": 618,
+        "Sports": 667,
+        "Lifestyle": 612,
         "Fox Channels": 32,
-        "CBS": 56,
+        "CBS": 45,
         "NBC": 82,
         "NBC Sports Channels": 9,
-        "Cartoons": 230,
+        "Cartoons": 229,
         "PBS": 43,
         "Game Shows": 27,
-        "News": 1174,
-        "Music": 1054,
-        "Movies": 1037,
-        "Europe": 957,
-        "International": 945,
-        "Entertainment": 827,
-        "Religious": 685,
-        "Asia": 657,
-        "South America": 558,
-        "Documentary": 470,
-        "United States": 447,
+        "Music": 1044,
+        "News": 1126,
+        "Movies": 1028,
+        "Europe": 934,
+        "International": 915,
+        "Entertainment": 816,
+        "Religious": 678,
+        "Asia": 642,
+        "South America": 552,
+        "Documentary": 466,
+        "United States": 442,
         "Series": 454,
         "Kids": 402,
-        "North America": 332,
-        "Education": 171,
-        "Legislative": 150,
-        "Culture": 155,
-        "Comedy": 153,
-        "Africa": 102,
-        "India": 94,
+        "North America": 327,
+        "Education": 169,
+        "Culture": 153,
+        "Legislative": 143,
+        "Comedy": 152,
+        "Africa": 101,
+        "India": 91,
         "Classic TV": 80,
         "Business": 68,
         "Canada": 46,
         "UK": 40,
         "Family": 35,
         "A&E Networks": 31,
-        "Australia": 24,
+        "Australia": 23,
         "Global TV": 19,
         "Digital TV": 15,
         "Weather": 18,
@@ -275,28 +278,30 @@
         "Online TV": 14,
         "Tv Celebrities": 9,
         "Tv Paranormal": 11,
-        "Tv Shows": 6,
         "Aria Web Channels": 5,
+        "Tv Shows": 5,
         "Oceania": 5,
         "Relax": 2,
         "3-Radio#Chicago": 1,
         "MeTV": 1,
         "United Kingdom": 1,
-        "Other": 417
+        "Other": 389
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 11731,
-        "playlist_ids": 11729,
-        "matched_ids": 11729,
+        "declared_ids": 11567,
+        "playlist_ids": 11542,
+        "matched_ids": 11542,
         "coverage": 1.0,
-        "ids_with_programmes": 2038,
-        "programme_coverage": 0.1738,
-        "guide_programmes": 121701,
+        "ids_with_programmes": 2489,
+        "programme_coverage": 0.2156,
+        "guide_programmes": 140318,
         "problem": ""
       },
-      "issues": [],
+      "issues": [
+        "2 duplicate URL(s) inside the playlist"
+      ],
       "warnings": []
     },
     {
@@ -359,13 +364,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 11731,
+        "declared_ids": 11567,
         "playlist_ids": 61,
         "matched_ids": 61,
         "coverage": 1.0,
-        "ids_with_programmes": 7,
-        "programme_coverage": 0.1148,
-        "guide_programmes": 121701,
+        "ids_with_programmes": 21,
+        "programme_coverage": 0.3443,
+        "guide_programmes": 140318,
         "problem": ""
       },
       "issues": [],
@@ -423,13 +428,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 11731,
+        "declared_ids": 11567,
         "playlist_ids": 13,
         "matched_ids": 13,
         "coverage": 1.0,
-        "ids_with_programmes": 6,
-        "programme_coverage": 0.4615,
-        "guide_programmes": 121701,
+        "ids_with_programmes": 7,
+        "programme_coverage": 0.5385,
+        "guide_programmes": 140318,
         "problem": ""
       },
       "issues": [],
@@ -489,9 +494,9 @@
     },
     {
       "file": "playlists/countries/Albania.m3u",
-      "entries": 25,
+      "entries": 24,
       "sanctioned_notice": 0,
-      "unique_urls": 25,
+      "unique_urls": 24,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Albania.xml"
@@ -510,7 +515,7 @@
       "groups": {
         "News": 11,
         "Europe": 6,
-        "International": 4,
+        "International": 3,
         "Sports": 1,
         "International Backups": 1,
         "Movies": 1,
@@ -521,20 +526,20 @@
         "Sports": 1,
         "News": 11,
         "Europe": 6,
-        "International": 5,
+        "International": 4,
         "Movies": 1,
         "Music": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 24,
-        "playlist_ids": 24,
-        "matched_ids": 24,
+        "declared_ids": 23,
+        "playlist_ids": 23,
+        "matched_ids": 23,
         "coverage": 1.0,
         "ids_with_programmes": 6,
-        "programme_coverage": 0.25,
-        "guide_programmes": 157,
+        "programme_coverage": 0.2609,
+        "guide_programmes": 156,
         "problem": ""
       },
       "issues": [],
@@ -760,9 +765,9 @@
     },
     {
       "file": "playlists/countries/Argentina.m3u",
-      "entries": 167,
+      "entries": 164,
       "sanctioned_notice": 0,
-      "unique_urls": 167,
+      "unique_urls": 164,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Argentina.xml"
@@ -777,12 +782,6 @@
         "Cadena103TV.ar@SD": [
           "Cadena103.TV"
         ],
-        "Canal4Posadas.ar@SD": [
-          "Canal 4 Posadas (Backup 1)"
-        ],
-        "Canal7Salta.ar@SD": [
-          "Canal 7 Salta (Backup 1)"
-        ],
         "UnifeTV.ar@SD": [
           "Unife TV (Backup 1)"
         ],
@@ -795,8 +794,8 @@
         ]
       },
       "groups": {
-        "South America": 90,
-        "Music": 16,
+        "South America": 88,
+        "Music": 15,
         "Cartoons": 7,
         "News": 7,
         "Sports": 6,
@@ -819,8 +818,8 @@
         "Sports": 6,
         "Lifestyle": 4,
         "Cartoons": 7,
-        "South America": 92,
-        "Music": 16,
+        "South America": 90,
+        "Music": 15,
         "News": 7,
         "Religious": 7,
         "International": 8,
@@ -835,13 +834,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 160,
-        "playlist_ids": 160,
-        "matched_ids": 160,
+        "declared_ids": 159,
+        "playlist_ids": 159,
+        "matched_ids": 159,
         "coverage": 1.0,
         "ids_with_programmes": 24,
-        "programme_coverage": 0.15,
-        "guide_programmes": 854,
+        "programme_coverage": 0.1509,
+        "guide_programmes": 851,
         "problem": ""
       },
       "issues": [],
@@ -939,9 +938,9 @@
     },
     {
       "file": "playlists/countries/Australia.m3u",
-      "entries": 51,
+      "entries": 46,
       "sanctioned_notice": 0,
-      "unique_urls": 51,
+      "unique_urls": 46,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Australia.xml"
@@ -958,10 +957,10 @@
         ]
       },
       "groups": {
-        "Australia": 22,
-        "News": 10,
+        "Australia": 21,
+        "News": 7,
         "Sports": 4,
-        "Lifestyle": 4,
+        "Lifestyle": 3,
         "Movies": 2,
         "Weather": 2,
         "News Backups": 1,
@@ -975,9 +974,9 @@
       "non_canonical_groups": {},
       "categories": {
         "Sports": 4,
-        "Lifestyle": 4,
-        "Australia": 22,
-        "News": 11,
+        "Lifestyle": 3,
+        "Australia": 21,
+        "News": 8,
         "Movies": 2,
         "Weather": 2,
         "Business": 1,
@@ -990,13 +989,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 50,
-        "playlist_ids": 50,
-        "matched_ids": 50,
+        "declared_ids": 45,
+        "playlist_ids": 45,
+        "matched_ids": 45,
         "coverage": 1.0,
-        "ids_with_programmes": 21,
-        "programme_coverage": 0.42,
-        "guide_programmes": 1437,
+        "ids_with_programmes": 20,
+        "programme_coverage": 0.4444,
+        "guide_programmes": 1382,
         "problem": ""
       },
       "issues": [],
@@ -1004,9 +1003,9 @@
     },
     {
       "file": "playlists/countries/Austria.m3u",
-      "entries": 49,
+      "entries": 48,
       "sanctioned_notice": 0,
-      "unique_urls": 49,
+      "unique_urls": 48,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Austria.xml"
@@ -1033,9 +1032,6 @@
         ],
         "ORFKids.at@SD": [
           "ORF Kids (Backup 1)"
-        ],
-        "ServusTV.at@SD": [
-          "ServusTV (Backup 1)"
         ]
       },
       "groups": {
@@ -1052,8 +1048,7 @@
         "Documentary": 1,
         "Kids": 1,
         "Kids Backups": 1,
-        "Movies": 1,
-        "Movies Backups": 1
+        "Movies": 1
       },
       "non_canonical_groups": {},
       "categories": {
@@ -1066,7 +1061,7 @@
         "Culture": 1,
         "Documentary": 1,
         "Kids": 2,
-        "Movies": 2
+        "Movies": 1
       },
       "out_of_order": 0,
       "dead_links": [],
@@ -1396,9 +1391,9 @@
     },
     {
       "file": "playlists/countries/Belgium.m3u",
-      "entries": 44,
+      "entries": 43,
       "sanctioned_notice": 0,
-      "unique_urls": 44,
+      "unique_urls": 43,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Belgium.xml"
@@ -1419,7 +1414,7 @@
       },
       "groups": {
         "Europe": 13,
-        "Sports": 7,
+        "Sports": 6,
         "Music": 6,
         "International": 5,
         "Lifestyle": 2,
@@ -1435,7 +1430,7 @@
       },
       "non_canonical_groups": {},
       "categories": {
-        "Sports": 7,
+        "Sports": 6,
         "Lifestyle": 2,
         "Cartoons": 1,
         "Europe": 13,
@@ -1451,13 +1446,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 42,
-        "playlist_ids": 42,
-        "matched_ids": 42,
+        "declared_ids": 41,
+        "playlist_ids": 41,
+        "matched_ids": 41,
         "coverage": 1.0,
         "ids_with_programmes": 10,
-        "programme_coverage": 0.2381,
-        "guide_programmes": 574,
+        "programme_coverage": 0.2439,
+        "guide_programmes": 575,
         "problem": ""
       },
       "issues": [],
@@ -1569,7 +1564,13 @@
         "North America": 1
       },
       "out_of_order": 0,
-      "dead_links": [],
+      "dead_links": [
+        {
+          "name": "Channel 82",
+          "url": "https://service.webvideocore.net/CL1olYogIrDWvwqiIKK7eBmnWbRkKKsu3nqabm9GlX02JOj3CDNXzodJMDEN2dk3/a_bq9clxfbupwg.m3u8",
+          "reason": "deep check: offline (variant HTTP 403)"
+        }
+      ],
       "epg": {
         "declared_ids": 1,
         "playlist_ids": 1,
@@ -1580,7 +1581,9 @@
         "guide_programmes": 0,
         "problem": ""
       },
-      "issues": [],
+      "issues": [
+        "1 published link(s) confirmed dead by the last deep check"
+      ],
       "warnings": [
         "the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared"
       ]
@@ -1637,7 +1640,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 1,
         "programme_coverage": 0.0217,
-        "guide_programmes": 12,
+        "guide_programmes": 11,
         "problem": ""
       },
       "issues": [],
@@ -1797,7 +1800,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 39,
         "programme_coverage": 0.1653,
-        "guide_programmes": 2000,
+        "guide_programmes": 2001,
         "problem": ""
       },
       "issues": [],
@@ -1937,7 +1940,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 17,
         "programme_coverage": 0.4048,
-        "guide_programmes": 522,
+        "guide_programmes": 521,
         "problem": ""
       },
       "issues": [],
@@ -2027,9 +2030,9 @@
     },
     {
       "file": "playlists/countries/Cambodia.m3u",
-      "entries": 20,
+      "entries": 15,
       "sanctioned_notice": 0,
-      "unique_urls": 20,
+      "unique_urls": 15,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cambodia.xml"
@@ -2040,17 +2043,9 @@
       ],
       "missing_tvg_id": 0,
       "missing_tvg_id_sample": [],
-      "duplicate_tvg_ids": {
-        "HangMeasHDTV.kh@SD": [
-          "Hang Meas HDTV (Backup 1)",
-          "Hang Meas HDTV (Backup 2)",
-          "Hang Meas HDTV (Backup 3)",
-          "Hang Meas HDTV (Backup 4)"
-        ]
-      },
+      "duplicate_tvg_ids": {},
       "groups": {
-        "Asia": 7,
-        "Asia Backups": 4,
+        "Asia": 6,
         "Education": 4,
         "News": 2,
         "Lifestyle": 1,
@@ -2060,7 +2055,7 @@
       "non_canonical_groups": {},
       "categories": {
         "Lifestyle": 1,
-        "Asia": 11,
+        "Asia": 6,
         "Education": 4,
         "News": 2,
         "International": 1,
@@ -2069,13 +2064,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 16,
-        "playlist_ids": 16,
-        "matched_ids": 16,
+        "declared_ids": 15,
+        "playlist_ids": 15,
+        "matched_ids": 15,
         "coverage": 1.0,
         "ids_with_programmes": 1,
-        "programme_coverage": 0.0625,
-        "guide_programmes": 84,
+        "programme_coverage": 0.0667,
+        "guide_programmes": 83,
         "problem": ""
       },
       "issues": [],
@@ -2135,9 +2130,9 @@
     },
     {
       "file": "playlists/countries/Canada.m3u",
-      "entries": 186,
+      "entries": 185,
       "sanctioned_notice": 0,
-      "unique_urls": 186,
+      "unique_urls": 185,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Canada.xml"
@@ -2198,8 +2193,8 @@
         "Music": 47,
         "Canada": 46,
         "News": 14,
-        "Documentary": 11,
         "Religious": 11,
+        "Documentary": 10,
         "Culture": 9,
         "Lifestyle": 7,
         "Sports": 5,
@@ -2224,8 +2219,8 @@
         "Music": 51,
         "Canada": 46,
         "News": 16,
-        "Documentary": 11,
         "Religious": 12,
+        "Documentary": 10,
         "Culture": 10,
         "Entertainment": 5,
         "Legislative": 5,
@@ -2239,13 +2234,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 168,
-        "playlist_ids": 168,
-        "matched_ids": 168,
+        "declared_ids": 167,
+        "playlist_ids": 167,
+        "matched_ids": 167,
         "coverage": 1.0,
-        "ids_with_programmes": 35,
-        "programme_coverage": 0.2083,
-        "guide_programmes": 1394,
+        "ids_with_programmes": 43,
+        "programme_coverage": 0.2575,
+        "guide_programmes": 1644,
         "problem": ""
       },
       "issues": [],
@@ -2379,9 +2374,9 @@
     },
     {
       "file": "playlists/countries/Chile.m3u",
-      "entries": 223,
+      "entries": 221,
       "sanctioned_notice": 0,
-      "unique_urls": 223,
+      "unique_urls": 221,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Chile.xml"
@@ -2445,11 +2440,11 @@
         "International": 11,
         "News": 10,
         "Religious": 10,
-        "Entertainment": 9,
         "Culture": 8,
-        "Lifestyle": 5,
+        "Entertainment": 8,
         "Education": 5,
         "Sports": 4,
+        "Lifestyle": 4,
         "South America Backups": 4,
         "International Backups": 3,
         "Movies": 3,
@@ -2464,15 +2459,15 @@
       "non_canonical_groups": {},
       "categories": {
         "Sports": 4,
-        "Lifestyle": 5,
+        "Lifestyle": 4,
         "Cartoons": 2,
         "South America": 94,
         "Music": 46,
         "International": 14,
         "News": 11,
         "Religious": 10,
-        "Entertainment": 9,
         "Culture": 10,
+        "Entertainment": 8,
         "Education": 5,
         "Movies": 3,
         "Classic TV": 2,
@@ -2485,13 +2480,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 208,
-        "playlist_ids": 208,
-        "matched_ids": 208,
+        "declared_ids": 206,
+        "playlist_ids": 206,
+        "matched_ids": 206,
         "coverage": 1.0,
         "ids_with_programmes": 18,
-        "programme_coverage": 0.0865,
-        "guide_programmes": 778,
+        "programme_coverage": 0.0874,
+        "guide_programmes": 775,
         "problem": ""
       },
       "issues": [],
@@ -2499,9 +2494,9 @@
     },
     {
       "file": "playlists/countries/China.m3u",
-      "entries": 164,
+      "entries": 159,
       "sanctioned_notice": 0,
-      "unique_urls": 164,
+      "unique_urls": 159,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/China.xml"
@@ -2518,13 +2513,9 @@
           "Xinjiang TV 3 (Backup 2)",
           "Xinjiang TV 3 (Backup 3)"
         ],
-        "CGTNArabic.cn@SD": [
-          "CGTN Arabic (Backup 1)"
-        ],
         "CGTN.cn@SD": [
           "CGTN (Backup 1)",
-          "CGTN (Backup 2)",
-          "CGTN (Backup 3)"
+          "CGTN (Backup 2)"
         ],
         "CGTNFrench.cn@SD": [
           "CGTN French (Backup 1)"
@@ -2538,14 +2529,14 @@
         ]
       },
       "groups": {
-        "Asia": 55,
-        "News": 24,
+        "Asia": 54,
+        "News": 22,
         "Lifestyle": 16,
         "Movies": 11,
-        "Documentary": 7,
         "Sports": 6,
-        "News Backups": 6,
+        "Documentary": 6,
         "Education": 6,
+        "News Backups": 5,
         "Business": 5,
         "Kids": 5,
         "Entertainment": 4,
@@ -2564,10 +2555,10 @@
         "Sports": 6,
         "Lifestyle": 16,
         "Cartoons": 2,
-        "Asia": 58,
-        "News": 30,
+        "Asia": 57,
+        "News": 27,
         "Movies": 11,
-        "Documentary": 9,
+        "Documentary": 8,
         "Education": 6,
         "Business": 5,
         "Kids": 5,
@@ -2583,13 +2574,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 153,
-        "playlist_ids": 153,
-        "matched_ids": 153,
+        "declared_ids": 150,
+        "playlist_ids": 150,
+        "matched_ids": 150,
         "coverage": 1.0,
         "ids_with_programmes": 22,
-        "programme_coverage": 0.1438,
-        "guide_programmes": 1983,
+        "programme_coverage": 0.1467,
+        "guide_programmes": 1990,
         "problem": ""
       },
       "issues": [],
@@ -2597,9 +2588,9 @@
     },
     {
       "file": "playlists/countries/Colombia.m3u",
-      "entries": 120,
+      "entries": 118,
       "sanctioned_notice": 0,
-      "unique_urls": 120,
+      "unique_urls": 118,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Colombia.xml"
@@ -2635,33 +2626,30 @@
         "MasMusicaFM.co@SD": [
           "MasMusica FM (Backup 1)"
         ],
-        "CanalNets.co@SD": [
-          "Canal Nets (Backup 1)"
-        ],
-        "CanalTRO.co@SD": [
-          "Canal TRO (Backup 1)"
-        ],
         "FrecuenciaFTV.co@SD": [
           "Frecuencia F TV (Backup 1)"
+        ],
+        "CanalNets.co@SD": [
+          "Canal Nets (Backup 1)"
         ]
       },
       "groups": {
         "South America": 42,
         "Music": 15,
-        "Entertainment": 13,
         "Religious": 13,
+        "Entertainment": 12,
         "News": 7,
         "South America Backups": 6,
         "Lifestyle": 3,
         "Culture": 3,
         "Sports": 2,
         "Music Backups": 2,
-        "Entertainment Backups": 2,
         "Education": 2,
         "International": 2,
         "Movies": 2,
         "NBC": 1,
         "Religious Backups": 1,
+        "Entertainment Backups": 1,
         "Classic TV": 1,
         "Family": 1,
         "Kids": 1,
@@ -2674,8 +2662,8 @@
         "NBC": 1,
         "South America": 48,
         "Music": 17,
-        "Entertainment": 15,
         "Religious": 14,
+        "Entertainment": 13,
         "News": 7,
         "Culture": 3,
         "Education": 2,
@@ -2689,13 +2677,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 109,
-        "playlist_ids": 109,
-        "matched_ids": 109,
+        "declared_ids": 108,
+        "playlist_ids": 108,
+        "matched_ids": 108,
         "coverage": 1.0,
         "ids_with_programmes": 24,
-        "programme_coverage": 0.2202,
-        "guide_programmes": 1618,
+        "programme_coverage": 0.2222,
+        "guide_programmes": 1549,
         "problem": ""
       },
       "issues": [],
@@ -2789,9 +2777,9 @@
     },
     {
       "file": "playlists/countries/Croatia.m3u",
-      "entries": 18,
+      "entries": 15,
       "sanctioned_notice": 0,
-      "unique_urls": 18,
+      "unique_urls": 15,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Croatia.xml"
@@ -2804,12 +2792,11 @@
       "missing_tvg_id_sample": [],
       "duplicate_tvg_ids": {},
       "groups": {
-        "International": 6,
+        "International": 4,
         "Music": 3,
         "Europe": 2,
         "Kids": 2,
         "Lifestyle": 1,
-        "Culture": 1,
         "Documentary": 1,
         "Entertainment": 1,
         "News": 1
@@ -2817,11 +2804,10 @@
       "non_canonical_groups": {},
       "categories": {
         "Lifestyle": 1,
-        "International": 6,
+        "International": 4,
         "Music": 3,
         "Europe": 2,
         "Kids": 2,
-        "Culture": 1,
         "Documentary": 1,
         "Entertainment": 1,
         "News": 1
@@ -2829,13 +2815,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 18,
-        "playlist_ids": 18,
-        "matched_ids": 18,
+        "declared_ids": 15,
+        "playlist_ids": 15,
+        "matched_ids": 15,
         "coverage": 1.0,
-        "ids_with_programmes": 11,
-        "programme_coverage": 0.6111,
-        "guide_programmes": 675,
+        "ids_with_programmes": 8,
+        "programme_coverage": 0.5333,
+        "guide_programmes": 371,
         "problem": ""
       },
       "issues": [],
@@ -3058,7 +3044,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 17,
         "programme_coverage": 0.2931,
-        "guide_programmes": 1064,
+        "guide_programmes": 1065,
         "problem": ""
       },
       "issues": [],
@@ -3177,9 +3163,9 @@
     },
     {
       "file": "playlists/countries/Dominican_Republic.m3u",
-      "entries": 207,
+      "entries": 206,
       "sanctioned_notice": 0,
-      "unique_urls": 207,
+      "unique_urls": 206,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Dominican_Republic.xml"
@@ -3202,7 +3188,7 @@
         ]
       },
       "groups": {
-        "North America": 139,
+        "North America": 138,
         "Entertainment": 17,
         "News": 12,
         "Music": 10,
@@ -3223,7 +3209,7 @@
         "Sports": 2,
         "Lifestyle": 3,
         "Cartoons": 2,
-        "North America": 141,
+        "North America": 140,
         "Entertainment": 17,
         "News": 12,
         "Music": 10,
@@ -3238,13 +3224,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 204,
-        "playlist_ids": 204,
-        "matched_ids": 204,
+        "declared_ids": 203,
+        "playlist_ids": 203,
+        "matched_ids": 203,
         "coverage": 1.0,
         "ids_with_programmes": 3,
-        "programme_coverage": 0.0147,
-        "guide_programmes": 167,
+        "programme_coverage": 0.0148,
+        "guide_programmes": 166,
         "problem": ""
       },
       "issues": [],
@@ -3316,9 +3302,9 @@
     },
     {
       "file": "playlists/countries/Egypt.m3u",
-      "entries": 18,
+      "entries": 17,
       "sanctioned_notice": 0,
-      "unique_urls": 18,
+      "unique_urls": 17,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Egypt.xml"
@@ -3329,15 +3315,11 @@
       ],
       "missing_tvg_id": 0,
       "missing_tvg_id_sample": [],
-      "duplicate_tvg_ids": {
-        "MBCMasr.eg@SD": [
-          "MBC Masr (Backup 1)"
-        ]
-      },
+      "duplicate_tvg_ids": {},
       "groups": {
         "Religious": 4,
-        "Africa": 3,
         "Music": 3,
+        "Africa": 2,
         "International": 2,
         "Movies": 2,
         "Africa Backups": 1,
@@ -3348,8 +3330,8 @@
       "non_canonical_groups": {},
       "categories": {
         "Religious": 4,
-        "Africa": 4,
         "Music": 3,
+        "Africa": 3,
         "International": 2,
         "Movies": 2,
         "Entertainment": 1,
@@ -3365,7 +3347,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 1,
         "programme_coverage": 0.0588,
-        "guide_programmes": 68,
+        "guide_programmes": 69,
         "problem": ""
       },
       "issues": [],
@@ -3563,7 +3545,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 6,
         "programme_coverage": 0.3,
-        "guide_programmes": 285,
+        "guide_programmes": 284,
         "problem": ""
       },
       "issues": [],
@@ -3718,7 +3700,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 10,
         "programme_coverage": 0.4167,
-        "guide_programmes": 636,
+        "guide_programmes": 635,
         "problem": ""
       },
       "issues": [],
@@ -3726,9 +3708,9 @@
     },
     {
       "file": "playlists/countries/France.m3u",
-      "entries": 249,
+      "entries": 247,
       "sanctioned_notice": 0,
-      "unique_urls": 249,
+      "unique_urls": 247,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/France.xml"
@@ -3820,11 +3802,11 @@
         ]
       },
       "groups": {
-        "Music": 41,
+        "Music": 40,
         "News": 37,
         "News Backups": 36,
         "Europe": 31,
-        "International": 21,
+        "International": 20,
         "Movies": 15,
         "Sports": 13,
         "Lifestyle": 9,
@@ -3847,10 +3829,10 @@
         "Lifestyle": 9,
         "NBC": 1,
         "Cartoons": 3,
-        "Music": 50,
+        "Music": 49,
         "News": 73,
         "Europe": 31,
-        "International": 25,
+        "International": 24,
         "Movies": 15,
         "Entertainment": 7,
         "Kids": 5,
@@ -3866,13 +3848,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 193,
-        "playlist_ids": 193,
-        "matched_ids": 193,
+        "declared_ids": 191,
+        "playlist_ids": 191,
+        "matched_ids": 191,
         "coverage": 1.0,
-        "ids_with_programmes": 77,
-        "programme_coverage": 0.399,
-        "guide_programmes": 4277,
+        "ids_with_programmes": 78,
+        "programme_coverage": 0.4084,
+        "guide_programmes": 4490,
         "problem": ""
       },
       "issues": [],
@@ -3970,7 +3952,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 3,
         "programme_coverage": 0.1667,
-        "guide_programmes": 221,
+        "guide_programmes": 219,
         "problem": ""
       },
       "issues": [],
@@ -3978,9 +3960,9 @@
     },
     {
       "file": "playlists/countries/Germany.m3u",
-      "entries": 423,
+      "entries": 406,
       "sanctioned_notice": 0,
-      "unique_urls": 423,
+      "unique_urls": 406,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Germany.xml"
@@ -4001,15 +3983,8 @@
         "Motorvision.de@SD": [
           "Motorvision TV (720p)"
         ],
-        "WDRFernsehen.de@Koln": [
-          "WDR Fernsehen K\u00f6ln (720p) [Geo-blocked]",
-          "WDR Fernsehen (Backup 1)"
-        ],
         "GoldstarTV.de@Austria": [
           "Goldstar TV (Backup 1)"
-        ],
-        "NDRFernsehenInternational.de@SD": [
-          "NDR Fernsehen International (Backup 1)"
         ],
         "NiederbayernTVLandshut.de@SD": [
           "Niederbayern TV Landshut (Backup 1)"
@@ -4023,11 +3998,11 @@
         "RFH.de@SD": [
           "RFH (Backup 1)"
         ],
+        "WDRFernsehen.de@Koln": [
+          "WDR Fernsehen (Backup 1)"
+        ],
         "N24Doku.de@SD": [
           "N24 Doku (Backup 1)"
-        ],
-        "WDR1Live.de@SD": [
-          "WDR 1 Live (Backup 1)"
         ],
         "DeluxeRap.de@SD": [
           "Deluxe Rap (Backup 1)"
@@ -4052,14 +4027,20 @@
         ],
         "DW.de@Espanol": [
           "DW Espanol (Backup 1)"
+        ],
+        "RTDE.de@SD": [
+          "RT DE (Backup 1)"
+        ],
+        "WELT.de@SD": [
+          "WELT (Backup 1)"
         ]
       },
       "groups": {
-        "Europe": 111,
+        "Europe": 98,
         "Movies": 56,
         "Documentary": 38,
-        "Entertainment": 31,
-        "Lifestyle": 24,
+        "Entertainment": 30,
+        "Lifestyle": 22,
         "Music": 22,
         "Kids": 21,
         "Cartoons": 20,
@@ -4079,12 +4060,12 @@
       "non_canonical_groups": {},
       "categories": {
         "Sports": 6,
-        "Lifestyle": 24,
+        "Lifestyle": 22,
         "Cartoons": 20,
-        "Europe": 118,
+        "Europe": 105,
         "Movies": 56,
         "Documentary": 39,
-        "Entertainment": 32,
+        "Entertainment": 30,
         "Music": 23,
         "Kids": 22,
         "International": 21,
@@ -4100,13 +4081,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 399,
-        "playlist_ids": 399,
-        "matched_ids": 399,
+        "declared_ids": 385,
+        "playlist_ids": 385,
+        "matched_ids": 385,
         "coverage": 1.0,
-        "ids_with_programmes": 83,
-        "programme_coverage": 0.208,
-        "guide_programmes": 5253,
+        "ids_with_programmes": 85,
+        "programme_coverage": 0.2208,
+        "guide_programmes": 5371,
         "problem": ""
       },
       "issues": [],
@@ -4238,7 +4219,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 10,
         "programme_coverage": 0.1124,
-        "guide_programmes": 347,
+        "guide_programmes": 344,
         "problem": ""
       },
       "issues": [],
@@ -4575,7 +4556,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 5,
         "programme_coverage": 0.0877,
-        "guide_programmes": 268,
+        "guide_programmes": 270,
         "problem": ""
       },
       "issues": [],
@@ -4634,9 +4615,9 @@
         "playlist_ids": 21,
         "matched_ids": 21,
         "coverage": 1.0,
-        "ids_with_programmes": 8,
-        "programme_coverage": 0.381,
-        "guide_programmes": 584,
+        "ids_with_programmes": 9,
+        "programme_coverage": 0.4286,
+        "guide_programmes": 635,
         "problem": ""
       },
       "issues": [],
@@ -4644,9 +4625,9 @@
     },
     {
       "file": "playlists/countries/Hungary.m3u",
-      "entries": 94,
+      "entries": 92,
       "sanctioned_notice": 0,
-      "unique_urls": 94,
+      "unique_urls": 92,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Hungary.xml"
@@ -4660,17 +4641,11 @@
       "duplicate_tvg_ids": {
         "Galaxy4.hu": [
           "Galaxy4 \u24bc (Backup 1)"
-        ],
-        "OrszaggyulesOGYplenaris.hu@SD": [
-          "Orszaggyules: OGY plenaris (720p) [Not 24/7]"
-        ],
-        "OrszaggyulesOGYTAB.hu@SD": [
-          "Orszaggyules: OGY TAB (720p) [Not 24/7]"
         ]
       },
       "groups": {
         "Europe": 33,
-        "International": 31,
+        "International": 29,
         "Music": 8,
         "Movies": 5,
         "Religious": 4,
@@ -4689,7 +4664,7 @@
         "Lifestyle": 2,
         "NBC": 1,
         "Europe": 33,
-        "International": 32,
+        "International": 30,
         "Music": 8,
         "Movies": 5,
         "Religious": 4,
@@ -4707,7 +4682,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 6,
         "programme_coverage": 0.0659,
-        "guide_programmes": 197,
+        "guide_programmes": 204,
         "problem": ""
       },
       "issues": [],
@@ -4759,9 +4734,9 @@
     },
     {
       "file": "playlists/countries/India.m3u",
-      "entries": 805,
+      "entries": 792,
       "sanctioned_notice": 0,
-      "unique_urls": 805,
+      "unique_urls": 792,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/India.xml"
@@ -4779,11 +4754,7 @@
         "AajTak.in@SD": [
           "Aaj Tak (Backup 1)"
         ],
-        "ABPGanga.in@SD": [
-          "ABP Ganga (Backup 1)"
-        ],
         "ABPNews.in@SD": [
-          "ABP News (Backup 1)",
           "ABP News (Backup 2)"
         ],
         "AwaazIndiaTV.in@SD": [
@@ -4797,9 +4768,6 @@
         ],
         "HNN24x7.in@SD": [
           "HNN 24x7 (Backup 1)"
-        ],
-        "IBC24.in@SD": [
-          "IBC 24 (Backup 1)"
         ],
         "IndiaToday.in@SD": [
           "India Today (Backup 1)",
@@ -4818,8 +4786,6 @@
           "NDTV India (Backup 1)"
         ],
         "NDTVProfit.in@SD": [
-          "NDTV Profit (Backup 1)",
-          "NDTV Profit (Backup 2)",
           "NDTV Profit (Backup 3)"
         ],
         "NTVTelugu.in@SD": [
@@ -4828,31 +4794,41 @@
         "PuthiyaThalaimurai.in@SD": [
           "Puthiya Thalaimurai (Backup 1)"
         ],
-        "RepublicTV.in@SD": [
-          "Republic TV (Backup 1)"
-        ],
         "TV5Kannada.in@SD": [
           "TV5 Kannada (Backup 1)"
         ],
         "TV9Kannada.in@SD": [
           "TV9 Kannada (Backup 1)"
+        ],
+        "WION.in@SD": [
+          "WION (Backup 1)",
+          "WION (Backup 2)",
+          "WION (Backup 3)",
+          "WION (Backup 4)",
+          "WION (Backup 5)"
+        ],
+        "AasthaBhajan.in@SD": [
+          "Aastha Bhajan (Backup 1)"
+        ],
+        "AasthaTelugu.in@SD": [
+          "Aastha Telugu (Backup 1)"
         ]
       },
       "groups": {
-        "News": 245,
+        "News": 241,
         "Religious": 113,
         "Entertainment": 111,
-        "India": 89,
-        "Movies": 61,
+        "India": 87,
+        "Movies": 59,
         "Music": 55,
-        "News Backups": 30,
+        "News Backups": 26,
         "Education": 15,
         "Documentary": 12,
         "Lifestyle": 11,
         "Kids": 9,
         "Sports": 8,
         "Culture": 7,
-        "Entertainment Backups": 6,
+        "Entertainment Backups": 5,
         "India Backups": 5,
         "NBC": 4,
         "Business": 4,
@@ -4867,11 +4843,11 @@
         "NBC": 4,
         "Cartoons": 3,
         "PBS": 1,
-        "News": 275,
+        "News": 267,
         "Religious": 116,
-        "Entertainment": 117,
-        "India": 94,
-        "Movies": 62,
+        "Entertainment": 116,
+        "India": 92,
+        "Movies": 60,
         "Music": 56,
         "Education": 15,
         "Documentary": 14,
@@ -4886,13 +4862,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 751,
-        "playlist_ids": 751,
-        "matched_ids": 751,
+        "declared_ids": 745,
+        "playlist_ids": 745,
+        "matched_ids": 745,
         "coverage": 1.0,
-        "ids_with_programmes": 206,
-        "programme_coverage": 0.2743,
-        "guide_programmes": 16297,
+        "ids_with_programmes": 205,
+        "programme_coverage": 0.2752,
+        "guide_programmes": 16136,
         "problem": ""
       },
       "issues": [],
@@ -4900,9 +4876,9 @@
     },
     {
       "file": "playlists/countries/Indonesia.m3u",
-      "entries": 129,
+      "entries": 126,
       "sanctioned_notice": 0,
-      "unique_urls": 129,
+      "unique_urls": 126,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Indonesia.xml"
@@ -4923,9 +4899,9 @@
       },
       "groups": {
         "Asia": 96,
-        "Religious": 12,
+        "Religious": 11,
         "Kids": 4,
-        "News": 4,
+        "News": 3,
         "Lifestyle": 2,
         "Entertainment": 2,
         "Music": 2,
@@ -4934,8 +4910,7 @@
         "NBC": 1,
         "Asia Backups": 1,
         "Culture": 1,
-        "Education": 1,
-        "Legislative": 1
+        "Education": 1
       },
       "non_canonical_groups": {},
       "categories": {
@@ -4943,25 +4918,24 @@
         "Lifestyle": 3,
         "NBC": 1,
         "Asia": 97,
-        "Religious": 12,
+        "Religious": 11,
         "Kids": 4,
-        "News": 4,
+        "News": 3,
         "Entertainment": 2,
         "Music": 2,
         "Culture": 1,
-        "Education": 1,
-        "Legislative": 1
+        "Education": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 127,
-        "playlist_ids": 127,
-        "matched_ids": 127,
+        "declared_ids": 124,
+        "playlist_ids": 124,
+        "matched_ids": 124,
         "coverage": 1.0,
         "ids_with_programmes": 43,
-        "programme_coverage": 0.3386,
-        "guide_programmes": 3284,
+        "programme_coverage": 0.3468,
+        "guide_programmes": 3280,
         "problem": ""
       },
       "issues": [],
@@ -4969,9 +4943,9 @@
     },
     {
       "file": "playlists/countries/International.m3u",
-      "entries": 1237,
+      "entries": 1207,
       "sanctioned_notice": 0,
-      "unique_urls": 1237,
+      "unique_urls": 1207,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/International.xml"
@@ -5051,7 +5025,7 @@
         ]
       },
       "groups": {
-        "Other": 282,
+        "Other": 254,
         "Other Backups": 140,
         "Movies": 114,
         "Sports": 92,
@@ -5076,7 +5050,7 @@
       "categories": {
         "Sports": 110,
         "Lifestyle": 97,
-        "CBS": 2,
+        "CBS": 1,
         "NBC": 13,
         "NBC Sports Channels": 3,
         "Cartoons": 23,
@@ -5099,24 +5073,24 @@
         "Aria Web Channels": 4,
         "Classic TV": 4,
         "Online TV": 4,
-        "Tv Shows": 3,
         "Business": 2,
+        "Tv Shows": 2,
         "3-Radio#Chicago": 1,
         "Africa": 1,
         "MeTV": 1,
         "Religious": 1,
-        "Other": 422
+        "Other": 394
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 966,
-        "playlist_ids": 966,
-        "matched_ids": 966,
+        "declared_ids": 937,
+        "playlist_ids": 937,
+        "matched_ids": 937,
         "coverage": 1.0,
-        "ids_with_programmes": 37,
-        "programme_coverage": 0.0383,
-        "guide_programmes": 1513,
+        "ids_with_programmes": 141,
+        "programme_coverage": 0.1505,
+        "guide_programmes": 6551,
         "problem": ""
       },
       "issues": [],
@@ -5124,9 +5098,9 @@
     },
     {
       "file": "playlists/countries/Iran.m3u",
-      "entries": 98,
+      "entries": 94,
       "sanctioned_notice": 0,
-      "unique_urls": 98,
+      "unique_urls": 94,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Iran.xml"
@@ -5148,9 +5122,9 @@
       "groups": {
         "Asia": 44,
         "International": 17,
-        "Movies": 10,
         "News": 7,
         "Religious": 7,
+        "Movies": 6,
         "Entertainment": 4,
         "Kids": 3,
         "Music": 3,
@@ -5163,9 +5137,9 @@
         "NBC": 1,
         "Asia": 45,
         "International": 17,
-        "Movies": 10,
         "News": 7,
         "Religious": 7,
+        "Movies": 6,
         "Entertainment": 4,
         "Kids": 3,
         "Music": 3,
@@ -5174,12 +5148,12 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 96,
-        "playlist_ids": 96,
-        "matched_ids": 96,
+        "declared_ids": 92,
+        "playlist_ids": 92,
+        "matched_ids": 92,
         "coverage": 1.0,
         "ids_with_programmes": 1,
-        "programme_coverage": 0.0104,
+        "programme_coverage": 0.0109,
         "guide_programmes": 30,
         "problem": ""
       },
@@ -5188,9 +5162,9 @@
     },
     {
       "file": "playlists/countries/Iraq.m3u",
-      "entries": 64,
+      "entries": 62,
       "sanctioned_notice": 0,
-      "unique_urls": 64,
+      "unique_urls": 62,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Iraq.xml"
@@ -5231,7 +5205,7 @@
         "Religious": 16,
         "Asia": 14,
         "News": 11,
-        "International": 7,
+        "International": 5,
         "Religious Backups": 4,
         "Asia Backups": 2,
         "Family": 2,
@@ -5249,7 +5223,7 @@
         "Religious": 20,
         "Asia": 16,
         "News": 12,
-        "International": 8,
+        "International": 6,
         "Family": 2,
         "Kids": 2,
         "Culture": 1,
@@ -5259,9 +5233,9 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 56,
-        "playlist_ids": 56,
-        "matched_ids": 56,
+        "declared_ids": 54,
+        "playlist_ids": 54,
+        "matched_ids": 54,
         "coverage": 1.0,
         "ids_with_programmes": 0,
         "programme_coverage": 0.0,
@@ -5320,9 +5294,9 @@
         "playlist_ids": 25,
         "matched_ids": 25,
         "coverage": 1.0,
-        "ids_with_programmes": 5,
-        "programme_coverage": 0.2,
-        "guide_programmes": 444,
+        "ids_with_programmes": 6,
+        "programme_coverage": 0.24,
+        "guide_programmes": 468,
         "problem": ""
       },
       "issues": [],
@@ -5387,7 +5361,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 6,
         "programme_coverage": 0.15,
-        "guide_programmes": 353,
+        "guide_programmes": 352,
         "problem": ""
       },
       "issues": [],
@@ -5395,9 +5369,9 @@
     },
     {
       "file": "playlists/countries/Italy.m3u",
-      "entries": 584,
+      "entries": 578,
       "sanctioned_notice": 0,
-      "unique_urls": 584,
+      "unique_urls": 578,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Italy.xml"
@@ -5451,17 +5425,11 @@
           "Rai 3 (Backup 1)",
           "Rai 3 (Backup 2)"
         ],
-        "Rai4.it@SD": [
-          "Rai 4 (Backup 1)"
-        ],
         "Rai5.it@SD": [
           "Rai 5 (Backup 1)"
         ],
         "RaiGulp.it@SD": [
           "Rai Gulp (Backup 1)"
-        ],
-        "RaiPremium.it": [
-          "Rai Premium (Backup 1)"
         ],
         "RaiStoria.it@SD": [
           "Rai Storia (Backup 1)",
@@ -5472,10 +5440,17 @@
         ],
         "Rete.4.it": [
           "Rete 4 \u24bc (Backup 1)"
+        ],
+        "SuperTV.it@SD": [
+          "Super TV (Backup 1)",
+          "Super TV (Italy) (720p)"
+        ],
+        "TeleLiguriaSud.it@SD": [
+          "Tele Liguria Sud (Backup 1)"
         ]
       },
       "groups": {
-        "International": 218,
+        "International": 213,
         "Movies": 97,
         "Music": 72,
         "Europe": 51,
@@ -5490,9 +5465,9 @@
         "Documentary": 7,
         "Culture": 4,
         "Cartoons": 3,
-        "Education": 3,
         "Sports Backups": 2,
         "Entertainment Backups": 2,
+        "Education": 2,
         "Legislative": 2,
         "CBS": 1
       },
@@ -5503,7 +5478,7 @@
         "CBS": 1,
         "NBC": 2,
         "Cartoons": 3,
-        "International": 244,
+        "International": 239,
         "Movies": 97,
         "Music": 83,
         "Europe": 52,
@@ -5513,20 +5488,20 @@
         "Kids": 10,
         "Documentary": 8,
         "Culture": 4,
-        "Education": 4,
+        "Education": 3,
         "Legislative": 2,
         "Series": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 531,
-        "playlist_ids": 531,
-        "matched_ids": 531,
+        "declared_ids": 528,
+        "playlist_ids": 528,
+        "matched_ids": 528,
         "coverage": 1.0,
         "ids_with_programmes": 60,
-        "programme_coverage": 0.113,
-        "guide_programmes": 4077,
+        "programme_coverage": 0.1136,
+        "guide_programmes": 4058,
         "problem": ""
       },
       "issues": [],
@@ -5626,9 +5601,9 @@
     },
     {
       "file": "playlists/countries/Japan.m3u",
-      "entries": 22,
+      "entries": 20,
       "sanctioned_notice": 0,
-      "unique_urls": 22,
+      "unique_urls": 20,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Japan.xml"
@@ -5644,7 +5619,6 @@
           "\u30d5\u30b8\u30c6\u30ec\u30d3 \u24bc (Backup 1)"
         ],
         "NHKWorldJapan.jp@SD": [
-          "NHK World-Japan (Backup 1)",
           "NHK World-Japan (Backup 2)",
           "NHK World-Japan (Backup 3)"
         ],
@@ -5653,11 +5627,11 @@
         ]
       },
       "groups": {
-        "Asia": 4,
         "International": 4,
-        "News": 4,
         "News Backups": 4,
         "Lifestyle": 3,
+        "Asia": 3,
+        "News": 3,
         "International Backups": 1,
         "Religious": 1,
         "Weather": 1
@@ -5665,22 +5639,22 @@
       "non_canonical_groups": {},
       "categories": {
         "Lifestyle": 3,
-        "Asia": 4,
         "International": 5,
-        "News": 8,
+        "Asia": 3,
+        "News": 7,
         "Religious": 1,
         "Weather": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 17,
-        "playlist_ids": 17,
-        "matched_ids": 17,
+        "declared_ids": 16,
+        "playlist_ids": 16,
+        "matched_ids": 16,
         "coverage": 1.0,
-        "ids_with_programmes": 4,
-        "programme_coverage": 0.2353,
-        "guide_programmes": 339,
+        "ids_with_programmes": 6,
+        "programme_coverage": 0.375,
+        "guide_programmes": 675,
         "problem": ""
       },
       "issues": [],
@@ -5797,7 +5771,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 19,
         "programme_coverage": 0.5,
-        "guide_programmes": 632,
+        "guide_programmes": 629,
         "problem": ""
       },
       "issues": [],
@@ -5893,9 +5867,9 @@
     },
     {
       "file": "playlists/countries/Kuwait.m3u",
-      "entries": 14,
+      "entries": 13,
       "sanctioned_notice": 0,
-      "unique_urls": 14,
+      "unique_urls": 13,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kuwait.xml"
@@ -5911,7 +5885,6 @@
           "KTV 1 (Backup 1)"
         ],
         "KTVNews.kw@SD": [
-          "KTV News (Backup 1)",
           "KTV News (Backup 2)"
         ]
       },
@@ -5920,11 +5893,11 @@
         "Asia": 2,
         "Culture": 2,
         "Religious": 2,
-        "News Backups": 2,
         "Asia Backups": 1,
         "Entertainment": 1,
         "Music": 1,
-        "News": 1
+        "News": 1,
+        "News Backups": 1
       },
       "non_canonical_groups": {},
       "categories": {
@@ -5934,7 +5907,7 @@
         "Religious": 2,
         "Entertainment": 1,
         "Music": 1,
-        "News": 3
+        "News": 2
       },
       "out_of_order": 0,
       "dead_links": [],
@@ -5955,9 +5928,9 @@
     },
     {
       "file": "playlists/countries/Kyrgyzstan.m3u",
-      "entries": 7,
+      "entries": 6,
       "sanctioned_notice": 0,
-      "unique_urls": 7,
+      "unique_urls": 6,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kyrgyzstan.xml"
@@ -5971,7 +5944,6 @@
       "duplicate_tvg_ids": {},
       "groups": {
         "Sports": 1,
-        "Asia": 1,
         "Culture": 1,
         "Entertainment": 1,
         "Movies": 1,
@@ -5981,7 +5953,6 @@
       "non_canonical_groups": {},
       "categories": {
         "Sports": 1,
-        "Asia": 1,
         "Culture": 1,
         "Entertainment": 1,
         "Movies": 1,
@@ -5991,13 +5962,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 7,
-        "playlist_ids": 7,
-        "matched_ids": 7,
+        "declared_ids": 6,
+        "playlist_ids": 6,
+        "matched_ids": 6,
         "coverage": 1.0,
-        "ids_with_programmes": 2,
-        "programme_coverage": 0.2857,
-        "guide_programmes": 52,
+        "ids_with_programmes": 1,
+        "programme_coverage": 0.1667,
+        "guide_programmes": 30,
         "problem": ""
       },
       "issues": [],
@@ -6097,7 +6068,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 5,
         "programme_coverage": 0.1471,
-        "guide_programmes": 92,
+        "guide_programmes": 105,
         "problem": ""
       },
       "issues": [],
@@ -6156,7 +6127,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 5,
         "programme_coverage": 0.3846,
-        "guide_programmes": 282,
+        "guide_programmes": 281,
         "problem": ""
       },
       "issues": [],
@@ -6306,7 +6277,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 5,
         "programme_coverage": 0.2083,
-        "guide_programmes": 266,
+        "guide_programmes": 264,
         "problem": ""
       },
       "issues": [],
@@ -6314,9 +6285,9 @@
     },
     {
       "file": "playlists/countries/Luxembourg.m3u",
-      "entries": 16,
+      "entries": 14,
       "sanctioned_notice": 0,
-      "unique_urls": 16,
+      "unique_urls": 14,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Luxembourg.xml"
@@ -6334,9 +6305,9 @@
       },
       "groups": {
         "Europe": 5,
-        "International": 4,
         "Music": 3,
         "Lifestyle": 2,
+        "International": 2,
         "Europe Backups": 1,
         "Entertainment": 1
       },
@@ -6344,20 +6315,20 @@
       "categories": {
         "Lifestyle": 2,
         "Europe": 6,
-        "International": 4,
         "Music": 3,
+        "International": 2,
         "Entertainment": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 15,
-        "playlist_ids": 15,
-        "matched_ids": 15,
+        "declared_ids": 13,
+        "playlist_ids": 13,
+        "matched_ids": 13,
         "coverage": 1.0,
-        "ids_with_programmes": 4,
-        "programme_coverage": 0.2667,
-        "guide_programmes": 135,
+        "ids_with_programmes": 3,
+        "programme_coverage": 0.2308,
+        "guide_programmes": 116,
         "problem": ""
       },
       "issues": [],
@@ -6584,7 +6555,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 4,
         "programme_coverage": 0.5714,
-        "guide_programmes": 261,
+        "guide_programmes": 263,
         "problem": ""
       },
       "issues": [],
@@ -6676,9 +6647,9 @@
     },
     {
       "file": "playlists/countries/Mexico.m3u",
-      "entries": 159,
+      "entries": 157,
       "sanctioned_notice": 0,
-      "unique_urls": 159,
+      "unique_urls": 157,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Mexico.xml"
@@ -6704,12 +6675,12 @@
         "North America": 72,
         "Movies": 13,
         "International": 12,
-        "Entertainment": 9,
         "Sports": 8,
+        "Entertainment": 8,
         "Education": 6,
         "Music": 6,
         "News": 6,
-        "Culture": 5,
+        "Culture": 4,
         "Legislative": 4,
         "Series": 4,
         "Religious": 3,
@@ -6730,11 +6701,11 @@
         "North America": 73,
         "Movies": 13,
         "International": 13,
-        "Entertainment": 10,
+        "Entertainment": 9,
         "Education": 6,
         "Music": 6,
         "News": 6,
-        "Culture": 5,
+        "Culture": 4,
         "Legislative": 4,
         "Series": 4,
         "Religious": 3,
@@ -6747,13 +6718,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 156,
-        "playlist_ids": 156,
-        "matched_ids": 156,
+        "declared_ids": 154,
+        "playlist_ids": 154,
+        "matched_ids": 154,
         "coverage": 1.0,
-        "ids_with_programmes": 21,
-        "programme_coverage": 0.1346,
-        "guide_programmes": 909,
+        "ids_with_programmes": 23,
+        "programme_coverage": 0.1494,
+        "guide_programmes": 955,
         "problem": ""
       },
       "issues": [],
@@ -6807,7 +6778,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 2,
         "programme_coverage": 0.1111,
-        "guide_programmes": 205,
+        "guide_programmes": 204,
         "problem": ""
       },
       "issues": [],
@@ -6849,7 +6820,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 1,
         "programme_coverage": 0.3333,
-        "guide_programmes": 4,
+        "guide_programmes": 3,
         "problem": ""
       },
       "issues": [],
@@ -6998,7 +6969,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 1,
         "programme_coverage": 0.1667,
-        "guide_programmes": 151,
+        "guide_programmes": 152,
         "problem": ""
       },
       "issues": [],
@@ -7337,9 +7308,9 @@
         "playlist_ids": 146,
         "matched_ids": 146,
         "coverage": 1.0,
-        "ids_with_programmes": 22,
-        "programme_coverage": 0.1507,
-        "guide_programmes": 1795,
+        "ids_with_programmes": 30,
+        "programme_coverage": 0.2055,
+        "guide_programmes": 1956,
         "problem": ""
       },
       "issues": [],
@@ -7644,9 +7615,9 @@
     },
     {
       "file": "playlists/countries/Norway.m3u",
-      "entries": 13,
+      "entries": 12,
       "sanctioned_notice": 0,
-      "unique_urls": 13,
+      "unique_urls": 12,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Norway.xml"
@@ -7669,7 +7640,7 @@
         ]
       },
       "groups": {
-        "Europe": 4,
+        "Europe": 3,
         "Sports": 2,
         "Sports Backups": 2,
         "Lifestyle": 1,
@@ -7682,7 +7653,7 @@
       "categories": {
         "Sports": 4,
         "Lifestyle": 2,
-        "Europe": 4,
+        "Europe": 3,
         "Entertainment": 1,
         "International": 1,
         "Kids": 1
@@ -7690,13 +7661,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 10,
-        "playlist_ids": 10,
-        "matched_ids": 10,
+        "declared_ids": 9,
+        "playlist_ids": 9,
+        "matched_ids": 9,
         "coverage": 1.0,
         "ids_with_programmes": 3,
-        "programme_coverage": 0.3,
-        "guide_programmes": 289,
+        "programme_coverage": 0.3333,
+        "guide_programmes": 285,
         "problem": ""
       },
       "issues": [],
@@ -7757,9 +7728,9 @@
     },
     {
       "file": "playlists/countries/Pakistan.m3u",
-      "entries": 90,
+      "entries": 89,
       "sanctioned_notice": 0,
-      "unique_urls": 90,
+      "unique_urls": 89,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Pakistan.xml"
@@ -7782,7 +7753,7 @@
         ]
       },
       "groups": {
-        "News": 29,
+        "News": 28,
         "Asia": 16,
         "Entertainment": 11,
         "Religious": 9,
@@ -7802,7 +7773,7 @@
         "Sports": 6,
         "Lifestyle": 2,
         "Cartoons": 1,
-        "News": 29,
+        "News": 28,
         "Asia": 16,
         "Entertainment": 11,
         "Religious": 11,
@@ -7816,13 +7787,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 87,
-        "playlist_ids": 87,
-        "matched_ids": 87,
+        "declared_ids": 86,
+        "playlist_ids": 86,
+        "matched_ids": 86,
         "coverage": 1.0,
         "ids_with_programmes": 1,
-        "programme_coverage": 0.0115,
-        "guide_programmes": 40,
+        "programme_coverage": 0.0116,
+        "guide_programmes": 39,
         "problem": ""
       },
       "issues": [],
@@ -7975,9 +7946,9 @@
     },
     {
       "file": "playlists/countries/Paraguay.m3u",
-      "entries": 57,
+      "entries": 56,
       "sanctioned_notice": 0,
-      "unique_urls": 57,
+      "unique_urls": 56,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Paraguay.xml"
@@ -7999,7 +7970,7 @@
       "groups": {
         "South America": 25,
         "Music": 11,
-        "News": 6,
+        "News": 5,
         "Entertainment": 4,
         "Sports": 2,
         "Religious": 2,
@@ -8017,7 +7988,7 @@
         "Lifestyle": 1,
         "South America": 25,
         "Music": 11,
-        "News": 6,
+        "News": 5,
         "Entertainment": 5,
         "Religious": 2,
         "Business": 1,
@@ -8029,12 +8000,12 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 55,
-        "playlist_ids": 55,
-        "matched_ids": 55,
+        "declared_ids": 54,
+        "playlist_ids": 54,
+        "matched_ids": 54,
         "coverage": 1.0,
         "ids_with_programmes": 7,
-        "programme_coverage": 0.1273,
+        "programme_coverage": 0.1296,
         "guide_programmes": 323,
         "problem": ""
       },
@@ -8043,9 +8014,9 @@
     },
     {
       "file": "playlists/countries/Peru.m3u",
-      "entries": 154,
+      "entries": 153,
       "sanctioned_notice": 0,
-      "unique_urls": 154,
+      "unique_urls": 153,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Peru.xml"
@@ -8092,7 +8063,7 @@
         ]
       },
       "groups": {
-        "South America": 88,
+        "South America": 87,
         "Music": 16,
         "News": 11,
         "Sports": 6,
@@ -8116,7 +8087,7 @@
       "categories": {
         "Sports": 7,
         "Lifestyle": 1,
-        "South America": 92,
+        "South America": 91,
         "Music": 18,
         "News": 13,
         "Entertainment": 6,
@@ -8132,12 +8103,12 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 143,
-        "playlist_ids": 143,
-        "matched_ids": 143,
+        "declared_ids": 142,
+        "playlist_ids": 142,
+        "matched_ids": 142,
         "coverage": 1.0,
         "ids_with_programmes": 8,
-        "programme_coverage": 0.0559,
+        "programme_coverage": 0.0563,
         "guide_programmes": 349,
         "problem": ""
       },
@@ -8284,9 +8255,9 @@
         "playlist_ids": 172,
         "matched_ids": 172,
         "coverage": 1.0,
-        "ids_with_programmes": 96,
-        "programme_coverage": 0.5581,
-        "guide_programmes": 7253,
+        "ids_with_programmes": 100,
+        "programme_coverage": 0.5814,
+        "guide_programmes": 7345,
         "problem": ""
       },
       "issues": [],
@@ -8369,9 +8340,9 @@
         "playlist_ids": 64,
         "matched_ids": 64,
         "coverage": 1.0,
-        "ids_with_programmes": 35,
-        "programme_coverage": 0.5469,
-        "guide_programmes": 1904,
+        "ids_with_programmes": 36,
+        "programme_coverage": 0.5625,
+        "guide_programmes": 1954,
         "problem": ""
       },
       "issues": [],
@@ -8565,9 +8536,9 @@
     },
     {
       "file": "playlists/countries/Romania.m3u",
-      "entries": 141,
+      "entries": 138,
       "sanctioned_notice": 0,
-      "unique_urls": 141,
+      "unique_urls": 138,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Romania.xml"
@@ -8596,15 +8567,15 @@
         ]
       },
       "groups": {
-        "Europe": 39,
+        "Europe": 37,
         "Music": 27,
         "News": 13,
         "Entertainment": 10,
         "International": 10,
         "Movies": 6,
-        "Sports": 5,
         "Lifestyle": 5,
         "Documentary": 5,
+        "Sports": 4,
         "Religious": 4,
         "Cartoons": 3,
         "Comedy": 3,
@@ -8619,10 +8590,10 @@
       },
       "non_canonical_groups": {},
       "categories": {
-        "Sports": 5,
+        "Sports": 4,
         "Lifestyle": 5,
         "Cartoons": 3,
-        "Europe": 40,
+        "Europe": 38,
         "Music": 27,
         "News": 13,
         "Entertainment": 10,
@@ -8640,13 +8611,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 136,
-        "playlist_ids": 136,
-        "matched_ids": 136,
+        "declared_ids": 133,
+        "playlist_ids": 133,
+        "matched_ids": 133,
         "coverage": 1.0,
-        "ids_with_programmes": 66,
-        "programme_coverage": 0.4853,
-        "guide_programmes": 3765,
+        "ids_with_programmes": 65,
+        "programme_coverage": 0.4887,
+        "guide_programmes": 3730,
         "problem": ""
       },
       "issues": [],
@@ -8654,9 +8625,9 @@
     },
     {
       "file": "playlists/countries/Russia.m3u",
-      "entries": 508,
+      "entries": 507,
       "sanctioned_notice": 0,
-      "unique_urls": 508,
+      "unique_urls": 507,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Russia.xml"
@@ -8725,9 +8696,9 @@
         "Sports": 18,
         "Series": 16,
         "Religious": 8,
-        "International": 7,
-        "International Backups": 6,
         "Culture": 6,
+        "International": 6,
+        "International Backups": 6,
         "Comedy": 5,
         "Cartoons": 4,
         "Classic TV": 4,
@@ -8749,8 +8720,8 @@
         "Documentary": 19,
         "Series": 16,
         "Religious": 8,
-        "International": 13,
         "Culture": 6,
+        "International": 12,
         "Comedy": 5,
         "Classic TV": 4,
         "Education": 3,
@@ -8763,13 +8734,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 455,
-        "playlist_ids": 455,
-        "matched_ids": 455,
+        "declared_ids": 454,
+        "playlist_ids": 454,
+        "matched_ids": 454,
         "coverage": 1.0,
         "ids_with_programmes": 87,
-        "programme_coverage": 0.1912,
-        "guide_programmes": 5708,
+        "programme_coverage": 0.1916,
+        "guide_programmes": 5701,
         "problem": ""
       },
       "issues": [],
@@ -8935,7 +8906,18 @@
         "International": 1
       },
       "out_of_order": 0,
-      "dead_links": [],
+      "dead_links": [
+        {
+          "name": "San Marino RTV Sport (720p)",
+          "url": "https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch02/smil:ch-02.smil/master.m3u8",
+          "reason": "deep check: offline (variant HTTP 404)"
+        },
+        {
+          "name": "San Marino RTV (720p)",
+          "url": "https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch01/smil:ch-01.smil/chunklist.m3u8",
+          "reason": "deep check: offline (variant HTTP 404)"
+        }
+      ],
       "epg": {
         "declared_ids": 2,
         "playlist_ids": 2,
@@ -8946,16 +8928,18 @@
         "guide_programmes": 0,
         "problem": ""
       },
-      "issues": [],
+      "issues": [
+        "2 published link(s) confirmed dead by the last deep check"
+      ],
       "warnings": [
         "the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared"
       ]
     },
     {
       "file": "playlists/countries/Saudi_Arabia.m3u",
-      "entries": 66,
+      "entries": 60,
       "sanctioned_notice": 0,
-      "unique_urls": 66,
+      "unique_urls": 60,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Saudi_Arabia.xml"
@@ -8976,7 +8960,6 @@
           "Al Hadath (Backup 1)"
         ],
         "AlQuranAlKareemTV.sa@SD": [
-          "Al Quran Al Kareem TV (Backup 1)",
           "Al Quran Al Kareem TV (Backup 2)"
         ],
         "AlSunnahAlNabawiyahTV.sa@SD": [
@@ -8984,9 +8967,6 @@
         ],
         "AlEkhbariya.sa@SD": [
           "Al Ekhbariya (Backup 1)"
-        ],
-        "MBCMasrDrama.sa@SD": [
-          "MBC Masr Drama (Backup 1)"
         ],
         "AlSaudiya.sa@SD": [
           "Al Saudiya (Backup 1)"
@@ -8996,49 +8976,48 @@
         ]
       },
       "groups": {
-        "Music": 19,
+        "Music": 16,
         "Asia": 8,
         "Religious": 7,
         "Movies": 5,
         "News": 5,
         "Entertainment": 4,
-        "Religious Backups": 3,
+        "Religious Backups": 2,
         "News Backups": 2,
-        "Documentary": 2,
         "International": 2,
         "Series": 2,
         "Music Backups": 1,
-        "Entertainment Backups": 1,
         "International Backups": 1,
         "Classic TV": 1,
         "Culture": 1,
+        "Documentary": 1,
         "Kids": 1,
         "Kids Backups": 1
       },
       "non_canonical_groups": {},
       "categories": {
-        "Music": 20,
+        "Music": 17,
         "Asia": 8,
-        "Religious": 10,
+        "Religious": 9,
         "Movies": 5,
         "News": 7,
-        "Entertainment": 5,
-        "Documentary": 2,
+        "Entertainment": 4,
         "International": 3,
         "Series": 2,
         "Classic TV": 1,
         "Culture": 1,
+        "Documentary": 1,
         "Kids": 2
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 55,
-        "playlist_ids": 55,
-        "matched_ids": 55,
+        "declared_ids": 51,
+        "playlist_ids": 51,
+        "matched_ids": 51,
         "coverage": 1.0,
         "ids_with_programmes": 6,
-        "programme_coverage": 0.1091,
+        "programme_coverage": 0.1176,
         "guide_programmes": 38,
         "problem": ""
       },
@@ -9093,9 +9072,9 @@
     },
     {
       "file": "playlists/countries/Serbia.m3u",
-      "entries": 27,
+      "entries": 24,
       "sanctioned_notice": 0,
-      "unique_urls": 27,
+      "unique_urls": 24,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Serbia.xml"
@@ -9106,35 +9085,30 @@
       ],
       "missing_tvg_id": 0,
       "missing_tvg_id_sample": [],
-      "duplicate_tvg_ids": {
-        "RTS3.rs@SD": [
-          "RTS 3 (Backup 1)"
-        ]
-      },
+      "duplicate_tvg_ids": {},
       "groups": {
         "Europe": 10,
         "Music": 8,
-        "International": 6,
-        "Sports": 2,
-        "International Backups": 1
+        "International": 4,
+        "Sports": 2
       },
       "non_canonical_groups": {},
       "categories": {
         "Sports": 2,
         "Europe": 10,
         "Music": 8,
-        "International": 7
+        "International": 4
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 26,
-        "playlist_ids": 26,
-        "matched_ids": 26,
+        "declared_ids": 24,
+        "playlist_ids": 24,
+        "matched_ids": 24,
         "coverage": 1.0,
-        "ids_with_programmes": 10,
-        "programme_coverage": 0.3846,
-        "guide_programmes": 559,
+        "ids_with_programmes": 8,
+        "programme_coverage": 0.3333,
+        "guide_programmes": 460,
         "problem": ""
       },
       "issues": [],
@@ -9234,7 +9208,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 6,
         "programme_coverage": 0.2609,
-        "guide_programmes": 494,
+        "guide_programmes": 496,
         "problem": ""
       },
       "issues": [],
@@ -9349,7 +9323,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 2,
         "programme_coverage": 0.0377,
-        "guide_programmes": 1170,
+        "guide_programmes": 1160,
         "problem": ""
       },
       "issues": [],
@@ -9497,9 +9471,9 @@
     },
     {
       "file": "playlists/countries/South_Korea.m3u",
-      "entries": 92,
+      "entries": 85,
       "sanctioned_notice": 0,
-      "unique_urls": 92,
+      "unique_urls": 85,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/South_Korea.xml"
@@ -9538,15 +9512,14 @@
         ]
       },
       "groups": {
-        "Asia": 25,
+        "Asia": 24,
         "Lifestyle": 15,
-        "International": 14,
+        "International": 9,
         "Education": 7,
         "News Backups": 6,
         "Religious": 5,
         "News": 4,
         "Music Backups": 4,
-        "Legislative": 2,
         "Music": 2,
         "Sports": 1,
         "Lifestyle Backups": 1,
@@ -9555,35 +9528,36 @@
         "Documentary": 1,
         "Entertainment": 1,
         "Global TV": 1,
-        "Kids": 1
+        "Kids": 1,
+        "Legislative": 1
       },
       "non_canonical_groups": {},
       "categories": {
         "Sports": 1,
         "Lifestyle": 16,
         "Cartoons": 1,
-        "Asia": 25,
-        "International": 15,
+        "Asia": 24,
+        "International": 10,
         "Education": 7,
         "Religious": 5,
         "News": 10,
-        "Legislative": 2,
         "Music": 6,
         "Documentary": 1,
         "Entertainment": 1,
         "Global TV": 1,
-        "Kids": 1
+        "Kids": 1,
+        "Legislative": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 79,
-        "playlist_ids": 79,
-        "matched_ids": 79,
+        "declared_ids": 72,
+        "playlist_ids": 72,
+        "matched_ids": 72,
         "coverage": 1.0,
         "ids_with_programmes": 16,
-        "programme_coverage": 0.2025,
-        "guide_programmes": 1192,
+        "programme_coverage": 0.2222,
+        "guide_programmes": 1189,
         "problem": ""
       },
       "issues": [],
@@ -9591,9 +9565,9 @@
     },
     {
       "file": "playlists/countries/Spain.m3u",
-      "entries": 256,
+      "entries": 247,
       "sanctioned_notice": 0,
-      "unique_urls": 256,
+      "unique_urls": 247,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Spain.xml"
@@ -9645,14 +9619,13 @@
         ]
       },
       "groups": {
-        "Europe": 105,
+        "Europe": 101,
         "Movies": 27,
         "Music": 16,
         "International": 15,
         "News": 13,
         "PBS": 11,
         "Documentary": 8,
-        "Legislative": 8,
         "Religious": 8,
         "Entertainment": 7,
         "Sports": 5,
@@ -9662,6 +9635,7 @@
         "Cartoons": 3,
         "Documentary Backups": 3,
         "Culture": 3,
+        "Legislative": 3,
         "Lifestyle": 2,
         "Culture Backups": 2,
         "Sports Backups": 1
@@ -9674,18 +9648,18 @@
         "NBC Sports Channels": 1,
         "Cartoons": 3,
         "PBS": 15,
-        "Europe": 105,
+        "Europe": 101,
         "Movies": 27,
         "Music": 16,
         "International": 16,
         "News": 13,
         "Documentary": 11,
-        "Legislative": 8,
         "Religious": 8,
         "Entertainment": 7,
         "Kids": 5,
         "Series": 4,
         "Culture": 5,
+        "Legislative": 3,
         "Business": 1,
         "Classic TV": 1,
         "Education": 1
@@ -9693,13 +9667,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 242,
-        "playlist_ids": 242,
-        "matched_ids": 242,
+        "declared_ids": 233,
+        "playlist_ids": 233,
+        "matched_ids": 233,
         "coverage": 1.0,
         "ids_with_programmes": 30,
-        "programme_coverage": 0.124,
-        "guide_programmes": 1462,
+        "programme_coverage": 0.1288,
+        "guide_programmes": 1453,
         "problem": ""
       },
       "issues": [],
@@ -9905,7 +9879,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 5,
         "programme_coverage": 0.013,
-        "guide_programmes": 207,
+        "guide_programmes": 260,
         "problem": ""
       },
       "issues": [],
@@ -9980,7 +9954,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 10,
         "programme_coverage": 0.3125,
-        "guide_programmes": 853,
+        "guide_programmes": 856,
         "problem": ""
       },
       "issues": [],
@@ -10085,7 +10059,7 @@
         "coverage": 1.0,
         "ids_with_programmes": 2,
         "programme_coverage": 0.0952,
-        "guide_programmes": 163,
+        "guide_programmes": 165,
         "problem": ""
       },
       "issues": [],
@@ -10185,9 +10159,9 @@
     },
     {
       "file": "playlists/countries/Thailand.m3u",
-      "entries": 89,
+      "entries": 88,
       "sanctioned_notice": 0,
-      "unique_urls": 89,
+      "unique_urls": 88,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Thailand.xml"
@@ -10201,9 +10175,6 @@
       "duplicate_tvg_ids": {
         "ThaiPBS.th@SD": [
           "Thai PBS (Backup 1)"
-        ],
-        "MCOTHD.th@SD": [
-          "MCOT HD (Backup 1)"
         ],
         "DLTV10.th@SD": [
           "DLTV 10 (Backup 1)"
@@ -10245,7 +10216,6 @@
         "Sports": 1,
         "PBS": 1,
         "PBS Backups": 1,
-        "Asia Backups": 1,
         "Digital TV": 1,
         "Legislative": 1
       },
@@ -10253,7 +10223,7 @@
       "categories": {
         "Sports": 1,
         "PBS": 2,
-        "Asia": 29,
+        "Asia": 28,
         "Education": 24,
         "DLTV": 10,
         "Entertainment": 6,
@@ -10412,9 +10382,9 @@
     },
     {
       "file": "playlists/countries/Turkey.m3u",
-      "entries": 154,
+      "entries": 150,
       "sanctioned_notice": 0,
-      "unique_urls": 154,
+      "unique_urls": 150,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Turkey.xml"
@@ -10452,9 +10422,9 @@
         ]
       },
       "groups": {
-        "Asia": 72,
-        "News": 22,
-        "Music": 13,
+        "Asia": 70,
+        "News": 21,
+        "Music": 12,
         "International": 10,
         "Sports": 5,
         "Culture": 5,
@@ -10479,9 +10449,9 @@
         "Lifestyle": 1,
         "NBC": 1,
         "Cartoons": 2,
-        "Asia": 73,
-        "News": 24,
-        "Music": 13,
+        "Asia": 71,
+        "News": 23,
+        "Music": 12,
         "International": 10,
         "Culture": 5,
         "Religious": 5,
@@ -10495,13 +10465,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 146,
-        "playlist_ids": 146,
-        "matched_ids": 146,
+        "declared_ids": 142,
+        "playlist_ids": 142,
+        "matched_ids": 142,
         "coverage": 1.0,
-        "ids_with_programmes": 38,
-        "programme_coverage": 0.2603,
-        "guide_programmes": 2151,
+        "ids_with_programmes": 35,
+        "programme_coverage": 0.2465,
+        "guide_programmes": 2062,
         "problem": ""
       },
       "issues": [],
@@ -10590,9 +10560,9 @@
     },
     {
       "file": "playlists/countries/UK.m3u",
-      "entries": 334,
+      "entries": 330,
       "sanctioned_notice": 0,
-      "unique_urls": 334,
+      "unique_urls": 330,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/UK.xml"
@@ -10685,11 +10655,11 @@
         ]
       },
       "groups": {
-        "News": 83,
+        "News": 81,
         "UK": 35,
         "Music": 25,
-        "Religious": 22,
         "Sports": 21,
+        "Religious": 20,
         "News Backups": 18,
         "Kids": 17,
         "Entertainment": 15,
@@ -10712,10 +10682,10 @@
         "Lifestyle": 23,
         "NBC": 2,
         "Cartoons": 7,
-        "News": 101,
+        "News": 99,
         "UK": 40,
         "Music": 39,
-        "Religious": 22,
+        "Religious": 20,
         "Kids": 20,
         "Entertainment": 17,
         "Documentary": 14,
@@ -10732,13 +10702,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 272,
-        "playlist_ids": 272,
-        "matched_ids": 272,
+        "declared_ids": 268,
+        "playlist_ids": 268,
+        "matched_ids": 268,
         "coverage": 1.0,
-        "ids_with_programmes": 105,
-        "programme_coverage": 0.386,
-        "guide_programmes": 7676,
+        "ids_with_programmes": 119,
+        "programme_coverage": 0.444,
+        "guide_programmes": 8071,
         "problem": ""
       },
       "issues": [],
@@ -10746,9 +10716,9 @@
     },
     {
       "file": "playlists/countries/USA.m3u",
-      "entries": 2900,
+      "entries": 2852,
       "sanctioned_notice": 1,
-      "unique_urls": 2900,
+      "unique_urls": 2852,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml"
@@ -10834,57 +10804,57 @@
         ]
       },
       "groups": {
-        "United States": 371,
-        "Movies": 249,
+        "United States": 366,
+        "Movies": 247,
         "Series": 166,
-        "Lifestyle": 156,
-        "Entertainment": 147,
+        "Lifestyle": 155,
+        "Entertainment": 146,
         "Sports": 140,
-        "Religious": 125,
+        "Religious": 123,
         "Documentary": 120,
-        "Music": 104,
+        "Music": 103,
         "Kids": 92,
         "Series Backups": 91,
         "Movies Backups": 84,
         "Legislative": 83,
-        "News": 79,
         "Cartoons": 78,
         "United States Backups": 60,
+        "News": 59,
         "Lifestyle Backups": 55,
         "Sports Backups": 50,
-        "Education": 45,
+        "Education": 44,
         "NBC": 43
       },
       "non_canonical_groups": {},
       "categories": {
         "Sports": 190,
-        "Lifestyle": 211,
+        "Lifestyle": 210,
         "Fox Channels": 29,
-        "CBS": 52,
+        "CBS": 42,
         "NBC": 49,
         "NBC Sports Channels": 4,
         "Cartoons": 93,
         "PBS": 23,
         "Game Shows": 24,
-        "United States": 431,
-        "Movies": 333,
+        "United States": 426,
+        "Movies": 331,
         "Series": 257,
-        "Entertainment": 189,
-        "Religious": 138,
+        "Entertainment": 188,
+        "Religious": 135,
         "Documentary": 157,
-        "Music": 129,
+        "Music": 128,
         "Kids": 127,
         "Legislative": 83,
-        "News": 111,
-        "Education": 48,
-        "Comedy": 57,
+        "News": 89,
+        "Education": 47,
+        "Comedy": 56,
         "Classic TV": 34,
         "A&E Networks": 26,
         "Culture": 23,
         "Business": 27,
         "Family": 17,
         "Weather": 9,
-        "International": 7,
+        "International": 6,
         "Animals & Nature": 3,
         "Global TV": 4,
         "Tv Shows": 2,
@@ -10897,13 +10867,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 2178,
-        "playlist_ids": 2178,
-        "matched_ids": 2178,
+        "declared_ids": 2146,
+        "playlist_ids": 2146,
+        "matched_ids": 2146,
         "coverage": 1.0,
-        "ids_with_programmes": 413,
-        "programme_coverage": 0.1896,
-        "guide_programmes": 19810,
+        "ids_with_programmes": 733,
+        "programme_coverage": 0.3416,
+        "guide_programmes": 32523,
         "problem": ""
       },
       "issues": [],
@@ -10953,9 +10923,9 @@
     },
     {
       "file": "playlists/countries/Ukraine.m3u",
-      "entries": 198,
+      "entries": 197,
       "sanctioned_notice": 0,
-      "unique_urls": 198,
+      "unique_urls": 197,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ukraine.xml"
@@ -11013,7 +10983,7 @@
         ]
       },
       "groups": {
-        "Europe": 53,
+        "Europe": 52,
         "News": 19,
         "International": 18,
         "Movies": 18,
@@ -11039,7 +11009,7 @@
         "Sports": 14,
         "Lifestyle": 7,
         "Game Shows": 1,
-        "Europe": 64,
+        "Europe": 63,
         "News": 23,
         "International": 22,
         "Movies": 18,
@@ -11056,13 +11026,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 173,
-        "playlist_ids": 173,
-        "matched_ids": 173,
+        "declared_ids": 172,
+        "playlist_ids": 172,
+        "matched_ids": 172,
         "coverage": 1.0,
         "ids_with_programmes": 69,
-        "programme_coverage": 0.3988,
-        "guide_programmes": 3861,
+        "programme_coverage": 0.4012,
+        "guide_programmes": 3830,
         "problem": ""
       },
       "issues": [],
@@ -11070,9 +11040,9 @@
     },
     {
       "file": "playlists/countries/United_Arab_Emirates.m3u",
-      "entries": 56,
+      "entries": 53,
       "sanctioned_notice": 0,
-      "unique_urls": 56,
+      "unique_urls": 53,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/United_Arab_Emirates.xml"
@@ -11089,13 +11059,6 @@
         ],
         "SharjahSports.ae@SD": [
           "Sharjah Sports (Backup 1)"
-        ],
-        "CartoonNetworkArabic.ae@SD": [
-          "Cartoon Network Arabic (Backup 1)"
-        ],
-        "Alarabiya.ae@SD": [
-          "Alarabiya (Backup 1)",
-          "Alarabiya (Backup 2)"
         ],
         "SkyNewsArabia.ae@HD": [
           "Sky News Arabia (Backup 1)"
@@ -11115,11 +11078,10 @@
         "Asia": 5,
         "Sports": 4,
         "Entertainment": 4,
-        "News Backups": 3,
         "Cartoons": 2,
         "Sports Backups": 1,
         "NBC": 1,
-        "Cartoons Backups": 1,
+        "News Backups": 1,
         "Religious Backups": 1,
         "Entertainment Backups": 1,
         "Business": 1,
@@ -11132,10 +11094,10 @@
       "categories": {
         "Sports": 5,
         "NBC": 1,
-        "Cartoons": 3,
+        "Cartoons": 2,
         "International": 7,
         "Music": 7,
-        "News": 10,
+        "News": 8,
         "Religious": 8,
         "Asia": 5,
         "Entertainment": 5,
@@ -11162,9 +11124,9 @@
     },
     {
       "file": "playlists/countries/Uruguay.m3u",
-      "entries": 11,
+      "entries": 10,
       "sanctioned_notice": 0,
-      "unique_urls": 11,
+      "unique_urls": 10,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Uruguay.xml"
@@ -11181,8 +11143,8 @@
         ]
       },
       "groups": {
-        "South America": 4,
         "Religious": 3,
+        "South America": 3,
         "Culture": 1,
         "Culture Backups": 1,
         "Entertainment": 1,
@@ -11190,8 +11152,8 @@
       },
       "non_canonical_groups": {},
       "categories": {
-        "South America": 4,
         "Religious": 3,
+        "South America": 3,
         "Culture": 2,
         "Entertainment": 1,
         "Music": 1
@@ -11199,12 +11161,12 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 10,
-        "playlist_ids": 10,
-        "matched_ids": 10,
+        "declared_ids": 9,
+        "playlist_ids": 9,
+        "matched_ids": 9,
         "coverage": 1.0,
         "ids_with_programmes": 1,
-        "programme_coverage": 0.1,
+        "programme_coverage": 0.1111,
         "guide_programmes": 74,
         "problem": ""
       },
@@ -11274,9 +11236,9 @@
     },
     {
       "file": "playlists/countries/Venezuela.m3u",
-      "entries": 60,
+      "entries": 59,
       "sanctioned_notice": 0,
-      "unique_urls": 60,
+      "unique_urls": 59,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Venezuela.xml"
@@ -11306,7 +11268,7 @@
         "South America": 20,
         "Entertainment": 9,
         "International": 5,
-        "News": 5,
+        "News": 4,
         "Sports": 3,
         "Lifestyle": 3,
         "News Backups": 2,
@@ -11329,7 +11291,7 @@
         "South America": 21,
         "Entertainment": 9,
         "International": 6,
-        "News": 7,
+        "News": 6,
         "Culture": 2,
         "Music": 2,
         "Religious": 2,
@@ -11341,12 +11303,12 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 55,
-        "playlist_ids": 55,
-        "matched_ids": 55,
+        "declared_ids": 54,
+        "playlist_ids": 54,
+        "matched_ids": 54,
         "coverage": 1.0,
         "ids_with_programmes": 2,
-        "programme_coverage": 0.0364,
+        "programme_coverage": 0.037,
         "guide_programmes": 24,
         "problem": ""
       },
@@ -11355,9 +11317,9 @@
     },
     {
       "file": "playlists/countries/Vietnam.m3u",
-      "entries": 85,
+      "entries": 82,
       "sanctioned_notice": 0,
-      "unique_urls": 85,
+      "unique_urls": 82,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Vietnam.xml"
@@ -11371,9 +11333,6 @@
       "duplicate_tvg_ids": {
         "HTVSports.vn@SD": [
           "HTV Sports (Backup 1)"
-        ],
-        "DongNaiTV2.vn@SD": [
-          "\u0110\u1ed3ng Nai 2 (576p) [Not 24/7]"
         ],
         "CaoBangTV.vn@SD": [
           "Cao Bang TV (Backup 1)"
@@ -11392,45 +11351,45 @@
         ]
       },
       "groups": {
-        "Asia": 55,
+        "Asia": 53,
         "Entertainment": 6,
         "Lifestyle": 5,
         "Sports": 4,
         "Asia Backups": 3,
         "Culture": 2,
         "Education": 2,
-        "News": 2,
         "Sports Backups": 1,
         "Entertainment Backups": 1,
         "Kids": 1,
         "Movies": 1,
         "Music": 1,
+        "News": 1,
         "Series": 1
       },
       "non_canonical_groups": {},
       "categories": {
         "Sports": 5,
         "Lifestyle": 5,
-        "Asia": 58,
+        "Asia": 56,
         "Entertainment": 7,
         "Culture": 2,
         "Education": 2,
-        "News": 2,
         "Kids": 1,
         "Movies": 1,
         "Music": 1,
+        "News": 1,
         "Series": 1
       },
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 78,
-        "playlist_ids": 78,
-        "matched_ids": 78,
+        "declared_ids": 76,
+        "playlist_ids": 76,
+        "matched_ids": 76,
         "coverage": 1.0,
         "ids_with_programmes": 14,
-        "programme_coverage": 0.1795,
-        "guide_programmes": 1389,
+        "programme_coverage": 0.1842,
+        "guide_programmes": 1390,
         "problem": ""
       },
       "issues": [],
@@ -11566,9 +11525,9 @@
     },
     {
       "file": "playlists/live/USA.m3u",
-      "entries": 2900,
+      "entries": 2852,
       "sanctioned_notice": 0,
-      "unique_urls": 2900,
+      "unique_urls": 2852,
       "duplicate_urls": [],
       "guides": [
         "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml"
@@ -11654,57 +11613,57 @@
         ]
       },
       "groups": {
-        "United States": 371,
-        "Movies": 249,
+        "United States": 366,
+        "Movies": 247,
         "Series": 166,
-        "Lifestyle": 156,
-        "Entertainment": 147,
+        "Lifestyle": 155,
+        "Entertainment": 146,
         "Sports": 140,
-        "Religious": 125,
+        "Religious": 123,
         "Documentary": 120,
-        "Music": 104,
+        "Music": 103,
         "Kids": 92,
         "Series Backups": 91,
         "Movies Backups": 84,
         "Legislative": 83,
-        "News": 79,
         "Cartoons": 78,
         "United States Backups": 60,
+        "News": 59,
         "Lifestyle Backups": 55,
         "Sports Backups": 50,
-        "Education": 45,
+        "Education": 44,
         "NBC": 43
       },
       "non_canonical_groups": {},
       "categories": {
         "Sports": 190,
-        "Lifestyle": 211,
+        "Lifestyle": 210,
         "Fox Channels": 29,
-        "CBS": 52,
+        "CBS": 42,
         "NBC": 49,
         "NBC Sports Channels": 4,
         "Cartoons": 93,
         "PBS": 23,
         "Game Shows": 24,
-        "United States": 431,
-        "Movies": 333,
+        "United States": 426,
+        "Movies": 331,
         "Series": 257,
-        "Entertainment": 189,
-        "Religious": 138,
+        "Entertainment": 188,
+        "Religious": 135,
         "Documentary": 157,
-        "Music": 129,
+        "Music": 128,
         "Kids": 127,
         "Legislative": 83,
-        "News": 111,
-        "Education": 48,
-        "Comedy": 57,
+        "News": 89,
+        "Education": 47,
+        "Comedy": 56,
         "Classic TV": 34,
         "A&E Networks": 26,
         "Culture": 23,
         "Business": 27,
         "Family": 17,
         "Weather": 9,
-        "International": 7,
+        "International": 6,
         "Animals & Nature": 3,
         "Global TV": 4,
         "Tv Shows": 2,
@@ -11717,13 +11676,13 @@
       "out_of_order": 0,
       "dead_links": [],
       "epg": {
-        "declared_ids": 2178,
-        "playlist_ids": 2178,
-        "matched_ids": 2178,
+        "declared_ids": 2146,
+        "playlist_ids": 2146,
+        "matched_ids": 2146,
         "coverage": 1.0,
-        "ids_with_programmes": 413,
-        "programme_coverage": 0.1896,
-        "guide_programmes": 19810,
+        "ids_with_programmes": 733,
+        "programme_coverage": 0.3416,
+        "guide_programmes": 32523,
         "problem": ""
       },
       "issues": [],
@@ -11738,7 +11697,7 @@
         "file": "categories/USA.m3u",
         "scope": "USA",
         "category": "USA",
-        "channels": 2900,
+        "channels": 2852,
         "status": "ok"
       },
       {
@@ -11759,7 +11718,7 @@
         "file": "categories/USA/Lifestyle.m3u",
         "scope": "USA",
         "category": "Lifestyle",
-        "channels": 156,
+        "channels": 155,
         "status": "ok"
       },
       {
@@ -11780,7 +11739,7 @@
         "file": "categories/USA/CBS.m3u",
         "scope": "USA",
         "category": "CBS",
-        "channels": 29,
+        "channels": 19,
         "status": "ok"
       },
       {
@@ -11850,7 +11809,7 @@
         "file": "categories/USA/United_States.m3u",
         "scope": "USA",
         "category": "United States",
-        "channels": 371,
+        "channels": 366,
         "status": "ok"
       },
       {
@@ -11864,7 +11823,7 @@
         "file": "categories/USA/Movies.m3u",
         "scope": "USA",
         "category": "Movies",
-        "channels": 249,
+        "channels": 247,
         "status": "ok"
       },
       {
@@ -11892,7 +11851,7 @@
         "file": "categories/USA/Entertainment.m3u",
         "scope": "USA",
         "category": "Entertainment",
-        "channels": 147,
+        "channels": 146,
         "status": "ok"
       },
       {
@@ -11906,14 +11865,14 @@
         "file": "categories/USA/Religious.m3u",
         "scope": "USA",
         "category": "Religious",
-        "channels": 125,
+        "channels": 123,
         "status": "ok"
       },
       {
         "file": "categories/USA/Religious_Backups.m3u",
         "scope": "USA",
         "category": "Religious Backups",
-        "channels": 13,
+        "channels": 12,
         "status": "ok"
       },
       {
@@ -11934,7 +11893,7 @@
         "file": "categories/USA/Music.m3u",
         "scope": "USA",
         "category": "Music",
-        "channels": 104,
+        "channels": 103,
         "status": "ok"
       },
       {
@@ -11969,21 +11928,21 @@
         "file": "categories/USA/News.m3u",
         "scope": "USA",
         "category": "News",
-        "channels": 79,
+        "channels": 59,
         "status": "ok"
       },
       {
         "file": "categories/USA/News_Backups.m3u",
         "scope": "USA",
         "category": "News Backups",
-        "channels": 32,
+        "channels": 30,
         "status": "ok"
       },
       {
         "file": "categories/USA/Education.m3u",
         "scope": "USA",
         "category": "Education",
-        "channels": 45,
+        "channels": 44,
         "status": "ok"
       },
       {
@@ -11997,7 +11956,7 @@
         "file": "categories/USA/Comedy.m3u",
         "scope": "USA",
         "category": "Comedy",
-        "channels": 37,
+        "channels": 36,
         "status": "ok"
       },
       {
@@ -12074,7 +12033,7 @@
         "file": "categories/USA/International.m3u",
         "scope": "USA",
         "category": "International",
-        "channels": 5,
+        "channels": 4,
         "status": "ok"
       },
       {
@@ -12095,7 +12054,7 @@
         "file": "categories/All/Sports.m3u",
         "scope": "World",
         "category": "Sports",
-        "channels": 577,
+        "channels": 574,
         "status": "ok"
       },
       {
@@ -12109,7 +12068,7 @@
         "file": "categories/All/Lifestyle.m3u",
         "scope": "World",
         "category": "Lifestyle",
-        "channels": 526,
+        "channels": 520,
         "status": "ok"
       },
       {
@@ -12130,14 +12089,14 @@
         "file": "categories/All/CBS.m3u",
         "scope": "World",
         "category": "CBS",
-        "channels": 32,
+        "channels": 31,
         "status": "ok"
       },
       {
         "file": "categories/All/CBS_Backups.m3u",
         "scope": "World",
         "category": "CBS Backups",
-        "channels": 24,
+        "channels": 14,
         "status": "ok"
       },
       {
@@ -12172,7 +12131,7 @@
         "file": "categories/All/Cartoons_Backups.m3u",
         "scope": "World",
         "category": "Cartoons Backups",
-        "channels": 20,
+        "channels": 19,
         "status": "ok"
       },
       {
@@ -12204,24 +12163,10 @@
         "status": "ok"
       },
       {
-        "file": "categories/All/News.m3u",
-        "scope": "World",
-        "category": "News",
-        "channels": 983,
-        "status": "ok"
-      },
-      {
-        "file": "categories/All/News_Backups.m3u",
-        "scope": "World",
-        "category": "News Backups",
-        "channels": 191,
-        "status": "ok"
-      },
-      {
         "file": "categories/All/Music.m3u",
         "scope": "World",
         "category": "Music",
-        "channels": 966,
+        "channels": 956,
         "status": "ok"
       },
       {
@@ -12232,108 +12177,122 @@
         "status": "ok"
       },
       {
+        "file": "categories/All/News.m3u",
+        "scope": "World",
+        "category": "News",
+        "channels": 949,
+        "status": "ok"
+      },
+      {
+        "file": "categories/All/News_Backups.m3u",
+        "scope": "World",
+        "category": "News Backups",
+        "channels": 177,
+        "status": "ok"
+      },
+      {
         "file": "categories/All/Movies.m3u",
         "scope": "World",
         "category": "Movies",
-        "channels": 936,
+        "channels": 928,
         "status": "ok"
       },
       {
         "file": "categories/All/Movies_Backups.m3u",
         "scope": "World",
         "category": "Movies Backups",
-        "channels": 101,
+        "channels": 100,
         "status": "ok"
       },
       {
         "file": "categories/All/Europe.m3u",
         "scope": "World",
         "category": "Europe",
-        "channels": 888,
+        "channels": 866,
         "status": "ok"
       },
       {
         "file": "categories/All/Europe_Backups.m3u",
         "scope": "World",
         "category": "Europe Backups",
-        "channels": 69,
+        "channels": 68,
         "status": "ok"
       },
       {
         "file": "categories/All/International.m3u",
         "scope": "World",
         "category": "International",
-        "channels": 823,
+        "channels": 794,
         "status": "ok"
       },
       {
         "file": "categories/All/International_Backups.m3u",
         "scope": "World",
         "category": "International Backups",
-        "channels": 122,
+        "channels": 121,
         "status": "ok"
       },
       {
         "file": "categories/All/Entertainment.m3u",
         "scope": "World",
         "category": "Entertainment",
-        "channels": 747,
+        "channels": 740,
         "status": "ok"
       },
       {
         "file": "categories/All/Entertainment_Backups.m3u",
         "scope": "World",
         "category": "Entertainment Backups",
-        "channels": 80,
+        "channels": 76,
         "status": "ok"
       },
       {
         "file": "categories/All/Religious.m3u",
         "scope": "World",
         "category": "Religious",
-        "channels": 646,
+        "channels": 641,
         "status": "ok"
       },
       {
         "file": "categories/All/Religious_Backups.m3u",
         "scope": "World",
         "category": "Religious Backups",
-        "channels": 39,
+        "channels": 37,
         "status": "ok"
       },
       {
         "file": "categories/All/Asia.m3u",
         "scope": "World",
         "category": "Asia",
-        "channels": 627,
+        "channels": 617,
         "status": "ok"
       },
       {
         "file": "categories/All/Asia_Backups.m3u",
         "scope": "World",
         "category": "Asia Backups",
-        "channels": 30,
+        "channels": 25,
         "status": "ok"
       },
       {
         "file": "categories/All/South_America.m3u",
         "scope": "World",
         "category": "South America",
-        "channels": 537,
+        "channels": 532,
         "status": "ok"
       },
       {
         "file": "categories/All/South_America_Backups.m3u",
         "scope": "World",
         "category": "South America Backups",
-        "channels": 21,
+        "channels": 20,
         "status": "ok"
       },
       {
         "file": "categories/All/Documentary.m3u",
         "scope": "World",
         "category": "Documentary",
-        "channels": 395,
+        "channels": 391,
         "status": "ok"
       },
       {
@@ -12347,7 +12306,7 @@
         "file": "categories/All/United_States.m3u",
         "scope": "World",
         "category": "United States",
-        "channels": 387,
+        "channels": 382,
         "status": "ok"
       },
       {
@@ -12389,7 +12348,7 @@
         "file": "categories/All/North_America.m3u",
         "scope": "World",
         "category": "North America",
-        "channels": 327,
+        "channels": 322,
         "status": "ok"
       },
       {
@@ -12403,35 +12362,21 @@
         "file": "categories/All/Education.m3u",
         "scope": "World",
         "category": "Education",
-        "channels": 158,
+        "channels": 157,
         "status": "ok"
       },
       {
         "file": "categories/All/Education_Backups.m3u",
         "scope": "World",
         "category": "Education Backups",
-        "channels": 13,
-        "status": "ok"
-      },
-      {
-        "file": "categories/All/Legislative.m3u",
-        "scope": "World",
-        "category": "Legislative",
-        "channels": 147,
-        "status": "ok"
-      },
-      {
-        "file": "categories/All/Legislative_Backups.m3u",
-        "scope": "World",
-        "category": "Legislative Backups",
-        "channels": 3,
+        "channels": 12,
         "status": "ok"
       },
       {
         "file": "categories/All/Culture.m3u",
         "scope": "World",
         "category": "Culture",
-        "channels": 144,
+        "channels": 142,
         "status": "ok"
       },
       {
@@ -12442,10 +12387,24 @@
         "status": "ok"
       },
       {
+        "file": "categories/All/Legislative.m3u",
+        "scope": "World",
+        "category": "Legislative",
+        "channels": 140,
+        "status": "ok"
+      },
+      {
+        "file": "categories/All/Legislative_Backups.m3u",
+        "scope": "World",
+        "category": "Legislative Backups",
+        "channels": 3,
+        "status": "ok"
+      },
+      {
         "file": "categories/All/Comedy.m3u",
         "scope": "World",
         "category": "Comedy",
-        "channels": 126,
+        "channels": 125,
         "status": "ok"
       },
       {
@@ -12466,7 +12425,7 @@
         "file": "categories/All/India.m3u",
         "scope": "World",
         "category": "India",
-        "channels": 89,
+        "channels": 86,
         "status": "ok"
       },
       {
@@ -12543,7 +12502,7 @@
         "file": "categories/All/Australia.m3u",
         "scope": "World",
         "category": "Australia",
-        "channels": 24,
+        "channels": 23,
         "status": "ok"
       },
       {
@@ -12631,16 +12590,16 @@
         "status": "ok"
       },
       {
-        "file": "categories/All/Tv_Shows.m3u",
-        "scope": "World",
-        "category": "Tv Shows",
-        "channels": 6,
-        "status": "ok"
-      },
-      {
         "file": "categories/All/Aria_Web_Channels.m3u",
         "scope": "World",
         "category": "Aria Web Channels",
+        "channels": 5,
+        "status": "ok"
+      },
+      {
+        "file": "categories/All/Tv_Shows.m3u",
+        "scope": "World",
+        "category": "Tv Shows",
         "channels": 5,
         "status": "ok"
       },
@@ -12655,7 +12614,7 @@
         "file": "categories/All/Other.m3u",
         "scope": "World",
         "category": "Other",
-        "channels": 276,
+        "channels": 248,
         "status": "ok"
       },
       {
@@ -12670,5 +12629,5 @@
     "issues": [],
     "note": "every shelf file matches the published order"
   },
-  "quarantine_entries": 853
+  "quarantine_entries": 1070
 }
