@@ -4,8 +4,8 @@
 
 The repository already has GitHub Pages enabled using GitHub Actions:
 
-- Download page: <https://cgyegcvcecvoc.github.io/PremiumTV1/>
-- Full hub: <https://cgyegcvcecvoc.github.io/PremiumTV1/hub/>
+- Download page: <https://cgyegcvcecvoc.github.io/PremiumTV/>
+- Full hub: <https://cgyegcvcecvoc.github.io/PremiumTV/hub/>
 
 `.github/workflows/pages.yml` regenerates release metadata and site data, builds
 and exports the hub, and publishes both together. Relevant pushes to `main`,
@@ -19,7 +19,7 @@ first, then check **Actions → Deploy download site (GitHub Pages)** for succes
 To redeploy manually: **Actions → Deploy download site (GitHub Pages) → Run
 workflow → main**. The one-time Pages setting is **Settings → Pages → Source →
 GitHub Actions** (already enabled). Large installers stay on GitHub Releases;
-local hub files use relative links that work under `/PremiumTV1/hub/`.
+local hub files use relative links that work under `/PremiumTV/hub/`.
 
 The older manual-upload and server alternatives are retained below for reference.
 Their free-tier terms may change; they are not required for the recommended setup.
@@ -76,7 +76,7 @@ drag the folder in again (Netlify keeps the same URL).
 
 ## Release routing and refreshing an existing Netlify site
 
-The hub uses the same complete-release gate as `docs/`: stable 1.0.6.1 becomes
+The hub uses the same complete-release gate as `docs/`: stable 1.1.2 becomes
 recommended only when published with its APK and all four Mac installers.
 The retired 1.1.x preview is filtered out entirely (`prerelease` releases and
 `RETIRED_TAGS`), so it has no card, table row or download link. Local APKs and

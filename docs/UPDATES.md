@@ -74,7 +74,12 @@ The rules the popup follows:
    resolved at startup from the last copy. An offline launch still shows it,
    which is exactly when an out-of-support build is most stuck.
 3. **Never over a playing channel.** Android shows it above every screen except
-   the player.
+   the player - and since 1.1.2 the *docked* player counts as playing. A dialog
+   window takes the remote's focus and its Back key, and Back over the dock is
+   promised to the dock (tuck from full screen, close from the dock), so a popup
+   arriving over a docked channel would swallow that press and leave the panel
+   stuck. A viewer with nothing playing still sees the notice at the next
+   launch.
 4. **A notice failure is invisible.** An unreachable, oversized (over 64 KB) or
    malformed document keeps the last good copy and can never fail the update
    check that already succeeded.

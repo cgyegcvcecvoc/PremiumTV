@@ -194,6 +194,10 @@ NOTICE_EYEBROWS = {"PREMIUMTV UPDATE", "SUPPORT HAS ENDED", "BUILD RETIRED", "UP
 # the gate.
 DEFAULT_DISMISS_LABELS = {"Not now", "Later", "Remind me next time", "Dismiss"}
 _notice_seen = False
+# Counted so the player walk can tell a Back press the popup stole (the dialog
+# window takes the key before the dock's handler sees it) from a dock that
+# genuinely ignores Back.
+_notice_dismissals = 0
 
 
 def notice_dismiss_labels():
@@ -225,7 +229,7 @@ def dismiss_update_notice(texts, nodes):
     the emulator's key event can land before the dialog window takes focus, and
     the dialog then simply stays up.
     """
-    global _notice_seen
+    global _notice_seen, _notice_dismissals
     if not any(text.strip().upper() in NOTICE_EYEBROWS for text in texts):
         return False
     if not _notice_seen:
@@ -248,6 +252,7 @@ def dismiss_update_notice(texts, nodes):
     else:
         key("KEYCODE_BACK")  # the remote's own dismissal
     time.sleep(1.5)
+    _notice_dismissals += 1
     return True
 
 
@@ -421,6 +426,28 @@ def tap_tab(label):
     time.sleep(1.5)
 
 
+def press_back_until_dock_closed(context):
+    """Close the docked panel with Back, allowing for one stolen press.
+
+    The dock's own hint promises that Back closes it. The only thing that may
+    legitimately take that press first is the update popup: it is a dialog
+    window, so it consumes the key before the panel's handler sees it. 1.1.2 no
+    longer shows one over a playing channel (AppRoot), but a popup that was
+    already up - or a build that predates the fix - would otherwise look like a
+    dock that ignores Back, which is exactly the failure this gate has to
+    report honestly. So: one press, a short quiet wait, and a second press only
+    when the popup was seen taking the key in between.
+    """
+    key("KEYCODE_BACK")
+    stolen_at = _notice_dismissals
+    if poll_ui(dock_closed, 15):
+        return
+    if _notice_dismissals > stolen_at:
+        progress(f"the update popup took the Back press ({context}); pressing again")
+        key("KEYCODE_BACK")
+    wait_alive(dock_closed, f"the closed side player ({context})")
+
+
 def exercise_player_transitions(meta, context):
     """Once the player is up: fallback walk, manual server hop, side player.
 
@@ -485,8 +512,7 @@ def exercise_player_transitions(meta, context):
     # with nothing listening for the key it used to leave the app instead.
     key("KEYCODE_BACK")
     wait_alive(side_card_marker, f"the side player again ({context})")
-    key("KEYCODE_BACK")
-    wait_alive(dock_closed, f"the closed side player ({context})")
+    press_back_until_dock_closed(context)
     close_side_player()
     progress(f"side player closed on Back ({context})")
 

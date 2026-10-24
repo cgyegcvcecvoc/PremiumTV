@@ -52,11 +52,22 @@ DOCS = ROOT / "docs"
 DATA = DOCS / "data"
 
 REPO_OWNER = "cgyegcvcecvoc"
+# The historical slug. `raw.githubusercontent.com` and `api.github.com` keep
+# serving a renamed repository under its old name (GitHub 301s them here), and
+# builds already installed on TVs and Macs have this slug baked in, so the data
+# URLs stay on it. Anything read by a *person* - the Pages address especially -
+# must use the canonical name below, because a project Pages URL does not
+# survive a rename.
 REPO_NAME = "PremiumTV1"
 REPO_BRANCH = "main"
 RAW_BASE = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/{REPO_BRANCH}"
 RELEASES_BASE = f"https://github.com/{REPO_OWNER}/{REPO_NAME}/releases/download"
-PAGES_URL = f"https://{REPO_OWNER}.github.io/{REPO_NAME}/"
+# Canonical repository name since the 2026-10-21 rename (PremiumTV1 ->
+# PremiumTV). GitHub Pages publishes a project site at
+# https://<owner>.github.io/<repository>/, so the live site is /PremiumTV/ and
+# the old /PremiumTV1/ address serves nothing. Verified against the API:
+# GET /repos/{owner}/{repo}/pages -> html_url.
+PAGES_URL = f"https://{REPO_OWNER}.github.io/PremiumTV/"
 GOOGLE_DOC_CHANGELOG = ("https://docs.google.com/document/d/"
                         "1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk")
 

@@ -1,4 +1,5 @@
 """Tests for the download-site data generator (scripts/build_site_data.py)."""
+import re
 import sys
 import unittest
 import xml.etree.ElementTree as ET
@@ -120,6 +121,65 @@ class BuildSiteDataTest(unittest.TestCase):
                 digest = str(published.get(asset["name"], {}).get("digest") or "")
                 if digest.startswith("sha256:"):
                     self.assertEqual(asset["sha256"], digest.split(":", 1)[1], asset["name"])
+
+    def test_every_download_link_names_an_asset_the_release_really_carries(self):
+        """The page's buttons must point at bytes that exist on the release.
+
+        1.1.2 shipped a site whose stable card still advertised v1.0.9 while
+        v1.1.0 and v1.1.1 were published and downloadable, so "check the links
+        we publish" is not a formality. Every URL is checked here against the
+        refreshed release cache: the tag has to be the promoted tag, and the
+        file name has to be one of that release's assets.
+        """
+        releases = {r["tag"]: r for r in build_site_data.load_releases()}
+        self.assertTrue(releases, "docs/data/releases.src.json must be refreshed")
+        for channel in self.payload["apps"]["channels"]:
+            published = releases.get(channel["tag"])
+            self.assertIsNotNone(published, channel["tag"])
+            names = {a["name"] for a in published.get("assets") or []}
+            for asset in channel["assets"]:
+                url = asset["url"]
+                # GitHub returns the canonical repository name in
+                # browser_download_url; the generator's own fallback uses the
+                # historical slug. Both resolve, so accept either and pin the
+                # part that matters: the tag and the file.
+                self.assertRegex(
+                    url,
+                    rf"^https://github\.com/{build_site_data.REPO_OWNER}/"
+                    rf"(?:{build_site_data.REPO_NAME}|PremiumTV)/releases/download/"
+                    rf"{re.escape(channel['tag'])}/",
+                )
+                self.assertTrue(url.endswith("/" + asset["name"]), url)
+                self.assertIn(asset["name"], names, f"{asset['name']} is not on {channel['tag']}")
+
+    def test_the_promoted_stable_is_the_newest_complete_published_release(self):
+        """A stale cache must never hide a downloadable build.
+
+        The card follows the newest release whose APK and four Mac installers
+        are all attached. Any release *newer* than the advertised one has to be
+        incomplete (still uploading) or unpublished, otherwise the page is
+        telling people to install something older than what GitHub serves.
+        """
+        releases = build_site_data.load_releases()
+        promoted = self.payload["apps"]["channels"][0]["tag"]
+        newest = build_site_data.latest_complete_stable_release(releases)
+        self.assertIsNotNone(newest)
+        self.assertEqual(build_site_data.release_tag(newest), promoted)
+        promoted_key = build_site_data.release_version.compare_versions(
+            promoted[1:], self.payload["apps"]["channels"][0]["version"]) is not None
+        self.assertTrue(promoted_key)
+        for release in releases:
+            tag = build_site_data.release_tag(release)
+            if release.get("draft") or release.get("prerelease") or not tag.startswith("v"):
+                continue
+            newer = build_site_data.release_version.compare_versions(tag[1:], promoted[1:]) or 0
+            if newer <= 0:
+                continue
+            complete = (
+                f"PremiumTV-{tag[1:]}-debug.apk" in {a.get("name") for a in release.get("assets") or []}
+                and build_site_data.mac_assets_for(tag[1:], releases)[1] is not None
+            )
+            self.assertFalse(complete, f"{tag} is complete and downloadable but not promoted")
 
     def test_compatibility_alias_never_replaces_the_canonical_download(self):
         names = [
@@ -315,6 +375,23 @@ class BuildSiteDataTest(unittest.TestCase):
                      'Scrape playlists', 'Quick playlist update', 'Deep link and guide check'):
             self.assertIn(path, workflow)
         self.assertIn("repos/${GITHUB_REPOSITORY}/releases?per_page=100", workflow)
+
+    def test_the_published_site_address_is_the_one_github_serves(self):
+        """A project Pages URL does not survive a repository rename.
+
+        The repository was renamed PremiumTV1 -> PremiumTV on 2026-10-21, so
+        /PremiumTV1/ stopped being a site while raw and API URLs kept resolving
+        through GitHub's rename redirect. Every human-facing link - the site's
+        own feed id, docs/README.md, the hub guide and the workflow summary -
+        has to use the canonical address.
+        """
+        pages_url = self.payload["repo"]["pages_url"]
+        self.assertEqual(pages_url, "https://cgyegcvcecvoc.github.io/PremiumTV/")
+        for path in ("docs/README.md", "hub/DEPLOY.md", ".github/workflows/pages.yml"):
+            text = (ROOT / path).read_text(encoding="utf-8")
+            self.assertNotIn("github.io/PremiumTV1", text, path)
+        feed = build_site_data.write_feed(self.changelog)
+        self.assertIn(f"{pages_url}data/feed.xml", feed)
 
     def test_full_hub_is_built_and_published_on_pages(self):
         workflow = (ROOT / ".github/workflows/pages.yml").read_text()
