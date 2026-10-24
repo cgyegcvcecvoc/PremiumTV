@@ -74,6 +74,14 @@ jobs:
     if: github.event_name == 'release'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    # The workflow-level `pages-deploy` group cancels in-flight runs when the
+    # next deploy starts, and a scheduled data run deploys every few hours.
+    # This job waits up to 45 minutes for the installers, so it needs a group of
+    # its own or an unrelated scrape would cancel the wait and redeploy the
+    # site before the release was complete.
+    concurrency:
+      group: release-promotion
+      cancel-in-progress: false
     permissions:
       actions: write
       contents: read
