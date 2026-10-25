@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://archive.org; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+        content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://archive.org https://cdn.jsdelivr.net; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
   <title>PremiumTV</title>
   <link rel="stylesheet" href="app.css" />
 </head>
@@ -110,7 +110,7 @@
         <header class="view-head">
           <div class="view-head-text">
             <h1>Movies &amp; Shows</h1>
-            <p id="movies-subtitle">Public-domain films and classic TV episodes, on demand.</p>
+            <p id="movies-subtitle">Films, classic TV episodes and a test card, on demand.</p>
           </div>
           <div id="movies-filters" class="vod-filters" role="group" aria-label="Filter the on-demand shelf">
             <button class="vod-chip" data-vod-filter="all" aria-pressed="true">All</button>

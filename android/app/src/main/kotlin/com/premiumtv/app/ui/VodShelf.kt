@@ -191,7 +191,7 @@ fun VodShelfScreen(
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
-                text = "Public-domain films and classic TV · plays in the side player",
+                text = "Films, classic TV and a test card · plays in the side player",
                 style = MaterialTheme.typography.labelSmall,
                 color = MutedText,
                 maxLines = 1,

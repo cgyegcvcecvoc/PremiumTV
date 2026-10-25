@@ -1694,9 +1694,10 @@
   //
   // The 1.1.1 tab was a coming-soon page. This one renders the on-demand test
   // catalogue: public-domain films and classic TV episodes resolved by
-  // scripts/vod_catalog.py, shipped in the bundle and played through the same
-  // side player as a channel. An item is one finite stream, so it has no
-  // guide listings and no backup servers - the player simply opens it.
+  // scripts/vod_catalog.py (plus the repository's own synthetic test card),
+  // shipped in the bundle and played through the same side player as a
+  // channel. An item is one finite stream, so it has no guide listings and no
+  // backup servers - the player simply opens it.
 
   function vodLabel(item) {
     if (item.kind === 'movie') return 'FILM';
@@ -1736,8 +1737,8 @@
     const shown = ui.vodFilter === 'all' ? items : items.filter((item) => item.kind === ui.vodFilter);
     if (els.moviesSubtitle) {
       els.moviesSubtitle.textContent = items.length
-        ? `${items.length} on demand · public-domain films and classic TV · plays in the side player`
-        : 'Public-domain films and classic TV episodes, on demand.';
+        ? `${items.length} on demand · films, classic TV and a test card · plays in the side player`
+        : 'Films, classic TV episodes and a test card, on demand.';
     }
     for (const chip of document.querySelectorAll('#movies-filters .vod-chip')) {
       chip.setAttribute('aria-pressed', String(chip.dataset.vodFilter === ui.vodFilter));
