@@ -1,8 +1,8 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-25T13:56:51+00:00 UTC
-- **Playlists checked:** 184 (29428 entries)
-- **Playlists with problems:** 3
+- **Generated:** 2026-10-25T15:27:52+00:00 UTC
+- **Playlists checked:** 184 (29426 entries)
+- **Playlists with problems:** 2
 - **Playlists with guide-coverage notes:** 84
 - **Links published that the deep check called dead:** 3
 - **Category shelf files:** 133 (0 problem(s))
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 13230 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Movies, Europe, International, Entertainment, Religious, Asia, South America, Documentary, United States, Series, Kids, North America, Education, Culture, Legislative, Comedy, Africa, India, Classic TV, Business, Canada, UK, Family, A&E Networks, Australia, Global TV, Digital TV, Weather, Animals & Nature, DLTV, Online TV, Tv Celebrities, Tv Paranormal, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 11546/11546 (100.0%) | 2507 (21.7%) |
+| `playlists/PremiumTV.m3u` | 13228 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Movies, Europe, International, Entertainment, Religious, Asia, South America, Documentary, United States, Series, Kids, North America, Education, Culture, Legislative, Comedy, Africa, India, Classic TV, Business, Canada, UK, Family, A&E Networks, Australia, Global TV, Digital TV, Weather, Animals & Nature, DLTV, Online TV, Tv Celebrities, Tv Paranormal, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 11546/11546 (100.0%) | 2507 (21.7%) |
 | `playlists/AE_Channels.m3u` | 69 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 61/61 (100.0%) | 21 (34.4%) |
 | `playlists/Priority_Channels.m3u` | 17 | Sports, Cartoons, Kids, 3-Radio#Chicago, MeTV, TEST, USA Channels | 0 | 0 | 3 | 0 | 14/14 (100.0%) | 8 (57.1%) |
 | `playlists/countries/Afghanistan.m3u` | 11 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 11/11 (100.0%) | 0 (0.0%) |
@@ -200,10 +200,6 @@
 
 ## Problems
 
-### `playlists/PremiumTV.m3u`
-
-- 2 duplicate URL(s) inside the playlist
-
 ### `playlists/countries/Bermuda.m3u`
 
 - 1 published link(s) confirmed dead by the last deep check
@@ -292,7 +288,7 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 | 68 | `categories/All/Music.m3u` | World | Music | 959 | ok |
 | 69 | `categories/All/Music_Backups.m3u` | World | Music Backups | 88 | ok |
 | 70 | `categories/All/News.m3u` | World | News | 951 | ok |
-| 71 | `categories/All/News_Backups.m3u` | World | News Backups | 177 | ok |
+| 71 | `categories/All/News_Backups.m3u` | World | News Backups | 175 | ok |
 | 72 | `categories/All/Movies.m3u` | World | Movies | 928 | ok |
 | 73 | `categories/All/Movies_Backups.m3u` | World | Movies Backups | 100 | ok |
 | 74 | `categories/All/Europe.m3u` | World | Europe | 869 | ok |

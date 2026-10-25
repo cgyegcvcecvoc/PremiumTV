@@ -31,9 +31,9 @@ def fake_results(mapping):
             for url, status in mapping.items()}
 
 
-def run(tmpdir, results, pool=None, extra=()):
+def run(tmpdir, results, pool=None, extra=(), text=PLAYLIST):
     path = Path(tmpdir) / "list.m3u8"
-    path.write_text(PLAYLIST, encoding="utf-8")
+    path.write_text(text, encoding="utf-8")
     argv = [str(path), "--output-dir", str(Path(tmpdir) / "out"), "--no-corpus", *extra]
     if results is None:
         argv.append("--offline")
@@ -64,6 +64,29 @@ class OfflineTest(unittest.TestCase):
             _path, summary = run(tmpdir, None)
             self.assertEqual(summary["stats"], {})
             self.assertEqual(summary["removed"], [])
+
+    def test_a_stream_is_published_once_even_when_it_is_also_a_backup(self):
+        # The shape the deep check published on 2026-10-24: a promotion left the
+        # channel's own URL sitting in the Backups group as well, so the file
+        # listed one stream twice and the bundle test counted 13230 entries but
+        # 13228 unique URLs.
+        repeated = HEADER + "\n".join([
+            '#EXTINF:-1 tvg-id="Alarabiya.ae@SD" group-title="News",Alarabiya',
+            "http://live.example/alarabiya.m3u8",
+            '#EXTINF:-1 tvg-id="Alarabiya.ae@SD" group-title="News Backups",'
+            'Alarabiya (Backup 1)',
+            "http://live.example/alarabiya.m3u8",
+            '#EXTINF:-1 tvg-id="FoxNews.us" group-title="News",Fox News',
+            "http://main.example/fox.m3u8",
+            "",
+        ])
+        with tempfile.TemporaryDirectory() as tmpdir:
+            _path, summary = run(tmpdir, None, text=repeated)
+            written = (Path(tmpdir) / "out" / "list.m3u8").read_text(encoding="utf-8")
+        self.assertEqual(summary["channels"], 2)
+        self.assertEqual(summary["stats"]["duplicate_urls_removed"], 1)
+        self.assertEqual(written.count("http://live.example/alarabiya.m3u8"), 1)
+        self.assertNotIn("Alarabiya (Backup 1)", written)
 
 
 class RepairTest(unittest.TestCase):

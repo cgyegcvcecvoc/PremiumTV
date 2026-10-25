@@ -310,6 +310,17 @@ def update_file(path: Path, args, pool: dict[str, list], guide_check=None) -> di
     if not args.no_recategorize:
         if not args.no_corpus:
             categorize.load_corpus()
+        # One entry per stream before the split into primary links and backups:
+        # a promoted spare or a pool replacement can land on a URL the file
+        # already carries, and split_primary_backups would then publish the same
+        # stream twice - once as the channel, once as its own "Backup 1". The
+        # verifier calls a repeated URL a structural fault and the app bundle
+        # test fails on it, so the writer resolves it exactly like
+        # scripts/rebuild_playlists.py does on a re-publish.
+        channels, duplicates = categorize.dedupe_urls(channels)
+        if duplicates:
+            stats["duplicate_urls_removed"] = duplicates
+            log(f"[update] {path}: dropped {duplicates} duplicate URL(s)")
         ordered = categorize.build_main_order(channels, max_backups=args.max_backups)
     else:
         ordered = sorted(channels, key=lambda ch: categorize.sort_key(ch))

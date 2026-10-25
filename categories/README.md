@@ -1,6 +1,6 @@
 # Category shelf
 
-- **Shelf rebuilt:** 2026-10-25 13:56 UTC (2026-10-25 09:56 AM EDT) — _scheduled guide build_
+- **Shelf rebuilt:** 2026-10-25 15:27 UTC (2026-10-25 11:27 AM EDT) — _duplicate URL repair_
 - **Sources:** [`playlists/PremiumTV.m3u`](../playlists/PremiumTV.m3u) for `All/`, [`playlists/live/USA.m3u`](../playlists/live/USA.m3u) for `USA.m3u` and `USA/`
 - **Order:** Sports -> Lifestyle -> Fox Channels -> CBS -> NBC -> NBC Sports Channels -> Cartoons -> PBS -> Game Shows (each followed by its own Backups group), then the long tail by size, `Other` last — the published order from `scripts/categorize.py`.
 - **One entry per channel:** a channel's spare feeds sit right after it in its `<category> Backups` group, best quality first.
@@ -91,7 +91,7 @@ One file per category for the whole library (US channels first inside a category
 | 17 | Music | 959 | [`Music.m3u`](All/Music.m3u) |
 | 18 | Music Backups | 88 | [`Music_Backups.m3u`](All/Music_Backups.m3u) |
 | 19 | News | 951 | [`News.m3u`](All/News.m3u) |
-| 20 | News Backups | 177 | [`News_Backups.m3u`](All/News_Backups.m3u) |
+| 20 | News Backups | 175 | [`News_Backups.m3u`](All/News_Backups.m3u) |
 | 21 | Movies | 928 | [`Movies.m3u`](All/Movies.m3u) |
 | 22 | Movies Backups | 100 | [`Movies_Backups.m3u`](All/Movies_Backups.m3u) |
 | 23 | Europe | 869 | [`Europe.m3u`](All/Europe.m3u) |
