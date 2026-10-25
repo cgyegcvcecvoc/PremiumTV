@@ -22,6 +22,8 @@ class AudioPlaybackFix113Tests(unittest.TestCase):
         gradle = text(ROOT / "android/app/build.gradle.kts")
         self.assertIn("org.jellyfin.media3:media3-ffmpeg-decoder:1.3.1+2", gradle)
         self.assertIn("androidx.media3:media3-exoplayer-dash:1.4.1", gradle)
+        self.assertIn("isCoreLibraryDesugaringEnabled = true", gradle)
+        self.assertIn("com.android.tools:desugar_jdk_libs:2.0.4", gradle)
 
         player = text(ANDROID_UI / "PlayerScreen.kt")
         self.assertIn("EXTENSION_RENDERER_MODE_ON", player)
