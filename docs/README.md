@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.2** — a channel opens in the docked side player first and grows to full screen on one press, Movies & Shows is a working on-demand shelf, plus the category rail, automatic server backup, dead channels filtered out, amber pointer outlines and every 1.0.9/1.1.0/1.1.1 fix), with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.3** — broadcast audio recovery for AC-3/E-AC-3/MP2 and HLS audio renditions, moving gold startup loading bar, expanded 21-item Movies & Shows shelf with search/genres and built-in player transport controls, plus the docked side player, category rail, automatic server backup, dead channels filtered out, amber pointer outlines and every 1.0.9–1.1.2 fix), with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.2
+## Current stable: 1.1.3
 
-1.1.2 opens every channel in the docked side player first — the picture (or **⤢ Big screen**) grows the same running stream to full screen, Back tucks it into the dock and ✕ closes it — and turns Movies & Shows into a working on-demand shelf of ten public-domain films and classic TV episodes, verified by `scripts/vod_catalog.py`. It keeps the rest of the 1.1.x line: the category rail beside the channel list, automatic server backup when a feed dies, dead channels filtered out until Settings → Restore hidden channels, the same amber outline on every focusable control, a calm loading screen with the gold loading line bar, and a compact Settings screen — a version card that shows **1.1.2**, plus **Force refresh**, **Check for update**, **Check for bugs**, the hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.2.md`](../release-notes-1.1.2.md).
+1.1.3 recovers silent broadcast audio on both platforms (Media3 FFmpeg AC-3/E-AC-3/DTS/MP2 decoding on Android; extensionless HLS audio-rendition rewriting, codec filtering and silent-track watchdog on macOS), adds a moving gold highlight sweep to the startup loading bar, expands Movies & Shows to 21 verified public-domain films and classic TV episodes with search, genre filters and backup MP4 derivatives (`scripts/vod_catalog.py`), and adds built-in player transport controls (`Play/Pause`, `±10s`, seek bar, `LIVE` pill, `Mute`, `Audio` track switcher and VOD resume). It keeps the docked side player, category rail, automatic server backup, dead-channel filtering, amber pointer outlines, and compact Settings screen — a version card that shows **1.1.3**, plus **Force refresh**, **Check for update**, **Check for bugs**, the hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.3.md`](../release-notes-1.1.3.md).
 
-It installs in place over every earlier build: Android `101020000` is above
+It installs in place over every earlier build: Android `101030000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.2 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.3 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 
@@ -42,7 +42,7 @@ download links were removed; any old link goes to
 and explains how to replace the preview without uninstalling on Android. **The
 `1.1.0` and `1.1.1` names are ordinary stable releases** — the deleted preview
 shared those names, and the project promoted them back, so a device on either is
-on a supported build and simply updates to 1.1.2 in-app. The Netlify Drop hub
+on a supported build and simply updates to 1.1.3 in-app. The Netlify Drop hub
 under `hub/` uses the same complete-release gate and never renders a preview
 card. Rebuild and re-upload its export to refresh an existing Netlify
 deployment.

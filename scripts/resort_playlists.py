@@ -154,8 +154,14 @@ def resort_file(path: Path, dead: dict[str, str], *, prune: bool, max_feeds: int
     header, guides_trimmed = trim_guides(header, max_guides)
     changed = bool(pruned) or reordered or bool(guides_trimmed) or bool(regrouped) or bool(duplicates)
     ordered = [block for block, _ in pairs]
+    deleted_empty = bool(not ordered and link_check.is_country_playlist(path))
+    if deleted_empty:
+        changed = True
     if not dry_run and changed:
-        path.write_text(link_check.blocks_to_text(header, ordered), encoding="utf-8")
+        if deleted_empty:
+            path.unlink(missing_ok=True)
+        else:
+            path.write_text(link_check.blocks_to_text(header, ordered), encoding="utf-8")
     return {
         "file": relative(path),
         "entries_before": len(blocks),
@@ -167,6 +173,7 @@ def resort_file(path: Path, dead: dict[str, str], *, prune: bool, max_feeds: int
         "regrouped": regrouped,
         "guides_trimmed": guides_trimmed,
         "changed": changed,
+        "deleted_empty": deleted_empty,
         "requested_feeds": max_feeds,
     }
 
@@ -261,6 +268,10 @@ def main(argv=None) -> int:
             + (f", pruned {len(report['pruned'])}" if report["pruned"] else "")
             + (f" ({', '.join(flags)})" if flags else " (already canonical)"))
 
+    if not args.dry_run and any(item.get("deleted_empty") or
+                                (item.get("changed") and item["file"].startswith("playlists/countries/"))
+                                for item in reports):
+        link_check.sync_countries_readme(out_dir / "countries")
     log_path = out_dir / "logs" / "resort-log.txt"
     if not args.dry_run:
         log_path.parent.mkdir(parents=True, exist_ok=True)

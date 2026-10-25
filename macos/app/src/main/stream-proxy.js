@@ -209,11 +209,13 @@ class StreamProxy {
     }
 
     const contentType = upstream.headers.get('content-type') || '';
-    const isPlaylist = isPlaylistRequest || /mpegurl|m3u/i.test(contentType);
+    const finalUrl = upstream.url || target;
+    const isPlaylist = isPlaylistRequest || looksLikePlaylist(finalUrl)
+      || /mpegurl|m3u/i.test(contentType);
 
     if (isPlaylist) {
       const text = await readLimited(upstream, MAX_PLAYLIST_BYTES);
-      const rewritten = rewritePlaylist(text, upstream.url || target, session, `${this.origin}/p/${sessionId}`);
+      const rewritten = rewritePlaylist(text, finalUrl, session, `${this.origin}/p/${sessionId}`);
       response.writeHead(200, {
         'content-type': 'application/vnd.apple.mpegurl',
         'cache-control': 'no-cache',
@@ -222,13 +224,97 @@ class StreamProxy {
       return response.end(rewritten);
     }
 
+    // Extensionless redirectors (e.g. jmp2.uk) and #EXT-X-MEDIA:TYPE=AUDIO
+    // rendition playlists often omit .m3u8 and serve text/plain or
+    // application/octet-stream. Sniff the first chunk for #EXTM3U so audio
+    // renditions and their segments are rewritten into session.allowed instead
+    // of failing with 403.
+    const canSniffPlaylist = request.method !== 'HEAD'
+      && upstream.status === 200
+      && upstream.body
+      && !request.headers.range
+      && !/^(video|audio|image|font)\//i.test(contentType);
+
+    if (canSniffPlaylist) {
+      const reader = upstream.body.getReader();
+      let firstChunk = null;
+      try {
+        const first = await reader.read();
+        if (!first.done) firstChunk = Buffer.from(first.value);
+      } catch (error) {
+        response.destroy();
+        return undefined;
+      }
+
+      if (firstChunk && looksLikeExtM3uHead(firstChunk)) {
+        const chunks = [firstChunk];
+        let total = firstChunk.length;
+        try {
+          for (;;) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            const buf = Buffer.from(value);
+            total += buf.length;
+            if (total > MAX_PLAYLIST_BYTES) {
+              await reader.cancel().catch(() => {});
+              response.writeHead(502, { 'content-type': 'text/plain' });
+              return response.end('playlist too large');
+            }
+            chunks.push(buf);
+          }
+        } catch (error) {
+          response.destroy();
+          return undefined;
+        }
+        const text = Buffer.concat(chunks).toString('utf8');
+        const rewritten = rewritePlaylist(text, finalUrl, session, `${this.origin}/p/${sessionId}`);
+        response.writeHead(200, {
+          'content-type': 'application/vnd.apple.mpegurl',
+          'cache-control': 'no-cache',
+          'content-length': Buffer.byteLength(rewritten),
+        });
+        return response.end(rewritten);
+      }
+
+      const responseHeaders = {};
+      const passthrough = ['content-type', 'content-length', 'content-range', 'accept-ranges', 'last-modified', 'etag'];
+      for (const name of passthrough) {
+        const value = upstream.headers.get(name);
+        if (value) responseHeaders[name] = value;
+      }
+      if (!responseHeaders['content-type']) {
+        responseHeaders['content-type'] = inferMediaContentType(finalUrl);
+      }
+      responseHeaders['cache-control'] = 'no-cache';
+      response.writeHead(upstream.status, responseHeaders);
+      response.on('close', () => {
+        reader.cancel().catch(() => {});
+      });
+      if (firstChunk && !response.destroyed) response.write(firstChunk);
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          if (!response.write(Buffer.from(value))) {
+            await new Promise((resolve) => response.once('drain', resolve));
+          }
+        }
+        response.end();
+      } catch (error) {
+        response.destroy();
+      }
+      return undefined;
+    }
+
     const responseHeaders = {};
     const passthrough = ['content-type', 'content-length', 'content-range', 'accept-ranges', 'last-modified', 'etag'];
     for (const name of passthrough) {
       const value = upstream.headers.get(name);
       if (value) responseHeaders[name] = value;
     }
-    if (!responseHeaders['content-type']) responseHeaders['content-type'] = 'video/mp2t';
+    if (!responseHeaders['content-type']) {
+      responseHeaders['content-type'] = inferMediaContentType(finalUrl);
+    }
     responseHeaders['cache-control'] = 'no-cache';
     response.writeHead(upstream.status, responseHeaders);
 
@@ -302,8 +388,40 @@ function headersFor(channel) {
 }
 
 function looksLikePlaylist(url) {
-  const pathname = new URL(url).pathname.toLowerCase();
-  return pathname.endsWith('.m3u8') || pathname.endsWith('.m3u');
+  try {
+    const pathname = new URL(url).pathname.toLowerCase();
+    return pathname.endsWith('.m3u8') || pathname.endsWith('.m3u');
+  } catch (error) {
+    return false;
+  }
+}
+
+function looksLikeExtM3uHead(chunk) {
+  if (!chunk || chunk.length < 7) return false;
+  const head = chunk.subarray(0, 64).toString('utf8').replace(/^\uFEFF/, '').trimStart();
+  return head.startsWith('#EXTM3U');
+}
+
+function inferMediaContentType(rawUrl) {
+  try {
+    const pathname = new URL(rawUrl).pathname.toLowerCase();
+    if (pathname.endsWith('.aac') || pathname.endsWith('.adts')) return 'audio/aac';
+    if (pathname.endsWith('.mp3')) return 'audio/mpeg';
+    if (pathname.endsWith('.ac3')) return 'audio/ac3';
+    if (pathname.endsWith('.ec3') || pathname.endsWith('.eac3')) return 'audio/eac3';
+    if (pathname.endsWith('.m4a')) return 'audio/mp4';
+    if (pathname.endsWith('.mp4') || pathname.endsWith('.m4v')) return 'video/mp4';
+    if (pathname.endsWith('.m4s') || pathname.endsWith('.cmfa') || pathname.endsWith('.cmfv')) {
+      return 'video/iso.segment';
+    }
+    if (pathname.endsWith('.webm')) return 'video/webm';
+    if (pathname.endsWith('.ogg') || pathname.endsWith('.oga')) return 'audio/ogg';
+    if (pathname.endsWith('.flac')) return 'audio/flac';
+    if (pathname.endsWith('.wav')) return 'audio/wav';
+  } catch (error) {
+    /* default below */
+  }
+  return 'video/mp2t';
 }
 
 /**
@@ -362,4 +480,12 @@ async function readLimited(response, maxBytes) {
   return Buffer.concat(chunks).toString('utf8');
 }
 
-module.exports = { StreamProxy, rewritePlaylist, headersFor, absoluteUrl, LISTEN_HOST };
+module.exports = {
+  StreamProxy,
+  rewritePlaylist,
+  headersFor,
+  absoluteUrl,
+  inferMediaContentType,
+  looksLikeExtM3uHead,
+  LISTEN_HOST,
+};

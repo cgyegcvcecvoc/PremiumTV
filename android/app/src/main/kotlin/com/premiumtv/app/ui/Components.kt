@@ -1,6 +1,7 @@
 package com.premiumtv.app.ui
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -48,6 +49,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.key.onKeyEvent
 import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -338,10 +340,36 @@ fun BrandLogo(modifier: Modifier = Modifier) {
  */
 @Composable
 fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
-    // A determinate bar: the repository reports how far the load actually got.
-    // Before the first stage arrives the bar simply sits at a sliver instead of
-    // pretending to sweep.
-    val fraction = (progress ?: 0.08f).coerceIn(0.04f, 1f)
+    // Smoothly advances along real load stages and glides a moving highlight
+    // across the bar so the viewer always sees active progress.
+    val context = LocalContext.current
+    val animationsEnabled = remember(context) {
+        runCatching {
+            android.provider.Settings.Global.getFloat(
+                context.contentResolver,
+                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE,
+                1f,
+            ) > 0f
+        }.getOrDefault(true)
+    }
+    val rawTarget = (progress ?: 0.14f).coerceIn(0.08f, 1f)
+    var sweepOffset by remember { mutableStateOf(0f) }
+    var stageTrickle by remember(rawTarget) { mutableStateOf(0f) }
+    LaunchedEffect(rawTarget, animationsEnabled) {
+        if (!animationsEnabled) return@LaunchedEffect
+        while (true) {
+            delay(45L)
+            sweepOffset = (sweepOffset + 0.035f) % 1f
+            if (rawTarget < 0.96f && stageTrickle < 0.12f) {
+                stageTrickle = (stageTrickle + 0.004f).coerceAtMost(0.12f)
+            }
+        }
+    }
+    val fraction by animateFloatAsState(
+        targetValue = (rawTarget + stageTrickle).coerceIn(0.08f, 1f),
+        animationSpec = tween(durationMillis = 260),
+        label = "loadingLine",
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -373,19 +401,29 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
                 letterSpacing = 2.sp,
             )
             Spacer(modifier = Modifier.height(12.dp))
-            // The loading line bar the viewer asked to keep: a plain gold line
-            // that fills as the channel list and the guide come in.
+            // Moving gold loading bar reporting real load stages with a soft travelling highlight.
             Box(
                 modifier = Modifier
-                    .width(220.dp)
-                    .height(4.dp)
-                    .background(Color(0x22FFFFFF), RoundedCornerShape(999.dp)),
+                    .width(240.dp)
+                    .height(5.dp)
+                    .background(Color(0x24FFFFFF), RoundedCornerShape(999.dp)),
             ) {
+                val highlightStart = (sweepOffset * 1.4f - 0.35f).coerceIn(0f, 0.92f)
+                val highlightEnd = (highlightStart + 0.28f).coerceIn(highlightStart + 0.05f, 1f)
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
                         .fillMaxWidth(fraction)
-                        .background(PremiumGold, RoundedCornerShape(999.dp)),
+                        .background(
+                            Brush.horizontalGradient(
+                                0.0f to PremiumGold.copy(alpha = 0.82f),
+                                highlightStart to PremiumGold,
+                                ((highlightStart + highlightEnd) * 0.5f) to Color(0xFFFFF0B3),
+                                highlightEnd to PremiumGold,
+                                1.0f to PremiumGold.copy(alpha = 0.90f),
+                            ),
+                            RoundedCornerShape(999.dp),
+                        ),
                 )
             }
             Text(

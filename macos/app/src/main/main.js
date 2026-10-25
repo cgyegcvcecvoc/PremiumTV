@@ -76,6 +76,12 @@ if (!gotTheLock) {
 
 function bootstrap() {
   app.setName('PremiumTV');
+  // Async stream resolution and server-fallback hops run after the initial
+  // click; relaxing Chromium's gesture gate prevents unmuted playback from
+  // being silently muted or rejected. PlatformHEVCDecoderSupport also exposes
+  // macOS AudioToolbox / VideoToolbox hardware codecs to MSE.
+  app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+  app.commandLine.appendSwitch('enable-features', 'PlatformHEVCDecoderSupport');
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
   });
@@ -172,6 +178,7 @@ function createWindow() {
     },
   });
 
+  mainWindow.webContents.setAudioMuted(false);
   mainWindow.once('ready-to-show', () => mainWindow.show());
   mainWindow.on('close', writeWindowState);
 

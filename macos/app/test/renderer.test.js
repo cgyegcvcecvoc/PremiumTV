@@ -219,3 +219,95 @@ test('every els.<name> the renderer uses is collected in the els map and exists 
     assert.ok(html.includes(`id="${id}"`), `els.${name} looks up #${id}, which index.html does not contain`);
   }
 });
+
+test('1.1.3: HLS playback prefers supported AAC over undecodable AC-3 and recovers from silent SAP tracks', () => {
+  const code = fs.readFileSync(path.join(renderer, 'player.js'), 'utf8');
+  const videoListeners = {};
+  let watchdogCallback = null;
+  const video = {
+    paused: false,
+    ended: false,
+    muted: false,
+    volume: 1,
+    currentTime: 0,
+    webkitVideoDecodedByteCount: 0,
+    webkitAudioDecodedByteCount: 0,
+    pause() {},
+    removeAttribute() {},
+    load() {},
+    addEventListener(name, fn) { videoListeners[name] = fn; },
+    play() { return Promise.resolve(); },
+  };
+  const elements = {
+    video,
+    'player-spinner': { hidden: true },
+    'player-error': { hidden: true },
+    'player-error-text': { textContent: '' },
+  };
+  let activeHls = null;
+  class Hls {
+    static isSupported() { return true; }
+    static Events = {
+      ERROR: 'error',
+      MANIFEST_PARSED: 'manifest',
+      AUDIO_TRACKS_UPDATED: 'audio_tracks',
+      AUDIO_TRACK_SWITCHED: 'audio_switched',
+    };
+    constructor() {
+      this.handlers = {};
+      this.levels = [
+        { bitrate: 4000000, audioCodec: 'ac-3' },
+        { bitrate: 2500000, audioCodec: 'mp4a.40.2' },
+      ];
+      this.currentLevel = 0;
+      this.audioTracks = [
+        { name: 'SAP Secondary', lang: 'es', audioCodec: 'mp4a.40.2' },
+        { name: 'Main English', lang: 'en', audioCodec: 'mp4a.40.2' },
+        { name: 'Backup English', lang: 'en', audioCodec: 'mp4a.40.2' },
+      ];
+      this.audioTrack = 0;
+      activeHls = this;
+    }
+    on(evt, fn) { this.handlers[evt] = fn; }
+    loadSource() {}
+    attachMedia() {}
+    destroy() {}
+  }
+  const MediaSource = {
+    isTypeSupported: (mime) => mime.includes('mp4a.40.2'),
+  };
+  const sandbox = {
+    window: { Hls, MediaSource, mpegts: { isSupported: () => false } },
+    document: { getElementById: (id) => elements[id] },
+    setTimeout: (fn) => { watchdogCallback = fn; return 1; },
+    clearTimeout: () => { watchdogCallback = null; },
+  };
+  vm.runInNewContext(code, sandbox);
+
+  const states = [];
+  sandbox.window.PremiumPlayer.onAudioState((s) => states.push(s));
+  sandbox.window.PremiumPlayer.play('http://127.0.0.1:1234/p/s1', 'https://example.org/master.m3u8');
+
+  // Manifest parsed: level 0 (ac-3) is rejected by MSE, so level 1 (mp4a.40.2)
+  // is chosen, and SAP track 0 is skipped in favour of Main English (track 1).
+  activeHls.handlers.manifest();
+  assert.equal(activeHls.currentLevel, 1, 'switches away from undecodable AC-3 variant');
+  assert.equal(activeHls.audioTrack, 1, 'prefers primary audio track over SAP');
+
+  // Simulate playing where video advances 4s but track 1 decodes 0 audio bytes:
+  // the silent-audio watchdog automatically hops to track 2 (Backup English).
+  videoListeners.playing();
+  video.currentTime = 4.2;
+  video.webkitVideoDecodedByteCount = 65536;
+  video.webkitAudioDecodedByteCount = 0;
+  assert.ok(watchdogCallback, 'the silent-audio watchdog is armed on playing');
+  watchdogCallback();
+  assert.equal(activeHls.audioTrack, 2, 'watchdog cycles away from a silent audio track');
+  assert.ok(states.some((s) => s.switchedTrack && /Backup English/.test(s.switchedTrack)));
+
+  // Manual track cycling and mute toggle work too.
+  const cycled = sandbox.window.PremiumPlayer.cycleAudioTrack();
+  assert.match(cycled, /SAP Secondary/);
+  assert.equal(sandbox.window.PremiumPlayer.toggleMute(), true);
+  assert.equal(sandbox.window.PremiumPlayer.toggleMute(), false);
+});

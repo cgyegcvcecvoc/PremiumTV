@@ -121,3 +121,34 @@ test('1.1.2: the packaged renderer may show the test card poster', () => {
   assert.match(html, /img-src[^;]*https:\/\/cdn\.jsdelivr\.net/);
   assert.match(html, /img-src[^;]*https:\/\/archive\.org/);
 });
+
+test('1.1.3: Movies & Shows supports search, genre chips, multi-source fallback, and built-in transport', async (t) => {
+  const app = setup(t);
+  await tick();
+  const doc = app.window.document;
+  doc.querySelector('[data-tab="movies"]').click();
+
+  assert.ok(app.catalog.items.length >= 20, 'expanded public-domain VOD library');
+  const genreChips = [...doc.querySelectorAll('#movies-genres [data-vod-genre]')];
+  assert.ok(genreChips.length >= 6, 'genre filter chips are rendered');
+
+  const thrillerChip = doc.querySelector('[data-vod-genre="Thriller"]');
+  assert.ok(thrillerChip, 'Thriller genre chip is present');
+  thrillerChip.click();
+  assert.ok(doc.querySelector('[data-vod-id="vod-suddenly"]'), 'Suddenly appears under Thriller');
+
+  doc.querySelector('[data-vod-genre="all"]').click();
+  const search = doc.getElementById('movies-search');
+  search.value = 'McLintock';
+  search.dispatchEvent(new app.window.Event('input'));
+  const filteredCards = [...doc.querySelectorAll('#movies-grid .vod-card')];
+  assert.equal(filteredCards.length, 1);
+  assert.equal(filteredCards[0].dataset.vodId, 'vod-mclintock');
+
+  // Playing a multi-source VOD item enables backup server switching in the player.
+  filteredCards[0].click();
+  await tick();
+  assert.equal(doc.getElementById('player-server').hidden, false, 'multi-source VOD exposes backup source badge');
+  assert.equal(doc.getElementById('player-seek').hidden, false, 'VOD reveals timeline scrubber');
+  assert.equal(doc.getElementById('player-live-pill').hidden, true, 'VOD hides live pill');
+});

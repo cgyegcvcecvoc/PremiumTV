@@ -27,7 +27,9 @@ import com.premiumtv.app.data.ChannelHealthStore
 import com.premiumtv.app.data.LoadState
 import com.premiumtv.app.data.hiddenChannelCount
 import com.premiumtv.app.data.visibleChannels
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 @Composable
 fun AppRoot(viewModel: TvViewModel = viewModel()) {
@@ -60,6 +62,12 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     // Recently watched + Favorites (1.0.6), persisted per device.
     val appContext = LocalContext.current.applicationContext
     val shelves = remember { PersonalShelves(appContext) }
+    var vodChannelsById by remember { mutableStateOf(emptyMap<String, List<Channel>>()) }
+    LaunchedEffect(Unit) {
+        vodChannelsById = withContext(Dispatchers.Default) {
+            appContext.readVodCatalog().associate { it.id to it.asChannels() }
+        }
+    }
     var recentKeys by remember { mutableStateOf(shelves.recentKeys()) }
     var favoriteKeys by remember { mutableStateOf(shelves.favoriteKeys()) }
     val toggleFavorite: (Channel) -> Unit = { channel ->
@@ -160,7 +168,12 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                     // Opening a channel files it under Recently watched.
                                     shelves.recordRecent(channel.url)
                                     recentKeys = shelves.recentKeys()
-                                    playing = channel to serversFor(channel, current.library.channels)
+                                    val vodServers = vodChannelsById[channel.id]
+                                    if (vodServers != null && vodServers.isNotEmpty()) {
+                                        playing = vodServers.first() to vodServers
+                                    } else {
+                                        playing = channel to serversFor(channel, current.library.channels)
+                                    }
                                     // 1.1.2: a channel opens in the docked side player first,
                                     // with the browser still usable beside it. One press on
                                     // the picture (or “⤢ Big screen”) grows the same player

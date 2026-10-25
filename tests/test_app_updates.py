@@ -306,7 +306,7 @@ class UpdateNoticePopupTests(unittest.TestCase):
         # Every stable build below the current stable is warned, and the
         # wording names whatever the newest stable actually is.
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.1"))
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.2"))
         self.assertEqual(stable["level"], "warning")
         self.assertIn("after_support_ends", stable,
                       "the escalation copy ships in the document, not in a build")

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T12:02:00Z",
+ "generated_utc": "2026-10-25T00:00:00Z",
  "repo": {
   "owner": "cgyegcvcecvoc",
   "name": "PremiumTV1",
@@ -2005,26 +2005,6 @@
    "epg_present": true
   },
   {
-   "slug": "San_Marino",
-   "name": "San Marino",
-   "iso2": null,
-   "region": true,
-   "count": 2,
-   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/San_Marino.m3u",
-   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/San_Marino.xml",
-   "epg_present": true
-  },
-  {
-   "slug": "Bermuda",
-   "name": "Bermuda",
-   "iso2": null,
-   "region": true,
-   "count": 1,
-   "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Bermuda.m3u",
-   "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/Bermuda.xml",
-   "epg_present": true
-  },
-  {
    "slug": "Mauritania",
    "name": "Mauritania",
    "iso2": null,
@@ -2916,6 +2896,20 @@
   ]
  },
  "changelog": [
+  {
+   "id": "2026-10-25",
+   "date": "2026-10-25",
+   "title": "Version 1.1.3: broadcast audio recovery, moving loading bar, expanded Movies & Shows and transport player (stable)",
+   "body_md": "- **Stable 1.1.3 is prepared** for Android TV / Fire TV (`versionCode 101030000`) and macOS (`1.1.3`). It installs in place over 1.1.2 and every earlier build; tag `v1.1.3`. See [`release-notes-1.1.3.md`](release-notes-1.1.3.md).\n- **Silent-channel audio investigation and fix.** Investigated why certain IPTV channels played video with no audio across platforms:\n  - *Android (`build.gradle.kts`, `PlayerScreen.kt`):* Broadcast streams carrying AC-3, E-AC-3, DTS or MP2 audio had no software audio decoder on non-Dolby TV sticks/emulators, and secondary silent SAP tracks could win default selection. Added `org.jellyfin.media3:media3-ffmpeg-decoder:1.3.1+2` (`EXTENSION_RENDERER_MODE_ON` + decoder fallback) and `media3-exoplayer-dash:1.4.1`, explicit `AudioAttributes` (`USAGE_MEDIA`, `AUDIO_CONTENT_TYPE_MOVIE`, audio focus), mixed-MIME audio adaptiveness, MPEG-TS `FLAG_ALLOW_NON_IDR_KEYFRAMES | FLAG_DETECT_ACCESS_UNITS`, automatic selection of supported primary audio tracks (`selectPreferredAudioTrackIndex`), automatic backup-server fallback when a live feed has zero decodable audio tracks, and in-player Mute + Audio Track controls.\n  - *macOS (`main.js`, `stream-proxy.js`, `player.js`, `app.js`):* Separated `#EXT-X-MEDIA:TYPE=AUDIO` renditions with extensionless URLs were served as raw upstream text without rewriting segment URLs into `session.allowed` (causing `403` segment rejections), upstream segments with `application/octet-stream` lacked audio MIME headers, and variants with unsupported AC-3/E-AC-3 codecs could be picked over AAC variants. Added `#EXTM3U` content sniffing and post-redirect URL checks in `stream-proxy.js`, audio/video MIME inference, Chromium `autoplay-policy=no-user-gesture-required` + `PlatformHEVCDecoderSupport` + explicit window unmute in `main.js`, MSE audio codec filtering + non-SAP selection + a `webkitAudioDecodedByteCount` silent-audio recovery watchdog in `player.js`, and live backup-server hop on persistent silent feeds.\n- **Moving gold loading bar.** Both startup screens (`macos/app/src/renderer/app.css` `#splash-bar` and Android `LoadingScreen` in `Components.kt`) now display a smooth moving highlight sweep along the determinate gold progress bar while respecting `prefers-reduced-motion` and Android's `ANIMATOR_DURATION_SCALE`.\n- **Movies & Shows expanded to 21 verified items + search, genres, multi-source fallback, and built-in transport player.** `scripts/vod_catalog.py` curates 20 public-domain films and classic TV episodes (plus the bundled `PremiumTV Test Card`), each carrying ordered MP4 `streams` derivatives for automatic backup fallback, probed and recorded in `playlists/vod/vod-catalog.json`, `vod-health.json`, and `FEASIBILITY.md`. Both apps add instant VOD search and genre pills, local playback resume, and a built-in transport bar (`Play / Pause`, `±10s` skip, seek scrubber + clock for VOD, `LIVE` pill for live TV, `Mute`, and `Audio` track switcher) in both docked and full-screen player modes.\n- **Derived country playlist hygiene.** `scripts/link_check.py` and `scripts/resort_playlists.py` exempt tiny (`<= 5`-entry) derived `playlists/countries/*.m3u` files from the bulk-removal guard, unlink empty country files (`Bermuda.m3u`, `San_Marino.m3u`), and keep `playlists/countries/README.md` synced automatically.\n- **Version plumbing and site data.** `VERSION` bumped to `1.1.3` (`101030000`), `app-update-notice.json` `update-below-newest` bumped to `max_version: \"1.1.2\"`, and `scripts/version_sync.py`, `android/tools/build_bundle.py`, `macos/app/tools/copy_assets.js`, and `scripts/build_site_data.py` run cleanly.",
+   "bullets": [
+    "**Stable 1.1.3 is prepared** for Android TV / Fire TV (`versionCode 101030000`) and macOS (`1.1.3`). It installs in place over 1.1.2 and every earlier build; tag `v1.1.3`. See [`release-notes-1.1.3.md`](release-notes-1.1.3.md).",
+    "**Silent-channel audio investigation and fix.** Investigated why certain IPTV channels played video with no audio across platforms:",
+    "**Moving gold loading bar.** Both startup screens (`macos/app/src/renderer/app.css` `#splash-bar` and Android `LoadingScreen` in `Components.kt`) now display a smooth moving highlight sweep along the determinate gold progress bar while respecting `prefers-reduced-motion` and Android's `ANIMATOR_DURATION_SCALE`.",
+    "**Movies & Shows expanded to 21 verified items + search, genres, multi-source fallback, and built-in transport player.** `scripts/vod_catalog.py` curates 20 public-domain films and classic TV episodes (plus the bundled `PremiumTV Test Card`), each carrying ordered MP4 `streams` derivatives for automatic backup fallback, probed and recorded in `playlists/vod/vod-catalog.json`, `vod-health.json`, and `FEASIBILITY.md`. Both apps add instant VOD search and genre pills, local playback resume, and a built-in transport bar (`Play / Pause`, `±10s` skip, seek scrubber + clock for VOD, `LIVE` pill for live TV, `Mute`, and `Audio` track switcher) in both docked and full-screen player modes.",
+    "**Derived country playlist hygiene.** `scripts/link_check.py` and `scripts/resort_playlists.py` exempt tiny (`<= 5`-entry) derived `playlists/countries/*.m3u` files from the bulk-removal guard, unlink empty country files (`Bermuda.m3u`, `San_Marino.m3u`), and keep `playlists/countries/README.md` synced automatically.",
+    "**Version plumbing and site data.** `VERSION` bumped to `1.1.3` (`101030000`), `app-update-notice.json` `update-below-newest` bumped to `max_version: \"1.1.2\"`, and `scripts/version_sync.py`, `android/tools/build_bundle.py`, `macos/app/tools/copy_assets.js`, and `scripts/build_site_data.py` run cleanly."
+   ]
+  },
   {
    "id": "2026-10-24",
    "date": "2026-10-24",

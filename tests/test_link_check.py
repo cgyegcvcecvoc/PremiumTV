@@ -391,6 +391,36 @@ class LinkCheckTest(unittest.TestCase):
         self.assertEqual(len(patch["skipped_files"]), 1)
         self.assertIn("gone.m3u8", path.read_text(encoding="utf-8"))
 
+    def test_small_country_playlist_with_only_dead_links_is_deleted(self):
+        countries_dir = self.out / "countries"
+        countries_dir.mkdir(parents=True, exist_ok=True)
+        main_path = self.out / "PremiumTV.m3u"
+        main_lines = ["#EXTM3U"]
+        for idx in range(5):
+            main_lines += [f"#EXTINF:-1,Alive {idx}", f"{self.base}/direct.ts"]
+        main_path.write_text("\n".join(main_lines) + "\n", encoding="utf-8")
+        bermuda = countries_dir / "Bermuda.m3u"
+        bermuda.write_text("\n".join([
+            "#EXTM3U",
+            "#EXTINF:-1,Dead Island TV",
+            f"{self.base}/gone.m3u8",
+        ]) + "\n", encoding="utf-8")
+        readme = countries_dir / "README.md"
+        readme.write_text(
+            "# Country Playlists\n\nTotal countries: **1**\n\n"
+            "| Country | Working channels | Playlist file |\n"
+            "|---|---:|---|\n"
+            "| Bermuda | 1 | [`Bermuda.m3u`](Bermuda.m3u) |\n",
+            encoding="utf-8",
+        )
+        loaded = link_check.load_playlists([main_path, bermuda])
+        results, _ = link_check.run_checks(loaded, 8, 4, 5.0, 0, True)
+        patch = link_check.patch_playlists(loaded, results, 0.5, 0.35, dry_run=False)
+        self.assertFalse(patch["aborted"])
+        self.assertFalse(bermuda.exists(), "empty country slice must be unlinked")
+        self.assertNotIn("Bermuda.m3u", readme.read_text(encoding="utf-8"))
+        self.assertIn("Total countries: **0**", readme.read_text(encoding="utf-8"))
+
     # -- reports ---------------------------------------------------------- #
     def test_main_writes_reports_and_edit_log(self):
         path = self.write_playlist()

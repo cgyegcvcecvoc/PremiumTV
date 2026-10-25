@@ -62,36 +62,161 @@ CURATED = (
         "slug": "night-of-the-living-dead",
         "kind": "movie",
         "archive_id": "night-of-the-living-dead_1968",
+        "title": "Night of the Living Dead",
+        "year": 1968,
         "genre": "Horror",
+        "summary": (
+            "George A. Romero's landmark survival horror film: seven strangers "
+            "barricade themselves inside a rural Pennsylvania farmhouse as the "
+            "recently deceased rise across the countryside."
+        ),
     },
     {
         "slug": "plan-9-from-outer-space",
         "kind": "movie",
         "archive_id": "plan-9-from-outer-space_202009",
+        "title": "Plan 9 from Outer Space",
+        "year": 1959,
         "genre": "Sci-Fi",
+        "summary": (
+            "Ed Wood's cult sci-fi classic in which extraterrestrials activate "
+            "'Plan 9' in San Fernando Valley to stop humanity from building a "
+            "world-ending solar bomb."
+        ),
     },
     {
         "slug": "nosferatu",
         "kind": "movie",
         "archive_id": "nosferatu.-1922",
+        "title": "Nosferatu",
+        "year": 1922,
         "genre": "Horror",
     },
     {
         "slug": "his-girl-friday",
         "kind": "movie",
         "archive_id": "his_girl_friday",
+        "title": "His Girl Friday",
+        "year": 1940,
         "genre": "Comedy",
     },
     {
         "slug": "carnival-of-souls",
         "kind": "movie",
         "archive_id": "carnival_of_souls",
+        "title": "Carnival of Souls",
+        "year": 1962,
         "genre": "Horror",
+    },
+    {
+        "slug": "suddenly",
+        "kind": "movie",
+        "archive_id": "suddenly",
+        "title": "Suddenly",
+        "year": 1954,
+        "genre": "Thriller",
+        "summary": (
+            "Frank Sinatra stars as a ruthless gunman who seizes a hilltop home "
+            "overlooking a small California railroad depot ahead of a presidential "
+            "train stop."
+        ),
+    },
+    {
+        "slug": "mclintock",
+        "kind": "movie",
+        "archive_id": "mclintok_widescreen",
+        "title": "McLintock!",
+        "year": 1963,
+        "genre": "Western",
+        "summary": (
+            "John Wayne and Maureen O'Hara headline a boisterous frontier comedy "
+            "about cattle baron George Washington McLintock, family feuds, and a "
+            "town on the brink of statehood."
+        ),
+    },
+    {
+        "slug": "teenagers-from-outer-space",
+        "kind": "movie",
+        "archive_id": "teenagers_from_outerspace",
+        "title": "Teenagers from Outer Space",
+        "year": 1959,
+        "genre": "Sci-Fi",
+        "summary": (
+            "A young alien scout breaks ranks with his invasion crew to warn a "
+            "small American town before giant crustacean Gargons overrun Earth."
+        ),
+    },
+    {
+        "slug": "the-hitch-hiker",
+        "kind": "movie",
+        "archive_id": "Hitch_Hiker",
+        "title": "The Hitch-Hiker",
+        "year": 1953,
+        "genre": "Noir",
+        "summary": (
+            "Ida Lupino directs a taut desert thriller following two fishing "
+            "buddies held at gunpoint on the road through Baja California by a "
+            "sleepless fugitive."
+        ),
+    },
+    {
+        "slug": "the-red-house",
+        "kind": "movie",
+        "archive_id": "TheRedHouse",
+        "title": "The Red House",
+        "year": 1947,
+        "genre": "Mystery",
+        "summary": (
+            "Edward G. Robinson guards a dark secret deep inside the woods "
+            "bordering his isolated farmstead, warning his adopted daughter never "
+            "to enter the woods."
+        ),
+    },
+    {
+        "slug": "beat-the-devil",
+        "kind": "movie",
+        "archive_id": "BeatTheDevil1953",
+        "title": "Beat the Devil",
+        "year": 1953,
+        "genre": "Adventure",
+        "summary": (
+            "John Huston and Truman Capote's sly caper stars Humphrey Bogart, "
+            "Jennifer Jones, Gina Lollobrigida, and Peter Lorre as schemers "
+            "stranded in an Italian port while chasing African uranium land."
+        ),
+    },
+    {
+        "slug": "the-last-man-on-earth",
+        "kind": "movie",
+        "archive_id": "lastmanonearth-1964",
+        "title": "The Last Man on Earth",
+        "year": 1964,
+        "genre": "Horror",
+        "summary": (
+            "Vincent Price stars as Dr. Robert Morgan, the lone immune survivor "
+            "of a global plague, fortifying his home by night while searching for "
+            "a cure by day."
+        ),
+    },
+    {
+        "slug": "the-brain-that-wouldnt-die",
+        "kind": "movie",
+        "archive_id": "brain_that_wouldnt_die",
+        "title": "The Brain That Wouldn't Die",
+        "year": 1962,
+        "genre": "Horror",
+        "summary": (
+            "An obsessed transplant surgeon keeps his fiancée's severed head alive "
+            "in a country laboratory while prowling the city for a replacement "
+            "body."
+        ),
     },
     {
         "slug": "beverly-hillbillies-jed-buys-stock",
         "kind": "episode",
         "archive_id": "TheBeverlyHillbillies-JedBuysStock-Ep.1x05",
+        "title": "Jed Buys Stock",
+        "year": 1962,
         "genre": "Comedy",
         "show": "The Beverly Hillbillies",
         "season": 1,
@@ -101,6 +226,8 @@ CURATED = (
         "slug": "beverly-hillbillies-grannys-spring-tonic",
         "kind": "episode",
         "archive_id": "TheBeverlyHillbillies-GrannysSpringTonic-Ep1x27",
+        "title": "Granny's Spring Tonic",
+        "year": 1963,
         "genre": "Comedy",
         "show": "The Beverly Hillbillies",
         "season": 1,
@@ -110,6 +237,8 @@ CURATED = (
         "slug": "dragnet-the-big-ham",
         "kind": "episode",
         "archive_id": "DragnetBigHam",
+        "title": "The Big Ham",
+        "year": 1954,
         "genre": "Crime",
         "show": "Dragnet",
         "season": 4,
@@ -119,6 +248,8 @@ CURATED = (
         "slug": "lone-ranger-war-horse",
         "kind": "episode",
         "archive_id": "the-lone-ranger-1949-s-01-e-06-war-horse",
+        "title": "War Horse",
+        "year": 1949,
         "genre": "Western",
         "show": "The Lone Ranger",
         "season": 1,
@@ -128,10 +259,42 @@ CURATED = (
         "slug": "sherlock-holmes-pennsylvania-gun",
         "kind": "episode",
         "archive_id": "SherlockHolmes-TheCaseofthePennsylvaniaGun",
+        "title": "The Case of the Pennsylvania Gun",
+        "year": 1954,
         "genre": "Mystery",
         "show": "Sherlock Holmes",
         "season": 1,
         "episode": 0,
+    },
+    {
+        "slug": "range-rider-treasure-of-santa-dolores",
+        "kind": "episode",
+        "archive_id": "RangeRiderTreasureOfSantaDolores",
+        "title": "Treasure of Santa Dolores",
+        "year": 1951,
+        "genre": "Western",
+        "show": "The Range Rider",
+        "season": 1,
+        "episode": 0,
+        "summary": (
+            "The Range Rider and Dick West investigate bandits preying on "
+            "prospectors searching for the lost treasure of Santa Dolores."
+        ),
+    },
+    {
+        "slug": "superman-stamp-day",
+        "kind": "episode",
+        "archive_id": "AdventuresOfSupermanStampDayForSchoolChildren",
+        "title": "Stamp Day for Superman",
+        "year": 1954,
+        "genre": "Adventure",
+        "show": "Adventures of Superman",
+        "season": 0,
+        "episode": 0,
+        "summary": (
+            "George Reeves stars as Clark Kent and Superman in a special episode "
+            "foiling a Metropolis jewel thief alongside Jimmy Olsen and Lois Lane."
+        ),
     },
 )
 
@@ -197,14 +360,8 @@ def looks_like_mp4(head: bytes) -> bool:
     return b"ftyp" in head[:64]
 
 
-def pick_video_file(files: list[dict]) -> dict | None:
-    """The smallest playable MP4 an archive item publishes.
-
-    The Archive keeps several derivatives of one film; the small one streams
-    quickly and is plenty for a TV stick, so size decides. ``.ia.mp4`` copies
-    are Archive-generated and are skipped in favour of the original when both
-    exist at the same size.
-    """
+def pick_video_files(files: list[dict]) -> list[dict]:
+    """Every playable MP4 an archive item publishes, smallest fast-start first."""
     candidates = []
     for item in files:
         name = str(item.get("name") or "")
@@ -219,10 +376,14 @@ def pick_video_file(files: list[dict]) -> dict | None:
         if runtime_seconds(item.get("length")) < MIN_RUNTIME_SECONDS:
             continue
         candidates.append((size, name.lower().endswith(".ia.mp4"), name, item))
-    if not candidates:
-        return None
     candidates.sort(key=lambda row: (row[0], row[1], row[2]))
-    return candidates[0][3]
+    return [row[3] for row in candidates]
+
+
+def pick_video_file(files: list[dict]) -> dict | None:
+    """The smallest playable MP4 an archive item publishes."""
+    ranked = pick_video_files(files)
+    return ranked[0] if ranked else None
 
 
 def build_test_card() -> dict:
@@ -268,15 +429,20 @@ def build_item(spec: dict) -> dict | None:
     if not meta:
         log("  ! %s: no metadata" % archive_id)
         return None
-    chosen = pick_video_file(document.get("files") or [])
-    if chosen is None:
+    ranked = pick_video_files(document.get("files") or [])
+    if not ranked:
         log("  ! %s: no MP4 derivative found" % archive_id)
         return None
+    chosen = ranked[0]
 
     name = str(chosen["name"])
-    stream = DOWNLOAD_BASE % (urllib.parse.quote(archive_id), urllib.parse.quote(name))
-    title = str(meta.get("title") or archive_id).strip()
-    summary = str(meta.get("description") or "").strip()
+    streams = [
+        DOWNLOAD_BASE % (urllib.parse.quote(archive_id), urllib.parse.quote(str(f["name"])))
+        for f in ranked
+    ]
+    stream = streams[0]
+    title = str(spec.get("title") or meta.get("title") or archive_id).strip()
+    summary = str(spec.get("summary") or meta.get("description") or "").strip()
     # Descriptions are HTML in some items; the apps render plain text.
     if "<" in summary and ">" in summary:
         summary = strip_html(summary)
@@ -285,7 +451,7 @@ def build_item(spec: dict) -> dict | None:
         summary = summary[:417].rstrip() + "…"
 
     runtime = runtime_seconds(chosen.get("length")) or runtime_seconds(meta.get("runtime"))
-    return {
+    row = {
         "id": "vod-" + spec["slug"],
         "slug": spec["slug"],
         "title": title,
@@ -293,7 +459,7 @@ def build_item(spec: dict) -> dict | None:
         "show": spec.get("show", ""),
         "season": int(spec.get("season") or 0),
         "episode": int(spec.get("episode") or 0),
-        "year": year_of(meta),
+        "year": int(spec.get("year") or 0) or year_of(meta),
         "genre": spec.get("genre", ""),
         "runtime_seconds": runtime,
         "summary": summary,
@@ -304,6 +470,9 @@ def build_item(spec: dict) -> dict | None:
         "file": name,
         "size_bytes": int(chosen.get("size") or 0),
     }
+    if len(streams) > 1:
+        row["streams"] = streams
+    return row
 
 
 def year_of(meta: dict) -> int:
@@ -604,6 +773,14 @@ def validate_document(catalog: dict) -> list[str]:
             problems.append("%s: kind must be movie or episode" % label)
         if not str(item.get("stream") or "").startswith(("http://", "https://")):
             problems.append("%s: stream must be http(s)" % label)
+        extra_streams = item.get("streams")
+        if extra_streams is not None:
+            if not isinstance(extra_streams, list) or not extra_streams:
+                problems.append("%s: streams must be a non-empty list when present" % label)
+            elif extra_streams[0] != item.get("stream"):
+                problems.append("%s: streams[0] must equal stream" % label)
+            elif any(not str(url).startswith(("http://", "https://")) for url in extra_streams):
+                problems.append("%s: every entry in streams must be http(s)" % label)
         if item.get("kind") == "episode" and not str(item.get("show") or "").strip():
             problems.append("%s: an episode needs a show name" % label)
         item_id = str(item.get("id") or "")

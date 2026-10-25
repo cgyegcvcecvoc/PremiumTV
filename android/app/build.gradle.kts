@@ -140,7 +140,11 @@ dependencies {
 
     implementation("androidx.media3:media3-exoplayer:1.4.1")
     implementation("androidx.media3:media3-exoplayer-hls:1.4.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.4.1")
     implementation("androidx.media3:media3-ui:1.4.1")
+    // Bundled FFmpeg audio decoder (AC-3, E-AC-3, DTS, FLAC, ALAC, PCM, MP2/MP3/AAC)
+    // auto-discovered by DefaultRenderersFactory when MediaCodec lacks broadcast codecs.
+    implementation("org.jellyfin.media3:media3-ffmpeg-decoder:1.3.1+2")
 
     implementation("io.coil-kt:coil-compose:2.6.0")
 
