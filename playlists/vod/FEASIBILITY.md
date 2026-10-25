@@ -1,6 +1,6 @@
 # On-demand feasibility test — Movies & Shows
 
-Generated 2026-10-24T17:05:44Z by `scripts/vod_catalog.py`.
+Generated 2026-10-25T14:14:07Z by `scripts/vod_catalog.py`.
 
 This is the evidence behind the Movies & Shows tab: a finite film and
 episode library is feasible with the same player, the same side panel and
@@ -15,8 +15,8 @@ separate from the playlist and guide pipeline.
 | Films | 5 |
 | TV episodes | 5 |
 | Test card (authored here) | 1 |
-| Probe: working | 10 |
-| Probe: other | 1 |
+| Probe: working | 11 |
+| Probe: other | 0 |
 
 The probe opens each stream the way the apps do — a bounded range request
 with `Accept: video/mp4` — and requires an MP4 `ftyp` box or a video
@@ -27,7 +27,7 @@ seekable, which is what lets the side player scrub and resume.
 
 | Title | Kind | Year | Runtime | Size | Direct stream | Probe |
 |---|---|---:|---:|---:|---|---|
-| PremiumTV Test Card | Film | 2026 | 1 min | 1 MB | `premiumtv-test-card.mp4` | unpublished |
+| PremiumTV Test Card | Film | 2026 | 1 min | 1 MB | `premiumtv-test-card.mp4` | working |
 | Carnival of Souls ( iPod Video Version ) | Film | — | 83 min | 361 MB | `carnival_of_souls_512kb.mp4` | working |
 | His Girl Friday | Film | 1940 | 92 min | 401 MB | `his_girl_friday_512kb.mp4` | working |
 | Night of the Living Dead | Film | 1968 | 97 min | 559 MB | `Night of the Living Dead - (1968).mp4` | working |
@@ -48,10 +48,11 @@ It exists so the shelf can be exercised in one play - a moving gold bar
 proves the picture is advancing, the timecode proves the clock, the caption
 proves text renders, and a beep on every whole second proves audio arrives.
 
-Its `status` reads `unpublished` until the committed file reaches `main`:
-the catalogue points at the repository's CDN copy, so the probe can only
-answer once that copy exists. Re-run this script after the push and the
-same probe turns it into `working`.
+It streams from the repository's own CDN copy, so the probe can only
+answer once the clip has reached `main`. A 404 there is reported as
+`unpublished` rather than broken, which keeps the shelf honest between
+committing the file and publishing it; anything else keeps whatever the
+probe found, so a CDN outage is never disguised as a missing file.
 
 ## What this proves
 
