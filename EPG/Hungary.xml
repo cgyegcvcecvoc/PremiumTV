@@ -303,6 +303,10 @@
     <display-name>HU - Sport2</display-name>
     <icon src="https://epg.pw/media/images/epg/2026/06/09/20260609030459528567_86.png" />
   </channel>
+  <channel id="TVEger.hu@SD">
+    <display-name>TV Eger (1080p)</display-name>
+    <icon src="https://i.imgur.com/GUVW073.png" />
+  </channel>
   <channel id="TVPaprika.hu">
     <display-name>TV Paprika Ⓖ</display-name>
     <display-name>HU - TV Paprika</display-name>
@@ -320,6 +324,10 @@
     <display-name>HU - TV4</display-name>
     <display-name>TV4.hu</display-name>
     <icon src="https://iptv-epg.org/images/9dYpmVMFXP-ZGQfjiq5ZpjlXVu4hFkfLzFhsM1R8pkjt3t716xVwaO8JPCWpOrDWUhbMSgFdkW1HFNRrSfUJ7conSlQdN_vTieZlTTo" />
+  </channel>
+  <channel id="VasarhelyiTelevizio.hu@SD">
+    <display-name>Vasarhelyi Televizio (576p)</display-name>
+    <icon src="https://i.imgur.com/WOEqdmx.png" />
   </channel>
   <channel id="BartokRadio.hu">
     <display-name>Bartók Rádió</display-name>
@@ -419,12 +427,6 @@
     <display-name>Euronews Hungarian (720p)</display-name>
     <icon src="https://i.imgur.com/8t9mdg9.png" />
   </channel>
-  <programme start="20261025053000 +0000" stop="20261025093000 +0000" channel="M4Sport.hu">
-    <title>Birkózó Világbajnokság</title>
-  </programme>
-  <programme start="20261025093000 +0000" stop="20261025103500 +0000" channel="M4Sport.hu">
-    <title>Forma-1 - 2. szabadedzés</title>
-  </programme>
   <programme start="20261025103500 +0000" stop="20261025115500 +0000" channel="M4Sport.hu">
     <title>Műkorcsolya - Nagydíj Franciaország</title>
   </programme>
@@ -560,19 +562,17 @@
   <programme start="20261027130000 +0000" stop="20261027150000 +0000" channel="M4Sport.hu">
     <title>Birkózó Világbajnokság</title>
   </programme>
-  <programme start="20261025064500 +0000" stop="20261025081500 +0000" channel="Match4.hu@SD">
-    <title>Labdarúgás: Premier League / sportműsor, ep: Arsenal – Everton</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027150000 +0000" stop="20261027160000 +0000" channel="M4Sport.hu">
+    <title>Góóól!2</title>
   </programme>
-  <programme start="20261025081500 +0000" stop="20261025101500 +0000" channel="Match4.hu@SD">
-    <title>Labdarúgás: Olasz Bajnokság Serie A / sportműsor, ep: Lazio – Parma</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027160000 +0000" stop="20261027161500 +0000" channel="M4Sport.hu">
+    <title>Sporthíradó</title>
+  </programme>
+  <programme start="20261027161500 +0000" stop="20261027170000 +0000" channel="M4Sport.hu">
+    <title>Kosárlabda magazin</title>
+  </programme>
+  <programme start="20261027170000 +0000" stop="20261027174500 +0000" channel="M4Sport.hu">
+    <title>Boxutca</title>
   </programme>
   <programme start="20261025101500 +0000" stop="20261025120000 +0000" channel="Match4.hu@SD">
     <title>Pankráció: AEW Dynamite / 81. rész</title>
@@ -664,21 +664,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261025073500 +0000" stop="20261025084500 +0000" channel="SpektrumHome.hu">
-    <title>A kertész kertje</title>
-  </programme>
-  <programme start="20261025084500 +0000" stop="20261025090000 +0000" channel="SpektrumHome.hu">
-    <title>Tippek River Cottage-ból</title>
-  </programme>
-  <programme start="20261025090000 +0000" stop="20261025093000 +0000" channel="SpektrumHome.hu">
-    <title>Green Team</title>
-  </programme>
-  <programme start="20261025093000 +0000" stop="20261025100000 +0000" channel="SpektrumHome.hu">
-    <title>Élet, érzés, Kalaznó</title>
-  </programme>
-  <programme start="20261025100000 +0000" stop="20261025110000 +0000" channel="SpektrumHome.hu">
-    <title>Új élet a farmon</title>
   </programme>
   <programme start="20261025110000 +0000" stop="20261025115500 +0000" channel="SpektrumHome.hu">
     <title>Álomház</title>
@@ -851,8 +836,17 @@
   <programme start="20261027130500 +0000" stop="20261027140500 +0000" channel="SpektrumHome.hu">
     <title>Segítség, vettünk egy falut!</title>
   </programme>
-  <programme start="20261025075000 +0000" stop="20261025083000 +0000" channel="ATVSpirit.hu@SD">
-    <title>Klinika</title>
+  <programme start="20261027140500 +0000" stop="20261027150500 +0000" channel="SpektrumHome.hu">
+    <title>River Cottage Ausztrália</title>
+  </programme>
+  <programme start="20261027150500 +0000" stop="20261027152000 +0000" channel="SpektrumHome.hu">
+    <title>Tippek River Cottage-ból</title>
+  </programme>
+  <programme start="20261027152000 +0000" stop="20261027162000 +0000" channel="SpektrumHome.hu">
+    <title>Újrakezdés vidéken</title>
+  </programme>
+  <programme start="20261027162000 +0000" stop="20261027172000 +0000" channel="SpektrumHome.hu">
+    <title>Újrakezdés vidéken</title>
   </programme>
   <programme start="20261025083000 +0000" stop="20261025132500 +0000" channel="ATVSpirit.hu@SD">
     <title>Mediashop</title>
@@ -1001,38 +995,17 @@
   <programme start="20261027132500 +0000" stop="20261027140000 +0000" channel="ATVSpirit.hu@SD">
     <title>700-as klub</title>
   </programme>
-  <programme start="20261024220000 +0000" stop="20261025080000 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Képújság</title>
+  <programme start="20261027140000 +0000" stop="20261027145500 +0000" channel="ATVSpirit.hu@SD">
+    <title>Fórum Extra</title>
   </programme>
-  <programme start="20261025080000 +0000" stop="20261025081500 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Gyöngyös Ma</title>
+  <programme start="20261027145500 +0000" stop="20261027160000 +0000" channel="ATVSpirit.hu@SD">
+    <title>Start</title>
   </programme>
-  <programme start="20261025081500 +0000" stop="20261025081800 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Reklám</title>
+  <programme start="20261027160000 +0000" stop="20261027163500 +0000" channel="ATVSpirit.hu@SD">
+    <title>Start plusz</title>
   </programme>
-  <programme start="20261025081800 +0000" stop="20261025083000 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Hit világa - vallási műsor</title>
-  </programme>
-  <programme start="20261025083000 +0000" stop="20261025083300 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Reklám</title>
-  </programme>
-  <programme start="20261025083300 +0000" stop="20261025090100 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Nápolyi</title>
-  </programme>
-  <programme start="20261025090100 +0000" stop="20261025090400 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Reklám</title>
-  </programme>
-  <programme start="20261025090400 +0000" stop="20261025093200 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Nápolyi</title>
-  </programme>
-  <programme start="20261025093200 +0000" stop="20261025095900 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Mesteremberek</title>
-  </programme>
-  <programme start="20261025095900 +0000" stop="20261025102700 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Reviczkyvel az Erdőben</title>
-  </programme>
-  <programme start="20261025102700 +0000" stop="20261025103000 +0000" channel="GyongyosiTV.hu@SD">
-    <title>Reklám</title>
+  <programme start="20261027163500 +0000" stop="20261027173000 +0000" channel="ATVSpirit.hu@SD">
+    <title>Fórum Extra</title>
   </programme>
   <programme start="20261025103000 +0000" stop="20261025133000 +0000" channel="GyongyosiTV.hu@SD">
     <title>Képújság</title>
@@ -1244,17 +1217,20 @@
   <programme start="20261027105300 +0000" stop="20261027165500 +0000" channel="GyongyosiTV.hu@SD">
     <title>Képújság</title>
   </programme>
-  <programme start="20261025075000 +0000" stop="20261025082500 +0000" channel="RTLGold.hu@SD">
-    <title>Barátok közt</title>
+  <programme start="20261027165500 +0000" stop="20261027170000 +0000" channel="GyongyosiTV.hu@SD">
+    <title>Mese</title>
   </programme>
-  <programme start="20261025082500 +0000" stop="20261025085500 +0000" channel="RTLGold.hu@SD">
-    <title>Barátok közt</title>
+  <programme start="20261027170000 +0000" stop="20261027170500 +0000" channel="GyongyosiTV.hu@SD">
+    <title>Aktuális - hírek röviden</title>
   </programme>
-  <programme start="20261025085500 +0000" stop="20261025095500 +0000" channel="RTLGold.hu@SD">
-    <title>Anikó Show</title>
+  <programme start="20261027170500 +0000" stop="20261027171000 +0000" channel="GyongyosiTV.hu@SD">
+    <title>Hírblokk: Nap kérdése - Kommentár nélkül - Időjárás</title>
   </programme>
-  <programme start="20261025095500 +0000" stop="20261025105500 +0000" channel="RTLGold.hu@SD">
-    <title>Anikó Show</title>
+  <programme start="20261027171000 +0000" stop="20261027171500 +0000" channel="GyongyosiTV.hu@SD">
+    <title>Reklám</title>
+  </programme>
+  <programme start="20261027171500 +0000" stop="20261027173000 +0000" channel="GyongyosiTV.hu@SD">
+    <title>Gyöngyös Ma</title>
   </programme>
   <programme start="20261025105500 +0000" stop="20261025115500 +0000" channel="RTLGold.hu@SD">
     <title>Anikó Show</title>
@@ -1409,17 +1385,17 @@
   <programme start="20261027132000 +0000" stop="20261027142000 +0000" channel="RTLGold.hu@SD">
     <title>Oltári csajok</title>
   </programme>
-  <programme start="20261025074000 +0000" stop="20261025081500 +0000" channel="ATV.hu">
-    <title>Mediashop</title>
+  <programme start="20261027142000 +0000" stop="20261027152000 +0000" channel="RTLGold.hu@SD">
+    <title>A gyanú árnyékában</title>
   </programme>
-  <programme start="20261025081500 +0000" stop="20261025083000 +0000" channel="ATV.hu">
-    <title>KultúrTipp</title>
+  <programme start="20261027152000 +0000" stop="20261027162000 +0000" channel="RTLGold.hu@SD">
+    <title>Mónika - A kibeszélőshow</title>
   </programme>
-  <programme start="20261025083000 +0000" stop="20261025090000 +0000" channel="ATV.hu">
-    <title>Mediashop</title>
+  <programme start="20261027162000 +0000" stop="20261027171500 +0000" channel="RTLGold.hu@SD">
+    <title>Mónika - A kibeszélőshow</title>
   </programme>
-  <programme start="20261025090000 +0000" stop="20261025110000 +0000" channel="ATV.hu">
-    <title>Vidám vasárnap</title>
+  <programme start="20261027171500 +0000" stop="20261027180000 +0000" channel="RTLGold.hu@SD">
+    <title>Mónika - A kibeszélőshow</title>
   </programme>
   <programme start="20261025110000 +0000" stop="20261025113000 +0000" channel="ATV.hu">
     <title>Életre fel</title>
@@ -1589,14 +1565,17 @@
   <programme start="20261027122000 +0000" stop="20261027150000 +0000" channel="ATV.hu">
     <title>Szépség Akció</title>
   </programme>
-  <programme start="20261025074000 +0000" stop="20261025083500 +0000" channel="Cool.hu">
-    <title>Született feleségek</title>
+  <programme start="20261027150000 +0000" stop="20261027152500 +0000" channel="ATV.hu">
+    <title>Fórum</title>
   </programme>
-  <programme start="20261025083500 +0000" stop="20261025092500 +0000" channel="Cool.hu">
-    <title>Született feleségek</title>
+  <programme start="20261027152500 +0000" stop="20261027155500 +0000" channel="ATV.hu">
+    <title>ATV Híradó</title>
   </programme>
-  <programme start="20261025092500 +0000" stop="20261025103000 +0000" channel="Cool.hu">
-    <title>A mi kis falunk</title>
+  <programme start="20261027155500 +0000" stop="20261027164000 +0000" channel="ATV.hu">
+    <title>Fórum</title>
+  </programme>
+  <programme start="20261027164000 +0000" stop="20261027172500 +0000" channel="ATV.hu">
+    <title>ATV Híradó</title>
   </programme>
   <programme start="20261025103000 +0000" stop="20261025113500 +0000" channel="Cool.hu">
     <title>A mi kis falunk</title>
@@ -1745,17 +1724,18 @@
   <programme start="20261027135500 +0000" stop="20261027150000 +0000" channel="Cool.hu">
     <title>Született feleségek</title>
   </programme>
-  <programme start="20261025055500 +0000" stop="20261025081500 +0000" channel="Film4.hu">
-    <title>Last Night in Soho</title>
-    <desc>Edgar Wright's horror with Thomasin McKenzie, Anya Taylor-Joy and Matt Smith. A fashion student's transported back to Swinging-60s London. But nostalgia's not what it used to be..</desc>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027150000 +0000" stop="20261027160000 +0000" channel="Cool.hu">
+    <title>CSI: Miami helyszínelők</title>
   </programme>
-  <programme start="20261025081500 +0000" stop="20261025104500 +0000" channel="Film4.hu">
-    <title>Terminator: Dark Fate</title>
-    <desc>Sci-fi action sequel with Linda Hamilton and Arnold Schwarzenegger. A factory worker is targeted by deadly robot assassins from the future. Thank goodness he's back.</desc>
+  <programme start="20261027160000 +0000" stop="20261027165500 +0000" channel="Cool.hu">
+    <title>A mi kis falunk</title>
+  </programme>
+  <programme start="20261027165500 +0000" stop="20261027180000 +0000" channel="Cool.hu">
+    <title>A mi kis falunk</title>
+  </programme>
+  <programme start="20261025095500 +0000" stop="20261025120000 +0000" channel="Film4.hu">
+    <title>My Stepmother Is An Alien</title>
+    <desc>(1988) Comedy starring Kim Basinger as a 1,296-year-old alien who comes to Earth to save her planet but needs secret information from goofy scientist Dan Aykroyd. Scenes of a sexual nature.</desc>
     <date>20261025</date>
     <audio>
       <stereo>stereo</stereo>
@@ -1921,9 +1901,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261025073000 +0000" stop="20261025093000 +0000" channel="Galaxy4.hu">
-    <title>Vera - A megszállott nyomozó</title>
-  </programme>
   <programme start="20261025093000 +0000" stop="20261025112000 +0000" channel="Galaxy4.hu">
     <title>Vera - A megszállott nyomozó</title>
   </programme>
@@ -2029,17 +2006,8 @@
   <programme start="20261027134500 +0000" stop="20261027154500 +0000" channel="Galaxy4.hu">
     <title>Brokenwood titkai</title>
   </programme>
-  <programme start="20261025070000 +0000" stop="20261025080000 +0000" channel="HirTV.hu">
-    <title>Ikon Budai Ivettel</title>
-  </programme>
-  <programme start="20261025080000 +0000" stop="20261025090000 +0000" channel="HirTV.hu">
-    <title>Vezércikk - Olvasunk a sorok között</title>
-  </programme>
-  <programme start="20261025090000 +0000" stop="20261025100000 +0000" channel="HirTV.hu">
-    <title>Televíziós vásárlási műsorablak</title>
-  </programme>
-  <programme start="20261025100000 +0000" stop="20261025110000 +0000" channel="HirTV.hu">
-    <title>Komment extra</title>
+  <programme start="20261027154500 +0000" stop="20261027174500 +0000" channel="Galaxy4.hu">
+    <title>Brokenwood titkai</title>
   </programme>
   <programme start="20261025110000 +0000" stop="20261025120000 +0000" channel="HirTV.hu">
     <title>Híradó (Hír TV)</title>
@@ -2227,11 +2195,17 @@
   <programme start="20261027133000 +0000" stop="20261027140000 +0000" channel="HirTV.hu">
     <title>Paláver hangoló</title>
   </programme>
-  <programme start="20261025072500 +0000" stop="20261025092000 +0000" channel="IzauraTV.hu">
-    <title>Olasz ízek, édes szerelem</title>
+  <programme start="20261027140000 +0000" stop="20261027143000 +0000" channel="HirTV.hu">
+    <title>Híradó (Hír TV)</title>
   </programme>
-  <programme start="20261025092000 +0000" stop="20261025111500 +0000" channel="IzauraTV.hu">
-    <title>Ír szerencse, igaz szerelem</title>
+  <programme start="20261027143000 +0000" stop="20261027160000 +0000" channel="HirTV.hu">
+    <title>Paláver</title>
+  </programme>
+  <programme start="20261027160000 +0000" stop="20261027170000 +0000" channel="HirTV.hu">
+    <title>Híradó (Hír TV)</title>
+  </programme>
+  <programme start="20261027170000 +0000" stop="20261027180000 +0000" channel="HirTV.hu">
+    <title>Monitor</title>
   </programme>
   <programme start="20261025111500 +0000" stop="20261025121500 +0000" channel="IzauraTV.hu">
     <title>A hegyimentők</title>
@@ -2377,23 +2351,20 @@
   <programme start="20261027132000 +0000" stop="20261027141500 +0000" channel="IzauraTV.hu">
     <title>Esmeralda</title>
   </programme>
-  <programme start="20261025075500 +0000" stop="20261025082500 +0000" channel="M1.hu">
-    <title>Mindenki Akadémiája</title>
+  <programme start="20261027141500 +0000" stop="20261027151000 +0000" channel="IzauraTV.hu">
+    <title>García asszony és lányai</title>
   </programme>
-  <programme start="20261025082500 +0000" stop="20261025085500 +0000" channel="M1.hu">
-    <title>Magyar nők</title>
+  <programme start="20261027151000 +0000" stop="20261027160000 +0000" channel="IzauraTV.hu">
+    <title>Acapulco szépe</title>
   </programme>
-  <programme start="20261025085500 +0000" stop="20261025091000 +0000" channel="M1.hu">
-    <title>Magyar elsők</title>
+  <programme start="20261027160000 +0000" stop="20261027163500 +0000" channel="IzauraTV.hu">
+    <title>A szív dallama</title>
   </programme>
-  <programme start="20261025091000 +0000" stop="20261025103000 +0000" channel="M1.hu">
-    <title>Utolsó rapszódia</title>
+  <programme start="20261027163500 +0000" stop="20261027171000 +0000" channel="IzauraTV.hu">
+    <title>A szív dallama</title>
   </programme>
-  <programme start="20261025103000 +0000" stop="20261025110000 +0000" channel="M1.hu">
-    <title>A kékvércse</title>
-  </programme>
-  <programme start="20261025110000 +0000" stop="20261025110100 +0000" channel="M1.hu">
-    <title>Déli harangszó</title>
+  <programme start="20261027171000 +0000" stop="20261027180000 +0000" channel="IzauraTV.hu">
+    <title>Összetört életek</title>
   </programme>
   <programme start="20261025110100 +0000" stop="20261025112500 +0000" channel="M1.hu">
     <title>Híradó</title>
@@ -2710,23 +2681,20 @@
   <programme start="20261027135500 +0000" stop="20261027143000 +0000" channel="M1.hu">
     <title>Évmilliók emlékei</title>
   </programme>
-  <programme start="20261025073000 +0000" stop="20261025080000 +0000" channel="M5.hu">
-    <title>EtnoKultúra</title>
+  <programme start="20261027143000 +0000" stop="20261027153000 +0000" channel="M1.hu">
+    <title>Magyar pop</title>
   </programme>
-  <programme start="20261025080000 +0000" stop="20261025084500 +0000" channel="M5.hu">
-    <title>M5 História</title>
+  <programme start="20261027153000 +0000" stop="20261027155500 +0000" channel="M1.hu">
+    <title>Mindenki Akadémiája</title>
   </programme>
-  <programme start="20261025084500 +0000" stop="20261025090000 +0000" channel="M5.hu">
-    <title>Agenda</title>
+  <programme start="20261027155500 +0000" stop="20261027162500 +0000" channel="M1.hu">
+    <title>Magyar nők</title>
   </programme>
-  <programme start="20261025090000 +0000" stop="20261025100000 +0000" channel="M5.hu">
-    <title>Franciaország ízei</title>
+  <programme start="20261027162500 +0000" stop="20261027165500 +0000" channel="M1.hu">
+    <title>Mesélő cégtáblák</title>
   </programme>
-  <programme start="20261025100000 +0000" stop="20261025100100 +0000" channel="M5.hu">
-    <title>Agenda plusz</title>
-  </programme>
-  <programme start="20261025100100 +0000" stop="20261025105500 +0000" channel="M5.hu">
-    <title>Klasszikusok a Zeneakadémiáról</title>
+  <programme start="20261027165500 +0000" stop="20261027172500 +0000" channel="M1.hu">
+    <title>Múzeumtúra - francia módra</title>
   </programme>
   <programme start="20261025105500 +0000" stop="20261025112500 +0000" channel="M5.hu">
     <title>Opera Café</title>
@@ -2956,23 +2924,23 @@
   <programme start="20261027135500 +0000" stop="20261027143000 +0000" channel="M5.hu">
     <title>Koronás sas</title>
   </programme>
-  <programme start="20261025073500 +0000" stop="20261025080000 +0000" channel="RTLKlub.hu">
-    <title>TaleSpin / Ágyú meg az ég</title>
+  <programme start="20261027143000 +0000" stop="20261027152500 +0000" channel="M5.hu">
+    <title>Librettó</title>
   </programme>
-  <programme start="20261025080000 +0000" stop="20261025083000 +0000" channel="RTLKlub.hu">
-    <title>Mickey egér játszótere</title>
+  <programme start="20261027152500 +0000" stop="20261027155500 +0000" channel="M5.hu">
+    <title>VAN - A Kelet szépsége</title>
   </programme>
-  <programme start="20261025083000 +0000" stop="20261025090500 +0000" channel="RTLKlub.hu">
-    <title>Agymenő kávézó</title>
+  <programme start="20261027155500 +0000" stop="20261027164000 +0000" channel="M5.hu">
+    <title>Kontúr</title>
   </programme>
-  <programme start="20261025090500 +0000" stop="20261025094500 +0000" channel="RTLKlub.hu">
-    <title>Metamorfózis</title>
+  <programme start="20261027164000 +0000" stop="20261027165000 +0000" channel="M5.hu">
+    <title>Agenda</title>
   </programme>
-  <programme start="20261025094500 +0000" stop="20261025103000 +0000" channel="RTLKlub.hu">
-    <title>Célirány</title>
+  <programme start="20261027165000 +0000" stop="20261027170000 +0000" channel="M5.hu">
+    <title>Tízsoros</title>
   </programme>
-  <programme start="20261025103000 +0000" stop="20261025110500 +0000" channel="RTLKlub.hu">
-    <title>ÉletTér</title>
+  <programme start="20261027170000 +0000" stop="20261027180000 +0000" channel="M5.hu">
+    <title>Vad Skandinávia</title>
   </programme>
   <programme start="20261025110500 +0000" stop="20261025114000 +0000" channel="RTLKlub.hu">
     <title>XXI. század - a legendák velünk élnek</title>
@@ -3103,17 +3071,14 @@
   <programme start="20261027135000 +0000" stop="20261027142500 +0000" channel="RTLKlub.hu">
     <title>Barátok közt</title>
   </programme>
-  <programme start="20261025075500 +0000" stop="20261025085000 +0000" channel="Spektrum.hu">
-    <title>Katonai kincsvadászok</title>
+  <programme start="20261027142500 +0000" stop="20261027153500 +0000" channel="RTLKlub.hu">
+    <title>Drága örökösök - A visszatérés</title>
   </programme>
-  <programme start="20261025085000 +0000" stop="20261025094500 +0000" channel="Spektrum.hu">
-    <title>18 kerékkel a 66-os úton</title>
+  <programme start="20261027153500 +0000" stop="20261027170000 +0000" channel="RTLKlub.hu">
+    <title>Pokoli rokonok</title>
   </programme>
-  <programme start="20261025094500 +0000" stop="20261025104000 +0000" channel="Spektrum.hu">
-    <title>18 kerékkel a 66-os úton</title>
-  </programme>
-  <programme start="20261025104000 +0000" stop="20261025111000 +0000" channel="Spektrum.hu">
-    <title>Latin-Amerika forró határai</title>
+  <programme start="20261027170000 +0000" stop="20261027175500 +0000" channel="RTLKlub.hu">
+    <title>RTL Híradó - Esti kiadás</title>
   </programme>
   <programme start="20261025111000 +0000" stop="20261025113500 +0000" channel="Spektrum.hu">
     <title>Latin-Amerika forró határai</title>
@@ -3298,55 +3263,20 @@
   <programme start="20261027132000 +0000" stop="20261027141500 +0000" channel="Spektrum.hu">
     <title>Szabadok szigete / A hosszú út</title>
   </programme>
-  <programme start="20261025060000 +0000" stop="20261025080000 +0000" channel="Sport1.hu">
-    <title>Labdarúgás: UEFA Bajnokok Ligája / sportműsor, ep: Liverpool – Villarreal, csoportkör, 3. forduló, 1</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027141500 +0000" stop="20261027151500 +0000" channel="Spektrum.hu">
+    <title>Opálvadászok</title>
   </programme>
-  <programme start="20261025080000 +0000" stop="20261025081000 +0000" channel="Sport1.hu">
-    <title>Cindy aus Marzahn die jungen Wilden</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027151500 +0000" stop="20261027161000 +0000" channel="Spektrum.hu">
+    <title>18 kerékkel Ausztráliában</title>
   </programme>
-  <programme start="20261025081000 +0000" stop="20261025085500 +0000" channel="Sport1.hu">
-    <title>Cindy aus Marzahn die jungen Wilden</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027161000 +0000" stop="20261027164000 +0000" channel="Spektrum.hu">
+    <title>Latin-Amerika forró határai</title>
   </programme>
-  <programme start="20261025085500 +0000" stop="20261025090000 +0000" channel="Sport1.hu">
-    <title>Die PS Profis – Mehr Power aus dem Pott | S04E07</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027164000 +0000" stop="20261027171000 +0000" channel="Spektrum.hu">
+    <title>Latin-Amerika forró határai</title>
   </programme>
-  <programme start="20261025090000 +0000" stop="20261025095500 +0000" channel="Sport1.hu">
-    <title>Cindy aus Marzahn &amp; die jungen Wilden</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261025095500 +0000" stop="20261025100000 +0000" channel="Sport1.hu">
-    <title>Die PS Profis – Mehr Power aus dem Pott</title>
-    <desc>Die beiden Dortmunder Ruhrpott-Originale Sidney Hoffmann und Jean Pierre Kraemer gehen für die Sport1-Zuschauer auf Autosuche. Pro Folge spüren sie einen "Gebrauchten" auf und geben dabei Tipps und Tricks, u.a. zu den Methoden der Verkäufer und den Schwachstellen der einzelnen Modelle.</desc>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261025100000 +0000" stop="20261025140000 +0000" channel="Sport1.hu">
-    <title>Teleshopping</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261027171000 +0000" stop="20261027180500 +0000" channel="Spektrum.hu">
+    <title>Opálvadászok</title>
   </programme>
   <programme start="20261025140000 +0000" stop="20261025160000 +0000" channel="Sport1.hu">
     <title>Bundesliga pur – 1. &amp; 2. Bundesliga</title>
@@ -3524,13 +3454,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261025060000 +0000" stop="20261025090000 +0000" channel="Sport2.hu">
-    <title>Kosárlabda: NBA / sportműsor, ep: Charlotte Hornets – Miami Heat, alapszakasz</title>
-    <date>20261025</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261025090000 +0000" stop="20261025120000 +0000" channel="Sport2.hu">
     <title>Darts: Európa-bajnokság / 1. rész, ep: 3. nap, Dortmund</title>
     <date>20261025</date>
@@ -3646,17 +3569,11 @@
   <programme start="20261027121500 +0000" stop="20261027141500 +0000" channel="Sport2.hu">
     <title>WNBA</title>
   </programme>
-  <programme start="20261025070000 +0000" stop="20261025080000 +0000" channel="TVPaprika.hu">
-    <title>James Martin: Kalandozások Spanyolországban</title>
+  <programme start="20261027141500 +0000" stop="20261027171500 +0000" channel="Sport2.hu">
+    <title>NBA</title>
   </programme>
-  <programme start="20261025080000 +0000" stop="20261025090000 +0000" channel="TVPaprika.hu">
-    <title>TV Paprika Magazin</title>
-  </programme>
-  <programme start="20261025090000 +0000" stop="20261025100000 +0000" channel="TVPaprika.hu">
-    <title>Prue angol konyhája</title>
-  </programme>
-  <programme start="20261025100000 +0000" stop="20261025103000 +0000" channel="TVPaprika.hu">
-    <title>Hosszú hétvégék Rory O'Connellel</title>
+  <programme start="20261027171500 +0000" stop="20261027180000 +0000" channel="Sport2.hu">
+    <title>Labdarúgás Török Bajnokság összefoglaló</title>
   </programme>
   <programme start="20261025103000 +0000" stop="20261025113000 +0000" channel="TVPaprika.hu">
     <title>Jamie spórolós kajái</title>
@@ -3886,17 +3803,23 @@
   <programme start="20261027133000 +0000" stop="20261027140000 +0000" channel="TVPaprika.hu">
     <title>Silvia olasz főzőiskolája</title>
   </programme>
-  <programme start="20261025075500 +0000" stop="20261025083000 +0000" channel="TV2.hu">
-    <title>Székely Konyha Okosgrillen</title>
+  <programme start="20261027140000 +0000" stop="20261027143000 +0000" channel="TVPaprika.hu">
+    <title>Luca olasz konyhája</title>
   </programme>
-  <programme start="20261025083000 +0000" stop="20261025091000 +0000" channel="TV2.hu">
-    <title>Több mint TestŐr</title>
+  <programme start="20261027143000 +0000" stop="20261027150000 +0000" channel="TVPaprika.hu">
+    <title>Luca olasz konyhája</title>
   </programme>
-  <programme start="20261025091000 +0000" stop="20261025094500 +0000" channel="TV2.hu">
-    <title>Életmódi</title>
+  <programme start="20261027150000 +0000" stop="20261027151500 +0000" channel="TVPaprika.hu">
+    <title>Apró falatok Hugh-val</title>
   </programme>
-  <programme start="20261025094500 +0000" stop="20261025102500 +0000" channel="TV2.hu">
-    <title>Super Car</title>
+  <programme start="20261027151500 +0000" stop="20261027162500 +0000" channel="TVPaprika.hu">
+    <title>Az éhes motorosok ázsiai kalandjai</title>
+  </programme>
+  <programme start="20261027162500 +0000" stop="20261027170000 +0000" channel="TVPaprika.hu">
+    <title>Mary Berry bombabiztos receptjei</title>
+  </programme>
+  <programme start="20261027170000 +0000" stop="20261027173500 +0000" channel="TVPaprika.hu">
+    <title>Mary Berry bombabiztos receptjei</title>
   </programme>
   <programme start="20261025102500 +0000" stop="20261025112500 +0000" channel="TV2.hu">
     <title>Balance magazin</title>
@@ -4030,11 +3953,14 @@
   <programme start="20261027134000 +0000" stop="20261027144500 +0000" channel="TV2.hu">
     <title>Egy éjszaka meséje</title>
   </programme>
-  <programme start="20261025062000 +0000" stop="20261025084000 +0000" channel="TV4.hu">
-    <title>Gyógyegér vacsorára</title>
+  <programme start="20261027144500 +0000" stop="20261027160000 +0000" channel="TV2.hu">
+    <title>Távoli város</title>
   </programme>
-  <programme start="20261025084000 +0000" stop="20261025110000 +0000" channel="TV4.hu">
-    <title>Csillagpor</title>
+  <programme start="20261027160000 +0000" stop="20261027164500 +0000" channel="TV2.hu">
+    <title>TV2 Híradó</title>
+  </programme>
+  <programme start="20261027164500 +0000" stop="20261027175500 +0000" channel="TV2.hu">
+    <title>Aktív</title>
   </programme>
   <programme start="20261025110000 +0000" stop="20261025124000 +0000" channel="TV4.hu">
     <title>Puerto Ricans in Paris</title>
@@ -4162,8 +4088,14 @@
   <programme start="20261027130000 +0000" stop="20261027140000 +0000" channel="TV4.hu">
     <title>Lángoló Chicago</title>
   </programme>
-  <programme start="20261025075400 +0000" stop="20261025091100 +0000" channel="DanceTelevision.nl@SD">
-    <title>Soundopamine: WeSki - Muntele Mic (Romania)</title>
+  <programme start="20261027140000 +0000" stop="20261027145500 +0000" channel="TV4.hu">
+    <title>Lángoló Chicago</title>
+  </programme>
+  <programme start="20261027145500 +0000" stop="20261027160000 +0000" channel="TV4.hu">
+    <title>Bűntények a pálmák alatt</title>
+  </programme>
+  <programme start="20261027160000 +0000" stop="20261027175500 +0000" channel="TV4.hu">
+    <title>Cassandre</title>
   </programme>
   <programme start="20261025091100 +0000" stop="20261025121200 +0000" channel="DanceTelevision.nl@SD">
     <title>Lexlay: Rio Electronic - Buenos Aires (Argentina)</title>
@@ -4285,11 +4217,11 @@
   <programme start="20261027130400 +0000" stop="20261027150900 +0000" channel="DanceTelevision.nl@SD">
     <title>Deborah De Luca: SpringFestival Graz - Kanonen Bastei</title>
   </programme>
-  <programme start="20261025062500 +0000" stop="20261025083000 +0000" channel="AMC.hu">
-    <title>Szellemirtók 2.</title>
+  <programme start="20261027150900 +0000" stop="20261027163900 +0000" channel="DanceTelevision.nl@SD">
+    <title>Francis Mercier: Somewhere Nowhere - New York (USA)</title>
   </programme>
-  <programme start="20261025083000 +0000" stop="20261025110500 +0000" channel="AMC.hu">
-    <title>Az utolsó akcióhős</title>
+  <programme start="20261027163900 +0000" stop="20261027181700 +0000" channel="DanceTelevision.nl@SD">
+    <title>Satori - Audio Obscura x Revere Series - Netherlands</title>
   </programme>
   <programme start="20261025110500 +0000" stop="20261025130500 +0000" channel="AMC.hu">
     <title>xXx2: A következő fokozat</title>
@@ -4390,8 +4322,11 @@
   <programme start="20261027124500 +0000" stop="20261027145500 +0000" channel="AMC.hu">
     <title>Piedone Egyiptomban</title>
   </programme>
-  <programme start="20261025071000 +0000" stop="20261025085000 +0000" channel="Film+.hu">
-    <title>Hotel Transylvania - Transzformánia</title>
+  <programme start="20261027145500 +0000" stop="20261027163500 +0000" channel="AMC.hu">
+    <title>Reszkess, Amerika!</title>
+  </programme>
+  <programme start="20261027163500 +0000" stop="20261027190000 +0000" channel="AMC.hu">
+    <title>A rettegés arénája</title>
   </programme>
   <programme start="20261025085000 +0000" stop="20261025115000 +0000" channel="Film+.hu">
     <title>Pókember 3.</title>
@@ -4462,11 +4397,11 @@
   <programme start="20261027122000 +0000" stop="20261027144500 +0000" channel="Film+.hu">
     <title>Oscar</title>
   </programme>
-  <programme start="20261025055000 +0000" stop="20261025080500 +0000" channel="FilmCafe.hu@Romania">
-    <title>Paranoia</title>
+  <programme start="20261027144500 +0000" stop="20261027162500 +0000" channel="Film+.hu">
+    <title>A szállító 2.</title>
   </programme>
-  <programme start="20261025080500 +0000" stop="20261025102000 +0000" channel="FilmCafe.hu@Romania">
-    <title>A másik Boleyn lány</title>
+  <programme start="20261027162500 +0000" stop="20261027190000 +0000" channel="Film+.hu">
+    <title>Halálos iramban: Hobbs &amp; Shaw</title>
   </programme>
   <programme start="20261025102000 +0000" stop="20261025124500 +0000" channel="FilmCafe.hu@Romania">
     <title>A hálózat csapdájában</title>
@@ -4549,20 +4484,11 @@
   <programme start="20261027114500 +0000" stop="20261027141000 +0000" channel="FilmCafe.hu@Romania">
     <title>Visszatérés a Paradicsomba</title>
   </programme>
-  <programme start="20261025073000 +0000" stop="20261025080000 +0000" channel="ApostolTV.hu@SD">
-    <title>Imaszándék-fogadás</title>
+  <programme start="20261027141000 +0000" stop="20261027155500 +0000" channel="FilmCafe.hu@Romania">
+    <title>Oviapu</title>
   </programme>
-  <programme start="20261025080000 +0000" stop="20261025093000 +0000" channel="ApostolTV.hu@SD">
-    <title>Szentmise</title>
-  </programme>
-  <programme start="20261025093000 +0000" stop="20261025100000 +0000" channel="ApostolTV.hu@SD">
-    <title>Zsolozsma</title>
-  </programme>
-  <programme start="20261025100000 +0000" stop="20261025101500 +0000" channel="ApostolTV.hu@SD">
-    <title>Kapcsoljuk Rómát! XIV. Leó pápa Regina Coeli imádsága</title>
-  </programme>
-  <programme start="20261025101500 +0000" stop="20261025110500 +0000" channel="ApostolTV.hu@SD">
-    <title>Imamaraton - Határok nélküli rózsafüzér</title>
+  <programme start="20261027155500 +0000" stop="20261027175500 +0000" channel="FilmCafe.hu@Romania">
+    <title>Sully - Csoda a Hudson folyón</title>
   </programme>
   <programme start="20261025110500 +0000" stop="20261025120000 +0000" channel="ApostolTV.hu@SD">
     <title>Szentségimádás</title>
@@ -4764,5 +4690,23 @@
   </programme>
   <programme start="20261027133000 +0000" stop="20261027140000 +0000" channel="ApostolTV.hu@SD">
     <title>Képújság</title>
+  </programme>
+  <programme start="20261027140000 +0000" stop="20261027150000 +0000" channel="ApostolTV.hu@SD">
+    <title>Örömhíreink Dió-héjban</title>
+  </programme>
+  <programme start="20261027150000 +0000" stop="20261027154000 +0000" channel="ApostolTV.hu@SD">
+    <title>Szentmise</title>
+  </programme>
+  <programme start="20261027154000 +0000" stop="20261027162000 +0000" channel="ApostolTV.hu@SD">
+    <title>Rózsafüzér</title>
+  </programme>
+  <programme start="20261027162000 +0000" stop="20261027165000 +0000" channel="ApostolTV.hu@SD">
+    <title>Gyereksarok</title>
+  </programme>
+  <programme start="20261027165000 +0000" stop="20261027170500 +0000" channel="ApostolTV.hu@SD">
+    <title>Homília</title>
+  </programme>
+  <programme start="20261027170500 +0000" stop="20261027180000 +0000" channel="ApostolTV.hu@SD">
+    <title>Élet az egyházban</title>
   </programme>
 </tv>
