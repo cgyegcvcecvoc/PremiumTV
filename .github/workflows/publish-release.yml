@@ -31,7 +31,7 @@ on:
 
 permissions:
   contents: write
-  actions: read
+  actions: write
 
 concurrency:
   group: publish-release
@@ -41,7 +41,7 @@ jobs:
   publish:
     name: Create the GitHub release
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 80
     steps:
       - name: Check out main
         uses: actions/checkout@v5
@@ -122,6 +122,50 @@ jobs:
           echo "Published $tag. The Android and macOS builds will attach their installers,"
           echo "and the download site deploys once every installer exists."
           gh release view "$tag" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
+
+      # A release made with GITHUB_TOKEN does not emit a new release event to
+      # other workflows. Dispatch explicitly, at the tag, so the exact-SHA
+      # asset gates in both build workflows still apply.
+      - name: Start the installer builds
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          gh workflow run android-build.yml --ref "$TAG" -f channel=stable
+          gh workflow run macos-build.yml --ref "$TAG" -f channel=stable
+
+      - name: Wait for installers and refresh the download site
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          set -euo pipefail
+          mac=$(python3 scripts/release_version.py --macos "$VERSION")
+          required=("PremiumTV-$VERSION-debug.apk")
+          for arch in arm64 x64; do
+            for ext in dmg pkg; do required+=("PremiumTV-$mac-mac-$arch.$ext"); done
+          done
+          deadline=$((SECONDS + 3900))
+          while :; do
+            assets=$(gh release view "$TAG" --json assets --jq '.assets[].name')
+            missing=()
+            for want in "${required[@]}"; do
+              if ! grep -Fxq -- "$want" <<< "$assets"; then missing+=("$want"); fi
+            done
+            if [ "${#missing[@]}" -eq 0 ]; then break; fi
+            if [ "$SECONDS" -ge "$deadline" ]; then
+              echo "::error::Release $TAG is missing installers: ${missing[*]}"
+              exit 1
+            fi
+            echo "Waiting for: ${missing[*]}"
+            sleep 60
+          done
+          gh workflow run pages.yml --ref main
+          echo "All installers attached; requested the main download site refresh." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Dry run summary
         if: ${{ inputs.dry_run }}
