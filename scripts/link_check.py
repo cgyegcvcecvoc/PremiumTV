@@ -645,6 +645,54 @@ def archive_targets(out_dir: Path, shelf_dir: Path | None = None) -> list:
     return [path for path in paths if path.is_file()]
 
 
+SMALL_COUNTRY_MAX_ENTRIES = 5
+
+
+def is_country_playlist(path: Path) -> bool:
+    """True for derived per-country slices under ``.../countries/*.m3u``.
+
+    Per-country files are mirrors of ``PremiumTV.m3u``. A tiny country file
+    (1-5 entries) whose few channels all died after a healthy global check
+    must be pruned — and unlinked if empty — rather than skipped by
+    ``--max-remove-ratio`` and left behind with dead URLs that break strict
+    playlist verification.
+    """
+    return path.suffix.lower() == ".m3u" and path.parent.name == "countries"
+
+
+def sync_countries_readme(countries_dir: Path) -> None:
+    """Keep ``countries/README.md`` aligned after pruning or deleting country slices."""
+    readme = countries_dir / "README.md"
+    if not readme.is_file():
+        return
+    counts = {}
+    for m3u in countries_dir.glob("*.m3u"):
+        _, blocks = split_blocks(m3u.read_text(encoding="utf-8", errors="replace"))
+        real = [b for b in blocks if not is_notice_block(b)]
+        if real:
+            counts[m3u.name] = len(real)
+    kept_lines: list[str] = []
+    for line in readme.read_text(encoding="utf-8").splitlines():
+        if line.startswith("| ") and ".m3u`]" in line:
+            match = re.search(r"\[`([^`]+\.m3u)`\]", line)
+            if match:
+                fname = match.group(1)
+                if fname not in counts:
+                    continue
+                parts = line.split("|")
+                if len(parts) >= 4:
+                    parts[2] = f" {counts[fname]} "
+                    line = "|".join(parts)
+        kept_lines.append(line)
+    text = "\n".join(kept_lines) + "\n"
+    text = re.sub(
+        r"Total countries: \*\*\d+\*\*",
+        f"Total countries: **{len(counts)}**",
+        text,
+    )
+    readme.write_text(text, encoding="utf-8")
+
+
 def is_report_only(path: Path) -> bool:
     """A checked-but-never-rewritten archive: it exists to hold every link found.
 
@@ -802,7 +850,8 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
         if not removed:
             continue
         remove_ratio = len(removed) / entries if entries else 0.0
-        if remove_ratio > max_remove_ratio:
+        small_country = is_country_playlist(path) and entries <= SMALL_COUNTRY_MAX_ENTRIES
+        if remove_ratio > max_remove_ratio and not small_country:
             patch_report["skipped_files"].append({
                 "file": str(path), "entries": entries, "would_remove": len(removed),
                 "ratio": round(remove_ratio, 4),
@@ -815,6 +864,19 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
         # every group title is one of the fixed categories, so a patched file
         # matches what the next scrape would publish.
         kept, regrouped = tidy_blocks(kept, path.name)
+        surviving_channels = len(kept)
+        if surviving_channels == 0 and is_country_playlist(path):
+            if not dry_run:
+                path.unlink(missing_ok=True)
+            patch_report["removed_total"] += len(removed)
+            patch_report["removed"].extend(removed)
+            patch_report["patched_files"].append({
+                "file": str(path), "entries_before": entries, "entries_after": 0,
+                "removed": len(removed), "ratio": round(remove_ratio, 4),
+                "deleted_empty": True})
+            log(f"[patch] {path.name}: removed all {len(removed)} dead entries; "
+                f"deleted empty country playlist")
+            continue
         # The notice stays first, exactly where legacy_sunset.py puts it: a
         # legacy build shows the top of its channel list first.
         kept = notices + kept
@@ -828,6 +890,11 @@ def patch_playlists(loaded: dict, results: dict, min_working_ratio: float,
             "removed": len(removed), "ratio": round(remove_ratio, 4)})
         log(f"[patch] {path.name}: removed {len(removed)} dead of {entries} "
             f"({len(kept)} remain)")
+    if not dry_run:
+        country_dirs = {Path(item["file"]).parent for item in patch_report["patched_files"]
+                        if Path(item["file"]).parent.name == "countries"}
+        for cdir in country_dirs:
+            sync_countries_readme(cdir)
     return patch_report
 
 

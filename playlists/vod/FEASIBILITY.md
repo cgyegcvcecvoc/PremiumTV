@@ -1,6 +1,6 @@
 # On-demand feasibility test — Movies & Shows
 
-Generated 2026-10-25T14:14:07Z by `scripts/vod_catalog.py`.
+Generated 2026-10-25T17:10:22Z by `scripts/vod_catalog.py`.
 
 This is the evidence behind the Movies & Shows tab: a finite film and
 episode library is feasible with the same player, the same side panel and
@@ -11,11 +11,11 @@ separate from the playlist and guide pipeline.
 
 | Measure | Value |
 |---|---:|
-| Catalogue entries | 11 |
-| Films | 5 |
-| TV episodes | 5 |
+| Catalogue entries | 21 |
+| Films | 13 |
+| TV episodes | 7 |
 | Test card (authored here) | 1 |
-| Probe: working | 11 |
+| Probe: working | 21 |
 | Probe: other | 0 |
 
 The probe opens each stream the way the apps do — a bounded range request
@@ -28,16 +28,26 @@ seekable, which is what lets the side player scrub and resume.
 | Title | Kind | Year | Runtime | Size | Direct stream | Probe |
 |---|---|---:|---:|---:|---|---|
 | PremiumTV Test Card | Film | 2026 | 1 min | 1 MB | `premiumtv-test-card.mp4` | working |
-| Carnival of Souls ( iPod Video Version ) | Film | — | 83 min | 361 MB | `carnival_of_souls_512kb.mp4` | working |
+| Beat the Devil | Film | 1953 | 89 min | 385 MB | `BeatTheDevil1954_512kb.mp4` | working |
+| Carnival of Souls | Film | 1962 | 83 min | 361 MB | `carnival_of_souls_512kb.mp4` | working |
 | His Girl Friday | Film | 1940 | 92 min | 401 MB | `his_girl_friday_512kb.mp4` | working |
+| McLintock! | Film | 1963 | 127 min | 549 MB | `McLintock_512kb.mp4` | working |
 | Night of the Living Dead | Film | 1968 | 97 min | 559 MB | `Night of the Living Dead - (1968).mp4` | working |
-| Nosferatu (1922) | Film | 1922 | 87 min | 457 MB | `Nosferatu.1922.ia.mp4` | working |
-| Plan 9 From Outer Space Full Movie | Film | 1959 | 79 min | 773 MB | `Plan 9 from Outer Space.mp4` | working |
-| Dragnet- The Big Ham (1954) | TV episode | 1954 | 26 min | 162 MB | `Dragnet_Big Ham.mp4` | working |
-| Sherlock Holmes - The Case of the Pennsylvania Gun | TV episode | 1954 | 27 min | 116 MB | `TheCaseofthePennsylvaniaGun_512kb.mp4` | working |
-| The Beverly Hillbillies - Granny's Spring Tonic - Ep 1x27 | TV episode | — | 25 min | 110 MB | `TheBeverlyHillbillies127-GrannysSpringTonic_512kb.mp4` | working |
-| The Beverly Hillbillies - Jed Buys Stock - Ep. 1x05 | TV episode | — | 25 min | 109 MB | `TheBeverlyHillbillies105-JedBuysStock_512kb.mp4` | working |
-| The Lone Ranger 1949 (S01E06) War Horse | TV episode | 1949 | 22 min | 111 MB | `The Lone Ranger 1949 (S01E06) War Horse.mp4` | working |
+| Nosferatu | Film | 1922 | 87 min | 457 MB | `Nosferatu.1922.ia.mp4` | working |
+| Plan 9 from Outer Space | Film | 1959 | 79 min | 773 MB | `Plan 9 from Outer Space.mp4` | working |
+| Suddenly | Film | 1954 | 75 min | 324 MB | `suddenly_512kb.mp4` | working |
+| Teenagers from Outer Space | Film | 1959 | 86 min | 372 MB | `Teenagers_from_Outer_Space_512kb.mp4` | working |
+| The Brain That Wouldn't Die | Film | 1962 | 82 min | 354 MB | `brain_that_wouldnt_die_512kb.mp4` | working |
+| The Hitch-Hiker | Film | 1953 | 71 min | 307 MB | `Hitch-Hiker_512kb.mp4` | working |
+| The Last Man on Earth | Film | 1964 | 86 min | 413 MB | `lastmanonearth-1964.mp4` | working |
+| The Red House | Film | 1947 | 100 min | 432 MB | `The_Red_House_512kb.mp4` | working |
+| Granny's Spring Tonic | TV episode | 1963 | 25 min | 110 MB | `TheBeverlyHillbillies127-GrannysSpringTonic_512kb.mp4` | working |
+| Jed Buys Stock | TV episode | 1962 | 25 min | 109 MB | `TheBeverlyHillbillies105-JedBuysStock_512kb.mp4` | working |
+| Stamp Day for Superman | TV episode | 1954 | 18 min | 96 MB | `Adventures of Superman Stamp Day For School Children.mp4` | working |
+| The Big Ham | TV episode | 1954 | 26 min | 162 MB | `Dragnet_Big Ham.mp4` | working |
+| The Case of the Pennsylvania Gun | TV episode | 1954 | 27 min | 116 MB | `TheCaseofthePennsylvaniaGun_512kb.mp4` | working |
+| Treasure of Santa Dolores | TV episode | 1951 | 25 min | 125 MB | `Range Rider - Treasure of Santa Dolores.mp4` | working |
+| War Horse | TV episode | 1949 | 22 min | 111 MB | `The Lone Ranger 1949 (S01E06) War Horse.mp4` | working |
 
 ## The test card
 

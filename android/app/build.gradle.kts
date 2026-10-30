@@ -96,6 +96,7 @@ android {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -120,6 +121,7 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")
 
@@ -140,7 +142,11 @@ dependencies {
 
     implementation("androidx.media3:media3-exoplayer:1.4.1")
     implementation("androidx.media3:media3-exoplayer-hls:1.4.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.4.1")
     implementation("androidx.media3:media3-ui:1.4.1")
+    // Bundled FFmpeg audio decoder (AC-3, E-AC-3, DTS, FLAC, ALAC, PCM, MP2/MP3/AAC)
+    // auto-discovered by DefaultRenderersFactory when MediaCodec lacks broadcast codecs.
+    implementation("org.jellyfin.media3:media3-ffmpeg-decoder:1.3.1+2")
 
     implementation("io.coil-kt:coil-compose:2.6.0")
 

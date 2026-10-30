@@ -130,11 +130,18 @@ class Version112Tests(unittest.TestCase):
             )
 
     def test_the_notice_covers_every_build_below_1_1_2(self):
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import release_version  # noqa: E402
+
         document = json.loads(text(ROOT / "app-update-notice.json"))
         rules = {rule["id"]: rule for rule in document["rules"]}
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.1"))
-        self.assertIn("1.1.2", stable["surprise"])
+        self.assertEqual(stable["min_version"], "1.0.4")
+        self.assertGreaterEqual(
+            release_version.compare_versions(stable["max_version"], "1.1.1"),
+            0,
+        )
+        self.assertIn(release_version.current_version(), stable["surprise"])
         self.assertNotIn("retired-preview-1-1", rules)
 
     def test_the_download_site_no_longer_retires_a_stable_tag(self):

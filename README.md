@@ -69,40 +69,43 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.2** (Android `versionCode 101020000`) | USA lineup + USA guide | Default and only download — a channel opens in the docked side player, one press on the picture goes full screen, and Movies & Shows is a working on-demand test shelf ([notes](release-notes-1.1.2.md)) |
-| Superseded | **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Install in place over these builds; Settings → App updates finds 1.1.2 automatically |
+| **Stable release** | **1.1.3** (Android `versionCode 101030000`) | USA lineup + USA guide | Default and only download — broadcast audio recovery (AC-3/E-AC-3/MP2 + HLS audio renditions), moving gold loading bar, expanded 21-item Movies & Shows shelf with search/genres, and built-in player transport controls ([notes](release-notes-1.1.3.md)) |
+| Superseded | **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Install in place over these builds; Settings → App updates finds 1.1.3 automatically |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.2 ends Nov 19, 2026 |
-| Next | — | USA lineup + USA guide | 1.1.2 is published and is the source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.3 — `.github/workflows/publish-release.yml` publishes it from `VERSION`; the V-patch/alias series stays retired |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.3 ends Nov 19, 2026 |
+| Next | — | USA lineup + USA guide | 1.1.3 is published and is the source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.4 — `.github/workflows/publish-release.yml` publishes it from `VERSION`; the V-patch/alias series stays retired |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.2 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.3 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.2 over the preview (`101020000` > `100010001`) and
+newer. Android accepts 1.1.3 over the preview (`101030000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
 
-### What 1.1.2 adds
+### What 1.1.3 adds
 
-- **A channel opens in the side player first.** Clicking any channel — from the
-  browser, the Guide or Live Events — docks it in the right-hand panel with the
-  category rail and channel list still usable. One click (or OK) on the picture
-  grows the *same* running stream to full screen; Back tucks it away again and
-  ✕ closes it.
-- **Movies & Shows is now a real shelf.** The coming-soon page is replaced by a
-  working on-demand test: a poster grid of public-domain films and classic TV
-  episodes with All / Movies / TV Shows filters, a runtime and genre line, and
-  playback in the same side player. `scripts/vod_catalog.py` resolves, verifies
-  and reports the catalogue ([feasibility report](playlists/vod/FEASIBILITY.md));
-  it stays separate from the M3U lineup and the XMLTV guide.
-- **The side player reads better at a glance.** The docked card names the
-  channel or on-demand title, marks what is playing, keeps the server/backup
-  line and the ⤢ affordance visible on every feed.
-- **Version plumbing.** Android `1.1.2` / `versionCode 101020000`, macOS
-  `1.1.2`, no alias or V-patch twin; `app-update-notice.json` nudges every build
-  below 1.1.1 ([notes](release-notes-1.1.2.md)).
+- **Broadcast audio recovery for silent channels.** Android adds Media3 FFmpeg
+  audio decoding (`AC-3`, `E-AC-3`, `DTS`, `MP2`), mixed-MIME audio track
+  adaptiveness, explicit audio-focus handling, primary non-SAP track preference,
+  and automatic backup-server hop when no audio track is decodable. macOS
+  rewrites extensionless `#EXT-X-MEDIA:TYPE=AUDIO` renditions in the stream
+  proxy, infers missing audio MIME headers, filters HLS variants to
+  MSE-supported audio codecs, and monitors `webkitAudioDecodedByteCount` to
+  recover from silent tracks automatically.
+- **Moving gold startup loading bar.** Both startup screens display a smooth
+  moving highlight sweep across the determinate gold loading bar while
+  respecting system reduced-motion settings.
+- **Movies & Shows expanded + built-in transport player.** `scripts/vod_catalog.py`
+  now ships 21 verified public-domain films and classic TV episodes with backup
+  MP4 derivatives ([feasibility report](playlists/vod/FEASIBILITY.md)), search
+  and genre pills, local VOD playback resume, and built-in transport controls
+  (`Play/Pause`, `±10s`, seek bar, `LIVE` pill, `Mute`, and `Audio` track
+  switcher) in both the docked side player and full screen.
+- **Version plumbing.** Android `1.1.3` / `versionCode 101030000`, macOS
+  `1.1.3`, no alias or V-patch twin; `app-update-notice.json` nudges every build
+  up through 1.1.2 ([notes](release-notes-1.1.3.md)).
 
 The current version lives in [`VERSION`](VERSION) and nowhere else.
 `python scripts/version_sync.py` derives `android/version.properties` and the

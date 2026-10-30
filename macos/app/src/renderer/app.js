@@ -45,15 +45,31 @@
     moviesEmpty: document.getElementById('movies-empty'),
     moviesSubtitle: document.getElementById('movies-subtitle'),
     moviesFilters: document.getElementById('movies-filters'),
+    moviesSearch: document.getElementById('movies-search'),
+    moviesGenres: document.getElementById('movies-genres'),
     splash: document.getElementById('splash'),
+    splashBar: document.getElementById('splash-bar'),
+    splashBarFill: document.getElementById('splash-bar-fill'),
     splashStatus: document.getElementById('splash-status'),
     splashVersion: document.getElementById('splash-version'),
     player: document.getElementById('player'),
+    video: document.getElementById('video'),
     playerName: document.getElementById('player-name'),
     playerNow: document.getElementById('player-now'),
     playerNext: document.getElementById('player-next'),
     playerDetail: document.getElementById('player-detail'),
     playerServer: document.getElementById('player-server'),
+    playerAudioBadge: document.getElementById('player-audio-badge'),
+    playerControls: document.getElementById('player-controls'),
+    playerToggle: document.getElementById('player-toggle'),
+    playerBack10: document.getElementById('player-back-10'),
+    playerFwd10: document.getElementById('player-fwd-10'),
+    playerSeek: document.getElementById('player-seek'),
+    playerTime: document.getElementById('player-time'),
+    playerLivePill: document.getElementById('player-live-pill'),
+    playerAudioTrack: document.getElementById('player-audio-track'),
+    playerMute: document.getElementById('player-mute'),
+    playerVolume: document.getElementById('player-volume'),
     playerClose: document.getElementById('player-close'),
     playerMinimize: document.getElementById('player-minimize'),
     playerPrevServer: document.getElementById('player-prev-server'),
@@ -97,6 +113,8 @@
     // bundle (meta.vod_catalog) and the filter the viewer picked.
     vodItems: [],
     vodFilter: 'all',
+    vodGenre: 'all',
+    vodQuery: '',
     sportsDoc: null,
     // Search is click-to-activate (1.0.6): hovering or tabbing past the field
     // must never start a search. Only an explicit click (or '/' / Enter on the
@@ -1699,6 +1717,44 @@
   // channel. An item is one finite stream, so it has no guide listings and no
   // backup servers - the player simply opens it.
 
+  const VOD_POSITIONS_KEY = 'premiumtv.vod.positions.v1';
+
+  function loadVodPositions() {
+    try {
+      const raw = JSON.parse(window.localStorage.getItem(VOD_POSITIONS_KEY) || '{}');
+      return raw && typeof raw === 'object' ? raw : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function saveVodPosition(id, seconds, duration) {
+    if (!id || !Number.isFinite(seconds)) return;
+    try {
+      const store = loadVodPositions();
+      if (Number.isFinite(duration) && duration > 20 && seconds >= duration - 12) {
+        delete store[id];
+      } else if (seconds >= 5) {
+        store[id] = Math.floor(seconds);
+      } else {
+        return;
+      }
+      window.localStorage.setItem(VOD_POSITIONS_KEY, JSON.stringify(store));
+    } catch (error) {
+      /* storage unavailable */
+    }
+  }
+
+  function formatMediaClock(totalSeconds) {
+    if (!Number.isFinite(totalSeconds) || totalSeconds < 0) return '0:00';
+    const whole = Math.floor(totalSeconds);
+    const hrs = Math.floor(whole / 3600);
+    const mins = Math.floor((whole % 3600) / 60);
+    const secs = whole % 60;
+    const pad = (n) => String(n).padStart(2, '0');
+    return hrs > 0 ? `${hrs}:${pad(mins)}:${pad(secs)}` : `${mins}:${pad(secs)}`;
+  }
+
   function vodLabel(item) {
     if (item.kind === 'movie') return 'FILM';
     if (item.season > 0 && item.episode > 0) return `S${item.season} E${item.episode}`;
@@ -1715,26 +1771,71 @@
   }
 
   /** The player's input: the same shape a channel has, minus the live bits. */
-  function vodChannel(item) {
+  function vodChannel(item, streamUrl = item.stream) {
     return {
       id: item.id,
       name: item.kind === 'movie' ? item.title : `${item.show || item.title} · ${vodLabel(item)}`,
-      url: item.stream,
+      url: streamUrl,
       logo: item.poster || '',
       group: item.kind === 'movie' ? 'Movies' : 'TV Shows',
       country: 'US',
+      vod: true,
+      vodSummary: item.summary || '',
+      vodDetail: vodDetail(item),
     };
   }
 
+  function vodServers(item) {
+    const urls = Array.isArray(item.streams) && item.streams.length
+      ? item.streams.filter(Boolean)
+      : [item.stream];
+    const unique = [...new Set(urls)];
+    return unique.map((url) => vodChannel(item, url));
+  }
+
   function watchVod(item) {
-    const channel = vodChannel(item);
-    openPlayer(channel, [channel]);
+    const servers = vodServers(item);
+    openPlayer(servers[0], servers);
   }
 
   function renderMovies() {
     if (!els.moviesGrid) return;
     const items = Array.isArray(ui.vodItems) ? ui.vodItems : [];
-    const shown = ui.vodFilter === 'all' ? items : items.filter((item) => item.kind === ui.vodFilter);
+    const byKind = ui.vodFilter === 'all' ? items : items.filter((item) => item.kind === ui.vodFilter);
+
+    const genres = [...new Set(byKind.map((item) => item.genre).filter(Boolean))].sort();
+    if (ui.vodGenre !== 'all' && !genres.includes(ui.vodGenre)) {
+      ui.vodGenre = 'all';
+    }
+    if (els.moviesGenres) {
+      if (genres.length > 1) {
+        els.moviesGenres.hidden = false;
+        const chips = ['all', ...genres].map((genre) => {
+          const label = genre === 'all' ? 'All genres' : genre;
+          const active = ui.vodGenre === genre;
+          return `<button class="vod-genre-chip" type="button" data-vod-genre="${escapeHtml(genre)}" aria-pressed="${active}">${escapeHtml(label)}</button>`;
+        });
+        els.moviesGenres.innerHTML = chips.join('');
+        for (const btn of els.moviesGenres.querySelectorAll('[data-vod-genre]')) {
+          btn.addEventListener('click', () => {
+            ui.vodGenre = btn.dataset.vodGenre || 'all';
+            renderMovies();
+          });
+        }
+      } else {
+        els.moviesGenres.innerHTML = '';
+        els.moviesGenres.hidden = true;
+      }
+    }
+
+    const needle = (ui.vodQuery || '').trim().toLowerCase();
+    const shown = byKind.filter((item) => {
+      if (ui.vodGenre !== 'all' && item.genre !== ui.vodGenre) return false;
+      if (!needle) return true;
+      const hay = `${item.title || ''} ${item.show || ''} ${item.genre || ''} ${item.summary || ''} ${item.year || ''}`.toLowerCase();
+      return hay.includes(needle);
+    });
+
     if (els.moviesSubtitle) {
       els.moviesSubtitle.textContent = items.length
         ? `${items.length} on demand · films, classic TV and a test card · plays in the side player`
@@ -1743,16 +1844,22 @@
     for (const chip of document.querySelectorAll('#movies-filters .vod-chip')) {
       chip.setAttribute('aria-pressed', String(chip.dataset.vodFilter === ui.vodFilter));
     }
+    const positions = loadVodPositions();
     els.moviesGrid.innerHTML = shown.map((item) => {
       const kind = item.kind === 'movie' ? 'movie' : 'episode';
       const summary = item.summary ? `<p class="vod-summary">${escapeHtml(item.summary)}</p>` : '';
       const detail = vodDetail(item);
+      const savedSec = Number(positions[item.id] || 0);
+      const resumeBadge = savedSec >= 5
+        ? `<span class="vod-resume">Continue · ${escapeHtml(formatMediaClock(savedSec))}</span>`
+        : '';
       return `
         <button class="vod-card" data-vod-id="${escapeHtml(item.id)}" data-vod-kind="${kind}" aria-label="Play ${escapeHtml(item.title)}">
           <span class="vod-poster">
             <img src="${escapeHtml(item.poster || '')}" alt="" loading="lazy" />
             <span class="vod-play">▶</span>
             <span class="vod-label">${escapeHtml(vodLabel(item))}</span>
+            ${resumeBadge}
           </span>
           <span class="vod-body">
             <span class="vod-title">${escapeHtml(item.title)}</span>
@@ -1869,6 +1976,13 @@
 
   function describeChannel(channel) {
     els.playerName.textContent = channel.name;
+    if (channel.vod) {
+      els.playerNow.textContent = channel.vodDetail || 'On demand';
+      els.playerNext.textContent = '';
+      els.playerDetail.textContent = channel.vodSummary || channel.group;
+      renderServerBadge();
+      return;
+    }
     const at = nowSeconds();
     const { current, next } = nowPlayingFrom(listingsFor(channel), at);
     els.playerNow.textContent = current ? `Now · ${current.t}` : '';
@@ -1921,6 +2035,96 @@
     await playCurrentServer();
   }
 
+  let audioSilentHopUsed = false;
+  let vodResumeAppliedForId = '';
+  let lastVodSaveAt = 0;
+  let seekingDrag = false;
+
+  function isFiniteVodPlayback() {
+    const channel = currentChannel();
+    const dur = els.video ? els.video.duration : NaN;
+    return Boolean((channel && channel.vod) || (Number.isFinite(dur) && dur > 0 && dur < 86400));
+  }
+
+  function syncTransportChrome() {
+    const video = els.video;
+    if (!video) return;
+    const seekable = isFiniteVodPlayback();
+    if (els.playerToggle) {
+      const paused = Boolean(video.paused);
+      els.playerToggle.textContent = paused ? '▶' : '❚❚';
+      els.playerToggle.setAttribute('aria-label', paused ? 'Play' : 'Pause playback');
+    }
+    if (els.playerBack10) els.playerBack10.hidden = !seekable;
+    if (els.playerFwd10) els.playerFwd10.hidden = !seekable;
+    if (els.playerSeek) els.playerSeek.hidden = !seekable;
+    if (els.playerTime) els.playerTime.hidden = !seekable;
+    if (els.playerLivePill) els.playerLivePill.hidden = seekable;
+    if (seekable) {
+      const cur = Number.isFinite(video.currentTime) ? video.currentTime : 0;
+      const dur = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : 0;
+      if (els.playerTime) {
+        els.playerTime.textContent = dur > 0
+          ? `${formatMediaClock(cur)} / ${formatMediaClock(dur)}`
+          : formatMediaClock(cur);
+      }
+      if (els.playerSeek && !seekingDrag && dur > 0) {
+        els.playerSeek.value = String(Math.round((cur / dur) * 1000));
+      }
+    }
+    const muted = window.PremiumPlayer.isMuted ? window.PremiumPlayer.isMuted() : Boolean(video.muted);
+    const volume = window.PremiumPlayer.getVolume ? window.PremiumPlayer.getVolume() : (video.volume ?? 1);
+    if (els.playerMute) {
+      els.playerMute.textContent = muted || volume === 0 ? '🔇' : '🔊';
+      els.playerMute.setAttribute('aria-label', muted ? 'Unmute audio' : 'Mute audio');
+    }
+    if (els.playerVolume) {
+      els.playerVolume.value = String(Math.round((muted ? 0 : volume) * 100));
+    }
+  }
+
+  if (typeof window.PremiumPlayer.onAudioState === 'function') {
+    window.PremiumPlayer.onAudioState((audioState) => {
+      syncTransportChrome();
+      const tracks = Array.isArray(audioState.tracks) ? audioState.tracks : [];
+      if (els.playerAudioTrack) {
+        if (tracks.length > 1) {
+          const activeLabel = audioState.activeTrack ? audioState.activeTrack.label : 'Audio';
+          els.playerAudioTrack.textContent = `🔊 ${activeLabel} (${tracks.length})`;
+          els.playerAudioTrack.hidden = false;
+        } else {
+          els.playerAudioTrack.hidden = true;
+        }
+      }
+      if (audioState.switchedTrack) {
+        els.statusText.textContent = `Switched audio track to ${audioState.switchedTrack}`;
+        if (els.playerAudioBadge) {
+          els.playerAudioBadge.textContent = `🔊 ${audioState.switchedTrack}`;
+          els.playerAudioBadge.hidden = false;
+        }
+      } else if (audioState.silent && !els.player.hidden) {
+        const channel = currentChannel();
+        if (channel && !channel.vod && playQueue.length > 1 && !audioSilentHopUsed) {
+          audioSilentHopUsed = true;
+          playQueueIndex = (playQueueIndex + 1) % playQueue.length;
+          els.statusText.textContent =
+            `No audio decoded on previous feed — trying server ${playQueueIndex + 1} of ${playQueue.length}…`;
+          playCurrentServer().catch(() => {});
+          return;
+        }
+        if (els.playerAudioBadge) {
+          els.playerAudioBadge.textContent = '🔇 No audio track decoded on this feed';
+          els.playerAudioBadge.hidden = false;
+        }
+        els.statusText.textContent = playQueue.length > 1
+          ? 'No audio track decoded on this feed — try Server ▶ for another feed.'
+          : 'No audio track decoded on this stream.';
+      } else if (!audioState.silent && els.playerAudioBadge) {
+        els.playerAudioBadge.hidden = true;
+      }
+    });
+  }
+
   async function openPlayer(channel, servers) {
     noteWatched(channel);
     const list = Array.isArray(servers) && servers.length
@@ -1928,12 +2132,16 @@
       : window.PremiumLive.serversFor(channel, snapshot.library.channels || []);
     playQueue = list;
     playQueueIndex = Math.max(0, list.findIndex((item) => item.url === channel.url));
+    audioSilentHopUsed = false;
+    vodResumeAppliedForId = '';
+    if (els.playerAudioBadge) els.playerAudioBadge.hidden = true;
     els.player.hidden = false;
     // 1.1.2: a channel (or an on-demand item) opens in the side player; one
     // click on the picture grows it to the full window.
     playerMini = true;
     updatePlayerMode();
     describeChannel(playQueue[playQueueIndex] || channel);
+    syncTransportChrome();
     await playCurrentServer(channel.name);
   }
 
@@ -2013,8 +2221,14 @@
   }
 
   async function closePlayer() {
+    const closing = currentChannel();
+    if (closing && closing.vod && els.video) {
+      saveVodPosition(closing.id, els.video.currentTime, els.video.duration);
+      if (ui.tab === 'movies') renderMovies();
+    }
     window.PremiumPlayer.stop();
     els.player.hidden = true;
+    if (els.playerAudioBadge) els.playerAudioBadge.hidden = true;
     playerMini = false;
     els.player.classList.remove('mini');
     playQueue = [];
@@ -2057,6 +2271,12 @@
       const button = event.target.closest('[data-vod-filter]');
       if (!button) return;
       ui.vodFilter = button.dataset.vodFilter;
+      renderMovies();
+    });
+  }
+  if (els.moviesSearch) {
+    els.moviesSearch.addEventListener('input', () => {
+      ui.vodQuery = els.moviesSearch.value;
       renderMovies();
     });
   }
@@ -2128,6 +2348,106 @@
   if (els.playerNextServer) els.playerNextServer.addEventListener('click', () => switchServer(1));
   if (els.playerFavorite) els.playerFavorite.addEventListener('click', toggleFavorite);
   els.playerRetry.addEventListener('click', () => window.PremiumPlayer.retry());
+
+  if (els.playerControls) {
+    els.playerControls.addEventListener('click', (event) => event.stopPropagation());
+  }
+  if (els.playerToggle) {
+    els.playerToggle.addEventListener('click', () => {
+      if (!els.video) return;
+      if (els.video.paused) els.video.play().catch(() => {});
+      else els.video.pause();
+      syncTransportChrome();
+    });
+  }
+  if (els.playerBack10) {
+    els.playerBack10.addEventListener('click', () => {
+      if (!els.video || !isFiniteVodPlayback()) return;
+      els.video.currentTime = Math.max(0, (els.video.currentTime || 0) - 10);
+      syncTransportChrome();
+    });
+  }
+  if (els.playerFwd10) {
+    els.playerFwd10.addEventListener('click', () => {
+      if (!els.video || !isFiniteVodPlayback()) return;
+      const dur = Number.isFinite(els.video.duration) ? els.video.duration : Infinity;
+      els.video.currentTime = Math.min(dur, (els.video.currentTime || 0) + 10);
+      syncTransportChrome();
+    });
+  }
+  if (els.playerSeek) {
+    els.playerSeek.addEventListener('mousedown', () => { seekingDrag = true; });
+    els.playerSeek.addEventListener('mouseup', () => { seekingDrag = false; });
+    els.playerSeek.addEventListener('input', () => {
+      if (!els.video || !Number.isFinite(els.video.duration) || els.video.duration <= 0) return;
+      const ratio = Number(els.playerSeek.value) / 1000;
+      els.video.currentTime = ratio * els.video.duration;
+      syncTransportChrome();
+    });
+  }
+  if (els.playerMute) {
+    els.playerMute.addEventListener('click', () => {
+      if (typeof window.PremiumPlayer.toggleMute === 'function') {
+        window.PremiumPlayer.toggleMute();
+      } else if (els.video) {
+        els.video.muted = !els.video.muted;
+      }
+      syncTransportChrome();
+    });
+  }
+  if (els.playerVolume) {
+    els.playerVolume.addEventListener('input', () => {
+      const vol = Number(els.playerVolume.value) / 100;
+      if (typeof window.PremiumPlayer.setVolume === 'function') {
+        window.PremiumPlayer.setVolume(vol);
+      } else if (els.video) {
+        els.video.volume = vol;
+        els.video.muted = vol === 0;
+      }
+      syncTransportChrome();
+    });
+  }
+  if (els.playerAudioTrack) {
+    els.playerAudioTrack.addEventListener('click', () => {
+      if (typeof window.PremiumPlayer.cycleAudioTrack === 'function') {
+        window.PremiumPlayer.cycleAudioTrack();
+      }
+      syncTransportChrome();
+    });
+  }
+  if (els.video && typeof els.video.addEventListener === 'function') {
+    for (const evt of ['play', 'pause', 'durationchange', 'volumechange']) {
+      els.video.addEventListener(evt, syncTransportChrome);
+    }
+    els.video.addEventListener('loadedmetadata', () => {
+      const channel = currentChannel();
+      if (channel && channel.vod && vodResumeAppliedForId !== channel.id) {
+        vodResumeAppliedForId = channel.id;
+        const saved = Number(loadVodPositions()[channel.id] || 0);
+        if (saved >= 5 && Number.isFinite(els.video.duration) && saved < els.video.duration - 12) {
+          els.video.currentTime = saved;
+          els.statusText.textContent = `Resumed ${channel.name} at ${formatMediaClock(saved)}`;
+        }
+      }
+      syncTransportChrome();
+    });
+    els.video.addEventListener('timeupdate', () => {
+      syncTransportChrome();
+      const channel = currentChannel();
+      if (channel && channel.vod && Date.now() - lastVodSaveAt >= 5000) {
+        lastVodSaveAt = Date.now();
+        saveVodPosition(channel.id, els.video.currentTime, els.video.duration);
+      }
+    });
+    els.video.addEventListener('ended', () => {
+      const channel = currentChannel();
+      if (channel && channel.vod) {
+        saveVodPosition(channel.id, els.video.duration, els.video.duration);
+        if (ui.tab === 'movies') renderMovies();
+      }
+      syncTransportChrome();
+    });
+  }
 
   // Scroll paging is coalesced through requestAnimationFrame: a scroll burst
   // used to run visibleChannels() (a full filter over every channel) per event.
@@ -2308,7 +2628,15 @@
       if (video.paused) video.play();
       else video.pause();
     }
-    if (event.key === '/' && document.activeElement !== els.search) {
+    if ((event.key === 'm' || event.key === 'M') && !els.player.hidden
+        && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) {
+      event.preventDefault();
+      if (typeof window.PremiumPlayer.toggleMute === 'function') window.PremiumPlayer.toggleMute();
+      syncTransportChrome();
+      return;
+    }
+    if (event.key === '/' && document.activeElement !== els.search
+        && document.activeElement !== els.moviesSearch) {
       event.preventDefault();
       activateSearch();
     }
@@ -2367,7 +2695,9 @@
     renderActivity();
   });
 
-  api.onProgress(() => {
+  api.onProgress((progress) => {
+    const pct = progress && typeof progress.percent === 'number' ? progress.percent : 68;
+    setSplashProgress(pct, progress && progress.message ? progress.message : 'Loading channels & guide…');
     updateSnapshot();
   });
 
@@ -2389,15 +2719,25 @@
 
   const activityTimer = window.setInterval(renderActivity, 1000);
 
+  function setSplashProgress(percent, message) {
+    const clamped = Math.max(8, Math.min(100, Math.round(Number(percent) || 12)));
+    if (els.splashBarFill) els.splashBarFill.style.width = `${clamped}%`;
+    if (els.splashBar) els.splashBar.setAttribute('aria-valuenow', String(clamped));
+    if (message && els.splashStatus) els.splashStatus.textContent = message;
+  }
+
   /** Fade the launch splash out; the app underneath is already painted. */
   function hideSplash() {
     if (!els.splash || els.splash.classList.contains('done')) return;
+    setSplashProgress(100, 'Ready');
     els.splash.classList.add('done');
     els.splash.setAttribute('aria-hidden', 'true');
   }
 
   async function boot() {
+    setSplashProgress(18, 'Starting PremiumTV…');
     appInfo = await api.getAppInfo();
+    setSplashProgress(46, 'Reading your channel library…');
     updateState = appInfo.updates || null;
     renderUpdateNotice();
     const brandTag = document.getElementById('brand-tag');

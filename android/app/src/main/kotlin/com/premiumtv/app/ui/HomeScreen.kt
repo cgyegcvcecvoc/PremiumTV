@@ -1811,7 +1811,7 @@ private fun kickoffTime(kickoffUtcSeconds: Long): String {
 }
 
 /** The on-demand test catalogue shipped beside the channel list. */
-private fun Context.readVodCatalog(): List<VodItem> = parseVodCatalog(readAsset("vod-catalog.json"))
+internal fun Context.readVodCatalog(): List<VodItem> = parseVodCatalog(readAsset("vod-catalog.json"))
 
 /** Reads one bundled JSON asset, or null when it is absent or unreadable. */
 private fun Context.readAsset(name: String): String? = try {

@@ -104,4 +104,24 @@ class VodShelfTest {
         assertEquals("EPISODE", episode.label)
         assertEquals("Dragnet · EPISODE", episode.asChannel().name)
     }
+
+    @Test
+    fun `multi-source VOD entries expose backup derivatives for automatic server fallback`() {
+        val obj = item("vod-suddenly", "Suddenly", year = 1954, genre = "Thriller", runtime = 4500)
+            .put("stream", "https://archive.org/download/suddenly/suddenly_512kb.mp4")
+            .put(
+                "streams",
+                JSONArray(
+                    listOf(
+                        "https://archive.org/download/suddenly/suddenly_512kb.mp4",
+                        "https://archive.org/download/suddenly/suddenly.mp4",
+                    )
+                ),
+            )
+        val parsed = parseVodCatalog(catalog(obj)).single()
+        val channels = parsed.asChannels()
+        assertEquals(2, channels.size)
+        assertEquals("https://archive.org/download/suddenly/suddenly_512kb.mp4", channels[0].url)
+        assertEquals("https://archive.org/download/suddenly/suddenly.mp4", channels[1].url)
+    }
 }

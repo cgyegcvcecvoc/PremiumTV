@@ -2,6 +2,7 @@ package com.premiumtv.app.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +18,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,7 +34,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -68,6 +73,7 @@ data class VodItem(
     val stream: String,
     val poster: String,
     val license: String,
+    val streams: List<String> = listOf(stream),
 ) {
     val isMovie: Boolean get() = kind == "movie"
 
@@ -88,15 +94,23 @@ data class VodItem(
             runtimeSeconds.takeIf { it > 0 }?.let { "${it / 60} min" },
         ).joinToString(" · ")
 
-    /** The player's input: one finite stream, one server, no guide listings. */
-    fun asChannel(): Channel = Channel(
+    /** The player's input: primary direct stream, same shape as a channel. */
+    fun asChannel(): Channel = asChannelForUrl(stream)
+
+    /** Every direct derivative published for this title, primary first, for automatic fallback. */
+    fun asChannels(): List<Channel> {
+        val urls = streams.filter { it.isNotBlank() }.distinct().ifEmpty { listOf(stream) }
+        return urls.map { asChannelForUrl(it) }
+    }
+
+    private fun asChannelForUrl(targetUrl: String): Channel = Channel(
         id = id,
         name = if (isMovie) title else "$show · $label",
         logo = poster,
         group = if (isMovie) "Movies" else "TV Shows",
         country = "US",
         chno = "",
-        url = stream,
+        url = targetUrl,
         userAgent = "",
         referrer = "",
         origin = "",
@@ -116,6 +130,16 @@ internal fun parseVodCatalog(text: String?): List<VodItem> {
                 val title = item.optString("title")
                 val id = item.optString("id")
                 if (stream.isBlank() || title.isBlank() || id.isBlank()) continue
+                val rawStreams = item.optJSONArray("streams")
+                val parsedStreams = buildList {
+                    add(stream)
+                    if (rawStreams != null) {
+                        for (sIdx in 0 until rawStreams.length()) {
+                            val candidate = rawStreams.optString(sIdx)
+                            if (candidate.isNotBlank() && candidate !in this) add(candidate)
+                        }
+                    }
+                }
                 add(
                     VodItem(
                         id = id,
@@ -131,6 +155,7 @@ internal fun parseVodCatalog(text: String?): List<VodItem> {
                         stream = stream,
                         poster = item.optString("poster"),
                         license = item.optString("license"),
+                        streams = parsedStreams,
                     )
                 )
             }
@@ -158,12 +183,30 @@ fun VodShelfScreen(
     onBrowseChannels: () -> Unit,
 ) {
     var filter by rememberSaveable { mutableStateOf(VodFilter.All.name) }
+    var selectedGenre by rememberSaveable { mutableStateOf("") }
+    var query by rememberSaveable { mutableStateOf("") }
     val active = VodFilter.values().firstOrNull { it.name == filter } ?: VodFilter.All
-    val shown = remember(items, active) {
+
+    val byKind = remember(items, active) {
         when (active) {
             VodFilter.All -> items
             VodFilter.Movies -> items.filter { it.isMovie }
             VodFilter.Shows -> items.filter { !it.isMovie }
+        }
+    }
+    val genres = remember(byKind) {
+        byKind.mapNotNull { it.genre.takeIf { g -> g.isNotBlank() } }.distinct().sorted()
+    }
+    val effectiveGenre = if (selectedGenre in genres) selectedGenre else ""
+    val shown = remember(byKind, effectiveGenre, query) {
+        val needle = query.trim().lowercase()
+        byKind.filter { item ->
+            (effectiveGenre.isBlank() || item.genre == effectiveGenre) &&
+                (needle.isBlank() ||
+                    item.title.lowercase().contains(needle) ||
+                    item.show.lowercase().contains(needle) ||
+                    item.genre.lowercase().contains(needle) ||
+                    item.summary.lowercase().contains(needle))
         }
     }
 
@@ -198,22 +241,86 @@ fun VodShelfScreen(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f),
             )
+            Spacer(modifier = Modifier.width(10.dp))
+            VodSearchField(
+                value = query,
+                onValueChange = { query = it },
+                modifier = Modifier.width(200.dp),
+            )
             VodFilter.values().forEach { option ->
                 Spacer(modifier = Modifier.width(8.dp))
                 VodChip(option.label, option == active) { filter = option.name }
             }
         }
-
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(186.dp),
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(start = 28.dp, end = 28.dp, top = 6.dp, bottom = 48.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp),
-        ) {
-            items(items = shown, key = { it.id }) { item ->
-                VodCard(item = item, onWatch = { onWatch(item) })
+        if (genres.size > 1) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(start = 28.dp, end = 28.dp, bottom = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                VodChip("All genres", effectiveGenre.isBlank()) { selectedGenre = "" }
+                genres.forEach { genre ->
+                    VodChip(genre, effectiveGenre == genre) { selectedGenre = genre }
+                }
             }
+        }
+
+        if (shown.isEmpty()) {
+            CenteredMessage("No titles match this filter.")
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(186.dp),
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(start = 28.dp, end = 28.dp, top = 6.dp, bottom = 48.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(18.dp),
+            ) {
+                items(items = shown, key = { it.id }) { item ->
+                    VodCard(item = item, onWatch = { onWatch(item) })
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun VodSearchField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var focused by remember { mutableStateOf(false) }
+    Surface(
+        modifier = modifier
+            .onFocusChanged { focused = it.isFocused }
+            .focusOutline(focused, RoundedCornerShape(999.dp)),
+        shape = RoundedCornerShape(999.dp),
+        color = CardBackground,
+        border = BorderStroke(1.dp, if (focused) FocusRing else PanelStroke),
+    ) {
+        Box(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+            contentAlignment = Alignment.CenterStart,
+        ) {
+            if (value.isEmpty()) {
+                Text(
+                    text = "Search Movies & Shows",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                    maxLines = 1,
+                )
+            }
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                singleLine = true,
+                textStyle = TextStyle(color = Color.White, fontSize = 12.sp),
+                cursorBrush = SolidColor(PremiumGold),
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 }
