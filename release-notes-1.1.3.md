@@ -1,10 +1,15 @@
 # PremiumTV 1.1.3 — moving loading bar, expanded Movies & Shows + transport player, and broadcast audio fixes (stable)
 
-Published 2026-10-25. Android `1.1.3` / `versionCode 101030000`, macOS `1.1.3`.
+Prepared 2026-10-25. Android `1.1.3` / `versionCode 101030000`, macOS `1.1.3`.
 
 It installs straight over 1.1.2, 1.1.1, 1.1.0 and every earlier build — no
 uninstall needed — and Settings → App updates offers it to every build below
 it.
+
+## Channel health and a quieter welcome
+
+- `playlists/HEALTH.txt` summarizes the latest scrape, source status and the share of checked links that were reachable. Unverified links remain separate from confirmed failures; a probe is not a playback or signal-quality guarantee.
+- The loading screen motto is “Good TV, quietly ready.” on Android and macOS.
 
 ## Broadcast audio recovery for silent channels
 

@@ -248,6 +248,12 @@ jobs:
           fi
           exit "$code"
 
+      - name: Refresh the channel health report
+        if: always() && steps.scraper.outcome != 'skipped'
+        run: |
+          python scripts/health_report.py
+          cat playlists/HEALTH.txt >> "$GITHUB_STEP_SUMMARY"
+
       - name: Commit playlists and run diagnostics
         if: always() && steps.scraper.outcome != 'skipped'
         env:

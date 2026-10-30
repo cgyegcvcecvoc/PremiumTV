@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-30 — A quieter welcome and channel health for 1.1.3
+
+- Added `playlists/HEALTH.txt`, refreshed after each scrape, with the latest run status, source reachability, working/failed/unverified counts and a clearly defined reachability percentage. It is a snapshot, not a playback or signal-quality guarantee.
+- Android and macOS loading screens now share the low-key motto “Good TV, quietly ready.”
+- 1.1.3 remains prepared; a published stable release requires the release workflow and completed installers, not just a version bump.
+
 ## 2026-10-25 — Version 1.1.3: broadcast audio recovery, moving loading bar, expanded Movies & Shows and transport player (stable)
 
 - **Stable 1.1.3 is prepared** for Android TV / Fire TV (`versionCode 101030000`) and macOS (`1.1.3`). It installs in place over 1.1.2 and every earlier build; tag `v1.1.3`. See [`release-notes-1.1.3.md`](release-notes-1.1.3.md).

@@ -395,7 +395,7 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
                 letterSpacing = 4.sp,
             )
             Text(
-                text = "Every channel, one guide",
+                text = "Good TV, quietly ready.",
                 style = MaterialTheme.typography.labelMedium,
                 color = MutedText,
                 letterSpacing = 2.sp,
