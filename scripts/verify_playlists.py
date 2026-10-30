@@ -447,7 +447,7 @@ def main(argv=None) -> int:
     out_dir = Path(args.out)
     epg_dir = Path(args.epg_dir)
     checks_dir = out_dir / "checks"
-    dead = scraper.load_deep_check_dead(checks_dir, 7 * 24.0)
+    dead = scraper.load_deep_check_dead(checks_dir, scraper.DEFAULT_DEEP_CHECK_DAYS * 24.0)
     dead.update({url: f"quarantined: {entry.get('reason') or 'no media on the deep check'}"
                  for url, entry in (scraper.load_quarantine(
                      checks_dir / scraper.QUARANTINE_FILENAME, 7.0) or {}).items()})

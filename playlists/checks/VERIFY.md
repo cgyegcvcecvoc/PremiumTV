@@ -1,10 +1,10 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-10-30T22:14:05+00:00 UTC
+- **Generated:** 2026-10-30T22:56:52+00:00 UTC
 - **Playlists checked:** 181 (27738 entries)
-- **Playlists with problems:** 3
+- **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 84
-- **Links published that the deep check called dead:** 6
+- **Links published that the deep check called dead:** 0
 - **Category shelf files:** 132 (0 problem(s))
 - **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, Religious, Religious Backups, International, International Backups, Entertainment, Entertainment Backups, Kids, Kids Backups, Movies, Movies Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Africa, Africa Backups, Legislative, Legislative Backups, North America, North America Backups, Series, Series Backups, Business, Business Backups, Family, South America, South America Backups, Classic TV, Comedy, A&E Networks, A&E Networks Backups, United States, United States Backups, Weather, Online TV, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 12409 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Movies, Europe, Entertainment, International, Religious, Asia, South America, Documentary, United States, Series, Kids, North America, Education, Culture, Legislative, Comedy, India, Africa, Classic TV, Business, Family, A&E Networks, UK, Australia, Canada, Weather, Animals & Nature, DLTV, Tv Celebrities, Tv Paranormal, Global TV, Online TV, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 3 | 10624/10624 (100.0%) | 2331 (21.9%) |
+| `playlists/PremiumTV.m3u` | 12409 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, News, Movies, Europe, Entertainment, International, Religious, Asia, South America, Documentary, United States, Series, Kids, North America, Education, Culture, Legislative, Comedy, India, Africa, Classic TV, Business, Family, A&E Networks, UK, Australia, Canada, Weather, Animals & Nature, DLTV, Tv Celebrities, Tv Paranormal, Global TV, Online TV, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 10624/10624 (100.0%) | 2331 (21.9%) |
 | `playlists/AE_Channels.m3u` | 70 | Lifestyle, A&E Networks, Documentary, Series, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 62/62 (100.0%) | 21 (33.9%) |
 | `playlists/Priority_Channels.m3u` | 17 | Sports, Cartoons, Kids, 3-Radio#Chicago, MeTV | 0 | 0 | 3 | 0 | 14/14 (100.0%) | 8 (57.1%) |
 | `playlists/countries/Afghanistan.m3u` | 11 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 11/11 (100.0%) | 0 (0.0%) |
@@ -37,7 +37,7 @@
 | `playlists/countries/Belgium.m3u` | 33 | Sports, Lifestyle, Cartoons, Europe, Music, Documentary, International, Entertainment, Legislative, Movies, News, Tv Shows | 0 | 0 | 1 | 0 | 30/30 (100.0%) | 5 (16.7%) |
 | `playlists/countries/Belize.m3u` | 1 | Religious | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Benin.m3u` | 3 | Sports, Africa, Business | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 1 (33.3%) |
-| `playlists/countries/Bermuda.m3u` | 1 | North America | 0 | 0 | 1 | 1 | 1/1 (100.0%) | 0 (0.0%) |
+| `playlists/countries/Bermuda.m3u` | 1 | North America | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Bolivia.m3u` | 51 | Sports, Lifestyle, South America, Music, Business, Culture, Documentary, Education, International, Religious | 0 | 0 | 1 | 0 | 48/48 (100.0%) | 1 (2.1%) |
 | `playlists/countries/Bosnia_and_Herzegovina.m3u` | 9 | International, Europe, News, Religious | 0 | 0 | 1 | 0 | 9/9 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Brazil.m3u` | 193 | Sports, Lifestyle, Cartoons, South America, Entertainment, News, Religious, Movies, Culture, Education, International, Music, Kids, Legislative, A&E Networks, Classic TV, Comedy, Documentary | 0 | 0 | 1 | 0 | 187/187 (100.0%) | 28 (15.0%) |
@@ -154,7 +154,7 @@
 | `playlists/countries/Rwanda.m3u` | 11 | Sports, Africa, Music, Entertainment, International | 0 | 0 | 1 | 0 | 9/9 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saint_Kitts_and_Nevis.m3u` | 3 | North America | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saint_Lucia.m3u` | 2 | North America | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
-| `playlists/countries/San_Marino.m3u` | 2 | Sports, International | 0 | 0 | 1 | 2 | 2/2 (100.0%) | 0 (0.0%) |
+| `playlists/countries/San_Marino.m3u` | 2 | Sports, International | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saudi_Arabia.m3u` | 52 | Music, Asia, Religious, News, Movies, Entertainment, International, Series, Classic TV, Culture, Documentary, Kids | 0 | 0 | 1 | 0 | 42/42 (100.0%) | 3 (7.1%) |
 | `playlists/countries/Senegal.m3u` | 6 | Africa, Music, Religious | 0 | 0 | 1 | 0 | 6/6 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Serbia.m3u` | 21 | Sports, Lifestyle, Europe, Music, International | 0 | 0 | 1 | 0 | 21/21 (100.0%) | 8 (38.1%) |
@@ -197,24 +197,7 @@
 
 ## Problems
 
-### `playlists/PremiumTV.m3u`
-
-- 3 published link(s) confirmed dead by the last deep check
-  - dead: San Marino RTV Sport (720p) — deep check: offline (variant HTTP 404)
-  - dead: San Marino RTV (720p) — deep check: offline (variant HTTP 404)
-  - dead: Channel 82 — deep check: offline (variant HTTP 403)
-
-### `playlists/countries/Bermuda.m3u`
-
-- 1 published link(s) confirmed dead by the last deep check
-  - dead: Channel 82 — deep check: offline (variant HTTP 403)
-
-### `playlists/countries/San_Marino.m3u`
-
-- 2 published link(s) confirmed dead by the last deep check
-  - dead: San Marino RTV Sport (720p) — deep check: offline (variant HTTP 404)
-  - dead: San Marino RTV (720p) — deep check: offline (variant HTTP 404)
-
+None: every playlist is canonical, in order, and free of links the deep check confirmed dead.
 
 ## Category shelf
 

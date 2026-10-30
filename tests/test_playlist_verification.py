@@ -189,6 +189,18 @@ class DeepCheckEvidenceTest(unittest.TestCase):
             }), encoding="utf-8")
             self.assertEqual(scraper.load_deep_check_dead(checks, 72.0), {})
 
+    def test_default_deep_evidence_window_expires_after_three_days(self):
+        old = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=4)).isoformat()
+        with tempfile.TemporaryDirectory() as tmp:
+            checks = Path(tmp)
+            (checks / "link-check.json").write_text(json.dumps({
+                "finished_utc": old,
+                "dead": [{"url": "http://x.test/dead.m3u8", "status": "offline"}],
+            }), encoding="utf-8")
+            self.assertEqual(scraper.load_deep_check_dead(checks), {})
+            self.assertEqual(scraper.load_deep_check_dead(checks, scraper.DEFAULT_DEEP_CHECK_DAYS * 24), {})
+            self.assertIn("http://x.test/dead.m3u8", scraper.load_deep_check_dead(checks, 7 * 24))
+
     def test_later_deep_channel_hunt_clears_stale_dead_and_quarantine_evidence(self):
         url = "https://stream.example/recovered.m3u8"
         dead_at = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=3)
