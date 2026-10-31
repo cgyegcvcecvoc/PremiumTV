@@ -69,18 +69,18 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.3** (Android `versionCode 101030000`) | USA lineup + USA guide | Default and only download — broadcast audio recovery (AC-3/E-AC-3/MP2 + HLS audio renditions), moving gold loading bar, expanded 21-item Movies & Shows shelf with search/genres, and built-in player transport controls ([notes](release-notes-1.1.3.md)) |
-| Superseded | **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Install in place over these builds; Settings → App updates finds 1.1.3 automatically |
+| **Stable release** | **1.1.4** (Android `versionCode 101040000`) | USA lineup + USA guide | Default and only download — full-screen player decluttered: the bottom overlay buttons (Favorite, Side player, Close and server hop) no longer cover score bugs and other on-screen graphics; Back tucks the stream into the side player or closes it ([notes](release-notes-1.1.4.md)) |
+| Superseded | **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Install in place over these builds; Settings → App updates finds 1.1.4 automatically |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.3 ends Nov 19, 2026 |
-| Next | — | USA lineup + USA guide | 1.1.3 is published and is the source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.4 — `.github/workflows/publish-release.yml` publishes it from `VERSION`; the V-patch/alias series stays retired |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.4 ends Nov 19, 2026 |
+| Next | — | USA lineup + USA guide | 1.1.4 is published and is the source default. Versions are plain `MAJOR.MINOR.PATCH`, so the next fix is simply 1.1.5 — `.github/workflows/publish-release.yml` publishes it from `VERSION`; the V-patch/alias series stays retired |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.3 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.4 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.3 over the preview (`101030000` > `100010001`) and
+newer. Android accepts 1.1.4 over the preview (`101040000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
 

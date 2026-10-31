@@ -8,7 +8,7 @@ and Apple Silicon.
 
 The release workflow prepares one published channel:
 
-- **1.1.3 stable build (default):** USA playlist + USA guide. A channel opens
+- **1.1.4 stable build (default):** USA playlist + USA guide. A channel opens
   in the docked side player with built-in transport, mute and audio-track
   controls and one click on the picture grows it to the full window, stream
   audio recovery handles separated HLS audio renditions and silent tracks, the
@@ -33,7 +33,7 @@ The release workflow prepares one published channel:
   sees a blocked-build notice and is sent to
   [`docs/blocked/`](../docs/blocked/index.html).
 
-The current stable download is `v1.1.3`. (Historically, `v1.0.8.1` — shown as
+The current stable download is `v1.1.4`. (Historically, `v1.0.8.1` — shown as
 **1.0.8 V1 Patch** — was packaged as `1.0.9` on macOS and briefly published as a
 same-code alias release so the three-part updater in 1.0.4–1.0.6 could find it;
 the fixed 1.0.9 replaced that build, so a Mac already reporting 1.0.9 should

@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.3** — broadcast audio recovery for AC-3/E-AC-3/MP2 and HLS audio renditions, moving gold startup loading bar, expanded 21-item Movies & Shows shelf with search/genres and built-in player transport controls, plus the docked side player, category rail, automatic server backup, dead channels filtered out, amber pointer outlines and every 1.0.9–1.1.2 fix), with every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.4** — full-screen player decluttered: the bottom overlay buttons (Favorite, Side player, Close and server hop) no longer cover score bugs and other on-screen graphics while a game is on; Back tucks the stream into the side player or closes it, and the player's own controls appear on interaction and fade away. Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.3
+## Current stable: 1.1.4
 
-1.1.3 recovers silent broadcast audio on both platforms (Media3 FFmpeg AC-3/E-AC-3/DTS/MP2 decoding on Android; extensionless HLS audio-rendition rewriting, codec filtering and silent-track watchdog on macOS), adds a moving gold highlight sweep to the startup loading bar, expands Movies & Shows to 21 verified public-domain films and classic TV episodes with search, genre filters and backup MP4 derivatives (`scripts/vod_catalog.py`), and adds built-in player transport controls (`Play/Pause`, `±10s`, seek bar, `LIVE` pill, `Mute`, `Audio` track switcher and VOD resume). It keeps the docked side player, category rail, automatic server backup, dead-channel filtering, amber pointer outlines, and compact Settings screen — a version card that shows **1.1.3**, plus **Force refresh**, **Check for update**, **Check for bugs**, the hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.3.md`](../release-notes-1.1.3.md).
+1.1.4 declutters the full-screen player on both platforms: the bottom overlay buttons (Favorite, Side player, Close and server hop) no longer cover score bugs and other on-screen graphics while a game is on, so nothing unclickable sits in front of the stream — press Back to tuck the stream into the side player or close it back to the browser. The player's own controls — Mute/Unmute and the Audio track switcher — stay in the top corner and appear on interaction, fading away on their own. It keeps the docked side player, category rail, automatic server backup, dead-channel filtering, amber pointer outlines, and compact Settings screen — a version card that shows **1.1.4**, plus **Force refresh**, **Check for update**, **Check for bugs**, the hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.4.md`](../release-notes-1.1.4.md).
 
-It installs in place over every earlier build: Android `101030000` is above
+It installs in place over every earlier build: Android `101040000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.3 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.4 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 
@@ -42,7 +42,7 @@ download links were removed; any old link goes to
 and explains how to replace the preview without uninstalling on Android. **The
 `1.1.0` and `1.1.1` names are ordinary stable releases** — the deleted preview
 shared those names, and the project promoted them back, so a device on either is
-on a supported build and simply updates to 1.1.3 in-app. The Netlify Drop hub
+on a supported build and simply updates to 1.1.4 in-app. The Netlify Drop hub
 under `hub/` uses the same complete-release gate and never renders a preview
 card. Rebuild and re-upload its export to refresh an existing Netlify
 deployment.

@@ -103,7 +103,7 @@ class PublishedNoticeTests(unittest.TestCase):
         notice = legacy_sunset.read_notice(ROOT)
         self.assertTrue(notice["releases_url"].startswith(
             "https://github.com/cgyegcvcecvoc/PremiumTV1/releases"), notice["releases_url"])
-        self.assertEqual(notice["max_version"], "1.1.2",
+        self.assertEqual(notice["max_version"], "1.1.3",
                          "the sunset targets every stable build below the current stable "
                          "(1.1.3); there is no blocked preview rule anymore")
 

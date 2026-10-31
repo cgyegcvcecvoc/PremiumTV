@@ -542,11 +542,8 @@ fun PlayerScreen(
                         isMuted = isMuted,
                         audioTrackCount = boundAudioTracks.size,
                         activeAudioLabel = activeAudioLabel,
-                        isFavorite = isFavorite,
-                        onToggleFavorite = onToggleFavorite,
                         onToggleMute = toggleMute,
                         onCycleAudioTrack = cycleAudioTrack,
-                        onHopServer = hopServer,
                         onRetryAll = {
                             errorMessage = null
                             buffering = true
@@ -891,13 +888,9 @@ private fun BoxScope.BigScreenChrome(
     isMuted: Boolean,
     audioTrackCount: Int,
     activeAudioLabel: String?,
-    isFavorite: Boolean,
-    onToggleFavorite: () -> Unit,
     onToggleMute: () -> Unit,
     onCycleAudioTrack: () -> Unit,
-    onHopServer: (Int) -> Unit,
     onRetryAll: () -> Unit,
-    onMinimize: () -> Unit,
     onClose: () -> Unit,
 ) {
     val currentProgramme = nowPlaying(programmes, now)
@@ -1046,23 +1039,6 @@ private fun BoxScope.BigScreenChrome(
             val label = activeAudioLabel?.take(12) ?: "Audio"
             FocusButton("🔊 $label ($audioTrackCount)") { onCycleAudioTrack() }
         }
-    }
-
-    // Manual server switching: the same player-swap path the automatic backup
-    // takes, on demand.
-    Row(
-        modifier = Modifier
-            .align(Alignment.BottomEnd)
-            .padding(end = 32.dp, bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        if (playlistSize > 1) {
-            FocusButton("◀ Server") { onHopServer(-1) }
-            FocusButton("Server ▶") { onHopServer(1) }
-        }
-        FocusButton(if (isFavorite) "★ Favorited" else "☆ Favorite") { onToggleFavorite() }
-        FocusButton("⤢ Side player") { onMinimize() }
-        FocusButton("✕ Close") { onClose() }
     }
 
     Text(
