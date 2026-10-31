@@ -3,7 +3,7 @@
 Version 1.0.4 was the last release that had to be installed by hand. From then
 on, **Settings → App updates** checks GitHub, downloads the installer once,
 verifies it against the release's SHA-256 file, and hands it to the platform's
-normal installer. The current stable release is **1.1.3** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
+normal installer. The current stable release is **1.1.4** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
 
 The current version is stored once, in [`VERSION`](../VERSION).
 `python scripts/version_sync.py` generates the Android version properties and

@@ -10,6 +10,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-10-31 — Version 1.1.4: full-screen player decluttered (stable patch)
+
+- Removed the bottom overlay buttons from the full-screen Android TV player — Favorite, Side player, Close and the server hop — so they no longer cover score bugs and other on-screen graphics in football and other live sports, and so nothing unclickable sits in front of the stream. Press **Back** to tuck the stream into the side player (it keeps playing while you browse) or close it back to the browser; Mute/Unmute and the Audio track switcher stay in the top corner, and the player's built-in controls appear on interaction and fade away on their own.
+- Bumped to `1.1.4` (Android `versionCode 101040000`, macOS `1.1.4`) as a plain patch release — it installs in place over 1.1.3 and every earlier build, and Settings → App updates offers it to every build below it.
+
 ## 2026-10-30 — Release automation for 1.1.3
 
 - Aligned playlist verification with the scraper’s three-day deep-check evidence window; stale failures no longer contradict newer checks. Scrape workflows now report verification failures after publishing diagnostics.

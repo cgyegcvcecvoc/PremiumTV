@@ -1,4 +1,4 @@
-"""1.1.3: broadcast audio fixes, moving loading bar, expanded VOD + transport player, and version bump."""
+"""1.1.4: full-screen player decluttered (bottom overlay buttons removed) and patch version bump."""
 
 from __future__ import annotations
 
@@ -99,24 +99,24 @@ class VodAndTransportPlayer113Tests(unittest.TestCase):
         self.assertIn("saveVodPositionMs(", player_kt)
 
 
-class Version113PlumbingTests(unittest.TestCase):
-    def test_version_113_is_synced_across_all_surfaces(self):
+class Version114PlumbingTests(unittest.TestCase):
+    def test_version_114_is_synced_across_all_surfaces(self):
         sys.path.insert(0, str(ROOT / "scripts"))
         import release_version  # noqa: E402
         import version_sync  # noqa: E402
 
-        self.assertEqual(release_version.current_version(), "1.1.3")
-        self.assertEqual(release_version.android_version_code("1.1.3"), 101_030_000)
+        self.assertEqual(release_version.current_version(), "1.1.4")
+        self.assertEqual(release_version.android_version_code("1.1.4"), 101_040_000)
         self.assertEqual(version_sync.check(), [])
 
         notice = json.loads(text(ROOT / "app-update-notice.json"))
         rules = {rule["id"]: rule for rule in notice["rules"]}
-        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.2")
-        self.assertIn("1.1.3", rules["update-below-newest"]["surprise"])
+        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.3")
+        self.assertIn("1.1.4", rules["update-below-newest"]["surprise"])
 
-        notes = text(ROOT / "release-notes-1.1.3.md")
-        self.assertIn("PremiumTV 1.1.3", notes)
-        self.assertIn("Version 1.1.3", text(ROOT / "CHANGELOG.md"))
+        notes = text(ROOT / "release-notes-1.1.4.md")
+        self.assertIn("PremiumTV 1.1.4", notes)
+        self.assertIn("Version 1.1.4", text(ROOT / "CHANGELOG.md"))
 
 
 if __name__ == "__main__":

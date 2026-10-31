@@ -196,7 +196,7 @@ class VersionTests(unittest.TestCase):
         self.assertNotIn("retired-preview-1-1", rules)
         # Every build below the newest stable is nudged toward it.
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.2"))
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.3"))
         self.assertEqual(stable["level"], "warning")
 
     def test_version_code_is_above_every_published_build(self):
