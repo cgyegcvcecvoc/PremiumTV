@@ -1248,6 +1248,8 @@ def _classify_stream_body(channel: Channel, body: bytes, content_type: str) -> C
 # days so a shallow scrape cannot put a known-dead link back in the player
 # playlist between two deep checks.
 QUARANTINE_FILENAME = "quarantine.json"
+# Deep-check failures older than this are not current proof of failure.
+DEFAULT_DEEP_CHECK_DAYS = 3.0
 
 # Version of the rules a quarantine entry was recorded under. Version 2 is the
 # first that resolved a redirected master playlist's variants against the URL
@@ -1422,7 +1424,7 @@ def apply_quarantine(channels: list, path: Path, days: float = 7.0) -> int:
 
 
 def load_deep_check_dead(checks_dir: Path,
-                         max_age_hours: float = 72.0) -> dict[str, str]:
+                         max_age_hours: float = DEFAULT_DEEP_CHECK_DAYS * 24.0) -> dict[str, str]:
     """Confirmed-dead URLs recorded by the last deep link check, if it is fresh.
 
     The nightly ``scripts/link_check.py`` run resolves HLS variants and downloads
@@ -1479,7 +1481,7 @@ def load_deep_check_dead(checks_dir: Path,
 
 
 def apply_deep_check_evidence(channels: list, checks_dir: Path,
-                              max_age_hours: float = 72.0) -> int:
+                              max_age_hours: float = DEFAULT_DEEP_CHECK_DAYS * 24.0) -> int:
     """Mark channels dead when the last deep check confirmed their link is gone."""
     dead = load_deep_check_dead(checks_dir, max_age_hours)
     if not dead:
@@ -2677,7 +2679,7 @@ def main() -> int:
     ap.add_argument("--quarantine-days", type=float, default=7.0,
                     help="hold back links the deep check found dead for this many days "
                          "(0 disables the quarantine)")
-    ap.add_argument("--deep-check-days", type=float, default=3.0,
+    ap.add_argument("--deep-check-days", type=float, default=DEFAULT_DEEP_CHECK_DAYS,
                     help="also hold back links the last deep link check confirmed dead "
                          "(offline/invalid) within this many days (0 disables)")
     ap.add_argument("--retention-days", type=float, default=7.0,

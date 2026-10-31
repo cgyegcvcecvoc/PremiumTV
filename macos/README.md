@@ -12,7 +12,7 @@ The release workflow prepares one published channel:
   in the docked side player with built-in transport, mute and audio-track
   controls and one click on the picture grows it to the full window, stream
   audio recovery handles separated HLS audio renditions and silent tracks, the
-  startup screen shows a moving gold loading bar, and **Movies & Shows** ships
+  startup screen shows a moving gold loading bar and the motto “Good TV, quietly ready.”, and **Movies & Shows** ships
   21 verified public-domain films and classic TV episodes with search, genre
   filters and local resume (bundled from `playlists/vod/vod-catalog.json`).
 - **1.0.9 (superseded):** USA playlist + USA guide,

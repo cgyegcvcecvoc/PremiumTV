@@ -6593,3 +6593,78 @@ ISSUES / ERRORS:
   * 2632 links returned a confirmed failure (see dead details).
   * This run started +3h 33m after its scheduled time (2026-10-25T13:41:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261030T220753Z-2883
+TIMESTAMP:    2026-10-30 06:11 PM EDT (2026-10-30T22:07:53Z -> 2026-10-30T22:11:25Z)
+LABEL / TYPE: manual re-scrape (run-scrape.txt) [manual]
+STATUS:       WARNING (checked=True, duration=211.56s)
+PLAYLISTS:    working=12168 / unique=16781 (dead=1746, unverified=2867)
+COUNTRIES:    177 country playlists updated in playlists/countries/
+A&E CHANNELS: 70 working / 74 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +884 channels added / -1396 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [Italy] Caccia e Pesca (720p) (iptv-org) -> http://102.129.186.182:81/cacciapesca/index.m3u8
+  + [Italy] Pesca e Caccia (720p) (iptv-org) -> http://102.129.186.182:81/pescacaccia/index.m3u8
+  + [Italy] TV8 (Italy) (720p) (iptv-org) -> http://102.129.186.182:81/tv8/index.m3u8
+  + [India] Jalsha Movies HD (1080p) (iptv-org) -> http://103.151.60.162:2122/play/a00x/index.m3u8?hls=
+  + [India] Star Movies (India) HD (1080p) (iptv-org) -> http://103.151.60.162:2122/play/a02k/index.m3u8?hls=
+  + [Spain] TVE Internacional Asia-Oceania (iptv-org) -> http://103.172.29.30:9991/stream/channel/a23a4ab90fe7569ced31e455b752ab51
+  + [India] Shiksha TV (720p) (iptv-org) -> http://103.89.46.106:8080/hls/shikshatvhd/index.m3u8
+  + [Germany] Disney Channel (Germany) HD (iptv-org) -> http://109.85.181.77:9981/stream/channelid/652495718?profile=pass
+  + [Spain] TVE Internacional America (iptv-org) -> http://116.121.59.72:9981/stream/channel/75f703b52ec2465e4ed2934b98f0f77a
+  + [Singapore] Animax Asia Taiwan (iptv-org) -> http://125.227.210.55:3056/VideoInput/play.ts
+  + [France] 6ter (iptv-org) -> http://149.62.177.107:9999/6ter/index.m3u8
+  + [France] LCI (iptv-org) -> http://149.62.177.107:9999/LCI/index.m3u8
+  + [France] Franceinfo (1080p) (iptv-org) -> http://149.62.177.107:9999/franceinfo:/index.m3u8
+  + [Mexico] Az Mundo (1080p) (iptv-org) -> http://15.204.142.109:22880/DIRECTV-ARGENTINA-AZMUNDO/INTERNACIONAL/video.m3u8
+  + [Paraguay] Farra Play (720p) [Not 24/7] (openstream) -> http://159.203.148.226/live/farra.m3u8
+  + [Russia] Nostalgia (Russia) (576p) (iptv-org) -> http://176.118.197.101/Nostalgiya/index.m3u8
+  + [UK] PBS America (576p) (iptv-org) -> http://185.19.191.2:8090/PBS/index.m3u8
+  + [Poland] HBO 2 (Poland) (1080p) (iptv-org) -> http://185.227.34.179:8080/hbo-2-hd/index.m3u8
+  + [Poland] HBO 3 (Poland) (1080p) (iptv-org) -> http://185.227.34.179:8080/hbo-3-hd/index.m3u8
+  + [Russia] Match! Premier (576p) (iptv-org) -> http://185.23.80.23:8080/MATCH_PREMIER/index.m3u8
+  + [USA] [France Premiere Ligue Women] Marseille W vs Nantes W (FAWA) (doms9) -> http://193.47.62.41/hls/3333.m3u8
+  + [USA] [Morocco Botola Pro] Difaa El Jadidi vs Union Touarga (FAWA) (doms9) -> http://193.47.62.41/hls/3333A.m3u8
+  + [USA] [English Championship] Sheffield United vs Wrexham (FAWA) (doms9) -> http://193.47.62.41/hls/3333AA.m3u8
+  + [USA] [Spanish La Liga] Villarreal vs Espanyol (FAWA) (doms9) -> http://193.47.62.41/hls/3333AAA.m3u8
+  + [USA] [Ligue 1 France] Lille vs Lens (FAWA) (doms9) -> http://193.47.62.41/hls/3333AAAA.m3u8
+  + [USA] [Portugal Primeira Liga] Casa Pia vs Sporting Lisbon (FAWA) (doms9) -> http://193.47.62.41/hls/3333AAAAA.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] AIK vs Leksand (FAWA) (doms9) -> http://193.47.62.41/hls/KBBB.m3u8
+  + [USA] [Colombia Primera A] Pereira vs Jaguares de Cordoba (FAWA) (doms9) -> http://193.47.62.44/hls/8888.m3u8
+  + [USA] [Rugby WXV Global Series] USA W vs England W (FAWA) (doms9) -> http://193.47.62.44/hls/8888A.m3u8
+  + [USA] [Chile Liga de Primera] Colo Colo vs U De Concepcion (FAWA) (doms9) -> http://193.47.62.44/hls/8888AA.m3u8
+REMOVED CHANNELS (SAMPLE):
+  - [India] ETV Bal Bharat (576p) (previous) -> http://103.185.24.134:3001/ETV-BAL-BHARAT/index.m3u8
+  - [India] Hungama TV (576p) (previous) -> http://103.185.24.134:3001/HUNGAMA/index.m3u8
+  - [India] Jalsha Movies HD (1080p) (previous) -> http://103.185.24.134:3001/JALSHA-MOVIES-HD/index.m3u8
+  - [India] Star Movies (India) HD (1080p) (previous) -> http://103.185.24.134:3001/Star-Movies/index.m3u8
+  - [USA] HBO+ Latin America (720p) [Geo-blocked] (previous) -> http://15.204.246.24:8080/HBOPlusHD/index.m3u8
+  - [France] Canal+ Cinemas (720p) (previous) -> http://151.80.18.177:86/Canal+_cinema_HD/index.m3u8
+  - [Costa Rica] FUTV (previous) -> http://190.61.90.17:40000/play/a03v/index.m3u8
+  - [Belgium] La Trois (720p) (previous) -> http://193.111.198.85:8589/stream/mstv/rtbflatroislive26/master.m3u8?p=967e33767f592e1aaf3d4019f38f380bf784e113b193d89c412d047059d6300d&u=Oleg
+  - [Belgium] La Une (720p) (previous) -> http://193.111.198.85:8589/stream/mstv/rtbflaunelive26/master.m3u8?p=967e33767f592e1aaf3d4019f38f380bf784e113b193d89c412d047059d6300d&u=Oleg
+  - [USA] [English Premier League] Hull City vs Brentford 1 (FAWA) (previous) -> http://193.47.62.41/hls/Xa111a.m3u8
+  - [USA] [English Premier League] Liverpool vs Brighton 1 (FAWA) (previous) -> http://193.47.62.41/hls/Xa111aa.m3u8
+  - [USA] [German Bundesliga] Freiburg vs Bayern Munchen (FAWA) (previous) -> http://193.47.62.41/hls/ZRRR.m3u8
+  - [USA] [NFL American Football] Atlanta Falcons vs San Francisco 49ers (FAWA) (previous) -> http://193.47.62.41/hls/hmmm.m3u8
+  - [USA] [NFL American Football] Minnesota Vikings vs Indianapolis Colts (FAWA) (previous) -> http://193.47.62.41/hls/hmmmAA.m3u8
+  - [USA] [Snooker] Snooker Northern Ireland Open (FAWA) (previous) -> http://193.47.62.44/hls/PTTTA.m3u8
+  - [USA] [English Premier League] Sunderland vs Leeds United (FAWA) (previous) -> http://193.47.62.44/hls/ZRRRA.m3u8
+  - [USA] [NFL American Football] Carolina Panthers vs Tampa Bay Buccaneers (FAWA) (previous) -> http://193.47.62.44/hls/hmmmA.m3u8
+  - [USA] [NFL American Football] Tennessee Titans vs Cleveland Browns (FAWA) (previous) -> http://193.47.62.44/hls/hmmmAAA.m3u8
+  - [USA] [Darts] Darts European Championship (FAWA) (previous) -> http://193.47.62.50/hls/A555AAAAAQQQA.m3u8
+  - [USA] [Kenya Premier League] Leopards vs Shabana (FAWA) (previous) -> http://193.47.62.50/hls/D222.m3u8
+  - [USA] [Poland Ekstraklasa] Jagiellonia vs Wisla Plock (FAWA) (previous) -> http://193.47.62.50/hls/D899.m3u8
+  - [USA] [Sweden Superettan] Helsingborg vs Ljungskile (FAWA) (previous) -> http://193.47.62.50/hls/D899A.m3u8
+  - [USA] [English Women Super League] Birmingham W vs Charlton W (FAWA) (previous) -> http://193.47.62.50/hls/D899AA.m3u8
+  - [USA] [English Women Super League] Everton W vs Aston Villa W (FAWA) (previous) -> http://193.47.62.50/hls/D899AAA.m3u8
+  - [USA] [English Women Super League] Liverpool W vs London City Lionesses W (FAWA) (previous) -> http://193.47.62.50/hls/D899AAAA.m3u8
+  - [USA] [English Premiership Rugby] Harlequins vs Saracens (FAWA) (previous) -> http://193.47.62.50/hls/DD555Q.m3u8
+  - [USA] [Spanish Segunda Liga] Albacete vs Eldense (FAWA) (previous) -> http://193.47.62.50/hls/DD555QQ.m3u8
+  - [USA] [Spanish Segunda Liga] Cadiz CF vs Ceuta (FAWA) (previous) -> http://193.47.62.50/hls/DD555QQQ.m3u8
+  - [USA] [Spanish La Liga] Celta Vigo vs Real Betis (FAWA) (previous) -> http://193.47.62.50/hls/DD555QQQQ.m3u8
+  - [USA] [Chile Liga de Primera] Nublense vs Coquimbo (FAWA) (previous) -> http://193.47.62.50/hls/DD555QQQQA.m3u8
+ISSUES / ERRORS:
+  * 2867 links could not be confirmed after retries (see unverified details).
+  * 1746 links returned a confirmed failure (see dead details).
+
