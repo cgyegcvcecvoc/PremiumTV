@@ -1,42 +1,40 @@
 # Monthly new-channel discovery
 
-- **Run:** _monthly new-channel discovery_ (`monthly_discovery`; ID `discover-20261001T153844Z-2391`)
-- **Last run:** 2026-10-01 11:41 AM EDT (2026-10-01 15:41 UTC)
-- **Outcome:** **WARNING**
-- **Known channels in the published playlist:** 13515 from `PremiumTV_all.m3u`
-- **Candidates:** 10 (evaluated 9, promoted 2, watch 2, rejected 4, skipped 0)
-- **New working links found:** 59 (from active sources: 69)
-- **Sources promoted for the next scrape:** ['m3u', 'openstream']
+- **Run:** _monthly new-channel discovery_ (`monthly_discovery`; ID `discover-20261101T162015Z-2922`)
+- **Last run:** 2026-11-01 11:21 AM EST (2026-11-01 16:21 UTC)
+- **Outcome:** **SUCCESS**
+- **Known channels in the published playlist:** 17037 from `PremiumTV_all.m3u`
+- **Candidates:** 7 (evaluated 5, promoted 2, watch 2, rejected 2, skipped 2)
+- **New working links found:** 45 (from active sources: 143)
+- **Sources promoted for the next scrape:** ['VIP-m3u-playlist', 'israel-tv-plus']
 
 ## Candidate results
 
 | Candidate | Found via | Channels | New links | Sample working | Score | Verdict |
 |---|---|---:|---:|---:|---:|---|
-| Fanmingming-Live | seed | 188 | 188 | 0/12 (0%) | 28.4 | **reject** |
-| ↳ 0 working in sample (needs 3) | | | | | | |
-| Akiraleal-IPTV | seed | 34 | 24 | 11/12 (92%) | 61.1 | **watch** |
-| TianmuTNT-IPTV | seed | 715 | 707 | 8/12 (67%) | 62.9 | **promote** |
-| Public_Iptv_Channels | github_search | 35 | 35 | 6/12 (50%) | 49.0 | **watch** |
-| BDIX-IPTV | github_search | 992 | 566 | 10/12 (83%) | 81.8 | **promote** |
-| cathode | github_search | 1884 | 638 | 0/12 (0%) | 31.5 | **reject** |
-| ↳ 0 working in sample (needs 3) | | | | | | |
-| m3u | github_search | 827 | 662 | 10/12 (83%) | 88.3 | **promote** |
-| openstream | github_search | 5548 | 2314 | 12/12 (100%) | 88.4 | **promote** |
-| pluto-playlist | github_search | 0 | 0 | 0/0 (0%) | 0.0 | **reject** |
-| ↳ response is not an M3U playlist | | | | | | |
-| DF_IPTV | github_search | 3571 | 3474 | 2/12 (17%) | 37.7 | **reject** |
+| Fanmingming-Live | seed | 188 | 188 | 0/0 (0%) | 28.4 | **reject** |
+| ↳ last checked 2026-10-01T15:38:44Z | | | | | | |
+| Akiraleal-IPTV | seed | 42 | 23 | 12/12 (100%) | 67.9 | **watch** |
+| TianmuTNT-IPTV | seed | 574 | 554 | 10/12 (83%) | 72.1 | **promote** |
+| Public_Iptv_Channels | github_search | 35 | 35 | 0/0 (0%) | 49.0 | **watch** |
+| ↳ last checked 2026-10-01T15:38:44Z | | | | | | |
+| VIP-m3u-playlist | github_search | 212 | 111 | 11/12 (92%) | 74.3 | **promote** |
+| israel-tv-plus | github_search | 276 | 204 | 10/12 (83%) | 84.1 | **promote** |
+| mrgify-clean | github_search | 327 | 265 | 2/12 (17%) | 48.4 | **reject** |
 | ↳ 2 working in sample (needs 3) | | | | | | |
 
 ## New channels from the active sources
 
 | Source | Channels | New links | Sample working | Note |
 |---|---:|---:|---:|---|
+| local-channels | 4 | 0 | 0/0 (0%) | ok |
+| priority-channels | 18 | 0 | 0/0 (0%) | ok |
 | ae-networks | 53 | 0 | 0/0 (0%) | ok |
-| aria | 395 | 0 | 0/0 (0%) | ok |
-| doms9 | 452 | 69 | 5/8 (62%) | ok |
+| aria | 287 | 0 | 0/0 (0%) | ok |
+| doms9 | 888 | 143 | 5/8 (62%) | ok |
 | xtemus | 0 | 0 | 0/0 (0%) | ok |
-| iptv-org | 11129 | 0 | 0/0 (0%) | ok |
-| free-tv | 2054 | 0 | 0/0 (0%) | ok |
+| iptv-org | 11388 | 0 | 0/0 (0%) | ok |
+| free-tv | 2029 | 0 | 0/0 (0%) | ok |
 | eja-tv-feed | 0 | 0 | 0/0 (0%) | no URL or url_env secret set |
 | stepdaddylivehd-instance | 0 | 0 | 0/0 (0%) | no URL or url_env secret set |
 | dlive-sx-feed | 0 | 0 | 0/0 (0%) | no URL or url_env secret set |
@@ -45,32 +43,33 @@
 
 | Source | Status | Channels | Working sample | Note |
 |---|---|---:|---:|---|
-| _no promoted sources yet_ | | | | |
+| m3u | ok | 834 | 67% |  |
+| openstream | ok | 5428 | 100% |  |
 
 ## New working channels (sample)
 
-59 new working links are in [`new-channels.m3u`](new-channels.m3u). First 20 by source:
+45 new working links are in [`new-channels.m3u`](new-channels.m3u). First 20 by source:
 
-- **湖南卫视4K** (卫视) — Akiraleal-IPTV
-- **浙江卫视4K** (卫视) — Akiraleal-IPTV
-- **凤凰中文** (香港) — Akiraleal-IPTV
-- **凤凰香港** (香港) — Akiraleal-IPTV
-- **翡翠台** (香港) — Akiraleal-IPTV
-- **公视高清** (台湾) — Akiraleal-IPTV
-- **耀才财经** (香港) — Akiraleal-IPTV
-- **WildEarth** (文旅) — Akiraleal-IPTV
-- **Love Nature 4K** (文旅) — Akiraleal-IPTV
-- **CGTN Documentary** (文旅) — Akiraleal-IPTV
-- **Reuters** (国际) — Akiraleal-IPTV
+- **Sky Racing 2** (体育) — Akiraleal-IPTV
+- **World of Freesports** (体育) — Akiraleal-IPTV
+- **FloRacing** (体育) — Akiraleal-IPTV
+- **SportsGrid** (体育) — Akiraleal-IPTV
+- **ACCDN** (体育) — Akiraleal-IPTV
+- **Pac-12 Insider** (体育) — Akiraleal-IPTV
+- **beIN Sports Xtra** (体育) — Akiraleal-IPTV
+- **FashionTV Paris L'Original** (娱乐时尚) — Akiraleal-IPTV
+- **Totalmusic Concerts** (娱乐时尚) — Akiraleal-IPTV
+- **Graham Norton** (娱乐时尚) — Akiraleal-IPTV
+- **Mystery TV** (娱乐时尚) — Akiraleal-IPTV
+- **Estrella TV** (娱乐时尚) — Akiraleal-IPTV
 - **1987年春晚** (Other) — TianmuTNT-IPTV
 - **1993年春晚** (Other) — TianmuTNT-IPTV
 - **2024年春晚** (Other) — TianmuTNT-IPTV
-- **2026-09-25 18:28:23** (Other) — TianmuTNT-IPTV
+- **2026-11-01 18:25:26** (Other) — TianmuTNT-IPTV
 - **AMC音乐** (Other) — TianmuTNT-IPTV
 - **CCTV12** (Other) — TianmuTNT-IPTV
 - **CCTV13** (Other) — TianmuTNT-IPTV
 - **CCTV15** (Other) — TianmuTNT-IPTV
-- **Hiii** (HimelOp) — Public_Iptv_Channels
 
 ## Issues and diagnostics
 

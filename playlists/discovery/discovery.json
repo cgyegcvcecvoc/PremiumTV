@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "run_id": "discover-20261001T153844Z-2391",
+  "run_id": "discover-20261101T162015Z-2922",
   "label": "monthly new-channel discovery",
   "run_type": "monthly_discovery",
-  "status": "warning",
-  "started_utc_iso": "2026-10-01T15:38:44Z",
-  "finished_utc_iso": "2026-10-01T15:41:06Z",
-  "updated_utc": "2026-10-01 15:41 UTC",
-  "updated_local": "2026-10-01 11:41 AM EDT",
-  "duration_seconds": 141.81,
+  "status": "success",
+  "started_utc_iso": "2026-11-01T16:20:15Z",
+  "finished_utc_iso": "2026-11-01T16:21:49Z",
+  "updated_utc": "2026-11-01 16:21 UTC",
+  "updated_local": "2026-11-01 11:21 AM EST",
+  "duration_seconds": 93.51,
   "settings": {
     "thresholds": {
       "sample_size": 12,
@@ -26,19 +26,19 @@
     "search_enabled": true
   },
   "summary": {
-    "corpus_channels": 13515,
+    "corpus_channels": 17037,
     "corpus_source": "PremiumTV_all.m3u",
-    "candidates": 10,
-    "evaluated": 9,
+    "candidates": 7,
+    "evaluated": 5,
     "promoted": 2,
     "watch": 2,
-    "rejected": 4,
-    "skipped": 0,
-    "new_working_links": 59,
-    "active_new_links": 69,
+    "rejected": 2,
+    "skipped": 2,
+    "new_working_links": 45,
+    "active_new_links": 143,
     "promoted_names": [
-      "m3u",
-      "openstream"
+      "VIP-m3u-playlist",
+      "israel-tv-plus"
     ]
   },
   "candidates": [
@@ -50,327 +50,191 @@
       "url": "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/itv.m3u",
       "repo": "fanmingming/live",
       "playlist_path": "tv/m3u/itv.m3u",
-      "bytes": 48268,
-      "stars": 28491,
-      "updated_at": "2026-10-01T14:31:48Z",
-      "status": "evaluated",
+      "status": "skipped_cooldown",
       "verdict": "reject",
-      "reason": "0 working in sample (needs 3)",
+      "reason": "last checked 2026-10-01T15:38:44Z",
       "channels": 188,
       "new_links": 188,
       "duplicate_links": 0,
-      "new_names": 46,
-      "new_name_ratio": 0.245,
+      "new_names": 0,
+      "new_name_ratio": 0.0,
       "score": 28.4,
+      "bytes": 48268,
+      "stars": 28756,
+      "updated_at": "2026-11-01T14:19:30Z",
       "sample": {
-        "checked": 12,
+        "checked": 0,
         "alive": 0,
         "dead": 0,
-        "unverified": 12,
+        "unverified": 0,
         "working_ratio": 0.0,
-        "results": [
-          {
-            "name": "CCTV 1",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/6000000001000029752/1.m3u8?channel-id=wasusyt&Contentid=6000000001000029752&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 1 50 FPS",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/5000000004000002226/1.m3u8?channel-id=bestzb&Contentid=5000000004000002226&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 1 HEVC",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/1000000005000265001/1.m3u8?channel-id=ystenlive&Contentid=1000000005000265001&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 2",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/1000000001000023315/1.m3u8?channel-id=ystenlive&Contentid=1000000001000023315&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 2 50 FPS",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/6000000001000014161/1.m3u8?channel-id=wasusyt&Contentid=6000000001000014161&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 3",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/6000000001000022313/1.m3u8?channel-id=wasusyt&Contentid=6000000001000022313&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 3 HEVC",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/1000000005000265003/1.m3u8?channel-id=ystenlive&Contentid=1000000005000265003&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 4 50 FPS",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/5000000011000031102/1.m3u8?channel-id=bestzb&Contentid=5000000011000031102&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 4 HEVC",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/1000000005000265004/1.m3u8?channel-id=ystenlive&Contentid=1000000005000265004&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 5",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/1000000005000025222/1.m3u8?channel-id=ystenlive&Contentid=1000000005000025222&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 5 HEVC",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/1000000005000265005/1.m3u8?channel-id=ystenlive&Contentid=1000000005000265005&livemode=1&stbId=3"
-          },
-          {
-            "name": "CCTV 5+",
-            "group": "央视",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "http://gslbserv.itv.cmvideo.cn/6000000001000015875/1.m3u8?channel-id=wasusyt&Contentid=6000000001000015875&livemode=1&stbId=3"
-          }
-        ]
+        "results": []
       },
-      "new_channel_sample": [
-        {
-          "name": "CCTV 1",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/6000000001000029752/1.m3u8?channel-id=wasusyt&Contentid=6000000001000029752&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 1 50 FPS",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/5000000004000002226/1.m3u8?channel-id=bestzb&Contentid=5000000004000002226&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 1 HEVC",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/1000000005000265001/1.m3u8?channel-id=ystenlive&Contentid=1000000005000265001&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 2",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/1000000001000023315/1.m3u8?channel-id=ystenlive&Contentid=1000000001000023315&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 2 50 FPS",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/6000000001000014161/1.m3u8?channel-id=wasusyt&Contentid=6000000001000014161&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 3",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/6000000001000022313/1.m3u8?channel-id=wasusyt&Contentid=6000000001000022313&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 3 HEVC",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/1000000005000265003/1.m3u8?channel-id=ystenlive&Contentid=1000000005000265003&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 4 50 FPS",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/5000000011000031102/1.m3u8?channel-id=bestzb&Contentid=5000000011000031102&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 4 HEVC",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/1000000005000265004/1.m3u8?channel-id=ystenlive&Contentid=1000000005000265004&livemode=1&stbId=3"
-        },
-        {
-          "name": "CCTV 5",
-          "group": "央视",
-          "url": "http://gslbserv.itv.cmvideo.cn/1000000005000025222/1.m3u8?channel-id=ystenlive&Contentid=1000000005000025222&livemode=1&stbId=3"
-        }
-      ]
+      "new_channel_sample": []
     },
     {
       "name": "Akiraleal-IPTV",
-      "key": "akiralereal/iptv:IPTV.m3u",
+      "key": "akiralereal/iptv:IPTV-overseas.m3u",
       "origin": "seed",
       "type": "m3u",
-      "url": "https://raw.githubusercontent.com/akiralereal/iptv/main/IPTV.m3u",
+      "url": "https://raw.githubusercontent.com/akiralereal/iptv/main/IPTV-overseas.m3u",
       "repo": "akiralereal/iptv",
-      "playlist_path": "IPTV.m3u",
-      "bytes": 7334,
-      "stars": 1006,
-      "updated_at": "2026-09-30T14:57:30Z",
+      "playlist_path": "IPTV-overseas.m3u",
+      "bytes": 12496,
+      "stars": 1764,
+      "updated_at": "2026-11-01T02:39:37Z",
       "status": "evaluated",
       "verdict": "watch",
       "reason": "",
-      "channels": 34,
-      "new_links": 24,
-      "duplicate_links": 10,
-      "new_names": 13,
-      "new_name_ratio": 0.382,
-      "score": 61.1,
+      "channels": 42,
+      "new_links": 23,
+      "duplicate_links": 19,
+      "new_names": 21,
+      "new_name_ratio": 0.5,
+      "score": 67.9,
       "sample": {
         "checked": 12,
-        "alive": 11,
+        "alive": 12,
         "dead": 0,
-        "unverified": 1,
-        "working_ratio": 0.917,
+        "unverified": 0,
+        "working_ratio": 1.0,
         "results": [
           {
-            "name": "湖南卫视4K",
-            "group": "卫视",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/Y2RuZXhfaWQ9YWxfaGxzX2xkdnQmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8"
-          },
-          {
-            "name": "浙江卫视4K",
-            "group": "卫视",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://ali-xwl.cztv.com/live/channel4k2160p.m3u8"
-          },
-          {
-            "name": "凤凰中文",
-            "group": "香港",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://zmgd.zyrnet.com:8888/hls/110/index.m3u8"
-          },
-          {
-            "name": "凤凰香港",
-            "group": "香港",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://cdn.qd.je/163189/fhhk"
-          },
-          {
-            "name": "纬来体育",
+            "name": "Sky Racing 2",
             "group": "体育",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://hlsz.yjjcfw.com/live/vl.m3u8?expire=1786948372&sign=2e4a56b89fe644db147552011f972714"
-          },
-          {
-            "name": "翡翠台",
-            "group": "香港",
             "status": "alive",
             "reason": "hls",
-            "url": "https://cdn3.indevs.in/stream/tvb/fct/"
+            "url": "https://636ffd31f0e12.streamlock.net/RacingStream2/RacingStream2/playlist.m3u8"
           },
           {
-            "name": "公视高清",
-            "group": "台湾",
-            "status": "alive",
-            "reason": "application/octet-stream",
-            "url": "http://211.72.174.95:8116/0.ts"
-          },
-          {
-            "name": "耀才财经",
-            "group": "香港",
+            "name": "World of Freesports",
+            "group": "体育",
             "status": "alive",
             "reason": "hls",
-            "url": "https://v3.mediacast.hk/webcast/bshdlive-pc/playlist.m3u8"
+            "url": "https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/1080p-en/index.m3u8"
           },
           {
-            "name": "WildEarth",
-            "group": "文旅",
+            "name": "FloRacing",
+            "group": "体育",
             "status": "alive",
             "reason": "hls",
-            "url": "https://wildearth-plex.amagi.tv/masterR1080p.m3u8"
+            "url": "https://amg02278-amg02278c1-flosports-worldwide-7592.playouts.now.amagi.tv/1080p-cc/index.m3u8"
           },
           {
-            "name": "Love Nature 4K",
-            "group": "文旅",
+            "name": "SportsGrid",
+            "group": "体育",
             "status": "alive",
             "reason": "hls",
-            "url": "https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8"
+            "url": "https://sportsgrid-tribal.amagi.tv/playlist1080p.m3u8"
           },
           {
-            "name": "CGTN Documentary",
-            "group": "文旅",
+            "name": "ACCDN",
+            "group": "体育",
             "status": "alive",
             "reason": "hls",
-            "url": "https://english-livebkali.cgtn.com/live/doccgtn.m3u8"
+            "url": "https://raycom-accdn-firetv.amagi.tv/1080p-cc/index.m3u8"
           },
           {
-            "name": "Reuters",
-            "group": "国际",
+            "name": "Pac-12 Insider",
+            "group": "体育",
             "status": "alive",
             "reason": "hls",
-            "url": "https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/e7493ea5-5c1c-4d7a-a3f7-e95516048ad8/3.m3u8"
+            "url": "https://pac12-firetv.amagi.tv/1080p-en-cc/index.m3u8"
+          },
+          {
+            "name": "beIN Sports Xtra",
+            "group": "体育",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://bein-xtra-bein.amagi.tv/playlistR1080p.m3u8"
+          },
+          {
+            "name": "FashionTV Paris L'Original",
+            "group": "娱乐时尚",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://ftv1.b-cdn.net/bfdbb576-83f7-11f0-9f89-0200170e3e04_1000028043_HLS/manifest.m3u8"
+          },
+          {
+            "name": "Totalmusic Concerts",
+            "group": "娱乐时尚",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://cdn.40mediagroup.com/live/c7eds/Totalmusic_Concerts/SA_LIVE_hls_enc/master.m3u8"
+          },
+          {
+            "name": "Graham Norton",
+            "group": "娱乐时尚",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://amg00654-itv-amg00654c35-rakuten-gb-7598.playouts.now.amagi.tv/playlist1080_p.m3u8"
+          },
+          {
+            "name": "Mystery TV",
+            "group": "娱乐时尚",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://aenetworks-mysterytv-rakuten.amagi.tv/1080p-vtt/index.m3u8"
+          },
+          {
+            "name": "Estrella TV",
+            "group": "娱乐时尚",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://estrellatv-oando.amagi.tv/playlistR1080p.m3u8"
           }
         ]
       },
       "new_channel_sample": [
         {
-          "name": "湖南卫视4K",
-          "group": "卫视",
-          "url": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/Y2RuZXhfaWQ9YWxfaGxzX2xkdnQmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8"
-        },
-        {
-          "name": "浙江卫视4K",
-          "group": "卫视",
-          "url": "http://ali-xwl.cztv.com/live/channel4k2160p.m3u8"
-        },
-        {
-          "name": "凤凰中文",
-          "group": "香港",
-          "url": "http://zmgd.zyrnet.com:8888/hls/110/index.m3u8"
-        },
-        {
-          "name": "凤凰资讯",
-          "group": "香港",
-          "url": "http://zmgd.zyrnet.com:8888/hls/109/index.m3u8"
-        },
-        {
-          "name": "凤凰香港",
-          "group": "香港",
-          "url": "https://cdn.qd.je/163189/fhhk"
-        },
-        {
-          "name": "纬来体育",
+          "name": "Sky Racing 2",
           "group": "体育",
-          "url": "https://hlsz.yjjcfw.com/live/vl.m3u8?expire=1786948372&sign=2e4a56b89fe644db147552011f972714"
+          "url": "https://636ffd31f0e12.streamlock.net/RacingStream2/RacingStream2/playlist.m3u8"
         },
         {
-          "name": "翡翠台",
-          "group": "香港",
-          "url": "https://cdn3.indevs.in/stream/tvb/fct/"
+          "name": "World of Freesports",
+          "group": "体育",
+          "url": "https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/1080p-en/index.m3u8"
         },
         {
-          "name": "公视高清",
-          "group": "台湾",
-          "url": "http://211.72.174.95:8116/0.ts"
+          "name": "FloRacing",
+          "group": "体育",
+          "url": "https://amg02278-amg02278c1-flosports-worldwide-7592.playouts.now.amagi.tv/1080p-cc/index.m3u8"
         },
         {
-          "name": "民视高清",
-          "group": "台湾",
-          "url": "http://211.72.174.95:8115/0.ts"
+          "name": "SportsGrid",
+          "group": "体育",
+          "url": "https://sportsgrid-tribal.amagi.tv/playlist1080p.m3u8"
         },
         {
-          "name": "台视高清",
-          "group": "台湾",
-          "url": "http://211.72.174.95:8112/0.ts"
+          "name": "ACCDN",
+          "group": "体育",
+          "url": "https://raycom-accdn-firetv.amagi.tv/1080p-cc/index.m3u8"
+        },
+        {
+          "name": "Pac-12 Insider",
+          "group": "体育",
+          "url": "https://pac12-firetv.amagi.tv/1080p-en-cc/index.m3u8"
+        },
+        {
+          "name": "beIN Sports Xtra",
+          "group": "体育",
+          "url": "https://bein-xtra-bein.amagi.tv/playlistR1080p.m3u8"
+        },
+        {
+          "name": "FashionTV Paris L'Original",
+          "group": "娱乐时尚",
+          "url": "https://ftv1.b-cdn.net/bfdbb576-83f7-11f0-9f89-0200170e3e04_1000028043_HLS/manifest.m3u8"
+        },
+        {
+          "name": "Totalmusic Concerts",
+          "group": "娱乐时尚",
+          "url": "https://cdn.40mediagroup.com/live/c7eds/Totalmusic_Concerts/SA_LIVE_hls_enc/master.m3u8"
+        },
+        {
+          "name": "Graham Norton",
+          "group": "娱乐时尚",
+          "url": "https://amg00654-itv-amg00654c35-rakuten-gb-7598.playouts.now.amagi.tv/playlist1080_p.m3u8"
         }
       ]
     },
@@ -382,24 +246,24 @@
       "url": "https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.m3u",
       "repo": "TianmuTNT/iptv",
       "playlist_path": "iptv.m3u",
-      "bytes": 87904,
-      "stars": 364,
-      "updated_at": "2026-10-01T14:23:00Z",
+      "bytes": 73320,
+      "stars": 371,
+      "updated_at": "2026-11-01T15:56:20Z",
       "status": "evaluated",
       "verdict": "promote",
       "reason": "",
-      "channels": 715,
-      "new_links": 707,
-      "duplicate_links": 8,
-      "new_names": 42,
-      "new_name_ratio": 0.059,
-      "score": 62.9,
+      "channels": 574,
+      "new_links": 554,
+      "duplicate_links": 20,
+      "new_names": 37,
+      "new_name_ratio": 0.064,
+      "score": 72.1,
       "sample": {
         "checked": 12,
-        "alive": 8,
+        "alive": 10,
         "dead": 1,
-        "unverified": 3,
-        "working_ratio": 0.667,
+        "unverified": 1,
+        "working_ratio": 0.833,
         "results": [
           {
             "name": "1987年春晚",
@@ -430,11 +294,11 @@
             "url": "https://svip.high24-playback.com/20250129/17159_7bca93c4/2000k/hls/mixed.m3u8"
           },
           {
-            "name": "2026-09-25 18:28:23",
+            "name": "2026-11-01 18:25:26",
             "group": "Other",
             "status": "alive",
             "reason": "video/mp4",
-            "url": "https://vd2.bdstatic.com/mda-sctj0f96cn79js4n/1080p/cae_h264/1774710384405617311/mda-sctj0f96cn79js4n.mp4"
+            "url": "https://vd2.bdstatic.com/mda-sctj0f6r4u1bpebc/1080p/cae_h264/1774706523506678171/mda-sctj0f6r4u1bpebc.mp4"
           },
           {
             "name": "AMC音乐",
@@ -449,20 +313,6 @@
             "status": "dead",
             "reason": "HTTP 404",
             "url": "https://tv.cry33.com/ys4k.php?id=8k"
-          },
-          {
-            "name": "CCTV1",
-            "group": "Other",
-            "status": "unverified",
-            "reason": "TimeoutError",
-            "url": "http://101.66.194.125:9901/tsfile/live/0001_1.m3u8?key=%5Bredacted%5D&playlive=0&authid=0"
-          },
-          {
-            "name": "CCTV1",
-            "group": "Other",
-            "status": "unverified",
-            "reason": "ConnectionRefusedError",
-            "url": "http://1.197.250.140:9901/tsfile/live/0001_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0"
           },
           {
             "name": "CCTV12",
@@ -484,6 +334,20 @@
             "status": "alive",
             "reason": "hls",
             "url": "http://gmxw.7766.org:808/hls/102/index.m3u8"
+          },
+          {
+            "name": "CCTV17",
+            "group": "Other",
+            "status": "alive",
+            "reason": "video/mp4",
+            "url": "https://live.264788.xyz/channel/cctv17?streamid=f9c36f1e95b5b35eac89cc89583e7c0a&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk"
+          },
+          {
+            "name": "CCTV5+",
+            "group": "Other",
+            "status": "alive",
+            "reason": "hls",
+            "url": "http://223.78.65.165:9901/tsfile/live/0006_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0"
           }
         ]
       },
@@ -548,850 +412,18 @@
       "url": "https://raw.githubusercontent.com/azamstv00-cpu/Public_Iptv_Channels/main/playlist.m3u8",
       "repo": "azamstv00-cpu/Public_Iptv_Channels",
       "playlist_path": "playlist.m3u8",
-      "bytes": 11871,
-      "stars": 3,
-      "updated_at": "2026-10-01T14:18:30Z",
-      "status": "evaluated",
+      "status": "skipped_cooldown",
       "verdict": "watch",
-      "reason": "",
+      "reason": "last checked 2026-10-01T15:38:44Z",
       "channels": 35,
       "new_links": 35,
       "duplicate_links": 0,
-      "new_names": 30,
-      "new_name_ratio": 0.857,
-      "score": 49.0,
-      "sample": {
-        "checked": 12,
-        "alive": 6,
-        "dead": 0,
-        "unverified": 6,
-        "working_ratio": 0.5,
-        "results": [
-          {
-            "name": "Australia vs South Africa",
-            "group": "Sports",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://abfjk4haaaaaaaamkitc5445rybm6.bia-cf.live.pv-cdn.net/iad-nitro/live/clients/dash/enc/pxbjna1dxy/out/v1/7da1bc4ba0bb40f6b509aada2b491efe/cenc.mpd"
-          },
-          {
-            "name": "Bangladesh vs Singapore",
-            "group": "HimelOp",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://saseries.akamaized.net/hls/live/2110097/tapmad123321/master.m3u8"
-          },
-          {
-            "name": "Hiii",
-            "group": "HimelOp",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://video.twimg.com/amplify_video/2081748492968673283/pl/uLenUVc-4g3Xw0xa.m3u8?tag=14&variant_version=1"
-          },
-          {
-            "name": "India vs. West Indies",
-            "group": "Sports",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://a96aivottlinear-a.akamaihd.net/OTTB/pdx-nitro/live/clients/dash/enc/kokgbqrt6n/out/v1/7d6a6227d1d44ce993e20e600e2bebd4/cenc.mpd"
-          },
-          {
-            "name": "Bein 1",
-            "group": "Personal-Collection",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://1nyaler.streamhostingcdn.top/stream/23/index.m3u8"
-          },
-          {
-            "name": "Bein Sports 3",
-            "group": "Personal-Collection",
-            "status": "alive",
-            "reason": "application/dash+xml",
-            "url": "https://otte.cache.aiv-cdn.net/iad-nitro/live/clients/dash/enc/q4u5nwaogz/out/v1/18de6d3e65934f3a8de4358e69eab86c/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=7995c724a13748ed970840a8ab5bb9b3%3A67bdaf1e2175b9ff682fcdf0e2354b1e"
-          },
-          {
-            "name": "Caze m3u8",
-            "group": "Personal-Collection",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8"
-          },
-          {
-            "name": "Premier Sports 1",
-            "group": "Personal-Collection",
-            "status": "alive",
-            "reason": "application/dash+xml",
-            "url": "https://otte.live.fly.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/m6sqanvm2m/out/v1/f6beb46c6e9a4132ad739f3ca27df6aa/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=1444f4235529f183f0a5a486befe9cdb%3Ae5e3fec67a1bb3472a2089c8a0a2557f"
-          },
-          {
-            "name": "WC Tv",
-            "group": "Personal-Collection",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://qp-pldt-live-bpk-ucd-prod.akamaized.net/bpk-tv/fifa_ppv1/default/index.mpd?%7CdrmScheme=clearkey&drmLicense=603e4118f91f453282dc44850376aabd%3Abe92f663ca1a10134a5b371ade386ccc"
-          },
-          {
-            "name": "Alfred Dunhill Links Championship - Day 1 - 1 Oct 2026 [ENG]",
-            "group": "Sony Liv",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://sonydaimenew.akamaized.net/hls/live/2005445/Golf_Alf0110/ENG/std_lrh-800300010.m3u8?hdnea=exp%3D1790906295~acl%3D%2F%2A~id%3D01145371827065146620115604293475~hmac%3D58ec14ba51118d33e7895759e194010e28bc80ce58e1e954ece450f72c54c67c"
-          },
-          {
-            "name": "TNT Sports 1",
-            "group": "Personal-Collection",
-            "status": "alive",
-            "reason": "application/dash+xml",
-            "url": "https://a96aivottlinear-a.akamaihd.net/OTTB/iad-nitro/live/clients/dash/enc/rhf2dwosdt/out/v1/ee550d2a68d846c797e6ce4de2e8b76d/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=69a5aa835a061ce64a630d1046727e40%3Ad02feac8a999bd06bf4059bf33411749"
-          },
-          {
-            "name": "Caze Tv HD 1",
-            "group": "Personal-Collection",
-            "status": "alive",
-            "reason": "application/dash+xml",
-            "url": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/3ynrpdanq2/out/v1/81fd4c26584044d2b1a1cc5b32fa9af0/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=34475edab991ad5e92548aebd710410a%3A501b209cccd323ac00bf5ac15b406cb4"
-          }
-        ]
-      },
-      "new_channel_sample": [
-        {
-          "name": "Australia vs South Africa",
-          "group": "Sports",
-          "url": "https://abfjk4haaaaaaaamkitc5445rybm6.bia-cf.live.pv-cdn.net/iad-nitro/live/clients/dash/enc/pxbjna1dxy/out/v1/7da1bc4ba0bb40f6b509aada2b491efe/cenc.mpd"
-        },
-        {
-          "name": "Bangladesh vs Singapore",
-          "group": "HimelOp",
-          "url": "https://saseries.akamaized.net/hls/live/2110097/tapmad123321/master.m3u8"
-        },
-        {
-          "name": "Hiii",
-          "group": "HimelOp",
-          "url": "https://video.twimg.com/amplify_video/2081748492968673283/pl/uLenUVc-4g3Xw0xa.m3u8?tag=14&variant_version=1"
-        },
-        {
-          "name": "India vs. West Indies",
-          "group": "Sports",
-          "url": "https://a96aivottlinear-a.akamaihd.net/OTTB/pdx-nitro/live/clients/dash/enc/kokgbqrt6n/out/v1/7d6a6227d1d44ce993e20e600e2bebd4/cenc.mpd"
-        },
-        {
-          "name": "Bein 1",
-          "group": "Personal-Collection",
-          "url": "https://1nyaler.streamhostingcdn.top/stream/23/index.m3u8"
-        },
-        {
-          "name": "Bein Sports 3",
-          "group": "Personal-Collection",
-          "url": "https://otte.cache.aiv-cdn.net/iad-nitro/live/clients/dash/enc/q4u5nwaogz/out/v1/18de6d3e65934f3a8de4358e69eab86c/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=7995c724a13748ed970840a8ab5bb9b3%3A67bdaf1e2175b9ff682fcdf0e2354b1e"
-        },
-        {
-          "name": "Caze m3u8",
-          "group": "Personal-Collection",
-          "url": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8"
-        },
-        {
-          "name": "Caze Tv HD 1",
-          "group": "Personal-Collection",
-          "url": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/3ynrpdanq2/out/v1/81fd4c26584044d2b1a1cc5b32fa9af0/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=34475edab991ad5e92548aebd710410a%3A501b209cccd323ac00bf5ac15b406cb4"
-        },
-        {
-          "name": "Caze Tv HD 2",
-          "group": "Personal-Collection",
-          "url": "https://otte.cache.aiv-cdn.net/gru-nitro/live/clients/dash/enc/iayg0kyrof/out/v1/91dc04907f56415b897faccfa9d252da/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=1223d5105392cabf1bb9c2c1fdf6539a%3A340b409f4b8f78a343e0363a7938df38"
-        },
-        {
-          "name": "CTV AQ",
-          "group": "Personal-Collection",
-          "url": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/fyfcwdbtmr/out/v1/02411c3777274c9eb5d572a0fb22a5b4/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=51a4a5ab615c381304b8dd795282fd7e%3A1e6f4096000b31668c11d5cd339d8cac"
-        }
-      ]
-    },
-    {
-      "name": "BDIX-IPTV",
-      "key": "saeidrahmanbd/BDIX-IPTV:IPTV-Playlist.m3u",
-      "origin": "github_search",
-      "type": "m3u",
-      "url": "https://raw.githubusercontent.com/saeidrahmanbd/BDIX-IPTV/main/IPTV-Playlist.m3u",
-      "repo": "saeidrahmanbd/BDIX-IPTV",
-      "playlist_path": "IPTV-Playlist.m3u",
-      "bytes": 314105,
-      "stars": 2,
-      "updated_at": "2026-10-01T12:37:47Z",
-      "status": "evaluated",
-      "verdict": "promote",
-      "reason": "",
-      "channels": 992,
-      "new_links": 566,
-      "duplicate_links": 426,
-      "new_names": 545,
-      "new_name_ratio": 0.549,
-      "score": 81.8,
-      "sample": {
-        "checked": 12,
-        "alive": 10,
-        "dead": 0,
-        "unverified": 2,
-        "working_ratio": 0.833,
-        "results": [
-          {
-            "name": "Ananda TV",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8"
-          },
-          {
-            "name": "ATN Bangla",
-            "group": "Bangladesh",
-            "status": "unverified",
-            "reason": "TimeoutError",
-            "url": "http://198.195.239.50:8095/ATN.BANGLA.HD/index.m3u8"
-          },
-          {
-            "name": "ATN Bangla UK",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://app.ncare.live/live-orgin/atnbanglauk-off.stream/playlist.m3u8"
-          },
-          {
-            "name": "Bangla TV",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://116.204.149.16/banglatv/index.m3u8"
-          },
-          {
-            "name": "Bengali Beats",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://iptvlive.ahmed-bd-org.workers.dev/bengali-beats-1/index.m3u8"
-          },
-          {
-            "name": "Bijoy TV",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://drk6xq0vhn.gpcdn.net/live/bijoy_tv_abr/index.m3u8"
-          },
-          {
-            "name": "BTV National",
-            "group": "Bangladesh",
-            "status": "unverified",
-            "reason": "HTTP 429",
-            "url": "https://btv.hridoytv-channel.workers.dev/btv.m3u8"
-          },
-          {
-            "name": "CBN TV USA",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://live.cbntvusa.net/hls/cbntv/index.m3u8"
-          },
-          {
-            "name": "Channel 1",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel1bd.stream/playlist.m3u8"
-          },
-          {
-            "name": "Channel 9",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "video/mp2t",
-            "url": "http://premiumtvs.space/live/YqXTywueEV/damp2purchase/434.ts"
-          },
-          {
-            "name": "Deepto TV",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8"
-          },
-          {
-            "name": "Enter TV",
-            "group": "Bangladesh",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://live1.entertv.com.bd/entertv/tracks-v1a1/mono.m3u8"
-          }
-        ]
-      },
-      "new_channel_sample": [
-        {
-          "name": "Ananda TV",
-          "group": "Bangladesh",
-          "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8"
-        },
-        {
-          "name": "Asian TV",
-          "group": "Bangladesh",
-          "url": "https://tvsen6.aynaott.com/pKb5k6NnzxsKpWUs6E8M/index.m3u8"
-        },
-        {
-          "name": "ATN Bangla",
-          "group": "Bangladesh",
-          "url": "http://198.195.239.50:8095/ATN.BANGLA.HD/index.m3u8"
-        },
-        {
-          "name": "ATN Bangla UK",
-          "group": "Bangladesh",
-          "url": "https://app.ncare.live/live-orgin/atnbanglauk-off.stream/playlist.m3u8"
-        },
-        {
-          "name": "ATN News",
-          "group": "Bangladesh",
-          "url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8"
-        },
-        {
-          "name": "Bangla TV",
-          "group": "Bangladesh",
-          "url": "http://116.204.149.16/banglatv/index.m3u8"
-        },
-        {
-          "name": "Bengali Beats",
-          "group": "Bangladesh",
-          "url": "https://iptvlive.ahmed-bd-org.workers.dev/bengali-beats-1/index.m3u8"
-        },
-        {
-          "name": "Bijoy TV",
-          "group": "Bangladesh",
-          "url": "https://drk6xq0vhn.gpcdn.net/live/bijoy_tv_abr/index.m3u8"
-        },
-        {
-          "name": "Boishakhi TV",
-          "group": "Bangladesh",
-          "url": "http://198.195.239.50:8095/BOISAKHI.TV.HD/index.m3u8"
-        },
-        {
-          "name": "BTV Chattogram",
-          "group": "Bangladesh",
-          "url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8"
-        }
-      ]
-    },
-    {
-      "name": "cathode",
-      "key": "kaiserbh/cathode:crates/core/tests/fixtures/sample.m3u8",
-      "origin": "github_search",
-      "type": "m3u",
-      "url": "https://raw.githubusercontent.com/kaiserbh/cathode/main/crates/core/tests/fixtures/sample.m3u8",
-      "repo": "kaiserbh/cathode",
-      "playlist_path": "crates/core/tests/fixtures/sample.m3u8",
-      "bytes": 518398,
-      "stars": 4,
-      "updated_at": "2026-09-30T15:25:58Z",
-      "status": "evaluated",
-      "verdict": "reject",
-      "reason": "0 working in sample (needs 3)",
-      "channels": 1884,
-      "new_links": 638,
-      "duplicate_links": 1246,
-      "new_names": 614,
-      "new_name_ratio": 0.326,
-      "score": 31.5,
-      "sample": {
-        "checked": 12,
-        "alive": 0,
-        "dead": 4,
-        "unverified": 8,
-        "working_ratio": 0.0,
-        "results": [
-          {
-            "name": "Syri",
-            "group": "Albania",
-            "status": "unverified",
-            "reason": "HTTP 503",
-            "url": "https://stream.syritv.al/SyriTV/index.m3u8"
-          },
-          {
-            "name": "TV 7 Albania",
-            "group": "Albania",
-            "status": "unverified",
-            "reason": "SSLError",
-            "url": "https://5d00db0e0fcd5.streamlock.net/7064/7064/playlist.m3u8"
-          },
-          {
-            "name": "TV Apollon Ⓢ",
-            "group": "Albania",
-            "status": "dead",
-            "reason": "HTTP 404",
-            "url": "https://live.apollon.tv/Apollon-WEB/video.m3u8?token=%5Bredacted%5D"
-          },
-          {
-            "name": "Vizion Plus",
-            "group": "Albania",
-            "status": "dead",
-            "reason": "HTTP 404",
-            "url": "https://fe.tring.al/delta/105/out/u/rdghfhsfhfshs.m3u8"
-          },
-          {
-            "name": "Andorra TV",
-            "group": "Andorra",
-            "status": "unverified",
-            "reason": "ConnectionRefusedError",
-            "url": "https://videos.rtva.ad/live/rtva/playlist.m3u8"
-          },
-          {
-            "name": "Canal 26 Ⓨ",
-            "group": "Argentina",
-            "status": "dead",
-            "reason": "html page, not a stream",
-            "url": "https://www.youtube.com/c/canal26/live"
-          },
-          {
-            "name": "Telemax",
-            "group": "Argentina",
-            "status": "unverified",
-            "reason": "TimeoutError",
-            "url": "https://live-edge01.telecentro.net.ar/live/smil:tlx.smil/playlist.m3u8"
-          },
-          {
-            "name": "Barricada TV",
-            "group": "Argentina",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://live-ak.vimeocdn.com/exp=1696402364~acl=%2F9f41e203-241b-4eb7-b0b5-b1839903408f%2F%2A~hmac=d4819f301510676a986bfe610b664765ee2b1a23e1e1ca3214398f949a0b2778/9f41e203-241b-4eb7-b0b5-b1839903408f/hls.m3u8?min_seconds=30"
-          },
-          {
-            "name": "Urbana Tevé",
-            "group": "Argentina",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://cdnhd.iblups.com/hls/DD3nXkAkWk.m3u8"
-          },
-          {
-            "name": "Comarca TV",
-            "group": "Argentina",
-            "status": "unverified",
-            "reason": "TimeoutError",
-            "url": "https://video-weaver.ord56.hls.ttvnw.net/v1/playlist/Cq4FFLOPxq44Qy0kxjcr_wXuRRwjKU6gJ80Tc5eWRkaz5XdeNfeq7DzoNAstinu7BLtnw7jYDANX5yCDozdlS55_kYfuDyqQhwF0JpzU75lDUv5NOuUVWBwlP0m1Bh1JMn21v_OvA_teSCI7hcIFl2DoINrr8bHnpSS8EUvXNesfdX_LcfQH-clqftQ0sCreLIbTvxI5MyL6Wnm8jGh2yg48A2c_k9YHDH6TpM3tLo-pbRrrfByqMq-IoMQREf5DV_sTfHtAzinQQU3Np309s2ScJwcBlAjzz4VJ7svuJ1UbWBBylenSTnrXQW5Vws7OqG2kcoAHHpAQN6BQCpxaXO6dE7MLg7Nq6E7961fHEVSqFCRQg2Y5orbSsEwMo7_S4s5POZSQX1tn04QDuHfLixx-aBcbctSSFmI1CNZ3YDCEZVvWHOU6SyKQcsZeJCFLA1DsxqY3DeAn6n7xpPS4pdsizKqlqsT66liv_L-48h7jGujNZPDHge0fcgUs_7b7jlKJlKv-S_s1mGgLqPEUEQ8dhn5AugB0kfjAGgcTHIP_qLPRY0M7OikuBaMxh1pUpPkVG9AX4jCg1cwCgcfa64OP9ed4pwMjoiKm0dIfytTQ8hWjwXtkv16nJDfZ3kkqaMnM8ErZG6tRw-JVy3nRooKubY7Re0Fc1RHB85_eX2NYQD88N7r-UgaiO2ax0FQ-E_IdfuwSmp5oDy6Di6pT7r_zDRN3znbV64s4i-INUg-D2Leeq4xqYhe_Zhj-3AoxXDWCB0-DCc1kFEComkNpY01YA19zEm01TKLCbdaJwdC6bQpSEoJkOCoPAMnxm7oPNlqZRbhM4TVCJ34f4Y1guzaDomcEABl4Cii2UF-OhskRUZF-SUWjWdO6z62UqZagzG2QOTr6VBH-ItT_16fLsRUaDGTVKzgYHT8XcSqTkyABKgl1cy1lYXN0LTEwjQY.m3u8"
-          },
-          {
-            "name": "El Nueve",
-            "group": "Argentina",
-            "status": "unverified",
-            "reason": "gaierror",
-            "url": "https://octubre-live.cdn.vustreams.com/live/channel09/live.isml/live.m3u8"
-          },
-          {
-            "name": "Telefe Ⓨ",
-            "group": "Argentina",
-            "status": "dead",
-            "reason": "html page, not a stream",
-            "url": "https://telefe.com/Api/Videos/GetSourceUrl/694564/0/HLS?.m3u8="
-          }
-        ]
-      },
-      "new_channel_sample": [
-        {
-          "name": "Syri",
-          "group": "Albania",
-          "url": "https://stream.syritv.al/SyriTV/index.m3u8"
-        },
-        {
-          "name": "TV 7 Albania",
-          "group": "Albania",
-          "url": "https://5d00db0e0fcd5.streamlock.net/7064/7064/playlist.m3u8"
-        },
-        {
-          "name": "TV Apollon Ⓢ",
-          "group": "Albania",
-          "url": "https://live.apollon.tv/Apollon-WEB/video.m3u8?token=%5Bredacted%5D"
-        },
-        {
-          "name": "Vizion Plus",
-          "group": "Albania",
-          "url": "https://fe.tring.al/delta/105/out/u/rdghfhsfhfshs.m3u8"
-        },
-        {
-          "name": "Andorra TV",
-          "group": "Andorra",
-          "url": "https://videos.rtva.ad/live/rtva/playlist.m3u8"
-        },
-        {
-          "name": "Canal 26 Ⓨ",
-          "group": "Argentina",
-          "url": "https://www.youtube.com/c/canal26/live"
-        },
-        {
-          "name": "IP Noticias Ⓨ",
-          "group": "Argentina",
-          "url": "https://www.youtube.com/watch?v=IxQ2-6Y4y9w"
-        },
-        {
-          "name": "El Destape Ⓨ",
-          "group": "Argentina",
-          "url": "https://www.youtube.com/watch?v=JuskTxbUqmY"
-        },
-        {
-          "name": "Telemax",
-          "group": "Argentina",
-          "url": "https://live-edge01.telecentro.net.ar/live/smil:tlx.smil/playlist.m3u8"
-        },
-        {
-          "name": "Barricada TV",
-          "group": "Argentina",
-          "url": "https://live-ak.vimeocdn.com/exp=1696402364~acl=%2F9f41e203-241b-4eb7-b0b5-b1839903408f%2F%2A~hmac=d4819f301510676a986bfe610b664765ee2b1a23e1e1ca3214398f949a0b2778/9f41e203-241b-4eb7-b0b5-b1839903408f/hls.m3u8?min_seconds=30"
-        }
-      ]
-    },
-    {
-      "name": "m3u",
-      "key": "iprtl/m3u:Pluto.m3u",
-      "origin": "github_search",
-      "type": "m3u",
-      "url": "https://raw.githubusercontent.com/iprtl/m3u/live/Pluto.m3u",
-      "repo": "iprtl/m3u",
-      "playlist_path": "Pluto.m3u",
-      "bytes": 400448,
-      "stars": 55,
-      "updated_at": "2026-10-01T15:32:45Z",
-      "status": "evaluated",
-      "verdict": "promote",
-      "reason": "",
-      "channels": 827,
-      "new_links": 662,
-      "duplicate_links": 165,
-      "new_names": 721,
-      "new_name_ratio": 0.872,
-      "score": 88.3,
-      "sample": {
-        "checked": 12,
-        "alive": 10,
-        "dead": 1,
-        "unverified": 1,
-        "working_ratio": 0.833,
-        "results": [
-          {
-            "name": "Buy me a Coffee",
-            "group": "Buy me a Coffee",
-            "status": "alive",
-            "reason": "image/png",
-            "url": "https://jerrymoz.wordpress.com/wp-content/uploads/2024/03/qr_paypal.png"
-          },
-          {
-            "name": "☆ Tela Brasil tv ᴸᴼᵂ 🇧🇷",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://stmv.webtvninjas.com.br/mailson6054/mailson6054/playlist.m3u8"
-          },
-          {
-            "name": "☆ Multi Mix 🇧🇷",
-            "group": "Novelas 🌎",
-            "status": "dead",
-            "reason": "invalid URL",
-            "url": "+https://stmv.webtvninjas.com.br/multimix/multimix/playlist.m3u8"
-          },
-          {
-            "name": "☆ A terra Prometida 🇧🇷",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://dfr80qz435crc.cloudfront.net/IJKL/Amagi/Samsung/ATerraPrometida_BR/ATerraPrometida.m3u8"
-          },
-          {
-            "name": "☆ Os Dez Mandamentos 🇧🇷",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://cc-38amk5g6kmcpo.akamaized.net/Os_Dez_Mandamentos.m3u8"
-          },
-          {
-            "name": "☆ Minha Identidade e Beleza de Gangnam 🇧🇷",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=minhaidentidade%C3%A9belezadegangnam&channel_id=newid_233"
-          },
-          {
-            "name": "☆ Rakuten viki 🇺🇸🇰🇷",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://newidco-rakutenviki-2-us.lg.wurl.tv/playlist.m3u8"
-          },
-          {
-            "name": "☆ Passion Novelas 🇫🇷",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://jmp2.uk/stvp-FRBD15000024B"
-          },
-          {
-            "name": "☆ Canela.TV Narco-Drama 🇲🇽",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://amg00658-amg00658c13-lg-us-7400.playouts.now.amagi.tv/playlist/amg00658-canelamediafast-narcodramaltus-lgus/playlist.m3u8"
-          },
-          {
-            "name": "☆ Azteca Corazon 🇲🇽",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://azt-cz.otteravision.com/azt/cz/cz_720p_high.m3u8"
-          },
-          {
-            "name": "☆ Novelisima 🇲🇽",
-            "group": "Novelas 🌎",
-            "status": "unverified",
-            "reason": "HTTP 401",
-            "url": "https://epg.provider.plex.tv/library/parts/608049aefa2b8ae93c2c3a63-64d4e82ac5d4668c9cb7b5df/?X-Plex-Token=xePfG98DiSxDoEPoY91x"
-          },
-          {
-            "name": "☆ Sony One Novelas 🇲🇽",
-            "group": "Novelas 🌎",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://spt-sonyonenovelas-1-mx.tcl.wurl.tv/playlist.m3u8"
-          }
-        ]
-      },
-      "new_channel_sample": [
-        {
-          "name": "Buy me a Coffee",
-          "group": "Buy me a Coffee",
-          "url": "https://jerrymoz.wordpress.com/wp-content/uploads/2024/03/qr_paypal.png"
-        },
-        {
-          "name": "☆ Tela Brasil tv ᴸᴼᵂ 🇧🇷",
-          "group": "Novelas 🌎",
-          "url": "https://stmv.webtvninjas.com.br/mailson6054/mailson6054/playlist.m3u8"
-        },
-        {
-          "name": "☆ Multi Mix 🇧🇷",
-          "group": "Novelas 🌎",
-          "url": "+https://stmv.webtvninjas.com.br/multimix/multimix/playlist.m3u8"
-        },
-        {
-          "name": "☆ A terra Prometida 🇧🇷",
-          "group": "Novelas 🌎",
-          "url": "https://dfr80qz435crc.cloudfront.net/IJKL/Amagi/Samsung/ATerraPrometida_BR/ATerraPrometida.m3u8"
-        },
-        {
-          "name": "☆ Os Dez Mandamentos 🇧🇷",
-          "group": "Novelas 🌎",
-          "url": "https://cc-38amk5g6kmcpo.akamaized.net/Os_Dez_Mandamentos.m3u8"
-        },
-        {
-          "name": "☆ Minha Identidade e Beleza de Gangnam 🇧🇷",
-          "group": "Novelas 🌎",
-          "url": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=minhaidentidade%C3%A9belezadegangnam&channel_id=newid_233"
-        },
-        {
-          "name": "☆ Wedo tv Amor 🇧🇷",
-          "group": "Novelas 🌎",
-          "url": "+https://c73eb5ea.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/VmlkYWEtYnJfV2Vkb0Ftb3JfSExT/playlist.m3u8"
-        },
-        {
-          "name": "☆ Malhação Fast 🇧🇷",
-          "group": "Novelas 🌎",
-          "url": "https://dfr80qz435crc.cloudfront.net/EFGH/Amagi/Globo/Malhacao_Fast_BR/576p-vtt/index.m3u8"
-        },
-        {
-          "name": "☆ Rakuten viki 🇺🇸🇰🇷",
-          "group": "Novelas 🌎",
-          "url": "https://newidco-rakutenviki-2-us.lg.wurl.tv/playlist.m3u8"
-        },
-        {
-          "name": "☆ TeleNovela tv 🇫🇷",
-          "group": "Novelas 🌎",
-          "url": "+https://stormcast-telenovelatv-1-fr.samsung.wurl.tv/playlist.m3u8"
-        }
-      ],
-      "promoted": true
-    },
-    {
-      "name": "openstream",
-      "key": "SajadTroy/openstream:index.m3u",
-      "origin": "github_search",
-      "type": "m3u",
-      "url": "https://raw.githubusercontent.com/SajadTroy/openstream/main/index.m3u",
-      "repo": "SajadTroy/openstream",
-      "playlist_path": "index.m3u",
-      "bytes": 1051361,
-      "stars": 4,
-      "updated_at": "2026-10-01T15:11:53Z",
-      "status": "evaluated",
-      "verdict": "promote",
-      "reason": "",
-      "channels": 5548,
-      "new_links": 2314,
-      "duplicate_links": 3234,
-      "new_names": 2335,
-      "new_name_ratio": 0.421,
-      "score": 88.4,
-      "sample": {
-        "checked": 12,
-        "alive": 12,
-        "dead": 0,
-        "unverified": 0,
-        "working_ratio": 1.0,
-        "results": [
-          {
-            "name": "Al Arabiya (1080p)",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://mbc1-enc.edgenextcdn.net/out/v1/f5f319206ed740f9a831f2097c2ead23/index.m3u8"
-          },
-          {
-            "name": "Alarabiya (1080p)",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://shls-live-enc.edgenextcdn.net/out/v1/f5f319206ed740f9a831f2097c2ead23/index.m3u8"
-          },
-          {
-            "name": "MBC Persia (720p)",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://hls.mbcpersia.live/hls/stream.m3u8"
-          },
-          {
-            "name": "Sharjah TV (360p)",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://cdn-globecast.akamaized.net/live/eds/sharjah_tv/hls_roku/index.m3u8"
-          },
-          {
-            "name": "Euronews Albania",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://gjirafa-video-live.gjirafa.net/gjvideo-live/2dw-zuf-1c9-pxu/index.m3u8"
-          },
-          {
-            "name": "Armenia 1",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://dash2.antik.sk/live/test_armenia/playlist.m3u8"
-          },
-          {
-            "name": "5TV Corrientes (480p) [Not 24/7]",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://www.coninfo.net:1935/tvcinco/live1/playlist.m3u8"
-          },
-          {
-            "name": "Cadena 103 (720p) [Not 24/7]",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://arcast.net:1935/cadena103/cadena103/playlist.m3u8"
-          },
-          {
-            "name": "Canal 5 Pico Truncado (540p)",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://stream.arcast.com.ar/canal5picotruncado/canal5picotruncado/playlist.m3u8"
-          },
-          {
-            "name": "Canal 7 Salta (720p)",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://vivo.solumedia.com:19360/canal7salta/canal7salta.m3u8"
-          },
-          {
-            "name": "Canal 34 San Juan (720p)",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://streamyes.alsolnet.com/canal34hd/live/playlist.m3u8"
-          },
-          {
-            "name": "Ciudad Magazine (1080p) [Geo-blocked]",
-            "group": "Other",
-            "status": "alive",
-            "reason": "hls",
-            "url": "https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8"
-          }
-        ]
-      },
-      "new_channel_sample": [
-        {
-          "name": "Al Arabiya (1080p)",
-          "group": "Other",
-          "url": "https://mbc1-enc.edgenextcdn.net/out/v1/f5f319206ed740f9a831f2097c2ead23/index.m3u8"
-        },
-        {
-          "name": "Alarabiya (1080p)",
-          "group": "Other",
-          "url": "https://shls-live-enc.edgenextcdn.net/out/v1/f5f319206ed740f9a831f2097c2ead23/index.m3u8"
-        },
-        {
-          "name": "MBC Persia (720p)",
-          "group": "Other",
-          "url": "https://hls.mbcpersia.live/hls/stream.m3u8"
-        },
-        {
-          "name": "Sharjah TV (360p)",
-          "group": "Other",
-          "url": "https://cdn-globecast.akamaized.net/live/eds/sharjah_tv/hls_roku/index.m3u8"
-        },
-        {
-          "name": "Euronews Albania",
-          "group": "Other",
-          "url": "https://gjirafa-video-live.gjirafa.net/gjvideo-live/2dw-zuf-1c9-pxu/index.m3u8"
-        },
-        {
-          "name": "Armenia 1",
-          "group": "Other",
-          "url": "https://dash2.antik.sk/live/test_armenia/playlist.m3u8"
-        },
-        {
-          "name": "5TV Corrientes (480p) [Not 24/7]",
-          "group": "Other",
-          "url": "http://www.coninfo.net:1935/tvcinco/live1/playlist.m3u8"
-        },
-        {
-          "name": "Cadena 103 (720p) [Not 24/7]",
-          "group": "Other",
-          "url": "http://arcast.net:1935/cadena103/cadena103/playlist.m3u8"
-        },
-        {
-          "name": "Canal 5 Pico Truncado (540p)",
-          "group": "Other",
-          "url": "https://stream.arcast.com.ar/canal5picotruncado/canal5picotruncado/playlist.m3u8"
-        },
-        {
-          "name": "Canal 7 Salta (720p)",
-          "group": "Other",
-          "url": "https://vivo.solumedia.com:19360/canal7salta/canal7salta.m3u8"
-        }
-      ],
-      "promoted": true
-    },
-    {
-      "name": "pluto-playlist",
-      "key": "sulthanpamenan/pluto-playlist:playlist.m3u",
-      "origin": "github_search",
-      "type": "m3u",
-      "url": "https://raw.githubusercontent.com/sulthanpamenan/pluto-playlist/main/playlist.m3u",
-      "repo": "sulthanpamenan/pluto-playlist",
-      "playlist_path": "playlist.m3u",
-      "bytes": 1378336,
-      "stars": 2,
-      "updated_at": "2026-10-01T14:00:39Z",
-      "status": "not_a_playlist",
-      "verdict": "reject",
-      "reason": "response is not an M3U playlist",
-      "channels": 0,
-      "new_links": 0,
-      "duplicate_links": 0,
       "new_names": 0,
       "new_name_ratio": 0.0,
-      "score": 0.0,
+      "score": 49.0,
+      "bytes": 16017,
+      "stars": 7,
+      "updated_at": "2026-11-01T15:51:04Z",
       "sample": {
         "checked": 0,
         "alive": 0,
@@ -1403,173 +435,535 @@
       "new_channel_sample": []
     },
     {
-      "name": "DF_IPTV",
-      "key": "Dolov07KBR/DF_IPTV:12.m3u",
+      "name": "VIP-m3u-playlist",
+      "key": "Mrbotrx/VIP-m3u-playlist:Vip playlists/vip_kbpro.m3u8",
       "origin": "github_search",
       "type": "m3u",
-      "url": "https://raw.githubusercontent.com/Dolov07KBR/DF_IPTV/main/12.m3u",
-      "repo": "Dolov07KBR/DF_IPTV",
-      "playlist_path": "12.m3u",
-      "bytes": 765753,
+      "url": "https://raw.githubusercontent.com/Mrbotrx/VIP-m3u-playlist/main/Vip%20playlists/vip_kbpro.m3u8",
+      "repo": "Mrbotrx/VIP-m3u-playlist",
+      "playlist_path": "Vip playlists/vip_kbpro.m3u8",
+      "bytes": 48875,
       "stars": 1,
-      "updated_at": "2026-10-01T15:14:50Z",
+      "updated_at": "2026-11-01T15:39:56Z",
       "status": "evaluated",
-      "verdict": "reject",
-      "reason": "2 working in sample (needs 3)",
-      "channels": 3571,
-      "new_links": 3474,
-      "duplicate_links": 97,
-      "new_names": 622,
-      "new_name_ratio": 0.174,
-      "score": 37.7,
+      "verdict": "promote",
+      "reason": "",
+      "channels": 212,
+      "new_links": 111,
+      "duplicate_links": 101,
+      "new_names": 106,
+      "new_name_ratio": 0.5,
+      "score": 74.3,
       "sample": {
         "checked": 12,
-        "alive": 2,
-        "dead": 2,
-        "unverified": 8,
-        "working_ratio": 0.167,
+        "alive": 11,
+        "dead": 1,
+        "unverified": 0,
+        "working_ratio": 0.917,
         "results": [
           {
-            "name": "CHD-TV RU Rock HD",
-            "group": "TEST ⓵",
+            "name": "IPTV LINKS",
+            "group": "IPTV",
+            "status": "alive",
+            "reason": "application/octet-stream",
+            "url": "https://github.com/Mrbotrx/Mrbotrx/raw/refs/heads/main/IPTV_LINKS_VIDEO.mp4"
+          },
+          {
+            "name": "Sony Sports 1",
+            "group": "FAST Sports",
             "status": "alive",
             "reason": "hls",
-            "url": "http://194.26.229.213/chdtv_ru_rock/index.m3u8"
+            "url": "https://drk6xq0vhn.gpcdn.net/live/ten_1_hd_720/index.m3u8"
           },
           {
-            "name": "ТНТ4 International",
-            "group": "TEST ⓵",
-            "status": "dead",
-            "reason": "HTTP 404",
-            "url": "https://cdn4.skygo.mn/live/disk1/TNT4/HLSv3-FTA/TNT4.m3u8"
-          },
-          {
-            "name": "Рен ТВ International",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "ConnectionRefusedError",
-            "url": "https://cdn2.skygo.mn/live/disk1/RenTV/HLSv3-FTA/RenTV.m3u8"
-          },
-          {
-            "name": "Bollywood HD",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "TimeoutError",
-            "url": "http://193.27.209.122/bollywood/index.m3u8"
-          },
-          {
-            "name": "Nat Geo Wild HD",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "ConnectionRefusedError",
-            "url": "http://188.237.47.212:6005"
-          },
-          {
-            "name": "EXTINF:-1 group-title=\"TEST ⓵,VIASAT Kino Comedy HD",
-            "group": "Other",
+            "name": "Gazi Tv",
+            "group": "FAST Sports",
             "status": "alive",
             "reason": "hls",
-            "url": "http://ukr2.ukrainske.tv/493/video.m3u8"
+            "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/gazibdz.stream/playlist.m3u8"
           },
           {
-            "name": "TV1000 Русское кино",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "TimeoutError",
-            "url": "http://213.169.39.30:5006"
+            "name": "Xtrem Sports",
+            "group": "FAST Sports",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/e0b81a5c-6ab5-48cd-aaa9-f82de4ab5bf9/manifest.m3u8"
           },
           {
-            "name": "Star Family HD",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "TimeoutError",
-            "url": "http://84.245.224.71/StarFamilyHD/mono.m3u8"
+            "name": "DD Sports (720p)",
+            "group": "FAST Sports",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://cdn.pishow.tv/ott/live/13/master.m3u8"
           },
           {
-            "name": "Уникум",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "HTTP 403",
-            "url": "https://flussonic.salomtv.uz/Detskiy/video.m3u8"
+            "name": "Btv HD",
+            "group": "FAST News",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://nkafmbewiff.gpcdn.net/tile_2/master.m3u8"
           },
           {
-            "name": "TV1000",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "gaierror",
-            "url": "https://live-erostv.cdnvideo.ru/erostv/erostv.sdp/playlist.m3u8"
+            "name": "Akhon Tv",
+            "group": "FAST News",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://stream.ottplus.live/live/ekhon_tv_abr/live/ekhon_tv_hd_720/chunks.m3u8"
           },
           {
-            "name": "Дом Кино Премиум",
-            "group": "TEST ⓵",
-            "status": "unverified",
-            "reason": "ConnectionRefusedError",
-            "url": "http://85.11.144.6:6060/play/a07v/index.m3u8"
+            "name": "ATN News",
+            "group": "FAST News",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8"
           },
           {
-            "name": "Матч! Страна",
-            "group": "TEST ⓵",
+            "name": "Maasranga TV",
+            "group": "FAST News",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://mtv.sunplex.live/MAASRANGA/index.m3u8"
+          },
+          {
+            "name": "Deepto TV HD",
+            "group": "FAST News",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8"
+          },
+          {
+            "name": "SRK TV",
+            "group": "FAST News",
             "status": "dead",
             "reason": "HTTP 404",
-            "url": "http://ukr.ukrainske.tv/134/keytvainua/video.m3u8"
+            "url": "https://srknowapp.ncare.live/srktvhlswodrm/srktv.stream/playlist.m3u8"
+          },
+          {
+            "name": "DW News",
+            "group": "FAST News",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/master.m3u8"
           }
         ]
       },
       "new_channel_sample": [
         {
-          "name": "CHD-TV RU Rock HD",
-          "group": "TEST ⓵",
-          "url": "http://194.26.229.213/chdtv_ru_rock/index.m3u8"
+          "name": "IPTV LINKS",
+          "group": "IPTV",
+          "url": "https://github.com/Mrbotrx/Mrbotrx/raw/refs/heads/main/IPTV_LINKS_VIDEO.mp4"
         },
         {
-          "name": "CHD-TV Rock",
-          "group": "TEST ⓵",
-          "url": "http://194.26.229.213/chdtv_rock/index.m3u8"
+          "name": "Sony Sports 1",
+          "group": "FAST Sports",
+          "url": "https://drk6xq0vhn.gpcdn.net/live/ten_1_hd_720/index.m3u8"
         },
         {
-          "name": "СоюзМультфильм",
-          "group": "TEST ⓵",
-          "url": "http://194.26.229.213/souzmultfilm/index.m3u8"
+          "name": "Sony Sports 2",
+          "group": "FAST Sports",
+          "url": "https://drk6xq0vhn.gpcdn.net/live/ten_2_hd_720/index.m3u8"
         },
         {
-          "name": "Чип и Дейл",
-          "group": "TEST ⓵",
-          "url": "http://194.26.229.213/chip-n-dale-rescue-rangers/index.m3u8"
+          "name": "Sony Sports 5",
+          "group": "FAST Sports",
+          "url": "https://drk6xq0vhn.gpcdn.net/live/ten_5_hd_720/index.m3u8"
         },
         {
-          "name": "ТНТ4 International",
-          "group": "TEST ⓵",
-          "url": "https://cdn4.skygo.mn/live/disk1/TNT4/HLSv3-FTA/TNT4.m3u8"
+          "name": "Gazi Tv",
+          "group": "FAST Sports",
+          "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/gazibdz.stream/playlist.m3u8"
         },
         {
-          "name": "Рен ТВ International",
-          "group": "TEST ⓵",
-          "url": "https://cdn2.skygo.mn/live/disk1/RenTV/HLSv3-FTA/RenTV.m3u8"
+          "name": "Xtrem Sports",
+          "group": "FAST Sports",
+          "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/e0b81a5c-6ab5-48cd-aaa9-f82de4ab5bf9/manifest.m3u8"
         },
         {
-          "name": "Пятница! International",
-          "group": "TEST ⓵",
-          "url": "https://cdn4.skygo.mn/live/disk1/Friday/HLSv3-FTA/Friday.m3u8"
+          "name": "Sports Fishing TV",
+          "group": "FAST Sports",
+          "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8"
         },
         {
-          "name": "СТС International",
-          "group": "TEST ⓵",
-          "url": "https://cdn4.skygo.mn/live/disk1/STS/HLSv3-FTA/STS.m3u8"
+          "name": "DD Sports (720p)",
+          "group": "FAST Sports",
+          "url": "https://cdn.pishow.tv/ott/live/13/master.m3u8"
         },
         {
-          "name": "Bollywood HD",
-          "group": "TEST ⓵",
-          "url": "http://193.27.209.122/bollywood/index.m3u8"
+          "name": "Btv HD",
+          "group": "FAST News",
+          "url": "https://nkafmbewiff.gpcdn.net/tile_2/master.m3u8"
         },
         {
-          "name": "Дорама HD",
-          "group": "TEST ⓵",
-          "url": "http://193.27.209.122/dorama/index.m3u8"
+          "name": "Bijoy Tv",
+          "group": "FAST News",
+          "url": "https://drk6xq0vhn.gpcdn.net/live/bijoy_tv_abr/index.m3u8"
+        }
+      ],
+      "promoted": true
+    },
+    {
+      "name": "israel-tv-plus",
+      "key": "dor2500/israel-tv-plus:playlist-tv.m3u",
+      "origin": "github_search",
+      "type": "m3u",
+      "url": "https://raw.githubusercontent.com/dor2500/israel-tv-plus/master/playlist-tv.m3u",
+      "repo": "dor2500/israel-tv-plus",
+      "playlist_path": "playlist-tv.m3u",
+      "bytes": 94577,
+      "stars": 4,
+      "updated_at": "2026-11-01T15:51:48Z",
+      "status": "evaluated",
+      "verdict": "promote",
+      "reason": "",
+      "channels": 276,
+      "new_links": 204,
+      "duplicate_links": 72,
+      "new_names": 183,
+      "new_name_ratio": 0.663,
+      "score": 84.1,
+      "sample": {
+        "checked": 12,
+        "alive": 10,
+        "dead": 0,
+        "unverified": 2,
+        "working_ratio": 0.833,
+        "results": [
+          {
+            "name": "וואלה!+ חדשות – שידור חי HD",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://live.wcdn.co.il/news/prog_index.m3u8"
+          },
+          {
+            "name": "ynet Live",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://ynet-live-01.ynet-pic1.yit.co.il/ynet/live.m3u8"
+          },
+          {
+            "name": "HOT ריאל HD (HOT Real)",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "http://b84203c4.ottrast.com/iptv/QAP2YS2594ZQS3/12274/index.m3u8"
+          },
+          {
+            "name": "רשת 13 קומדיה ובידור HD",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://d15ds134q59udk.cloudfront.net/media/3b45de9e-c944-4fdc-a344-7c3042b5b104/mainManifest.m3u8"
+          },
+          {
+            "name": "ערוץ בית ועיצוב ישראלי HD",
+            "group": "ערוצי ישראל",
+            "status": "unverified",
+            "reason": "HTTP 403",
+            "url": "https://d1zqtf09wb8nt5.cloudfront.net/livehls/oil/freetv/live/imagin_lifestyle/live.livx/playlist.m3u8"
+          },
+          {
+            "name": "ערוץ כלכלה 10 HD",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://r.il.cdn-redge.media/livehls/oil/calcala-live/live/channel10/live.livx/playlist.m3u8"
+          },
+          {
+            "name": "כאן חינוכית 23 FHD",
+            "group": "ילדים ונוער (בעברית)",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://kancdn.medonecdn.net/livehls/oil/kancdn-live/live/kan_edu/live.livx/playlist.m3u8"
+          },
+          {
+            "name": "רשת 13 – נגיש",
+            "group": "ערוצי ישראל",
+            "status": "unverified",
+            "reason": "HTTP 403",
+            "url": "https://reshet.g-mana.live/media/4607e158-e4d4-4e18-9160-3dc3ea9bc677/mainManifest.m3u8"
+          },
+          {
+            "name": "ערוץ הכנסת – נגיש",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://kneset.gostreaming.tv/p2-Accessibility/_definst_/myStream/index.m3u8"
+          },
+          {
+            "name": "הכותל המערבי – שידור חי 24/7",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://cdn1.cast-tv.com/23595/Live_Kotel3_ABR/playlist.m3u8"
+          },
+          {
+            "name": "רשת 13 ערוץ הנופש HD",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://d1yd8hohnldm33.cloudfront.net/out/v1/19dee23c2cc24f689bd4e1288661ee0c/index.m3u8"
+          },
+          {
+            "name": "רשת 13 ערוץ הריאליטי HD",
+            "group": "ערוצי ישראל",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://d2dffl3588mvfk.cloudfront.net/out/v1/d8e15050ca4148aab0ee387a5e2eb46b/index.m3u8"
+          }
+        ]
+      },
+      "new_channel_sample": [
+        {
+          "name": "וואלה!+ חדשות – שידור חי HD",
+          "group": "ערוצי ישראל",
+          "url": "https://live.wcdn.co.il/news/prog_index.m3u8"
+        },
+        {
+          "name": "ynet Live",
+          "group": "ערוצי ישראל",
+          "url": "https://ynet-live-01.ynet-pic1.yit.co.il/ynet/live.m3u8"
+        },
+        {
+          "name": "וואלה!+ yes תרבות ובידור HD",
+          "group": "ערוצי ישראל",
+          "url": "https://live.wcdn.co.il/yes/prog_index.m3u8"
+        },
+        {
+          "name": "HOT ריאל HD (HOT Real)",
+          "group": "ערוצי ישראל",
+          "url": "http://b84203c4.ottrast.com/iptv/QAP2YS2594ZQS3/12274/index.m3u8"
+        },
+        {
+          "name": "רשת 13 קומדיה ובידור HD",
+          "group": "ערוצי ישראל",
+          "url": "https://d15ds134q59udk.cloudfront.net/media/3b45de9e-c944-4fdc-a344-7c3042b5b104/mainManifest.m3u8"
+        },
+        {
+          "name": "ערוץ בית ועיצוב ישראלי HD",
+          "group": "ערוצי ישראל",
+          "url": "https://d1zqtf09wb8nt5.cloudfront.net/livehls/oil/freetv/live/imagin_lifestyle/live.livx/playlist.m3u8"
+        },
+        {
+          "name": "ערוץ השעשועונים והמשחקים HD",
+          "group": "ערוצי ישראל",
+          "url": "http://b84203c4.ottrast.com/iptv/QAP2YS2594ZQS3/32158/index.m3u8"
+        },
+        {
+          "name": "ערוץ 9 הישראלי FHD",
+          "group": "ערוצי ישראל",
+          "url": "https://d1zqtf09wb8nt5.cloudfront.net/livehls/oil/freetv/live/ch9/live.livx/playlist.m3u8"
+        },
+        {
+          "name": "ערוץ כלכלה 10 HD",
+          "group": "ערוצי ישראל",
+          "url": "https://r.il.cdn-redge.media/livehls/oil/calcala-live/live/channel10/live.livx/playlist.m3u8"
+        },
+        {
+          "name": "קשת 12 FHD",
+          "group": "ערוצי ישראל",
+          "url": "https://d1zqtf09wb8nt5.cloudfront.net/livehls/oil/freetv/live/keshet_12/live.livx/playlist.m3u8"
+        }
+      ],
+      "promoted": true
+    },
+    {
+      "name": "mrgify-clean",
+      "key": "ashik4u/mrgify-clean:playlist.m3u",
+      "origin": "github_search",
+      "type": "m3u",
+      "url": "https://raw.githubusercontent.com/ashik4u/mrgify-clean/main/playlist.m3u",
+      "repo": "ashik4u/mrgify-clean",
+      "playlist_path": "playlist.m3u",
+      "bytes": 91808,
+      "stars": 17,
+      "updated_at": "2026-11-01T15:37:57Z",
+      "status": "evaluated",
+      "verdict": "reject",
+      "reason": "2 working in sample (needs 3)",
+      "channels": 327,
+      "new_links": 265,
+      "duplicate_links": 62,
+      "new_names": 232,
+      "new_name_ratio": 0.709,
+      "score": 48.4,
+      "sample": {
+        "checked": 12,
+        "alive": 2,
+        "dead": 4,
+        "unverified": 6,
+        "working_ratio": 0.167,
+        "results": [
+          {
+            "name": "Welcome to PlayZ TV",
+            "group": "Welcome to PlayZ TV | New App",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://playztv.pages.dev/promo/master.m3u8"
+          },
+          {
+            "name": "Inter Kashi vs FC Goa - 1 Nov 2026 [ENG] - MG Indian Super League 2026-27",
+            "group": "Live Event",
+            "status": "unverified",
+            "reason": "HTTP 403",
+            "url": "https://sonyeventsglobal.akamaized.net/hls/live/2018458/footlive0111/ENG/std_lrh-800300010.m3u8?hdnea=exp%3D1793584863~acl%3D%2F%2A~id%3D71355141200521594597886686285347~hmac%3D607f45591bff3110e8060e51ca90ca96d2336b0bd39c70ccdba332506de228e0"
+          },
+          {
+            "name": "Ekushey TV",
+            "group": "Akash Go",
+            "status": "alive",
+            "reason": "hls",
+            "url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8"
+          },
+          {
+            "name": "Deepto TV",
+            "group": "Akash Go",
+            "status": "dead",
+            "reason": "HTTP 404",
+            "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8"
+          },
+          {
+            "name": "BBC News",
+            "group": "Akash Go",
+            "status": "dead",
+            "reason": "HTTP 404",
+            "url": "https://cdn4.skygo.mn/live/disk1/BBC_News/HLSv3-FTA/BBC_News-avc1_3000000=8-mp4a_208000_eng=2.m3u8"
+          },
+          {
+            "name": "MUSIC BANGLA",
+            "group": "Bangla",
+            "status": "unverified",
+            "reason": "gaierror",
+            "url": "http://live.matribhumitv.com/music-bangla/index.m3u8"
+          },
+          {
+            "name": "MY TV",
+            "group": "Bangla",
+            "status": "unverified",
+            "reason": "TimeoutError",
+            "url": "https://mytvbangla.com/0.m3u8"
+          },
+          {
+            "name": "MAASRANGA HD",
+            "group": "Bangla",
+            "status": "dead",
+            "reason": "HTTP 404",
+            "url": "http://mtv.sunplex.live/MAASRANGA-TV/index.m3u8"
+          },
+          {
+            "name": "T Sports Live 01",
+            "group": "Sports",
+            "status": "unverified",
+            "reason": "gaierror",
+            "url": "https://live.tsports.com/mobile_hls/tsports_live_1/playlist.m3u8"
+          },
+          {
+            "name": "T Sports (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3) (3)",
+            "group": "Sports",
+            "status": "dead",
+            "reason": "HTTP 404",
+            "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8"
+          },
+          {
+            "name": "[BD] Zee Bangla",
+            "group": "[LIVE] BDIX ♛",
+            "status": "unverified",
+            "reason": "gaierror",
+            "url": "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_bangla/playlist.m3u8"
+          },
+          {
+            "name": "[BD] EPL channel 1",
+            "group": "[LIVE] BDIX ♛",
+            "status": "unverified",
+            "reason": "gaierror",
+            "url": "https://mprod-cdn.toffeelive.com/live/match-1/index.m3u8"
+          }
+        ]
+      },
+      "new_channel_sample": [
+        {
+          "name": "Welcome to PlayZ TV",
+          "group": "Welcome to PlayZ TV | New App",
+          "url": "https://playztv.pages.dev/promo/master.m3u8"
+        },
+        {
+          "name": "Inter Kashi vs FC Goa - 1 Nov 2026 [ENG] - MG Indian Super League 2026-27",
+          "group": "Live Event",
+          "url": "https://sonyeventsglobal.akamaized.net/hls/live/2018458/footlive0111/ENG/std_lrh-800300010.m3u8?hdnea=exp%3D1793584863~acl%3D%2F%2A~id%3D71355141200521594597886686285347~hmac%3D607f45591bff3110e8060e51ca90ca96d2336b0bd39c70ccdba332506de228e0"
+        },
+        {
+          "name": "Inter Kashi vs FC Goa - 1 Nov 2026 [HIN] - MG Indian Super League 2026-27",
+          "group": "Live Event",
+          "url": "https://sonyeventsglobal.akamaized.net/hls/live/2022316/footlive0111/HIN/std_lrh-800300010.m3u8?hdnea=exp%3D1793584863~acl%3D%2F%2A~id%3D71355141200521594597886686285347~hmac%3D607f45591bff3110e8060e51ca90ca96d2336b0bd39c70ccdba332506de228e0"
+        },
+        {
+          "name": "Ekushey TV",
+          "group": "Akash Go",
+          "url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8"
+        },
+        {
+          "name": "Deepto TV",
+          "group": "Akash Go",
+          "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8"
+        },
+        {
+          "name": "BBC News",
+          "group": "Akash Go",
+          "url": "https://cdn4.skygo.mn/live/disk1/BBC_News/HLSv3-FTA/BBC_News-avc1_3000000=8-mp4a_208000_eng=2.m3u8"
+        },
+        {
+          "name": "MUSIC BANGLA",
+          "group": "Bangla",
+          "url": "http://live.matribhumitv.com/music-bangla/index.m3u8"
+        },
+        {
+          "name": "MY TV",
+          "group": "Bangla",
+          "url": "https://mytvbangla.com/0.m3u8"
+        },
+        {
+          "name": "MAASRANGA HD",
+          "group": "Bangla",
+          "url": "http://mtv.sunplex.live/MAASRANGA-TV/index.m3u8"
+        },
+        {
+          "name": "T Sports Live 01",
+          "group": "Sports",
+          "url": "https://live.tsports.com/mobile_hls/tsports_live_1/playlist.m3u8"
         }
       ]
     }
   ],
   "active_sources": [
+    {
+      "name": "local-channels",
+      "status": "ok",
+      "channels": 4,
+      "new_links": 0,
+      "new_names": 0,
+      "sample": {
+        "checked": 0,
+        "alive": 0,
+        "working_ratio": 0.0
+      },
+      "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/sources/local-channels.m3u",
+      "reason": ""
+    },
+    {
+      "name": "priority-channels",
+      "status": "ok",
+      "channels": 18,
+      "new_links": 0,
+      "new_names": 0,
+      "sample": {
+        "checked": 0,
+        "alive": 0,
+        "working_ratio": 0.0
+      },
+      "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/sources/priority-channels.m3u",
+      "reason": ""
+    },
     {
       "name": "ae-networks",
       "status": "ok",
@@ -1587,7 +981,7 @@
     {
       "name": "aria",
       "status": "ok",
-      "channels": 395,
+      "channels": 287,
       "new_links": 0,
       "new_names": 1,
       "sample": {
@@ -1601,71 +995,71 @@
     {
       "name": "doms9",
       "status": "ok",
-      "channels": 452,
-      "new_links": 69,
-      "new_names": 10,
+      "channels": 888,
+      "new_links": 143,
+      "new_names": 107,
       "sample": {
         "checked": 8,
         "alive": 5,
-        "dead": 3,
-        "unverified": 0,
+        "dead": 2,
+        "unverified": 1,
         "working_ratio": 0.625,
         "results": [
           {
-            "name": "ABC",
+            "name": "Comedy Central",
             "group": "TV",
             "status": "alive",
             "reason": "hls",
-            "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2781d8192bb76cb354/playlist.m3u8?token=%5Bredacted%5D"
+            "url": "https://cache0.wonvt.st/live/14rw4rg1p40gaj1jl7u0v/master.m3u8"
           },
           {
-            "name": "[Euro U21 Qualification] Greece U21 vs Latvia U21 (FAWA)",
-            "group": "Live Events",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://193.47.62.41/hls/zfff.m3u8"
-          },
-          {
-            "name": "[UAE Presidents Cup] Al Sharjah vs Al Dhafra (FAWA)",
-            "group": "Live Events",
-            "status": "dead",
-            "reason": "HTTP 404",
-            "url": "http://193.47.62.59/hls/JUJUJU.m3u8"
-          },
-          {
-            "name": "Altitude Sports",
+            "name": "Sky Sports Cricket",
             "group": "TV",
             "status": "alive",
             "reason": "hls",
-            "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2881d8192bb76cb57f/playlist.m3u8?token=%5Bredacted%5D"
+            "url": "https://cdnlivetv.tv/secure/api/v1/6add40ae2d4a99e07363c860/playlist.m3u8?token=%5Bredacted%5D"
           },
           {
-            "name": "[Golf PGA] Golf PGA Bank of Utah Championship (FAWA)",
-            "group": "Live Events",
-            "status": "alive",
-            "reason": "hls",
-            "url": "http://193.47.62.41/hls/zfffAA.m3u8"
-          },
-          {
-            "name": "[UAE Presidents Cup] United FC vs Hatta (FAWA)",
+            "name": "[AUT 1] Austria Lustenau vs RB Salzburg | English (STRMGATE)",
             "group": "Live Events",
             "status": "dead",
             "reason": "HTTP 404",
-            "url": "http://193.47.62.59/hls/JUJUJUA.m3u8"
+            "url": "https://instreams.xyz/live3/tv401881761/index.m3u8?st=WVY0Bf3QrHIZtaHzALm9pw&e=1793559622"
           },
           {
-            "name": "beIN Sports 1 France",
-            "group": "TV",
+            "name": "[Austria Bundesliga] Austria Vienna vs SK Rapid (FAWA)",
+            "group": "Live Events",
             "status": "alive",
             "reason": "hls",
-            "url": "https://cdnlivetv.tv/secure/api/v1/6a288d2681d8192bb76ca9a2/playlist.m3u8?token=%5Bredacted%5D"
+            "url": "http://193.47.62.41/hls/MMMMAQQ.m3u8"
           },
           {
-            "name": "[UAE Presidents Cup] Bani Yas vs Al Wahda (FAWA)",
+            "name": "[BEL 1] OH Leuven vs Sint-Truidense | English (STRMGATE)",
             "group": "Live Events",
             "status": "dead",
             "reason": "HTTP 404",
-            "url": "http://193.47.62.41/hls/zfffA.m3u8"
+            "url": "https://instreams.pro/live3/tv401878952/index.m3u8?st=T413HBQ9Bg2-5_HJT0ciEw&e=1793556009"
+          },
+          {
+            "name": "[Bundesliga] Eintracht Frankfurt vs Hamburg SV (DAMITV)",
+            "group": "Live Events",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://messi.damitv.st/live-hls/channel/bundesliga/2026-11-01/sge-hsv/playlist.m3u8?tk=b-xpWJNhSYmXDZzXaU8BjA&e=1793592010"
+          },
+          {
+            "name": "[Bundesliga] FC Cologne vs 1. FC Union Berlin (STRMFREE)",
+            "group": "Live Events",
+            "status": "unverified",
+            "reason": "HTTP 403",
+            "url": "https://streamfree.top/live-cdn/fc-cologne-vs-1-fc-union-berlin1080p/index.m3u8?_e=1793574006&_n=4fe062c16a271932&_t=8rq9zGPZkooFVTGQODJ46w"
+          },
+          {
+            "name": "[Bundesliga] Hamburg SV vs Eintracht Frankfurt | English (STRMGATE)",
+            "group": "Live Events",
+            "status": "alive",
+            "reason": "hls",
+            "url": "https://instreams.live/live3/tv401884752/index.m3u8?st=Cr6rNUHIMy0cErHnwWEbGw&e=1793559643"
           }
         ]
       },
@@ -1689,9 +1083,9 @@
     {
       "name": "iptv-org",
       "status": "ok",
-      "channels": 11129,
+      "channels": 11388,
       "new_links": 0,
-      "new_names": 151,
+      "new_names": 136,
       "sample": {
         "checked": 0,
         "alive": 0,
@@ -1703,9 +1097,9 @@
     {
       "name": "free-tv",
       "status": "ok",
-      "channels": 2054,
+      "channels": 2029,
       "new_links": 0,
-      "new_names": 554,
+      "new_names": 527,
       "sample": {
         "checked": 0,
         "alive": 0,
@@ -1757,72 +1151,99 @@
       "reason": "no URL or url_env secret set"
     }
   ],
-  "approved_review": [],
+  "approved_review": [
+    {
+      "name": "m3u",
+      "enabled": true,
+      "status": "ok",
+      "score": 88.3,
+      "working_ratio": 0.667,
+      "promoted_utc": "2026-10-01T15:38:44Z",
+      "reason": "",
+      "channels": 834
+    },
+    {
+      "name": "openstream",
+      "enabled": true,
+      "status": "ok",
+      "score": 88.4,
+      "working_ratio": 1.0,
+      "promoted_utc": "2026-10-01T15:38:44Z",
+      "reason": "",
+      "channels": 5428
+    }
+  ],
   "new_channels": [
     {
-      "name": "湖南卫视4K",
-      "group": "卫视",
-      "url": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/Y2RuZXhfaWQ9YWxfaGxzX2xkdnQmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",
+      "name": "Sky Racing 2",
+      "group": "体育",
+      "url": "https://636ffd31f0e12.streamlock.net/RacingStream2/RacingStream2/playlist.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "浙江卫视4K",
-      "group": "卫视",
-      "url": "http://ali-xwl.cztv.com/live/channel4k2160p.m3u8",
+      "name": "World of Freesports",
+      "group": "体育",
+      "url": "https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/1080p-en/index.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "凤凰中文",
-      "group": "香港",
-      "url": "http://zmgd.zyrnet.com:8888/hls/110/index.m3u8",
+      "name": "FloRacing",
+      "group": "体育",
+      "url": "https://amg02278-amg02278c1-flosports-worldwide-7592.playouts.now.amagi.tv/1080p-cc/index.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "凤凰香港",
-      "group": "香港",
-      "url": "https://cdn.qd.je/163189/fhhk",
+      "name": "SportsGrid",
+      "group": "体育",
+      "url": "https://sportsgrid-tribal.amagi.tv/playlist1080p.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "翡翠台",
-      "group": "香港",
-      "url": "https://cdn3.indevs.in/stream/tvb/fct/",
+      "name": "ACCDN",
+      "group": "体育",
+      "url": "https://raycom-accdn-firetv.amagi.tv/1080p-cc/index.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "公视高清",
-      "group": "台湾",
-      "url": "http://211.72.174.95:8116/0.ts",
+      "name": "Pac-12 Insider",
+      "group": "体育",
+      "url": "https://pac12-firetv.amagi.tv/1080p-en-cc/index.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "耀才财经",
-      "group": "香港",
-      "url": "https://v3.mediacast.hk/webcast/bshdlive-pc/playlist.m3u8",
+      "name": "beIN Sports Xtra",
+      "group": "体育",
+      "url": "https://bein-xtra-bein.amagi.tv/playlistR1080p.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "WildEarth",
-      "group": "文旅",
-      "url": "https://wildearth-plex.amagi.tv/masterR1080p.m3u8",
+      "name": "FashionTV Paris L'Original",
+      "group": "娱乐时尚",
+      "url": "https://ftv1.b-cdn.net/bfdbb576-83f7-11f0-9f89-0200170e3e04_1000028043_HLS/manifest.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "Love Nature 4K",
-      "group": "文旅",
-      "url": "https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8",
+      "name": "Totalmusic Concerts",
+      "group": "娱乐时尚",
+      "url": "https://cdn.40mediagroup.com/live/c7eds/Totalmusic_Concerts/SA_LIVE_hls_enc/master.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "CGTN Documentary",
-      "group": "文旅",
-      "url": "https://english-livebkali.cgtn.com/live/doccgtn.m3u8",
+      "name": "Graham Norton",
+      "group": "娱乐时尚",
+      "url": "https://amg00654-itv-amg00654c35-rakuten-gb-7598.playouts.now.amagi.tv/playlist1080_p.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
-      "name": "Reuters",
-      "group": "国际",
-      "url": "https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/e7493ea5-5c1c-4d7a-a3f7-e95516048ad8/3.m3u8",
+      "name": "Mystery TV",
+      "group": "娱乐时尚",
+      "url": "https://aenetworks-mysterytv-rakuten.amagi.tv/1080p-vtt/index.m3u8",
+      "source": "Akiraleal-IPTV"
+    },
+    {
+      "name": "Estrella TV",
+      "group": "娱乐时尚",
+      "url": "https://estrellatv-oando.amagi.tv/playlistR1080p.m3u8",
       "source": "Akiraleal-IPTV"
     },
     {
@@ -1844,9 +1265,9 @@
       "source": "TianmuTNT-IPTV"
     },
     {
-      "name": "2026-09-25 18:28:23",
+      "name": "2026-11-01 18:25:26",
       "group": "Other",
-      "url": "https://vd2.bdstatic.com/mda-sctj0f96cn79js4n/1080p/cae_h264/1774710384405617311/mda-sctj0f96cn79js4n.mp4",
+      "url": "https://vd2.bdstatic.com/mda-sctj0f6r4u1bpebc/1080p/cae_h264/1774706523506678171/mda-sctj0f6r4u1bpebc.mp4",
       "source": "TianmuTNT-IPTV"
     },
     {
@@ -1874,244 +1295,154 @@
       "source": "TianmuTNT-IPTV"
     },
     {
-      "name": "Hiii",
-      "group": "HimelOp",
-      "url": "https://video.twimg.com/amplify_video/2081748492968673283/pl/uLenUVc-4g3Xw0xa.m3u8?tag=14&variant_version=1",
-      "source": "Public_Iptv_Channels"
-    },
-    {
-      "name": "Bein 1",
-      "group": "Personal-Collection",
-      "url": "https://1nyaler.streamhostingcdn.top/stream/23/index.m3u8",
-      "source": "Public_Iptv_Channels"
-    },
-    {
-      "name": "Bein Sports 3",
-      "group": "Personal-Collection",
-      "url": "https://otte.cache.aiv-cdn.net/iad-nitro/live/clients/dash/enc/q4u5nwaogz/out/v1/18de6d3e65934f3a8de4358e69eab86c/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=7995c724a13748ed970840a8ab5bb9b3%3A67bdaf1e2175b9ff682fcdf0e2354b1e",
-      "source": "Public_Iptv_Channels"
-    },
-    {
-      "name": "Premier Sports 1",
-      "group": "Personal-Collection",
-      "url": "https://otte.live.fly.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/m6sqanvm2m/out/v1/f6beb46c6e9a4132ad739f3ca27df6aa/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=1444f4235529f183f0a5a486befe9cdb%3Ae5e3fec67a1bb3472a2089c8a0a2557f",
-      "source": "Public_Iptv_Channels"
-    },
-    {
-      "name": "TNT Sports 1",
-      "group": "Personal-Collection",
-      "url": "https://a96aivottlinear-a.akamaihd.net/OTTB/iad-nitro/live/clients/dash/enc/rhf2dwosdt/out/v1/ee550d2a68d846c797e6ce4de2e8b76d/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=69a5aa835a061ce64a630d1046727e40%3Ad02feac8a999bd06bf4059bf33411749",
-      "source": "Public_Iptv_Channels"
-    },
-    {
-      "name": "Caze Tv HD 1",
-      "group": "Personal-Collection",
-      "url": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/3ynrpdanq2/out/v1/81fd4c26584044d2b1a1cc5b32fa9af0/cenc.mpd?%7CdrmScheme=clearkey&drmLicense=34475edab991ad5e92548aebd710410a%3A501b209cccd323ac00bf5ac15b406cb4",
-      "source": "Public_Iptv_Channels"
-    },
-    {
-      "name": "Ananda TV",
-      "group": "Bangladesh",
-      "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "ATN Bangla UK",
-      "group": "Bangladesh",
-      "url": "https://app.ncare.live/live-orgin/atnbanglauk-off.stream/playlist.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Bangla TV",
-      "group": "Bangladesh",
-      "url": "http://116.204.149.16/banglatv/index.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Bengali Beats",
-      "group": "Bangladesh",
-      "url": "https://iptvlive.ahmed-bd-org.workers.dev/bengali-beats-1/index.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Bijoy TV",
-      "group": "Bangladesh",
-      "url": "https://drk6xq0vhn.gpcdn.net/live/bijoy_tv_abr/index.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "CBN TV USA",
-      "group": "Bangladesh",
-      "url": "https://live.cbntvusa.net/hls/cbntv/index.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Channel 1",
-      "group": "Bangladesh",
-      "url": "http://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel1bd.stream/playlist.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Channel 9",
-      "group": "Bangladesh",
-      "url": "http://premiumtvs.space/live/YqXTywueEV/damp2purchase/434.ts",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Deepto TV",
-      "group": "Bangladesh",
-      "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Enter TV",
-      "group": "Bangladesh",
-      "url": "https://live1.entertv.com.bd/entertv/tracks-v1a1/mono.m3u8",
-      "source": "BDIX-IPTV"
-    },
-    {
-      "name": "Buy me a Coffee",
-      "group": "Buy me a Coffee",
-      "url": "https://jerrymoz.wordpress.com/wp-content/uploads/2024/03/qr_paypal.png",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Tela Brasil tv ᴸᴼᵂ 🇧🇷",
-      "group": "Novelas 🌎",
-      "url": "https://stmv.webtvninjas.com.br/mailson6054/mailson6054/playlist.m3u8",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ A terra Prometida 🇧🇷",
-      "group": "Novelas 🌎",
-      "url": "https://dfr80qz435crc.cloudfront.net/IJKL/Amagi/Samsung/ATerraPrometida_BR/ATerraPrometida.m3u8",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Os Dez Mandamentos 🇧🇷",
-      "group": "Novelas 🌎",
-      "url": "https://cc-38amk5g6kmcpo.akamaized.net/Os_Dez_Mandamentos.m3u8",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Minha Identidade e Beleza de Gangnam 🇧🇷",
-      "group": "Novelas 🌎",
-      "url": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=minhaidentidade%C3%A9belezadegangnam&channel_id=newid_233",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Rakuten viki 🇺🇸🇰🇷",
-      "group": "Novelas 🌎",
-      "url": "https://newidco-rakutenviki-2-us.lg.wurl.tv/playlist.m3u8",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Passion Novelas 🇫🇷",
-      "group": "Novelas 🌎",
-      "url": "https://jmp2.uk/stvp-FRBD15000024B",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Canela.TV Narco-Drama 🇲🇽",
-      "group": "Novelas 🌎",
-      "url": "https://amg00658-amg00658c13-lg-us-7400.playouts.now.amagi.tv/playlist/amg00658-canelamediafast-narcodramaltus-lgus/playlist.m3u8",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Azteca Corazon 🇲🇽",
-      "group": "Novelas 🌎",
-      "url": "https://azt-cz.otteravision.com/azt/cz/cz_720p_high.m3u8",
-      "source": "m3u"
-    },
-    {
-      "name": "☆ Sony One Novelas 🇲🇽",
-      "group": "Novelas 🌎",
-      "url": "https://spt-sonyonenovelas-1-mx.tcl.wurl.tv/playlist.m3u8",
-      "source": "m3u"
-    },
-    {
-      "name": "Al Arabiya (1080p)",
+      "name": "CCTV17",
       "group": "Other",
-      "url": "https://mbc1-enc.edgenextcdn.net/out/v1/f5f319206ed740f9a831f2097c2ead23/index.m3u8",
-      "source": "openstream"
+      "url": "https://live.264788.xyz/channel/cctv17?streamid=f9c36f1e95b5b35eac89cc89583e7c0a&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk",
+      "source": "TianmuTNT-IPTV"
     },
     {
-      "name": "Alarabiya (1080p)",
+      "name": "CCTV5+",
       "group": "Other",
-      "url": "https://shls-live-enc.edgenextcdn.net/out/v1/f5f319206ed740f9a831f2097c2ead23/index.m3u8",
-      "source": "openstream"
+      "url": "http://223.78.65.165:9901/tsfile/live/0006_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0",
+      "source": "TianmuTNT-IPTV"
     },
     {
-      "name": "MBC Persia (720p)",
-      "group": "Other",
-      "url": "https://hls.mbcpersia.live/hls/stream.m3u8",
-      "source": "openstream"
+      "name": "IPTV LINKS",
+      "group": "IPTV",
+      "url": "https://github.com/Mrbotrx/Mrbotrx/raw/refs/heads/main/IPTV_LINKS_VIDEO.mp4",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Sharjah TV (360p)",
-      "group": "Other",
-      "url": "https://cdn-globecast.akamaized.net/live/eds/sharjah_tv/hls_roku/index.m3u8",
-      "source": "openstream"
+      "name": "Sony Sports 1",
+      "group": "FAST Sports",
+      "url": "https://drk6xq0vhn.gpcdn.net/live/ten_1_hd_720/index.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Euronews Albania",
-      "group": "Other",
-      "url": "https://gjirafa-video-live.gjirafa.net/gjvideo-live/2dw-zuf-1c9-pxu/index.m3u8",
-      "source": "openstream"
+      "name": "Gazi Tv",
+      "group": "FAST Sports",
+      "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/gazibdz.stream/playlist.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Armenia 1",
-      "group": "Other",
-      "url": "https://dash2.antik.sk/live/test_armenia/playlist.m3u8",
-      "source": "openstream"
+      "name": "Xtrem Sports",
+      "group": "FAST Sports",
+      "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/e0b81a5c-6ab5-48cd-aaa9-f82de4ab5bf9/manifest.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "5TV Corrientes (480p) [Not 24/7]",
-      "group": "Other",
-      "url": "http://www.coninfo.net:1935/tvcinco/live1/playlist.m3u8",
-      "source": "openstream"
+      "name": "DD Sports (720p)",
+      "group": "FAST Sports",
+      "url": "https://cdn.pishow.tv/ott/live/13/master.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Cadena 103 (720p) [Not 24/7]",
-      "group": "Other",
-      "url": "http://arcast.net:1935/cadena103/cadena103/playlist.m3u8",
-      "source": "openstream"
+      "name": "Btv HD",
+      "group": "FAST News",
+      "url": "https://nkafmbewiff.gpcdn.net/tile_2/master.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Canal 5 Pico Truncado (540p)",
-      "group": "Other",
-      "url": "https://stream.arcast.com.ar/canal5picotruncado/canal5picotruncado/playlist.m3u8",
-      "source": "openstream"
+      "name": "Akhon Tv",
+      "group": "FAST News",
+      "url": "https://stream.ottplus.live/live/ekhon_tv_abr/live/ekhon_tv_hd_720/chunks.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Canal 7 Salta (720p)",
-      "group": "Other",
-      "url": "https://vivo.solumedia.com:19360/canal7salta/canal7salta.m3u8",
-      "source": "openstream"
+      "name": "ATN News",
+      "group": "FAST News",
+      "url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Canal 34 San Juan (720p)",
-      "group": "Other",
-      "url": "https://streamyes.alsolnet.com/canal34hd/live/playlist.m3u8",
-      "source": "openstream"
+      "name": "Maasranga TV",
+      "group": "FAST News",
+      "url": "https://mtv.sunplex.live/MAASRANGA/index.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "Ciudad Magazine (1080p) [Geo-blocked]",
-      "group": "Other",
-      "url": "https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8",
-      "source": "openstream"
+      "name": "Deepto TV HD",
+      "group": "FAST News",
+      "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "CHD-TV RU Rock HD",
-      "group": "TEST ⓵",
-      "url": "http://194.26.229.213/chdtv_ru_rock/index.m3u8",
-      "source": "DF_IPTV"
+      "name": "DW News",
+      "group": "FAST News",
+      "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/master.m3u8",
+      "source": "VIP-m3u-playlist"
     },
     {
-      "name": "EXTINF:-1 group-title=\"TEST ⓵,VIASAT Kino Comedy HD",
-      "group": "Other",
-      "url": "http://ukr2.ukrainske.tv/493/video.m3u8",
-      "source": "DF_IPTV"
+      "name": "וואלה!+ חדשות – שידור חי HD",
+      "group": "ערוצי ישראל",
+      "url": "https://live.wcdn.co.il/news/prog_index.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "ynet Live",
+      "group": "ערוצי ישראל",
+      "url": "https://ynet-live-01.ynet-pic1.yit.co.il/ynet/live.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "HOT ריאל HD (HOT Real)",
+      "group": "ערוצי ישראל",
+      "url": "http://b84203c4.ottrast.com/iptv/QAP2YS2594ZQS3/12274/index.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "רשת 13 קומדיה ובידור HD",
+      "group": "ערוצי ישראל",
+      "url": "https://d15ds134q59udk.cloudfront.net/media/3b45de9e-c944-4fdc-a344-7c3042b5b104/mainManifest.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "ערוץ כלכלה 10 HD",
+      "group": "ערוצי ישראל",
+      "url": "https://r.il.cdn-redge.media/livehls/oil/calcala-live/live/channel10/live.livx/playlist.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "כאן חינוכית 23 FHD",
+      "group": "ילדים ונוער (בעברית)",
+      "url": "https://kancdn.medonecdn.net/livehls/oil/kancdn-live/live/kan_edu/live.livx/playlist.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "ערוץ הכנסת – נגיש",
+      "group": "ערוצי ישראל",
+      "url": "https://kneset.gostreaming.tv/p2-Accessibility/_definst_/myStream/index.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "הכותל המערבי – שידור חי 24/7",
+      "group": "ערוצי ישראל",
+      "url": "https://cdn1.cast-tv.com/23595/Live_Kotel3_ABR/playlist.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "רשת 13 ערוץ הנופש HD",
+      "group": "ערוצי ישראל",
+      "url": "https://d1yd8hohnldm33.cloudfront.net/out/v1/19dee23c2cc24f689bd4e1288661ee0c/index.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "רשת 13 ערוץ הריאליטי HD",
+      "group": "ערוצי ישראל",
+      "url": "https://d2dffl3588mvfk.cloudfront.net/out/v1/d8e15050ca4148aab0ee387a5e2eb46b/index.m3u8",
+      "source": "israel-tv-plus"
+    },
+    {
+      "name": "Welcome to PlayZ TV",
+      "group": "Welcome to PlayZ TV | New App",
+      "url": "https://playztv.pages.dev/promo/master.m3u8",
+      "source": "mrgify-clean"
+    },
+    {
+      "name": "Ekushey TV",
+      "group": "Akash Go",
+      "url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8",
+      "source": "mrgify-clean"
     }
   ],
   "issues": []
