@@ -1,314 +1,335 @@
 # Deep link check
 
-- **Run:** nightly deep link check (`20261024T122540Z-3146`)
-- **Started:** 2026-10-24T12:25:40Z  |  **Finished:** 2026-10-24T12:31:30Z  |  **Duration:** 350.0s
+- **Run:** nightly deep link check (`20261101T115312Z-3088`)
+- **Started:** 2026-11-01T11:53:12Z  |  **Finished:** 2026-11-01T11:56:39Z  |  **Duration:** 207.3s
 - **Mode:** deep (playlist + segment probe)
-- **Unique links checked:** 13464 from 26774 playlist entries in 182 playlists
+- **Unique links checked:** 12522 from 24662 playlist entries in 180 playlists
 
 | Result | Links | Share | Meaning |
 |---|---:|---:|---|
-| working | 22895 | 85.5% | answered with playable media |
-| offline | 225 | 0.8% | confirmed dead - removed when patching |
-| unreachable | 1956 | 7.3% | timeout or server error - kept, may recover |
-| blocked | 1698 | 6.3% | HTTP 401/403/451 - needs auth or is geo-blocked |
+| working | 23778 | 96.4% | answered with playable media |
+| offline | 480 | 1.9% | confirmed dead - removed when patching |
+| unreachable | 282 | 1.1% | timeout or server error - kept, may recover |
+| blocked | 122 | 0.5% | HTTP 401/403/451 - needs auth or is geo-blocked |
 
 ## Per playlist
 
 | Playlist | Entries | Working | Offline | Unreachable | Blocked | Other |
 |---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 13243 | 11405 | 13 | 976 | 849 | 0 |
-| `playlists/AE_Channels.m3u` | 69 | 69 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Afghanistan.m3u` | 11 | 10 | 0 | 1 | 0 | 0 |
-| `playlists/countries/Albania.m3u` | 25 | 16 | 0 | 8 | 1 | 0 |
-| `playlists/countries/Algeria.m3u` | 7 | 5 | 0 | 1 | 1 | 0 |
+| `playlists/PremiumTV.m3u` | 12069 | 11844 | 25 | 139 | 61 | 0 |
+| `playlists/AE_Channels.m3u` | 71 | 71 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Afghanistan.m3u` | 11 | 11 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Albania.m3u` | 17 | 13 | 1 | 3 | 0 | 0 |
+| `playlists/countries/Algeria.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Andorra.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Angola.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Antigua_and_Barbuda.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Arab_World.m3u` | 14 | 14 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Argentina.m3u` | 167 | 150 | 2 | 6 | 9 | 0 |
-| `playlists/countries/Armenia.m3u` | 10 | 10 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Argentina.m3u` | 173 | 167 | 5 | 1 | 0 | 0 |
+| `playlists/countries/Armenia.m3u` | 11 | 11 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Aruba.m3u` | 8 | 8 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Australia.m3u` | 51 | 34 | 5 | 4 | 8 | 0 |
-| `playlists/countries/Austria.m3u` | 49 | 38 | 1 | 7 | 3 | 0 |
-| `playlists/countries/Azerbaijan.m3u` | 18 | 11 | 0 | 2 | 5 | 0 |
-| `playlists/countries/Bahamas.m3u` | 3 | 2 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Australia.m3u` | 48 | 37 | 11 | 0 | 0 | 0 |
+| `playlists/countries/Austria.m3u` | 43 | 41 | 1 | 1 | 0 | 0 |
+| `playlists/countries/Azerbaijan.m3u` | 11 | 11 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Bahamas.m3u` | 3 | 2 | 1 | 0 | 0 | 0 |
 | `playlists/countries/Bahrain.m3u` | 5 | 5 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Bangladesh.m3u` | 26 | 17 | 0 | 8 | 1 | 0 |
+| `playlists/countries/Bangladesh.m3u` | 22 | 19 | 0 | 3 | 0 | 0 |
 | `playlists/countries/Barbados.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Belarus.m3u` | 36 | 29 | 0 | 7 | 0 | 0 |
-| `playlists/countries/Belgium.m3u` | 44 | 31 | 1 | 0 | 12 | 0 |
+| `playlists/countries/Belarus.m3u` | 34 | 26 | 2 | 6 | 0 | 0 |
+| `playlists/countries/Belgium.m3u` | 37 | 36 | 1 | 0 | 0 | 0 |
 | `playlists/countries/Belize.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Benin.m3u` | 4 | 3 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Benin.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Bermuda.m3u` | 1 | 0 | 1 | 0 | 0 | 0 |
-| `playlists/countries/Bolivia.m3u` | 48 | 46 | 0 | 2 | 0 | 0 |
-| `playlists/countries/Bosnia_and_Herzegovina.m3u` | 21 | 9 | 1 | 9 | 2 | 0 |
-| `playlists/countries/Brazil.m3u` | 246 | 178 | 0 | 40 | 28 | 0 |
+| `playlists/countries/Bolivia.m3u` | 42 | 40 | 1 | 1 | 0 | 0 |
+| `playlists/countries/Bosnia_and_Herzegovina.m3u` | 11 | 9 | 2 | 0 | 0 | 0 |
+| `playlists/countries/Brazil.m3u` | 188 | 182 | 2 | 4 | 0 | 0 |
 | `playlists/countries/British_Virgin_Islands.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Brunei.m3u` | 2 | 0 | 0 | 0 | 2 | 0 |
-| `playlists/countries/Bulgaria.m3u` | 42 | 29 | 0 | 11 | 2 | 0 |
-| `playlists/countries/Burkina_Faso.m3u` | 4 | 3 | 0 | 0 | 1 | 0 |
+| `playlists/countries/Bulgaria.m3u` | 63 | 61 | 0 | 0 | 2 | 0 |
+| `playlists/countries/Burkina_Faso.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Burundi.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Cambodia.m3u` | 20 | 14 | 5 | 1 | 0 | 0 |
-| `playlists/countries/Cameroon.m3u` | 14 | 13 | 0 | 0 | 1 | 0 |
-| `playlists/countries/Canada.m3u` | 186 | 139 | 1 | 16 | 30 | 0 |
+| `playlists/countries/Cambodia.m3u` | 20 | 14 | 5 | 0 | 1 | 0 |
+| `playlists/countries/Cameroon.m3u` | 14 | 14 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Canada.m3u` | 142 | 137 | 5 | 0 | 0 | 0 |
 | `playlists/countries/Cape_Verde.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Caribbean_Netherlands.m3u` | 6 | 4 | 0 | 2 | 0 | 0 |
-| `playlists/countries/Chad.m3u` | 2 | 1 | 0 | 1 | 0 | 0 |
-| `playlists/countries/Chile.m3u` | 223 | 193 | 2 | 13 | 15 | 0 |
-| `playlists/countries/China.m3u` | 164 | 87 | 6 | 54 | 17 | 0 |
-| `playlists/countries/Colombia.m3u` | 120 | 106 | 2 | 10 | 2 | 0 |
-| `playlists/countries/Costa_Rica.m3u` | 61 | 55 | 0 | 1 | 5 | 0 |
-| `playlists/countries/Croatia.m3u` | 18 | 9 | 3 | 2 | 4 | 0 |
+| `playlists/countries/Caribbean_Netherlands.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Chad.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Chile.m3u` | 199 | 188 | 7 | 4 | 0 | 0 |
+| `playlists/countries/China.m3u` | 98 | 87 | 8 | 2 | 1 | 0 |
+| `playlists/countries/Colombia.m3u` | 117 | 112 | 3 | 0 | 2 | 0 |
+| `playlists/countries/Costa_Rica.m3u` | 61 | 58 | 3 | 0 | 0 | 0 |
+| `playlists/countries/Croatia.m3u` | 17 | 10 | 3 | 0 | 4 | 0 |
 | `playlists/countries/Cuba.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Curacao.m3u` | 4 | 3 | 0 | 1 | 0 | 0 |
-| `playlists/countries/Cyprus.m3u` | 17 | 14 | 0 | 3 | 0 | 0 |
-| `playlists/countries/Czechia.m3u` | 64 | 39 | 1 | 7 | 17 | 0 |
-| `playlists/countries/DR_Congo.m3u` | 16 | 5 | 0 | 10 | 1 | 0 |
-| `playlists/countries/Denmark.m3u` | 15 | 7 | 0 | 2 | 6 | 0 |
-| `playlists/countries/Dominican_Republic.m3u` | 207 | 201 | 1 | 4 | 1 | 0 |
-| `playlists/countries/Ecuador.m3u` | 57 | 48 | 0 | 8 | 1 | 0 |
-| `playlists/countries/Egypt.m3u` | 18 | 15 | 1 | 0 | 2 | 0 |
-| `playlists/countries/El_Salvador.m3u` | 25 | 17 | 0 | 7 | 1 | 0 |
-| `playlists/countries/Equatorial_Guinea.m3u` | 2 | 0 | 0 | 2 | 0 | 0 |
+| `playlists/countries/Curacao.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Cyprus.m3u` | 12 | 12 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Czechia.m3u` | 98 | 98 | 0 | 0 | 0 | 0 |
+| `playlists/countries/DR_Congo.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Denmark.m3u` | 11 | 7 | 4 | 0 | 0 | 0 |
+| `playlists/countries/Dominican_Republic.m3u` | 213 | 210 | 0 | 3 | 0 | 0 |
+| `playlists/countries/Ecuador.m3u` | 54 | 54 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Egypt.m3u` | 17 | 16 | 1 | 0 | 0 | 0 |
+| `playlists/countries/El_Salvador.m3u` | 15 | 14 | 1 | 0 | 0 | 0 |
+| `playlists/countries/Equatorial_Guinea.m3u` | 1 | 0 | 1 | 0 | 0 | 0 |
 | `playlists/countries/Eritrea.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Estonia.m3u` | 25 | 21 | 0 | 3 | 1 | 0 |
-| `playlists/countries/Ethiopia.m3u` | 2 | 1 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Estonia.m3u` | 21 | 21 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Ethiopia.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Faroe_Islands.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Finland.m3u` | 31 | 29 | 0 | 1 | 1 | 0 |
-| `playlists/countries/France.m3u` | 249 | 197 | 2 | 16 | 34 | 0 |
+| `playlists/countries/Finland.m3u` | 29 | 23 | 1 | 5 | 0 | 0 |
+| `playlists/countries/France.m3u` | 217 | 214 | 2 | 1 | 0 | 0 |
 | `playlists/countries/French_Guiana.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Georgia.m3u` | 20 | 14 | 0 | 3 | 3 | 0 |
-| `playlists/countries/Germany.m3u` | 423 | 357 | 17 | 13 | 36 | 0 |
-| `playlists/countries/Ghana.m3u` | 6 | 6 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Greece.m3u` | 97 | 89 | 1 | 4 | 3 | 0 |
+| `playlists/countries/Georgia.m3u` | 14 | 14 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Germany.m3u` | 393 | 369 | 22 | 1 | 1 | 0 |
+| `playlists/countries/Ghana.m3u` | 8 | 8 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Greece.m3u` | 93 | 91 | 0 | 1 | 1 | 0 |
 | `playlists/countries/Guadeloupe.m3u` | 5 | 5 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Guam.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Guatemala.m3u` | 36 | 31 | 0 | 5 | 0 | 0 |
+| `playlists/countries/Guatemala.m3u` | 34 | 33 | 1 | 0 | 0 | 0 |
 | `playlists/countries/Guinea.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Guyana.m3u` | 12 | 11 | 0 | 0 | 1 | 0 |
-| `playlists/countries/Haiti.m3u` | 12 | 8 | 0 | 2 | 2 | 0 |
-| `playlists/countries/Honduras.m3u` | 59 | 48 | 0 | 10 | 1 | 0 |
-| `playlists/countries/Hong_Kong.m3u` | 23 | 9 | 0 | 3 | 11 | 0 |
-| `playlists/countries/Hungary.m3u` | 94 | 64 | 2 | 21 | 7 | 0 |
-| `playlists/countries/Iceland.m3u` | 5 | 4 | 0 | 0 | 1 | 0 |
-| `playlists/countries/India.m3u` | 805 | 739 | 15 | 30 | 21 | 0 |
-| `playlists/countries/Indonesia.m3u` | 129 | 116 | 3 | 8 | 2 | 0 |
-| `playlists/countries/International.m3u` | 1237 | 1154 | 30 | 28 | 25 | 0 |
-| `playlists/countries/Iran.m3u` | 98 | 90 | 4 | 2 | 2 | 0 |
-| `playlists/countries/Iraq.m3u` | 64 | 59 | 2 | 3 | 0 | 0 |
-| `playlists/countries/Ireland.m3u` | 26 | 19 | 0 | 0 | 7 | 0 |
-| `playlists/countries/Israel.m3u` | 41 | 31 | 0 | 0 | 10 | 0 |
-| `playlists/countries/Italy.m3u` | 584 | 494 | 5 | 54 | 31 | 0 |
-| `playlists/countries/Ivory_Coast.m3u` | 13 | 13 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Guyana.m3u` | 10 | 9 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Haiti.m3u` | 8 | 8 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Honduras.m3u` | 47 | 46 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Hong_Kong.m3u` | 9 | 9 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Hungary.m3u` | 155 | 150 | 4 | 1 | 0 | 0 |
+| `playlists/countries/Iceland.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
+| `playlists/countries/India.m3u` | 813 | 766 | 24 | 4 | 19 | 0 |
+| `playlists/countries/Indonesia.m3u` | 123 | 117 | 4 | 2 | 0 | 0 |
+| `playlists/countries/International.m3u` | 1205 | 1147 | 48 | 9 | 1 | 0 |
+| `playlists/countries/Iran.m3u` | 113 | 86 | 27 | 0 | 0 | 0 |
+| `playlists/countries/Iraq.m3u` | 62 | 57 | 4 | 1 | 0 | 0 |
+| `playlists/countries/Ireland.m3u` | 23 | 18 | 4 | 0 | 1 | 0 |
+| `playlists/countries/Israel.m3u` | 31 | 30 | 0 | 0 | 1 | 0 |
+| `playlists/countries/Italy.m3u` | 533 | 507 | 8 | 15 | 3 | 0 |
+| `playlists/countries/Ivory_Coast.m3u` | 12 | 12 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Jamaica.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Japan.m3u` | 22 | 17 | 2 | 1 | 2 | 0 |
-| `playlists/countries/Jordan.m3u` | 17 | 17 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Kazakhstan.m3u` | 41 | 25 | 0 | 3 | 13 | 0 |
-| `playlists/countries/Kenya.m3u` | 6 | 5 | 0 | 1 | 0 | 0 |
-| `playlists/countries/Kosovo.m3u` | 8 | 8 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Kuwait.m3u` | 14 | 13 | 1 | 0 | 0 | 0 |
-| `playlists/countries/Kyrgyzstan.m3u` | 7 | 0 | 1 | 3 | 3 | 0 |
+| `playlists/countries/Japan.m3u` | 22 | 15 | 5 | 0 | 2 | 0 |
+| `playlists/countries/Jordan.m3u` | 20 | 18 | 2 | 0 | 0 | 0 |
+| `playlists/countries/Kazakhstan.m3u` | 26 | 23 | 0 | 3 | 0 | 0 |
+| `playlists/countries/Kenya.m3u` | 8 | 8 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Kosovo.m3u` | 8 | 7 | 1 | 0 | 0 | 0 |
+| `playlists/countries/Kuwait.m3u` | 15 | 14 | 1 | 0 | 0 | 0 |
+| `playlists/countries/Kyrgyzstan.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Laos.m3u` | 8 | 8 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Latin_America.m3u` | 34 | 33 | 0 | 0 | 1 | 0 |
-| `playlists/countries/Latvia.m3u` | 17 | 16 | 0 | 0 | 1 | 0 |
-| `playlists/countries/Lebanon.m3u` | 31 | 28 | 0 | 2 | 1 | 0 |
+| `playlists/countries/Latin_America.m3u` | 33 | 33 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Latvia.m3u` | 16 | 16 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Lebanon.m3u` | 30 | 27 | 2 | 1 | 0 | 0 |
 | `playlists/countries/Libya.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Lithuania.m3u` | 25 | 19 | 0 | 0 | 6 | 0 |
-| `playlists/countries/Luxembourg.m3u` | 16 | 12 | 2 | 2 | 0 | 0 |
-| `playlists/countries/Macau.m3u` | 6 | 0 | 0 | 6 | 0 | 0 |
-| `playlists/countries/Malaysia.m3u` | 6 | 4 | 0 | 0 | 2 | 0 |
-| `playlists/countries/Maldives.m3u` | 6 | 4 | 0 | 1 | 1 | 0 |
-| `playlists/countries/Mali.m3u` | 3 | 1 | 0 | 2 | 0 | 0 |
-| `playlists/countries/Malta.m3u` | 7 | 3 | 0 | 0 | 4 | 0 |
-| `playlists/countries/Martinique.m3u` | 6 | 5 | 0 | 1 | 0 | 0 |
-| `playlists/countries/Mauritania.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Mexico.m3u` | 159 | 123 | 2 | 10 | 24 | 0 |
+| `playlists/countries/Lithuania.m3u` | 19 | 19 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Luxembourg.m3u` | 16 | 12 | 4 | 0 | 0 | 0 |
+| `playlists/countries/Macau.m3u` | 1 | 0 | 1 | 0 | 0 | 0 |
+| `playlists/countries/Malaysia.m3u` | 6 | 3 | 3 | 0 | 0 | 0 |
+| `playlists/countries/Maldives.m3u` | 5 | 5 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Mali.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Malta.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Martinique.m3u` | 5 | 5 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Mauritania.m3u` | 1 | 0 | 1 | 0 | 0 | 0 |
+| `playlists/countries/Mexico.m3u` | 124 | 119 | 2 | 3 | 0 | 0 |
 | `playlists/countries/Moldova.m3u` | 20 | 20 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Monaco.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Monaco.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Mongolia.m3u` | 79 | 79 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Montenegro.m3u` | 6 | 3 | 0 | 0 | 3 | 0 |
-| `playlists/countries/Morocco.m3u` | 10 | 10 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Mozambique.m3u` | 5 | 3 | 0 | 2 | 0 | 0 |
-| `playlists/countries/Myanmar.m3u` | 17 | 5 | 0 | 12 | 0 | 0 |
+| `playlists/countries/Montenegro.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Morocco.m3u` | 11 | 11 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Mozambique.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Myanmar.m3u` | 14 | 6 | 0 | 8 | 0 | 0 |
 | `playlists/countries/Namibia.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Nepal.m3u` | 10 | 8 | 0 | 0 | 2 | 0 |
-| `playlists/countries/Netherlands.m3u` | 160 | 143 | 0 | 10 | 7 | 0 |
-| `playlists/countries/New_Zealand.m3u` | 9 | 7 | 0 | 0 | 2 | 0 |
-| `playlists/countries/Nicaragua.m3u` | 12 | 5 | 0 | 2 | 5 | 0 |
-| `playlists/countries/Niger.m3u` | 3 | 1 | 0 | 0 | 2 | 0 |
-| `playlists/countries/Nigeria.m3u` | 47 | 35 | 0 | 7 | 5 | 0 |
+| `playlists/countries/Nepal.m3u` | 6 | 3 | 3 | 0 | 0 | 0 |
+| `playlists/countries/Netherlands.m3u` | 159 | 143 | 12 | 4 | 0 | 0 |
+| `playlists/countries/New_Zealand.m3u` | 16 | 16 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Nicaragua.m3u` | 7 | 7 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Niger.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Nigeria.m3u` | 34 | 33 | 1 | 0 | 0 | 0 |
 | `playlists/countries/North_Korea.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
-| `playlists/countries/North_Macedonia.m3u` | 23 | 21 | 0 | 2 | 0 | 0 |
-| `playlists/countries/Norway.m3u` | 13 | 7 | 1 | 0 | 5 | 0 |
+| `playlists/countries/North_Macedonia.m3u` | 22 | 19 | 0 | 0 | 3 | 0 |
+| `playlists/countries/Norway.m3u` | 9 | 8 | 1 | 0 | 0 | 0 |
 | `playlists/countries/Oman.m3u` | 6 | 6 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Pakistan.m3u` | 90 | 44 | 0 | 43 | 3 | 0 |
-| `playlists/countries/Palestine.m3u` | 21 | 20 | 0 | 0 | 1 | 0 |
-| `playlists/countries/Panama.m3u` | 18 | 15 | 0 | 3 | 0 | 0 |
+| `playlists/countries/Pakistan.m3u` | 52 | 51 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Palestine.m3u` | 20 | 19 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Panama.m3u` | 16 | 13 | 3 | 0 | 0 | 0 |
 | `playlists/countries/Papua_New_Guinea.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Paraguay.m3u` | 57 | 55 | 1 | 0 | 1 | 0 |
-| `playlists/countries/Peru.m3u` | 154 | 143 | 0 | 4 | 7 | 0 |
-| `playlists/countries/Philippines.m3u` | 11 | 11 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Poland.m3u` | 186 | 152 | 0 | 28 | 6 | 0 |
-| `playlists/countries/Portugal.m3u` | 70 | 48 | 0 | 16 | 6 | 0 |
-| `playlists/countries/Puerto_Rico.m3u` | 25 | 23 | 0 | 1 | 1 | 0 |
-| `playlists/countries/Qatar.m3u` | 43 | 36 | 0 | 0 | 7 | 0 |
-| `playlists/countries/Republic_of_the_Congo.m3u` | 3 | 1 | 0 | 1 | 1 | 0 |
-| `playlists/countries/Romania.m3u` | 141 | 117 | 3 | 11 | 10 | 0 |
-| `playlists/countries/Russia.m3u` | 508 | 407 | 1 | 90 | 10 | 0 |
-| `playlists/countries/Rwanda.m3u` | 9 | 9 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Paraguay.m3u` | 59 | 56 | 3 | 0 | 0 | 0 |
+| `playlists/countries/Peru.m3u` | 134 | 132 | 2 | 0 | 0 | 0 |
+| `playlists/countries/Philippines.m3u` | 12 | 12 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Poland.m3u` | 171 | 165 | 2 | 4 | 0 | 0 |
+| `playlists/countries/Portugal.m3u` | 50 | 45 | 5 | 0 | 0 | 0 |
+| `playlists/countries/Puerto_Rico.m3u` | 27 | 25 | 0 | 0 | 2 | 0 |
+| `playlists/countries/Qatar.m3u` | 38 | 37 | 1 | 0 | 0 | 0 |
+| `playlists/countries/Republic_of_the_Congo.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Romania.m3u` | 140 | 138 | 2 | 0 | 0 | 0 |
+| `playlists/countries/Russia.m3u` | 442 | 422 | 12 | 8 | 0 | 0 |
+| `playlists/countries/Rwanda.m3u` | 10 | 10 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Saint_Kitts_and_Nevis.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Saint_Lucia.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
 | `playlists/countries/San_Marino.m3u` | 2 | 0 | 2 | 0 | 0 | 0 |
-| `playlists/countries/Saudi_Arabia.m3u` | 66 | 52 | 6 | 0 | 8 | 0 |
-| `playlists/countries/Senegal.m3u` | 7 | 5 | 1 | 1 | 0 | 0 |
-| `playlists/countries/Serbia.m3u` | 27 | 18 | 3 | 5 | 1 | 0 |
+| `playlists/countries/Saudi_Arabia.m3u` | 57 | 51 | 6 | 0 | 0 | 0 |
+| `playlists/countries/Senegal.m3u` | 7 | 6 | 1 | 0 | 0 | 0 |
+| `playlists/countries/Serbia.m3u` | 24 | 21 | 2 | 0 | 1 | 0 |
 | `playlists/countries/Sierra_Leone.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Singapore.m3u` | 25 | 23 | 0 | 0 | 2 | 0 |
+| `playlists/countries/Singapore.m3u` | 29 | 28 | 1 | 0 | 0 | 0 |
 | `playlists/countries/Sint_Maarten.m3u` | 5 | 5 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Slovakia.m3u` | 57 | 47 | 0 | 9 | 1 | 0 |
-| `playlists/countries/Slovenia.m3u` | 9 | 5 | 0 | 4 | 0 | 0 |
-| `playlists/countries/Somalia.m3u` | 9 | 4 | 0 | 5 | 0 | 0 |
-| `playlists/countries/South_Africa.m3u` | 19 | 16 | 0 | 1 | 2 | 0 |
-| `playlists/countries/South_Korea.m3u` | 92 | 65 | 4 | 15 | 8 | 0 |
-| `playlists/countries/Spain.m3u` | 256 | 193 | 8 | 26 | 29 | 0 |
-| `playlists/countries/Sri_Lanka.m3u` | 14 | 7 | 0 | 6 | 1 | 0 |
-| `playlists/countries/Sudan.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Slovakia.m3u` | 59 | 59 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Slovenia.m3u` | 6 | 5 | 0 | 0 | 1 | 0 |
+| `playlists/countries/Somalia.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
+| `playlists/countries/South_Africa.m3u` | 16 | 16 | 0 | 0 | 0 | 0 |
+| `playlists/countries/South_Korea.m3u` | 77 | 71 | 6 | 0 | 0 | 0 |
+| `playlists/countries/Spain.m3u` | 231 | 198 | 32 | 1 | 0 | 0 |
+| `playlists/countries/Sri_Lanka.m3u` | 7 | 6 | 0 | 1 | 0 | 0 |
+| `playlists/countries/Sudan.m3u` | 3 | 2 | 1 | 0 | 0 | 0 |
 | `playlists/countries/Suriname.m3u` | 2 | 2 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Sweden.m3u` | 385 | 374 | 0 | 3 | 8 | 0 |
-| `playlists/countries/Switzerland.m3u` | 36 | 28 | 0 | 5 | 3 | 0 |
-| `playlists/countries/Syria.m3u` | 12 | 12 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Taiwan.m3u` | 22 | 15 | 0 | 5 | 2 | 0 |
-| `playlists/countries/Tajikistan.m3u` | 14 | 0 | 0 | 14 | 0 | 0 |
-| `playlists/countries/Tanzania.m3u` | 6 | 5 | 0 | 1 | 0 | 0 |
-| `playlists/countries/Thailand.m3u` | 89 | 63 | 1 | 9 | 16 | 0 |
-| `playlists/countries/Togo.m3u` | 7 | 2 | 0 | 1 | 4 | 0 |
-| `playlists/countries/Trinidad_and_Tobago.m3u` | 6 | 5 | 0 | 1 | 0 | 0 |
-| `playlists/countries/Tunisia.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Turkey.m3u` | 154 | 133 | 4 | 11 | 6 | 0 |
+| `playlists/countries/Sweden.m3u` | 376 | 376 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Switzerland.m3u` | 28 | 25 | 0 | 0 | 3 | 0 |
+| `playlists/countries/Syria.m3u` | 11 | 11 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Taiwan.m3u` | 20 | 17 | 0 | 3 | 0 | 0 |
+| `playlists/countries/Tanzania.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Thailand.m3u` | 67 | 65 | 1 | 1 | 0 | 0 |
+| `playlists/countries/Togo.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Trinidad_and_Tobago.m3u` | 5 | 5 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Tunisia.m3u` | 5 | 5 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Turkey.m3u` | 151 | 136 | 11 | 2 | 2 | 0 |
 | `playlists/countries/Turkmenistan.m3u` | 16 | 16 | 0 | 0 | 0 | 0 |
-| `playlists/countries/UK.m3u` | 334 | 218 | 4 | 21 | 91 | 0 |
-| `playlists/countries/USA.m3u` | 2900 | 2657 | 41 | 81 | 121 | 0 |
-| `playlists/countries/Uganda.m3u` | 13 | 10 | 0 | 2 | 1 | 0 |
-| `playlists/countries/Ukraine.m3u` | 198 | 174 | 1 | 19 | 4 | 0 |
-| `playlists/countries/United_Arab_Emirates.m3u` | 56 | 43 | 3 | 6 | 4 | 0 |
-| `playlists/countries/Uruguay.m3u` | 11 | 9 | 1 | 0 | 1 | 0 |
-| `playlists/countries/Uzbekistan.m3u` | 35 | 35 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Venezuela.m3u` | 60 | 52 | 1 | 5 | 2 | 0 |
-| `playlists/countries/Vietnam.m3u` | 85 | 65 | 4 | 1 | 15 | 0 |
+| `playlists/countries/UK.m3u` | 262 | 245 | 10 | 5 | 2 | 0 |
+| `playlists/countries/USA.m3u` | 2831 | 2722 | 82 | 26 | 1 | 0 |
+| `playlists/countries/Uganda.m3u` | 12 | 12 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Ukraine.m3u` | 179 | 176 | 2 | 0 | 1 | 0 |
+| `playlists/countries/United_Arab_Emirates.m3u` | 46 | 42 | 4 | 0 | 0 | 0 |
+| `playlists/countries/Uruguay.m3u` | 7 | 7 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Uzbekistan.m3u` | 35 | 30 | 0 | 0 | 5 | 0 |
+| `playlists/countries/Venezuela.m3u` | 55 | 51 | 2 | 1 | 1 | 0 |
+| `playlists/countries/Vietnam.m3u` | 78 | 73 | 5 | 0 | 0 | 0 |
 | `playlists/countries/Western_Sahara.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
-| `playlists/countries/Yemen.m3u` | 3 | 3 | 0 | 0 | 0 | 0 |
+| `playlists/countries/Yemen.m3u` | 4 | 4 | 0 | 0 | 0 | 0 |
 | `playlists/countries/Zimbabwe.m3u` | 1 | 1 | 0 | 0 | 0 | 0 |
 
 ## Patches applied
 
-- Removed **222** confirmed-dead links across **48** playlists (working ratio 85.5%).
-  - `PremiumTV.m3u`: -13 (13243 -> 13230)
-  - `Argentina.m3u`: -2 (167 -> 165)
-  - `Australia.m3u`: -5 (51 -> 46)
-  - `Austria.m3u`: -1 (49 -> 48)
-  - `Belgium.m3u`: -1 (44 -> 43)
-  - `Bosnia_and_Herzegovina.m3u`: -1 (21 -> 20)
+- Removed **470** confirmed-dead links across **70** playlists (working ratio 96.4%).
+  - `PremiumTV.m3u`: -25 (12069 -> 12044)
+  - `Albania.m3u`: -1 (17 -> 16)
+  - `Argentina.m3u`: -5 (173 -> 168)
+  - `Australia.m3u`: -11 (48 -> 37)
+  - `Austria.m3u`: -1 (43 -> 42)
+  - `Bahamas.m3u`: -1 (3 -> 2)
+  - `Belarus.m3u`: -2 (34 -> 32)
+  - `Belgium.m3u`: -1 (37 -> 36)
+  - `Bermuda.m3u`: -1 (1 -> 0)
+  - `Bolivia.m3u`: -1 (42 -> 41)
+  - `Bosnia_and_Herzegovina.m3u`: -2 (11 -> 9)
+  - `Brazil.m3u`: -2 (188 -> 186)
   - `Cambodia.m3u`: -5 (20 -> 15)
-  - `Canada.m3u`: -1 (186 -> 185)
-  - `Chile.m3u`: -2 (223 -> 221)
-  - `China.m3u`: -6 (164 -> 158)
-  - `Colombia.m3u`: -2 (120 -> 118)
-  - `Croatia.m3u`: -3 (18 -> 15)
-  - `Czechia.m3u`: -1 (64 -> 63)
-  - `Dominican_Republic.m3u`: -1 (207 -> 206)
-  - `Egypt.m3u`: -1 (18 -> 17)
-  - `France.m3u`: -2 (249 -> 247)
-  - `Germany.m3u`: -17 (423 -> 406)
-  - `Greece.m3u`: -1 (97 -> 96)
-  - `Hungary.m3u`: -2 (94 -> 92)
-  - `India.m3u`: -15 (805 -> 790)
-  - `Indonesia.m3u`: -3 (129 -> 126)
-  - `International.m3u`: -30 (1237 -> 1207)
-  - `Iran.m3u`: -4 (98 -> 94)
-  - `Iraq.m3u`: -2 (64 -> 62)
-  - `Italy.m3u`: -5 (584 -> 579)
-  - `Japan.m3u`: -2 (22 -> 20)
-  - `Kuwait.m3u`: -1 (14 -> 13)
-  - `Kyrgyzstan.m3u`: -1 (7 -> 6)
-  - `Luxembourg.m3u`: -2 (16 -> 14)
-  - `Mexico.m3u`: -2 (159 -> 157)
-  - `Norway.m3u`: -1 (13 -> 12)
-  - `Paraguay.m3u`: -1 (57 -> 56)
-  - `Romania.m3u`: -3 (141 -> 138)
-  - `Russia.m3u`: -1 (508 -> 507)
-  - `Saudi_Arabia.m3u`: -6 (66 -> 60)
+  - `Canada.m3u`: -5 (142 -> 137)
+  - `Chile.m3u`: -7 (199 -> 192)
+  - `China.m3u`: -8 (98 -> 90)
+  - `Colombia.m3u`: -3 (117 -> 114)
+  - `Costa_Rica.m3u`: -3 (61 -> 58)
+  - `Croatia.m3u`: -3 (17 -> 14)
+  - `Egypt.m3u`: -1 (17 -> 16)
+  - `El_Salvador.m3u`: -1 (15 -> 14)
+  - `Equatorial_Guinea.m3u`: -1 (1 -> 0)
+  - `Finland.m3u`: -1 (29 -> 28)
+  - `France.m3u`: -2 (217 -> 215)
+  - `Germany.m3u`: -22 (393 -> 371)
+  - `Guatemala.m3u`: -1 (34 -> 33)
+  - `Hungary.m3u`: -4 (155 -> 151)
+  - `India.m3u`: -24 (813 -> 789)
+  - `Indonesia.m3u`: -4 (123 -> 119)
+  - `International.m3u`: -48 (1205 -> 1157)
+  - `Iran.m3u`: -27 (113 -> 86)
+  - `Iraq.m3u`: -4 (62 -> 58)
+  - `Ireland.m3u`: -4 (23 -> 19)
+  - `Italy.m3u`: -8 (533 -> 525)
+  - `Japan.m3u`: -5 (22 -> 17)
+  - `Jordan.m3u`: -2 (20 -> 18)
+  - `Kosovo.m3u`: -1 (8 -> 7)
+  - `Kuwait.m3u`: -1 (15 -> 14)
+  - `Lebanon.m3u`: -2 (30 -> 28)
+  - `Luxembourg.m3u`: -4 (16 -> 12)
+  - `Macau.m3u`: -1 (1 -> 0)
+  - `Mauritania.m3u`: -1 (1 -> 0)
+  - `Mexico.m3u`: -2 (124 -> 122)
+  - `Netherlands.m3u`: -12 (159 -> 147)
+  - `Nigeria.m3u`: -1 (34 -> 33)
+  - `Norway.m3u`: -1 (9 -> 8)
+  - `Panama.m3u`: -3 (16 -> 13)
+  - `Paraguay.m3u`: -3 (59 -> 56)
+  - `Peru.m3u`: -2 (134 -> 132)
+  - `Poland.m3u`: -2 (171 -> 169)
+  - `Portugal.m3u`: -5 (50 -> 45)
+  - `Qatar.m3u`: -1 (38 -> 37)
+  - `Romania.m3u`: -2 (140 -> 138)
+  - `Russia.m3u`: -12 (442 -> 430)
+  - `San_Marino.m3u`: -2 (2 -> 0)
+  - `Saudi_Arabia.m3u`: -6 (57 -> 51)
   - `Senegal.m3u`: -1 (7 -> 6)
-  - `Serbia.m3u`: -3 (27 -> 24)
-  - `South_Korea.m3u`: -4 (92 -> 88)
-  - `Spain.m3u`: -8 (256 -> 248)
-  - `Thailand.m3u`: -1 (89 -> 88)
-  - `Turkey.m3u`: -4 (154 -> 150)
-  - `UK.m3u`: -4 (334 -> 330)
-  - `USA.m3u`: -41 (2900 -> 2860)
-  - `Ukraine.m3u`: -1 (198 -> 197)
-  - `United_Arab_Emirates.m3u`: -3 (56 -> 53)
-  - `Uruguay.m3u`: -1 (11 -> 10)
-  - `Venezuela.m3u`: -1 (60 -> 59)
-  - `Vietnam.m3u`: -4 (85 -> 81)
-  - skipped `Bermuda.m3u`: removing 1/1 entries exceeds --max-remove-ratio 35%
-  - skipped `San_Marino.m3u`: removing 2/2 entries exceeds --max-remove-ratio 35%
+  - `Serbia.m3u`: -2 (24 -> 22)
+  - `Singapore.m3u`: -1 (29 -> 28)
+  - `South_Korea.m3u`: -6 (77 -> 71)
+  - `Spain.m3u`: -32 (231 -> 199)
+  - `Sudan.m3u`: -1 (3 -> 2)
+  - `Thailand.m3u`: -1 (67 -> 66)
+  - `Turkey.m3u`: -11 (151 -> 140)
+  - `UK.m3u`: -10 (262 -> 252)
+  - `USA.m3u`: -82 (2831 -> 2750)
+  - `Ukraine.m3u`: -2 (179 -> 177)
+  - `United_Arab_Emirates.m3u`: -4 (46 -> 42)
+  - `Venezuela.m3u`: -2 (55 -> 53)
+  - `Vietnam.m3u`: -5 (78 -> 73)
+  - skipped `Denmark.m3u`: removing 4/11 entries exceeds --max-remove-ratio 35%
+  - skipped `Malaysia.m3u`: removing 3/6 entries exceeds --max-remove-ratio 35%
+  - skipped `Nepal.m3u`: removing 3/6 entries exceeds --max-remove-ratio 35%
 
 ## Hosts with the most failing links
 
 | Host | Offline | Unreachable |
 |---|---:|---:|
-| `hls127.freeott.top:8080` | 0 | 96 |
-| `31.148.48.15` | 0 | 94 |
-| `103.250.28.74:8000` | 0 | 60 |
-| `playlist.xtemus.com` | 0 | 30 |
-| `tvsen7.aynascope.net` | 0 | 28 |
-| `57.128.210.196:8080` | 0 | 28 |
-| `live.teleradiocom.tj` | 0 | 28 |
 | `live.streamingfast.net` | 27 | 0 |
-| `91.228.35.249:8001` | 0 | 20 |
-| `znty.dyndns.org:5010` | 0 | 20 |
-| `5f22d76e220e1.streamlock.net` | 0 | 20 |
-| `cdn.rostelekom-tv.xyz` | 0 | 18 |
-| `51.254.199.122:8080` | 0 | 18 |
-| `103.72.101.252:8080` | 0 | 18 |
+| `tvsen7.aynascope.net` | 0 | 22 |
+| `ncdn.telewebion.ir` | 22 | 0 |
 | `mrtvott.com` | 0 | 16 |
-| `151.80.18.177:86` | 0 | 16 |
-| `64b16f23efbee.streamlock.net` | 0 | 16 |
-| `mdc.ott.alticeusa.net` | 7 | 8 |
-| `190.197.41.183` | 0 | 14 |
-| `mumbai-edge.smartplaytv.in` | 0 | 14 |
-| `39.134.115.163:8080` | 0 | 14 |
-| `183.207.248.71` | 0 | 12 |
-| `cdn.tvmatic.net` | 0 | 12 |
+| `live20.bozztv.com` | 0 | 16 |
+| `64b16f23efbee.streamlock.net` | 0 | 14 |
+| `mdc.ott.alticeusa.net` | 10 | 3 |
+| `cdn4.skygo.mn` | 13 | 0 |
 | `tvsen5.aynascope.net` | 0 | 12 |
-| `atlantida1.aquax1.cfd` | 0 | 12 |
+| `5f22d76e220e1.streamlock.net` | 0 | 12 |
+| `wdrlokalzeit.akamaized.net` | 11 | 0 |
+| `livestreaming.b67buv2.tweedekamer.nl` | 11 | 0 |
+| `live-fi.tvkaista.net` | 0 | 10 |
+| `edge55.dc.beltelecom.by` | 0 | 10 |
+| `abcnews-streams.akamaized.net` | 10 | 0 |
+| `tvsen3.aynaott.com` | 9 | 0 |
+| `tvsen6.aynaott.com` | 8 | 0 |
+| `30a-tv.com` | 2 | 4 |
+| `cdnlivetv.tv` | 0 | 6 |
+| `ztnr.rtve.es` | 6 | 0 |
+| `origin.dpsgo.com` | 2 | 4 |
+| `cityeden.catcast.tv` | 0 | 6 |
+| `38.65.175.84:8000` | 0 | 6 |
+| `111.59.139.85:11888` | 0 | 6 |
+| `redirector.rudo.video` | 4 | 2 |
 
 ## Sample of confirmed-dead links
 
 | Channel | Reason | URL |
 |---|---|---|
-| ERT News HD (1080p) | HTTP 404 | `https://ert-ucdn.broadpeak-aas.com/bpk-tv/ERTNews/default/index.m3u8` |
-| Hebi News Channel (480p) [Not 24/7] | variant HTTP 404 | `http://pili-live-hls.hebitv.com/hebi/hebi.m3u8` |
-| TGRT Haber | playlist only, HTTP 404 | `https://canli.tgrthaber.com/tgrt.m3u8` |
-| News12 New York (Backup 2) | variant HTTP 404 | `https://mdc.ott.alticeusa.net/live4.ott.optimum.net/live4-uploads/N12PLUS_H_NYC_A1/index_new.m3u8` |
-| Movies Now HD (1080p) | variant HTTP 404 | `http://103.151.60.162:2122/play/a02w/index.m3u8?hls=` |
+| HTV Sports (1080i) | HTTP 404 | `https://vmttv.dpdns.org/tv360/?id=htv-the-thao` |
+| La 2 Canarias (720p) | playlist only, HTTP 403 | `https://ztnr.rtve.es/ztnr/5468585.m3u8` |
+| Pindin TV | HTTP 404 | `https://sistemastr.tropicalmoonmedia.com/live/7C452409423F57ADC960F6405635267F/7.m3u8` |
+| India Today (720p) | playlist only, HTTP 416 | `https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-293160/master.m3u8` |
+| News12 Brooklyn [Geo-blocked] | variant HTTP 404 | `https://mdc.ott.alticeusa.net/live4.ott.optimum.net/live4-uploads/N12KH_A1/index_new.m3u8?omap=https` |
+| Fieri Tv (720p) | connection refused | `http://valashop.online:8090/fieritv.m3u8` |
+| Canal 5 TV Chepes | HTTP 404 | `https://videostream.shockmedia.com.ar:19360/canal5alfatvchepes/canal5alfatvchepes.m3u8` |
 | Canal 7 Salta (1080p) | HTTP 404 | `https://vivo.solumedia.com:19360/cooperativa/cooperativa.m3u8` |
-| Azahares Radiovisual Multimedia (720p) | HTTP 404 | `https://streamyes.alsolnet.com/azaharesfm/live/playlist.m3u8` |
+| Misiones Cuatro | HTTP 404 | `https://iptv.ixfo.com.ar:30443/live-HD/MISIONES4/playlist.m3u8` |
+| Telefe Buenos Aires (1080p) | HTTP 404 | `http://45.134.141.161:2200/ARG/TELEFE_HD/index.m3u8` |
+| Radio Conexion Web TV (720p) | HTTP 404 | `https://tuvideoonline.com.ar:3391/live/radioconexionlive.m3u8` |
 | Expo Channel (360p) | variant HTTP dns lookup failed | `https://tvsnhlslivetest.akamaized.net/hls/live/2034711/EXPO-MSL4/master.m3u8` |
-| TVSN | variant HTTP 404 | `https://tvsnhlslivetest.akamaized.net/hls/live/2034711/TVSN-MSL4/master.m3u8` |
-| 2GB (1080p) | variant HTTP 404 | `https://2gblive.akamaized.net/hls/live/2033805/2GB/index.m3u8` |
-| 3AW (1080p) | variant HTTP 404 | `https://3awlive.akamaized.net/hls/live/2032295/3AW/index.m3u8` |
-| 6PR (1080p) | variant HTTP 404 | `https://6prlive.akamaized.net/hls/live/2033806/6PR/index.m3u8` |
+| 10 HD | playlist only, HTTP 403 | `https://i.mjh.nz/.r/10-nsw.m3u8` |
+| 10 Peach | playlist only, HTTP 403 | `https://i.mjh.nz/.r/10peach-nsw.m3u8` |
+| 7flix | playlist only, HTTP 403 | `https://i.mjh.nz/.r/7flix-syd.m3u8` |
+| 7mate | playlist only, HTTP 403 | `https://i.mjh.nz/.r/7mate-syd.m3u8` |
 | ServusTV (Backup 1) | variant HTTP 404 | `https://rbmn-live.akamaized.net/hls/live/2002825/geoSTVATweb/master.m3u8` |
+| Guardian Talk Radio (1080p) | HTTP 404 | `https://cdn-edge1.streamcomedia.com/abr_tngr969fm/abr-tngr969fm_streams/playlist.m3u8` |
+| Первый Музыкальный Канал (Backup 1) | variant HTTP 404 | `https://ngtrk.dc.beltelecom.by/ngtrk/smil:ont.smil/playlist.m3u8` |
+| Belros Ⓢ | playlist only, HTTP 404 | `https://live2.mediacdn.ru/sr1/tro/playlist.m3u8` |
 | ☆ Surf Channel 🇪🇸 🏄 | playlist only, HTTP 400 | `https://jmp2.uk/stvp-ES3400002PY` |
 | Channel 82 | variant HTTP 403 | `https://service.webvideocore.net/CL1olYogIrDWvwqiIKK7eBmnWbRkKKsu3nqabm9GlX02JOj3CDNXzodJMDEN2dk3/a_bq9clxfbupwg.m3u8` |
-| Televizija Republike Srpske (RTRS) | variant HTTP 403 | `https://parh.rtrs.tv/tv/live/playlist.m3u8` |
-| Hang Meas HDTV (720p) | variant HTTP 404 | `http://clive.malisresidences.com:1935/hm_hdtv/_definst_/smil:hmhdt12356.smil/playlist.m3u8` |
-| Hang Meas HDTV (Backup 1) | variant HTTP 404 | `http://clive.malisresidences.com:1935/hmcine/_definst_/smil:hmcine.smil/playlist.m3u8` |
-| Hang Meas HDTV (Backup 2) | variant HTTP 404 | `http://clive.malisresidences.com:1935/hmgo/_definst_/smil:hmgo.smil/playlist.m3u8` |
-| Hang Meas HDTV (Backup 3) | variant HTTP 404 | `http://clive.malisresidences.com:1935/hmnow/_definst_/smil:hmnow.smil/playlist.m3u8` |
-| Hang Meas HDTV (Backup 4) | variant HTTP 404 | `http://clive.malisresidences.com:1935/hmplay/_definst_/smil:hmplay.smil/playlist.m3u8` |
-| NatureTime ES (1080p) | variant HTTP 404 | `https://shls-live-ak.akamaized.net/out/v1/b06a89a463764d3688cda337d40dc5bf/index.m3u8` |
-| 13P (720p) | variant HTTP 404 | `https://origin.dpsgo.com/ssai/event/p4mmBxEzSmKAxY1GusOHrw/master.m3u8` |
-| 13E (720p) | variant HTTP 404 | `https://origin.dpsgo.com/ssai/event/BBp0VeP6QtOOlH8nu3bWTg/master.m3u8` |
-| CCTV-4 America (1080p) | variant HTTP 403 | `https://global.cgtn.cicc.media.caton.cloud/master/cgtn-america.m3u8` |
+| UMSA TVU LP (720p) | HTTP 404 | `https://edge.enhdtv.com/8190/index.m3u8` |
+| RTRS TV (576p) [Not 24/7] | HTTP 404 | `https://uzivo.rtrs.tv/tv/live/index.m3u8` |
+| Maria+Vision Medjugorje (720p) | variant HTTP 404 | `https://1601580044.rsc.cdn77.org/live/_jcn_/amlst:Italiasette/playlist.m3u8` |
