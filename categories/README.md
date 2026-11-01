@@ -1,6 +1,6 @@
 # Category shelf
 
-- **Shelf rebuilt:** 2026-11-01 16:27 UTC (2026-11-01 11:27 AM EST) — _monthly discovery category shelf_
+- **Shelf rebuilt:** 2026-11-01 16:56 UTC (2026-11-01 11:56 AM EST) — _scheduled guide build_
 - **Sources:** [`playlists/PremiumTV.m3u`](../playlists/PremiumTV.m3u) for `All/`, [`playlists/live/USA.m3u`](../playlists/live/USA.m3u) for `USA.m3u` and `USA/`
 - **Order:** Sports -> Lifestyle -> Fox Channels -> CBS -> NBC -> NBC Sports Channels -> Cartoons -> PBS -> Game Shows (each followed by its own Backups group), then the long tail by size, `Other` last — the published order from `scripts/categorize.py`.
 - **One entry per channel:** a channel's spare feeds sit right after it in its `<category> Backups` group, best quality first.
