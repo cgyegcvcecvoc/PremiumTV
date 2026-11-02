@@ -16,6 +16,10 @@
     <display-name>like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="NBC" tvg-country="ID",CNBC Indonesia</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/CNBC_Indonesia_2025.svg/960px-CNBC_Indonesia_2025.svg.png" />
   </channel>
+  <channel id="AKTV.id@SD">
+    <display-name>AKTV (1080p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/DUY5WXf.png" />
+  </channel>
   <channel id="AstroBlitarTV.id@SD">
     <display-name>Astro Blitar TV (720p)</display-name>
     <icon src="https://i.imgur.com/rORKbGw.png" />
@@ -31,6 +35,10 @@
   <channel id="BanjarTV.id@SD">
     <display-name>Banjar TV (720p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/TA76a10.png" />
+  </channel>
+  <channel id="BantenTV.id@SD">
+    <display-name>Banten TV (720p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/tbtF40p.png" />
   </channel>
   <channel id="BMSTV.id@SD">
     <display-name>BMS TV (720p) [Not 24/7]</display-name>
@@ -73,12 +81,20 @@
     <display-name>Jawa Pos TV Jakarta (720p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Jawa_Pos_TV_2024.svg/960px-Jawa_Pos_TV_2024.svg.png" />
   </channel>
+  <channel id="JekTV.id@SD">
+    <display-name>Jek TV (720p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/wh75d1f.png" />
+  </channel>
   <channel id="JogjaIstimewaTV.id@SD">
     <display-name>Jogja Istimewa TV (720p)</display-name>
     <icon src="https://i.imgur.com/VEqQfTu.png" />
   </channel>
   <channel id="JTV.id@SD">
     <display-name>JTV (720p)</display-name>
+    <icon src="https://i.imgur.com/mIDWIQk.png" />
+  </channel>
+  <channel id="JTV.id@Kediri">
+    <display-name>JTV Kediri (1080p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/mIDWIQk.png" />
   </channel>
   <channel id="JTV.id@Madiun">
@@ -505,22 +521,6 @@
     <display-name>Rinjani TV</display-name>
     <icon src="https://lombokindustries.com/assunnah/zone/img/rinjanitv.png" />
   </channel>
-  <programme start="20261102143000 +0000" stop="20261102150000 +0000" channel="GarudaTV.id@SD">
-    <title>In Militer</title>
-    <desc>In Militer adalah program informatif dan edukatif yang mengulas berbagai perkembangan, kekuatan, teknologi, dan strategi militer dari berbagai negara di dunia. Disajikan dengan pendekatan visual modern dan narasi yang mudah dipahami, program ini mengajak penonton untuk memahami dinamika militer global, baik dari sisi teknologi senjata, taktik perang, dan struktur angkatan bersenjata.</desc>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102150000 +0000" stop="20261102160000 +0000" channel="GarudaTV.id@SD">
-    <title>Misteri Hidup</title>
-    <desc>Misteri Hidup adalah program yang mengupas berbagai misteri kehidupan, mulai dari sejarah, asal-usul, hingga teori konspirasi, dengan penyajian yang mudah dipahami dan berbasis fakta. Program ini mengajak pemirsa memahami makna hidup serta menanamkan nilai-nilai luhur untuk saling menghormati.</desc>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261102160000 +0000" stop="20261102170000 +0000" channel="GarudaTV.id@SD">
     <title>Laporan 8 Update</title>
     <desc>Laporan 8 Update merupakan program hard news yang informasinya dikumpulkan dari berbagai sumber terpecaya yang ditayangkan pada setiap hari di jam 15:00 WIB.</desc>
@@ -1073,22 +1073,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102143000 +0000" stop="20261102150000 +0000" channel="NusantaraTV.id@SD">
-    <title>Petualang Nusantara</title>
-    <desc>Program dokumenter petualangan bersama Sang Petualang Panji yang mengeksplorasi kekayaan budaya, alam, dan kehidupan masyarakat lokal di pelosok Nusantara, serta mengangkat kearifan lokal dan semangat cinta tanah air melalui perjalanan penuh inspirasi.</desc>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102150000 +0000" stop="20261102163000 +0000" channel="NusantaraTV.id@SD">
-    <title>Soundcore Dangdut</title>
-    <desc>Program Kompilasi Musik dari bergenre dangdut.</desc>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261102163000 +0000" stop="20261102170000 +0000" channel="NusantaraTV.id@SD">
     <title>Nusantara Business Hour</title>
     <desc>Program ekonomi sore yang menyajikan update tercepat, analisis tajam, dan dialog strategis untuk memahami arah ekonomi nasional dan global serta dampaknya bagi pasar, industri, dan daerah.</desc>
@@ -1537,8 +1521,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Aceh">
-    <title>TVRI</title>
+  <programme start="20261104223000 +0000" stop="20261104233000 +0000" channel="NusantaraTV.id@SD">
+    <title>NTV Sport</title>
+    <desc>Program olahraga andalan Nusantara TV yang menghadirkan berbagai informasi dan aksi seru dari dunia sport, baik nasional maupun internasional.</desc>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Aceh">
     <title>TVRI</title>
@@ -1621,7 +1610,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Aceh">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Bali">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Aceh">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Aceh">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Bali">
@@ -1705,7 +1697,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Bali">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@BangkaBelitung">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Bali">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Bali">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@BangkaBelitung">
@@ -1789,7 +1784,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@BangkaBelitung">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Bengkulu">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@BangkaBelitung">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@BangkaBelitung">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Bengkulu">
@@ -1873,7 +1871,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Bengkulu">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@CentralJava">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Bengkulu">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Bengkulu">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@CentralJava">
@@ -1957,7 +1958,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@CentralJava">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@CentralKalimantan">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@CentralJava">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@CentralJava">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@CentralKalimantan">
@@ -2041,7 +2045,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@CentralKalimantan">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@CentralSulawesi">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@CentralKalimantan">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@CentralKalimantan">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@CentralSulawesi">
@@ -2125,7 +2132,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@CentralSulawesi">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@EastJava">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@CentralSulawesi">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@CentralSulawesi">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@EastJava">
@@ -2209,7 +2219,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@EastJava">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@EastKalimantan">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@EastJava">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@EastJava">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@EastKalimantan">
@@ -2293,7 +2306,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@EastKalimantan">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@EastNusaTenggara">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@EastKalimantan">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@EastKalimantan">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@EastNusaTenggara">
@@ -2377,7 +2393,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@EastNusaTenggara">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Gorontalo">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@EastNusaTenggara">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@EastNusaTenggara">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Gorontalo">
@@ -2459,6 +2478,12 @@
     <title>TVRI</title>
   </programme>
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Gorontalo">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Gorontalo">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Gorontalo">
     <title>TVRI</title>
   </programme>
   <programme start="20261102125500 +0000" stop="20261103000000 +0000" channel="TVRI.id@HD">
@@ -2622,8 +2647,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Jakarta">
+  <programme start="20261104210000 +0000" stop="20261104230000 +0000" channel="TVRI.id@HD">
     <title>TVRI</title>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Jakarta">
     <title>TVRI</title>
@@ -2706,7 +2735,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Jakarta">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Jambi">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Jakarta">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Jakarta">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Jambi">
@@ -2790,7 +2822,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Jambi">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Lampung">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Jambi">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Jambi">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Lampung">
@@ -2874,7 +2909,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Lampung">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Maluku">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Lampung">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Lampung">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Maluku">
@@ -2958,7 +2996,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Maluku">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@NorthSulawesi">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Maluku">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Maluku">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@NorthSulawesi">
@@ -3042,7 +3083,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@NorthSulawesi">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@NorthSumatra">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@NorthSulawesi">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@NorthSulawesi">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@NorthSumatra">
@@ -3126,7 +3170,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@NorthSumatra">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Papua">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@NorthSumatra">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@NorthSumatra">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Papua">
@@ -3210,7 +3257,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Papua">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Riau">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Papua">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Papua">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Riau">
@@ -3294,7 +3344,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Riau">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@SouthKalimantan">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Riau">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Riau">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@SouthKalimantan">
@@ -3378,7 +3431,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@SouthKalimantan">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@SouthSulawesi">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@SouthKalimantan">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@SouthKalimantan">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@SouthSulawesi">
@@ -3462,7 +3518,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@SouthSulawesi">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@SouthSumatra">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@SouthSulawesi">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@SouthSulawesi">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@SouthSumatra">
@@ -3546,7 +3605,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@SouthSumatra">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@SoutheastSulawesi">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@SouthSumatra">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@SouthSumatra">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@SoutheastSulawesi">
@@ -3630,7 +3692,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@SoutheastSulawesi">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@WestJava">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@SoutheastSulawesi">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@SoutheastSulawesi">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@WestJava">
@@ -3714,7 +3779,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@WestJava">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@WestKalimantan">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@WestJava">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@WestJava">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@WestKalimantan">
@@ -3798,7 +3866,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@WestKalimantan">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@WestNusaTenggara">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@WestKalimantan">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@WestKalimantan">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@WestNusaTenggara">
@@ -3882,7 +3953,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@WestNusaTenggara">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@WestPapua">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@WestNusaTenggara">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@WestNusaTenggara">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@WestPapua">
@@ -3966,7 +4040,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@WestPapua">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@WestSulawesi">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@WestPapua">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@WestPapua">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@WestSulawesi">
@@ -4050,7 +4127,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@WestSulawesi">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@WestSumatra">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@WestSulawesi">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@WestSulawesi">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@WestSumatra">
@@ -4134,7 +4214,10 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@WestSumatra">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102130000 +0000" stop="20261102150000 +0000" channel="TVRI.id@Yogyakarta">
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@WestSumatra">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@WestSumatra">
     <title>TVRI</title>
   </programme>
   <programme start="20261102150000 +0000" stop="20261102170000 +0000" channel="TVRI.id@Yogyakarta">
@@ -4218,26 +4301,11 @@
   <programme start="20261104190000 +0000" stop="20261104210000 +0000" channel="TVRI.id@Yogyakarta">
     <title>TVRI</title>
   </programme>
-  <programme start="20261102143000 +0000" stop="20261102150000 +0000" channel="DAAITV.id@SD">
-    <title>Tek Tok</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261104210000 +0000" stop="20261104213000 +0000" channel="TVRI.id@Yogyakarta">
+    <title>TVRI</title>
   </programme>
-  <programme start="20261102150000 +0000" stop="20261102153000 +0000" channel="DAAITV.id@SD">
-    <title>Bingkai Sumatera</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102153000 +0000" stop="20261102160000 +0000" channel="DAAITV.id@SD">
-    <title>Bumiku Satu</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261104213000 +0000" stop="20261104230000 +0000" channel="TVRI.id@Yogyakarta">
+    <title>TVRI</title>
   </programme>
   <programme start="20261102160000 +0000" stop="20261102170000 +0000" channel="DAAITV.id@SD">
     <title>Drama Kisah Nyata: Sejuta Cahaya</title>
@@ -4785,23 +4853,16 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102143000 +0000" stop="20261102153000 +0000" channel="BTV.id@SD">
-    <title>BTV</title>
-    <date>20261102</date>
+  <programme start="20261104210000 +0000" stop="20261104220000 +0000" channel="DAAITV.id@SD">
+    <title>Drama Kisah Nyata: Istriku Bidadariku</title>
+    <date>20261104</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102153000 +0000" stop="20261102160000 +0000" channel="BTV.id@SD">
-    <title>BTV</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102160000 +0000" stop="20261102163000 +0000" channel="BTV.id@SD">
-    <title>BTV</title>
-    <date>20261102</date>
+  <programme start="20261104220000 +0000" stop="20261104230000 +0000" channel="DAAITV.id@SD">
+    <title>Drama Kisah Nyata: Cinta Sepanjang Jalan</title>
+    <date>20261104</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -5394,44 +5455,16 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102143000 +0000" stop="20261102150000 +0000" channel="MetroTV.id@SD">
-    <title>Metro TV</title>
-    <date>20261102</date>
+  <programme start="20261104210000 +0000" stop="20261104220000 +0000" channel="BTV.id@SD">
+    <title>Jendela Dunia</title>
+    <date>20261104</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102150000 +0000" stop="20261102150500 +0000" channel="MetroTV.id@SD">
-    <title>Metro TV</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102150500 +0000" stop="20261102153000 +0000" channel="MetroTV.id@SD">
-    <title>Metro TV</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102153000 +0000" stop="20261102160000 +0000" channel="MetroTV.id@SD">
-    <title>Metro TV</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102160000 +0000" stop="20261102160500 +0000" channel="MetroTV.id@SD">
-    <title>Metro TV</title>
-    <date>20261102</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261102160500 +0000" stop="20261102163000 +0000" channel="MetroTV.id@SD">
-    <title>Metro TV</title>
-    <date>20261102</date>
+  <programme start="20261104220000 +0000" stop="20261104230000 +0000" channel="BTV.id@SD">
+    <title>Berita Satu Utama</title>
+    <date>20261104</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -6752,18 +6785,51 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102140300 +0000" stop="20261102150300 +0000" channel="TheIndonesiaChannel.id@SD">
-    <title>Replay of “I-Pop Playlist</title>
-    <desc>an MTV-style video rundown of the countrys hottest music and artists, along with special concert and club performances hosted by VJ Ardina Glenda. (Original)</desc>
-    <date>20261102</date>
+  <programme start="20261104210000 +0000" stop="20261104212000 +0000" channel="KidsTV.id@SD">
+    <title>Thomas &amp; Friends S27</title>
+    <date>20261104</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261102150300 +0000" stop="20261102153000 +0000" channel="TheIndonesiaChannel.id@SD">
-    <title>Foodiepedia</title>
-    <desc>a culinary show featuring the countrys classic and trendy food and drink items hosted by Indonesia food experts.</desc>
-    <date>20261102</date>
+  <programme start="20261104212000 +0000" stop="20261104213000 +0000" channel="KidsTV.id@SD">
+    <title>O Iya Ya</title>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261104213000 +0000" stop="20261104215500 +0000" channel="KidsTV.id@SD">
+    <title>Backkom S5</title>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261104215500 +0000" stop="20261104220000 +0000" channel="KidsTV.id@SD">
+    <title>Laluna S2</title>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261104220000 +0000" stop="20261104222000 +0000" channel="KidsTV.id@SD">
+    <title>Barbie Dreamtopia</title>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261104222000 +0000" stop="20261104223000 +0000" channel="KidsTV.id@SD">
+    <title>Dunia Laluna Spc. Halloween</title>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261104223000 +0000" stop="20261104230000 +0000" channel="KidsTV.id@SD">
+    <title>Enchantimals</title>
+    <date>20261104</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -7163,6 +7229,22 @@
   <programme start="20261104190300 +0000" stop="20261104210300 +0000" channel="TheIndonesiaChannel.id@SD">
     <title>IndoCinema</title>
     <desc>Indonesian movies subtitled for TIC broadcast (Acquired)</desc>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261104210300 +0000" stop="20261104220300 +0000" channel="TheIndonesiaChannel.id@SD">
+    <title>Replay of “Drive Time</title>
+    <desc>a camera placed on a motorcycle taxi delivers a live-streamed look at traffic, people and weather conditions during citys rush hour with real-time interactive comments. Delivered via TIC and social media platforms.</desc>
+    <date>20261104</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261104220300 +0000" stop="20261104230300 +0000" channel="TheIndonesiaChannel.id@SD">
+    <title>Replay of I-Pop Playlist</title>
+    <desc>an MTV-style video rundown of the countrys hottest music and artists, along with special concert and club performances hosted by VJ Ardina Glenda. (Original)</desc>
     <date>20261104</date>
     <audio>
       <stereo>stereo</stereo>
