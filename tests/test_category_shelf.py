@@ -15,8 +15,8 @@ import build_categories  # noqa: E402
 import categorize  # noqa: E402
 import verify_playlists  # noqa: E402
 
-GUIDE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml"
-USA_GUIDE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/USA.xml"
+GUIDE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml"
+USA_GUIDE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml"
 
 # Two sports channels with a spare feed, two news channels, one cartoon, and one
 # channel in a group so small it should not get a file of its own.

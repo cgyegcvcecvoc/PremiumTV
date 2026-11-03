@@ -61,7 +61,7 @@ class FixtureTree:
         # A tiny stand-in for the 2,800-channel USA feed.
         self.channels = (
             '#EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/'
-            'PremiumTV1/main/EPG/USA.xml"\n'
+            'PremiumTV/main/EPG/USA.xml"\n'
             "# USA working channels (2) - updated 2026-10-17 18:54 UTC\n"
             '#EXTINF:-1 tvg-id="one.us" group-title="News" tvg-country="US",One News\n'
             "https://example.com/one.m3u8\n"
@@ -102,7 +102,7 @@ class PublishedNoticeTests(unittest.TestCase):
     def test_the_notice_sends_people_to_the_newest_release_on_github(self):
         notice = legacy_sunset.read_notice(ROOT)
         self.assertTrue(notice["releases_url"].startswith(
-            "https://github.com/cgyegcvcecvoc/PremiumTV1/releases"), notice["releases_url"])
+            "https://github.com/cgyegcvcecvoc/PremiumTV/releases"), notice["releases_url"])
         self.assertEqual(notice["max_version"], "1.1.3",
                          "the sunset targets every stable build below the current stable "
                          "(1.1.3); there is no blocked preview rule anymore")
@@ -222,7 +222,7 @@ class FreezeTests(unittest.TestCase):
         self.tree.apply(day_after_support_ends())
         frozen = self.tree.legacy.read_text(encoding="utf-8")
         self.assertIn('x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/'
-                      'PremiumTV1/main/EPG/USA.xml"', frozen,
+                      'PremiumTV/main/EPG/USA.xml"', frozen,
                       "what ends is the channel scrape, not the listings")
 
     def test_the_frozen_feed_cannot_claim_a_fresh_update_time(self):
@@ -395,7 +395,7 @@ class ToolingToleranceTests(unittest.TestCase):
         self.notice = legacy_sunset.read_notice(ROOT)
         body = (
             '#EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/'
-            'PremiumTV1/main/EPG/USA.xml"\n'
+            'PremiumTV/main/EPG/USA.xml"\n'
             '# USA working channels (2) - updated 2026-10-17 18:54 UTC\n'
             '#EXTINF:-1 tvg-id="one.us" group-title="Sports" tvg-country="US",One Sports\n'
             "https://example.com/one.m3u8\n"

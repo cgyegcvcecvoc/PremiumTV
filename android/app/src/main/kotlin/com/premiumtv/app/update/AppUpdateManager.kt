@@ -39,7 +39,7 @@ class AppUpdateManager(private val app: Application) {
     companion object {
         private const val TAG = "PremiumTV"
         const val RELEASES_API =
-            "https://api.github.com/repos/cgyegcvcecvoc/PremiumTV1/releases?per_page=30"
+            "https://api.github.com/repos/cgyegcvcecvoc/PremiumTV/releases?per_page=30"
         const val CHECK_INTERVAL_MILLIS = 24L * 60L * 60L * 1000L
         private const val RETRY_INTERVAL_MILLIS = 60L * 60L * 1000L
         private const val MAX_API_BYTES = 2L * 1024L * 1024L

@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-03 — 1.1.4 published; updater deep links canonicalized
+
+- Published `v1.1.4` (Android `versionCode 101040000`, macOS `1.1.4`) with its release notes, then built and attached the Android APK and the four macOS installers (arm64/x64 DMG + PKG) plus both `SHA256SUMS` files. The release is offered by Settings → App updates to every build below it.
+- Replaced the remaining `PremiumTV1` API, raw and release links in the Android and macOS updaters, the update notice document, the bundle builder, the blocked download page and the documentation with the canonical `PremiumTV` repository. GitHub 301s the old slug, so builds already installed on TVs and Macs keep working; new builds no longer depend on the redirect.
+- Added `tests/test_deep_links.py`, which pins the updater endpoints, the notice document, the bundle builder, the site generator and the 1.1.4 download links to the canonical repository and fails if the old slug returns.
+
 ## 2026-10-31 — Version 1.1.4: full-screen player decluttered (stable patch)
 
 - Removed the bottom overlay buttons from the full-screen Android TV player — Favorite, Side player, Close and the server hop — so they no longer cover score bugs and other on-screen graphics in football and other live sports, and so nothing unclickable sits in front of the stream. Press **Back** to tuck the stream into the side player (it keeps playing while you browse) or close it back to the browser; Mute/Unmute and the Audio track switcher stay in the top corner, and the player's built-in controls appear on interaction and fade away on their own.

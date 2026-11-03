@@ -39,7 +39,7 @@ NOTICE_DOCUMENT = ROOT / "app-update-notice.json"
 
 # The one address both apps read the popup from. It has to be identical, or the
 # two platforms would drift apart the first time the wording is changed.
-NOTICE_URL = ("https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/"
+NOTICE_URL = ("https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/"
               "app-update-notice.json")
 
 

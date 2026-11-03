@@ -19,9 +19,9 @@
 const { normalizeVersion, isNewer } = require('./update-policy');
 
 const NOTICE_URL =
-  'https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json';
+  'https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/app-update-notice.json';
 const DEFAULT_RELEASES_URL =
-  'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest';
+  'https://github.com/cgyegcvcecvoc/PremiumTV/releases/latest';
 /** The notice is tiny; a response above this is treated as unreadable. */
 const MAX_NOTICE_BYTES = 64 * 1024;
 const SUPPORTED_SCHEMA = 1;

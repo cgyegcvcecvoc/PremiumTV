@@ -46,7 +46,7 @@ Build it (already done if `hub/dist/static-site/` exists):
 
 ```bash
 # Refresh release metadata first (including newly completed 1.0.4 installers):
-gh api 'repos/cgyegcvcecvoc/PremiumTV1/releases?per_page=100' > docs/data/releases.src.json
+gh api 'repos/cgyegcvcecvoc/PremiumTV/releases?per_page=100' > docs/data/releases.src.json
 python3 scripts/build_site_data.py
 python3 hub/build_data.py
 python3 hub/export_static.py
@@ -116,7 +116,7 @@ the site — the page never breaks.
 
 1. Create a free account at <https://render.com> (sign in with GitHub).
 2. Dashboard → **New** → **Blueprint**.
-3. Pick the `PremiumTV1` repository (and the branch you want). Render reads
+3. Pick the `PremiumTV` repository (and the branch you want). Render reads
    `render.yaml` automatically.
 4. Click **Apply**. First build takes a few minutes (it downloads the APKs).
 5. Your permanent link appears at the top of the service page:
@@ -128,7 +128,7 @@ free disk tier (the installers are ~1.1 GB).
 
 ## Option B — Railway
 
-1. <https://railway.app> → **New Project** → **Deploy from GitHub repo** → pick `PremiumTV1`.
+1. <https://railway.app> → **New Project** → **Deploy from GitHub repo** → pick `PremiumTV`.
 2. Railway detects the `Dockerfile` and builds it. Nothing to configure.
 3. Service → **Settings → Networking → Generate Domain** → you get
    `https://<name>.up.railway.app`.
@@ -148,8 +148,8 @@ allowance.
 ## Option D — Any Docker box (Oracle Cloud Always-Free, Raspberry Pi, old PC)
 
 ```bash
-git clone https://github.com/cgyegcvcecvoc/PremiumTV1.git
-cd PremiumTV1
+git clone https://github.com/cgyegcvcecvoc/PremiumTV.git
+cd PremiumTV
 docker build -t premiumtv-hub .          # add --build-arg MIRROR_MAC=1 to self-host macOS installers
 docker run -d --restart unless-stopped -p 80:8000 -e PORT=8000 premiumtv-hub
 ```

@@ -283,7 +283,7 @@ class BuildTest(unittest.TestCase):
     def test_report_and_files(self):
         playlist = self.out / "PremiumTV.m3u"
         lines = playlist.read_text(encoding="utf-8").splitlines()
-        legacy = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml"
+        legacy = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/epg/PremiumTV.xml"
         lines[0] = lines[0].replace(self.guides[0], f"{legacy},{self.guides[0]}")
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8")
         code, output = self.run_build(["--patch"])
@@ -640,8 +640,8 @@ class HelperTest(unittest.TestCase):
             dead_urls = epg_build.recently_dead_guide_urls(report_path, now)
             self.assertEqual(dead_urls, {dead, invalid})
 
-            raw = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml"
-            legacy = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/epg/PremiumTV.xml"
+            raw = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml"
+            legacy = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/epg/PremiumTV.xml"
             playlist = root / "channels.m3u"
             playlist.write_text(
                 f'#EXTM3U x-tvg-url="{raw},{legacy},{dead},{transient}"\n',
