@@ -47,6 +47,7 @@ FUNCTIONAL_FILES = (
     "README.md",
     "categories/README.md",
     "EPG/README.md",
+    "scripts/verify_update_chain.py",
 )
 
 
@@ -143,6 +144,15 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertIn("PremiumTV-${version}-mac-${macArch(arch)}.dmg", policy)
         self.assertIn("macAssetName(version, this.arch)",
                       text("macos/app/src/main/updater.js"))
+
+    def test_update_chain_verifier_covers_the_release_contract(self):
+        script = text("scripts/verify_update_chain.py")
+        self.assertIn("releases?per_page=30", script)
+        self.assertIn("SHA256SUMS-android.txt", script)
+        self.assertIn("SHA256SUMS-macos.txt", script)
+        self.assertIn("PremiumTV-{version}-debug.apk", script)
+        self.assertIn("PremiumTV-{mac_version}-mac-arm64.dmg", script)
+        self.assertIn("PremiumTV-{mac_version}-mac-x64.pkg", script)
 
     def test_the_1_1_4_release_notes_name_the_canonical_fix(self):
         notes = text("release-notes-1.1.4.md")
