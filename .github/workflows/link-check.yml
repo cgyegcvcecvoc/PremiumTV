@@ -220,8 +220,20 @@ jobs:
             exit 0
           fi
           git commit -m "Deep check: dead links patched, guides verified, priority channels hunted ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          # A scheduled scrape or a build-log publish can land on the same
+          # branch while this run is probing links. Rebase first; if that
+          # conflicts, merge with the deep-check patches winning the
+          # conflicting files. The patches are the authoritative link state
+          # for this run, and the next scrape re-adds anything genuinely new.
           for i in 1 2 3; do
-            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            if git pull --rebase --autostash origin "$GITHUB_REF_NAME"; then
+              git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            fi
+            echo "Rebase conflict; merging with the deep-check patches winning."
+            git rebase --abort >/dev/null 2>&1 || true
+            git merge -X ours origin "$GITHUB_REF_NAME" \
+              -m "Merge main into the deep check (patches win conflicts)" || true
+            git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
             sleep 5
           done
           exit 1
