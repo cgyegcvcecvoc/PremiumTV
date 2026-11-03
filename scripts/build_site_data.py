@@ -52,18 +52,16 @@ DOCS = ROOT / "docs"
 DATA = DOCS / "data"
 
 REPO_OWNER = "cgyegcvcecvoc"
-# The historical slug. `raw.githubusercontent.com` and `api.github.com` keep
-# serving a renamed repository under its old name (GitHub 301s them here), and
-# builds already installed on TVs and Macs have this slug baked in, so the data
-# URLs stay on it. Anything read by a *person* - the Pages address especially -
-# must use the canonical name below, because a project Pages URL does not
-# survive a rename.
-REPO_NAME = "PremiumTV1"
+# The canonical repository name since the 2026-10-21 rename (PremiumTV1 ->
+# PremiumTV). GitHub 301s the old slug, so builds already installed on TVs and
+# Macs keep working, but every URL this project publishes now uses the
+# canonical name. Anything read by a *person* - the Pages address especially -
+# must use it too, because a project Pages URL does not survive a rename.
+REPO_NAME = "PremiumTV"
 REPO_BRANCH = "main"
 RAW_BASE = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/{REPO_BRANCH}"
 RELEASES_BASE = f"https://github.com/{REPO_OWNER}/{REPO_NAME}/releases/download"
-# Canonical repository name since the 2026-10-21 rename (PremiumTV1 ->
-# PremiumTV). GitHub Pages publishes a project site at
+# GitHub Pages publishes a project site at
 # https://<owner>.github.io/<repository>/, so the live site is /PremiumTV/ and
 # the old /PremiumTV1/ address serves nothing. Verified against the API:
 # GET /repos/{owner}/{repo}/pages -> html_url.
@@ -752,13 +750,13 @@ def write_feed(entries: list[dict]) -> str:
     lines = [
         '<?xml version="1.0" encoding="utf-8"?>',
         '<feed xmlns="http://www.w3.org/2005/Atom">',
-        "  <title>PremiumTV1 change log</title>",
+        "  <title>PremiumTV change log</title>",
         f"  <id>{PAGES_URL}data/feed.xml</id>",
         f'  <link rel="self" href="{PAGES_URL}data/feed.xml"/>',
         f'  <link rel="alternate" href="https://github.com/{REPO_OWNER}/{REPO_NAME}'
         f'/blob/{REPO_BRANCH}/CHANGELOG.md"/>',
         f"  <updated>{updated}</updated>",
-        "  <subtitle>Every change recorded in the PremiumTV1 repository: "
+        "  <subtitle>Every change recorded in the PremiumTV repository: "
         "playlist fixes, app releases, and site updates.</subtitle>",
     ]
     for index, entry in enumerate(entries):

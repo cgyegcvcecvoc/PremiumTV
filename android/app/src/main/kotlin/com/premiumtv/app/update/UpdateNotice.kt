@@ -30,11 +30,11 @@ object UpdateNotice {
 
     /** The published notice, read from `main` during the daily update check. */
     const val NOTICE_URL =
-        "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json"
+        "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/app-update-notice.json"
 
     /** Fallback shown when the document does not name a releases page. */
     const val DEFAULT_RELEASES_URL =
-        "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest"
+        "https://github.com/cgyegcvcecvoc/PremiumTV/releases/latest"
 
     /** The notice is tiny; a response above this is treated as unreadable. */
     const val MAX_NOTICE_BYTES = 64L * 1024L

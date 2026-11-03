@@ -14,7 +14,7 @@ them disagrees.
 ## The rules every release follows
 
 1. **Stable only.** The updater reads
-   `https://api.github.com/repos/cgyegcvcecvoc/PremiumTV1/releases` and ignores
+   `https://api.github.com/repos/cgyegcvcecvoc/PremiumTV/releases` and ignores
    drafts and pre-releases. The 1.1.x preview channel is retired: its release
    was promoted to a stable release (same name, new versionCode), and its old
    blocked-build notice rule was removed with it — a stable release cannot be
@@ -49,7 +49,7 @@ inside the range a published notice targets.
 
 Everything about it is published in **`app-update-notice.json`** at the root of
 this repository, which both apps read from
-`https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json`
+`https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/app-update-notice.json`
 during the same daily check that reads the release list:
 
 | Field | What it decides |

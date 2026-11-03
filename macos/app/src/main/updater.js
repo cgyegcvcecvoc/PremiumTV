@@ -36,7 +36,7 @@ const {
 } = require('./update-notice');
 
 const RELEASES_API =
-  'https://api.github.com/repos/cgyegcvcecvoc/PremiumTV1/releases?per_page=30';
+  'https://api.github.com/repos/cgyegcvcecvoc/PremiumTV/releases?per_page=30';
 const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
 const RETRY_INTERVAL_MS = 60 * 60 * 1000;
 const MAX_RELEASE_BYTES = 2 * 1024 * 1024;

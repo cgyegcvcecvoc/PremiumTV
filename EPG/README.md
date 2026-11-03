@@ -1,4 +1,4 @@
-# PremiumTV1 XMLTV guides
+# PremiumTV XMLTV guides
 
 This repository-root `EPG/` directory is separate from `playlists/` and is the stable publication
 location for all generated XMLTV files. The guide builder updates these outputs from the currently
@@ -8,7 +8,7 @@ verified upstream EPG feeds and the channel IDs in the published M3U files.
 
 - Plain XMLTV: [`PremiumTV.xml`](PremiumTV.xml)
 - Gzip copy: [`PremiumTV.xml.gz`](PremiumTV.xml.gz)
-- Raw URL: `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml`
+- Raw URL: `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml`
 
 ## Country guides
 

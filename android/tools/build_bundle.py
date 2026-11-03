@@ -63,7 +63,7 @@ DEFAULT_VERSION = release_version.current_version()
 # playlists advertise; they only resolve for a device if the repository is
 # public (or mirrored somewhere public).  The app reports a failure honestly
 # instead of pretending the refresh worked.
-RAW_BASE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main"
+RAW_BASE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main"
 
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
 # Decorative prefixes/suffixes that only add noise on a TV screen.

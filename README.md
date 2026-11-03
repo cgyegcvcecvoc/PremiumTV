@@ -21,10 +21,10 @@ advertise a channel the playlist does not carry.
 Load this URL in an M3U-compatible player (VLC, TiviMate, IPTV Smarters, Kodi PVR IPTV Simple, etc.):
 
 ```text
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/PremiumTV.m3u
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/PremiumTV.m3u
 ```
 
-> **Public links.** Checked on 2026-10-15: `PremiumTV1` is a public repository, so the
+> **Public links.** Checked on 2026-10-15: `PremiumTV` is a public repository, so the
 > `raw.githubusercontent.com` playlist URLs and each playlist's `x-tvg-url` guide URLs load in
 > any IPTV player without an account, and the apps' automatic refreshes can download them.
 
@@ -345,19 +345,19 @@ Every checked run automatically classifies all confirmed working channels by cou
 
 ```text
 # USA channels only
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/USA.m3u
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/USA.m3u
 
 # China channels only
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/China.m3u
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/China.m3u
 
 # UK channels only
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/UK.m3u
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/UK.m3u
 
 # Canada channels only
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/Canada.m3u
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Canada.m3u
 
 # A&E and A+E Networks channels only
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/AE_Channels.m3u
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/AE_Channels.m3u
 ```
 
 See [`playlists/countries/README.md`](playlists/countries/README.md) for the complete table of all ~170+ country playlists.
@@ -404,9 +404,9 @@ every working US channel, in the published category order, with each channel's s
 next to it in its own `<category> Backups` group and the best quality first.
 
 ```text
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/USA.m3u          # every US channel, by category
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/USA/Sports.m3u   # just the US sports channels
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/categories/All/Sports.m3u  # every sports channel in the library
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/USA.m3u          # every US channel, by category
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/USA/Sports.m3u   # just the US sports channels
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/Sports.m3u  # every sports channel in the library
 ```
 
 | Folder | What it holds |
@@ -459,7 +459,7 @@ country feed.
 **All-library guide:**
 
 ```text
-https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/PremiumTV.xml
+https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml
 ```
 
 Examples for country playlists:
@@ -469,7 +469,7 @@ Examples for country playlists:
 | `playlists/countries/USA.m3u` | [`EPG/USA.xml`](EPG/USA.xml) |
 | `playlists/countries/UK.m3u` | [`EPG/UK.xml`](EPG/UK.xml) |
 | `playlists/countries/Canada.m3u` | [`EPG/Canada.xml`](EPG/Canada.xml) |
-| Other country playlists | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/EPG/<Country>.xml` |
+| Other country playlists | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/<Country>.xml` |
 
 For manual setup, use the plain `.xml` raw URL in TiviMate, IPTV Smarters, Kodi PVR IPTV Simple,
 VLC, or another XMLTV-capable player. The playlist's `x-tvg-url` already contains the right URL:
