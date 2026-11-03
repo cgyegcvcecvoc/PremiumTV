@@ -407,8 +407,12 @@ def side_card_marker(texts, nodes):
 
 
 def big_screen_marker(texts, nodes):
-    """The full-screen player: its chrome carries "⤢ Side player" instead."""
-    return next((text for text in texts if text == "⤢ Side player"), None)
+    """The full-screen player: 1.1.4 removed its bottom buttons, so the gate
+    reads the Back hint pinned along the bottom instead. The docked layout's
+    own hint ("OK on the picture for full screen ...") never contains this
+    line, and the big screen composes it in every state - playing, buffering
+    and the error card alike."""
+    return next((text for text in texts if "Press Back to tuck this into the side player" in text), None)
 
 
 def dock_closed(texts, nodes):

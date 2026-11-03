@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -117,6 +118,78 @@ class Version114PlumbingTests(unittest.TestCase):
         notes = text(ROOT / "release-notes-1.1.4.md")
         self.assertIn("PremiumTV 1.1.4", notes)
         self.assertIn("Version 1.1.4", text(ROOT / "CHANGELOG.md"))
+
+
+class FullScreenDeclutter114Tests(unittest.TestCase):
+    """The 1.1.4 removals must not leave dangling references behind.
+
+    The bottom-button removal touched a composable signature, its call site
+    and the emulator smoke gate at once; each of the three shipped broken in
+    the first 1.1.4 cut (a stray argument that fails compilation, a gate
+    marker that matches nothing on screen). These tests pin the three back
+    together so a future declutter cannot split them again.
+    """
+
+    def test_big_screen_chrome_call_matches_its_signature(self):
+        player = text(ROOT / "android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt")
+
+        decl = player.split("private fun BoxScope.BigScreenChrome(", 1)[1]
+        params_block = decl.split(") {", 1)[0]
+        param_names = set(re.findall(r"(?m)^\s*(\w+)\s*:", params_block))
+        self.assertGreater(len(param_names), 5, "the signature scan must see the parameters")
+
+        match = re.search(r"(?m)^\s*BigScreenChrome\($", player)
+        self.assertIsNotNone(match, "the BigScreenChrome call site is gone")
+        arg_names = set()
+        depth = 0
+        for line in player[match.end():].splitlines():
+            stripped = line.strip()
+            if stripped == ")":
+                break
+            if depth == 0:
+                arg = re.match(r"(\w+)\s*=", stripped)
+                if arg:
+                    arg_names.add(arg.group(1))
+            depth += stripped.count("{") - stripped.count("}")
+        self.assertTrue(arg_names, "the call-site scan must see the arguments")
+        self.assertEqual(arg_names - param_names, set(),
+                         f"call site passes undeclared arguments: {sorted(arg_names - param_names)}")
+
+        removed = {"isFavorite", "onToggleFavorite", "onHopServer", "onMinimize"}
+        self.assertEqual(arg_names & removed, set(),
+                         "the call site still passes removed bottom-button wiring")
+        self.assertEqual(param_names & removed, set(),
+                         "the signature still declares removed bottom-button wiring")
+
+    def test_removed_full_screen_buttons_are_gone_but_the_dock_keeps_its(self):
+        player = text(ROOT / "android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt")
+        self.assertNotIn("⤢ Side player", player)
+        self.assertNotIn("☆ Favorite", player)
+        # The dock (and the smoke gate that drives it) still needs these.
+        self.assertIn("⤢ Big screen", player)
+        self.assertIn("✕ Close", player)
+        self.assertIn("Server ▶", player)
+
+    def test_smoke_gate_markers_resolve_to_text_the_player_composes(self):
+        player = text(ROOT / "android/app/src/main/kotlin/com/premiumtv/app/ui/PlayerScreen.kt")
+        gate = text(ROOT / "android/tools/smoke_apk.py")
+        for marker in ("side_card_marker", "big_screen_marker"):
+            chunk = gate.split(f"def {marker}(", 1)[1]
+            body = chunk.split("\ndef ", 1)[0]
+            returns = [line for line in body.splitlines() if "return next(" in line]
+            self.assertTrue(returns, f"{marker} has no marker lookup to check")
+            literals = re.findall(r'"([^"]+)"', returns[0])
+            self.assertTrue(literals, f"{marker} has no marker text to check")
+            self.assertTrue(any(literal in player for literal in literals),
+                            f"{marker} matches no text in PlayerScreen.kt: {literals}")
+
+    def test_114_is_documented_as_an_android_only_player_change(self):
+        # macOS kept its below-the-picture action bar (mouse-clickable, never
+        # covering the stream), so no 1.1.4 copy may claim both apps changed.
+        readme = text(ROOT / "docs/README.md")
+        paragraph = next(line for line in readme.splitlines() if line.startswith("1.1.4 declutters"))
+        self.assertNotIn("both platforms", paragraph)
+        self.assertIn("Android TV", paragraph)
 
 
 if __name__ == "__main__":

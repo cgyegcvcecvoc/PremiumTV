@@ -549,7 +549,6 @@ fun PlayerScreen(
                             buffering = true
                             serverIndex = nextServerIndex(serverIndex, playlist.size, 1)
                         },
-                        onMinimize = onMinimize,
                         onClose = onClose,
                     )
                 } else {
