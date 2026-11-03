@@ -438,8 +438,8 @@ function buildMenu() {
           },
         },
         {
-          label: 'PremiumTV1 repository',
-          click: () => shell.openExternal('https://github.com/cgyegcvcecvoc/PremiumTV1'),
+          label: 'PremiumTV repository',
+          click: () => shell.openExternal('https://github.com/cgyegcvcecvoc/PremiumTV'),
         },
       ],
     },

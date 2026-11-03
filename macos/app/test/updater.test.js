@@ -19,7 +19,7 @@ function releaseJson(version = VERSION) {
     tag_name: `v${version}`,
     draft: false,
     prerelease: false,
-    html_url: `https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v${version}`,
+    html_url: `https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v${version}`,
     assets: [
       {
         name: `PremiumTV-${version}-mac-arm64.dmg`,

@@ -10,7 +10,7 @@ function release(version, options = {}) {
     tag_name: `v${version}`,
     draft: Boolean(options.draft),
     prerelease: Boolean(options.prerelease),
-    html_url: `https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v${version}`,
+    html_url: `https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v${version}`,
     assets: options.assets || [
       {
         name: `PremiumTV-${version}-mac-${arch}.dmg`,

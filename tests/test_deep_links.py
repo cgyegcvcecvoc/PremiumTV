@@ -35,6 +35,7 @@ FUNCTIONAL_FILES = (
     "android/app/src/main/kotlin/com/premiumtv/app/update/UpdateNotice.kt",
     "macos/app/src/main/updater.js",
     "macos/app/src/main/update-notice.js",
+    "macos/app/src/main/main.js",
     "app-update-notice.json",
     "android/tools/build_bundle.py",
     "android/app/src/test/kotlin/com/premiumtv/app/data/TvRepositoryTest.kt",
@@ -59,6 +60,14 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         for name in FUNCTIONAL_FILES:
             if "cgyegcvcecvoc/PremiumTV1" in text(name):
                 offenders.append(name)
+        self.assertEqual(offenders, [], f"old PremiumTV1 URL still in {offenders}")
+
+    def test_no_macos_source_or_test_uses_the_old_repository_url(self):
+        offenders = []
+        for pattern in ("src/**/*.js", "test/*.test.js"):
+            for path in (ROOT / "macos" / "app").glob(pattern):
+                if "cgyegcvcecvoc/PremiumTV1" in path.read_text(encoding="utf-8"):
+                    offenders.append(str(path.relative_to(ROOT)))
         self.assertEqual(offenders, [], f"old PremiumTV1 URL still in {offenders}")
 
     def test_android_updater_uses_the_canonical_releases_api(self):
