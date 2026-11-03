@@ -72,7 +72,7 @@ test('parseM3u drops the sanctioned update notice and keeps lookalikes', () => {
     '#EXTM3U x-tvg-url="https://example.org/guide.xml"',
     '#EXTINF:-1 tvg-id="premiumtv.notice.update" tvg-notice="app-update" ' +
       'group-title="PremiumTV Notice",⚠ UPDATE PremiumTV — support for 1.0.4 and older ends Nov 16, 2026',
-    'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/latest',
+    'https://github.com/cgyegcvcecvoc/PremiumTV/releases/latest',
     '#EXTINF:-1 tvg-id="notice.tv" tvg-notice="schedule" group-title="News",Notice TV',
     'https://example.org/notice.m3u8',
   ].join('\n');

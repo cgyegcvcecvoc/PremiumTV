@@ -46,11 +46,11 @@ test('the published notice is small enough to fetch on every daily check', () =>
 test('the notice is published where installed apps already look for it', () => {
   assert.equal(
     NOTICE_URL,
-    'https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/app-update-notice.json',
+    'https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/app-update-notice.json',
   );
   // The document names its own location, so a moved file is a visible mistake.
   assert.equal(PUBLISHED.notice_url, NOTICE_URL);
-  assert.match(PUBLISHED.releases_url, /^https:\/\/github\.com\/cgyegcvcecvoc\/PremiumTV1\/releases/);
+  assert.match(PUBLISHED.releases_url, /^https:\/\/github\.com\/cgyegcvcecvoc\/PremiumTV\/releases/);
 });
 
 test('support ends exactly the published grace period after the first warning', () => {
@@ -239,13 +239,13 @@ function noticeHarness(t, { currentVersion = '1.0.4', noticeBody = DOCUMENT, now
         tag_name: 'v1.0.8.1',
         draft: false,
         prerelease: false,
-        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.8.1',
+        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.0.8.1',
         assets: [],
       }, {
         tag_name: 'v1.0.9',
         draft: false,
         prerelease: false,
-        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV1/releases/tag/v1.0.9',
+        html_url: 'https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.0.9',
         assets: [{
           name: 'PremiumTV-1.0.9-mac-arm64.dmg',
           size: 10,
