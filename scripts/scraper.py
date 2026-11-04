@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PremiumTV1 playlist scraper.
+PremiumTV playlist scraper.
 
 Fetches configured M3U/M3U8 and Wiseplay W3U sources, merges and deduplicates
 channels, checks each HTTP stream, and writes:
@@ -67,7 +67,7 @@ ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
 # its own root-level EPG/<Country>.xml once that verified file is available.
 SELF_EPG_URL = os.environ.get("SELF_EPG_URL") or (
     "https://raw.githubusercontent.com/"
-    f"{os.environ.get('GITHUB_REPOSITORY') or 'cgyegcvcecvoc/PremiumTV1'}/main"
+    f"{os.environ.get('GITHUB_REPOSITORY') or 'cgyegcvcecvoc/PremiumTV'}/main"
     "/EPG/PremiumTV.xml"
 )
 EPG_DIR = ROOT / "EPG"
@@ -1916,7 +1916,7 @@ def write_country_playlists(
     ]
     for country, info in summary.items():
         fname = Path(info["file"]).name
-        raw_url = f"https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main/playlists/countries/{fname}"
+        raw_url = f"https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/{fname}"
         epg_url = country_epg_url(country)
         epg_file = f"../../EPG/{Path(fname).stem}.xml"
         index_lines.append(

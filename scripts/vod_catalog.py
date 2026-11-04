@@ -51,7 +51,7 @@ REPORT_PATH = os.path.join(VOD_DIR, "FEASIBILITY.md")
 METADATA_URL = "https://archive.org/metadata/%s"
 DOWNLOAD_BASE = "https://archive.org/download/%s/%s"
 POSTER_URL = "https://archive.org/services/img/%s"
-USER_AGENT = "PremiumTV-vod-check/1.0 (+https://github.com/cgyegcvcecvoc/PremiumTV1)"
+USER_AGENT = "PremiumTV-vod-check/1.0 (+https://github.com/cgyegcvcecvoc/PremiumTV)"
 
 # The curated test set. Every item is a public-domain film or a classic TV
 # episode from a public-domain collection; archive_id is the Internet Archive

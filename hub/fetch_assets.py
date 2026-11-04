@@ -18,7 +18,7 @@ import sys
 import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REL = "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download"
+REL = "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download"
 
 APK_VERSIONS = ["1.0.0", "1.0.1", "1.0.2", "1.0.3", "1.0.4", "1.0.5", "1.0.6", "1.0.6.1"]
 MAC_VERSIONS = ["1.0.3", "1.0.4", "1.0.5", "1.0.6", "1.0.6.1"]

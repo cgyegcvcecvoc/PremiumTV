@@ -60,7 +60,7 @@ DEFAULT_MAIN = "playlists/PremiumTV.m3u"
 # Resolving it there is what lets the shelf follow the live channels on the day
 # playlists/countries/USA.m3u is pinned for end-of-support builds.
 DEFAULT_USA = "playlists/countries/USA.m3u"
-REPO_SLUG = "cgyegcvcecvoc/PremiumTV1"
+REPO_SLUG = "cgyegcvcecvoc/PremiumTV"
 USA_SCOPE = "USA"
 WORLD_SCOPE = "World"
 # Groups with a channel or two stay in the parent file; a one-link playlist is

@@ -18,8 +18,8 @@ ROOT = os.path.dirname(HUB)
 DIST = os.path.join(HUB, "dist")
 BUNDLES = os.path.join(DIST, "bundles")
 
-RAW = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main"
-REL = "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download"
+RAW = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main"
+REL = "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download"
 
 # Share the download page's complete-release gate: a stray local APK or draft
 # must never change the recommended Netlify download.

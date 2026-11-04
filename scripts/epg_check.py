@@ -90,7 +90,7 @@ DEAD_STATUSES = {"offline", "invalid"}
 # outage - 173 self-hosted 404s out of 175 guides drove the working share to 1%,
 # which tripped the --min-working-ratio guard on every nightly run and disabled
 # guide patching altogether.
-OWN_REPO = (os.environ.get("GITHUB_REPOSITORY") or "cgyegcvcecvoc/PremiumTV1").strip("/")
+OWN_REPO = (os.environ.get("GITHUB_REPOSITORY") or "cgyegcvcecvoc/PremiumTV").strip("/")
 # The repository was renamed (PremiumTV1 -> PremiumTV) on 2026-10-21 while
 # published playlists already advertised guide URLs under the old slug. Every
 # slug the repository has ever published under identifies our own guides -

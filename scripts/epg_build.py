@@ -87,7 +87,7 @@ TIMEOUT = 90.0
 RETRIES = 1
 CHUNK = 1 << 16
 # Repo used for the published link when GITHUB_REPOSITORY is not set.
-DEFAULT_REPO = "cgyegcvcecvoc/PremiumTV1"
+DEFAULT_REPO = "cgyegcvcecvoc/PremiumTV"
 DEFAULT_BRANCH = "main"
 
 # Sub-elements that are copied through verbatim: they carry data this script
@@ -120,7 +120,7 @@ XMLTV_TIME_RE = re.compile(r"^(\d{14})(?:\s*([+-]\d{4}))?$")
 PROGRAMME_TAG_RE = re.compile(r"<programme\b([^>]*)>", re.IGNORECASE)
 HTML_TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
-GENERATOR = "PremiumTV1 epg_build.py"
+GENERATOR = "PremiumTV epg_build.py"
 TAG_RE = re.compile(r"<\s*([\w:.-]+)")
 # Well-known platform/quality/feed variants are aliases, not station call signs.
 NON_STATION_VARIANTS = {
