@@ -24,8 +24,8 @@ ROOT = os.path.dirname(HUB)
 DIST = os.path.join(HUB, "dist")
 OUT = os.path.join(DIST, "static-site")
 
-RAW = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main"
-REL = "https://github.com/cgyegcvcecvoc/PremiumTV1/releases/download"
+RAW = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main"
+REL = "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download"
 # build_data lists only published APKs, never draft/local maintenance builds.
 # These downloads always use release storage; Netlify never embeds stale APKs.
 

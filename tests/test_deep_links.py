@@ -48,6 +48,14 @@ FUNCTIONAL_FILES = (
     "categories/README.md",
     "EPG/README.md",
     "scripts/verify_update_chain.py",
+    "scripts/build_categories.py",
+    "scripts/epg_build.py",
+    "scripts/legacy_sunset.py",
+    "scripts/scraper.py",
+    "scripts/vod_catalog.py",
+    "hub/build_data.py",
+    "hub/export_static.py",
+    "hub/fetch_assets.py",
 )
 
 
@@ -153,6 +161,22 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertIn("PremiumTV-{version}-debug.apk", script)
         self.assertIn("PremiumTV-{mac_version}-mac-arm64.dmg", script)
         self.assertIn("PremiumTV-{mac_version}-mac-x64.pkg", script)
+
+    def test_category_shelf_generator_and_readme_use_canonical_urls(self):
+        """The shelf generator writes the README a player is pointed at.
+
+        A generated file can reintroduce the old slug even after the committed
+        README is fixed: the deep check regenerates the shelf, so the generator
+        itself has to publish the canonical URL.
+        """
+        script = text("scripts/build_categories.py")
+        self.assertIn('REPO_SLUG = "cgyegcvcecvoc/PremiumTV"', script)
+        self.assertNotIn("cgyegcvcecvoc/PremiumTV1", script)
+        readme = text("categories/README.md")
+        self.assertNotIn("PremiumTV1", readme)
+        self.assertIn(
+            "raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/USA.m3u",
+            readme)
 
     def test_the_1_1_4_release_notes_name_the_canonical_fix(self):
         notes = text("release-notes-1.1.4.md")

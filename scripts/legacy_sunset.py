@@ -70,7 +70,7 @@ LEGACY_USA = "playlists/countries/USA.m3u"
 LIVE_USA = "playlists/live/USA.m3u"
 PINNED_USA = "playlists/legacy/USA.m3u"
 
-RAW_BASE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV1/main"
+RAW_BASE = "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main"
 
 # A frozen legacy feed says so in its header, which is how every other script
 # tells a pinned artifact from a playlist that is still being published.
