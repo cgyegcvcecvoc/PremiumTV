@@ -8,10 +8,6 @@
     <display-name>Red Interior TV</display-name>
     <icon src="https://i.imgur.com/z89GLCw.png" />
   </channel>
-  <channel id="AGRFMTV.py@SD">
-    <display-name>AGR FM TV</display-name>
-    <icon src="https://i.imgur.com/tg6EjTU.png" />
-  </channel>
   <channel id="AmericaParaguay.py@SD">
     <display-name>America Paraguay</display-name>
     <icon src="https://i.imgur.com/rCEu3fM.png" />
@@ -101,10 +97,6 @@
     <display-name>Union TV</display-name>
     <icon src="https://i.imgur.com/No9YzNC.png" />
   </channel>
-  <channel id="UniRadioTV.py@SD">
-    <display-name>UniRadio TV (1080p)</display-name>
-    <icon src="https://i.imgur.com/Co3YrU0.png" />
-  </channel>
   <channel id="AlcanceFMPLAYTV.py@SD">
     <display-name>Alcance FM PLAY TV</display-name>
     <icon src="https://i.imgur.com/ymcWecA.png" />
@@ -116,6 +108,11 @@
   <channel id="E40.py@SD">
     <display-name>E40 (1080p)</display-name>
     <icon src="https://i.imgur.com/0RypDUY.png" />
+  </channel>
+  <channel id="FarraPlay.py@SD">
+    <display-name>Farra Play (720p) [Not 24/7]</display-name>
+    <display-name>Farra Play (Backup 1)</display-name>
+    <icon src="https://i.imgur.com/bXWzstH.png" />
   </channel>
   <channel id="HEiNow.py@SD">
     <display-name>HEi Now (1080p)</display-name>
@@ -210,15 +207,6 @@
     <display-name>TV Camara (Paraguay) (1080p)</display-name>
     <icon src="https://i.imgur.com/Mfypr0t.png" />
   </channel>
-  <programme start="20261104140000 +0000" stop="20261104150000 +0000" channel="ParaguayTV.py@SD">
-    <title>Marandu</title>
-  </programme>
-  <programme start="20261104150000 +0000" stop="20261104160000 +0000" channel="ParaguayTV.py@SD">
-    <title>Ovación deportiva</title>
-  </programme>
-  <programme start="20261104160000 +0000" stop="20261104170000 +0000" channel="ParaguayTV.py@SD">
-    <title>Paraguay 920</title>
-  </programme>
   <programme start="20261104170000 +0000" stop="20261104180000 +0000" channel="ParaguayTV.py@SD">
     <title>Curiosidades</title>
   </programme>
@@ -348,8 +336,17 @@
   <programme start="20261106200000 +0000" stop="20261106210000 +0000" channel="ParaguayTV.py@SD">
     <title>Magarte</title>
   </programme>
-  <programme start="20261104120000 +0000" stop="20261104170000 +0000" channel="Paravision.py@SD">
-    <title>Combate</title>
+  <programme start="20261106210000 +0000" stop="20261106213000 +0000" channel="ParaguayTV.py@SD">
+    <title>Paraguay deportivo</title>
+  </programme>
+  <programme start="20261106213000 +0000" stop="20261106220000 +0000" channel="ParaguayTV.py@SD">
+    <title>Paraguay deportivo</title>
+  </programme>
+  <programme start="20261106220000 +0000" stop="20261106230000 +0000" channel="ParaguayTV.py@SD">
+    <title>Paraguay noticias - Edición central</title>
+  </programme>
+  <programme start="20261106230000 +0000" stop="20261107000000 +0000" channel="ParaguayTV.py@SD">
+    <title>Resurgir</title>
   </programme>
   <programme start="20261104170000 +0000" stop="20261104180000 +0000" channel="Paravision.py@SD">
     <title>Lois y Clark: Las nuevas aventuras de Superman</title>
@@ -441,8 +438,14 @@
   <programme start="20261106200000 +0000" stop="20261106210000 +0000" channel="Paravision.py@SD">
     <title>Los ángeles de Charlie</title>
   </programme>
-  <programme start="20261104143000 +0000" stop="20261104163000 +0000" channel="Telefuturo.py@SD">
-    <title>Meridiano informativo</title>
+  <programme start="20261106210000 +0000" stop="20261106220000 +0000" channel="Paravision.py@SD">
+    <title>El hombre nuclear</title>
+  </programme>
+  <programme start="20261106220000 +0000" stop="20261106230000 +0000" channel="Paravision.py@SD">
+    <title>Starsky &amp; Hutch</title>
+  </programme>
+  <programme start="20261106230000 +0000" stop="20261107000000 +0000" channel="Paravision.py@SD">
+    <title>La mujer biónica</title>
   </programme>
   <programme start="20261104163000 +0000" stop="20261104180000 +0000" channel="Telefuturo.py@SD">
     <title>Todo por mi familia</title>
@@ -531,11 +534,8 @@
   <programme start="20261106203500 +0000" stop="20261106220000 +0000" channel="Telefuturo.py@SD">
     <title>Calle 7</title>
   </programme>
-  <programme start="20261104133000 +0000" stop="20261104150000 +0000" channel="Unicanal.py@SD">
-    <title>LT en vivo</title>
-  </programme>
-  <programme start="20261104150000 +0000" stop="20261104160000 +0000" channel="Unicanal.py@SD">
-    <title>Super deport</title>
+  <programme start="20261106220000 +0000" stop="20261106234500 +0000" channel="Telefuturo.py@SD">
+    <title>Telediario</title>
   </programme>
   <programme start="20261104160000 +0000" stop="20261104173000 +0000" channel="Unicanal.py@SD">
     <title>LT central</title>
@@ -660,11 +660,11 @@
   <programme start="20261106190000 +0000" stop="20261106213000 +0000" channel="Unicanal.py@SD">
     <title>Mina en la tribu</title>
   </programme>
-  <programme start="20261104141500 +0000" stop="20261104151500 +0000" channel="Latele.py@SD">
-    <title>El misterio de Rose</title>
+  <programme start="20261106213000 +0000" stop="20261106220000 +0000" channel="Unicanal.py@SD">
+    <title>El editorial de la tribu</title>
   </programme>
-  <programme start="20261104151500 +0000" stop="20261104163000 +0000" channel="Latele.py@SD">
-    <title>Kuma, la otra esposa</title>
+  <programme start="20261106220000 +0000" stop="20261106234500 +0000" channel="Unicanal.py@SD">
+    <title>LT noticias</title>
   </programme>
   <programme start="20261104163000 +0000" stop="20261104173000 +0000" channel="Latele.py@SD">
     <title>Teledía Noticias</title>
@@ -824,5 +824,14 @@
   </programme>
   <programme start="20261106203000 +0000" stop="20261106220000 +0000" channel="Latele.py@SD">
     <title>Al estilo Pelusa</title>
+  </programme>
+  <programme start="20261106220000 +0000" stop="20261106223000 +0000" channel="Latele.py@SD">
+    <title>Querer sin límites</title>
+  </programme>
+  <programme start="20261106223000 +0000" stop="20261106230000 +0000" channel="Latele.py@SD">
+    <title>La guerrera</title>
+  </programme>
+  <programme start="20261106230000 +0000" stop="20261107000000 +0000" channel="Latele.py@SD">
+    <title>Telenoche Noticias</title>
   </programme>
 </tv>
