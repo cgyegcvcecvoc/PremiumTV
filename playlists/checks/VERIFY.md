@@ -1,12 +1,12 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-04T11:25:31+00:00 UTC
-- **Playlists checked:** 176 (26861 entries)
+- **Generated:** 2026-11-04T11:37:35+00:00 UTC
+- **Playlists checked:** 176 (26860 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 77
 - **Links published that the deep check called dead:** 0
 - **Category shelf files:** 133 (0 problem(s))
-- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, Cartoons Backups, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, Religious, Religious Backups, Entertainment, Entertainment Backups, International, International Backups, Kids, Kids Backups, Movies, Movies Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Legislative, Legislative Backups, Africa, Africa Backups, Series, Series Backups, North America, North America Backups, Business, Family, South America, South America Backups, Classic TV, Comedy, United States, United States Backups, A&E Networks, A&E Networks Backups, Weather, Online TV, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
+- **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, Religious, Religious Backups, Entertainment, Entertainment Backups, International, International Backups, Kids, Kids Backups, Movies, Movies Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Legislative, Legislative Backups, Africa, Africa Backups, Series, Series Backups, North America, North America Backups, Business, Family, South America, South America Backups, Classic TV, Comedy, United States, United States Backups, A&E Networks, A&E Networks Backups, Weather, Online TV, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, TEST, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, USA Channels, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
 
 ## Playlists
@@ -15,7 +15,7 @@
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | `playlists/PremiumTV.m3u` | 11991 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Movies, Music, News, Europe, Entertainment, International, Religious, Asia, South America, Documentary, Series, United States, Kids, North America, Comedy, Education, Culture, Legislative, Classic TV, India, Africa, Business, Family, A&E Networks, UK, Canada, Weather, Australia, Animals & Nature, DLTV, Tv Celebrities, Tv Paranormal, Global TV, Online TV, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 10342/10342 (100.0%) | 1932 (18.7%) |
 | `playlists/AE_Channels.m3u` | 69 | Lifestyle, A&E Networks, Documentary, Series, Movies, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 63/63 (100.0%) | 7 (11.1%) |
-| `playlists/Priority_Channels.m3u` | 20 | Sports, Cartoons, Kids, 3-Radio#Chicago, MeTV, United States | 0 | 0 | 3 | 0 | 16/16 (100.0%) | 9 (56.2%) |
+| `playlists/Priority_Channels.m3u` | 19 | Sports, Cartoons, Kids, 3-Radio#Chicago, MeTV, TEST, United States, USA Channels | 0 | 0 | 3 | 0 | 13/15 (86.7%) | 7 (46.7%) |
 | `playlists/countries/Afghanistan.m3u` | 10 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 10/10 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Albania.m3u` | 16 | News, Europe, International, Music | 0 | 0 | 1 | 0 | 16/16 (100.0%) | 4 (25.0%) |
 | `playlists/countries/Algeria.m3u` | 4 | Africa, Kids, Religious | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
