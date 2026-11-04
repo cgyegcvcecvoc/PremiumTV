@@ -320,7 +320,17 @@ jobs:
           # dirty tree made 'git pull --rebase' refuse to start.
           for i in 1 2 3; do
             git rebase --abort >/dev/null 2>&1 || true
-            git pull --rebase --autostash -X theirs origin "$GITHUB_REF_NAME" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            if git pull --rebase --autostash -X theirs origin "$GITHUB_REF_NAME"; then
+              git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            fi
+            # A rebase conflict can still happen when several data runs commit
+            # at once. The build log is generated output; merge with the remote
+            # log winning and publish the successful build.
+            echo "Rebase conflict; merging with the remote build log."
+            git rebase --abort >/dev/null 2>&1 || true
+            git merge -X theirs origin "$GITHUB_REF_NAME" \
+              -m "Merge main into the build log (remote log wins)" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
             sleep 5
           done
           exit 1
