@@ -1,22 +1,22 @@
 # TV guide (EPG) check
 
-- **Run:** nightly guide check (`20261104T112244Z-3573`)
-- **Started:** 2026-11-04T11:22:44Z | **Finished:** 2026-11-04T11:23:01Z | **Duration:** 17.3s
-- **Guides checked:** 514 across 174 playlists (173 of them are this repository's own published guides)
+- **Run:** nightly guide check (`20261104T143255Z-3290`)
+- **Started:** 2026-11-04T14:32:55Z | **Finished:** 2026-11-04T14:33:21Z | **Duration:** 25.8s
+- **Guides checked:** 511 across 173 playlists (172 of them are this repository's own published guides)
 - **Working share of upstream guides:** 100.0%
 
 | Result | Guides |
 |---|---:|
-| ok | 204 |
-| empty | 81 |
-| offline | 229 |
-| own guide (excluded from the share above) | 173 |
+| ok | 205 |
+| empty | 79 |
+| offline | 227 |
+| own guide (excluded from the share above) | 172 |
 
 ## Working guides (kept)
 
 | Guide | Channels | Programmes sampled | Newest programme | Size read |
 |---|---:|---:|---|---:|
-| `TV.xml` | 206 | 7027 | 2026-11-07 06:45 UTC | 4096 KB |
+| `TV.xml` | 203 | 7092 | 2026-11-08 06:00 UTC | 4096 KB |
 | `epg_ripper_AL1.xml.gz` | 178 | 9617 | 2026-11-07 07:00 UTC | 466 KB |
 | `epg.xml.gz` | 16037 | 5330 | 2026-11-12 00:00 UTC | 4096 KB |
 | `epg-us.xml.gz` | 12843 | 1316 | 2026-11-11 03:00 UTC | 4096 KB |
@@ -128,7 +128,7 @@
 
 ## Curated per-country sources
 
-339 guide URL(s) from `sources.json` (`epg_sources`) are verified on every run and merged by `scripts/epg_build.py` ahead of the guides found in playlist headers. They are never advertised in an `x-tvg-url` header - the merged guide already carries their listings. Status this run: empty=3, offline=229, ok=107.
+337 guide URL(s) from `sources.json` (`epg_sources`) are verified on every run and merged by `scripts/epg_build.py` ahead of the guides found in playlist headers. They are never advertised in an `x-tvg-url` header - the merged guide already carries their listings. Status this run: empty=3, offline=227, ok=107.
 
 | Source | Status | Channels | Programmes sampled |
 |---|---|---:|---:|
@@ -162,7 +162,7 @@
 | `epg-bo.xml.gz` | ok | 92 | 12122 |
 | `epg-ba.xml.gz` | ok | 201 | 7074 |
 | `epg-br.xml.gz` | ok | 182 | 7223 |
-| … 309 more | | | |
+| … 307 more | | | |
 
 ## Guides that failed
 
@@ -237,7 +237,6 @@
 | `https://iptv-epg.org/files/epg-kn.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-lc.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-sn.xml.gz` | offline | HTTP 404 |
-| `https://iptv-epg.org/files/epg-sl.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-sx.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-sk.xml.gz` | offline | HTTP 404 |
 | `https://iptv-epg.org/files/epg-so.xml.gz` | offline | HTTP 404 |
@@ -371,7 +370,6 @@
 | `https://epg.pw/xmltv/epg_SA.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SN.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_RS.xml.gz` | offline | HTTP 404 |
-| `https://epg.pw/xmltv/epg_SL.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SX.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SK.xml.gz` | offline | HTTP 404 |
 | `https://epg.pw/xmltv/epg_SI.xml.gz` | offline | HTTP 404 |
@@ -400,26 +398,26 @@
 
 ## This repository's own guides
 
-173 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: empty=78, ok=95. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
+172 advertised guide URL(s) are files this repository publishes itself (`EPG/*.xml`), so they are never counted as upstream guides and never removed. Status of those: empty=76, ok=96. A `404` here means the repository is private - GitHub only serves raw files to readers who can see it (see the note at the top of `README.md`); it does not mean the guide is gone for someone who can.
 
 | Own guide | Status | Reason |
 |---|---|---|
-| `PremiumTV.xml` | ok | 10530 channels, 8357 programmes sampled |
+| `PremiumTV.xml` | ok | 10474 channels, 8296 programmes sampled |
 | `Afghanistan.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Albania.xml` | ok | 16 channels, 128 programmes sampled |
+| `Albania.xml` | ok | 16 channels, 129 programmes sampled |
 | `Algeria.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Andorra.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Angola.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Antigua_and_Barbuda.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Arab_World.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Argentina.xml` | ok | 155 channels, 1290 programmes sampled |
-| `Armenia.xml` | ok | 10 channels, 131 programmes sampled |
+| `Argentina.xml` | ok | 156 channels, 1286 programmes sampled |
+| `Armenia.xml` | ok | 10 channels, 136 programmes sampled |
 | `Aruba.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| `Australia.xml` | ok | 32 channels, 640 programmes sampled |
-| `Austria.xml` | ok | 35 channels, 970 programmes sampled |
+| `Australia.xml` | ok | 31 channels, 666 programmes sampled |
+| `Austria.xml` | ok | 35 channels, 945 programmes sampled |
 | `Azerbaijan.xml` | empty | valid XMLTV but no programmes in the sampled window |
 | `Bahamas.xml` | empty | valid XMLTV but no programmes in the sampled window |
-| … 158 more (one per country playlist) | | |
+| … 157 more (one per country playlist) | | |
 
 ## Patch
 
