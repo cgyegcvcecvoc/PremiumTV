@@ -1,18 +1,18 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-05 08:00 UTC (2026-11-05 03:00 AM EST)
-- **Channels in the main playlist:** 12103
-- **Channels in the category files:** 12092 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2467 (20.4%)
+- **Rebuilt:** 2026-11-05 12:40 UTC (2026-11-05 07:40 AM EST)
+- **Channels in the main playlist:** 12117
+- **Channels in the category files:** 12106 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2442 (20.2%)
 - **Categories:** 82 groups (35 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 531 | 176 |
+| 1 | Sports | 527 | 163 |
 | 2 | Sports Backups | 94 | 41 |
-| 3 | Lifestyle | 508 | 134 |
+| 3 | Lifestyle | 512 | 134 |
 | 4 | Lifestyle Backups | 96 | 31 |
 | 5 | Fox Channels | 26 | 8 |
 | 6 | CBS | 30 | 5 |
@@ -26,23 +26,23 @@
 | 14 | PBS Backups | 6 | 2 |
 | 15 | Game Shows | 12 | 7 |
 | 16 | Game Shows Backups | 16 | 11 |
-| 17 | Movies | 895 | 149 |
+| 17 | Movies | 894 | 150 |
 | 18 | Movies Backups | 101 | 10 |
-| 19 | Music | 877 | 152 |
-| 20 | Music Backups | 86 | 37 |
-| 21 | News | 862 | 238 |
-| 22 | News Backups | 166 | 111 |
-| 23 | Europe | 764 | 160 |
+| 19 | Music | 879 | 153 |
+| 20 | Music Backups | 87 | 37 |
+| 21 | News | 862 | 239 |
+| 22 | News Backups | 167 | 112 |
+| 23 | Europe | 766 | 159 |
 | 24 | Europe Backups | 65 | 38 |
-| 25 | Entertainment | 734 | 146 |
-| 26 | Entertainment Backups | 80 | 26 |
-| 27 | International | 639 | 149 |
-| 28 | International Backups | 102 | 44 |
-| 29 | Religious | 596 | 62 |
+| 25 | Entertainment | 734 | 144 |
+| 26 | Entertainment Backups | 78 | 26 |
+| 27 | International | 643 | 145 |
+| 28 | International Backups | 100 | 42 |
+| 29 | Religious | 595 | 62 |
 | 30 | Religious Backups | 40 | 10 |
-| 31 | Asia | 474 | 89 |
+| 31 | Asia | 466 | 87 |
 | 32 | Asia Backups | 22 | 1 |
-| 33 | South America | 446 | 41 |
+| 33 | South America | 461 | 35 |
 | 34 | South America Backups | 23 | 2 |
 | 35 | Documentary | 398 | 102 |
 | 36 | Documentary Backups | 75 | 11 |
@@ -52,21 +52,21 @@
 | 40 | Series Backups | 111 | 29 |
 | 41 | Kids | 327 | 69 |
 | 42 | Kids Backups | 58 | 11 |
-| 43 | North America | 277 | 6 |
+| 43 | North America | 279 | 7 |
 | 44 | North America Backups | 6 | 0 |
 | 45 | Education | 127 | 12 |
 | 46 | Education Backups | 13 | 1 |
 | 47 | Comedy | 122 | 9 |
 | 48 | Comedy Backups | 26 | 4 |
-| 49 | Culture | 118 | 13 |
+| 49 | Culture | 117 | 13 |
 | 50 | Culture Backups | 7 | 1 |
 | 51 | Legislative | 112 | 9 |
 | 52 | Legislative Backups | 3 | 0 |
 | 53 | Classic TV | 71 | 5 |
 | 54 | Classic TV Backups | 8 | 1 |
-| 55 | India | 69 | 23 |
+| 55 | India | 70 | 23 |
 | 56 | India Backups | 10 | 5 |
-| 57 | Africa | 64 | 11 |
+| 57 | Africa | 65 | 11 |
 | 58 | Business | 49 | 16 |
 | 59 | Business Backups | 11 | 10 |
 | 60 | Family | 31 | 16 |
@@ -90,24 +90,25 @@
 | 78 | Aria Web Channels | 6 | 0 |
 | 79 | Tv Shows | 5 | 0 |
 | 80 | Oceania | 4 | 3 |
-| 81 | Other | 262 | 26 |
-| 82 | Other Backups | 139 | 6 |
+| 81 | Other | 261 | 26 |
+| 82 | Other Backups | 140 | 6 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12103 | 91 | 1497 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12117 | 91 | 1496 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 19 | 8 | 4 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 12078 (99.6%) |
-| matched on the base id (feed qualifier dropped) | 1 (0.0%) |
-| matched on the display name | 8 (0.1%) |
-| no guide entry (upstream publishes no schedule for it) | 35 (0.3%) |
+| already declared in the guide | 12074 (99.5%) |
+| matched on the base id (feed qualifier dropped) | 2 (0.0%) |
+| matched on the display name | 1 (0.0%) |
+| matched on a looser spelling of the name | 2 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 57 (0.5%) |
 
 ## Channels with no schedule yet
 
