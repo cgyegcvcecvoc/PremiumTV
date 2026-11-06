@@ -1,11 +1,11 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-06T20:38:45+00:00 UTC
+- **Generated:** 2026-11-06T21:24:07+00:00 UTC
 - **Playlists checked:** 178 (27160 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 79
 - **Links published that the deep check called dead:** 0
-- **Category shelf files:** 133 (0 problem(s))
+- **Category shelf files:** 134 (0 problem(s))
 - **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, Cartoons Backups, PBS, PBS Backups, Game Shows, News, News Backups, Music, Music Backups, Religious, Religious Backups, Entertainment, Entertainment Backups, International, International Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Documentary, Documentary Backups, Europe, Europe Backups, Education, Education Backups, Africa, Africa Backups, Legislative, Legislative Backups, North America, North America Backups, Series, Series Backups, Business, Business Backups, Family, South America, South America Backups, Classic TV, Comedy, United States, United States Backups, A&E Networks, A&E Networks Backups, Weather, Online TV, 3-Radio#Chicago, Australia, Canada, DLTV, Global TV, India, India Backups, MeTV, Oceania, Oceania Backups, Relax, Tv Celebrities, Tv Paranormal, Tv Shows, UK, UK Backups, Other, Other Backups
 - **Maximum guides a header may advertise:** 2
 
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 12105 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Movies, Music, News, Europe, Entertainment, International, Religious, Asia, South America, Documentary, United States, Series, Kids, North America, Education, Comedy, Culture, Legislative, Classic TV, India, Africa, Business, Family, A&E Networks, UK, Canada, Weather, Australia, Animals & Nature, DLTV, Tv Celebrities, Global TV, Online TV, Tv Paranormal, Aria Web Channels, Tv Shows, Oceania, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 10400/10400 (100.0%) | 1912 (18.4%) |
+| `playlists/PremiumTV.m3u` | 12105 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Movies, Music, News, Europe, Entertainment, International, Religious, Asia, South America, Documentary, United States, Series, Kids, North America, Education, Culture, Comedy, Legislative, Classic TV, India, Africa, Business, Family, A&E Networks, UK, Canada, Weather, Australia, Animals & Nature, DLTV, Tv Celebrities, Aria Web Channels, Tv Paranormal, Global TV, Online TV, Oceania, Tv Shows, Relax, 3-Radio#Chicago, MeTV, United Kingdom, Other | 0 | 0 | 3 | 0 | 10124/10124 (100.0%) | 1900 (18.8%) |
 | `playlists/AE_Channels.m3u` | 70 | Lifestyle, A&E Networks, Documentary, Series, Entertainment, Movies, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 63/63 (100.0%) | 7 (11.1%) |
 | `playlists/Priority_Channels.m3u` | 18 | Sports, Cartoons, Kids, 3-Radio#Chicago, MeTV, United States | 0 | 0 | 3 | 0 | 15/15 (100.0%) | 7 (46.7%) |
 | `playlists/countries/Afghanistan.m3u` | 10 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 10/10 (100.0%) | 0 (0.0%) |
@@ -198,7 +198,7 @@ None: every playlist is canonical, in order, and free of links the deep check co
 
 ## Category shelf
 
-The `categories/` shelf is re-planned from the published playlists on every run: **133 of 133 file(s) present**, 133 in step with the published order.
+The `categories/` shelf is re-planned from the published playlists on every run: **134 of 134 file(s) present**, 134 in step with the published order.
 
 | # | Shelf file | Scope | Category | Channels | Status |
 |---|---|---|---|---:|---|
@@ -253,67 +253,67 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 | 49 | `categories/USA/Weather_Backups.m3u` | USA | Weather Backups | 3 | ok |
 | 50 | `categories/USA/International.m3u` | USA | International | 4 | ok |
 | 51 | `categories/USA/Other.m3u` | USA | Other | 19 | ok |
-| 52 | `categories/All/Sports.m3u` | World | Sports | 582 | ok |
-| 53 | `categories/All/Sports_Backups.m3u` | World | Sports Backups | 92 | ok |
-| 54 | `categories/All/Lifestyle.m3u` | World | Lifestyle | 506 | ok |
-| 55 | `categories/All/Lifestyle_Backups.m3u` | World | Lifestyle Backups | 96 | ok |
+| 52 | `categories/All/Sports.m3u` | World | Sports | 554 | ok |
+| 53 | `categories/All/Sports_Backups.m3u` | World | Sports Backups | 119 | ok |
+| 54 | `categories/All/Lifestyle.m3u` | World | Lifestyle | 479 | ok |
+| 55 | `categories/All/Lifestyle_Backups.m3u` | World | Lifestyle Backups | 125 | ok |
 | 56 | `categories/All/Fox_Channels.m3u` | World | Fox Channels | 26 | ok |
 | 57 | `categories/All/CBS.m3u` | World | CBS | 30 | ok |
 | 58 | `categories/All/CBS_Backups.m3u` | World | CBS Backups | 14 | ok |
 | 59 | `categories/All/NBC.m3u` | World | NBC | 67 | ok |
 | 60 | `categories/All/NBC_Backups.m3u` | World | NBC Backups | 10 | ok |
-| 61 | `categories/All/NBC_Sports_Channels.m3u` | World | NBC Sports Channels | 9 | ok |
-| 62 | `categories/All/Cartoons.m3u` | World | Cartoons | 197 | ok |
-| 63 | `categories/All/Cartoons_Backups.m3u` | World | Cartoons Backups | 20 | ok |
+| 61 | `categories/All/NBC_Sports_Channels.m3u` | World | NBC Sports Channels | 8 | ok |
+| 62 | `categories/All/Cartoons.m3u` | World | Cartoons | 186 | ok |
+| 63 | `categories/All/Cartoons_Backups.m3u` | World | Cartoons Backups | 30 | ok |
 | 64 | `categories/All/PBS.m3u` | World | PBS | 39 | ok |
 | 65 | `categories/All/PBS_Backups.m3u` | World | PBS Backups | 6 | ok |
 | 66 | `categories/All/Game_Shows.m3u` | World | Game Shows | 12 | ok |
 | 67 | `categories/All/Game_Shows_Backups.m3u` | World | Game Shows Backups | 16 | ok |
-| 68 | `categories/All/Movies.m3u` | World | Movies | 884 | ok |
-| 69 | `categories/All/Movies_Backups.m3u` | World | Movies Backups | 102 | ok |
-| 70 | `categories/All/Music.m3u` | World | Music | 872 | ok |
-| 71 | `categories/All/Music_Backups.m3u` | World | Music Backups | 87 | ok |
-| 72 | `categories/All/News.m3u` | World | News | 844 | ok |
-| 73 | `categories/All/News_Backups.m3u` | World | News Backups | 176 | ok |
-| 74 | `categories/All/Europe.m3u` | World | Europe | 759 | ok |
-| 75 | `categories/All/Europe_Backups.m3u` | World | Europe Backups | 64 | ok |
-| 76 | `categories/All/Entertainment.m3u` | World | Entertainment | 723 | ok |
-| 77 | `categories/All/Entertainment_Backups.m3u` | World | Entertainment Backups | 78 | ok |
-| 78 | `categories/All/International.m3u` | World | International | 645 | ok |
-| 79 | `categories/All/International_Backups.m3u` | World | International Backups | 97 | ok |
-| 80 | `categories/All/Religious.m3u` | World | Religious | 596 | ok |
-| 81 | `categories/All/Religious_Backups.m3u` | World | Religious Backups | 41 | ok |
-| 82 | `categories/All/Asia.m3u` | World | Asia | 472 | ok |
-| 83 | `categories/All/Asia_Backups.m3u` | World | Asia Backups | 24 | ok |
+| 68 | `categories/All/Movies.m3u` | World | Movies | 851 | ok |
+| 69 | `categories/All/Movies_Backups.m3u` | World | Movies Backups | 133 | ok |
+| 70 | `categories/All/Music.m3u` | World | Music | 843 | ok |
+| 71 | `categories/All/Music_Backups.m3u` | World | Music Backups | 117 | ok |
+| 72 | `categories/All/News.m3u` | World | News | 822 | ok |
+| 73 | `categories/All/News_Backups.m3u` | World | News Backups | 201 | ok |
+| 74 | `categories/All/Europe.m3u` | World | Europe | 758 | ok |
+| 75 | `categories/All/Europe_Backups.m3u` | World | Europe Backups | 65 | ok |
+| 76 | `categories/All/Entertainment.m3u` | World | Entertainment | 690 | ok |
+| 77 | `categories/All/Entertainment_Backups.m3u` | World | Entertainment Backups | 111 | ok |
+| 78 | `categories/All/International.m3u` | World | International | 643 | ok |
+| 79 | `categories/All/International_Backups.m3u` | World | International Backups | 99 | ok |
+| 80 | `categories/All/Religious.m3u` | World | Religious | 594 | ok |
+| 81 | `categories/All/Religious_Backups.m3u` | World | Religious Backups | 43 | ok |
+| 82 | `categories/All/Asia.m3u` | World | Asia | 471 | ok |
+| 83 | `categories/All/Asia_Backups.m3u` | World | Asia Backups | 25 | ok |
 | 84 | `categories/All/South_America.m3u` | World | South America | 461 | ok |
 | 85 | `categories/All/South_America_Backups.m3u` | World | South America Backups | 22 | ok |
-| 86 | `categories/All/Documentary.m3u` | World | Documentary | 396 | ok |
-| 87 | `categories/All/Documentary_Backups.m3u` | World | Documentary Backups | 75 | ok |
-| 88 | `categories/All/United_States.m3u` | World | United States | 362 | ok |
-| 89 | `categories/All/United_States_Backups.m3u` | World | United States Backups | 58 | ok |
-| 90 | `categories/All/Series.m3u` | World | Series | 341 | ok |
-| 91 | `categories/All/Series_Backups.m3u` | World | Series Backups | 111 | ok |
-| 92 | `categories/All/Kids.m3u` | World | Kids | 323 | ok |
-| 93 | `categories/All/Kids_Backups.m3u` | World | Kids Backups | 58 | ok |
+| 86 | `categories/All/Documentary.m3u` | World | Documentary | 379 | ok |
+| 87 | `categories/All/Documentary_Backups.m3u` | World | Documentary Backups | 91 | ok |
+| 88 | `categories/All/United_States.m3u` | World | United States | 346 | ok |
+| 89 | `categories/All/United_States_Backups.m3u` | World | United States Backups | 75 | ok |
+| 90 | `categories/All/Series.m3u` | World | Series | 322 | ok |
+| 91 | `categories/All/Series_Backups.m3u` | World | Series Backups | 130 | ok |
+| 92 | `categories/All/Kids.m3u` | World | Kids | 309 | ok |
+| 93 | `categories/All/Kids_Backups.m3u` | World | Kids Backups | 74 | ok |
 | 94 | `categories/All/North_America.m3u` | World | North America | 269 | ok |
 | 95 | `categories/All/North_America_Backups.m3u` | World | North America Backups | 6 | ok |
 | 96 | `categories/All/Education.m3u` | World | Education | 127 | ok |
-| 97 | `categories/All/Education_Backups.m3u` | World | Education Backups | 13 | ok |
-| 98 | `categories/All/Comedy.m3u` | World | Comedy | 121 | ok |
-| 99 | `categories/All/Comedy_Backups.m3u` | World | Comedy Backups | 26 | ok |
-| 100 | `categories/All/Culture.m3u` | World | Culture | 119 | ok |
-| 101 | `categories/All/Culture_Backups.m3u` | World | Culture Backups | 6 | ok |
+| 97 | `categories/All/Education_Backups.m3u` | World | Education Backups | 15 | ok |
+| 98 | `categories/All/Culture.m3u` | World | Culture | 119 | ok |
+| 99 | `categories/All/Culture_Backups.m3u` | World | Culture Backups | 6 | ok |
+| 100 | `categories/All/Comedy.m3u` | World | Comedy | 114 | ok |
+| 101 | `categories/All/Comedy_Backups.m3u` | World | Comedy Backups | 32 | ok |
 | 102 | `categories/All/Legislative.m3u` | World | Legislative | 111 | ok |
 | 103 | `categories/All/Legislative_Backups.m3u` | World | Legislative Backups | 3 | ok |
-| 104 | `categories/All/Classic_TV.m3u` | World | Classic TV | 71 | ok |
-| 105 | `categories/All/Classic_TV_Backups.m3u` | World | Classic TV Backups | 8 | ok |
+| 104 | `categories/All/Classic_TV.m3u` | World | Classic TV | 68 | ok |
+| 105 | `categories/All/Classic_TV_Backups.m3u` | World | Classic TV Backups | 12 | ok |
 | 106 | `categories/All/India.m3u` | World | India | 68 | ok |
 | 107 | `categories/All/India_Backups.m3u` | World | India Backups | 6 | ok |
 | 108 | `categories/All/Africa.m3u` | World | Africa | 63 | ok |
-| 109 | `categories/All/Business.m3u` | World | Business | 50 | ok |
-| 110 | `categories/All/Business_Backups.m3u` | World | Business Backups | 12 | ok |
+| 109 | `categories/All/Business.m3u` | World | Business | 49 | ok |
+| 110 | `categories/All/Business_Backups.m3u` | World | Business Backups | 13 | ok |
 | 111 | `categories/All/Family.m3u` | World | Family | 31 | ok |
-| 112 | `categories/All/Family_Backups.m3u` | World | Family Backups | 4 | ok |
+| 112 | `categories/All/Family_Backups.m3u` | World | Family Backups | 6 | ok |
 | 113 | `categories/All/A_E_Networks.m3u` | World | A&E Networks | 28 | ok |
 | 114 | `categories/All/UK.m3u` | World | UK | 26 | ok |
 | 115 | `categories/All/UK_Backups.m3u` | World | UK Backups | 6 | ok |
@@ -324,17 +324,18 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 | 120 | `categories/All/Animals_Nature.m3u` | World | Animals & Nature | 9 | ok |
 | 121 | `categories/All/Animals_Nature_Backups.m3u` | World | Animals & Nature Backups | 3 | ok |
 | 122 | `categories/All/DLTV.m3u` | World | DLTV | 9 | ok |
-| 123 | `categories/All/Tv_Celebrities.m3u` | World | Tv Celebrities | 9 | ok |
-| 124 | `categories/All/Global_TV.m3u` | World | Global TV | 8 | ok |
-| 125 | `categories/All/Online_TV.m3u` | World | Online TV | 8 | ok |
-| 126 | `categories/All/Online_TV_Backups.m3u` | World | Online TV Backups | 6 | ok |
-| 127 | `categories/All/Tv_Paranormal.m3u` | World | Tv Paranormal | 8 | ok |
-| 128 | `categories/All/Tv_Paranormal_Backups.m3u` | World | Tv Paranormal Backups | 3 | ok |
-| 129 | `categories/All/Aria_Web_Channels.m3u` | World | Aria Web Channels | 6 | ok |
-| 130 | `categories/All/Tv_Shows.m3u` | World | Tv Shows | 5 | ok |
+| 123 | `categories/All/Tv_Celebrities.m3u` | World | Tv Celebrities | 7 | ok |
+| 124 | `categories/All/Aria_Web_Channels.m3u` | World | Aria Web Channels | 6 | ok |
+| 125 | `categories/All/Tv_Paranormal.m3u` | World | Tv Paranormal | 6 | ok |
+| 126 | `categories/All/Tv_Paranormal_Backups.m3u` | World | Tv Paranormal Backups | 3 | ok |
+| 127 | `categories/All/Global_TV.m3u` | World | Global TV | 5 | ok |
+| 128 | `categories/All/Global_TV_Backups.m3u` | World | Global TV Backups | 3 | ok |
+| 129 | `categories/All/Online_TV.m3u` | World | Online TV | 5 | ok |
+| 130 | `categories/All/Online_TV_Backups.m3u` | World | Online TV Backups | 7 | ok |
 | 131 | `categories/All/Oceania.m3u` | World | Oceania | 4 | ok |
-| 132 | `categories/All/Other.m3u` | World | Other | 261 | ok |
-| 133 | `categories/All/Other_Backups.m3u` | World | Other Backups | 140 | ok |
+| 132 | `categories/All/Tv_Shows.m3u` | World | Tv Shows | 4 | ok |
+| 133 | `categories/All/Other.m3u` | World | Other | 261 | ok |
+| 134 | `categories/All/Other_Backups.m3u` | World | Other Backups | 140 | ok |
 
 Each file is a slice of an already published playlist, so its sorting is the published sorting: curated categories in order, each followed by its own Backups group, the long tail by size, `Other` last, and a channel's feeds side by side with the best quality first. `scripts/build_categories.py` writes the shelf and `scripts/verify_playlists.py --require-shelf` fails a run that leaves it stale.
 

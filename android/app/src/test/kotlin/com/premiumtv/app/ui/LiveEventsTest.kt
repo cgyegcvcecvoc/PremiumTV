@@ -14,7 +14,8 @@ class LiveEventsTest {
         name: String,
         url: String,
         group: String = "Sports",
-    ) = Channel(id, name, "", group, "US", "", url, "", "", "")
+        country: String = "US",
+    ) = Channel(id, name, "", group, country, "", url, "", "", "")
 
     @Test fun parsesTheScrapersEventNames() {
         val event = parseLiveEvent(
@@ -105,6 +106,18 @@ class LiveEventsTest {
         assertEquals("Roma vs. Genoa", index["https://e/2"]?.title)
         assertEquals("Roma vs. Genoa", index["https://e/3"]?.title)
         assertNull(index["https://e/4"])
+    }
+
+    @Test fun sameNameSameCountryFeedsAreServersEvenWithDifferentIds() {
+        // The repository folds duplicate links by name and country, treating a
+        // missing country as a wildcard; the app matches the same pair.
+        val main = channel("FuelTV.at", "Fuel TV (1080p)", "https://f/1", country = "AT")
+        val spare = channel("fuel.tv.web", "Fuel TV (Backup 1)", "https://f/2", country = "AT")
+        val german = channel("FuelTV.de", "Fuel TV (720p)", "https://f/3", country = "DE")
+        val all = listOf(main, spare, german)
+        assertEquals(listOf(main, spare), serversFor(main, all))
+        // A different known country is a different channel, not a backup.
+        assertEquals(listOf(german), serversFor(german, all))
     }
 
     @Test fun baseNamesIgnoreQualityBackupAndCountryTags() {

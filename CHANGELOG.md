@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-06 — Backup coverage widened: unknown-country feeds now count as the same station
+
+- `scripts/categorize.py` now folds duplicate links by cleaned name with an *unknown* country ("International"/blank) treated as a wildcard for a single known country, instead of standing alone as a second channel with no feed to fail over to. Two different known countries still never merge (ESPN2 US vs ESPN2 Brazil stay separate). Rebuilt on the 2026-11-06 15:38 EST scrape: channels with at least one backup went from 979 to 1,138 and published backup feeds from 1,499 to 1,777 (`playlists/checks/BACKUP-AUDIT.md`, 0 problems). Backup numbering stays stable across rebuilds: existing "(Backup N)" tags keep their numbers.
+- The Android player's server list (`serversFor`) now matches a channel's backups by base name plus same EPG id **or** same known country, mirroring the repository's folding rule, so wildcard-merged backups are playable as fallback servers. This raises real fallback coverage; it does not guarantee three feeds for every channel or event — most channels still have only one verified stream.
+- Added regression tests in `tests/test_categorize.py` and `android/app/src/test/.../LiveEventsTest.kt`; all 597 Python tests pass.
+
 ## 2026-11-03 — 1.1.4 published; updater deep links canonicalized
 
 - Published `v1.1.4` (Android `versionCode 101040000`, macOS `1.1.4`) with its release notes, then built and attached the Android APK and the four macOS installers (arm64/x64 DMG + PKG) plus both `SHA256SUMS` files. The release is offered by Settings → App updates to every build below it.

@@ -831,16 +831,67 @@ def country_of(channel) -> str:
     return ""
 
 
+_BACKUP_TAG = re.compile(r"\s*\(Backup\s+(\d+)\)\s*$", re.IGNORECASE)
+
+
+def _member_sort_key(channel) -> tuple:
+    """Order one identity group: current primary first, spares in number order."""
+    name = _get(channel, "name")
+    tag = _BACKUP_TAG.search(name)
+    return (
+        1 if tag else 0,
+        int(tag.group(1)) if tag else 0,
+        -quality_score(_BACKUP_TAG.sub("", name)),
+        _get(channel, "url"),
+        name,
+    )
+
+
+def identity_groups(channels: list) -> list[list]:
+    """Group the channels that are the same station across duplicate links.
+
+    Identity is the cleaned display name plus the country, with one deliberate
+    relaxation: an unknown country ("International", or blank - what
+    ``country_of`` resolves a missing ``tvg-country`` to) is a wildcard, not a
+    country of its own. An entry whose upstream source carried no country
+    merges with the one named feed that does carry the country, instead of
+    standing alone as a second "channel" whose only feed can never fail over.
+    Two *different* known countries still never merge - ESPN2 US and ESPN2
+    Brazil are different channels and stay separate.
+
+    Groups come out sorted by (name, country) - the order ``channel_key``
+    produces - so backup numbering is stable across rebuilds.
+    """
+    by_name: dict[str, dict[str, list]] = collections.defaultdict(
+        lambda: collections.defaultdict(list))
+    for channel in channels:
+        name_key = norm_key(clean_display_name(_get(channel, "name")))
+        by_name[name_key][country_of(channel).strip().upper()].append(channel)
+    groups: list[list] = []
+    for name_key in sorted(by_name):
+        by_country = by_name[name_key]
+        # "International"/blank means "unknown", so it can join any single
+        # real country but is ambiguous when two real ones are present.
+        known = [c for c in by_country if c and c != INTERNATIONAL.upper()]
+        if len(known) <= 1:
+            # At most one real country: the blank-country entries belong to it.
+            members = [ch for c in sorted(by_country) for ch in by_country[c]]
+            groups.append(members)
+        else:
+            for country in sorted(by_country):
+                groups.append(by_country[country])
+    return groups
+
+
 def split_primary_backups(channels: list, max_backups: int = 0) -> tuple[list, list]:
     """Split channels into (primary links, backup links).
 
-    Channels that are the same station - same cleaned name and country - keep
-    one entry in the main category; the spare links move to the matching
+    Channels that are the same station - same cleaned name and country (a
+    blank country counts as matching, see [identity_groups]) - keep one entry
+    in the main category; the spare links move to the matching
     "<category> Backups" group instead of cluttering the listing.
     """
-    groups: dict[str, list] = collections.defaultdict(list)
-    for channel in channels:
-        groups[channel_key(_get(channel, "name"), country_of(channel))].append(channel)
+    groups = identity_groups(channels)
 
     primary: list = []
     backups: list = []
@@ -853,10 +904,13 @@ def split_primary_backups(channels: list, max_backups: int = 0) -> tuple[list, l
     # Sorted identity groups make the numbers independent of the order the
     # upstream playlist happened to arrive in, so rebuilding a rebuilt playlist
     # produces the same names again instead of silently renumbering spares.
-    for group_key in sorted(groups):
-        members = sorted(groups[group_key],
-                         key=lambda ch: (-quality_score(_get(ch, "name")),
-                                         _get(ch, "url"), _get(ch, "name")))
+    for members in groups:
+        # Keep any existing "(Backup N)" number ahead of the quality ordering:
+        # on a rebuild the spares already carry their tag (and renaming erased
+        # their original quality tag), so quality alone would reorder and
+        # renumber them. Untagged entries still lead, best quality first, so a
+        # genuinely better new feed can take the primary slot.
+        members = sorted(members, key=_member_sort_key)
         main = members[0]
         main_category = category_of(main) or classify(
             _get(main, "name"), main.attrs.get("group-title", ""),
