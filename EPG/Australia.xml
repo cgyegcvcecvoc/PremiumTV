@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tv generator-info-name="PremiumTV epg_build.py" generator-info-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Australia.xml">
-  <channel id="CricketGold.au@SD">
-    <display-name>Cricket Gold (1080p)</display-name>
-    <display-name>Cricket Gold</display-name>
-    <display-name>571981</display-name>
-    <icon src="https://epg.pw/media/images/epg/2026/10/07/20261007040518263356_90.png" />
-  </channel>
   <channel id="FoxSportsNews.au@SD">
     <display-name>Fox Sports News (1080p)</display-name>
     <display-name>FOX SPORTS NEWS</display-name>
@@ -19,6 +13,14 @@
     <display-name>AU - SKY Racing 1</display-name>
     <display-name>SKYRacing1.au</display-name>
     <icon src="https://epg.pw/media/images/epg/2026/11/06/20261106040615304057_85.php" />
+  </channel>
+  <channel id="premiumtv.international.cricket_gold_1080p">
+    <display-name>Cricket Gold (1080p)</display-name>
+    <display-name>Cricket Gold</display-name>
+    <display-name>571981</display-name>
+    <display-name>Cricket Gold (Backup 1)</display-name>
+    <display-name>Cricket Gold (Backup 2)</display-name>
+    <icon src="https://epg.pw/media/images/epg/2026/10/07/20261007040518263356_90.png" />
   </channel>
   <channel id="10Bold.au@Sydney">
     <display-name>10 Bold (1080p)</display-name>
@@ -150,13 +152,6 @@
     <display-name>DG:Radio (1080p)</display-name>
     <icon src="https://cdn.dg.church/media/objects/tile-dgradio.jpg" />
   </channel>
-  <programme start="20261106035636 +0000" stop="20261107000000 +0000" channel="CricketGold.au@SD">
-    <title>RAPID REWIND - 2002/03 Ashes - 4th Test, Day 2</title>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261106130000 +0000" stop="20261106180000 +0000" channel="SkyRacing1.au@SD">
     <title>Sky Racing 1 Late Night</title>
     <live />
@@ -220,17 +215,16 @@
     <title>Sky Racing 1 Early Morning</title>
     <live />
   </programme>
-  <programme start="20261106143000 +0000" stop="20261106153000 +0000" channel="10Bold.au@Sydney">
-    <title>JAG</title>
-    <desc>Harm is asked to re-open a 20yr old case of a seaman accused of murdering a prostitute. He doesn't deny stabbing her but he didn't murder her.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261108210000 +0000" stop="20261108220000 +0000" channel="SkyRacing1.au@SD">
+    <title>Sky Racing 1 Race Morning</title>
+    <live />
   </programme>
-  <programme start="20261106153000 +0000" stop="20261106163000 +0000" channel="10Bold.au@Sydney">
-    <title>Bull</title>
-    <desc>While defending a man charged with vehicular manslaughter, Bull discovers a connection between his client's trial &amp; a corrupt state assemblyman who would benefit if the accused is found guilty.</desc>
+  <programme start="20261108220000 +0000" stop="20261108230000 +0000" channel="SkyRacing1.au@SD">
+    <title>Racing Xtra</title>
+    <live />
+  </programme>
+  <programme start="20261106035636 +0000" stop="20261107000000 +0000" channel="premiumtv.international.cricket_gold_1080p">
+    <title>RAPID REWIND - 2002/03 Ashes - 4th Test, Day 2</title>
     <date>20261106</date>
     <audio>
       <stereo>stereo</stereo>
@@ -772,26 +766,18 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106140000 +0000" stop="20261106150000 +0000" channel="ABCNews.au@Sydney">
-    <title>ABC News With Joe O'Brien</title>
-    <desc>Jade Macmillan brings you a comprehensive summary of the day's events, with the latest breaking news, in depth coverage of the top stories, live crosses, interviews and explainers to bring you up to speed on what's going on.</desc>
-    <date>20261106</date>
+  <programme start="20261108211500 +0000" stop="20261108221500 +0000" channel="10Bold.au@Sydney">
+    <title>JAG</title>
+    <desc>Harm is asked to re-open a 20yr old case of a seaman accused of murdering a prostitute. He doesn't deny stabbing her but he didn't murder her.</desc>
+    <date>20261108</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106150000 +0000" stop="20261106160000 +0000" channel="ABCNews.au@Sydney">
-    <title>ABC News Hour</title>
-    <desc>Jade Macmillan presents the day's top stories and the latest news. From your neighbourhood, across Australia and around the globe, ABC News has reporters following the stories that matter so you can stay in the know.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106160000 +0000" stop="20261106163000 +0000" channel="ABCNews.au@Sydney">
-    <title>ABC National News</title>
-    <desc>There's never been a more important time for transparency and trust. ABC News brings you the day's top stories and latest news, with more reporters to tell you what's going on and why it matters. Presented by Jade Macmillan.</desc>
-    <date>20261106</date>
+  <programme start="20261108221500 +0000" stop="20261108224500 +0000" channel="10Bold.au@Sydney">
+    <title>Home Shopping</title>
+    <desc>A show that offers a variety of product demonstrations and great deals for consumers looking to buy them.</desc>
+    <date>20261108</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -1596,11 +1582,37 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106140000 +0000" stop="20261106150000 +0000" channel="News24.au@SD">
-    <title>Late Edition</title>
+  <programme start="20261108210000 +0000" stop="20261108211500 +0000" channel="ABCNews.au@Sydney">
+    <title>ABC News Overnight</title>
+    <desc>The final word on the day's top stories, with the latest news and updated information from Australia's most trusted source of independent news. Presented by Meredith Sheehan.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261106150000 +0000" stop="20261106160000 +0000" channel="News24.au@SD">
-    <title>The Bond Report</title>
+  <programme start="20261108211500 +0000" stop="20261108221500 +0000" channel="ABCNews.au@Sydney">
+    <title>Landline</title>
+    <desc>A tasty sampler of stories from the land - covering food, agriculture, crops, climate, business and innovation - as we meet the fascinating people who make our rural and regional communities unique. Presented by Pip Courtney.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261108221500 +0000" stop="20261108223100 +0000" channel="ABCNews.au@Sydney">
+    <title>ABC News Overnight</title>
+    <desc>The final word on the day's top stories, with the latest news and updated information from Australia's most trusted source of independent news. Presented by Meredith Sheehan.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261108223100 +0000" stop="20261108232900 +0000" channel="ABCNews.au@Sydney">
+    <title>Insiders</title>
+    <desc>Start your Sunday morning with the show the politicians rely on to find out what's going on. David Speers presents Australia's must-watch political program, joined by a panel of the best political analysts and commentators.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261106160000 +0000" stop="20261106170000 +0000" channel="News24.au@SD">
     <title>Steve Price</title>
@@ -1813,17 +1825,17 @@
     <title>First Edition</title>
     <new />
   </programme>
-  <programme start="20261106143000 +0000" stop="20261106150000 +0000" channel="News24Weather.au@SD">
-    <title>Across Australia</title>
+  <programme start="20261108210000 +0000" stop="20261108213000 +0000" channel="News24.au@SD">
+    <title>First Edition</title>
+    <new />
   </programme>
-  <programme start="20261106150000 +0000" stop="20261106153000 +0000" channel="News24Weather.au@SD">
-    <title>Across Australia</title>
+  <programme start="20261108213000 +0000" stop="20261108220000 +0000" channel="News24.au@SD">
+    <title>First Edition</title>
+    <new />
   </programme>
-  <programme start="20261106153000 +0000" stop="20261106160000 +0000" channel="News24Weather.au@SD">
-    <title>Across Australia</title>
-  </programme>
-  <programme start="20261106160000 +0000" stop="20261106163000 +0000" channel="News24Weather.au@SD">
-    <title>Across Australia</title>
+  <programme start="20261108220000 +0000" stop="20261108230000 +0000" channel="News24.au@SD">
+    <title>AM Agenda</title>
+    <new />
   </programme>
   <programme start="20261106163000 +0000" stop="20261106170000 +0000" channel="News24Weather.au@SD">
     <title>Across Australia</title>
@@ -2147,6 +2159,19 @@
     <new />
   </programme>
   <programme start="20261108203000 +0000" stop="20261108210000 +0000" channel="News24Weather.au@SD">
+    <title>Your Weather</title>
+  </programme>
+  <programme start="20261108210000 +0000" stop="20261108213000 +0000" channel="News24Weather.au@SD">
+    <title>Your Weather</title>
+  </programme>
+  <programme start="20261108213000 +0000" stop="20261108220000 +0000" channel="News24Weather.au@SD">
+    <title>Your Weather</title>
+  </programme>
+  <programme start="20261108220000 +0000" stop="20261108223000 +0000" channel="News24Weather.au@SD">
+    <title>Your Weather</title>
+    <new />
+  </programme>
+  <programme start="20261108223000 +0000" stop="20261108230000 +0000" channel="News24Weather.au@SD">
     <title>Your Weather</title>
   </programme>
   <programme start="20261106015500 +0000" stop="20261106163500 +0000" channel="ABCTVPlus.au@Sydney">
@@ -2725,26 +2750,66 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106143000 +0000" stop="20261106153000 +0000" channel="ABCTV.au@NSW">
-    <title>Antiques Roadshow</title>
-    <desc>Fiona Bruce and the team set up camp for another busy day as thousands of visitors bring their own treasures to the forecourt of the British Museum in London.</desc>
-    <date>20261106</date>
+  <programme start="20261108204500 +0000" stop="20261108210500 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>Young Sheldon</title>
+    <desc>Sheldon considers dropping out of college to focus on building his database. Also, George Sr. is frustrated when someone else gets credit for his football wins.</desc>
+    <date>20261108</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106153000 +0000" stop="20261106160000 +0000" channel="ABCTV.au@NSW">
-    <title>Hard Quiz</title>
-    <desc>Tom Gleeson hosts Australia's favourite quiz show. The expert topics are The Bold and The Beautiful, Helicopters, Siamese fighting fish and Australia's 45th Parliament. Only one winner can take home the Big Brass Mug!</desc>
-    <date>20261106</date>
+  <programme start="20261108210500 +0000" stop="20261108211000 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>BTN High</title>
+    <desc>BTN High breaks down the week's biggest news stories for Aussie high schoolers.</desc>
+    <date>20261108</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106160000 +0000" stop="20261106163000 +0000" channel="ABCTV.au@NSW">
-    <title>ABC News</title>
-    <desc>News from where we live. ABC News NSW brings you the day's top stories, exclusive investigations and original reporting on the issues that matter to you. Presented by Jeremy Fernandez (Sun-Thu), and Lydia Feng (Fri-Sat).</desc>
-    <date>20261106</date>
+  <programme start="20261108211000 +0000" stop="20261108213000 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>Pokemon: Ruby and Sapphire</title>
+    <desc>May feels a special duty to help a wounded Swablu return to its flock.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261108213000 +0000" stop="20261108215500 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>Dragon Ball Super</title>
+    <desc>Vegeta prepares to face Frost, who has no intention of discontinuing his cheating. But with a single hit, Vegeta knocks Frost completely out of the ring for the win.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261108215500 +0000" stop="20261108220500 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>We Bare Bears</title>
+    <desc>Chloe and Ice Bear accidentally lose Chloe's prized hoodie.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261108220500 +0000" stop="20261108221500 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>We Bare Bears</title>
+    <desc>Grizz and Ice Bear treat Panda to a ride in a limo.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261108221500 +0000" stop="20261108222500 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>Teen Titans Go!</title>
+    <desc>Robin shrinks to cell size to fight Cyborg's infection.</desc>
+    <date>20261108</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261108222500 +0000" stop="20261108223500 +0000" channel="ABCTVPlus.au@Sydney">
+    <title>Teen Titans Go!</title>
+    <desc>The Titans travel to the hipster neighborhood of Silver Lake, California, to help solve a mystery.</desc>
+    <date>20261108</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -3165,90 +3230,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106142500 +0000" stop="20261106144000 +0000" channel="ABCKids.au@Sydney">
-    <title>The Octonauts</title>
-    <desc>The Octonauts must rescue Peso when he gets trapped inside a giant Comb Jelly!</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106144000 +0000" stop="20261106145000 +0000" channel="ABCKids.au@Sydney">
-    <title>Kangaroo Beach</title>
-    <desc>Wearing Bondi's cap, Pounce thinks he's chief lifeguard - but when Gemma and Neville need rescuing from a whale encounter, should he jump in, or alert a real lifeguard?</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106145000 +0000" stop="20261106150500 +0000" channel="ABCKids.au@Sydney">
-    <title>Super Monsters</title>
-    <desc>Esmie and Igor discover the joys and challenges of babysitting Sami, a playful baby yeti, in a night full of chaos and laughter.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106150500 +0000" stop="20261106152000 +0000" channel="ABCKids.au@Sydney">
-    <title>Spidey and His Amazing Friends</title>
-    <desc>Miles can't let Rhino steal the tomatoes his mum grew for community dinner.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106152000 +0000" stop="20261106152500 +0000" channel="ABCKids.au@Sydney">
-    <title>Bluey</title>
-    <desc>Bluey's Father's Day card has to be perfect but she can't decide what to draw! So Mum reminds her about all the fun times she's had with Dad and how he's not so perfect either.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106152500 +0000" stop="20261106153500 +0000" channel="ABCKids.au@Sydney">
-    <title>Flower &amp; Flour</title>
-    <desc>During a public holiday, Flower and Flour help Penny and Dirk, give the restaurant a spring clean. But the cleanup quickly turns into an epic game of castles, knights, and dragons.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106153500 +0000" stop="20261106154500 +0000" channel="ABCKids.au@Sydney">
-    <title>Ben &amp; Holly's Little Kingdom</title>
-    <desc>When Captain Squid leaves his treasure map in the Little Kingdom, Redbeard leads Ben, Holly and Nanny Plum on a treasure hunt. The map says the treasure is deep under water and guarded by a mermaid and a golden sea monster!</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106154500 +0000" stop="20261106155500 +0000" channel="ABCKids.au@Sydney">
-    <title>Piripenguins</title>
-    <desc>The Piris hike to Tippety Top to see the Southern lights but must brave an 'ice-fog'.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106155500 +0000" stop="20261106160500 +0000" channel="ABCKids.au@Sydney">
-    <title>Supertato</title>
-    <desc>Supertato has built Chilli a massive funfair made from sweets. There's lots of fairground games, where he can win loads of floofy teddies!</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106160500 +0000" stop="20261106162000 +0000" channel="ABCKids.au@Sydney">
-    <title>Gardening Australia Junior</title>
-    <desc>Lots of things in the garden seem a bit gross - compost, slugs, spider webs, poo, worms, but all have a purpose. And Costa will prove that the purpose is. beautiful!</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106162000 +0000" stop="20261106163000 +0000" channel="ABCKids.au@Sydney">
-    <title>Bluey</title>
-    <desc>When Mum goes out to a baby shower, Dad takes charge of the girls' evening routine. But with Bluey missing Mum, Dad has to pull out all the games he knows to keep them entertained.</desc>
-    <date>20261106</date>
+  <programme start="20261108213000 +0000" stop="20261108234500 +0000" channel="ABCTV.au@NSW">
+    <title>rage Charts</title>
+    <desc>Australia's longest running music TV show, rage is home to the biggest vault of music videos from a diverse range of artists, genres and eras. We curate the best clips of all time to surprise and entertain you for hours.</desc>
+    <date>20261108</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>

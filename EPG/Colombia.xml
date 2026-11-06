@@ -191,6 +191,10 @@
     <display-name>SenalColombia.co</display-name>
     <icon src="https://iptv-epg.org/images/O2sl827HwYwvb1c4pVjOM7sUpU8dHISWuXJcGNQVT5fedtNMkPQCOnkrlZDEo6FQRQz3BaAwT9Bh34Wh_Fyn8jX8m3mwrw4BOk3z0btsYIRFmBCey_JNtg" />
   </channel>
+  <channel id="SoonaTV.co@SD">
+    <display-name>Soona TV</display-name>
+    <icon src="https://i.imgur.com/Pk8zzTL.jpeg" />
+  </channel>
   <channel id="SuramTV.co@SD">
     <display-name>Suram TV (1080p)</display-name>
     <display-name>Suram TV (Backup 1)</display-name>
@@ -226,7 +230,9 @@
     <display-name>TeleCesar (432p)</display-name>
   </channel>
   <channel id="Teleislas.co@SD">
-    <display-name>Teleislas (486p) [Not 24/7]</display-name>
+    <display-name>Teleislas (720p)</display-name>
+    <display-name>Teleislas (Backup 1)</display-name>
+    <icon src="https://i.imgur.com/aKHGRyk.png" />
   </channel>
   <channel id="Telemedellin.co@SD">
     <display-name>Telemedellin (1080p)</display-name>
@@ -385,10 +391,6 @@
     <display-name>Canal Telesantiago (1080p)</display-name>
     <icon src="https://i.imgur.com/DmkH5p8.jpg" />
   </channel>
-  <channel id="CMBTelevision.co@SD">
-    <display-name>CMB Television (1080p)</display-name>
-    <icon src="https://i.imgur.com/akGKPsk.png" />
-  </channel>
   <channel id="Cristovision.co@SD">
     <display-name>Cristovision (720p)</display-name>
     <display-name>CO - Cristovisión</display-name>
@@ -485,38 +487,6 @@
     <display-name>Canal Congreso (1080p)</display-name>
     <icon src="https://i.imgur.com/3VnL8dp.png" />
   </channel>
-  <programme start="20261106143000 +0000" stop="20261106150000 +0000" channel="HogarTV.co@SD">
-    <title>Giada en casa</title>
-    <desc>Giada invita a su tía Raffy a la cocina para realizar un intercambio de recetas que se han transmitido de generación en generación.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106150000 +0000" stop="20261106153000 +0000" channel="HogarTV.co@SD">
-    <title>Sabores de la granja</title>
-    <desc>Las sobras de ayer se reinventan. Pollo frito BLT derretido. Sopa de arroz vegetal con tomate. Bolas de tarta de queso.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106153000 +0000" stop="20261106160000 +0000" channel="HogarTV.co@SD">
-    <title>Lunada</title>
-    <desc>Se explican de modo didáctico, las más ricas y nutritivas recetas de comida natural, vegetariana, saludable y fresca.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106160000 +0000" stop="20261106163000 +0000" channel="HogarTV.co@SD">
-    <title>Los Pasteles de OSS</title>
-    <desc>Un paseo por el mundo mágico, con las mejores recetas y secretos de pastelería, junto al reconocido Osiris Barbosa.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261106163000 +0000" stop="20261106170000 +0000" channel="HogarTV.co@SD">
     <title>Recetas en 30 minutos</title>
     <desc>Rachael comparte una forma rápida y fácil de darle nueva vida al pollo viejo. Barbacoa de pollo a la italiana con polenta. Ensalada de espinacas con rúcula.</desc>
@@ -1165,26 +1135,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261106135500 +0000" stop="20261106145000 +0000" channel="Telemundo.co">
-    <title>Enemigo íntimo</title>
-    <sub-title>Roxana y Tilapia en libertad</sub-title>
-    <desc>Sin pruebas en su contra, Rodiles y Daniel están libres y juntos. Hacen el amor y ella lo encañona para que le diga, por fin, quién es en realidad. La Puma y otras reas matan a Zoraida.</desc>
-    <episode-num system="onscreen">E46</episode-num>
-    <date>2018</date>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261106145000 +0000" stop="20261106154500 +0000" channel="Telemundo.co">
-    <title>100 días para enamorarnos</title>
-    <sub-title>Impulsos del corazón</sub-title>
-    <desc>Remedios sorprende a Emiliano, lo espera en su propio apartamento. Nada los detiene, excepto una llamada de Alex. Algo les preocupa enormemente, cómo manejar la situación.</desc>
-    <episode-num system="onscreen">E19</episode-num>
-    <date>2020</date>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261106154500 +0000" stop="20261106164000 +0000" channel="Telemundo.co">
     <title>100 días para enamorarnos</title>
     <sub-title>La vida loca en Miami</sub-title>
@@ -1689,37 +1639,25 @@
       <value>+14</value>
     </rating>
   </programme>
-  <programme start="20261106140000 +0000" stop="20261106150000 +0000" channel="NuestraTeleInternacional.co@SD">
-    <title>Charla técnica</title>
-    <desc>El análisis, la opinión y el resumen de la jornada deportiva.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261108211500 +0000" stop="20261108221000 +0000" channel="Telemundo.co">
+    <title>Historias de la Virgen morena</title>
+    <sub-title>Hermanos por destino</sub-title>
+    <desc>Dos bebés fueron cambiados al nacer en el hospital. Santiago y Andrés, ahora adolescentes, se enfrentan a una verdad que altera sus vidas y la de sus padres.</desc>
+    <episode-num system="onscreen">E52</episode-num>
+    <date>2013</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
   </programme>
-  <programme start="20261106150000 +0000" stop="20261106153000 +0000" channel="NuestraTeleInternacional.co@SD">
-    <title>Programa pagado</title>
-    <desc>Programa que muestra diversos productos para la venta.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106153000 +0000" stop="20261106160000 +0000" channel="NuestraTeleInternacional.co@SD">
-    <title>Programa pagado</title>
-    <desc>Programa que muestra diversos productos para la venta.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106160000 +0000" stop="20261106163000 +0000" channel="NuestraTeleInternacional.co@SD">
-    <title>Programa pagado</title>
-    <desc>Programa que muestra diversos productos para la venta.</desc>
-    <date>20261106</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261108221000 +0000" stop="20261108230500 +0000" channel="Telemundo.co">
+    <title>Historias de la Virgen morena</title>
+    <sub-title>Un corazón para Raquel</sub-title>
+    <desc>Raquel es una abogada de divorcios despiadada. Ella sufre un infarto y descubre que necesita un trasplante de corazón. Sus sentimientos cambian y decide abandonar su carrera.</desc>
+    <episode-num system="onscreen">E53</episode-num>
+    <date>2013</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
   </programme>
   <programme start="20261106163000 +0000" stop="20261106170000 +0000" channel="NuestraTeleInternacional.co@SD">
     <title>Programa pagado</title>
@@ -3607,14 +3545,6 @@
   <programme start="20261108140900 +0000" stop="20261109000000 +0000" channel="OasisTV.co@SD">
     <title>Фитнес дома – 9</title>
     <date>20261108</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261106140000 +0000" stop="20261106160000 +0000" channel="NTN24.co@SD">
-    <title>La tarde</title>
-    <desc>Análisis y debate sobre las noticias más relevantes de la región y el mundo.</desc>
-    <date>20261106</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
