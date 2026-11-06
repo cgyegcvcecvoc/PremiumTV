@@ -170,6 +170,32 @@ class BackupTest(unittest.TestCase):
         self.assertEqual(len(primary), 2)
         self.assertEqual(backups, [])
 
+    def test_blank_country_merges_with_the_named_feed(self):
+        # An upstream entry with no tvg-country is the same station, not a
+        # second channel: it must become a backup, not stand alone with no
+        # feed to fail over to.
+        channels = [
+            channel("Fuel TV (1080p)", "Sports", "FuelTV.at", "http://a/1.m3u8", "AT"),
+            channel("Fuel TV (720p)", "Sports", "FuelTV.at", "http://b/2.m3u8", ""),
+        ]
+        primary, backups = categorize.split_primary_backups(channels)
+        self.assertEqual(len(primary), 1)
+        self.assertEqual(len(backups), 1)
+        self.assertEqual(backups[0].name, "Fuel TV (Backup 1)")
+        self.assertEqual(backups[0].attrs.get("tvg-id"), "FuelTV.at")
+
+    def test_blank_country_stays_own_group_when_countries_conflict(self):
+        # With two different real countries present, an unknown-country entry
+        # is ambiguous and must not be folded into either one.
+        channels = [
+            channel("ESPN2 (720p)", "Sports", "ESPN2.us", "http://a/1.m3u8", "US"),
+            channel("ESPN2 (720p)", "Sports", "ESPN2.br", "http://b/2.m3u8", "BR"),
+            channel("ESPN2 (540p)", "Sports", "ESPN2.unknown", "http://c/3.m3u8", ""),
+        ]
+        primary, backups = categorize.split_primary_backups(channels)
+        self.assertEqual(len(primary), 3)
+        self.assertEqual(backups, [])
+
     def test_max_backups_caps_the_spares(self):
         channels = [channel(f"NFL Network (feed {index})", "TV", url=f"http://x/{index}.m3u8")
                     for index in range(5)]
@@ -184,8 +210,8 @@ class BackupTest(unittest.TestCase):
         channels = [
             channel("World Poker Tour (1080p)", "Sports", "WorldPokerTour.us", "http://a/1", "US"),
             channel("World Poker Tour (720p)", "Sports", "WorldPokerTour.us", "http://a/2", "US"),
-            channel("World Poker Tour (1080p)", "Sports", "world_poker_tour.intl", "http://b/1", ""),
-            channel("World Poker Tour (720p)", "Sports", "world_poker_tour.intl", "http://b/2", ""),
+            channel("World Poker Tour (1080p)", "Sports", "world_poker_tour.de", "http://b/1", "DE"),
+            channel("World Poker Tour (720p)", "Sports", "world_poker_tour.de", "http://b/2", "DE"),
         ]
         primary, backups = categorize.split_primary_backups(channels)
         self.assertEqual(len(primary), 2)

@@ -270,9 +270,16 @@ internal fun liveEventIndex(channels: List<Channel>): Map<String, LiveEvent> {
 
 /**
  * The playable server list for a channel: the game's other feeds when it is
- * an event, otherwise the channel's backup feeds (same EPG id, same base
- * name - "Pluto TV Kids (Backup 1)" is the same channel as "Pluto TV Kids"),
- * with the selected feed moved to the front.
+ * an event, otherwise the channel's backup feeds, with the selected feed
+ * moved to the front.
+ *
+ * Two feeds count as the same channel when they share the base display name
+ * ("Pluto TV Kids (Backup 1)" is "Pluto TV Kids") and either the same EPG id
+ * or the same known country - the repository folds duplicate links by name
+ * and country, treating a missing country as a wildcard, so matching on
+ * either signal keeps the app in step with the published Backups groups.
+ * Sharing only an id is not enough (an id can be reused by another show), and
+ * two different known countries are different channels.
  */
 internal fun serversFor(channel: Channel, channels: List<Channel>): List<Channel> {
     val event = liveEventIndex(channels)[channel.url]
@@ -281,8 +288,10 @@ internal fun serversFor(channel: Channel, channels: List<Channel>): List<Channel
     } else {
         val base = baseDisplayName(channel.name)
         channels.filter {
-            it.id == channel.id && it.id.isNotBlank() &&
-                baseDisplayName(it.name) == base && it.url != channel.url
+            baseDisplayName(it.name) == base && it.url != channel.url && (
+                it.id == channel.id && it.id.isNotBlank() ||
+                    it.country.isNotBlank() && it.country == channel.country
+                )
         }.let { backups -> listOf(channel) + backups }
     }
     val ordered = ArrayList<Channel>(pool.size)
