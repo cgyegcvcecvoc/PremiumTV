@@ -22,30 +22,28 @@ Daemon will be stopped at the end of the build
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :app:mergeDebugAssets
+> Task :app:processDebugManifestForPackage
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :app:compressDebugAssets
 > Task :app:l8DexDesugarLibDebug FROM-CACHE
-> Task :app:desugarDebugFileDependencies FROM-CACHE
-> Task :app:processDebugManifestForPackage
-> Task :app:checkDebugDuplicateClasses
-> Task :app:mergeDebugStartupProfile
-> Task :app:mergeExtDexDebug FROM-CACHE
 > Task :app:processDebugResources
-> Task :app:mergeLibDexDebug FROM-CACHE
 > Task :app:packageDebugUnitTestForUnitTest
 > Task :app:generateDebugUnitTestConfig
+> Task :app:desugarDebugFileDependencies FROM-CACHE
+> Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugNativeLibs
+> Task :app:mergeExtDexDebug FROM-CACHE
+> Task :app:mergeLibDexDebug FROM-CACHE
 > Task :app:validateSigningDebug
 > Task :app:writeDebugAppMetadata
 > Task :app:writeDebugSigningConfigVersions
-> Task :app:mergeDebugNativeLibs
 
 > Task :app:stripDebugDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libffmpegJNI.so.
 
 > Task :app:compileDebugKotlin
-e: The daemon has terminated unexpectedly on startup attempt #1 with error code: 0. The daemon process output:
-    1. Kotlin compile daemon is ready
 w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1906:27 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'org.json.JSONArray?'.
 
 > Task :app:compileDebugJavaWithJavac
@@ -63,7 +61,7 @@ w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1794094265387.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1794094965453.json
 
-BUILD SUCCESSFUL in 59s
+BUILD SUCCESSFUL in 54s
 47 actionable tasks: 34 executed, 13 from cache
