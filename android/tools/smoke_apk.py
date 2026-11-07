@@ -566,6 +566,26 @@ def big_screen_marker(texts, nodes):
     return next((text for text in texts if "Press Back to tuck this into the side player" in text), None)
 
 
+def first_visible_channel(texts, candidates):
+    """The first candidate whose card title is visible on screen.
+
+    The category rail is a LazyColumn: a category can exist in the library yet
+    sit below the fold, especially as the published group list changes. Pick a
+    channel card from what the viewer can actually see instead, so the player
+    check does not fail on an off-screen rail row. A card title truncated with
+    an ellipsis still counts as visible.
+    """
+    visible = set(texts)
+    for channel in candidates:
+        name = (channel.get("name") or "").strip()
+        if not name:
+            continue
+        if any(text == name or (text.endswith("…") and name.startswith(text.rstrip("…")))
+               for text in visible):
+            return channel
+    return None
+
+
 def dock_closed(texts, nodes):
     """No docked panel on screen any more."""
     return None if any(text == "⤢ Big screen" for text in texts) else texts
@@ -702,23 +722,19 @@ def check_player(meta, channels):
     multi = [channel for channel in channels
              if len(urls_by_id.get(channel.get("id", ""), ())) > 1
              and 0 < len(channel.get("name", "")) <= 28]
-    pool = multi or channels
-    target_channel = pool[0]
+    pool = multi + [channel for channel in channels if channel not in multi]
+
+    tap_tab("Channels")
+
+    target_channel = wait_alive(
+        lambda texts, nodes: first_visible_channel(texts, pool),
+        "a visible channel card",
+    )[0]
     group = target_channel.get("group") or ""
     target = (target_channel.get("name") or "").strip()
     servers = len(urls_by_id.get(target_channel.get("id", ""), ()))
     progress(f"player check: category '{group}', channel '{target}' "
              f"({servers} feed(s) under its EPG id)")
-
-    tap_tab("Channels")
-
-    def category_row(texts, nodes):
-        node = next((node for node in nodes if node.get("text", "") == group), None)
-        return centre_of(node) if node is not None else None
-
-    (x, y), _, _ = wait_alive(category_row, f"the '{group}' category row")
-    adb("shell", "input", "tap", str(x), str(y))
-    time.sleep(1.5)
 
     def card(texts, nodes):
         node = next((node for node in nodes

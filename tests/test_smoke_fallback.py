@@ -104,6 +104,35 @@ class NullRootFallbackTests(unittest.TestCase):
         self.assertIn("sys.exit(INFRASTRUCTURE_EXIT_CODE)", source)
 
 
+class VisibleChannelSelectionTests(unittest.TestCase):
+    """The player check must not depend on an off-screen category row."""
+
+    def test_uses_the_first_candidate_that_is_visible(self):
+        gate = load_gate()
+        acc = {"name": "ACC Digital Network (1080p)"}
+        golf = {"name": "30A Golf Kingdom (720p)"}
+        selected = gate.first_visible_channel(
+            ["30A Golf Kingdom (720p)", "ACC Digital Network (1080p)"],
+            [acc, golf],
+        )
+        self.assertIs(selected, acc)
+
+    def test_a_truncated_card_title_counts_as_visible(self):
+        gate = load_gate()
+        acc = {"name": "ACC Digital Network (1080p)"}
+        self.assertIs(
+            gate.first_visible_channel(["ACC Digital Network (10…"], [acc]),
+            acc,
+        )
+
+    def test_skips_candidates_that_are_not_on_screen(self):
+        gate = load_gate()
+        acc = {"name": "ACC Digital Network (1080p)"}
+        self.assertIsNone(
+            gate.first_visible_channel(["All channels", "Sports"], [acc]),
+        )
+
+
 class ForcedNullRootSwitchTests(unittest.TestCase):
     """The fallback can be exercised on purpose, without a PATH wrapper."""
 
