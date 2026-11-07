@@ -3,6 +3,9 @@ package com.premiumtv.app.ui
 import android.content.Context
 import android.view.KeyEvent as NativeKey
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,7 +14,9 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +26,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -54,12 +61,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.layout.ContentScale
@@ -143,6 +150,11 @@ fun HomeScreen(
     // A channel playing in the docked side player (1.1.2): its panel owns the
     // first Back press, so the browser's own navigation stands aside for it.
     playerDocked: Boolean = false,
+    // 1.1.5 sleep timer: epoch millis, 0 when off. Settings sets it; AppRoot
+    // owns the timer so it keeps running while the viewer browses.
+    sleepTimerEndsAt: Long = 0L,
+    onSetSleepTimer: (Int) -> Unit = {},
+    onCancelSleepTimer: () -> Unit = {},
 ) {
     // Back leaves the Guide or Settings for Channels before it leaves the app,
     // the way a cable box's Back/Exit closes its guide.
@@ -154,6 +166,10 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            // Edge-to-edge is right on a TV, where there are no system bars,
+            // but on a phone the header sat under the status bar. The player
+            // stays full-bleed; only the browser respects the safe area.
+            .windowInsetsPadding(WindowInsets.safeDrawing)
             .onPreviewKeyEvent { event ->
                 // The GUIDE button on a TV remote opens the guide from anywhere.
                 val native = event.nativeKeyEvent
@@ -238,7 +254,8 @@ fun HomeScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
+                    .horizontalScroll(rememberScrollState())
+                    .focusGroup(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 TabChip(HomeTab.Channels.label, tab == HomeTab.Channels) { onTabChange(HomeTab.Channels) }
@@ -306,6 +323,10 @@ fun HomeScreen(
             HomeTab.Settings -> SettingsScreen(
                 library = library,
                 status = status,
+                now = now,
+                sleepTimerEndsAt = sleepTimerEndsAt,
+                onSetSleepTimer = onSetSleepTimer,
+                onCancelSleepTimer = onCancelSleepTimer,
                 refreshInfo = refreshInfo,
                 updateInfo = updateInfo,
                 diagnostics = diagnostics,
@@ -528,7 +549,11 @@ private fun CategoryRail(
             MiniAction("⇅ ${sort.label}") { onCycleSort() }
         }
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            // One focus group with a restorer: returning from a channel puts
+            // the remote back on the category the viewer left, not on row one.
+            modifier = Modifier
+                .fillMaxSize()
+                .focusGroup(),
             contentPadding = PaddingValues(end = 12.dp, bottom = 48.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
@@ -720,7 +745,12 @@ private fun ChannelGrid(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(168.dp),
-        modifier = Modifier.fillMaxSize(),
+        // The grid remembers the focused card when a channel opens and the
+        // player takes the composition away; without the restorer the first
+        // D-pad press after Back started from the top of the grid again.
+        modifier = Modifier
+            .fillMaxSize()
+            .focusGroup(),
         contentPadding = PaddingValues(
             start = SCREEN_GUTTER,
             end = SCREEN_GUTTER,
@@ -884,10 +914,20 @@ private fun EventsScreen(
     // A second-accurate clock for the "Not live yet" countdowns. It only runs
     // while this tab is composed, so leaving the tab stops the ticker.
     var now by remember { mutableStateOf(System.currentTimeMillis() / 1000L) }
-    LaunchedEffect(Unit) {
+    // A one-second clock is only needed while a card shows a kickoff countdown
+    // (inside the hour). Otherwise the tab ticked 60 times a minute and rebuilt
+    // its whole sorted section list for nothing.
+    LaunchedEffect(sections) {
         while (isActive) {
-            delay(1000L)
-            now = System.currentTimeMillis() / 1000L
+            val clock = System.currentTimeMillis() / 1000L
+            now = clock
+            val countdownVisible = sections.any { section ->
+                section.events.any { event ->
+                    val kickoff = event.kickoffUtc
+                    kickoff != null && kickoff > clock && kickoff - clock <= 3_600L
+                }
+            }
+            delay(if (countdownVisible) 1_000L else 30_000L)
         }
     }
     val upcomingCount = sections.sumOf { section ->
@@ -895,7 +935,9 @@ private fun EventsScreen(
     }
     // Live games first, then games counted down to kickoff, then the rest;
     // within each group the sooner kickoff wins.
-    val ordered = remember(sections, feedStatus, now) {
+    // Ordering changes at most once a minute (live/upcoming), even while the
+    // countdown text updates every second.
+    val ordered = remember(sections, feedStatus, now / 60) {
         sections.map { section ->
             val ordered = section.events.sortedWith(
                 compareBy(
@@ -1021,15 +1063,19 @@ private fun EventCard(
     val upcoming = kickoffUtc != null && kickoffUtc > now
     val secondsLeft = kickoffUtc?.let { kickoff -> (kickoff - now).takeIf { left -> left > 0 } }
     var focused by remember { mutableStateOf(false) }
-    val scale by androidx.compose.animation.core.animateFloatAsState(
+    val scale = animateFloatAsState(
         targetValue = if (focused) 1.03f else 1f,
+        animationSpec = tween(durationMillis = 110, easing = FastOutSlowInEasing),
         label = "eventCardScale",
     )
     Surface(
         modifier = Modifier
             .width(320.dp)
             .height(196.dp)
-            .scale(scale)
+            .graphicsLayer {
+                scaleX = scale.value
+                scaleY = scale.value
+            }
             .onFocusChanged { focused = it.isFocused }
             .tvClickable(onClick)
             .focusOutline(focused, RoundedCornerShape(12.dp)),
@@ -1190,7 +1236,10 @@ private fun GuideScreen(
         return
     }
 
-    val entries = remember(library.channels, library.programmes, liveIndex, now) {
+    // The synthetic live-event rows only need a window that contains "now";
+    // rebuilding every channel, remapping every programme and re-sorting the
+    // list once a minute while this tab was open was wasted work.
+    val entries = remember(library.channels, library.programmes, liveIndex) {
         val withGuide = library.channels
             .mapNotNull { channel ->
                 val list = library.programmes[channel.id]
@@ -1421,6 +1470,10 @@ private fun formatMegabytes(bytes: Long): String =
 private fun SettingsScreen(
     library: Library,
     status: String,
+    now: Long,
+    sleepTimerEndsAt: Long = 0L,
+    onSetSleepTimer: (Int) -> Unit = {},
+    onCancelSleepTimer: () -> Unit = {},
     refreshInfo: RefreshInfo,
     updateInfo: AppUpdateState,
     diagnostics: DiagnosticsReport?,
@@ -1556,6 +1609,15 @@ private fun SettingsScreen(
             },
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
+        )
+
+        // ---------------------------------------------------- sleep timer
+        Spacer(modifier = Modifier.height(14.dp))
+        SleepTimerCard(
+            now = now,
+            endsAtMillis = sleepTimerEndsAt,
+            onSet = onSetSleepTimer,
+            onCancel = onCancelSleepTimer,
         )
 
         // --------------------------------------------------- bug check card
@@ -1696,24 +1758,38 @@ private fun CompactStat(label: String, value: String, modifier: Modifier = Modif
 
 @Composable
 private fun CompactRow(label: String, value: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.Top,
-    ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = MutedText,
-            modifier = Modifier.width(190.dp),
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodySmall,
-            color = Color.White,
-            modifier = Modifier.weight(1f),
-        )
+    // Two columns fit a TV comfortably; on a narrow window the fixed 190 dp
+    // label used to squeeze the value to a few characters. Stack instead.
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+        if (maxWidth < 420.dp) {
+            Column {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MutedText,
+                )
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.White,
+                )
+            }
+        } else {
+            Row(verticalAlignment = Alignment.Top) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MutedText,
+                    modifier = Modifier.width(190.dp),
+                )
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.White,
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
     }
 }
 

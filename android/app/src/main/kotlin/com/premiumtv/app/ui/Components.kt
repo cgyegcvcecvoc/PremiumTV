@@ -1,5 +1,6 @@
 package com.premiumtv.app.ui
 
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -25,18 +26,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
-import kotlinx.coroutines.delay
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.composed
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -64,6 +65,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.premiumtv.app.BuildConfig
 import com.premiumtv.app.data.Channel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+/** How long a held OK/centre key counts as a long press on a TV remote. */
+private const val TV_LONG_PRESS_MS = 550L
 
 /**
  * Makes a control operable by touch, accessibility actions and a TV remote.
@@ -72,9 +79,31 @@ import com.premiumtv.app.data.Channel
  * than once by the key listener and again by a generic click detector. Keeping
  * the latest callback in state also avoids a stale lambda if a lazy-list item
  * is reused after its data changes.
+ *
+ * The centre key is consumed on ACTION_DOWN as well as ACTION_UP: a held press
+ * is tracked for [onLongClick] and a release fires exactly one action. 1.1.5
+ * uses that for "hold OK to favourite" on a channel card, which removes the
+ * second focus stop (the little star) from every card's D-pad path.
  */
-fun Modifier.tvClickable(onClick: () -> Unit): Modifier = composed {
+/** The common case: a tap/OK with no long-press action. */
+fun Modifier.tvClickable(onClick: () -> Unit): Modifier =
+    tvClickable(onClick = onClick, onLongClick = null)
+
+fun Modifier.tvClickable(
+    onClick: () -> Unit,
+    onLongClick: (() -> Unit)?,
+): Modifier = composed {
     val currentOnClick = rememberUpdatedState(onClick)
+    val currentOnLongClick = rememberUpdatedState(onLongClick)
+    val scope = rememberCoroutineScope()
+    var pressJob by remember { mutableStateOf<Job?>(null) }
+    var longPressHandled by remember { mutableStateOf(false) }
+
+    fun cancelPress() {
+        pressJob?.cancel()
+        pressJob = null
+    }
+
     this
         .semantics(mergeDescendants = true) {
             role = Role.Button
@@ -89,15 +118,47 @@ fun Modifier.tvClickable(onClick: () -> Unit): Modifier = composed {
             val isSelectKey = native.keyCode == NativeKey.KEYCODE_DPAD_CENTER ||
                 native.keyCode == NativeKey.KEYCODE_ENTER ||
                 native.keyCode == NativeKey.KEYCODE_NUMPAD_ENTER
-            if (native.action == NativeKey.ACTION_UP && isSelectKey) {
-                currentOnClick.value()
-                true
-            } else {
-                false
+            if (!isSelectKey) return@onKeyEvent false
+            when (native.action) {
+                NativeKey.ACTION_DOWN -> {
+                    if (currentOnLongClick.value != null && native.repeatCount == 0) {
+                        longPressHandled = false
+                        cancelPress()
+                        pressJob = scope.launch {
+                            delay(TV_LONG_PRESS_MS)
+                            longPressHandled = true
+                            currentOnLongClick.value?.invoke()
+                        }
+                    }
+                    // Consume the press so a parent cannot act on it too.
+                    true
+                }
+                NativeKey.ACTION_UP -> {
+                    cancelPress()
+                    if (!longPressHandled) currentOnClick.value()
+                    longPressHandled = false
+                    true
+                }
+                else -> false
             }
         }
-        .pointerInput(Unit) {
-            detectTapGestures(onTap = { currentOnClick.value() })
+        .onFocusChanged { state ->
+            // A focus move mid-press must not leave a timer behind that fires
+            // on whatever the viewer is looking at next.
+            if (!state.isFocused) {
+                cancelPress()
+                longPressHandled = false
+            }
+        }
+        .pointerInput(onLongClick != null) {
+            if (onLongClick != null) {
+                detectTapGestures(
+                    onTap = { currentOnClick.value() },
+                    onLongPress = { currentOnLongClick.value?.invoke() },
+                )
+            } else {
+                detectTapGestures(onTap = { currentOnClick.value() })
+            }
         }
 }
 
@@ -115,17 +176,12 @@ internal fun Modifier.focusOutline(
     restColor: Color = Color(0x22FFFFFF),
 ): Modifier {
     if (!focused) return this.border(1.dp, restColor, shape)
+    // Both rings use the control's own shape, so a 22 dp tab pill no longer
+    // gets a 15 dp-cornered outline that visibly cuts its corners. The dark
+    // 5 dp under-stroke leaves 1 dp of contrast on each side of the amber
+    // ring, which keeps it readable on the gold selected tab and on a card.
     return this
-        .drawBehind {
-            val glow = 8.dp.toPx()
-            drawRoundRect(
-                color = FocusRingGlow.copy(alpha = 0.20f),
-                topLeft = Offset(-glow / 2f, -glow / 2f),
-                size = Size(size.width + glow, size.height + glow),
-                cornerRadius = CornerRadius(15.dp.toPx()),
-                style = Stroke(glow),
-            )
-        }
+        .border(5.dp, Color(0xE605080C), shape)
         .border(3.dp, FocusRing, shape)
 }
 
@@ -139,19 +195,25 @@ fun ChannelCard(
     onToggleFavorite: (() -> Unit)? = null,
 ) {
     var focused by remember { mutableStateOf(false) }
-    // 1.0.6 smoothness: a 3% lift instead of 6% — the bigger scale animated
-    // every focus move across a row and read as stutter on TV hardware.
-    val scale by animateFloatAsState(
+    // 1.1.5 smoothness: the 3% lift is applied in the graphics layer and read
+    // in the draw phase. `Modifier.scale(scale)` read the animated value during
+    // composition, so every frame of every focus move recomposed the card and
+    // its artwork — the largest avoidable cost in D-pad browsing on a TV.
+    val scale = animateFloatAsState(
         targetValue = if (focused) 1.03f else 1f,
+        animationSpec = tween(durationMillis = 110, easing = FastOutSlowInEasing),
         label = "channelCardScale",
     )
     Surface(
         modifier = modifier
             .width(168.dp)
             .height(134.dp)
-            .scale(scale)
+            .graphicsLayer {
+                scaleX = scale.value
+                scaleY = scale.value
+            }
             .onFocusChanged { focused = it.isFocused }
-            .tvClickable(onClick)
+            .tvClickable(onClick, onLongClick = onToggleFavorite)
             .focusOutline(focused, RoundedCornerShape(12.dp)),
         shape = RoundedCornerShape(12.dp),
         color = if (focused) CardBackgroundFocused else CardBackground,
@@ -193,11 +255,23 @@ fun ChannelCard(
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center,
                 ) {
+                    // Touch-only: the star is not a second focus stop any more,
+                    // so ▼ on a card goes to the next row instead of stopping
+                    // on every favourite glyph. A remote holds OK instead.
+                    val currentToggle = rememberUpdatedState(onToggleFavorite)
                     Box(
                         modifier = Modifier
-                            .size(26.dp)
-                            .focusable()
-                            .tvClickable { onToggleFavorite() },
+                            .size(28.dp)
+                            .semantics {
+                                role = Role.Button
+                                semanticsOnClick(label = "Favorite") {
+                                    currentToggle.value?.invoke()
+                                    true
+                                }
+                            }
+                            .pointerInput(Unit) {
+                                detectTapGestures { currentToggle.value?.invoke() }
+                            },
                         contentAlignment = Alignment.Center,
                     ) {
                         Text(
@@ -226,12 +300,20 @@ fun ChannelCard(
 @Composable
 fun TabChip(label: String, selected: Boolean, onClick: () -> Unit) {
     var focused by remember { mutableStateOf(false) }
+    // A focused tab always darkens, including the selected one: the amber
+    // pointer ring used to sit on a gold fill with almost no contrast, so
+    // "selected" and "you are here" looked the same. Selected-but-not-focused
+    // keeps the gold plaque.
     val background = when {
-        selected -> PremiumGold
-        focused -> Color(0xFF243040)
+        selected && !focused -> PremiumGold
+        focused -> Color(0xFF1B2531)
         else -> Color(0xFF151C26)
     }
-    val foreground = if (selected) Color(0xFF12160B) else Color(0xFFE6ECF5)
+    val foreground = when {
+        selected && !focused -> Color(0xFF12160B)
+        selected -> PremiumGold
+        else -> Color(0xFFE6ECF5)
+    }
     Surface(
         modifier = Modifier
             .height(44.dp)
@@ -352,22 +434,22 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
             ) > 0f
         }.getOrDefault(true)
     }
-    val rawTarget = (progress ?: 0.14f).coerceIn(0.08f, 1f)
+    val rawTarget = (progress ?: 0.10f).coerceIn(0.06f, 1f)
     var sweepOffset by remember { mutableStateOf(0f) }
-    var stageTrickle by remember(rawTarget) { mutableStateOf(0f) }
-    LaunchedEffect(rawTarget, animationsEnabled) {
+    // The sheen advances in the draw phase (see the Canvas below); this loop
+    // only writes the offset, so it invalidates one bar instead of
+    // recomposing the whole startup screen 22 times a second. The bar itself
+    // shows the loader's real stages and never invents progress.
+    LaunchedEffect(animationsEnabled) {
         if (!animationsEnabled) return@LaunchedEffect
         while (true) {
-            delay(45L)
-            sweepOffset = (sweepOffset + 0.035f) % 1f
-            if (rawTarget < 0.96f && stageTrickle < 0.12f) {
-                stageTrickle = (stageTrickle + 0.004f).coerceAtMost(0.12f)
-            }
+            delay(33L)
+            sweepOffset = (sweepOffset + 0.055f) % 1f
         }
     }
     val fraction by animateFloatAsState(
-        targetValue = (rawTarget + stageTrickle).coerceIn(0.08f, 1f),
-        animationSpec = tween(durationMillis = 260),
+        targetValue = rawTarget,
+        animationSpec = tween(durationMillis = 220),
         label = "loadingLine",
     )
     Box(
@@ -381,12 +463,12 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(horizontal = 48.dp),
         ) {
-            BrandLogo(modifier = Modifier.size(104.dp))
+            BrandLogo(modifier = Modifier.size(92.dp))
             Text(
                 text = "PremiumTV",
                 style = MaterialTheme.typography.headlineMedium,
@@ -400,32 +482,41 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
                 color = MutedText,
                 letterSpacing = 2.sp,
             )
-            Spacer(modifier = Modifier.height(12.dp))
-            // Moving gold loading bar reporting real load stages with a soft travelling highlight.
+            Spacer(modifier = Modifier.height(14.dp))
+            // Determinate gold bar: the fill tracks the loader's real stages
+            // and a single soft highlight travels across it. The highlight is
+            // drawn on the Canvas, so it never triggers a recomposition.
             Box(
                 modifier = Modifier
-                    .width(240.dp)
+                    .width(260.dp)
                     .height(5.dp)
                     .background(Color(0x24FFFFFF), RoundedCornerShape(999.dp)),
             ) {
-                val highlightStart = (sweepOffset * 1.4f - 0.35f).coerceIn(0f, 0.92f)
-                val highlightEnd = (highlightStart + 0.28f).coerceIn(highlightStart + 0.05f, 1f)
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
                         .fillMaxWidth(fraction)
-                        .background(
-                            Brush.horizontalGradient(
-                                0.0f to PremiumGold.copy(alpha = 0.82f),
-                                highlightStart to PremiumGold,
-                                ((highlightStart + highlightEnd) * 0.5f) to Color(0xFFFFF0B3),
-                                highlightEnd to PremiumGold,
-                                1.0f to PremiumGold.copy(alpha = 0.90f),
-                            ),
-                            RoundedCornerShape(999.dp),
-                        ),
+                        .background(PremiumGold, RoundedCornerShape(999.dp)),
                 )
+                Canvas(modifier = Modifier.fillMaxSize()) {
+                    val filled = size.width * fraction
+                    if (filled <= 0f) return@Canvas
+                    clipRect(right = filled) {
+                        val sheen = size.width * 0.30f
+                        val x = sweepOffset * (size.width + sheen * 2f) - sheen
+                        drawRect(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(Color.Transparent, Color(0x88FFF4C8), Color.Transparent),
+                                startX = x,
+                                endX = x + sheen,
+                            ),
+                            topLeft = Offset(x, 0f),
+                            size = Size(sheen, size.height),
+                        )
+                    }
+                }
             }
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
@@ -433,7 +524,6 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
             )
-            LoadingTip()
             Text(
                 text = detail,
                 style = MaterialTheme.typography.bodySmall,
@@ -441,27 +531,16 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
                 textAlign = TextAlign.Center,
             )
         }
-        // The build the viewer is waiting on, pinned where a TV puts credits.
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+        // One quiet credit line instead of two stacked slogans.
+        Text(
+            text = "Version ${BuildConfig.VERSION_NAME}  ·  TV build",
+            style = MaterialTheme.typography.labelSmall,
+            color = PremiumGold.copy(alpha = 0.85f),
+            letterSpacing = 1.1.sp,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 22.dp),
-        ) {
-            Text(
-                text = "Version ${BuildConfig.VERSION_NAME}",
-                style = MaterialTheme.typography.labelSmall,
-                color = PremiumGold.copy(alpha = 0.85f),
-                letterSpacing = 1.4.sp,
-                fontWeight = FontWeight.Medium,
-            )
-            Text(
-                text = "TV build · stable",
-                style = MaterialTheme.typography.labelSmall,
-                color = MutedText.copy(alpha = 0.9f),
-                letterSpacing = 0.8.sp,
-            )
-        }
+                .padding(bottom = 24.dp),
+        )
     }
 }
 

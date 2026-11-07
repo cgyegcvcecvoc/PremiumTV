@@ -1,17 +1,18 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.1.4**
-(`versionCode` `101040000`) with the USA lineup: a channel opens in the docked
+TV guide inside the APK. The default build target is **1.1.5**
+(`versionCode` `101050000`) with the USA lineup: a channel opens in the docked
 side player with built-in transport and audio-track controls and one press on
 the picture goes full screen, an expanded **Movies & Shows** on-demand shelf of
 public-domain films and classic TV with search and genre pills, FFmpeg broadcast
-audio decoding (`AC-3`, `E-AC-3`, `DTS`, `MP2`), a moving gold startup loading
-bar, channel search, category placeholder logos, a **Live Events** tab grouped
+audio decoding (`AC-3`, `E-AC-3`, `DTS`, `MP2`), a calmer real-progress startup
+screen, channel search, category placeholder logos, a **Live Events** tab grouped
 by sport with team crests and kickoff countdowns, automatic multi-server
-playback, and a compact Settings screen with **Force refresh**, **Check for
-update** and an expanded **Check for bugs** (11 checks). 1.1.4 installs over
-1.1.3 and every earlier build, including the retired 1.1.x preview. 1.0.9 is the crash-on-watch fix: earlier, opening a channel could
+playback, a compact Settings screen with **Force refresh**, **Check for update**,
+an expanded **Check for bugs** (11 checks) and a **Sleep timer**, faster D-pad
+focus with a single focus stop per card, and a **long-press OK** favourite. 1.1.5
+installs over 1.1.4 and every earlier build, including the retired 1.1.x preview. 1.0.9 is the crash-on-watch fix: earlier, opening a channel could
 freeze on black after a server fallback because the video surface stayed
 attached to a released player; the player now lives for the whole watch
 screen. (1.0.9 briefly existed as the same-code alias of 1.0.8.1; that
@@ -40,7 +41,7 @@ The same APK works everywhere — navigation is D-pad first, and touch works too
 
 | Build | Source playlist | Source guide | Bundle metadata |
 |---|---|---|---|
-| **1.0.9 build target (default)** | `playlists/live/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no optional features · crash-on-watch player fix; animated splash + hardened bug detection from 1.0.8.1 |
+| **1.1.5 build target (default)** | `playlists/live/USA.m3u` | `EPG/USA.xml` | `library_scope: usa`; no optional features · remote-first speed and focus fixes; real-progress startup; sleep timer |
 
 Both scopes are converted to JSON Lines by [`tools/build_bundle.py`](tools/build_bundle.py)
 and read with `android.util.JsonReader`. This keeps the large XML source off the
@@ -60,9 +61,9 @@ Channels no public guide schedules show "Nothing listed at this hour" or
 
 ## Screens
 
-- **Launch splash** — the drawn PremiumTV television mark with a breathing
-  gold halo, sweeping shimmer bar and pulsing dots, plus the build's version
-  pinned at the bottom while the library loads.
+- **Launch screen** — the drawn PremiumTV television mark, the wordmark and
+  motto, a determinate gold bar driven by the loader's real stages, and one
+  quiet version credit while the library loads.
 - **Channels** — one row per category, in the order the repository publishes
   (`Sports`, `Lifestyle`, `Fox Channels`, `CBS`, `NBC`, …). Each card shows the
   channel logo — or its category's drawn placeholder when it has none — and,
@@ -172,9 +173,9 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Stable build target (USA, 1.0.9, versionCode 100090000)
-python3 tools/build_bundle.py --scope usa --version 1.0.9
-./gradlew -PpremiumTvVersion=1.0.9 -PpremiumTvVersionCode=100090000 assembleDebug
+# Stable build target (USA, 1.1.5, versionCode 101050000)
+python3 tools/build_bundle.py --scope usa --version 1.1.5
+./gradlew -PpremiumTvVersion=1.1.5 -PpremiumTvVersionCode=101050000 assembleDebug
 ```
 
 `app/src/main/assets/bundle/` is gitignored: it is derived data and would go
@@ -271,13 +272,17 @@ open the player on OK and return to the guide on Back, and it saves
 for a large optional bundle (~21 MB of assets against ~6 MB for the stable USA
 bundle), so a slow dump is retried instead of failing the build; a real failure
 writes `build-out/smoke-log.txt`, which branch builds publish. Emulator boot
-failures block publication rather than being counted as app test passes.
+failures block publication rather than being counted as app test passes. If
+`uiautomator` returns a null root for more than 90 seconds, the gate saves
+`build-out/smoke-uiautomator-failure.png` and
+`build-out/smoke-infrastructure.txt` and exits 75: that is an emulator
+infrastructure failure, not a missing channel screen.
 Physical TV and upstream playback checks remain manual.
 
 ### Stable build publication
 
-Ordinary pushes and manual builds default to stable `1.0.9`
-(Android code 100090000). The V-patch/compatibility-alias scheme is retired:
+Ordinary pushes and manual builds default to stable `1.1.5`
+(Android code 101050000). The V-patch/compatibility-alias scheme is retired:
 publish one three-part release and no twin. (Historically, `1.0.7` was the
 alias of `1.0.6.1`, and `1.0.9` briefly of `1.0.8.1`; the alias mapping for
 1.0.7 remains in the policy so those tags still resolve.)
