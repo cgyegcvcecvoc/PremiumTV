@@ -1,5 +1,29 @@
 [
  {
+  "id": "2026-11-07",
+  "date": "2026-11-07",
+  "title": "1.1.5 release gate: keep categories visible in a compact browser",
+  "body_md": "- The Android 1.1.5 smoke run found the category rail's `CATEGORIES` heading\n  wrapping into a tall column beside the long sort chip on phone-sized windows,\n  leaving the channel groups below the fold. The compact rail now stacks its\n  heading and sort control so the first category stays visible; a regression\n  check pins that layout before the release artifact is rebuilt.",
+  "bullets": [
+   "The Android 1.1.5 smoke run found the category rail's `CATEGORIES` heading"
+  ]
+ },
+ {
+  "id": "2026-11-06",
+  "date": "2026-11-06",
+  "title": "Version 1.1.5: remote-first Android release, calmer start, sleep timer",
+  "body_md": "- **Remote responsiveness (Android TV).** Focused cards animate in the graphics layer with a 110 ms tween instead of recomposing every frame; the favourite star is no longer a second focus stop on every card (hold OK favourites, or use the side player's ★); the rail, grid, tabs and Live Events rows are focus groups; the amber outline follows each control's own shape with a dark under-stroke, and a focused selected tab darkens instead of putting amber on gold.\n- **Guide input.** Holding ◀/▶ folds key auto-repeat into at most one cursor move per 90 ms and cancels the previous reveal job, so reveal coroutines no longer queue behind the remote. Select keys are handled on down and up, and a focus change cancels a pending press.\n- **Performance.** Live playback no longer polls the clock twice a second (VOD transport still does), Live Events ticks 1 Hz only while a countdown is visible and re-sorts once a minute, the Guide tab stops remapping every channel once a minute, personal shelves are memoised, and Coil's memory cache is capped at 10% of the heap instead of scaling with `largeHeap`.\n- **Loading screen.** One calm composition with real load stages, no invented progress trickle and no rotating tip; the gold sheen is drawn on a Canvas so it invalidates the bar rather than recomposing the screen.\n- **Layout.** The browser respects system safe-area insets on phones/tablets, Settings rows stack on narrow windows, and the focus ring is drawn inside bounds so it cannot be clipped at a card edge.\n- **New: sleep timer.** Settings → Sleep timer offers Off/30/60/90 minutes; the wall-clock deadline is persisted, closes the player when it arrives and shows a short banner — the control a TV that can play all night was missing.\n- **Version plumbing.** `VERSION` is `1.1.5`; Android `versionCode 101050000`, macOS `1.1.5`. It installs over 1.1.4 and every earlier build, and `app-update-notice.json` now nudges every build below 1.1.5.",
+  "bullets": [
+   "**Remote responsiveness (Android TV).** Focused cards animate in the graphics layer with a 110 ms tween instead of recomposing every frame; the favourite star is no longer a second focus stop on every card (hold OK favourites, or use the side player's ★); the rail, grid, tabs and Live Events rows are focus groups; the amber outline follows each control's own shape with a dark under-stroke, and a focused selected tab darkens instead of putting amber on gold.",
+   "**Guide input.** Holding ◀/▶ folds key auto-repeat into at most one cursor move per 90 ms and cancels the previous reveal job, so reveal coroutines no longer queue behind the remote. Select keys are handled on down and up, and a focus change cancels a pending press.",
+   "**Performance.** Live playback no longer polls the clock twice a second (VOD transport still does), Live Events ticks 1 Hz only while a countdown is visible and re-sorts once a minute, the Guide tab stops remapping every channel once a minute, personal shelves are memoised, and Coil's memory cache is capped at 10% of the heap instead of scaling with `largeHeap`.",
+   "**Loading screen.** One calm composition with real load stages, no invented progress trickle and no rotating tip; the gold sheen is drawn on a Canvas so it invalidates the bar rather than recomposing the screen.",
+   "**Layout.** The browser respects system safe-area insets on phones/tablets, Settings rows stack on narrow windows, and the focus ring is drawn inside bounds so it cannot be clipped at a card edge.",
+   "**New: sleep timer.** Settings → Sleep timer offers Off/30/60/90 minutes; the wall-clock deadline is persisted, closes the player when it arrives and shows a short banner — the control a TV that can play all night was missing.",
+   "**Version plumbing.** `VERSION` is `1.1.5`; Android `versionCode 101050000`, macOS `1.1.5`. It installs over 1.1.4 and every earlier build, and `app-update-notice.json` now nudges every build below 1.1.5."
+  ]
+ },
+ {
   "id": "2026-11-06",
   "date": "2026-11-06",
   "title": "Backup coverage widened: unknown-country feeds now count as the same station",

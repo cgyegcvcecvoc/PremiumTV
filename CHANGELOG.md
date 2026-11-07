@@ -10,6 +10,14 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-07 — 1.1.5 release gate: keep categories visible in a compact browser
+
+- The Android 1.1.5 smoke run found the category rail's `CATEGORIES` heading
+  wrapping into a tall column beside the long sort chip on phone-sized windows,
+  leaving the channel groups below the fold. The compact rail now stacks its
+  heading and sort control so the first category stays visible; a regression
+  check pins that layout before the release artifact is rebuilt.
+
 ## 2026-11-06 — Version 1.1.5: remote-first Android release, calmer start, sleep timer
 
 - **Remote responsiveness (Android TV).** Focused cards animate in the graphics layer with a 110 ms tween instead of recomposing every frame; the favourite star is no longer a second focus stop on every card (hold OK favourites, or use the side player's ★); the rail, grid, tabs and Live Events rows are focus groups; the amber outline follows each control's own shape with a dark under-stroke, and a focused selected tab darkens instead of putting amber on gold.

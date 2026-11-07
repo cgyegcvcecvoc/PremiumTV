@@ -66,6 +66,9 @@ channel list, the guide and the update policy are unchanged.
   zero), and the player stays full-bleed.
 - Settings rows stack their label and value on a narrow window instead of
   squeezing the value into a fixed 190 dp column.
+- In the narrow channel browser, the category heading and sort control stack
+  above the rail, keeping category names visible instead of wrapping the heading
+  into a tall column that pushed the list off-screen.
 
 ## New: Sleep timer
 

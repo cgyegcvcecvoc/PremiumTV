@@ -531,73 +531,105 @@ private fun CategoryRail(
 ) {
     val byGroup = remember(library.channels) { library.channels.groupBy { it.group } }
     val categories = remember(library.groups, sort) { sort.sort(library.groups) }
-    Column(modifier = modifier) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 12.dp, top = 2.dp, bottom = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "CATEGORIES",
-                style = MaterialTheme.typography.labelSmall,
-                color = MutedText,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.2.sp,
-                modifier = Modifier.weight(1f),
-            )
-            MiniAction("⇅ ${sort.label}") { onCycleSort() }
-        }
-        LazyColumn(
-            // One focus group with a restorer: returning from a channel puts
-            // the remote back on the category the viewer left, not on row one.
-            modifier = Modifier
-                .fillMaxSize()
-                .focusGroup(),
-            contentPadding = PaddingValues(end = 12.dp, bottom = 48.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            item(key = "rail|all") {
-                CategoryListRow(
-                    name = "All channels",
-                    count = library.channels.size,
-                    glyph = "▦",
-                    selected = selected == null,
-                    onClick = { onSelect(null) },
-                )
-            }
-            if (recentChannels.isNotEmpty()) {
-                item(key = "shelf|recent") {
-                    CategoryListRow(
-                        name = SHELF_RECENT,
-                        count = recentChannels.size,
-                        glyph = "◷",
-                        selected = selected == SHELF_RECENT,
-                        onClick = { onSelect(SHELF_RECENT) },
+    BoxWithConstraints(modifier = modifier) {
+        // On phone-sized windows the 208 dp rail cannot fit the long sort chip
+        // beside its heading. Keep them stacked so the heading cannot grow to
+        // one letter per line and push every category below the fold.
+        val compactHeader = maxWidth < 260.dp
+        Column(modifier = Modifier.fillMaxSize()) {
+            if (compactHeader) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 12.dp, top = 2.dp, bottom = 6.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    Text(
+                        text = "CATEGORIES",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MutedText,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.2.sp,
+                        maxLines = 1,
+                        softWrap = false,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.fillMaxWidth(),
                     )
+                    MiniAction("⇅ ${sort.label}") { onCycleSort() }
+                }
+            } else {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 12.dp, top = 2.dp, bottom = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "CATEGORIES",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MutedText,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.2.sp,
+                        maxLines = 1,
+                        softWrap = false,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f),
+                    )
+                    MiniAction("⇅ ${sort.label}") { onCycleSort() }
                 }
             }
-            if (favoriteChannels.isNotEmpty()) {
-                item(key = "shelf|favorites") {
+            LazyColumn(
+                // One focus group with a restorer: returning from a channel puts
+                // the remote back on the category the viewer left, not on row one.
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .focusGroup(),
+                contentPadding = PaddingValues(end = 12.dp, bottom = 48.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                item(key = "rail|all") {
                     CategoryListRow(
-                        name = SHELF_FAVORITES,
-                        count = favoriteChannels.size,
-                        glyph = "★",
-                        selected = selected == SHELF_FAVORITES,
-                        onClick = { onSelect(SHELF_FAVORITES) },
+                        name = "All channels",
+                        count = library.channels.size,
+                        glyph = "▦",
+                        selected = selected == null,
+                        onClick = { onSelect(null) },
                     )
                 }
-            }
-            items(items = categories, key = { it.name }) { group ->
-                val channels = byGroup[group.name].orEmpty()
-                if (channels.isNotEmpty()) {
-                    CategoryListRow(
-                        name = group.name,
-                        count = channels.size,
-                        icon = placeholderIconFor(group.name),
-                        selected = selected == group.name,
-                        onClick = { onSelect(group.name) },
-                    )
+                if (recentChannels.isNotEmpty()) {
+                    item(key = "shelf|recent") {
+                        CategoryListRow(
+                            name = SHELF_RECENT,
+                            count = recentChannels.size,
+                            glyph = "◷",
+                            selected = selected == SHELF_RECENT,
+                            onClick = { onSelect(SHELF_RECENT) },
+                        )
+                    }
+                }
+                if (favoriteChannels.isNotEmpty()) {
+                    item(key = "shelf|favorites") {
+                        CategoryListRow(
+                            name = SHELF_FAVORITES,
+                            count = favoriteChannels.size,
+                            glyph = "★",
+                            selected = selected == SHELF_FAVORITES,
+                            onClick = { onSelect(SHELF_FAVORITES) },
+                        )
+                    }
+                }
+                items(items = categories, key = { it.name }) { group ->
+                    val channels = byGroup[group.name].orEmpty()
+                    if (channels.isNotEmpty()) {
+                        CategoryListRow(
+                            name = group.name,
+                            count = channels.size,
+                            icon = placeholderIconFor(group.name),
+                            selected = selected == group.name,
+                            onClick = { onSelect(group.name) },
+                        )
+                    }
                 }
             }
         }

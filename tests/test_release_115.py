@@ -150,6 +150,19 @@ class Layout115Tests(unittest.TestCase):
         player = text(UI / "PlayerScreen.kt")
         self.assertNotIn("windowInsetsPadding", player)
 
+    def test_narrow_category_rail_stacks_its_header_and_keeps_the_list_visible(self):
+        home = text(UI / "HomeScreen.kt")
+        rail = home.split("private fun CategoryRail(", 1)[1].split(
+            "/** A category rail row", 1
+        )[0]
+        self.assertIn("BoxWithConstraints(modifier = modifier)", rail)
+        self.assertIn("val compactHeader = maxWidth < 260.dp", rail)
+        compact_header = rail.split("if (compactHeader)", 1)[1].split("} else {", 1)[0]
+        self.assertIn("Column(", compact_header)
+        self.assertIn('text = "CATEGORIES"', compact_header)
+        self.assertIn("maxLines = 1", compact_header)
+        self.assertIn('MiniAction("⇅ ${sort.label}")', compact_header)
+
     def test_settings_rows_stack_on_a_narrow_window(self):
         home = text(UI / "HomeScreen.kt")
         self.assertIn("maxWidth < 420.dp", home)
