@@ -254,15 +254,19 @@ fun PlayerScreen(
         player.prepare()
     }
 
-    // Poll playback clock for VOD transport controls and periodic resume persistence.
+    // Poll the playback clock only for VOD: its transport bar needs position
+    // and resume persistence. A live channel has no position to show, and the
+    // old 2 Hz loop woke the UI thread and recomposed the panel's details
+    // twice a second for the whole of every live programme.
     LaunchedEffect(player, channel.id, isVodItem) {
+        if (!isVodItem) return@LaunchedEffect
         var ticks = 0
         while (true) {
             positionMs = player.currentPosition.coerceAtLeast(0L)
             val dur = player.duration
             durationMs = if (dur != C.TIME_UNSET && dur > 0L) dur else 0L
             ticks += 1
-            if (isVodItem && durationMs > 0L && ticks % 10 == 0) {
+            if (durationMs > 0L && ticks % 10 == 0) {
                 saveVodPositionMs(context, channel.id, positionMs, durationMs)
             }
             kotlinx.coroutines.delay(500L)

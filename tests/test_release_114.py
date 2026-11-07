@@ -106,14 +106,16 @@ class Version114PlumbingTests(unittest.TestCase):
         import release_version  # noqa: E402
         import version_sync  # noqa: E402
 
-        self.assertEqual(release_version.current_version(), "1.1.4")
+        # 1.1.4 is historical now; its note, code and changelog entry stay
+        # accurate while the current version moves on.
         self.assertEqual(release_version.android_version_code("1.1.4"), 101_040_000)
         self.assertEqual(version_sync.check(), [])
 
         notice = json.loads(text(ROOT / "app-update-notice.json"))
         rules = {rule["id"]: rule for rule in notice["rules"]}
-        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.3")
-        self.assertIn("1.1.4", rules["update-below-newest"]["surprise"])
+        self.assertGreaterEqual(
+            release_version.compare_versions(rules["update-below-newest"]["max_version"], "1.1.4"), 0
+        )
 
         notes = text(ROOT / "release-notes-1.1.4.md")
         self.assertIn("PremiumTV 1.1.4", notes)

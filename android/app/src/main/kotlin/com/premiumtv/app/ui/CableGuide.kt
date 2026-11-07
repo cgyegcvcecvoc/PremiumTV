@@ -1,5 +1,6 @@
 package com.premiumtv.app.ui
 
+import android.os.SystemClock
 import android.view.KeyEvent as NativeKey
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,6 +35,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -65,6 +67,7 @@ import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Library
 import com.premiumtv.app.data.Programme
 import kotlin.math.roundToInt
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 // Sized so a 1080p TV (960x540 dp) shows five channel rows under the detail
@@ -139,6 +142,11 @@ internal fun CableGuideScreen(
     val focusRequester = remember { FocusRequester() }
     var gridFocused by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+    // A held D-pad key auto-repeats every ~50 ms. Each repeat used to launch a
+    // fresh scroll coroutine, so the coroutines queued up and the highlight
+    // fell behind the remote. Keep one reveal job and let it be replaced.
+    var revealJob by remember { mutableStateOf<Job?>(null) }
+    var lastMoveAtMs by remember { mutableLongStateOf(0L) }
     val density = LocalDensity.current
     val currentModel by rememberUpdatedState(model)
     val currentNow by rememberUpdatedState(now)
@@ -181,7 +189,8 @@ internal fun CableGuideScreen(
         /** Scrolls so the highlighted row and show are fully on screen. */
         fun reveal(target: GuideCursor) {
             val model = currentModel
-            scope.launch {
+            revealJob?.cancel()
+            revealJob = scope.launch {
                 val list = state.list
                 val itemIndex = model.itemIndexOfRow[target.row]
                 val layout = list.layoutInfo
@@ -241,19 +250,28 @@ internal fun CableGuideScreen(
                     if (!down) {
                         true
                     } else {
-                        val move = when (native.keyCode) {
-                            NativeKey.KEYCODE_DPAD_UP -> GuideMove.Up
-                            NativeKey.KEYCODE_DPAD_DOWN -> GuideMove.Down
-                            NativeKey.KEYCODE_DPAD_LEFT -> GuideMove.Left
-                            else -> GuideMove.Right
-                        }
-                        val next = moveGuideCursor(model, cursorNow(), move)
-                        if (next == null) {
-                            false
-                        } else {
-                            state.cursor = next
-                            reveal(next)
+                        val nowMs = SystemClock.uptimeMillis()
+                        // Coalesce auto-repeat into at most one cursor move per
+                        // 90 ms; the key still feels continuous, but the guide
+                        // no longer queues work faster than it can scroll.
+                        if (native.repeatCount > 0 && nowMs - lastMoveAtMs < 90L) {
                             true
+                        } else {
+                            lastMoveAtMs = nowMs
+                            val move = when (native.keyCode) {
+                                NativeKey.KEYCODE_DPAD_UP -> GuideMove.Up
+                                NativeKey.KEYCODE_DPAD_DOWN -> GuideMove.Down
+                                NativeKey.KEYCODE_DPAD_LEFT -> GuideMove.Left
+                                else -> GuideMove.Right
+                            }
+                            val next = moveGuideCursor(model, cursorNow(), move)
+                            if (next == null) {
+                                false
+                            } else {
+                                state.cursor = next
+                                reveal(next)
+                                true
+                            }
                         }
                     }
                 }
