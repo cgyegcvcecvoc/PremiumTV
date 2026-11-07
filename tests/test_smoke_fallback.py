@@ -104,5 +104,32 @@ class NullRootFallbackTests(unittest.TestCase):
         self.assertIn("sys.exit(INFRASTRUCTURE_EXIT_CODE)", source)
 
 
+class ForcedNullRootSwitchTests(unittest.TestCase):
+    """The fallback can be exercised on purpose, without a PATH wrapper."""
+
+    def test_the_switch_is_opt_in(self):
+        gate = load_gate()
+        self.assertFalse(gate.parse_args([]).force_null_root)
+        self.assertTrue(gate.parse_args(["--force-null-root"]).force_null_root)
+
+    def test_configure_arms_the_switch_only_when_asked(self):
+        gate = load_gate()
+        with mock.patch.object(gate, "progress"):
+            gate.configure(gate.parse_args(["--force-null-root"]))
+            self.assertTrue(gate._force_null_root)
+            gate.configure(gate.parse_args([]))
+            self.assertFalse(gate._force_null_root)
+
+    def test_forced_dump_fails_without_touching_adb(self):
+        gate = load_gate()
+        gate._force_null_root = True
+        with mock.patch.object(gate.subprocess, "run") as run:
+            with self.assertRaises(gate.UiAutomationUnavailable) as raised:
+                gate.dump_ui()
+        run.assert_not_called()
+        self.assertIn(gate.UI_AUTOMATION_NULL_ROOT, str(raised.exception))
+        self.assertIn("forced", str(raised.exception))
+
+
 if __name__ == "__main__":
     unittest.main()

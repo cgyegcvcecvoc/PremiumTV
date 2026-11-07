@@ -40,7 +40,11 @@ is what makes a failed emulator run diagnosable.
 A uiautomator dump that reports a null root is retried for a short grace
 window. If it persists, the gate saves a screenshot and focus report, writes
 build-out/smoke-infrastructure.txt, and exits 75 instead of blaming the app.
+Pass --force-null-root to reproduce that fallback on purpose: every dump is
+treated as a null root and no dump command is sent, while the screenshot and
+focus report still use the real device. It is off unless asked for.
 """
+import argparse
 import json
 from pathlib import Path
 import re
@@ -67,10 +71,12 @@ UI_DEADLINE_SECONDS = 240
 # A null root means the emulator's accessibility bridge is wedged, not that the
 # channel screen failed to draw. Keep retrying briefly, then fail clearly.
 UI_AUTOMATION_NULL_ROOT = "null root node returned by UiTestAutomationBridge"
+FORCED_NULL_ROOT = f"forced {UI_AUTOMATION_NULL_ROOT}"
 UI_AUTOMATION_GRACE_SECONDS = 90
 INFRASTRUCTURE_EXIT_CODE = 75
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 _infrastructure_reported = False
+_force_null_root = False
 
 
 class UiAutomationUnavailable(RuntimeError):
@@ -136,6 +142,10 @@ def dump_ui():
     A null root is infrastructure trouble, not a malformed app hierarchy, and
     is raised separately so the wait loops can report it honestly.
     """
+    if _force_null_root:
+        # Fault injection for the fallback path: do not ask the device for a
+        # hierarchy at all, so this cannot be mistaken for a real dump.
+        raise UiAutomationUnavailable(FORCED_NULL_ROOT)
     result = subprocess.run(
         ["adb", "shell", "uiautomator", "dump", "/sdcard/premiumtv-ui.xml"],
         text=True, capture_output=True, timeout=DUMP_TIMEOUT_SECONDS,
@@ -751,7 +761,27 @@ def check_live_event(meta, channels):
     progress("LIVE EVENT PASS: a game opened and survived the same chain")
 
 
-def main():
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(
+        description="Install and smoke-test the PremiumTV debug APK on a connected emulator.")
+    parser.add_argument(
+        "--force-null-root",
+        action="store_true",
+        help="treat every uiautomator dump as a null root to exercise the infrastructure fallback",
+    )
+    return parser.parse_args(argv)
+
+
+def configure(args):
+    """Arms run-wide switches before any device work starts."""
+    global _force_null_root
+    _force_null_root = args.force_null_root
+    if _force_null_root:
+        progress("FORCED NULL ROOT: every uiautomator dump will fail as an infrastructure fault")
+
+
+def main(argv=None):
+    configure(parse_args(argv))
     bundle = ROOT / "android/app/src/main/assets/bundle"
     meta = json.loads((bundle / "meta.json").read_text())
     channels = [json.loads(row) for row in (bundle / "channels.jsonl").read_text().splitlines() if row]

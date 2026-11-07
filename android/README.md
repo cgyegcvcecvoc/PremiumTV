@@ -277,6 +277,11 @@ failures block publication rather than being counted as app test passes. If
 `build-out/smoke-uiautomator-failure.png` and
 `build-out/smoke-infrastructure.txt` and exits 75: that is an emulator
 infrastructure failure, not a missing channel screen.
+To reproduce that fallback deliberately, run the gate with
+`python3 android/tools/smoke_apk.py --force-null-root`. Every `uiautomator
+dump` is then treated as a null root (no dump command is sent), while the
+screenshot and focus report still come from the real device. The switch is off
+unless asked for, so a normal gate cannot fail this way by accident.
 Physical TV and upstream playback checks remain manual.
 
 ### Stable build publication
