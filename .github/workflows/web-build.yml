@@ -76,6 +76,15 @@ jobs:
           echo '```text' >> "$GITHUB_STEP_SUMMARY"
           tail -250 /tmp/premiumtv-browser.log >> "$GITHUB_STEP_SUMMARY" || true
           echo '```' >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY'
+          import pathlib, re
+          p = pathlib.Path('/tmp/premiumtv-browser.log')
+          text = re.sub(r'\x1b\[[0-9;]*m', '', p.read_text()) if p.exists() else 'No browser log'
+          # Annotations are readable through the Checks API even when raw log
+          # storage is unavailable to a reviewer. Keep the diagnostic bounded.
+          text = text[-6000:].replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print('::error title=Browser test diagnostics::' + text)
+          PY
       - name: Verify the static export has no native installers or absolute asset paths
         run: python3 tools/verify_export.py
       - uses: actions/upload-artifact@v4
