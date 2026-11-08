@@ -4,18 +4,27 @@ name: Attach Mac installers to a release
 # release tag (for example after a runner-label fix) and the exact-SHA gate
 # in macos-build.yml therefore leaves the Actions artifact unattached.
 # Runs on GitHub-hosted Ubuntu so it can reach Actions artifact storage.
+#
+# Triggered by pushing .github/attach-macos.env (this token cannot dispatch
+# workflows) or by workflow_dispatch once the file is on the default branch.
 
 on:
+  push:
+    paths:
+      - ".github/attach-macos.env"
+      - ".github/workflows/attach-macos-installers.yml"
   workflow_dispatch:
     inputs:
       run_id:
         description: "Actions run id that uploaded PremiumTV-macOS-installers-*"
         type: string
-        required: true
+        required: false
+        default: ""
       tag:
         description: "Release tag to attach to (for example v1.1.5)"
         type: string
-        required: true
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -27,13 +36,33 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
+      - name: Check out the env file
+        uses: actions/checkout@v5
+        with:
+          sparse-checkout: .github/attach-macos.env
+          sparse-checkout-cone-mode: false
+
       - name: Download the Mac installer artifact
         env:
           GH_TOKEN: ${{ github.token }}
-          RUN_ID: ${{ inputs.run_id }}
-          TAG: ${{ inputs.tag }}
+          INPUT_RUN_ID: ${{ github.event.inputs.run_id }}
+          INPUT_TAG: ${{ github.event.inputs.tag }}
         run: |
           set -euo pipefail
+          RUN_ID="${INPUT_RUN_ID:-}"
+          TAG="${INPUT_TAG:-}"
+          if [ -f .github/attach-macos.env ]; then
+            # shellcheck disable=SC1091
+            . .github/attach-macos.env
+          fi
+          RUN_ID="${INPUT_RUN_ID:-$RUN_ID}"
+          TAG="${INPUT_TAG:-$TAG}"
+          if [ -z "$RUN_ID" ] || [ -z "$TAG" ]; then
+            echo "::error::RUN_ID and TAG are required (workflow inputs or .github/attach-macos.env)"
+            exit 1
+          fi
+          echo "run_id=$RUN_ID" >> "$GITHUB_ENV"
+          echo "tag=$TAG" >> "$GITHUB_ENV"
           mkdir -p installers
           gh run download "$RUN_ID" -D installers --repo "$GITHUB_REPOSITORY"
           find installers -type f -printf '%p %s\n'
@@ -41,11 +70,9 @@ jobs:
       - name: Attach to the release
         env:
           GH_TOKEN: ${{ github.token }}
-          RUN_ID: ${{ inputs.run_id }}
-          TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
-          version="${TAG#v}"
+          version="${tag#v}"
           mapfile -t files < <(find installers -type f \( \
             -name "PremiumTV-${version}-mac-*.dmg" -o \
             -name "PremiumTV-${version}-mac-*.pkg" -o \
@@ -55,12 +82,12 @@ jobs:
             find installers -type f
             exit 1
           fi
-          tagged=$(git ls-remote "https://github.com/${GITHUB_REPOSITORY}.git" "refs/tags/$TAG" | cut -f1)
+          tagged=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${tag}" --jq .object.sha)
           {
             printf 'PremiumTV %s\n' "$version"
             printf 'Source commit: %s\n' "${tagged:-unknown}"
-            printf 'Build: https://github.com/%s/actions/runs/%s\n' "$GITHUB_REPOSITORY" "$RUN_ID"
+            printf 'Build: https://github.com/%s/actions/runs/%s\n' "$GITHUB_REPOSITORY" "$run_id"
           } > BUILD-SOURCE-macos.txt
-          gh release upload "$TAG" "${files[@]}" BUILD-SOURCE-macos.txt --clobber --repo "$GITHUB_REPOSITORY"
-          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets \
+          gh release upload "$tag" "${files[@]}" BUILD-SOURCE-macos.txt --clobber --repo "$GITHUB_REPOSITORY"
+          gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json assets \
             --jq '"release now carries: " + ([.assets[].name] | join(", "))'
