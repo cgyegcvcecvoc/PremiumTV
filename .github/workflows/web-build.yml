@@ -82,7 +82,9 @@ jobs:
           text = re.sub(r'\x1b\[[0-9;]*m', '', p.read_text()) if p.exists() else 'No browser log'
           # Annotations are readable through the Checks API even when raw log
           # storage is unavailable to a reviewer. Keep the diagnostic bounded.
-          text = text[-6000:].replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          failures = re.search(r'\n  1\) ', text)
+          text = (text[failures.start():] if failures else text)[-6000:]
+          text = text.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
           print('::error title=Browser test diagnostics::' + text)
           PY
       - name: Verify the static export has no native installers or absolute asset paths
