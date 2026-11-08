@@ -1,10 +1,24 @@
 "use strict";
 const { defineConfig, devices } = require("@playwright/test");
+// GitHub's Ubuntu runner includes stable Chrome (H.264/AAC capable). Playwright's
+// bundled headless Chromium on Linux is not a reliable codec reference. WebKit
+// must never inherit CHROMIUM_PATH: that local override is Chromium-only.
+const chromiumLaunch = {
+  channel: process.env.CI ? "chrome" : undefined,
+  executablePath: process.env.CHROMIUM_PATH || undefined,
+};
 const projects = [
-  { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+  {
+    name: "chromium",
+    use: { ...devices["Desktop Chrome"], launchOptions: chromiumLaunch },
+  },
   {
     name: "iphone",
-    use: { ...devices["iPhone 13"], defaultBrowserType: "chromium" },
+    use: {
+      ...devices["iPhone 13"],
+      defaultBrowserType: "chromium",
+      launchOptions: chromiumLaunch,
+    },
   },
 ];
 // Real WebKit is run in CI after `npx playwright install webkit`. The phone
@@ -26,7 +40,6 @@ module.exports = defineConfig({
     baseURL: "http://127.0.0.1:4173",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
-    launchOptions: { executablePath: process.env.CHROMIUM_PATH || undefined },
   },
   projects,
   webServer: {
