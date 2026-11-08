@@ -1,0 +1,107 @@
+name: PremiumTV Web checks and static artifact
+
+# Independent of VERSION, native build workflows and GitHub Releases. A web
+# deploy is a static site artifact, never an APK/DMG/PKG or a release tag.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "web/**"
+      - "macos/app/src/renderer/category-icons.js"
+      - "macos/app/src/renderer/live-events.js"
+      - "macos/app/src/renderer/personal.js"
+      - "macos/app/src/renderer/health.js"
+      - "android/tools/build_bundle.py"
+      - "playlists/live/**"
+      - "playlists/vod/**"
+      - "playlists/team-logos.json"
+      - "playlists/live-schedule.json"
+      - "categories/index.json"
+      - "EPG/USA.xml"
+      - ".github/workflows/web-build.yml"
+  push:
+    branches: ["**"]
+    tags-ignore: ["**"]
+    paths:
+      - "web/**"
+      - ".github/workflows/web-build.yml"
+  workflow_run:
+    workflows:
+      [
+        "Scrape playlists",
+        "Quick playlist update",
+        "Build merged and country EPG guides",
+      ]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+concurrency:
+  group: premiumtv-web-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  web:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - name: Install browser test engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Desktop, touch and real WebKit smoke tests
+        run: |
+          set -o pipefail
+          WEBKIT_TESTS=1 npm run test:browser 2>&1 | tee /tmp/premiumtv-browser.log
+      - name: Summarize browser failures for reviewers
+        if: failure()
+        run: |
+          echo '## Browser test failure details' >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          tail -250 /tmp/premiumtv-browser.log >> "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY'
+          import pathlib, re
+          p = pathlib.Path('/tmp/premiumtv-browser.log')
+          text = re.sub(r'\x1b\[[0-9;]*m', '', p.read_text()) if p.exists() else 'No browser log'
+          # Annotations are readable through the Checks API even when raw log
+          # storage is unavailable to a reviewer. Keep the diagnostic bounded.
+          failures = re.search(r'\n  1\) ', text)
+          text = (text[failures.start():] if failures else text)[-6000:]
+          text = text.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print('::error title=Browser test diagnostics::' + text)
+          PY
+      - name: Verify the static export has no native installers or absolute asset paths
+        run: python3 tools/verify_export.py
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: premiumtv-web-static
+          path: |
+            web/dist/
+            !web/dist/**/*.gz
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: web-browser-failure-traces
+          path: web/test-results/
+          if-no-files-found: ignore
+          retention-days: 7

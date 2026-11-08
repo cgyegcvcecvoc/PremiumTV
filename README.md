@@ -11,6 +11,15 @@ familiar names, and a searchable category grid — and is generated from
 `playlists/PremiumTV.m3u` by `scripts/build_site_data.py`, so the page cannot
 advertise a channel the playlist does not carry.
 
+## PremiumTV Web (independent browser edition)
+
+A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuses the checked USA lineup, XMLTV guide, on-demand catalog and native apps' personal-shelf/event policies without changing the Android or macOS releases. Channels, categories, search, favorites, recents, guide/timeline, live-event listings, movies, backup servers, transport controls, diagnostics and a sleep timer are included. iOS uses native HLS; other browsers use pinned HLS/MPEG-TS libraries when supported.
+
+- **Web URL after the Pages deployment:** https://cgyegcvcecvoc.github.io/PremiumTV/web/
+- **Local:** `cd web && npm ci && npm run build && npm start` → port 3000.
+- **Independent CI/static artifact:** `.github/workflows/web-build.yml`; no release tag, APK, DMG or PKG is produced.
+- **Browser limits:** provider CORS restrictions, custom headers, mixed HTTP content and unsupported codecs can prevent playback. The web player reports these honestly and tries backups; it does not bypass browser security. The native apps remain the broader-compatibility option.
+
 ## Change log
 
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.

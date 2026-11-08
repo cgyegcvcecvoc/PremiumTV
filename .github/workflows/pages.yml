@@ -34,6 +34,7 @@ on:
       - "main"
     paths:
       - "docs/**"
+      - "web/**"
       - "hub/**"
       - "CHANGELOG.md"
       - "release-notes-*.md"
@@ -165,6 +166,22 @@ jobs:
           python hub/build_data.py
           python hub/export_static.py
           cp -a hub/dist/static-site docs/hub
+
+      # The web player is a separate static app under /web/. This publishes
+      # web files only; it does not bump VERSION or create a native release.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Build and verify the independent web player
+        run: |
+          npm ci --no-audit --no-fund
+          npm test
+          npm run build
+          python tools/verify_export.py
+          cp -a dist ../docs/web
+        working-directory: web
 
       - name: Enable Pages (first run) and configure the deployment
         id: pages
