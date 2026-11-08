@@ -28,6 +28,11 @@ on:
         description: "Check everything, but do not create the release"
         type: boolean
         default: false
+      attach_macos_run_id:
+        description: "Skip publishing; attach Mac installers from this Actions run to tag v<version>"
+        type: string
+        default: ""
+        required: false
 
 permissions:
   contents: write
@@ -40,6 +45,7 @@ concurrency:
 jobs:
   publish:
     name: Create the GitHub release
+    if: ${{ inputs.attach_macos_run_id == '' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 80
     steps:
@@ -178,3 +184,55 @@ jobs:
             echo "* title: ${{ steps.release.outputs.title }}"
             echo "* notes: \`${{ steps.release.outputs.notes }}\`"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # Recovery: a Mac build can succeed on a later commit (runner-label fix)
+  # after the tag is already published. The exact-SHA gate in macos-build.yml
+  # then leaves the Actions artifact unattached. This job downloads that
+  # artifact on a GitHub-hosted runner and uploads the installers.
+  attach-macos:
+    name: Attach Mac installers from an Actions run
+    if: ${{ inputs.attach_macos_run_id != '' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Download the Mac installer artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.attach_macos_run_id }}
+        run: |
+          set -euo pipefail
+          mkdir -p installers
+          gh run download "$RUN_ID" -D installers --repo "$GITHUB_REPOSITORY"
+          find installers -type f -printf '%p %s\n'
+
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.attach_macos_run_id }}
+          VERSION_INPUT: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          version="$VERSION_INPUT"
+          if [ -z "$version" ]; then
+            version=$(gh api "repos/$GITHUB_REPOSITORY/contents/VERSION?ref=${GITHUB_SHA}" \
+              --jq '.content' | base64 -d | tr -d '[:space:]')
+          fi
+          tag="v$version"
+          mapfile -t files < <(find installers -type f \( \
+            -name "PremiumTV-${version}-mac-*.dmg" -o \
+            -name "PremiumTV-${version}-mac-*.pkg" -o \
+            -name "SHA256SUMS-macos.txt" \))
+          if [ "${#files[@]}" -lt 5 ]; then
+            echo "::error::Expected 4 installers + SHA256SUMS-macos.txt, found: ${files[*]:-none}"
+            find installers -type f
+            exit 1
+          fi
+          tagged=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${tag}" --jq .object.sha)
+          {
+            printf 'PremiumTV %s\n' "$version"
+            printf 'Source commit: %s\n' "${tagged:-unknown}"
+            printf 'Build: https://github.com/%s/actions/runs/%s\n' "$GITHUB_REPOSITORY" "$RUN_ID"
+          } > BUILD-SOURCE-macos.txt
+          gh release upload "$tag" "${files[@]}" BUILD-SOURCE-macos.txt --clobber --repo "$GITHUB_REPOSITORY"
+          gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json assets \
+            --jq '"release now carries: " + ([.assets[].name] | join(", "))'
