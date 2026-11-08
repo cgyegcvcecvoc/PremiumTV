@@ -10,6 +10,13 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-08 — Version 1.1.5 readiness follow-up
+
+- **Custom addition: channel-number quick tune on Android.** Enter a published numeric channel number, including decimal subchannels when the remote sends a period key; press OK or pause briefly to tune. Repeats are coalesced, Back or D-pad navigation cancels, duplicate numbers follow playlist order, missing numbers get an on-screen message, and the active search field still receives digits.
+- **Focus and playback state.** Tab, rail, grid and Live Events focus groups now restore their previous focus stop on re-entry. The shared ExoPlayer's lifecycle observer is keyed to the selected channel so VOD resume positions are not saved under a stale channel id.
+- **Startup work reduced.** Removed the Android loading bar's continuously running 30 Hz sheen; its determinate fill still follows real loader progress and no longer causes draw invalidations between stages.
+- **Manual inspection.** Added [`docs/RELEASE-1.1.5-INSPECTION.md`](docs/RELEASE-1.1.5-INSPECTION.md) with the app architecture, release workflow and inspected publication state. No playlist/EPG scrape was run as part of this code-only follow-up.
+
 ## 2026-11-06 — Version 1.1.5: remote-first Android release, calmer start, sleep timer
 
 - **Remote responsiveness (Android TV).** Focused cards animate in the graphics layer with a 110 ms tween instead of recomposing every frame; the favourite star is no longer a second focus stop on every card (hold OK favourites, or use the side player's ★); the rail, grid, tabs and Live Events rows are focus groups; the amber outline follows each control's own shape with a dark under-stroke, and a focused selected tab darkens instead of putting amber on gold.

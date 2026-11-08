@@ -60,6 +60,7 @@ class RemoteResponsiveness115Tests(unittest.TestCase):
     def test_focus_groups_keep_dpad_traversal_inside_the_active_shelf(self):
         home = text(UI / "HomeScreen.kt")
         self.assertIn("focusGroup()", home)
+        self.assertIn("focusRestorer()", home)
         self.assertIn("private fun ChannelGrid(", home)
 
     def test_the_pointer_ring_follows_its_shape_and_has_contrast(self):
@@ -77,11 +78,41 @@ class RemoteResponsiveness115Tests(unittest.TestCase):
         self.assertIn("SystemClock.uptimeMillis()", guide)
         self.assertIn("lastMoveAtMs", guide)
 
+    def test_channel_number_entry_does_not_steal_digits_from_active_search(self):
+        home = text(UI / "HomeScreen.kt")
+        tuner = text(UI / "ChannelNumberTuner.kt")
+        self.assertIn("channelNumberCharacterForKey(native.keyCode)", home)
+        self.assertIn("if (searchEditing) return@onPreviewKeyEvent false", home)
+        self.assertIn("onEditingChanged = { searchEditing = it }", home)
+        self.assertIn("fun changeEditing(value: Boolean)", home)
+        self.assertIn("BackHandler(enabled = editing)", home)
+        self.assertIn("BackHandler(enabled = channelNumber.isNotBlank()", home)
+        self.assertIn("KEYCODE_DPAD_RIGHT", home)
+        self.assertIn("CHANNEL_NUMBER_ENTRY_DELAY_MS", home)
+        self.assertIn("findChannelByNumber(currentChannels.value, number)", home)
+        self.assertIn("Press OK to tune now, or wait a moment", home)
+        self.assertIn("Search · remote digits tune", home)
+        self.assertIn("KeyEvent.KEYCODE_9", tuner)
+        self.assertIn("KeyEvent.KEYCODE_PERIOD", tuner)
+        self.assertIn("stripTrailingZeros()", tuner)
+        self.assertIn("firstOrNull", tuner)
+        self.assertIn("channelNumberCharacterForKey", text(
+            ROOT / "android/app/src/test/kotlin/com/premiumtv/app/ui/ChannelNumberTunerTest.kt"
+        ))
+
 
 class RenderAndMemory115Tests(unittest.TestCase):
     def test_live_playback_does_not_poll_the_vod_clock(self):
         player = text(UI / "PlayerScreen.kt")
         self.assertIn("if (!isVodItem) return@LaunchedEffect", player)
+
+    def test_player_lifecycle_observer_tracks_the_active_channel(self):
+        player = text(UI / "PlayerScreen.kt")
+        self.assertIn(
+            "DisposableEffect(player, lifecycleOwner, channel.id, channel.url, isVodItem)",
+            player,
+        )
+        self.assertIn("saveVodPositionMs(context, channel.id, player.currentPosition, durationMs)", player)
 
     def test_live_events_only_ticks_fast_for_a_visible_countdown(self):
         home = text(UI / "HomeScreen.kt")
@@ -106,13 +137,13 @@ class RenderAndMemory115Tests(unittest.TestCase):
 
 
 class LoadingScreen115Tests(unittest.TestCase):
-    def test_the_loading_screen_uses_real_progress_only(self):
+    def test_the_loading_screen_uses_real_progress_without_a_background_ticker(self):
         components = text(UI / "Components.kt")
-        self.assertNotIn("stageTrickle", components)
-        self.assertIn("fillMaxWidth(fraction)", components)
-        # The moving highlight is a Canvas draw, not a composition value.
-        self.assertIn("Canvas(modifier = Modifier.fillMaxSize())", components)
-        self.assertIn("sweepOffset * (size.width + sheen * 2f)", components)
+        loading = components.split("fun LoadingScreen(", 1)[1].split("fun LoadErrorScreen(", 1)[0]
+        self.assertNotIn("stageTrickle", loading)
+        self.assertIn("fillMaxWidth(fraction)", loading)
+        self.assertNotIn("sweepOffset", loading)
+        self.assertNotIn("LaunchedEffect(", loading)
 
     def test_the_rotating_tip_is_not_part_of_the_startup_screen(self):
         components = text(UI / "Components.kt")

@@ -295,7 +295,10 @@ fun PlayerScreen(
     // Leaving the app pauses; coming back resumes only if the viewer had not
     // paused it themselves.
     val lifecycleOwner = LocalLifecycleOwner.current
-    DisposableEffect(player, lifecycleOwner) {
+    // Channel identity belongs to this observer: PlayerScreen reuses one
+    // ExoPlayer when the viewer switches feeds/channels, so an unkeyed effect
+    // would keep saving lifecycle changes under the first channel's id.
+    DisposableEffect(player, lifecycleOwner, channel.id, channel.url, isVodItem) {
         var resumeOnStart = false
         val observer = LifecycleEventObserver { _, event ->
             when (event) {

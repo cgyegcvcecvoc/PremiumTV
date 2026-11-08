@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
+
 package com.premiumtv.app.ui
 
 import android.content.Context
@@ -30,6 +32,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -57,12 +60,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -255,6 +260,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState())
+                    .focusRestorer()
                     .focusGroup(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -368,10 +374,59 @@ private fun CategoriesScreen(
     var categorySort by rememberSaveable { mutableStateOf(CategorySort.Published) }
     var channelSort by rememberSaveable { mutableStateOf(ChannelSort.Default) }
     var query by rememberSaveable { mutableStateOf("") }
+    var searchEditing by remember { mutableStateOf(false) }
+    var channelNumber by remember { mutableStateOf("") }
+    var channelNumberMessage by remember { mutableStateOf<String?>(null) }
+    var consumeSelectUntilUp by remember { mutableStateOf(false) }
+    val currentChannels = rememberUpdatedState(library.channels)
+    val currentOnSelect = rememberUpdatedState(onSelect)
     val trimmed = query.trim()
 
-    BackHandler(enabled = selectedCategory != null && !playerDocked) {
-        selectedCategory = null
+    fun tuneEnteredChannel(number: String) {
+        channelNumber = ""
+        val channel = findChannelByNumber(currentChannels.value, number)
+        if (channel == null) {
+            channelNumberMessage = "No channel $number"
+        } else {
+            channelNumberMessage = "Tuning to $number · ${channel.name}"
+            currentOnSelect.value(channel)
+        }
+    }
+
+    val selectChannel = remember {
+        { channel: Channel ->
+            channelNumber = ""
+            channelNumberMessage = null
+            currentOnSelect.value(channel)
+        }
+    }
+
+    LaunchedEffect(channelNumber, searchEditing) {
+        if (channelNumber.isBlank() || searchEditing) return@LaunchedEffect
+        val entered = channelNumber
+        delay(CHANNEL_NUMBER_ENTRY_DELAY_MS)
+        tuneEnteredChannel(entered)
+    }
+    LaunchedEffect(searchEditing) {
+        if (searchEditing) {
+            channelNumber = ""
+            channelNumberMessage = null
+        }
+    }
+    LaunchedEffect(channelNumberMessage) {
+        if (channelNumberMessage != null) {
+            delay(1_500L)
+            channelNumberMessage = null
+        }
+    }
+
+    BackHandler(enabled = channelNumber.isNotBlank() || (selectedCategory != null && !playerDocked)) {
+        if (channelNumber.isNotBlank()) {
+            channelNumber = ""
+            channelNumberMessage = null
+        } else {
+            selectedCategory = null
+        }
     }
 
     // Search is library-wide: a remote's on-screen keyboard is painful enough
@@ -390,7 +445,57 @@ private fun CategoriesScreen(
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .onPreviewKeyEvent { event ->
+                val native = event.nativeKeyEvent
+                val selectKey = native.keyCode == NativeKey.KEYCODE_DPAD_CENTER ||
+                    native.keyCode == NativeKey.KEYCODE_ENTER ||
+                    native.keyCode == NativeKey.KEYCODE_NUMPAD_ENTER
+
+                // Once the tuner consumes OK-down, consume repeats and its
+                // matching up-event too; otherwise the focused card could
+                // receive only the release and launch a second channel.
+                if (selectKey && consumeSelectUntilUp) {
+                    if (native.action == NativeKey.ACTION_UP) consumeSelectUntilUp = false
+                    return@onPreviewKeyEvent true
+                }
+                if (searchEditing) return@onPreviewKeyEvent false
+                val navigationKey = native.keyCode == NativeKey.KEYCODE_DPAD_UP ||
+                    native.keyCode == NativeKey.KEYCODE_DPAD_DOWN ||
+                    native.keyCode == NativeKey.KEYCODE_DPAD_LEFT ||
+                    native.keyCode == NativeKey.KEYCODE_DPAD_RIGHT
+                if (navigationKey && channelNumber.isNotBlank() && native.action == NativeKey.ACTION_DOWN) {
+                    channelNumber = ""
+                    channelNumberMessage = null
+                }
+                if (selectKey && channelNumber.isNotBlank() && native.action == NativeKey.ACTION_DOWN) {
+                    consumeSelectUntilUp = true
+                    tuneEnteredChannel(channelNumber)
+                    return@onPreviewKeyEvent true
+                }
+
+                val character = channelNumberCharacterForKey(native.keyCode)
+                if (character != null) {
+                    if (native.action == NativeKey.ACTION_DOWN && native.repeatCount == 0) {
+                        when {
+                            character in '0'..'9' &&
+                                channelNumber.count { it in '0'..'9' } < CHANNEL_NUMBER_MAX_DIGITS -> {
+                                channelNumber += character
+                            }
+                            character == '.' && channelNumber.isNotBlank() && '.' !in channelNumber -> {
+                                channelNumber += character
+                            }
+                        }
+                        channelNumberMessage = null
+                    }
+                    return@onPreviewKeyEvent native.action == NativeKey.ACTION_DOWN ||
+                        native.action == NativeKey.ACTION_UP
+                }
+                false
+            },
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -400,6 +505,7 @@ private fun CategoriesScreen(
             ChannelSearchField(
                 query = query,
                 onQueryChange = { query = it },
+                onEditingChanged = { searchEditing = it },
                 modifier = Modifier.weight(1f),
             )
         }
@@ -407,103 +513,165 @@ private fun CategoriesScreen(
         // A real TV has the width for a 300 dp rail; a narrow window (or a
         // phone-sized emulator) keeps more room for the channel grid.
         val railWidth = if (LocalConfiguration.current.screenWidthDp < 700) 208.dp else 300.dp
-        Row(modifier = Modifier.weight(1f).fillMaxWidth()) {
-            CategoryRail(
-                library = library,
-                sort = categorySort,
-                selected = if (matches == null) selectedCategory else null,
-                recentChannels = recentChannels,
-                favoriteChannels = favoriteChannels,
-                onSelect = {
-                    selectedCategory = it
-                    query = ""
+        Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxSize()) {
+                CategoryRail(
+                    library = library,
+                    sort = categorySort,
+                    selected = if (matches == null) selectedCategory else null,
+                    recentChannels = recentChannels,
+                    favoriteChannels = favoriteChannels,
+                    onSelect = {
+                        channelNumber = ""
+                        channelNumberMessage = null
+                        selectedCategory = it
+                        query = ""
+                    },
+                    onCycleSort = { categorySort = categorySort.next },
+                    modifier = Modifier
+                        .width(railWidth)
+                        .fillMaxHeight()
+                        .padding(start = SCREEN_GUTTER),
+                )
+
+                // A hairline between the two panes: on a big screen the eye needs
+                // the same boundary a cable box uses.
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .width(1.dp)
+                        .background(PanelStroke),
+                )
+
+                val found = matches
+                if (found != null) {
+                    Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                        PaneHeader(
+                            title = "${found.size} channels match “$trimmed”",
+                            subtitle = "Searching every category",
+                            actionLabel = "Sort · ${channelSort.label}",
+                            onAction = { channelSort = channelSort.next },
+                        )
+                        if (found.isEmpty()) {
+                            CenteredMessage(
+                                "No channels match “$trimmed”.\n\nTry part of a name, a category like News, " +
+                                    "or a country like US.",
+                            )
+                        } else {
+                            ChannelGrid(
+                                channels = remember(found, channelSort) { channelSort.sort(found) },
+                                programmes = library.programmes,
+                                liveIndex = liveIndex,
+                                now = now,
+                                favoriteUrls = favoriteUrls,
+                                onToggleFavorite = onToggleFavorite,
+                                onSelect = selectChannel,
+                            )
+                        }
+                    }
+                } else {
+                    val channels = remember(
+                        library.channels, selectedCategory, recentChannels, favoriteChannels,
+                    ) {
+                        when (selectedCategory) {
+                            null -> library.channels
+                            SHELF_RECENT -> recentChannels
+                            SHELF_FAVORITES -> favoriteChannels
+                            else -> library.channels.filter { it.group == selectedCategory }
+                        }
+                    }
+                    val visible = remember(channels, channelSort) { channelSort.sort(channels) }
+                    val title = when (selectedCategory) {
+                        null -> "All channels"
+                        else -> selectedCategory.orEmpty()
+                    }
+                    Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                        PaneHeader(
+                            title = title,
+                            subtitle = "${visible.size} channels" +
+                                if (selectedCategory != null) " in this category" else "",
+                            actionLabel = "Sort · ${channelSort.label}",
+                            onAction = { channelSort = channelSort.next },
+                        )
+                        if (visible.isEmpty()) {
+                            CenteredMessage(
+                                when (selectedCategory) {
+                                    SHELF_RECENT -> "Nothing here yet. Channels you open show up here."
+                                    SHELF_FAVORITES -> "No favorites yet. Press ☆ on a channel to add one."
+                                    else -> "No channels are published in this category right now."
+                                },
+                            )
+                        } else {
+                            ChannelGrid(
+                                channels = visible,
+                                programmes = library.programmes,
+                                liveIndex = liveIndex,
+                                now = now,
+                                favoriteUrls = favoriteUrls,
+                                onToggleFavorite = onToggleFavorite,
+                                onSelect = selectChannel,
+                            )
+                        }
+                    }
+                }
+            }
+            if (channelNumber.isNotBlank() || channelNumberMessage != null) {
+                ChannelNumberOverlay(
+                    number = channelNumber,
+                    message = channelNumberMessage,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(end = SCREEN_GUTTER, bottom = SCREEN_GUTTER),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ChannelNumberOverlay(
+    number: String,
+    message: String?,
+    modifier: Modifier = Modifier,
+) {
+    val notFound = message?.startsWith("No channel") == true
+    Surface(
+        modifier = modifier.widthIn(max = 420.dp),
+        shape = RoundedCornerShape(14.dp),
+        color = Color(0xF0141C26),
+        border = BorderStroke(
+            1.dp,
+            if (notFound) Color(0xFFFF8A80) else FocusRing.copy(alpha = 0.85f),
+        ),
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(3.dp),
+        ) {
+            Text(
+                text = when {
+                    notFound -> "CHANNEL NOT FOUND"
+                    message != null -> "TUNING"
+                    else -> "TUNE TO CHANNEL"
                 },
-                onCycleSort = { categorySort = categorySort.next },
-                modifier = Modifier
-                    .width(railWidth)
-                    .fillMaxHeight()
-                    .padding(start = SCREEN_GUTTER),
+                style = MaterialTheme.typography.labelSmall,
+                color = if (notFound) Color(0xFFFF8A80) else PremiumGold,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp,
             )
-
-            // A hairline between the two panes: on a big screen the eye needs
-            // the same boundary a cable box uses.
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(1.dp)
-                    .background(PanelStroke),
+            Text(
+                text = message ?: number,
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.White,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
-
-            val found = matches
-            if (found != null) {
-                Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                    PaneHeader(
-                        title = "${found.size} channels match “$trimmed”",
-                        subtitle = "Searching every category",
-                        actionLabel = "Sort · ${channelSort.label}",
-                        onAction = { channelSort = channelSort.next },
-                    )
-                    if (found.isEmpty()) {
-                        CenteredMessage(
-                            "No channels match “$trimmed”.\n\nTry part of a name, a category like News, " +
-                                "or a country like US.",
-                        )
-                    } else {
-                        ChannelGrid(
-                            channels = remember(found, channelSort) { channelSort.sort(found) },
-                            programmes = library.programmes,
-                            liveIndex = liveIndex,
-                            now = now,
-                            favoriteUrls = favoriteUrls,
-                            onToggleFavorite = onToggleFavorite,
-                            onSelect = onSelect,
-                        )
-                    }
-                }
-            } else {
-                val channels = remember(
-                    library.channels, selectedCategory, recentChannels, favoriteChannels,
-                ) {
-                    when (selectedCategory) {
-                        null -> library.channels
-                        SHELF_RECENT -> recentChannels
-                        SHELF_FAVORITES -> favoriteChannels
-                        else -> library.channels.filter { it.group == selectedCategory }
-                    }
-                }
-                val visible = remember(channels, channelSort) { channelSort.sort(channels) }
-                val title = when (selectedCategory) {
-                    null -> "All channels"
-                    else -> selectedCategory.orEmpty()
-                }
-                Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                    PaneHeader(
-                        title = title,
-                        subtitle = "${visible.size} channels" +
-                            if (selectedCategory != null) " in this category" else "",
-                        actionLabel = "Sort · ${channelSort.label}",
-                        onAction = { channelSort = channelSort.next },
-                    )
-                    if (visible.isEmpty()) {
-                        CenteredMessage(
-                            when (selectedCategory) {
-                                SHELF_RECENT -> "Nothing here yet. Channels you open show up here."
-                                SHELF_FAVORITES -> "No favorites yet. Press ☆ on a channel to add one."
-                                else -> "No channels are published in this category right now."
-                            },
-                        )
-                    } else {
-                        ChannelGrid(
-                            channels = visible,
-                            programmes = library.programmes,
-                            liveIndex = liveIndex,
-                            now = now,
-                            favoriteUrls = favoriteUrls,
-                            onToggleFavorite = onToggleFavorite,
-                            onSelect = onSelect,
-                        )
-                    }
-                }
+            if (message == null) {
+                Text(
+                    text = "Press OK to tune now, or wait a moment",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
             }
         }
     }
@@ -549,10 +717,11 @@ private fun CategoryRail(
             MiniAction("⇅ ${sort.label}") { onCycleSort() }
         }
         LazyColumn(
-            // One focus group with a restorer: returning from a channel puts
-            // the remote back on the category the viewer left, not on row one.
+            // Restore the last row when D-pad traversal leaves and re-enters
+            // the category rail instead of starting at row one each time.
             modifier = Modifier
                 .fillMaxSize()
+                .focusRestorer()
                 .focusGroup(),
             contentPadding = PaddingValues(end = 12.dp, bottom = 48.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -745,11 +914,11 @@ private fun ChannelGrid(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(168.dp),
-        // The grid remembers the focused card when a channel opens and the
-        // player takes the composition away; without the restorer the first
-        // D-pad press after Back started from the top of the grid again.
+        // The restorer sends D-pad traversal back to the last focused card
+        // after it leaves the grid for another focus group.
         modifier = Modifier
             .fillMaxSize()
+            .focusRestorer()
             .focusGroup(),
         contentPadding = PaddingValues(
             start = SCREEN_GUTTER,
@@ -793,6 +962,7 @@ private fun ChannelGrid(
 private fun ChannelSearchField(
     query: String,
     onQueryChange: (String) -> Unit,
+    onEditingChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var focused by remember { mutableStateOf(false) }
@@ -800,11 +970,21 @@ private fun ChannelSearchField(
     val keyboard = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val editFocus = remember { FocusRequester() }
+    fun changeEditing(value: Boolean) {
+        if (editing == value) return
+        editing = value
+        onEditingChanged(value)
+    }
     LaunchedEffect(editing) {
         if (editing) {
             editFocus.requestFocus()
             keyboard?.show()
         }
+    }
+    BackHandler(enabled = editing) {
+        keyboard?.hide()
+        changeEditing(false)
+        focusManager.clearFocus()
     }
     Surface(
         modifier = modifier
@@ -812,7 +992,7 @@ private fun ChannelSearchField(
             .onFocusChanged { focused = it.isFocused }
             // Activation is a click/OK only: focus (the TV "hover") highlights
             // the field but must not open the keyboard or start a search.
-            .then(if (editing) Modifier else Modifier.tvClickable { editing = true })
+            .then(if (editing) Modifier else Modifier.tvClickable { changeEditing(true) })
             .focusOutline(focused, RoundedCornerShape(24.dp)),
         shape = RoundedCornerShape(24.dp),
         color = if (focused) CardBackgroundFocused else CardBackground,
@@ -833,7 +1013,7 @@ private fun ChannelSearchField(
             Box(modifier = Modifier.weight(1f)) {
                 if (query.isEmpty()) {
                     Text(
-                        text = if (editing) "Type to search…" else "Click OK to search channels…",
+                        text = if (editing) "Type to search…" else "Search · remote digits tune",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MutedText,
                     )
@@ -848,7 +1028,7 @@ private fun ChannelSearchField(
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(
                             onSearch = {
-                                editing = false
+                                changeEditing(false)
                                 keyboard?.hide()
                                 focusManager.clearFocus()
                             },
@@ -1028,7 +1208,7 @@ private fun EventsScreen(
                     )
                 }
                 LazyRow(
-                    modifier = Modifier.focusGroup(),
+                    modifier = Modifier.focusRestorer().focusGroup(),
                     contentPadding = PaddingValues(horizontal = SCREEN_GUTTER),
                     horizontalArrangement = Arrangement.spacedBy(CARD_GAP),
                 ) {
