@@ -103,8 +103,8 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertEqual(notice["releases_url"], f"{CANONICAL}/releases/latest")
         self.assertEqual(notice["repo_url"], CANONICAL)
         rules = {rule["id"]: rule for rule in notice["rules"]}
-        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.3")
-        self.assertIn("1.1.4", rules["update-below-newest"]["surprise"])
+        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.4")
+        self.assertIn("1.1.5", rules["update-below-newest"]["surprise"])
 
     def test_bundle_builder_publishes_canonical_raw_urls(self):
         builder = text("android/tools/build_bundle.py")
@@ -118,17 +118,17 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertEqual(build_site_data.PAGES_URL,
                          "https://cgyegcvcecvoc.github.io/PremiumTV/")
 
-    def test_blocked_page_links_to_the_1_1_4_installers(self):
+    def test_blocked_page_links_to_the_1_1_5_installers(self):
         page = text("docs/blocked/index.html")
         for asset in (
-            "PremiumTV-1.1.4-debug.apk",
-            "PremiumTV-1.1.4-mac-arm64.dmg",
-            "PremiumTV-1.1.4-mac-x64.dmg",
+            "PremiumTV-1.1.5-debug.apk",
+            "PremiumTV-1.1.5-mac-arm64.dmg",
+            "PremiumTV-1.1.5-mac-x64.dmg",
         ):
             self.assertIn(
-                f"{CANONICAL}/releases/download/v1.1.4/{asset}", page)
+                f"{CANONICAL}/releases/download/v1.1.5/{asset}", page)
         self.assertIn(f"{CANONICAL}/releases/latest", page)
-        self.assertIn("versionCode 101040000", page)
+        self.assertIn("versionCode 101050000", page)
 
     def test_download_page_and_docs_use_the_canonical_repository(self):
         for name in ("README.md", "docs/UPDATES.md", "hub/DEPLOY.md",

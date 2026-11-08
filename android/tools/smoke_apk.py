@@ -36,11 +36,21 @@ On failure the logcat tail and the last UI dump are written to
 build-out/smoke-log.txt. Actions logs live behind a host some sandboxes cannot
 reach, and for branch builds build-out/ is committed back to the branch, which
 is what makes a failed emulator run diagnosable.
+
+A uiautomator dump that reports a null root is retried for a short grace
+window. If it persists, the gate saves a screenshot and focus report, writes
+build-out/smoke-infrastructure.txt, and exits 75 instead of blaming the app.
+Pass --force-null-root to reproduce that fallback on purpose: every dump is
+treated as a null root and no dump command is sent, while the screenshot and
+focus report still use the real device. It is off unless asked for.
 """
+import argparse
 import json
 from pathlib import Path
 import re
+import struct
 import subprocess
+import sys
 import time
 import xml.etree.ElementTree as ET
 
@@ -57,6 +67,20 @@ DUMP_TIMEOUT_SECONDS = 120
 # The stable bundle settles well inside a minute; the global one needs longer
 # because the guide it parses on start is ~3.4x bigger.
 UI_DEADLINE_SECONDS = 240
+
+# A null root means the emulator's accessibility bridge is wedged, not that the
+# channel screen failed to draw. Keep retrying briefly, then fail clearly.
+UI_AUTOMATION_NULL_ROOT = "null root node returned by UiTestAutomationBridge"
+FORCED_NULL_ROOT = f"forced {UI_AUTOMATION_NULL_ROOT}"
+UI_AUTOMATION_GRACE_SECONDS = 90
+INFRASTRUCTURE_EXIT_CODE = 75
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+_infrastructure_reported = False
+_force_null_root = False
+
+
+class UiAutomationUnavailable(RuntimeError):
+    """The emulator could not expose a UI hierarchy; this is not an app verdict."""
 
 
 def adb(*args, timeout=ADB_TIMEOUT_SECONDS):
@@ -113,9 +137,28 @@ GUIDE_DEADLINE_SECONDS = 240
 
 
 def dump_ui():
-    """One uiautomator dump: (xml text, parsed nodes)."""
-    adb("shell", "uiautomator", "dump", "/sdcard/premiumtv-ui.xml", timeout=DUMP_TIMEOUT_SECONDS)
+    """One uiautomator dump: (xml text, parsed nodes).
+
+    A null root is infrastructure trouble, not a malformed app hierarchy, and
+    is raised separately so the wait loops can report it honestly.
+    """
+    if _force_null_root:
+        # Fault injection for the fallback path: do not ask the device for a
+        # hierarchy at all, so this cannot be mistaken for a real dump.
+        raise UiAutomationUnavailable(FORCED_NULL_ROOT)
+    result = subprocess.run(
+        ["adb", "shell", "uiautomator", "dump", "/sdcard/premiumtv-ui.xml"],
+        text=True, capture_output=True, timeout=DUMP_TIMEOUT_SECONDS,
+    )
+    output = f"{result.stdout or ''}\n{result.stderr or ''}".strip()
+    if UI_AUTOMATION_NULL_ROOT in output:
+        raise UiAutomationUnavailable(UI_AUTOMATION_NULL_ROOT)
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(
+            result.returncode, result.args, result.stdout, result.stderr)
     xml = adb("shell", "cat", "/sdcard/premiumtv-ui.xml", timeout=DUMP_TIMEOUT_SECONDS)
+    if not xml.lstrip().startswith("<"):
+        raise UiAutomationUnavailable("uiautomator wrote no hierarchy")
     return xml, list(ET.fromstring(xml).iter("node"))
 
 
@@ -140,27 +183,107 @@ def progress(line):
         pass
 
 
+def png_summary(data):
+    """The size recorded in a PNG's IHDR, for the fallback report."""
+    if len(data) >= 24 and data[12:16] == b"IHDR":
+        width, height = struct.unpack(">II", data[16:24])
+        return f"{width}x{height}"
+    return "unknown dimensions"
+
+
 def screenshot(name):
-    """Saves the emulator screen to build-out/<name> (PNG)."""
+    """Save the emulator screen to build-out/<name>; return its path or None."""
     out = ROOT / "build-out"
     out.mkdir(parents=True, exist_ok=True)
     try:
         data = subprocess.check_output(["adb", "exec-out", "screencap", "-p"], timeout=ADB_TIMEOUT_SECONDS)
-        if data.startswith(b"\x89PNG"):
-            (out / name).write_bytes(data)
-            print(f"saved build-out/{name} ({len(data) // 1024} KB)")
-    except subprocess.SubprocessError as error:
+    except (subprocess.SubprocessError, OSError) as error:
         print(f"screenshot {name} skipped: {error}")
+        return None
+    if not data.startswith(PNG_SIGNATURE):
+        print(f"screenshot {name} skipped: adb returned {len(data)} bytes, not a PNG")
+        return None
+    try:
+        path = out / name
+        path.write_bytes(data)
+    except OSError as error:
+        print(f"screenshot {name} skipped: {error}")
+        return None
+    print(f"saved build-out/{name} ({len(data) // 1024} KB, {png_summary(data)})")
+    return path
+
+
+def fail_ui_automation(label, detail, last_dump=""):
+    """Record a null-root/UI-automation failure as infrastructure, not an app bug.
+
+    The screenshot and focus state are evidence for a human. They deliberately
+    do not turn into a pass: without a UI hierarchy the gate cannot claim the
+    channel, Guide or player assertions ran.
+    """
+    reason = f"{label}: UI automation unavailable ({detail})"
+    progress(f"SMOKE INFRASTRUCTURE FAILURE: {reason}")
+    shot = screenshot("smoke-uiautomator-failure.png")
+    focus = "unavailable"
+    pid = "unavailable"
+    try:
+        focus = adb("shell", "dumpsys", "window", timeout=60)
+    except subprocess.SubprocessError as error:
+        focus = f"unavailable: {error}"
+    try:
+        pid = adb("shell", "pidof", PACKAGE, timeout=30).strip() or "not running"
+    except subprocess.SubprocessError as error:
+        pid = f"unavailable: {error}"
+    focus_lines = [line.strip() for line in focus.splitlines()
+                   if "mCurrentFocus" in line or "mFocusedApp" in line]
+    body = "\n".join([
+        "SMOKE INFRASTRUCTURE FAILURE",
+        f"reason: {reason}",
+        f"app process: {pid}",
+        "=== focus ===",
+        "\n".join(focus_lines) or "(no focus line)",
+        "=== screenshot ===",
+        str(shot) if shot else "not captured (screencap unavailable)",
+        "=== last UI dump ===",
+        (last_dump or "(none)")[:20000],
+    ])
+    try:
+        out = ROOT / "build-out"
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "smoke-infrastructure.txt").write_text(body, encoding="utf-8")
+        (out / "smoke-log.txt").write_text(body, encoding="utf-8")
+        global _infrastructure_reported
+        _infrastructure_reported = True
+    except OSError as error:
+        print(f"could not write the infrastructure report: {error}")
+    print(body[:12000])
+    raise UiAutomationUnavailable(reason)
+
+
+def require_ui(label):
+    """One dump where a null root is itself the failure, with evidence."""
+    try:
+        return dump_ui()
+    except UiAutomationUnavailable as error:
+        fail_ui_automation(label, f"UI automation unavailable: {error}")
+
+
+def needs_diagnose(error):
+    """Only a genuine gate failure may replace the infrastructure report."""
+    return (not isinstance(error, UiAutomationUnavailable)
+            and "process died" not in str(error)
+            and "not seen" not in str(error))
 
 
 def wait_for(check, label):
     """Polls the UI until check(texts) is truthy; returns (value, texts, xml)."""
     deadline = time.monotonic() + GUIDE_DEADLINE_SECONDS
     last_xml, last_texts, last_error = "", [], ""
+    ui_failure_since = None
     while time.monotonic() < deadline:
         try:
             last_xml, nodes = dump_ui()
             last_texts = texts_of(nodes)
+            ui_failure_since = None
             # The update check is asynchronous: the popup can arrive after the
             # channel list has already drawn and land on top of the Guide tab.
             if dismiss_update_notice(last_texts, nodes):
@@ -168,9 +291,17 @@ def wait_for(check, label):
             value = check(last_texts, nodes)
             if value:
                 return value, last_texts, last_xml
+        except UiAutomationUnavailable as error:
+            if ui_failure_since is None:
+                ui_failure_since = time.monotonic()
+            last_error = f"UI automation unavailable: {error}"
+            if time.monotonic() - ui_failure_since >= UI_AUTOMATION_GRACE_SECONDS:
+                fail_ui_automation(label, last_error, last_xml)
         except (subprocess.SubprocessError, ET.ParseError) as error:
             last_error = f"{type(error).__name__}: {error}"
         time.sleep(2)
+    if ui_failure_since is not None:
+        fail_ui_automation(label, last_error, last_xml)
     diagnose(f"{label} not seen within {GUIDE_DEADLINE_SECONDS} seconds. "
              f"Texts: {sorted(set(last_texts))[:40]} {last_error}", last_xml)
     raise RuntimeError(f"{label} not seen in time")
@@ -333,6 +464,7 @@ def wait_alive(check, label, deadline_seconds=PLAYER_DEADLINE_SECONDS):
     """
     deadline = time.monotonic() + deadline_seconds
     last_xml, last_texts, last_error = "", [], ""
+    ui_failure_since = None
     while time.monotonic() < deadline:
         if not process_alive():
             diagnose(f"{label}: the app process is gone (crash while opening/using the player). "
@@ -341,14 +473,23 @@ def wait_alive(check, label, deadline_seconds=PLAYER_DEADLINE_SECONDS):
         try:
             last_xml, nodes = dump_ui()
             last_texts = texts_of(nodes)
+            ui_failure_since = None
             if dismiss_update_notice(last_texts, nodes):
                 continue
             value = check(last_texts, nodes)
             if value:
                 return value, last_texts, last_xml
+        except UiAutomationUnavailable as error:
+            if ui_failure_since is None:
+                ui_failure_since = time.monotonic()
+            last_error = f"UI automation unavailable: {error}"
+            if time.monotonic() - ui_failure_since >= UI_AUTOMATION_GRACE_SECONDS:
+                fail_ui_automation(label, last_error, last_xml)
         except (subprocess.SubprocessError, ET.ParseError) as error:
             last_error = f"{type(error).__name__}: {error}"
         time.sleep(2)
+    if ui_failure_since is not None:
+        fail_ui_automation(label, last_error, last_xml)
     diagnose(f"{label} not seen within {deadline_seconds} seconds. "
              f"Process alive: {process_alive()}. Texts: {sorted(set(last_texts))[:40]} {last_error}",
              last_xml)
@@ -370,7 +511,7 @@ def tap_text(nodes, predicate, label):
 def close_side_player():
     """If the side player card is up, close it so playback actually stops."""
     try:
-        _, nodes = dump_ui()
+        _, nodes = require_ui("closing the side player")
     except (subprocess.SubprocessError, ET.ParseError):
         return
     texts = texts_of(nodes)
@@ -379,25 +520,35 @@ def close_side_player():
         time.sleep(1.5)
 
 
-def poll_ui(check, seconds):
+def poll_ui(check, seconds, label="the UI poll"):
     """Quietly polls the UI for check(texts, nodes); None when time runs out.
 
     For outcomes that are allowed not to happen (a feed that simply plays, a
     bundle with no live games): wait_alive's diagnose-on-timeout would bury
-    the real evidence under a non-failure.
+    the real evidence under a non-failure. A null root still fails as
+    infrastructure, because skipping an optional check is not a pass.
     """
     deadline = time.monotonic() + seconds
+    ui_failure_since = None
     while time.monotonic() < deadline:
         if not process_alive():
             return None
         try:
             _, nodes = dump_ui()
+            ui_failure_since = None
             value = check(texts_of(nodes), nodes)
             if value:
                 return value
+        except UiAutomationUnavailable as error:
+            if ui_failure_since is None:
+                ui_failure_since = time.monotonic()
+            if time.monotonic() - ui_failure_since >= UI_AUTOMATION_GRACE_SECONDS:
+                fail_ui_automation(label, f"UI automation unavailable: {error}")
         except (subprocess.SubprocessError, ET.ParseError):
             pass
         time.sleep(3)
+    if ui_failure_since is not None:
+        fail_ui_automation(label, "UI automation unavailable during the poll")
     return None
 
 
@@ -413,6 +564,26 @@ def big_screen_marker(texts, nodes):
     line, and the big screen composes it in every state - playing, buffering
     and the error card alike."""
     return next((text for text in texts if "Press Back to tuck this into the side player" in text), None)
+
+
+def first_visible_channel(texts, candidates):
+    """The first candidate whose card title is visible on screen.
+
+    The category rail is a LazyColumn: a category can exist in the library yet
+    sit below the fold, especially as the published group list changes. Pick a
+    channel card from what the viewer can actually see instead, so the player
+    check does not fail on an off-screen rail row. A card title truncated with
+    an ellipsis still counts as visible.
+    """
+    visible = set(texts)
+    for channel in candidates:
+        name = (channel.get("name") or "").strip()
+        if not name:
+            continue
+        if any(text == name or (text.endswith("…") and name.startswith(text.rstrip("…")))
+               for text in visible):
+            return channel
+    return None
 
 
 def dock_closed(texts, nodes):
@@ -489,7 +660,7 @@ def exercise_player_transitions(meta, context):
     # Manual server hop, when this channel has more than one server: the same
     # player-rebuild path the automatic fallback takes, on demand.
     try:
-        _, nodes = dump_ui()
+        _, nodes = require_ui(f"the manual server hop ({context})")
         if tap_text(nodes, lambda text: text == "Server ▶", "manual server hop"):
             time.sleep(6)
             if not process_alive():
@@ -501,7 +672,7 @@ def exercise_player_transitions(meta, context):
 
     # Grow the docked picture to the big screen: the same PlayerScreen and the
     # same ExoPlayer, so the stream must not restart.
-    _, nodes = dump_ui()
+    _, nodes = require_ui(f"the side player grow ({context})")
     tap_text(nodes, lambda text: text == "⤢ Big screen", "side player grow")
     wait_alive(big_screen_marker, f"the big screen ({context})")
     time.sleep(3)
@@ -551,23 +722,19 @@ def check_player(meta, channels):
     multi = [channel for channel in channels
              if len(urls_by_id.get(channel.get("id", ""), ())) > 1
              and 0 < len(channel.get("name", "")) <= 28]
-    pool = multi or channels
-    target_channel = pool[0]
+    pool = multi + [channel for channel in channels if channel not in multi]
+
+    tap_tab("Channels")
+
+    target_channel = wait_alive(
+        lambda texts, nodes: first_visible_channel(texts, pool),
+        "a visible channel card",
+    )[0]
     group = target_channel.get("group") or ""
     target = (target_channel.get("name") or "").strip()
     servers = len(urls_by_id.get(target_channel.get("id", ""), ()))
     progress(f"player check: category '{group}', channel '{target}' "
              f"({servers} feed(s) under its EPG id)")
-
-    tap_tab("Channels")
-
-    def category_row(texts, nodes):
-        node = next((node for node in nodes if node.get("text", "") == group), None)
-        return centre_of(node) if node is not None else None
-
-    (x, y), _, _ = wait_alive(category_row, f"the '{group}' category row")
-    adb("shell", "input", "tap", str(x), str(y))
-    time.sleep(1.5)
 
     def card(texts, nodes):
         node = next((node for node in nodes
@@ -610,7 +777,27 @@ def check_live_event(meta, channels):
     progress("LIVE EVENT PASS: a game opened and survived the same chain")
 
 
-def main():
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(
+        description="Install and smoke-test the PremiumTV debug APK on a connected emulator.")
+    parser.add_argument(
+        "--force-null-root",
+        action="store_true",
+        help="treat every uiautomator dump as a null root to exercise the infrastructure fallback",
+    )
+    return parser.parse_args(argv)
+
+
+def configure(args):
+    """Arms run-wide switches before any device work starts."""
+    global _force_null_root
+    _force_null_root = args.force_null_root
+    if _force_null_root:
+        progress("FORCED NULL ROOT: every uiautomator dump will fail as an infrastructure fault")
+
+
+def main(argv=None):
+    configure(parse_args(argv))
     bundle = ROOT / "android/app/src/main/assets/bundle"
     meta = json.loads((bundle / "meta.json").read_text())
     channels = [json.loads(row) for row in (bundle / "channels.jsonl").read_text().splitlines() if row]
@@ -628,14 +815,14 @@ def main():
         deadline = time.monotonic() + UI_DEADLINE_SECONDS
         last_dump = ""
         last_error = ""
+        ui_failure_since = None
+        label = f"the {'cold-launch' if attempt == 0 else 'relaunch'} channel UI"
         while time.monotonic() < deadline:
             try:
-                adb("shell", "uiautomator", "dump", "/sdcard/premiumtv-ui.xml", timeout=DUMP_TIMEOUT_SECONDS)
-                xml = adb("shell", "cat", "/sdcard/premiumtv-ui.xml", timeout=DUMP_TIMEOUT_SECONDS)
-                last_dump = xml
-                nodes = ET.fromstring(xml)
-                texts = {node.get("text", "") for node in nodes.iter("node")}
-                if dismiss_update_notice(texts, list(nodes.iter("node"))):
+                last_dump, nodes = dump_ui()
+                ui_failure_since = None
+                texts = {node.get("text", "") for node in nodes}
+                if dismiss_update_notice(texts, nodes):
                     continue
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
                 named = [value for value in texts for name in names if name and name in value]
@@ -653,17 +840,27 @@ def main():
                         # only skip when this run already wrote one (mtime check
                         # via the progress file's own trail is overkill - the log
                         # existing AND the failure coming from wait_alive means
-                        # diagnose() has just run).
-                        if "process died" not in str(error) and "not seen" not in str(error):
+                        # diagnose() has just run). A UI-automation failure is
+                        # infrastructure: diagnose() must not overwrite its
+                        # screenshot-backed report with an app-crash verdict.
+                        if needs_diagnose(error):
                             diagnose(f"Guide/player check crashed: {type(error).__name__}: {error}\n"
                                      f"{traceback.format_exc()}", last_dump)
                         raise
                     return
                 last_error = f"channel count seen: {count}; visible channel names: {named[:3]}; texts: {sorted(texts)[:12]}"
+            except UiAutomationUnavailable as error:
+                if ui_failure_since is None:
+                    ui_failure_since = time.monotonic()
+                last_error = f"UI automation unavailable: {error}"
+                if time.monotonic() - ui_failure_since >= UI_AUTOMATION_GRACE_SECONDS:
+                    fail_ui_automation(label, last_error, last_dump)
             except (subprocess.SubprocessError, ET.ParseError) as error:
                 # A dump that did not finish is not evidence of a broken app.
                 last_error = f"{type(error).__name__}: {error}"
             time.sleep(2)
+        if ui_failure_since is not None:
+            fail_ui_automation(label, last_error, last_dump)
         diagnose(f"APK did not show bundled channels within {UI_DEADLINE_SECONDS} seconds "
                  f"(attempt {'cold launch' if attempt == 0 else 'relaunch'}). Last check: {last_error}",
                  last_dump)
@@ -671,4 +868,16 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except UiAutomationUnavailable as error:
+        # Direct dump call sites should go through require_ui(), but keep this
+        # safety net so no null root can exit without its screenshot report.
+        if not _infrastructure_reported:
+            try:
+                fail_ui_automation("the smoke run", str(error))
+            except UiAutomationUnavailable:
+                pass
+        print(f"SMOKE INFRASTRUCTURE FAILURE (exit {INFRASTRUCTURE_EXIT_CODE}): {error}",
+              file=sys.stderr)
+        sys.exit(INFRASTRUCTURE_EXIT_CODE)

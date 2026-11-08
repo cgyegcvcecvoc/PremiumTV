@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -84,6 +85,49 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
         deadUrls = health.deadUrls()
     }
 
+    // 1.1.5 sleep timer: a wall-clock deadline, so it survives a refresh, a
+    // docked flip and a process restart. AppRoot owns the wait, which means it
+    // also keeps ticking while the viewer browses beside the side player.
+    val sleepTimer = remember(appContext) { SleepTimer(appContext) }
+    var sleepTimerEndsAt by remember { mutableStateOf(sleepTimer.endAtMillis()) }
+    var sleepNotice by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        // Expired while the app was not running: nothing is playing yet, so
+        // just disarm it instead of showing a notice for a player that is not up.
+        if (sleepTimerEndsAt in 1L until System.currentTimeMillis()) {
+            sleepTimer.clear()
+            sleepTimerEndsAt = 0L
+        }
+    }
+    LaunchedEffect(sleepTimerEndsAt) {
+        val endsAt = sleepTimerEndsAt
+        if (endsAt <= 0L) return@LaunchedEffect
+        val remaining = endsAt - System.currentTimeMillis()
+        if (remaining > 0L) delay(remaining)
+        if (System.currentTimeMillis() < endsAt) return@LaunchedEffect
+        val hadPlayer = playing != null
+        playing = null
+        sidePlayer = false
+        sleepTimer.clear()
+        sleepTimerEndsAt = 0L
+        sleepNotice = hadPlayer
+    }
+    LaunchedEffect(sleepNotice) {
+        if (sleepNotice) {
+            delay(15_000L)
+            sleepNotice = false
+        }
+    }
+    val setSleepTimer: (Int) -> Unit = { minutes ->
+        sleepTimer.setMinutes(minutes)
+        sleepTimerEndsAt = sleepTimer.endAtMillis()
+        sleepNotice = false
+    }
+    val cancelSleepTimer: () -> Unit = {
+        sleepTimer.clear()
+        sleepTimerEndsAt = 0L
+    }
+
     // Held here rather than in HomeScreen, which leaves the composition while a
     // channel plays: closing the player returns to the same tab and, in the
     // guide, to the same highlighted show.
@@ -117,6 +161,15 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             }
             val hiddenCount = remember(current.library, deadUrls) {
                 hiddenChannelCount(current.library.channels, deadUrls)
+            }
+            // These were rebuilt on every AppRoot recomposition (including the
+            // once-a-minute clock tick), scanning the whole library per shelf.
+            val favoriteUrlSet = remember(favoriteKeys) { favoriteKeys.toSet() }
+            val recentShelf = remember(recentKeys, visibleLibrary.channels) {
+                resolveShelf(recentKeys, visibleLibrary.channels)
+            }
+            val favoriteShelf = remember(favoriteKeys, visibleLibrary.channels) {
+                resolveShelf(favoriteKeys, visibleLibrary.channels)
             }
 
             BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
@@ -155,9 +208,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 tab = tab,
                                 onTabChange = { tab = it },
                                 guideState = guideState,
-                                recentChannels = resolveShelf(recentKeys, visibleLibrary.channels),
-                                favoriteChannels = resolveShelf(favoriteKeys, visibleLibrary.channels),
-                                favoriteUrls = favoriteKeys.toSet(),
+                                recentChannels = recentShelf,
+                                favoriteChannels = favoriteShelf,
+                                favoriteUrls = favoriteUrlSet,
                                 onToggleFavorite = toggleFavorite,
                                 hiddenChannelCount = hiddenCount,
                                 onRestoreHiddenChannels = {
@@ -193,6 +246,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 // own hint promises that, and without it the
                                 // press fell through to the app and exited.
                                 playerDocked = sidePlayer && selection != null,
+                                sleepTimerEndsAt = sleepTimerEndsAt,
+                                onSetSleepTimer = setSleepTimer,
+                                onCancelSleepTimer = cancelSleepTimer,
                             )
                         }
                     }
@@ -233,6 +289,15 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                             onChannelDead = recordFeedFailure,
                         )
                     }
+                }
+
+                if (sleepNotice) {
+                    SleepTimerEndedBanner(
+                        onDismiss = { sleepNotice = false },
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .padding(top = 18.dp),
+                    )
                 }
             }
         }
