@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
+
 package com.premiumtv.app.ui
 
 import android.content.Context
@@ -611,6 +613,7 @@ private fun CategoriesScreen(
                         }
                     }
                 }
+            }
             if (channelNumber.isNotBlank() || channelNumberMessage != null) {
                 ChannelNumberOverlay(
                     number = channelNumber,
