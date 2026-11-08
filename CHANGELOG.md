@@ -10,6 +10,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-08 — 1.1.5 published as the stable (Latest) release
+
+- Published [`v1.1.5`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.5) as the Latest GitHub release (Android `versionCode 101050000`, macOS `1.1.5`). The smoke-tested APK, all four Mac installers (arm64/x64 DMG + PKG) and both `SHA256SUMS` files are attached. Settings → App updates offers it to every build below it.
+- GitHub retired the `macos-14` Actions image on 2026-11-02, which cancelled every Mac installer job in ~1s (`macos-14-arm64-us-default is not supported`). The Mac workflow now runs on `macos-15`.
+
 ## 2026-11-08 — Version 1.1.5 readiness follow-up
 
 - **Custom addition: channel-number quick tune on Android.** Enter a published numeric channel number, including decimal subchannels when the remote sends a period key; press OK or pause briefly to tune. Repeats are coalesced, Back or D-pad navigation cancels, duplicate numbers follow playlist order, missing numbers get an on-screen message, and the active search field still receives digits.

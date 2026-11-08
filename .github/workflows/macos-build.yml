@@ -55,8 +55,11 @@ jobs:
   build:
     name: Build DMG + PKG
     # Every published release is built for both platforms. The upload step
-    # below still requires the release tag to point at this exact commit
-    runs-on: macos-14
+    # below still requires the release tag to point at this exact commit.
+    # macos-14 was retired from GitHub Actions on 2026-11-02 (the arm64 image
+    # is gone; jobs on that label cancel in ~1s with "macos-14-arm64-us-default
+    # is not supported"). macos-15 is the oldest supported Apple Silicon image.
+    runs-on: macos-15
     timeout-minutes: 60
     steps:
       - name: Check out the repository
