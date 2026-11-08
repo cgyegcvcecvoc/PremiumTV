@@ -1,6 +1,6 @@
 # PremiumTV 1.1.5 — remote-first speed, a calmer start, and a sleep timer (stable)
 
-Prepared 2026-11-06. Android `1.1.5` / `versionCode 101050000`, macOS `1.1.5`.
+Prepared 2026-11-06; readiness follow-up 2026-11-08. Android `1.1.5` / `versionCode 101050000`, macOS `1.1.5`.
 
 It installs straight over 1.1.4, 1.1.3 and every earlier build — no uninstall
 needed — and Settings → App updates offers it to every build below it. The
@@ -22,7 +22,8 @@ channel list, the guide and the update policy are unchanged.
 - **Focus groups keep the D-pad in the shelf.** The category rail, the channel
   grid, the tab row and each Live Events row are focus groups, so traversal
   stays inside the section you are browsing instead of escaping into the next
-  one when you reach its edge.
+  one when you reach its edge. Focus restorers return to the last item when
+  traversal leaves and re-enters those groups.
 - **A pointer that matches its shape.** The amber outline is drawn from the
   control's own shape, inside its bounds, with a dark under-stroke. A 22 dp tab
   pill no longer gets a visibly cut 15 dp ring, and the selected tab darkens
@@ -41,13 +42,17 @@ channel list, the guide and the update policy are unchanged.
   has no position to display; the 500 ms loop existed only for the VOD transport
   bar and resume position, and it now runs only for on-demand items. Watching a
   live programme costs one listener callback instead of 7,200 UI wake-ups an hour.
+- **VOD lifecycle state follows the selected channel.** The pause/resume observer
+  is re-bound when a channel changes, so a shared ExoPlayer no longer saves a
+  later item's resume position under the first item's id.
 - **Live Events ticks once a second only when a countdown is on screen.** Its
   sorted section list rebuilds once a minute instead of 60 times a minute.
 - **The Guide tab no longer remaps every channel once a minute.** The synthetic
   live-event rows are built once per library and reused; only the visible
   current/next/progress text updates with the clock.
-- **The loading screen's sheen is drawn, not recomposed.** Real load progress is
-  kept; the fake trickle and the rotating tips are gone.
+- **The loading screen has no continuous startup ticker.** Real load progress
+  stays determinate, but the Android bar no longer invalidates a decorative
+  highlight 30 times a second while the library is loading.
 - **Memoised personal shelves.** Recently watched and Favorites are resolved once
   per library or key change rather than on every recomposition.
 - **A bounded logo cache.** Coil's memory cache is capped at 10% of the app heap
@@ -59,8 +64,8 @@ channel list, the guide and the update policy are unchanged.
 - The startup screen is now one calm composition: the drawn marquee mark, the
   wordmark and motto, a determinate gold bar driven only by the loader's real
   stages (15% → 60% → 100%), the current stage, and one version credit. The
-  rotating tip, the invented progress trickle and the second slogan line are
-  gone, and the sheen only invalidates the bar.
+  rotating tip, invented progress trickle, second slogan and Android shimmer
+  ticker are gone; progress updates only when the loader advances.
 - The browser respects the system safe area on a phone or tablet, so the header
   no longer sits under the status bar. TV layouts are unchanged (their insets are
   zero), and the player stays full-bleed.
@@ -74,6 +79,17 @@ Settings → **Sleep timer** now offers **Off**, **30 min**, **60 min** and
 survives a refresh, a docked flip or an app restart; when it arrives the player
 closes and the browser shows a short "Sleep timer ended — playback stopped"
 banner. A TV left on overnight no longer plays until morning.
+
+## New: quick tune by channel number
+
+On the Android **Channels** tab, enter a numeric published channel number on
+a remote to tune directly, including decimal subchannels when the remote sends a
+period key. Press OK to commit immediately, or pause briefly after the last
+digit to tune automatically; repeated key-down events do not duplicate digits.
+Back or D-pad navigation cancels a pending entry. The small on-screen
+confirmation reports a missing number, and number entry stays out of the way
+while the search field is being edited. Duplicate numbers follow the playlist's
+published order.
 
 ## Platform notes
 

@@ -37,7 +37,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -50,7 +49,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.key.onKeyEvent
 import android.view.KeyEvent as NativeKey
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -422,31 +420,9 @@ fun BrandLogo(modifier: Modifier = Modifier) {
  */
 @Composable
 fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
-    // Smoothly advances along real load stages and glides a moving highlight
-    // across the bar so the viewer always sees active progress.
-    val context = LocalContext.current
-    val animationsEnabled = remember(context) {
-        runCatching {
-            android.provider.Settings.Global.getFloat(
-                context.contentResolver,
-                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE,
-                1f,
-            ) > 0f
-        }.getOrDefault(true)
-    }
+    // The determinate bar follows real loader stages. There is no background
+    // shimmer ticker while the library is parsing on slower TV hardware.
     val rawTarget = (progress ?: 0.10f).coerceIn(0.06f, 1f)
-    var sweepOffset by remember { mutableStateOf(0f) }
-    // The sheen advances in the draw phase (see the Canvas below); this loop
-    // only writes the offset, so it invalidates one bar instead of
-    // recomposing the whole startup screen 22 times a second. The bar itself
-    // shows the loader's real stages and never invents progress.
-    LaunchedEffect(animationsEnabled) {
-        if (!animationsEnabled) return@LaunchedEffect
-        while (true) {
-            delay(33L)
-            sweepOffset = (sweepOffset + 0.055f) % 1f
-        }
-    }
     val fraction by animateFloatAsState(
         targetValue = rawTarget,
         animationSpec = tween(durationMillis = 220),
@@ -483,9 +459,8 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
                 letterSpacing = 2.sp,
             )
             Spacer(modifier = Modifier.height(14.dp))
-            // Determinate gold bar: the fill tracks the loader's real stages
-            // and a single soft highlight travels across it. The highlight is
-            // drawn on the Canvas, so it never triggers a recomposition.
+            // Determinate gold bar: the fill tracks the loader's real
+            // stages and has no continuously invalidated decorative layer.
             Box(
                 modifier = Modifier
                     .width(260.dp)
@@ -498,23 +473,6 @@ fun LoadingScreen(title: String, detail: String, progress: Float? = null) {
                         .fillMaxWidth(fraction)
                         .background(PremiumGold, RoundedCornerShape(999.dp)),
                 )
-                Canvas(modifier = Modifier.fillMaxSize()) {
-                    val filled = size.width * fraction
-                    if (filled <= 0f) return@Canvas
-                    clipRect(right = filled) {
-                        val sheen = size.width * 0.30f
-                        val x = sweepOffset * (size.width + sheen * 2f) - sheen
-                        drawRect(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(Color.Transparent, Color(0x88FFF4C8), Color.Transparent),
-                                startX = x,
-                                endX = x + sheen,
-                            ),
-                            topLeft = Offset(x, 0f),
-                            size = Size(sheen, size.height),
-                        )
-                    }
-                }
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(

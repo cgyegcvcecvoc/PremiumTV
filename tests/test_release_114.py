@@ -54,17 +54,18 @@ class AudioPlaybackFix113Tests(unittest.TestCase):
         self.assertIn("silent: true", player_js)
 
 
-class MovingLoadingBar113Tests(unittest.TestCase):
-    def test_macos_and_android_bars_sweep_and_respect_reduced_motion(self):
+class LoadingBar113Tests(unittest.TestCase):
+    def test_macos_keeps_its_sweep_while_android_startup_stays_determinate(self):
         css = text(MACOS_RENDERER / "app.css")
         self.assertIn(".splash-bar-sheen", css)
         self.assertIn("@keyframes loading-sweep", css)
         self.assertIn("prefers-reduced-motion: reduce", css)
 
         components = text(ANDROID_UI / "Components.kt")
-        self.assertIn("sweepOffset", components)
-        self.assertIn("Brush.horizontalGradient", components)
-        self.assertIn("ANIMATOR_DURATION_SCALE", components)
+        loading = components.split("fun LoadingScreen(", 1)[1].split("fun LoadErrorScreen(", 1)[0]
+        self.assertIn("fillMaxWidth(fraction)", loading)
+        self.assertNotIn("sweepOffset", loading)
+        self.assertNotIn("LaunchedEffect(", loading)
 
 
 class VodAndTransportPlayer113Tests(unittest.TestCase):
