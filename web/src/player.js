@@ -391,7 +391,10 @@
   video.addEventListener("waiting", () => {
     if (!manualPaused && !pendingGesture) {
       loading.hidden = false;
-      armWatchdog(session);
+      // Do not restart an already-armed deadline. Some WebKit builds emit
+      // repeated waiting events for a dead HLS source; resetting the timer on
+      // each event could postpone failure forever.
+      if (!watchdog) armWatchdog(session);
     }
   });
   video.addEventListener("error", () => {

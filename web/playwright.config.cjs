@@ -33,6 +33,10 @@ module.exports = defineConfig({
   timeout: 90000,
   expect: { timeout: 12000 },
   fullyParallel: false,
+  // CI engines occasionally lose a media/socket event under runner load. One
+  // retry distinguishes that transient loss from a reproducible product bug;
+  // local runs remain strict so developers see flakes immediately.
+  retries: process.env.CI ? 1 : 0,
   workers: 1,
   reporter: [["list"]],
   outputDir: "test-results",

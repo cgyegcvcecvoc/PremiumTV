@@ -83,3 +83,29 @@ Application/data URLs carry a content build ID. The service worker caches only s
 - `CHROMIUM_PATH` can point Playwright at a preinstalled compatible Chromium binary; normal CI installs its own engines.
 
 Generated `dist/`, `node_modules/`, browser traces/reports and `docs/web/` are ignored. Only source, lockfile, tests and documentation belong in Git. The static artifact is roughly 13 MB including optional gzip copies; the channel payload is about 174 KB gzipped and the guide about 1.1 MB gzipped and lazy-loaded.
+
+## Pull-request checks
+
+Repository-owned gates are **Repository checks** (offline Python suite, version
+sync, playlist/EPG/shelf invariants) and **PremiumTV Web checks and static
+artifact** (Node tests, static export, Chrome desktop/touch, real WebKit, and
+export isolation). Run them locally with:
+
+```sh
+python -m unittest discover -s tests
+cd web
+npm ci
+npm test
+npm run build
+python tools/verify_export.py
+npx playwright install chromium webkit
+WEBKIT_TESTS=1 npm run test:browser
+```
+
+The Cloudflare **Workers Builds: premiumtv1** check is configured in the
+Cloudflare dashboard, not in this repository (there is no Wrangler config here).
+Its branch/preview build is an external deployment setting; a failure there does
+not indicate a failing web export. Fix or disable that preview build in
+Cloudflare Workers → premiumtv1 → Settings → Builds. Netlify deploy previews are
+also external; the three Netlify rule checks may report “skipped/neutral” when
+no rules changed.
