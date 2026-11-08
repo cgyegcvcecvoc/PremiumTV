@@ -406,9 +406,10 @@
     nextStrategy();
   });
   video.addEventListener("pause", () => {
-    // teardown() removes src before starting the next strategy. Its asynchronous
-    // pause event must not cancel the new strategy's watchdog (notably WebKit).
-    if (video.getAttribute("src")) clearTimers();
+    // Only a deliberate user pause cancels failure detection. WebKit can deliver
+    // teardown's pause event *after* the next strategy has assigned its new src;
+    // checking src alone still let that stale event cancel the new watchdog.
+    if (manualPaused) clearTimers();
     loading.hidden = true;
     emit();
   });

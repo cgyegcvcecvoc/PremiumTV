@@ -164,13 +164,11 @@ test("offline app shell and cached library reopen without a network", async ({
       );
     });
     expect(cached).toBe(true);
-    test
-      .info()
-      .annotations.push({
-        type: "platform-limitation",
-        description:
-          "Linux WebKit offline navigation is unavailable in Playwright; persisted CacheStorage verified instead.",
-      });
+    test.info().annotations.push({
+      type: "platform-limitation",
+      description:
+        "Linux WebKit offline navigation is unavailable in Playwright; persisted CacheStorage verified instead.",
+    });
     return;
   }
   await context.setOffline(true);
@@ -185,6 +183,16 @@ test("offline app shell and cached library reopen without a network", async ({
 test("provider failure shows an honest error and does not masquerade as playback", async ({
   page,
 }) => {
+  // A fulfilled HTTP error is deterministic in every engine. abort() models a
+  // socket failure, which Linux WebKit sometimes leaves pending indefinitely.
+  await page.route("https://30a-tv.com/feeds/vidaa/**", (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: "text/plain",
+      headers: { "access-control-allow-origin": "*" },
+      body: "Provider unavailable",
+    }),
+  );
   await page.goto("/");
   await expect(page.locator(".category-card").first()).toBeVisible();
   await page.locator("#channel-search").fill("30A Golf Kingdom");
