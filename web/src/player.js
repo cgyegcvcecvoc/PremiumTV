@@ -406,7 +406,9 @@
     nextStrategy();
   });
   video.addEventListener("pause", () => {
-    clearTimers();
+    // teardown() removes src before starting the next strategy. Its asynchronous
+    // pause event must not cancel the new strategy's watchdog (notably WebKit).
+    if (video.getAttribute("src")) clearTimers();
     loading.hidden = true;
     emit();
   });
