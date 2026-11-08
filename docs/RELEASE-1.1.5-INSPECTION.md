@@ -45,10 +45,16 @@ The release notes and source tests already cover the focus-lift graphics layer, 
 - Keyed the player's lifecycle observer to the active channel as well as the shared ExoPlayer, preventing a channel switch from saving VOD position under a stale channel id.
 - Removed the Android startup bar's continuous shimmer loop. The determinate bar still follows real repository progress, but does not schedule repeated draw invalidations while the library is loading.
 
-## Validation before publishing
+## Validation status — 2026-11-08
 
-- Run the full offline Python suite and `python scripts/version_sync.py --check`.
-- Run `cd macos/app && npm test`; Android changes do not alter the Mac renderer, but the shared release bundle and version surfaces remain part of the release gate.
-- Run Android Gradle unit tests and the emulator smoke workflow on GitHub Actions. This workspace has no local Java/Android SDK, so a local Gradle/emulator result cannot be claimed here.
-- Re-run `python scripts/build_site_data.py` after the same-day CHANGELOG entry; verify generated outputs with `python scripts/build_site_data.py --check`.
-- Publish only after the branch is merged and the guarded workflow has completed the Android and macOS installer gates.
+- `python -m unittest discover -s tests -q`: 630 tests passed.
+- `cd macos/app && npm test`: 129 tests passed.
+- `python scripts/version_sync.py --check`, `python scripts/build_site_data.py --check`, `git diff --check` and `python -m compileall -q scripts tests` passed.
+- Android Actions run [42499639138](https://github.com/cgyegcvcecvoc/PremiumTV/actions/runs/42499639138) passed Gradle compilation and JVM tests, pinned APK signing verification, and the emulator cold-launch/relaunch/Guide/player smoke gate. A local Gradle run was unavailable because this workspace has no Java/JDK or Android SDK.
+- The pull-request repository-check run [42499302048](https://github.com/cgyegcvcecvoc/PremiumTV/actions/runs/42499302048) passed the Python suite, release-version check, and strict playlist/EPG/category verification on the current-main merge context.
+- No playlist/EPG scrape was run; generated site metadata was refreshed from the checked-in source files and run history.
+
+## Before publishing
+
+- Merge the reviewed branch and ensure the release publisher's Android and macOS installer gates complete.
+- Publish only with explicit authorization; this preparation did not create a tag or release.
