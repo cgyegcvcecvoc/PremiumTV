@@ -43,111 +43,15 @@ Daemon will be stopped at the end of the build
 > Task :app:stripDebugDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libffmpegJNI.so.
 
-> Task :app:compileDebugKotlin
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/AppRoot.kt:69:24 Unresolved reference 'readVodCatalog'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/AppRoot.kt:69:53 Unresolved reference 'it'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/AppRoot.kt:69:59 Cannot infer type for this parameter. Please specify it explicitly.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/AppRoot.kt:69:62 Unresolved reference 'it'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:205:68 Unresolved reference 'readTeamLogos'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:206:67 Unresolved reference 'readSchedule'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:207:67 Unresolved reference 'readVodCatalog'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:239:17 Unresolved reference 'VersionPlaque'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:260:22 This API is experimental and is likely to change in the future.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:306:31 Unresolved reference 'EventsScreen'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:324:17 Unresolved reference 'GuideScreen'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:326:33 Unresolved reference 'SettingsScreen'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:502:13 Unresolved reference 'ChannelSearchField'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:504:43 Unresolved reference 'it'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:505:54 Unresolved reference 'it'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:515:17 Unresolved reference 'CategoryRail'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:524:44 Unresolved reference 'it'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:546:25 Unresolved reference 'PaneHeader'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:558:29 Unresolved reference 'ChannelGrid'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:575:29 Unresolved reference 'SHELF_RECENT'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:576:29 Unresolved reference 'SHELF_FAVORITES'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:586:25 Unresolved reference 'PaneHeader'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:596:37 Unresolved reference 'SHELF_RECENT'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:597:37 Unresolved reference 'SHELF_FAVORITES'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:602:29 Unresolved reference 'ChannelGrid'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:615:17 Unresolved reference 'ChannelNumberOverlay'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:619:26 'fun Modifier.align(alignment: Alignment): Modifier' cannot be called in this context with an implicit receiver. Use an explicit receiver if necessary.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:628:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:635:29 Unresolved reference 'widthIn'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:647:13 None of the following candidates is applicable:
+> Task :app:compileDebugKotlin FAILED
+e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:638:29 Unresolved reference 'widthIn'.
+e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:650:13 None of the following candidates is applicable:
 fun Text(text: AnnotatedString, modifier: Modifier = ..., color: Color = ..., fontSize: TextUnit = ..., fontStyle: FontStyle? = ..., fontWeight: FontWeight? = ..., fontFamily: FontFamily? = ..., letterSpacing: TextUnit = ..., textDecoration: TextDecoration? = ..., textAlign: TextAlign? = ..., lineHeight: TextUnit = ..., overflow: TextOverflow = ..., softWrap: Boolean = ..., maxLines: Int = ..., minLines: Int = ..., inlineContent: Map<String, InlineTextContent> = ..., onTextLayout: (TextLayoutResult) -> Unit = ..., style: TextStyle = ...): Unit
 fun Text(text: String, modifier: Modifier = ..., color: Color = ..., fontSize: TextUnit = ..., fontStyle: FontStyle? = ..., fontWeight: FontWeight? = ..., fontFamily: FontFamily? = ..., letterSpacing: TextUnit = ..., textDecoration: TextDecoration? = ..., textAlign: TextAlign? = ..., lineHeight: TextUnit = ..., overflow: TextOverflow = ..., softWrap: Boolean = ..., maxLines: Int = ..., minLines: Int = ..., onTextLayout: ((TextLayoutResult) -> Unit)? = ..., style: TextStyle = ...): Unit
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:651:21 'else' entry must be the last one in a 'when' expression.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:651:46 Syntax error: Expecting a when-condition.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:652:17 Syntax error: Expecting an expression, is-condition or in-condition.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:677:1 Modifier 'private' is not applicable to 'local variable'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:677:9 Modifier 'const' is not applicable to 'local variable'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:678:1 Modifier 'private' is not applicable to 'local variable'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:678:9 Modifier 'const' is not applicable to 'local variable'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:686:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:713:13 Unresolved reference 'MiniAction'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:720:18 This API is experimental and is likely to change in the future.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:726:17 Unresolved reference 'CategoryListRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:736:21 Unresolved reference 'CategoryListRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:747:21 Unresolved reference 'CategoryListRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:759:21 Unresolved reference 'CategoryListRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:774:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:847:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:875:9 Unresolved reference 'MiniAction'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:881:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:902:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:917:14 This API is experimental and is likely to change in the future.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:958:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1070:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1207:41 This API is experimental and is likely to change in the future.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1215:25 Unresolved reference 'EventCard'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1230:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1297:17 Unresolved reference 'EventTeamRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1306:17 Unresolved reference 'EventTeamRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1320:42 Unresolved reference 'countdownText'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1326:38 Unresolved reference 'kickoffTime'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1358:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1360:9 Unresolved reference 'TeamLogo'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1375:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1397:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1481:17 No parameter with name 'now' found.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1482:17 No parameter with name 'onClick' found.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1489:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1568:21 Unresolved reference 'ProgressLine'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1602:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1624:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1642:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1646:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1717:21 Unresolved reference 'CompactStat'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1718:21 Unresolved reference 'CompactStat'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1719:21 Unresolved reference 'CompactStat'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1802:13 Unresolved reference 'DiagnosticsCard'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1815:17 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1816:17 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1824:17 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1832:17 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1840:17 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1844:17 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1890:21 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1891:21 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1892:21 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1893:21 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1895:25 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1898:25 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1900:21 Unresolved reference 'CompactRow'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1917:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1936:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:1973:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2046:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2059:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2066:1 Modifier 'internal' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2066:72 Unresolved reference 'readAsset'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2069:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2076:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2092:1 Modifier 'private' is not applicable to 'local function'.
-e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2107:2 Syntax error: Expecting '}'.
-
-> Task :app:compileDebugKotlin FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1794154743232.json
+e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:654:21 'else' entry must be the last one in a 'when' expression.
+e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:654:46 Syntax error: Expecting a when-condition.
+e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:655:17 Syntax error: Expecting an expression, is-condition or in-condition.
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1794154934960.json
 
 FAILURE: Build failed with an exception.
 
@@ -361,5 +265,5 @@ Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Compilat
 	... 2 more
 
 
-BUILD FAILED in 32s
+BUILD FAILED in 21s
 34 actionable tasks: 17 executed, 17 from cache
