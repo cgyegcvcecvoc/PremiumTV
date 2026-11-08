@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tv generator-info-name="PremiumTV epg_build.py" generator-info-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ghana.xml">
-  <channel id="ResurrectionTV.gh@SD">
-    <display-name>Resurrection TV (720p)</display-name>
-    <icon src="https://i.imgur.com/IncyJW8.png" />
-  </channel>
-  <channel id="TV3.gh@SD">
-    <display-name>TV3 (Ghana) (540p)</display-name>
-    <display-name>GH - TV3</display-name>
-    <display-name>TV3.gh</display-name>
-    <icon src="https://iptv-epg.org/images/984shc0rlCBH0pwwAXupU7BcQbOzTvKXUO6MwKHScPdOKvOKPOWGLa0T8TzSPX3NZrgUJJjfrBydaq-s3wzme4g5JITgC8rFQ77K" />
-  </channel>
   <channel id="APTV.gh@SD">
     <display-name>AP TV (720p)</display-name>
     <icon src="https://i.imgur.com/Oky18bX.png" />
@@ -17,6 +7,12 @@
   <channel id="OTV.gh@SD">
     <display-name>OTV (Ghana) (720p)</display-name>
     <icon src="https://pbs.twimg.com/profile_images/1034118312437919744/emeWo-ag_400x400.jpg" />
+  </channel>
+  <channel id="TV3.gh@SD">
+    <display-name>TV3 (Ghana) (540p)</display-name>
+    <display-name>GH - TV3</display-name>
+    <display-name>TV3.gh</display-name>
+    <icon src="https://iptv-epg.org/images/984shc0rlCBH0pwwAXupU7BcQbOzTvKXUO6MwKHScPdOKvOKPOWGLa0T8TzSPX3NZrgUJJjfrBydaq-s3wzme4g5JITgC8rFQ77K" />
   </channel>
   <channel id="SABCNews.gh">
     <display-name>SABC News</display-name>
@@ -28,9 +24,6 @@
     <display-name>Pent TV (720p)</display-name>
     <icon src="https://i.imgur.com/Jw6d3dR.png" />
   </channel>
-  <programme start="20261108040000 +0000" stop="20261108100000 +0000" channel="TV3.gh@SD">
-    <title>TV3</title>
-  </programme>
   <programme start="20261108100000 +0000" stop="20261108160000 +0000" channel="TV3.gh@SD">
     <title>TV3</title>
   </programme>
@@ -58,9 +51,8 @@
   <programme start="20261110100000 +0000" stop="20261110160000 +0000" channel="TV3.gh@SD">
     <title>TV3</title>
   </programme>
-  <programme start="20261108070000 +0000" stop="20261108100000 +0000" channel="SABCNews.gh">
-    <title>The Agenda</title>
-    <new />
+  <programme start="20261110160000 +0000" stop="20261110220000 +0000" channel="TV3.gh@SD">
+    <title>TV3</title>
   </programme>
   <programme start="20261108100000 +0000" stop="20261108130000 +0000" channel="SABCNews.gh">
     <title>The Week Ahead</title>
@@ -154,6 +146,10 @@
   </programme>
   <programme start="20261110120000 +0000" stop="20261110150000 +0000" channel="SABCNews.gh">
     <title>SA Today</title>
+    <new />
+  </programme>
+  <programme start="20261110150000 +0000" stop="20261110190000 +0000" channel="SABCNews.gh">
+    <title>The Full View</title>
     <new />
   </programme>
 </tv>
