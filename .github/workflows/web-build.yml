@@ -66,7 +66,16 @@ jobs:
       - name: Install browser test engines
         run: npx playwright install --with-deps chromium webkit
       - name: Desktop, touch and real WebKit smoke tests
-        run: WEBKIT_TESTS=1 npm run test:browser
+        run: |
+          set -o pipefail
+          WEBKIT_TESTS=1 npm run test:browser 2>&1 | tee /tmp/premiumtv-browser.log
+      - name: Summarize browser failures for reviewers
+        if: failure()
+        run: |
+          echo '## Browser test failure details' >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          tail -250 /tmp/premiumtv-browser.log >> "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
       - name: Verify the static export has no native installers or absolute asset paths
         run: python3 tools/verify_export.py
       - uses: actions/upload-artifact@v4
