@@ -4,11 +4,32 @@ const assert = require("node:assert/strict");
 const { createServer } = require("../tools/serve.cjs");
 const zlib = require("node:zlib");
 const http = require("node:http");
+const fs = require("node:fs");
+const os = require("node:os");
+const path = require("node:path");
 
 test("static server supports gzip, media ranges, HEAD and safe paths", async (t) => {
-  const server = createServer();
+  // Self-contained: CI runs unit tests before building the ignored dist/.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "premiumtv-server-"));
+  fs.mkdirSync(path.join(root, "data"));
+  fs.mkdirSync(path.join(root, "media"));
+  const channels = Buffer.from(JSON.stringify([{ name: "Test channel" }]));
+  fs.writeFileSync(path.join(root, "data/channels.json"), channels);
+  fs.writeFileSync(
+    path.join(root, "data/channels.json.gz"),
+    zlib.gzipSync(channels),
+  );
+  fs.writeFileSync(
+    path.join(root, "media/premiumtv-test-card.mp4"),
+    Buffer.alloc(1024, 7),
+  );
+  fs.writeFileSync(path.join(root, "sw.js"), 'const BUILD = "test-build";');
+  const server = createServer(root);
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-  t.after(() => new Promise((resolve) => server.close(resolve)));
+  t.after(async () => {
+    await new Promise((resolve) => server.close(resolve));
+    fs.rmSync(root, { recursive: true, force: true });
+  });
   const base = `http://127.0.0.1:${server.address().port}`;
   const raw = await new Promise((resolve, reject) => {
     http

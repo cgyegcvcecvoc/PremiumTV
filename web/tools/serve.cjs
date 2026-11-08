@@ -6,7 +6,7 @@ const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const zlib = require("node:zlib");
-const root = path.resolve(__dirname, "..", "dist");
+const defaultRoot = path.resolve(__dirname, "..", "dist");
 const port = Number(process.env.PORT || 3000);
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -20,7 +20,8 @@ const types = {
   ".m3u": "audio/x-mpegurl",
   ".txt": "text/plain; charset=utf-8",
 };
-function createServer() {
+function createServer(serveRoot = defaultRoot) {
+  const root = path.resolve(serveRoot);
   return http.createServer((req, res) => {
     if (!["GET", "HEAD"].includes(req.method)) {
       res.writeHead(405, { Allow: "GET, HEAD" });
@@ -117,7 +118,7 @@ function createServer() {
 }
 module.exports = { createServer };
 if (require.main === module) {
-  if (!fs.existsSync(path.join(root, "index.html"))) {
+  if (!fs.existsSync(path.join(defaultRoot, "index.html"))) {
     console.error("Build first: cd web && npm ci && npm run build");
     process.exit(1);
   }
