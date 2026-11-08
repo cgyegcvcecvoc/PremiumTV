@@ -1,0 +1,86 @@
+name: PremiumTV Web checks and static artifact
+
+# Independent of VERSION, native build workflows and GitHub Releases. A web
+# deploy is a static site artifact, never an APK/DMG/PKG or a release tag.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "web/**"
+      - "macos/app/src/renderer/category-icons.js"
+      - "macos/app/src/renderer/live-events.js"
+      - "macos/app/src/renderer/personal.js"
+      - "macos/app/src/renderer/health.js"
+      - "android/tools/build_bundle.py"
+      - "playlists/live/**"
+      - "playlists/vod/**"
+      - "playlists/team-logos.json"
+      - "playlists/live-schedule.json"
+      - "categories/index.json"
+      - "EPG/USA.xml"
+      - ".github/workflows/web-build.yml"
+  push:
+    branches: ["**"]
+    tags-ignore: ["**"]
+    paths:
+      - "web/**"
+      - ".github/workflows/web-build.yml"
+  workflow_run:
+    workflows:
+      [
+        "Scrape playlists",
+        "Quick playlist update",
+        "Build merged and country EPG guides",
+      ]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+concurrency:
+  group: premiumtv-web-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  web:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - name: Install browser test engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Desktop, touch and real WebKit smoke tests
+        run: WEBKIT_TESTS=1 npm run test:browser
+      - name: Verify the static export has no native installers or absolute asset paths
+        run: python3 tools/verify_export.py
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: premiumtv-web-static
+          path: |
+            web/dist/
+            !web/dist/**/*.gz
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: web-browser-failure-traces
+          path: web/test-results/
+          retention-days: 7

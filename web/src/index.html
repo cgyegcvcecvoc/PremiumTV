@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#141619" />
+    <meta
+      name="description"
+      content="PremiumTV in your browser. Live channels, a TV guide, movies and your favorites. No account or app install required."
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' blob: https: http:; connect-src 'self' https: http:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <title>PremiumTV — Your browser. Your television.</title>
+    <link rel="icon" href="icon-192.png" type="image/png" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="shared/category-icons.js"></script>
+    <script defer src="shared/live-events.js"></script>
+    <script defer src="shared/personal.js"></script>
+    <script defer src="shared/health.js"></script>
+    <script defer src="store.js"></script>
+    <script defer src="diagnostics.js"></script>
+    <script defer src="player.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="topbar">
+      <a class="brand" href="#channels" aria-label="PremiumTV home"
+        ><img src="icon-192.png" alt="" width="38" height="38" /><span
+          >Premium<span class="gold">TV</span></span
+        ><span class="web-label">WEB</span></a
+      >
+      <div class="topbar-right">
+        <span id="connection-status" class="connection-status" role="status"
+          >Loading library</span
+        ><button id="install-button" class="button quiet small" hidden>
+          Install app</button
+        ><a class="downloads-link" href="../#apps"
+          >Native apps <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </header>
+    <div class="app-layout">
+      <nav class="navigation" aria-label="Main navigation">
+        <div class="nav-primary" role="tablist" aria-label="Library sections">
+          <button
+            class="nav-item"
+            id="tab-channels"
+            data-tab="channels"
+            role="tab"
+            aria-selected="true"
+            aria-controls="view-channels"
+          >
+            <span data-icon="tv"></span><span>Channels</span>
+          </button>
+          <button
+            class="nav-item"
+            id="tab-live"
+            data-tab="live"
+            role="tab"
+            aria-selected="false"
+            aria-controls="view-live"
+            tabindex="-1"
+          >
+            <span data-icon="ball"></span><span>Live events</span>
+          </button>
+          <button
+            class="nav-item"
+            id="tab-movies"
+            data-tab="movies"
+            role="tab"
+            aria-selected="false"
+            aria-controls="view-movies"
+            tabindex="-1"
+          >
+            <span data-icon="movie"></span><span>Movies &amp; shows</span>
+          </button>
+          <button
+            class="nav-item"
+            id="tab-guide"
+            data-tab="guide"
+            role="tab"
+            aria-selected="false"
+            aria-controls="view-guide"
+            tabindex="-1"
+          >
+            <span data-icon="news"></span><span>TV guide</span>
+          </button>
+          <button
+            class="nav-item"
+            id="tab-settings"
+            data-tab="settings"
+            role="tab"
+            aria-selected="false"
+            aria-controls="view-settings"
+            tabindex="-1"
+          >
+            <span data-icon="settings"></span><span>Settings</span>
+          </button>
+        </div>
+        <div class="personal-nav">
+          <p class="eyebrow">YOUR LIBRARY</p>
+          <button data-shelf="favorites">
+            <span data-icon="star"></span>Favorites
+            <span id="favorite-count" class="count">0</span></button
+          ><button data-shelf="recent">
+            <span data-icon="clock"></span>Recently watched
+          </button>
+        </div>
+        <div class="nav-note">
+          <span class="status-dot"></span>No account. Just television.<small
+            >Independent web edition</small
+          >
+        </div>
+      </nav>
+      <main id="main" tabindex="-1">
+        <div
+          id="library-progress"
+          class="library-progress"
+          role="progressbar"
+          aria-label="Loading channel library"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="10"
+        >
+          <span></span>
+        </div>
+        <div id="offline-banner" class="notice-banner" hidden>
+          You’re offline. Cached channels and the app are available; live
+          streams need internet.
+        </div>
+        <section
+          id="view-channels"
+          class="view"
+          role="tabpanel"
+          aria-labelledby="tab-channels"
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">THE GOOD STUFF, ALL IN ONE PLACE</p>
+              <h1 id="channels-heading">Find your next watch.</h1>
+              <p id="channels-subtitle" class="subtitle">
+                Getting your channels ready…
+              </p>
+            </div>
+            <span class="outline-badge">USA LIBRARY</span>
+          </div>
+          <div class="search-toolbar">
+            <label class="search-field"
+              ><span data-icon="search"></span
+              ><input
+                id="channel-search"
+                type="search"
+                placeholder="Search channels, categories, countries…"
+                aria-label="Search channels"
+                autocomplete="off"
+                spellcheck="false"
+              /><kbd>/</kbd></label
+            ><label class="sort-label"
+              ><span>Sort</span
+              ><select
+                id="channel-sort"
+                aria-label="Sort channels or categories"
+              >
+                <option value="published">Published order</option>
+                <option value="az">Name · A–Z</option>
+                <option value="za">Name · Z–A</option>
+                <option value="big">Most channels</option>
+                <option value="number">Channel number</option>
+              </select></label
+            >
+          </div>
+          <div id="category-context" class="category-context" hidden>
+            <button id="category-back" class="button quiet small">
+              ← All categories</button
+            ><span id="category-count"></span>
+          </div>
+          <div class="mobile-shelves">
+            <button data-shelf="favorites">☆ Favorites</button
+            ><button data-shelf="recent">↶ Recently watched</button>
+          </div>
+          <div class="section-label">
+            <h2 id="channel-section-title">Browse by category</h2>
+            <span id="channel-result-count" class="muted"></span>
+          </div>
+          <div id="channel-grid" class="channel-grid" aria-busy="true"></div>
+          <div id="channel-empty" class="empty-state" hidden>
+            <span data-icon="search"></span>
+            <h2>No channels found</h2>
+            <p>
+              Try another search, choose a different category, or restore hidden
+              channels in Settings.
+            </p>
+            <button id="clear-search" class="button">Clear search</button>
+          </div>
+          <button id="channel-more" class="button load-more" hidden>
+            Load more channels
+          </button>
+        </section>
+        <section
+          id="view-live"
+          class="view"
+          role="tabpanel"
+          aria-labelledby="tab-live"
+          hidden
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">GAME TIME</p>
+              <h1>Be there for the big play.</h1>
+              <p id="live-subtitle" class="subtitle">
+                Matchups published in the channel library, grouped by sport.
+              </p>
+            </div>
+            <button id="refresh-events" class="button quiet">
+              ↻ Refresh library
+            </button>
+          </div>
+          <div class="info-strip">
+            <span data-icon="info"></span>
+            <p>
+              Listings come from the playlist. A browser cannot reliably
+              pre-check third-party feeds; open a matchup to try its available
+              servers. We never label an unchecked feed as live.
+            </p>
+          </div>
+          <div id="live-grid"></div>
+          <div id="live-empty" class="empty-state" hidden>
+            <h2>No matchups in this lineup</h2>
+            <p>
+              Games appear here when the repository publishes event entries.
+              Browse Sports for always-on channels.
+            </p>
+            <button class="button" data-go="channels">Browse channels</button>
+          </div>
+        </section>
+        <section
+          id="view-movies"
+          class="view"
+          role="tabpanel"
+          aria-labelledby="tab-movies"
+          hidden
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">A LITTLE TIME TRAVEL</p>
+              <h1>Classic films. Timeless stories.</h1>
+              <p id="movies-subtitle" class="subtitle">
+                Public-domain films, classic television, and a built-in test
+                card.
+              </p>
+            </div>
+          </div>
+          <div class="search-toolbar">
+            <label class="search-field"
+              ><span data-icon="search"></span
+              ><input
+                id="movie-search"
+                type="search"
+                placeholder="Search titles, shows or genres…"
+                aria-label="Search movies and shows"
+                autocomplete="off"
+            /></label>
+            <div
+              id="movie-kind"
+              class="segmented"
+              role="group"
+              aria-label="On-demand type"
+            >
+              <button data-kind="all" aria-pressed="true">All</button
+              ><button data-kind="movie" aria-pressed="false">Movies</button
+              ><button data-kind="episode" aria-pressed="false">
+                TV shows
+              </button>
+            </div>
+          </div>
+          <div
+            id="movie-genres"
+            class="filter-chips"
+            role="group"
+            aria-label="Filter by genre"
+          ></div>
+          <div id="movie-grid" class="movie-grid"></div>
+          <div id="movie-empty" class="empty-state" hidden>
+            <h2>No titles match</h2>
+            <p>Try a different title or clear the genre filter.</p>
+            <button id="clear-movies" class="button">Clear filters</button>
+          </div>
+        </section>
+        <section
+          id="view-guide"
+          class="view"
+          role="tabpanel"
+          aria-labelledby="tab-guide"
+          hidden
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">ON NOW, UP NEXT</p>
+              <h1>Your evening, lined up.</h1>
+              <p id="guide-subtitle" class="subtitle">
+                Real listings from the repository’s TV guide.
+              </p>
+            </div>
+            <div class="segmented" role="group" aria-label="Guide layout">
+              <button data-guide-layout="list" aria-pressed="true">
+                On now</button
+              ><button data-guide-layout="grid" aria-pressed="false">
+                Timeline
+              </button>
+            </div>
+          </div>
+          <div class="search-toolbar">
+            <label class="search-field"
+              ><span data-icon="search"></span
+              ><input
+                id="guide-search"
+                type="search"
+                placeholder="Find a channel in the guide…"
+                aria-label="Search the TV guide" /></label
+            ><label class="sort-label"
+              ><span>Category</span
+              ><select
+                id="guide-category"
+                aria-label="Filter guide by category"
+              >
+                <option value="">All categories</option>
+              </select></label
+            >
+          </div>
+          <div id="guide-notice" class="info-strip" hidden></div>
+          <div id="guide-grid" class="guide-list"></div>
+          <button id="guide-more" class="button load-more" hidden>
+            More channels
+          </button>
+          <div id="guide-empty" class="empty-state" hidden>
+            <h2>No listings at this hour</h2>
+            <p>
+              No schedule is invented for channels without guide data. Try
+              another category or refresh the library.
+            </p>
+          </div>
+        </section>
+        <section
+          id="view-settings"
+          class="view"
+          role="tabpanel"
+          aria-labelledby="tab-settings"
+          hidden
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">MAKE YOURSELF AT HOME</p>
+              <h1>Your TV, your way.</h1>
+              <p class="subtitle">
+                Browser preferences, library health, and playback help.
+              </p>
+            </div>
+          </div>
+          <div id="settings-body"></div>
+        </section>
+        <footer class="main-footer">
+          <span>PremiumTV Web <span id="footer-version"></span></span
+          ><span>Public streams · No account required</span
+          ><a href="directory.html">Basic channel directory</a>
+        </footer>
+      </main>
+    </div>
+    <aside id="player" class="player mini" aria-label="Media player" hidden>
+      <div class="player-topline">
+        <span id="player-mode-label">NOW PLAYING</span
+        ><button
+          id="player-close"
+          class="icon-button"
+          aria-label="Close player"
+        >
+          ×
+        </button>
+      </div>
+      <div id="player-stage" class="player-stage">
+        <video
+          id="video"
+          playsinline
+          webkit-playsinline
+          preload="metadata"
+          aria-label="Channel video"
+        ></video>
+        <div id="player-loading" class="player-overlay" hidden>
+          <span class="spinner"></span
+          ><span id="player-loading-text">Connecting to the feed…</span>
+        </div>
+        <div id="player-gesture" class="player-overlay" hidden>
+          <button id="gesture-play" class="button primary">
+            ▶ Tap to play</button
+          ><span>Your browser needs a tap to start playback.</span>
+        </div>
+        <div
+          id="player-error"
+          class="player-overlay error-overlay"
+          role="alert"
+          hidden
+        >
+          <span data-icon="tv"></span
+          ><strong>This feed isn’t available in your browser</strong>
+          <p id="player-error-text"></p>
+          <div class="button-row">
+            <button id="player-retry" class="button primary small">
+              Try again</button
+            ><button id="player-next-error" class="button small">
+              Next server</button
+            ><a
+              id="player-original"
+              class="button quiet small"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Open original ↗</a
+            >
+          </div>
+        </div>
+        <button
+          id="player-expand-picture"
+          class="picture-expand"
+          aria-label="Expand player"
+        >
+          ⛶
+        </button>
+      </div>
+      <div class="player-info">
+        <div>
+          <h2 id="player-name"></h2>
+          <p id="player-detail"></p>
+        </div>
+        <button
+          id="player-favorite"
+          class="icon-button"
+          aria-label="Add to favorites"
+          aria-pressed="false"
+        >
+          ☆
+        </button>
+      </div>
+      <div class="player-programme">
+        <p id="player-now"></p>
+        <p id="player-next" class="muted"></p>
+      </div>
+      <div class="transport">
+        <button id="player-toggle" class="icon-button" aria-label="Pause">
+          ❚❚</button
+        ><button
+          id="player-back"
+          class="icon-button transport-vod"
+          aria-label="Rewind 10 seconds"
+          hidden
+        >
+          ↶10</button
+        ><input
+          id="player-seek"
+          class="transport-vod"
+          type="range"
+          min="0"
+          max="1000"
+          value="0"
+          aria-label="Seek timeline"
+          hidden
+        /><button
+          id="player-forward"
+          class="icon-button transport-vod"
+          aria-label="Forward 10 seconds"
+          hidden
+        >
+          10↷</button
+        ><span id="player-time" class="transport-vod" hidden></span
+        ><button id="player-live" class="live-pill transport-live">
+          ● LIVE</button
+        ><span class="spacer"></span
+        ><button id="player-mute" class="icon-button" aria-label="Mute">
+          🔊</button
+        ><input
+          id="player-volume"
+          type="range"
+          min="0"
+          max="100"
+          value="100"
+          aria-label="Volume"
+        />
+      </div>
+      <div class="player-actions">
+        <button
+          id="player-prev"
+          class="button quiet small"
+          aria-label="Previous server"
+        >
+          ‹</button
+        ><span id="player-server" class="muted small">Server 1</span
+        ><button
+          id="player-next"
+          class="button quiet small"
+          aria-label="Next server"
+        >
+          ›</button
+        ><select id="player-audio" aria-label="Audio track" hidden>
+          <option>Default audio</option></select
+        ><button id="player-pip" class="button quiet small" hidden>
+          Picture in picture</button
+        ><button id="player-airplay" class="button quiet small" hidden>
+          AirPlay</button
+        ><button id="player-fullscreen" class="button quiet small">
+          Full screen</button
+        ><button id="player-minimize" class="button quiet small">
+          Browse while watching
+        </button>
+      </div>
+      <p id="player-browser-note" class="player-browser-note" hidden></p>
+    </aside>
+    <dialog id="install-dialog" aria-labelledby="install-title">
+      <button
+        class="dialog-close icon-button"
+        data-close-dialog
+        aria-label="Close"
+      >
+        ×
+      </button>
+      <p class="eyebrow">KEEP PREMIUMTV CLOSE</p>
+      <h2 id="install-title">Add to your home screen</h2>
+      <p>
+        On iPhone or iPad, open this page in Safari, tap <strong>Share</strong>,
+        then <strong>Add to Home Screen</strong>.
+      </p>
+      <p>
+        On Android or desktop, use your browser’s
+        <strong>Install app</strong> or <strong>Add to Home screen</strong> menu
+        when available.
+      </p>
+      <p class="muted">
+        The app shell and loaded library can work offline. Live TV and remote
+        movies still need internet.
+      </p>
+      <button class="button primary" data-close-dialog>Got it</button>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <noscript
+      ><div class="noscript-message">
+        <h2>PremiumTV needs JavaScript for its player.</h2>
+        <p>
+          You can still
+          <a href="directory.html">browse the channel directory</a> or
+          <a href="data/PremiumTV.m3u" download>download the playlist</a> for
+          another player.
+        </p>
+      </div></noscript
+    >
+  </body>
+</html>
