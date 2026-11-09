@@ -725,15 +725,32 @@ def http_get(url: str, headers: dict | None = None, timeout: float = 30, retries
     hdrs = {"User-Agent": DEFAULT_UA, "Accept": "*/*"}
     hdrs.update(headers or {})
     last: Exception | None = None
-    for attempt in range(max(0, retries) + 1):
+    attempts = max(0, retries) + 1
+    for attempt in range(attempts):
         try:
             req = urllib.request.Request(url, headers=hdrs)
             with urllib.request.urlopen(req, timeout=timeout, context=INSECURE_CTX) as response:
                 return response.read().decode("utf-8-sig", errors="replace")
-        except Exception as exc:  # noqa: BLE001
+        except urllib.error.HTTPError as exc:
             last = exc
-            if attempt < retries:
+            # Retrying a permanent 401/403/404 only delays every source audit.
+            # Rate limits, request timeouts and upstream gateways are transient;
+            # honour Retry-After and use the same bounded backoff as link checks.
+            retryable = exc.code in (408, 425, 429) or exc.code >= 500
+            if retryable and attempt + 1 < attempts:
+                time.sleep(_retry_delay(exc, attempt))
+                continue
+            break
+        except (urllib.error.URLError, TimeoutError, socket.timeout,
+                ConnectionError, OSError) as exc:
+            last = exc
+            if attempt + 1 < attempts:
                 time.sleep(min(2 ** attempt, 4))
+                continue
+            break
+        except Exception as exc:  # noqa: BLE001 - preserve an actionable diagnostic
+            last = exc
+            break
     raise RuntimeError(f"GET {safe_url(url)} failed: {error_text(last or RuntimeError('unknown error'), url)}")
 
 

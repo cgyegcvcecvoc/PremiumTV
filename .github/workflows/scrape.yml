@@ -150,7 +150,17 @@ jobs:
           # shows whether the schedule is actually being honoured.
           if [ -n "$SCHEDULED_FOR" ]; then args+=(--scheduled-for "$SCHEDULED_FOR"); fi
           if [ "$SKIP_CHECK" = "true" ]; then args+=(--no-check); fi
-          python scripts/scraper.py "${args[@]}"
+          # One whole-run retry covers a transient source/API crash that escapes
+          # the scraper's per-request retries. Failed attempts still append their
+          # diagnostics to run-history.jsonl; a warning run exits 0 and is never
+          # repeated just because some upstream links are down.
+          for attempt in 1 2; do
+            python scripts/scraper.py "${args[@]}" && exit 0
+            code=$?
+            if [ "$attempt" = 2 ]; then exit "$code"; fi
+            echo "::warning title=Scraper retry::Attempt $attempt failed; retrying the full checked run in 15 seconds."
+            sleep 15
+          done
 
       - name: Add scraper status to the Actions summary
         if: always() && steps.scraper.outcome != 'skipped'
@@ -179,12 +189,14 @@ jobs:
         # guide-relevant M3U channel set, so a changed channel list rebuilds now;
         # unchanged inputs keep the 12-hour throttle.
         if: always() && steps.scraper.outcome != 'skipped'
+        id: guide
         continue-on-error: true
         run: |
           python scripts/epg_build.py --patch --countries --max-age-hours 12 \
             --label "guide refresh with the scrape"
 
       - name: Publish the live app feed and enforce the legacy sunset
+        id: sunset
         # PremiumTV 1.0.5+ refreshes playlists/live/USA.m3u; 1.0.0-1.0.4 refresh
         # playlists/countries/USA.m3u, which this pins on the end-of-support date
         # published in app-update-notice.json. Running here - after the playlists
@@ -213,7 +225,19 @@ jobs:
         # The scrape/link repair above can add, remove or rename live-game
         # feeds, so the schedule the bundle reads has to be rebuilt from the
         # playlist this step now sees, before it is committed.
+        if: always() && steps.scraper.outcome != 'skipped'
+        id: live_schedule
+        continue-on-error: true
         run: python3 scripts/build_live_schedule.py
+
+      - name: Audit live-event primaries, backup, and source diversity
+        if: always() && steps.scraper.outcome != 'skipped'
+        id: live_reliability
+        continue-on-error: true
+        run: |
+          python3 scripts/audit_live_events.py
+          echo "-----" >> "$GITHUB_STEP_SUMMARY"
+          cat playlists/checks/LIVE-EVENT-RELIABILITY.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Verify the published playlists and guides
         # Offline cross-check of everything this workflow just did: canonical
@@ -250,6 +274,8 @@ jobs:
 
       - name: Refresh the channel health report
         if: always() && steps.scraper.outcome != 'skipped'
+        id: health
+        continue-on-error: true
         run: |
           python scripts/health_report.py
           cat playlists/HEALTH.txt >> "$GITHUB_STEP_SUMMARY"
@@ -283,6 +309,17 @@ jobs:
           done
           exit 1
 
-      - name: Fail the workflow if scraping or verification failed
-        if: steps.scraper.outcome != 'success' || steps.verify.outcome != 'success'
-        run: exit 1
+      - name: Fail the workflow if any required publish stage failed
+        if: >-
+          steps.scraper.outcome != 'success' ||
+          steps.categories.outcome == 'failure' ||
+          steps.guide.outcome == 'failure' ||
+          steps.sunset.outcome == 'failure' ||
+          steps.shelf.outcome == 'failure' ||
+          steps.live_schedule.outcome == 'failure' ||
+          steps.live_reliability.outcome == 'failure' ||
+          steps.verify.outcome != 'success' ||
+          steps.health.outcome == 'failure'
+        run: |
+          echo "One or more required scrape, rebuild, guide, shelf, schedule, health, or verification stages failed."
+          exit 1

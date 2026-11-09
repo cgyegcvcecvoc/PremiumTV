@@ -1,6 +1,6 @@
 # Backup and channel integrity audit
 
-- **Generated:** 2026-11-09T18:47:57Z
+- **Generated:** 2026-11-09T21:06:10Z
 - **Playlist:** `playlists/PremiumTV.m3u`
 - **Entries:** 11,895 — **10,131 unique channels**, **1,764 backup feeds**
 - **Channels with at least one backup:** 1,117
@@ -141,8 +141,8 @@
 | `Series_Backups.m3u` | Series Backups | 0 | 131 | yes | 0 | yes |
 | `South_America.m3u` | South America | 462 | 0 | yes | 0 | yes |
 | `South_America_Backups.m3u` | South America Backups | 0 | 21 | yes | 0 | yes |
-| `Sports.m3u` | Sports | 505 | 1 | NO | 0 | yes |
-| `Sports_Backups.m3u` | Sports Backups | 0 | 124 | NO | 0 | yes |
+| `Sports.m3u` | Sports | 505 | 0 | yes | 0 | yes |
+| `Sports_Backups.m3u` | Sports Backups | 0 | 125 | yes | 0 | yes |
 | `Tv_Celebrities.m3u` | Tv Celebrities | 8 | 0 | yes | 0 | yes |
 | `Tv_Paranormal.m3u` | Tv Paranormal | 6 | 0 | yes | 0 | yes |
 | `Tv_Paranormal_Backups.m3u` | Tv Paranormal Backups | 0 | 3 | yes | 0 | yes |
@@ -156,8 +156,7 @@
 
 ## Problems
 
-- Sports.m3u does not match the published playlist order
-- Sports_Backups.m3u does not match the published playlist order
+None: every backup name is unique, every backup has its primary channel, backup numbers are continuous, and every category file matches the published playlist entry for entry.
 
 ## Notes
 

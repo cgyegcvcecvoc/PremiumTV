@@ -114,6 +114,62 @@ test('a dead feed hands over to the next server before the error card appears', 
   assert.match(player, /fail\(message\) \{/);
 });
 
+test('a stream that stalls without an error advances to the next playback strategy', () => {
+  const code = fs.readFileSync(path.join(renderer, 'player.js'), 'utf8');
+  const listeners = {};
+  const calls = [];
+  const timers = [];
+  const video = {
+    paused: false,
+    ended: false,
+    muted: false,
+    volume: 1,
+    currentTime: 0,
+    pause() { calls.push('pause'); },
+    removeAttribute() {},
+    load() {},
+    addEventListener(name, fn) { listeners[name] = fn; },
+    play() { calls.push('native'); return Promise.resolve(); },
+  };
+  const elements = {
+    video,
+    'player-spinner': { hidden: true },
+    'player-error': { hidden: true },
+    'player-error-text': { textContent: '' },
+  };
+  class Hls {
+    static isSupported() { return true; }
+    static Events = { ERROR: 'error', MANIFEST_PARSED: 'manifest' };
+    static ErrorTypes = { NETWORK_ERROR: 'network', MEDIA_ERROR: 'media' };
+    on() {}
+    loadSource() { calls.push('hls'); }
+    attachMedia() {}
+    destroy() { calls.push('destroy-hls'); }
+  }
+  const sandbox = {
+    window: { Hls, mpegts: { isSupported: () => false } },
+    document: { getElementById: (id) => elements[id] },
+    setTimeout: (fn, delay) => {
+      const timer = { fn, delay, cancelled: false };
+      timers.push(timer);
+      return timers.length;
+    },
+    clearTimeout: (id) => {
+      if (timers[id - 1]) timers[id - 1].cancelled = true;
+    },
+  };
+  vm.runInNewContext(code, sandbox);
+  sandbox.window.PremiumPlayer.play(
+    'http://127.0.0.1:1234/p/stalled',
+    'https://example.org/stalled.m3u8',
+  );
+  const deadline = timers.find((timer) => timer.delay === 25000 && !timer.cancelled);
+  assert.ok(deadline, 'the first strategy gets a finite startup deadline');
+  deadline.fn();
+  assert.ok(calls.includes('destroy-hls'), 'the stalled HLS instance is released');
+  assert.ok(calls.includes('native'), 'the player advances instead of spinning forever');
+});
+
 test('1.0.8: the sidebar sorts categories and a category page sorts its channels', () => {
   const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
   const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');

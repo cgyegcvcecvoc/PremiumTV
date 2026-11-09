@@ -12,8 +12,10 @@ import json
 import sys
 import tempfile
 import unittest
+import urllib.error
 from contextlib import redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
@@ -254,6 +256,88 @@ jobs:
 
     def test_extra_whitespace_in_a_cron_is_normalised(self):
         self.assertEqual(guard.label_for_cron("  7   3  *  * * "), "3:07 AM daily scrape")
+
+
+class GitHubApiRetryTest(unittest.TestCase):
+    class Response:
+        def __init__(self, body=b'{"workflow_runs": []}'):
+            self.body = body
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return self.body
+
+    def test_get_retries_a_transient_error_then_recovers(self):
+        error = urllib.error.HTTPError(
+            "https://api.github.com/test", 503, "unavailable", {"Retry-After": "0"}, None,
+        )
+        with patch.object(guard.urllib.request, "urlopen",
+                          side_effect=[error, self.Response()]) as request, \
+             patch.object(guard.time, "sleep") as sleep:
+            result = guard.gh_api("https://api.github.com/test")
+        self.assertEqual(result, {"workflow_runs": []})
+        self.assertEqual(request.call_count, 2)
+        sleep.assert_called_once_with(0.0)
+
+    def test_post_is_never_retried_when_the_response_might_be_lost(self):
+        error = urllib.error.HTTPError(
+            "https://api.github.com/test", 503, "unavailable", {}, None,
+        )
+        with patch.object(guard.urllib.request, "urlopen", side_effect=error) as request, \
+             patch.object(guard.time, "sleep") as sleep:
+            with self.assertRaises(urllib.error.HTTPError):
+                guard.gh_api("https://api.github.com/test", method="POST", payload={"x": 1})
+        self.assertEqual(request.call_count, 1)
+        sleep.assert_not_called()
+
+
+class BusyWorkflowTest(unittest.TestCase):
+    now = at("2026-09-29T15:00:00Z")
+
+    def status(self, runs):
+        with patch.object(guard, "gh_api", return_value={"workflow_runs": runs}):
+            return guard.scrape_is_busy("owner/repo", "token", cooldown_minutes=25,
+                                        now=self.now)
+
+    def test_recent_queued_run_blocks_a_duplicate(self):
+        busy, reason = self.status([{
+            "id": 11, "status": "queued", "created_at": "2026-09-29T14:50:00Z",
+        }])
+        self.assertTrue(busy)
+        self.assertIn("queued", reason)
+
+    def test_stale_queued_cron_does_not_block_catch_up_forever(self):
+        busy, reason = self.status([{
+            "id": 12, "status": "queued", "created_at": "2026-09-29T07:07:00Z",
+        }])
+        self.assertFalse(busy)
+        self.assertIn("superseded", reason)
+
+    def test_running_scrape_is_busy_even_when_its_creation_is_old(self):
+        busy, reason = self.status([{
+            "id": 13, "status": "in_progress", "created_at": "2026-09-29T07:07:00Z",
+            "run_started_at": "2026-09-29T07:08:00Z",
+        }])
+        self.assertTrue(busy)
+        self.assertIn("in_progress", reason)
+
+    def test_recent_completed_run_honours_the_cooldown(self):
+        busy, reason = self.status([{
+            "id": 14, "status": "completed", "run_started_at": "2026-09-29T14:48:00Z",
+        }])
+        self.assertTrue(busy)
+        self.assertIn("12 min", reason)
+
+    def test_api_failure_fails_closed_until_the_next_guard_cycle(self):
+        with patch.object(guard, "gh_api", side_effect=OSError("offline")):
+            busy, reason = guard.scrape_is_busy("owner/repo", "token", now=self.now)
+        self.assertTrue(busy)
+        self.assertIn("retrying next cycle", reason)
 
 
 class CoverageTest(unittest.TestCase):

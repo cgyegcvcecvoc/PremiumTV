@@ -97,6 +97,34 @@ test('HTTP proxy resolves HLS segments and keys against the final redirected URL
   assert.equal(proxy.sessions.size, 0);
 });
 
+test('orphaned playback sessions expire and the whitelist cache stays bounded', () => {
+  const { StreamProxy } = require('../src/main/stream-proxy');
+  const path = require('node:path');
+  let now = 1000;
+  const proxy = new StreamProxy({
+    rendererDir: path.join(__dirname, '..', 'src', 'renderer'),
+    logoCacheDir: '/unused',
+    maxSessions: 2,
+    sessionTtlMs: 100,
+    now: () => now,
+  });
+
+  const first = proxy.registerChannel({ id: 'one', url: 'https://example.test/one.m3u8' });
+  now += 10;
+  const second = proxy.registerChannel({ id: 'two', url: 'https://example.test/two.m3u8' });
+  now += 10;
+  const third = proxy.registerChannel({ id: 'three', url: 'https://example.test/three.m3u8' });
+  assert.equal(proxy.sessions.size, 2, 'a renderer that forgets to release cannot grow the map');
+  assert.equal(proxy.sessions.has(new URL(first).pathname.split('/').at(-1)), false,
+    'the least recently used orphan is evicted first');
+  assert.equal(proxy.sessions.has(new URL(second).pathname.split('/').at(-1)), true);
+  assert.equal(proxy.sessions.has(new URL(third).pathname.split('/').at(-1)), true);
+
+  now += 101;
+  proxy.pruneSessions();
+  assert.equal(proxy.sessions.size, 0, 'idle sessions expire even below the size limit');
+});
+
 test('1.1.3: extensionless audio renditions and AAC segments are rewritten and typed', async (t) => {
   const { StreamProxy, inferMediaContentType } = require('../src/main/stream-proxy');
   const path = require('node:path');

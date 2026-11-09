@@ -175,6 +175,35 @@ def sport_of_event(sport_tag: str, channel_id: str) -> str:
     return from_tag or sport_tag
 
 
+def parse_event(display: str, channel_id: str = "") -> dict | None:
+    """Parse one published channel name into a stable matchup identity."""
+    match = BRACKET.match(display or "")
+    if not match:
+        return None
+    rest = MARKERS.sub(" ", match.group(2))
+    rest = TRAILER.sub("", rest).strip()
+    rest = SOURCE_SUFFIX.sub("", rest).strip()
+    rest = FEED_COPY.sub("", rest).strip()
+    parts = VERSUS.split(rest)
+    if len(parts) < 2:
+        return None
+    home = clean_team(parts[0].strip())
+    away = clean_team(parts[1].strip())
+    if not home or not away:
+        return None
+    sport = sport_of_event(match.group(1).strip(), channel_id)
+    # Identity is order-insensitive: "A vs. B" and "B vs. A" are one game.
+    teams = sorted((team_key(home), team_key(away)))
+    return {
+        "sport": sport,
+        "league": match.group(1).strip(),
+        "home": home,
+        "away": away,
+        "title": f"{home} vs. {away}",
+        "key": f"{norm_key(sport)}|{teams[0]}|{teams[1]}",
+    }
+
+
 def parse_events(text: str):
     events = []
     for line in text.splitlines():
@@ -182,35 +211,9 @@ def parse_events(text: str):
             continue
         attrs, _, display = line.partition(",")
         id_match = TVG_ID.search(attrs)
-        channel_id = id_match.group(1) if id_match else ""
-        match = BRACKET.match(display)
-        if not match:
-            continue
-        rest = MARKERS.sub(" ", match.group(2))
-        rest = TRAILER.sub("", rest).strip()
-        rest = SOURCE_SUFFIX.sub("", rest).strip()
-        rest = FEED_COPY.sub("", rest).strip()
-        parts = VERSUS.split(rest)
-        if len(parts) < 2:
-            continue
-        home = clean_team(parts[0].strip())
-        away = clean_team(parts[1].strip())
-        if not home or not away:
-            continue
-        sport = sport_of_event(match.group(1).strip(), channel_id)
-        # Identity is order-insensitive: "A vs. B" and "B vs. A" are one game.
-        teams = sorted((team_key(home), team_key(away)))
-        key = f"{norm_key(sport)}|{teams[0]}|{teams[1]}"
-        events.append(
-            {
-                "sport": sport,
-                "league": match.group(1).strip(),
-                "home": home,
-                "away": away,
-                "title": f"{home} vs. {away}",
-                "key": key,
-            }
-        )
+        event = parse_event(display, id_match.group(1) if id_match else "")
+        if event is not None:
+            events.append(event)
     return events
 
 

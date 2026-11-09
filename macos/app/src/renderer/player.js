@@ -44,6 +44,7 @@ window.PremiumPlayer = (function () {
   let activeStrategy = '';
   let sessionCounter = 0;
   let watchdogTimer = null;
+  let playbackTimer = null;
   let triedAudioTracks = new Set();
   let triedAltLevel = false;
   let silentReported = false;
@@ -171,6 +172,28 @@ window.PremiumPlayer = (function () {
       cancelTimer(watchdogTimer);
     }
     watchdogTimer = null;
+  }
+
+  function clearPlaybackTimer() {
+    if (playbackTimer && cancelTimer) cancelTimer(playbackTimer);
+    playbackTimer = null;
+  }
+
+  /**
+   * A dead extensionless stream can leave Chromium in `waiting` forever without
+   * emitting an error. Give every playback strategy a finite chance, then move
+   * to the next strategy (and ultimately the channel's next server) just like
+   * Android and the web player do. Repeated `waiting` events never postpone an
+   * already-armed deadline.
+   */
+  function armPlaybackTimer(sessionId) {
+    if (playbackTimer || !scheduleTimer) return;
+    playbackTimer = scheduleTimer(() => {
+      playbackTimer = null;
+      if (sessionId !== sessionCounter) return;
+      teardown();
+      tryNext();
+    }, 25000);
   }
 
   function selectPlayableHlsVariantAndTrack() {
@@ -315,6 +338,7 @@ window.PremiumPlayer = (function () {
 
   function teardown() {
     clearWatchdog();
+    clearPlaybackTimer();
     if (hls) {
       try {
         hls.destroy();
@@ -375,12 +399,14 @@ window.PremiumPlayer = (function () {
     activeStrategy = strategy;
     index += 1;
     showSpinner(true);
+    armPlaybackTimer(sessionCounter);
     if (strategy === 'hls') playWithHls();
     else if (strategy === 'mpegts') playWithMpegts();
     else playNative();
   }
 
   function onPlaying() {
+    clearPlaybackTimer();
     showSpinner(false);
     clearError();
     emitAudioState();
@@ -455,7 +481,10 @@ window.PremiumPlayer = (function () {
   }
 
   video.addEventListener('playing', onPlaying);
-  video.addEventListener('waiting', () => showSpinner(true));
+  video.addEventListener('waiting', () => {
+    showSpinner(true);
+    armPlaybackTimer(sessionCounter);
+  });
   video.addEventListener('volumechange', () => emitAudioState());
   video.addEventListener('error', () => {
     if (hls || mpegtsPlayer) return; // those players report their own errors
@@ -516,6 +545,7 @@ window.PremiumPlayer = (function () {
     /** Show the final error card; the app calls this when its server list ran out. */
     fail(message) {
       onFatal = null;
+      clearPlaybackTimer();
       showSpinner(false);
       showError(message);
     },
