@@ -1,7 +1,9 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml,https://raw.githubusercontent.com/doms9/iptv/refs/heads/default/M3U8/TV.xml,https://epgshare01.online/epgshare01/epg_ripper_AL1.xml.gz"
-# World - Entertainment (703 channels) - rebuilt 2026-11-09 08:07 UTC (2026-11-09 03:07 AM EST) - 8:17 PM recheck
+# World - Entertainment (703 channels) - rebuilt 2026-11-09 13:13 UTC (2026-11-09 08:13 AM EST) - 11:29 PM overnight recheck
 #EXTINF:-1 tvg-id="13Realities.cl@SD" tvg-logo="https://i.imgur.com/m0SuwMU.png" group-title="Entertainment" tvg-name="13 Realities" tvg-chno="21" tvg-country="CL",13 Realities (1080p)
 https://origin.dpsgo.com/ssai/event/g7_JOM0ORki9SR5RKHe-Kw/master.m3u8
+#EXTINF:-1 tvg-id="13E.cl@SD" tvg-logo="https://i.imgur.com/utI1tJV.png" group-title="Entertainment" tvg-name="13 Entretención" tvg-chno="17" tvg-country="CL",13E (720p)
+https://origin.dpsgo.com/ssai/event/BBp0VeP6QtOOlH8nu3bWTg/master.m3u8
 #EXTINF:-1 tvg-id="13emeRue.fr@SD" tvg-logo="https://i.imgur.com/k0DCMTL.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment" tvg-country="FR",13eme Rue
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36
 http://192.99.186.30/stream/251/index.m3u8
@@ -15,8 +17,6 @@ http://176.118.197.101/2x2/index.m3u8
 https://30a-tv.com/sidewalks.m3u8
 #EXTINF:-1 tvg-id="30ATelevisionChannel.us@SD" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTHiYfIB01K44LIBG81aEGAmDuIWw8MA0f2w&s" group-title="Entertainment" tvg-country="US",30A Television Channel (720p)
 https://30a-tv.com/feeds/masters/30atv.m3u8
-#EXTINF:-1 tvg-id="312TV.kg@SD" tvg-logo="https://i.ibb.co/S6sZvqk/iLSGi6c.png" group-title="Entertainment" tvg-country="KG",312 TV (406p)
-http://176.126.166.43:1935/live/312musik/playlist.m3u8
 #EXTINF:-1 tvg-id="4everDrama.ua@SD" tvg-logo="https://i.imgur.com/CD3vZU6.png" group-title="Entertainment" tvg-country="UA",4ever Drama (1080p)
 http://stream.mcquack.net/260/index.m3u8
 #EXTINF:-1 tvg-id="4everTheater.ua@SD" tvg-logo="https://i.imgur.com/kfngtev.png" group-title="Entertainment" tvg-country="UA",4ever Theater (1080p)
@@ -114,7 +114,7 @@ https://da86m1sqpm3o0.cloudfront.net/28072023/smil:starasianet.smil/chunklist_b1
 #EXTINF:-1 tvg-id="AsianetMiddleEast.in@SD" tvg-logo="https://i.imgur.com/du9iZ0s.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" group-title="Entertainment" tvg-country="IN",Asianet Middle East (576p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36
 https://fta.ektv.in/live/697/master.m3u8
-#EXTINF:-1 tvg-id="ATNBangla.bd@SD" tvg-name="Atn Bangla" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhbqcsNitFCvE9tvpls4ytvF840p9M87Y2Ww1b50w_cNobHazh-HAvSLQ&s=10" group-title="Entertainment",Atn Bangla
+#EXTINF:-1 tvg-id="atn.bangla" tvg-name="Atn Bangla" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhbqcsNitFCvE9tvpls4ytvF840p9M87Y2Ww1b50w_cNobHazh-HAvSLQ&s=10" group-title="Entertainment",Atn Bangla
 https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8
 #EXTINF:-1 tvg-id="AVASeries.ir@SD" tvg-logo="https://i.imgur.com/8AfAfZE.png" group-title="Entertainment" tvg-status="stable" tvg-country="IR",AVA Series
 https://avaserieshls.wns.live/hls/stream.m3u8
@@ -193,12 +193,12 @@ https://jmp2.uk/plu-61c1dce2fb9ae40007d0ac15.m3u8
 https://617c5175c970b.streamlock.net:4444/9linklivert/smil:9linkmultibr.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="CanalChilote.cl@SD" tvg-logo="https://i.imgur.com/mdYIKyt.png" group-title="Entertainment" tvg-country="CL",Canal Chilote (720p)
 https://videostream.chileservidores.com:8081/chiloe2/index.m3u8
-#EXTINF:-1 tvg-id="CanalNets.co@SD" tvg-logo="https://i.imgur.com/edaAexc.png" group-title="Entertainment" tvg-country="CO",Canal Nets (720p) [Not 24/7]
-https://movil.ejeserver.com/live/nets.m3u8
 #EXTINF:-1 tvg-id="CanalPulpoTV.ar@SD" tvg-logo="https://new.opencaster.com/uploads/logos/logo_306_1756336707.png" group-title="Entertainment" tvg-country="AR",Canal Pulpo TV
 https://vs20.live.opencaster.com/canalpulpotv_bdeee6e2/index.m3u8
 #EXTINF:-1 tvg-id="CanalTRO.co@SD" tvg-logo="https://i.imgur.com/ZS5WTCd.png" group-title="Entertainment" tvg-country="CO",Canal TRO (1080p)
 http://138.94.3.106:8000/play/a07i/index.m3u8
+#EXTINF:-1 tvg-id="CanalWomtv.co@SD" tvg-logo="https://i.imgur.com/Nr4muMP.jpeg" group-title="Entertainment" tvg-country="CO",Canal Womtv (720p)
+https://live.amelbatv.co:81/womtvlive/index.m3u8
 #EXTINF:-1 tvg-id="CanelaTV.us@SD" tvg-logo="https://i.imgur.com/8Hllkpk.png" group-title="Entertainment" tvg-country="US",Canela TV (1080p)
 https://d3cx6yargdnl7q.cloudfront.net/canelatv.m3u8
 #EXTINF:-1 cuid="118" tvg-name="Canela.TV Narco-Drama" tvg-id="plex.tv.Canela.TV.Narco-Drama.plex" tvg-logo="https://provider-static.plex.tv/epg/cms/production/1a0bf145-a80f-4dd5-8134-ecb3975c389f/CM-Plex-dark_logo-CanelaTV-narco_drama_-_Natalia_Rodriguez.png" group-logo="https://cdn-icons-png.freepik.com/512/2112/2112926.png" group-title="Entertainment" tvg-country="US",☆ Canela.TV Narco-Drama 🇲🇽
@@ -390,6 +390,8 @@ https://stream.eldo.lu/data/live/tele/eldotv/1080p.m3u8
 https://amg01705-amg01705c1-amgplt0095.playout.now3.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="ElyTV.br@SD" tvg-logo="https://i.imgur.com/1eHNe91.png" group-title="Entertainment" tvg-country="BR",ElyTV (360p)
 https://stmv1.srvsite.com/ely/ely/playlist.m3u8
+#EXTINF:-1 tvg-id="EmocionTV.cl@SD" tvg-logo="https://i.imgur.com/OJ3omla.jpeg" group-title="Entertainment" tvg-country="CL",Emocion TV (720p)
+https://v1.tustreaming.cl/emociontv/index.m3u8
 #EXTINF:-1 tvg-id="Enelpuntodemira.us@Spain" tvg-logo="https://i.imgur.com/E9grXd9.png" group-title="Entertainment" tvg-country="US",En el punto de mira
 https://jmp2.uk/plu-61922be835f3910007fc58f6.m3u8
 #EXTINF:-1 tvg-id="ENTChannel.uk@HD" tvg-logo="https://static.elektamedia.com/ch/entch.png" group-title="Entertainment" tvg-country="GB",ENT Channel (720p)
@@ -454,6 +456,8 @@ http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65
 http://88.212.7.14/live/test_fem3_atktv/playlist.m3u8
 #EXTINF:-1 tvg-id="FEVATV.ca@SD" tvg-country="CA" group-title="Entertainment",Feva TV (1080p)
 https://d3c1w351ahk83d.cloudfront.net/scheduler/scheduleMaster/416.m3u8
+#EXTINF:-1 tvg-id="FicomChannel.id@SD" tvg-logo="https://i.imgur.com/KMEf0Cc.png" group-title="Entertainment" tvg-country="ID",Ficom Channel (720p)
+https://v3.siar.us/ficomchannel/live/playlist.m3u8
 #EXTINF:-1 tvg-id="FILMBOXPlusComedy.pl@Poland" tvg-logo="https://spiintl.com/data/files/kcfinderUploadDir/images/filmboxplus/filmbox%2Bcomedy.png" group-title="Entertainment" tvg-name="FILMBOX+ Comedy (720p)" tvg-chno="54" tvg-country="PL",FILMBOX+ Comedy (720p)
 http://92.114.85.87:8008/play/a009/index.m3u8
 #EXTINF:-1 tvg-id="FILMBOXPlusComedy.pl@Czechia" tvg-logo="https://spiintl.com/data/files/kcfinderUploadDir/images/filmboxplus/filmbox%2Bcomedy.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Entertainment" tvg-country="PL",FILMBOX+ Comedy Czechia
@@ -637,6 +641,8 @@ https://jmp2.uk/plu-64424c1be94c380008d0a98c.m3u8
 https://jmp2.uk/plu-6442508e5a0cd500083edd3c.m3u8
 #EXTINF:-1 tvg-id="JerseyShore.se@NO" tvg-logo="https://images.pluto.tv/channels/6442508e5a0cd500083edd3c/colorLogoPNG.png" group-title="Entertainment" tvg-country="SE",Jersey Shore (Sweden) NO
 https://jmp2.uk/plu-64424b21e1979c0008379681.m3u8
+#EXTINF:-1 tvg-id="Jim.fi@SD" tvg-logo="https://i.imgur.com/PkMgY0K.png" group-title="Entertainment" tvg-country="FI",Jim (720p)
+https://live-fi.tvkaista.net/jim/live.m3u8?hd=true
 #EXTINF:-1 tvg-id="JockyTV.hu@SD" tvg-logo="https://i.imgur.com/wLawFVP.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" group-title="Entertainment" tvg-country="HU",Jocky TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
 http://88.212.7.14/live/jocky/index.m3u8
@@ -712,6 +718,8 @@ https://live.lietuvosryto.tv/live/hls/eteris.m3u8
 #EXTINF:-1 tvg-id="LifeTV.hu@SD" tvg-logo="https://i.imgur.com/3znYv1N.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" group-title="Entertainment" tvg-country="HU",Life TV (Hungary)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
 http://88.212.7.14/live/lifetv/index.m3u8
+#EXTINF:-1 tvg-id="Liv.fi@SD" tvg-logo="https://i.imgur.com/k6NsXBj.png" group-title="Entertainment" tvg-country="FI",Liv (720p)
+https://live-fi.tvkaista.net/liv/live.m3u8?hd=true
 #EXTINF:-1 tvg-id="Loading.br@SD" tvg-logo="https://i.imgur.com/R0aflu1.png" group-title="Entertainment" cuid="337" tvg-name="loading tv 🇧🇷" group-logo="https://img.icons8.com/?size=512&id=sxtLRm71kvmx&format=png" tvg-country="BR",Loading (720p)
 https://stmv1.srvif.com/loadingtv/loadingtv/playlist.m3u8
 #EXTINF:-1 tvg-id="LogoPlutoTV.us@SD" tvg-country="US" group-title="Entertainment",Logo Pluto TV
@@ -884,8 +892,6 @@ http://stream.mcquack.net/157/index.m3u8
 https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv_720p.m3u8
 #EXTINF:-1 tvg-id="NTCTV.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/ntvtamil.png" group-title="Entertainment" tvg-country="IN",NTC TV (720p)
 https://galaxyott.live/hls/ntv.m3u8
-#EXTINF:-1 tvg-id="NTV.br@SD" tvg-logo="https://i.imgur.com/n79nkVC.png" group-title="Entertainment" tvg-country="BR",NTV (Brazil) (720p)
-https://cdn.livespanel.com/nossatv/nossatv/playlist.m3u8
 #EXTINF:-1 tvg-id="NTVSeries.ru@SD" tvg-logo="https://i.imgur.com/QdVa8tl.png" group-title="Entertainment" tvg-country="RU",NTV Series (576p)
 http://stream.mcquack.net/301/index.m3u8
 #EXTINF:-1 tvg-id="NuViewTV.za@SD" tvg-logo="https://i.imgur.com/dYRJ7F0.png" group-title="Entertainment" tvg-country="ZA",NuView TV (360p)
@@ -898,8 +904,6 @@ https://a-cdn.klowdtv.com/live1/oan_720p/playlist.m3u8
 https://cdn3.wowza.com/5/V2Y2VmhqMEFDTUkx/olelo/G0125_013/playlist.m3u8
 #EXTINF:-1 tvg-id="OliTV.in@SD" tvg-logo="https://i.ibb.co/XfvTQyJn/main-removebg-preview.png" group-title="Entertainment" tvg-country="IN",Oli TV (India) (1080p)
 https://live.olidigital.in/olitv/olitv/index.m3u8
-#EXTINF:-1 tvg-id="OmideIranTV.us@SD" tvg-logo="https://i.imgur.com/CeMf68L.png" group-title="Entertainment" tvg-country="US",Omid e Iran TV
-https://oitnhls.wns.live/hls/stream.m3u8
 #EXTINF:-1 tvg-id="ONEChannel.vn@HD" tvg-logo="https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab5%20-%20ON%20E%20Channel.png" group-title="Entertainment" tvg-country="VN",ON E Channel (1080p)
 https://freem3u.xyz/api/live/play.m3u8?vid=182
 #EXTINF:-1 tvg-id="ONVieDramas.vn@SD" tvg-logo="https://i.ibb.co/VptvgFVx/IMG-2530.webp" group-title="Entertainment" tvg-country="VN",ON Vie Dramas (1080i)
@@ -1134,17 +1138,12 @@ http://88.212.7.14/live/rtl_otthon_atk/index.m3u8
 https://tv2-stream.rtnb.bi/hls/master.m3u8
 #EXTINF:-1 tvg-id="saam.tv.(576p)" tvg-name="Saam TV (576p)" tvg-logo="" group-title="Entertainment",Saam TV (576p)
 https://cdn.pishow.tv/ott/live/437/master.m3u8
-#EXTINF:-1 tvg-id="SADATV.in@SD" tvg-logo="https://i.ibb.co/cXPzpGp/SADA-CHANNEL-HBN-global-Punjabi-Satellite-TV.png" group-title="Entertainment" tvg-country="IN",SADA TV (1080p) [Not 24/7]
-http://cdn12.henico.net:8080/live/sadatv/index.m3u8
 #EXTINF:-1 tvg-id="Salto1.nl@SD" tvg-logo="https://i.imgur.com/hyubvS5.png" group-title="Entertainment" tvg-country="NL",Salto 1 (720p)
 https://d11lnfpmek70tc.cloudfront.net/nlpo/clr-nlpo/2103d417/index.m3u8
 #EXTINF:-1 tvg-id="SanaTV.in@SD" tvg-logo="https://i.imgur.com/CR7DGBv.png" group-title="Entertainment" tvg-country="IN",Sana TV (1080p)
 https://vglivessai.akamaized.net/us/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b6d9e864-ec16-410a-804d-ccf8f720bfaa/index.m3u8
 #EXTINF:-1 tvg-id="sankara.tv.(576p)" tvg-name="Sankara TV (576p)" tvg-logo="" group-title="Entertainment",Sankara TV (576p)
 https://cdn.pishow.tv/ott/live/1135/master.m3u8
-#EXTINF:-1 tvg-id="SciFi.fr@HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d1/SciFi_2026.svg" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment" tvg-country="FR",SciFi
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36
-http://192.99.186.30/stream/250/index.m3u8
 #EXTINF:-1 tvg-id="SeriesbyPlutoTV.de@FR" tvg-logo="https://images.pluto.tv/channels/5f8ed2d1c34c2300073bf02c/colorLogoPNG_1775048963457.png" group-title="Entertainment" tvg-country="DE",Series by Pluto TV
 https://jmp2.uk/plu-5f8ed2d1c34c2300073bf02c.m3u8
 #EXTINF:-1 tvg-id="Shabakeh7.us@SD" tvg-logo="https://i.imgur.com/oHmh5Jb.png" group-title="Entertainment" tvg-country="US",Shabakeh 7
@@ -1212,8 +1211,6 @@ https://d2gvyg6lvauoko.cloudfront.net/230226/studioyuva/playlist.m3u8?hdnts=st=1
 https://bl.rutube.ru/livestream/310744c10a5809da38aa445c952976da/index.m3u8?e=2066519758&s=dmUf6BUQzDBTwtQOseAfog&scheme=https
 #EXTINF:-1 tvg-id="Subbota.ru@HD" tvg-logo="https://i.imgur.com/nsk8PpB.png" group-title="Entertainment" tvg-country="RU",Subbota! HD (1080p)
 http://stream.mcquack.net/269/index.m3u8
-#EXTINF:-1 tvg-id="SubinTV.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/subintvtamil.png" group-title="Entertainment" tvg-country="IN",Subin TV (1080p)
-https://stream.galaxyott.live/live/subintv/index.m3u8
 #EXTINF:-1 tvg-id="SunSurya.in@HD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Surya_HD.png" group-title="Entertainment" tvg-country="IN",Sun Surya HD (1080p)
 https://d3dt6rg724ecr3.cloudfront.net/SuryaTv/SuryaTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-id="SunTV.in@HD" tvg-logo="https://dtil.tmsimg.com/assets/GNLZZGG002Z0M0Y.png?lock=720x540" group-title="Entertainment" tvg-country="IN",Sun TV HD (1080p)
@@ -1318,6 +1315,8 @@ https://lbgo.bozztv.com/ssh101/ssh101/kalientecusco/playlist.m3u8
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5d40bebc5e3d2750a2239d7e/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2c9af3-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=5e762bb7-572b-4470-87fd-b3b4bb48462e
 #EXTINF:-1 tvg-id="TVMAX.br@SD" tvg-country="BR" group-title="Entertainment",TV MAX (720p)
 https://5cf4a2c2512a2.streamlock.net/tvmax/tvmax/playlist.m3u8
+#EXTINF:-1 tvg-id="TVMAX.br@SD" tvg-logo="https://i.imgur.com/JFBpDJ1.jpeg" group-title="Entertainment" tvg-country="PE",TV MAX (720p)
+https://live-evg8.tv360.bitel.com.pe/bitel/nexSRT_TRA/playlist.m3u8
 #EXTINF:-1 tvg-id="TVNatal.br@SD" tvg-logo="https://i.imgur.com/wqQmQml.png" group-title="Entertainment" tvg-country="BR",TV Natal (1080p)
 http://185.228.163.146:8000/play/a01y/index.m3u8
 #EXTINF:-1 tvg-id="TVNova.hr@SD" tvg-logo="https://i.imgur.com/gFjJ7YB.png" group-title="Entertainment" tvg-name="TV Nova" tvg-chno="38" tvg-country="HR",TV Nova (720p)
