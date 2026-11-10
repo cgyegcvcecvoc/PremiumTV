@@ -208,7 +208,7 @@ fun HomeScreen(
         LaunchedEffect(Unit) {
             teamLogos = withContext(Dispatchers.Default) { context.readTeamLogos() }
             schedule = withContext(Dispatchers.Default) { context.readSchedule() }
-            vodCatalog = withContext(Dispatchers.Default) { context.readVodCatalog() }
+            vodCatalog = withContext(Dispatchers.Default) { context.readVodCatalogDocument() }
             vodLoaded = true
         }
         // The scraper's live-game feeds, grouped by sport for the Live Events
@@ -2069,7 +2069,11 @@ private fun kickoffTime(kickoffUtcSeconds: Long): String {
 }
 
 /** The on-demand test catalogue shipped beside the channel list. */
-internal fun Context.readVodCatalog(): VodCatalog = parseVodCatalogDocument(readAsset("vod-catalog.json"))
+internal fun Context.readVodCatalog(): List<VodItem> = parseVodCatalog(readAsset("vod-catalog.json"))
+
+/** The same asset with its paused/available state, for the Movies & Shows tab. */
+internal fun Context.readVodCatalogDocument(): VodCatalog =
+    parseVodCatalogDocument(readAsset("vod-catalog.json"))
 
 /** Reads one bundled JSON asset, or null when it is absent or unreadable. */
 private fun Context.readAsset(name: String): String? = try {
