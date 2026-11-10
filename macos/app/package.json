@@ -2,7 +2,7 @@
   "name": "premiumtv",
   "productName": "PremiumTV",
   "version": "1.1.5",
-  "description": "PremiumTV for Mac \u2014 the repository's channel list and TV guide, bundled in the app",
+  "description": "PremiumTV for Mac — the repository's channel list and TV guide, bundled in the app",
   "author": {
     "name": "cgyegcvcecvoc",
     "email": "cgyegcvcecvoc@users.noreply.github.com"
@@ -29,8 +29,11 @@
     "mpegts.js": "^1.8.2"
   },
   "devDependencies": {
-    "electron": "~43.7.9",
-    "electron-builder": "^26.15.3",
+    "electron": "~43.8.7",
+    "electron-builder": "^26.18.1",
     "jsdom": "^26.1.0"
+  },
+  "overrides": {
+    "minimatch@>=7.0.0": "11.0.5"
   }
 }

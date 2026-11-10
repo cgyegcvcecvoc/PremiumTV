@@ -170,6 +170,38 @@ class BackupTest(unittest.TestCase):
         self.assertEqual(len(primary), 2)
         self.assertEqual(backups, [])
 
+    def test_existing_backup_lineage_beats_conflicting_inferred_country(self):
+        # Regression from the 2026-11-09 scrape: Monster Jam's primary carried
+        # explicit PL metadata, while an already-published backup omitted
+        # tvg-country and therefore resolved its shared ``.us`` guide id to US.
+        # A rebuild promoted "Backup 5" into Sports as another primary, making
+        # audit_backups --strict fail after every otherwise successful scrape.
+        channels = [
+            channel("Monster Jam (720p)", "Sports", "MonsterJam.us@SD",
+                    "https://example.test/primary.m3u8", "PL"),
+            channel("Monster Jam (Backup 5)", "Sports Backups", "MonsterJam.us@SD",
+                    "https://example.test/backup.m3u8", ""),
+        ]
+        primary, backups = categorize.split_primary_backups(channels)
+        self.assertEqual([item.url for item in primary],
+                         ["https://example.test/primary.m3u8"])
+        self.assertEqual([item.url for item in backups],
+                         ["https://example.test/backup.m3u8"])
+        self.assertEqual(backups[0].name, "Monster Jam (Backup 1)")
+        self.assertEqual(backups[0].attrs["group-title"], "Sports Backups")
+
+    def test_tagged_backup_does_not_cross_an_ambiguous_shared_id(self):
+        # A bad upstream id reused by two real regional channels is not enough
+        # to decide which one owns a tagged spare. Country separation wins.
+        channels = [
+            channel("Demo Sports", "Sports", "Demo.shared", "http://a/1", "US"),
+            channel("Demo Sports", "Sports", "Demo.shared", "http://b/1", "BR"),
+            channel("Demo Sports (Backup 1)", "Sports Backups", "Demo.shared", "http://c/1", "CA"),
+        ]
+        primary, backups = categorize.split_primary_backups(channels)
+        self.assertEqual(len(primary), 3)
+        self.assertEqual(backups, [])
+
     def test_blank_country_merges_with_the_named_feed(self):
         # An upstream entry with no tvg-country is the same station, not a
         # second channel: it must become a backup, not stand alone with no

@@ -4,6 +4,7 @@ import sys
 import tempfile
 import threading
 import unittest
+import urllib.error
 from contextlib import redirect_stdout
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from io import StringIO
@@ -84,6 +85,44 @@ class WriteM3uTest(unittest.TestCase):
                               advertise_self=False)
             self.assertNotIn("tvg-id", source_copy.attrs)
             self.assertIn("#EXTINF:-1,No ID", cache.read_text(encoding="utf-8"))
+
+
+class SourceFetchRetryTest(unittest.TestCase):
+    class Response:
+        def __init__(self, body=b"#EXTM3U\n"):
+            self.body = body
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return self.body
+
+    def test_transient_source_error_honours_retry_after_then_recovers(self):
+        error = urllib.error.HTTPError(
+            "https://example.test/list.m3u", 503, "unavailable", {"Retry-After": "0"}, None,
+        )
+        with patch.object(scraper.urllib.request, "urlopen",
+                          side_effect=[error, self.Response()]) as request, \
+             patch.object(scraper.time, "sleep") as sleep:
+            text = scraper.http_get("https://example.test/list.m3u", retries=2)
+        self.assertEqual(text, "#EXTM3U\n")
+        self.assertEqual(request.call_count, 2)
+        sleep.assert_called_once_with(0.0)
+
+    def test_permanent_source_error_is_not_retried(self):
+        error = urllib.error.HTTPError(
+            "https://example.test/missing.m3u", 404, "missing", {}, None,
+        )
+        with patch.object(scraper.urllib.request, "urlopen", side_effect=error) as request, \
+             patch.object(scraper.time, "sleep") as sleep:
+            with self.assertRaisesRegex(RuntimeError, "HTTP (?:Error )?404"):
+                scraper.http_get("https://example.test/missing.m3u", retries=3)
+        self.assertEqual(request.call_count, 1)
+        sleep.assert_not_called()
 
 
 class ScraperIntegrationTest(unittest.TestCase):

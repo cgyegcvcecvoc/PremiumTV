@@ -35,6 +35,12 @@ const MAX_PLAYLIST_BYTES = 4 * 1024 * 1024;
 const MAX_LOGO_BYTES = 2 * 1024 * 1024;
 const PLAYLIST_TIMEOUT_MS = 20000;
 const CONNECT_TIMEOUT_MS = 15000;
+// A renderer reload cannot reliably await its release-stream IPC during unload.
+// Bound and expire those orphaned whitelists so repeated reloads never grow the
+// main process for the lifetime of the app. Active HLS sessions touch this on
+// every playlist/segment request and therefore remain alive.
+const MAX_STREAM_SESSIONS = 32;
+const STREAM_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -54,11 +60,17 @@ class StreamProxy {
    * @param {string} options.rendererDir directory holding index.html and friends
    * @param {string} options.logoCacheDir writable logo cache
    * @param {Function} [options.fetchImpl] injectable for tests
+   * @param {number} [options.maxSessions] maximum retained playback whitelists
+   * @param {number} [options.sessionTtlMs] idle playback-session lifetime
+   * @param {Function} [options.now] clock injectable for tests
    */
   constructor(options) {
     this.rendererDir = options.rendererDir;
     this.logoCacheDir = options.logoCacheDir;
     this.fetchImpl = options.fetchImpl || ((url, init) => fetch(url, init));
+    this.maxSessions = options.maxSessions || MAX_STREAM_SESSIONS;
+    this.sessionTtlMs = options.sessionTtlMs || STREAM_SESSION_TTL_MS;
+    this.now = options.now || (() => Date.now());
     this.sessions = new Map();
     this.server = null;
     this.port = 0;
@@ -100,12 +112,27 @@ class StreamProxy {
 
   // -------------------------------------------------------------- sessions
 
+  /** Remove expired sessions and, when necessary, the least recently used. */
+  pruneSessions(now = this.now(), reserve = 0) {
+    for (const [id, session] of this.sessions) {
+      if (now - session.lastAccessAt >= this.sessionTtlMs) this.sessions.delete(id);
+    }
+    const keep = Math.max(0, this.maxSessions - reserve);
+    if (this.sessions.size <= keep) return;
+    const oldest = [...this.sessions.values()]
+      .sort((a, b) => a.lastAccessAt - b.lastAccessAt)
+      .slice(0, this.sessions.size - keep);
+    for (const session of oldest) this.sessions.delete(session.id);
+  }
+
   /**
    * Registers a channel for playback and returns the loopback URL to give a
    * <video> element. Every fetch for that session carries the channel's
    * published referrer / origin / user-agent.
    */
   registerChannel(channel) {
+    const now = this.now();
+    this.pruneSessions(now, 1);
     const id = crypto.randomBytes(12).toString('hex');
     this.sessions.set(id, {
       id,
@@ -113,6 +140,7 @@ class StreamProxy {
       baseUrl: channel.url,
       headers: headersFor(channel),
       allowed: new Set([channel.url]),
+      lastAccessAt: now,
     });
     return `${this.origin}/p/${id}`;
   }
@@ -171,11 +199,14 @@ class StreamProxy {
 
   async handleProxy(request, response, url) {
     const sessionId = url.pathname.split('/')[2];
+    const now = this.now();
+    this.pruneSessions(now);
     const session = this.sessions.get(sessionId);
     if (!session) {
       response.writeHead(410, { 'content-type': 'text/plain' });
       return response.end('this playback session has ended');
     }
+    session.lastAccessAt = now;
 
     const requested = url.searchParams.get('u');
     let target = session.baseUrl;
@@ -488,4 +519,6 @@ module.exports = {
   inferMediaContentType,
   looksLikeExtM3uHead,
   LISTEN_HOST,
+  MAX_STREAM_SESSIONS,
+  STREAM_SESSION_TTL_MS,
 };
