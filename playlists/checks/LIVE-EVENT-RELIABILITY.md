@@ -1,7 +1,7 @@
 # Live-event reliability audit
 
-- **Generated:** 2026-11-10T08:31:41Z
-- **Scrape run:** `20261110T082749Z-2749` — health check completed
+- **Generated:** 2026-11-10T12:53:44Z
+- **Scrape run:** `20261110T125009Z-2722` — health check completed
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
 - **Fixtures meeting policy:** 0/7
 - **Fixtures with a redundancy deficit:** 7
