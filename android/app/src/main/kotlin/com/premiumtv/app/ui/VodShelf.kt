@@ -117,13 +117,17 @@ data class VodItem(
     )
 }
 
+/** The bundled catalogue: its titles and whether the shelf is paused. */
+data class VodCatalog(val items: List<VodItem>, val comingSoon: Boolean)
+
 /** Parses the bundled catalogue; unusable entries are dropped, never faked. */
-internal fun parseVodCatalog(text: String?): List<VodItem> {
-    if (text.isNullOrBlank()) return emptyList()
+internal fun parseVodCatalogDocument(text: String?): VodCatalog {
+    if (text.isNullOrBlank()) return VodCatalog(emptyList(), false)
     return try {
         val root = JSONObject(text)
-        val array = root.optJSONArray("items") ?: return emptyList()
-        buildList {
+        val comingSoon = root.optString("status") == "coming_soon"
+        val array = root.optJSONArray("items") ?: return VodCatalog(emptyList(), comingSoon)
+        val items = buildList {
             for (index in 0 until array.length()) {
                 val item = array.optJSONObject(index) ?: continue
                 val stream = item.optString("stream")
@@ -160,10 +164,13 @@ internal fun parseVodCatalog(text: String?): List<VodItem> {
                 )
             }
         }
+        VodCatalog(items, comingSoon)
     } catch (_: Exception) {
-        emptyList()
+        VodCatalog(emptyList(), false)
     }
 }
+
+internal fun parseVodCatalog(text: String?): List<VodItem> = parseVodCatalogDocument(text).items
 
 private enum class VodFilter(val label: String) {
     All("All"),
@@ -178,6 +185,7 @@ private enum class VodFilter(val label: String) {
 @Composable
 fun VodShelfScreen(
     items: List<VodItem>,
+    comingSoon: Boolean = false,
     loading: Boolean = false,
     onWatch: (VodItem) -> Unit,
     onBrowseChannels: () -> Unit,
@@ -215,7 +223,7 @@ fun VodShelfScreen(
         return
     }
     if (items.isEmpty()) {
-        EmptyVodShelf(onBrowseChannels)
+        EmptyVodShelf(comingSoon, onBrowseChannels)
         return
     }
 
@@ -435,9 +443,9 @@ private fun VodChip(label: String, selected: Boolean, onClick: () -> Unit) {
     }
 }
 
-/** Shown when the catalogue is absent — the tab still tells the truth. */
+/** The coming-soon page, or an honest note when no catalogue ships at all. */
 @Composable
-private fun EmptyVodShelf(onBrowseChannels: () -> Unit) {
+private fun EmptyVodShelf(comingSoon: Boolean, onBrowseChannels: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -446,7 +454,7 @@ private fun EmptyVodShelf(onBrowseChannels: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "ON-DEMAND TEST",
+            text = if (comingSoon) "ON DEMAND · COMING SOON" else "ON-DEMAND TEST",
             style = MaterialTheme.typography.labelMedium,
             color = PremiumGoldDim,
             fontWeight = FontWeight.Bold,
@@ -454,15 +462,21 @@ private fun EmptyVodShelf(onBrowseChannels: () -> Unit) {
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "No on-demand catalogue in this build.",
+            text = if (comingSoon) "Movies & Shows is coming soon." else "No on-demand catalogue in this build.",
             style = MaterialTheme.typography.titleMedium,
             color = Color.White,
             fontWeight = FontWeight.SemiBold,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "The test shelf ships with the app bundle. Run " +
-                "scripts/vod_catalog.py and rebuild the bundle to load it.",
+            text = if (comingSoon) {
+                "The films and classic episodes have been taken down while the " +
+                    "on-demand catalogue is reworked. Live channels, the guide " +
+                    "and your favorites are unchanged."
+            } else {
+                "The shelf ships with the app bundle. Run " +
+                    "scripts/vod_shelf.py --resume and rebuild the bundle to load it."
+            },
             style = MaterialTheme.typography.bodyMedium,
             color = MutedText,
         )

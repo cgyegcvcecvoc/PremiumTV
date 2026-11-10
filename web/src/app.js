@@ -478,6 +478,23 @@
       .join("");
   }
   function renderMovies() {
+    // Data-driven: a paused or empty catalogue shows the coming-soon page, and
+    // restoring the catalogue brings the grid back without another code change.
+    const comingSoon = movies.length === 0;
+    const toolbar = $("movies-toolbar");
+    if (toolbar) toolbar.hidden = comingSoon;
+    if ($("movies-coming-soon")) $("movies-coming-soon").hidden = !comingSoon;
+    if ($("movie-grid")) $("movie-grid").hidden = comingSoon;
+    if ($("movie-empty")) $("movie-empty").hidden = true;
+    if ($("movies-heading"))
+      $("movies-heading").textContent = comingSoon
+        ? "Movies & Shows is coming soon."
+        : "Classic films. Timeless stories.";
+    if ($("movies-subtitle"))
+      $("movies-subtitle").textContent = comingSoon
+        ? "The on-demand shelf is being rebuilt around a catalogue we can stand behind. Live channels, the guide and your favorites are unchanged."
+        : `${movies.length} on-demand titles · Public-domain classics · Resume on this browser`;
+    if (comingSoon) return;
     const query = S.normalize(state.movieQuery);
     const items = movies.filter(
       (m) =>
@@ -487,8 +504,6 @@
           query,
         ),
     );
-    $("movies-subtitle").textContent =
-      `${movies.length} on-demand titles · Public-domain classics · Resume on this browser`;
     $("movie-empty").hidden = items.length > 0;
     $("movie-grid").innerHTML = items
       .map((item) => {
@@ -586,7 +601,7 @@
     if (!document.getElementById("settings-body")) return;
     const meta = library.meta;
     $("settings-body").innerHTML =
-      `<div class="panel"><div class="settings-version"><div><p class="eyebrow">INDEPENDENT WEB EDITION</p><h2>PremiumTV Web ${esc(meta.web_version || "0.1.0")}</h2></div><span class="outline-badge" style="display:inline">${esc((meta.library_scope || "usa").toUpperCase())} LIBRARY</span></div><div class="settings-stats"><div><strong>${number(library.channels.length)}</strong><span>channel feeds</span></div><div><strong>${library.groups.length}</strong><span>categories</span></div><div><strong>${programmeIndex.size || meta.guide_channels || "—"}</strong><span>channels with guide</span></div><div><strong>${movies.length || (meta.vod_catalog && meta.vod_catalog.items.length) || "—"}</strong><span>films &amp; episodes</span></div></div><p>Library built ${esc(meta.generated_utc || "unknown")} · Library data ${esc(meta.version || "")}<br>${esc(lastRefreshMessage)}</p><div class="button-row"><button id="force-refresh" class="button primary" ${state.refreshing ? "disabled" : ""}>${state.refreshing ? "Refreshing…" : "Refresh library"}</button><button id="check-bugs" class="button">Check for bugs</button><button id="settings-install" class="button quiet">Add to home screen</button></div><p class="small muted" style="margin-top:15px;margin-bottom:0">The web edition updates when its site is deployed. It never downloads APKs, DMGs or native-app updates.</p></div>
+      `<div class="panel"><div class="settings-version"><div><p class="eyebrow">INDEPENDENT WEB EDITION</p><h2>PremiumTV Web ${esc(meta.web_version || "0.1.0")}</h2></div><span class="outline-badge" style="display:inline">${esc((meta.library_scope || "usa").toUpperCase())} LIBRARY</span></div><div class="settings-stats"><div><strong>${number(library.channels.length)}</strong><span>channel feeds</span></div><div><strong>${library.groups.length}</strong><span>categories</span></div><div><strong>${programmeIndex.size || meta.guide_channels || "—"}</strong><span>channels with guide</span></div><div><strong>${movies.length || (meta.vod_catalog && meta.vod_catalog.items.length) || "Soon"}</strong><span>films &amp; episodes</span></div></div><p>Library built ${esc(meta.generated_utc || "unknown")} · Library data ${esc(meta.version || "")}<br>${esc(lastRefreshMessage)}</p><div class="button-row"><button id="force-refresh" class="button primary" ${state.refreshing ? "disabled" : ""}>${state.refreshing ? "Refreshing…" : "Refresh library"}</button><button id="check-bugs" class="button">Check for bugs</button><button id="settings-install" class="button quiet">Add to home screen</button></div><p class="small muted" style="margin-top:15px;margin-bottom:0">The web edition updates when its site is deployed. It never downloads APKs, DMGs or native-app updates.</p></div>
       ${bugReport ? `<div class="panel"><h2>${bugReport.fail ? bugReport.fail + " blocking issues" : "No blocking issues"} · ${bugReport.warn} browser warnings</h2><ul class="bug-list">${bugReport.checks.map((c) => `<li><span class="${c.status}">${c.status === "ok" ? "✓" : c.status === "warn" ? "!" : "×"}</span><strong>${esc(c.label)}</strong><span>${esc(c.detail)}</span></li>`).join("")}</ul><p class="small muted">Read-only library and browser checks. Stream availability is verified only by opening a feed.</p></div>` : ""}
       <div class="panel"><h2>Playback &amp; personal library</h2><div class="settings-row"><div><strong>Sleep timer</strong><p id="sleep-description">${sleepDeadline > Date.now() ? "Stops playback in " + S.sleepLabel(S.sleepRemaining(sleepDeadline, Date.now())) : "Stop playback after 30, 60 or 90 minutes."}</p></div><select id="sleep-timer" aria-label="Sleep timer"><option value="0">Off</option><option value="30">30 minutes</option><option value="60">1 hour</option><option value="90">1 hour 30 minutes</option></select></div><div class="settings-row"><div><strong>Hidden channels</strong><p>Feeds that fail on every server are hidden on this browser for seven days.</p></div><button id="restore-hidden" class="button quiet" ${dead.size ? "" : "disabled"}>Restore ${dead.size} hidden</button></div><div class="settings-row"><div><strong>Favorites &amp; history</strong><p>${favorites.length} favorites · ${recents.length} recently watched. Stored only in this browser.</p></div><button id="clear-personal" class="button quiet danger">Clear personal data</button></div></div>
       <div class="panel"><h2>Made for the browser</h2><p>No installation required. iPhone and iPad use native HLS playback; Chrome, Edge and Firefox use Media Source Extensions when available. Films use native MP4 playback.</p><div class="info-strip"><span>${icon("info")}</span><p>Some provider feeds need custom headers, block cross-origin requests, use HTTP, or carry AC-3/DTS audio your browser cannot decode. The native apps can handle more of these cases. The web player tries backups and explains failures instead of bypassing browser security.</p></div><div class="button-row"><a class="button quiet" href="data/PremiumTV.m3u" download>Download M3U</a><a class="button quiet" href="../#apps">Get the native apps ↗</a><button id="reload-app" class="button quiet">Reload web app</button></div></div>

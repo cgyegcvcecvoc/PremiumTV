@@ -8,13 +8,14 @@ and Apple Silicon.
 
 The release workflow prepares one published channel:
 
-- **1.1.5 stable build (default):** USA playlist + USA guide. Version 1.1.5 carries no functional Mac changes (the remote-first speed, focus and sleep-timer work is Android); it keeps the docked side player, built-in transport, mute, audio-track controls and the 21-item Movies & Shows shelf. A channel opens
+- **1.1.5 stable build (default):** USA playlist + USA guide. Version 1.1.5 carries no functional Mac changes (the remote-first speed, focus and sleep-timer work is Android); it keeps the docked side player, built-in transport, mute, audio-track controls and the Movies & Shows tab, which now shows a coming-soon page while its catalogue is paused. A channel opens
   in the docked side player with built-in transport, mute and audio-track
   controls and one click on the picture grows it to the full window, stream
   audio recovery handles separated HLS audio renditions and silent tracks, the
-  startup screen shows a moving gold loading bar and the motto “Good TV, quietly ready.”, and **Movies & Shows** ships
-  21 verified public-domain films and classic TV episodes with search, genre
-  filters and local resume (bundled from `playlists/vod/vod-catalog.json`).
+  startup screen shows a moving gold loading bar and the motto “Good TV, quietly ready.”, and **Movies & Shows** shows a
+  coming-soon page while the on-demand catalogue is paused; the shelf document,
+  search, genre filters and local resume remain for its return (bundled from
+  `playlists/vod/vod-catalog.json`).
 - **1.0.9 (superseded):** USA playlist + USA guide,
   with the animated launch splash (breathing gold halo, sweeping shimmer bar,
   pulsing dots), the compact Settings screen, the hardened bug check (11 checks:

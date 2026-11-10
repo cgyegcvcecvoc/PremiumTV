@@ -69,19 +69,10 @@ class LoadingBar113Tests(unittest.TestCase):
 
 
 class VodAndTransportPlayer113Tests(unittest.TestCase):
-    def test_vod_catalog_has_21_verified_entries_with_backup_streams(self):
+    def test_vod_catalog_is_paused_without_published_entries(self):
         catalog = json.loads(text(ROOT / "playlists/vod/vod-catalog.json"))
-        items = catalog["items"]
-        self.assertEqual(len(items), 21)
-        self.assertEqual(items[0]["id"], "vod-premiumtv-test-card")
-
-        remote_items = [item for item in items if item["id"] != "vod-premiumtv-test-card"]
-        self.assertEqual(len(remote_items), 20)
-        multi = [item for item in remote_items if isinstance(item.get("streams"), list)]
-        self.assertGreaterEqual(len(multi), 10)
-        for item in multi:
-            self.assertGreaterEqual(len(item["streams"]), 2, item["id"])
-            self.assertEqual(item["streams"][0], item["stream"], item["id"])
+        self.assertEqual(catalog.get("status"), "coming_soon")
+        self.assertEqual(catalog["items"], [])
 
     def test_both_apps_expose_vod_search_genres_and_player_transport(self):
         app_js = text(MACOS_RENDERER / "app.js")

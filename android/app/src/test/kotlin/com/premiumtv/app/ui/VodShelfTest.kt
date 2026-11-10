@@ -4,6 +4,7 @@ import android.app.Application
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -65,6 +66,14 @@ class VodShelfTest {
         assertTrue(parseVodCatalog("").isEmpty())
         assertTrue(parseVodCatalog("{not json").isEmpty())
         assertTrue(parseVodCatalog("""{"schema":1}""").isEmpty())
+    }
+
+    @Test
+    fun `a paused catalogue reports coming soon instead of inventing titles`() {
+        val paused = parseVodCatalogDocument("""{"schema":1,"status":"coming_soon","items":[]}""")
+        assertTrue(paused.comingSoon)
+        assertTrue(paused.items.isEmpty())
+        assertFalse(parseVodCatalogDocument("""{"schema":1,"items":[]}""").comingSoon)
     }
 
     @Test

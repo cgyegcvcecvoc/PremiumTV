@@ -22,11 +22,11 @@ The preview server binds `0.0.0.0` for the Arena proxy. All browser asset/data U
 - Favorites, recently watched, seven-day failed-feed memory and restore/clear controls. Storage failures fall back to session memory.
 - Lazy-loaded XMLTV guide with on-now/next, progress, category/search filters and a horizontally scrollable six-hour timeline. Missing/stale listings are not invented.
 - Live-event grouping, team badges, curated kickoff information and multi-server selection, using the native apps' pure event logic. **Listed feeds are not labeled LIVE until played.** Browser CORS makes the native apps' arbitrary server probes unreliable, so the web UI does not pretend an opaque response proves playback.
-- The repository's public-domain movie/TV catalog, title/genre/type filters, native MP4 playback, ±10-second controls, seeking and per-browser resume. The small test card is self-hosted; other movies stream from Internet Archive.
+- A **Movies & Shows** tab that currently shows a coming-soon page: the shared on-demand catalogue is paused while it is reworked. The title/genre/type filters, native MP4 playback, ±10-second controls, seeking and per-browser resume remain in the player for the catalogue's return.
 - A persistent docked player that expands without replacing the video element; native fullscreen where available, picture-in-picture/AirPlay when the browser exposes them, mute/volume, audio-track selection and automatic/manual backup servers.
 - Native inline HLS on iPhone/iPad, lazy HLS.js on MSE browsers, MPEG-TS.js only where supported. Playback begins from the user's tap; blocked autoplay gets an explicit play button.
 - Persisted wall-clock sleep timer (30/60/90 minutes), 11 read-only diagnostics, library refresh, source/privacy details and an M3U download.
-- Installable web-app manifest, home-screen instructions, offline app-shell/library cache and a no-JavaScript channel directory. **Offline mode does not make live streams or remote movies available.** Suspended mobile browsers check the sleep deadline when resumed; the web cannot guarantee a background timer fires while the OS freezes the page.
+- Installable web-app manifest, home-screen instructions, offline app-shell/library cache and a no-JavaScript channel directory. **Offline mode does not make live streams available.** Suspended mobile browsers check the sleep deadline when resumed; the web cannot guarantee a background timer fires while the OS freezes the page.
 
 The build copies `category-icons.js`, `live-events.js`, `personal.js` and `health.js` **unchanged** from the macOS renderer, and uses `android/tools/build_bundle.py` for M3U/XMLTV parsing. Web-specific storage, playback and responsive UI stay in `web/`; native source files are not edited.
 
@@ -78,7 +78,7 @@ Application/data URLs carry a content build ID. The service worker caches only s
 ## Tests and artifacts
 
 - `npm test`: storage/sorting/search/resume/sleep/validation, diagnostics, shared native policies, iOS playback strategy selection and static-server gzip/range/path safety.
-- `npm run test:browser`: desktop Chromium and iPhone-sized touch emulation by default; `WEBKIT_TESTS=1` adds real Playwright WebKit. Tests use the local MP4 test card, not an unreliable third-party stream. They cover actual playback/pause/seek/resume, player mode changes, personal shelves, guide/live listings, offline reload, diagnostics and honest provider failures.
+- `npm run test:browser`: desktop Chromium and iPhone-sized touch emulation by default; `WEBKIT_TESTS=1` adds real Playwright WebKit. Tests cover the Movies & Shows coming-soon page, player mode changes, personal shelves, guide/live listings, offline reload, diagnostics and honest provider failures.
 - `tests/test_web.py` in the repository's Python suite: offline source/export isolation and native-release separation checks.
 - `CHROMIUM_PATH` can point Playwright at a preinstalled compatible Chromium binary; normal CI installs its own engines.
 

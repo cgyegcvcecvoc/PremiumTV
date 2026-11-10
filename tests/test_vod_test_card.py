@@ -1,4 +1,4 @@
-"""The committed Movies & Shows test card: present, playable and wired in."""
+"""The Movies & Shows test card: kept, playable and ready for a later shelf."""
 
 from __future__ import annotations
 
@@ -13,7 +13,6 @@ CATALOG = ROOT / "playlists" / "vod" / "vod-catalog.json"
 MEDIA = ROOT / "playlists" / "vod" / "media"
 CLIP = MEDIA / "premiumtv-test-card.mp4"
 POSTER = MEDIA / "premiumtv-test-card.jpg"
-TEST_CARD_ID = "vod-premiumtv-test-card"
 
 
 def catalogue() -> dict:
@@ -23,23 +22,14 @@ def catalogue() -> dict:
 class TestCardTests(unittest.TestCase):
     """One short synthetic film the shelf can be exercised with in one play."""
 
-    def test_the_catalogue_publishes_the_test_card_first(self):
-        items = catalogue()["items"]
-        self.assertEqual(items[0]["id"], TEST_CARD_ID)
-        card = items[0]
-        self.assertEqual(card["kind"], "movie")
-        self.assertEqual(card["title"], "PremiumTV Test Card")
-        self.assertGreater(card["runtime_seconds"], 60)
-        self.assertTrue(card["stream"].startswith("https://"), card["stream"])
-        self.assertTrue(card["poster"].startswith("https://"), card["poster"])
-        self.assertIn("publicdomain", card["license"])
-        self.assertTrue(card.get("test_card"))
+    def test_the_paused_catalogue_keeps_no_titles(self):
+        document = catalogue()
+        self.assertEqual(document.get("status"), "coming_soon")
+        self.assertEqual(document["items"], [])
 
-    def test_the_clip_is_committed_and_matches_the_catalogue(self):
+    def test_the_clip_is_committed_and_within_size(self):
         self.assertTrue(CLIP.is_file(), "playlists/vod/media/premiumtv-test-card.mp4 is missing")
         self.assertTrue(POSTER.is_file(), "playlists/vod/media/premiumtv-test-card.jpg is missing")
-        card = catalogue()["items"][0]
-        self.assertEqual(card["size_bytes"], CLIP.stat().st_size)
         # The poster is a JPEG and the clip is under the size a committed test
         # asset may reach; Git keeps every version of it forever.
         self.assertEqual(POSTER.read_bytes()[:3], b"\xff\xd8\xff")

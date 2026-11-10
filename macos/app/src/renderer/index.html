@@ -113,9 +113,9 @@
         <header class="view-head">
           <div class="view-head-text">
             <h1>Movies &amp; Shows</h1>
-            <p id="movies-subtitle">Films, classic TV episodes and a test card, on demand.</p>
+            <p id="movies-subtitle">The on-demand shelf is being rebuilt around a catalogue we can stand behind.</p>
           </div>
-          <div class="vod-toolbar">
+          <div id="movies-toolbar" class="vod-toolbar" hidden>
             <input id="movies-search" class="vod-search" type="search"
                    placeholder="Search films, shows or genres" autocomplete="off" spellcheck="false" />
             <div id="movies-filters" class="vod-filters" role="group" aria-label="Filter the on-demand shelf">
@@ -127,8 +127,12 @@
           <div id="movies-genres" class="vod-genres" role="group" aria-label="Filter by genre"></div>
         </header>
         <div id="movies-grid" class="vod-grid"></div>
-        <div id="movies-empty" class="empty-state" hidden>
-          No on-demand catalogue in this build. Run scripts/vod_catalog.py and rebuild the bundle.
+        <div id="movies-empty" class="empty-state vod-coming-soon" hidden>
+          <p class="vod-coming-eyebrow">COMING SOON</p>
+          <h2>Films and classic TV, on their way</h2>
+          <p>The curated films and episodes have been taken down for now while the
+          on-demand catalogue is reworked. Live channels, the guide and your
+          favorites are unchanged.</p>
         </div>
       </section>
 

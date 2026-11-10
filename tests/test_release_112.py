@@ -48,7 +48,7 @@ class SidePlayerFirstTests(unittest.TestCase):
 
 
 class OnDemandShelfTests(unittest.TestCase):
-    """The Movies & Shows tab is a working test shelf, not a coming-soon page."""
+    """The Movies & Shows tab is data-driven; its catalogue is currently paused."""
 
     def test_the_android_tab_renders_the_bundled_catalogue(self):
         home = text(UI / "HomeScreen.kt")
@@ -75,20 +75,13 @@ class OnDemandShelfTests(unittest.TestCase):
         self.assertIn('id="movies-grid"', html)
         self.assertIn("https://archive.org", html)  # CSP allows the poster host
 
-    def test_the_catalogue_is_public_domain_and_playable(self):
+    def test_the_catalogue_is_paused_and_publishes_no_titles(self):
         document = json.loads(text(VOD))
         self.assertEqual(document["schema"], 1)
-        items = document["items"]
-        self.assertGreaterEqual(len(items), 8)
-        kinds = {item["kind"] for item in items}
-        self.assertEqual(kinds, {"movie", "episode"})
-        for item in items:
-            self.assertTrue(item["stream"].startswith("https://"), item["id"])
-            self.assertTrue(item["poster"].startswith("https://"), item["id"])
-            self.assertIn("publicdomain", item["license"], item["id"])
-            if item["kind"] == "episode":
-                self.assertTrue(item["show"], item["id"])
-            self.assertGreater(item["runtime_seconds"], 60, item["id"])
+        self.assertEqual(document.get("status"), "coming_soon")
+        self.assertEqual(document["items"], [])
+        # The shelf comes back with one command, without losing its media.
+        self.assertIn("--resume", text(ROOT / "scripts" / "vod_shelf.py"))
 
     def test_the_builder_validates_the_committed_file(self):
         import subprocess

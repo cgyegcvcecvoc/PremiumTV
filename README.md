@@ -13,7 +13,7 @@ advertise a channel the playlist does not carry.
 
 ## PremiumTV Web (independent browser edition)
 
-A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuses the checked USA lineup, XMLTV guide, on-demand catalog and native apps' personal-shelf/event policies without changing the Android or macOS releases. Channels, categories, search, favorites, recents, guide/timeline, live-event listings, movies, backup servers, transport controls, diagnostics and a sleep timer are included. iOS uses native HLS; other browsers use pinned HLS/MPEG-TS libraries when supported.
+A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuses the checked USA lineup, XMLTV guide, the shared on-demand catalogue state and the native apps' personal-shelf/event policies without changing the Android or macOS releases. Channels, categories, search, favorites, recents, guide/timeline, live-event listings, a Movies & Shows tab (coming soon), backup servers, transport controls, diagnostics and a sleep timer are included. iOS uses native HLS; other browsers use pinned HLS/MPEG-TS libraries when supported.
 
 - **Web URL after the Pages deployment:** https://cgyegcvcecvoc.github.io/PremiumTV/web/
 - **Local:** `cd web && npm ci && npm run build && npm start` → port 3000.
@@ -63,7 +63,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/Premium
 | [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: verified source guides, per-country channel/programme coverage, XML sizes and validation results. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
 | [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons, NFL Network, NFL RedZone) and the same guides as the main playlist. |
-| [`playlists/vod/`](playlists/vod/FEASIBILITY.md) | The Movies & Shows on-demand test catalogue: public-domain films and classic TV episodes with direct MP4 streams, posters and licences, built and probed by `scripts/vod_catalog.py`. Separate from the M3U and the guide. |
+| [`playlists/vod/`](playlists/vod/FEASIBILITY.md) | **Paused:** Movies & Shows shows a coming-soon page on every client while the on-demand catalogue is reworked. The catalogue document, the test-card media and the historical feasibility evidence stay in the repository; `python3 scripts/vod_shelf.py --resume` rebuilds the shelf with `scripts/vod_catalog.py`. Separate from the M3U and the guide. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
@@ -111,7 +111,10 @@ normally.
   MP4 derivatives ([feasibility report](playlists/vod/FEASIBILITY.md)), search
   and genre pills, local VOD playback resume, and built-in transport controls
   (`Play/Pause`, `±10s`, seek bar, `LIVE` pill, `Mute`, and `Audio` track
-  switcher) in both the docked side player and full screen.
+  switcher) in both the docked side player and full screen. **The shelf is
+  paused as of 2026-11-10:** the catalogue ships no titles and every client
+  shows a coming-soon page until a replacement is chosen
+  (`python3 scripts/vod_shelf.py --resume` restores it).
 - **Version plumbing.** Android `1.1.3` / `versionCode 101030000`, macOS
   `1.1.3`, no alias or V-patch twin; `app-update-notice.json` nudges every build
   up through 1.1.2 ([notes](release-notes-1.1.3.md)).

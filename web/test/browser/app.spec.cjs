@@ -66,49 +66,16 @@ test("guide, timeline and honest live-event listings render", async ({
   await expect(page.locator(".event-status").first()).not.toHaveText("LIVE");
 });
 
-test("local movie really plays, pauses, seeks, expands without restarting and resumes", async ({
+test("Movies & shows shows the coming-soon page instead of a shelf", async ({
   page,
 }) => {
   await page.goto("/");
   await expect(page.locator(".category-card").first()).toBeVisible();
   await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  await expect(page.locator(".movie-card")).toHaveCount(21);
-  await page.locator('[data-kind="episode"]').click();
-  expect(await page.locator(".movie-card").count()).toBeLessThan(21);
-  await page.locator('[data-kind="all"]').click();
-  await page.locator('[data-movie="vod-premiumtv-test-card"]').click();
-  await expect
-    .poll(() => page.locator("video").evaluate((v) => v.currentTime))
-    .toBeGreaterThan(1);
-  await page.locator("#player-toggle").click();
-  await expect(page.locator("video")).toHaveJSProperty("paused", true);
-  await expect(page.locator("#player-seek")).toBeVisible();
-  await page.locator("#player-seek").evaluate((el) => {
-    el.value = "200";
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  await expect
-    .poll(() => page.locator("video").evaluate((v) => v.currentTime))
-    .toBeGreaterThan(11);
-  const before = await page.locator("video").evaluate((v) => v.currentTime);
-  await page.locator("#player-minimize").click();
-  await expect(page.locator("#player")).toHaveClass(/expanded/);
-  expect(
-    await page.locator("video").evaluate((v) => v.currentTime),
-  ).toBeGreaterThanOrEqual(before);
-  await page.locator("#player-minimize").click();
-  await expect(page.locator("#player")).toHaveClass(/mini/);
-  await page.locator("#player-toggle").click();
-  await expect
-    .poll(() => page.locator("video").evaluate((v) => v.currentTime))
-    .toBeGreaterThan(5);
-  await page.waitForTimeout(4200);
-  await page.locator("#player-close").click();
-  await expect(page.locator("#player")).toBeHidden();
-  await expect(page.locator(".resume-track")).toBeVisible();
-  await page.reload();
-  await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  await expect(page.locator(".resume-track")).toBeVisible();
+  await expect(page.locator("#movies-coming-soon")).toBeVisible();
+  await expect(page.locator("#movies-coming-soon")).toContainText("COMING SOON");
+  await expect(page.locator("#movies-toolbar")).toBeHidden();
+  await expect(page.locator(".movie-card")).toHaveCount(0);
 });
 
 test("settings diagnostics, sleep timer, touch layout and install help", async ({
@@ -176,7 +143,8 @@ test("offline app shell and cached library reopen without a network", async ({
   await expect(page.locator(".category-card")).toHaveCount(63);
   await expect(page.locator("#offline-banner")).toBeVisible();
   await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  await expect(page.locator(".movie-card")).toHaveCount(21);
+  await expect(page.locator("#movies-coming-soon")).toBeVisible();
+  await expect(page.locator(".movie-card")).toHaveCount(0);
   await context.setOffline(false);
 });
 

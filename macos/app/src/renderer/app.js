@@ -112,6 +112,7 @@
     // 1.1.2 Movies & Shows: the on-demand test catalogue shipped in the
     // bundle (meta.vod_catalog) and the filter the viewer picked.
     vodItems: [],
+    vodComingSoon: false,
     vodFilter: 'all',
     vodGenre: 'all',
     vodQuery: '',
@@ -1801,6 +1802,30 @@
   function renderMovies() {
     if (!els.moviesGrid) return;
     const items = Array.isArray(ui.vodItems) ? ui.vodItems : [];
+    // A paused catalogue (or an empty one) is a real state: the tab tells the
+    // viewer the shelf is coming soon instead of showing an empty grid.
+    const comingSoon = ui.vodComingSoon || items.length === 0;
+    const toolbar = document.getElementById('movies-toolbar');
+    if (toolbar) toolbar.hidden = comingSoon;
+    els.moviesGrid.hidden = comingSoon;
+    els.moviesGrid.innerHTML = '';
+    if (els.moviesSubtitle) {
+      els.moviesSubtitle.textContent = comingSoon
+        ? 'The on-demand shelf is being rebuilt around a catalogue we can stand behind.'
+        : `${items.length} on demand · films and classic TV · plays in the side player`;
+    }
+    if (els.moviesEmpty) {
+      els.moviesEmpty.hidden = !comingSoon;
+      els.moviesEmpty.classList.toggle('vod-coming-soon', comingSoon);
+      els.moviesEmpty.innerHTML = comingSoon
+        ? '<p class="vod-coming-eyebrow">COMING SOON</p>' +
+          '<h2>Films and classic TV, on their way</h2>' +
+          '<p>The curated films and episodes have been taken down for now while the ' +
+          'on-demand catalogue is reworked. Live channels, the guide and your ' +
+          'favorites are unchanged.</p>'
+        : '';
+    }
+    if (comingSoon) return;
     const byKind = ui.vodFilter === 'all' ? items : items.filter((item) => item.kind === ui.vodFilter);
 
     const genres = [...new Set(byKind.map((item) => item.genre).filter(Boolean))].sort();
@@ -1836,11 +1861,6 @@
       return hay.includes(needle);
     });
 
-    if (els.moviesSubtitle) {
-      els.moviesSubtitle.textContent = items.length
-        ? `${items.length} on demand · films, classic TV and a test card · plays in the side player`
-        : 'Films, classic TV episodes and a test card, on demand.';
-    }
     for (const chip of document.querySelectorAll('#movies-filters .vod-chip')) {
       chip.setAttribute('aria-pressed', String(chip.dataset.vodFilter === ui.vodFilter));
     }
@@ -1876,9 +1896,7 @@
     }
     if (els.moviesEmpty) {
       els.moviesEmpty.hidden = shown.length > 0;
-      els.moviesEmpty.textContent = items.length
-        ? 'No titles match this filter.'
-        : 'No on-demand catalogue in this build. Run scripts/vod_catalog.py and rebuild the bundle.';
+      els.moviesEmpty.textContent = 'No titles match this filter.';
     }
   }
 
@@ -2668,6 +2686,7 @@
     ui.sportsDoc = { team_logos: ui.teamLogos };
     // 1.1.2: the on-demand catalogue rides beside the crests in the bundle.
     const vodDoc = meta.vod_catalog || meta['vod-catalog'] || {};
+    ui.vodComingSoon = vodDoc.status === 'coming_soon';
     ui.vodItems = Array.isArray(vodDoc.items) ? vodDoc.items.filter((item) =>
       item && item.id && item.title && item.stream) : [];
     rebuildDerivedIndexes(snapshot.library);

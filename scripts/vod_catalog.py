@@ -28,6 +28,10 @@ Outputs:
     playlists/vod/vod-health.json    per-item probe result of the last run
     playlists/vod/FEASIBILITY.md     human-readable test report
 
+The committed document can also be paused: `status` is `coming_soon` and
+`items` is empty, which every client renders as its coming-soon page. Use
+`scripts/vod_shelf.py` to flip that state without touching the media.
+
 Only the standard library is used, like the rest of scripts/.
 """
 
@@ -751,7 +755,10 @@ def check_committed() -> int:
         log("[vod] %s" % problem)
     if problems:
         return 1
-    log("[vod] OK %s (%d items)" % (os.path.relpath(CATALOG_PATH, ROOT), len(catalog["items"])))
+    if catalog.get("status") == "coming_soon":
+        log("[vod] OK %s (coming soon, 0 items)" % os.path.relpath(CATALOG_PATH, ROOT))
+    else:
+        log("[vod] OK %s (%d items)" % (os.path.relpath(CATALOG_PATH, ROOT), len(catalog["items"])))
     return 0
 
 
@@ -760,6 +767,13 @@ def validate_document(catalog: dict) -> list[str]:
     problems = []
     if catalog.get("schema") != 1:
         problems.append("schema must be 1")
+    if catalog.get("status") == "coming_soon":
+        # A paused shelf is a real, publishable state: the document keeps its
+        # shape and every client shows its coming-soon page. It must not carry
+        # titles, or an app would advertise a shelf it cannot open.
+        if catalog.get("items") not in (None, []):
+            problems.append("a coming_soon catalogue must not publish items")
+        return problems
     items = catalog.get("items")
     if not isinstance(items, list) or not items:
         return problems + ["items must be a non-empty list"]

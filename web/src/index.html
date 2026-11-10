@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#141619" />
     <meta
       name="description"
-      content="PremiumTV in your browser. Live channels, a TV guide, movies and your favorites. No account or app install required."
+      content="PremiumTV in your browser. Live channels, a TV guide and your favorites. No account or app install required."
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
@@ -255,15 +255,26 @@
         >
           <div class="page-heading">
             <div>
-              <p class="eyebrow">A LITTLE TIME TRAVEL</p>
-              <h1>Classic films. Timeless stories.</h1>
+              <p class="eyebrow">ON DEMAND</p>
+              <h1 id="movies-heading">Movies &amp; Shows is coming soon.</h1>
               <p id="movies-subtitle" class="subtitle">
-                Public-domain films, classic television, and a built-in test
-                card.
+                The on-demand shelf is being rebuilt around a catalogue we can
+                stand behind. Live channels, the guide and your favorites are
+                unchanged.
               </p>
             </div>
           </div>
-          <div class="search-toolbar">
+          <div id="movies-coming-soon" class="coming-soon">
+            <p class="eyebrow">COMING SOON</p>
+            <h2>Films and classic TV, on their way</h2>
+            <p>
+              The curated films and episodes have been taken down for now while
+              the on-demand catalogue is reworked. Nothing you saved is lost,
+              and live TV is exactly where you left it.
+            </p>
+            <button class="button" data-go="channels">Browse live channels</button>
+          </div>
+          <div id="movies-toolbar" class="search-toolbar" hidden>
             <label class="search-field"
               ><span data-icon="search"></span
               ><input
@@ -544,8 +555,8 @@
         when available.
       </p>
       <p class="muted">
-        The app shell and loaded library can work offline. Live TV and remote
-        movies still need internet.
+        The app shell and loaded library can work offline. Live TV still needs
+        internet.
       </p>
       <button class="button primary" data-close-dialog>Got it</button>
     </dialog>

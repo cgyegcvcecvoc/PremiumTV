@@ -1,5 +1,11 @@
 # On-demand feasibility test — Movies & Shows
 
+> **Paused on 2026-11-10.** The films and episodes are no longer published:
+> `playlists/vod/vod-catalog.json` is empty and the web, Android and macOS
+> clients show a coming-soon page. This report is kept as the historical
+> feasibility evidence. Run `python3 scripts/vod_shelf.py --resume` to rebuild
+> the shelf when a replacement catalogue is ready.
+
 Generated 2026-10-25T17:10:22Z by `scripts/vod_catalog.py`.
 
 This is the evidence behind the Movies & Shows tab: a finite film and

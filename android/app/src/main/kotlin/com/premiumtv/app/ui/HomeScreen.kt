@@ -201,13 +201,14 @@ fun HomeScreen(
         val context = LocalContext.current.applicationContext
         var teamLogos by remember { mutableStateOf(emptyMap<String, String>()) }
         var schedule by remember { mutableStateOf(emptyMap<String, Long>()) }
-        // 1.1.2 on-demand test shelf, bundled from playlists/vod/vod-catalog.json.
-        var vodItems by remember { mutableStateOf(emptyList<VodItem>()) }
+        // The on-demand shelf, bundled from playlists/vod/vod-catalog.json. A
+        // paused catalogue keeps its document and reports coming soon.
+        var vodCatalog by remember { mutableStateOf(VodCatalog(emptyList(), false)) }
         var vodLoaded by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             teamLogos = withContext(Dispatchers.Default) { context.readTeamLogos() }
             schedule = withContext(Dispatchers.Default) { context.readSchedule() }
-            vodItems = withContext(Dispatchers.Default) { context.readVodCatalog() }
+            vodCatalog = withContext(Dispatchers.Default) { context.readVodCatalog() }
             vodLoaded = true
         }
         // The scraper's live-game feeds, grouped by sport for the Live Events
@@ -316,7 +317,8 @@ fun HomeScreen(
                 schedule = schedule,
             )
             HomeTab.Movies -> VodShelfScreen(
-                items = vodItems,
+                items = vodCatalog.items,
+                comingSoon = vodCatalog.comingSoon,
                 loading = !vodLoaded,
                 onWatch = { onSelect(it.asChannel()) },
                 onBrowseChannels = { onTabChange(HomeTab.Channels) },
@@ -2067,7 +2069,7 @@ private fun kickoffTime(kickoffUtcSeconds: Long): String {
 }
 
 /** The on-demand test catalogue shipped beside the channel list. */
-internal fun Context.readVodCatalog(): List<VodItem> = parseVodCatalog(readAsset("vod-catalog.json"))
+internal fun Context.readVodCatalog(): VodCatalog = parseVodCatalogDocument(readAsset("vod-catalog.json"))
 
 /** Reads one bundled JSON asset, or null when it is absent or unreadable. */
 private fun Context.readAsset(name: String): String? = try {
