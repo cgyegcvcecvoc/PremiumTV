@@ -1,6 +1,6 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-10T08:33:10+00:00 UTC
+- **Generated:** 2026-11-10T11:15:42+00:00 UTC
 - **Playlists checked:** 175 (26550 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 79
@@ -250,8 +250,8 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 | 49 | `categories/USA/Weather.m3u` | USA | Weather | 5 | ok |
 | 50 | `categories/USA/Weather_Backups.m3u` | USA | Weather Backups | 3 | ok |
 | 51 | `categories/USA/Other.m3u` | USA | Other | 14 | ok |
-| 52 | `categories/All/Sports.m3u` | World | Sports | 502 | ok |
-| 53 | `categories/All/Sports_Backups.m3u` | World | Sports Backups | 126 | ok |
+| 52 | `categories/All/Sports.m3u` | World | Sports | 501 | ok |
+| 53 | `categories/All/Sports_Backups.m3u` | World | Sports Backups | 127 | ok |
 | 54 | `categories/All/Lifestyle.m3u` | World | Lifestyle | 480 | ok |
 | 55 | `categories/All/Lifestyle_Backups.m3u` | World | Lifestyle Backups | 123 | ok |
 | 56 | `categories/All/Fox_Channels.m3u` | World | Fox Channels | 30 | ok |

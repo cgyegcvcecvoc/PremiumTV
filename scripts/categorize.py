@@ -862,14 +862,44 @@ def identity_groups(channels: list) -> list[list]:
     Groups come out sorted by (name, country) - the order ``channel_key``
     produces - so backup numbering is stable across rebuilds.
     """
-    by_name: dict[str, dict[str, list]] = collections.defaultdict(
-        lambda: collections.defaultdict(list))
+    by_name: dict[str, list] = collections.defaultdict(list)
     for channel in channels:
         name_key = norm_key(clean_display_name(_get(channel, "name")))
-        by_name[name_key][country_of(channel).strip().upper()].append(channel)
+        by_name[name_key].append(channel)
+
     groups: list[list] = []
     for name_key in sorted(by_name):
-        by_country = by_name[name_key]
+        named = by_name[name_key]
+
+        # A published ``(Backup N)`` is stronger lineage evidence than inferred
+        # country metadata.  On the next rebuild its source may omit
+        # ``tvg-country`` and let a ``.us`` guide id infer United States while
+        # the primary explicitly says Poland (Monster Jam exposed this exact
+        # case).  Splitting that already-named backup into a new primary makes
+        # the rebuild non-idempotent and leaves a backup in the primary category.
+        # Reattach it to an untagged primary with the same guide id when that id
+        # identifies exactly one country bucket.  Ambiguous ids still preserve
+        # the normal country separation below.
+        primary_countries_by_id: dict[str, set[str]] = collections.defaultdict(set)
+        for channel in named:
+            if _BACKUP_TAG.search(_get(channel, "name")):
+                continue
+            tvg_id = (channel.attrs.get("tvg-id", "") if hasattr(channel, "attrs") else "") or ""
+            if tvg_id.strip():
+                primary_countries_by_id[tvg_id.strip().casefold()].add(
+                    country_of(channel).strip().upper()
+                )
+
+        by_country: dict[str, list] = collections.defaultdict(list)
+        for channel in named:
+            country = country_of(channel).strip().upper()
+            if _BACKUP_TAG.search(_get(channel, "name")):
+                tvg_id = (channel.attrs.get("tvg-id", "") if hasattr(channel, "attrs") else "") or ""
+                lineage = primary_countries_by_id.get(tvg_id.strip().casefold(), set())
+                if len(lineage) == 1:
+                    country = next(iter(lineage))
+            by_country[country].append(channel)
+
         # "International"/blank means "unknown", so it can join any single
         # real country but is ambiguous when two real ones are present.
         known = [c for c in by_country if c and c != INTERNATIONAL.upper()]

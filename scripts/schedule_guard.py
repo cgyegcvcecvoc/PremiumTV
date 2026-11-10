@@ -45,6 +45,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -394,7 +395,15 @@ def covering_run(slot: Slot, runs: list[dict],
 # --------------------------------------------------------------------------- #
 # GitHub API
 # --------------------------------------------------------------------------- #
-def gh_api(path: str, token: str = "", method: str = "GET", payload: dict | None = None) -> dict:
+def gh_api(path: str, token: str = "", method: str = "GET", payload: dict | None = None,
+           retries: int | None = None) -> dict:
+    """Call the GitHub API, retrying only idempotent transient requests.
+
+    A POST whose response is lost may already have created a dispatch, so those
+    calls deliberately remain single-shot. GETs retry rate limits, gateway
+    failures and connection resets with bounded backoff; otherwise one brief API
+    wobble made the guard assume the workflow was idle and dispatch a duplicate.
+    """
     url = path if path.startswith("http") else f"https://api.github.com{path}"
     headers = {"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28",
                "User-Agent": "premiumtv-schedule-guard"}
@@ -404,28 +413,68 @@ def gh_api(path: str, token: str = "", method: str = "GET", payload: dict | None
     if data is not None:
         headers["Content-Type"] = "application/json"
     request = urllib.request.Request(url, data=data, headers=headers, method=method)
-    with urllib.request.urlopen(request, timeout=30) as response:
-        body = response.read()
-    return json.loads(body) if body else {}
+    attempts = (2 if method.upper() == "GET" else 0) if retries is None else max(0, retries)
+    for attempt in range(attempts + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                body = response.read()
+            return json.loads(body) if body else {}
+        except urllib.error.HTTPError as exc:
+            transient = exc.code in (408, 425, 429) or exc.code >= 500
+            if not transient or attempt >= attempts:
+                raise
+            retry_after = exc.headers.get("Retry-After") if exc.headers else None
+            try:
+                delay = min(10.0, max(0.0, float(retry_after))) if retry_after else min(2 ** attempt, 4)
+            except ValueError:
+                delay = min(2 ** attempt, 4)
+            time.sleep(delay)
+        except (urllib.error.URLError, TimeoutError, OSError):
+            if attempt >= attempts:
+                raise
+            time.sleep(min(2 ** attempt, 4))
+    raise RuntimeError("GitHub API attempts exhausted")
 
 
 ACTIVE_STATES = {"queued", "in_progress", "requested", "waiting", "pending"}
 
 
 def scrape_is_busy(repo: str, token: str, workflow: str = "scrape.yml",
-                   cooldown_minutes: int = COOLDOWN_MINUTES) -> tuple[bool, str]:
-    """True when a scrape is running or finished very recently."""
+                   cooldown_minutes: int = COOLDOWN_MINUTES,
+                   now: dt.datetime | None = None) -> tuple[bool, str]:
+    """True when a scrape is running, newly queued, or finished very recently.
+
+    A queued scheduled run is *not* allowed to block catch-up forever. GitHub
+    has left this repository's cron runs queued for more than ten hours; the old
+    guard saw ``queued`` and deferred on every cycle. Once a pending run is older
+    than the cooldown, report the workflow idle so a repository dispatch can
+    replace that stale pending run in the workflow's concurrency group. An
+    actually running job always remains busy.
+    """
     try:
-        data = gh_api(f"/repos/{repo}/actions/workflows/{workflow}/runs?per_page=5", token)
+        data = gh_api(f"/repos/{repo}/actions/workflows/{workflow}/runs?per_page=10", token)
     except (urllib.error.URLError, urllib.error.HTTPError, OSError, ValueError) as exc:
-        return False, f"could not read recent runs ({exc}); assuming idle"
-    now = dt.datetime.now(dt.timezone.utc)
+        # Fail closed. The guard runs again in twenty minutes; dispatching while
+        # its duplicate-protection API is unavailable is less safe than waiting.
+        return True, f"could not read recent runs ({exc}); retrying next cycle"
+    now = now or dt.datetime.now(dt.timezone.utc)
+    stale_pending: list[str] = []
     for run in data.get("workflow_runs", []):
-        if str(run.get("status", "")).lower() in ACTIVE_STATES:
-            return True, f"run {run.get('id')} is {run.get('status')}"
+        status = str(run.get("status", "")).lower()
         started = parse_iso(run.get("run_started_at") or run.get("created_at") or "")
-        if started and (now - started) < dt.timedelta(minutes=cooldown_minutes):
-            return True, f"run {run.get('id')} started {(now - started).seconds // 60} min ago"
+        age = (now - started).total_seconds() / 60.0 if started else None
+        if status == "in_progress":
+            return True, f"run {run.get('id')} is in_progress"
+        if status in ACTIVE_STATES:
+            if age is None or age < cooldown_minutes:
+                detail = f" for {max(0, int(age))} min" if age is not None else ""
+                return True, f"run {run.get('id')} is {status}{detail}"
+            stale_pending.append(f"{run.get('id')} ({status} {int(age)} min)")
+            continue
+        if started and 0 <= age < cooldown_minutes:
+            return True, f"run {run.get('id')} started {int(age)} min ago"
+    if stale_pending:
+        return False, "stale pending run(s) will be superseded: " + ", ".join(stale_pending)
     return False, "idle"
 
 

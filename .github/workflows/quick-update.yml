@@ -144,10 +144,13 @@ jobs:
         # playlist this step now sees, before it is committed.
         run: python3 scripts/build_live_schedule.py
 
+      - name: Audit live-event primaries, backup, and source diversity
+        run: python3 scripts/audit_live_events.py
+
       - name: Add the reports to the Actions summary
         if: always()
         run: |
-          for file in playlists/checks/CATEGORIES.md; do
+          for file in playlists/checks/CATEGORIES.md playlists/checks/LIVE-EVENT-RELIABILITY.md; do
             if [ -f "$file" ]; then
               echo "-----" >> "$GITHUB_STEP_SUMMARY"
               cat "$file" >> "$GITHUB_STEP_SUMMARY"
