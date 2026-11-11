@@ -1,0 +1,60 @@
+name: Pages site check
+
+# The Pages deploy proves that the site was uploaded, not that it still works:
+# a generated page can link to a file the build stopped producing, a release
+# asset can be renamed, or the service worker can be left on an older build id,
+# and the deploy job still reports success.
+#
+# This workflow reads the published site back once a day. It crawls the entry
+# pages (the download page, the generated hub and the web player), checks every
+# same-origin page, script, stylesheet, image and data file for HTTP 200, and
+# verifies that the service worker's BUILD matches data/meta.json. It never
+# writes to the repository or needs a token beyond contents: read.
+#
+# It also runs when the checker or its tests change, so a change to the checker
+# is exercised against the live site before it joins the daily schedule.
+on:
+  schedule:
+    # 05:23 New York time, off the top of the hour like the other schedules in
+    # this repository: GitHub's scheduler is congested at minute 0.
+    - cron: "23 5 * * *"
+      timezone: "America/New_York"
+  workflow_dispatch:
+  push:
+    # Tag pushes must not run the check; path filters are not evaluated for
+    # tags. The explicit branches filter is what makes paths apply on branches.
+    branches:
+      - "**"
+    tags-ignore:
+      - "**"
+    paths:
+      - "scripts/pages_site_check.py"
+      - "tests/test_pages_site_check.py"
+      - ".github/workflows/pages-site-check.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-site-check
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check the published site
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Run the checker's tests
+        run: python -m unittest discover -s tests -p "test_pages_site_check.py" -v
+
+      - name: Check the live Pages site
+        run: python scripts/pages_site_check.py
