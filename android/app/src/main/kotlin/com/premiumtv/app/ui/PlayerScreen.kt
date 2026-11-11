@@ -62,6 +62,7 @@ import androidx.media3.common.Tracks
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
@@ -230,9 +231,20 @@ fun PlayerScreen(
             .setUsage(C.USAGE_MEDIA)
             .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
             .build()
+        val loadControl = DefaultLoadControl.Builder()
+            // Media3 defaults can retain roughly 50 seconds. Live events need
+            // enough protection for normal jitter, not an unnecessary delay.
+            .setBufferDurationsMs(
+                /* minBufferMs = */ 3_000,
+                /* maxBufferMs = */ 12_000,
+                /* bufferForPlaybackMs = */ 1_000,
+                /* bufferForPlaybackAfterRebufferMs = */ 2_000,
+            )
+            .build()
         ExoPlayer.Builder(context)
             .setRenderersFactory(renderersFactory)
             .setTrackSelector(trackSelector)
+            .setLoadControl(loadControl)
             .setAudioAttributes(audioAttributes, /* handleAudioFocus = */ true)
             .build()
             .apply {
@@ -274,11 +286,11 @@ fun PlayerScreen(
     }
 
     // Buffering watchdog: a feed that never leaves buffering (stuck manifest,
-    // geo-block timeout, dead HLS variant) advances after 25 s instead of
+    // geo-block timeout, dead HLS variant) advances after 12 s instead of
     // leaving the spinner forever. On the last server it says so.
     LaunchedEffect(buffering, serverIndex, playlist.size, errorMessage) {
         if (!buffering || errorMessage != null) return@LaunchedEffect
-        kotlinx.coroutines.delay(25_000L)
+        kotlinx.coroutines.delay(if (isVodItem) 25_000L else 12_000L)
         if (buffering && errorMessage == null) {
             val next = autoNextServerIndex(serverIndex, playlist.size)
             if (next != null) {
@@ -1068,10 +1080,11 @@ private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
     if (channel.referrer.isNotBlank()) headers["Referer"] = channel.referrer
     if (channel.origin.isNotBlank()) headers["Origin"] = channel.origin
 
+    val isLive = !channel.id.startsWith("vod-")
     var http = DefaultHttpDataSource.Factory()
         .setAllowCrossProtocolRedirects(true)
-        .setConnectTimeoutMs(15_000)
-        .setReadTimeoutMs(30_000)
+        .setConnectTimeoutMs(if (isLive) 8_000 else 15_000)
+        .setReadTimeoutMs(if (isLive) 12_000 else 30_000)
     if (headers.isNotEmpty()) http = http.setDefaultRequestProperties(headers)
     if (channel.userAgent.isNotBlank()) http = http.setUserAgent(channel.userAgent)
 
@@ -1081,6 +1094,17 @@ private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
                 DefaultTsPayloadReaderFactory.FLAG_DETECT_ACCESS_UNITS
         )
 
+    val item = MediaItem.fromUri(channel.url).buildUpon().apply {
+        if (isLive) {
+            setLiveConfiguration(
+                MediaItem.LiveConfiguration.Builder()
+                    .setTargetOffsetMs(4_000)
+                    .setMinOffsetMs(2_000)
+                    .setMaxOffsetMs(12_000)
+                    .build()
+            )
+        }
+    }.build()
     return DefaultMediaSourceFactory(DefaultDataSource.Factory(context, http), extractors)
-        .createMediaSource(MediaItem.fromUri(channel.url))
+        .createMediaSource(item)
 }

@@ -48,6 +48,7 @@ function player() {
   );
   return {
     plan: (...args) => Array.from(context.module.exports.plan(...args)),
+    hlsConfig: context.module.exports.hlsConfig,
   };
 }
 test("iPhone HLS starts natively even when ManagedMediaSource exists", () => {
@@ -93,4 +94,25 @@ test("extensionless feeds get native and HLS attempts, not a guessed CORS probe"
     player().plan("https://example.com/watch/123", false, true, true),
     ["native", "hls"],
   );
+});
+
+test("live HLS tracks the edge with a bounded buffer and faster network deadlines", () => {
+  const config = player().hlsConfig(true);
+  assert.equal(config.lowLatencyMode, true);
+  assert.equal(config.liveSyncDurationCount, 3);
+  assert.equal(config.liveMaxLatencyDurationCount, 8);
+  assert.equal(config.maxBufferLength, 12);
+  assert.equal(config.maxMaxBufferLength, 24);
+  assert.equal(config.backBufferLength, 10);
+  assert.equal(config.manifestLoadingTimeOut, 8000);
+  assert.equal(config.levelLoadingTimeOut, 8000);
+  assert.equal(config.fragLoadingTimeOut, 10000);
+});
+
+test("VOD retains larger buffers and does not enable live-edge chasing", () => {
+  const config = player().hlsConfig(false);
+  assert.equal(config.lowLatencyMode, false);
+  assert.equal(config.liveSyncDurationCount, undefined);
+  assert.equal(config.maxBufferLength, 20);
+  assert.equal(config.backBufferLength, 30);
 });

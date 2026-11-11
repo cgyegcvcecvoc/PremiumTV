@@ -163,7 +163,7 @@ test('a stream that stalls without an error advances to the next playback strate
     'http://127.0.0.1:1234/p/stalled',
     'https://example.org/stalled.m3u8',
   );
-  const deadline = timers.find((timer) => timer.delay === 25000 && !timer.cancelled);
+  const deadline = timers.find((timer) => timer.delay === 12000 && !timer.cancelled);
   assert.ok(deadline, 'the first strategy gets a finite startup deadline');
   deadline.fn();
   assert.ok(calls.includes('destroy-hls'), 'the stalled HLS instance is released');

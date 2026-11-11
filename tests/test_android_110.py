@@ -83,6 +83,15 @@ class AutomaticBackupTests(unittest.TestCase):
         player = text(UI / "PlayerScreen.kt")
         self.assertIn("healthyServersFirst(full, deadUrls)", player)
 
+    def test_live_playback_uses_small_buffers_and_fast_recovery(self):
+        player = text(UI / "PlayerScreen.kt")
+        self.assertIn("DefaultLoadControl.Builder()", player)
+        self.assertIn("/* maxBufferMs = */ 12_000", player)
+        self.assertIn(".setTargetOffsetMs(4_000)", player)
+        self.assertIn(".setMaxOffsetMs(12_000)", player)
+        self.assertIn("if (isLive) 8_000 else 15_000", player)
+        self.assertIn("if (isVodItem) 25_000L else 12_000L", player)
+
 
 class DeadChannelFilterTests(unittest.TestCase):
     def test_health_rules_are_pure_and_tested(self):
