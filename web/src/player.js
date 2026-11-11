@@ -145,6 +145,27 @@
     if (attempt >= strategies.length) fatal();
     else run(strategies[attempt++]);
   }
+  function hlsConfig(isLive) {
+    return {
+      enableWorker: true,
+      // Live events should track the edge instead of building a large safety
+      // buffer. VOD keeps the more forgiving defaults for seeking/resume.
+      lowLatencyMode: isLive,
+      liveDurationInfinity: true,
+      liveSyncDurationCount: isLive ? 3 : undefined,
+      liveMaxLatencyDurationCount: isLive ? 8 : undefined,
+      backBufferLength: isLive ? 10 : 30,
+      maxBufferLength: isLive ? 12 : 20,
+      maxMaxBufferLength: isLive ? 24 : 40,
+      maxBufferSize: 30 * 1000 * 1000,
+      manifestLoadingTimeOut: isLive ? 8000 : 15000,
+      manifestLoadingMaxRetry: 1,
+      levelLoadingTimeOut: isLive ? 8000 : 10000,
+      levelLoadingMaxRetry: 1,
+      fragLoadingTimeOut: isLive ? 10000 : 20000,
+      fragLoadingMaxRetry: 2,
+    };
+  }
   function armWatchdog(id) {
     clearTimeout(watchdog);
     if (manualPaused || pendingGesture) return;
@@ -158,7 +179,7 @@
         (!started || (video.readyState < 3 && !video.paused))
       )
         nextStrategy();
-    }, 20000);
+    }, channel && !channel.vod ? 12000 : 20000);
   }
   function requestPlay(id) {
     if (id !== session || manualPaused) return;
@@ -301,19 +322,7 @@
           nextStrategy();
           return;
         }
-        hls = new root.Hls({
-          enableWorker: true,
-          lowLatencyMode: false,
-          liveDurationInfinity: true,
-          backBufferLength: 30,
-          maxBufferLength: 20,
-          maxMaxBufferLength: 40,
-          maxBufferSize: 30 * 1000 * 1000,
-          manifestLoadingTimeOut: 15000,
-          manifestLoadingMaxRetry: 1,
-          levelLoadingMaxRetry: 1,
-          fragLoadingMaxRetry: 2,
-        });
+        hls = new root.Hls(hlsConfig(!channel.vod));
         hls.on(root.Hls.Events.ERROR, (_, data) => {
           if (id !== session || !data.fatal) return;
           if (
@@ -437,7 +446,7 @@
       : 1;
   } catch (_) {}
   if (typeof module !== "undefined" && module.exports)
-    module.exports = { plan };
+    module.exports = { plan, hlsConfig };
   root.PremiumPlayer = {
     element: video,
     plan,

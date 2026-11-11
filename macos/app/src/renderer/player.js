@@ -193,7 +193,7 @@ window.PremiumPlayer = (function () {
       if (sessionId !== sessionCounter) return;
       teardown();
       tryNext();
-    }, 25000);
+    }, 12000);
   }
 
   function selectPlayableHlsVariantAndTrack() {
@@ -423,12 +423,20 @@ window.PremiumPlayer = (function () {
   function playWithHls() {
     hls = new window.Hls({
       enableWorker: true,
-      lowLatencyMode: false,
+      // Stay near the live edge. A large buffer makes a working game look
+      // delayed even when the provider and network are healthy.
+      lowLatencyMode: true,
       liveDurationInfinity: true,
-      backBufferLength: 30,
-      manifestLoadingTimeOut: 15000,
+      liveSyncDurationCount: 3,
+      liveMaxLatencyDurationCount: 8,
+      backBufferLength: 10,
+      maxBufferLength: 12,
+      maxMaxBufferLength: 24,
+      manifestLoadingTimeOut: 8000,
       manifestLoadingMaxRetry: 1,
+      levelLoadingTimeOut: 8000,
       levelLoadingMaxRetry: 2,
+      fragLoadingTimeOut: 10000,
       fragLoadingMaxRetry: 2,
     });
     hls.on(window.Hls.Events.ERROR, (_event, data) => {
