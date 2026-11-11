@@ -53,7 +53,10 @@ class OnDemandShelfTests(unittest.TestCase):
     def test_the_android_tab_renders_the_bundled_catalogue(self):
         home = text(UI / "HomeScreen.kt")
         self.assertIn("HomeTab.Movies -> VodShelfScreen(", home)
-        self.assertIn('context.readVodCatalog()', home)
+        self.assertIn('context.readVodCatalogDocument()', home)
+        # AppRoot still resolves the list itself; only the shelf reads the
+        # paused-state document.
+        self.assertIn("internal fun Context.readVodCatalog(): List<VodItem>", home)
         self.assertIn('readAsset("vod-catalog.json")', home)
         shelf = text(UI / "VodShelf.kt")
         self.assertIn("internal fun parseVodCatalog(", shelf)
