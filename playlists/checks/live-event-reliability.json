@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-12T21:38:45Z",
+  "generated_utc": "2026-11-12T23:02:06Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261112T213505Z-2947",
+  "scrape_run_id": "20261112T225826Z-3193",
   "health_check_completed": true,
   "policy": {
     "minimum_confirmed_feeds": 3,
@@ -12,9 +12,9 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 17,
-  "compliant_count": 6,
-  "deficit_count": 11,
+  "fixture_count": 15,
+  "compliant_count": 0,
+  "deficit_count": 15,
   "fixtures": [
     {
       "sport": "Basketball Euroleague",
@@ -129,47 +129,6 @@
       "feeds": [
         {
           "fingerprint": "1c622e2e013a",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Basketball Euroleague",
-      "league": "Basketball Euroleague",
-      "home": "Real Madrid",
-      "away": "Crvena Zvezda",
-      "title": "Real Madrid vs. Crvena Zvezda",
-      "key": "basketballeuroleague|crvenazvezda|realmadrid",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "1941059639f6",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -346,81 +305,39 @@
     },
     {
       "sport": "Soccer",
-      "league": "UEFA NATIONS",
-      "home": "Croatia",
-      "away": "England",
-      "title": "Croatia vs. England",
-      "key": "soccer|croatia|england",
-      "feed_count": 5,
-      "confirmed_feed_count": 5,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 3,
-      "primary_ready": true,
-      "backup_ready": true,
+      "league": "UEFA Nations League",
+      "home": "Albania",
+      "away": "Finland",
+      "title": "Albania vs. Finland",
+      "key": "soccer|albania|finland",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
       "origin_families": [
-        "candyshop.st",
-        "damitv.st",
-        "hereisman.net",
-        "rtmpcdn.com"
+        "damitv.st"
       ],
       "providers": [
-        "DAMITV",
-        "FAWA",
-        "ISTRMEAST",
-        "STRMGATE"
+        "DAMITV"
       ],
       "ingest_sources": [
         "doms9"
       ],
-      "policy_met": true,
-      "deficits": [],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
       "feeds": [
         {
-          "fingerprint": "b0b71b68c77f",
+          "fingerprint": "1af193a28da5",
           "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "e947976a9f3e",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "6250b04787cf",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "95b34ef9a438",
-          "role": "backup",
           "status": "reachable",
           "provider": "DAMITV",
           "origin_family": "damitv.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "342ac1d20bf4",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -429,11 +346,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "UEFA Nations League",
-      "home": "Czech Republic",
-      "away": "Spain",
-      "title": "Czech Republic vs. Spain",
-      "key": "soccer|czechrepublic|spain",
+      "league": "CONCACAF Nations League",
+      "home": "Aruba",
+      "away": "Martinique",
+      "title": "Aruba vs. Martinique",
+      "key": "soccer|aruba|martinique",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -441,7 +358,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "rtmpcdn.com"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -457,70 +374,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "9b9bd4b58766",
+          "fingerprint": "2de65ca7750d",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Nations League",
-      "home": "Czechia",
-      "away": "Spain",
-      "title": "Czechia vs. Spain",
-      "key": "soccer|czechia|spain",
-      "feed_count": 3,
-      "confirmed_feed_count": 3,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 1,
-      "primary_ready": true,
-      "backup_ready": true,
-      "origin_families": [
-        "candyshop.st",
-        "hereisman.net"
-      ],
-      "providers": [
-        "ISTRMEAST",
-        "STRMGATE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": true,
-      "deficits": [],
-      "feeds": [
-        {
-          "fingerprint": "221e758087c2",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "b5e7d88f9a91",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "39db27744952",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
@@ -570,259 +428,39 @@
     },
     {
       "sport": "Soccer",
-      "league": "UEFA NATIONS",
-      "home": "Finland",
-      "away": "Albania",
-      "title": "Finland vs. Albania",
-      "key": "soccer|albania|finland",
-      "feed_count": 5,
-      "confirmed_feed_count": 5,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 3,
-      "primary_ready": true,
-      "backup_ready": true,
+      "league": "UEFA Nations League",
+      "home": "England",
+      "away": "Croatia",
+      "title": "England vs. Croatia",
+      "key": "soccer|croatia|england",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
       "origin_families": [
-        "193.47.62.41",
-        "candyshop.st",
-        "damitv.st",
-        "hereisman.net",
-        "rtmpcdn.com"
+        "damitv.st"
       ],
       "providers": [
-        "DAMITV",
-        "FAWA",
-        "ISTRMEAST",
-        "STRMGATE"
+        "DAMITV"
       ],
       "ingest_sources": [
         "doms9"
       ],
-      "policy_met": true,
-      "deficits": [],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
       "feeds": [
         {
-          "fingerprint": "a87b41149d66",
+          "fingerprint": "95b34ef9a438",
           "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "cb3873383145",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "0d1c092ef621",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "1af193a28da5",
-          "role": "backup",
           "status": "reachable",
           "provider": "DAMITV",
           "origin_family": "damitv.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "480075bdbcdc",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA NATIONS",
-      "home": "France",
-      "away": "Italy",
-      "title": "France vs. Italy",
-      "key": "soccer|france|italy",
-      "feed_count": 6,
-      "confirmed_feed_count": 6,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 4,
-      "primary_ready": true,
-      "backup_ready": true,
-      "origin_families": [
-        "candyshop.st",
-        "damitv.st",
-        "hereisman.net",
-        "xqnbu.com"
-      ],
-      "providers": [
-        "DAMITV",
-        "FAWA",
-        "ISTRMEAST",
-        "STRMGATE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": true,
-      "deficits": [],
-      "feeds": [
-        {
-          "fingerprint": "fc180a516b22",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "5d9b6422b26c",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "ea3799fb2857",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "14753079bd8e",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "xqnbu.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "bb3d6191bb8e",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "DAMITV",
-          "origin_family": "damitv.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "c6579bf52962",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA NATIONS",
-      "home": "Latvia",
-      "away": "Montenegro",
-      "title": "Latvia vs. Montenegro",
-      "key": "soccer|latvia|montenegro",
-      "feed_count": 5,
-      "confirmed_feed_count": 5,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 3,
-      "primary_ready": true,
-      "backup_ready": true,
-      "origin_families": [
-        "193.47.62.41",
-        "candyshop.st",
-        "damitv.st",
-        "hereisman.net",
-        "rtmpcdn.com"
-      ],
-      "providers": [
-        "DAMITV",
-        "FAWA",
-        "ISTRMEAST",
-        "STRMGATE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": true,
-      "deficits": [],
-      "feeds": [
-        {
-          "fingerprint": "b4b45031041f",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "dd88c4472e40",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "5b761a0b6073",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "9140b2ad3164",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "DAMITV",
-          "origin_family": "damitv.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "a2b020bfd04d",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -832,69 +470,38 @@
     {
       "sport": "Soccer",
       "league": "UEFA Nations League",
-      "home": "San Marino",
-      "away": "Belarus",
-      "title": "San Marino vs. Belarus",
-      "key": "soccer|belarus|sanmarino",
-      "feed_count": 4,
-      "confirmed_feed_count": 4,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 2,
-      "primary_ready": true,
-      "backup_ready": true,
+      "home": "Italy",
+      "away": "France",
+      "title": "Italy vs. France",
+      "key": "soccer|france|italy",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
       "origin_families": [
-        "193.47.62.41",
-        "damitv.st",
-        "hereisman.net",
-        "rtmpcdn.com"
+        "damitv.st"
       ],
       "providers": [
-        "DAMITV",
-        "FAWA",
-        "ISTRMEAST"
+        "DAMITV"
       ],
       "ingest_sources": [
         "doms9"
       ],
-      "policy_met": true,
-      "deficits": [],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
       "feeds": [
         {
-          "fingerprint": "57bdcc40ead2",
+          "fingerprint": "bb3d6191bb8e",
           "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "d160ae077fc5",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "320e88a314e7",
-          "role": "backup",
           "status": "reachable",
           "provider": "DAMITV",
           "origin_family": "damitv.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "15a51ccc5ab3",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -903,11 +510,52 @@
     },
     {
       "sport": "Soccer",
-      "league": "UEFA Women Champions League",
-      "home": "SL Benfica W",
-      "away": "Austria Vienna W",
-      "title": "SL Benfica W vs. Austria Vienna W",
-      "key": "soccer|austriaviennaw|slbenficaw",
+      "league": "UEFA Nations League",
+      "home": "Montenegro",
+      "away": "Latvia",
+      "title": "Montenegro vs. Latvia",
+      "key": "soccer|latvia|montenegro",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "9140b2ad3164",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Brazil Serie B",
+      "home": "Ponte Preta",
+      "away": "Operario-PR",
+      "title": "Ponte Preta vs. Operario-PR",
+      "key": "soccer|operariopr|pontepreta",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -931,11 +579,52 @@
       ],
       "feeds": [
         {
-          "fingerprint": "84e744a87f03",
+          "fingerprint": "2bfcda42e600",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Nations League",
+      "home": "San Marino",
+      "away": "Belarus",
+      "title": "San Marino vs. Belarus",
+      "key": "soccer|belarus|sanmarino",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "320e88a314e7",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
           "ingest_sources": [
             "doms9"
           ]
