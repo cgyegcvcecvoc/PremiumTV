@@ -1,24 +1,10 @@
 #!/usr/bin/env python3
-"""Build ``playlists/live-schedule.json``: scheduled kickoff times for the
-live-event games the scrapers publish.
+"""Build an honest fixture index for the apps from the published playlist.
 
-The playlist names games but never says *when* each game starts - the event
-feeds share placeholder EPG ids, so no upstream listing covers them. This
-script is the repository's schedule source: it reads the live-event entries
-from ``playlists/PremiumTV.m3u`` and assigns each fixture a kickoff time from
-the documented table below, then writes ``playlists/live-schedule.json`` for
-the apps to bundle. Kickoff times here are curated fixture times for the
-current UTC matchday, not scraper data - when the scrapers start publishing
-real start times this script reads them instead. Competitions the table does
-not cover keep their games and carry no kickoff time, so the apps show
-checking / live / no signal for them instead of a countdown to a guess.
-
-Run:
-
-    python3 scripts/build_live_schedule.py
-
-The file it writes is deterministic: the same playlist always produces the
-same schedule, so every build ships identical data.
+The playlist does not contain verified start times. Fixture order and generic
+competition time slots cannot establish a kickoff, so all times remain null.
+The clients may support verified times in future; never guess them here.
+Run: python3 scripts/build_live_schedule.py
 """
 
 from __future__ import annotations
@@ -73,37 +59,6 @@ def team_key(name: str) -> str:
     """Norm key for one team, alias-collapsed so spelling variants match."""
     key = norm_key(name)
     return TEAM_ALIASES.get(key, key)
-
-# Kickoff times (UTC) the apps count down to. One entry per competition the
-# scrapers publish games for; times are the competition's matchday slots for
-# 2026-10-22 (CEST = UTC+2 that week: 18:45 and 21:00 local are 16:45 and
-# 19:00 UTC). Fixtures within a competition take the next slot in turn, so
-# the assignment is deterministic. Times a scraper never publishes are left
-# unset - those games show "checking / live / no signal" without a countdown.
-# Keys are the bracket tag run through norm_key; the scrapers spell the same
-# competition several ways ("UEFA Conference League", "UEFA EUROPA CONF",
-# "Conference League"), so each variant is listed.
-KICKOFF_TABLE = {
-    "uefaconferenceleague": ["16:45", "19:00"],
-    "uefaeuroconferenceleague": ["16:45", "19:00"],
-    "conferenceleague": ["16:45", "19:00"],
-    "uefaeuropaleague": ["16:45", "19:00"],
-    "europaleague": ["16:45", "19:00"],
-    "basketballeuroleague": ["18:00", "19:30", "20:45"],
-    "swedenhockeyshl": ["17:00", "19:00"],
-    "qatarqsl": ["15:30"],
-    "uefapresidentcup": ["16:00"],
-    # "[Football]" is the scrapers' tag for UEFA Champions League soccer
-    # games whose id is the soccer placeholder; NFL entries carry the
-    # "[NFL]" tag and are not fixtures, so this is safe here.
-    "football": ["16:45", "19:00"],
-    "uefaeuroconf": ["16:45", "19:00"],
-}
-
-
-def norm_key(value: str) -> str:
-    return NON_ALNUM.sub("", value.lower()).strip()
-
 
 def clean_team(name: str) -> str:
     """A team name with the feed-copy suffix stripped.
@@ -217,49 +172,15 @@ def parse_events(text: str):
     return events
 
 
-def assign_kickoffs(events, reference_date=None):
-    """Give every game whose competition has a table a kickoff on the day.
-
-    Duplicate feeds of one game (same key) collapse to a single fixture,
-    keeping the first title seen. Competitions without a table entry keep
-    their games with no kickoff time - they show checking / live / no signal
-    without a countdown.
-
-    [reference_date] defaults to the current UTC date: a curated matchday slot
-    only means anything for the day it is published, and a hardcoded date
-    turned every countdown into an instant in the past the next morning.
-    """
-    slots = {league: list(times) for league, times in KICKOFF_TABLE.items()}
-    if reference_date is None:
-        reference_date = datetime.now(timezone.utc).date().isoformat()
-    day = datetime.fromisoformat(reference_date).replace(tzinfo=timezone.utc)
-
-    # Collapse duplicate feeds of one game into one fixture.
+def assign_kickoffs(events):
+    """Collapse duplicate fixture entries without inventing kickoff times."""
     by_key = {}
     for event in events:
         by_key.setdefault(event["key"], event)
-    unique = list(by_key.values())
-
-    by_league = {}
-    for event in unique:
-        by_league.setdefault(norm_key(event["league"]), []).append(event)
-
-    scheduled = []
-    for league_key, games in by_league.items():
-        times = slots.get(league_key)
-        ordered = sorted(games, key=lambda e: e["title"])
-        for position, event in enumerate(ordered):
-            kickoff_utc = None
-            if times:
-                time_text = times[position % len(times)]
-                hour, minute = (int(part) for part in time_text.split(":"))
-                kickoff = day.replace(
-                    hour=hour, minute=minute, second=0, microsecond=0
-                )
-                kickoff_utc = kickoff.strftime("%Y-%m-%dT%H:%M:%SZ")
-            scheduled.append({**event, "kickoff_utc": kickoff_utc})
-    scheduled.sort(key=lambda e: (e["kickoff_utc"] or "", e["title"]))
-    return scheduled
+    return sorted(
+        ({**event, "kickoff_utc": None} for event in by_key.values()),
+        key=lambda event: event["title"],
+    )
 
 
 def main() -> int:
@@ -269,17 +190,14 @@ def main() -> int:
     document = {
         "schema": 1,
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "source": "curated fixture kickoff times for the published matchday "
-        "(scripts/build_live_schedule.py); not scraper data - competitions "
-        "without a curated slot keep kickoff_utc = null",
-        "kickoff_table": KICKOFF_TABLE,
+        "source": "Fixture names from the published playlist; verified kickoff times are unavailable.",
         "games": games,
     }
     OUT.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     scheduled = sum(1 for game in games if game.get("kickoff_utc"))
     print(
         f"{len(events)} event entries, {len(games)} fixtures, "
-        f"{scheduled} with a curated kickoff -> {OUT}"
+        f"{scheduled} with a verified kickoff -> {OUT}"
     )
     return 0
 

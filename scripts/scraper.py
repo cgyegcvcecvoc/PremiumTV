@@ -56,6 +56,7 @@ except Exception:  # pragma: no cover - zoneinfo missing on very old Pythons
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import categorize  # noqa: E402  (the one category taxonomy every playlist is published with)
+import build_live_schedule  # noqa: E402  (shared event identification for health evidence)
 
 DEFAULT_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -2151,6 +2152,21 @@ def reason_diagnostics(channels: list[Channel]) -> list[dict]:
     return output
 
 
+def reachable_event_url_hashes(channels: list[Channel]) -> list[str]:
+    """Exact URL hashes for event feeds that passed this run, without URL tokens.
+
+    Only recognized event entries are recorded, to keep the report compact.
+    The hash proves which exact URL was checked, not ongoing playability.
+    """
+    return sorted({
+        hashlib.sha256(channel.url.encode("utf-8", "replace")).hexdigest()
+        for channel in channels
+        if channel.status == "alive" and build_live_schedule.parse_event(
+            channel.name, channel.attrs.get("tvg-id", "") or ""
+        ) is not None
+    })
+
+
 def report_channel(channel: Channel) -> dict:
     return {
         "name": channel.name,
@@ -3122,6 +3138,8 @@ def main() -> int:
         "published": len(published) if final_playlist_written else None,
         "retained": len(retained_channels) if checked else 0,
         "retained_links": [report_channel(channel) for channel in retained_channels],
+        # Exact checked event URLs are represented by hashes, not raw credentials.
+        "reachable_event_url_sha256": reachable_event_url_hashes(channels) if checked and check_completed else [],
         "final_playlist_written": final_playlist_written,
         "all_playlist_written": all_playlist_written,
         "duration_seconds": round((finished - started).total_seconds(), 2),

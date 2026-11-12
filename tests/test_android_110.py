@@ -258,14 +258,8 @@ class LiveEvents111Tests(unittest.TestCase):
         self.assertTrue(schedule["games"], "the schedule must list games")
         keys = [g["key"] for g in schedule["games"]]
         self.assertEqual(len(keys), len(set(keys)), "schedule keys must be unique")
-        # A kickoff is optional: the curated table only covers a few
-        # competitions, and a matchday with none of them published legitimately
-        # ships no countdowns. Every kickoff that *is* published must be a real
-        # UTC instant, though - a malformed one would break the countdown.
-        for game in schedule["games"]:
-            kickoff = game.get("kickoff_utc")
-            if kickoff is not None:
-                self.assertRegex(kickoff, r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
+        # The current generator has no verified fixture-level schedule source.
+        self.assertTrue(all(game.get("kickoff_utc") is None for game in schedule["games"]))
 
     def test_the_schedule_describes_the_published_playlist(self):
         # The bundle bakes this file, so a stale key would ship a ghost game.
@@ -314,13 +308,12 @@ class LiveEvents111Tests(unittest.TestCase):
         events = build_live_schedule.parse_events(
             text(ROOT / "playlists/PremiumTV.m3u")
         )
-        first = build_live_schedule.assign_kickoffs(events, reference_date="2026-10-23")
-        second = build_live_schedule.assign_kickoffs(events, reference_date="2026-10-23")
+        first = build_live_schedule.assign_kickoffs(events)
+        second = build_live_schedule.assign_kickoffs(events)
         self.assertEqual(first, second, "the schedule generator must be deterministic")
 
-    def test_curated_slots_still_produce_a_countdown(self):
-        # The countdown itself stays covered even when the current matchday
-        # publishes only competitions the table has no slots for.
+    def test_unverified_slots_do_not_produce_a_countdown(self):
+        # A known league alone cannot prove this fixture's start time.
         sys.path.insert(0, str(ROOT / "scripts"))
         import build_live_schedule
         events = [{
@@ -331,8 +324,8 @@ class LiveEvents111Tests(unittest.TestCase):
             "title": "A vs. B",
             "key": "soccer|a|b",
         }]
-        games = build_live_schedule.assign_kickoffs(events, reference_date="2026-10-23")
-        self.assertEqual(games[0]["kickoff_utc"], "2026-10-23T16:45:00Z")
+        games = build_live_schedule.assign_kickoffs(events)
+        self.assertIsNone(games[0]["kickoff_utc"])
 
     def test_the_apps_open_the_files_under_the_names_the_bundle_writes(self):
         # The bundle writes the repository's hyphenated file name beside the
