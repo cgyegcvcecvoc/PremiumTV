@@ -3,8 +3,8 @@
 - **Generated:** 2026-11-12T13:04:19Z
 - **Scrape run:** `20261112T130021Z-2950` — health check completed
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 0/14
-- **Fixtures with a redundancy deficit:** 14
+- **Fixtures meeting policy:** 0/13
+- **Fixtures with a redundancy deficit:** 13
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
@@ -13,7 +13,6 @@
 | Golden State Warriors vs. Houston Rockets (Basketball) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
 | Oklahoma City Thunder vs. Portland Trail Blazers (Basketball) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
 | Orlando Magic vs. Utah Jazz (Basketball) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Melbourne Renegades W vs. Sydney Sixers W (Cricket WBBL) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 | Houston Rockets vs. Golden State Warriors (National Basketball Association) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
 | Portland Trail Blazers vs. Oklahoma City Thunder (National Basketball Association) | 1/1 | 1/2 | 0/1 | 1 | DAMITV | doms9 | **DEFICIT** |
 | Edmonton Oilers vs. Philadelphia Flyers (National Hockey League) | 1/1 | 1/2 | 0/1 | 1 | DAMITV | doms9 | **DEFICIT** |
@@ -30,7 +29,6 @@
 - **Golden State Warriors vs. Houston Rockets** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
 - **Oklahoma City Thunder vs. Portland Trail Blazers** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
 - **Orlando Magic vs. Utah Jazz** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Melbourne Renegades W vs. Sydney Sixers W** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Houston Rockets vs. Golden State Warriors** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
 - **Portland Trail Blazers vs. Oklahoma City Thunder** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Edmonton Oilers vs. Philadelphia Flyers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
