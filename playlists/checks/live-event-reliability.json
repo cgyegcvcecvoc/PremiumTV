@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-12T16:49:35Z",
+  "generated_utc": "2026-11-12T19:03:28Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261112T164557Z-3170",
+  "scrape_run_id": "20261112T190011Z-2983",
   "health_check_completed": true,
   "policy": {
     "minimum_confirmed_feeds": 3,
@@ -12,17 +12,17 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 9,
-  "compliant_count": 0,
-  "deficit_count": 9,
+  "fixture_count": 21,
+  "compliant_count": 2,
+  "deficit_count": 19,
   "fixtures": [
     {
-      "sport": "Soccer",
-      "league": "Africa Cup of Nations",
-      "home": "DR Congo",
-      "away": "Sierra Leone",
-      "title": "DR Congo vs. Sierra Leone",
-      "key": "soccer|drcongo|sierraleone",
+      "sport": "National Hockey League",
+      "league": "National Hockey League",
+      "home": "Seattle Kraken",
+      "away": "Carolina Hurricanes",
+      "title": "Seattle Kraken vs. Carolina Hurricanes",
+      "key": "nationalhockeyleague|carolinahurricanes|seattlekraken",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -30,7 +30,203 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.59"
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "fc74e8e177bf",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Nations League",
+      "league": "Nations League",
+      "home": "Türkiye",
+      "away": "Belgium",
+      "title": "Türkiye vs. Belgium",
+      "key": "nationsleague|belgium|trkiye",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "b2e12f821ddc",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "NHL Hockey",
+      "league": "NHL",
+      "home": "Carolina Hurricanes",
+      "away": "Seattle Kraken",
+      "title": "Carolina Hurricanes vs. Seattle Kraken",
+      "key": "nhlhockey|carolinahurricanes|seattlekraken",
+      "feed_count": 4,
+      "confirmed_feed_count": 4,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 2,
+      "primary_ready": true,
+      "backup_ready": true,
+      "origin_families": [
+        "candyshop.st",
+        "hereisman.net",
+        "kinescopecdn.net",
+        "mlb9.com"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST",
+        "MP66",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": true,
+      "deficits": [],
+      "feeds": [
+        {
+          "fingerprint": "c2150e1a933f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "772c97fd68d2",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "MP66",
+          "origin_family": "mlb9.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "b78c1204d030",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "kinescopecdn.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "e192b870208f",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA WCHAMPIONS",
+      "home": "Arsenal",
+      "away": "Barcelona",
+      "title": "Arsenal vs. Barcelona",
+      "key": "soccer|arsenal|barcelona",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "a1ee5e485f5c",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Women Champions League",
+      "home": "Barcelona W",
+      "away": "Arsenal W",
+      "title": "Barcelona W vs. Arsenal W",
+      "key": "soccer|arsenalw|barcelonaw",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
       ],
       "providers": [
         "FAWA"
@@ -46,11 +242,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "0a27f5b1f309",
+          "fingerprint": "67fb9af71716",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.59",
+          "origin_family": "193.47.62.55",
           "ingest_sources": [
             "doms9"
           ]
@@ -59,93 +255,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "Africa Cup of Nations",
-      "home": "Equatorial Guinea",
-      "away": "Zimbabwe",
-      "title": "Equatorial Guinea vs. Zimbabwe",
-      "key": "soccer|equatorialguinea|zimbabwe",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.44"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "d244f344d7b3",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.44",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Friendly Match",
-      "home": "France U20",
-      "away": "Denmark U20",
-      "title": "France U20 vs. Denmark U20",
-      "key": "soccer|denmarku20|franceu20",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "df4f1a14c131",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Africa Cup of Nations",
-      "home": "Ghana",
-      "away": "Somalia",
-      "title": "Ghana vs. Somalia",
-      "key": "soccer|ghana|somalia",
+      "league": "UEFA NATIONS",
+      "home": "Belgium",
+      "away": "Türkiye",
+      "title": "Belgium vs. Türkiye",
+      "key": "soccer|belgium|trkiye",
       "feed_count": 2,
       "confirmed_feed_count": 2,
       "confirmed_primary_count": 2,
@@ -153,7 +267,119 @@
       "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.44",
+        "candyshop.st",
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "282ea3fb6097",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "94ebbc9c258c",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA NATIONS",
+      "home": "Cyprus",
+      "away": "Armenia",
+      "title": "Cyprus vs. Armenia",
+      "key": "soccer|armenia|cyprus",
+      "feed_count": 3,
+      "confirmed_feed_count": 3,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 1,
+      "primary_ready": true,
+      "backup_ready": true,
+      "origin_families": [
+        "candyshop.st",
+        "damitv.st",
+        "hereisman.net"
+      ],
+      "providers": [
+        "DAMITV",
+        "ISTRMEAST",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": true,
+      "deficits": [],
+      "feeds": [
+        {
+          "fingerprint": "5cd59f39e30e",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "f800093e640c",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "68cfb6da3a79",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Africa Cup of Nations",
+      "home": "Guinea",
+      "away": "Eritrea",
+      "title": "Guinea vs. Eritrea",
+      "key": "soccer|eritrea|guinea",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59",
         "rtmpcdn.com"
       ],
       "providers": [
@@ -168,62 +394,21 @@
       ],
       "feeds": [
         {
-          "fingerprint": "80e3e36d7731",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "70eb5e7b3d94",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.44",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Africa Cup of Nations",
-      "home": "Guinea",
-      "away": "Eritrea",
-      "title": "Guinea vs. Eritrea",
-      "key": "soccer|eritrea|guinea",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.59"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
           "fingerprint": "d0745274f4b8",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "9118023de6de",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
           "ingest_sources": [
             "doms9"
           ]
@@ -233,10 +418,112 @@
     {
       "sport": "Soccer",
       "league": "Friendly Match",
-      "home": "Italy U20",
-      "away": "Portugal U20",
-      "title": "Italy U20 vs. Portugal U20",
-      "key": "soccer|italyu20|portugalu20",
+      "home": "Lithuania",
+      "away": "Suriname",
+      "title": "Lithuania vs. Suriname",
+      "key": "soccer|lithuania|suriname",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV",
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "25135d5e88b4",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "909c902294c7",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Friendly Match",
+      "home": "Malta",
+      "away": "Eswatini",
+      "title": "Malta vs. Eswatini",
+      "key": "soccer|eswatini|malta",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55",
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV",
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "d55ab608ec17",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "9cff8ea52c2b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Spanish Copa del Rey",
+      "home": "Navalcarnero",
+      "away": "Real Betis",
+      "title": "Navalcarnero vs. Real Betis",
+      "key": "soccer|navalcarnero|realbetis",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -244,7 +531,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "193.47.62.55"
       ],
       "providers": [
         "FAWA"
@@ -260,11 +547,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "db08faf8cc7d",
+          "fingerprint": "9578f351d7db",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "origin_family": "193.47.62.55",
           "ingest_sources": [
             "doms9"
           ]
@@ -273,11 +560,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "Africa Cup of Nations",
-      "home": "Madagascar",
-      "away": "Guinea Bissau",
-      "title": "Madagascar vs. Guinea Bissau",
-      "key": "soccer|guineabissau|madagascar",
+      "league": "Spanish Copa del Rey",
+      "home": "Puertollano",
+      "away": "Albacete",
+      "title": "Puertollano vs. Albacete",
+      "key": "soccer|albacete|puertollano",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -285,7 +572,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.59"
+        "193.47.62.55"
       ],
       "providers": [
         "FAWA"
@@ -301,11 +588,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "98fbad9b4e03",
+          "fingerprint": "5daf372a9644",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.59",
+          "origin_family": "193.47.62.55",
           "ingest_sources": [
             "doms9"
           ]
@@ -314,11 +601,52 @@
     },
     {
       "sport": "Soccer",
-      "league": "UEFA Nations League",
-      "home": "Turkey",
-      "away": "Belgium",
-      "title": "Turkey vs. Belgium",
-      "key": "soccer|belgium|turkey",
+      "league": "Spanish Copa del Rey",
+      "home": "Tarancon",
+      "away": "Levante",
+      "title": "Tarancon vs. Levante",
+      "key": "soccer|levante|tarancon",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "57df74b3d5c6",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Europa Cup Women",
+      "home": "Torreense W",
+      "away": "Sparta Prague W",
+      "title": "Torreense W vs. Sparta Prague W",
+      "key": "soccer|spartapraguew|torreensew",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -342,7 +670,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "62e5108e71f7",
+          "fingerprint": "48f7e031b748",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -354,12 +682,12 @@
       ]
     },
     {
-      "sport": "Soccer",
-      "league": "Friendly Match",
-      "home": "Uzbekistan",
-      "away": "Russia",
-      "title": "Uzbekistan vs. Russia",
-      "key": "soccer|russia|uzbekistan",
+      "sport": "Sweden Hockey SHL",
+      "league": "Sweden Hockey SHL",
+      "home": "Brynas",
+      "away": "Skelleftea",
+      "title": "Brynas vs. Skelleftea",
+      "key": "swedenhockeyshl|brynas|skelleftea",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -367,7 +695,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "193.47.62.55"
       ],
       "providers": [
         "FAWA"
@@ -383,11 +711,257 @@
       ],
       "feeds": [
         {
-          "fingerprint": "0dd1d4245068",
+          "fingerprint": "181847b6a25b",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden Hockey SHL",
+      "league": "Sweden Hockey SHL",
+      "home": "Farjestad",
+      "away": "Djurgarden",
+      "title": "Farjestad vs. Djurgarden",
+      "key": "swedenhockeyshl|djurgarden|farjestad",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "e4e8d6d879be",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden Hockey SHL",
+      "league": "Sweden Hockey SHL",
+      "home": "Frolunda",
+      "away": "Malmo",
+      "title": "Frolunda vs. Malmo",
+      "key": "swedenhockeyshl|frolunda|malmo",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "523dd35d082a",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden Hockey SHL",
+      "league": "Sweden Hockey SHL",
+      "home": "HV",
+      "away": "Lulea",
+      "title": "HV vs. Lulea",
+      "key": "swedenhockeyshl|hv|lulea",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "0a5b6c323ac9",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden Hockey SHL",
+      "league": "Sweden Hockey SHL",
+      "home": "IF Bjorkloven",
+      "away": "Orebro",
+      "title": "IF Bjorkloven vs. Orebro",
+      "key": "swedenhockeyshl|ifbjorkloven|orebro",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "101c6911f9a5",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden Hockey SHL",
+      "league": "Sweden Hockey SHL",
+      "home": "Linkoping",
+      "away": "Rogle",
+      "title": "Linkoping vs. Rogle",
+      "key": "swedenhockeyshl|linkoping|rogle",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "63ac4a25674f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden Hockey SHL",
+      "league": "Sweden Hockey SHL",
+      "home": "Vaxjo",
+      "away": "Timra",
+      "title": "Vaxjo vs. Timra",
+      "key": "swedenhockeyshl|timra|vaxjo",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "7ade40915d68",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
           "ingest_sources": [
             "doms9"
           ]
