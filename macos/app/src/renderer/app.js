@@ -54,6 +54,9 @@
     splashVersion: document.getElementById('splash-version'),
     player: document.getElementById('player'),
     video: document.getElementById('video'),
+    // Movies & Shows: an on-demand title may publish an HTML embed instead of
+    // a stream the player can fetch. The embed mounts in the same stage.
+    playerEmbed: document.getElementById('player-embed'),
     playerName: document.getElementById('player-name'),
     playerNow: document.getElementById('player-now'),
     playerNext: document.getElementById('player-next'),
@@ -76,6 +79,8 @@
     playerNextServer: document.getElementById('player-next-server'),
     playerFavorite: document.getElementById('player-favorite'),
     playerRetry: document.getElementById('player-retry'),
+    playerError: document.getElementById('player-error'),
+    playerSpinner: document.getElementById('player-spinner'),
     // The startup "go and update" popup.
     updateNotice: document.getElementById('update-notice'),
     updateNoticeEyebrow: document.getElementById('update-notice-eyebrow'),
@@ -1791,7 +1796,34 @@
       ? item.streams.filter(Boolean)
       : [item.stream];
     const unique = [...new Set(urls)];
-    return unique.map((url) => vodChannel(item, url));
+    // Embeds lead: an iframe player talks to the provider directly, so it
+    // needs no CORS, no range support and no codec the browser must negotiate.
+    // The direct streams follow as the fallback servers.
+    const embeds = vodEmbeds(item);
+    return embeds.concat(unique.map((url) => vodChannel(item, url)));
+  }
+
+  /** Every embed a catalogue entry publishes, newest-source first. */
+  function vodEmbeds(item) {
+    const entries = Array.isArray(item.embeds) && item.embeds.length
+      ? item.embeds
+      : (item.embed || item.embed_html)
+        ? [{ provider: item.provider, kind: item.embed_kind || 'iframe', url: item.embed, html: item.embed_html }]
+        : [];
+    const servers = [];
+    entries.forEach((entry) => {
+      const url = String((entry && entry.url) || '');
+      const html = String((entry && entry.html) || '');
+      if (!url && !html) return;
+      // Only a real https URL is safe to load as one; anything else is dropped.
+      if (url && !/^https:\/\//i.test(url)) return;
+      const channel = vodChannel(item, url || html);
+      channel.embed = entry.kind === 'html' ? '' : url;
+      channel.embed_html = entry.kind === 'html' ? html : '';
+      channel.provider = (entry && entry.provider) || item.provider || '';
+      servers.push(channel);
+    });
+    return servers;
   }
 
   function watchVod(item) {
@@ -1995,7 +2027,10 @@
   function describeChannel(channel) {
     els.playerName.textContent = channel.name;
     if (channel.vod) {
-      els.playerNow.textContent = channel.vodDetail || 'On demand';
+      els.playerNow.textContent = [
+        channel.embed || channel.embed_html ? `${channel.provider || 'Embedded'} player` : '',
+        channel.vodDetail || '',
+      ].filter(Boolean).join(' · ') || 'On demand';
       els.playerNext.textContent = '';
       els.playerDetail.textContent = channel.vodSummary || channel.group;
       renderServerBadge();
@@ -2059,6 +2094,9 @@
   let seekingDrag = false;
 
   function isFiniteVodPlayback() {
+    // An embedded player keeps its own clock: the page cannot read a duration
+    // or a position out of a cross-origin iframe, so nothing here is seekable.
+    if (embedPlaying()) return false;
     const channel = currentChannel();
     const dur = els.video ? els.video.duration : NaN;
     return Boolean((channel && channel.vod) || (Number.isFinite(dur) && dur > 0 && dur < 86400));
@@ -2067,6 +2105,23 @@
   function syncTransportChrome() {
     const video = els.video;
     if (!video) return;
+    if (embedPlaying()) {
+      // The controls drive a <video> element that is not in use; the embedded
+      // player brings its own, inside the frame.
+      if (els.playerToggle) els.playerToggle.hidden = true;
+      if (els.playerBack10) els.playerBack10.hidden = true;
+      if (els.playerFwd10) els.playerFwd10.hidden = true;
+      if (els.playerSeek) els.playerSeek.hidden = true;
+      if (els.playerTime) els.playerTime.hidden = true;
+      if (els.playerLivePill) els.playerLivePill.hidden = true;
+      if (els.playerMute) els.playerMute.hidden = true;
+      if (els.playerVolume) els.playerVolume.hidden = true;
+      if (els.playerControls) els.playerControls.hidden = false;
+      return;
+    }
+    if (els.playerToggle) els.playerToggle.hidden = false;
+    if (els.playerMute) els.playerMute.hidden = false;
+    if (els.playerVolume) els.playerVolume.hidden = false;
     const seekable = isFiniteVodPlayback();
     if (els.playerToggle) {
       const paused = Boolean(video.paused);
@@ -2191,6 +2246,59 @@
     }
   }
 
+  /**
+   * Movies & Shows embeds. A catalogue entry can publish an iframe player next
+   * to its direct MP4; the renderer mounts it in the same stage so the side
+   * player, the big-screen flip and the server list all behave as they do for
+   * a stream. The frame is rebuilt from scratch every time, which is also how
+   * a discarded embed stops making noise.
+   */
+  function clearEmbed() {
+    if (!els.playerEmbed) return;
+    els.playerEmbed.innerHTML = '';
+    els.playerEmbed.hidden = true;
+  }
+
+  function embedPlaying() {
+    const channel = currentChannel();
+    return Boolean(channel && (channel.embed || channel.embed_html));
+  }
+
+  function mountEmbed(channel) {
+    if (!els.playerEmbed) return false;
+    let node = null;
+    if (channel.embed_html) {
+      const template = document.createElement('template');
+      // Markup assigned to innerHTML never runs its scripts, so a pasted
+      // snippet can bring its player without bringing its code.
+      template.innerHTML = channel.embed_html;
+      node = template.content.firstElementChild;
+    } else if (channel.embed) {
+      node = document.createElement('iframe');
+      node.src = channel.embed;
+      node.title = `${channel.provider || 'On-demand'} player`;
+    }
+    if (!node) return false;
+    if (node.tagName === 'IFRAME') {
+      node.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media');
+      node.setAttribute('allowfullscreen', '');
+      node.setAttribute('referrerpolicy', 'no-referrer');
+      if (!node.getAttribute('width')) node.setAttribute('width', '100%');
+      if (!node.getAttribute('height')) node.setAttribute('height', '100%');
+    }
+    window.PremiumPlayer.stop();
+    clearEmbed();
+    if (playingSession) {
+      api.releaseStream(playingSession).catch(() => {});
+      playingSession = null;
+    }
+    els.playerEmbed.appendChild(node);
+    els.playerEmbed.hidden = false;
+    els.video.hidden = true;
+    els.statusText.textContent = `Playing ${channel.name} — ${channel.provider || 'embedded player'}`;
+    return true;
+  }
+
   async function playCurrentServer(displayName) {
     const channel = playQueue[playQueueIndex];
     if (!channel) return;
@@ -2198,6 +2306,14 @@
     if (displayName && channel.name !== displayName) {
       els.playerName.textContent = displayName;
     }
+    if ((channel.embed || channel.embed_html) && mountEmbed(channel)) {
+      if (els.playerError) els.playerError.hidden = true;
+      if (els.playerSpinner) els.playerSpinner.hidden = true;
+      syncTransportChrome();
+      return;
+    }
+    clearEmbed();
+    els.video.hidden = false;
     const resolved = await api.resolveStream(channel.id, channel.url);
     if (!resolved.ok) {
       await advanceServer(resolved.message);
@@ -2240,11 +2356,16 @@
 
   async function closePlayer() {
     const closing = currentChannel();
-    if (closing && closing.vod && els.video) {
+    // An embed keeps its own clock: the page cannot read a position out of a
+    // cross-origin iframe, and guessing one would leave a wrong "Resume at"
+    // badge on the card. Only a direct stream records a position.
+    if (closing && closing.vod && els.video && !closing.embed && !closing.embed_html) {
       saveVodPosition(closing.id, els.video.currentTime, els.video.duration);
       if (ui.tab === 'movies') renderMovies();
     }
     window.PremiumPlayer.stop();
+    clearEmbed();
+    els.video.hidden = false;
     els.player.hidden = true;
     if (els.playerAudioBadge) els.playerAudioBadge.hidden = true;
     playerMini = false;

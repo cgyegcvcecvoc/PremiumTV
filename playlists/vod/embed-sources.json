@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "note": [
+    "Optional, hand-edited extra HTML embeds for the Movies & Shows shelf.",
+    "The published catalogue is the curated public-domain set plus whatever you",
+    "add here. See playlists/vod/EMBEDS.md for the whole picture.",
+    "",
+    "Each entry in \"extra\" attaches one more embed to one catalogue slug:",
+    "  slug       the catalogue slug (playlists/vod/vod-catalog.json -> items[].slug)",
+    "  provider   the label shown in the player, e.g. \"YouTube\"",
+    "  kind       \"iframe\" (with url) or \"html\" (with a pasted embed snippet)",
+    "  url        the iframe src, for kind \"iframe\"",
+    "  html       a verbatim embed snippet, for kind \"html\"",
+    "  primary    optional; true puts this embed first, ahead of Internet Archive",
+    "",
+    "The build reads this file on every run and validates each entry: a url must",
+    "be http(s) and a kind must be iframe or html. Anything unusable is skipped",
+    "with a warning and the rest of the catalogue is unaffected.",
+    "",
+    "Leave \"extra\" empty to publish only the curated Internet Archive embeds."
+  ],
+  "extra": []
+}

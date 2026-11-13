@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://archive.org https://cdn.jsdelivr.net; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+        content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://archive.org https://cdn.jsdelivr.net; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; frame-src 'self' https:; object-src 'none'; base-uri 'none'; form-action 'none'" />
   <title>PremiumTV</title>
   <link rel="stylesheet" href="app.css" />
 </head>
@@ -173,6 +173,9 @@
   <div id="player" hidden>
     <div class="player-stage">
       <video id="video" playsinline></video>
+      <!-- Movies & Shows: an HTML embed (iframe player) mounts here, taking
+           over the same stage the video element uses for streams. -->
+      <div id="player-embed" class="player-frame" hidden></div>
       <div id="player-spinner" class="spinner" hidden></div>
       <div id="player-server" class="player-server" hidden></div>
       <div id="player-audio-badge" class="player-audio-badge" hidden></div>

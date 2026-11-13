@@ -22,10 +22,16 @@ def catalogue() -> dict:
 class TestCardTests(unittest.TestCase):
     """One short synthetic film the shelf can be exercised with in one play."""
 
-    def test_the_paused_catalogue_keeps_no_titles(self):
+    def test_the_test_card_leads_the_published_catalogue(self):
         document = catalogue()
-        self.assertEqual(document.get("status"), "coming_soon")
-        self.assertEqual(document["items"], [])
+        self.assertNotEqual(document.get("status"), "coming_soon")
+        self.assertTrue(document["items"], "the shelf publishes titles")
+        # The clip is first on the shelf so one short play proves the player.
+        self.assertEqual(document["items"][0].get("test_card"), True)
+        # It is the one entry authored here, so it streams from the repo's own
+        # copy and has no Archive embed of its own.
+        self.assertTrue(document["items"][0]["stream"])
+        self.assertFalse(document["items"][0].get("embed"))
 
     def test_the_clip_is_committed_and_within_size(self):
         self.assertTrue(CLIP.is_file(), "playlists/vod/media/premiumtv-test-card.mp4 is missing")

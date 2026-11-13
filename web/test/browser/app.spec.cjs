@@ -71,16 +71,49 @@ test("guide, timeline and honest live-event listings render", async ({
   await expect(page.locator(".event-status").first()).not.toHaveText("LIVE");
 });
 
-test("Movies & shows shows the coming-soon page instead of a shelf", async ({
+test("Movies & shows renders the shelf and opens a title in an HTML embed", async ({
   page,
 }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
   await expect(page.locator(".category-card").first()).toBeVisible();
   await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  await expect(page.locator("#movies-coming-soon")).toBeVisible();
-  await expect(page.locator("#movies-coming-soon")).toContainText("COMING SOON");
-  await expect(page.locator("#movies-toolbar")).toBeHidden();
-  await expect(page.locator(".movie-card")).toHaveCount(0);
+  // The catalogue is published again, so the tab is a shelf, not a placeholder.
+  await expect(page.locator("#movies-coming-soon")).toBeHidden();
+  await expect(page.locator("#movies-toolbar")).toBeVisible();
+  const catalog = require("../../dist/data/vod.json");
+  expect(catalog.items.length).toBeGreaterThan(0);
+  expect(await page.locator(".movie-card").count()).toBe(catalog.items.length);
+
+  // A film's first server is its embed: an iframe player in the same stage.
+  // (The test card leads the shelf and has no embed, so pick a film by name.)
+  await page.locator("#movie-search").fill("Night of the Living Dead");
+  await expect(page.locator(".movie-card")).toHaveCount(1);
+  await page.locator(".movie-poster").first().click();
+  await expect(page.locator("#player")).toBeVisible();
+  await expect(page.locator("#player-embed")).toBeVisible();
+  await expect(page.locator("#player-embed iframe")).toHaveAttribute(
+    "src",
+    /^https:\/\/archive\.org\/embed\//,
+  );
+  await expect(page.locator("#video")).toBeHidden();
+  // The transport drives a <video> element that is not in use.
+  await expect(page.locator("#player-seek")).toBeHidden();
+  await expect(page.locator("#player-toggle")).toBeHidden();
+  await expect(page.locator("#player-mute")).toBeHidden();
+  await expect(page.locator("#player-browser-note")).toContainText(
+    "controls inside the picture",
+  );
+
+  // The next server is the direct MP4: the stage goes back to the video.
+  await page.locator("#player-next").click();
+  await expect(page.locator("#player-embed")).toBeHidden();
+  await expect(page.locator("#video")).toBeVisible();
+  await expect(page.locator("#player-seek")).toBeHidden();
+  await page.locator("#player-close").click();
+  await expect(page.locator("#player")).toBeHidden();
+  expect(errors).toEqual([]);
 });
 
 test("settings diagnostics, sleep timer, touch layout and install help", async ({

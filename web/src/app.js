@@ -717,6 +717,67 @@
     playServer();
     renderChannels();
   }
+  // ---- HTML embeds -------------------------------------------------------
+  // A Movies & Shows entry can publish an embed (an iframe player) next to its
+  // direct MP4. The web player opens the embed first because it needs no CORS,
+  // no codec support and no range requests, and falls back to the streams the
+  // video element can read. Everything below keeps the two paths inside the
+  // same stage, the same transport and the same close path.
+  function embedHost() {
+    return $("player-embed");
+  }
+  function clearEmbed() {
+    const host = embedHost();
+    if (!host) return;
+    // Dropping the nodes is what stops audio in a frame we are discarding;
+    // hiding it alone would leave it playing behind the video.
+    host.innerHTML = "";
+    host.hidden = true;
+  }
+  function embedNode(source) {
+    if (source.embed_html) {
+      const template = document.createElement("template");
+      // Markup assigned to innerHTML never runs its scripts, so a pasted
+      // snippet can bring its player without bringing its code.
+      template.innerHTML = source.embed_html;
+      const node = template.content.firstElementChild;
+      if (node && node.tagName === "IFRAME") decorateFrame(node);
+      return node;
+    }
+    if (!source.embed) return null;
+    const frame = document.createElement("iframe");
+    frame.src = source.embed;
+    frame.title = (source.provider || "On-demand") + " player";
+    decorateFrame(frame);
+    return frame;
+  }
+  function decorateFrame(node) {
+    node.setAttribute(
+      "allow",
+      "autoplay; fullscreen; picture-in-picture; encrypted-media",
+    );
+    node.setAttribute("allowfullscreen", "");
+    // The provider's page does not need to know which PremiumTV page linked it.
+    node.setAttribute("referrerpolicy", "no-referrer");
+    if (!node.getAttribute("width")) node.setAttribute("width", "100%");
+    if (!node.getAttribute("height")) node.setAttribute("height", "100%");
+  }
+  function playEmbed(source) {
+    const host = embedHost(),
+      video = player.element;
+    if (!host) return false;
+    const node = embedNode(source);
+    if (!node) return false;
+    player.stop();
+    clearEmbed();
+    host.appendChild(node);
+    host.hidden = false;
+    video.hidden = true;
+    $("player-loading").hidden = true;
+    $("player-gesture").hidden = true;
+    $("player-error").hidden = true;
+    return true;
+  }
   function playServer() {
     if (!queue.length) return;
     const source = queue[serverIndex];
@@ -724,6 +785,19 @@
     playerSerial++;
     lastProgressSave = 0;
     $("player-error").hidden = true;
+    // An embed owns the stage until the player is closed or another server is
+    // chosen; a normal stream takes the stage back.
+    if ((source.embed || source.embed_html) && playEmbed(source)) {
+      renderPlayerMeta();
+      $("player-browser-note").hidden = false;
+      $("player-browser-note").textContent =
+        (source.provider ? source.provider + " embed" : "Embedded player") +
+        " · use the controls inside the picture. Next server plays the direct stream.";
+      syncTransport();
+      return;
+    }
+    clearEmbed();
+    player.element.hidden = false;
     $("player-loading").hidden = false;
     renderPlayerMeta();
     const restricted = source.ua || source.referrer || source.origin;
@@ -732,6 +806,7 @@
     $("player-browser-note").textContent = restricted
       ? "This feed requests custom headers that browsers cannot send. It may require the native app."
       : "HTTP feed: your browser may block it on this secure page.";
+    $("player-expand-picture").hidden = !expanded;
     player.play(source.url, source.url, source, {
       onFatal: () => advanceServer(true),
       onState: (info) => {
@@ -789,14 +864,15 @@
       ? current.vodDetail || "On demand"
       : [current.group, current.country].filter(Boolean).join(" · ");
     $("player-server").textContent =
-      `Server ${serverIndex + 1} / ${queue.length}`;
+      `Server ${serverIndex + 1} / ${queue.length}` +
+      (current.provider ? ` · ${current.provider}` : "");
     $("player-prev").disabled =
       $("player-next").disabled =
       $("player-next-error").disabled =
         queue.length < 2;
-    $("player-original").href = /^https?:\/\//i.test(current.url)
-      ? current.url
-      : "#";
+    // For an embed the "original" is the provider's own player page.
+    const target = current.embed || current.url || "";
+    $("player-original").href = /^https?:\/\//i.test(target) ? target : "#";
     $("player-favorite").hidden = Boolean(current.vod);
     const fav = P.isFavorite(favorites, P.keyFor(current));
     $("player-favorite").textContent = fav ? "★" : "☆";
@@ -822,15 +898,33 @@
   function syncTransport(info) {
     if (!current) return;
     const video = player.element,
+      embedded = Boolean(current.embed || current.embed_html),
       finite = Boolean(
-        current.vod && Number.isFinite(video.duration) && video.duration > 0,
+        current.vod &&
+          !embedded &&
+          Number.isFinite(video.duration) &&
+          video.duration > 0,
       );
     document.querySelectorAll(".transport-vod").forEach((el) => {
       el.hidden = !finite;
     });
     document.querySelectorAll(".transport-live").forEach((el) => {
-      el.hidden = finite;
+      el.hidden = embedded || finite;
     });
+    if (embedded) {
+      // The transport drives a <video> element that is not in use: an embedded
+      // player brings its own controls inside the frame, and the page cannot
+      // reach into a cross-origin iframe to play, pause, seek or mute it.
+      ["player-toggle", "player-mute", "player-volume", "player-pip",
+        "player-airplay", "player-audio", "player-expand-picture"].forEach(
+        (id) => {
+          if ($(id)) $(id).hidden = true;
+        },
+      );
+      $("player-audio").innerHTML = "";
+      delete $("player-audio").dataset.signature;
+      return;
+    }
     $("player-toggle").textContent = video.paused ? "▶" : "❚❚";
     $("player-toggle").setAttribute(
       "aria-label",
@@ -882,7 +976,10 @@
     $("player-minimize").focus({ preventScroll: true });
   }
   function saveCurrentProgress() {
-    if (current && current.vod)
+    // An embed keeps its own clock: the page cannot read a position out of a
+    // cross-origin iframe, and guessing one would leave a wrong "Resume at"
+    // badge on the card. Only the direct stream records a position.
+    if (current && current.vod && !current.embed && !current.embed_html)
       S.savePosition(
         current.id,
         player.element.currentTime,
@@ -892,6 +989,8 @@
   function closePlayer() {
     saveCurrentProgress();
     playerSerial++;
+    clearEmbed();
+    player.element.hidden = false;
     player.stop();
     $("player").hidden = true;
     current = null;
@@ -943,13 +1042,12 @@
       ),
     ];
     const resume = S.resumeAt(S.positions()[id], item.runtime_seconds);
-    const servers = urls.map((url) => ({
+    const shape = {
       id: item.id,
       name:
         item.kind === "episode"
           ? `${item.show || item.title} · ${movieLabel(item)}`
           : item.title,
-      url,
       group: item.kind === "movie" ? "Movies" : "TV Shows",
       country: "US",
       logo: item.poster,
@@ -957,7 +1055,42 @@
       vodDetail: movieDetail(item),
       vodSummary: item.summary,
       resume,
-    }));
+    };
+    // Embeds lead the server list. An iframe player talks to the provider
+    // directly, so it needs no CORS, no range support and no codec the browser
+    // has to negotiate - it plays in places a direct MP4 cannot. The MP4s
+    // follow as the fallback servers, which is also all Android can use.
+    const embeds =
+      item.embeds && item.embeds.length
+        ? item.embeds
+        : item.embed || item.embed_html
+          ? [
+              {
+                provider: item.provider,
+                kind: item.embed_kind || "iframe",
+                url: item.embed,
+                html: item.embed_html,
+              },
+            ]
+          : [];
+    const servers = [];
+    embeds.forEach((entry) => {
+      const url = String((entry && entry.url) || "");
+      const html = String((entry && entry.html) || "");
+      if (!url && !html) return;
+      // A pasted snippet is opaque HTML; only a real URL is safe to treat as
+      // one, and anything that is not https is dropped rather than loaded.
+      if (url && !/^https:\/\//i.test(url)) return;
+      servers.push(
+        Object.assign({}, shape, {
+          url: url || html,
+          embed: entry.kind === "html" ? "" : url,
+          embed_html: entry.kind === "html" ? html : "",
+          provider: (entry && entry.provider) || item.provider || "",
+        }),
+      );
+    });
+    urls.forEach((url) => servers.push(Object.assign({ url }, shape)));
     if (servers.length) openPlayer(servers[0], servers);
   }
   async function installApp() {

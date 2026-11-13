@@ -23,7 +23,8 @@ The preview server binds `0.0.0.0` for the Arena proxy. All browser asset/data U
 - Favorites, recently watched, seven-day failed-feed memory and restore/clear controls. Storage failures fall back to session memory.
 - Lazy-loaded XMLTV guide with on-now/next, progress, category/search filters and a horizontally scrollable six-hour timeline. Missing/stale listings are not invented.
 - Live-event grouping, team badges and multi-server selection (kickoffs are omitted until a verified source is available), using the native apps' pure event logic. **Listed feeds are not labeled LIVE until played.** Browser CORS makes the native apps' arbitrary server probes unreliable, so the web UI does not pretend an opaque response proves playback.
-- A **Movies & Shows** tab that currently shows a coming-soon page: the shared on-demand catalogue is paused while it is reworked. The title/genre/type filters, native MP4 playback, ±10-second controls, seeking and per-browser resume remain in the player for the catalogue's return.
+- A **Movies & Shows** tab driven by the shared on-demand catalogue: 21 public-domain films and classic TV episodes, with title/genre/type filters and a poster grid.
+- **HTML embeds** are how those titles play. Each entry publishes an iframe player (`https://archive.org/embed/<id>`) that the web player opens first, with the direct MP4 as the fallback server. The embed mounts in the same stage, so the docked player, the expanded layout and full screen behave exactly as they do for a channel. The seek bar, play/pause, mute, audio-track, PiP and AirPlay controls are hidden while an embed is up, because they drive a `<video>` element that is not in use and the page cannot reach into a cross-origin iframe. Native MP4 playback keeps ±10-second controls, seeking and per-browser resume on the fallback server.
 - A persistent docked player that expands without replacing the video element; native fullscreen where available, picture-in-picture/AirPlay when the browser exposes them, mute/volume, audio-track selection and automatic/manual backup servers.
 - Native inline HLS on iPhone/iPad, lazy HLS.js on MSE browsers, MPEG-TS.js only where supported. Playback begins from the user's tap; blocked autoplay gets an explicit play button.
 - Persisted wall-clock sleep timer (30/60/90 minutes), 11 read-only diagnostics, library refresh, source/privacy details and an M3U download.
@@ -79,7 +80,7 @@ Application/data URLs carry a content build ID. The service worker caches only s
 ## Tests and artifacts
 
 - `npm test`: storage/sorting/search/resume/sleep/validation, diagnostics, shared native policies, iOS playback strategy selection and static-server gzip/range/path safety.
-- `npm run test:browser`: desktop Chromium and iPhone-sized touch emulation by default; `WEBKIT_TESTS=1` adds real Playwright WebKit. Tests cover the Movies & Shows coming-soon page, player mode changes, personal shelves, guide/live listings, offline reload, diagnostics and honest provider failures.
+- `npm run test:browser`: desktop Chromium and iPhone-sized touch emulation by default; `WEBKIT_TESTS=1` adds real Playwright WebKit. Tests cover the Movies & Shows shelf and its HTML embed path, player mode changes, personal shelves, guide/live listings, offline reload, diagnostics and honest provider failures.
 - `tests/test_web.py` in the repository's Python suite: offline source/export isolation and native-release separation checks.
 - `CHROMIUM_PATH` can point Playwright at a preinstalled compatible Chromium binary; normal CI installs its own engines.
 

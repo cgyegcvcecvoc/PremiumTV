@@ -92,20 +92,29 @@ function setup(t, catalogOverride = null) {
   return { window: dom.window, calls, catalog };
 }
 
-test('the committed catalogue is paused, so the tab shows coming soon', async (t) => {
+test('the committed catalogue publishes a shelf, not a coming-soon page', async (t) => {
   const app = setup(t);
   await tick();
   const doc = app.window.document;
   doc.querySelector('[data-tab="movies"]').click();
 
-  assert.equal(app.catalog.status, 'coming_soon');
-  assert.equal(doc.querySelectorAll('#movies-grid .vod-card').length, 0, 'no shelf is advertised');
-  assert.equal(doc.getElementById('movies-toolbar').hidden, true, 'search and filters are hidden');
-  const empty = doc.getElementById('movies-empty');
-  assert.equal(empty.hidden, false);
-  assert.match(empty.textContent, /COMING SOON/);
-  assert.match(empty.textContent, /Films and classic TV, on their way/);
-  assert.match(doc.getElementById('movies-subtitle').textContent, /rebuilt/);
+  assert.notEqual(app.catalog.status, 'coming_soon', 'the shelf is live again');
+  assert.ok(app.catalog.items.length > 0, 'the catalogue publishes titles');
+  assert.equal(doc.getElementById('movies-toolbar').hidden, false);
+  const cards = [...doc.querySelectorAll('#movies-grid .vod-card')];
+  assert.equal(cards.length, app.catalog.items.length, 'every entry gets a card');
+  assert.equal(doc.getElementById('movies-empty').hidden, true);
+  assert.match(doc.getElementById('movies-subtitle').textContent, /on demand/);
+});
+
+test('every published entry carries an embed or a direct stream', () => {
+  const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+  assert.ok(catalog.items.length > 0);
+  for (const item of catalog.items) {
+    const playable = Boolean(item.stream || item.embed || item.embed_html);
+    assert.ok(playable, `${item.title} has no stream and no embed`);
+    if (item.embed) assert.match(item.embed, /^https:\/\//, `${item.title} embed is not https`);
+  }
 });
 
 test('a restored catalogue renders the shelf and plays in the side player', async (t) => {
@@ -186,6 +195,78 @@ test('a restored catalogue keeps search, genre chips and multi-source transport'
   assert.equal(doc.getElementById('player-server').hidden, false, 'multi-source VOD exposes backup source badge');
   assert.equal(doc.getElementById('player-seek').hidden, false, 'VOD reveals timeline scrubber');
   assert.equal(doc.getElementById('player-live-pill').hidden, true, 'VOD hides live pill');
+});
+
+test('an embed mounts an iframe player, and the direct stream is the fallback server', async (t) => {
+  const items = [
+    film('vod-embedded', 'An Embedded Film', {
+      embed: 'https://archive.org/embed/vod-embedded',
+      embed_kind: 'iframe',
+      provider: 'Internet Archive',
+      embeds: [{ provider: 'Internet Archive', kind: 'iframe', url: 'https://archive.org/embed/vod-embedded' }],
+      streams: ['https://archive.org/download/vod-embedded/vod-embedded.mp4'],
+    }),
+  ];
+  const app = setup(t, { schema: 1, status: 'available', items });
+  await tick();
+  const doc = app.window.document;
+  doc.querySelector('[data-tab="movies"]').click();
+  doc.querySelector('[data-vod-id="vod-embedded"]').click();
+  await tick();
+
+  const host = doc.getElementById('player-embed');
+  assert.equal(host.hidden, false, 'the embed host takes over the stage');
+  const frame = host.querySelector('iframe');
+  assert.ok(frame, 'an iframe player is mounted');
+  assert.equal(frame.getAttribute('src'), 'https://archive.org/embed/vod-embedded');
+  assert.equal(frame.getAttribute('allowfullscreen'), '');
+  assert.equal(doc.getElementById('video').hidden, true, 'the video element steps aside');
+  assert.equal(
+    app.calls.resolved.length,
+    0,
+    'an embed is played by the provider, not by a proxy session',
+  );
+  // The transport drives a <video> element that is not in use.
+  assert.equal(doc.getElementById('player-seek').hidden, true);
+  assert.equal(doc.getElementById('player-toggle').hidden, true);
+  assert.equal(doc.getElementById('player-mute').hidden, true);
+  assert.match(doc.getElementById('player-now').textContent, /Internet Archive player/);
+
+  // Server 2 is the direct MP4: switching to it hands the stage back.
+  doc.getElementById('player-next-server').click();
+  await tick();
+  assert.equal(host.hidden, true, 'the embed is torn down');
+  assert.equal(host.querySelector('iframe'), null, 'and its frame is dropped, not left playing');
+  assert.equal(doc.getElementById('video').hidden, false);
+  assert.equal(app.calls.resolved.length, 1);
+  assert.equal(
+    app.calls.resolved[0].streamUrl,
+    'https://archive.org/download/vod-embedded/vod-embedded.mp4',
+  );
+});
+
+test('a pasted embed snippet is mounted without running its scripts', async (t) => {
+  const items = [
+    film('vod-snippet', 'A Snippet Film', {
+      embed: '',
+      embed_kind: 'html',
+      embed_html: '<iframe src="https://example.com/embed/abc" allowfullscreen></iframe><script>window.__pwned = 1;</script>',
+      embeds: [],
+      streams: ['https://archive.org/download/vod-snippet/vod-snippet.mp4'],
+    }),
+  ];
+  const app = setup(t, { schema: 1, status: 'available', items });
+  await tick();
+  const doc = app.window.document;
+  doc.querySelector('[data-tab="movies"]').click();
+  doc.querySelector('[data-vod-id="vod-snippet"]').click();
+  await tick();
+
+  const host = doc.getElementById('player-embed');
+  assert.equal(host.hidden, false);
+  assert.equal(host.querySelector('iframe').getAttribute('src'), 'https://example.com/embed/abc');
+  assert.equal(host.querySelector('script'), null, 'scripts never survive the mount');
+  assert.equal(app.window.__pwned, undefined);
 });
 
 test('the packaged renderer may show archive and CDN artwork', () => {
