@@ -1,6 +1,7 @@
 """Offline policy tests for the live-event two-primary-plus-backup audit."""
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import tempfile
@@ -20,7 +21,8 @@ def entry(name: str, url: str) -> str:
 
 class LiveEventReliabilityAuditTest(unittest.TestCase):
     def fixture(self, first_status: str | None = None, third_status: str | None = None,
-                duplicate_first: bool = False):
+                duplicate_first: bool = False, *, include_evidence: bool = True,
+                exclude_second: bool = False, completed: bool = True):
         first = "https://one.example/live/game.m3u8?token=secret"
         second = "https://edge.two.example.net/live/game.m3u8"
         third = "https://backup.example.org/live/game.m3u8"
@@ -35,11 +37,15 @@ class LiveEventReliabilityAuditTest(unittest.TestCase):
             "run_id": "fixture-run",
             "finished_utc_iso": "2026-11-09T20:00:00Z",
             "checked": True,
-            "check_completed": True,
+            "check_completed": completed,
             "dead": [],
             "unverified": [],
             "retained_links": [],
         }
+        if include_evidence:
+            checked_urls = [first, third] if exclude_second else [first, second, third]
+            report["reachable_event_url_sha256"] = [hashlib.sha256(url.encode()).hexdigest()
+                                                       for url in checked_urls]
         if first_status == "unverified":
             report["unverified"].append({"url": audit.scraper.safe_url(first)})
         if third_status == "unverified":
@@ -62,6 +68,7 @@ class LiveEventReliabilityAuditTest(unittest.TestCase):
 
     def test_three_confirmed_distinct_feeds_assign_two_primaries_and_backup(self):
         report = self.fixture(duplicate_first=True)
+        self.assertTrue(report["exact_url_evidence_available"])
         self.assertEqual(report["fixture_count"], 1)
         self.assertEqual(report["compliant_count"], 1)
         game = report["fixtures"][0]
@@ -93,6 +100,21 @@ class LiveEventReliabilityAuditTest(unittest.TestCase):
         self.assertTrue(game["backup_ready"])
         self.assertFalse(game["policy_met"])
         self.assertIn("needs 1 more confirmed primary feed(s)", game["deficits"])
+
+    def test_legacy_report_never_counts_unknown_urls_as_confirmed(self):
+        report = self.fixture(include_evidence=False)
+        self.assertTrue(report["health_check_completed"])
+        self.assertFalse(report["exact_url_evidence_available"])
+        self.assertIn("unavailable (legacy or incomplete scrape)", audit.render(report))
+        self.assertEqual(report["fixtures"][0]["confirmed_feed_count"], 0)
+        self.assertTrue(all(feed["status"] == "published-not-checked"
+                            for feed in report["fixtures"][0]["feeds"]))
+
+    def test_missing_evidence_for_one_url_and_incomplete_run_are_not_reachable(self):
+        report = self.fixture(exclude_second=True)
+        self.assertEqual(report["fixtures"][0]["confirmed_feed_count"], 2)
+        self.assertEqual(report["fixtures"][0]["feeds"][1]["status"], "published-not-checked")
+        self.assertEqual(self.fixture(completed=False)["fixtures"][0]["confirmed_feed_count"], 0)
 
     def test_origin_family_collapses_subdomains_and_preserves_ip_addresses(self):
         self.assertEqual(audit.origin_family("https://a.b.example.com/x"), "example.com")

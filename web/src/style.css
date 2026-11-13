@@ -2119,3 +2119,19 @@ body.player-expanded {
   object-fit: contain;
   filter: drop-shadow(0 1px 2px #0005);
 }
+
+/* External viewing information is separate from playable feed cards. */
+.provider-options {
+  margin: 1rem 0;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+}
+.provider-options summary { cursor: pointer; font-weight: 700; }
+.provider-options summary span { float: right; }
+.provider-options p, .provider-options small { color: var(--muted, #aaa); }
+.provider-options ul { display: flex; flex-wrap: wrap; gap: 0.8rem 1.5rem; list-style: none; padding: 0; margin: 1rem 0 0; }
+.provider-options li { flex: 1 1 230px; min-width: 0; }
+.provider-options a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.provider-options small { display: block; margin-top: 0.25rem; }
