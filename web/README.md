@@ -18,10 +18,11 @@ The preview server binds `0.0.0.0` for the Arena proxy. All browser asset/data U
 
 ## What is included
 
+- Collapsible official viewing links for local news, public programming and sports; these open provider sites, not in-player feeds or automatic backups. Provider availability, subscriptions and blackout rules vary.
 - The current checked USA channel library and published category order; category pages, search across name/category/country/channel number, sorting and incremental rendering (60 channel cards at a time).
 - Favorites, recently watched, seven-day failed-feed memory and restore/clear controls. Storage failures fall back to session memory.
 - Lazy-loaded XMLTV guide with on-now/next, progress, category/search filters and a horizontally scrollable six-hour timeline. Missing/stale listings are not invented.
-- Live-event grouping, team badges, curated kickoff information and multi-server selection, using the native apps' pure event logic. **Listed feeds are not labeled LIVE until played.** Browser CORS makes the native apps' arbitrary server probes unreliable, so the web UI does not pretend an opaque response proves playback.
+- Live-event grouping, team badges and multi-server selection (kickoffs are omitted until a verified source is available), using the native apps' pure event logic. **Listed feeds are not labeled LIVE until played.** Browser CORS makes the native apps' arbitrary server probes unreliable, so the web UI does not pretend an opaque response proves playback.
 - A **Movies & Shows** tab that currently shows a coming-soon page: the shared on-demand catalogue is paused while it is reworked. The title/genre/type filters, native MP4 playback, ±10-second controls, seeking and per-browser resume remain in the player for the catalogue's return.
 - A persistent docked player that expands without replacing the video element; native fullscreen where available, picture-in-picture/AirPlay when the browser exposes them, mute/volume, audio-track selection and automatic/manual backup servers.
 - Native inline HLS on iPhone/iPad, lazy HLS.js on MSE browsers, MPEG-TS.js only where supported. Playback begins from the user's tap; blocked autoplay gets an explicit play button.

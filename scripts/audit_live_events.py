@@ -100,7 +100,7 @@ def source_url_index(sources_dir: Path) -> dict[str, set[str]]:
     return index
 
 
-def health_index(report: dict) -> tuple[bool, dict[str, str]]:
+def health_index(report: dict) -> tuple[bool, dict[str, str], set[str]]:
     checked = bool(report.get("checked") and report.get("check_completed"))
     statuses: dict[str, str] = {}
     for key, label in (("dead", "dead"), ("unverified", "unverified"),
@@ -108,7 +108,10 @@ def health_index(report: dict) -> tuple[bool, dict[str, str]]:
         for item in report.get(key, []) or []:
             if isinstance(item, dict) and item.get("url"):
                 statuses[str(item["url"])] = label
-    return checked, statuses
+    hashes = report.get("reachable_event_url_sha256")
+    # Legacy or malformed reports do not establish which exact URLs succeeded.
+    reachable = {value for value in hashes if isinstance(value, str)} if isinstance(hashes, list) else set()
+    return checked, statuses, reachable if checked else set()
 
 
 def audit(playlist: Path = DEFAULT_PLAYLIST, scrape_report: Path = DEFAULT_SCRAPE_REPORT,
@@ -118,7 +121,7 @@ def audit(playlist: Path = DEFAULT_PLAYLIST, scrape_report: Path = DEFAULT_SCRAP
         playlist.read_text(encoding="utf-8", errors="replace"), playlist.stem
     )
     scrape = load_json(scrape_report)
-    checked, known_health = health_index(scrape)
+    checked, known_health, reachable_hashes = health_index(scrape)
     supplied_by = source_url_index(sources_dir)
 
     grouped: dict[str, dict] = {}
@@ -134,7 +137,8 @@ def audit(playlist: Path = DEFAULT_PLAYLIST, scrape_report: Path = DEFAULT_SCRAP
         safe = scraper.safe_url(channel.url)
         status = known_health.get(safe)
         if status is None:
-            status = "reachable" if checked else "published-not-checked"
+            url_hash = hashlib.sha256(channel.url.encode("utf-8", "replace")).hexdigest()
+            status = "reachable" if url_hash in reachable_hashes else "published-not-checked"
         provider = provider_of(channel.name)
         family = origin_family(channel.url)
         row["feeds"].append({
@@ -202,6 +206,7 @@ def audit(playlist: Path = DEFAULT_PLAYLIST, scrape_report: Path = DEFAULT_SCRAP
         "playlist": str(playlist.relative_to(ROOT)) if playlist.is_relative_to(ROOT) else str(playlist),
         "scrape_run_id": scrape.get("run_id"),
         "health_check_completed": checked,
+        "exact_url_evidence_available": checked and isinstance(scrape.get("reachable_event_url_sha256"), list),
         "policy": {
             "minimum_confirmed_feeds": min_feeds,
             "required_confirmed_primaries": 2,
@@ -222,9 +227,10 @@ def render(report: dict) -> str:
     lines = [
         "# Live-event reliability audit",
         "",
-        f"- **Generated:** {report['generated_utc']}",
+        f"- **Scrape snapshot:** {report['generated_utc']}",
         f"- **Scrape run:** `{report.get('scrape_run_id') or 'unknown'}` — health check "
         f"{'completed' if report['health_check_completed'] else 'NOT completed'}",
+        f"- **Exact-URL evidence:** {'available' if report['exact_url_evidence_available'] else 'unavailable (legacy or incomplete scrape)'}",
         f"- **Policy:** {policy['minimum_confirmed_feeds']} confirmed, distinct feeds per fixture "
         f"(two primaries + one dedicated backup), across at least "
         f"{policy['minimum_origin_families']} origin families",
@@ -265,7 +271,8 @@ def render(report: dict) -> str:
         "",
         "## Interpretation",
         "",
-        "- `reachable` means the latest checked scrape received stream-shaped data; it is a point-in-time result.",
+        "- `reachable` requires an exact URL hash in the latest completed scrape; it is a point-in-time result, not a playback guarantee.",
+        "- Older reports without the hash index and URLs not checked in that run remain `published-not-checked`.",
         "- A provider tag such as `STRMGATE` is provenance metadata, not proof that two URLs are independent.",
         "- The audit reports deficits instead of publishing dead, expired, private-address, or duplicate mirrors to hit a number.",
         "",

@@ -1,5 +1,9 @@
 "use strict";
 const { test, expect } = require("@playwright/test");
+// The published channel lineup changes after each scrape. Compare the UI to
+// this build's actual group data instead of pinning a stale scrape's count.
+const groupCount = require("../../dist/data/groups.json").length;
+
 
 test.beforeEach(async ({ page }) => {
   // Keep tests deterministic and private: only same-origin assets are allowed.
@@ -12,10 +16,11 @@ test.beforeEach(async ({ page }) => {
 test("library, categories, search, sorting, favorites and history work", async ({
   page,
 }) => {
+  expect(groupCount).toBeGreaterThan(0);
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
-  await expect(page.locator(".category-card")).toHaveCount(63);
+  await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await page.locator('[data-category="News"]').click();
   await expect(page.locator(".channel-card")).toHaveCount(60);
   await page.locator(".favorite-button").first().click();
@@ -40,7 +45,7 @@ test("library, categories, search, sorting, favorites and history work", async (
   await page.locator("#channel-search").fill("no-such-channel-987654");
   await expect(page.locator("#channel-empty")).toBeVisible();
   await page.locator("#clear-search").click();
-  await expect(page.locator(".category-card")).toHaveCount(63);
+  await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await page.locator("#channel-sort").selectOption("az");
   await expect(page.locator(".category-card").first()).toContainText(
     "A&E Networks",
@@ -112,7 +117,7 @@ test("offline app shell and cached library reopen without a network", async ({
   browserName,
 }) => {
   await page.goto("/");
-  await expect(page.locator(".category-card")).toHaveCount(63);
+  await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   if (browserName === "webkit") {
@@ -140,7 +145,7 @@ test("offline app shell and cached library reopen without a network", async ({
   }
   await context.setOffline(true);
   await page.reload({ waitUntil: "domcontentloaded" });
-  await expect(page.locator(".category-card")).toHaveCount(63);
+  await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await expect(page.locator("#offline-banner")).toBeVisible();
   await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
   await expect(page.locator("#movies-coming-soon")).toBeVisible();
@@ -224,7 +229,7 @@ test("failed refresh keeps the last usable library and personal shelves", async 
   const context = await browser.newContext({ serviceWorkers: "block" });
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/");
-  await expect(page.locator(".category-card")).toHaveCount(63);
+  await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await page.route(/\/data\/meta\.json(?:\?.*)?$/, (route) =>
     route.fulfill({ status: 503, body: "Unavailable" }),
   );
@@ -232,7 +237,7 @@ test("failed refresh keeps the last usable library and personal shelves", async 
   await page.locator("#force-refresh").click();
   await expect(page.locator("#settings-body")).toContainText("503");
   await page.getByRole("tab", { name: "Channels", exact: true }).click();
-  await expect(page.locator(".category-card")).toHaveCount(63);
+  await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await context.close();
 });
 
@@ -249,7 +254,7 @@ test("blocked browser storage does not prevent watching the library", async ({
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
-  await expect(page.locator(".category-card")).toHaveCount(63);
+  await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await page.locator('[data-category="News"]').click();
   await expect(page.locator(".channel-card").first()).toBeVisible();
   expect(errors).toEqual([]);
@@ -304,7 +309,7 @@ test("repository-subpath deployment keeps assets and service worker scoped", asy
   await new Promise((resolve) => proxy.listen(0, "127.0.0.1", resolve));
   try {
     await page.goto(`http://127.0.0.1:${proxy.address().port}/PremiumTV/web/`);
-    await expect(page.locator(".category-card")).toHaveCount(63);
+    await expect(page.locator(".category-card")).toHaveCount(groupCount);
     await page.evaluate(() => navigator.serviceWorker.ready);
     const scope = await page.evaluate(
       () => navigator.serviceWorker.controller?.scriptURL || "",
@@ -313,4 +318,19 @@ test("repository-subpath deployment keeps assets and service worker scoped", asy
   } finally {
     await new Promise((resolve) => proxy.close(resolve));
   }
+});
+
+test("official viewing options remain separate from playable feeds", async ({ page }) => {
+  await page.goto("/");
+  const channels = page.locator("#channel-provider-options");
+  await channels.locator("summary").click();
+  await expect(channels).toContainText("not in the PremiumTV player");
+  await expect(channels.getByRole("link", { name: /WNEP/ })).toHaveAttribute("href", "https://www.wnep.com/watch");
+  await expect(channels.getByRole("link", { name: /WNEP/ })).toHaveAttribute("rel", "noopener noreferrer");
+  await page.getByRole("tab", { name: "Live events", exact: true }).click();
+  const sports = page.locator("#event-provider-options");
+  await sports.locator("summary").click();
+  await expect(sports).toContainText("not verified feeds or backups");
+  await expect(sports.getByRole("link", { name: /NBA League Pass/ })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

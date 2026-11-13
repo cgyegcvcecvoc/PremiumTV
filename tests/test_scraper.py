@@ -1,4 +1,5 @@
 """Offline end-to-end checks for the existing scraper; no public streams required."""
+import hashlib
 import json
 import sys
 import tempfile
@@ -196,6 +197,31 @@ class ScraperIntegrationTest(unittest.TestCase):
                  redirect_stdout(StringIO()):
                 self.assertEqual(scraper.main(), 1)
             self.assertEqual((out / "PremiumTV.m3u").read_text(encoding="utf-8"), retained)
+
+    def test_scrape_writes_only_reachable_event_hashes(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            urls = ["https://one.example/live?token=secret", "https://two.example/live",
+                    "https://three.example/live"]
+            source = root / "events.m3u"
+            source.write_text("#EXTM3U\n" + "".join(
+                f'#EXTINF:-1 tvg-id="Soccer.Dummy.us",[Soccer] Alpha vs Beta\n{url}\n'
+                for url in urls), encoding="utf-8")
+            cfg = root / "sources.json"
+            cfg.write_text(json.dumps({"sources": [{"name": "events", "type": "m3u",
+                                                    "local_path": str(source), "url": "https://example.test/events.m3u"}]}), encoding="utf-8")
+            out = root / "playlists"
+            def check(channel, *args):
+                channel.status = ("alive" if channel.url == urls[0] else
+                                  "unverified" if channel.url == urls[1] else "dead")
+                return channel
+            args = ["scraper.py", "--sources", str(cfg), "--out", str(out), "--workers", "1"]
+            with patch.object(sys, "argv", args), patch.object(scraper, "check_channel", side_effect=check), \
+                 redirect_stdout(StringIO()):
+                self.assertEqual(scraper.main(), 0)
+            report = json.loads((out / "report.json").read_text(encoding="utf-8"))
+            self.assertEqual(report["reachable_event_url_sha256"], [hashlib.sha256(urls[0].encode()).hexdigest()])
+            self.assertNotIn("secret", json.dumps(report))
 
     def test_country_separation_ae_playlist_and_txt_logs(self):
         with tempfile.TemporaryDirectory() as temp:
