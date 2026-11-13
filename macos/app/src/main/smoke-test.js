@@ -1,6 +1,6 @@
 'use strict';
 
-// Runs inside the actual packaged Electron app in CI, not a DOM mock.
+// Runs inside the packaged Electron app, including first-run setup and category navigation.
 const assert = require('node:assert/strict');
 const { setTimeout: delay } = require('node:timers/promises');
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cold-launch the built APK and verify its channel UI on an Android emulator.
+"""Cold-launch the built APK and verify category-first navigation and playback.
 
 Every adb call gets an explicit timeout. The stable USA bundle is ~6 MB
 (2,133 channels, 24k programmes) while the global bundle carries the
