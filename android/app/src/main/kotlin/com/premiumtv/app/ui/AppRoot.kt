@@ -62,6 +62,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     var sidePlayer by rememberSaveable { mutableStateOf(false) }
     // Recently watched + Favorites (1.0.6), persisted per device.
     val appContext = LocalContext.current.applicationContext
+    val setupPrefs = remember(appContext) { appContext.getSharedPreferences("premiumtv_setup", android.content.Context.MODE_PRIVATE) }
+    var setupComplete by remember { mutableStateOf(setupPrefs.getBoolean("complete", false)) }
+    var viewerName by remember { mutableStateOf(setupPrefs.getString("viewer_name", "Viewer") ?: "Viewer") }
     val shelves = remember { PersonalShelves(appContext) }
     var vodChannelsById by remember { mutableStateOf(emptyMap<String, List<Channel>>()) }
     LaunchedEffect(Unit) {
@@ -132,6 +135,7 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     // channel plays: closing the player returns to the same tab and, in the
     // guide, to the same highlighted show.
     var tab by rememberSaveable { mutableStateOf(HomeTab.Channels) }
+    var selectedCategory by rememberSaveable { mutableStateOf<String?>(null) }
     val guideState = rememberCableGuideState()
 
     when (val current = state) {
@@ -153,8 +157,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             // drops out with them.
             val visibleLibrary = remember(current.library, deadUrls) {
                 val channels = visibleChannels(current.library.channels, deadUrls)
+                val counts = channels.groupingBy { it.group }.eachCount()
                 val groups = current.library.groups.mapNotNull { group ->
-                    val count = channels.count { it.group == group.name }
+                    val count = counts[group.name] ?: 0
                     if (count > 0) CategoryGroup(group.name, count) else null
                 }
                 current.library.copy(channels = channels, groups = groups)
@@ -206,6 +211,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 diagnostics = diagnostics,
                                 diagnosticsRunning = diagnosticsRunning,
                                 tab = tab,
+                                viewerName = viewerName,
+                                selectedCategory = selectedCategory,
+                                onCategoryChange = { selectedCategory = it },
                                 onTabChange = { tab = it },
                                 guideState = guideState,
                                 recentChannels = recentShelf,
@@ -312,8 +320,16 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     // and leave the panel stuck open. The check is decided from the last cached
     // notice at startup, so a viewer with nothing playing still sees it on the
     // next launch.
+    if (!setupComplete && state is LoadState.Ready) {
+        SetupDialog { name ->
+            setupPrefs.edit().putString("viewer_name", name).putBoolean("complete", true).apply()
+            viewerName = name
+            setupComplete = true
+        }
+    }
+
     val notice = updateInfo.notice
-    if (notice != null && updateInfo.noticeVisible && playing == null) {
+    if (setupComplete && notice != null && updateInfo.noticeVisible && playing == null) {
         UpdateNoticeDialog(
             notice = notice,
             installedVersion = updateInfo.currentVersion,

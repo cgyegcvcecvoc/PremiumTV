@@ -103,8 +103,8 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertEqual(notice["releases_url"], f"{CANONICAL}/releases/latest")
         self.assertEqual(notice["repo_url"], CANONICAL)
         rules = {rule["id"]: rule for rule in notice["rules"]}
-        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.4")
-        self.assertIn("1.1.5", rules["update-below-newest"]["surprise"])
+        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.5")
+        self.assertIn("1.1.6", rules["update-below-newest"]["surprise"])
 
     def test_bundle_builder_publishes_canonical_raw_urls(self):
         builder = text("android/tools/build_bundle.py")

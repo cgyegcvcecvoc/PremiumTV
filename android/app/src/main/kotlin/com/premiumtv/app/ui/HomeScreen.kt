@@ -131,6 +131,9 @@ fun HomeScreen(
     diagnostics: DiagnosticsReport?,
     diagnosticsRunning: Boolean,
     tab: HomeTab,
+    viewerName: String,
+    selectedCategory: String?,
+    onCategoryChange: (String?) -> Unit,
     onTabChange: (HomeTab) -> Unit,
     guideState: CableGuideState,
     recentChannels: List<Channel> = emptyList(),
@@ -241,6 +244,15 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 VersionPlaque(BuildConfig.VERSION_NAME)
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = viewerName,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MutedText,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.widthIn(max = 100.dp),
+                )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
                     text = when {
@@ -305,7 +317,7 @@ fun HomeScreen(
         when (tab) {
             HomeTab.Channels -> CategoriesScreen(
                 library, now, liveIndex, onSelect, recentChannels, favoriteChannels,
-                favoriteUrls, onToggleFavorite, playerDocked,
+                favoriteUrls, onToggleFavorite, playerDocked, selectedCategory, onCategoryChange,
             )
             HomeTab.Events -> EventsScreen(
                 sections = liveSections,
@@ -366,13 +378,11 @@ private fun CategoriesScreen(
     onToggleFavorite: (Channel) -> Unit = {},
     // The docked side player owns Back while it is up (1.1.2); see HomeScreen.
     playerDocked: Boolean = false,
+    selectedCategory: String?,
+    onCategoryChange: (String?) -> Unit,
 ) {
-    // 1.1.0 side-by-side browser: the category rail on the left, the selected
-    // category's channels on the right — the layout IPTV Smarters Pro uses,
-    // and the one that leaves the side player room on the right of the screen.
-    // The rail is a shelf list, not a page you leave: opening a category is a
-    // press away from the next one.
-    var selectedCategory by rememberSaveable { mutableStateOf<String?>(null) }
+    // A null selection is the category landing page. All channels is an
+    // explicit selection, so Back always has a predictable destination.
     var categorySort by rememberSaveable { mutableStateOf(CategorySort.Published) }
     var channelSort by rememberSaveable { mutableStateOf(ChannelSort.Default) }
     var query by rememberSaveable { mutableStateOf("") }
@@ -422,12 +432,13 @@ private fun CategoriesScreen(
         }
     }
 
-    BackHandler(enabled = channelNumber.isNotBlank() || (selectedCategory != null && !playerDocked)) {
+    BackHandler(enabled = channelNumber.isNotBlank() || ((selectedCategory != null || query.isNotBlank()) && !playerDocked)) {
         if (channelNumber.isNotBlank()) {
             channelNumber = ""
             channelNumberMessage = null
         } else {
-            selectedCategory = null
+            query = ""
+            onCategoryChange(null)
         }
     }
 
@@ -512,107 +523,98 @@ private fun CategoriesScreen(
             )
         }
 
-        // A real TV has the width for a 300 dp rail; a narrow window (or a
-        // phone-sized emulator) keeps more room for the channel grid.
-        val railWidth = if (LocalConfiguration.current.screenWidthDp < 700) 208.dp else 300.dp
         Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
             Row(modifier = Modifier.fillMaxSize()) {
-                CategoryRail(
-                    library = library,
-                    sort = categorySort,
-                    selected = if (matches == null) selectedCategory else null,
-                    recentChannels = recentChannels,
-                    favoriteChannels = favoriteChannels,
-                    onSelect = {
-                        channelNumber = ""
-                        channelNumberMessage = null
-                        selectedCategory = it
-                        query = ""
-                    },
-                    onCycleSort = { categorySort = categorySort.next },
-                    modifier = Modifier
-                        .width(railWidth)
-                        .fillMaxHeight()
-                        .padding(start = SCREEN_GUTTER),
-                )
-
-                // A hairline between the two panes: on a big screen the eye needs
-                // the same boundary a cable box uses.
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width(1.dp)
-                        .background(PanelStroke),
-                )
-
-                val found = matches
-                if (found != null) {
-                    Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                        PaneHeader(
-                            title = "${found.size} channels match “$trimmed”",
-                            subtitle = "Searching every category",
-                            actionLabel = "Sort · ${channelSort.label}",
-                            onAction = { channelSort = channelSort.next },
-                        )
-                        if (found.isEmpty()) {
-                            CenteredMessage(
-                                "No channels match “$trimmed”.\n\nTry part of a name, a category like News, " +
-                                    "or a country like US.",
-                            )
-                        } else {
-                            ChannelGrid(
-                                channels = remember(found, channelSort) { channelSort.sort(found) },
-                                programmes = library.programmes,
-                                liveIndex = liveIndex,
-                                now = now,
-                                favoriteUrls = favoriteUrls,
-                                onToggleFavorite = onToggleFavorite,
-                                onSelect = selectChannel,
-                            )
-                        }
-                    }
+                if (selectedCategory == null && matches == null) {
+                    CategoryRail(
+                        library = library,
+                        sort = categorySort,
+                        selected = null,
+                        recentChannels = recentChannels,
+                        favoriteChannels = favoriteChannels,
+                        onSelect = {
+                            channelNumber = ""
+                            channelNumberMessage = null
+                            onCategoryChange(it ?: SHELF_ALL)
+                            query = ""
+                        },
+                        onCycleSort = { categorySort = categorySort.next },
+                        modifier = Modifier.fillMaxSize().padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER),
+                    )
                 } else {
-                    val channels = remember(
-                        library.channels, selectedCategory, recentChannels, favoriteChannels,
-                    ) {
-                        when (selectedCategory) {
-                            null -> library.channels
-                            SHELF_RECENT -> recentChannels
-                            SHELF_FAVORITES -> favoriteChannels
-                            else -> library.channels.filter { it.group == selectedCategory }
+                    val found = matches
+                    if (found != null) {
+                        Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                            MiniAction("◀ All categories") { query = ""; onCategoryChange(null) }
+                            PaneHeader(
+                                title = "${found.size} channels match “$trimmed”",
+                                subtitle = "Searching every category",
+                                actionLabel = "Sort · ${channelSort.label}",
+                                onAction = { channelSort = channelSort.next },
+                            )
+                            if (found.isEmpty()) {
+                                CenteredMessage(
+                                    "No channels match “$trimmed”.\n\nTry part of a name, a category like News, " +
+                                        "or a country like US.",
+                                )
+                            } else {
+                                ChannelGrid(
+                                    channels = remember(found, channelSort) { channelSort.sort(found) },
+                                    programmes = library.programmes,
+                                    liveIndex = liveIndex,
+                                    now = now,
+                                    favoriteUrls = favoriteUrls,
+                                    onToggleFavorite = onToggleFavorite,
+                                    onSelect = selectChannel,
+                                )
+                            }
                         }
-                    }
-                    val visible = remember(channels, channelSort) { channelSort.sort(channels) }
-                    val title = when (selectedCategory) {
-                        null -> "All channels"
-                        else -> selectedCategory.orEmpty()
-                    }
-                    Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                        PaneHeader(
-                            title = title,
-                            subtitle = "${visible.size} channels" +
-                                if (selectedCategory != null) " in this category" else "",
-                            actionLabel = "Sort · ${channelSort.label}",
-                            onAction = { channelSort = channelSort.next },
-                        )
-                        if (visible.isEmpty()) {
-                            CenteredMessage(
-                                when (selectedCategory) {
-                                    SHELF_RECENT -> "Nothing here yet. Channels you open show up here."
-                                    SHELF_FAVORITES -> "No favorites yet. Press ☆ on a channel to add one."
-                                    else -> "No channels are published in this category right now."
-                                },
+                    } else {
+                        val channels = remember(
+                            library.channels, selectedCategory, recentChannels, favoriteChannels,
+                        ) {
+                            when (selectedCategory) {
+                                SHELF_ALL -> library.channels
+                                SHELF_RECENT -> recentChannels
+                                SHELF_FAVORITES -> favoriteChannels
+                                else -> library.channels.filter { it.group == selectedCategory }
+                            }
+                        }
+                        val visible = remember(channels, channelSort) { channelSort.sort(channels) }
+                        val title = when (selectedCategory) {
+                            SHELF_ALL -> "All channels"
+                            SHELF_RECENT -> "Recently watched"
+                            SHELF_FAVORITES -> "Favorites"
+                            else -> selectedCategory.orEmpty()
+                        }
+                        Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                            MiniAction("◀ All categories") { query = ""; onCategoryChange(null) }
+                            PaneHeader(
+                                title = title,
+                                subtitle = "${visible.size} channels" +
+                                    if (selectedCategory != null) " in this category" else "",
+                                actionLabel = "Sort · ${channelSort.label}",
+                                onAction = { channelSort = channelSort.next },
                             )
-                        } else {
-                            ChannelGrid(
-                                channels = visible,
-                                programmes = library.programmes,
-                                liveIndex = liveIndex,
-                                now = now,
-                                favoriteUrls = favoriteUrls,
-                                onToggleFavorite = onToggleFavorite,
-                                onSelect = selectChannel,
-                            )
+                            if (visible.isEmpty()) {
+                                CenteredMessage(
+                                    when (selectedCategory) {
+                                        SHELF_RECENT -> "Nothing here yet. Channels you open show up here."
+                                        SHELF_FAVORITES -> "No favorites yet. Press ☆ on a channel to add one."
+                                        else -> "No channels are published in this category right now."
+                                    },
+                                )
+                            } else {
+                                ChannelGrid(
+                                    channels = visible,
+                                    programmes = library.programmes,
+                                    liveIndex = liveIndex,
+                                    now = now,
+                                    favoriteUrls = favoriteUrls,
+                                    onToggleFavorite = onToggleFavorite,
+                                    onSelect = selectChannel,
+                                )
+                            }
                         }
                     }
                 }
@@ -680,14 +682,11 @@ private fun ChannelNumberOverlay(
 }
 
 /** The two personal shelves, which sit in the rail like categories. */
-private const val SHELF_RECENT = "Recently watched"
-private const val SHELF_FAVORITES = "Favorites"
+private const val SHELF_ALL = "\u0000all"
+private const val SHELF_RECENT = "\u0000recent"
+private const val SHELF_FAVORITES = "\u0000favorites"
 
-/**
- * The left rail: All channels, the viewer's shelves, then every category.
- * Rows keep their name and count, so the layout is familiar, but the rail is
- * always in reach while the right-hand pane changes.
- */
+/** Category picker: All channels, personal shelves, then published categories. */
 @Composable
 private fun CategoryRail(
     library: Library,
@@ -733,14 +732,14 @@ private fun CategoryRail(
                     name = "All channels",
                     count = library.channels.size,
                     glyph = "▦",
-                    selected = selected == null,
+                    selected = selected == SHELF_ALL,
                     onClick = { onSelect(null) },
                 )
             }
             if (recentChannels.isNotEmpty()) {
                 item(key = "shelf|recent") {
                     CategoryListRow(
-                        name = SHELF_RECENT,
+                        name = "Recently watched",
                         count = recentChannels.size,
                         glyph = "◷",
                         selected = selected == SHELF_RECENT,
@@ -751,7 +750,7 @@ private fun CategoryRail(
             if (favoriteChannels.isNotEmpty()) {
                 item(key = "shelf|favorites") {
                     CategoryListRow(
-                        name = SHELF_FAVORITES,
+                        name = "Favorites",
                         count = favoriteChannels.size,
                         glyph = "★",
                         selected = selected == SHELF_FAVORITES,

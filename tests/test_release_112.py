@@ -143,7 +143,8 @@ class Version112Tests(unittest.TestCase):
             release_version.compare_versions(stable["max_version"], "1.1.1"),
             0,
         )
-        self.assertIn(release_version.current_version(), stable["surprise"])
+        import version_sync  # notice describes the published release, not an unpublished build
+        self.assertIn(version_sync.PUBLISHED_VERSION, stable["surprise"])
         self.assertNotIn("retired-preview-1-1", rules)
 
     def test_the_download_site_no_longer_retires_a_stable_tag(self):

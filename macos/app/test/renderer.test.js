@@ -184,7 +184,7 @@ test('1.0.8: the sidebar sorts categories and a category page sorts its channels
   assert.match(js, /return sortedChannels\(filtered\);/);
   assert.match(js, /ui\.categorySort = button\.dataset\.sort;/);
   assert.match(js, /ui\.channelSort = button\.dataset\.chsort;/);
-  assert.match(js, /els\.catBack\.addEventListener\('click', \(\) => selectCategory\(null\)\);/);
+  assert.match(js, /els\.catBack\.addEventListener\('click', \(\) => selectCategory\(null, false\)\);/);
   assert.match(css(), /#cat-sort \{/);
 });
 

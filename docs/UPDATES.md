@@ -3,7 +3,7 @@
 Version 1.0.4 was the last release that had to be installed by hand. From then
 on, **Settings → App updates** checks GitHub, downloads the installer once,
 verifies it against the release's SHA-256 file, and hands it to the platform's
-normal installer. The current stable release is **1.1.5** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
+normal installer. The current stable release is **1.1.6** — a plain three-part version. The V-patch scheme (1.0.8.1 = "1.0.8 V1", briefly aliased as 1.0.9) was retired at 1.0.9: every fix from now on is simply the next version number, with no four-part versions and no compatibility-alias twins.
 
 The current version is stored once, in [`VERSION`](../VERSION).
 `python scripts/version_sync.py` generates the Android version properties and
@@ -228,7 +228,7 @@ check is throttled and the downloaded DMG is reused until it is installed.
    it names no current version at all, because that cohort's frozen alias table
    makes `{newest}` render as itself, and it follows `/releases/latest` so the
    button can never point at a superseded release), `update-below-newest`
-   (1.0.4–1.1.4, a warning whose action opens Settings so the normal updater
+   (1.0.4–1.1.5, a warning whose action opens Settings so the normal updater
    finishes the job), and `legacy-upgrade-2026-11` (0.0.0-1.0.3, the last manual
    install).
    The old `retired-preview-1-1` rule was removed when 1.1.1 shipped as the

@@ -15,11 +15,12 @@ function library(name = 'Sports One') {
     programmes: [{ c: 'one', s: Date.now() / 1000 - 60, e: Date.now() / 1000 + 3600, t: 'Live match' }],
   };
 }
-function setup(t, initial, appInfo = { version: '1.0.2' }, updates = null) {
+function setup(t, initial, appInfo = { version: '1.0.2' }, updates = null, saved = {}) {
   const dom = new JSDOM(fs.readFileSync(path.join(renderer, 'index.html'), 'utf8'), {
     runScripts: 'outside-only', url: 'http://127.0.0.1:1234',
   });
   t.after(() => dom.window.close());
+  for (const [key, value] of Object.entries(saved)) dom.window.localStorage.setItem(key, value);
   let current = initial;
   let updateState = updates;
   const events = {};
@@ -79,6 +80,7 @@ test('cold launch fetches channels and guide when ready arrives after the initia
   app.set(ready());
   app.events.state({ phase: 'ready', message: 'Loaded' });
   await tick();
+  app.window.document.querySelector('.category-tile:nth-child(2)').click();
   assert.equal(app.window.document.querySelector('.card-name')?.textContent, 'Sports One');
   assert.equal(app.window.document.querySelector('.card-now')?.textContent, 'Live match');
   assert.match(app.window.document.getElementById('foot-count').textContent, /1 channels/);
@@ -93,6 +95,7 @@ test('channels are visible during guide loading and a refresh replaces displayed
   app.set(partial);
   app.events.progress({ phase: 'channels', count: 1 });
   await tick();
+  app.window.document.querySelector('.category-tile:nth-child(2)').click();
   assert.equal(app.window.document.querySelector('.card-name')?.textContent, 'Sports One');
   app.set(ready('Updated Sports'));
   app.events.state({ phase: 'ready' });
@@ -117,6 +120,7 @@ test('a late initial snapshot cannot overwrite a newer ready snapshot', async (t
   await tick();
   resolveOld(empty());
   await tick();
+  app.window.document.querySelector('.category-tile:nth-child(2)').click();
   assert.equal(app.window.document.querySelector('.card-name')?.textContent, 'Sports One');
 });
 
@@ -241,6 +245,7 @@ test('library activity stays non-modal and distinguishes progress from failure',
   app.set(loading);
   app.events.state(loading.state);
   await tick();
+  doc.querySelector('.category-tile:nth-child(2)').click();
   assert.equal(doc.querySelector('.card-name').textContent, 'Sports One');
   assert.match(doc.getElementById('activity-message').textContent, /programme guide/);
   doc.querySelector('[data-tab="settings"]').click();
@@ -309,4 +314,47 @@ test('Settings can ask GitHub for an app update immediately', async (t) => {
   await tick();
   assert.equal(app.calls.check, 1);
   assert.equal(app.calls.checkForced, true);
+});
+
+
+test('category-first browsing, logos, back, and local setup preserve existing shelves', async (t) => {
+  const data = previewLibrary();
+  data.library.channels[0].logo = 'https://example.org/sports.png';
+  const app = setup(t, data);
+  app.window.localStorage.setItem('premiumtv.favorites.v1', JSON.stringify(['https://example.org/one.m3u8']));
+  await tick();
+  const doc = app.window.document;
+  assert.equal(doc.getElementById('channels-title').textContent, 'Categories');
+  assert.equal(doc.querySelectorAll('.card').length, 0);
+  assert.equal(doc.getElementById('setup').hidden, false);
+  doc.getElementById('setup-name').value = 'Alex';
+  doc.getElementById('setup-start').click();
+  assert.equal(JSON.parse(app.window.localStorage.getItem('premiumtv.setup.v1')).name, 'Alex');
+  assert.deepEqual(JSON.parse(app.window.localStorage.getItem('premiumtv.favorites.v1')), ['https://example.org/one.m3u8']);
+  const sports = [...doc.querySelectorAll('.category-tile')].find((el) => el.textContent.includes('Sports'));
+  sports.click();
+  assert.equal(doc.querySelectorAll('.card').length, 1);
+  assert.equal(doc.querySelector('.card-name').textContent, 'Public One');
+  assert.match(doc.querySelector('.card-logo').getAttribute('src'), /sports.png/);
+  doc.getElementById('cat-back').click();
+  assert.equal(doc.getElementById('channels-title').textContent, 'Categories');
+  assert.equal(doc.querySelectorAll('.card').length, 0);
+  doc.querySelector('.category-tile').click();
+  assert.equal(doc.querySelectorAll('.card').length, 4, 'All channels remains available');
+});
+
+
+test('completed local setup is restored without disturbing favorites', async (t) => {
+  const saved = {
+    'premiumtv.setup.v1': JSON.stringify({ name: 'Alex' }),
+    'premiumtv.favorites.v1': JSON.stringify(['https://example.org/one.m3u8']),
+  };
+  const app = setup(t, previewLibrary(), { version: '1.1.6' }, null, saved);
+  await tick();
+  const doc = app.window.document;
+  assert.equal(doc.getElementById('setup').hidden, true);
+  assert.match(doc.getElementById('viewer-name').textContent, /Alex/);
+  const favorites = [...doc.querySelectorAll('.category-tile')].find((item) => item.textContent.includes('Favorites'));
+  favorites.click();
+  assert.equal(doc.querySelector('.card-name').textContent, 'Public One');
 });
