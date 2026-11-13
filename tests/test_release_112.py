@@ -55,7 +55,7 @@ class OnDemandShelfTests(unittest.TestCase):
         self.assertIn("HomeTab.Movies -> VodShelfScreen(", home)
         self.assertIn('context.readVodCatalogDocument()', home)
         # AppRoot still resolves the list itself; only the shelf reads the
-        # paused-state document.
+        # document's live/paused state.
         self.assertIn("internal fun Context.readVodCatalog(): List<VodItem>", home)
         self.assertIn('readAsset("vod-catalog.json")', home)
         shelf = text(UI / "VodShelf.kt")
@@ -78,11 +78,17 @@ class OnDemandShelfTests(unittest.TestCase):
         self.assertIn('id="movies-grid"', html)
         self.assertIn("https://archive.org", html)  # CSP allows the poster host
 
-    def test_the_catalogue_is_paused_and_publishes_no_titles(self):
+    def test_the_catalogue_publishes_titles_every_client_can_play(self):
         document = json.loads(text(VOD))
         self.assertEqual(document["schema"], 1)
-        self.assertEqual(document.get("status"), "coming_soon")
-        self.assertEqual(document["items"], [])
+        self.assertNotEqual(document.get("status"), "coming_soon")
+        self.assertTrue(document["items"], "the shelf publishes titles")
+        for item in document["items"]:
+            # Android plays the MP4; web and macOS open the embed first.
+            self.assertTrue(
+                item.get("stream") or item.get("embed"),
+                "%s is not playable" % item.get("title", item.get("id")),
+            )
         # The shelf comes back with one command, without losing its media.
         self.assertIn("--resume", text(ROOT / "scripts" / "vod_shelf.py"))
 

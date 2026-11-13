@@ -17,9 +17,22 @@ item has a stable identifier, a poster and an MP4 derivative - exactly what a
 side player needs. Nothing here is a linear channel, so it never enters the
 M3U, the guide or the channel health pipeline.
 
+Alongside every direct MP4 the catalogue now publishes an **HTML embed** -
+`https://archive.org/embed/<identifier>` - which is the play path the web and
+macOS clients open first. An embed is a plain iframe: no CORS, no codec
+negotiation and no range requests, so a title that a browser cannot stream
+directly still plays. The direct MP4 stays on the item as the fallback server,
+which is what Android's ExoPlayer uses. Both are optional in the schema: an
+item needs a stream, an embed, or both.
+
+Extra embed providers (any site that publishes an iframe or a pasted embed
+snippet) are added by hand to playlists/vod/embed-sources.json - see
+playlists/vod/EMBEDS.md. Nothing in this script contacts a commercial
+streaming site; only providers you list yourself are ever published.
+
     python scripts/vod_catalog.py                 # resolve, verify, write
     python scripts/vod_catalog.py --check         # verify the committed file
-    python scripts/vod_catalog.py --offline       # validate local file only
+    python scripts/vod_catalog.py --offline       # rebuild without any network
     python scripts/vod_catalog.py --report-only   # print findings, write nothing
 
 Outputs:
@@ -55,7 +68,14 @@ REPORT_PATH = os.path.join(VOD_DIR, "FEASIBILITY.md")
 METADATA_URL = "https://archive.org/metadata/%s"
 DOWNLOAD_BASE = "https://archive.org/download/%s/%s"
 POSTER_URL = "https://archive.org/services/img/%s"
+# The Archive's own iframe player. It needs no CORS, no range support and no
+# codec negotiation, so it is the first server the web and macOS clients try.
+EMBED_BASE = "https://archive.org/embed/%s"
+EMBED_PROVIDER = "Internet Archive"
+EMBED_KIND = "iframe"
 USER_AGENT = "PremiumTV-vod-check/1.0 (+https://github.com/cgyegcvcecvoc/PremiumTV)"
+# Hand-written extra providers: playlists/vod/embed-sources.json.
+EXTRA_EMBEDS_PATH = os.path.join(VOD_DIR, "embed-sources.json")
 
 # The curated test set. Every item is a public-domain film or a classic TV
 # episode from a public-domain collection; archive_id is the Internet Archive
@@ -302,6 +322,126 @@ CURATED = (
     },
 )
 
+# The last network-verified resolution of every curated entry: which MP4
+# derivative the Archive served, how big it was and how long it runs. It is
+# what `--offline` builds from, so the shelf can be rebuilt (and the catalogue
+# regenerated after a schema change) on a machine with no network at all. A
+# normal networked run re-resolves each entry from the Archive's metadata and
+# overwrites these numbers, so a derivative the Archive renames or re-encodes
+# is picked up on the next scheduled build rather than drifting.
+#
+# Sizes are the values the feasibility probe measured, rounded to the megabyte.
+# They are presentation data (the report's table); nothing in the apps depends
+# on them being exact.
+RESOLVED = {
+    "night-of-the-living-dead": {
+        "file": "Night of the Living Dead - (1968).mp4",
+        "size_bytes": 559_000_000,
+        "runtime_seconds": 5796,
+    },
+    "plan-9-from-outer-space": {
+        "file": "Plan 9 from Outer Space.mp4",
+        "size_bytes": 773_000_000,
+        "runtime_seconds": 4740,
+    },
+    "nosferatu": {
+        "file": "Nosferatu.1922.ia.mp4",
+        "size_bytes": 457_000_000,
+        "runtime_seconds": 5220,
+    },
+    "his-girl-friday": {
+        "file": "his_girl_friday_512kb.mp4",
+        "size_bytes": 401_000_000,
+        "runtime_seconds": 5505,
+    },
+    "carnival-of-souls": {
+        "file": "carnival_of_souls_512kb.mp4",
+        "size_bytes": 361_000_000,
+        "runtime_seconds": 4980,
+    },
+    "suddenly": {
+        "file": "suddenly_512kb.mp4",
+        "size_bytes": 324_000_000,
+        "runtime_seconds": 4534,
+    },
+    "mclintock": {
+        "file": "McLintock_512kb.mp4",
+        "size_bytes": 550_863_361,
+        "runtime_seconds": 7607,
+    },
+    "teenagers-from-outer-space": {
+        "file": "Teenagers_from_Outer_Space_512kb.mp4",
+        "size_bytes": 372_000_000,
+        "runtime_seconds": 5160,
+    },
+    "the-hitch-hiker": {
+        "file": "Hitch-Hiker_512kb.mp4",
+        "size_bytes": 307_000_000,
+        "runtime_seconds": 4260,
+    },
+    "the-red-house": {
+        "file": "The_Red_House_512kb.mp4",
+        "size_bytes": 432_000_000,
+        "runtime_seconds": 6000,
+    },
+    "beat-the-devil": {
+        "file": "BeatTheDevil1954_512kb.mp4",
+        "size_bytes": 385_000_000,
+        "runtime_seconds": 5340,
+    },
+    "the-last-man-on-earth": {
+        "file": "lastmanonearth-1964.mp4",
+        "size_bytes": 413_000_000,
+        "runtime_seconds": 5160,
+    },
+    "the-brain-that-wouldnt-die": {
+        "file": "brain_that_wouldnt_die_512kb.mp4",
+        "size_bytes": 354_000_000,
+        "runtime_seconds": 4920,
+    },
+    "beverly-hillbillies-jed-buys-stock": {
+        "file": "TheBeverlyHillbillies105-JedBuysStock_512kb.mp4",
+        "size_bytes": 109_000_000,
+        "runtime_seconds": 1500,
+    },
+    "beverly-hillbillies-grannys-spring-tonic": {
+        "file": "TheBeverlyHillbillies127-GrannysSpringTonic_512kb.mp4",
+        "size_bytes": 110_000_000,
+        "runtime_seconds": 1500,
+    },
+    "dragnet-the-big-ham": {
+        "file": "Dragnet_Big Ham.mp4",
+        "size_bytes": 162_000_000,
+        "runtime_seconds": 1560,
+    },
+    "lone-ranger-war-horse": {
+        "file": "The Lone Ranger 1949 (S01E06) War Horse.mp4",
+        "size_bytes": 111_000_000,
+        "runtime_seconds": 1320,
+    },
+    "sherlock-holmes-pennsylvania-gun": {
+        "file": "TheCaseofthePennsylvaniaGun_512kb.mp4",
+        "size_bytes": 116_000_000,
+        "runtime_seconds": 1620,
+    },
+    "range-rider-treasure-of-santa-dolores": {
+        "file": "Range Rider - Treasure of Santa Dolores.mp4",
+        "size_bytes": 125_000_000,
+        "runtime_seconds": 1500,
+    },
+    "superman-stamp-day": {
+        "file": "Adventures of Superman Stamp Day For School Children.mp4",
+        "size_bytes": 96_000_000,
+        "runtime_seconds": 1080,
+    },
+}
+
+# Every curated title is public domain (see playlists/vod/FEASIBILITY.md). The
+# networked build replaces this with the licence URL the item's own metadata
+# publishes; the offline build falls back to it so an entry is never shipped
+# with its provenance blank.
+DEFAULT_LICENSE = "https://creativecommons.org/publicdomain/mark/1.0/"
+
 # The test card is the one entry this repository authors itself. It is a short
 # synthetic film - moving test pattern, per-second timecode and title text, and
 # a tone track - regenerated by scripts/vod_test_card.py and committed under
@@ -421,22 +561,96 @@ def build_test_card() -> dict:
     }
 
 
-def build_item(spec: dict) -> dict | None:
-    """Resolve one curated entry against the Archive's metadata."""
-    archive_id = spec["archive_id"]
+def load_extra_embeds() -> dict[str, list[dict]]:
+    """Hand-written embed providers, keyed by catalogue slug.
+
+    playlists/vod/embed-sources.json is optional and ships empty apart from its
+    documentation, so the published catalogue is exactly what this repository
+    curates. Adding a provider there is the supported way to point a title at
+    another free source without touching the build script.
+    """
+    if not os.path.isfile(EXTRA_EMBEDS_PATH):
+        return {}
     try:
-        document = fetch_json(METADATA_URL % urllib.parse.quote(archive_id))
-    except (urllib.error.URLError, ValueError, OSError) as error:
-        log("  ! %s: metadata unavailable (%s)" % (archive_id, error))
-        return None
-    meta = document.get("metadata") or {}
-    if not meta:
-        log("  ! %s: no metadata" % archive_id)
-        return None
-    ranked = pick_video_files(document.get("files") or [])
-    if not ranked:
-        log("  ! %s: no MP4 derivative found" % archive_id)
-        return None
+        with open(EXTRA_EMBEDS_PATH, "r", encoding="utf-8") as handle:
+            document = json.load(handle)
+    except (OSError, ValueError) as error:
+        log("[vod] %s is unreadable (%s); ignoring it" % (
+            os.path.relpath(EXTRA_EMBEDS_PATH, ROOT), error))
+        return {}
+    extras: dict[str, list[dict]] = {}
+    entries = document.get("extra") if isinstance(document, dict) else None
+    if not isinstance(entries, list):
+        return extras
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        slug = str(entry.get("slug") or "").strip()
+        url = str(entry.get("url") or "").strip()
+        html = str(entry.get("html") or "").strip()
+        if not slug or (not url and not html):
+            continue
+        if url and not url.startswith(("http://", "https://")):
+            log("[vod] %s: embed url must be http(s); skipped" % slug)
+            continue
+        provider = str(entry.get("provider") or "Embed").strip()
+        kind = str(entry.get("kind") or ("iframe" if url else "html")).strip()
+        if kind not in ("iframe", "html"):
+            log("[vod] %s: embed kind must be iframe or html; skipped" % slug)
+            continue
+        row = {"provider": provider, "kind": kind}
+        if url:
+            row["url"] = url
+        if html:
+            row["html"] = html
+        extras.setdefault(slug, []).append(row)
+    return extras
+
+
+def embed_for(spec: dict) -> dict:
+    """The Archive's own iframe player for one curated entry."""
+    archive_id = spec["archive_id"]
+    return {
+        "provider": EMBED_PROVIDER,
+        "kind": EMBED_KIND,
+        "url": EMBED_BASE % urllib.parse.quote(archive_id, safe=""),
+    }
+
+
+def build_item(spec: dict, offline: bool = False) -> dict | None:
+    """Resolve one curated entry against the Archive's metadata.
+
+    With ``offline`` the resolution comes from RESOLVED instead - the last
+    networked run's answer - so nothing touches the network.
+    """
+    archive_id = spec["archive_id"]
+    cached = RESOLVED.get(spec["slug"]) or {}
+    if offline:
+        if not cached.get("file"):
+            log("  ! %s: no cached derivative; resolved on the next networked run"
+                % spec["slug"])
+            return None
+        ranked = [{
+            "name": cached["file"],
+            "size": cached.get("size_bytes") or 0,
+            "length": cached.get("runtime_seconds") or 0,
+        }]
+        meta = {}
+    else:
+        try:
+            document = fetch_json(METADATA_URL % urllib.parse.quote(archive_id))
+        except (urllib.error.URLError, ValueError, OSError) as error:
+            log("  ! %s: metadata unavailable (%s)" % (archive_id, error))
+            return None
+        meta = document.get("metadata") or {}
+        if not meta:
+            log("  ! %s: no metadata" % archive_id)
+            return None
+        ranked = pick_video_files(document.get("files") or [])
+        if not ranked:
+            log("  ! %s: no MP4 derivative found" % archive_id)
+            return None
+
     chosen = ranked[0]
 
     name = str(chosen["name"])
@@ -455,6 +669,9 @@ def build_item(spec: dict) -> dict | None:
         summary = summary[:417].rstrip() + "…"
 
     runtime = runtime_seconds(chosen.get("length")) or runtime_seconds(meta.get("runtime"))
+    if not runtime:
+        runtime = int(cached.get("runtime_seconds") or 0)
+    size = int(chosen.get("size") or 0) or int(cached.get("size_bytes") or 0)
     row = {
         "id": "vod-" + spec["slug"],
         "slug": spec["slug"],
@@ -468,11 +685,16 @@ def build_item(spec: dict) -> dict | None:
         "runtime_seconds": runtime,
         "summary": summary,
         "stream": stream,
+        # The embed the web and macOS players open first; the direct MP4 stays
+        # as the fallback server (and as Android's only path).
+        "embed": (EMBED_BASE % urllib.parse.quote(archive_id, safe="")),
+        "embed_kind": EMBED_KIND,
+        "provider": EMBED_PROVIDER,
         "poster": POSTER_URL % urllib.parse.quote(archive_id),
-        "license": str(meta.get("licenseurl") or "").strip(),
+        "license": str(meta.get("licenseurl") or "").strip() or DEFAULT_LICENSE,
         "archive_id": archive_id,
         "file": name,
-        "size_bytes": int(chosen.get("size") or 0),
+        "size_bytes": size,
     }
     if len(streams) > 1:
         row["streams"] = streams
@@ -573,11 +795,26 @@ def collect(offline: bool = False) -> tuple[dict, list[dict]]:
             test_card["status"] = "unpublished"
         log("      %s" % test_card["status"])
     items.append(test_card)
+    extra_embeds = load_extra_embeds()
     for spec in CURATED:
         log("[vod] %s" % spec["slug"])
-        item = build_item(spec)
+        item = build_item(spec, offline=offline)
         if item is None:
             continue
+        # The Archive embed is the verified default; anything hand-added in
+        # embed-sources.json follows it, unless it is marked primary.
+        embeds = [embed_for(spec)]
+        for extra in extra_embeds.get(spec["slug"], []):
+            if extra.get("primary"):
+                embeds.insert(0, extra)
+            else:
+                embeds.append(extra)
+        item["embeds"] = embeds
+        item["embed"] = embeds[0].get("url", "")
+        item["embed_kind"] = embeds[0].get("kind", EMBED_KIND)
+        item["provider"] = embeds[0].get("provider", EMBED_PROVIDER)
+        if embeds[0].get("html"):
+            item["embed_html"] = embeds[0]["html"]
         if not offline:
             result = probe(item["stream"])
             item["status"] = result["status"]
@@ -663,25 +900,41 @@ def render_report(catalog: dict, items: list[dict], probe_enabled: bool) -> str:
         "| Films | %d |" % len(movies),
         "| TV episodes | %d |" % len(episodes),
         "| Test card (authored here) | %d |" % len(test_cards),
-        "| Probe: working | %d |" % len(working),
-        "| Probe: other | %d |" % (len(items) - len(working) if probe_enabled else 0),
+    ]
+    if probe_enabled:
+        lines += [
+            "| Probe: working | %d |" % len(working),
+            "| Probe: other | %d |" % (len(items) - len(working)),
+        ]
+    else:
+        lines += ["| Probe | not run (offline rebuild) |"]
+    lines += [
         "",
         "The probe opens each stream the way the apps do — a bounded range request",
         "with `Accept: video/mp4` — and requires an MP4 `ftyp` box or a video",
         "content type. A range request that answers `206` also proves the stream is",
-        "seekable, which is what lets the side player scrub and resume.",
+        "seekable, which is what lets the side player scrub and resume. An offline",
+        "rebuild (`--offline`) resolves every entry from the last networked run's",
+        "answer and skips the probe entirely, so the Status column reads",
+        "`unverified` until the next scheduled build re-checks each link.",
+        "",
         "",
         "## Entries",
         "",
-        "| Title | Kind | Year | Runtime | Size | Direct stream | Probe |",
-        "|---|---|---:|---:|---:|---|---|",
+        "| Title | Kind | Year | Runtime | Size | Direct stream | Embed | Probe |",
+        "|---|---|---:|---:|---:|---|---|---|",
     ]
     for item in items:
         runtime = "%d min" % round(item["runtime_seconds"] / 60) if item["runtime_seconds"] else "—"
         size = "%.0f MB" % (item["size_bytes"] / 1e6) if item["size_bytes"] else "—"
         kind = "Film" if item["kind"] == "movie" else "TV episode"
+        embed = "—"
+        if item.get("embed"):
+            embed = "[%s](%s)" % (item.get("provider") or "embed", item["embed"])
+        elif item.get("embed_html"):
+            embed = "snippet"
         lines.append(
-            "| %s | %s | %s | %s | %s | `%s` | %s |"
+            "| %s | %s | %s | %s | %s | `%s` | %s | %s |"
             % (
                 item["title"].replace("|", "/"),
                 kind,
@@ -689,10 +942,26 @@ def render_report(catalog: dict, items: list[dict], probe_enabled: bool) -> str:
                 runtime,
                 size,
                 item["file"],
+                embed,
                 item["status"],
             )
         )
     lines += [
+        "",
+        "## Embeds",
+        "",
+        "Every Archive entry also publishes an HTML embed,",
+        "`https://archive.org/embed/<identifier>`, and the web and macOS players",
+        "open that first. An embed is a plain iframe: the browser talks to the",
+        "provider directly, so there is no cross-origin fetch to fail, no codec",
+        "the browser has to negotiate and no range request to satisfy. The",
+        "direct MP4 stays on each entry as the fallback server - which is also",
+        "the only path Android's ExoPlayer has, since it cannot render an iframe.",
+        "",
+        "Additional free providers are wired in by hand through",
+        "`playlists/vod/embed-sources.json`; see `playlists/vod/EMBEDS.md`. The",
+        "committed file ships with no extra providers, so the published shelf is",
+        "the curated public-domain set plus whatever you add yourself.",
         "",
         "## The test card",
         "",
@@ -780,13 +1049,35 @@ def validate_document(catalog: dict) -> list[str]:
     seen = set()
     for index, item in enumerate(items):
         label = "items[%d]" % index
-        for key in ("id", "title", "kind", "stream", "poster"):
+        for key in ("id", "title", "kind", "poster"):
             if not str(item.get(key) or "").strip():
                 problems.append("%s: missing %s" % (label, key))
         if item.get("kind") not in ("movie", "episode"):
             problems.append("%s: kind must be movie or episode" % label)
-        if not str(item.get("stream") or "").startswith(("http://", "https://")):
+        # An entry is playable with a direct stream, an HTML embed, or both.
+        # The apps pick whichever they can open, so neither one is mandatory -
+        # but an entry with neither is a card that can never be played.
+        stream = str(item.get("stream") or "")
+        embed = str(item.get("embed") or "")
+        if not stream and not embed and not str(item.get("embed_html") or ""):
+            problems.append("%s: needs a stream, an embed or an embed_html" % label)
+        if stream and not stream.startswith(("http://", "https://")):
             problems.append("%s: stream must be http(s)" % label)
+        if embed and not embed.startswith(("http://", "https://")):
+            problems.append("%s: embed must be http(s)" % label)
+        if item.get("embed_kind") not in (None, "", "iframe", "html"):
+            problems.append("%s: embed_kind must be iframe or html" % label)
+        for extra in item.get("embeds") or []:
+            if not isinstance(extra, dict):
+                problems.append("%s: embeds entries must be objects" % label)
+                continue
+            url = str(extra.get("url") or "")
+            if not url and not str(extra.get("html") or ""):
+                problems.append("%s: every embed needs a url or html" % label)
+            if url and not url.startswith(("http://", "https://")):
+                problems.append("%s: embed url must be http(s)" % label)
+            if extra.get("kind") not in (None, "", "iframe", "html"):
+                problems.append("%s: embed kind must be iframe or html" % label)
         extra_streams = item.get("streams")
         if extra_streams is not None:
             if not isinstance(extra_streams, list) or not extra_streams:

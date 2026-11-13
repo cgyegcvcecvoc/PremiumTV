@@ -5,7 +5,7 @@ TV guide inside the APK. The default build target is **1.1.5**
 (`versionCode` `101050000`) with the USA lineup: a channel opens in the docked
 side player with built-in transport and audio-track controls and one press on
 the picture goes full screen, a **Movies & Shows** tab that shows a coming-soon
-page while the on-demand catalogue is paused, FFmpeg broadcast
+page of 21 public-domain films and classic TV episodes, FFmpeg broadcast
 audio decoding (`AC-3`, `E-AC-3`, `DTS`, `MP2`), a calmer real-progress startup
 screen, channel search, category placeholder logos, a **Live Events** tab grouped
 by sport with team crests and kickoff countdowns, automatic multi-server

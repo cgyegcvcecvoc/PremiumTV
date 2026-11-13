@@ -1,12 +1,6 @@
 # On-demand feasibility test — Movies & Shows
 
-> **Paused on 2026-11-10.** The films and episodes are no longer published:
-> `playlists/vod/vod-catalog.json` is empty and the web, Android and macOS
-> clients show a coming-soon page. This report is kept as the historical
-> feasibility evidence. Run `python3 scripts/vod_shelf.py --resume` to rebuild
-> the shelf when a replacement catalogue is ready.
-
-Generated 2026-10-25T17:10:22Z by `scripts/vod_catalog.py`.
+Generated 2026-11-13T16:29:01Z by `scripts/vod_catalog.py`.
 
 This is the evidence behind the Movies & Shows tab: a finite film and
 episode library is feasible with the same player, the same side panel and
@@ -21,39 +15,57 @@ separate from the playlist and guide pipeline.
 | Films | 13 |
 | TV episodes | 7 |
 | Test card (authored here) | 1 |
-| Probe: working | 21 |
-| Probe: other | 0 |
+| Probe | not run (offline rebuild) |
 
 The probe opens each stream the way the apps do — a bounded range request
 with `Accept: video/mp4` — and requires an MP4 `ftyp` box or a video
 content type. A range request that answers `206` also proves the stream is
-seekable, which is what lets the side player scrub and resume.
+seekable, which is what lets the side player scrub and resume. An offline
+rebuild (`--offline`) resolves every entry from the last networked run's
+answer and skips the probe entirely, so the Status column reads
+`unverified` until the next scheduled build re-checks each link.
+
 
 ## Entries
 
-| Title | Kind | Year | Runtime | Size | Direct stream | Probe |
-|---|---|---:|---:|---:|---|---|
-| PremiumTV Test Card | Film | 2026 | 1 min | 1 MB | `premiumtv-test-card.mp4` | working |
-| Beat the Devil | Film | 1953 | 89 min | 385 MB | `BeatTheDevil1954_512kb.mp4` | working |
-| Carnival of Souls | Film | 1962 | 83 min | 361 MB | `carnival_of_souls_512kb.mp4` | working |
-| His Girl Friday | Film | 1940 | 92 min | 401 MB | `his_girl_friday_512kb.mp4` | working |
-| McLintock! | Film | 1963 | 127 min | 549 MB | `McLintock_512kb.mp4` | working |
-| Night of the Living Dead | Film | 1968 | 97 min | 559 MB | `Night of the Living Dead - (1968).mp4` | working |
-| Nosferatu | Film | 1922 | 87 min | 457 MB | `Nosferatu.1922.ia.mp4` | working |
-| Plan 9 from Outer Space | Film | 1959 | 79 min | 773 MB | `Plan 9 from Outer Space.mp4` | working |
-| Suddenly | Film | 1954 | 75 min | 324 MB | `suddenly_512kb.mp4` | working |
-| Teenagers from Outer Space | Film | 1959 | 86 min | 372 MB | `Teenagers_from_Outer_Space_512kb.mp4` | working |
-| The Brain That Wouldn't Die | Film | 1962 | 82 min | 354 MB | `brain_that_wouldnt_die_512kb.mp4` | working |
-| The Hitch-Hiker | Film | 1953 | 71 min | 307 MB | `Hitch-Hiker_512kb.mp4` | working |
-| The Last Man on Earth | Film | 1964 | 86 min | 413 MB | `lastmanonearth-1964.mp4` | working |
-| The Red House | Film | 1947 | 100 min | 432 MB | `The_Red_House_512kb.mp4` | working |
-| Granny's Spring Tonic | TV episode | 1963 | 25 min | 110 MB | `TheBeverlyHillbillies127-GrannysSpringTonic_512kb.mp4` | working |
-| Jed Buys Stock | TV episode | 1962 | 25 min | 109 MB | `TheBeverlyHillbillies105-JedBuysStock_512kb.mp4` | working |
-| Stamp Day for Superman | TV episode | 1954 | 18 min | 96 MB | `Adventures of Superman Stamp Day For School Children.mp4` | working |
-| The Big Ham | TV episode | 1954 | 26 min | 162 MB | `Dragnet_Big Ham.mp4` | working |
-| The Case of the Pennsylvania Gun | TV episode | 1954 | 27 min | 116 MB | `TheCaseofthePennsylvaniaGun_512kb.mp4` | working |
-| Treasure of Santa Dolores | TV episode | 1951 | 25 min | 125 MB | `Range Rider - Treasure of Santa Dolores.mp4` | working |
-| War Horse | TV episode | 1949 | 22 min | 111 MB | `The Lone Ranger 1949 (S01E06) War Horse.mp4` | working |
+| Title | Kind | Year | Runtime | Size | Direct stream | Embed | Probe |
+|---|---|---:|---:|---:|---|---|---|
+| PremiumTV Test Card | Film | 2026 | 1 min | 1 MB | `premiumtv-test-card.mp4` | — | unverified |
+| Beat the Devil | Film | 1953 | 89 min | 385 MB | `BeatTheDevil1954_512kb.mp4` | [Internet Archive](https://archive.org/embed/BeatTheDevil1953) | unverified |
+| Carnival of Souls | Film | 1962 | 83 min | 361 MB | `carnival_of_souls_512kb.mp4` | [Internet Archive](https://archive.org/embed/carnival_of_souls) | unverified |
+| His Girl Friday | Film | 1940 | 92 min | 401 MB | `his_girl_friday_512kb.mp4` | [Internet Archive](https://archive.org/embed/his_girl_friday) | unverified |
+| McLintock! | Film | 1963 | 127 min | 551 MB | `McLintock_512kb.mp4` | [Internet Archive](https://archive.org/embed/mclintok_widescreen) | unverified |
+| Night of the Living Dead | Film | 1968 | 97 min | 559 MB | `Night of the Living Dead - (1968).mp4` | [Internet Archive](https://archive.org/embed/night-of-the-living-dead_1968) | unverified |
+| Nosferatu | Film | 1922 | 87 min | 457 MB | `Nosferatu.1922.ia.mp4` | [Internet Archive](https://archive.org/embed/nosferatu.-1922) | unverified |
+| Plan 9 from Outer Space | Film | 1959 | 79 min | 773 MB | `Plan 9 from Outer Space.mp4` | [Internet Archive](https://archive.org/embed/plan-9-from-outer-space_202009) | unverified |
+| Suddenly | Film | 1954 | 76 min | 324 MB | `suddenly_512kb.mp4` | [Internet Archive](https://archive.org/embed/suddenly) | unverified |
+| Teenagers from Outer Space | Film | 1959 | 86 min | 372 MB | `Teenagers_from_Outer_Space_512kb.mp4` | [Internet Archive](https://archive.org/embed/teenagers_from_outerspace) | unverified |
+| The Brain That Wouldn't Die | Film | 1962 | 82 min | 354 MB | `brain_that_wouldnt_die_512kb.mp4` | [Internet Archive](https://archive.org/embed/brain_that_wouldnt_die) | unverified |
+| The Hitch-Hiker | Film | 1953 | 71 min | 307 MB | `Hitch-Hiker_512kb.mp4` | [Internet Archive](https://archive.org/embed/Hitch_Hiker) | unverified |
+| The Last Man on Earth | Film | 1964 | 86 min | 413 MB | `lastmanonearth-1964.mp4` | [Internet Archive](https://archive.org/embed/lastmanonearth-1964) | unverified |
+| The Red House | Film | 1947 | 100 min | 432 MB | `The_Red_House_512kb.mp4` | [Internet Archive](https://archive.org/embed/TheRedHouse) | unverified |
+| Granny's Spring Tonic | TV episode | 1963 | 25 min | 110 MB | `TheBeverlyHillbillies127-GrannysSpringTonic_512kb.mp4` | [Internet Archive](https://archive.org/embed/TheBeverlyHillbillies-GrannysSpringTonic-Ep1x27) | unverified |
+| Jed Buys Stock | TV episode | 1962 | 25 min | 109 MB | `TheBeverlyHillbillies105-JedBuysStock_512kb.mp4` | [Internet Archive](https://archive.org/embed/TheBeverlyHillbillies-JedBuysStock-Ep.1x05) | unverified |
+| Stamp Day for Superman | TV episode | 1954 | 18 min | 96 MB | `Adventures of Superman Stamp Day For School Children.mp4` | [Internet Archive](https://archive.org/embed/AdventuresOfSupermanStampDayForSchoolChildren) | unverified |
+| The Big Ham | TV episode | 1954 | 26 min | 162 MB | `Dragnet_Big Ham.mp4` | [Internet Archive](https://archive.org/embed/DragnetBigHam) | unverified |
+| The Case of the Pennsylvania Gun | TV episode | 1954 | 27 min | 116 MB | `TheCaseofthePennsylvaniaGun_512kb.mp4` | [Internet Archive](https://archive.org/embed/SherlockHolmes-TheCaseofthePennsylvaniaGun) | unverified |
+| Treasure of Santa Dolores | TV episode | 1951 | 25 min | 125 MB | `Range Rider - Treasure of Santa Dolores.mp4` | [Internet Archive](https://archive.org/embed/RangeRiderTreasureOfSantaDolores) | unverified |
+| War Horse | TV episode | 1949 | 22 min | 111 MB | `The Lone Ranger 1949 (S01E06) War Horse.mp4` | [Internet Archive](https://archive.org/embed/the-lone-ranger-1949-s-01-e-06-war-horse) | unverified |
+
+## Embeds
+
+Every Archive entry also publishes an HTML embed,
+`https://archive.org/embed/<identifier>`, and the web and macOS players
+open that first. An embed is a plain iframe: the browser talks to the
+provider directly, so there is no cross-origin fetch to fail, no codec
+the browser has to negotiate and no range request to satisfy. The
+direct MP4 stays on each entry as the fallback server - which is also
+the only path Android's ExoPlayer has, since it cannot render an iframe.
+
+Additional free providers are wired in by hand through
+`playlists/vod/embed-sources.json`; see `playlists/vod/EMBEDS.md`. The
+committed file ships with no extra providers, so the published shelf is
+the curated public-domain set plus whatever you add yourself.
 
 ## The test card
 

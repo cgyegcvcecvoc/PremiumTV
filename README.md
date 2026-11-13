@@ -64,7 +64,7 @@ https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/Premium
 | [`playlists/checks/EPG-BUILD.md`](playlists/checks/EPG-BUILD.md) | Guide build report: verified source guides, per-country channel/programme coverage, XML sizes and validation results. |
 | [`playlists/checks/CHANNEL-HUNT.md`](playlists/checks/CHANNEL-HUNT.md) | Priority-channel hunt: every candidate found for Nickelodeon, NickToons, MeTV and MeTV Toons, and which ones actually played. |
 | [`playlists/Priority_Channels.m3u`](playlists/Priority_Channels.m3u) | Ready-to-load playlist with only the verified priority channels (Nickelodeon, NickToons, MeTV, MeTV Toons, NFL Network, NFL RedZone) and the same guides as the main playlist. |
-| [`playlists/vod/`](playlists/vod/FEASIBILITY.md) | **Paused:** Movies & Shows shows a coming-soon page on every client while the on-demand catalogue is reworked. The catalogue document, the test-card media and the historical feasibility evidence stay in the repository; `python3 scripts/vod_shelf.py --resume` rebuilds the shelf with `scripts/vod_catalog.py`. Separate from the M3U and the guide. |
+| [`playlists/vod/`](playlists/vod/EMBEDS.md) | **Movies & Shows:** 21 public-domain films and classic TV episodes, each published with an HTML embed (an iframe player) plus a direct MP4 fallback. The web and macOS clients open the embed first; Android's ExoPlayer uses the MP4. Extra providers are wired in by hand through `embed-sources.json`; `python3 scripts/vod_shelf.py --pause` still parks the shelf. Separate from the M3U and the guide. |
 | [`playlists/run-history.jsonl`](playlists/run-history.jsonl) | Append-only, one-record-per-run history for regular checks, rechecks, final checks, and manual runs. |
 | [`playlists/discovery/REPORT.md`](playlists/discovery/REPORT.md) | Latest monthly new-channel hunt: candidates, scores, verdicts, and promotions. |
 | [`playlists/discovery/approved-sources.json`](playlists/discovery/approved-sources.json) | Sources vetted by monthly discovery and merged into the next regular scrape. |
@@ -113,9 +113,11 @@ normally.
   and genre pills, local VOD playback resume, and built-in transport controls
   (`Play/Pause`, `±10s`, seek bar, `LIVE` pill, `Mute`, and `Audio` track
   switcher) in both the docked side player and full screen. **The shelf is
-  paused as of 2026-11-10:** the catalogue ships no titles and every client
-  shows a coming-soon page until a replacement is chosen
-  (`python3 scripts/vod_shelf.py --resume` restores it).
+  published again as of 2026-11-13:** every entry also carries an HTML embed
+  (`https://archive.org/embed/<id>`) that the web and macOS players open first,
+  with the MP4 as the fallback server
+  ([how embeds work](playlists/vod/EMBEDS.md));
+  `python3 scripts/vod_shelf.py --pause` parks it again if needed.
 - **Version plumbing.** Android `1.1.3` / `versionCode 101030000`, macOS
   `1.1.3`, no alias or V-patch twin; `app-update-notice.json` nudges every build
   up through 1.1.2 ([notes](release-notes-1.1.3.md)).

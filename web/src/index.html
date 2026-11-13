@@ -18,7 +18,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' blob: https: http:; connect-src 'self' https: http:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+      content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' blob: https: http:; connect-src 'self' https: http:; font-src 'self'; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'none'"
     />
     <title>PremiumTV — Your browser. Your television.</title>
     <link rel="icon" href="icon-192.png" type="image/png" />
@@ -432,7 +432,15 @@
           webkit-playsinline
           preload="metadata"
           aria-label="Channel video"
-        ></video>
+        ></video
+        ><!-- Movies & Shows: an on-demand title may publish an HTML embed - an
+             iframe player - instead of a stream the browser can fetch. The
+             embed mounts inside the same stage, so the docked, expanded and
+             full-screen layouts are unchanged. --><div
+          id="player-embed"
+          class="player-frame"
+          hidden
+        ></div>
         <div id="player-loading" class="player-overlay" hidden>
           <span class="spinner"></span
           ><span id="player-loading-text">Connecting to the feed…</span>

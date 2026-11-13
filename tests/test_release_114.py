@@ -69,10 +69,15 @@ class LoadingBar113Tests(unittest.TestCase):
 
 
 class VodAndTransportPlayer113Tests(unittest.TestCase):
-    def test_vod_catalog_is_paused_without_published_entries(self):
+    def test_vod_catalog_publishes_entries_with_an_embed_and_a_stream(self):
         catalog = json.loads(text(ROOT / "playlists/vod/vod-catalog.json"))
-        self.assertEqual(catalog.get("status"), "coming_soon")
-        self.assertEqual(catalog["items"], [])
+        self.assertNotEqual(catalog.get("status"), "coming_soon")
+        self.assertTrue(catalog["items"], "the shelf publishes titles")
+        for item in catalog["items"]:
+            self.assertTrue(
+                item.get("stream") or item.get("embed"),
+                "%s is not playable" % item.get("title", item.get("id")),
+            )
 
     def test_both_apps_expose_vod_search_genres_and_player_transport(self):
         app_js = text(MACOS_RENDERER / "app.js")
