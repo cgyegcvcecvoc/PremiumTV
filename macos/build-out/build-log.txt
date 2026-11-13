@@ -37,25 +37,14 @@
   • loaded configuration  file=/Users/runner/work/PremiumTV/PremiumTV/macos/app/electron-builder.yml
   • building        target=pkg arch=arm64 file=dist/PremiumTV-1.1.6-mac-arm64.pkg
   • skipped macOS notarization  reason=`notarize` options were unable to be generated
-2026-11-13 22:37:39.128 PremiumTV Helper[5512:18372] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:37:39.128 PremiumTV Helper[5512:18379] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:37:39.128 PremiumTV Helper[5512:18377] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:37:39.141 PremiumTV Helper[5512:18372] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:37:39.143 PremiumTV Helper[5512:18377] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:37:39.145 PremiumTV Helper[5512:18372] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-PLAYER SMOKE: clicking the first channel card
-PLAYER SMOKE: player open for 'ACC Digital Network (1080p)', letting the stream machinery run
-PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":0,"rendererAlive":true}; walking the side player
-PLAYER SMOKE PASS: opened 'ACC Digital Network (1080p)', stream machinery sane, side-player flip and close all survived
-PACKAGED SMOKE PASS: 2826 channels, bridge, players, refresh, reset and the guide list
-2026-11-13 22:38:58.850 PremiumTV Helper[7165:22921] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:38:58.852 PremiumTV Helper[7165:22922] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:38:58.851 PremiumTV Helper[7165:22915] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:38:58.858 PremiumTV Helper[7165:22922] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:38:58.858 PremiumTV Helper[7165:22915] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-13 22:38:58.861 PremiumTV Helper[7165:22922] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-PLAYER SMOKE: clicking the first channel card
-PLAYER SMOKE: player open for 'ACC Digital Network (1080p)', letting the stream machinery run
-PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":1,"rendererAlive":true}; walking the side player
-PLAYER SMOKE PASS: opened 'ACC Digital Network (1080p)', stream machinery sane, side-player flip and close all survived
-PACKAGED SMOKE PASS: 2826 channels, bridge, players, refresh, reset and the guide list
+2026-11-13 22:47:22.505 PremiumTV Helper[5468:18080] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-13 22:47:22.505 PremiumTV Helper[5468:18086] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-13 22:47:22.505 PremiumTV Helper[5468:18084] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-13 22:47:22.530 PremiumTV Helper[5468:18080] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-13 22:47:22.531 PremiumTV Helper[5468:18084] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-13 22:47:22.536 PremiumTV Helper[5468:18080] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+Error: renderer did not answer within 10s: document.querySelectorAll('#channels-grid .card').length > 1
+    at /Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:17:15
+    at async waitFor (/Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:24:11)
+    at async smokeTest (/Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/smoke-test.js:54:3)
+    at async /Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac/PremiumTV.app/Contents/Resources/app.asar/src/main/main.js:125:9
