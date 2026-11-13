@@ -1,6 +1,6 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-13T16:15:53+00:00 UTC
+- **Generated:** 2026-11-13T18:09:51+00:00 UTC
 - **Playlists checked:** 176 (26950 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 79
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 12037 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, News, Music, Movies, Europe, International, Entertainment, Religious, South America, Asia, Documentary, United States, Series, Kids, North America, Education, Culture, Legislative, Comedy, India, Africa, Classic TV, Business, Family, A&E Networks, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Eurovision Song Contest Asia on Aria (November 14th), Tv Celebrities, Aria Web Channels, Tv Paranormal, Online TV, Global TV, Oceania, Tv Shows, MeTV, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10127/10127 (100.0%) | 1903 (18.8%) |
+| `playlists/PremiumTV.m3u` | 12037 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, News, Music, Movies, Europe, International, Entertainment, Religious, South America, Asia, Documentary, United States, Series, Kids, North America, Education, Culture, Legislative, Comedy, India, Africa, Classic TV, Business, Family, A&E Networks, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Eurovision Song Contest Asia on Aria (November 14th), Tv Celebrities, Aria Web Channels, Tv Paranormal, Online TV, Global TV, Oceania, Tv Shows, MeTV, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10127/10127 (100.0%) | 1883 (18.6%) |
 | `playlists/AE_Channels.m3u` | 70 | Lifestyle, A&E Networks, Documentary, Series, Entertainment, Movies, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 63/63 (100.0%) | 7 (11.1%) |
 | `playlists/Priority_Channels.m3u` | 13 | Sports, Cartoons, Kids, MeTV, United States | 0 | 0 | 3 | 0 | 12/12 (100.0%) | 6 (50.0%) |
 | `playlists/countries/Afghanistan.m3u` | 8 | Asia, Education, Movies, Music, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
@@ -96,7 +96,7 @@
 | `playlists/countries/Italy.m3u` | 542 | Sports, Lifestyle, CBS, NBC, Cartoons, International, Movies, Music, Europe, News, Kids, Religious, Documentary, Entertainment, Culture, Education, Legislative, Series | 0 | 0 | 1 | 0 | 491/491 (100.0%) | 64 (13.0%) |
 | `playlists/countries/Ivory_Coast.m3u` | 11 | Religious, Africa, Business, Culture, Music, News, Series | 0 | 0 | 1 | 0 | 11/11 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Jamaica.m3u` | 6 | Religious, Music, North America | 0 | 0 | 1 | 0 | 6/6 (100.0%) | 1 (16.7%) |
-| `playlists/countries/Japan.m3u` | 19 | Lifestyle, International, News, Religious, Weather | 0 | 0 | 1 | 0 | 14/14 (100.0%) | 7 (50.0%) |
+| `playlists/countries/Japan.m3u` | 19 | Lifestyle, International, News, Religious, Weather | 0 | 0 | 1 | 0 | 14/14 (100.0%) | 6 (42.9%) |
 | `playlists/countries/Jordan.m3u` | 17 | Sports, Lifestyle, Asia, Music, Entertainment, News | 0 | 0 | 1 | 0 | 16/16 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Kazakhstan.m3u` | 23 | Sports, Asia, Kids, Culture, International, Movies | 0 | 0 | 1 | 0 | 20/20 (100.0%) | 4 (20.0%) |
 | `playlists/countries/Kenya.m3u` | 7 | Africa, Religious, Kids | 0 | 0 | 1 | 0 | 7/7 (100.0%) | 0 (0.0%) |
@@ -145,8 +145,8 @@
 | `playlists/countries/Puerto_Rico.m3u` | 27 | Sports, North America, Religious, Music, Business, Entertainment | 0 | 0 | 1 | 0 | 26/26 (100.0%) | 1 (3.9%) |
 | `playlists/countries/Qatar.m3u` | 38 | Sports, News, International, Religious, Asia | 0 | 0 | 1 | 0 | 17/17 (100.0%) | 5 (29.4%) |
 | `playlists/countries/Republic_of_the_Congo.m3u` | 2 | Africa, Culture | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
-| `playlists/countries/Romania.m3u` | 161 | Sports, Lifestyle, Europe, Music, News, International, Entertainment, Movies, Religious, Comedy, Business, Documentary, Kids, Culture, Education, Series | 0 | 0 | 1 | 0 | 154/154 (100.0%) | 60 (39.0%) |
-| `playlists/countries/Russia.m3u` | 426 | Sports, Lifestyle, Fox Channels, Cartoons, Europe, Movies, Music, Entertainment, News, Documentary, Series, Kids, Religious, Comedy, International, Culture, Classic TV, Family, Business, Education, Legislative, Online TV | 0 | 0 | 1 | 0 | 373/373 (100.0%) | 66 (17.7%) |
+| `playlists/countries/Romania.m3u` | 161 | Sports, Lifestyle, Europe, Music, News, International, Entertainment, Movies, Religious, Comedy, Business, Documentary, Kids, Culture, Education, Series | 0 | 0 | 1 | 0 | 154/154 (100.0%) | 46 (29.9%) |
+| `playlists/countries/Russia.m3u` | 426 | Sports, Lifestyle, Fox Channels, Cartoons, Europe, Movies, Music, Entertainment, News, Documentary, Series, Kids, Religious, Comedy, International, Culture, Classic TV, Family, Business, Education, Legislative, Online TV | 0 | 0 | 1 | 0 | 373/373 (100.0%) | 62 (16.6%) |
 | `playlists/countries/Rwanda.m3u` | 11 | Sports, Africa, Music, Entertainment, International | 0 | 0 | 1 | 0 | 9/9 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saint_Kitts_and_Nevis.m3u` | 2 | North America | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Saint_Lucia.m3u` | 2 | North America | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
@@ -178,7 +178,7 @@
 | `playlists/countries/Turkey.m3u` | 136 | Sports, Lifestyle, NBC, Cartoons, Asia, News, Music, International, Entertainment, Religious, Culture, Kids, Business, Education, Movies | 0 | 0 | 1 | 0 | 130/130 (100.0%) | 36 (27.7%) |
 | `playlists/countries/Turkmenistan.m3u` | 16 | Sports, Asia, International, Culture, Education, Music | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/UK.m3u` | 258 | Sports, Lifestyle, NBC, Cartoons, PBS, UK, News, Religious, Entertainment, Music, Documentary, Kids, Movies, A&E Networks, International, Education, Series, Aria Web Channels, Business, Comedy, Culture, United Kingdom | 0 | 0 | 1 | 0 | 189/189 (100.0%) | 72 (38.1%) |
-| `playlists/countries/USA.m3u` | 2793 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Documentary, Religious, Music, Kids, Legislative, News, Education, Comedy, A&E Networks, Culture, Classic TV, Business, Family, Weather, International, Animals & Nature, Tv Shows, Aria Web Channels, Australia, Global TV, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 1991/1991 (100.0%) | 437 (21.9%) |
+| `playlists/countries/USA.m3u` | 2793 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Documentary, Religious, Music, Kids, Legislative, News, Education, Comedy, A&E Networks, Culture, Classic TV, Business, Family, Weather, International, Animals & Nature, Tv Shows, Aria Web Channels, Australia, Global TV, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 1991/1991 (100.0%) | 436 (21.9%) |
 | `playlists/countries/Uganda.m3u` | 7 | Africa, Religious | 0 | 0 | 1 | 0 | 7/7 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Ukraine.m3u` | 172 | Sports, Lifestyle, Game Shows, Europe, International, Movies, Entertainment, News, Music, Documentary, Kids, Religious, Culture, Legislative, Education, Series | 0 | 0 | 1 | 0 | 148/148 (100.0%) | 18 (12.2%) |
 | `playlists/countries/United_Arab_Emirates.m3u` | 42 | Sports, NBC, Cartoons, Music, News, Religious, Asia, Entertainment, International, Business, Documentary, Family, Kids, Movies | 0 | 0 | 1 | 0 | 39/39 (100.0%) | 3 (7.7%) |
@@ -188,7 +188,7 @@
 | `playlists/countries/Vietnam.m3u` | 74 | Sports, Lifestyle, Asia, Entertainment, Culture, Education, Kids, Series, Business, Eurovision Song Contest Asia on Aria (November 14th), Family, Movies, Music, News | 0 | 0 | 1 | 0 | 71/71 (100.0%) | 41 (57.8%) |
 | `playlists/countries/Western_Sahara.m3u` | 3 | Other | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Yemen.m3u` | 4 | News, Asia, Religious | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
-| `playlists/live/USA.m3u` | 2793 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Documentary, Religious, Music, Kids, Legislative, News, Education, Comedy, A&E Networks, Culture, Classic TV, Business, Family, Weather, International, Animals & Nature, Tv Shows, Aria Web Channels, Australia, Global TV, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 1991/1991 (100.0%) | 437 (21.9%) |
+| `playlists/live/USA.m3u` | 2793 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Documentary, Religious, Music, Kids, Legislative, News, Education, Comedy, A&E Networks, Culture, Classic TV, Business, Family, Weather, International, Animals & Nature, Tv Shows, Aria Web Channels, Australia, Global TV, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 1991/1991 (100.0%) | 436 (21.9%) |
 
 ## Problems
 
