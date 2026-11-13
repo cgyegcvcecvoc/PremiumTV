@@ -1,45 +1,29 @@
 # Live-event reliability audit
 
-- **Scrape snapshot:** 2026-11-13T12:30:00Z
-- **Scrape run:** `20261113T122616Z-3240` — health check completed
-- **Exact-URL evidence:** unavailable (legacy or incomplete scrape)
+- **Scrape snapshot:** 2026-11-13T16:14:02Z
+- **Scrape run:** `20261113T161029Z-2947` — health check completed
+- **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 0/13
-- **Fixtures with a redundancy deficit:** 13
+- **Fixtures meeting policy:** 0/5
+- **Fixtures with a redundancy deficit:** 5
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
-| Charlotte Hornets vs. Phoenix Suns (Basketball) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Phoenix Suns vs. Charlotte Hornets (National Basketball Association) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Charlotte Hornets vs. Phoenix Suns (NBA Basketball) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Boston Bruins vs. Montreal Canadiens (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Chicago Blackhawks vs. Buffalo Sabres (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Columbus Blue Jackets vs. Tampa Bay Lightning (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Dallas Stars vs. Winnipeg Jets (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Florida Panthers vs. Detroit Red Wings (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Los Angeles Kings vs. New York Islanders (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| New Jersey Devils vs. Washington Capitals (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Ottawa Senators vs. Colorado Avalanche (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Toronto Maple Leafs vs. Minnesota Wild (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Utah Mammoth vs. St Louis Blues (NHL Hockey) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
+| Burkina Faso vs. Mauritania (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Iraq vs. Lebanon (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Qatar vs. Australia (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9 | **DEFICIT** |
+| Saudi Arabia vs. South Korea (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9 | **DEFICIT** |
+| United Arab Emirates vs. Honduras (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 
 ## Deficits
 
-- **Charlotte Hornets vs. Phoenix Suns** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Phoenix Suns vs. Charlotte Hornets** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Charlotte Hornets vs. Phoenix Suns** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Boston Bruins vs. Montreal Canadiens** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Chicago Blackhawks vs. Buffalo Sabres** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Columbus Blue Jackets vs. Tampa Bay Lightning** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Dallas Stars vs. Winnipeg Jets** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Florida Panthers vs. Detroit Red Wings** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Los Angeles Kings vs. New York Islanders** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **New Jersey Devils vs. Washington Capitals** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Ottawa Senators vs. Colorado Avalanche** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Toronto Maple Leafs vs. Minnesota Wild** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Utah Mammoth vs. St Louis Blues** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
+- **Burkina Faso vs. Mauritania** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Iraq vs. Lebanon** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Qatar vs. Australia** — needs 1 more confirmed dedicated backup feed(s).
+- **Saudi Arabia vs. South Korea** — needs 1 more confirmed dedicated backup feed(s).
+- **United Arab Emirates vs. Honduras** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 
 ## Interpretation
 
