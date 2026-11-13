@@ -35,6 +35,20 @@
     <div class="splash-foot"><span id="splash-version"></span> <span class="splash-foot-plaque" id="splash-plaque" hidden>Patched · V1</span></div>
   </div>
 
+  <div id="setup" class="notice-overlay setup-overlay" role="dialog" aria-modal="true" aria-labelledby="setup-title" hidden>
+    <div class="notice-card">
+      <h1 id="setup-title">Welcome to PremiumTV</h1>
+      <p>Choose a category, then pick a channel. Favorites and recently watched stay on this device.</p>
+      <label for="setup-name">Viewer name (optional)</label>
+      <input id="setup-name" maxlength="40" autocomplete="off" placeholder="Viewer" />
+      <p class="muted">This is a local setup. Multiple profiles and cloud sync are not available yet.</p>
+      <div class="setup-actions">
+        <button id="setup-skip" class="btn btn-quiet" type="button">Skip</button>
+        <button id="setup-start" class="btn" type="button">Start watching</button>
+      </div>
+    </div>
+  </div>
+
   <div id="app">
     <aside id="sidebar">
       <div id="sidebar-drag">
@@ -68,7 +82,7 @@
       <div id="categories" class="scroll" aria-label="Categories"></div>
 
       <footer id="sidebar-foot">
-        <span id="foot-count"></span>
+        <span id="foot-count"></span><span id="viewer-name"></span>
       </footer>
     </aside>
 

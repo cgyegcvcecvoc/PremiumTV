@@ -26,7 +26,7 @@ class Version115Tests(unittest.TestCase):
         import release_version  # noqa: E402
         import version_sync  # noqa: E402
 
-        self.assertEqual(release_version.current_version(), "1.1.5")
+        self.assertGreaterEqual(release_version.compare_versions(release_version.current_version(), "1.1.5"), 0)
         self.assertEqual(release_version.android_version_code("1.1.5"), 101_050_000)
         self.assertEqual(version_sync.check(), [])
 

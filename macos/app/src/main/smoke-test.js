@@ -31,6 +31,11 @@ module.exports = async function smokeTest(window, repository, proxy) {
   await repository.load();
   assert.equal(repository.state.phase, 'ready');
   assert.ok(repository.library.channels.length > 0);
+  await waitFor("document.querySelectorAll('#channels-grid .category-tile').length > 1");
+  await waitFor("document.getElementById('splash').classList.contains('done')");
+  await evalInPage("document.getElementById('setup-skip').click()");
+  assert.equal(await evalInPage("document.getElementById('channels-title').textContent"), 'Categories');
+  await evalInPage("document.querySelector('#channels-grid .category-tile').click()");
   await waitFor("document.querySelectorAll('#channels-grid .card').length > 0");
   const count = await evalInPage("document.getElementById('foot-count').textContent");
   assert.ok(count.includes(`${repository.library.channels.length} channels`), count);

@@ -817,14 +817,24 @@ def main(argv=None):
         last_error = ""
         ui_failure_since = None
         label = f"the {'cold-launch' if attempt == 0 else 'relaunch'} channel UI"
+        opened_category = False
         while time.monotonic() < deadline:
             try:
                 last_dump, nodes = dump_ui()
                 ui_failure_since = None
                 texts = {node.get("text", "") for node in nodes}
+                if "Welcome to PremiumTV" in texts:
+                    tap_text(nodes, lambda text: text == "Skip", "optional setup")
+                    time.sleep(1)
+                    continue
                 if dismiss_update_notice(texts, nodes):
                     continue
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
+                if count and not opened_category:
+                    opened_category = tap_text(nodes, lambda text: text == "All channels", "category picker")
+                    if opened_category:
+                        time.sleep(1)
+                        continue
                 named = [value for value in texts for name in names if name and name in value]
                 if count and named:
                     progress(f"APK SMOKE PASS ({'cold launch' if attempt == 0 else 'relaunch'}): "

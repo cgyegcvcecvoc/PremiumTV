@@ -101,6 +101,7 @@
   const ui = {
     tab: 'channels',
     category: null, // null = every channel; RECENT/FAVORITE_CATEGORY = personal shelves
+    categoryOpen: false, // start at the category picker, not the full channel grid
     query: '',
     // 1.0.8 sorting: the sidebar's category list and the channel page's grid
     // each get an order the viewer picks (published / A-Z / Z-A / biggest).
@@ -184,7 +185,7 @@
     for (const button of els.channelSort.querySelectorAll('.cat-sort-btn')) {
       button.setAttribute('aria-pressed', String(button.dataset.chsort === ui.channelSort));
     }
-    const onCategoryPage = Boolean(ui.category);
+    const onCategoryPage = ui.categoryOpen || Boolean(ui.query.trim());
     if (els.categoryPageTools) els.categoryPageTools.hidden = !onCategoryPage;
   }
 
@@ -376,7 +377,7 @@
 
     const all = document.createElement('button');
     all.className = 'cat';
-    all.setAttribute('aria-current', String(ui.category === null));
+    all.setAttribute('aria-current', String(ui.categoryOpen && ui.category === null));
     all.innerHTML = `<span class="cat-name">All channels</span><span class="cat-count">${total}</span>`;
     all.addEventListener('click', () => selectCategory(null));
     els.categories.appendChild(all);
@@ -467,8 +468,32 @@
   }
 
   function renderChannels() {
-    const channels = visibleChannels();
     updateChannelSortControls();
+    if (!ui.categoryOpen && !ui.query.trim()) {
+      els.channelsTitle.textContent = 'Categories';
+      els.channelsSubtitle.textContent = 'Choose a category to see its channels';
+      els.channelsGrid.textContent = '';
+      ui.rendered = 0;
+      const add = (label, count, category) => {
+        const button = document.createElement('button');
+        button.className = 'category-tile';
+        const title = document.createElement('strong');
+        title.textContent = label;
+        const detail = document.createElement('span');
+        detail.textContent = `${count} channels  →`;
+        button.append(title, detail);
+        button.addEventListener('click', () => selectCategory(category));
+        els.channelsGrid.appendChild(button);
+      };
+      add('All channels', liveChannels().length, null);
+      const recent = personal.resolve(recentKeys, liveChannels()).length;
+      const favorites = personal.resolve(favoriteKeys, liveChannels()).length;
+      if (recent) add('Recently watched', recent, RECENT_CATEGORY);
+      if (favorites) add('Favorites', favorites, FAVORITE_CATEGORY);
+      for (const group of sortedGroups()) add(group.name, group.count, group.name);
+      return;
+    }
+    const channels = visibleChannels();
     const specialTitle = ui.category === RECENT_CATEGORY
       ? 'Recently watched'
       : ui.category === FAVORITE_CATEGORY ? 'Favorites' : null;
@@ -1694,8 +1719,13 @@
     if (ui.tab === 'live') probeLiveGames(false);
   }
 
-  function selectCategory(name) {
+  function selectCategory(name, open = true) {
     ui.category = name;
+    if (ui.tab === 'channels') {
+      ui.categoryOpen = open;
+      ui.query = '';
+      els.search.value = '';
+    }
     renderCategories();
     if (ui.tab === 'guide') {
       els.guideGrid.scrollTop = 0;
@@ -2394,6 +2424,7 @@
       if (!button) return;
       ui.categorySort = button.dataset.sort;
       renderCategories();
+      if (ui.tab === 'channels' && !ui.categoryOpen) renderChannels();
     });
   }
   if (els.channelSort) {
@@ -2404,7 +2435,7 @@
       renderChannels();
     });
   }
-  if (els.catBack) els.catBack.addEventListener('click', () => selectCategory(null));
+  if (els.catBack) els.catBack.addEventListener('click', () => selectCategory(null, false));
   if (els.moviesFilters) {
     els.moviesFilters.addEventListener('click', (event) => {
       const button = event.target.closest('[data-vod-filter]');
@@ -2464,6 +2495,7 @@
     window.clearTimeout(searchRenderTimer);
     searchRenderTimer = window.setTimeout(() => {
       ui.query = els.search.value;
+      if (ui.tab === 'channels' && ui.query.trim()) ui.category = null;
       if (ui.tab === 'settings') selectTab('channels');
       else render();
     }, 150);
@@ -2598,7 +2630,7 @@
     channelPageQueued = true;
     window.requestAnimationFrame(() => {
       channelPageQueued = false;
-      if (ui.rendered < visibleChannels().length) appendChannelPage();
+      if ((ui.categoryOpen || ui.query.trim()) && ui.rendered < visibleChannels().length) appendChannelPage();
     });
   }, { passive: true });
 
@@ -2874,6 +2906,37 @@
     els.splash.setAttribute('aria-hidden', 'true');
   }
 
+  function showSetup() {
+    const overlay = document.getElementById('setup');
+    const input = document.getElementById('setup-name');
+    if (!overlay || !input) return;
+    const showName = (name) => { document.getElementById('viewer-name').textContent = ` · ${name}`; };
+    try {
+      const saved = JSON.parse(window.localStorage.getItem('premiumtv.setup.v1') || 'null');
+      if (saved && typeof saved.name === 'string') { showName(saved.name); return; }
+    } catch (_) { /* optional or malformed storage */ }
+    overlay.hidden = false;
+    const finish = (skip) => {
+      const name = skip ? 'Viewer' : (input.value.trim().slice(0, 40) || 'Viewer');
+      try { window.localStorage.setItem('premiumtv.setup.v1', JSON.stringify({ name })); } catch (_) { /* keep browsing */ }
+      overlay.hidden = true;
+      showName(name);
+    };
+    overlay.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { event.stopPropagation(); finish(true); }
+      if (event.key === 'Tab') {
+        const controls = [input, document.getElementById('setup-skip'), document.getElementById('setup-start')];
+        const index = controls.indexOf(document.activeElement);
+        if (event.shiftKey && index <= 0) { event.preventDefault(); controls[controls.length - 1].focus(); }
+        else if (!event.shiftKey && index === controls.length - 1) { event.preventDefault(); controls[0].focus(); }
+      }
+    });
+    document.getElementById('setup-start').addEventListener('click', () => finish(false), { once: true });
+    document.getElementById('setup-skip').addEventListener('click', () => finish(true), { once: true });
+    input.addEventListener('keydown', (event) => { if (event.key === 'Enter') finish(false); });
+    document.getElementById('setup-start').focus();
+  }
+
   async function boot() {
     setSplashProgress(18, 'Starting PremiumTV…');
     appInfo = await api.getAppInfo();
@@ -2904,6 +2967,7 @@
     }
     await syncSnapshot();
     hideSplash();
+    showSetup();
 
     // Keep "now playing" honest without a full re-render storm.
     clockTimer = window.setInterval(() => {

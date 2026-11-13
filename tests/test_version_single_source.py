@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -25,6 +26,13 @@ class SingleSourceTests(unittest.TestCase):
 
     def test_every_surface_agrees_with_the_version_file(self):
         self.assertEqual([], version_sync.check())
+
+    def test_publication_rejects_an_unannounced_app_target(self):
+        if release_version.current_version() == version_sync.PUBLISHED_VERSION:
+            self.skipTest("target is already the published version")
+        result = subprocess.run([sys.executable, str(ROOT / "scripts/version_sync.py"), "--check", "--for-publish"], capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("cannot publish", result.stderr)
 
     def test_ci_runs_the_drift_check(self):
         workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
@@ -49,8 +57,7 @@ class SingleSourceTests(unittest.TestCase):
         # Gradle itself cannot drift: it reads the generated properties. The
         # hand-written surfaces are what the check has to catch.
         for expected in ("version.properties", "package.json", "README.md",
-                         "release-notes-9.9.9.md", "docs/README.md",
-                         "docs/blocked/index.html", "hub/static/index.html"):
+                         "release-notes-9.9.9.md"):
             self.assertIn(expected, joined)
 
 

@@ -92,7 +92,7 @@ jobs:
           # Every prose surface, the Gradle/Mac properties and the update notice
           # must already agree with VERSION; publishing a split version is the
           # exact failure this whole check exists for.
-          python3 scripts/version_sync.py --check
+          python3 scripts/version_sync.py --check --for-publish
           # The release notes must name their own version.
           grep -q "PremiumTV ${{ steps.release.outputs.version }}" \
             "${{ steps.release.outputs.notes }}"

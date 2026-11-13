@@ -8,7 +8,8 @@ Everything a machine reads is derived from it:
     macos/app/package.json              Electron/electron-builder version
     macos/app/package-lock.json         the lockfile's root version
 
-Everything that has to stay readable prose is *checked*, never rewritten:
+App build targets are checked against VERSION. Published download pages and
+notices are checked against PUBLISHED_VERSION until the release is published:
 the README release table, the two app READMEs, docs/UPDATES.md, the update
 notice, the release notes file, both build workflows and the published
 download pages (docs/README.md, docs/blocked/index.html, hub/static/index.html).
@@ -30,6 +31,10 @@ import json
 import re
 import sys
 from pathlib import Path
+
+# The next app build may be prepared without changing the published web pages
+# or announcing an installer before it exists. Advance on publication.
+PUBLISHED_VERSION = "1.1.5"
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -212,10 +217,12 @@ def check() -> list[str]:
         ):
             problems.append(f".github/workflows/{name}: hardcodes a version fallback")
 
-    # --- prose that has to be updated with the release -------------------
+    # --- app target vs. the already-published release --------------------
+    published = PUBLISHED_VERSION
+    published_code = release_version.android_version_code(published)
     _require_text(
         problems, ROOT / "README.md",
-        [f"**Stable release** | **{version}**", f"versionCode {code}"],
+        [f"**Stable release** | **{published}**", f"versionCode {published_code}"],
         "README release table",
     )
     _require_text(
@@ -225,12 +232,12 @@ def check() -> list[str]:
     )
     _require_text(
         problems, ROOT / "macos" / "README.md",
-        [f"**{version} stable build", f"`v{version}`"],
+        [f"**{version} stable build", f"`v{published}`"],
         "macOS README build target",
     )
     _require_text(
         problems, ROOT / "docs" / "UPDATES.md",
-        [f"current stable release is **{version}**"],
+        [f"current stable release is **{published}**"],
         "update policy",
     )
     _require_text(
@@ -245,20 +252,20 @@ def check() -> list[str]:
     # person sees, so its version has to fail CI like the README's does.
     _require_text(
         problems, ROOT / "docs" / "README.md",
-        [f"## Current stable: {version}", f"currently **{version}**",
-         f"release-notes-{version}.md"],
+        [f"## Current stable: {published}", f"currently **{published}**",
+         f"release-notes-{published}.md"],
         "download-site README",
     )
     _require_text(
         problems, ROOT / "docs" / "blocked" / "index.html",
-        [f"stable {version} instead",
-         f"releases/download/v{version}/PremiumTV-{version}-debug.apk",
-         f"versionCode {code}"],
+        [f"stable {published} instead",
+         f"releases/download/v{published}/PremiumTV-{published}-debug.apk",
+         f"versionCode {published_code}"],
         "retired-preview page",
     )
     _require_text(
         problems, ROOT / "hub" / "static" / "index.html",
-        [f"Stable {version} ", f"code {code}"],
+        [f"Stable {published} ", f"code {published_code}"],
         "hub landing page",
     )
 
@@ -274,31 +281,31 @@ def check() -> list[str]:
             problems.append("app-update-notice.json: missing the update-below-newest rule")
         else:
             highest = stable.get("max_version")
-            if not highest or highest == version or (
-                release_version.compare_versions(highest, version) or 0
+            if not highest or highest == published or (
+                release_version.compare_versions(highest, published) or 0
             ) >= 0:
                 problems.append(
                     "app-update-notice.json: update-below-newest.max_version must be "
-                    f"below {version}, got {highest!r}"
+                    f"below {published}, got {highest!r}"
                 )
             else:
                 # A patch bump must also nudge the build it replaces: with
                 # VERSION 1.1.3, a max_version of 1.1.1 would silently skip
                 # 1.1.2.  A minor/major bump has no single predecessor, so the
                 # "below current" rule above is all that can be checked.
-                parts = release_version.parse_version(version) or ()
+                parts = release_version.parse_version(published) or ()
                 if len(parts) == 3 and parts[2] > 0:
                     expected = f"{parts[0]}.{parts[1]}.{parts[2] - 1}"
                     if (release_version.compare_versions(highest, expected) or 0) < 0:
                         problems.append(
                             "app-update-notice.json: update-below-newest.max_version is "
                             f"{highest!r}, which skips {expected}; it must cover every "
-                            f"build below {version}"
+                            f"build below {published}"
                         )
-            if f"{version}" not in str(stable.get("surprise") or ""):
+            if f"{published}" not in str(stable.get("surprise") or ""):
                 problems.append(
                     "app-update-notice.json: update-below-newest.surprise should name "
-                    f"{version} so the popup describes the current release"
+                    f"{published} so the popup describes the published release"
                 )
         # The builds a blocked rule targets are the most vulnerable, and they
         # are the ones most likely to read a stale sentence for months. Its
@@ -324,6 +331,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--check", action="store_true", help="verify every surface (default)")
     parser.add_argument("--write", action="store_true", help="update the generated surfaces")
     parser.add_argument("--current", action="store_true", help="print the current version")
+    parser.add_argument("--for-publish", action="store_true", help="also require the published surfaces to be updated")
     args = parser.parse_args(argv)
 
     try:
@@ -336,6 +344,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.current:
         print(version)
         return 0
+
+    if args.for_publish and version != PUBLISHED_VERSION:
+        print(f"[version] cannot publish {version}: published surfaces still describe {PUBLISHED_VERSION}; update them and PUBLISHED_VERSION first", file=sys.stderr)
+        return 1
 
     if args.write:
         changed = write_generated(version, code)
@@ -360,7 +372,7 @@ def main(argv: list[str] | None = None) -> int:
         for problem in problems:
             print(f"[version] DRIFT: {problem}", file=sys.stderr)
         return 1
-    print(f"[version] OK {version} ({code}) across every surface")
+    print(f"[version] OK app target {version} ({code}); published surfaces {PUBLISHED_VERSION}")
     return 0
 
 
