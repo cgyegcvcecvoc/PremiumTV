@@ -9,7 +9,8 @@ Everything a machine reads is derived from it:
     macos/app/package-lock.json         the lockfile's root version
 
 App build targets are checked against VERSION. Published download pages and
-notices are checked against PUBLISHED_VERSION until the release is published:
+notices are checked against PUBLISHED_VERSION; legacy download-page copy is
+checked against SITE_VERSION so the web edition stays unchanged:
 the README release table, the two app READMEs, docs/UPDATES.md, the update
 notice, the release notes file, both build workflows and the published
 download pages (docs/README.md, docs/blocked/index.html, hub/static/index.html).
@@ -32,9 +33,9 @@ import re
 import sys
 from pathlib import Path
 
-# The next app build may be prepared without changing the published web pages
-# or announcing an installer before it exists. Advance on publication.
-PUBLISHED_VERSION = "1.1.5"
+# The app release and the untouched legacy website copy advance independently.
+PUBLISHED_VERSION = "1.1.6"
+SITE_VERSION = "1.1.5"
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -220,6 +221,8 @@ def check() -> list[str]:
     # --- app target vs. the already-published release --------------------
     published = PUBLISHED_VERSION
     published_code = release_version.android_version_code(published)
+    site = SITE_VERSION
+    site_code = release_version.android_version_code(site)
     _require_text(
         problems, ROOT / "README.md",
         [f"**Stable release** | **{published}**", f"versionCode {published_code}"],
@@ -252,20 +255,20 @@ def check() -> list[str]:
     # person sees, so its version has to fail CI like the README's does.
     _require_text(
         problems, ROOT / "docs" / "README.md",
-        [f"## Current stable: {published}", f"currently **{published}**",
-         f"release-notes-{published}.md"],
+        [f"## Current stable: {site}", f"currently **{site}**",
+         f"release-notes-{site}.md"],
         "download-site README",
     )
     _require_text(
         problems, ROOT / "docs" / "blocked" / "index.html",
-        [f"stable {published} instead",
-         f"releases/download/v{published}/PremiumTV-{published}-debug.apk",
-         f"versionCode {published_code}"],
+        [f"stable {site} instead",
+         f"releases/download/v{site}/PremiumTV-{site}-debug.apk",
+         f"versionCode {site_code}"],
         "retired-preview page",
     )
     _require_text(
         problems, ROOT / "hub" / "static" / "index.html",
-        [f"Stable {published} ", f"code {published_code}"],
+        [f"Stable {site} ", f"code {site_code}"],
         "hub landing page",
     )
 
@@ -372,7 +375,7 @@ def main(argv: list[str] | None = None) -> int:
         for problem in problems:
             print(f"[version] DRIFT: {problem}", file=sys.stderr)
         return 1
-    print(f"[version] OK app target {version} ({code}); published surfaces {PUBLISHED_VERSION}")
+    print(f"[version] OK app target {version} ({code}); published app {PUBLISHED_VERSION}, website copy {SITE_VERSION}")
     return 0
 
 

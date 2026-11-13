@@ -10,11 +10,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
-## 2026-11-13 — Version 1.1.6 app build in development
+## 2026-11-13 — Version 1.1.6 published
 
 - Android and macOS open on categories; choose one to see its channels and logos, or use All channels or search. Back returns to the category picker.
 - Added optional on-device viewer setup, preserving existing favorites and history. Multi-profile switching and cloud sync are future work.
-- Refreshed the app icons and added a text-free Android TV launcher banner. The web app is unchanged. Version 1.1.6 is not yet published.
+- Refreshed the app icons and added a text-free Android TV launcher banner. The web app is unchanged. The APK, Mac installers, and checksums are on the GitHub release.
 
 ## 2026-11-08 — 1.1.5 published as the stable (Latest) release
 
