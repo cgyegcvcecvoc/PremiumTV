@@ -1,74 +1,74 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-14 01:47 UTC (2026-11-13 08:47 PM EST)
-- **Channels in the main playlist:** 12121
-- **Channels in the category files:** 12109 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2511 (20.7%)
-- **Categories:** 83 groups (35 backup groups)
+- **Rebuilt:** 2026-11-14 07:42 UTC (2026-11-14 02:42 AM EST)
+- **Channels in the main playlist:** 12000
+- **Channels in the category files:** 11987 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2546 (21.2%)
+- **Categories:** 82 groups (34 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 600 | 224 |
-| 2 | Sports Backups | 126 | 66 |
-| 3 | Lifestyle | 481 | 122 |
+| 1 | Sports | 532 | 205 |
+| 2 | Sports Backups | 126 | 67 |
+| 3 | Lifestyle | 481 | 130 |
 | 4 | Lifestyle Backups | 124 | 41 |
 | 5 | Fox Channels | 29 | 9 |
 | 6 | CBS | 30 | 5 |
 | 7 | CBS Backups | 14 | 0 |
-| 8 | NBC | 67 | 16 |
+| 8 | NBC | 67 | 17 |
 | 9 | NBC Backups | 9 | 3 |
-| 10 | NBC Sports Channels | 8 | 4 |
-| 11 | Cartoons | 195 | 26 |
+| 10 | NBC Sports Channels | 8 | 7 |
+| 11 | Cartoons | 195 | 29 |
 | 12 | Cartoons Backups | 29 | 2 |
-| 13 | PBS | 41 | 11 |
+| 13 | PBS | 41 | 12 |
 | 14 | PBS Backups | 6 | 2 |
 | 15 | Game Shows | 11 | 7 |
 | 16 | Game Shows Backups | 16 | 11 |
-| 17 | News | 851 | 235 |
-| 18 | News Backups | 204 | 131 |
-| 19 | Movies | 832 | 134 |
+| 17 | News | 849 | 233 |
+| 18 | News Backups | 190 | 117 |
+| 19 | Movies | 832 | 145 |
 | 20 | Movies Backups | 132 | 24 |
-| 21 | Music | 831 | 146 |
-| 22 | Music Backups | 114 | 50 |
-| 23 | Europe | 715 | 122 |
+| 21 | Music | 830 | 149 |
+| 22 | Music Backups | 114 | 52 |
+| 23 | Europe | 718 | 129 |
 | 24 | Europe Backups | 62 | 37 |
-| 25 | International | 682 | 172 |
-| 26 | International Backups | 97 | 37 |
-| 27 | Entertainment | 680 | 135 |
-| 28 | Entertainment Backups | 114 | 32 |
-| 29 | Religious | 583 | 60 |
+| 25 | International | 679 | 180 |
+| 26 | International Backups | 97 | 38 |
+| 27 | Entertainment | 678 | 142 |
+| 28 | Entertainment Backups | 116 | 36 |
+| 29 | Religious | 580 | 61 |
 | 30 | Religious Backups | 36 | 7 |
-| 31 | South America | 468 | 17 |
-| 32 | South America Backups | 18 | 0 |
-| 33 | Asia | 462 | 95 |
-| 34 | Asia Backups | 24 | 1 |
-| 35 | Documentary | 366 | 96 |
+| 31 | Asia | 463 | 95 |
+| 32 | Asia Backups | 24 | 1 |
+| 33 | South America | 450 | 16 |
+| 34 | South America Backups | 17 | 0 |
+| 35 | Documentary | 365 | 96 |
 | 36 | Documentary Backups | 91 | 20 |
 | 37 | United States | 344 | 41 |
 | 38 | United States Backups | 74 | 8 |
-| 39 | Series | 322 | 35 |
+| 39 | Series | 322 | 36 |
 | 40 | Series Backups | 132 | 38 |
-| 41 | Kids | 299 | 56 |
-| 42 | Kids Backups | 76 | 13 |
-| 43 | North America | 284 | 15 |
+| 41 | Kids | 300 | 62 |
+| 42 | Kids Backups | 76 | 14 |
+| 43 | North America | 275 | 14 |
 | 44 | North America Backups | 4 | 0 |
-| 45 | Education | 131 | 10 |
-| 46 | Education Backups | 14 | 0 |
-| 47 | Legislative | 115 | 10 |
-| 48 | Culture | 114 | 10 |
-| 49 | Culture Backups | 6 | 0 |
+| 45 | Education | 131 | 11 |
+| 46 | Education Backups | 14 | 1 |
+| 47 | Culture | 115 | 10 |
+| 48 | Culture Backups | 6 | 0 |
+| 49 | Legislative | 115 | 10 |
 | 50 | Comedy | 113 | 8 |
 | 51 | Comedy Backups | 32 | 4 |
-| 52 | India | 72 | 24 |
+| 52 | India | 73 | 24 |
 | 53 | India Backups | 10 | 5 |
-| 54 | Africa | 69 | 5 |
+| 54 | Africa | 68 | 5 |
 | 55 | Classic TV | 60 | 5 |
 | 56 | Classic TV Backups | 12 | 3 |
 | 57 | Business | 47 | 16 |
 | 58 | Business Backups | 14 | 13 |
-| 59 | Family | 29 | 15 |
+| 59 | Family | 28 | 15 |
 | 60 | Family Backups | 4 | 3 |
 | 61 | A&E Networks | 27 | 0 |
 | 62 | UK | 26 | 12 |
@@ -80,35 +80,34 @@
 | 68 | Animals & Nature | 9 | 0 |
 | 69 | Animals & Nature Backups | 3 | 0 |
 | 70 | DLTV | 9 | 0 |
-| 71 | Eurovision Song Contest Asia on Aria (November 14th) | 8 | 3 |
-| 72 | Tv Celebrities | 8 | 0 |
-| 73 | Aria Web Channels | 6 | 0 |
+| 71 | Tv Celebrities | 8 | 0 |
+| 72 | Aria Web Channels | 6 | 0 |
+| 73 | Eurovision Song Contest Asia On Aria November 14Th | 6 | 3 |
 | 74 | Tv Paranormal | 6 | 1 |
 | 75 | Tv Paranormal Backups | 3 | 0 |
-| 76 | Global TV | 5 | 2 |
-| 77 | Global TV Backups | 3 | 2 |
-| 78 | Online TV | 5 | 1 |
+| 76 | Global TV | 4 | 1 |
+| 77 | Oceania | 4 | 3 |
+| 78 | Online TV | 4 | 1 |
 | 79 | Online TV Backups | 8 | 7 |
-| 80 | Oceania | 4 | 3 |
-| 81 | Tv Shows | 4 | 0 |
-| 82 | Other | 256 | 20 |
-| 83 | Other Backups | 138 | 6 |
+| 80 | Tv Shows | 4 | 0 |
+| 81 | Other | 256 | 24 |
+| 82 | Other Backups | 138 | 6 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12121 | 93 | 1767 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12000 | 93 | 1752 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 13 | 6 | 1 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 12042 (99.2%) |
-| matched on the base id (feed qualifier dropped) | 1 (0.0%) |
+| already declared in the guide | 11979 (99.7%) |
 | matched on the display name | 1 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 90 (0.7%) |
+| matched on a looser spelling of the name | 1 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 32 (0.3%) |
 
 ## Channels with no schedule yet
 
@@ -121,6 +120,7 @@ just have nothing to show until an upstream guide picks them up:
 - ☆ ACL Cornhole TV 🇺🇸 (`plex.tv.ACL.Cornhole.TV.plex`)
 - ADO TV (720p) (`ADOTV.bj@SD`)
 - Adventure Sports TV (1080p) (`AdventureSportsTV.us@SD`)
+- [AFL Aussie Rules] Carlton Blues W vs Hawthorn Hawks W (FAWA) (`AUS.Rules.Football.Dummy.us`)
 - Africa 24 Sport (1080p) (`Africa24Sport.fr@SD`)
 - Al Iraqia Sport (720p) (`AlIraqiaSport.iq@SD`)
 - American Ninja Warrior (1080p) (`AmericanNinjaWarrior.us@SD`)
@@ -130,7 +130,6 @@ just have nothing to show until an upstream guide picks them up:
 - Arena Sport 2 (`ArenaSport2.sk@SD`)
 - AS3 Sport TV (1080p) (`AS3SportTV.ve@SD`)
 - Astrahan.Ru Sport (720p) (`AstrahanRuSport.ru@SD`)
-- ☆ AWSN 🇺🇸 (`660e7404e8fba8000853abc0`)
 
 Generated by `scripts/rebuild_playlists.py`. Run it after a scrape, or let the
 daily workflow do it - the scraper calls the same `categorize` module, so a
