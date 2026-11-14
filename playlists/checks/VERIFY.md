@@ -1,6 +1,6 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-14T01:49:27+00:00 UTC
+- **Generated:** 2026-11-14T02:44:18+00:00 UTC
 - **Playlists checked:** 177 (27213 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 80
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 12121 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, News, Movies, Music, Europe, International, Entertainment, Religious, South America, Asia, Documentary, United States, Series, Kids, North America, Education, Legislative, Culture, Comedy, India, Africa, Classic TV, Business, Family, A&E Networks, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Eurovision Song Contest Asia on Aria (November 14th), Tv Celebrities, Aria Web Channels, Tv Paranormal, Global TV, Online TV, Oceania, Tv Shows, MeTV, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10130/10130 (100.0%) | 1930 (19.1%) |
+| `playlists/PremiumTV.m3u` | 12121 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, News, Movies, Music, Europe, International, Entertainment, Religious, South America, Asia, Documentary, United States, Series, Kids, North America, Education, Legislative, Culture, Comedy, India, Africa, Classic TV, Business, Family, A&E Networks, UK, Canada, Australia, Weather, Animals & Nature, DLTV, Eurovision Song Contest Asia on Aria (November 14th), Tv Celebrities, Aria Web Channels, Tv Paranormal, Global TV, Online TV, Oceania, Tv Shows, MeTV, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10130/10130 (100.0%) | 1929 (19.0%) |
 | `playlists/AE_Channels.m3u` | 70 | Lifestyle, A&E Networks, Documentary, Series, Entertainment, Movies, Tv Paranormal, Other | 0 | 0 | 3 | 0 | 63/63 (100.0%) | 7 (11.1%) |
 | `playlists/Priority_Channels.m3u` | 13 | Sports, Cartoons, Kids, MeTV, United States | 0 | 0 | 3 | 0 | 12/12 (100.0%) | 6 (50.0%) |
 | `playlists/countries/Afghanistan.m3u` | 8 | Asia, Education, Movies, Music, Religious | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
@@ -70,7 +70,7 @@
 | `playlists/countries/Ethiopia.m3u` | 1 | Religious | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Faroe_Islands.m3u` | 2 | International | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Finland.m3u` | 26 | Lifestyle, International, Music, Religious, Entertainment, Movies, News | 0 | 0 | 1 | 0 | 20/20 (100.0%) | 9 (45.0%) |
-| `playlists/countries/France.m3u` | 243 | Sports, Lifestyle, Cartoons, Music, News, Europe, Movies, International, Entertainment, Documentary, Religious, Kids, Series, Business, Classic TV, Culture, Education | 0 | 0 | 1 | 0 | 182/182 (100.0%) | 79 (43.4%) |
+| `playlists/countries/France.m3u` | 243 | Sports, Lifestyle, Cartoons, Music, News, Europe, Movies, International, Entertainment, Documentary, Religious, Kids, Series, Business, Classic TV, Culture, Education | 0 | 0 | 1 | 0 | 182/182 (100.0%) | 78 (42.9%) |
 | `playlists/countries/French_Guiana.m3u` | 1 | South America | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Gambia.m3u` | 1 | Africa | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Georgia.m3u` | 15 | Sports, International, News, Asia, Business, Religious | 0 | 0 | 1 | 0 | 13/13 (100.0%) | 1 (7.7%) |
