@@ -1,23 +1,23 @@
 # Merged TV guide build
 
-- **Run:** scheduled guide build (`20261114T164517Z-2422`)
-- **Started:** 2026-11-14T16:45:17Z | **Finished:** 2026-11-14T16:47:30Z | **Duration:** 133.7s
+- **Run:** guide refresh with the scrape (`20261114T171703Z-3101`)
+- **Started:** 2026-11-14T17:17:03Z | **Finished:** 2026-11-14T17:18:30Z | **Duration:** 86.5s
 - **Guide link (`.xml`):** `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml`
 - **Gzipped:** `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/PremiumTV.xml.gz`
-- **Window:** 20261114104517 +0000 to 20261116164517 +0000 UTC (48h ahead, 6h back)
+- **Window:** 20261114111703 +0000 to 20261116171703 +0000 UTC (48h ahead, 6h back)
 
 | Result | Value |
 |---|---:|
 | Guides merged | 92 of 343 |
-| Playlist channels | 10096 |
-| Channels declared in the guide | 10096 (every playlist channel) |
-| Channels with a guide | 1915 (19.0%) |
-| Programmes in the guide | 118906 |
-| Duplicate events merged | 107804 |
-| Overlapping events dropped | 68834 |
-| Events dropped (out of window / placeholder) | 5733624 |
-| XML size | 37715 KB |
-| Gzipped size | 3969 KB |
+| Playlist channels | 10123 |
+| Channels declared in the guide | 10123 (every playlist channel) |
+| Channels with a guide | 1934 (19.1%) |
+| Programmes in the guide | 119666 |
+| Duplicate events merged | 107690 |
+| Overlapping events dropped | 69683 |
+| Events dropped (out of window / placeholder) | 5733790 |
+| XML size | 38300 KB |
+| Gzipped size | 4028 KB |
 
 Published [`EPG/PremiumTV.xml`](../../EPG/PremiumTV.xml) and [`EPG/PremiumTV.xml.gz`](../../EPG/PremiumTV.xml.gz).
 
@@ -34,170 +34,170 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 | Angola | 3 | 0 | 0 | 0 KB | [`Angola.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Angola.xml) | valid XML; current verified upstream feeds |
 | Antigua_and_Barbuda | 1 | 0 | 0 | 0 KB | [`Antigua_and_Barbuda.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Antigua_and_Barbuda.xml) | valid XML; current verified upstream feeds |
 | Arab_World | 13 | 0 | 0 | 3 KB | [`Arab_World.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Arab_World.xml) | valid XML; current verified upstream feeds |
-| Argentina | 150 | 6 | 199 | 81 KB | [`Argentina.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Argentina.xml) | valid XML; current verified upstream feeds |
+| Argentina | 150 | 6 | 195 | 81 KB | [`Argentina.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Argentina.xml) | valid XML; current verified upstream feeds |
 | Armenia | 12 | 3 | 57 | 15 KB | [`Armenia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Armenia.xml) | valid XML; current verified upstream feeds |
 | Aruba | 8 | 0 | 0 | 1 KB | [`Aruba.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Aruba.xml) | valid XML; current verified upstream feeds |
-| Australia | 32 | 9 | 772 | 248 KB | [`Australia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Australia.xml) | valid XML; current verified upstream feeds |
-| Austria | 35 | 11 | 855 | 258 KB | [`Austria.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Austria.xml) | valid XML; current verified upstream feeds |
+| Australia | 32 | 9 | 769 | 247 KB | [`Australia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Australia.xml) | valid XML; current verified upstream feeds |
+| Austria | 35 | 11 | 853 | 258 KB | [`Austria.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Austria.xml) | valid XML; current verified upstream feeds |
 | Azerbaijan | 10 | 0 | 0 | 1 KB | [`Azerbaijan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Azerbaijan.xml) | valid XML; current verified upstream feeds |
 | Bahamas | 3 | 0 | 0 | 0 KB | [`Bahamas.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bahamas.xml) | valid XML; current verified upstream feeds |
 | Bahrain | 5 | 0 | 0 | 1 KB | [`Bahrain.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bahrain.xml) | valid XML; current verified upstream feeds |
 | Bangladesh | 17 | 0 | 0 | 2 KB | [`Bangladesh.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bangladesh.xml) | valid XML; current verified upstream feeds |
 | Barbados | 1 | 0 | 0 | 0 KB | [`Barbados.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Barbados.xml) | valid XML; current verified upstream feeds |
 | Belarus | 26 | 0 | 0 | 5 KB | [`Belarus.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Belarus.xml) | valid XML; current verified upstream feeds |
-| Belgium | 31 | 4 | 240 | 95 KB | [`Belgium.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Belgium.xml) | valid XML; current verified upstream feeds |
+| Belgium | 32 | 4 | 239 | 95 KB | [`Belgium.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Belgium.xml) | valid XML; current verified upstream feeds |
 | Belize | 1 | 0 | 0 | 0 KB | [`Belize.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Belize.xml) | valid XML; current verified upstream feeds |
-| Benin | 6 | 1 | 82 | 34 KB | [`Benin.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Benin.xml) | valid XML; current verified upstream feeds |
-| Bolivia | 37 | 1 | 98 | 27 KB | [`Bolivia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bolivia.xml) | valid XML; current verified upstream feeds |
+| Benin | 5 | 1 | 82 | 33 KB | [`Benin.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Benin.xml) | valid XML; current verified upstream feeds |
+| Bolivia | 38 | 1 | 97 | 27 KB | [`Bolivia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bolivia.xml) | valid XML; current verified upstream feeds |
 | Bosnia_and_Herzegovina | 7 | 0 | 0 | 1 KB | [`Bosnia_and_Herzegovina.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bosnia_and_Herzegovina.xml) | valid XML; current verified upstream feeds |
-| Brazil | 183 | 34 | 1953 | 511 KB | [`Brazil.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Brazil.xml) | valid XML; current verified upstream feeds |
+| Brazil | 180 | 34 | 1937 | 507 KB | [`Brazil.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Brazil.xml) | valid XML; current verified upstream feeds |
 | British_Virgin_Islands | 2 | 0 | 0 | 0 KB | [`British_Virgin_Islands.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/British_Virgin_Islands.xml) | valid XML; current verified upstream feeds |
-| Bulgaria | 63 | 27 | 991 | 244 KB | [`Bulgaria.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bulgaria.xml) | valid XML; current verified upstream feeds |
+| Bulgaria | 63 | 27 | 988 | 243 KB | [`Bulgaria.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Bulgaria.xml) | valid XML; current verified upstream feeds |
 | Burkina_Faso | 3 | 0 | 0 | 0 KB | [`Burkina_Faso.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Burkina_Faso.xml) | valid XML; current verified upstream feeds |
 | Burundi | 2 | 0 | 0 | 0 KB | [`Burundi.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Burundi.xml) | valid XML; current verified upstream feeds |
 | Cambodia | 12 | 1 | 77 | 20 KB | [`Cambodia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cambodia.xml) | valid XML; current verified upstream feeds |
-| Cameroon | 12 | 0 | 0 | 2 KB | [`Cameroon.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cameroon.xml) | valid XML; current verified upstream feeds |
-| Canada | 119 | 34 | 1623 | 544 KB | [`Canada.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Canada.xml) | valid XML; current verified upstream feeds |
+| Cameroon | 13 | 0 | 0 | 2 KB | [`Cameroon.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cameroon.xml) | valid XML; current verified upstream feeds |
+| Canada | 123 | 38 | 1833 | 620 KB | [`Canada.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Canada.xml) | valid XML; current verified upstream feeds |
 | Cape_Verde | 1 | 0 | 0 | 0 KB | [`Cape_Verde.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cape_Verde.xml) | valid XML; current verified upstream feeds |
 | Caribbean_Netherlands | 4 | 0 | 0 | 0 KB | [`Caribbean_Netherlands.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Caribbean_Netherlands.xml) | valid XML; current verified upstream feeds |
 | Chad | 1 | 0 | 0 | 0 KB | [`Chad.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Chad.xml) | valid XML; current verified upstream feeds |
-| Chile | 176 | 2 | 83 | 51 KB | [`Chile.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Chile.xml) | valid XML; current verified upstream feeds |
-| China | 81 | 18 | 1704 | 462 KB | [`China.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/China.xml) | valid XML; current verified upstream feeds |
-| Colombia | 98 | 4 | 259 | 122 KB | [`Colombia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Colombia.xml) | valid XML; current verified upstream feeds |
-| Costa_Rica | 50 | 6 | 349 | 60 KB | [`Costa_Rica.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Costa_Rica.xml) | valid XML; current verified upstream feeds |
-| Croatia | 10 | 6 | 283 | 44 KB | [`Croatia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Croatia.xml) | valid XML; current verified upstream feeds |
+| Chile | 174 | 2 | 82 | 50 KB | [`Chile.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Chile.xml) | valid XML; current verified upstream feeds |
+| China | 81 | 18 | 1711 | 448 KB | [`China.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/China.xml) | valid XML; current verified upstream feeds |
+| Colombia | 98 | 4 | 255 | 120 KB | [`Colombia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Colombia.xml) | valid XML; current verified upstream feeds |
+| Costa_Rica | 50 | 6 | 345 | 59 KB | [`Costa_Rica.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Costa_Rica.xml) | valid XML; current verified upstream feeds |
+| Croatia | 12 | 6 | 279 | 44 KB | [`Croatia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Croatia.xml) | valid XML; current verified upstream feeds |
 | Cuba | 2 | 0 | 0 | 0 KB | [`Cuba.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cuba.xml) | valid XML; current verified upstream feeds |
 | Curacao | 3 | 0 | 0 | 0 KB | [`Curacao.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Curacao.xml) | valid XML; current verified upstream feeds |
-| Cyprus | 8 | 1 | 38 | 7 KB | [`Cyprus.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cyprus.xml) | valid XML; current verified upstream feeds |
-| Czechia | 88 | 46 | 2742 | 537 KB | [`Czechia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Czechia.xml) | valid XML; current verified upstream feeds |
+| Cyprus | 8 | 1 | 39 | 7 KB | [`Cyprus.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Cyprus.xml) | valid XML; current verified upstream feeds |
+| Czechia | 88 | 46 | 2729 | 534 KB | [`Czechia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Czechia.xml) | valid XML; current verified upstream feeds |
 | DR_Congo | 4 | 0 | 0 | 0 KB | [`DR_Congo.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/DR_Congo.xml) | valid XML; current verified upstream feeds |
 | Denmark | 7 | 5 | 399 | 90 KB | [`Denmark.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Denmark.xml) | valid XML; current verified upstream feeds |
-| Dominican_Republic | 195 | 3 | 391 | 174 KB | [`Dominican_Republic.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Dominican_Republic.xml) | valid XML; current verified upstream feeds |
-| Ecuador | 52 | 0 | 0 | 9 KB | [`Ecuador.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ecuador.xml) | valid XML; current verified upstream feeds |
+| Dominican_Republic | 199 | 3 | 385 | 172 KB | [`Dominican_Republic.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Dominican_Republic.xml) | valid XML; current verified upstream feeds |
+| Ecuador | 53 | 0 | 0 | 9 KB | [`Ecuador.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ecuador.xml) | valid XML; current verified upstream feeds |
 | Egypt | 17 | 1 | 72 | 13 KB | [`Egypt.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Egypt.xml) | valid XML; current verified upstream feeds |
 | El_Salvador | 18 | 0 | 0 | 2 KB | [`El_Salvador.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/El_Salvador.xml) | valid XML; current verified upstream feeds |
 | Eritrea | 1 | 0 | 0 | 0 KB | [`Eritrea.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Eritrea.xml) | valid XML; current verified upstream feeds |
 | Estonia | 18 | 1 | 12 | 6 KB | [`Estonia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Estonia.xml) | valid XML; current verified upstream feeds |
 | Ethiopia | 1 | 0 | 0 | 0 KB | [`Ethiopia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ethiopia.xml) | valid XML; current verified upstream feeds |
 | Faroe_Islands | 2 | 0 | 0 | 0 KB | [`Faroe_Islands.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Faroe_Islands.xml) | valid XML; current verified upstream feeds |
-| Finland | 20 | 10 | 625 | 95 KB | [`Finland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Finland.xml) | valid XML; current verified upstream feeds |
-| France | 181 | 78 | 4249 | 1132 KB | [`France.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/France.xml) | valid XML; current verified upstream feeds |
+| Finland | 20 | 10 | 629 | 95 KB | [`Finland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Finland.xml) | valid XML; current verified upstream feeds |
+| France | 182 | 79 | 4276 | 1136 KB | [`France.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/France.xml) | valid XML; current verified upstream feeds |
 | French_Guiana | 1 | 0 | 0 | 0 KB | [`French_Guiana.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/French_Guiana.xml) | valid XML; current verified upstream feeds |
 | Gambia | 1 | 0 | 0 | 0 KB | [`Gambia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Gambia.xml) | valid XML; current verified upstream feeds |
-| Georgia | 13 | 1 | 137 | 24 KB | [`Georgia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Georgia.xml) | valid XML; current verified upstream feeds |
-| Germany | 362 | 84 | 6411 | 2249 KB | [`Germany.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Germany.xml) | valid XML; current verified upstream feeds |
+| Georgia | 13 | 1 | 134 | 23 KB | [`Georgia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Georgia.xml) | valid XML; current verified upstream feeds |
+| Germany | 361 | 83 | 6407 | 2255 KB | [`Germany.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Germany.xml) | valid XML; current verified upstream feeds |
 | Ghana | 6 | 0 | 0 | 1 KB | [`Ghana.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ghana.xml) | valid XML; current verified upstream feeds |
-| Greece | 78 | 10 | 382 | 106 KB | [`Greece.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Greece.xml) | valid XML; current verified upstream feeds |
+| Greece | 78 | 10 | 376 | 103 KB | [`Greece.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Greece.xml) | valid XML; current verified upstream feeds |
 | Guadeloupe | 4 | 0 | 0 | 0 KB | [`Guadeloupe.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Guadeloupe.xml) | valid XML; current verified upstream feeds |
 | Guam | 1 | 0 | 0 | 0 KB | [`Guam.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Guam.xml) | valid XML; current verified upstream feeds |
-| Guatemala | 34 | 2 | 75 | 18 KB | [`Guatemala.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Guatemala.xml) | valid XML; current verified upstream feeds |
+| Guatemala | 32 | 2 | 76 | 18 KB | [`Guatemala.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Guatemala.xml) | valid XML; current verified upstream feeds |
 | Guinea | 3 | 0 | 0 | 0 KB | [`Guinea.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Guinea.xml) | valid XML; current verified upstream feeds |
 | Guyana | 10 | 0 | 0 | 1 KB | [`Guyana.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Guyana.xml) | valid XML; current verified upstream feeds |
-| Haiti | 5 | 0 | 0 | 1 KB | [`Haiti.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Haiti.xml) | valid XML; current verified upstream feeds |
-| Honduras | 40 | 5 | 276 | 47 KB | [`Honduras.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Honduras.xml) | valid XML; current verified upstream feeds |
-| Hong_Kong | 7 | 3 | 184 | 88 KB | [`Hong_Kong.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Hong_Kong.xml) | valid XML; current verified upstream feeds |
-| Hungary | 151 | 64 | 4375 | 703 KB | [`Hungary.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Hungary.xml) | valid XML; current verified upstream feeds |
+| Haiti | 6 | 0 | 0 | 1 KB | [`Haiti.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Haiti.xml) | valid XML; current verified upstream feeds |
+| Honduras | 40 | 5 | 275 | 47 KB | [`Honduras.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Honduras.xml) | valid XML; current verified upstream feeds |
+| Hong_Kong | 7 | 3 | 186 | 88 KB | [`Hong_Kong.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Hong_Kong.xml) | valid XML; current verified upstream feeds |
+| Hungary | 150 | 64 | 4389 | 705 KB | [`Hungary.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Hungary.xml) | valid XML; current verified upstream feeds |
 | Iceland | 4 | 2 | 79 | 12 KB | [`Iceland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Iceland.xml) | valid XML; current verified upstream feeds |
-| India | 714 | 243 | 12965 | 3452 KB | [`India.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/India.xml) | valid XML; current verified upstream feeds |
-| Indonesia | 105 | 38 | 1490 | 319 KB | [`Indonesia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Indonesia.xml) | valid XML; current verified upstream feeds |
-| International | 820 | 61 | 2552 | 1067 KB | [`International.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/International.xml) | valid XML; current verified upstream feeds |
+| India | 715 | 243 | 12899 | 3412 KB | [`India.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/India.xml) | valid XML; current verified upstream feeds |
+| Indonesia | 103 | 38 | 1490 | 319 KB | [`Indonesia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Indonesia.xml) | valid XML; current verified upstream feeds |
+| International | 836 | 64 | 2706 | 1200 KB | [`International.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/International.xml) | valid XML; current verified upstream feeds |
 | Iran | 83 | 0 | 0 | 13 KB | [`Iran.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Iran.xml) | valid XML; current verified upstream feeds |
-| Iraq | 49 | 0 | 0 | 8 KB | [`Iraq.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Iraq.xml) | valid XML; current verified upstream feeds |
+| Iraq | 48 | 0 | 0 | 8 KB | [`Iraq.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Iraq.xml) | valid XML; current verified upstream feeds |
 | Ireland | 18 | 4 | 423 | 62 KB | [`Ireland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ireland.xml) | valid XML; current verified upstream feeds |
-| Israel | 36 | 4 | 327 | 60 KB | [`Israel.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Israel.xml) | valid XML; current verified upstream feeds |
-| Italy | 489 | 64 | 5337 | 1198 KB | [`Italy.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Italy.xml) | valid XML; current verified upstream feeds |
+| Israel | 43 | 6 | 540 | 98 KB | [`Israel.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Israel.xml) | valid XML; current verified upstream feeds |
+| Italy | 489 | 64 | 5317 | 1193 KB | [`Italy.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Italy.xml) | valid XML; current verified upstream feeds |
 | Ivory_Coast | 11 | 0 | 0 | 1 KB | [`Ivory_Coast.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ivory_Coast.xml) | valid XML; current verified upstream feeds |
-| Jamaica | 6 | 1 | 58 | 9 KB | [`Jamaica.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Jamaica.xml) | valid XML; current verified upstream feeds |
-| Japan | 14 | 7 | 838 | 325 KB | [`Japan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Japan.xml) | valid XML; current verified upstream feeds |
+| Jamaica | 6 | 1 | 57 | 9 KB | [`Jamaica.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Jamaica.xml) | valid XML; current verified upstream feeds |
+| Japan | 14 | 7 | 833 | 324 KB | [`Japan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Japan.xml) | valid XML; current verified upstream feeds |
 | Jordan | 16 | 0 | 0 | 2 KB | [`Jordan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Jordan.xml) | valid XML; current verified upstream feeds |
-| Kazakhstan | 20 | 4 | 286 | 70 KB | [`Kazakhstan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kazakhstan.xml) | valid XML; current verified upstream feeds |
+| Kazakhstan | 20 | 4 | 283 | 70 KB | [`Kazakhstan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kazakhstan.xml) | valid XML; current verified upstream feeds |
 | Kenya | 7 | 0 | 0 | 1 KB | [`Kenya.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kenya.xml) | valid XML; current verified upstream feeds |
-| Kosovo | 6 | 3 | 245 | 89 KB | [`Kosovo.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kosovo.xml) | valid XML; current verified upstream feeds |
+| Kosovo | 6 | 3 | 244 | 89 KB | [`Kosovo.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kosovo.xml) | valid XML; current verified upstream feeds |
 | Kuwait | 11 | 0 | 0 | 1 KB | [`Kuwait.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kuwait.xml) | valid XML; current verified upstream feeds |
 | Kyrgyzstan | 2 | 1 | 36 | 8 KB | [`Kyrgyzstan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Kyrgyzstan.xml) | valid XML; current verified upstream feeds |
 | Laos | 8 | 0 | 0 | 1 KB | [`Laos.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Laos.xml) | valid XML; current verified upstream feeds |
 | Latin_America | 1 | 0 | 0 | 0 KB | [`Latin_America.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Latin_America.xml) | valid XML; current verified upstream feeds |
-| Latvia | 8 | 5 | 294 | 59 KB | [`Latvia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Latvia.xml) | valid XML; current verified upstream feeds |
+| Latvia | 6 | 5 | 316 | 52 KB | [`Latvia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Latvia.xml) | valid XML; current verified upstream feeds |
 | Lebanon | 24 | 1 | 16 | 7 KB | [`Lebanon.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Lebanon.xml) | valid XML; current verified upstream feeds |
 | Libya | 4 | 0 | 0 | 0 KB | [`Libya.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Libya.xml) | valid XML; current verified upstream feeds |
-| Lithuania | 18 | 3 | 148 | 39 KB | [`Lithuania.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Lithuania.xml) | valid XML; current verified upstream feeds |
+| Lithuania | 18 | 3 | 147 | 39 KB | [`Lithuania.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Lithuania.xml) | valid XML; current verified upstream feeds |
 | Luxembourg | 11 | 1 | 57 | 10 KB | [`Luxembourg.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Luxembourg.xml) | valid XML; current verified upstream feeds |
 | Malaysia | 5 | 4 | 342 | 126 KB | [`Malaysia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Malaysia.xml) | valid XML; current verified upstream feeds |
-| Maldives | 5 | 1 | 26 | 7 KB | [`Maldives.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Maldives.xml) | valid XML; current verified upstream feeds |
+| Maldives | 5 | 1 | 25 | 7 KB | [`Maldives.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Maldives.xml) | valid XML; current verified upstream feeds |
 | Malta | 3 | 2 | 135 | 19 KB | [`Malta.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Malta.xml) | valid XML; current verified upstream feeds |
 | Martinique | 5 | 0 | 0 | 0 KB | [`Martinique.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Martinique.xml) | valid XML; current verified upstream feeds |
-| Mexico | 116 | 18 | 791 | 159 KB | [`Mexico.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Mexico.xml) | valid XML; current verified upstream feeds |
-| Moldova | 17 | 2 | 203 | 48 KB | [`Moldova.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Moldova.xml) | valid XML; current verified upstream feeds |
-| Monaco | 3 | 1 | 79 | 33 KB | [`Monaco.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Monaco.xml) | valid XML; current verified upstream feeds |
-| Mongolia | 62 | 3 | 135 | 58 KB | [`Mongolia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Mongolia.xml) | valid XML; current verified upstream feeds |
-| Montenegro | 3 | 1 | 154 | 22 KB | [`Montenegro.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Montenegro.xml) | valid XML; current verified upstream feeds |
+| Mexico | 116 | 18 | 788 | 158 KB | [`Mexico.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Mexico.xml) | valid XML; current verified upstream feeds |
+| Moldova | 17 | 2 | 202 | 48 KB | [`Moldova.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Moldova.xml) | valid XML; current verified upstream feeds |
+| Monaco | 3 | 1 | 77 | 32 KB | [`Monaco.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Monaco.xml) | valid XML; current verified upstream feeds |
+| Mongolia | 62 | 3 | 133 | 57 KB | [`Mongolia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Mongolia.xml) | valid XML; current verified upstream feeds |
+| Montenegro | 3 | 1 | 152 | 22 KB | [`Montenegro.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Montenegro.xml) | valid XML; current verified upstream feeds |
 | Morocco | 9 | 3 | 88 | 22 KB | [`Morocco.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Morocco.xml) | valid XML; current verified upstream feeds |
 | Mozambique | 3 | 0 | 0 | 0 KB | [`Mozambique.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Mozambique.xml) | valid XML; current verified upstream feeds |
 | Myanmar | 12 | 0 | 0 | 1 KB | [`Myanmar.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Myanmar.xml) | valid XML; current verified upstream feeds |
 | Namibia | 1 | 0 | 0 | 0 KB | [`Namibia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Namibia.xml) | valid XML; current verified upstream feeds |
 | Nepal | 4 | 0 | 0 | 0 KB | [`Nepal.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Nepal.xml) | valid XML; current verified upstream feeds |
-| Netherlands | 129 | 17 | 1629 | 314 KB | [`Netherlands.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Netherlands.xml) | valid XML; current verified upstream feeds |
-| New_Zealand | 7 | 6 | 338 | 103 KB | [`New_Zealand.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/New_Zealand.xml) | valid XML; current verified upstream feeds |
+| Netherlands | 129 | 17 | 1630 | 314 KB | [`Netherlands.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Netherlands.xml) | valid XML; current verified upstream feeds |
+| New_Zealand | 7 | 6 | 336 | 102 KB | [`New_Zealand.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/New_Zealand.xml) | valid XML; current verified upstream feeds |
 | Nicaragua | 7 | 1 | 8 | 3 KB | [`Nicaragua.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Nicaragua.xml) | valid XML; current verified upstream feeds |
 | Niger | 2 | 0 | 0 | 0 KB | [`Niger.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Niger.xml) | valid XML; current verified upstream feeds |
 | Nigeria | 30 | 0 | 0 | 5 KB | [`Nigeria.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Nigeria.xml) | valid XML; current verified upstream feeds |
 | North_Korea | 4 | 0 | 0 | 1 KB | [`North_Korea.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/North_Korea.xml) | valid XML; current verified upstream feeds |
-| North_Macedonia | 18 | 4 | 171 | 48 KB | [`North_Macedonia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/North_Macedonia.xml) | valid XML; current verified upstream feeds |
-| Norway | 5 | 2 | 199 | 81 KB | [`Norway.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Norway.xml) | valid XML; current verified upstream feeds |
+| North_Macedonia | 18 | 4 | 160 | 45 KB | [`North_Macedonia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/North_Macedonia.xml) | valid XML; current verified upstream feeds |
+| Norway | 5 | 2 | 201 | 81 KB | [`Norway.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Norway.xml) | valid XML; current verified upstream feeds |
 | Oman | 5 | 0 | 0 | 1 KB | [`Oman.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Oman.xml) | valid XML; current verified upstream feeds |
-| Pakistan | 48 | 1 | 15 | 13 KB | [`Pakistan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Pakistan.xml) | valid XML; current verified upstream feeds |
+| Pakistan | 50 | 1 | 14 | 13 KB | [`Pakistan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Pakistan.xml) | valid XML; current verified upstream feeds |
 | Palestine | 15 | 0 | 0 | 3 KB | [`Palestine.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Palestine.xml) | valid XML; current verified upstream feeds |
 | Panama | 15 | 0 | 0 | 2 KB | [`Panama.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Panama.xml) | valid XML; current verified upstream feeds |
 | Papua_New_Guinea | 1 | 0 | 0 | 0 KB | [`Papua_New_Guinea.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Papua_New_Guinea.xml) | valid XML; current verified upstream feeds |
-| Paraguay | 52 | 6 | 304 | 62 KB | [`Paraguay.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Paraguay.xml) | valid XML; current verified upstream feeds |
-| Peru | 134 | 2 | 73 | 47 KB | [`Peru.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Peru.xml) | valid XML; current verified upstream feeds |
-| Philippines | 10 | 5 | 193 | 55 KB | [`Philippines.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Philippines.xml) | valid XML; current verified upstream feeds |
-| Poland | 159 | 80 | 6300 | 1620 KB | [`Poland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Poland.xml) | valid XML; current verified upstream feeds |
+| Paraguay | 51 | 6 | 303 | 62 KB | [`Paraguay.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Paraguay.xml) | valid XML; current verified upstream feeds |
+| Peru | 133 | 2 | 72 | 46 KB | [`Peru.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Peru.xml) | valid XML; current verified upstream feeds |
+| Philippines | 10 | 5 | 192 | 55 KB | [`Philippines.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Philippines.xml) | valid XML; current verified upstream feeds |
+| Poland | 159 | 80 | 6270 | 1613 KB | [`Poland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Poland.xml) | valid XML; current verified upstream feeds |
 | Portugal | 42 | 17 | 1000 | 159 KB | [`Portugal.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Portugal.xml) | valid XML; current verified upstream feeds |
-| Puerto_Rico | 27 | 1 | 44 | 10 KB | [`Puerto_Rico.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Puerto_Rico.xml) | valid XML; current verified upstream feeds |
-| Qatar | 17 | 5 | 368 | 139 KB | [`Qatar.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Qatar.xml) | valid XML; current verified upstream feeds |
+| Puerto_Rico | 27 | 1 | 45 | 11 KB | [`Puerto_Rico.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Puerto_Rico.xml) | valid XML; current verified upstream feeds |
+| Qatar | 17 | 5 | 366 | 138 KB | [`Qatar.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Qatar.xml) | valid XML; current verified upstream feeds |
 | Republic_of_the_Congo | 2 | 0 | 0 | 0 KB | [`Republic_of_the_Congo.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Republic_of_the_Congo.xml) | valid XML; current verified upstream feeds |
-| Romania | 156 | 60 | 3028 | 505 KB | [`Romania.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Romania.xml) | valid XML; current verified upstream feeds |
-| Russia | 372 | 66 | 5424 | 1428 KB | [`Russia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Russia.xml) | valid XML; current verified upstream feeds |
+| Romania | 156 | 60 | 3034 | 505 KB | [`Romania.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Romania.xml) | valid XML; current verified upstream feeds |
+| Russia | 372 | 66 | 5352 | 1404 KB | [`Russia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Russia.xml) | valid XML; current verified upstream feeds |
 | Rwanda | 6 | 0 | 0 | 1 KB | [`Rwanda.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Rwanda.xml) | valid XML; current verified upstream feeds |
 | Saint_Kitts_and_Nevis | 2 | 0 | 0 | 0 KB | [`Saint_Kitts_and_Nevis.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Saint_Kitts_and_Nevis.xml) | valid XML; current verified upstream feeds |
 | Saint_Lucia | 2 | 0 | 0 | 0 KB | [`Saint_Lucia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Saint_Lucia.xml) | valid XML; current verified upstream feeds |
 | Saudi_Arabia | 43 | 3 | 63 | 25 KB | [`Saudi_Arabia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Saudi_Arabia.xml) | valid XML; current verified upstream feeds |
 | Senegal | 6 | 0 | 0 | 1 KB | [`Senegal.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Senegal.xml) | valid XML; current verified upstream feeds |
-| Serbia | 19 | 9 | 593 | 103 KB | [`Serbia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Serbia.xml) | valid XML; current verified upstream feeds |
+| Serbia | 19 | 9 | 592 | 103 KB | [`Serbia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Serbia.xml) | valid XML; current verified upstream feeds |
 | Sierra_Leone | 1 | 0 | 0 | 0 KB | [`Sierra_Leone.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Sierra_Leone.xml) | valid XML; current verified upstream feeds |
-| Singapore | 26 | 6 | 586 | 229 KB | [`Singapore.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Singapore.xml) | valid XML; current verified upstream feeds |
+| Singapore | 26 | 6 | 587 | 230 KB | [`Singapore.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Singapore.xml) | valid XML; current verified upstream feeds |
 | Sint_Maarten | 5 | 0 | 0 | 1 KB | [`Sint_Maarten.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Sint_Maarten.xml) | valid XML; current verified upstream feeds |
-| Slovakia | 58 | 3 | 1162 | 291 KB | [`Slovakia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Slovakia.xml) | valid XML; current verified upstream feeds |
+| Slovakia | 59 | 3 | 1148 | 288 KB | [`Slovakia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Slovakia.xml) | valid XML; current verified upstream feeds |
 | Slovenia | 5 | 0 | 0 | 1 KB | [`Slovenia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Slovenia.xml) | valid XML; current verified upstream feeds |
 | Somalia | 4 | 0 | 0 | 0 KB | [`Somalia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Somalia.xml) | valid XML; current verified upstream feeds |
-| South_Africa | 13 | 7 | 357 | 137 KB | [`South_Africa.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/South_Africa.xml) | valid XML; current verified upstream feeds |
-| South_Korea | 50 | 6 | 484 | 185 KB | [`South_Korea.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/South_Korea.xml) | valid XML; current verified upstream feeds |
-| Spain | 184 | 27 | 1451 | 324 KB | [`Spain.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Spain.xml) | valid XML; current verified upstream feeds |
+| South_Africa | 13 | 7 | 353 | 135 KB | [`South_Africa.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/South_Africa.xml) | valid XML; current verified upstream feeds |
+| South_Korea | 50 | 6 | 479 | 183 KB | [`South_Korea.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/South_Korea.xml) | valid XML; current verified upstream feeds |
+| Spain | 183 | 27 | 1444 | 323 KB | [`Spain.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Spain.xml) | valid XML; current verified upstream feeds |
 | Sri_Lanka | 5 | 0 | 0 | 1 KB | [`Sri_Lanka.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Sri_Lanka.xml) | valid XML; current verified upstream feeds |
 | Sudan | 3 | 0 | 0 | 0 KB | [`Sudan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Sudan.xml) | valid XML; current verified upstream feeds |
 | Suriname | 2 | 0 | 0 | 0 KB | [`Suriname.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Suriname.xml) | valid XML; current verified upstream feeds |
-| Sweden | 376 | 2 | 115 | 99 KB | [`Sweden.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Sweden.xml) | valid XML; current verified upstream feeds |
+| Sweden | 376 | 2 | 114 | 99 KB | [`Sweden.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Sweden.xml) | valid XML; current verified upstream feeds |
 | Switzerland | 23 | 5 | 339 | 63 KB | [`Switzerland.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Switzerland.xml) | valid XML; current verified upstream feeds |
 | Syria | 10 | 2 | 156 | 71 KB | [`Syria.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Syria.xml) | valid XML; current verified upstream feeds |
-| Taiwan | 16 | 2 | 166 | 63 KB | [`Taiwan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Taiwan.xml) | valid XML; current verified upstream feeds |
+| Taiwan | 16 | 2 | 168 | 64 KB | [`Taiwan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Taiwan.xml) | valid XML; current verified upstream feeds |
 | Tajikistan | 3 | 0 | 0 | 0 KB | [`Tajikistan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Tajikistan.xml) | valid XML; current verified upstream feeds |
 | Tanzania | 4 | 0 | 0 | 0 KB | [`Tanzania.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Tanzania.xml) | valid XML; current verified upstream feeds |
-| Thailand | 63 | 4 | 182 | 48 KB | [`Thailand.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Thailand.xml) | valid XML; current verified upstream feeds |
+| Thailand | 63 | 4 | 181 | 48 KB | [`Thailand.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Thailand.xml) | valid XML; current verified upstream feeds |
 | Togo | 3 | 0 | 0 | 0 KB | [`Togo.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Togo.xml) | valid XML; current verified upstream feeds |
-| Trinidad_and_Tobago | 5 | 1 | 37 | 6 KB | [`Trinidad_and_Tobago.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Trinidad_and_Tobago.xml) | valid XML; current verified upstream feeds |
+| Trinidad_and_Tobago | 5 | 1 | 38 | 6 KB | [`Trinidad_and_Tobago.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Trinidad_and_Tobago.xml) | valid XML; current verified upstream feeds |
 | Tunisia | 5 | 0 | 0 | 0 KB | [`Tunisia.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Tunisia.xml) | valid XML; current verified upstream feeds |
-| Turkey | 133 | 36 | 2619 | 600 KB | [`Turkey.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Turkey.xml) | valid XML; current verified upstream feeds |
+| Turkey | 133 | 36 | 2618 | 600 KB | [`Turkey.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Turkey.xml) | valid XML; current verified upstream feeds |
 | Turkmenistan | 8 | 0 | 0 | 1 KB | [`Turkmenistan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Turkmenistan.xml) | valid XML; current verified upstream feeds |
-| UK | 187 | 72 | 4526 | 1712 KB | [`UK.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/UK.xml) | valid XML; current verified upstream feeds |
-| USA | 2006 | 450 | 28105 | 13747 KB | [`USA.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml) | valid XML; current verified upstream feeds |
+| UK | 185 | 72 | 4509 | 1705 KB | [`UK.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/UK.xml) | valid XML; current verified upstream feeds |
+| USA | 2011 | 460 | 28571 | 14199 KB | [`USA.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml) | valid XML; current verified upstream feeds |
 | Uganda | 7 | 0 | 0 | 1 KB | [`Uganda.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Uganda.xml) | valid XML; current verified upstream feeds |
-| Ukraine | 149 | 20 | 1131 | 368 KB | [`Ukraine.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ukraine.xml) | valid XML; current verified upstream feeds |
-| United_Arab_Emirates | 39 | 3 | 205 | 78 KB | [`United_Arab_Emirates.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/United_Arab_Emirates.xml) | valid XML; current verified upstream feeds |
+| Ukraine | 149 | 20 | 1113 | 364 KB | [`Ukraine.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Ukraine.xml) | valid XML; current verified upstream feeds |
+| United_Arab_Emirates | 39 | 3 | 203 | 77 KB | [`United_Arab_Emirates.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/United_Arab_Emirates.xml) | valid XML; current verified upstream feeds |
 | Uruguay | 7 | 0 | 0 | 1 KB | [`Uruguay.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Uruguay.xml) | valid XML; current verified upstream feeds |
-| Uzbekistan | 29 | 4 | 169 | 43 KB | [`Uzbekistan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Uzbekistan.xml) | valid XML; current verified upstream feeds |
-| Venezuela | 48 | 2 | 134 | 65 KB | [`Venezuela.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Venezuela.xml) | valid XML; current verified upstream feeds |
-| Vietnam | 65 | 29 | 442 | 99 KB | [`Vietnam.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Vietnam.xml) | valid XML; current verified upstream feeds |
+| Uzbekistan | 29 | 4 | 166 | 42 KB | [`Uzbekistan.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Uzbekistan.xml) | valid XML; current verified upstream feeds |
+| Venezuela | 48 | 2 | 133 | 65 KB | [`Venezuela.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Venezuela.xml) | valid XML; current verified upstream feeds |
+| Vietnam | 64 | 29 | 411 | 91 KB | [`Vietnam.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Vietnam.xml) | valid XML; current verified upstream feeds |
 | Western_Sahara | 1 | 0 | 0 | 0 KB | [`Western_Sahara.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Western_Sahara.xml) | valid XML; current verified upstream feeds |
 | Yemen | 4 | 0 | 0 | 0 KB | [`Yemen.xml`](https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Yemen.xml) | valid XML; current verified upstream feeds |
 
@@ -205,97 +205,97 @@ Each guide is a valid XMLTV file scoped to the matching country playlist. Channe
 
 | Guide | Status | Channels seen | Matched | By id | By name | Programmes kept | Dropped | Read |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| `epg.xml.gz` | ok | 15932 | 1701 | 6 | 1695 | 93921 | 1146571 | 48872 KB |
-| `epg_RU.xml.gz` | ok | 4181 | 360 | 6 | 354 | 21588 | 243846 | 4840 KB |
-| `epg_US.xml.gz` | ok | 5548 | 258 | 0 | 258 | 15042 | 396078 | 22278 KB |
-| `epg_IN.xml.gz` | ok | 528 | 227 | 0 | 227 | 5340 | 14629 | 675 KB |
-| `epg-us.xml.gz` | ok | 12844 | 215 | 201 | 14 | 12212 | 1158121 | 60890 KB |
-| `epg-in.xml.gz` | ok | 419 | 191 | 191 | 0 | 12615 | 57042 | 2987 KB |
-| `TV.xml` | ok | 206 | 175 | 143 | 32 | 10620 | 11126 | 20586 KB |
-| `epg_GB.xml.gz` | ok | 752 | 136 | 0 | 136 | 8111 | 45382 | 2495 KB |
-| `epg_FR.xml.gz` | ok | 514 | 90 | 0 | 90 | 5080 | 36924 | 1999 KB |
-| `epg_SG.xml.gz` | ok | 358 | 87 | 0 | 87 | 4783 | 23766 | 1222 KB |
-| `epg_DE.xml.gz` | ok | 250 | 72 | 0 | 72 | 5479 | 17229 | 1722 KB |
-| `epg-de.xml.gz` | ok | 438 | 68 | 68 | 0 | 5312 | 71563 | 8786 KB |
-| `epg-pl.xml.gz` | ok | 447 | 64 | 64 | 0 | 5161 | 92417 | 10969 KB |
-| `epg-hu.xml.gz` | ok | 152 | 63 | 63 | 0 | 4352 | 28310 | 2771 KB |
-| `epg_AU.xml.gz` | ok | 206 | 62 | 0 | 62 | 2068 | 11609 | 465 KB |
+| `epg.xml.gz` | ok | 15932 | 1716 | 6 | 1710 | 93880 | 1146612 | 48872 KB |
+| `epg_RU.xml.gz` | ok | 4181 | 359 | 6 | 353 | 21285 | 244149 | 4840 KB |
+| `epg_US.xml.gz` | ok | 5548 | 263 | 0 | 263 | 15112 | 396008 | 22278 KB |
+| `epg_IN.xml.gz` | ok | 528 | 226 | 0 | 226 | 5185 | 14784 | 675 KB |
+| `epg-us.xml.gz` | ok | 12844 | 215 | 201 | 14 | 12198 | 1158135 | 60890 KB |
+| `epg-in.xml.gz` | ok | 419 | 192 | 192 | 0 | 12627 | 57030 | 2987 KB |
+| `TV.xml` | ok | 206 | 183 | 154 | 29 | 11038 | 10708 | 20586 KB |
+| `epg_GB.xml.gz` | ok | 752 | 136 | 0 | 136 | 8009 | 45484 | 2495 KB |
+| `epg_FR.xml.gz` | ok | 514 | 90 | 0 | 90 | 4920 | 37084 | 1999 KB |
+| `epg_SG.xml.gz` | ok | 358 | 87 | 0 | 87 | 4785 | 23764 | 1222 KB |
+| `epg_DE.xml.gz` | ok | 250 | 72 | 0 | 72 | 5490 | 17218 | 1722 KB |
+| `epg-de.xml.gz` | ok | 438 | 68 | 68 | 0 | 5309 | 71566 | 8786 KB |
+| `epg-pl.xml.gz` | ok | 447 | 64 | 64 | 0 | 5166 | 92412 | 10969 KB |
+| `epg-hu.xml.gz` | ok | 152 | 63 | 63 | 0 | 4366 | 28296 | 2771 KB |
+| `epg_AU.xml.gz` | ok | 206 | 62 | 0 | 62 | 2059 | 11618 | 465 KB |
 | `epg-ua.xml.gz` | ok | 231 | 61 | 61 | 0 | 0 | 16571 | 98 KB |
-| `epg-ro.xml.gz` | ok | 282 | 60 | 60 | 0 | 2966 | 42477 | 1797 KB |
-| `epg-it.xml.gz` | ok | 306 | 58 | 58 | 0 | 4589 | 35319 | 1760 KB |
-| `epg_ZA.xml.gz` | ok | 270 | 58 | 0 | 58 | 4069 | 16754 | 703 KB |
-| `epg_CN.xml.gz` | ok | 710 | 54 | 0 | 54 | 3137 | 34367 | 442 KB |
-| `epg_MY.xml.gz` | ok | 342 | 49 | 0 | 49 | 3327 | 39415 | 1273 KB |
-| `epg_CA.xml.gz` | ok | 696 | 43 | 0 | 43 | 2327 | 56689 | 3016 KB |
-| `epg-gb.xml.gz` | ok | 932 | 41 | 41 | 0 | 2387 | 115826 | 19346 KB |
-| `epg-cz.xml.gz` | ok | 261 | 39 | 39 | 0 | 2401 | 52356 | 5060 KB |
-| `epg_BR.xml.gz` | ok | 194 | 37 | 0 | 37 | 2712 | 17589 | 506 KB |
-| `epg_VN.xml.gz` | ok | 142 | 37 | 0 | 37 | 164 | 3479 | 82 KB |
-| `epg-fr.xml.gz` | ok | 485 | 36 | 36 | 0 | 1586 | 51133 | 3525 KB |
-| `epg_HK.xml.gz` | ok | 236 | 36 | 0 | 36 | 3022 | 45351 | 1725 KB |
+| `epg-ro.xml.gz` | ok | 282 | 60 | 60 | 0 | 2970 | 42473 | 1797 KB |
+| `epg-it.xml.gz` | ok | 306 | 58 | 58 | 0 | 4580 | 35328 | 1760 KB |
+| `epg_ZA.xml.gz` | ok | 270 | 56 | 0 | 56 | 3632 | 17191 | 703 KB |
+| `epg_CN.xml.gz` | ok | 710 | 54 | 0 | 54 | 3130 | 34374 | 442 KB |
+| `epg_CA.xml.gz` | ok | 696 | 48 | 0 | 48 | 2588 | 56428 | 3016 KB |
+| `epg_MY.xml.gz` | ok | 342 | 47 | 0 | 47 | 3275 | 39467 | 1273 KB |
+| `epg-gb.xml.gz` | ok | 932 | 41 | 41 | 0 | 2386 | 115827 | 19346 KB |
+| `epg-cz.xml.gz` | ok | 261 | 39 | 39 | 0 | 2400 | 52357 | 5060 KB |
+| `epg-fr.xml.gz` | ok | 485 | 37 | 37 | 0 | 1643 | 51076 | 3525 KB |
+| `epg_BR.xml.gz` | ok | 194 | 37 | 0 | 37 | 2690 | 17611 | 506 KB |
+| `epg_VN.xml.gz` | ok | 142 | 37 | 0 | 37 | 129 | 3514 | 82 KB |
+| `epg_HK.xml.gz` | ok | 236 | 36 | 0 | 36 | 3025 | 45348 | 1725 KB |
+| `epg_TW.xml.gz` | ok | 516 | 35 | 0 | 35 | 3232 | 88877 | 2053 KB |
 | `epg-br.xml.gz` | ok | 182 | 34 | 34 | 0 | 1634 | 28620 | 3410 KB |
-| `epg_TW.xml.gz` | ok | 516 | 34 | 0 | 34 | 3166 | 88943 | 2053 KB |
-| `epg-bg.xml.gz` | ok | 116 | 32 | 32 | 0 | 975 | 12882 | 243 KB |
-| `epg_ripper_AL1.xml.gz` | ok | 178 | 32 | 3 | 29 | 1853 | 8992 | 519 KB |
-| `epg_ID.xml.gz` | ok | 157 | 30 | 0 | 30 | 2066 | 9535 | 166 KB |
-| `epg-es.xml.gz` | ok | 300 | 27 | 27 | 0 | 1400 | 36039 | 4048 KB |
-| `epg-tr.xml.gz` | ok | 108 | 27 | 26 | 1 | 2332 | 20860 | 2658 KB |
-| `epg-ca.xml.gz` | ok | 808 | 26 | 25 | 1 | 1149 | 120672 | 9558 KB |
+| `epg-bg.xml.gz` | ok | 116 | 32 | 32 | 0 | 971 | 12886 | 243 KB |
+| `epg_ripper_AL1.xml.gz` | ok | 178 | 32 | 3 | 29 | 1850 | 8995 | 519 KB |
+| `epg_ID.xml.gz` | ok | 157 | 30 | 0 | 30 | 2061 | 9540 | 166 KB |
+| `epg-ca.xml.gz` | ok | 808 | 27 | 26 | 1 | 1235 | 120586 | 9558 KB |
+| `epg-es.xml.gz` | ok | 300 | 27 | 27 | 0 | 1393 | 36046 | 4048 KB |
+| `epg-tr.xml.gz` | ok | 108 | 27 | 26 | 1 | 2330 | 20862 | 2658 KB |
 | `epg-co.xml.gz` | ok | 180 | 23 | 23 | 0 | 0 | 12960 | 77 KB |
-| `epg-ru.xml.gz` | ok | 223 | 20 | 20 | 0 | 1103 | 48996 | 4652 KB |
-| `epg-ar.xml.gz` | ok | 185 | 19 | 17 | 2 | 0 | 13320 | 80 KB |
-| `epg-mx.xml.gz` | ok | 175 | 19 | 19 | 0 | 707 | 20661 | 2010 KB |
-| `epg-pt.xml.gz` | ok | 195 | 17 | 16 | 1 | 949 | 35202 | 5273 KB |
+| `epg-ar.xml.gz` | ok | 185 | 21 | 19 | 2 | 0 | 13320 | 80 KB |
+| `epg-ru.xml.gz` | ok | 223 | 20 | 20 | 0 | 1105 | 48994 | 4652 KB |
+| `epg-mx.xml.gz` | ok | 175 | 19 | 19 | 0 | 704 | 20664 | 2010 KB |
+| `epg-pt.xml.gz` | ok | 195 | 17 | 16 | 1 | 951 | 35200 | 5273 KB |
 | `epg-cl.xml.gz` | ok | 184 | 16 | 15 | 1 | 0 | 13248 | 79 KB |
 | `epg_PH.xml.gz` | ok | 69 | 16 | 0 | 16 | 719 | 4079 | 170 KB |
-| `epg-nl.xml.gz` | ok | 184 | 12 | 12 | 0 | 1266 | 40084 | 12560 KB |
+| `epg-nl.xml.gz` | ok | 184 | 12 | 12 | 0 | 1275 | 40075 | 12560 KB |
 | `epg-lt.xml.gz` | ok | 184 | 11 | 11 | 0 | 19 | 44268 | 1375 KB |
-| `epg_NZ.xml.gz` | ok | 36 | 11 | 0 | 11 | 518 | 4580 | 212 KB |
-| `epg-at.xml.gz` | ok | 286 | 10 | 10 | 0 | 674 | 46592 | 6028 KB |
-| `epg-fi.xml.gz` | ok | 133 | 10 | 10 | 0 | 625 | 21054 | 1658 KB |
-| `epg_JP.xml.gz` | ok | 227 | 10 | 0 | 10 | 724 | 36806 | 2237 KB |
+| `epg_NZ.xml.gz` | ok | 36 | 11 | 0 | 11 | 516 | 4582 | 212 KB |
+| `epg-at.xml.gz` | ok | 286 | 10 | 10 | 0 | 672 | 46594 | 6028 KB |
+| `epg-fi.xml.gz` | ok | 133 | 10 | 10 | 0 | 629 | 21050 | 1658 KB |
+| `epg_JP.xml.gz` | ok | 227 | 10 | 0 | 10 | 718 | 36812 | 2237 KB |
 | `epg-pe.xml.gz` | ok | 128 | 9 | 9 | 0 | 0 | 9216 | 55 KB |
-| `epg-gr.xml.gz` | ok | 176 | 8 | 8 | 0 | 262 | 16409 | 2052 KB |
-| `epg-rs.xml.gz` | ok | 265 | 8 | 8 | 0 | 534 | 28930 | 1072 KB |
+| `epg-gr.xml.gz` | ok | 176 | 8 | 8 | 0 | 264 | 16407 | 2052 KB |
+| `epg-rs.xml.gz` | ok | 265 | 8 | 8 | 0 | 532 | 28932 | 1072 KB |
 | `epg-kr.xml.gz` | ok | 261 | 8 | 8 | 0 | 0 | 18581 | 124 KB |
-| `epg-vn.xml.gz` | ok | 186 | 8 | 8 | 0 | 387 | 14803 | 145 KB |
+| `epg-vn.xml.gz` | ok | 186 | 8 | 8 | 0 | 383 | 14807 | 145 KB |
+| `epg-il.xml.gz` | ok | 154 | 7 | 7 | 0 | 540 | 28428 | 1738 KB |
 | `epg-sa.xml.gz` | ok | 138 | 7 | 7 | 0 | 0 | 9720 | 58 KB |
-| `epg-cr.xml.gz` | ok | 84 | 6 | 6 | 0 | 365 | 10463 | 251 KB |
+| `epg-cr.xml.gz` | ok | 84 | 6 | 6 | 0 | 362 | 10466 | 251 KB |
+| `epg-hr.xml.gz` | ok | 248 | 6 | 6 | 0 | 265 | 40748 | 3439 KB |
 | `epg-ec.xml.gz` | ok | 104 | 6 | 5 | 1 | 0 | 7488 | 48 KB |
-| `epg-hn.xml.gz` | ok | 127 | 6 | 6 | 0 | 276 | 14787 | 1696 KB |
-| `epg-za.xml.gz` | ok | 174 | 6 | 5 | 1 | 297 | 31587 | 1881 KB |
-| `epg-ch.xml.gz` | ok | 705 | 6 | 5 | 1 | 318 | 109231 | 7706 KB |
-| `epg-hr.xml.gz` | ok | 248 | 5 | 5 | 0 | 269 | 40744 | 3439 KB |
-| `epg-dk.xml.gz` | ok | 237 | 5 | 5 | 0 | 403 | 30586 | 2348 KB |
-| `epg-il.xml.gz` | ok | 154 | 5 | 5 | 0 | 327 | 28641 | 1738 KB |
-| `epg-lv.xml.gz` | ok | 107 | 5 | 5 | 0 | 310 | 14615 | 782 KB |
-| `epg-py.xml.gz` | ok | 79 | 5 | 5 | 0 | 208 | 10070 | 1413 KB |
+| `epg-hn.xml.gz` | ok | 127 | 6 | 6 | 0 | 275 | 14788 | 1696 KB |
+| `epg-za.xml.gz` | ok | 174 | 6 | 5 | 1 | 294 | 31590 | 1881 KB |
+| `epg-ch.xml.gz` | ok | 705 | 6 | 5 | 1 | 316 | 109233 | 7706 KB |
+| `epg-dk.xml.gz` | ok | 237 | 5 | 5 | 0 | 402 | 30587 | 2348 KB |
+| `epg-lv.xml.gz` | ok | 107 | 5 | 5 | 0 | 316 | 14609 | 782 KB |
+| `epg-py.xml.gz` | ok | 79 | 5 | 5 | 0 | 209 | 10069 | 1413 KB |
 | `epg-be.xml.gz` | ok | 282 | 4 | 4 | 0 | 119 | 43543 | 11237 KB |
 | `epg-jp.xml.gz` | ok | 121 | 4 | 4 | 0 | 0 | 48208 | 5325 KB |
-| `epg-nz.xml.gz` | ok | 100 | 4 | 4 | 0 | 239 | 15289 | 594 KB |
+| `epg-nz.xml.gz` | ok | 100 | 4 | 4 | 0 | 238 | 15290 | 594 KB |
 | `epg-ph.xml.gz` | ok | 80 | 4 | 4 | 0 | 0 | 5760 | 36 KB |
 | `epg-lk.xml.gz` | ok | 129 | 4 | 4 | 0 | 0 | 9288 | 55 KB |
-| `epg-al.xml.gz` | ok | 203 | 3 | 3 | 0 | 73 | 8882 | 692 KB |
-| `epg-au.xml.gz` | ok | 490 | 3 | 3 | 0 | 187 | 61957 | 6952 KB |
-| `epg-sg.xml.gz` | ok | 209 | 3 | 3 | 0 | 320 | 33540 | 1074 KB |
+| `epg-al.xml.gz` | ok | 203 | 3 | 3 | 0 | 71 | 8884 | 692 KB |
+| `epg-au.xml.gz` | ok | 490 | 3 | 3 | 0 | 186 | 61958 | 6952 KB |
+| `epg-sg.xml.gz` | ok | 209 | 3 | 3 | 0 | 319 | 33541 | 1074 KB |
 | `epg-gh.xml.gz` | ok | 142 | 2 | 2 | 0 | 0 | 10369 | 78 KB |
-| `epg-gt.xml.gz` | ok | 95 | 2 | 2 | 0 | 83 | 12629 | 1716 KB |
+| `epg-gt.xml.gz` | ok | 95 | 2 | 2 | 0 | 85 | 12627 | 1716 KB |
 | `epg-is.xml.gz` | ok | 70 | 2 | 2 | 0 | 79 | 15548 | 1115 KB |
 | `epg-id.xml.gz` | ok | 141 | 2 | 2 | 0 | 122 | 19830 | 218 KB |
 | `epg-lu.xml.gz` | ok | 324 | 2 | 2 | 0 | 57 | 62108 | 5981 KB |
-| `epg-my.xml.gz` | ok | 150 | 2 | 2 | 0 | 141 | 23528 | 1500 KB |
+| `epg-my.xml.gz` | ok | 150 | 2 | 2 | 0 | 140 | 23529 | 1500 KB |
 | `epg-mt.xml.gz` | ok | 129 | 2 | 2 | 0 | 135 | 30183 | 1140 KB |
 | `epg-ng.xml.gz` | ok | 157 | 2 | 2 | 0 | 0 | 11304 | 69 KB |
 | `epg-th.xml.gz` | ok | 70 | 2 | 2 | 0 | 128 | 11952 | 648 KB |
 | `epg-eg.xml.gz` | ok | 88 | 1 | 1 | 0 | 72 | 8380 | 141 KB |
-| `epg-ge.xml.gz` | ok | 53 | 1 | 1 | 0 | 137 | 3964 | 63 KB |
-| `epg-jm.xml.gz` | ok | 125 | 1 | 1 | 0 | 58 | 12924 | 396 KB |
-| `epg-me.xml.gz` | ok | 212 | 1 | 1 | 0 | 154 | 43747 | 4405 KB |
+| `epg-ge.xml.gz` | ok | 53 | 1 | 1 | 0 | 134 | 3967 | 63 KB |
+| `epg-jm.xml.gz` | ok | 125 | 1 | 1 | 0 | 57 | 12925 | 396 KB |
+| `epg-me.xml.gz` | ok | 212 | 1 | 1 | 0 | 152 | 43749 | 4405 KB |
 | `epg-mk.xml.gz` | ok | 109 | 1 | 1 | 0 | 88 | 15419 | 2158 KB |
-| `epg-no.xml.gz` | ok | 96 | 1 | 1 | 0 | 70 | 16331 | 3798 KB |
+| `epg-no.xml.gz` | ok | 96 | 1 | 1 | 0 | 71 | 16330 | 3798 KB |
 | `epg-si.xml.gz` | ok | 435 | 1 | 1 | 0 | 0 | 31320 | 174 KB |
-| `epg-se.xml.gz` | ok | 95 | 1 | 1 | 0 | 54 | 16830 | 1186 KB |
-| `epg-tt.xml.gz` | ok | 8 | 1 | 1 | 0 | 37 | 2058 | 54 KB |
+| `epg-se.xml.gz` | ok | 95 | 1 | 1 | 0 | 53 | 16831 | 1186 KB |
+| `epg-tt.xml.gz` | ok | 8 | 1 | 1 | 0 | 38 | 2057 | 54 KB |
 | `epg-ug.xml.gz` | ok | 154 | 1 | 1 | 0 | 0 | 11088 | 68 KB |
 | `epg-af.xml.gz` | offline | 0 | 0 | 0 | 0 | 0 | 0 | 0 KB |
 | `epg-dz.xml.gz` | offline | 0 | 0 | 0 | 0 | 0 | 0 | 0 KB |
