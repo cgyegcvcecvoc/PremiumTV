@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-14T17:16:59Z",
+  "generated_utc": "2026-11-14T19:31:21Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261114T171314Z-2941",
+  "scrape_run_id": "20261114T192742Z-2950",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -13,51 +13,10 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 38,
-  "compliant_count": 2,
-  "deficit_count": 36,
+  "fixture_count": 65,
+  "compliant_count": 1,
+  "deficit_count": 64,
   "fixtures": [
-    {
-      "sport": "Basketball Greece League",
-      "league": "Basketball Greece League",
-      "home": "AS Karditsas",
-      "away": "PAOK",
-      "title": "AS Karditsas vs. PAOK",
-      "key": "basketballgreeceleague|askarditsas|paok",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.55"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "a77652590be9",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.55",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
     {
       "sport": "Boxing",
       "league": "Boxing",
@@ -101,11 +60,11 @@
     },
     {
       "sport": "College Football",
-      "league": "NCAA Women",
-      "home": "Georgia Southern Eagles",
-      "away": "Wofford Terriers",
-      "title": "Georgia Southern Eagles vs. Wofford Terriers",
-      "key": "collegefootball|georgiasoutherneagles|woffordterriers",
+      "league": "NCAA Men",
+      "home": "Army",
+      "away": "Saint Thomas Tommies",
+      "title": "Army vs. Saint Thomas Tommies",
+      "key": "collegefootball|army|saintthomastommies",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -129,7 +88,324 @@
       ],
       "feeds": [
         {
-          "fingerprint": "5bacd4463356",
+          "fingerprint": "f98a9f8a69d5",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Charlotte",
+      "away": "East Carolina",
+      "title": "Charlotte vs. East Carolina",
+      "key": "collegefootball|charlotte|eastcarolina",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "536b7b64dddf",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "7d422ad08bf1",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA - Football",
+      "home": "Clemson Tigers",
+      "away": "Georgia Tech Yellow Jackets",
+      "title": "Clemson Tigers vs. Georgia Tech Yellow Jackets",
+      "key": "collegefootball|clemsontigers|georgiatechyellowjackets",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "c3742f420111",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Clemson",
+      "away": "Georgia Tech",
+      "title": "Clemson vs. Georgia Tech",
+      "key": "collegefootball|clemson|georgiatech",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "2cad1e1dc052",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "3f2490703537",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Coastal Carolina",
+      "away": "Arkansas State",
+      "title": "Coastal Carolina vs. Arkansas State",
+      "key": "collegefootball|arkansasstate|coastalcarolina",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "bb8f4757aaa0",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "c7dc333b4442",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Colorado St.",
+      "away": "Loyola Chicago",
+      "title": "Colorado St. vs. Loyola Chicago",
+      "key": "collegefootball|coloradost|loyolachicago",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "17a614de3931",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Connecticut",
+      "away": "James Madison",
+      "title": "Connecticut vs. James Madison",
+      "key": "collegefootball|connecticut|jamesmadison",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "cc38b9900f5a",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Iowa State",
+      "away": "Cincinnati",
+      "title": "Iowa State vs. Cincinnati",
+      "key": "collegefootball|cincinnati|iowastate",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "825f8642257f",
           "role": "primary",
           "status": "reachable",
           "provider": "ISTRMEAST",
@@ -183,33 +459,43 @@
     },
     {
       "sport": "College Football",
-      "league": "NCAA American Football",
+      "league": "CFB",
       "home": "Maryland",
       "away": "Wisconsin",
       "title": "Maryland vs. Wisconsin",
       "key": "collegefootball|maryland|wisconsin",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
       "confirmed_backup_count": 0,
-      "primary_ready": false,
+      "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.50"
+        "193.47.62.50",
+        "hereisman.net"
       ],
       "providers": [
-        "FAWA"
+        "FAWA",
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 1 more confirmed dedicated backup feed(s)"
       ],
       "feeds": [
+        {
+          "fingerprint": "9c11249bbab6",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
         {
           "fingerprint": "96aa5bd2e3bf",
           "role": "primary",
@@ -265,11 +551,11 @@
     },
     {
       "sport": "College Football",
-      "league": "NCAA - Football",
+      "league": "CFB",
       "home": "Miami Hurricanes",
-      "away": "Duke Blue Devils",
-      "title": "Miami Hurricanes vs. Duke Blue Devils",
-      "key": "collegefootball|dukebluedevils|miamihurricanes",
+      "away": "Duke",
+      "title": "Miami Hurricanes vs. Duke",
+      "key": "collegefootball|duke|miamihurricanes",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -277,10 +563,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "damitv.st"
+        "hereisman.net"
       ],
       "providers": [
-        "DAMITV"
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
@@ -290,6 +576,47 @@
         "needs 1 more confirmed primary feed(s)",
         "needs 1 more confirmed dedicated backup feed(s)",
         "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "6eeb2eff4e6b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA - Football",
+      "home": "Miami Hurricanes",
+      "away": "Duke Blue Devils",
+      "title": "Miami Hurricanes vs. Duke Blue Devils",
+      "key": "collegefootball|dukebluedevils|miamihurricanes",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st",
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "DAMITV",
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
       ],
       "feeds": [
         {
@@ -301,16 +628,26 @@
           "ingest_sources": [
             "doms9"
           ]
+        },
+        {
+          "fingerprint": "5a8096a2c835",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
         }
       ]
     },
     {
       "sport": "College Football",
-      "league": "NCAA American Football",
-      "home": "Mississippi",
-      "away": "St Auburn",
-      "title": "Mississippi vs. St Auburn",
-      "key": "collegefootball|mississippi|stauburn",
+      "league": "NCAAF",
+      "home": "Missouri Tigers",
+      "away": "Georgia Bulldogs",
+      "title": "Missouri Tigers vs. Georgia Bulldogs",
+      "key": "collegefootball|georgiabulldogs|missouritigers",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -318,10 +655,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.50"
+        "mixedshop.pw"
       ],
       "providers": [
-        "FAWA"
+        "GSPORTS"
       ],
       "ingest_sources": [
         "doms9"
@@ -334,11 +671,52 @@
       ],
       "feeds": [
         {
-          "fingerprint": "55648cabe6db",
+          "fingerprint": "24777a94613c",
           "role": "primary",
           "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "NC State",
+      "away": "Syracuse",
+      "title": "NC State vs. Syracuse",
+      "key": "collegefootball|ncstate|syracuse",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "528025f8bae5",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -388,11 +766,11 @@
     },
     {
       "sport": "College Football",
-      "league": "NCAA - Football",
-      "home": "Ohio State Buckeyes",
-      "away": "Northwestern Wildcats",
-      "title": "Ohio State Buckeyes vs. Northwestern Wildcats",
-      "key": "collegefootball|northwesternwildcats|ohiostatebuckeyes",
+      "league": "NCAA Women",
+      "home": "Notre Dame Fighting Irish",
+      "away": "DePaul Blue Demons",
+      "title": "Notre Dame Fighting Irish vs. DePaul Blue Demons",
+      "key": "collegefootball|depaulbluedemons|notredamefightingirish",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -400,10 +778,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "damitv.st"
+        "hereisman.net"
       ],
       "providers": [
-        "DAMITV"
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
@@ -416,11 +794,246 @@
       ],
       "feeds": [
         {
+          "fingerprint": "35f4286fc26f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA - Football",
+      "home": "Ohio State Buckeyes",
+      "away": "Northwestern Wildcats",
+      "title": "Ohio State Buckeyes vs. Northwestern Wildcats",
+      "key": "collegefootball|northwesternwildcats|ohiostatebuckeyes",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st",
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "DAMITV",
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
           "fingerprint": "8d4e8f4ea7b2",
           "role": "primary",
           "status": "reachable",
           "provider": "DAMITV",
           "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "d0822038f353",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Ohio State",
+      "away": "Northwestern",
+      "title": "Ohio State vs. Northwestern",
+      "key": "collegefootball|northwestern|ohiostate",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "1ecac2b3e053",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "85a2bc011946",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAAF",
+      "home": "Ole Miss Rebels",
+      "away": "Oklahoma Sooners",
+      "title": "Ole Miss Rebels vs. Oklahoma Sooners",
+      "key": "collegefootball|oklahomasooners|olemissrebels",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "b86ae6b9e21f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAAF",
+      "home": "Oregon State Beavers",
+      "away": "Boise State Broncos",
+      "title": "Oregon State Beavers vs. Boise State Broncos",
+      "key": "collegefootball|boisestatebroncos|oregonstatebeavers",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "61120570e1b8",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Rutgers",
+      "away": "Nebraska",
+      "title": "Rutgers vs. Nebraska",
+      "key": "collegefootball|nebraska|rutgers",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "85cb62d24243",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "8cc09fe674ad",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
           "ingest_sources": [
             "doms9"
           ]
@@ -430,10 +1043,10 @@
     {
       "sport": "College Football",
       "league": "NCAA American Football",
-      "home": "Ohio State",
-      "away": "Northwestern",
-      "title": "Ohio State vs. Northwestern",
-      "key": "collegefootball|northwestern|ohiostate",
+      "home": "Sam Houston State",
+      "away": "Kennesaw State",
+      "title": "Sam Houston State vs. Kennesaw State",
+      "key": "collegefootball|kennesawstate|samhoustonstate",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -457,7 +1070,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "85a2bc011946",
+          "fingerprint": "1c9023eacf66",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -475,6 +1088,57 @@
       "away": "Wake Forest Demon Deacons",
       "title": "SMU Mustangs vs. Wake Forest Demon Deacons",
       "key": "collegefootball|smumustangs|wakeforestdemondeacons",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st",
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "DAMITV",
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "d68b74bde90b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "928fc26bd40b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "SMU",
+      "away": "Wake Forest",
+      "title": "SMU vs. Wake Forest",
+      "key": "collegefootball|smu|wakeforest",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -482,10 +1146,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "damitv.st"
+        "hereisman.net"
       ],
       "providers": [
-        "DAMITV"
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
@@ -498,11 +1162,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "d68b74bde90b",
+          "fingerprint": "4e39e7f3d7c8",
           "role": "primary",
           "status": "reachable",
-          "provider": "DAMITV",
-          "origin_family": "damitv.st",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -551,12 +1215,12 @@
       ]
     },
     {
-      "sport": "ENG 4",
-      "league": "ENG 4",
-      "home": "Gillingham",
-      "away": "Colchester United",
-      "title": "Gillingham vs. Colchester United",
-      "key": "eng4|colchesterunited|gillingham",
+      "sport": "College Football",
+      "league": "NCAA American Football",
+      "home": "TCU",
+      "away": "Kansas State",
+      "title": "TCU vs. Kansas State",
+      "key": "collegefootball|kansasstate|tcu",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -564,130 +1228,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "candyshop.st"
-      ],
-      "providers": [
-        "STRMGATE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "3c55fdb12499",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "ENG W 1",
-      "league": "ENG W 1",
-      "home": "Everton",
-      "away": "Tottenham Hotspur",
-      "title": "Everton vs. Tottenham Hotspur",
-      "key": "engw1|everton|tottenhamhotspur",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "candyshop.st"
-      ],
-      "providers": [
-        "STRMGATE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "a9b70af4e4df",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "ESP 2",
-      "league": "ESP 2",
-      "home": "Sporting Gijón",
-      "away": "Real Sociedad II",
-      "title": "Sporting Gijón vs. Real Sociedad II",
-      "key": "esp2|realsociedadii|sportinggijn",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "candyshop.st"
-      ],
-      "providers": [
-        "STRMGATE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "9d5d20050275",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "Carolina Hurricanes",
-      "away": "Seattle Kraken",
-      "title": "Carolina Hurricanes vs. Seattle Kraken",
-      "key": "nhlhockey|carolinahurricanes|seattlekraken",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.50"
       ],
       "providers": [
         "FAWA"
@@ -703,11 +1244,401 @@
       ],
       "feeds": [
         {
+          "fingerprint": "9cd9bdbd037a",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Temple",
+      "away": "UAB",
+      "title": "Temple vs. UAB",
+      "key": "collegefootball|temple|uab",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "7c6928d8c78d",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "c57ead9eb1a0",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAAF",
+      "home": "Tennessee Volunteers",
+      "away": "Texas A&M Aggies",
+      "title": "Tennessee Volunteers vs. Texas A&M Aggies",
+      "key": "collegefootball|tennesseevolunteers|texasamaggies",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "b93f49fa2749",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Men's Basketball",
+      "home": "Texas Tech Red Raiders",
+      "away": "Stonehill Skyhawks",
+      "title": "Texas Tech Red Raiders vs. Stonehill Skyhawks",
+      "key": "collegefootball|stonehillskyhawks|texastechredraiders",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "46cd0906567f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAAF",
+      "home": "Utah Utes",
+      "away": "Arizona Wildcats",
+      "title": "Utah Utes vs. Arizona Wildcats",
+      "key": "collegefootball|arizonawildcats|utahutes",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "70a7c4875767",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA - Football",
+      "home": "Vanderbilt Commodores",
+      "away": "Alabama Crimson Tide",
+      "title": "Vanderbilt Commodores vs. Alabama Crimson Tide",
+      "key": "collegefootball|alabamacrimsontide|vanderbiltcommodores",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st",
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "DAMITV",
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "77e718926e99",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "52dda5f1499d",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "CFB",
+      "home": "Vanderbilt",
+      "away": "Alabama",
+      "title": "Vanderbilt vs. Alabama",
+      "key": "collegefootball|alabama|vanderbilt",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "e56435377e61",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "d88cf65e625e",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "National Hockey League",
+      "league": "National Hockey League",
+      "home": "Carolina Hurricanes",
+      "away": "Seattle Kraken",
+      "title": "Carolina Hurricanes vs. Seattle Kraken",
+      "key": "nationalhockeyleague|carolinahurricanes|seattlekraken",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st"
+      ],
+      "providers": [
+        "DAMITV"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "2a99fc86bd53",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "NHL Hockey",
+      "league": "NHL",
+      "home": "Carolina Hurricanes",
+      "away": "Seattle Kraken",
+      "title": "Carolina Hurricanes vs. Seattle Kraken",
+      "key": "nhlhockey|carolinahurricanes|seattlekraken",
+      "feed_count": 4,
+      "confirmed_feed_count": 4,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 2,
+      "primary_ready": true,
+      "backup_ready": true,
+      "origin_families": [
+        "candyshop.st",
+        "hereisman.net",
+        "kinescopecdn.net",
+        "mlb9.com"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST",
+        "MP66",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": true,
+      "deficits": [],
+      "feeds": [
+        {
+          "fingerprint": "596b281f3f0c",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
           "fingerprint": "83173808970c",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "kinescopecdn.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "4cd002256591",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "1e9624fd5385",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "MP66",
+          "origin_family": "mlb9.com",
           "ingest_sources": [
             "doms9"
           ]
@@ -880,11 +1811,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "UAE League Cup",
-      "home": "Al Wasl",
-      "away": "Al Nasr",
-      "title": "Al Wasl vs. Al Nasr",
-      "key": "soccer|alnasr|alwasl",
+      "league": "Africa Cup of Nations",
+      "home": "Algeria",
+      "away": "Togo",
+      "title": "Algeria vs. Togo",
+      "key": "soccer|algeria|togo",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -892,7 +1823,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.55"
+        "193.47.62.44"
       ],
       "providers": [
         "FAWA"
@@ -908,11 +1839,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "191b2e1da9ec",
+          "fingerprint": "ef1e19aa8588",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.55",
+          "origin_family": "193.47.62.44",
           "ingest_sources": [
             "doms9"
           ]
@@ -921,11 +1852,52 @@
     },
     {
       "sport": "Soccer",
-      "league": "Spanish Liga F Women",
-      "home": "Alaves W",
-      "away": "Eibar W",
-      "title": "Alaves W vs. Eibar W",
-      "key": "soccer|alavesw|eibarw",
+      "league": "Dutch Eerste Divisie",
+      "home": "Almere City",
+      "away": "Helmond",
+      "title": "Almere City vs. Helmond",
+      "key": "soccer|almerecity|helmond",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "14cdcc592c5d",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Spanish Segunda Liga",
+      "home": "Almeria",
+      "away": "Andorra",
+      "title": "Almeria vs. Andorra",
+      "key": "soccer|almeria|andorra",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -949,7 +1921,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "b614ff1d1f7a",
+          "fingerprint": "d65ac12ef1d9",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -962,11 +1934,257 @@
     },
     {
       "sport": "Soccer",
-      "league": "Scottish Championship",
-      "home": "Ayr United",
-      "away": "Raith",
-      "title": "Ayr United vs. Raith",
-      "key": "soccer|ayrunited|raith",
+      "league": "Africa Cup of Nations",
+      "home": "Angola",
+      "away": "South Sudan",
+      "title": "Angola vs. South Sudan",
+      "key": "soccer|angola|southsudan",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "acd0d811b939",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Brazil Serie B",
+      "home": "Atletico GO",
+      "away": "Cuiaba",
+      "title": "Atletico GO vs. Cuiaba",
+      "key": "soccer|atleticogo|cuiaba",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "7b385c749ca0",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Brazil Serie B",
+      "home": "CRB",
+      "away": "Ceara",
+      "title": "CRB vs. Ceara",
+      "key": "soccer|ceara|crb",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "c71342775066",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Brazil Serie B",
+      "home": "Criciuma",
+      "away": "Novorizontino",
+      "title": "Criciuma vs. Novorizontino",
+      "key": "soccer|criciuma|novorizontino",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "b360a03d74f7",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Dutch Eerste Divisie",
+      "home": "De Graafschap",
+      "away": "Top Oss",
+      "title": "De Graafschap vs. Top Oss",
+      "key": "soccer|degraafschap|toposs",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "3470e19ab57a",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Dutch Eerste Divisie",
+      "home": "Dordrecht",
+      "away": "Heracles",
+      "title": "Dordrecht vs. Heracles",
+      "key": "soccer|dordrecht|heracles",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "a6e77a011924",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English League Two",
+      "home": "Fleetwood",
+      "away": "Tranmere",
+      "title": "Fleetwood vs. Tranmere",
+      "key": "soccer|fleetwood|tranmere",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -990,7 +2208,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "696f54c288c3",
+          "fingerprint": "b24fccce473f",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -1003,295 +2221,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "Italy Women Serie A",
-      "home": "Fiorentina W",
-      "away": "Lazio W",
-      "title": "Fiorentina W vs. Lazio W",
-      "key": "soccer|fiorentinaw|laziow",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.59"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "583d16a5a9d4",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.59",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Nations League",
+      "league": "Soccer",
       "home": "Georgia",
       "away": "Hungary",
       "title": "Georgia vs. Hungary",
       "key": "soccer|georgia|hungary",
-      "feed_count": 3,
-      "confirmed_feed_count": 3,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 1,
-      "primary_ready": true,
-      "backup_ready": true,
-      "origin_families": [
-        "193.47.62.50",
-        "damitv.st",
-        "rtmpcdn.com"
-      ],
-      "providers": [
-        "DAMITV",
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": true,
-      "deficits": [],
-      "feeds": [
-        {
-          "fingerprint": "d833f62c8c83",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "2036aa1560a8",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "ce4f6741b01c",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "DAMITV",
-          "origin_family": "damitv.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UAE League Cup",
-      "home": "Hatta",
-      "away": "Al Ain",
-      "title": "Hatta vs. Al Ain",
-      "key": "soccer|alain|hatta",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.55"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "6331b6bf4803",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.55",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Dutch Eerste Divisie",
-      "home": "NAC Breda",
-      "away": "FC Emmen",
-      "title": "NAC Breda vs. FC Emmen",
-      "key": "soccer|fcemmen|nacbreda",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.55"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "b94187e84a1f",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.55",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Nations League",
-      "home": "Norway",
-      "away": "Wales",
-      "title": "Norway vs. Wales",
-      "key": "soccer|norway|wales",
-      "feed_count": 3,
-      "confirmed_feed_count": 3,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 1,
-      "primary_ready": true,
-      "backup_ready": true,
-      "origin_families": [
-        "193.47.62.50",
-        "damitv.st",
-        "rtmpcdn.com"
-      ],
-      "providers": [
-        "DAMITV",
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": true,
-      "deficits": [],
-      "feeds": [
-        {
-          "fingerprint": "28794d457524",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "cb1a0819d46a",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "83a484f6e9a2",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "DAMITV",
-          "origin_family": "damitv.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Spanish Segunda Liga",
-      "home": "Real Sociedad B",
-      "away": "Gijon",
-      "title": "Real Sociedad B vs. Gijon",
-      "key": "soccer|gijon|realsociedadb",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.59"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "6e66f2decfbe",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.59",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Africa Cup of Nations",
-      "home": "Uganda",
-      "away": "Botswana",
-      "title": "Uganda vs. Botswana",
-      "key": "soccer|botswana|uganda",
       "feed_count": 2,
       "confirmed_feed_count": 2,
       "confirmed_primary_count": 2,
@@ -1299,11 +2233,12 @@
       "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.55",
-        "rtmpcdn.com"
+        "damitv.st",
+        "it.com"
       ],
       "providers": [
-        "FAWA"
+        "DAMITV",
+        "XYZ"
       ],
       "ingest_sources": [
         "doms9"
@@ -1314,21 +2249,21 @@
       ],
       "feeds": [
         {
-          "fingerprint": "8fcd4b51a2d7",
+          "fingerprint": "9ceb62061ff2",
           "role": "primary",
           "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.55",
+          "provider": "XYZ",
+          "origin_family": "it.com",
           "ingest_sources": [
             "doms9"
           ]
         },
         {
-          "fingerprint": "9c7e3dd7b849",
+          "fingerprint": "ce4f6741b01c",
           "role": "primary",
           "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
           "ingest_sources": [
             "doms9"
           ]
@@ -1337,11 +2272,93 @@
     },
     {
       "sport": "Soccer",
-      "league": "USA NWSL Women",
-      "home": "Washington Spirit W",
-      "away": "Utah Royals W",
-      "title": "Washington Spirit W vs. Utah Royals W",
-      "key": "soccer|utahroyalsw|washingtonspiritw",
+      "league": "Brazil Serie B",
+      "home": "Juventude",
+      "away": "Botafogo SP",
+      "title": "Juventude vs. Botafogo SP",
+      "key": "soccer|botafogosp|juventude",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "8d533f552def",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Uruguay Liga AUF",
+      "home": "Maldonado",
+      "away": "CA Cerro",
+      "title": "Maldonado vs. CA Cerro",
+      "key": "soccer|cacerro|maldonado",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "49f2ae8bcd98",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Spanish Segunda Liga",
+      "home": "Mallorca",
+      "away": "Cordoba",
+      "title": "Mallorca vs. Cordoba",
+      "key": "soccer|cordoba|mallorca",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -1365,7 +2382,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "6e817e49de9f",
+          "fingerprint": "ab4a2e86d875",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -1378,11 +2395,62 @@
     },
     {
       "sport": "Soccer",
-      "league": "German Women Bundesliga",
-      "home": "Wolfsburg W",
-      "away": "Bayern Munich W",
-      "title": "Wolfsburg W vs. Bayern Munich W",
-      "key": "soccer|bayernmunichw|wolfsburgw",
+      "league": "Soccer",
+      "home": "Norway",
+      "away": "Wales",
+      "title": "Norway vs. Wales",
+      "key": "soccer|norway|wales",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "damitv.st",
+        "work.gd"
+      ],
+      "providers": [
+        "DAMITV",
+        "XYZ"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "2840ec1aab63",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "XYZ",
+          "origin_family": "work.gd",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "83a484f6e9a2",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "DAMITV",
+          "origin_family": "damitv.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Dutch Eerste Divisie",
+      "home": "Roda",
+      "away": "FC Volendam",
+      "title": "Roda vs. FC Volendam",
+      "key": "soccer|fcvolendam|roda",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -1390,7 +2458,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.55"
+        "193.47.62.44"
       ],
       "providers": [
         "FAWA"
@@ -1406,11 +2474,134 @@
       ],
       "feeds": [
         {
-          "fingerprint": "7113dcc325c6",
+          "fingerprint": "1ab455f5032a",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.55",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "CONCACAF Nations League",
+      "home": "Sint Maarten",
+      "away": "French Guiana",
+      "title": "Sint Maarten vs. French Guiana",
+      "key": "soccer|frenchguiana|sintmaarten",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "ad155f171129",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Dutch Eerste Divisie",
+      "home": "Venlo",
+      "away": "Eindhoven FC",
+      "title": "Venlo vs. Eindhoven FC",
+      "key": "soccer|eindhovenfc|venlo",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "e82e63ba7389",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Dutch Eerste Divisie",
+      "home": "Waalwijk",
+      "away": "FC Den Bosch",
+      "title": "Waalwijk vs. FC Den Bosch",
+      "key": "soccer|fcdenbosch|waalwijk",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "4619e19a4186",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
           "ingest_sources": [
             "doms9"
           ]
@@ -1616,6 +2807,47 @@
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "UFC / MMA",
+      "league": "MMA",
+      "home": "PFL Dubai: Vadim Nemkov",
+      "away": "Sergei Bilostenniy",
+      "title": "PFL Dubai: Vadim Nemkov vs. Sergei Bilostenniy",
+      "key": "ufcmma|pfldubaivadimnemkov|sergeibilostenniy",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "mixedshop.pw"
+      ],
+      "providers": [
+        "GSPORTS"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "8e6f9d15943f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "GSPORTS",
+          "origin_family": "mixedshop.pw",
           "ingest_sources": [
             "doms9"
           ]
