@@ -4,46 +4,28 @@
 - **Scrape run:** `20261114T113904Z-3014` — health check completed
 - **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 0/15
-- **Fixtures with a redundancy deficit:** 15
+- **Fixtures meeting policy:** 0/6
+- **Fixtures with a redundancy deficit:** 6
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
-| Carlton Blues W vs. Hawthorn Hawks W (AFL Aussie Rules) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 | Golden State Warriors vs. San Antonio Spurs (Basketball) | 1/1 | 1/2 | 0/1 | 1 | XYZ | doms9 | **DEFICIT** |
-| Alabama Crimson Tide vs. Seton Hall Pirates (College Football) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Auburn Tigers vs. Arizona Wildcats (College Football) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| Colorado Buffaloes vs. Houston (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 | Colorado Buffaloes vs. Houston Cougars (College Football) | 1/1 | 1/2 | 0/1 | 1 | DAMITV | doms9 | **DEFICIT** |
-| UCLA Bruins vs. Illinois Fighting Illini (College Football) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
-| UCLA vs. Illinois (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Hobart Hurricanes vs. Brisbane Heat (Cricket WBBL) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| LA Clippers vs. Oklahoma City Thunder (National Basketball Association) | 0/1 | 0/2 | 0/1 | 0 | unknown | doms9 | **DEFICIT** |
 | San Antonio Spurs vs. Golden State Warriors (National Basketball Association) | 1/1 | 1/2 | 0/1 | 1 | DAMITV | doms9 | **DEFICIT** |
 | Vancouver Canucks vs. New York Rangers (National Hockey League) | 1/1 | 1/2 | 0/1 | 1 | DAMITV | doms9 | **DEFICIT** |
 | Vancouver Canucks vs. New York Rangers (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 | Vegas Golden Knights vs. Nashville Predators (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Guatemala vs. Canada (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 
 ## Deficits
 
-- **Carlton Blues W vs. Hawthorn Hawks W** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Golden State Warriors vs. San Antonio Spurs** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Alabama Crimson Tide vs. Seton Hall Pirates** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Auburn Tigers vs. Arizona Wildcats** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **Colorado Buffaloes vs. Houston** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Colorado Buffaloes vs. Houston Cougars** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **UCLA Bruins vs. Illinois Fighting Illini** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
-- **UCLA vs. Illinois** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Hobart Hurricanes vs. Brisbane Heat** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **LA Clippers vs. Oklahoma City Thunder** — needs 2 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 2 more independent origin family/families.
 - **San Antonio Spurs vs. Golden State Warriors** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Vancouver Canucks vs. New York Rangers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Vancouver Canucks vs. New York Rangers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Vegas Golden Knights vs. Nashville Predators** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Guatemala vs. Canada** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 
 ## Interpretation
 
