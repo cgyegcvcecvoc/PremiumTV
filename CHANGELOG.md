@@ -10,6 +10,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-14 — Version 1.1.8 published: local channels and one A&E category
+
+- Version 1.1.7's release was created without installers because the Android build hit a nullable-receiver Kotlin error and four macOS startup tests still clicked the old second category tile. Both are fixed; 1.1.8 is the first release that ships the APK and the four Mac installers.
+- The 1.1.7 release stays on GitHub as the notes-only record; the tag is not reused.
+
 ## 2026-11-14 — Version 1.1.7 prepared: local channels and one A&E category
 
 - Local channels ask for a location first and fall back to a ZIP, state or country; matches use the new bundled `playlists/local-channels.json`, and Android and macOS keep the answer on the device.

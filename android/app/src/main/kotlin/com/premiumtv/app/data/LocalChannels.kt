@@ -110,7 +110,7 @@ class LocalDirectory internal constructor(val document: JSONObject) {
     /** Every market in the selected state (or one city when the viewer named it). */
     fun marketsFor(selection: LocalSelection): List<LocalMarket> {
         val states = document.optJSONArray("states") ?: return emptyList()
-        val wantedState = selection.state.ifBlank { stateForZip(selection.zip) }.uppercase()
+        val wantedState = selection.state.ifBlank { stateForZip(selection.zip).orEmpty() }.uppercase()
         if (wantedState.isBlank()) return emptyList()
         val wantedCity = selection.city.trim().lowercase()
         val out = ArrayList<LocalMarket>()

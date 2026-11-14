@@ -7,6 +7,8 @@ const path = require('node:path');
 const { JSDOM } = require('jsdom');
 const renderer = path.join(__dirname, '..', 'src', 'renderer');
 const tick = () => new Promise((resolve) => setImmediate(resolve));
+const sportsTile = (doc) => [...doc.querySelectorAll('.category-tile')]
+  .find((tile) => tile.textContent.includes('Sports'));
 
 function library(name = 'Sports One') {
   return {
@@ -80,7 +82,7 @@ test('cold launch fetches channels and guide when ready arrives after the initia
   app.set(ready());
   app.events.state({ phase: 'ready', message: 'Loaded' });
   await tick();
-  app.window.document.querySelector('.category-tile:nth-child(2)').click();
+  sportsTile(app.window.document).click();
   assert.equal(app.window.document.querySelector('.card-name')?.textContent, 'Sports One');
   assert.equal(app.window.document.querySelector('.card-now')?.textContent, 'Live match');
   assert.match(app.window.document.getElementById('foot-count').textContent, /1 channels/);
@@ -95,7 +97,7 @@ test('channels are visible during guide loading and a refresh replaces displayed
   app.set(partial);
   app.events.progress({ phase: 'channels', count: 1 });
   await tick();
-  app.window.document.querySelector('.category-tile:nth-child(2)').click();
+  sportsTile(app.window.document).click();
   assert.equal(app.window.document.querySelector('.card-name')?.textContent, 'Sports One');
   app.set(ready('Updated Sports'));
   app.events.state({ phase: 'ready' });
@@ -120,7 +122,7 @@ test('a late initial snapshot cannot overwrite a newer ready snapshot', async (t
   await tick();
   resolveOld(empty());
   await tick();
-  app.window.document.querySelector('.category-tile:nth-child(2)').click();
+  sportsTile(app.window.document).click();
   assert.equal(app.window.document.querySelector('.card-name')?.textContent, 'Sports One');
 });
 
@@ -245,7 +247,7 @@ test('library activity stays non-modal and distinguishes progress from failure',
   app.set(loading);
   app.events.state(loading.state);
   await tick();
-  doc.querySelector('.category-tile:nth-child(2)').click();
+  sportsTile(doc).click();
   assert.equal(doc.querySelector('.card-name').textContent, 'Sports One');
   assert.match(doc.getElementById('activity-message').textContent, /programme guide/);
   doc.querySelector('[data-tab="settings"]').click();
