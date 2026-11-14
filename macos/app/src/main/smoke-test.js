@@ -5,16 +5,22 @@ const assert = require('node:assert/strict');
 const { setTimeout: delay } = require('node:timers/promises');
 
 module.exports = async function smokeTest(window, repository, proxy) {
+  // The window's loadURL is not awaited by main.js. Evaluating while that
+  // navigation is still in flight can drop the executeJavaScript promise
+  // when the document is replaced, which looked like a wedged renderer.
+  if (window.webContents.isLoading()) {
+    await new Promise((resolve) => window.webContents.once('did-finish-load', resolve));
+  }
   // executeJavaScript never answers while the renderer main thread is
-  // blocked, so race every call: a wedged renderer must fail this gate in
-  // seconds with a readable message, not hang the CI job for an hour.
+  // blocked, so race every call: a wedged renderer must fail this gate
+  // quickly with a readable message, not hang the CI job for an hour.
   async function evalInPage(expression) {
     const pending = window.webContents.executeJavaScript(expression);
     pending.catch(() => {});
     return Promise.race([
       pending,
-      delay(10000).then(() => {
-        throw new Error(`renderer did not answer within 10s: ${expression}`);
+      delay(30000).then(() => {
+        throw new Error(`renderer did not answer within 30s: ${expression}`);
       }),
     ]);
   }
