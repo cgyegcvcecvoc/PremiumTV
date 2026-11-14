@@ -72,6 +72,17 @@ class ClassificationTest(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertEqual(categorize.classify(name), "Lifestyle")
 
+    def test_a_and_e_channels_share_one_category(self):
+        # "Crime 360" used to be filed under Documentary because of the word
+        # "crime"; A&E's own shows and channels all belong in one spot.
+        for name in ("A&E Crime 360 (Pluto TV)", "Crime 360 (720p)",
+                     "Cold Case Files by A&E (Roku)", "Crime & Investigation Network (US)",
+                     "60 Days In by A&E (720p)", "Alone by History / A&E (720p)"):
+            with self.subTest(name=name):
+                self.assertEqual(categorize.classify(name, "Documentary"), "A&E Networks")
+        # The broad documentary vocabulary still owns history/nature channels.
+        self.assertEqual(categorize.classify("History Hit (720p)"), "Documentary")
+
     def test_kids_brand_stays_kids(self):
         self.assertEqual(categorize.classify("Nickelodeon (United States) (720p)", "TV"), "Kids")
 

@@ -138,6 +138,11 @@ fun HomeScreen(
     guideState: CableGuideState,
     recentChannels: List<Channel> = emptyList(),
     favoriteChannels: List<Channel> = emptyList(),
+    // 1.1.7 local channels: the stations that match the viewer's ZIP/state/
+    // country/location, resolved by AppRoot from the bundled directory.
+    localChannels: List<Channel> = emptyList(),
+    localLabel: String = "",
+    onEditLocalChannels: () -> Unit = {},
     favoriteUrls: Set<String> = emptySet(),
     onToggleFavorite: (Channel) -> Unit = {},
     onSelect: (Channel) -> Unit,
@@ -318,6 +323,8 @@ fun HomeScreen(
             HomeTab.Channels -> CategoriesScreen(
                 library, now, liveIndex, onSelect, recentChannels, favoriteChannels,
                 favoriteUrls, onToggleFavorite, playerDocked, selectedCategory, onCategoryChange,
+                localChannels = localChannels, localLabel = localLabel,
+                onEditLocalChannels = onEditLocalChannels,
             )
             HomeTab.Events -> EventsScreen(
                 sections = liveSections,
@@ -359,6 +366,9 @@ fun HomeScreen(
                 onCheckForBugs = onCheckForBugs,
                 hiddenChannelCount = hiddenChannelCount,
                 onRestoreHiddenChannels = onRestoreHiddenChannels,
+                localChannels = localChannels,
+                localLabel = localLabel,
+                onEditLocalChannels = onEditLocalChannels,
             )
         }
     }
@@ -380,6 +390,9 @@ private fun CategoriesScreen(
     playerDocked: Boolean = false,
     selectedCategory: String?,
     onCategoryChange: (String?) -> Unit,
+    localChannels: List<Channel> = emptyList(),
+    localLabel: String = "",
+    onEditLocalChannels: () -> Unit = {},
 ) {
     // A null selection is the category landing page. All channels is an
     // explicit selection, so Back always has a predictable destination.
@@ -539,6 +552,9 @@ private fun CategoriesScreen(
                             query = ""
                         },
                         onCycleSort = { categorySort = categorySort.next },
+                        localChannels = localChannels,
+                        localLabel = localLabel,
+                        onEditLocalChannels = onEditLocalChannels,
                         modifier = Modifier.fillMaxSize().padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER),
                     )
                 } else {
@@ -572,11 +588,13 @@ private fun CategoriesScreen(
                     } else {
                         val channels = remember(
                             library.channels, selectedCategory, recentChannels, favoriteChannels,
+                            localChannels,
                         ) {
                             when (selectedCategory) {
                                 SHELF_ALL -> library.channels
                                 SHELF_RECENT -> recentChannels
                                 SHELF_FAVORITES -> favoriteChannels
+                                SHELF_LOCAL -> localChannels
                                 else -> library.channels.filter { it.group == selectedCategory }
                             }
                         }
@@ -585,6 +603,7 @@ private fun CategoriesScreen(
                             SHELF_ALL -> "All channels"
                             SHELF_RECENT -> "Recently watched"
                             SHELF_FAVORITES -> "Favorites"
+                            SHELF_LOCAL -> "Local channels"
                             else -> selectedCategory.orEmpty()
                         }
                         Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
@@ -601,6 +620,12 @@ private fun CategoriesScreen(
                                     when (selectedCategory) {
                                         SHELF_RECENT -> "Nothing here yet. Channels you open show up here."
                                         SHELF_FAVORITES -> "No favorites yet. Press ☆ on a channel to add one."
+                                        SHELF_LOCAL -> if (localLabel.isBlank() || localLabel == "Not set") {
+                                            "Set your area in Settings → Local channels to see stations here."
+                                        } else {
+                                            "No published local station plays for $localLabel right now. " +
+                                                "Try another ZIP or state in Settings → Local channels."
+                                        }
                                         else -> "No channels are published in this category right now."
                                     },
                                 )
@@ -685,6 +710,7 @@ private fun ChannelNumberOverlay(
 private const val SHELF_ALL = "\u0000all"
 private const val SHELF_RECENT = "\u0000recent"
 private const val SHELF_FAVORITES = "\u0000favorites"
+private const val SHELF_LOCAL = "\u0000local"
 
 /** Category picker: All channels, personal shelves, then published categories. */
 @Composable
@@ -694,6 +720,9 @@ private fun CategoryRail(
     selected: String?,
     recentChannels: List<Channel>,
     favoriteChannels: List<Channel>,
+    localChannels: List<Channel> = emptyList(),
+    localLabel: String = "",
+    onEditLocalChannels: () -> Unit = {},
     onSelect: (String?) -> Unit,
     onCycleSort: () -> Unit,
     modifier: Modifier = Modifier,
@@ -734,6 +763,21 @@ private fun CategoryRail(
                     glyph = "▦",
                     selected = selected == SHELF_ALL,
                     onClick = { onSelect(null) },
+                )
+            }
+            item(key = "rail|local") {
+                CategoryListRow(
+                    name = if (localLabel.isBlank() || localLabel == "Not set") {
+                        "Local channels"
+                    } else {
+                        "Local channels · $localLabel"
+                    },
+                    count = localChannels.size,
+                    glyph = "⌖",
+                    selected = selected == SHELF_LOCAL,
+                    onClick = {
+                        if (localChannels.isEmpty()) onEditLocalChannels() else onSelect(SHELF_LOCAL)
+                    },
                 )
             }
             if (recentChannels.isNotEmpty()) {
@@ -1667,6 +1711,9 @@ private fun SettingsScreen(
     onCheckForBugs: () -> Unit,
     hiddenChannelCount: Int = 0,
     onRestoreHiddenChannels: () -> Unit = {},
+    localChannels: List<Channel> = emptyList(),
+    localLabel: String = "",
+    onEditLocalChannels: () -> Unit = {},
 ) {
     val meta = library.meta
     var showDetails by rememberSaveable { mutableStateOf(false) }
@@ -1805,6 +1852,41 @@ private fun SettingsScreen(
         if (diagnostics != null) {
             Spacer(modifier = Modifier.height(12.dp))
             DiagnosticsCard(diagnostics)
+        }
+
+        // -------------------------------------------------- local channels
+        Spacer(modifier = Modifier.height(14.dp))
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(14.dp),
+            color = CardBackground,
+            border = BorderStroke(1.dp, PanelStroke),
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Local channels",
+                            style = MaterialTheme.typography.titleSmall,
+                            color = Color.White,
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                        Text(
+                            text = when {
+                                localLabel.isBlank() || localLabel == "Not set" ->
+                                    "Add your location, ZIP or state to find local stations."
+                                localChannels.isEmpty() ->
+                                    "$localLabel · no published station plays right now."
+                                else -> "$localLabel · ${localChannels.size} station(s)"
+                            },
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MutedText,
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+                    FocusButton("Set area") { onEditLocalChannels() }
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(14.dp))

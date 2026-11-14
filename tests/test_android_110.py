@@ -16,6 +16,16 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def current_version():
+    return (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+
+
+def previous_patch():
+    """The newest build the update notice must still nudge is one below VERSION."""
+    major, minor, patch = current_version().split(".")
+    return f"{major}.{minor}.{int(patch) - 1}"
+
 UI = ROOT / "android/app/src/main/kotlin/com/premiumtv/app/ui"
 DATA = ROOT / "android/app/src/main/kotlin/com/premiumtv/app/data"
 MAC_RENDERER = ROOT / "macos/app/src/renderer"
@@ -205,7 +215,7 @@ class VersionTests(unittest.TestCase):
         self.assertNotIn("retired-preview-1-1", rules)
         # Every build below the newest stable is nudged toward it.
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.5"))
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", previous_patch()))
         self.assertEqual(stable["level"], "warning")
 
     def test_version_code_is_above_every_published_build(self):

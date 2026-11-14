@@ -25,7 +25,10 @@ import com.premiumtv.app.TvViewModel
 import com.premiumtv.app.data.CategoryGroup
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.ChannelHealthStore
+import com.premiumtv.app.data.LocalChannelSettings
+import com.premiumtv.app.data.LocalDirectory
 import com.premiumtv.app.data.LoadState
+import com.premiumtv.app.data.readLocalChannelDirectory
 import com.premiumtv.app.data.hiddenChannelCount
 import com.premiumtv.app.data.visibleChannels
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +69,17 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     var setupComplete by remember { mutableStateOf(setupPrefs.getBoolean("complete", false)) }
     var viewerName by remember { mutableStateOf(setupPrefs.getString("viewer_name", "Viewer") ?: "Viewer") }
     val shelves = remember { PersonalShelves(appContext) }
+
+    // 1.1.7 local channels: the viewer's area (location, ZIP, state or country)
+    // is stored on this device and filters the published local stations. The
+    // directory is bundled beside the channel list, so matching needs no network.
+    val localSettings = remember(appContext) { LocalChannelSettings(appContext) }
+    var localSelection by remember { mutableStateOf(localSettings.selection()) }
+    var localDirectory by remember { mutableStateOf<LocalDirectory?>(null) }
+    var showLocalSetup by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        localDirectory = withContext(Dispatchers.Default) { appContext.readLocalChannelDirectory() }
+    }
     var vodChannelsById by remember { mutableStateOf(emptyMap<String, List<Channel>>()) }
     LaunchedEffect(Unit) {
         vodChannelsById = withContext(Dispatchers.Default) {
@@ -176,6 +190,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             val favoriteShelf = remember(favoriteKeys, visibleLibrary.channels) {
                 resolveShelf(favoriteKeys, visibleLibrary.channels)
             }
+            val localChannels = remember(visibleLibrary.channels, localDirectory, localSelection) {
+                localDirectory?.channelsFor(visibleLibrary.channels, localSelection) ?: emptyList()
+            }
 
             BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
                 // The dock is a readable column on a TV and never more than
@@ -218,6 +235,9 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 guideState = guideState,
                                 recentChannels = recentShelf,
                                 favoriteChannels = favoriteShelf,
+                                localChannels = localChannels,
+                                localLabel = localSelection.label(),
+                                onEditLocalChannels = { showLocalSetup = true },
                                 favoriteUrls = favoriteUrlSet,
                                 onToggleFavorite = toggleFavorite,
                                 hiddenChannelCount = hiddenCount,
@@ -325,7 +345,23 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             setupPrefs.edit().putString("viewer_name", name).putBoolean("complete", true).apply()
             viewerName = name
             setupComplete = true
+            // Asked once, right after setup: location first, and if it is
+            // declined the same dialog takes a ZIP, state or country.
+            if (!localSettings.selection().hasSelection) showLocalSetup = true
         }
+    }
+
+    if (setupComplete && showLocalSetup) {
+        LocalChannelsDialog(
+            directory = localDirectory,
+            initial = localSelection,
+            onSave = { selection ->
+                localSelection = selection
+                localSettings.save(selection)
+                showLocalSetup = false
+            },
+            onDismiss = { showLocalSetup = false },
+        )
     }
 
     val notice = updateInfo.notice

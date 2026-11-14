@@ -1348,3 +1348,32 @@ input:focus-visible,
 .setup-overlay { z-index: 110; }
 #setup-name { display: block; width: 100%; box-sizing: border-box; margin: 8px 0; padding: 10px; color: var(--text); background: #141b25; border: 1px solid #69727d; border-radius: 6px; }
 .setup-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+/* 1.1.7 Local channels: a compact, readable location form inside Settings. */
+.local-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+}
+.local-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted, #9aa4b2);
+}
+.local-form input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  font-size: 14px;
+}
+.local-form input:focus-visible {
+  outline: 2px solid #ffb020;
+  outline-offset: 1px;
+}

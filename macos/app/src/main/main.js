@@ -9,7 +9,7 @@
  * itself. Nothing here talks to the renderer except through the preload bridge.
  */
 
-const { app, BrowserWindow, Menu, ipcMain, powerMonitor, shell, dialog } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, powerMonitor, session, shell, dialog } = require('electron');
 const path = require('node:path');
 const os = require('node:os');
 const fs = require('node:fs');
@@ -91,6 +91,15 @@ function bootstrap() {
   });
 
   app.whenReady().then(async () => {
+    // 1.1.7 Local channels: the renderer may ask for an approximate location
+    // once, and only when the viewer presses "Use my location". Every other
+    // permission request stays denied.
+    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+      callback(permission === 'geolocation');
+    });
+    session.defaultSession.setPermissionCheckHandler((webContents, permission) =>
+      permission === 'geolocation');
+
     const options = paths();
 
     proxy = new StreamProxy({ rendererDir: options.rendererDir, logoCacheDir: options.logoCacheDir });

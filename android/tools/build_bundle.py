@@ -282,6 +282,9 @@ EXTRA_BUNDLE_FILES = (
     # scripts/vod_catalog.py. It ships as bundle/vod-catalog.json and as
     # meta.vod_catalog, the same way the crests and kickoff times do.
     os.path.join(REPO_ROOT, "playlists", "vod", "vod-catalog.json"),
+    # 1.1.7: the local-station directory the apps match a viewer's ZIP/state/
+    # country/location against (WGAL and the other published affiliates).
+    os.path.join(REPO_ROOT, "playlists", "local-channels.json"),
 )
 
 

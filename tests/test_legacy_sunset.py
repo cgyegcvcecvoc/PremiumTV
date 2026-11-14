@@ -24,6 +24,16 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def current_version():
+    return (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+
+
+def previous_patch():
+    """The newest build the update notice must still nudge is one below VERSION."""
+    major, minor, patch = current_version().split(".")
+    return f"{major}.{minor}.{int(patch) - 1}"
+
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "android" / "tools"))
 
@@ -103,9 +113,9 @@ class PublishedNoticeTests(unittest.TestCase):
         notice = legacy_sunset.read_notice(ROOT)
         self.assertTrue(notice["releases_url"].startswith(
             "https://github.com/cgyegcvcecvoc/PremiumTV/releases"), notice["releases_url"])
-        self.assertEqual(notice["max_version"], "1.1.5",
+        self.assertEqual(notice["max_version"], previous_patch(),
                          "the sunset targets every stable build below the current stable "
-                         "(1.1.5); there is no blocked preview rule anymore")
+                         f"({current_version()}); there is no blocked preview rule anymore")
 
     def test_an_impossible_sunset_date_is_rejected_not_rolled_forward(self):
         for value in ["2026-11-31", "2026-13-01", "2026-02-30T00:00:00Z",

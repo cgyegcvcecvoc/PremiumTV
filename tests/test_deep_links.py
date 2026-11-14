@@ -20,6 +20,16 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+def current_version():
+    return (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+
+
+def previous_patch():
+    """The newest build the update notice must still nudge is one below VERSION."""
+    major, minor, patch = current_version().split(".")
+    return f"{major}.{minor}.{int(patch) - 1}"
+
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_site_data  # noqa: E402
 
@@ -103,8 +113,8 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertEqual(notice["releases_url"], f"{CANONICAL}/releases/latest")
         self.assertEqual(notice["repo_url"], CANONICAL)
         rules = {rule["id"]: rule for rule in notice["rules"]}
-        self.assertEqual(rules["update-below-newest"]["max_version"], "1.1.5")
-        self.assertIn("1.1.6", rules["update-below-newest"]["surprise"])
+        self.assertEqual(rules["update-below-newest"]["max_version"], previous_patch())
+        self.assertIn(current_version(), rules["update-below-newest"]["surprise"])
 
     def test_bundle_builder_publishes_canonical_raw_urls(self):
         builder = text("android/tools/build_bundle.py")

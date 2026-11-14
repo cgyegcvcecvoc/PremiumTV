@@ -17,6 +17,14 @@ name: Publish a release
 # safe - it can only go stale, never lie.
 
 on:
+  # Pushing a VERSION bump is the "new version" trigger: the workflow publishes
+  # it, then starts the APK and Mac installer builds. Manual dispatch stays for
+  # re-runs and dry runs.
+  push:
+    branches:
+      - main
+    paths:
+      - VERSION
   workflow_dispatch:
     inputs:
       version:
@@ -45,7 +53,7 @@ concurrency:
 jobs:
   publish:
     name: Create the GitHub release
-    if: ${{ inputs.attach_macos_run_id == '' }}
+    if: ${{ github.event_name == 'push' || inputs.attach_macos_run_id == '' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 80
     steps:
@@ -191,7 +199,7 @@ jobs:
   # artifact on a GitHub-hosted runner and uploads the installers.
   attach-macos:
     name: Attach Mac installers from an Actions run
-    if: ${{ inputs.attach_macos_run_id != '' }}
+    if: ${{ github.event_name != 'push' && inputs.attach_macos_run_id != '' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:

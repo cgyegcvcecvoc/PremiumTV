@@ -97,6 +97,7 @@
 
   const RECENT_CATEGORY = '__recent__';
   const FAVORITE_CATEGORY = '__favorites__';
+  const LOCAL_CATEGORY = '__local__';
 
   const ui = {
     tab: 'channels',
@@ -208,6 +209,11 @@
   // from the browser for seven days (health.js), with a Settings restore.
   const health = window.PremiumHealth;
   let deadFeeds = health ? health.load(window.localStorage) : new Set();
+  // 1.1.7 local channels: the viewer's area (location, ZIP, state or country),
+  // stored on this machine and matched against the bundled station directory.
+  const local = window.PremiumLocalChannels;
+  let localSelection = local ? local.load(window.localStorage) : null;
+  let localMessage = '';
   let playingSession = null;
   let clockTimer = null;
 
@@ -369,6 +375,31 @@
     return health ? health.filterChannels(channels, deadFeeds) : channels;
   }
 
+  // ------------------------------------------------------- 1.1.7 local channels
+
+  function localDirectory() {
+    return (snapshot.library.meta && snapshot.library.meta.local_channels) || null;
+  }
+
+  function localChannels() {
+    if (!local) return [];
+    return local.channelsFor(liveChannels(), localDirectory(), localSelection);
+  }
+
+  function localSummary() {
+    if (!local) return 'Local channels are unavailable in this build.';
+    return localMessage || local.summary(localDirectory(), localSelection);
+  }
+
+  /** A local-channels row with no answer goes straight to the setup panel. */
+  function openLocalSetup() {
+    selectTab('settings');
+    requestAnimationFrame(() => {
+      const panel = document.getElementById('local-panel');
+      if (panel) panel.scrollIntoView({ block: 'center' });
+    });
+  }
+
   function renderCategories() {
     const groups = sortedGroups();
     const total = liveChannels().length;
@@ -392,7 +423,12 @@
       els.categories.appendChild(button);
     }
 
+    const localCount = localChannels().length;
+    const localName = local && localSelection && local.hasSelection(localSelection)
+      ? `⌖ Local channels · ${local.label(localSelection)}`
+      : '⌖ Local channels';
     const shelves = [
+      [LOCAL_CATEGORY, localName, localCount],
       [RECENT_CATEGORY, '◷ Recently watched', personal.resolve(recentKeys, snapshot.library.channels || []).length],
       [FAVORITE_CATEGORY, '★ Favorites', personal.resolve(favoriteKeys, snapshot.library.channels || []).length],
     ];
@@ -400,8 +436,12 @@
       const button = document.createElement('button');
       button.className = 'cat cat-personal';
       button.setAttribute('aria-current', String(ui.category === key));
-      button.innerHTML = `<span class="cat-name">${label}</span><span class="cat-count">${count}</span>`;
-      button.addEventListener('click', () => selectCategory(key));
+      button.innerHTML = `<span class="cat-name"></span><span class="cat-count">${count}</span>`;
+      button.querySelector('.cat-name').textContent = label;
+      button.addEventListener('click', () => {
+        if (key === LOCAL_CATEGORY && count === 0) openLocalSetup();
+        else selectCategory(key);
+      });
       els.categories.appendChild(button);
     }
 
@@ -412,10 +452,10 @@
     const all = liveChannels();
     if (ui.category === RECENT_CATEGORY) return personal.resolve(recentKeys, all);
     if (ui.category === FAVORITE_CATEGORY) return personal.resolve(favoriteKeys, all);
-    const channels = all;
+    const channels = ui.category === LOCAL_CATEGORY ? localChannels() : all;
     const query = ui.query.trim().toLowerCase();
     const filtered = channels.filter((channel) => {
-      if (ui.category && channel.group !== ui.category) return false;
+      if (ui.category && ui.category !== LOCAL_CATEGORY && channel.group !== ui.category) return false;
       if (!query) return true;
       return (
         channel.name.toLowerCase().includes(query) ||
@@ -486,6 +526,7 @@
         els.channelsGrid.appendChild(button);
       };
       add('All channels', liveChannels().length, null);
+      add('Local channels', localChannels().length, LOCAL_CATEGORY);
       const recent = personal.resolve(recentKeys, liveChannels()).length;
       const favorites = personal.resolve(favoriteKeys, liveChannels()).length;
       if (recent) add('Recently watched', recent, RECENT_CATEGORY);
@@ -496,9 +537,15 @@
     const channels = visibleChannels();
     const specialTitle = ui.category === RECENT_CATEGORY
       ? 'Recently watched'
-      : ui.category === FAVORITE_CATEGORY ? 'Favorites' : null;
+      : ui.category === FAVORITE_CATEGORY
+        ? 'Favorites'
+        : ui.category === LOCAL_CATEGORY ? 'Local channels' : null;
     els.channelsTitle.textContent = specialTitle || (ui.query.trim() ? `Search: ${ui.query.trim()}` : ui.category || 'All channels');
-    els.channelsSubtitle.textContent = specialTitle
+    els.channelsSubtitle.textContent = specialTitle && ui.category === LOCAL_CATEGORY
+      ? (channels.length
+        ? `${channels.length} station${channels.length === 1 ? '' : 's'} for ${localSelection && local ? local.label(localSelection) : 'your area'} — set another ZIP or state in Settings → Local channels.`
+        : `${localSummary()} Set a location, ZIP or state in Settings → Local channels.`)
+      : specialTitle
       ? (channels.length
         ? `${channels.length} ${ui.category === RECENT_CATEGORY ? 'channels you opened, newest first — pick one to keep watching' : 'favorite channels'}`
         : ui.category === RECENT_CATEGORY
@@ -1364,6 +1411,26 @@
           is checked against the release's SHA-256 file and is reused rather than downloaded again.</p>
       </div>
 
+      <div class="panel" id="local-panel">
+        <h2>Local channels</h2>
+        <p class="muted">Local stations such as WGAL are published per market. Ask this Mac for an
+          approximate location once, or type a ZIP, state or country instead — declining location is
+          fine. The answer stays on this machine and only filters the channel list.</p>
+        <div class="local-form">
+          <label>Country<input id="local-country" maxlength="2" autocomplete="country" value="${escapeHtml(localSelection ? localSelection.country : 'US')}"></label>
+          <label>ZIP code<input id="local-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="${escapeHtml(localSelection ? localSelection.zip : '')}"></label>
+          <label>State<input id="local-state" maxlength="2" autocomplete="address-level1" value="${escapeHtml(localSelection ? localSelection.state : '')}"></label>
+          <label>City (optional)<input id="local-city" maxlength="40" autocomplete="address-level2" value="${escapeHtml(localSelection ? localSelection.city : '')}"></label>
+        </div>
+        <div class="actions">
+          <button class="btn" id="local-locate">${localSelection && local && local.hasSelection(localSelection) ? 'Use my location again' : 'Use my location'}</button>
+          <button class="btn btn-primary" id="local-save">Save area</button>
+          <button class="btn" id="local-clear">Clear</button>
+        </div>
+        <p class="settings-status" id="local-summary">${escapeHtml(localSummary())}</p>
+        <p class="muted">${escapeHtml(localLabelLine())}</p>
+      </div>
+
       <div class="panel">
         <h2>Refresh &amp; files</h2>
         <dl class="meta compact">
@@ -1450,6 +1517,67 @@
       renderSettings();
     });
     bind('check-bugs', 'click', () => runBugCheck());
+    bind('local-save', 'click', () => {
+      localSelection = local.save(window.localStorage, readLocalForm());
+      localMessage = '';
+      renderCategories();
+      renderChannels();
+      renderSettings();
+    });
+    bind('local-clear', 'click', () => {
+      localSelection = local.save(window.localStorage, { country: 'US' });
+      localMessage = '';
+      renderCategories();
+      renderChannels();
+      renderSettings();
+    });
+    bind('local-locate', 'click', () => {
+      const summary = document.getElementById('local-summary');
+      if (!local) return;
+      if (!navigator.geolocation) {
+        if (summary) summary.textContent = 'This build cannot ask for a location. Enter a ZIP or state instead.';
+        return;
+      }
+      if (summary) summary.textContent = 'Asking for your approximate location…';
+      navigator.geolocation.getCurrentPosition((position) => {
+        const state = local.stateForLocation(
+          position.coords.latitude, position.coords.longitude, localDirectory(),
+        );
+        if (!state) {
+          if (summary) summary.textContent = 'No local stations are published near you yet. Enter a ZIP or state.';
+          return;
+        }
+        localSelection = local.save(window.localStorage, { country: 'US', state });
+        localMessage = '';
+        renderCategories();
+        renderChannels();
+        renderSettings();
+      }, () => {
+        if (summary) summary.textContent = 'Location was declined or unavailable. Enter a ZIP or state instead.';
+      }, { timeout: 10000, maximumAge: 600000 });
+    });
+  }
+
+  /** The local-channel form's current values, normalised by local-channels.js. */
+  function readLocalForm() {
+    const value = (id) => {
+      const element = document.getElementById(id);
+      return element ? element.value : '';
+    };
+    return {
+      country: value('local-country'),
+      state: value('local-state'),
+      zip: value('local-zip'),
+      city: value('local-city'),
+    };
+  }
+
+  function localLabelLine() {
+    if (!local) return '';
+    if (!localSelection || !local.hasSelection(localSelection)) {
+      return 'No area set yet — Local channels stays empty until you pick one.';
+    }
+    return `Showing local stations for ${local.label(localSelection)}.`;
   }
 
   // ------------------------------------------------------------- bug check

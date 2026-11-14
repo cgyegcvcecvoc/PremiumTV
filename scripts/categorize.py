@@ -310,6 +310,21 @@ FOX_FAMILY = _compile([
     r"fox kids", r"fox action movies", r"mynetworktv", r"my network tv", r"movies!",
 ])
 
+# A&E Networks owns a family of channels and shows that used to scatter: "Crime
+# 360" fell into Documentary purely because of the word "crime", while "Cold
+# Case Files by A&E" landed in A&E Networks. This runs before Lifestyle and the
+# long-tail brands so every A&E property ("Home.Made.Nation by A&E",
+# "Crime ThrillHer by Lifetime") stays in one spot.
+# normalize_group() drops "&" and "/" to spaces, so patterns use "a e".
+AE_NETWORKS = _compile([
+    r"a e", r"a and e", r"ae networks", r"crime 360", r"crime investigation",
+    r"crime\+investigation", r"biography", r"fyi", r"60 days in", r"storage wars",
+    r"hoarders", r"first 48", r"cold case files", r"crimes cults killers",
+    r"chaos on cam", r"flipping nation", r"i survived", r"mysteries xplored",
+    r"witness to justice", r"crime thrillher", r"beyond scared straight",
+    r"dance moms", r"intervention", r"history a e", r"by history",
+])
+
 LIFESTYLE = _compile([
     r"hgtv", r"food network", r"cooking channel", r"tlc", r"travel channel",
     r"discovery life", r"destination america", r"magnolia network", r"magnolia",
@@ -614,6 +629,11 @@ def classify(name: str, group: str = "", tvg_id: str = "", url: str = "",
         return "Game Shows"
     if CARTOONS.search(name_text):
         return "Cartoons"
+    # A&E runs before Lifestyle: "Home.Made.Nation by A&E" and "Xtreme Outdoor
+    # by History / A&E" belong to the A&E shelf, not to the home/travel words
+    # in their titles.
+    if AE_NETWORKS.search(name_text):
+        return "A&E Networks"
     if NBC_SPORTS.search(name_text):
         return "NBC Sports Channels"
     if SPORTS.search(name_text) or (tvg_id and SPORTS.search(id_text)):

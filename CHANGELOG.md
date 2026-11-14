@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-14 — Version 1.1.7 prepared: local channels and one A&E category
+
+- Local channels ask for a location first and fall back to a ZIP, state or country; matches use the new bundled `playlists/local-channels.json`, and Android and macOS keep the answer on the device.
+- A&E Networks is now one category: Crime 360, Crime & Investigation and the other A&E shows moved out of Documentary.
+- New release naming/trigger rule in [`docs/RELEASING.md`](docs/RELEASING.md) and [`AGENTS.md`](AGENTS.md): “new version” bumps the next patch and short release notes (at most five one-line notes, enforced by `scripts/new_version.py --check-notes`).
+
 ## 2026-11-13 — Version 1.1.6 published
 
 - Android and macOS open on categories; choose one to see its channels and logos, or use All channels or search. Back returns to the category picker.

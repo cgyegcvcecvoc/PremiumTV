@@ -22,6 +22,16 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def current_version():
+    return (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+
+
+def previous_patch():
+    """The newest build the update notice must still nudge is one below VERSION."""
+    major, minor, patch = current_version().split(".")
+    return f"{major}.{minor}.{int(patch) - 1}"
+
 ANDROID = ROOT / "android" / "app" / "src" / "main"
 UPDATE = ANDROID / "kotlin" / "com" / "premiumtv" / "app" / "update"
 HOME = ANDROID / "kotlin" / "com" / "premiumtv" / "app" / "ui" / "HomeScreen.kt"
@@ -306,7 +316,7 @@ class UpdateNoticePopupTests(unittest.TestCase):
         # Every stable build below the current stable is warned, and the
         # wording names whatever the newest stable actually is.
         stable = rules["update-below-newest"]
-        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", "1.1.5"))
+        self.assertEqual((stable["min_version"], stable["max_version"]), ("1.0.4", previous_patch()))
         self.assertEqual(stable["level"], "warning")
         self.assertIn("after_support_ends", stable,
                       "the escalation copy ships in the document, not in a build")
