@@ -1,6 +1,6 @@
-# PremiumTV 1.1.9 — Local channels
+# PremiumTV 1.1.10 — Local channels
 
-Android `1.1.9` / versionCode `101090000` · macOS `1.1.9`.
+Android `1.1.10` / versionCode `101100000` · macOS `1.1.10`.
 
 - Find local stations like WGAL from a location, ZIP code, state or country.
 - All A&E Networks channels, including Crime 360, share the A&E Networks category.

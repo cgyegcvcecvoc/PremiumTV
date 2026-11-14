@@ -345,9 +345,8 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             setupPrefs.edit().putString("viewer_name", name).putBoolean("complete", true).apply()
             viewerName = name
             setupComplete = true
-            // Asked once, right after setup: location first, and if it is
-            // declined the same dialog takes a ZIP, state or country.
-            if (!localSettings.selection().hasSelection) showLocalSetup = true
+            // Local channels stay opt-in: the shelf opens this dialog when the
+            // viewer taps it, so first launch is never blocked by a prompt.
         }
     }
 

@@ -34,7 +34,7 @@ import sys
 from pathlib import Path
 
 # The app release and the untouched legacy website copy advance independently.
-PUBLISHED_VERSION = "1.1.9"
+PUBLISHED_VERSION = "1.1.10"
 SITE_VERSION = "1.1.5"
 
 ROOT = Path(__file__).resolve().parent.parent
