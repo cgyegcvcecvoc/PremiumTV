@@ -13,7 +13,9 @@ const hlsChannel = (() => {
   const fallback = channels.find((c) => /\.m3u8(\?|$)/.test(c.url || ""));
   const channel = preferred || fallback;
   if (!channel) throw new Error("No HLS channel to exercise in this library");
-  return { name: channel.name, host: new URL(channel.url).origin + "/*" };
+  // "**" (not "*") so the pattern also covers the path segments of the
+  // manifest and its segments; Playwright's "*" stops at a "/".
+  return { name: channel.name, host: new URL(channel.url).origin + "/**" };
 })();
 
 
