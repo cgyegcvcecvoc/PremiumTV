@@ -18,6 +18,7 @@ The preview server binds `0.0.0.0` for the Arena proxy. All browser asset/data U
 
 ## What is included
 
+- **Local channels by location (1.1.11).** The channels page carries a *Your local stations* panel: share a location, or type a ZIP code, pick a state, a city or a country, and the published local stations for that market appear as buttons that play like any other channel. It uses the same bundled `data/local-channels.json` and the same shared `shared/local-channels.js` logic as the native apps — a location fix only selects the nearest *published* market, and the answer stays in this browser. Declining the browser's location prompt is a normal path: a ZIP, a state or a city resolves the market too, and the panel says plainly when a market has no published station yet.
 - Collapsible official viewing links for local news, public programming and sports; these open provider sites, not in-player feeds or automatic backups. Provider availability, subscriptions and blackout rules vary.
 - The current checked USA channel library and published category order; category pages, search across name/category/country/channel number, sorting and incremental rendering (60 channel cards at a time).
 - Favorites, recently watched, seven-day failed-feed memory and restore/clear controls. Storage failures fall back to session memory.

@@ -310,19 +310,46 @@ FOX_FAMILY = _compile([
     r"fox kids", r"fox action movies", r"mynetworktv", r"my network tv", r"movies!",
 ])
 
-# A&E Networks owns a family of channels and shows that used to scatter: "Crime
-# 360" fell into Documentary purely because of the word "crime", while "Cold
-# Case Files by A&E" landed in A&E Networks. This runs before Lifestyle and the
-# long-tail brands so every A&E property ("Home.Made.Nation by A&E",
-# "Crime ThrillHer by Lifetime") stays in one spot.
+# A+E Networks is one brand family, and its channels belong in one category.
+#
+# Every A&E / A+E property is in this list - the flagship channels (A&E,
+# History, Lifetime, LMN, FYI, VICE, Crime + Investigation), the FAST channels
+# (Crime 360, Cold Case Files, The First 48, Storage Wars, Hoarders, 60 Days In,
+# Home.Made.Nation, Crime ThrillHer, Live PD Greatest Shifts) and the regional
+# feeds (A&E Latin America, History Asia, Lifetime Latin America). They used to
+# scatter: "History Channel" and "Lifetime" fell into Documentary and Lifestyle
+# because of the words in their names, while "Crime 360" landed in Documentary
+# purely because of the word "crime". One rule, one shelf, nothing mixed.
+#
+# This runs before Documentary, Lifestyle and the long-tail brands, so a title
+# like "True History" still needs its own exclusion below to stay a documentary.
 # normalize_group() drops "&" and "/" to spaces, so patterns use "a e".
 AE_NETWORKS = _compile([
-    r"a e", r"a and e", r"ae networks", r"crime 360", r"crime investigation",
-    r"crime\+investigation", r"biography", r"fyi", r"60 days in", r"storage wars",
-    r"hoarders", r"first 48", r"cold case files", r"crimes cults killers",
-    r"chaos on cam", r"flipping nation", r"i survived", r"mysteries xplored",
-    r"witness to justice", r"crime thrillher", r"beyond scared straight",
-    r"dance moms", r"intervention", r"history a e", r"by history",
+    r"a e", r"a and e", r"ae networks", r"a\+e",
+    # The linear channels and their regional feeds.
+    r"history", r"lifetime", r"\blmn\b", r"lifetime movie network",
+    r"\bfyi\b", r"\bvice\b", r"crime \+?investigation", r"crime and investigation",
+    r"home ?made ?nation", r"perform", r"a e latin america",
+    # The shows and FAST channels A+E Networks operates.
+    r"crime 360", r"biography", r"60 days in", r"storage wars", r"hoarders",
+    r"first 48", r"cold case files", r"crimes cults killers", r"chaos on cam",
+    r"flipping nation", r"i survived", r"mysteries xplored", r"witness to justice",
+    r"crime thrillher", r"beyond scared straight", r"dance moms", r"intervention",
+    r"live pd", r"by history", r"history a e", r"classic car auctions by history",
+    r"torque presented by history",
+    # Library titles A+E Networks operates as channels in their own right. They
+    # arrive without a brand word ("Ax Men", "Duck Dynasty"), so the title alone
+    # has to place them; the "by A&E"/"by History" feeds matched already.
+    r"ax men", r"duck dynasty", r"dog the bounty hunter", r"ice road truckers",
+    r"xtreme outdoor", r"inside crime", r"mystery tv", r"world war tv",
+])
+
+# A documentary that merely has a brand word in its title is not an A+E channel.
+# "History Hit" is a documentary service, "True History" is a documentary shelf;
+# neither is operated by A+E Networks. Checked before AE_NETWORKS so the rule
+# above can stay broad without swallowing them.
+AE_EXCEPTIONS = _compile([
+    r"history hit", r"true history", r"autentic history", r"history of",
 ])
 
 LIFESTYLE = _compile([
@@ -631,8 +658,9 @@ def classify(name: str, group: str = "", tvg_id: str = "", url: str = "",
         return "Cartoons"
     # A&E runs before Lifestyle: "Home.Made.Nation by A&E" and "Xtreme Outdoor
     # by History / A&E" belong to the A&E shelf, not to the home/travel words
-    # in their titles.
-    if AE_NETWORKS.search(name_text):
+    # in their titles. Every A+E Networks property - History, Lifetime, LMN,
+    # FYI, VICE, Crime 360 - is on that shelf too.
+    if AE_NETWORKS.search(name_text) and not AE_EXCEPTIONS.search(name_text):
         return "A&E Networks"
     if NBC_SPORTS.search(name_text):
         return "NBC Sports Channels"

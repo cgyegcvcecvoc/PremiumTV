@@ -29,6 +29,7 @@
     <script defer src="shared/live-events.js"></script>
     <script defer src="shared/personal.js"></script>
     <script defer src="shared/health.js"></script>
+    <script defer src="shared/local-channels.js"></script>
     <script defer src="store.js"></script>
     <script defer src="diagnostics.js"></script>
     <script defer src="player.js"></script>
@@ -171,6 +172,44 @@
               <li><a href="https://www.nasa.gov/ways-to-watch/" target="_blank" rel="noopener noreferrer">NASA · ways to watch</a> <small>NASA+ is free; live coverage varies</small></li>
             </ul>
           </details>
+          <section id="local-panel" class="local-panel" hidden>
+            <div class="local-panel-head">
+              <h2>Your local stations</h2>
+              <button id="local-clear" class="button quiet small" hidden>
+                Clear
+              </button>
+            </div>
+            <p id="local-summary" class="subtitle">
+              A location fix, a ZIP code, a state or a city finds the stations
+              that serve your area. Nothing leaves this browser.
+            </p>
+            <div class="local-actions">
+              <button id="local-locate" class="button small">Use my location</button>
+              <label class="local-field"
+                ><span>ZIP code</span
+                ><input
+                  id="local-zip"
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="5"
+                  placeholder="17601"
+                  autocomplete="postal-code"
+              /></label>
+              <label class="local-field"
+                ><span>State</span
+                ><select id="local-state" aria-label="State"></select
+              ></label>
+              <label class="local-field"
+                ><span>City</span
+                ><select id="local-city" aria-label="City"></select
+              ></label>
+              <label class="local-field"
+                ><span>Country</span
+                ><select id="local-country" aria-label="Country"></select
+              ></label>
+            </div>
+            <div id="local-stations" class="local-stations"></div>
+          </section>
           <div class="search-toolbar">
             <label class="search-field"
               ><span data-icon="search"></span

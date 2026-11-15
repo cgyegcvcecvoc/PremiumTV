@@ -21,7 +21,8 @@ ROOT = WEB.parent
 sys.path.insert(0, str(ROOT / "android" / "tools"))
 import build_bundle  # noqa: E402
 
-SHARED = ("category-icons.js", "live-events.js", "personal.js", "health.js")
+SHARED = ("category-icons.js", "live-events.js", "personal.js", "health.js",
+          "local-channels.js")
 VENDORS = {
     "hls.js/dist/hls.min.js": "hls.min.js",
     "mpegts.js/dist/mpegts.js": "mpegts.js",
@@ -94,6 +95,12 @@ def build(out: Path, scope: str = "usa") -> dict:
         dump(out / "data" / "vod.json", catalog)
         dump(out / "data" / "events.json", {"team_logos": extras["team_logos"],
                                            "live_schedule": extras["live_schedule"]})
+        # Local channels travel with the web library too, so the browser build
+        # answers the same location / ZIP / state question as the native apps
+        # from the same document the native bundles carry.
+        local_source = ROOT / "playlists" / "local-channels.json"
+        if local_source.is_file():
+            shutil.copyfile(local_source, out / "data" / "local-channels.json")
         digest = hashlib.sha256()
         for name in ("channels.json", "groups.json", "epg.json", "vod.json", "events.json"):
             digest.update((out / "data" / name).read_bytes())

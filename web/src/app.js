@@ -9,6 +9,9 @@
   const live = window.PremiumLive,
     icons = window.PremiumIcons,
     player = window.PremiumPlayer;
+  // The same market-aware local-channel logic the native apps use, copied in
+  // unchanged at build time (shared/local-channels.js).
+  const local = window.PremiumLocalChannels;
   const P = personal,
     S = store;
   const state = {
@@ -36,6 +39,12 @@
     guideLoading: false,
     guideError: "",
   };
+  // Local stations are resolved from the bundled directory against an answer
+  // this browser stored; nothing about the viewer is sent anywhere.
+  let localDirectory = null,
+    localSelection = local ? local.load(S.storage) : null,
+    localNotice = "",
+    localLocating = false;
   let movies = [],
     events = [],
     eventIndex = new Map(),
@@ -138,6 +147,11 @@
         json("data/channels.json" + version, force),
         json("data/groups.json" + version, force),
       ]);
+      // The local-channel directory is optional: an older deploy without it
+      // simply has no local shelf, it does not fail the library load.
+      localDirectory = await json("data/local-channels.json" + version, force).catch(
+        () => null,
+      );
       S.validateLibrary(meta, channels, groups);
       // Publish the pair together only after both pass validation.
       library = {
@@ -330,6 +344,103 @@
     const quality = (channel.name.match(/\((\d{3,4}p)\)/) || [])[1] || "";
     return `<article class="channel-card${current && current.url === channel.url ? " playing" : ""}"><button class="channel-open" data-channel="${esc(key)}" aria-label="Watch ${esc(channel.name)}"><div class="channel-logo">${icon(channel.group)}${logo ? `<img src="${esc(logo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}${quality ? `<span class="quality">${esc(quality)}</span>` : ""}</div><div class="channel-card-text"><h3>${esc(channel.name)}</h3><p>${esc(now ? now.t : channel.group || "Live channel")}</p></div></button><button class="favorite-button" data-favorite="${esc(key)}" aria-label="${favorite ? "Remove" : "Add"} ${esc(channel.name)} ${favorite ? "from" : "to"} favorites" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button></article>`;
   }
+  // --------------------------------------------------------------- local ----
+  function localStations() {
+    if (!local || !localDirectory) return [];
+    return local.channelsFor(available(), localDirectory, localSelection);
+  }
+  function localSummary() {
+    if (!local) return "Local channels are not available in this build.";
+    if (!localDirectory)
+      return "This deploy does not include the local-channel directory yet.";
+    if (localNotice) return localNotice;
+    return local.summary(localDirectory, localSelection);
+  }
+  function fillSelect(select, placeholder, options, value) {
+    if (!select) return;
+    select.innerHTML =
+      `<option value="">${esc(placeholder)}</option>` +
+      options
+        .map(
+          (option) =>
+            `<option value="${esc(option.value)}"${option.value === value ? " selected" : ""}>${esc(option.label)}</option>`,
+        )
+        .join("");
+  }
+  function renderLocal() {
+    const panel = $("local-panel");
+    if (!panel) return;
+    panel.hidden = !localDirectory;
+    if (!localDirectory) return;
+    const selection = local.normalizeSelection(localSelection);
+    $("local-summary").textContent = localSummary();
+    $("local-clear").hidden = !local.hasSelection(selection);
+    const countries = (localDirectory.countries || []).map((row) => ({
+      value: row.code,
+      label: row.name,
+    }));
+    fillSelect($("local-country"), "Country", countries, selection.country || "US");
+    const states = (localDirectory.states || []).map((row) => ({
+      value: row.code,
+      label: row.name,
+    }));
+    fillSelect($("local-state"), "State", states, selection.state);
+    const cities = local.cityChoices(localDirectory).map((row) => ({
+      value: `${row.city}|${row.state}`,
+      label: `${row.city}, ${row.state}`,
+    }));
+    fillSelect($("local-city"), "City", cities,
+      selection.city ? `${selection.city}|${selection.state}` : "");
+    $("local-zip").value = selection.zip;
+    $("local-locate").textContent = localLocating ? "Locating…" : "Use my location";
+    $("local-locate").disabled = localLocating;
+    const stations = localStations();
+    $("local-stations").innerHTML = stations
+      .map(
+        (channel) =>
+          `<button class="local-station" data-channel="${esc(P.keyFor(channel))}">${esc(channel.name)}<span class="muted">${esc(channel.group || "")}</span></button>`,
+      )
+      .join("");
+  }
+  function saveLocal(selection, notice) {
+    localSelection = local.normalizeSelection(selection);
+    local.save(S.storage, localSelection);
+    localNotice = notice || "";
+    renderLocal();
+  }
+  function localFromLocation() {
+    if (!navigator.geolocation) {
+      toast("This browser cannot share a location. Enter a ZIP code instead.");
+      return;
+    }
+    localLocating = true;
+    renderLocal();
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        localLocating = false;
+        const market = local.nearestMarket(
+          position.coords.latitude,
+          position.coords.longitude,
+          localDirectory,
+        );
+        if (!market) {
+          localNotice = "No published local market is near that location. Enter a ZIP code.";
+          renderLocal();
+          return;
+        }
+        saveLocal(
+          { country: "US", state: market.state, city: market.city, source: "location" },
+          `Nearest published market: ${market.city}, ${market.state}.`,
+        );
+      },
+      () => {
+        localLocating = false;
+        localNotice = "Location was not shared. Enter a ZIP code or a state instead.";
+        renderLocal();
+      },
+      { timeout: 10000, maximumAge: 600000 },
+    );
+  }
   function renderChannels() {
     const token = ++renderToken;
     let channels = available(),
@@ -392,6 +503,7 @@
         $("channel-more").textContent =
           `Load more · ${channels.length - state.limit} remaining`;
     }
+    renderLocal();
     $("favorite-count").textContent = favorites.length;
     document
       .querySelectorAll("[data-shelf]")
@@ -603,10 +715,21 @@
     $("settings-body").innerHTML =
       `<div class="panel"><div class="settings-version"><div><p class="eyebrow">INDEPENDENT WEB EDITION</p><h2>PremiumTV Web ${esc(meta.web_version || "0.1.0")}</h2></div><span class="outline-badge" style="display:inline">${esc((meta.library_scope || "usa").toUpperCase())} LIBRARY</span></div><div class="settings-stats"><div><strong>${number(library.channels.length)}</strong><span>channel feeds</span></div><div><strong>${library.groups.length}</strong><span>categories</span></div><div><strong>${programmeIndex.size || meta.guide_channels || "—"}</strong><span>channels with guide</span></div><div><strong>${movies.length || (meta.vod_catalog && meta.vod_catalog.items.length) || "Soon"}</strong><span>films &amp; episodes</span></div></div><p>Library built ${esc(meta.generated_utc || "unknown")} · Library data ${esc(meta.version || "")}<br>${esc(lastRefreshMessage)}</p><div class="button-row"><button id="force-refresh" class="button primary" ${state.refreshing ? "disabled" : ""}>${state.refreshing ? "Refreshing…" : "Refresh library"}</button><button id="check-bugs" class="button">Check for bugs</button><button id="settings-install" class="button quiet">Add to home screen</button></div><p class="small muted" style="margin-top:15px;margin-bottom:0">The web edition updates when its site is deployed. It never downloads APKs, DMGs or native-app updates.</p></div>
       ${bugReport ? `<div class="panel"><h2>${bugReport.fail ? bugReport.fail + " blocking issues" : "No blocking issues"} · ${bugReport.warn} browser warnings</h2><ul class="bug-list">${bugReport.checks.map((c) => `<li><span class="${c.status}">${c.status === "ok" ? "✓" : c.status === "warn" ? "!" : "×"}</span><strong>${esc(c.label)}</strong><span>${esc(c.detail)}</span></li>`).join("")}</ul><p class="small muted">Read-only library and browser checks. Stream availability is verified only by opening a feed.</p></div>` : ""}
+      <div class="panel"><h2>Local channels</h2><p>${esc(localSummary())}</p><p class="small muted">Station names come from the published directory; a location fix only picks the nearest published market. The answer is stored in this browser and is never uploaded.</p><div class="button-row"><button id="settings-local" class="button quiet">${local && local.hasSelection(localSelection) ? "Change my area" : "Set my area"}</button></div></div>
       <div class="panel"><h2>Playback &amp; personal library</h2><div class="settings-row"><div><strong>Sleep timer</strong><p id="sleep-description">${sleepDeadline > Date.now() ? "Stops playback in " + S.sleepLabel(S.sleepRemaining(sleepDeadline, Date.now())) : "Stop playback after 30, 60 or 90 minutes."}</p></div><select id="sleep-timer" aria-label="Sleep timer"><option value="0">Off</option><option value="30">30 minutes</option><option value="60">1 hour</option><option value="90">1 hour 30 minutes</option></select></div><div class="settings-row"><div><strong>Hidden channels</strong><p>Feeds that fail on every server are hidden on this browser for seven days.</p></div><button id="restore-hidden" class="button quiet" ${dead.size ? "" : "disabled"}>Restore ${dead.size} hidden</button></div><div class="settings-row"><div><strong>Favorites &amp; history</strong><p>${favorites.length} favorites · ${recents.length} recently watched. Stored only in this browser.</p></div><button id="clear-personal" class="button quiet danger">Clear personal data</button></div></div>
       <div class="panel"><h2>Made for the browser</h2><p>No installation required. iPhone and iPad use native HLS playback; Chrome, Edge and Firefox use Media Source Extensions when available. Films use native MP4 playback.</p><div class="info-strip"><span>${icon("info")}</span><p>Some provider feeds need custom headers, block cross-origin requests, use HTTP, or carry AC-3/DTS audio your browser cannot decode. The native apps can handle more of these cases. The web player tries backups and explains failures instead of bypassing browser security.</p></div><div class="button-row"><a class="button quiet" href="data/PremiumTV.m3u" download>Download M3U</a><a class="button quiet" href="../#apps">Get the native apps ↗</a><button id="reload-app" class="button quiet">Reload web app</button></div></div>
       <details class="panel"><summary>Library sources &amp; privacy</summary><dl class="settings-meta"><dt>Playlist</dt><dd>${esc(meta.playlist || "playlists/live/USA.m3u")}</dd><dt>Guide</dt><dd>${esc(meta.guide || "EPG/USA.xml")}</dd><dt>Web build</dt><dd>${esc(meta.build_id || "loading")}</dd><dt>Last library load</dt><dd>${lastRefresh ? esc(new Date(lastRefresh).toLocaleString()) : "Not loaded"}</dd><dt>Storage</dt><dd>${S.persistent ? "Available on this browser" : "Session only — browser storage is blocked"}</dd><dt>Account / analytics</dt><dd>None. No sign-in, tracking, or uploaded viewing history.</dd><dt>Third-party requests</dt><dd>Channel logos, stream providers and Internet Archive receive normal network requests when you browse or play. No viewing data is sent to PremiumTV.</dd></dl><p>The offline cache contains the public app and library, not live video. Clear personal data above to reset favorites, history and resume positions.</p></details>`;
     $("force-refresh").onclick = () => loadLibrary(true);
+    const settingsLocal = $("settings-local");
+    if (settingsLocal)
+      settingsLocal.onclick = () => {
+        setTab("channels");
+        const panel = $("local-panel");
+        if (panel) {
+          panel.hidden = false;
+          panel.scrollIntoView({ block: "center" });
+        }
+      };
     $("check-bugs").onclick = () => {
       bugReport = window.PremiumDiagnostics.check(
         library,
@@ -1185,6 +1308,52 @@
     else state.channelSort = event.target.value;
     renderChannels();
   };
+  if ($("local-locate")) {
+    // The location answer is a fallback chain, not a dead end: a browser that
+    // refuses the fix still resolves from a ZIP, a state or a city.
+    $("local-locate").onclick = localFromLocation;
+    $("local-zip").addEventListener("change", (event) => {
+      const zip = String(event.target.value || "").replace(/\D+/g, "").slice(0, 5);
+      if (!zip) return;
+      const market = local.marketForZip(zip, localDirectory);
+      const state = local.stateForZip(zip, localDirectory);
+      if (!state) {
+        localNotice = "That ZIP is not in the published US ZIP table. Check it, or pick a state.";
+        renderLocal();
+        return;
+      }
+      saveLocal(
+        { country: "US", state, city: market ? market.city : "", zip, source: "zip" },
+        market ? `ZIP ${zip} resolves to ${market.city}, ${market.state}.` : "",
+      );
+    });
+    $("local-state").onchange = (event) => {
+      const state = event.target.value;
+      saveLocal(
+        { country: "US", state, city: "", zip: state ? "" : "", source: "state" },
+        state ? "" : "",
+      );
+    };
+    $("local-city").onchange = (event) => {
+      const [city, state] = String(event.target.value || "").split("|");
+      if (!city) {
+        saveLocal({ country: localSelection.country || "US", state: "", city: "", zip: "" });
+        return;
+      }
+      saveLocal({ country: "US", state, city, source: "city" });
+    };
+    $("local-country").onchange = (event) => {
+      const country = event.target.value || "US";
+      saveLocal({ country, state: "", city: "", zip: "", source: "country" });
+    };
+    $("local-clear").onclick = () => {
+      localSelection = { ...local.EMPTY };
+      localNotice = "";
+      S.storage.removeItem(local.SELECTION_KEY);
+      S.storage.removeItem(local.ASKED_KEY);
+      renderLocal();
+    };
+  }
   $("category-back").onclick = () => chooseCategory("");
   $("clear-search").onclick = () => {
     state.query = "";

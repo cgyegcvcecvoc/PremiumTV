@@ -391,6 +391,44 @@
     return localMessage || local.summary(localDirectory(), localSelection);
   }
 
+  function localMarkets() {
+    if (!local) return [];
+    return local.marketsFor(localDirectory(), localSelection) || [];
+  }
+
+  /** The datalists the settings form offers, so a state or city is typable. */
+  function countryChoices() {
+    const directory = localDirectory();
+    const rows = Array.isArray(directory && directory.countries) ? directory.countries : [];
+    return rows.map((row) => `<option value="${escapeHtml(row.code)}">${escapeHtml(row.name)}</option>`).join('');
+  }
+
+  function stateChoices() {
+    const directory = localDirectory();
+    const rows = Array.isArray(directory && directory.states) ? directory.states : [];
+    return rows.map((row) => `<option value="${escapeHtml(row.code)}">${escapeHtml(row.name || row.code)}</option>`).join('');
+  }
+
+  function cityChoices() {
+    const directory = localDirectory();
+    if (!local) return '';
+    return local.cityChoices(directory)
+      .map((row) => `<option value="${escapeHtml(row.city)}">${escapeHtml(`${row.city}, ${row.state}`)}</option>`)
+      .join('');
+  }
+
+  /** Where the published stations are, stated plainly in the panel. */
+  function publishedMarketLine() {
+    const directory = localDirectory();
+    const rows = Array.isArray(directory && directory.states) ? directory.states : [];
+    const stations = Number(directory && directory.station_count) || 0;
+    if (!rows.length || !stations) {
+      return 'No local station is published in the current library yet.';
+    }
+    const codes = rows.map((row) => row.code).join(' ');
+    return `${stations} local stations in ${rows.length} states: ${codes}`;
+  }
+
   /** A local-channels row with no answer goes straight to the setup panel. */
   function openLocalSetup() {
     selectTab('settings');
@@ -424,8 +462,11 @@
     }
 
     const localCount = localChannels().length;
+    const resolvedLocal = localMarkets();
     const localName = local && localSelection && local.hasSelection(localSelection)
-      ? `⌖ Local channels · ${local.label(localSelection)}`
+      ? `⌖ Local channels · ${resolvedLocal.length === 1
+        ? `${resolvedLocal[0].city}, ${resolvedLocal[0].state}`
+        : local.label(localSelection)}`
       : '⌖ Local channels';
     const shelves = [
       [LOCAL_CATEGORY, localName, localCount],
@@ -543,8 +584,8 @@
     els.channelsTitle.textContent = specialTitle || (ui.query.trim() ? `Search: ${ui.query.trim()}` : ui.category || 'All channels');
     els.channelsSubtitle.textContent = specialTitle && ui.category === LOCAL_CATEGORY
       ? (channels.length
-        ? `${channels.length} station${channels.length === 1 ? '' : 's'} for ${localSelection && local ? local.label(localSelection) : 'your area'} — set another ZIP or state in Settings → Local channels.`
-        : `${localSummary()} Set a location, ZIP or state in Settings → Local channels.`)
+        ? `${channels.length} station${channels.length === 1 ? '' : 's'} for ${localMarkets().map((market) => `${market.city}, ${market.state}`).join(', ') || 'your area'} — set another ZIP or state in Settings → Local channels.`
+        : `${localSummary()} Set a location, ZIP code or state in Settings → Local channels.`)
       : specialTitle
       ? (channels.length
         ? `${channels.length} ${ui.category === RECENT_CATEGORY ? 'channels you opened, newest first — pick one to keep watching' : 'favorite channels'}`
@@ -1414,19 +1455,23 @@
       <div class="panel" id="local-panel">
         <h2>Local channels</h2>
         <p class="muted">Local stations such as WGAL are published per market. Ask this Mac for an
-          approximate location once, or type a ZIP, state or country instead — declining location is
+          approximate location once, or type a ZIP code, a state or a city — declining location is
           fine. The answer stays on this machine and only filters the channel list.</p>
         <div class="local-form">
-          <label>Country<input id="local-country" maxlength="2" autocomplete="country" value="${escapeHtml(localSelection ? localSelection.country : 'US')}"></label>
+          <label>Country<input id="local-country" list="local-country-list" maxlength="2" autocomplete="country" value="${escapeHtml(localSelection ? localSelection.country : 'US')}"></label>
           <label>ZIP code<input id="local-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="${escapeHtml(localSelection ? localSelection.zip : '')}"></label>
-          <label>State<input id="local-state" maxlength="2" autocomplete="address-level1" value="${escapeHtml(localSelection ? localSelection.state : '')}"></label>
-          <label>City (optional)<input id="local-city" maxlength="40" autocomplete="address-level2" value="${escapeHtml(localSelection ? localSelection.city : '')}"></label>
+          <label>State<input id="local-state" list="local-state-list" maxlength="2" autocomplete="address-level1" value="${escapeHtml(localSelection ? localSelection.state : '')}"></label>
+          <label>City (optional)<input id="local-city" list="local-city-list" maxlength="40" autocomplete="address-level2" value="${escapeHtml(localSelection ? localSelection.city : '')}"></label>
         </div>
+        <datalist id="local-country-list">${countryChoices()}</datalist>
+        <datalist id="local-state-list">${stateChoices()}</datalist>
+        <datalist id="local-city-list">${cityChoices()}</datalist>
         <div class="actions">
           <button class="btn" id="local-locate">${localSelection && local && local.hasSelection(localSelection) ? 'Use my location again' : 'Use my location'}</button>
           <button class="btn btn-primary" id="local-save">Save area</button>
           <button class="btn" id="local-clear">Clear</button>
         </div>
+        <p class="muted">${escapeHtml(publishedMarketLine())}</p>
         <p class="settings-status" id="local-summary">${escapeHtml(localSummary())}</p>
         <p class="muted">${escapeHtml(localLabelLine())}</p>
       </div>
@@ -1518,11 +1563,15 @@
     });
     bind('check-bugs', 'click', () => runBugCheck());
     bind('local-save', 'click', () => {
-      localSelection = local.save(window.localStorage, readLocalForm());
+      const form = readLocalForm();
+      const source = form.zip ? 'zip' : form.city ? 'city' : form.state ? 'state' : 'country';
+      localSelection = local.save(window.localStorage, { ...form, source });
       localMessage = '';
       renderCategories();
-      renderChannels();
       renderSettings();
+      // A saved area opens its local shelf, so the answer is visible at once.
+      if (localSelection && local.hasSelection(localSelection)) selectCategory(LOCAL_CATEGORY);
+      else renderChannels();
     });
     bind('local-clear', 'click', () => {
       localSelection = local.save(window.localStorage, { country: 'US' });
@@ -1540,20 +1589,24 @@
       }
       if (summary) summary.textContent = 'Asking for your approximate location…';
       navigator.geolocation.getCurrentPosition((position) => {
-        const state = local.stateForLocation(
+        const market = local.nearestMarket(
           position.coords.latitude, position.coords.longitude, localDirectory(),
         );
-        if (!state) {
-          if (summary) summary.textContent = 'No local stations are published near you yet. Enter a ZIP or state.';
+        if (!market) {
+          if (summary) summary.textContent =
+            'No local station is published near you yet. Enter a ZIP code, state or city instead.';
           return;
         }
-        localSelection = local.save(window.localStorage, { country: 'US', state });
+        localSelection = local.save(window.localStorage, {
+          country: 'US', state: market.state, city: market.city, source: 'location',
+        });
         localMessage = '';
         renderCategories();
         renderChannels();
         renderSettings();
       }, () => {
-        if (summary) summary.textContent = 'Location was declined or unavailable. Enter a ZIP or state instead.';
+        if (summary) summary.textContent =
+          'Location was declined — that is fine. Enter a ZIP code, a state or a city instead.';
       }, { timeout: 10000, maximumAge: 600000 });
     });
   }
@@ -3065,6 +3118,65 @@
     document.getElementById('setup-start').focus();
   }
 
+  /**
+   * The one-time "where do you watch from?" question (1.1.11).
+   *
+   * Every path out of it stores an answer - location, manual, or an explicit
+   * skip - so the dialog cannot reappear on the next launch. The manual button
+   * hands over to the Settings form instead of asking for a ZIP here, because
+   * the form also lists the states and cities PremiumTV publishes.
+   */
+  function maybeAskLocalArea() {
+    const overlay = document.getElementById('local-setup');
+    if (!overlay || !local) return;
+    if (local.asked(window.localStorage)) return;
+    if (local.hasSelection(localSelection)) return;
+    const status = document.getElementById('local-setup-status');
+    const finish = (message) => {
+      overlay.hidden = true;
+      local.markAsked(window.localStorage);
+      if (message && status) status.textContent = message;
+      renderSettings();
+    };
+    overlay.hidden = false;
+    document.getElementById('local-setup-locate').onclick = () => {
+      if (!navigator.geolocation) {
+        if (status) status.textContent = 'This build cannot ask for a location. Use "Enter a ZIP or state".';
+        return;
+      }
+      if (status) status.textContent = 'Asking for your approximate location…';
+      navigator.geolocation.getCurrentPosition((position) => {
+        const market = local.nearestMarket(
+          position.coords.latitude, position.coords.longitude, localDirectory(),
+        );
+        if (!market) {
+          if (status) status.textContent = 'No local station is published near you yet. Use "Enter a ZIP or state".';
+          return;
+        }
+        localSelection = local.save(window.localStorage, {
+          country: 'US', state: market.state, city: market.city, source: 'location',
+        });
+        finish();
+        renderCategories();
+        renderSettings();
+        selectCategory(LOCAL_CATEGORY);
+      }, () => {
+        if (status) status.textContent =
+          'Location was declined — that is fine. Use "Enter a ZIP or state" instead.';
+      }, { timeout: 10000, maximumAge: 600000 });
+    };
+    document.getElementById('local-setup-manual').onclick = () => {
+      finish();
+      local.markAsked(window.localStorage);
+      openLocalSetup();
+    };
+    document.getElementById('local-setup-skip').onclick = () => {
+      local.markAsked(window.localStorage);
+      finish();
+    };
+    document.getElementById('local-setup-locate').focus();
+  }
+
   async function boot() {
     setSplashProgress(18, 'Starting PremiumTV…');
     appInfo = await api.getAppInfo();
@@ -3096,6 +3208,9 @@
     await syncSnapshot();
     hideSplash();
     showSetup();
+    // 1.1.11: the location question follows setup, once. It is skipped when the
+    // viewer already answered, and answerable in Settings afterwards.
+    window.setTimeout(maybeAskLocalArea, 350);
 
     // Keep "now playing" honest without a full re-render storm.
     clockTimer = window.setInterval(() => {

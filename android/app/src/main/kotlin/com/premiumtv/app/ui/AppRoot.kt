@@ -77,6 +77,10 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     var localSelection by remember { mutableStateOf(localSettings.selection()) }
     var localDirectory by remember { mutableStateOf<LocalDirectory?>(null) }
     var showLocalSetup by remember { mutableStateOf(false) }
+    // 1.1.11: the question is asked once, after setup, because a first launch
+    // that opens on a categories list cannot show local stations the viewer
+    // never asked for. Declining is remembered, so it is asked exactly once.
+    var localAsked by remember { mutableStateOf(localSettings.asked()) }
     LaunchedEffect(Unit) {
         localDirectory = withContext(Dispatchers.Default) { appContext.readLocalChannelDirectory() }
     }
@@ -193,6 +197,12 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             val localChannels = remember(visibleLibrary.channels, localDirectory, localSelection) {
                 localDirectory?.channelsFor(visibleLibrary.channels, localSelection) ?: emptyList()
             }
+            // The markets the answer resolves to, for the header on the local
+            // shelf: "2 stations in Lancaster, PA" has to be able to say which
+            // markets it counted, and a state with several markets offers them.
+            val localMarkets = remember(localDirectory, localSelection) {
+                localDirectory?.marketsFor(localSelection)?.map { it.label }.orEmpty()
+            }
 
             BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
                 // The dock is a readable column on a TV and never more than
@@ -237,6 +247,7 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 favoriteChannels = favoriteShelf,
                                 localChannels = localChannels,
                                 localLabel = localSelection.label(),
+                                localMarkets = localMarkets,
                                 onEditLocalChannels = { showLocalSetup = true },
                                 favoriteUrls = favoriteUrlSet,
                                 onToggleFavorite = toggleFavorite,
@@ -350,16 +361,38 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
         }
     }
 
-    if (setupComplete && showLocalSetup) {
+    // The location question, asked once: right after setup when the viewer has
+    // never answered, or whenever the local shelf or Settings asks for it. It
+    // never blocks a channel that is playing, and "Skip for now" is remembered
+    // as an answer so a viewer who says no is not asked again on every launch.
+    // An update popup outranks it: a build with a serious fix must get its
+    // message out before anything else takes the remote's focus.
+    val noticeFirst = updateInfo.notice != null && updateInfo.noticeVisible
+    val askForLocalArea = state is LoadState.Ready &&
+        (showLocalSetup || (setupComplete && !localAsked && !noticeFirst)) && playing == null
+    if (askForLocalArea) {
         LocalChannelsDialog(
             directory = localDirectory,
             initial = localSelection,
             onSave = { selection ->
                 localSelection = selection
                 localSettings.save(selection)
+                localSettings.markAsked()
+                localAsked = true
                 showLocalSetup = false
+                // A saved answer opens the local shelf, so the point of the
+                // question is visible immediately instead of two taps away.
+                if (selection.hasSelection) {
+                    tab = HomeTab.Channels
+                    selectedCategory = null
+                }
             },
             onDismiss = { showLocalSetup = false },
+            onDecline = {
+                localSettings.markAsked()
+                localAsked = true
+                showLocalSetup = false
+            },
         )
     }
 
