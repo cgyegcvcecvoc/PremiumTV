@@ -83,6 +83,25 @@ class LocalChannelsAskTests(unittest.TestCase):
         self.assertIn("localMarkets().map((market) => `${market.city}, ${market.state}`)", app)
 
 
+class SmokeGateTests(unittest.TestCase):
+    """The APK gate must get past the question 1.1.11 now really asks."""
+
+    def test_the_gate_answers_the_location_question_instead_of_timing_out(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "smoke_apk_1111", ROOT / "android" / "tools" / "smoke_apk.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.assertIn("WHERE DO YOU WATCH FROM?", module.LOCAL_PROMPT_TITLES)
+        # The tap is real: the gate presses the dialog's own decline button.
+        self.assertTrue(hasattr(module, "answer_local_prompt"))
+        gate = text(ROOT / "android" / "tools" / "smoke_apk.py")
+        self.assertIn("if answer_local_prompt(texts, nodes):", gate)
+        # And it runs before the channel-count check, so the list is reachable.
+        self.assertLess(gate.index("answer_local_prompt(texts, nodes)"),
+                        gate.index("count = any(re.search"))
+
+
 class AAndEOneCategoryTests(unittest.TestCase):
     """1.1.11: every A+E Networks channel sits in one category."""
 
