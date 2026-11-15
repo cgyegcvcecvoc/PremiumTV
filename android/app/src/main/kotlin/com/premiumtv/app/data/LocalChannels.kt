@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import org.json.JSONObject
+import kotlin.math.PI
 import kotlin.math.asin
 import kotlin.math.cos
 import kotlin.math.min
-import kotlin.math.radians
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -287,15 +287,18 @@ class LocalDirectory internal constructor(val document: JSONObject) {
         return "$stations local station${if (stations == 1) "" else "s"} in $places."
     }
 
+    /** Great-circle distance in kilometres; `kotlin.math` has no `radians`. */
     private fun distanceKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
         val radius = 6371.0
-        val phi1 = radians(lat1)
-        val phi2 = radians(lat2)
+        val phi1 = toRadians(lat1)
+        val phi2 = toRadians(lat2)
         val dPhi = phi2 - phi1
-        val dLambda = radians(lon2 - lon1)
+        val dLambda = toRadians(lon2 - lon1)
         val a = sin(dPhi / 2) * sin(dPhi / 2) + cos(phi1) * cos(phi2) * sin(dLambda / 2) * sin(dLambda / 2)
         return 2 * radius * asin(min(1.0, sqrt(a)))
     }
+
+    private fun toRadians(degrees: Double): Double = degrees * PI / 180.0
 }
 
 object LocalChannels {

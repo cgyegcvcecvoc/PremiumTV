@@ -58,10 +58,12 @@ class LocalChannelsAskTests(unittest.TestCase):
     def test_a_location_fix_resolves_to_a_market(self):
         data = text(DATA / "LocalChannels.kt")
         self.assertIn("fun nearestMarket(latitude: Double, longitude: Double, state: String? = null)", data)
+        # kotlin.math has no `radians`; importing it fails the APK build.
+        self.assertNotIn("import kotlin.math.radians", data)
         self.assertIn("fun marketForZip(zip: String): LocalMarket?", data)
         self.assertIn("fun marketsFor(selection: LocalSelection): List<LocalMarket>", data)
         dialog = text(UI / "LocalChannelsDialog.kt")
-        self.assertIn("directory?.nearestMarket(latitude, longitude)", dialog)
+        self.assertIn("known?.nearestMarket(latitude, longitude)", dialog)
 
     def test_the_mac_asks_once_and_names_the_market(self):
         app = text(MAC / "app.js")

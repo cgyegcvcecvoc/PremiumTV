@@ -1,6 +1,6 @@
 # Category shelf
 
-- **Shelf rebuilt:** 2026-11-15 13:36 UTC (2026-11-15 08:36 AM EST) — _category shelf_
+- **Shelf rebuilt:** 2026-11-15 13:46 UTC (2026-11-15 08:46 AM EST) — _category shelf_
 - **Sources:** [`playlists/PremiumTV.m3u`](../playlists/PremiumTV.m3u) for `All/`, [`playlists/live/USA.m3u`](../playlists/live/USA.m3u) for `USA.m3u` and `USA/`
 - **Order:** Sports -> Lifestyle -> Fox Channels -> CBS -> NBC -> NBC Sports Channels -> Cartoons -> PBS -> Game Shows (each followed by its own Backups group), then the long tail by size, `Other` last — the published order from `scripts/categorize.py`.
 - **One entry per channel:** a channel's spare feeds sit right after it in its `<category> Backups` group, best quality first.
@@ -16,7 +16,7 @@ Every file here is a slice of an already published playlist: same channels, same
 | 1 | Sports | 141 | [`Sports.m3u`](USA/Sports.m3u) |
 | 2 | Sports Backups | 69 | [`Sports_Backups.m3u`](USA/Sports_Backups.m3u) |
 | 3 | Lifestyle | 139 | [`Lifestyle.m3u`](USA/Lifestyle.m3u) |
-| 4 | Lifestyle Backups | 76 | [`Lifestyle_Backups.m3u`](USA/Lifestyle_Backups.m3u) |
+| 4 | Lifestyle Backups | 75 | [`Lifestyle_Backups.m3u`](USA/Lifestyle_Backups.m3u) |
 | 5 | Fox Channels | 25 | [`Fox_Channels.m3u`](USA/Fox_Channels.m3u) |
 | 6 | CBS | 27 | [`CBS.m3u`](USA/CBS.m3u) |
 | 7 | CBS Backups | 14 | [`CBS_Backups.m3u`](USA/CBS_Backups.m3u) |
@@ -32,8 +32,8 @@ Every file here is a slice of an already published playlist: same channels, same
 | 17 | United States Backups | 73 | [`United_States_Backups.m3u`](USA/United_States_Backups.m3u) |
 | 18 | Movies | 223 | [`Movies.m3u`](USA/Movies.m3u) |
 | 19 | Movies Backups | 105 | [`Movies_Backups.m3u`](USA/Movies_Backups.m3u) |
-| 20 | Series | 163 | [`Series.m3u`](USA/Series.m3u) |
-| 21 | Series Backups | 109 | [`Series_Backups.m3u`](USA/Series_Backups.m3u) |
+| 20 | Series | 161 | [`Series.m3u`](USA/Series.m3u) |
+| 21 | Series Backups | 107 | [`Series_Backups.m3u`](USA/Series_Backups.m3u) |
 | 22 | Entertainment | 121 | [`Entertainment.m3u`](USA/Entertainment.m3u) |
 | 23 | Entertainment Backups | 54 | [`Entertainment_Backups.m3u`](USA/Entertainment_Backups.m3u) |
 | 24 | Religious | 102 | [`Religious.m3u`](USA/Religious.m3u) |
@@ -45,10 +45,10 @@ Every file here is a slice of an already published playlist: same channels, same
 | 30 | Kids | 83 | [`Kids.m3u`](USA/Kids.m3u) |
 | 31 | Kids Backups | 44 | [`Kids_Backups.m3u`](USA/Kids_Backups.m3u) |
 | 32 | Legislative | 79 | [`Legislative.m3u`](USA/Legislative.m3u) |
-| 33 | News | 60 | [`News.m3u`](USA/News.m3u) |
-| 34 | News Backups | 26 | [`News_Backups.m3u`](USA/News_Backups.m3u) |
-| 35 | A&E Networks | 58 | [`A_E_Networks.m3u`](USA/A_E_Networks.m3u) |
-| 36 | A&E Networks Backups | 6 | [`A_E_Networks_Backups.m3u`](USA/A_E_Networks_Backups.m3u) |
+| 33 | A&E Networks | 60 | [`A_E_Networks.m3u`](USA/A_E_Networks.m3u) |
+| 34 | A&E Networks Backups | 9 | [`A_E_Networks_Backups.m3u`](USA/A_E_Networks_Backups.m3u) |
+| 35 | News | 60 | [`News.m3u`](USA/News.m3u) |
+| 36 | News Backups | 26 | [`News_Backups.m3u`](USA/News_Backups.m3u) |
 | 37 | Education | 41 | [`Education.m3u`](USA/Education.m3u) |
 | 38 | Education Backups | 3 | [`Education_Backups.m3u`](USA/Education_Backups.m3u) |
 | 39 | Comedy | 32 | [`Comedy.m3u`](USA/Comedy.m3u) |

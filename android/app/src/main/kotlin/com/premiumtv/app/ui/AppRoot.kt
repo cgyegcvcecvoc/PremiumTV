@@ -27,6 +27,7 @@ import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.ChannelHealthStore
 import com.premiumtv.app.data.LocalChannelSettings
 import com.premiumtv.app.data.LocalDirectory
+import com.premiumtv.app.data.LocalSelection
 import com.premiumtv.app.data.LoadState
 import com.premiumtv.app.data.readLocalChannelDirectory
 import com.premiumtv.app.data.hiddenChannelCount
@@ -387,10 +388,21 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                     selectedCategory = null
                 }
             },
-            onDismiss = { showLocalSetup = false },
-            onDecline = {
+            onDismiss = {
+                // Back dismisses without an answer, and that is an answer too:
+                // the question must not reappear over the home screen on every
+                // launch. Settings → Local channels reopens it on demand.
                 localSettings.markAsked()
                 localAsked = true
+                showLocalSetup = false
+            },
+            onDecline = {
+                // "Skip for now" clears any earlier answer as well, so a viewer
+                // who changes their mind is not left with a stale market.
+                localSettings.markAsked()
+                localAsked = true
+                localSettings.clear()
+                localSelection = LocalSelection()
                 showLocalSetup = false
             },
         )

@@ -81,14 +81,15 @@ internal fun LocalChannelsDialog(
 
     fun applyFix(latitude: Double, longitude: Double) {
         locating = false
-        val market = directory?.nearestMarket(latitude, longitude)
-        if (market == null) {
+        val known = directory
+        val market = known?.nearestMarket(latitude, longitude)
+        if (known == null || market == null) {
             message = "No local stations are published near that fix. Enter a ZIP code instead."
             source = ""
             return
         }
         state = market.state
-        city = if (directory.marketsFor(LocalSelection(state = market.state)).size > 1 && showEverything) "" else market.city
+        city = if (known.marketsFor(LocalSelection(state = market.state)).size > 1 && showEverything) "" else market.city
         zip = ""
         source = LocalSelection.SOURCE_LOCATION
         message = "Location set to ${market.label}. Pick another ZIP or state any time."
