@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-15 — Version 1.1.11 published: local channels by location
+
+- Published [`v1.1.11`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.11) as the Latest release (Android `versionCode 101110000`, macOS `1.1.11`) with the smoke-tested APK, all four Mac installers and both `SHA256SUMS` files attached. This is the first release that ships the real market-based local channels: 1.1.10's notes claimed them but the feature was not in the build.
+- The nightly scrape had moved the feeds on, so the merge re-applied the A&E rule to the fresh `PremiumTV.m3u` and rebuilt the shelf from it. `AE_EXCEPTIONS` now also keeps History-branded channels A+E does not operate (Viasat History, viju History, History TV18, Beyond History, History and Warfare, Love Crime & History) in Documentary.
+- Two gate bugs found while publishing are fixed in the same run: the emulator smoke test timed out on the new one-time location question (it now answers "Skip for now"), and `web/` had two elements sharing `id="player-next"`.
+
 ## 2026-11-15 — Version 1.1.11 prepared: local channels by location
 
 - **The web edition answers the same question.** The browser build had no local channels at all, so `web/` now ships `data/local-channels.json` and the shared `shared/local-channels.js`, and the channels page shows a *Your local stations* panel (location, ZIP, state, city, country) with the market's stations as playable buttons; Settings repeats the current answer. Eight new `web/test/local-channels.test.cjs` tests pin the fallback chain and the storage rules.
