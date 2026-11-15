@@ -3,6 +3,18 @@ const { test, expect } = require("@playwright/test");
 // The published channel lineup changes after each scrape. Compare the UI to
 // this build's actual group data instead of pinning a stale scrape's count.
 const groupCount = require("../../dist/data/groups.json").length;
+// This build's HLS channel, not a hard-coded one: the published lineup is
+// refreshed by scripts/scraper.py, and a channel that drops out of the feed
+// must not fail the browser suite. The 30A feeds are the published HLS
+// fixture; fall back to any channel whose stream is a .m3u8.
+const hlsChannel = (() => {
+  const channels = require("../../dist/data/channels.json");
+  const preferred = channels.find((c) => /^https:\/\/30a-tv\.com\//.test(c.url || ""));
+  const fallback = channels.find((c) => /\.m3u8(\?|$)/.test(c.url || ""));
+  const channel = preferred || fallback;
+  if (!channel) throw new Error("No HLS channel to exercise in this library");
+  return { name: channel.name, host: new URL(channel.url).origin + "/*" };
+})();
 
 
 test.beforeEach(async ({ page }) => {
@@ -191,7 +203,7 @@ test("provider failure shows an honest error and does not masquerade as playback
 }) => {
   // A fulfilled HTTP error is deterministic in every engine. abort() models a
   // socket failure, which Linux WebKit sometimes leaves pending indefinitely.
-  await page.route("https://30a-tv.com/feeds/vidaa/**", (route) =>
+  await page.route(hlsChannel.host, (route) =>
     route.fulfill({
       status: 503,
       contentType: "text/plain",
@@ -201,9 +213,9 @@ test("provider failure shows an honest error and does not masquerade as playback
   );
   await page.goto("/");
   await expect(page.locator(".category-card").first()).toBeVisible();
-  await page.locator("#channel-search").fill("30A Golf Kingdom");
-  await expect(page.locator(".channel-open")).toHaveCount(1);
-  await page.locator(".channel-open").click();
+  await page.locator("#channel-search").fill(hlsChannel.name);
+  await expect(page.locator(".channel-open").first()).toBeVisible();
+  await page.locator(".channel-open").first().click();
   await expect(page.locator("#player-error")).toBeVisible({ timeout: 40000 });
   await expect(page.locator("#player-error-text")).toContainText("browser");
   await expect(page.locator("#player-original")).toHaveAttribute(
@@ -228,7 +240,7 @@ test("HLS playback uses the pinned browser library and really advances", async (
   const fs = require("node:fs");
   const path = require("node:path");
   const fixture = path.join(__dirname, "../fixtures/hls");
-  await page.route("https://30a-tv.com/feeds/vidaa/**", (route) => {
+  await page.route(hlsChannel.host, (route) => {
     const name = new URL(route.request().url()).pathname.split("/").pop();
     route.fulfill({
       status: 200,
@@ -243,9 +255,9 @@ test("HLS playback uses the pinned browser library and really advances", async (
   });
   await page.goto("/");
   await expect(page.locator(".category-card").first()).toBeVisible();
-  await page.locator("#channel-search").fill("30A Golf Kingdom");
-  await expect(page.locator(".channel-open")).toHaveCount(1);
-  await page.locator(".channel-open").click();
+  await page.locator("#channel-search").fill(hlsChannel.name);
+  await expect(page.locator(".channel-open").first()).toBeVisible();
+  await page.locator(".channel-open").first().click();
   await expect
     .poll(() => page.locator("video").evaluate((v) => v.currentTime))
     .toBeGreaterThan(0.5);
