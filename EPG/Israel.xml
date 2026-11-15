@@ -61,10 +61,6 @@
     <display-name>VivaPremium.il</display-name>
     <icon src="https://iptv-epg.org/images/Q8zPK3C0Yp_N4NI5Bf2f9NTFwyM5SDruB-emyIFoxTT3QbO7nYxxwGYq89a_nAo2o_LzBTsc8UdOfIr4CEwD15OFJWie7ZqobgNz5vcJnYnxuWsM" />
   </channel>
-  <channel id="WallaYes.il">
-    <display-name>וואלה!+ yes תרבות ובידור HD</display-name>
-    <icon src="https://dor2500.github.io/israel-tv-plus/assets/logos/walla_yes_il.png" />
-  </channel>
   <channel id="Now14.il@SD">
     <display-name>Channel 14</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/refs/heads/main/countries/israel/channel14-il.png" />
@@ -139,6 +135,10 @@
     <display-name>Zoom.il</display-name>
     <icon src="https://iptv-epg.org/images/mWN_dOX_u5_vNmQEsvNoXrBwK8pvmA8tWYkxToe_uDEiHHoGfRo47ncMSyRZBW9lUeOY7Wi4MXfLdjQP7MmnpGUKIMQGVWdr7UFSFtg" />
   </channel>
+  <channel id="History.il">
+    <display-name>ערוץ ההיסטוריה ישראל FHD (History)</display-name>
+    <icon src="https://dor2500.github.io/israel-tv-plus/assets/logos/history_il.png" />
+  </channel>
   <channel id="KanEducational.il@SD">
     <display-name>Kan Educational (720p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/KanHinuchit.svg/960px-KanHinuchit.svg.png" />
@@ -153,19 +153,19 @@
     <display-name>yesMOVIESACTION.il</display-name>
     <icon src="https://iptv-epg.org/images/i00xp1xMX8MhsOp9BFoTLtxD_80oYjYJjOyHimIoHVRfppYdPx17qk_G0p5-Yiq_vy-lG4gCF4unfMZXJgmyW6wIs4y2eLS1EjGBEutbreawQJc0DUINDQ" />
   </channel>
+  <channel id="Luli.il">
+    <display-name>ערוץ לולי לפעוטות בעברית HD</display-name>
+    <icon src="https://dor2500.github.io/israel-tv-plus/assets/logos/luli_tv.png" />
+  </channel>
   <channel id="YamTichoni.il@SD">
     <display-name>Yam Tichoni (1080p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/he/thumb/5/58/YamTichoniChannel.svg/1280px-YamTichoniChannel.svg.png" />
   </channel>
-  <programme start="20261115072300 +0000" stop="20261115080500 +0000" channel="HOTZone.il@SD">
-    <title>מרשלים 2</title>
-  </programme>
-  <programme start="20261115080500 +0000" stop="20261115084800 +0000" channel="HOTZone.il@SD">
-    <title>בוסטון בלו</title>
-  </programme>
-  <programme start="20261115084800 +0000" stop="20261115092900 +0000" channel="HOTZone.il@SD">
-    <title>FBI - עונה 7</title>
-  </programme>
+  <channel id="premiumtv.international.yes_hd">
+    <display-name>yes דוקו HD</display-name>
+    <display-name>yes דוקו HD (Backup 1)</display-name>
+    <icon src="https://dor2500.github.io/israel-tv-plus/assets/logos/yes_docu.png" />
+  </channel>
   <programme start="20261115092900 +0000" stop="20261115101100 +0000" channel="HOTZone.il@SD">
     <title>NCIS עונה 23</title>
   </programme>
@@ -391,12 +391,11 @@
   <programme start="20261117134200 +0000" stop="20261117142400 +0000" channel="HOTZone.il@SD">
     <title>NCIS עונה 23</title>
   </programme>
-  <programme start="20261115050000 +0000" stop="20261115080000 +0000" channel="TheIsraeliNetwork.il@SD">
-    <title>Programmes télévisés israéliens</title>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261117142400 +0000" stop="20261117150500 +0000" channel="HOTZone.il@SD">
+    <title>שיקגו PD, עונה 11</title>
+  </programme>
+  <programme start="20261117150500 +0000" stop="20261117154800 +0000" channel="HOTZone.il@SD">
+    <title>CIA 2</title>
   </programme>
   <programme start="20261115080000 +0000" stop="20261115140000 +0000" channel="TheIsraeliNetwork.il@SD">
     <title>Programmes télévisés israéliens</title>
@@ -495,12 +494,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261115074300 +0000" stop="20261115082400 +0000" channel="VivaPremium.il@SD">
-    <title>היריבות - פרק 30</title>
-  </programme>
-  <programme start="20261115082400 +0000" stop="20261115091200 +0000" channel="VivaPremium.il@SD">
-    <title>גבול של שתיקה - פרק 6</title>
   </programme>
   <programme start="20261115091200 +0000" stop="20261115100500 +0000" channel="VivaPremium.il@SD">
     <title>בלנקה 3 - פרק 12</title>
@@ -718,17 +711,11 @@
   <programme start="20261117132500 +0000" stop="20261117141100 +0000" channel="VivaPremium.il@SD">
     <title>הצוואה - פרק 81</title>
   </programme>
-  <programme start="20261115075700 +0000" stop="20261115082100 +0000" channel="Zoom.il@SD">
-    <title>אחותי קפצה כיתה 3 - פרק 11</title>
+  <programme start="20261117141100 +0000" stop="20261117145200 +0000" channel="VivaPremium.il@SD">
+    <title>היריבות - פרק 32</title>
   </programme>
-  <programme start="20261115082100 +0000" stop="20261115084400 +0000" channel="Zoom.il@SD">
-    <title>אחותי קפצה כיתה 3 - פרק 12</title>
-  </programme>
-  <programme start="20261115084400 +0000" stop="20261115090400 +0000" channel="Zoom.il@SD">
-    <title>מה הבעיה 3 - פרק 4</title>
-  </programme>
-  <programme start="20261115090400 +0000" stop="20261115092600 +0000" channel="Zoom.il@SD">
-    <title>מה הבעיה 3 - פרק 5</title>
+  <programme start="20261117145200 +0000" stop="20261117154200 +0000" channel="VivaPremium.il@SD">
+    <title>גבול של שתיקה - פרק 8</title>
   </programme>
   <programme start="20261115092600 +0000" stop="20261115095000 +0000" channel="Zoom.il@SD">
     <title>מה הבעיה 3 - פרק 6</title>
@@ -1159,8 +1146,17 @@
   <programme start="20261117135100 +0000" stop="20261117141300 +0000" channel="Zoom.il@SD">
     <title>מה הבעיה- עונה 1 שס''י - פרק 17</title>
   </programme>
-  <programme start="20261115062600 +0000" stop="20261115081400 +0000" channel="YesMoviesAction.il@SD">
-    <title>עומד אחרון (ארנולד שוורצנגר)</title>
+  <programme start="20261117141300 +0000" stop="20261117143400 +0000" channel="Zoom.il@SD">
+    <title>מה הבעיה- עונה 1 שס''י - פרק 18</title>
+  </programme>
+  <programme start="20261117143400 +0000" stop="20261117150400 +0000" channel="Zoom.il@SD">
+    <title>ראש גדול - פרק 25</title>
+  </programme>
+  <programme start="20261117150400 +0000" stop="20261117153300 +0000" channel="Zoom.il@SD">
+    <title>ראש גדול - פרק 26</title>
+  </programme>
+  <programme start="20261117153300 +0000" stop="20261117160200 +0000" channel="Zoom.il@SD">
+    <title>ראש גדול - פרק 27</title>
   </programme>
   <programme start="20261115081400 +0000" stop="20261115103800 +0000" channel="YesMoviesAction.il@SD">
     <title>מאורת הגנבים: פנטרה</title>
@@ -1257,5 +1253,8 @@
   </programme>
   <programme start="20261117115600 +0000" stop="20261117140100 +0000" channel="YesMoviesAction.il@SD">
     <title>אבדון (טום קרוז)</title>
+  </programme>
+  <programme start="20261117140100 +0000" stop="20261117161500 +0000" channel="YesMoviesAction.il@SD">
+    <title>עולם היורה: חיים חדשים</title>
   </programme>
 </tv>
