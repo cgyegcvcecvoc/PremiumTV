@@ -533,7 +533,6 @@
     <display-name>438457</display-name>
     <display-name>DE - RTLZWEI</display-name>
     <display-name>RTLZWEI.de</display-name>
-    <display-name>RTL Zwei HD (Backup 1)</display-name>
     <icon src="https://iptv-epg.org/images/1o_q-lzCEBjwgID2IMRLaESWm2L1hVwj0TdWxdfLsBeT3XJRjldcAJpxoOB-60lyTStDWPg5v0a5xQV46kW0RO1yVEGmTkRDcc59mGhPF8zE" />
   </channel>
   <channel id="RTLup.de@SD">
@@ -936,11 +935,11 @@
   </channel>
   <channel id="CuriosityChannel.de@SD">
     <display-name>Curiosity Channel (720p)</display-name>
+    <display-name>Curiosity Channel HD</display-name>
+    <display-name>465175</display-name>
     <display-name>Curiosity Channel</display-name>
     <display-name>76646</display-name>
     <display-name>422350</display-name>
-    <display-name>Curiosity Channel HD</display-name>
-    <display-name>465175</display-name>
     <icon src="https://epg.pw/media/images/epg/2025/04/06/20250406040556128617_63.png" />
   </channel>
   <channel id="CuriosityNOW.de@EN">
@@ -1655,7 +1654,7 @@
     <icon src="https://iptv-epg.org/images/-WeKNpjA8ggOL7uFCTs9OI3lWQkbh41tqiwjQD1ZktgzPgfi9tXhxL6Gv1qMBRvdIBi5PSCOMaCreqWDpR4UF4sl_tsh4f_dmTe53KPd" />
   </channel>
   <channel id="DasErste.de@SD">
-    <display-name>Das Erste HD (1080p)</display-name>
+    <display-name>Das Erste (1080p)</display-name>
     <display-name>Das Erste</display-name>
     <display-name>76674</display-name>
     <display-name>422904</display-name>
@@ -1726,10 +1725,6 @@
     <display-name>DE - ARD-alpha</display-name>
     <display-name>ARD-alpha.de</display-name>
     <icon src="https://iptv-epg.org/images/ibkUqJFFcPBaSQTzhuhX41nip8_JlA0oHTYR0xemgAApB7-7GQXqxxtxpOqz0iN5at5bPLwGD7kORwqQXlqf5n3fSussc-7vYCiBx-2_4r-zTGE" />
-  </channel>
-  <channel id="DaVinciAsia.de@Vietnam">
-    <display-name>Da Vinci Asia Vietnam (1080p)</display-name>
-    <icon src="https://i.imgur.com/iBx7K1M.png" />
   </channel>
   <channel id="iSTUFF.de@SD">
     <display-name>iSTUFF (720p) [Not 24/7]</display-name>
@@ -2214,6 +2209,12 @@
   <programme start="20261117143000 +0000" stop="20261117173000 +0000" channel="SkySportGolf.de@SD">
     <title>Asian Tour: Philippine Open, 4. Tag in Carmona (Philippinen)</title>
   </programme>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="SkySportGolf.de@SD">
+    <title>Golf: Golfszene 2026 (3)</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="SkySportGolf.de@SD">
+    <title>Golf: Golfszene 2026 (4)</title>
+  </programme>
   <programme start="20261115110000 +0000" stop="20261115130000 +0000" channel="SkySportMix.de@SD">
     <title>NHL: Winnipeg Jets @ Chicago Blackhawks</title>
   </programme>
@@ -2452,6 +2453,12 @@
   <programme start="20261117171500 +0000" stop="20261117173000 +0000" channel="SkySportNews.de@SD">
     <title>Live Sky Sport News: Primetime</title>
   </programme>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="SkySportNews.de@SD">
+    <title>Live Sky Sport News: Mr. Meinung</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="SkySportNews.de@SD">
+    <title>Live Sky Sport News: Primetime</title>
+  </programme>
   <programme start="20261115103000 +0000" stop="20261115124500 +0000" channel="SkySportTennis.de@SD">
     <title>Live ATP Finals: Doppel 1, 1. Tag in Turin (ITA)</title>
     <live />
@@ -2684,14 +2691,6 @@
   <programme start="20261117170000 +0000" stop="20261117191000 +0000" channel="SkySportTopEvent.de@SD">
     <title>Live ATP Finals: Doppel 2, 3. Tag in Turin (ITA)</title>
     <live />
-  </programme>
-  <programme start="20261115105500 +0000" stop="20261115113000 +0000" channel="Motorvision.de@SD">
-    <title>Trackmasters - Winter time at the Nürburgring</title>
-    <desc>Trackmasters - Winter time at the Nürburgring</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="Motorvision.de@SD">
     <title>Trackmasters - Bad weather at the Green Hell</title>
@@ -3285,10 +3284,18 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115105500 +0000" stop="20261115114500 +0000" channel="DMAX.de@HD">
-    <title>Asphalt-Cowboys</title>
-    <desc>Ob in Deutschland oder dem Rest der Welt, hier kann man den Alltag der Trucker hautnah miterleben. Die „Asphalt-Cowboys“ sind tagtäglich auf den Straßen dieser Welt unterwegs und halten sie am Laufen. DMAX begleitet die „Cowboys“ auf ihren Fahrten rund um den Globus und verschafft ebenso Einblicke in das Leben abseits der Straßen.</desc>
-    <date>20261115</date>
+  <programme start="20261117173000 +0000" stop="20261117175500 +0000" channel="Motorvision.de@SD">
+    <title>On Tour</title>
+    <desc>Crashen oder gecrasht werden, dass ist beim Stockcar Rennen in Herzfelde die große Frage! Um seine Konkurrenten aus dem Rennen zu katapultieren, bedarf es wenig. Man nehme ein schrottreifes Fahrzeug, entferne Glasscheiben, Kleinteile, Rücksitzbank und Beifahrersitz. Airbags sind unerwünscht. Sturzhelm, Sicherheitsgurt und Überrollbügel reichen hier vollkommen aus. (Senderinfo).</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117175500 +0000" stop="20261117182000 +0000" channel="Motorvision.de@SD">
+    <title>Classic</title>
+    <desc>1980 startete der Audi Quattro, der Allradantrieb vom Wehrdienst leistenden VW Iltis, gepaart mit einem 200 PS starken Fünfzylinder-Turbomotor. Diese ungewöhnliche Mischung sorgte für Fahrleistungen, die den Audi plötzlich im Rückspiegel der Porsche auftauchen ließ. Gerade einmal 400 Stück waren vom Ur-Quattro geplant. Aufgrund seines Erfolges wurden jedoch über 11.000 Stück gebaut. (Senderinfo).</desc>
+    <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -5032,14 +5039,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115110500 +0000" stop="20261115114500 +0000" channel="TLC.de@SD">
-    <title>Paranormal SOS</title>
-    <desc>Infos zur Serie:\n\n"Paranormal SOS" folgt einem Team von drei renommierten Geisterjägern, die sich paranormalen Ereignissen widmen. Das Trio besteht aus dem Medium Ian Lawman, der mit Verstorbenen kommuniziert, der Psychologin Jayne Harris, die die Ursachen von Spukphänomenen erforscht, und dem Technik-Experten Barri Ghai, der nach Beweisen sucht. Gemeinsam reisen sie durch Großbritannien, um Men</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261115114500 +0000" stop="20261115123500 +0000" channel="TLC.de@SD">
     <title>The Haunted Museum</title>
     <date>20261115</date>
@@ -5628,11 +5627,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115111000 +0000" stop="20261115113500 +0000" channel="Nicktoons.de@SD">
-    <title>Willkommen bei den Louds</title>
-  </programme>
-  <programme start="20261115113500 +0000" stop="20261115114500 +0000" channel="Nicktoons.de@SD">
-    <title>Willkommen bei den Louds</title>
+  <programme start="20261117173000 +0000" stop="20261117183000 +0000" channel="TLC.de@SD">
+    <title>Naked Survival – Ausgezogen in die Wildnis</title>
+    <desc>Die zufällig ausgewählten Pärchen müssen 21 Tage lang mit minimaler Ausrüstung, ohne Nahrungsvorräte und vor allem ohne Kleidung überleben. Schamgefühle haben da keinen Platz. Die Pärchen begeben sich in ihnen unbekannte Gebiete wie die afrikanische Serengeti, den mexikanischen Dschungel oder den Amazonas-Regenwald. Neben der Aufgabe der Nahrungsbeschaffung bekommen es die Survival-Expert:innen au</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115121000 +0000" channel="Nicktoons.de@SD">
     <title>Willkommen bei den Louds</title>
@@ -6144,8 +6145,11 @@
   <programme start="20261117172000 +0000" stop="20261117174000 +0000" channel="Nicktoons.de@SD">
     <title>SpongeBob Schwammkopf</title>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="AlexBerlin.de@SD">
-    <title>Alex Berlin</title>
+  <programme start="20261117174000 +0000" stop="20261117175500 +0000" channel="Nicktoons.de@SD">
+    <title>SpongeBob Schwammkopf</title>
+  </programme>
+  <programme start="20261117175500 +0000" stop="20261117181500 +0000" channel="Nicktoons.de@SD">
+    <title>Pinky Malinky</title>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="AlexBerlin.de@SD">
     <title>Alex Berlin</title>
@@ -6798,13 +6802,11 @@
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="AllgauTV.de@SD">
     <title>allgäu.tv Nachrichten vom 17. November 2026</title>
   </programme>
-  <programme start="20261115111500 +0000" stop="20261115114500 +0000" channel="BibelTV.de@SD">
-    <title>Erlebt TV</title>
-    <desc>Für viele Menschen ist ein Leben ohne Tiere unvorstellbar. Sie sind Weggefährten, Freunde und Tröster. Aber es gibt auch Zeiten, in denen die Tiere auf die besondere Fürsorge des Menschen angewiesen sind. In der Sendung erzählen Tierbesitzer von der Sorge, Verantwortung und Liebe zu ihren Tieren. (Moderation: Marzia Plichta; Andreas Waldmann) (Senderinfo).</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="AllgauTV.de@SD">
+    <title>Land und Leute vom 9. November 2026 (Wh.)</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="AllgauTV.de@SD">
+    <title>Aus dem Westallgäu und vom Bodensee (Wh.)</title>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115124500 +0000" channel="BibelTV.de@SD">
     <title>ERF Jess – Talkwerk</title>
@@ -7704,18 +7706,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115112500 +0000" stop="20261115114300 +0000" channel="DasErste.de@HD">
-    <title>Deutschlandbilder</title>
-    <desc>"Deutschlandbilder" lädt zu einer stimmungsvollen Reise zu den schönsten Regionen des Landes ein. Eindrucksvolle Aufnahmen zeigen abwechslungsreiche Landschaften, historische Städte, malerische Inseln und reizvolle Naturkulissen in ihrer ganzen Vielfalt. Die Sendung vermittelt faszinierende Eindrücke von bekannten Sehenswürdigkeiten ebenso wie von weniger entdeckten Orten. So entsteht ein abwechsl</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261115114300 +0000" stop="20261115114500 +0000" channel="DasErste.de@HD">
-    <title>Tagesschau</title>
-    <desc>Seit 1952 wird die Nachrichtensendung präsentiert. Sie informiert täglich über die wichtigsten Ereignisse aus Politik, Wirtschaft, Gesellschaft, Kultur und Sport. Die Sendung bietet einen kompakten und verlässlichen Überblick über das nationale und internationale Geschehen. Reporterinnen und Reporter sowie Korrespondentinnen und Korrespondenten berichten aus dem In- und Ausland und ordnen aktuelle</desc>
-    <date>20261115</date>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="BibelTV.de@SD">
+    <title>Bibel TV DIE SENDUNG</title>
+    <desc>Stell Dir vor, Du gehst durch den stressigsten Tag – und fühlst Dich trotzdem getragen. In diesen ausgewählten Filmausschnitten aus dem neuen Film "Mehr Frieden in Kopf und Kalender" erklärt Bischof em. Gregor Maria Hanke, wie eine echte Beziehung zu Gott Deinen Alltag von Grund auf verändert. Entdecke kraftvolle Impulse für mehr Seelenfrieden, echte Gelassenheit und ein erfülltes Leben – ohne all</desc>
+    <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -8336,8 +8330,21 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="FrankenFernsehen.de@SD">
-    <title>Kirche erleben (Wh.)</title>
+  <programme start="20261117174000 +0000" stop="20261117174500 +0000" channel="DasErste.de@HD">
+    <title>Tagesschau</title>
+    <desc>Seit 1952 wird die Nachrichtensendung präsentiert. Sie informiert täglich über die wichtigsten Ereignisse aus Politik, Wirtschaft, Gesellschaft, Kultur und Sport. Die Sendung bietet einen kompakten und verlässlichen Überblick über das nationale und internationale Geschehen. Reporterinnen und Reporter sowie Korrespondentinnen und Korrespondenten berichten aus dem In- und Ausland und ordnen aktuelle</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117181500 +0000" channel="DasErste.de@HD">
+    <title>Meister des Alltags</title>
+    <desc>Haben Frühkartoffeln eine dünnere Schale als Lagerkartoffeln? Darf man Backpapier aus hygienischen Gründen immer nur einmal verwenden? Und muss man seinen Wellensittich impfen lassen? Diese und viele weitere spannende und kuriose Fragen rund um den ganz normalen Alltag gibt es im Wissensquiz. Moderator Florian Weber stellt in "Meister des Alltags" die Alltagstauglichkeit seiner prominenten Kandida</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="FrankenFernsehen.de@SD">
     <title>Kirche in Bayern (Wh.)</title>
@@ -8689,6 +8696,12 @@
   </programme>
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="FrankenFernsehen.de@SD">
     <title>Guten Abend Franken</title>
+  </programme>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="FrankenFernsehen.de@SD">
+    <title>Hä - Das Straßenquiz</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="FrankenFernsehen.de@SD">
+    <title>Aischgrund TV</title>
   </programme>
   <programme start="20261115110000 +0000" stop="20261115120000 +0000" channel="GoldstarTV.de@Austria">
     <title>Goldies</title>
@@ -9104,9 +9117,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115111500 +0000" stop="20261115114500 +0000" channel="MunchenTV.de@SD">
-    <title>Christliches Fernsehen München 15.11.2026 (Wh.)</title>
-  </programme>
   <programme start="20261115114500 +0000" stop="20261115120000 +0000" channel="MunchenTV.de@SD">
     <title>München tut gut am 12.11.26 (Wh.)</title>
   </programme>
@@ -9515,11 +9525,11 @@
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="MunchenTV.de@SD">
     <title>muenchen heute vom 17.11.2026</title>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="OberpfalzTV.de@SD">
-    <title>Die Woche am 14.11.2026 (Wh.)</title>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="MunchenTV.de@SD">
+    <title>Münchner Stadtrundgang vom 17.11.2026</title>
   </programme>
-  <programme start="20261115113000 +0000" stop="20261115114500 +0000" channel="OberpfalzTV.de@SD">
-    <title>Wissen dahoam am 14.11.2026 (Wh.)</title>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="MunchenTV.de@SD">
+    <title>Culture Club vom 17.11.2026</title>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115120000 +0000" channel="OberpfalzTV.de@SD">
     <title>OTV-Talk vom 11.11.2026 (Wh.)</title>
@@ -10024,6 +10034,12 @@
   </programme>
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="OberpfalzTV.de@SD">
     <title>Das Magazin vom Dienstag, 17.11.2026</title>
+  </programme>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="OberpfalzTV.de@SD">
+    <title>nachgefragt</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="OberpfalzTV.de@SD">
+    <title>Mein Landkreis Tirschenreuth (Wh.)</title>
   </programme>
   <programme start="20261115111000 +0000" stop="20261115123000 +0000" channel="ProSieben.de@SD">
     <title>Kaminfeuer mit Joko &amp; Klaas</title>
@@ -10536,10 +10552,9 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115112500 +0000" stop="20261115114500 +0000" channel="ProSiebenMaxx.de@SD">
-    <title>Detektiv Conan</title>
-    <desc>Infos zur Serie:\n\nAls der Weltklasse Oberschülerdetektiv Shinichi Kudo eines Tages zwei Männer in Schwarz bei einem ominösen Geschäft beobachtet, wird er überwältigt und ihm wird ein Gift verabreicht, das ihn wieder zu einem kleinen Jungen schrumpfen lässt. Von da an nimmt der eigentlich 17-Jährige die Identität eines Grundschülers namens Conan Edogawa an. \n\nWährend er nun versucht, die Männer</desc>
-    <date>20261115</date>
+  <programme start="20261117173000 +0000" stop="20261117180000 +0000" channel="ProSieben.de@SD">
+    <title>2 Broke Girls</title>
+    <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -11318,11 +11333,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115103000 +0000" stop="20261115113000 +0000" channel="RFO.de@SD">
-    <title>Gottesdienst mit Pfarrer Witti vom 15.11.2026</title>
-  </programme>
-  <programme start="20261115113000 +0000" stop="20261115114500 +0000" channel="RFO.de@SD">
-    <title>Süd Blick Teil 4 (Wh.)</title>
+  <programme start="20261117175500 +0000" stop="20261117181000 +0000" channel="ProSiebenMaxx.de@SD">
+    <title>Auction Hunters – Zwei Asse machen Kasse</title>
+    <desc>Seit 2010 nehmen Allen und Ton an diversen Auktionen in den USA teil. Dabei sind sie immer darauf aus, fette Beute zu machen. Doch nicht umsonst lautet der Untertitel „Zwei Asse machen Kasse“: Die zwei brauchen Käufer, die ihnen die Schätze abnehmen.</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115120000 +0000" channel="RFO.de@SD">
     <title>Süd Blick Teil 5 (Wh.)</title>
@@ -12094,6 +12111,12 @@
   </programme>
   <programme start="20261117172000 +0000" stop="20261117173000 +0000" channel="RFO.de@SD">
     <title>Süd Journal vom 17.11.2026</title>
+  </programme>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="RFO.de@SD">
+    <title>Süd Menschen vom 17.11.2026</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="RFO.de@SD">
+    <title>Süd Menschen vom 17.11.2026</title>
   </programme>
   <programme start="20261115112000 +0000" stop="20261115121000 +0000" channel="RTL.de@SD">
     <title>Der Blaulicht Report</title>
@@ -13239,14 +13262,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115112000 +0000" stop="20261115113500 +0000" channel="RTLup.de@SD">
-    <title>Verdachtsfälle</title>
-    <desc>Pseudodoku, die zeigt, wie Familien reagieren, wenn ein Angehöriger einer Straftat verdächtigt wird. Die frei erfundene Handlung wird von Laiendarstellern und Schauspielern gespielt.</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261115113500 +0000" stop="20261115122500 +0000" channel="RTLup.de@SD">
     <title>Das Jugendgericht</title>
     <desc>"Das Jugendgericht" befasst sich ausschließlich mit Fällen jugendlicher Straftäter (Alter: 14 bis 21 Jahre) und gibt einen realistischen Einblick in die nicht öffentlichen Verhandlungen vor einem Jugendgericht. Es werden klassische Straftaten verhandelt: von Diebstahl über Drogendelikte bis zu Raub, Erpressung und Körperverletzung. Aber es geht auch um Bagatelldelikte und die kleinen Dramen, die d</desc>
@@ -13751,10 +13766,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115111500 +0000" stop="20261115115500 +0000" channel="SAT1Gold.de@SD">
-    <title>Richter Alexander Hold</title>
-    <desc>Seit 2001 verhandelt der ehemalige Staatsanwalt und Richter fiktive Strafrechtsfälle – von Drogendelikten bis zu schweren Gewaltstraftaten. Vor dem Studio-Gericht müssen sich Erwachsene wie Jugendliche verantworten, während Laienschauspielende und echte juristische Fachkräfte knifflige Fälle aufrollen.</desc>
-    <date>20261115</date>
+  <programme start="20261117173500 +0000" stop="20261117183000 +0000" channel="RTLup.de@SD">
+    <title>Familien im Brennpunkt</title>
+    <desc>Scheidung, Sorgerechtsstreit oder Stress mit Ämtern und Behörden: In vielen deutschen Familien kommt es zu belastenden Krisen, die schließlich von einer Anwältin oder einem Anwalt geklärt werden müssen. Laiendarstellende inszenieren fiktive Konfliktfälle, die vor dem Familiengericht landen.</desc>
+    <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -14319,10 +14334,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115105000 +0000" stop="20261115113000 +0000" channel="sixx.de@SD">
-    <title>Das Medium: Theresa Caputo</title>
-    <desc>Infos zur Reihe:\n\nRedet sie mit den Toten? Paranormale Ermittler nennen die 57-jährige Theresa Caputo „Künstlerin“, Zeitungen bestätigen ihr lediglich Charisma. Dennoch ist die New Yorkerin als Autorin wie live ein Star. Fünf Jahre nach der Serie „Long Island Medium“ ist sie wieder zurück und auch wenn sie nach wie vor auf Long Island zu Hause ist, hat sich ihr Leben grundlegend gewandelt: Sie l</desc>
-    <date>20261115</date>
+  <programme start="20261117175500 +0000" stop="20261117185500 +0000" channel="SAT1Gold.de@SD">
+    <title>Unsere kleine Farm</title>
+    <desc>Infos zur Serie:\n\nBevor die Nahrungsmittel noch knapper werden, belädt das wackere Siedler-Ehepaar Charles und Caroline Ingalls schweren Herzens den Planwagen und macht sich mit seinen drei Töchtern Laura, Mary und Carrie auf die Suche nach neuem Grund und Boden. Nach einem dramatischen Intermezzo „im Indianerland“ lässt sich die Familie in dem Städtchen Walnut Grove nieder. Wo die aufgeweckte L</desc>
+    <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -15558,6 +15573,12 @@
   <programme start="20261117171500 +0000" stop="20261117174500 +0000" channel="SRFernsehen.de@SD">
     <title>Brisant</title>
   </programme>
+  <programme start="20261117174500 +0000" stop="20261117175000 +0000" channel="SRFernsehen.de@SD">
+    <title>das saarlandwetter</title>
+  </programme>
+  <programme start="20261117175000 +0000" stop="20261117182000 +0000" channel="SRFernsehen.de@SD">
+    <title>Wir im Saarland - Service</title>
+  </programme>
   <programme start="20261115105500 +0000" stop="20261115122000 +0000" channel="SWRFernsehenHD.de@SD">
     <title>Bulle und das Landei - Goldrausch</title>
     <desc>Der Großstadtbulle Killmer landet zu seinem Entsetzen im verschlafenen Eifelstädtchen Monreal. Dort wird er zum Vorgesetzten des Landpolizistin Kati, die ihn von ihren Ermittlerqualitäten überzeugen will.</desc>
@@ -16059,6 +16080,14 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261117175000 +0000" stop="20261117184000 +0000" channel="SWRFernsehenHD.de@SD">
+    <title>Sturm der Liebe</title>
+    <desc>Fürstenhof, hôtel cinq étoile au cœur de Vagen en Bavière, est l'épicentre des histoires qui lient de nombreux habitants de la région. Qu'il s'agisse de ses propriétaires, son petit personnel ou d'autres personnalités influentes, les intrigues mêlant amour, argent, famille et trahison qui gravitent autour de l'établissement sont nombreuses.</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261115112500 +0000" stop="20261115120500 +0000" channel="TELE5.de@SD">
     <title>Hercules</title>
     <desc>Ein wütender Sturm tobt auf dem Meer. Hercules erleidet Schiffbruch und strandet auf der sagenumwobenen Insel Atlantis. Dort trifft der Halbgott auf die ausgestoßene Hellseherin Cassandra (Claudia Black), die den Untergang von Atlantis vorhersagt. Um die technologisch hochentwickelte Zivilisation der Insel mit Rohstoffen zu versorgen, lässt König Pantheus (James Beaumont) die kristallinen Bodensch</desc>
@@ -16467,9 +16496,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="TVIngolstadt.de@SD">
-    <title>news aktuell - Der Wochenrückblick vom 14.11.2026 (Wh.)</title>
-  </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="TVIngolstadt.de@SD">
     <title>nachgefragt vom 9.11.2026 (Wh.)</title>
   </programme>
@@ -16872,11 +16898,11 @@
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="TVIngolstadt.de@SD">
     <title>news aktuell vom 17.11.2026</title>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="TVMainfranken.de@SD">
-    <title>Mainfranken Wochenschau am Samstag, den 14. November (Wh.)</title>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="TVIngolstadt.de@SD">
+    <title>Studio Altmühl vom 17.11.2026</title>
   </programme>
-  <programme start="20261115113000 +0000" stop="20261115114500 +0000" channel="TVMainfranken.de@SD">
-    <title>Grill it Yourself - Herbststaffel 2026 (Folge 10) (Wh.)</title>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="TVIngolstadt.de@SD">
+    <title>Heimatgschichtn</title>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115120000 +0000" channel="TVMainfranken.de@SD">
     <title>StartUp - Das Gründermagazin (Wh.)</title>
@@ -17340,11 +17366,8 @@
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="TVMainfranken.de@SD">
     <title>Mainfranken aktuell vom 17.November.2026</title>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="TVOberfranken.de@SD">
-    <title>Oberfranken Aktuell - Die Woche vom 14.11.2026 (Wh.)</title>
-  </programme>
-  <programme start="20261115113000 +0000" stop="20261115114500 +0000" channel="TVOberfranken.de@SD">
-    <title>Die Orthopädische Praxis vom 10.11.2026 (Wh.)</title>
+  <programme start="20261117173000 +0000" stop="20261117180000 +0000" channel="TVMainfranken.de@SD">
+    <title>Mainfranken Gesundheit vom 17.November.2026</title>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115120000 +0000" channel="TVOberfranken.de@SD">
     <title>Kulturplatz: Ausstellungen, Lieder und ein Ort der Demokratie (Wh.)</title>
@@ -17742,13 +17765,11 @@
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="TVOberfranken.de@SD">
     <title>Oberfranken Aktuell vom 17.11.2026</title>
   </programme>
-  <programme start="20261115105500 +0000" stop="20261115114500 +0000" channel="VOX.de@SD">
-    <title>Medical Detectives – Geheimnisse der Gerichtsmedizin</title>
-    <desc>US-amerikanische Krimidoku, die zeigt, wie Verbrechen mithilfe moderner kriminaltechnischer und forensischer Methoden gelöst werden. Ermittler, Kriminaltechniker, Gerichtsmediziner und andere Experten erläutern aus ihrer Sicht den Weg zu Aufklärung der Fälle. Zu Wort kommen auch Opfer und Zeugen.</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="TVOberfranken.de@SD">
+    <title>Der Bezirk - Das Magazin vom 17.11.2026</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="TVOberfranken.de@SD">
+    <title>Top &amp; Teller vom 17.11.2026</title>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115120000 +0000" channel="VOX.de@SD">
     <title>Medical Detectives – Geheimnisse der Gerichtsmedizin</title>
@@ -18232,6 +18253,14 @@
   <programme start="20261117164000 +0000" stop="20261117173500 +0000" channel="VOX.de@SD">
     <title>CSI: Vegas</title>
     <desc>Ein Obdachloser hat „Unglück im Glück“: Er versetzt eine wertvolle Uhr, geht ins Kasino und gewinnt 350 000 Dollar. Kurz darauf wird er ermordet. Forensikerin Morgan Brody (Elisabeth Harnois) sichtet die Spuren und bald ist klar, dass der Mann nicht das erste Opfer eines gierigen Killers war….</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117173500 +0000" stop="20261117182500 +0000" channel="VOX.de@SD">
+    <title>CSI: Vegas</title>
+    <desc>Ermittler Greg im Zwielicht: Hat er vor Jahren Beweise gefälscht und so einen Unschuldigen ins Gefängnis gebracht? Julie Finlay (Elisabeth Shue) überprüft mit Feuereifer den alten Fall und scheint zum Missmut der übrigen „CSI“-Kollegen mehr daran interessiert, Gregs Schuld zu beweisen als dessen Unschuld.</desc>
     <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
@@ -18749,6 +18778,14 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261117173500 +0000" stop="20261117184500 +0000" channel="Voxup.de@SD">
+    <title>Verklag mich doch!</title>
+    <desc>Baupfusch? Nachbarschaftsärger? Erbstreitigkeiten? Juristen erklären, wer im Recht ist. Montags – freitags.</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261115111500 +0000" stop="20261115130000 +0000" channel="WeltderWunderTV.de@SD">
     <title>Welt der Wunder Classics – Teil 1</title>
     <desc>Mit Welt der Wunder Classics öffnet Welt der Wunder TV sein einzigartiges Archiv – eine Schatzkammer voller Themen, die über Jahre hinweg Wissen, Neugier und Staunen geweckt haben. Die neue Programmkategorie bringt ausgewählte Beiträge aus früheren Sendungen zurück auf den Bildschirm – informativ, unterhaltsam und überraschend zeitgemäß. Von technischen Innovationen über Gesundheitsfragen und Life</desc>
@@ -19106,9 +19143,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115114500 +0000" channel="AXNBlack.de@SD">
-    <title>Sea Patrol</title>
-  </programme>
   <programme start="20261115114500 +0000" stop="20261115123000 +0000" channel="AXNBlack.de@SD">
     <title>Sea Patrol</title>
   </programme>
@@ -19307,6 +19341,9 @@
   <programme start="20261117170000 +0000" stop="20261117174500 +0000" channel="AXNBlack.de@SD">
     <title>Hudson &amp; Rex</title>
   </programme>
+  <programme start="20261117174500 +0000" stop="20261117183000 +0000" channel="AXNBlack.de@SD">
+    <title>Hudson &amp; Rex</title>
+  </programme>
   <programme start="20261115111000 +0000" stop="20261115120000 +0000" channel="AXNWhite.de@HD">
     <title>Murdoch Mysteries - Auf den Spuren mysteriöser Mordfälle</title>
   </programme>
@@ -19492,6 +19529,9 @@
   </programme>
   <programme start="20261117165000 +0000" stop="20261117173500 +0000" channel="AXNWhite.de@HD">
     <title>Father Brown</title>
+  </programme>
+  <programme start="20261117173500 +0000" stop="20261117182500 +0000" channel="AXNWhite.de@HD">
+    <title>Murdoch Mysteries - Auf den Spuren mysteriöser Mordfälle</title>
   </programme>
   <programme start="20261115110300 +0000" stop="20261115124100 +0000" channel="GrjngoWesternMovies.de@SD">
     <title>Hey Amigo! A Toast to Your Death</title>
@@ -19736,14 +19776,6 @@
   <programme start="20261115042817 +0000" stop="20261116000000 +0000" channel="CSICrimeSceneInvestigation.de@GB">
     <title>CSI: New York - Grounds For Deception</title>
     <desc>Stella discovers that her old friend, Professor Papakota, may be connected to the Greek antiquities smuggling ring and travels to Greece to investigate.</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="CuriosityChannel.de@SD">
-    <title>Dream Car Garage</title>
-    <desc>'S1/E3 - Maranello'. Navigating 300 km to Maranello proves tricky when factory and aftermarket GPS units clash. The team finds the scenic route to Ferrari's iconic hometown.</desc>
     <date>20261115</date>
     <audio>
       <stereo>stereo</stereo>
@@ -20281,14 +20313,6 @@
     <title>Return To The Moon</title>
     <desc>The Apollo equipment has sat abandoned on the lunar surface for over 40 years. Now there is a renewed excitement and drive to return to the moon.</desc>
     <date>20261117</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261115104000 +0000" stop="20261115114500 +0000" channel="Dokusat.de@SD">
-    <title>Das Dritte Reich vor Gericht - Der Plan</title>
-    <desc>Als die Alliierten die Schreckensherrschaft Adolf Hitlers beendeten und das Ausmaß des Verbrechens erkannten, sollten die hinterbliebenen Verbrecher zur Rechenschaft gezogen werden. In den "Nürnberger Prozessen.</desc>
-    <date>20261115</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -21194,13 +21218,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115110500 +0000" stop="20261115114500 +0000" channel="N24Doku.de@SD">
-    <title>Geheimakte Tschernobyl (2)</title>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261115114500 +0000" stop="20261115123000 +0000" channel="N24Doku.de@SD">
     <title>Geheimakte Atombombe – Spione im All</title>
     <date>20261115</date>
@@ -21677,8 +21694,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115104500 +0000" stop="20261115114500 +0000" channel="PlutoTVToughJobs.de@GB">
-    <title>Ice Road Truckers</title>
+  <programme start="20261117174000 +0000" stop="20261117183000 +0000" channel="N24Doku.de@SD">
+    <title>Geheimakte Atombombe – Bilder der Apokalypse</title>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261115114500 +0000" stop="20261115124500 +0000" channel="PlutoTVToughJobs.de@GB">
     <title>Ice Road Truckers</title>
@@ -22242,22 +22263,6 @@
     <title>Saint-Pierre de Rome : Le plus grand chantier de la Renaissance</title>
     <desc>Au XVIe siècle, le pape Jules II lance la construction de la basilique Saint-Pierre de Rome. Ce chantier titanesque durera plus d'un siècle, de 1506 à 1626. Malgré la peste, le sac de Rome et de nombreux accidents mortels, des milliers d'ouvriers bâtissent ce chef-d'oeuvre. L'histoire met en lumière ces artisans oubliés, tailleurs de pierre et orfèvres, qui ont permis d'ériger ce sanctuaire mythiq</desc>
     <date>20261117</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261115111000 +0000" stop="20261115113000 +0000" channel="ComedyCentral.de@SD">
-    <title>TripTank</title>
-    <desc>Infos zur Serie:\n\nDie Serie präsentiert schwarzen Humor und absurde Geschichten, verpackt in verschiedene Animationsstilen und Themen. Das macht sie zu einem echten Unikat in der Animations-Comedy-Sparte. Jede Episode präsentiert mehrere bizarre, satirische und oft provokative Szenen, die nichts miteinander zu tun haben, aber alle eine verstörend-komische Atmosphäre teilen. Dabei kommen 2D-, Sto</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261115113000 +0000" stop="20261115115500 +0000" channel="ComedyCentral.de@SD">
-    <title>TripTank</title>
-    <desc>Infos zur Serie:\n\nDie Serie präsentiert schwarzen Humor und absurde Geschichten, verpackt in verschiedene Animationsstilen und Themen. Das macht sie zu einem echten Unikat in der Animations-Comedy-Sparte. Jede Episode präsentiert mehrere bizarre, satirische und oft provokative Szenen, die nichts miteinander zu tun haben, aber alle eine verstörend-komische Atmosphäre teilen. Dabei kommen 2D-, Sto</desc>
-    <date>20261115</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -23365,6 +23370,22 @@
   <programme start="20261117170500 +0000" stop="20261117173000 +0000" channel="ComedyCentral.de@SD">
     <title>Alle hassen Chris</title>
     <desc>Infos zur Serie:\n\nDie Sitcom nimmt die Kindheit und Jugend des Komikers Chris Rock ins Visier und erzählt die Ereignisse aus dem Leben des Teenagers Chris, der in den 1980er Jahren in Brooklyn aufwächst. Rock selbst fungiert in der Serie als Erzähler. Seine Geschichten leben vom humorvollen Blick auf das Leben als Außenseiter, die Herausforderungen des Erwachsenwerdens und die familiären Dynamik</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117173000 +0000" stop="20261117175000 +0000" channel="ComedyCentral.de@SD">
+    <title>Alle hassen Chris</title>
+    <desc>Infos zur Serie:\n\nDie Sitcom nimmt die Kindheit und Jugend des Komikers Chris Rock ins Visier und erzählt die Ereignisse aus dem Leben des Teenagers Chris, der in den 1980er Jahren in Brooklyn aufwächst. Rock selbst fungiert in der Serie als Erzähler. Seine Geschichten leben vom humorvollen Blick auf das Leben als Außenseiter, die Herausforderungen des Erwachsenwerdens und die familiären Dynamik</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117175000 +0000" stop="20261117181000 +0000" channel="ComedyCentral.de@SD">
+    <title>Last Man Standing</title>
+    <desc>Infos zur Serie:\n\nEs herrscht ein steter Trubel im Hause Baxter. Der Republikaner Mike (Tim Allen) muss langsam einsehen, dass seine drei Teenager-Töchter nicht ewig kleine Mädchen sein werden. Der Marketingchef eines Kaufhauses in Colorado ist viel unterwegs, und muss mit dem erneuten Berufseinstieg seiner Frau Vanessa (Nancy Travis) seine Karriere überdenken. Die Sitcom von Creator Jack Burdit</desc>
     <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
@@ -24989,9 +25010,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115111500 +0000" stop="20261115113000 +0000" channel="FolxMusicTelevision.de@SD">
-    <title>Folx Mix</title>
-  </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="FolxMusicTelevision.de@SD">
     <title>Lädle.tv</title>
   </programme>
@@ -25198,6 +25216,9 @@
   </programme>
   <programme start="20261117170000 +0000" stop="20261117174500 +0000" channel="FolxMusicTelevision.de@SD">
     <title>Folx Interaktiv</title>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117181500 +0000" channel="FolxMusicTelevision.de@SD">
+    <title>Lädle.tv</title>
   </programme>
   <programme start="20261115110000 +0000" stop="20261115170000 +0000" channel="Lausitzwelle.de@SD">
     <title>LAUSITZWELLE Fernsehen</title>
@@ -25817,6 +25838,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261117175000 +0000" stop="20261117184500 +0000" channel="MTV.de@SD">
+    <title>Teen Mom 2</title>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261115054500 +0000" stop="20261115130000 +0000" channel="OneMusicTelevision.de@SD">
     <title>UP TO DATE</title>
     <date>20261115</date>
@@ -26044,6 +26072,9 @@
   <programme start="20261117162500 +0000" stop="20261117173000 +0000" channel="VolksmusikTV.de@SD">
     <title>Unvergessene Legenden - Tony Marshall</title>
   </programme>
+  <programme start="20261117173000 +0000" stop="20261117191500 +0000" channel="VolksmusikTV.de@SD">
+    <title>Teleshopping</title>
+  </programme>
   <programme start="20261115101500 +0000" stop="20261115120000 +0000" channel="ZweiMusicTelevision.de@SD">
     <title>Schlagerbeats</title>
     <date>20261115</date>
@@ -26164,6 +26195,9 @@
   </programme>
   <programme start="20261117161500 +0000" stop="20261117173000 +0000" channel="ZweiMusicTelevision.de@SD">
     <title>FeierSchlager</title>
+  </programme>
+  <programme start="20261117173000 +0000" stop="20261117191500 +0000" channel="ZweiMusicTelevision.de@SD">
+    <title>Genius</title>
   </programme>
   <programme start="20261115100000 +0000" stop="20261115123000 +0000" channel="DisneyChannel.de@SD">
     <title>Teleshopping</title>
@@ -27095,6 +27129,14 @@
   <programme start="20261117172500 +0000" stop="20261117175500 +0000" channel="DisneyChannel.de@SD">
     <title>Dharma &amp; Greg</title>
     <desc>Einer von Dharmas und Gregs Nachbarn arbeitet als Comiczeichner und hat ein Buch fertig gestellt, dessen Protagonistin eine verblüffende Ähnlichkeit mit Dharma hat. Dharma erklärt sich bereit, den Verkauf des Buches mit wirksamen Auftritten anzukurbeln und ist fortan in einem Kostüm als das Supergirl "Der blonde Tornado" unterwegs... (Senderinfo).</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117175500 +0000" stop="20261117182500 +0000" channel="DisneyChannel.de@SD">
+    <title>New Girl</title>
+    <desc>Die Freunde landen auf einer Party von Prince („Purple Rain“). Der Musiker bewies Humor und spielte mit Hauptdarstellerin Zooey Deschanel einen neuen Song. Auch dabei: die „Victoria’s Secret“-Models Alessandra Ambrosio, Ana Beatriz Barros und Lais Ribeiro.</desc>
     <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
@@ -28774,13 +28816,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115111000 +0000" stop="20261115113900 +0000" channel="NickJrClub.de@DACH">
-    <title>Bubble Guppies S1 Ep. 17</title>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261115113900 +0000" stop="20261115120300 +0000" channel="NickJrClub.de@DACH">
     <title>Team Umizoomi S2 Ep. 209</title>
     <date>20261115</date>
@@ -29628,8 +29663,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115111100 +0000" stop="20261115113400 +0000" channel="NickJr.de@SD">
-    <title>Rubble &amp; Crew</title>
+  <programme start="20261117174000 +0000" stop="20261117180500 +0000" channel="NickJrClub.de@DACH">
+    <title>Dora The Explorer S8 Ep. 17</title>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261115113400 +0000" stop="20261115115700 +0000" channel="NickJr.de@SD">
     <title>PAW Patrol</title>
@@ -30195,8 +30234,14 @@
   <programme start="20261117164800 +0000" stop="20261117173100 +0000" channel="NickJr.de@SD">
     <title>A Zuma Pirate Adventure</title>
   </programme>
-  <programme start="20261115110200 +0000" stop="20261115113000 +0000" channel="DW.de@Arabic">
-    <title>Euromaxx</title>
+  <programme start="20261117173100 +0000" stop="20261117174200 +0000" channel="NickJr.de@SD">
+    <title>PAW Patrol</title>
+  </programme>
+  <programme start="20261117174200 +0000" stop="20261117175300 +0000" channel="NickJr.de@SD">
+    <title>PAW Patrol</title>
+  </programme>
+  <programme start="20261117175300 +0000" stop="20261117180500 +0000" channel="NickJr.de@SD">
+    <title>PAW Patrol</title>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="DW.de@Arabic">
     <title>Making Space for Grief</title>
@@ -30699,13 +30744,8 @@
   <programme start="20261117171500 +0000" stop="20261117173000 +0000" channel="DW.de@Arabic">
     <title>Best of DW-online Content</title>
   </programme>
-  <programme start="20261115111500 +0000" stop="20261115113000 +0000" channel="DW.de@English">
-    <title>Reporter</title>
-    <desc>DW's on-the-ground reporters are always close to the action, be it covering international events or zooming in on some of the quirks of daily life.</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261117173000 +0000" stop="20261117180000 +0000" channel="DW.de@Arabic">
+    <title>REV</title>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="DW.de@English">
     <title>DocFilm</title>
@@ -31719,8 +31759,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115110200 +0000" stop="20261115113000 +0000" channel="DW.de@Espanol">
-    <title>Euromaxx</title>
+  <programme start="20261117174500 +0000" stop="20261117180000 +0000" channel="DW.de@English">
+    <title>Reporter</title>
+    <desc>DW's on-the-ground reporters are always close to the action, be it covering international events or zooming in on some of the quirks of daily life.</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="DW.de@Espanol">
     <title>Making Space for Grief</title>
@@ -32223,8 +32268,8 @@
   <programme start="20261117171500 +0000" stop="20261117173000 +0000" channel="DW.de@Espanol">
     <title>Best of DW-online Content</title>
   </programme>
-  <programme start="20261115110200 +0000" stop="20261115113000 +0000" channel="DW.de@Russian">
-    <title>Euromaxx</title>
+  <programme start="20261117173000 +0000" stop="20261117180000 +0000" channel="DW.de@Espanol">
+    <title>REV</title>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="DW.de@Russian">
     <title>Making Space for Grief</title>
@@ -32727,8 +32772,8 @@
   <programme start="20261117171500 +0000" stop="20261117173000 +0000" channel="DW.de@Russian">
     <title>Best of DW-online Content</title>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="ntv.de@SD">
-    <title>Nachrichten</title>
+  <programme start="20261117173000 +0000" stop="20261117180000 +0000" channel="DW.de@Russian">
+    <title>REV</title>
   </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="ntv.de@SD">
     <title>Auslandsreport</title>
@@ -33078,13 +33123,11 @@
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="ntv.de@SD">
     <title>Nachrichten</title>
   </programme>
-  <programme start="20261115105000 +0000" stop="20261115113500 +0000" channel="WELT.de@SD">
-    <title>Geheimakte Atombombe – Spione im All</title>
-    <desc>1963 droht der Kalte Krieg zu eskalieren. Osten und Westen entwickeln geheime Spionage-Technologien für die Beschattung aus dem Orbit.</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261117173000 +0000" stop="20261117174000 +0000" channel="ntv.de@SD">
+    <title>ntv Wirtschaft</title>
+  </programme>
+  <programme start="20261117174000 +0000" stop="20261117180000 +0000" channel="ntv.de@SD">
+    <title>ntv Service</title>
   </programme>
   <programme start="20261115113500 +0000" stop="20261115121500 +0000" channel="WELT.de@SD">
     <title>Geheimakte Atombombe – Lügen und Verrat</title>
@@ -34105,10 +34148,23 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115101500 +0000" stop="20261115115000 +0000" channel="3sat.de@SD">
-    <title>Purple Disco Machine</title>
-    <desc>Am 15. September 2023 begeistert der Dresdner DJ, Produzent und Grammy-Gewinner Purple Disco Machine alias Tino Piontek 5000 Fans im denkmalgeschützten Freilichttheater Junge Garde. "Dass ich in Dresden auf der Bühne stehe, macht einiges mit mir. Freunde, Familie, Wegbegleiter, alle sind da.</desc>
-    <date>20261115</date>
+  <programme start="20261117173000 +0000" stop="20261117174500 +0000" channel="WELT.de@SD">
+    <title>WELT Newsroom</title>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117175000 +0000" channel="WELT.de@SD">
+    <title>WELT Newsroom</title>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117175000 +0000" stop="20261117180000 +0000" channel="WELT.de@SD">
+    <title>Börsenflash</title>
+    <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -34791,22 +34847,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115112500 +0000" stop="20261115114300 +0000" channel="DasErste.de@SD">
-    <title>Deutschlandbilder</title>
-    <desc>"Deutschlandbilder" lädt zu einer stimmungsvollen Reise zu den schönsten Regionen des Landes ein. Eindrucksvolle Aufnahmen zeigen abwechslungsreiche Landschaften, historische Städte, malerische Inseln und reizvolle Naturkulissen in ihrer ganzen Vielfalt. Die Sendung vermittelt faszinierende Eindrücke von bekannten Sehenswürdigkeiten ebenso wie von weniger entdeckten Orten. So entsteht ein abwechsl</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261115114300 +0000" stop="20261115114500 +0000" channel="DasErste.de@SD">
-    <title>Tagesschau</title>
-    <desc>Seit 1952 wird die Nachrichtensendung präsentiert. Sie informiert täglich über die wichtigsten Ereignisse aus Politik, Wirtschaft, Gesellschaft, Kultur und Sport. Die Sendung bietet einen kompakten und verlässlichen Überblick über das nationale und internationale Geschehen. Reporterinnen und Reporter sowie Korrespondentinnen und Korrespondenten berichten aus dem In- und Ausland und ordnen aktuelle</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261115114500 +0000" stop="20261115123000 +0000" channel="DasErste.de@SD">
     <title>Die Tierärzte – Retter mit Herz</title>
     <desc>Engagierte Tierärztinnen und Tierärzte bei ihrer täglichen Arbeit – von Sylt bis Starnberg. Mit viel Erfahrung, Einfühlungsvermögen und detektivischem Gespür kümmern sie sich um die unterschiedlichsten Notfälle. Ob verschluckte Nadeln, Verletzungen nach einem Verkehrsunfall oder gerissene Bänder: Für die Veterinäre zählt jeder einzelne Patient.\n\nNeben spannenden Fällen gibt es auch praktische Ti</desc>
@@ -35423,9 +35463,18 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115105000 +0000" stop="20261115114000 +0000" channel="RiC.de@SD">
-    <title>Jack London: Abenteuer Südsee</title>
-    <date>20261115</date>
+  <programme start="20261117174000 +0000" stop="20261117174500 +0000" channel="DasErste.de@SD">
+    <title>Tagesschau</title>
+    <desc>Seit 1952 wird die Nachrichtensendung präsentiert. Sie informiert täglich über die wichtigsten Ereignisse aus Politik, Wirtschaft, Gesellschaft, Kultur und Sport. Die Sendung bietet einen kompakten und verlässlichen Überblick über das nationale und internationale Geschehen. Reporterinnen und Reporter sowie Korrespondentinnen und Korrespondenten berichten aus dem In- und Ausland und ordnen aktuelle</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117174500 +0000" stop="20261117181500 +0000" channel="DasErste.de@SD">
+    <title>Meister des Alltags</title>
+    <desc>Haben Frühkartoffeln eine dünnere Schale als Lagerkartoffeln? Darf man Backpapier aus hygienischen Gründen immer nur einmal verwenden? Und muss man seinen Wellensittich impfen lassen? Diese und viele weitere spannende und kuriose Fragen rund um den ganz normalen Alltag gibt es im Wissensquiz. Moderator Florian Weber stellt in "Meister des Alltags" die Alltagstauglichkeit seiner prominenten Kandida</desc>
+    <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -36393,14 +36442,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115110000 +0000" stop="20261115113000 +0000" channel="tagesschau24.de@SD">
-    <title>rbb24 Abendschau</title>
-    <desc>Jeden Abend gibt es von uns das Wichtigste aus Politik, Kultur, Wirtschaft und Sport, die Szene-Trends und die Kiezgeschichten. Kurz: "Wir sind ein Berliner" – Die rbb24 Abendschau hat den Berlin-Blick: Nah an den Menschen und ihren Geschichten, rau aber herzlich. Immer um 19:30 Uhr. Egal wann etwas passiert, die rbb24 Abendschau ist dabei. (Senderinfo).</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261115113000 +0000" stop="20261115120000 +0000" channel="tagesschau24.de@SD">
     <title>daten der woche</title>
     <desc>Das Wochenrückblick-Format des Saarländischen Rundfunks fasst die wichtigsten Ereignisse aus Politik, Wirtschaft, Kultur und Sport aus dem Saarland und der Saar-Lor-Lux-Region kompakt zusammen. Ziel der Sendung ist es, zentrale Entwicklungen der Woche verständlich und übersichtlich zu bündeln und den Zuschauerinnen und Zuschauern einen schnellen Überblick über regionale Themen zu geben. Das Format</desc>
@@ -37025,14 +37066,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261115102000 +0000" stop="20261115114000 +0000" channel="ZDF.de@SD">
-    <title>Jericho Ridge – Unter Beschuss</title>
-    <desc>Nach ihrer Degradierung muss Deputy Tabby Temple (Nikki Amuka-Bird) den Innendienst in der abgelegenen Polizeistation von Jericho Ridge übernehmen. Doch als bewaffnete Kriminelle das Gebäude belagern, wird aus der Routinearbeit ein tödlicher Überlebenskampf. \n\nIhre Kollegen werden eiskalt niedergeschossen und nur Tabby und ihr Sohn Monty bleiben zurück – gefangen in einem Kugelhagel, mit kaum ei</desc>
-    <date>20261115</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261115114000 +0000" stop="20261115122500 +0000" channel="ZDF.de@SD">
     <title>SOKO Linz</title>
     <desc>Ein ungewöhnliches Kunstprojekt, das sich kritisch mit der Überwachung öffentlicher Plätze auseinandersetzt, wird zum Schauplatz eines gefährlichen Kriminalfalls. Der Mörder erkennt sich zusammen mit seinem Opfer auf den Aufnahmen des Projekts, und versucht jetzt mit allen Mitteln das Material verschwinden zu lassen…\n\nIm Alleingang sucht Inga Feta (Marie Hacke) den Mörder, der mit dem Opfer gefi</desc>
@@ -37604,6 +37637,14 @@
   <programme start="20261117160500 +0000" stop="20261117173000 +0000" channel="ZDF.de@SD">
     <title>Volle Kanne – Service täglich</title>
     <desc>Das Magazin am Morgen bietet eine vielseitige Mischung aus Information und Service. Es informiert über aktuelle Themen und präsentiert zugleich Rezepte für Küchenfreunde sowie praktische Ratschläge für Garten und Gesundheit. Ergänzt wird das Angebot durch Verbrauchertipps und -trends rund ums Wohnen, Sport und Mode. Neben den Serviceinhalten sorgen Gespräche mit prominenten Gästen für zusätzliche</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117173000 +0000" stop="20261117181500 +0000" channel="ZDF.de@SD">
+    <title>Notruf Hafenkante</title>
+    <desc>Nach dem Streit mit einem Zuhälter wird Sebastian Schäfer auf dem Kiez brutal niedergeschlagen. Wollte jemand mit dem ehemaligen Versicherungsvertreter eine alte Rechnung begleichen? Mattes und Melanie ermitteln im Rotlichtmilieu: Schäfer hat nicht nur Sexpartys auf Firmenkosten gebucht, er wurde deshalb auch gefeuert. Eine Tatsache, die Schäfer nicht akzeptieren will, schließlich war sein Chef in</desc>
     <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
@@ -38385,6 +38426,14 @@
   <programme start="20261117170000 +0000" stop="20261117173000 +0000" channel="ARDalpha.de@SD">
     <title>Schnittgut. Alles aus dem Garten</title>
     <desc>"Schnittgut. Alles aus dem Garten" präsentiert die besten Beiträge rund ums Thema Garten. Experten geben Tipps für die Gartenpraxis und die Gestaltung von Gärten, Terrassen und Balkonen. Einen Schwerpunkt bilden Berichte über Pflanzen und Filme über die schönsten Gärten der Welt. Die Themen der Sendung: Misteln Sie gilt als Wunderpflanze, als Bote zwischen Himmel und Erde. Kürbis-Deko Rosen pflanz</desc>
+    <date>20261117</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261117173000 +0000" stop="20261117180000 +0000" channel="ARDalpha.de@SD">
+    <title>aktiv und gesund</title>
+    <desc>Schwere Knochen? Der Körper eines erwachsenen Menschen besteht aus etwa 200 Knochen. Sie sorgen für Stabilität und übernehmen wichtige Schutzfunktionen für die inneren Organe. Was kann man tun, damit dieses Gerüst lange stabil bleibt? Wie viel Eiweiß? Eiweiß: wie viel und welche Form ist gesund? Ernährungsmediziner raten seit einiger Zeit dazu, weniger Kohlenhydrate aus Brot und Nudeln und dafür m</desc>
     <date>20261117</date>
     <audio>
       <stereo>stereo</stereo>
