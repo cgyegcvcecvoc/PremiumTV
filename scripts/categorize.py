@@ -350,6 +350,10 @@ AE_NETWORKS = _compile([
 # above can stay broad without swallowing them.
 AE_EXCEPTIONS = _compile([
     r"history hit", r"true history", r"autentic history", r"history of",
+    # History is a brand A+E licenses; these are other broadcasters' channels
+    # and belong on the documentary shelf, not on A+E's.
+    r"viasat history", r"viju history", r"history tv ?18", r"beyond history",
+    r"history and warfare", r"love crime (?:&|and) history",
 ])
 
 LIFESTYLE = _compile([

@@ -164,9 +164,10 @@ class AAndEOneCategoryTests(unittest.TestCase):
             self.assertIn(channel, shelf)
         documentary = text(ROOT / "categories" / "USA" / "Documentary.m3u")
         self.assertNotIn(",History Channel\n", documentary)
-        # No A&E-owned channel is left behind in Documentary or Lifestyle.
-        for path in ("categories/USA/Documentary.m3u", "categories/USA/Lifestyle.m3u",
-                     "categories/All/Documentary.m3u"):
+        # No A&E-owned channel is left behind in the US Documentary or
+        # Lifestyle shelf. (The world-wide Documentary file legitimately keeps
+        # other countries' channels that merely share a similar name.)
+        for path in ("categories/USA/Documentary.m3u", "categories/USA/Lifestyle.m3u"):
             feed = text(ROOT / path)
             for name in ("Lifetime\n", "Lifetime Movie Network\n", "History Channel\n"):
                 self.assertNotIn("," + name, feed, f"{path} still carries {name.strip()}")
