@@ -1,10 +1,10 @@
 # Repository cleanup
 
-- **Run:** biweekly deep cleanup (`20261015T160004Z-388`)
-- **Started:** 2026-10-15T16:00:04Z | **Finished:** 2026-10-15T16:00:04Z | **Duration:** 0.61s
+- **Run:** biweekly deep cleanup (`20261115T193652Z-911`)
+- **Started:** 2026-11-15T19:36:52Z | **Finished:** 2026-11-15T19:36:53Z | **Duration:** 0.4s
 - **Outcome:** **CLEAN**
-- **Space freed:** 4846 KB
-- **Append-only logs trimmed:** 4 file(s), 234 run block(s) dropped (budget: the last 30 runs and 2500 lines per file)
+- **Space freed:** 8375 KB
+- **Append-only logs trimmed:** 4 file(s), 463 run block(s) dropped (budget: the last 30 runs and 2500 lines per file)
 - **Files removed: 2** (orphaned guides, swap files, caches)
 - **Problems left for a maintainer:** 0
 
@@ -14,15 +14,15 @@ The biweekly run does the deep, slow sweep: `link_check.py --archives` re-tests 
 
 | Log | Lines | Run blocks | Dropped | Size before | Size after |
 |---|---:|---:|---:|---:|---:|
-| `link-check-edits.txt` | 12852 | 27 | 23 | 1458 KB | 258 KB |
-| `epg-check-edits.txt` | 13190 | 27 | 13 | 1376 KB | 22 KB |
-| `epg-build-edits.txt` | 8618 | 127 | 118 | 629 KB | 155 KB |
-| `log-edits.txt` | 7803 | 110 | 80 | 837 KB | 234 KB |
+| `link-check-edits.txt` | 10002 | 36 | 32 | 1135 KB | 285 KB |
+| `epg-check-edits.txt` | 267 | 45 | 15 | 25 KB | 2 KB |
+| `epg-build-edits.txt` | 66148 | 259 | 250 | 4461 KB | 153 KB |
+| `log-edits.txt` | 13970 | 196 | 166 | 1525 KB | 251 KB |
 
 ## Guide currency
 
-- Merged guide `EPG/PremiumTV.xml`: 37 MB, 1725 channel(s) with a listing in the live window - current
-- Quarantine: 2732 read, 2682 kept, 50 expired or malformed dropped
+- Merged guide `EPG/PremiumTV.xml`: 36 MB, 1948 channel(s) with a listing in the live window - current
+- Quarantine: 2768 read, 2768 kept, 0 dropped
 
 ## Removed
 
