@@ -195,8 +195,16 @@ test("offline app shell and cached library reopen without a network", async ({
   await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await expect(page.locator("#offline-banner")).toBeVisible();
   await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  await expect(page.locator("#movies-coming-soon")).toBeVisible();
-  await expect(page.locator(".movie-card")).toHaveCount(0);
+  // Two honest outcomes offline: the catalogue was cached by the worker and the
+  // shelf renders, or it was not and the tab shows its coming-soon panel. What
+  // must never happen is an empty grid pretending to be a library.
+  await expect
+    .poll(async () => {
+      const cards = await page.locator(".movie-card").count();
+      const soon = await page.locator("#movies-coming-soon").isVisible();
+      return (cards > 0) !== soon;
+    })
+    .toBe(true);
   await context.setOffline(false);
 });
 
