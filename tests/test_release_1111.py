@@ -83,6 +83,27 @@ class LocalChannelsAskTests(unittest.TestCase):
         self.assertIn("localMarkets().map((market) => `${market.city}, ${market.state}`)", app)
 
 
+class MarkupTests(unittest.TestCase):
+    """A duplicated element id silently breaks a control; keep them unique."""
+
+    def test_every_renderer_document_has_unique_ids(self):
+        for path in (ROOT / "web" / "src" / "index.html",
+                     ROOT / "macos" / "app" / "src" / "renderer" / "index.html"):
+            with self.subTest(document=str(path)):
+                ids = re.findall(r'\bid="([^"]+)"', text(path))
+                duplicates = sorted({value for value in ids if ids.count(value) > 1})
+                self.assertEqual(duplicates, [], f"{path} repeats {duplicates}")
+
+    def test_the_next_server_button_and_the_next_programme_line_are_distinct(self):
+        document = text(ROOT / "web" / "src" / "index.html")
+        # The transport control and the "Next · ..." line used to share
+        # id="player-next", so the wrong node was updated and disabled.
+        self.assertIn('id="player-next"', document)
+        self.assertIn('id="player-next-programme"', document)
+        app = text(ROOT / "web" / "src" / "app.js")
+        self.assertIn('$("player-next-programme").textContent', app)
+
+
 class SmokeGateTests(unittest.TestCase):
     """The APK gate must get past the question 1.1.11 now really asks."""
 

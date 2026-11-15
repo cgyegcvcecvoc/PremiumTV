@@ -1011,7 +1011,7 @@
       : now
         ? "Now · " + now.t
         : "Live channel · No current listing";
-    $("player-next").textContent = next
+    $("player-next-programme").textContent = next
       ? "Next · " + clock(next.s) + " · " + next.t
       : "";
     $("player-mode-label").textContent = current.vod
