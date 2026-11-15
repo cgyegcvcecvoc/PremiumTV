@@ -14,10 +14,10 @@
   • building        target=DMG arch=x64 file=dist/PremiumTV-1.1.11-mac-x64.dmg
   • executing @electron/rebuild  electronVersion=43.8.7 arch=arm64 buildFromSource=false workspaceRoot=/Users/runner/work/PremiumTV/PremiumTV/macos/app projectDir=./ appDir=./
   • installing native dependencies  arch=arm64
-  • downloaded      label=7zip-darwin-arm64.tar.gz progress=100%
-  • downloaded      label=dmgbuild-bundle-arm64-75c8a6c.tar.gz progress=100%
   • completed installing native dependencies
   • packaging       platform=darwin arch=arm64 electron=43.8.7 appOutDir=dist/mac-arm64
+  • downloaded      label=7zip-darwin-arm64.tar.gz progress=100%
+  • downloaded      label=dmgbuild-bundle-arm64-75c8a6c.tar.gz progress=100%
   • downloaded      label=electron progress=100%
   • downloaded electron zip extracted successfully  output=/Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac-arm64
   • searching for node modules  pm=npm searchDir=/Users/runner/work/PremiumTV/PremiumTV/macos/app
@@ -37,27 +37,25 @@
   • loaded configuration  file=/Users/runner/work/PremiumTV/PremiumTV/macos/app/electron-builder.yml
   • building        target=pkg arch=arm64 file=dist/PremiumTV-1.1.11-mac-arm64.pkg
   • skipped macOS notarization  reason=`notarize` options were unable to be generated
-2026-11-15 13:54:58.427 PremiumTV Helper[12039:37309] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:54:58.427 PremiumTV Helper[12039:37306] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:54:58.427 PremiumTV Helper[12039:37311] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:54:58.461 PremiumTV Helper[12039:37311] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:54:58.461 PremiumTV Helper[12039:37306] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:54:58.465 PremiumTV Helper[12039:37311] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:55:32.340 PremiumTV Helper[4566:15616] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:55:32.341 PremiumTV Helper[4566:15615] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:55:32.341 PremiumTV Helper[4566:15609] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:55:32.357 PremiumTV Helper[4566:15615] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:55:32.359 PremiumTV Helper[4566:15609] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:55:32.365 PremiumTV Helper[4566:15609] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
 PLAYER SMOKE: clicking the first channel card
 PLAYER SMOKE: player open for 'ACC Digital Network (1080p)', letting the stream machinery run
 PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":0,"rendererAlive":true}; walking the side player
 PLAYER SMOKE PASS: opened 'ACC Digital Network (1080p)', stream machinery sane, side-player flip and close all survived
-PACKAGED SMOKE PASS: 2836 channels, bridge, players, refresh, reset and the guide list
-2026-11-15 13:56:16.854 PremiumTV Helper[13844:41919] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:56:16.854 PremiumTV Helper[13844:41925] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:56:16.854 PremiumTV Helper[13844:41924] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:56:16.857 PremiumTV Helper[13844:41919] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:56:16.858 PremiumTV Helper[13844:41925] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-15 13:56:16.860 PremiumTV Helper[13844:41925] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+PACKAGED SMOKE PASS: 2814 channels, bridge, players, refresh, reset and the guide list
+2026-11-15 14:56:12.541 PremiumTV Helper[5554:18397] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:56:12.541 PremiumTV Helper[5554:18392] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:56:12.541 PremiumTV Helper[5554:18398] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:56:12.543 PremiumTV Helper[5554:18398] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:56:12.544 PremiumTV Helper[5554:18392] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-15 14:56:12.545 PremiumTV Helper[5554:18398] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
 PLAYER SMOKE: clicking the first channel card
 PLAYER SMOKE: player open for 'ACC Digital Network (1080p)', letting the stream machinery run
 PLAYER SMOKE: settled state {"hidden":false,"spinning":false,"errorShown":false,"errorText":"","readyState":4,"rendererAlive":true}; walking the side player
 PLAYER SMOKE PASS: opened 'ACC Digital Network (1080p)', stream machinery sane, side-player flip and close all survived
-PACKAGED SMOKE PASS: 2836 channels, bridge, players, refresh, reset and the guide list
-[13841:1115/135623.110688:ERROR:base/process/process_mac.cc:53] task_policy_set TASK_CATEGORY_POLICY: (os/kern) invalid argument (4)
-[13841:1115/135623.110772:ERROR:base/process/process_mac.cc:98] task_policy_set TASK_SUPPRESSION_POLICY: (os/kern) invalid argument (4)
+PACKAGED SMOKE PASS: 2814 channels, bridge, players, refresh, reset and the guide list
