@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-15T07:57:47Z",
+  "generated_utc": "2026-11-15T12:10:23Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261115T075352Z-2962",
+  "scrape_run_id": "20261115T120634Z-3156",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -13,92 +13,10 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 41,
+  "fixture_count": 33,
   "compliant_count": 0,
-  "deficit_count": 41,
+  "deficit_count": 33,
   "fixtures": [
-    {
-      "sport": "Basketball NBL",
-      "league": "Basketball NBL",
-      "home": "Brisbane Bullets",
-      "away": "Tasmania JackJumpers",
-      "title": "Brisbane Bullets vs. Tasmania JackJumpers",
-      "key": "basketballnbl|brisbanebullets|tasmaniajackjumpers",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.44"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "71b41256fc0e",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.44",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "College Football",
-      "league": "NCAA American Football",
-      "home": "Air Force",
-      "away": "San Jose State",
-      "title": "Air Force vs. San Jose State",
-      "key": "collegefootball|airforce|sanjosestate",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.50"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "04c9de282337",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
     {
       "sport": "College Football",
       "league": "NCAAF",
@@ -148,31 +66,27 @@
       "title": "Arizona Wildcats vs. Utah Utes",
       "key": "collegefootball|arizonawildcats|utahutes",
       "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "confirmed_feed_count": 0,
+      "confirmed_primary_count": 0,
       "confirmed_backup_count": 0,
       "primary_ready": false,
       "backup_ready": false,
-      "origin_families": [
-        "damitv.st"
-      ],
-      "providers": [
-        "DAMITV"
-      ],
+      "origin_families": [],
+      "providers": [],
       "ingest_sources": [
         "doms9"
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
+        "needs 2 more confirmed primary feed(s)",
         "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 2 more independent origin family/families"
       ],
       "feeds": [
         {
           "fingerprint": "45781dc0897c",
           "role": "primary",
-          "status": "reachable",
+          "status": "retained-unverified",
           "provider": "DAMITV",
           "origin_family": "damitv.st",
           "ingest_sources": [
@@ -212,47 +126,6 @@
           "status": "retained-unverified",
           "provider": "GSPORTS",
           "origin_family": "mixedshop.pw",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "College Football",
-      "league": "NCAA American Football",
-      "home": "Boise State",
-      "away": "Oregon State",
-      "title": "Boise State vs. Oregon State",
-      "key": "collegefootball|boisestate|oregonstate",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.50"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "31e656242cc4",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
           "ingest_sources": [
             "doms9"
           ]
@@ -335,47 +208,6 @@
           "status": "reachable",
           "provider": "GSPORTS",
           "origin_family": "mixedshop.pw",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "College Football",
-      "league": "NCAA American Football",
-      "home": "Hawaii",
-      "away": "North Dakota State",
-      "title": "Hawaii vs. North Dakota State",
-      "key": "collegefootball|hawaii|northdakotastate",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.50"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "3f2490703537",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
           "ingest_sources": [
             "doms9"
           ]
@@ -548,47 +380,6 @@
     },
     {
       "sport": "College Football",
-      "league": "NCAA American Football",
-      "home": "Oregon",
-      "away": "Michigan",
-      "title": "Oregon vs. Michigan",
-      "key": "collegefootball|michigan|oregon",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.50"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "96aa5bd2e3bf",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "College Football",
       "league": "NCAAF",
       "home": "South Carolina Gamecocks",
       "away": "Arkansas Razorbacks",
@@ -663,47 +454,6 @@
           "status": "reachable",
           "provider": "GSPORTS",
           "origin_family": "mixedshop.pw",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "College Football",
-      "league": "NCAA American Football",
-      "home": "UCF",
-      "away": "Arizona State",
-      "title": "UCF vs. Arizona State",
-      "key": "collegefootball|arizonastate|ucf",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.50"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "9cd9bdbd037a",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
           "ingest_sources": [
             "doms9"
           ]
@@ -793,88 +543,6 @@
       ]
     },
     {
-      "sport": "Cricket",
-      "league": "Cricket",
-      "home": "Australia",
-      "away": "England",
-      "title": "Australia vs. England",
-      "key": "cricket|australia|england",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.50"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "0e492866c899",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Cricket",
-      "league": "Cricket",
-      "home": "New Zealand",
-      "away": "India",
-      "title": "New Zealand vs. India",
-      "key": "cricket|india|newzealand",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.50"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "e90803cc90af",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.50",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
       "sport": "National Basketball League",
       "league": "National Basketball League",
       "home": "Sydney Kings",
@@ -882,31 +550,27 @@
       "title": "Sydney Kings vs. New Zealand Breakers",
       "key": "nationalbasketballleague|newzealandbreakers|sydneykings",
       "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "confirmed_feed_count": 0,
+      "confirmed_primary_count": 0,
       "confirmed_backup_count": 0,
       "primary_ready": false,
       "backup_ready": false,
-      "origin_families": [
-        "damitv.st"
-      ],
-      "providers": [
-        "DAMITV"
-      ],
+      "origin_families": [],
+      "providers": [],
       "ingest_sources": [
         "doms9"
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
+        "needs 2 more confirmed primary feed(s)",
         "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 2 more independent origin family/families"
       ],
       "feeds": [
         {
           "fingerprint": "bee75638e2d4",
           "role": "primary",
-          "status": "reachable",
+          "status": "retained-unverified",
           "provider": "DAMITV",
           "origin_family": "damitv.st",
           "ingest_sources": [
@@ -1206,31 +870,31 @@
       "title": "Calgary Flames vs. Los Angeles Kings",
       "key": "nhlhockey|calgaryflames|losangeleskings",
       "feed_count": 2,
-      "confirmed_feed_count": 2,
-      "confirmed_primary_count": 2,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
       "confirmed_backup_count": 0,
-      "primary_ready": true,
+      "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "kinescopecdn.net",
-        "mlb9.com"
+        "kinescopecdn.net"
       ],
       "providers": [
-        "FAWA",
-        "MP66"
+        "FAWA"
       ],
       "ingest_sources": [
         "doms9"
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed dedicated backup feed(s)"
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
       ],
       "feeds": [
         {
           "fingerprint": "417ddbd8e0a4",
           "role": "primary",
-          "status": "reachable",
+          "status": "retained-unverified",
           "provider": "MP66",
           "origin_family": "mlb9.com",
           "ingest_sources": [
