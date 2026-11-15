@@ -142,6 +142,7 @@ fun HomeScreen(
     // country/location, resolved by AppRoot from the bundled directory.
     localChannels: List<Channel> = emptyList(),
     localLabel: String = "",
+    localMarkets: List<String> = emptyList(),
     onEditLocalChannels: () -> Unit = {},
     favoriteUrls: Set<String> = emptySet(),
     onToggleFavorite: (Channel) -> Unit = {},
@@ -323,7 +324,7 @@ fun HomeScreen(
             HomeTab.Channels -> CategoriesScreen(
                 library, now, liveIndex, onSelect, recentChannels, favoriteChannels,
                 favoriteUrls, onToggleFavorite, playerDocked, selectedCategory, onCategoryChange,
-                localChannels = localChannels, localLabel = localLabel,
+                localChannels = localChannels, localLabel = localLabel, localMarkets = localMarkets,
                 onEditLocalChannels = onEditLocalChannels,
             )
             HomeTab.Events -> EventsScreen(
@@ -368,6 +369,7 @@ fun HomeScreen(
                 onRestoreHiddenChannels = onRestoreHiddenChannels,
                 localChannels = localChannels,
                 localLabel = localLabel,
+                localMarkets = localMarkets,
                 onEditLocalChannels = onEditLocalChannels,
             )
         }
@@ -392,6 +394,7 @@ private fun CategoriesScreen(
     onCategoryChange: (String?) -> Unit,
     localChannels: List<Channel> = emptyList(),
     localLabel: String = "",
+    localMarkets: List<String> = emptyList(),
     onEditLocalChannels: () -> Unit = {},
 ) {
     // A null selection is the category landing page. All channels is an
@@ -554,6 +557,7 @@ private fun CategoriesScreen(
                         onCycleSort = { categorySort = categorySort.next },
                         localChannels = localChannels,
                         localLabel = localLabel,
+                        localMarkets = localMarkets,
                         onEditLocalChannels = onEditLocalChannels,
                         modifier = Modifier.fillMaxSize().padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER),
                     )
@@ -621,10 +625,10 @@ private fun CategoriesScreen(
                                         SHELF_RECENT -> "Nothing here yet. Channels you open show up here."
                                         SHELF_FAVORITES -> "No favorites yet. Press ☆ on a channel to add one."
                                         SHELF_LOCAL -> if (localLabel.isBlank() || localLabel == "Not set") {
-                                            "Set your area in Settings → Local channels to see stations here."
+                                            "Add a location, ZIP code or state to see the local stations here."
                                         } else {
                                             "No published local station plays for $localLabel right now. " +
-                                                "Try another ZIP or state in Settings → Local channels."
+                                                "Try another ZIP code or state in Settings → Local channels."
                                         }
                                         else -> "No channels are published in this category right now."
                                     },
@@ -722,6 +726,7 @@ private fun CategoryRail(
     favoriteChannels: List<Channel>,
     localChannels: List<Channel> = emptyList(),
     localLabel: String = "",
+    localMarkets: List<String> = emptyList(),
     onEditLocalChannels: () -> Unit = {},
     onSelect: (String?) -> Unit,
     onCycleSort: () -> Unit,
@@ -770,7 +775,7 @@ private fun CategoryRail(
                     name = if (localLabel.isBlank() || localLabel == "Not set") {
                         "Local channels"
                     } else {
-                        "Local channels · $localLabel"
+                        "Local channels · ${localMarkets.firstOrNull() ?: localLabel}"
                     },
                     count = localChannels.size,
                     glyph = "⌖",
@@ -1713,6 +1718,7 @@ private fun SettingsScreen(
     onRestoreHiddenChannels: () -> Unit = {},
     localChannels: List<Channel> = emptyList(),
     localLabel: String = "",
+    localMarkets: List<String> = emptyList(),
     onEditLocalChannels: () -> Unit = {},
 ) {
     val meta = library.meta
@@ -1876,8 +1882,9 @@ private fun SettingsScreen(
                                 localLabel.isBlank() || localLabel == "Not set" ->
                                     "Add your location, ZIP or state to find local stations."
                                 localChannels.isEmpty() ->
-                                    "$localLabel · no published station plays right now."
-                                else -> "$localLabel · ${localChannels.size} station(s)"
+                                    "$localLabel · no published station plays there right now."
+                                else -> "$localLabel · ${localChannels.size} station(s)" +
+                                    if (localMarkets.isNotEmpty()) " in ${localMarkets.joinToString(", ")}" else ""
                             },
                             style = MaterialTheme.typography.labelSmall,
                             color = MutedText,

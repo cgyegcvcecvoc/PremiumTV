@@ -1,22 +1,39 @@
 #!/usr/bin/env python3
-"""Build the local-channel directory the apps ask a viewer's location against.
+"""Build the market directory the apps resolve a viewer's location against.
 
-PremiumTV publishes a handful of local affiliates alongside the national
-lineup, but nothing in an M3U file says *where* a station belongs.  This script
-reads the checked USA playlist, recognises the stations whose names carry a
-callsign and a city/state (``WGAL 8 (NBC) - Lancaster PA``), and writes one
-small document the Android and macOS apps ship with:
+PremiumTV publishes local affiliates (WGAL, WHP, WTXF, KFW-tv ...) inside the
+national lineup, but nothing in an M3U playlist says *where* a station belongs.
+Answering "what is local to me?" needs three things, all offline:
+
+  1. which market every published station serves,
+  2. where each market is on a map, and
+  3. a way from what the viewer gives us - a location fix, a ZIP code, a state
+     name or a city name - to that market.
+
+The reference tables live beside this script, built from public-domain /
+openly licensed data (see `data/local-markets/README.md`):
+
+    us-tv-markets.csv   callsign -> market code
+    us-markets.csv      market code -> market city and state
+    us-zip3.csv         ZIP prefix -> state + centroid
+    us-places.csv       every US place name -> centroid (typed city / state)
+
+This builder reads the checked USA playlist, recognises the stations that
+carry a callsign or name a licensed community, and writes the document the
+apps ship with:
 
     playlists/local-channels.json
 
-The document also carries what the apps need to turn an answer into a filter:
-US ZIP prefix ranges to a state, state names and centroids (so a location fix
-can pick the nearest state we have stations for), and the country list.  The
-apps never guess a market from a channel name themselves - they match the
-document's callsigns/EPG ids against the loaded library.
+Document shape (schema 2):
 
-Nothing here touches the network.  Like the rest of the app bundle data it is
-regenerated from the repository's own published playlist.
+    countries[]     the countries we publish local stations for, with states
+    markets[]       id, city, state, centroid, and the stations serving it -
+                    this is the unit the apps answer with, so a location fix
+                    can pick the nearest *market*, not just the nearest state
+    states[]        code, name, centroid and the markets inside it
+    zip_prefixes[]  ZIP prefix -> state, market id and centroid
+    zip_ranges[]    the same mapping as USPS ranges, for simple players
+    cities[]        every market city, so "Lancaster" is typable
 
 Usage:
     python scripts/build_local_channels.py
@@ -26,7 +43,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
 import json
+import math
 import re
 import sys
 from datetime import datetime, timezone
@@ -35,73 +54,36 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "playlists" / "live" / "USA.m3u"
 OUTPUT = ROOT / "playlists" / "local-channels.json"
+DATA = ROOT / "data" / "local-markets"
 
 # --------------------------------------------------------------------------- #
 # Reference tables
 # --------------------------------------------------------------------------- #
-# The first three digits of a US ZIP code, as published by the USPS.  A range
-# covers every ZIP that starts with a number inside it.
+# ZIP prefix ranges as published by the USPS.  The finer per-prefix table comes
+# from us-zip3.csv; the ranges stay in the document because they are what a
+# simple player understands, and 256 of them are cheaper than 900 rows.
 ZIP_RANGES: tuple[tuple[str, str, str], ...] = (
-    ("005", "005", "NY"),
-    ("006", "009", "PR"),
-    ("010", "027", "MA"),
-    ("028", "029", "RI"),
-    ("030", "038", "NH"),
-    ("039", "049", "ME"),
-    ("050", "059", "VT"),
-    ("060", "069", "CT"),
-    ("070", "089", "NJ"),
-    ("090", "099", "AE"),
-    ("100", "149", "NY"),
-    ("150", "196", "PA"),
-    ("197", "199", "DE"),
-    ("200", "205", "DC"),
-    ("206", "219", "MD"),
-    ("220", "246", "VA"),
-    ("247", "268", "WV"),
-    ("270", "289", "NC"),
-    ("290", "299", "SC"),
-    ("300", "319", "GA"),
-    ("320", "349", "FL"),
-    ("350", "369", "AL"),
-    ("370", "385", "TN"),
-    ("386", "397", "MS"),
-    ("398", "399", "GA"),
-    ("400", "427", "KY"),
-    ("430", "459", "OH"),
-    ("460", "479", "IN"),
-    ("480", "499", "MI"),
-    ("500", "528", "IA"),
-    ("530", "549", "WI"),
-    ("550", "567", "MN"),
-    ("570", "577", "SD"),
-    ("580", "588", "ND"),
-    ("590", "599", "MT"),
-    ("600", "629", "IL"),
-    ("630", "658", "MO"),
-    ("660", "679", "KS"),
-    ("680", "693", "NE"),
-    ("700", "714", "LA"),
-    ("716", "729", "AR"),
-    ("730", "749", "OK"),
-    ("750", "799", "TX"),
-    ("800", "816", "CO"),
-    ("820", "831", "WY"),
-    ("832", "838", "ID"),
-    ("840", "847", "UT"),
-    ("850", "865", "AZ"),
-    ("870", "884", "NM"),
-    ("889", "898", "NV"),
-    ("900", "961", "CA"),
-    ("967", "968", "HI"),
-    ("970", "979", "OR"),
-    ("980", "994", "WA"),
-    ("995", "999", "AK"),
+    ("005", "005", "NY"), ("006", "009", "PR"), ("010", "027", "MA"),
+    ("028", "029", "RI"), ("030", "038", "NH"), ("039", "049", "ME"),
+    ("050", "059", "VT"), ("060", "069", "CT"), ("070", "089", "NJ"),
+    ("100", "149", "NY"), ("150", "196", "PA"), ("197", "199", "DE"),
+    ("200", "205", "DC"), ("206", "219", "MD"), ("220", "246", "VA"),
+    ("247", "268", "WV"), ("270", "289", "NC"), ("290", "299", "SC"),
+    ("300", "319", "GA"), ("320", "349", "FL"), ("350", "369", "AL"),
+    ("370", "385", "TN"), ("386", "397", "MS"), ("398", "399", "GA"),
+    ("400", "427", "KY"), ("430", "459", "OH"), ("460", "479", "IN"),
+    ("480", "499", "MI"), ("500", "528", "IA"), ("530", "549", "WI"),
+    ("550", "567", "MN"), ("570", "577", "SD"), ("580", "588", "ND"),
+    ("590", "599", "MT"), ("600", "629", "IL"), ("630", "658", "MO"),
+    ("660", "679", "KS"), ("680", "693", "NE"), ("700", "714", "LA"),
+    ("716", "729", "AR"), ("730", "749", "OK"), ("750", "799", "TX"),
+    ("800", "816", "CO"), ("820", "831", "WY"), ("832", "838", "ID"),
+    ("840", "847", "UT"), ("850", "865", "AZ"), ("870", "884", "NM"),
+    ("889", "898", "NV"), ("900", "961", "CA"), ("967", "968", "HI"),
+    ("970", "979", "OR"), ("980", "994", "WA"), ("995", "999", "AK"),
 )
 
-# Approximate state centroids.  A coarse location fix (city-level permission or
-# a browser's IP-based estimate) only has to pick the nearest state that has a
-# published station; the viewer can always type a ZIP instead.
+# Approximate state centroids: a fallback for a prefix missing from us-zip3.csv.
 STATE_CENTROIDS: dict[str, tuple[float, float]] = {
     "AL": (32.8, -86.8), "AK": (64.0, -152.0), "AZ": (34.3, -111.7),
     "AR": (34.9, -92.4), "CA": (37.2, -119.3), "CO": (39.0, -105.5),
@@ -120,6 +102,7 @@ STATE_CENTROIDS: dict[str, tuple[float, float]] = {
     "TN": (35.9, -86.4), "TX": (31.5, -99.3), "UT": (39.3, -111.7),
     "VT": (44.1, -72.7), "VA": (37.5, -78.9), "WA": (47.4, -120.5),
     "WV": (38.6, -80.6), "WI": (44.6, -89.9), "WY": (43.0, -107.6),
+    "PR": (18.2, -66.4), "VI": (18.3, -64.9), "GU": (13.4, 144.7),
 }
 
 STATE_NAMES: dict[str, str] = {
@@ -136,12 +119,27 @@ STATE_NAMES: dict[str, str] = {
     "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas",
     "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
     "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming",
+    "PR": "Puerto Rico", "VI": "U.S. Virgin Islands", "GU": "Guam",
+}
+
+# ZIP prefixes for military posts and territories: no published station, and
+# mapping them onto a state would put a viewer in the wrong market.
+NON_STATE_PREFIXES = {f"09{n}" for n in range(0, 10)} | {
+    "340", "962", "963", "964", "965", "966", "969",
 }
 
 COUNTRY_NAMES = {"US": "United States"}
-NETWORKS = ("NBC", "CBS", "ABC", "FOX", "PBS", "CW", "MNT", "ION", "MNT")
+NETWORKS = ("NBC", "CBS", "ABC", "FOX", "PBS", "CW", "MNT", "ION")
 
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
+# Spellings the playlist uses that differ from the postal place names.
+PLACE_ALIASES: dict[str, tuple[str, str]] = {
+    "new york city": ("NY", "new york"),
+    "washington": ("DC", "washington"),
+    "saint paul": ("MN", "st paul"),
+    "ft lauderdale": ("FL", "ft lauderdale"),
+    "san louis obispo": ("CA", "san luis obispo"),
+}
 
 
 def attr(line: str, name: str) -> str:
@@ -150,6 +148,7 @@ def attr(line: str, name: str) -> str:
 
 
 def extinf_name(line: str) -> str:
+    """The display name after the first comma outside quoted attributes."""
     quoted = False
     for index, char in enumerate(line):
         if char == '"':
@@ -168,131 +167,424 @@ def country_of(line: str) -> str:
     return match.group(1).upper() if match else ""
 
 
-CALLSIGN_RE = re.compile(r"\(\s*([KW][A-Z]{2,4}(?:-TV|-DT\d?)?)\s*\)")
-LOCATION_RE = re.compile(
-    r"(?:[-–]\s*)?([A-Z][A-Za-z.'’ -]{2,28}?)\s*,\s*([A-Z]{2})\b"
+def distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Great-circle distance in kilometres; enough to pick a market."""
+    radius = 6371.0
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    d_phi = phi2 - phi1
+    d_lambda = math.radians(lon2 - lon1)
+    a = math.sin(d_phi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(d_lambda / 2) ** 2
+    return 2 * radius * math.asin(math.sqrt(a))
+
+
+# --------------------------------------------------------------------------- #
+# Reference data
+# --------------------------------------------------------------------------- #
+def load_callsign_markets(path: Path | None = None) -> dict[str, str]:
+    """callsign -> market code."""
+    path = path or DATA / "us-tv-markets.csv"
+    out: dict[str, str] = {}
+    if not path.is_file():
+        return out
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            callsign = (row.get("callsign") or "").strip().upper()
+            market = (row.get("market_code") or "").strip().upper()
+            if callsign and market:
+                out[callsign] = market
+    return out
+
+
+def load_market_places(path: Path | None = None) -> dict[str, dict]:
+    """market code -> its principal city, state and map position."""
+    path = path or DATA / "us-markets.csv"
+    out: dict[str, dict] = {}
+    if not path.is_file():
+        return out
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            code = (row.get("market_code") or "").strip().upper()
+            city = (row.get("city") or "").strip()
+            state = (row.get("state") or "").strip().upper()
+            if not code or not city or state not in STATE_NAMES:
+                continue
+            try:
+                latitude = float(row.get("latitude") or 0)
+                longitude = float(row.get("longitude") or 0)
+            except ValueError:
+                latitude = longitude = 0.0
+            if not latitude and not longitude:
+                latitude, longitude = STATE_CENTROIDS[state]
+            out[code] = {"city": city, "state": state,
+                         "latitude": latitude, "longitude": longitude}
+    return out
+
+
+def load_place_coordinates(path: Path | None = None) -> dict[tuple[str, str], tuple[float, float]]:
+    """(state, normalised place name) -> centroid, for typed city answers."""
+    path = path or DATA / "us-places.csv"
+    out: dict[tuple[str, str], tuple[float, float]] = {}
+    if not path.is_file():
+        return out
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            state = (row.get("state") or "").strip().upper()
+            place = normalise_place(row.get("place") or "")
+            if not place or state not in STATE_NAMES:
+                continue
+            try:
+                latitude = float(row.get("latitude") or 0)
+                longitude = float(row.get("longitude") or 0)
+            except ValueError:
+                continue
+            out[(state, place)] = (latitude, longitude)
+    return out
+
+
+def normalise_place(name: str) -> str:
+    """Typed and published spellings of one place have to collide."""
+    text = name.lower().strip()
+    text = text.replace("’", "'").replace(".", "").replace("-", " ")
+    text = re.sub(r"\bsaint\b", "st", text)
+    text = re.sub(r"\bfort\b", "ft", text)
+    text = re.sub(r"\bmount\b", "mt", text)
+    text = re.sub(r"\s{2,}", " ", text)
+    return text.strip()
+
+
+def resolve_place(place_coordinates, city: str, state: str) -> tuple[float, float] | None:
+    """Coordinates for a typed/published city name, or None when it is not a place.
+
+    The playlist has names like "Pluto TV Cars CA" and "Orange County FL" that
+    read like a city and are not one; requiring a real place is what keeps a
+    channel from inventing a market.
+    """
+    key = normalise_place(city)
+    if not key:
+        return None
+    point = place_coordinates.get((state, key))
+    if point:
+        return point
+    alias = PLACE_ALIASES.get(key)
+    if alias:
+        return place_coordinates.get((alias[0], alias[1])) or place_coordinates.get((state, alias[1]))
+    return None
+
+
+# --------------------------------------------------------------------------- #
+# Station recognition
+# --------------------------------------------------------------------------- #
+# A callsign: a K/W prefix, at least two more letters, and an optional
+# (-TV | -DT1 | -CD | -LD | -LP) suffix.  Screen "KID!" and "WOX TV" are not
+# callsigns a market table will know, so the table lookup rejects them.
+CALLSIGN_RE = re.compile(r"\b([KW][A-Z]{2,4})(?:-(?:TV|DT\d?|CD|LD|LP|CA))?\b")
+LOCATION_RE = re.compile(r"(?:[-–]\s*)?([A-Z][A-Za-z.'’ -]{2,28}?)\s*,\s*([A-Z]{2})\b")
+LOCATION_NO_COMMA_RE = re.compile(r"(?:[-–]\s*)?([A-Z][A-Za-z.'’ -]{2,28}?)\s+([A-Z]{2})\b")
+NOISE_PARENS = re.compile(r"\((?:Backup\s+\d+|Alt|Feed\s+\d+|\d{3,4}p|\d+k|HD|SD)\)", re.IGNORECASE)
+NETWORK_PREFIX = re.compile(
+    r"^(?:ABC|CBS|NBC|FOX|PBS|CW|ION|MNT|Telemundo|UniMas|Univision|News|TV|Channel|Digital)\s+",
+    re.IGNORECASE,
 )
-LOCATION_NO_COMMA_RE = re.compile(
-    r"(?:[-–]\s*)?([A-Z][A-Za-z.'’ -]{2,28}?)\s+([A-Z]{2})\b"
-)
+
+
+def clean_city(city: str) -> str:
+    city = NOISE_PARENS.sub(" ", city or "")
+    previous = None
+    while previous != city:
+        previous = city
+        city = NETWORK_PREFIX.sub("", city.strip()).strip()
+    # A callsign in front of the city ("WCCA 194 Worcester") is not a place.
+    city = re.sub(r"^[KW][A-Z]{2,4}(?:-(?:TV|DT\d?|CD|LD))?\s+", "", city.strip())
+    city = re.sub(r"^\d+\.?\d*\s+", "", city.strip())
+    return city.strip(" -–'’,.")
 
 
 def station_location(name: str) -> tuple[str, str] | None:
-    """Return ``(city, state)`` when the published name says where it is."""
-    cleaned = re.sub(r"\((?:Backup\s+\d+|\d{3,4}p|\d+k|HD|SD)\)", " ", name, flags=re.I)
+    """``(city, state)`` when the published display name states one."""
+    cleaned = NOISE_PARENS.sub(" ", name or "")
     candidates: list[tuple[str, str]] = []
     for regex in (LOCATION_RE, LOCATION_NO_COMMA_RE):
         for match in regex.finditer(cleaned):
-            city = match.group(1).strip(" -–'’")
+            city = clean_city(match.group(1))
             state = match.group(2).upper()
             if state in STATE_NAMES and city:
                 candidates.append((city, state))
-    if not candidates:
-        return None
-    # The last city/state mention is the licensed community in every station
-    # name the playlist publishes ("CBS 3 Omaha NE (KMTV-TV)").
-    city, state = candidates[-1]
-    # "PBS KET Louisville" / "ABC Bakersfield" / "PBS MPT Baltimore" carry the
-    # network (and often the station's callsign) before the community; strip it
-    # so a market reads as a place, not as a channel name.
-    city = re.sub(
-        r"^(?:ABC|CBS|NBC|FOX|PBS|CW|ION)\s+(?:[A-Z]{2,4}\s+)?", "", city
-    ).strip(" -–'’")
-    return city, state
+    return candidates[-1] if candidates else None
+
+
+PAREN_CALLSIGN = re.compile(r"\(([KW][A-Z]{2,4})(?:-(?:TV|DT\d?|CD|LD|LP|CA))?\)")
+TVG_NAME_CALLSIGN = re.compile(r"^([KW][A-Z]{2,4})(?:-(?:TV|DT\d?|CD|LD|LP|CA))?$")
+
+
+def strong_callsign(name: str, tvg_name: str, local_id: str) -> str:
+    """A callsign written so plainly that it needs no market-table lookup.
+
+    "WCCA 194 Worcester MA (WCCA-TV)" and tvg-name="WCCA-TV" are statements of
+    identity; a bare token in a show title is not.
+    """
+    for source, regex in ((name, PAREN_CALLSIGN), (tvg_name, TVG_NAME_CALLSIGN),
+                          (local_id, TVG_NAME_CALLSIGN)):
+        match = regex.search(source or "")
+        if match:
+            return match.group(1).upper()
+    return ""
+
+
+def callsigns_of(*sources: str) -> list[str]:
+    """Every plausible callsign the channel's own metadata offers."""
+    found: list[str] = []
+    for source in sources:
+        for match in CALLSIGN_RE.finditer(source or ""):
+            callsign = match.group(1).upper()
+            # WATCH, WEST, KIDS ... are English words, not stations.  A real
+            # callsign is looked up in the market table, which filters them.
+            if callsign not in found:
+                found.append(callsign)
+    return found
 
 
 def station_network(name: str) -> str:
-    match = re.search(r"\(([A-Z]+)\)", name)
-    if match and match.group(1) in NETWORKS:
-        return match.group(1)
+    match = re.search(r"\(([A-Za-z+ ]+)\)", name or "")
+    if match and match.group(1).strip().upper() in NETWORKS:
+        return match.group(1).strip().upper()
     for network in NETWORKS:
-        if re.search(rf"\b{network}\b", name, re.IGNORECASE):
+        if re.search(rf"\b{network}\b", name or "", re.IGNORECASE):
             return "FOX" if network == "MNT" else network
     return ""
 
 
-def station_callsign(name: str, tvg_name: str) -> str:
-    match = CALLSIGN_RE.search(name)
-    if match:
-        return match.group(1)
-    if re.fullmatch(r"[KW][A-Z]{2,4}(?:-TV|-DT\d?)?", tvg_name or ""):
-        return tvg_name
-    return ""
-
-
+# --------------------------------------------------------------------------- #
+# Build
+# --------------------------------------------------------------------------- #
 def build(source: Path = SOURCE) -> dict:
-    stations_by_state: dict[str, dict[str, list[dict]]] = {}
+    callsign_markets = load_callsign_markets()
+    market_places = load_market_places()
+    place_coordinates = load_place_coordinates()
+    zip_prefixes = load_zip_prefixes()
+
+    # market code -> market record.  A station is one entry however many feeds
+    # of it are published: the first URL is the stream, the rest are backups.
+    markets: dict[str, dict] = {}
     pending = None
-    with source.open("r", encoding="utf-8", errors="replace") as handle:
-        for raw in handle:
-            line = raw.rstrip("\r\n")
-            if line.startswith("#EXTINF"):
-                pending = line
-                continue
-            if not line or line.startswith("#") or pending is None:
-                continue
-            url = line.strip()
-            name = extinf_name(pending)
-            if country_of(pending) != "US":
-                pending = None
-                continue
-            location = station_location(name)
-            callsign = station_callsign(name, attr(pending, "tvg-name"))
-            if not location or not callsign:
-                pending = None
-                continue
-            city, state = location
-            markets = stations_by_state.setdefault(state, {})
-            stations = markets.setdefault(city, [])
-            stations.append({
+    for raw in source.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = raw.rstrip("\r\n")
+        if line.startswith("#EXTINF"):
+            pending = line
+            continue
+        if not line or line.startswith("#") or pending is None:
+            continue
+        url = line.strip()
+        extinf = pending
+        pending = None
+        if country_of(extinf) not in ("", "US"):
+            continue
+        name = extinf_name(extinf)
+        tvg_id = attr(extinf, "tvg-id")
+        tvg_name = attr(extinf, "tvg-name")
+        local_id = tvg_id.split("@")[-1] if "@" in tvg_id else ""
+        candidates = callsigns_of(name, tvg_name, local_id)
+        callsign = next((c for c in candidates if c in callsign_markets), "")
+        if not callsign:
+            callsign = strong_callsign(name, tvg_name, local_id)
+        stated = station_location(name)
+        if stated and stated[1] not in STATE_NAMES:
+            stated = None
+        if not callsign and not stated:
+            continue
+        market_code = callsign_markets.get(callsign, "")
+        place = market_places.get(market_code)
+        if place is not None:
+            city, state = place["city"], place["state"]
+            latitude, longitude = place["latitude"], place["longitude"]
+        elif stated and resolve_place(place_coordinates, *stated) is not None:
+            # No market-table entry, but the playlist itself names a real
+            # community ("WCCA 194 Worcester MA"): that place is the market.
+            city, state = stated
+            latitude, longitude = resolve_place(place_coordinates, city, state) or STATE_CENTROIDS[state]
+            market_code = "US" + re.sub(r"[^A-Z]", "", normalise_place(city).upper())[:8]
+        else:
+            continue
+        if state not in STATE_NAMES:
+            continue
+        market = markets.setdefault(market_code, {
+            "id": market_code,
+            "city": city,
+            "state": state,
+            "latitude": round(latitude, 4),
+            "longitude": round(longitude, 4),
+            "stations": {},
+        })
+        station_key = callsign or normalise_place(name)[:24]
+        existing = market["stations"].get(station_key)
+        if existing is None:
+            market["stations"][station_key] = {
                 "callsign": callsign,
+                "city": (
+                    stated[0]
+                    if stated and stated[1] == state
+                    and resolve_place(place_coordinates, *stated) is not None
+                    else market["city"]
+                ),
                 "network": station_network(name),
                 "name": name,
-                "channel_id": attr(pending, "tvg-id"),
-                "chno": attr(pending, "tvg-chno"),
-                "logo": attr(pending, "tvg-logo"),
+                "channel_id": tvg_id,
+                "chno": attr(extinf, "tvg-chno"),
+                "logo": attr(extinf, "tvg-logo"),
                 "url": url,
-            })
-            pending = None
+                "backup_urls": [],
+            }
+        elif url != existing["url"] and url not in existing["backup_urls"]:
+            existing["backup_urls"].append(url)
 
-    states = []
-    for state in sorted(stations_by_state):
-        markets = stations_by_state[state]
-        markets_out = []
-        for city in sorted(markets):
-            # One row per callsign, keeping the first published feed and
-            # folding later feeds of the same station in as backups.
-            by_callsign: dict[str, dict] = {}
-            for station in markets[city]:
-                existing = by_callsign.get(station["callsign"])
-                if existing is None:
-                    by_callsign[station["callsign"]] = dict(station, backup_urls=[])
-                else:
-                    existing["backup_urls"].append(station["url"])
-            markets_out.append({
-                "city": city,
-                "stations": [by_callsign[key] for key in sorted(by_callsign)],
-            })
-        latitude, longitude = STATE_CENTROIDS.get(state, (0.0, 0.0))
-        states.append({
-            "code": state,
-            "name": STATE_NAMES.get(state, state),
-            "latitude": latitude,
-            "longitude": longitude,
-            "markets": markets_out,
+    return assemble(merge_places(markets), zip_prefixes)
+
+
+def load_zip_prefixes(path: Path | None = None) -> dict[str, dict]:
+    """ZIP prefix -> state + centroid."""
+    path = path or DATA / "us-zip3.csv"
+    out: dict[str, dict] = {}
+    if not path.is_file():
+        return out
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            prefix = (row.get("prefix") or "").strip()
+            state = (row.get("state") or "").strip().upper()
+            if len(prefix) != 3 or not prefix.isdigit():
+                continue
+            if state not in STATE_NAMES or prefix in NON_STATE_PREFIXES:
+                continue
+            try:
+                latitude = float(row.get("latitude") or 0)
+                longitude = float(row.get("longitude") or 0)
+            except ValueError:
+                continue
+            if not latitude and not longitude:
+                continue
+            out[prefix] = {
+                "state": state,
+                "latitude": round(latitude, 3),
+                "longitude": round(longitude, 3),
+            }
+    return out
+
+
+def merge_places(markets: dict[str, dict]) -> dict[str, dict]:
+    """Fold a stated-only market into the real market for the same place.
+
+    "DC.gov (Washington DC)" names a place but no callsign, so it has no market
+    code; WTTG's table entry does.  Both are Washington, DC, and a viewer must
+    see one market, not two.
+    """
+    by_place: dict[tuple[str, str], str] = {}
+    for code in sorted(markets, key=lambda key: (len(markets[key]["stations"]), key)):
+        market = markets[code]
+        place = (market["state"], normalise_place(market["city"]))
+        keeper = by_place.get(place)
+        if keeper is None:
+            by_place[place] = code
+            continue
+        target = markets[keeper]
+        for key, station in market["stations"].items():
+            if key not in target["stations"]:
+                target["stations"][key] = station
+        del markets[code]
+    return markets
+
+
+def assemble(markets: dict[str, dict], zip_prefixes) -> dict:
+    """Turn the recognised stations into the published document."""
+    out_markets = []
+    for code in sorted(markets, key=lambda key: (markets[key]["state"], markets[key]["city"].lower(), key)):
+        market = markets[code]
+        out_markets.append({
+            "id": code,
+            "city": market["city"],
+            "state": market["state"],
+            "state_name": STATE_NAMES[market["state"]],
+            "latitude": market["latitude"],
+            "longitude": market["longitude"],
+            "stations": sorted(market["stations"].values(),
+                               key=lambda station: (station["callsign"], station["name"])),
         })
 
+    states: dict[str, dict] = {}
+    for market in out_markets:
+        state = states.setdefault(market["state"], {
+            "code": market["state"],
+            "name": STATE_NAMES[market["state"]],
+            "latitude": STATE_CENTROIDS[market["state"]][0],
+            "longitude": STATE_CENTROIDS[market["state"]][1],
+            "markets": [],
+        })
+        state["markets"].append(market["id"])
+
+    cities = [
+        {
+            "city": market["city"],
+            "state": market["state"],
+            "state_name": market["state_name"],
+            "market": market["id"],
+            "stations": len(market["stations"]),
+            "latitude": market["latitude"],
+            "longitude": market["longitude"],
+        }
+        for market in out_markets
+    ]
+    cities.sort(key=lambda row: (row["state"], row["city"].lower()))
+
+    # Every ZIP prefix points at the state's published market nearest to it,
+    # so a viewer who only knows a ZIP lands on a real market, not a state.
+    by_state: dict[str, list[dict]] = {}
+    for market in out_markets:
+        by_state.setdefault(market["state"], []).append(market)
+    zip_rows = []
+    for prefix in sorted(zip_prefixes):
+        row = zip_prefixes[prefix]
+        candidates = by_state.get(row["state"]) or []
+        nearest = None
+        best = float("inf")
+        for market in candidates:
+            metres = distance(row["latitude"], row["longitude"],
+                              market["latitude"], market["longitude"])
+            if metres < best:
+                best = metres
+                nearest = market["id"]
+        zip_rows.append({
+            "prefix": prefix,
+            "state": row["state"],
+            "market": nearest or "",
+            "latitude": row["latitude"],
+            "longitude": row["longitude"],
+        })
+
+    station_count = sum(len(market["stations"]) for market in out_markets)
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     return {
-        "schema": 1,
+        "schema": 2,
         "generated_utc": now,
         "source": "playlists/live/USA.m3u",
+        "reference": [
+            "data/local-markets/us-tv-markets.csv",
+            "data/local-markets/us-markets.csv",
+            "data/local-markets/us-zip3.csv",
+            "data/local-markets/us-places.csv",
+        ],
         "countries": [
-            {"code": code, "name": name, "states": [s["code"] for s in states]}
+            {
+                "code": code,
+                "name": name,
+                "states": sorted(states),
+                "local_channels": True,
+            }
             for code, name in COUNTRY_NAMES.items()
         ],
+        "markets": out_markets,
+        "states": [states[code] for code in sorted(states)],
         "zip_ranges": [[low, high, state] for low, high, state in ZIP_RANGES],
-        "states": states,
+        "zip_prefixes": zip_rows,
+        "cities": cities,
+        "market_count": len(out_markets),
+        "station_count": station_count,
     }
 
 
@@ -306,9 +598,6 @@ def main(argv: list[str] | None = None) -> int:
 
     document = build(Path(args.source))
     out = Path(args.out)
-    station_count = sum(
-        len(market["stations"]) for state in document["states"] for market in state["markets"]
-    )
 
     # `generated_utc` changes on every run; it must not make a data-identical
     # document look stale, or --check (and CI) could never pass.
@@ -330,13 +619,14 @@ def main(argv: list[str] | None = None) -> int:
         if not unchanged:
             print(f"{out} is out of date - run scripts/build_local_channels.py", file=sys.stderr)
             return 1
-        print(f"{out} is current ({station_count} local stations)")
+        print(f"{out} is current ({document['station_count']} local stations, "
+              f"{document['market_count']} markets)")
         return 0
     if not unchanged:
         out.write_text(text, encoding="utf-8")
     print(
-        f"wrote {out.relative_to(ROOT)}: {station_count} stations in "
-        f"{len(document['states'])} states"
+        f"wrote {out.relative_to(ROOT)}: {document['station_count']} stations in "
+        f"{document['market_count']} markets / {len(document['states'])} states"
     )
     return 0
 

@@ -79,10 +79,10 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.10** (Android `versionCode 101100000`) | USA lineup + USA guide | Local channels from a location, ZIP, state or country; one A&E Networks category; short release notes ([notes](release-notes-1.1.10.md)). |
-| Superseded | **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.10. |
+| **Stable release** | **1.1.11** (Android `versionCode 101110000`) | USA lineup + USA guide | Local stations by market from a location, ZIP, state or city; every A+E Networks channel in one category; named releases ([notes](release-notes-1.1.11.md)). |
+| Superseded | **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.11. |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.10 ends Nov 19, 2026 |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.11 ends Nov 19, 2026 |
 
 The old **1.1.x Encore preview channel is retired**, and 1.1.6 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is

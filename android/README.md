@@ -1,8 +1,8 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.1.10**
-(`versionCode` `101100000`) with the USA lineup: a channel opens in the docked
+TV guide inside the APK. The default build target is **1.1.11**
+(`versionCode` `101110000`) with the USA lineup: a channel opens in the docked
 side player with built-in transport and audio-track controls and one press on
 the picture goes full screen, a **Movies & Shows** tab that shows a coming-soon
 page of 21 public-domain films and classic TV episodes, FFmpeg broadcast
@@ -176,9 +176,9 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Build target (USA, 1.1.10, versionCode 101100000)
-python3 tools/build_bundle.py --scope usa --version 1.1.10
-./gradlew -PpremiumTvVersion=1.1.10 -PpremiumTvVersionCode=101100000 assembleDebug
+# Build target (USA, 1.1.11, versionCode 101110000)
+python3 tools/build_bundle.py --scope usa --version 1.1.11
+./gradlew -PpremiumTvVersion=1.1.11 -PpremiumTvVersionCode=101110000 assembleDebug
 ```
 
 `app/src/main/assets/bundle/` is gitignored: it is derived data and would go
@@ -289,8 +289,8 @@ Physical TV and upstream playback checks remain manual.
 
 ### Stable build publication
 
-Ordinary pushes and manual builds default to `1.1.10`
-(Android code 101100000). The V-patch/compatibility-alias scheme is retired:
+Ordinary pushes and manual builds default to `1.1.11`
+(Android code 101110000). The V-patch/compatibility-alias scheme is retired:
 publish one three-part release and no twin. (Historically, `1.0.7` was the
 alias of `1.0.6.1`, and `1.0.9` briefly of `1.0.8.1`; the alias mapping for
 1.0.7 remains in the policy so those tags still resolve.)

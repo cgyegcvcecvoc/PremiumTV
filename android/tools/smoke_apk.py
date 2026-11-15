@@ -320,6 +320,12 @@ def key(code, times=1):
 # build under test a retired preview, and the gate must dismiss that dialog and
 # go on testing the app rather than sit on it until the 240 s deadline.
 NOTICE_EYEBROWS = {"PREMIUMTV UPDATE", "SUPPORT HAS ENDED", "BUILD RETIRED", "UPDATE REQUIRED"}
+
+# The local-channel question (1.1.11+) is asked once after setup. It is expected
+# UI, not a broken home screen: the gate answers it the way a viewer who wants a
+# clean run does - "Skip for now" - so the rest of the chain sees the channel
+# list. A build without the question never matches these.
+LOCAL_PROMPT_TITLES = {"WHERE DO YOU WATCH FROM?", "LOCAL CHANNELS"}
 # Used when the document cannot be read, or names a label this list forgot: the
 # dismissal button is always the safe press, so a missing entry must not wedge
 # the gate.
@@ -348,6 +354,29 @@ def notice_dismiss_labels():
     except (OSError, ValueError):
         pass
     return labels
+
+
+_local_prompt_answered = False
+
+
+def answer_local_prompt(texts, nodes):
+    """Answers the one-time location question so the gate reaches the channels.
+
+    The dialog is real app UI (1.1.11 asks after setup, once per install), so
+    the smoke test must be able to get past it without pretending it is absent.
+    It presses "Skip for now" - the path a viewer who declines location takes -
+    and records it, then the channel list appears as usual.
+    """
+    global _local_prompt_answered
+    if not any(text.strip().upper() in LOCAL_PROMPT_TITLES for text in texts):
+        return False
+    # A dialog still up after an answer means the tap was lost, so press again
+    # rather than spinning until the deadline.
+    if tap_text(nodes, lambda text: text in {"Skip for now", "Not now"}, "local channels"):
+        _local_prompt_answered = True
+        progress("local-channel question answered with 'Skip for now' (declining location)")
+        return True
+    return False
 
 
 def dismiss_update_notice(texts, nodes):
@@ -828,6 +857,8 @@ def main(argv=None):
                     time.sleep(1)
                     continue
                 if dismiss_update_notice(texts, nodes):
+                    continue
+                if answer_local_prompt(texts, nodes):
                     continue
                 count = any(re.search(rf"\b{meta['channel_count']} channels\b", value) for value in texts)
                 if count and not opened_category:

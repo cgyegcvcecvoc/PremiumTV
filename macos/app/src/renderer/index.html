@@ -49,6 +49,28 @@
     </div>
   </div>
 
+  <!-- The location question, asked once after setup: a first launch that opens
+       on a categories list cannot show local stations nobody asked for. Every
+       step is optional - declining opens the ZIP / state / city form, and
+       "Skip for now" is remembered as an answer so it is asked exactly once. -->
+  <div id="local-setup" class="notice-overlay setup-overlay" role="dialog" aria-modal="true"
+       aria-labelledby="local-setup-title" hidden>
+    <div class="notice-card">
+      <h1 id="local-setup-title">Where do you watch from?</h1>
+      <p>PremiumTV can show the local stations for your area — stations like WGAL in Lancaster.
+        It asks once for an approximate location; declining is fine, because a ZIP code, a state
+        or a city works just as well. Nothing leaves this Mac.</p>
+      <div class="setup-actions local-setup-actions">
+        <button id="local-setup-locate" class="btn" type="button">Use my location</button>
+        <button id="local-setup-manual" class="btn btn-quiet" type="button">Enter a ZIP or state</button>
+      </div>
+      <p class="muted" id="local-setup-status">The answer stays on this device and only filters the channel list.</p>
+      <div class="setup-actions">
+        <button id="local-setup-skip" class="btn btn-quiet" type="button">Skip for now</button>
+      </div>
+    </div>
+  </div>
+
   <div id="app">
     <aside id="sidebar">
       <div id="sidebar-drag">

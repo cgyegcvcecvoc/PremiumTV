@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -24,6 +25,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.unit.dp
 import com.premiumtv.app.data.LocalChannelSettings
 import com.premiumtv.app.data.LocalDirectory
@@ -31,14 +36,22 @@ import com.premiumtv.app.data.LocalSelection
 import com.premiumtv.app.data.lastKnownCoordinates
 
 /**
- * Asks where the viewer watches from (1.1.7).
+ * Asks where the viewer watches from (1.1.7, refined in 1.1.11).
  *
- * PremiumTV cannot know a market from geolocation on a TV stick, and it must
- * never make location mandatory: "Use my location" is the first offer, and
- * declining it leaves a ZIP, a state or a country to type. The answer is
- * stored on this device only and is used to filter the published local
- * stations - a market we do not carry shows that honestly instead of inventing
- * channels.
+ * The order is deliberate, because each answer is more private than the last:
+ *
+ *  1. "Use my location" - an approximate fix, matched to the nearest *market*
+ *     PremiumTV publishes (WGAL's Lancaster, not the whole state).
+ *  2. Declined, unavailable, or no station near the fix: a **ZIP code**, which
+ *     resolves to a market through the bundled ZIP prefix table.
+ *  3. No ZIP at hand: a **state** or a **city** - either one lists the
+ *     published markets there.
+ *  4. Outside the United States: the **country** picker says what exists, and
+ *     the answer is honest that local stations are US-only so far.
+ *
+ * Nothing is uploaded; the answer is stored on this device and only filters
+ * the published station list. A market we do not carry is reported as such
+ * rather than filled with invented channels.
  */
 @Composable
 internal fun LocalChannelsDialog(
@@ -46,32 +59,40 @@ internal fun LocalChannelsDialog(
     initial: LocalSelection,
     onSave: (LocalSelection) -> Unit,
     onDismiss: () -> Unit,
+    onDecline: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
     var zip by rememberSaveable { mutableStateOf(initial.zip) }
     var state by rememberSaveable { mutableStateOf(initial.state) }
     var city by rememberSaveable { mutableStateOf(initial.city) }
     var country by rememberSaveable { mutableStateOf(initial.country.ifBlank { "US" }) }
+    var source by rememberSaveable { mutableStateOf(initial.source) }
     var message by remember { mutableStateOf("") }
     var locating by remember { mutableStateOf(false) }
+    var showEverything by rememberSaveable { mutableStateOf(false) }
 
     fun selection(): LocalSelection = LocalSelection(
         country = country.trim().uppercase().ifBlank { "US" },
         state = state.trim().uppercase(),
         zip = zip.filter { it.isDigit() },
         city = city.trim(),
+        source = source,
     )
 
     fun applyFix(latitude: Double, longitude: Double) {
         locating = false
-        val found = directory?.stateForLocation(latitude, longitude)
-        if (found.isNullOrBlank()) {
-            message = "No local stations are published near you yet. Enter a ZIP or state."
-        } else {
-            state = found
-            zip = ""
-            message = "Location set to ${directory?.countryName(country) ?: "your area"} · $found"
+        val known = directory
+        val market = known?.nearestMarket(latitude, longitude)
+        if (known == null || market == null) {
+            message = "No local stations are published near that fix. Enter a ZIP code instead."
+            source = ""
+            return
         }
+        state = market.state
+        city = if (known.marketsFor(LocalSelection(state = market.state)).size > 1 && showEverything) "" else market.city
+        zip = ""
+        source = LocalSelection.SOURCE_LOCATION
+        message = "Location set to ${market.label}. Pick another ZIP or state any time."
     }
 
     val permission = rememberLauncherForActivityResult(
@@ -79,13 +100,14 @@ internal fun LocalChannelsDialog(
     ) { granted ->
         if (!granted) {
             locating = false
-            message = "Location was declined. Enter a ZIP, state or country instead."
+            source = ""
+            message = "Location was declined - that is fine. Enter a ZIP code, state or city instead."
             return@rememberLauncherForActivityResult
         }
         val fix = context.lastKnownCoordinates()
         if (fix == null) {
             locating = false
-            message = "No location fix is available on this device. Enter a ZIP or state instead."
+            message = "No location fix is available on this device. Enter a ZIP code or state instead."
         } else {
             applyFix(fix.first, fix.second)
         }
@@ -100,7 +122,7 @@ internal fun LocalChannelsDialog(
             val fix = context.lastKnownCoordinates()
             if (fix == null) {
                 locating = false
-                message = "No location fix is available. Enter a ZIP or state instead."
+                message = "No location fix is available. Enter a ZIP code or state instead."
             } else {
                 applyFix(fix.first, fix.second)
             }
@@ -110,85 +132,179 @@ internal fun LocalChannelsDialog(
     }
 
     val current = selection()
-    val resolvedState = current.state.ifBlank { directory?.stateForZip(current.zip).orEmpty() }
-    val markets = remember(directory, current.country, resolvedState, current.city) {
-        if (directory == null) emptyList() else directory.marketsFor(current.copy(state = resolvedState))
+    val zipState = directory?.stateForZip(current.zip).orEmpty()
+    val resolvedState = current.state.ifBlank { zipState }
+    val resolved = current.copy(state = resolvedState)
+    val markets = remember(directory, resolved.country, resolved.state, resolved.zip, resolved.city, showEverything) {
+        when {
+            directory == null -> emptyList()
+            showEverything && resolved.city.isBlank() && resolved.zip.isBlank() ->
+                directory.marketsFor(LocalSelection(country = resolved.country, state = resolved.state))
+            else -> directory.marketsFor(resolved)
+        }
     }
     val stationCount = markets.sumOf { it.stations.size }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Local channels") },
+        title = { Text(if (initial.hasSelection) "Local channels" else "Where do you watch from?") },
         text = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Text(
-                    "Find local stations like WGAL for where you watch. PremiumTV asks your " +
-                        "device for an approximate location once; declining is fine — a ZIP, " +
-                        "state or country works just as well. Nothing leaves this device."
+                    "PremiumTV asks your device for an approximate location once, to find the local " +
+                        "stations for your area - stations like WGAL in Lancaster. Declining is fine: a " +
+                        "ZIP code, a state or a city works just as well. Nothing leaves this device."
                 )
                 Spacer(Modifier.height(14.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     TextButton(onClick = { useLocation() }, enabled = !locating) {
                         Text(if (locating) "Locating…" else "Use my location")
                     }
+                    TextButton(
+                        onClick = {
+                            locating = false
+                            source = ""
+                            message = "No problem - enter a ZIP code, state or city below."
+                        },
+                        enabled = !locating,
+                    ) { Text("No thanks") }
                 }
                 Spacer(Modifier.height(6.dp))
                 OutlinedTextField(
                     value = zip,
-                    onValueChange = { value -> zip = value.filter { it.isDigit() }.take(5) },
-                    label = { Text("ZIP code (optional)") },
+                    onValueChange = { value ->
+                        zip = value.filter { it.isDigit() }.take(5)
+                        source = if (zip.isNotBlank()) LocalSelection.SOURCE_ZIP else source
+                        message = ""
+                    },
+                    label = { Text("ZIP code") },
+                    placeholder = { Text("17603") },
                     singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
                 )
+                val zipHint = when {
+                    current.zip.length in 1..2 -> "A ZIP code needs five digits."
+                    current.zip.length >= 3 && zipState.isNotBlank() ->
+                        "ZIP $zip resolves to $zipState" + (directory?.marketForZip(current.zip)?.let { " · ${it.label}" } ?: "")
+                    current.zip.length >= 3 -> "That ZIP is not in the published table - check it, or use a state."
+                    else -> null
+                }
+                if (zipHint != null) {
+                    Spacer(Modifier.height(4.dp))
+                    Text(zipHint, style = MaterialTheme.typography.labelSmall)
+                }
                 Spacer(Modifier.height(8.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedTextField(
                         value = state,
-                        onValueChange = { value -> state = value.filter { it.isLetter() }.take(2).uppercase() },
+                        onValueChange = { value ->
+                            state = value.filter { it.isLetter() }.take(2).uppercase()
+                            source = if (state.isNotBlank()) LocalSelection.SOURCE_STATE else source
+                            message = ""
+                        },
                         label = { Text("State") },
+                        placeholder = { Text("PA") },
                         singleLine = true,
+                        keyboardOptions = KeyboardOptions(
+                            capitalization = KeyboardCapitalization.Characters,
+                            imeAction = ImeAction.Next,
+                        ),
                         modifier = Modifier.weight(1f),
                     )
                     OutlinedTextField(
                         value = country,
-                        onValueChange = { value -> country = value.filter { it.isLetter() }.take(2).uppercase() },
+                        onValueChange = { value ->
+                            country = value.filter { it.isLetter() }.take(2).uppercase()
+                            message = ""
+                        },
                         label = { Text("Country") },
                         singleLine = true,
+                        keyboardOptions = KeyboardOptions(
+                            capitalization = KeyboardCapitalization.Characters,
+                            imeAction = ImeAction.Next,
+                        ),
                         modifier = Modifier.weight(1f),
                     )
                 }
                 Spacer(Modifier.height(8.dp))
                 OutlinedTextField(
                     value = city,
-                    onValueChange = { value -> city = value.take(40) },
+                    onValueChange = { value ->
+                        city = value.take(40)
+                        source = if (city.isNotBlank()) LocalSelection.SOURCE_CITY else source
+                        message = ""
+                    },
                     label = { Text("City (optional)") },
+                    placeholder = { Text("Lancaster") },
                     singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    modifier = Modifier.fillMaxWidth(),
                 )
+                if (directory != null && directory.stateCodes.isNotEmpty()) {
+                    Spacer(Modifier.height(6.dp))
+                    val covered = directory.stateCodes.joinToString(" ")
+                    Text(
+                        "Published local stations are in: $covered",
+                        style = MaterialTheme.typography.labelSmall,
+                    )
+                }
                 Spacer(Modifier.height(10.dp))
                 val summary = when {
                     directory == null -> "Local-channel data is not bundled in this build."
-                    current.country != "US" -> "Local stations are published for the United States only so far."
-                    resolvedState.isBlank() -> "Enter a ZIP or state to see your local stations."
-                    stationCount == 0 -> "No local stations are published for ${if (current.city.isBlank()) resolvedState else "${current.city}, $resolvedState"} yet."
+                    current.country.isNotBlank() && !directory.hasCountry(current.country) ->
+                        "Local stations are published for the United States only so far - " +
+                            "choose US, or browse the national lineup."
+                    resolvedState.isBlank() && current.zip.isBlank() -> "Enter a ZIP code, state or city to see your local stations."
+                    stationCount == 0 -> directory.summary(resolved)
                     else -> "$stationCount local station${if (stationCount == 1) "" else "s"} in " +
-                        markets.joinToString(", ") { it.city } + "."
+                        markets.joinToString(", ") { it.label } + "."
                 }
-                Text(summary, style = androidx.compose.material3.MaterialTheme.typography.bodySmall)
+                Text(summary, style = MaterialTheme.typography.bodySmall)
                 if (message.isNotBlank()) {
                     Spacer(Modifier.height(6.dp))
-                    Text(message, style = androidx.compose.material3.MaterialTheme.typography.labelSmall)
+                    Text(message, style = MaterialTheme.typography.labelSmall)
+                }
+                if (markets.size > 1 && !showEverything) {
+                    Spacer(Modifier.height(4.dp))
+                    TextButton(onClick = { showEverything = true }) {
+                        Text("Show all ${markets.size} markets in $resolvedState")
+                    }
                 }
             }
         },
         confirmButton = {
             TextButton(
-                onClick = { onSave(current.copy(state = resolvedState)) },
+                onClick = {
+                    val answer = current.copy(state = resolvedState)
+                    onSave(answer.copy(source = answer.source.ifBlank {
+                        when {
+                            answer.zip.isNotBlank() -> LocalSelection.SOURCE_ZIP
+                            answer.city.isNotBlank() -> LocalSelection.SOURCE_CITY
+                            answer.state.isNotBlank() -> LocalSelection.SOURCE_STATE
+                            else -> LocalSelection.SOURCE_COUNTRY
+                        }
+                    }))
+                },
                 enabled = directory != null,
-            ) { Text("Save") }
+            ) { Text(if (initial.hasSelection) "Save" else "Save and show local channels") }
         },
         dismissButton = {
             Row {
-                TextButton(onClick = { zip = ""; state = ""; city = ""; country = "US" }) { Text("Clear") }
-                TextButton(onClick = onDismiss) { Text("Not now") }
+                TextButton(onClick = {
+                    zip = ""
+                    state = ""
+                    city = ""
+                    country = "US"
+                    source = ""
+                    message = ""
+                }) { Text("Clear") }
+                TextButton(onClick = { onDecline?.invoke() ?: onDismiss() }) {
+                    Text(if (initial.hasSelection) "Not now" else "Skip for now")
+                }
             }
         },
     )

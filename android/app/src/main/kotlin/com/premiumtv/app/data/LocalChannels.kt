@@ -4,52 +4,130 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import com.premiumtv.app.data.Channel
 import org.json.JSONObject
+import kotlin.math.PI
+import kotlin.math.asin
+import kotlin.math.cos
+import kotlin.math.min
+import kotlin.math.sin
+import kotlin.math.sqrt
 
-/** One local station as published in playlists/local-channels.json. */
+/** One local station as published in playlists/local-channels.json (schema 2). */
 data class LocalStation(
     val callsign: String,
     val network: String,
     val name: String,
+    val city: String,
     val channelId: String,
     val url: String,
     val backupUrls: List<String> = emptyList(),
-)
+) {
+    val label: String
+        get() {
+            val call = callsign.ifBlank { name.substringBefore(" (").trim() }
+            return if (network.isBlank()) call else "$call · $network"
+        }
+}
 
+/** A market is the unit a viewer is local to: a city with the stations it carries. */
 data class LocalMarket(
+    val id: String,
     val city: String,
     val state: String,
     val stateName: String,
+    val latitude: Double,
+    val longitude: Double,
     val stations: List<LocalStation>,
-)
+) {
+    val label: String get() = "$city, $state"
+}
 
 /**
  * The viewer's answer to "where are you watching from?".
  *
- * A location fix only narrows the state (the document has one centroid per
- * state); a ZIP is translated through the USPS prefix ranges, and a state or
- * country can be typed directly when location is declined. Nothing is uploaded.
+ * A location fix only narrows a market (the document carries one point per
+ * market and one per ZIP prefix); a ZIP is translated through the published
+ * prefix table, and a state, city or country can be typed when location is
+ * declined. Nothing is uploaded and nothing leaves the device.
  */
 data class LocalSelection(
     val country: String = "US",
     val state: String = "",
     val zip: String = "",
     val city: String = "",
+    val source: String = "",
 ) {
-    val hasSelection: Boolean get() = country.isNotBlank() && (state.isNotBlank() || zip.isNotBlank() || city.isNotBlank())
+    val hasSelection: Boolean
+        get() = country.isNotBlank() && (state.isNotBlank() || zip.isNotBlank() || city.isNotBlank())
 
     fun label(): String = when {
         city.isNotBlank() && state.isNotBlank() -> "$city, $state"
+        zip.length >= 3 -> "ZIP $zip"
         state.isNotBlank() -> state
-        zip.isNotBlank() -> "ZIP $zip"
         country.isNotBlank() && country != "US" -> country
         else -> "Not set"
+    }
+
+    companion object {
+        const val SOURCE_LOCATION = "location"
+        const val SOURCE_ZIP = "zip"
+        const val SOURCE_STATE = "state"
+        const val SOURCE_CITY = "city"
+        const val SOURCE_COUNTRY = "country"
     }
 }
 
 /** The parsed local-channel directory bundled with the app. */
 class LocalDirectory internal constructor(val document: JSONObject) {
+
+    private val markets: List<LocalMarket> = buildList {
+        val array = document.optJSONArray("markets") ?: return@buildList
+        for (index in 0 until array.length()) {
+            val item = array.optJSONObject(index) ?: continue
+            val stations = buildList {
+                val stationArray = item.optJSONArray("stations") ?: return@buildList
+                for (stationIndex in 0 until stationArray.length()) {
+                    val station = stationArray.optJSONObject(stationIndex) ?: continue
+                    add(
+                        LocalStation(
+                            callsign = station.optString("callsign"),
+                            network = station.optString("network"),
+                            name = station.optString("name"),
+                            city = station.optString("city"),
+                            channelId = station.optString("channel_id"),
+                            url = station.optString("url"),
+                            backupUrls = station.optJSONArray("backup_urls")?.let { backups ->
+                                (0 until backups.length()).map { backups.optString(it) }
+                            }.orEmpty(),
+                        )
+                    )
+                }
+            }
+            if (stations.isEmpty()) continue
+            add(
+                LocalMarket(
+                    id = item.optString("id"),
+                    city = item.optString("city"),
+                    state = item.optString("state").uppercase(),
+                    stateName = item.optString("state_name", item.optString("state")),
+                    latitude = item.optDouble("latitude", Double.NaN),
+                    longitude = item.optDouble("longitude", Double.NaN),
+                    stations = stations,
+                )
+            )
+        }
+    }
+
+    private val zipPrefixes: Map<String, Triple<String, String, Pair<Double, Double>>> = buildMap {
+        val array = document.optJSONArray("zip_prefixes") ?: return@buildMap
+        for (index in 0 until array.length()) {
+            val item = array.optJSONObject(index) ?: continue
+            val prefix = item.optString("prefix")
+            if (prefix.isBlank()) continue
+            val point = item.optDouble("latitude", Double.NaN) to item.optDouble("longitude", Double.NaN)
+            put(prefix, Triple(item.optString("state").uppercase(), item.optString("market"), point))
+        }
+    }
 
     private val zipRanges: List<Triple<String, String, String>> = buildList {
         val ranges = document.optJSONArray("zip_ranges") ?: return@buildList
@@ -75,78 +153,86 @@ class LocalDirectory internal constructor(val document: JSONObject) {
         }
     }
 
+    /** Every market city, for the dialog's "or pick a city" list. */
+    val cityNames: List<Pair<String, String>> = markets
+        .map { it.city to it.state }
+        .distinct()
+        .sortedWith(compareBy({ it.second }, { it.first.lowercase() }))
+
+    val marketCount: Int get() = markets.size
+    val stationCount: Int get() = markets.sumOf { it.stations.size }
+
     fun countryName(code: String): String =
         countries.firstOrNull { it.first.equals(code, ignoreCase = true) }?.second ?: code
 
-    /** USPS prefix range lookup: the ZIP's first three digits decide the state. */
+    fun hasCountry(code: String): Boolean =
+        countries.any { it.first.equals(code, ignoreCase = true) }
+
+    /** The state a ZIP belongs to, from the per-prefix table first. */
     fun stateForZip(zip: String): String? {
         val digits = zip.filter { it.isDigit() }
         if (digits.length < 3) return null
         val prefix = digits.take(3)
-        return zipRanges.firstOrNull { range ->
-            prefix >= range.first && prefix <= range.second
-        }?.third
+        zipPrefixes[prefix]?.let { (state, _) -> if (state.isNotBlank()) return state }
+        return zipRanges.firstOrNull { range -> prefix >= range.first && prefix <= range.second }?.third
     }
 
-    /** The nearest state that has a published station, from a coarse fix. */
-    fun stateForLocation(latitude: Double, longitude: Double): String? {
-        val states = document.optJSONArray("states") ?: return null
-        var best: String? = null
+    /** The market a ZIP belongs to, or null when the prefix has none published. */
+    fun marketForZip(zip: String): LocalMarket? {
+        val digits = zip.filter { it.isDigit() }
+        if (digits.length < 3) return null
+        val prefix = digits.take(3)
+        val id = zipPrefixes[prefix]?.second.orEmpty()
+        if (id.isNotBlank()) markets.firstOrNull { it.id == id }?.let { return it }
+        val point = zipPrefixes[prefix]?.third
+        if (point != null && !point.first.isNaN()) {
+            return nearestMarket(point.first, point.second, stateForZip(zip))
+        }
+        return null
+    }
+
+    /** The nearest published market to a coarse fix, optionally inside a state. */
+    fun nearestMarket(latitude: Double, longitude: Double, state: String? = null): LocalMarket? {
+        val wanted = state?.uppercase().orEmpty()
+        var best: LocalMarket? = null
         var bestDistance = Double.MAX_VALUE
-        for (index in 0 until states.length()) {
-            val state = states.optJSONObject(index) ?: continue
-            val lat = state.optDouble("latitude", Double.NaN)
-            val lon = state.optDouble("longitude", Double.NaN)
-            if (lat.isNaN() || lon.isNaN()) continue
-            val distance = (lat - latitude) * (lat - latitude) + (lon - longitude) * (lon - longitude)
-            if (distance < bestDistance) {
-                bestDistance = distance
-                best = state.optString("code")
+        for (market in markets) {
+            if (market.latitude.isNaN() || market.longitude.isNaN()) continue
+            if (wanted.isNotBlank() && market.state != wanted) continue
+            val km = distanceKm(latitude, longitude, market.latitude, market.longitude)
+            if (km < bestDistance) {
+                bestDistance = km
+                best = market
             }
         }
         return best
     }
 
-    /** Every market in the selected state (or one city when the viewer named it). */
+    /**
+     * The markets a selection points at.
+     *
+     * Resolving a ZIP resolves a *market* when the prefix has one; a state
+     * alone returns every market PremiumTV publishes there, and a city narrows
+     * that list.
+     */
     fun marketsFor(selection: LocalSelection): List<LocalMarket> {
-        val states = document.optJSONArray("states") ?: return emptyList()
+        if (selection.country.isNotBlank() && !hasCountry(selection.country)) return emptyList()
         val wantedState = selection.state.ifBlank { stateForZip(selection.zip).orEmpty() }.uppercase()
-        if (wantedState.isBlank()) return emptyList()
+        val zipMarket = selection.zip.takeIf { it.isNotBlank() }?.let { marketForZip(it) }
+        if (zipMarket != null && selection.city.isBlank()) return listOf(zipMarket)
         val wantedCity = selection.city.trim().lowercase()
-        val out = ArrayList<LocalMarket>()
-        for (index in 0 until states.length()) {
-            val state = states.optJSONObject(index) ?: continue
-            val code = state.optString("code").uppercase()
-            if (code != wantedState) continue
-            val markets = state.optJSONArray("markets") ?: continue
-            for (marketIndex in 0 until markets.length()) {
-                val market = markets.optJSONObject(marketIndex) ?: continue
-                val city = market.optString("city")
-                if (wantedCity.isNotBlank() && !city.lowercase().contains(wantedCity)) continue
-                val stations = ArrayList<LocalStation>()
-                val stationArray = market.optJSONArray("stations") ?: continue
-                for (stationIndex in 0 until stationArray.length()) {
-                    val station = stationArray.optJSONObject(stationIndex) ?: continue
-                    stations.add(
-                        LocalStation(
-                            callsign = station.optString("callsign"),
-                            network = station.optString("network"),
-                            name = station.optString("name"),
-                            channelId = station.optString("channel_id"),
-                            url = station.optString("url"),
-                            backupUrls = station.optJSONArray("backup_urls")?.let { backups ->
-                                (0 until backups.length()).map { backups.optString(it) }
-                            }.orEmpty(),
-                        )
-                    )
-                }
-                if (stations.isNotEmpty()) {
-                    out.add(LocalMarket(city, code, state.optString("name", code), stations))
-                }
-            }
+        return markets.filter { market ->
+            (wantedState.isBlank() || market.state == wantedState) &&
+                (wantedCity.isBlank() || market.city.lowercase() == wantedCity) &&
+                (zipMarket == null || market.id == zipMarket.id || wantedCity.isNotBlank())
+        }.ifEmpty {
+            if (wantedCity.isBlank() && zipMarket != null) listOf(zipMarket) else emptyList()
         }
-        return out
     }
+
+    /** All stations in the given markets, in market order. */
+    fun stationsFor(selection: LocalSelection): List<LocalStation> =
+        marketsFor(selection).flatMap { market -> market.stations }
 
     /**
      * The loaded channels that belong to the selected market(s).
@@ -156,8 +242,8 @@ class LocalDirectory internal constructor(val document: JSONObject) {
      * without an id.
      */
     fun channelsFor(channels: List<Channel>, selection: LocalSelection): List<Channel> {
-        val markets = marketsFor(selection)
-        if (markets.isEmpty()) return emptyList()
+        val stations = stationsFor(selection)
+        if (stations.isEmpty()) return emptyList()
         val byId = HashMap<String, Channel>()
         val byUrl = HashMap<String, Channel>()
         for (channel in channels) {
@@ -165,15 +251,54 @@ class LocalDirectory internal constructor(val document: JSONObject) {
             byUrl.putIfAbsent(channel.url, channel)
         }
         val out = LinkedHashMap<String, Channel>()
-        for (market in markets) {
-            for (station in market.stations) {
-                val channel = byId[station.channelId] ?: byUrl[station.url]
-                    ?: station.backupUrls.firstNotNullOfOrNull { byUrl[it] }
-                if (channel != null) out.putIfAbsent(channel.url, channel)
-            }
+        for (station in stations) {
+            val channel = byId[station.channelId] ?: byUrl[station.url]
+                ?: station.backupUrls.firstNotNullOfOrNull { byUrl[it] }
+            if (channel != null) out.putIfAbsent(channel.url, channel)
         }
         return out.values.sortedWith(compareBy({ it.group.lowercase() }, { it.name.lowercase() }))
     }
+
+    /**
+     * A short, honest sentence about what the selection resolves to.
+     *
+     * A state with no carried affiliate says so instead of quietly showing
+     * nothing; a market we carry lists itself.
+     */
+    fun summary(selection: LocalSelection): String {
+        if (selection.country.isNotBlank() && !hasCountry(selection.country)) {
+            return "Local stations are published for ${countries.joinToString(", ") { it.second }} so far."
+        }
+        if (stateForZip(selection.zip) == null && selection.zip.length >= 3 && selection.state.isBlank()) {
+            return "That ZIP is not in the published US ZIP table. Check it, or enter a state instead."
+        }
+        val resolved = marketsFor(selection)
+        if (resolved.isEmpty()) {
+            val state = selection.state.ifBlank { stateForZip(selection.zip).orEmpty() }
+            return when {
+                selection.city.isNotBlank() ->
+                    "No local station is published in ${selection.city}, ${state.ifBlank { "your area" }} yet."
+                state.isNotBlank() -> "No local stations are published in $state yet."
+                else -> "Enter a ZIP, state or city to see your local stations."
+            }
+        }
+        val stations = resolved.sumOf { it.stations.size }
+        val places = resolved.joinToString(", ") { it.label }
+        return "$stations local station${if (stations == 1) "" else "s"} in $places."
+    }
+
+    /** Great-circle distance in kilometres; `kotlin.math` has no `radians`. */
+    private fun distanceKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val radius = 6371.0
+        val phi1 = toRadians(lat1)
+        val phi2 = toRadians(lat2)
+        val dPhi = phi2 - phi1
+        val dLambda = toRadians(lon2 - lon1)
+        val a = sin(dPhi / 2) * sin(dPhi / 2) + cos(phi1) * cos(phi2) * sin(dLambda / 2) * sin(dLambda / 2)
+        return 2 * radius * asin(min(1.0, sqrt(a)))
+    }
+
+    private fun toRadians(degrees: Double): Double = degrees * PI / 180.0
 }
 
 object LocalChannels {
@@ -222,6 +347,7 @@ class LocalChannelSettings(context: Context) {
         state = prefs.getString("state", "") ?: "",
         zip = prefs.getString("zip", "") ?: "",
         city = prefs.getString("city", "") ?: "",
+        source = prefs.getString("source", "") ?: "",
     )
 
     fun save(selection: LocalSelection) {
@@ -230,7 +356,15 @@ class LocalChannelSettings(context: Context) {
             .putString("state", selection.state.uppercase())
             .putString("zip", selection.zip)
             .putString("city", selection.city)
+            .putString("source", selection.source)
             .apply()
+    }
+
+    /** True until the viewer has answered or explicitly declined the question. */
+    fun asked(): Boolean = prefs.getBoolean("asked", false)
+
+    fun markAsked() {
+        prefs.edit().putBoolean("asked", true).apply()
     }
 
     fun clear() {

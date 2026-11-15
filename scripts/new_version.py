@@ -20,6 +20,12 @@ Usage:
         --note "A&E channels share one category."
 
     python scripts/new_version.py --check-notes 1.1.7
+
+The release name printed by ``--next`` and accepted by ``--name`` is
+``PremiumTV <version> — <feature name>``: the number is always the next patch,
+and the feature name is the one-to-five-word theme of the change
+(docs/RELEASING.md). ``--feature`` supplies the standard name and notes for a
+themed release so no agent has to invent either.
 """
 
 from __future__ import annotations
@@ -36,7 +42,31 @@ import release_version  # noqa: E402
 
 MAX_NOTES = 5
 MAX_NOTE_CHARS = 110
+MAX_NAME_CHARS = 48
 VERSION_FILE = ROOT / "VERSION"
+
+# Release names the tooling can supply by itself, so an agent never has to
+# invent a feature name for a release it was not told a name for. The order is
+# the order docs/RELEASING.md lists the themes in; `--next` prints them.
+KNOWN_RELEASE_NAMES = {
+    "local-channels": "Local channels by location",
+    "a-and-e": "A&E Networks in one category",
+    "version-scheme": "Named releases",
+}
+
+# Standard one-line notes for the features whose wording must not drift.
+STANDARD_NOTES = {
+    "local-channels": (
+        "Local stations from a location, ZIP code, state or city.",
+        "Decline location and a ZIP or state still finds your market.",
+    ),
+    "a-and-e": (
+        "Every A&E Networks channel, History and Lifetime included, in one category.",
+    ),
+    "version-scheme": (
+        "One phrase, \"new version\", now means bump, notes, publish and verify.",
+    ),
+}
 
 
 def next_version(current: str) -> str:
@@ -47,10 +77,15 @@ def next_version(current: str) -> str:
     return f"{major}.{minor}.{patch + 1}"
 
 
+def release_title(version: str, name: str) -> str:
+    """`PremiumTV <version> — <feature name>`, the one title everywhere."""
+    return f"PremiumTV {version} — {name}"
+
+
 def release_notes(version: str, name: str, notes: list[str]) -> str:
     code = release_version.android_version_code(version)
     lines = [
-        f"# PremiumTV {version} — {name}",
+        f"# {release_title(version, name)}",
         "",
         f"Android `{version}` / versionCode `{code}` · macOS `{version}`.",
         "",
@@ -84,6 +119,31 @@ def check_notes(path: Path) -> list[str]:
                 f"{MAX_NOTE_CHARS}: {bullet[:60]}…"
             )
     return problems
+
+
+def notes_report() -> int:
+    """Every release-notes file, and which ones still break the short rule.
+
+    History is not rewritten: releases published before the rule keep their
+    prose. This report is how a new release is checked, and how the next agent
+    can see what the current wording looks like.
+    """
+    files = sorted(ROOT.glob("release-notes-*.md"), key=lambda path: path.name)
+    long_files: list[str] = []
+    for path in files:
+        version = path.stem.replace("release-notes-", "")
+        problems = check_notes(path)
+        if problems:
+            long_files.append(path.name)
+            for problem in problems:
+                print(f"[notes] {problem}", file=sys.stderr)
+    print(f"[notes] {len(files)} release-notes files, {len(long_files)} above the rule:")
+    for name in long_files:
+        print(f"  {name}")
+    if long_files:
+        print("[notes] Those predate the rule; new releases must pass "
+              "`--check-notes <version>`.")
+    return 0
 
 
 def update_readmes(old: str, version: str) -> list[str]:
@@ -128,6 +188,18 @@ def main(argv: list[str] | None = None) -> int:
                         help=f"one release note (max {MAX_NOTES}, {MAX_NOTE_CHARS} chars)")
     parser.add_argument("--check-notes", metavar="VERSION",
                         help="check an existing release-notes file against the short-notes rule")
+    parser.add_argument("--feature", choices=sorted(KNOWN_RELEASE_NAMES),
+                        help="use a standard release name and its standard notes")
+    parser.add_argument("--local-channels", dest="feature", action="store_const",
+                        const="local-channels", help="alias for --feature local-channels")
+    parser.add_argument("--a-and-e", dest="feature", action="store_const",
+                        const="a-and-e", help="alias for --feature a-and-e")
+    parser.add_argument("--version-scheme", dest="feature", action="store_const",
+                        const="version-scheme", help="alias for --feature version-scheme")
+    parser.add_argument("--next", action="store_true",
+                        help="print the next version, its release name and the themes")
+    parser.add_argument("--notes-report", action="store_true",
+                        help="list every release-notes file and whether it still follows the rule")
     args = parser.parse_args(argv)
 
     if args.check_notes:
@@ -146,6 +218,27 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[new-version] release-notes-{normalized}.md follows the short-notes rule")
         return 0
 
+    if args.notes_report:
+        return notes_report()
+
+    if args.next:
+        current = release_version.current_version()
+        upcoming = next_version(current)
+        print(f"[new-version] current {current}; next {upcoming} "
+              f"(versionCode {release_version.android_version_code(upcoming)})")
+        print("[new-version] release name: PremiumTV <version> — <feature name>, where the")
+        print("              feature name is the theme of the change (see docs/RELEASING.md).")
+        for key, name in KNOWN_RELEASE_NAMES.items():
+            notes = STANDARD_NOTES.get(key, ())
+            print(f"  --feature {key:14} -> \"{name}\" ({len(notes)} standard note(s))")
+        return 0
+
+    if args.feature:
+        args.name = args.name or KNOWN_RELEASE_NAMES[args.feature]
+        for note in STANDARD_NOTES.get(args.feature, ()):
+            if note not in args.note:
+                args.note.append(note)
+
     if not args.name:
         parser.error("--name is required (a short release name, e.g. \"Local channels\")")
     notes = args.note
@@ -153,6 +246,13 @@ def main(argv: list[str] | None = None) -> int:
         notes = [args.name]
     if len(notes) > MAX_NOTES:
         print(f"error: at most {MAX_NOTES} notes; this release has {len(notes)}", file=sys.stderr)
+        return 1
+    if len(args.name.strip()) > MAX_NAME_CHARS:
+        print(
+            f"error: keep the release name under {MAX_NAME_CHARS} characters "
+            f"(one to five words): {args.name[:48]}…",
+            file=sys.stderr,
+        )
         return 1
     for note in notes:
         if len(note) > MAX_NOTE_CHARS:
