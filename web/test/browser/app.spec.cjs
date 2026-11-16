@@ -144,7 +144,13 @@ test("settings diagnostics, sleep timer, touch layout and install help", async (
   await page
     .getByRole("button", { name: "Check for bugs", exact: true })
     .click();
-  await expect(page.locator(".bug-list li")).toHaveCount(11);
+  // 11 library/browser checks plus the relay status row.
+  await expect(page.locator(".bug-list li")).toHaveCount(12);
+  // The relay ships disabled, so "Check for bugs" must say so plainly rather
+  // than implying a workaround the deployment does not have.
+  await expect(
+    page.locator(".bug-list li", { hasText: "Playback relay" }),
+  ).toContainText("No relay configured");
   await page.locator("#sleep-timer").selectOption("30");
   await expect(page.locator("#sleep-description")).toContainText("30 min");
   await page.locator("#settings-install").click();
