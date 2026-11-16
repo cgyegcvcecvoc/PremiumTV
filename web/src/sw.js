@@ -9,6 +9,7 @@ const CORE = [
   "style.css",
   "app.js",
   "player.js",
+  "relay-client.js",
   "store.js",
   "diagnostics.js",
   "shared/category-icons.js",

@@ -14,7 +14,11 @@ npm start                 # http://localhost:3000
 PORT=8080 npm start        # optional different port
 ```
 
-The preview server binds `0.0.0.0` for the Arena proxy. All browser asset/data URLs are relative. There is no browser-to-localhost API call and no stream proxy.
+The preview server binds `0.0.0.0` for the Arena proxy. All browser asset/data URLs are relative. There is no browser-to-localhost API call and no stream proxy in the web build itself.
+
+### Optional: the blocked-feed relay
+
+`relay.json` is read next to the player at startup. The repository ships it **disabled**, so this deployment behaves exactly as before. To rescue the feeds a browser cannot play (plain HTTP on a secure page, a required Referer/Origin/User-Agent, a missing CORS header), run the service in [`relay/`](../relay/README.md), set `enabled: true` and `base` to its URL, and rebuild. A feed that plays directly is never routed through it.
 
 ## What is included
 
@@ -28,7 +32,7 @@ The preview server binds `0.0.0.0` for the Arena proxy. All browser asset/data U
 - **HTML embeds** are how those titles play. Each entry publishes an iframe player (`https://archive.org/embed/<id>`) that the web player opens first, with the direct MP4 as the fallback server. The embed mounts in the same stage, so the docked player, the expanded layout and full screen behave exactly as they do for a channel. The seek bar, play/pause, mute, audio-track, PiP and AirPlay controls are hidden while an embed is up, because they drive a `<video>` element that is not in use and the page cannot reach into a cross-origin iframe. Native MP4 playback keeps ±10-second controls, seeking and per-browser resume on the fallback server.
 - A persistent docked player that expands without replacing the video element; native fullscreen where available, picture-in-picture/AirPlay when the browser exposes them, mute/volume, audio-track selection and automatic/manual backup servers.
 - Native inline HLS on iPhone/iPad, lazy HLS.js on MSE browsers, MPEG-TS.js only where supported. Playback begins from the user's tap; blocked autoplay gets an explicit play button.
-- Persisted wall-clock sleep timer (30/60/90 minutes), 11 read-only diagnostics, library refresh, source/privacy details and an M3U download.
+- Persisted wall-clock sleep timer (30/60/90 minutes), 12 read-only diagnostics (including the relay's status), library refresh, source/privacy details and an M3U download.
 - Installable web-app manifest, home-screen instructions, offline app-shell/library cache and a no-JavaScript channel directory. **Offline mode does not make live streams available.** Suspended mobile browsers check the sleep deadline when resumed; the web cannot guarantee a background timer fires while the OS freezes the page.
 
 The build copies `category-icons.js`, `live-events.js`, `personal.js` and `health.js` **unchanged** from the macOS renderer, and uses `android/tools/build_bundle.py` for M3U/XMLTV parsing. Web-specific storage, playback and responsive UI stay in `web/`; native source files are not edited.
@@ -45,7 +49,9 @@ A playlist check is not a browser-playback guarantee. Providers may:
 - use AC-3/E-AC-3, DTS or other codecs the device cannot decode;
 - go offline after the repository's last check.
 
-The player tries available strategies and backup servers, then shows an actionable error and original-feed link. It never uses `no-cors` as a fake health check or routes arbitrary streams through an open proxy. Use the native apps for the broadest feed compatibility. AirPlay, PiP and fullscreen are feature-detected, not promised on every browser.
+The player tries available strategies and backup servers, then shows an actionable error and original-feed link. It never uses `no-cors` as a fake health check, and it never routes arbitrary streams through an open proxy — if a relay is configured it only ever forwards URLs that appear in this repository's published playlist. Use the native apps for the broadest feed compatibility. AirPlay, PiP and fullscreen are feature-detected, not promised on every browser.
+
+The build copies `relay-client.js` and the repository's `relay/relay.json` into the artifact. A missing, blocked or disabled relay document silently restores the previous behaviour: the player reports the restriction honestly instead of pretending to work around it.
 
 ## Build and deploy separately from native releases
 

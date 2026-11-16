@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_utc": "2026-11-15T14:47:30Z",
+  "generated_utc": "2026-11-16T11:34:23Z",
   "source": "playlists/live/USA.m3u",
   "reference": [
     "data/local-markets/us-tv-markets.csv",
@@ -635,13 +635,15 @@
         {
           "callsign": "WTVJ",
           "city": "Miami",
-          "network": "",
-          "name": "WTVJ-DT1",
-          "channel_id": "WTVJDT1.us@SD",
+          "network": "NBC",
+          "name": "NBC WTVJ (1080p)",
+          "channel_id": "NBC.us@WTVJ",
           "chno": "",
-          "logo": "",
-          "url": "https://streamer2.nexgen.bz/NBC/index.m3u8",
-          "backup_urls": []
+          "logo": "https://i.imgur.com/nxY84W5.png",
+          "url": "https://nbculocallive.akamaized.net/hls/live/2037498/miami/stream1/master.m3u8",
+          "backup_urls": [
+            "https://streamer2.nexgen.bz/NBC/index.m3u8"
+          ]
         }
       ]
     },
@@ -1650,6 +1652,27 @@
       ]
     },
     {
+      "id": "USTOL",
+      "city": "Toledo",
+      "state": "OH",
+      "state_name": "Ohio",
+      "latitude": 41.6756,
+      "longitude": -83.5306,
+      "stations": [
+        {
+          "callsign": "WLMB",
+          "city": "Toledo",
+          "network": "",
+          "name": "WLMB (1080p)",
+          "channel_id": "WLMB.us@SD",
+          "chno": "",
+          "logo": "https://i.imgur.com/KeELZ1Y.png",
+          "url": "https://rpn.bozztv.com/wlmb/wlmb/wlmb/index.m3u8",
+          "backup_urls": []
+        }
+      ]
+    },
+    {
       "id": "USOKC",
       "city": "Oklahoma City",
       "state": "OK",
@@ -2488,7 +2511,8 @@
       "markets": [
         "USCLE",
         "USDAY",
-        "USXSK"
+        "USXSK",
+        "USTOL"
       ]
     },
     {
@@ -5699,21 +5723,21 @@
     {
       "prefix": "434",
       "state": "OH",
-      "market": "USXSK",
+      "market": "USTOL",
       "latitude": 41.467,
       "longitude": -83.3
     },
     {
       "prefix": "435",
       "state": "OH",
-      "market": "USXSK",
+      "market": "USTOL",
       "latitude": 41.462,
       "longitude": -84.133
     },
     {
       "prefix": "436",
       "state": "OH",
-      "market": "USCLE",
+      "market": "USTOL",
       "latitude": 41.673,
       "longitude": -83.527
     },
@@ -5867,7 +5891,7 @@
     {
       "prefix": "458",
       "state": "OH",
-      "market": "USDAY",
+      "market": "USTOL",
       "latitude": 40.826,
       "longitude": -84.19
     },
@@ -9826,6 +9850,15 @@
       "longitude": -82.8
     },
     {
+      "city": "Toledo",
+      "state": "OH",
+      "state_name": "Ohio",
+      "market": "USTOL",
+      "stations": 1,
+      "latitude": 41.6756,
+      "longitude": -83.5306
+    },
+    {
       "city": "Oklahoma City",
       "state": "OK",
       "state_name": "Oklahoma",
@@ -10042,6 +10075,6 @@
       "longitude": -87.9529
     }
   ],
-  "market_count": 89,
-  "station_count": 113
+  "market_count": 90,
+  "station_count": 114
 }

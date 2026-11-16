@@ -40,6 +40,9 @@ on:
       - "android/tools/build_bundle.py"
       - "macos/app/package.json"
       - "macos/app/package-lock.json"
+      - "relay/**"
+      - "web/src/relay-client.js"
+      - "web/test/relay.test.cjs"
       - ".github/workflows/android-build.yml"
       - ".github/workflows/macos-build.yml"
       - ".github/workflows/ci.yml"
@@ -75,6 +78,15 @@ jobs:
 
       - name: Run the offline test suite
         run: python -m unittest discover -s tests -v
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Test the blocked-feed relay
+        # No dependencies to install: relay/ is deliberately stdlib-only.
+        run: node --test relay/test/relay.test.js
 
       - name: Verify published playlists, guides and the categories/ shelf
         # Rewrites playlists/checks/VERIFY.md and verify.json with a fresh

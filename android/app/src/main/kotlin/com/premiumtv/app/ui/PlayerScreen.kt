@@ -32,6 +32,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -201,6 +202,12 @@ fun PlayerScreen(
     var backupsUsed by remember(channel.url) { mutableIntStateOf(0) }
     var audioFallbackUsed by remember(channel.url) { mutableStateOf(false) }
     var vodResumeApplied by remember(channel.url) { mutableStateOf(false) }
+    // In-place retries already spent on each feed of this channel, keyed by
+    // server index so a fresh feed always gets its own budget. It is a snapshot
+    // state map, not a plain MutableMap: the buffering watchdog reads it and
+    // must re-run when a retry is spent, otherwise the `LaunchedEffect` key
+    // below would not change and the watchdog would never fire again.
+    val feedRetries = remember(channel.url) { mutableStateMapOf<Int, Int>() }
 
     var isPlaying by remember { mutableStateOf(true) }
     var isMuted by remember { mutableStateOf(false) }
@@ -253,18 +260,30 @@ fun PlayerScreen(
             }
     }
 
-    LaunchedEffect(player, current) {
-        buffering = true
-        audioNotice = null
-        boundAudioTracks = emptyList()
-        player.trackSelectionParameters = player.trackSelectionParameters
-            .buildUpon()
-            .clearOverridesOfType(C.TRACK_TYPE_AUDIO)
-            .setTrackTypeDisabled(C.TRACK_TYPE_AUDIO, false)
-            .build()
-        player.setMediaSource(mediaSourceFor(context, current))
-        player.prepare()
+    // One place that starts a feed, whether it is the first attempt, a backup
+    // server or an in-place retry. Keeps the audio re-arm identical on all three.
+    //
+    // `remember` matters: the listener and the buffering watchdog both capture
+    // this lambda, and a fresh instance on every recomposition would either keep
+    // running against the values it closed over or force those effects to be
+    // rebuilt mid-playback. Keyed to the player, which is the only thing it
+    // really depends on; the feed arrives as an argument.
+    val startFeed: (Channel) -> Unit = remember(player) {
+        { source ->
+            buffering = true
+            audioNotice = null
+            boundAudioTracks = emptyList()
+            player.trackSelectionParameters = player.trackSelectionParameters
+                .buildUpon()
+                .clearOverridesOfType(C.TRACK_TYPE_AUDIO)
+                .setTrackTypeDisabled(C.TRACK_TYPE_AUDIO, false)
+                .build()
+            player.setMediaSource(mediaSourceFor(context, source))
+            player.prepare()
+        }
     }
+
+    LaunchedEffect(player, current) { startFeed(current) }
 
     // Poll the playback clock only for VOD: its transport bar needs position
     // and resume persistence. A live channel has no position to show, and the
@@ -285,22 +304,47 @@ fun PlayerScreen(
         }
     }
 
+    // The listener, the watchdog and the buffer-fault path all read
+    // serverIndex and playlist at call time, so these stay keyed to the
+    // callback instead of being rebuilt on every hop.
+    val reportFailed = rememberUpdatedState(onFeedFailed)
+    val reportDead = rememberUpdatedState(onChannelDead)
+
     // Buffering watchdog: a feed that never leaves buffering (stuck manifest,
-    // geo-block timeout, dead HLS variant) advances after 12 s instead of
-    // leaving the spinner forever. On the last server it says so.
-    LaunchedEffect(buffering, serverIndex, playlist.size, errorMessage) {
+    // geo-block timeout, dead HLS variant) must not leave the spinner up
+    // forever. 1.1.12 separates the two cases it used to conflate:
+    //
+    //  - A feed that has ALREADY rendered a frame and then stalls gets one
+    //    cheap in-place retry, because a short buffer underrun is normal on a
+    //    live edge. Only a repeated stall walks to the next server.
+    //  - A feed that has never rendered a frame gets the same bounded in-place
+    //    retry, then the backup walk. On a single-feed channel it now says so
+    //    instead of silently doing nothing, which was the old
+    //    `playlist.size > 1` branch: one feed that stalled simply left the
+    //    spinner running.
+    val retriesForCurrentFeed = feedRetries[serverIndex] ?: 0
+    LaunchedEffect(buffering, serverIndex, playlist.size, errorMessage, retriesForCurrentFeed) {
         if (!buffering || errorMessage != null) return@LaunchedEffect
         kotlinx.coroutines.delay(if (isVodItem) 25_000L else 12_000L)
-        if (buffering && errorMessage == null) {
-            val next = autoNextServerIndex(serverIndex, playlist.size)
-            if (next != null) {
-                backupsUsed += 1
-                serverIndex = next
-                switchNotice = serverSwitchNotice(ServerSwitchReason.Stalled, next, playlist.size)
-            } else if (playlist.size > 1) {
-                buffering = false
-                errorMessage = "This feed never started playing, and it was the last server."
-            }
+        if (!buffering || errorMessage != null) return@LaunchedEffect
+        val retriesForFeed = feedRetries[serverIndex] ?: 0
+        if (retriesForFeed < 1) {
+            feedRetries[serverIndex] = retriesForFeed + 1
+            switchNotice = "This feed is taking too long — reconnecting…"
+            startFeed(playlist[serverIndex.coerceIn(0, playlist.lastIndex)])
+            return@LaunchedEffect
+        }
+        val next = autoNextServerIndex(serverIndex, playlist.size)
+        if (next != null) {
+            backupsUsed += 1
+            serverIndex = next
+            switchNotice = serverSwitchNotice(ServerSwitchReason.Stalled, next, playlist.size)
+        } else {
+            // The walk is over (or there never was anywhere to walk).
+            buffering = false
+            switchNotice = null
+            errorMessage = exhaustedServerMessage(playlist.size)
+            reportDead.value(channel)
         }
     }
 
@@ -338,15 +382,29 @@ fun PlayerScreen(
         onDispose { player.release() }
     }
 
-    // The listener reads serverIndex and playlist at call time, so the effect
-    // can stay keyed to the player and the channel instead of being rebuilt on
-    // every hop.
-    val reportFailed = rememberUpdatedState(onFeedFailed)
-    val reportDead = rememberUpdatedState(onChannelDead)
     DisposableEffect(player, channel.url) {
         val listener = object : Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
                 buffering = false
+                // 1.1.12: a dropped segment or a slow CDN edge is not a dead
+                // feed. Retry it in place (bounded) before spending the
+                // channel's backup server, which is the difference between a
+                // one-second blip and the error card on a single-feed channel.
+                val retriesForFeed = feedRetries[serverIndex] ?: 0
+                val decision = decideRetry(
+                    fault = classifyErrorCode(error.errorCode),
+                    alreadyRetried = retriesForFeed,
+                    attemptedServerSwitch = backupsUsed > 0,
+                )
+                if (decision.retryInPlace) {
+                    feedRetries[serverIndex] = retriesForFeed + 1
+                    switchNotice = decision.notice
+                    // Re-prepare the same feed: that rebuilds the sample
+                    // pipeline and re-opens the HTTP connection, which is what
+                    // recovers a dropped segment or a stale CDN edge.
+                    startFeed(playlist[serverIndex.coerceIn(0, playlist.lastIndex)])
+                    return
+                }
                 val failed = playlist[serverIndex.coerceIn(0, playlist.lastIndex)]
                 // Remember the dead feed so the next open (or the next
                 // channel's server list) does not lead with it.
@@ -1078,7 +1136,11 @@ private fun BoxScope.BigScreenChrome(
 private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
     val headers = HashMap<String, String>()
     if (channel.referrer.isNotBlank()) headers["Referer"] = channel.referrer
-    if (channel.origin.isNotBlank()) headers["Origin"] = channel.origin
+    // Playlists often publish the embed *page* as the origin. The Origin header
+    // is a scheme+host+port tuple; sending a path makes the CDN reject a request
+    // a browser makes successfully. Shared with the Mac app's originHeader().
+    val origin = originHeaderValue(channel.origin)
+    if (origin.isNotBlank()) headers["Origin"] = origin
 
     val isLive = !channel.id.startsWith("vod-")
     var http = DefaultHttpDataSource.Factory()
@@ -1107,4 +1169,27 @@ private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
     }.build()
     return DefaultMediaSourceFactory(DefaultDataSource.Factory(context, http), extractors)
         .createMediaSource(item)
+}
+
+/**
+ * Reduces a published origin to the tuple an HTTP Origin header allows.
+ *
+ * `https://embed.example/watch/12?x=1` becomes `https://embed.example`; a value
+ * that is not an http(s) URL yields an empty string so no header is sent at all.
+ * Kept next to the media-source builder because that is its only caller, and
+ * deliberately dependency-free so it is unit-testable on a plain JVM.
+ */
+internal fun originHeaderValue(raw: String): String {
+    val value = raw.trim()
+    if (value.isEmpty() || !(value.startsWith("http://") || value.startsWith("https://"))) return ""
+    return try {
+        // java.net.URI, not android.net.Uri: Uri is a stubbed no-op in JVM unit
+        // tests, so this would silently return "" for every value there.
+        val uri = java.net.URI(value)
+        val scheme = uri.scheme?.lowercase() ?: return ""
+        val host = uri.host ?: return ""
+        if (uri.port == -1) "$scheme://$host" else "$scheme://$host:${uri.port}"
+    } catch (error: Exception) {
+        ""
+    }
 }

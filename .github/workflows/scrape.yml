@@ -294,6 +294,13 @@ jobs:
               rm -f playlists/PremiumTV.m3u
             fi
           fi
+          # Rebuild the market directory from the playlist this run just
+          # published. It is generated from playlists/live/USA.m3u, so a scrape
+          # that changes that file leaves it stale, and the offline suite's
+          # test_local_channels then fails *the next run* - which is exactly what
+          # wedged the scheduled scrapes and quick updates on 2026-11-16. Doing
+          # it here, before the commit, keeps the data and its generator in step.
+          python scripts/build_local_channels.py
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add EPG playlists/ categories/

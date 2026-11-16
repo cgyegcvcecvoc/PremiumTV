@@ -95,6 +95,23 @@ def build(out: Path, scope: str = "usa") -> dict:
         dump(out / "data" / "vod.json", catalog)
         dump(out / "data" / "events.json", {"team_logos": extras["team_logos"],
                                            "live_schedule": extras["live_schedule"]})
+        # Relay discovery. The checked-in relay/relay.json is the disabled
+        # default, so a GitHub Pages deploy keeps the relay-free behaviour. An
+        # operator who runs a relay (see relay/README.md) copies an enabled
+        # document here and the deployed player picks it up.
+        relay_source = ROOT / "relay" / "relay.json"
+        if relay_source.is_file():
+            shutil.copyfile(relay_source, out / "relay.json")
+        else:
+            (out / "relay.json").write_text(
+                json.dumps({
+                    "enabled": False,
+                    "provider": "PremiumTV Relay",
+                    "base": "",
+                    "scope": "published-playlist-only",
+                }, indent=2) + "\n",
+                encoding="utf-8",
+            )
         # Local channels travel with the web library too, so the browser build
         # answers the same location / ZIP / state question as the native apps
         # from the same document the native bundles carry.
@@ -115,7 +132,8 @@ def build(out: Path, scope: str = "usa") -> dict:
         # an old immutable browser-cache entry. The service worker cache is
         # also scoped to this content hash.
         html = (out / "index.html").read_text(encoding="utf-8")
-        for name in ("style.css", "app.js", "player.js", "store.js", "diagnostics.js"):
+        for name in ("style.css", "app.js", "player.js", "store.js", "diagnostics.js",
+                     "relay-client.js"):
             html = html.replace(f'"{name}"', f'"{name}?v={meta["build_id"]}"')
         for name in SHARED:
             html = html.replace(f'"shared/{name}"', f'"shared/{name}?v={meta["build_id"]}"')

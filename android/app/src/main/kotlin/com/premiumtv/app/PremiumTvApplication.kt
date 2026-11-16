@@ -25,9 +25,40 @@ class PremiumTvApplication : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
+        installCrashRecorder()
         // WorkManager persists this one-time request across process exits and
         // reboots. Each completed worker schedules the following GitHub slot.
         AutomaticRefreshScheduler.scheduleNext(this)
+    }
+
+    /**
+     * Records why a build died instead of failing silently.
+     *
+     * 1.1.12: viewers reported rare crashes with nothing to send us. Android's
+     * default handler kills the process, so the app now writes the last error
+     * to its own files and rethrows - the OS still gets a real crash, and
+     * Settings -> Check for bugs can say "the last run ended unexpectedly"
+     * with the class and message. It never swallows the exception: hiding a
+     * crash would only move the damage somewhere harder to find.
+     */
+    private fun installCrashRecorder() {
+        val previous = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            try {
+                val file = java.io.File(filesDir, "last-crash.txt")
+                val detail = buildString {
+                    append("time=").append(java.util.Date().toString()).append('\n')
+                    append("thread=").append(thread.name).append('\n')
+                    append(throwable.javaClass.name).append(": ")
+                    append(throwable.message ?: "(no message)").append('\n')
+                    throwable.stackTrace.take(24).forEach { append("  at ").append(it).append('\n') }
+                }
+                file.writeText(detail)
+            } catch (ignored: Throwable) {
+                // Storage full or already dying: the real handler still runs.
+            }
+            previous?.uncaughtException(thread, throwable)
+        }
     }
 
     override fun newImageLoader(): ImageLoader {

@@ -141,3 +141,26 @@ test('parseXmltv repairs a non-positive duration and drops an invalid date', () 
   assert.equal(programmes[0].t, 'Valid start');
   assert.equal(programmes[0].e - programmes[0].s, 1800);
 });
+
+test('parseM3u reads http-origin, in an #EXTINF attribute or a stream option', () => {
+  // Android and the shared bundle builder both honour http-origin. The Mac app
+  // used to drop it, so the same feed was requested with different headers and
+  // could play on Android while failing here.
+  const fromAttrs = parseM3u([
+    '#EXTM3U',
+    '#EXTINF:-1 tvg-id="origin.attr" http-origin="https://embed.example/page" ,Origin Attr',
+    'http://stream.example/origin-attr.m3u8',
+  ].join('\n'));
+  assert.equal(fromAttrs.channels[0].origin, 'https://embed.example/page');
+
+  const fromOptions = parseM3u([
+    '#EXTM3U',
+    '#EXTINF:-1 tvg-id="origin.opt" ,Origin Opt',
+    '#EXTVLCOPT:http-origin=https://opt.example',
+    'http://stream.example/origin-opt.m3u8',
+  ].join('\n'));
+  assert.equal(fromOptions.channels[0].origin, 'https://opt.example');
+
+  const none = parseM3u('#EXTM3U\n#EXTINF:-1 tvg-id="plain" ,Plain\nhttp://stream.example/plain.m3u8');
+  assert.equal(none.channels[0].origin, '', 'a channel with no published origin must have an empty one');
+});

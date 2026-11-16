@@ -64,7 +64,7 @@ test("incomplete and unsafe libraries fail before atomic publication", () => {
     ),
   );
 });
-test("11 diagnostics are honest about browser restrictions", () => {
+test("12 diagnostics are honest about browser restrictions", () => {
   const library = {
     meta: { window_start: Date.now() / 1000 },
     channels: [
@@ -89,12 +89,28 @@ test("11 diagnostics are honest about browser restrictions", () => {
     },
     Date.now(),
   );
-  assert.equal(report.checks.length, 11);
+  // 11 library/browser checks plus the relay status line added with the
+  // blocked-feed relay (web/src/app.js + diagnostics.js).
+  assert.equal(report.checks.length, 12);
   assert.equal(report.fail, 0);
   assert.ok(report.warn >= 3);
   assert.match(
     report.checks.find((c) => c.label === "Browser headers").detail,
     /cannot attach/,
+  );
+  const relayCheck = report.checks.find((c) => c.label === "Playback relay");
+  assert.match(relayCheck.detail, /No relay configured/);
+  // With a relay, the same two restrictions stop being warnings.
+  const rescued = diagnostics.check(
+    library,
+    { nativeHls: true, mse: true, storage: false, serviceWorker: true, online: true,
+      relay: { base: "https://relay.example" } },
+    Date.now(),
+  );
+  assert.equal(rescued.warn, report.warn - 2, "headers and insecure feed are no longer warnings");
+  assert.match(
+    rescued.checks.find((c) => c.label === "Browser headers").detail,
+    /configured relay can/,
   );
   assert.match(
     report.checks.find((c) => c.label === "Channel list").detail,
