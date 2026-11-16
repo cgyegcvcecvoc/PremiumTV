@@ -9,6 +9,14 @@
   const live = window.PremiumLive,
     icons = window.PremiumIcons,
     player = window.PremiumPlayer;
+  // Relay discovery (relay-client.js). Absent in an older deploy, in which case
+  // the browser keeps its previous, relay-free behaviour.
+  const relay = window.PremiumRelay || null;
+  let relayConfig = false;
+  let relayRescues = 0;
+  // Every attempt already spent on the current channel, so a feed that failed
+  // direct and through the relay is not tried in a loop.
+  let attempted = new Set();
   // The same market-aware local-channel logic the native apps use, copied in
   // unchanged at build time (shared/local-channels.js).
   const local = window.PremiumLocalChannels;
@@ -715,6 +723,9 @@
     $("settings-body").innerHTML =
       `<div class="panel"><div class="settings-version"><div><p class="eyebrow">INDEPENDENT WEB EDITION</p><h2>PremiumTV Web ${esc(meta.web_version || "0.1.0")}</h2></div><span class="outline-badge" style="display:inline">${esc((meta.library_scope || "usa").toUpperCase())} LIBRARY</span></div><div class="settings-stats"><div><strong>${number(library.channels.length)}</strong><span>channel feeds</span></div><div><strong>${library.groups.length}</strong><span>categories</span></div><div><strong>${programmeIndex.size || meta.guide_channels || "—"}</strong><span>channels with guide</span></div><div><strong>${movies.length || (meta.vod_catalog && meta.vod_catalog.items.length) || "Soon"}</strong><span>films &amp; episodes</span></div></div><p>Library built ${esc(meta.generated_utc || "unknown")} · Library data ${esc(meta.version || "")}<br>${esc(lastRefreshMessage)}</p><div class="button-row"><button id="force-refresh" class="button primary" ${state.refreshing ? "disabled" : ""}>${state.refreshing ? "Refreshing…" : "Refresh library"}</button><button id="check-bugs" class="button">Check for bugs</button><button id="settings-install" class="button quiet">Add to home screen</button></div><p class="small muted" style="margin-top:15px;margin-bottom:0">The web edition updates when its site is deployed. It never downloads APKs, DMGs or native-app updates.</p></div>
       ${bugReport ? `<div class="panel"><h2>${bugReport.fail ? bugReport.fail + " blocking issues" : "No blocking issues"} · ${bugReport.warn} browser warnings</h2><ul class="bug-list">${bugReport.checks.map((c) => `<li><span class="${c.status}">${c.status === "ok" ? "✓" : c.status === "warn" ? "!" : "×"}</span><strong>${esc(c.label)}</strong><span>${esc(c.detail)}</span></li>`).join("")}</ul><p class="small muted">Read-only library and browser checks. Stream availability is verified only by opening a feed.</p></div>` : ""}
+      <div class="panel"><h2>Blocked-feed relay</h2><p>${relayConfig
+        ? `A relay is available at <code>${esc(relayConfig.base)}</code> (${esc(relayConfig.provider)}). Feeds this browser cannot reach directly — plain HTTP, a required Referer, or a missing CORS header — are played through it instead of being written off.`
+        : "This deployment has no relay. Plain-HTTP feeds and feeds that demand a Referer or User-Agent cannot play in a browser without one; the native apps handle them. A self-hosted relay is opt-in and only forwards streams listed in this repository."}</p>${relayConfig ? `<p class="small muted">${relayRescues ? `${relayRescues} feed${relayRescues === 1 ? "" : "s"} rescued in this session.` : "Nothing needed rescuing yet."} The relay never sees your favorites, history or location.</p>` : `<p class="small muted">See <code>relay/README.md</code> in the repository to run one.</p>`}</div>
       <div class="panel"><h2>Local channels</h2><p>${esc(localSummary())}</p><p class="small muted">Station names come from the published directory; a location fix only picks the nearest published market. The answer is stored in this browser and is never uploaded.</p><div class="button-row"><button id="settings-local" class="button quiet">${local && local.hasSelection(localSelection) ? "Change my area" : "Set my area"}</button></div></div>
       <div class="panel"><h2>Playback &amp; personal library</h2><div class="settings-row"><div><strong>Sleep timer</strong><p id="sleep-description">${sleepDeadline > Date.now() ? "Stops playback in " + S.sleepLabel(S.sleepRemaining(sleepDeadline, Date.now())) : "Stop playback after 30, 60 or 90 minutes."}</p></div><select id="sleep-timer" aria-label="Sleep timer"><option value="0">Off</option><option value="30">30 minutes</option><option value="60">1 hour</option><option value="90">1 hour 30 minutes</option></select></div><div class="settings-row"><div><strong>Hidden channels</strong><p>Feeds that fail on every server are hidden on this browser for seven days.</p></div><button id="restore-hidden" class="button quiet" ${dead.size ? "" : "disabled"}>Restore ${dead.size} hidden</button></div><div class="settings-row"><div><strong>Favorites &amp; history</strong><p>${favorites.length} favorites · ${recents.length} recently watched. Stored only in this browser.</p></div><button id="clear-personal" class="button quiet danger">Clear personal data</button></div></div>
       <div class="panel"><h2>Made for the browser</h2><p>No installation required. iPhone and iPad use native HLS playback; Chrome, Edge and Firefox use Media Source Extensions when available. Films use native MP4 playback.</p><div class="info-strip"><span>${icon("info")}</span><p>Some provider feeds need custom headers, block cross-origin requests, use HTTP, or carry AC-3/DTS audio your browser cannot decode. The native apps can handle more of these cases. The web player tries backups and explains failures instead of bypassing browser security.</p></div><div class="button-row"><a class="button quiet" href="data/PremiumTV.m3u" download>Download M3U</a><a class="button quiet" href="../#apps">Get the native apps ↗</a><button id="reload-app" class="button quiet">Reload web app</button></div></div>
@@ -739,6 +750,7 @@
           storage: S.persistent,
           serviceWorker: "serviceWorker" in navigator && window.isSecureContext,
           online: navigator.onLine,
+          relay: relayConfig || null,
         },
         Date.now(),
       );
@@ -828,6 +840,8 @@
       (c, i, list) => list.findIndex((x) => x.url === c.url) === i,
     );
     serverIndex = 0;
+    attempted = new Set();
+    relayRescues = 0;
     $("player").hidden = false;
     $("player-error").hidden = true;
     document.body.classList.add("has-mini-player");
@@ -901,7 +915,7 @@
     $("player-error").hidden = true;
     return true;
   }
-  function playServer() {
+  async function playServer() {
     if (!queue.length) return;
     const source = queue[serverIndex];
     current = source;
@@ -923,15 +937,60 @@
     player.element.hidden = false;
     $("player-loading").hidden = false;
     renderPlayerMeta();
+    // A relay can carry a plain-HTTP or header-gated feed that this browser
+    // cannot. When one is configured and the direct attempt is not viable (or
+    // has already failed), play through it and say so honestly.
+    const plan = relay
+      ? relay.plan(source, relayConfig)
+      : { url: source.url, via: "", needsRelay: false, reason: "", available: false };
+    const directKey = source.url + "|direct";
+    const relayKey = source.url + "|relay";
     const restricted = source.ua || source.referrer || source.origin;
-    $("player-browser-note").hidden =
-      !restricted && !source.url.startsWith("http:");
-    $("player-browser-note").textContent = restricted
-      ? "This feed requests custom headers that browsers cannot send. It may require the native app."
-      : "HTTP feed: your browser may block it on this secure page.";
+
+    // Resolve where this attempt should play. The relay is consulted only when
+    // this browser has a concrete reason to need it (plain HTTP on a secure
+    // page, or a feed that demands forbidden headers), or as the single rescue
+    // after a direct attempt already failed. Everything else plays direct.
+    const wantsRelay =
+      Boolean(plan.available) &&
+      Boolean(relay) &&
+      (plan.needsRelay || attempted.has(directKey));
+    let playUrl = source.url;
+    let via = "direct";
+    if (wantsRelay && !attempted.has(relayKey)) {
+      attempted.add(relayKey);
+      const opened = await relay.open(source, relayConfig);
+      if (opened && opened.url) {
+        playUrl = opened.url;
+        via = "relay";
+      }
+    }
+    if (via === "direct") attempted.add(directKey);
+    if (via === "relay") relayRescues += 1;
+    // Say which of the three situations this is. The relay note must be visible
+    // even for an otherwise unremarkable HTTPS feed, because the relay may have
+    // been the rescue for a direct attempt that failed.
+    const note =
+      via === "relay"
+        ? plan.needsRelay
+          ? "Playing through the PremiumTV relay: this browser cannot send what this feed requires on its own."
+          : "Playing through the PremiumTV relay after the direct attempt failed."
+        : restricted
+          ? "This feed requests custom headers that browsers cannot send. It may require the native app."
+          : "HTTP feed: your browser may block it on this secure page.";
+    $("player-browser-note").textContent = note;
+    $("player-browser-note").hidden = via !== "relay" && !restricted && !source.url.startsWith("http:");
     $("player-expand-picture").hidden = !expanded;
-    player.play(source.url, source.url, source, {
-      onFatal: () => advanceServer(true),
+    player.play(playUrl, source.url, source, {
+      onFatal: () => {
+        // A direct attempt that failed is exactly what a relay exists for.
+        if (plan.available && via === "direct" && !attempted.has(relayKey)) {
+          toast("Direct playback failed. Trying the PremiumTV relay…");
+          playServer();
+          return;
+        }
+        advanceServer(true);
+      },
       onState: (info) => {
         if (info.started && current && !current.vod && dead.has(current.url)) {
           dead = health.clear(S.storage);
@@ -1572,5 +1631,14 @@
   connectionChanged();
   checkSleep();
   renderSettings();
+  // Relay discovery runs in parallel with the library load and never blocks it.
+  if (relay)
+    relay
+      .load()
+      .then((found) => {
+        relayConfig = found || false;
+        if (relayConfig) renderSettings();
+      })
+      .catch(() => {});
   loadLibrary(false);
 })();

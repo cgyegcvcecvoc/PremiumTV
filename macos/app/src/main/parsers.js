@@ -101,6 +101,10 @@ function parseM3u(text) {
         chno: (attrs['tvg-chno'] || '').trim(),
         ua: (attrs['http-user-agent'] || '').trim(),
         referrer: (attrs['http-referrer'] || '').trim(),
+        // Android's M3uParser and the shared bundle builder both read
+        // http-origin; leaving it out here made the Mac app send a different
+        // request for the same feed, which some providers reject.
+        origin: (attrs['http-origin'] || '').trim(),
       };
       if (String(attrs[NOTICE_ATTR] || '').trim().toLowerCase() === NOTICE_VALUE) {
         pending.notice = true;
@@ -137,6 +141,7 @@ function parseM3u(text) {
         chno: '',
         ua: '',
         referrer: '',
+        origin: '',
       };
     }
     if (pending.notice) {

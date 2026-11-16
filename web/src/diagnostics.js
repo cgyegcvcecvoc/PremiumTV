@@ -47,20 +47,40 @@
     const restricted = channels.filter(
       (c) => c.ua || c.referrer || c.origin,
     ).length;
+    const relay = environment.relay || null;
     add(
       "Browser headers",
-      restricted ? "warn" : "ok",
+      restricted && !relay ? "warn" : "ok",
       restricted
-        ? `${restricted} feeds request custom headers. Browsers cannot attach forbidden User-Agent, Referer or Origin headers; these may need the native app.`
+        ? relay
+          ? `${restricted} feeds request custom headers. Browsers cannot send them, but the configured relay can, so these play here too.`
+          : `${restricted} feeds request custom headers. Browsers cannot attach forbidden User-Agent, Referer or Origin headers; these may need the native app.`
         : "No custom-header requirements in this library.",
     );
     const insecure = channels.filter((c) => c.url.startsWith("http:")).length;
+    // `location` is absent when this module is required under Node by its own
+    // tests; a browser is the only real caller, so an unknown page scheme must
+    // not throw.
+    const pageScheme =
+      typeof location !== "undefined" && location && location.protocol
+        ? location.protocol
+        : "https:";
+    const secure = pageScheme !== "https:" || Boolean(relay);
     add(
       "Secure streams",
-      insecure ? "warn" : "ok",
+      insecure && !secure ? "warn" : "ok",
       insecure
-        ? `${insecure} HTTP feeds may be blocked as mixed content on an HTTPS site. No insecure proxy is used.`
+        ? secure && relay
+          ? `${insecure} HTTP feeds would be blocked as mixed content, but the configured relay fetches them for this page, so they are playable here.`
+          : `${insecure} HTTP feeds may be blocked as mixed content on an HTTPS site. No relay is configured, and none is invented.`
         : "All published stream URLs use HTTPS.",
+    );
+    add(
+      "Playback relay",
+      "ok",
+      relay
+        ? `Relay available at ${relay.base}. Only published playlist entries are forwarded; private addresses and unpublished URLs are refused.`
+        : "No relay configured. Feeds needing custom headers, plain HTTP, or CORS cannot be rescued in this browser.",
     );
     add(
       "Playback support",

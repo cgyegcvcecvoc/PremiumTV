@@ -19,6 +19,7 @@ A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuse
 - **Local:** `cd web && npm ci && npm run build && npm start` → port 3000.
 - **Independent CI/static artifact:** `.github/workflows/web-build.yml`; no release tag, APK, DMG or PKG is produced.
 - **Browser limits:** provider CORS restrictions, custom headers, mixed HTTP content and unsupported codecs can prevent playback. The web player reports these honestly and tries backups; it does not bypass browser security. The native apps remain the broader-compatibility option.
+- **Optional blocked-feed relay:** a browser cannot send a `Referer`, cannot read a response without CORS, and cannot load `http://` media from an HTTPS page — 771 of the 2,978 USA feeds are plain HTTP and 135 publish a required header. [`relay/`](relay/README.md) is a self-hostable Node service that fixes exactly those three cases for streams **in this repository's own playlist** and nothing else. It ships **off** (`relay/relay.json` → `enabled: false`), so GitHub Pages is unchanged; an operator who deploys it flips one field and the player starts rescuing those feeds, saying so on screen. Playlists the relay serves are always the published ones; private address ranges and unpublished URLs are refused.
 
 ## Change log
 
@@ -84,12 +85,12 @@ the same data scope and version policy:
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
 | Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.11 ends Nov 19, 2026 |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.6 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.11 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.6 over the preview (`101060000` > `100010001`) and
+newer. Android accepts 1.1.11 over the preview (`101110000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
 
@@ -291,9 +292,21 @@ user-agent a playlist entry publishes when it has one. Some upstream streams can
 still fail between health checks; confirmed failures should be removed from the
 player playlists, while transient or geo-blocked errors stay distinguishable.
 
-**1.0.9 is the current stable release** (`versionCode 100090000`, USA scope).
+Since the next build, a failed feed is retried **in place** before the app
+spends a backup server: network faults get up to two reconnects and a decoder
+fault gets one rebuild, while a permanent fault (bad HTTP status, unsupported
+format, DRM) still walks straight to the next server. A single-feed channel that
+stalls now says so instead of leaving the spinner up, and the buffering watchdog
+reconnects once before moving on. `Settings → Check for bugs` can also report
+"the last run ended unexpectedly" — a last-chance handler records the class,
+message and stack of a crash in `last-crash.txt` and then rethrows, so the OS
+still receives a real crash but the next bug report has something to go on. A
+published `http-origin` is normalised to the scheme+host+port tuple a CDN
+expects, matching the Mac app.
+
+**1.1.11 is the current stable release** (`versionCode 101110000`, USA scope).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.0.9 installs over 1.0.8, 1.0.8.1
+upgrades from Settings → App updates, and 1.1.11 installs over 1.0.8, 1.0.8.1
 and the retired 1.1.x previews as well. (One exception: an installed 1.0.8.1
 still reads "1.0.9" as another name for itself, so its in-app check can miss
 this release — install the APK by hand; it upgrades in place.) A release is offered only when it is a

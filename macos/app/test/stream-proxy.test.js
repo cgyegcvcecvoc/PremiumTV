@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-const { rewritePlaylist, headersFor, absoluteUrl, LISTEN_HOST } = require('../src/main/stream-proxy');
+const { rewritePlaylist, headersFor, originHeader, absoluteUrl, LISTEN_HOST } = require('../src/main/stream-proxy');
 
 test('the proxy binds to loopback only', () => {
   assert.equal(LISTEN_HOST, '127.0.0.1');
@@ -181,4 +181,19 @@ test('1.1.3: extensionless audio renditions and AAC segments are rewritten and t
   const segRes = await fetch(segLine);
   assert.equal(segRes.status, 200);
   assert.equal(segRes.headers.get('content-type'), 'audio/aac');
+});
+
+test('an Origin header is reduced to the scheme, host and port a CDN expects', () => {
+  // Playlists publish the embed page, not the tuple. Forwarding the page URL
+  // makes some CDNs answer 403 for a request a browser makes successfully.
+  assert.equal(originHeader('https://embed.example/watch/123?ad=1'), 'https://embed.example');
+  assert.equal(originHeader('http://embed.example:8080/a/b'), 'http://embed.example:8080');
+  assert.equal(originHeader('  https://embed.example  '), 'https://embed.example');
+  assert.equal(originHeader(''), '');
+  assert.equal(originHeader(undefined), '');
+  assert.equal(originHeader('file:///etc/passwd'), '', 'only http(s) orig pages become an Origin header');
+  assert.equal(originHeader('not a url'), '');
+
+  const headers = headersFor({ origin: 'https://embed.example/watch/9' });
+  assert.equal(headers.Origin, 'https://embed.example');
 });

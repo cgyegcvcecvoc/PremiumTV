@@ -414,8 +414,31 @@ function headersFor(channel) {
     Connection: 'keep-alive',
   };
   if (channel.referrer) headers.Referer = channel.referrer;
-  if (channel.origin) headers.Origin = channel.origin;
+  const origin = originHeader(channel.origin);
+  if (origin) headers.Origin = origin;
   return headers;
+}
+
+/**
+ * The Origin header is a scheme+host+port tuple. Playlists frequently publish
+ * the *embed page* instead (https://site.example/embed/123), and an HTTP client
+ * that forwards that verbatim is rejected by the CDN, which is one concrete way
+ * the same feed plays in a browser and fails in a desktop app. Normalising it
+ * here means the Mac app sends exactly what a browser would.
+ */
+function originHeader(raw) {
+  const value = String(raw || '').trim();
+  if (!value) return '';
+  try {
+    const parsed = new URL(value);
+    if (!parsed.protocol.startsWith('http')) return '';
+    // `new URL('https://x.example').origin` is already just scheme://host
+    // (port included only when it is not the default), so a path, query or
+    // fragment on the published value cannot leak into the header.
+    return parsed.origin;
+  } catch (error) {
+    return '';
+  }
 }
 
 function looksLikePlaylist(url) {
@@ -515,6 +538,7 @@ module.exports = {
   StreamProxy,
   rewritePlaylist,
   headersFor,
+  originHeader,
   absoluteUrl,
   inferMediaContentType,
   looksLikeExtM3uHead,
