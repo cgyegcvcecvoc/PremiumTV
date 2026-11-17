@@ -149,6 +149,7 @@ dependencies {
     implementation("org.jellyfin.media3:media3-ffmpeg-decoder:1.3.1+2")
 
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("io.coil-kt:coil-svg:2.6.0")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
 }

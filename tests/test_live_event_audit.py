@@ -66,6 +66,14 @@ class LiveEventReliabilityAuditTest(unittest.TestCase):
             )
             return audit.audit(playlist_path, report_path, sources)
 
+    def test_empty_schedule_does_not_claim_working_backups(self):
+        report = self.fixture()
+        report["fixtures"] = []
+        report["fixture_count"] = report["compliant_count"] = report["deficit_count"] = 0
+        output = audit.render(report)
+        self.assertIn("redundancy cannot be assessed", output)
+        self.assertNotIn("Every published fixture meets", output)
+
     def test_three_confirmed_distinct_feeds_assign_two_primaries_and_backup(self):
         report = self.fixture(duplicate_first=True)
         self.assertTrue(report["exact_url_evidence_available"])
