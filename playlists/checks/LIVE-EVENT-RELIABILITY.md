@@ -15,7 +15,7 @@
 
 ## Deficits
 
-None. Every published fixture has two confirmed primaries and a dedicated backup.
+No live fixtures are published; redundancy cannot be assessed.
 
 ## Interpretation
 

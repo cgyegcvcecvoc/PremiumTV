@@ -1427,7 +1427,7 @@ private fun EventTeamRow(name: String, logoUrl: String?) {
 /** A team's official crest when the repository has one, the drawn badge otherwise. */
 @Composable
 private fun TeamLogo(name: String, logoUrl: String?, size: Dp = 32.dp) {
-    var failed by remember { mutableStateOf(false) }
+    var failed by remember(name, logoUrl) { mutableStateOf(false) }
     Box(modifier = Modifier.size(size), contentAlignment = Alignment.Center) {
         TeamCrest(name = name, modifier = Modifier.fillMaxSize(), size = size)
         if (logoUrl != null && !failed) {

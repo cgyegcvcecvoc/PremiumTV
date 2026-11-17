@@ -262,11 +262,13 @@ def render(report: dict) -> str:
 
     lines += ["", "## Deficits", ""]
     deficits = [item for item in report["fixtures"] if not item["policy_met"]]
-    if deficits:
+    if not report["fixtures"]:
+        lines.append("No live fixtures are published; redundancy cannot be assessed.")
+    elif deficits:
         for item in deficits:
             lines.append(f"- **{item['title']}** — {'; '.join(item['deficits'])}.")
     else:
-        lines.append("None. Every published fixture has two confirmed primaries and a dedicated backup.")
+        lines.append("None. Every published fixture meets the configured redundancy policy.")
     lines += [
         "",
         "## Interpretation",

@@ -265,7 +265,7 @@ class LiveEvents111Tests(unittest.TestCase):
         self.assertTrue(logos["logos"], "team logos must not be empty")
         schedule = json.loads(text(ROOT / "playlists/live-schedule.json"))
         self.assertEqual(schedule["schema"], 1)
-        self.assertTrue(schedule["games"], "the schedule must list games")
+        self.assertIsInstance(schedule["games"], list)  # An empty playlist has no fixtures.
         keys = [g["key"] for g in schedule["games"]]
         self.assertEqual(len(keys), len(set(keys)), "schedule keys must be unique")
         # The current generator has no verified fixture-level schedule source.

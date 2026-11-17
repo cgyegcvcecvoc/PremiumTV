@@ -5,6 +5,7 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
+import coil.decode.SvgDecoder
 import com.premiumtv.app.data.TvRepository
 import com.premiumtv.app.update.AppUpdateManager
 import com.premiumtv.app.update.AutomaticRefreshScheduler
@@ -64,6 +65,7 @@ class PremiumTvApplication : Application(), ImageLoaderFactory {
     override fun newImageLoader(): ImageLoader {
         val app = this
         return ImageLoader.Builder(app)
+            .components { add(SvgDecoder.Factory()) }
             // Logos are decorative; avoiding per-card fades keeps focus and
             // scrolling animation work low on inexpensive TV hardware.
             .crossfade(false)
