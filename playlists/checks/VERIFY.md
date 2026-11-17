@@ -1,6 +1,6 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-17T04:17:03+00:00 UTC
+- **Generated:** 2026-11-17T04:49:40+00:00 UTC
 - **Playlists checked:** 181 (27676 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 86
