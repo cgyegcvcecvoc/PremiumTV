@@ -1,78 +1,78 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-16 23:33 UTC (2026-11-16 06:33 PM EST)
-- **Channels in the main playlist:** 12242
-- **Channels in the category files:** 12231 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2593 (21.2%)
+- **Rebuilt:** 2026-11-17 01:14 UTC (2026-11-16 08:14 PM EST)
+- **Channels in the main playlist:** 12431
+- **Channels in the category files:** 12419 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2674 (21.5%)
 - **Categories:** 83 groups (36 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 544 | 190 |
-| 2 | Sports Backups | 126 | 60 |
-| 3 | Lifestyle | 472 | 127 |
+| 1 | Sports | 612 | 269 |
+| 2 | Sports Backups | 125 | 63 |
+| 3 | Lifestyle | 476 | 128 |
 | 4 | Lifestyle Backups | 122 | 42 |
 | 5 | Fox Channels | 31 | 11 |
 | 6 | CBS | 31 | 6 |
 | 7 | CBS Backups | 14 | 0 |
 | 8 | NBC | 70 | 19 |
-| 9 | NBC Backups | 10 | 4 |
-| 10 | NBC Sports Channels | 9 | 7 |
-| 11 | Cartoons | 198 | 31 |
+| 9 | NBC Backups | 11 | 5 |
+| 10 | NBC Sports Channels | 6 | 4 |
+| 11 | Cartoons | 201 | 32 |
 | 12 | Cartoons Backups | 29 | 2 |
 | 13 | PBS | 39 | 10 |
 | 14 | PBS Backups | 6 | 2 |
 | 15 | Game Shows | 12 | 7 |
 | 16 | Game Shows Backups | 16 | 11 |
-| 17 | News | 858 | 242 |
-| 18 | News Backups | 209 | 134 |
-| 19 | Music | 851 | 150 |
+| 17 | News | 861 | 242 |
+| 18 | News Backups | 211 | 136 |
+| 19 | Music | 854 | 150 |
 | 20 | Music Backups | 117 | 54 |
-| 21 | Movies | 847 | 155 |
+| 21 | Movies | 852 | 154 |
 | 22 | Movies Backups | 136 | 24 |
-| 23 | Europe | 732 | 132 |
-| 24 | Europe Backups | 60 | 35 |
-| 25 | Entertainment | 699 | 145 |
-| 26 | Entertainment Backups | 120 | 33 |
-| 27 | International | 676 | 184 |
-| 28 | International Backups | 97 | 39 |
-| 29 | Religious | 604 | 65 |
+| 23 | Europe | 749 | 134 |
+| 24 | Europe Backups | 61 | 36 |
+| 25 | Entertainment | 708 | 151 |
+| 26 | Entertainment Backups | 121 | 34 |
+| 27 | International | 682 | 183 |
+| 28 | International Backups | 100 | 40 |
+| 29 | Religious | 603 | 64 |
 | 30 | Religious Backups | 42 | 10 |
-| 31 | Asia | 476 | 90 |
-| 32 | Asia Backups | 24 | 1 |
-| 33 | South America | 457 | 17 |
-| 34 | South America Backups | 18 | 0 |
+| 31 | Asia | 481 | 91 |
+| 32 | Asia Backups | 26 | 1 |
+| 33 | South America | 455 | 17 |
+| 34 | South America Backups | 20 | 0 |
 | 35 | United States | 346 | 40 |
 | 36 | United States Backups | 73 | 8 |
-| 37 | Documentary | 327 | 89 |
+| 37 | Documentary | 333 | 90 |
 | 38 | Documentary Backups | 85 | 19 |
 | 39 | Series | 321 | 36 |
 | 40 | Series Backups | 130 | 38 |
-| 41 | Kids | 311 | 69 |
-| 42 | Kids Backups | 76 | 14 |
-| 43 | North America | 298 | 14 |
+| 41 | Kids | 318 | 68 |
+| 42 | Kids Backups | 77 | 15 |
+| 43 | North America | 296 | 14 |
 | 44 | North America Backups | 5 | 0 |
-| 45 | Education | 131 | 11 |
-| 46 | Education Backups | 14 | 1 |
-| 47 | Culture | 118 | 10 |
+| 45 | Education | 132 | 10 |
+| 46 | Education Backups | 14 | 0 |
+| 47 | Culture | 119 | 10 |
 | 48 | Culture Backups | 5 | 0 |
 | 49 | Comedy | 114 | 8 |
 | 50 | Comedy Backups | 32 | 4 |
-| 51 | Legislative | 114 | 10 |
-| 52 | A&E Networks | 101 | 16 |
-| 53 | A&E Networks Backups | 12 | 1 |
+| 51 | Legislative | 113 | 10 |
+| 52 | A&E Networks | 101 | 15 |
+| 53 | A&E Networks Backups | 11 | 1 |
 | 54 | India | 75 | 25 |
 | 55 | India Backups | 9 | 4 |
-| 56 | Africa | 70 | 7 |
+| 56 | Africa | 71 | 5 |
 | 57 | Classic TV | 68 | 5 |
 | 58 | Classic TV Backups | 12 | 3 |
 | 59 | Business | 47 | 16 |
 | 60 | Business Backups | 15 | 13 |
 | 61 | Family | 29 | 15 |
 | 62 | Family Backups | 5 | 4 |
-| 63 | UK | 25 | 12 |
+| 63 | UK | 26 | 12 |
 | 64 | UK Backups | 4 | 3 |
 | 65 | Canada | 21 | 4 |
 | 66 | Weather | 12 | 5 |
@@ -83,32 +83,33 @@
 | 71 | DLTV | 9 | 0 |
 | 72 | Tv Celebrities | 7 | 0 |
 | 73 | Aria Web Channels | 6 | 0 |
-| 74 | Global TV | 5 | 2 |
-| 75 | Global TV Backups | 3 | 2 |
-| 76 | Tv Paranormal | 5 | 1 |
-| 77 | Tv Paranormal Backups | 3 | 0 |
-| 78 | Oceania | 4 | 3 |
-| 79 | Online TV | 4 | 1 |
-| 80 | Online TV Backups | 8 | 7 |
+| 74 | Online TV | 6 | 1 |
+| 75 | Online TV Backups | 19 | 1 |
+| 76 | Global TV | 5 | 2 |
+| 77 | Global TV Backups | 3 | 2 |
+| 78 | Tv Paranormal | 5 | 1 |
+| 79 | Tv Paranormal Backups | 3 | 0 |
+| 80 | Oceania | 4 | 3 |
 | 81 | Tv Shows | 4 | 0 |
-| 82 | Other | 251 | 24 |
-| 83 | Other Backups | 138 | 6 |
+| 82 | Other | 273 | 22 |
+| 83 | Other Backups | 149 | 6 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12242 | 91 | 1791 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12431 | 91 | 1824 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 16 | 5 | 1 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 12202 (99.5%) |
-| matched on the base id (feed qualifier dropped) | 5 (0.0%) |
-| matched on the display name | 1 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 50 (0.4%) |
+| already declared in the guide | 12271 (98.6%) |
+| matched on the base id (feed qualifier dropped) | 11 (0.1%) |
+| matched on the display name | 7 (0.1%) |
+| matched on a looser spelling of the name | 4 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 154 (1.2%) |
 
 ## Channels with no schedule yet
 
@@ -127,10 +128,10 @@ just have nothing to show until an upstream guide picks them up:
 - Adventure Sports TV (1080p) (`AdventureSportsTV.us@SD`)
 - Africa 24 Sport (1080p) (`Africa24Sport.fr@SD`)
 - Al Iraqia Sport (720p) (`AlIraqiaSport.iq@SD`)
-- Altitude Sports (`Altitude.Sports.us2`)
 - American Ninja Warrior (1080p) (`AmericanNinjaWarrior.us@SD`)
 - AntenaPlay Events (576i) [Not 24/7] (`AntenaPlayEvents.ro@SD`)
 - AntenaSport (`AntenaSport.ro@SD`)
+- Arena Sport 1 (`ArenaSport1.sk@SD`)
 
 Generated by `scripts/rebuild_playlists.py`. Run it after a scrape, or let the
 daily workflow do it - the scraper calls the same `categorize` module, so a
