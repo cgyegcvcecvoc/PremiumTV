@@ -4,20 +4,18 @@
 - **Scrape run:** `20261118T131620Z-2943` — health check completed
 - **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 0/2
-- **Fixtures with a redundancy deficit:** 2
+- **Fixtures meeting policy:** 0/0
+- **Fixtures with a redundancy deficit:** 0
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
-| Borneo vs. Manila Digger (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Tampines vs. Ratchaburi (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| No live fixtures published | 0 | 0/2 | 0/1 | 0 | - | - | - |
 
 ## Deficits
 
-- **Borneo vs. Manila Digger** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Tampines vs. Ratchaburi** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+No live fixtures are published; redundancy cannot be assessed.
 
 ## Interpretation
 
