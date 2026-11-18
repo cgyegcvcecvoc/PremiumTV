@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-18T17:15:13Z",
+  "generated_utc": "2026-11-18T19:30:56Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261118T171127Z-3229",
+  "scrape_run_id": "20261118T192721Z-3009",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -13,9 +13,9 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 14,
+  "fixture_count": 28,
   "compliant_count": 0,
-  "deficit_count": 14,
+  "deficit_count": 28,
   "fixtures": [
     {
       "sport": "Basketball Champions League",
@@ -93,6 +93,47 @@
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Basketball Eurocup",
+      "league": "Basketball Eurocup",
+      "home": "Manresa",
+      "away": "PAOK",
+      "title": "Manresa vs. PAOK",
+      "key": "basketballeurocup|manresa|paok",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "cc600a013275",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
           "ingest_sources": [
             "doms9"
           ]
@@ -182,12 +223,12 @@
       ]
     },
     {
-      "sport": "College Football",
-      "league": "NCAA Women",
-      "home": "Pittsburgh Panthers",
-      "away": "UMBC Retrievers",
-      "title": "Pittsburgh Panthers vs. UMBC Retrievers",
-      "key": "collegefootball|pittsburghpanthers|umbcretrievers",
+      "sport": "Basketball Europe cup",
+      "league": "Basketball Europe cup",
+      "home": "KK Bosna",
+      "away": "Lietkabelis",
+      "title": "KK Bosna vs. Lietkabelis",
+      "key": "basketballeuropecup|kkbosna|lietkabelis",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -195,48 +236,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "hereisman.net"
-      ],
-      "providers": [
-        "ISTRMEAST"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "5c10bc26db09",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Egypt Cup",
-      "league": "Egypt Cup",
-      "home": "El Gouna",
-      "away": "Al Ittihad",
-      "title": "El Gouna vs. Al Ittihad",
-      "key": "egyptcup|alittihad|elgouna",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
+        "193.47.62.59"
       ],
       "providers": [
         "FAWA"
@@ -252,7 +252,467 @@
       ],
       "feeds": [
         {
-          "fingerprint": "09507dcc227f",
+          "fingerprint": "59c762f30722",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Cyprus Futsal",
+      "league": "Cyprus Futsal",
+      "home": "AEL",
+      "away": "Apollon",
+      "title": "AEL vs. Apollon",
+      "key": "cyprusfutsal|ael|apollon",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "ec2ae3b688ca",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "English Women League Cup",
+      "league": "English Women League Cup",
+      "home": "London City Lionesses W",
+      "away": "Brighton W",
+      "title": "London City Lionesses W vs. Brighton W",
+      "key": "englishwomenleaguecup|brightonw|londoncitylionessesw",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "6b0754adca3b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "English Women League Cup",
+      "league": "English Women League Cup",
+      "home": "Manchester Utd W",
+      "away": "Everton W",
+      "title": "Manchester Utd W vs. Everton W",
+      "key": "englishwomenleaguecup|evertonw|manchesterutdw",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "c6418424a48c",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "English Women League Cup",
+      "league": "English Women League Cup",
+      "home": "Nottingham W",
+      "away": "Liverpool W",
+      "title": "Nottingham W vs. Liverpool W",
+      "key": "englishwomenleaguecup|liverpoolw|nottinghamw",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "7ef8100edf86",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "English Women League Cup",
+      "league": "English Women League Cup",
+      "home": "Tottenham W",
+      "away": "Leicester W",
+      "title": "Tottenham W vs. Leicester W",
+      "key": "englishwomenleaguecup|leicesterw|tottenhamw",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "9495f8207cf6",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "English Women League Cup",
+      "league": "English Women League Cup",
+      "home": "West Ham W",
+      "away": "Wolverhampton W",
+      "title": "West Ham W vs. Wolverhampton W",
+      "key": "englishwomenleaguecup|westhamw|wolverhamptonw",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "f39e6171df52",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Hockey Champions League",
+      "league": "Hockey Champions League",
+      "home": "Eisbaren Berlin",
+      "away": "KooKoo",
+      "title": "Eisbaren Berlin vs. KooKoo",
+      "key": "hockeychampionsleague|eisbarenberlin|kookoo",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "40e8576b1e10",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Hockey Champions League",
+      "league": "Hockey Champions League",
+      "home": "Fribourg",
+      "away": "Servette",
+      "title": "Fribourg vs. Servette",
+      "key": "hockeychampionsleague|fribourg|servette",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "269d10a77f3b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Spanish Copa del Rey",
+      "home": "Alcoyano",
+      "away": "Mallorca",
+      "title": "Alcoyano vs. Mallorca",
+      "key": "soccer|alcoyano|mallorca",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "2fa7c2b47a42",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Spanish Copa del Rey",
+      "home": "CD Badajoz",
+      "away": "Tenerife",
+      "title": "CD Badajoz vs. Tenerife",
+      "key": "soccer|cdbadajoz|tenerife",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.59"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "af2d0d29c9fa",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.59",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Women Champions League",
+      "home": "Hacken W",
+      "away": "Manchester City W",
+      "title": "Hacken W vs. Manchester City W",
+      "key": "soccer|hackenw|manchestercityw",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "19ad15e1b7db",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "d3b977161ab6",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -264,12 +724,94 @@
       ]
     },
     {
-      "sport": "Hockey Champions League",
-      "league": "Hockey Champions League",
-      "home": "Pardubice",
-      "away": "SaiPa",
-      "title": "Pardubice vs. SaiPa",
-      "key": "hockeychampionsleague|pardubice|saipa",
+      "sport": "Soccer",
+      "league": "UEFA WCHAMPIONS",
+      "home": "Internazionale",
+      "away": "Real Madrid",
+      "title": "Internazionale vs. Real Madrid",
+      "key": "soccer|internazionale|realmadrid",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "6faadd32cfa9",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA WCHAMPIONS",
+      "home": "Manchester City",
+      "away": "BK Häcken",
+      "title": "Manchester City vs. BK Häcken",
+      "key": "soccer|bkhcken|manchestercity",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "5c5ec1c31b36",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Spanish Copa del Rey",
+      "home": "Portugalete",
+      "away": "Real Union",
+      "title": "Portugalete vs. Real Union",
+      "key": "soccer|portugalete|realunion",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -293,7 +835,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "4619c76cdf46",
+          "fingerprint": "6a6a767030cf",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -307,18 +849,19 @@
     {
       "sport": "Soccer",
       "league": "UEFA Women Champions League",
-      "home": "Hacken W",
-      "away": "Manchester City W",
-      "title": "Hacken W vs. Manchester City W",
-      "key": "soccer|hackenw|manchestercityw",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "home": "Real Madrid W",
+      "away": "Inter W",
+      "title": "Real Madrid W vs. Inter W",
+      "key": "soccer|interw|realmadridw",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
       "confirmed_backup_count": 0,
-      "primary_ready": false,
+      "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "193.47.62.41",
+        "rtmpcdn.com"
       ],
       "providers": [
         "FAWA"
@@ -328,13 +871,21 @@
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 1 more confirmed dedicated backup feed(s)"
       ],
       "feeds": [
         {
-          "fingerprint": "d3b977161ab6",
+          "fingerprint": "8a9e05a25716",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "c002cc749bd0",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -347,11 +898,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "UEFA Women Champions League",
-      "home": "Real Madrid W",
-      "away": "Inter W",
-      "title": "Real Madrid W vs. Inter W",
-      "key": "soccer|interw|realmadridw",
+      "league": "Spanish Copa del Rey",
+      "home": "Utebo FC",
+      "away": "Sabadell",
+      "title": "Utebo FC vs. Sabadell",
+      "key": "soccer|sabadell|utebofc",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -359,7 +910,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "193.47.62.44"
       ],
       "providers": [
         "FAWA"
@@ -375,11 +926,52 @@
       ],
       "feeds": [
         {
-          "fingerprint": "c002cc749bd0",
+          "fingerprint": "ae92e36cde95",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "origin_family": "193.47.62.44",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden HockeyAllsvenskan",
+      "league": "Sweden HockeyAllsvenskan",
+      "home": "Almtuna",
+      "away": "Ostersund",
+      "title": "Almtuna vs. Ostersund",
+      "key": "swedenhockeyallsvenskan|almtuna|ostersund",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.44"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "3470e19ab57a",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.44",
           "ingest_sources": [
             "doms9"
           ]
