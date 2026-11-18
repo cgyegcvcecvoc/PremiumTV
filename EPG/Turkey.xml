@@ -76,6 +76,10 @@
     <display-name>ATV (Turkiye) (1080p)</display-name>
     <icon src="https://iptv-epg.org/images/tm4B1qBymAKUaP0JvVEX0ZwWzyOeNv_2E1W3LboHOZCvzIivL_kqPRPfP_JPk2eNcl3c7kEb8COuKqj_O_STpLLiWj6ubQhVn_Ry6A" />
   </channel>
+  <channel id="BirTV.tr@SD">
+    <display-name>Bir TV (720p)</display-name>
+    <icon src="https://birtv.tv/assets/upload/637f83951df60.png" />
+  </channel>
   <channel id="BricveSatrancTV.tr@SD">
     <display-name>Bric ve Satranc TV (480p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/TXDV1ty.png" />
@@ -469,6 +473,15 @@
     <display-name>TRT.MUZIK.al</display-name>
     <icon src="https://vimg.ipko.tv/logo/color/trtmuzik.png" />
   </channel>
+  <channel id="TRT1.tr@SD">
+    <display-name>TRT 1 (1080p)</display-name>
+    <display-name>TRT 1 HD</display-name>
+    <display-name>444112</display-name>
+    <display-name>TR - TRT1</display-name>
+    <display-name>TRT1.tr</display-name>
+    <display-name>TRT 1</display-name>
+    <icon src="https://epg.pw/media/images/epg/2025/07/08/20250708022054532826_65.png" />
+  </channel>
   <channel id="TRT2.tr@SD">
     <display-name>TRT 2 (1440p) [Geo-blocked]</display-name>
     <display-name>TRT 2 HD</display-name>
@@ -515,15 +528,6 @@
   <channel id="TV4.tr@SD">
     <display-name>TV 4 (720p)</display-name>
     <icon src="https://i.imgur.com/UpsQsbd.png" />
-  </channel>
-  <channel id="TRT1.tr@SD">
-    <display-name>TRT 1</display-name>
-    <display-name>TRT 1 HD</display-name>
-    <display-name>444112</display-name>
-    <display-name>TR - TRT1</display-name>
-    <display-name>TRT1.tr</display-name>
-    <display-name>TRT.1.al</display-name>
-    <icon src="https://epg.pw/media/images/epg/2025/07/08/20250708022054532826_65.png" />
   </channel>
   <channel id="4UTV.tr@SD">
     <display-name>4U TV (720p)</display-name>
@@ -637,20 +641,6 @@
   <channel id="GrandCinema.tr@SD">
     <display-name>Grand Cinema</display-name>
   </channel>
-  <programme start="20261118080000 +0000" stop="20261118100000 +0000" channel="ASpor.tr@SD">
-    <title>Spor Merkezi</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118100000 +0000" stop="20261118110000 +0000" channel="ASpor.tr@SD">
-    <title>Bir Zamanlar Futbol</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261118110000 +0000" stop="20261118130000 +0000" channel="ASpor.tr@SD">
     <title>Danimarka - Norveç</title>
     <desc>UEFA Nations League - Shikoni ndeshjen e futbollit në të cilën Danimarkë përballon Norvegji.</desc>
@@ -861,8 +851,11 @@
     <icon src="https://vimg.ipko.tv/mtcms/61/c/a/61ca28e0-2866-4938-8bae-e3196604f2c5.jpg" />
     <new />
   </programme>
-  <programme start="20261118090000 +0000" stop="20261118100000 +0000" channel="FBTV.tr@SD">
-    <title>Fenerbahçe Günlüğü</title>
+  <programme start="20261120170000 +0000" stop="20261120174500 +0000" channel="ASpor.tr@SD">
+    <title>Skorbord</title>
+    <category lang="sq">Sporte Të Tjera</category>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/7d/1/f/7d1f31a4-b21c-4182-ab32-6b779d6270bf.jpg" />
     <live />
   </programme>
   <programme start="20261118100000 +0000" stop="20261118120000 +0000" channel="FBTV.tr@SD">
@@ -1076,8 +1069,17 @@
   <programme start="20261120153000 +0000" stop="20261120155500 +0000" channel="FBTV.tr@SD">
     <title>Yarının Yıldızları</title>
   </programme>
-  <programme start="20261118092000 +0000" stop="20261118102000 +0000" channel="CartoonNetwork.tr@SD">
-    <title>Tom ve Jerry: Oz Büyücüsü</title>
+  <programme start="20261120155500 +0000" stop="20261120160700 +0000" channel="FBTV.tr@SD">
+    <title>Fenerium Saati</title>
+  </programme>
+  <programme start="20261120160700 +0000" stop="20261120163000 +0000" channel="FBTV.tr@SD">
+    <title>Ana Haber</title>
+  </programme>
+  <programme start="20261120163000 +0000" stop="20261120170000 +0000" channel="FBTV.tr@SD">
+    <title>Sportif</title>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120190000 +0000" channel="FBTV.tr@SD">
+    <title>Hazırlık Maçları</title>
   </programme>
   <programme start="20261118102000 +0000" stop="20261118120000 +0000" channel="CartoonNetwork.tr@SD">
     <title>Scooby-Doo!Phantosaur Efsanesi</title>
@@ -1658,13 +1660,14 @@
   <programme start="20261120153000 +0000" stop="20261120154500 +0000" channel="CartoonNetwork.tr@SD">
     <title>Gumball'ın Muhteşem Tuhaf...</title>
   </programme>
-  <programme start="20261118070000 +0000" stop="20261118100000 +0000" channel="ATV.tr@SD">
-    <title>Müge Anlı ile Tatlı Sert</title>
-    <new />
+  <programme start="20261120154500 +0000" stop="20261120160000 +0000" channel="CartoonNetwork.tr@SD">
+    <title>Gumball'ın Muhteşem Tuhaf...</title>
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118110000 +0000" channel="ATV.tr@SD">
-    <title>Gün Ortası</title>
-    <new />
+  <programme start="20261120160000 +0000" stop="20261120171500 +0000" channel="CartoonNetwork.tr@SD">
+    <title>Scooby-Doo! ve Gurme Hayalet</title>
+  </programme>
+  <programme start="20261120171500 +0000" stop="20261120183000 +0000" channel="CartoonNetwork.tr@SD">
+    <title>Tom ve Jerry: Oz'a Dönüş</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118130000 +0000" channel="ATV.tr@SD">
     <title>Altı Üstü İstanbul</title>
@@ -1753,13 +1756,20 @@
     <title>Esra Erol'da</title>
     <new />
   </programme>
-  <programme start="20261118080000 +0000" stop="20261118104500 +0000" channel="EuroD.tr@SD">
-    <title>Rënia e Gjetheve</title>
-    <desc>Pas dorëheqjes së Ali Rizait dhe pranimit të Nexhlës në universitet, familja Tekin zhvendoset në Stamboll për një jetë të re. Mes vështirësive të përshtatjes dhe sfidave të qytetit të madh, Ali Rizai përpiqet ta mbajë familjen të bashkuar dhe të ruajë vlerat e ndershmërisë që e kanë udhëhequr gjithë jetën.</desc>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Serial</category>
-    <date>2006</date>
-    <icon src="https://vimg.ipko.tv/mtcms/b5/4/3/b543257f-583c-4d85-b13e-64324a487c5f.jpg" />
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="ATV.tr@SD">
+    <title>ATV Ana Haber</title>
+    <new />
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120185000 +0000" channel="ATV.tr@SD">
+    <title>Buz Devri 5: Büyük Çarpışma</title>
+  </programme>
+  <programme start="20261118101000 +0000" stop="20261118120000 +0000" channel="EuroD.tr@SD">
+    <title>Üç Kız Kardeş</title>
+    <desc>Üç Kız Kardeş, Türkan, Dönüş ve Derya adlı üç kız kardeşin Ayvalık'ta başlayan hayatlarının zamanla değişmesini konu alan güçlü bir aile dramıdır. Sevgiyle büyüyen kardeşlerin hayalleri, evlilikler ve alınan kararlarla sınanırken, geçmişte saklanan sırlar birer birer ortaya çıkar. Aile bağları, fedakarlık, aşk ve hayal kırıklıkları ekseninde ilerleyen hikâye, karakterlerin yüzleşmeleri ve değişiml</desc>
+    <date>20261118</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261118120000 +0000" stop="20261118140000 +0000" channel="EuroD.tr@SD">
     <title>Küçük Ağa</title>
@@ -1921,8 +1931,13 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261118080000 +0000" stop="20261118104500 +0000" channel="KanalD.tr@SD">
+  <programme start="20261120160000 +0000" stop="20261120190000 +0000" channel="EuroD.tr@SD">
     <title>Yaprak Dökümü</title>
+    <desc>Yaprak Dökümü güçlü ahlaki değerlere sahip Ali Rıza Bey ve ailesinin İstanbul'a taşınmasıyla başlayan çözülme sürecini konu alır. Bir haksızlığa boyun eğmeyerek görevinden istifa eden Ali Rıza Bey, çocuklarını doğru değerlerle yetiştirme çabasını büyük şehirde de sürdürmek ister. Ancak değişen toplumsal yapı, modern yaşamın cazibesi ve kuşaklar arası çatışmalar aile bireylerini farklı yönlere sürü</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261118104500 +0000" stop="20261118134500 +0000" channel="KanalD.tr@SD">
     <title>Gelinim Mutfakta</title>
@@ -1991,17 +2006,13 @@
   <programme start="20261120134500 +0000" stop="20261120160000 +0000" channel="KanalD.tr@SD">
     <title>Üç Kız Kardeş</title>
   </programme>
-  <programme start="20261118081500 +0000" stop="20261118103000 +0000" channel="NOWTV.tr@SD">
-    <title>大風殺</title>
-    <desc>挑戰1996全民禁槍話題, 引爆最癲最火最喪犯罪風暴!禁槍政策實施的前一年, 藏匿巨額寶藏的悍匪頭目越獄出逃, 帶領一眾匪徒武裝佔領了廢棄小鎮忙崖!趁巨型沙塵暴肆虐, 他們封鎖全鎮, 斷油斷訊, 救兵無門, 居民無路可逃!鎮內僅餘的3位民警, 面對兇徒屠殺平民, 誓死血戰守護家園。匪徒內鬨, 分贓不均, 上演狗咬狗的困獸之鬥。1支手槍3個兵, 如何將44個悍匪就地正法?</desc>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261120160000 +0000" stop="20261120233000 +0000" channel="KanalD.tr@SD">
+    <title>Kanal D Ana Haber</title>
+    <new />
   </programme>
-  <programme start="20261118103000 +0000" stop="20261118120000 +0000" channel="NOWTV.tr@SD">
-    <title>惡行之外</title>
-    <desc>某個雨夜, 香港刑偵警察樂一言的獨生女樂嘉琪被發現伏屍郊外。 警方根據線索, 把犯罪嫌疑人鎖定在邱俊文身上。但在調查期間又接連發生幾起少女被殺案件, 受害人與樂嘉琪有着一樣的腿部特徵, 警方開始朝着連環殺人案的方向調查。 樂一言因與死者的關係,開始獨自調查一切。樂一言意外遇見弱智少女叮噹, 從其身上發現女兒死亡的線索。 與此同時, 呂議員的女兒呂希蓉險些遇害, 九死一生由嫌犯身邊逃脫, 結合呂希蓉提供的線索, 樂一言根據目前的線索順藤摸瓜, 把兇手鎖定為邱俊文的父親宋境南。而宋境南亦因某些原因找上叮噹, 並試圖殺害叮噹。 樂一言及時出現救下叮噹, 宋境南暫時逃脫。 樂一言闖入邱俊文家中, 不料再次遇上宋境南與其扭打在一起。 樂一言與警察相互配合, 把邱家一家三口堵到天台上, 宋境南才說出實情。原來樂一言的女兒目睹邱俊文與叮噹的違法交易, 被邱俊文殺害。 宋境南為了幫兒子脫罪, 把此案件偽裝</desc>
+  <programme start="20261118093000 +0000" stop="20261118120000 +0000" channel="NOWTV.tr@SD">
+    <title>時事全方位</title>
+    <desc>主持與學者、官員、議員及不同立場人士就具爭議性的話題及政府政策, 深入討論, 剖析背景, 讓觀眾可以更加深入了解事件。</desc>
     <date>20261118</date>
     <audio>
       <stereo>stereo</stereo>
@@ -2655,26 +2666,45 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261118093000 +0000" stop="20261118095000 +0000" channel="NTV.tr@SD">
-    <title>Piyasa Ekranı</title>
+  <programme start="20261120160000 +0000" stop="20261120162000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118095000 +0000" stop="20261118095500 +0000" channel="NTV.tr@SD">
-    <title>Paranın Nabzı</title>
+  <programme start="20261120162000 +0000" stop="20261120163000 +0000" channel="NOWTV.tr@SD">
+    <title>國際兩岸評論</title>
+    <desc>世界局勢風雲變幻, 兩岸四地互動頻繁, 每個動作息息相關。「國際兩岸評論」, 有不同專家由淺入深, 助你掌握發展脈絡, 解構大趨勢, 洞察新領域。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118095500 +0000" stop="20261118100000 +0000" channel="NTV.tr@SD">
-    <title>Hava Durumu</title>
+  <programme start="20261120163000 +0000" stop="20261120165000 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118105000 +0000" channel="NTV.tr@SD">
-    <title>Öğle Bülteni</title>
+  <programme start="20261120165000 +0000" stop="20261120170000 +0000" channel="NOWTV.tr@SD">
+    <title>國際兩岸評論</title>
+    <desc>世界局勢風雲變幻, 兩岸四地互動頻繁, 每個動作息息相關。「國際兩岸評論」, 有不同專家由淺入深, 助你掌握發展脈絡, 解構大趨勢, 洞察新領域。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118105000 +0000" stop="20261118105500 +0000" channel="NTV.tr@SD">
-    <title>Piyasalar</title>
-  </programme>
-  <programme start="20261118105500 +0000" stop="20261118110000 +0000" channel="NTV.tr@SD">
-    <title>Hava Durumu</title>
-  </programme>
-  <programme start="20261118110000 +0000" stop="20261118111500 +0000" channel="NTV.tr@SD">
-    <title>Öğle Bülteni</title>
+  <programme start="20261120170000 +0000" stop="20261120172500 +0000" channel="NOWTV.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261118111500 +0000" stop="20261118112000 +0000" channel="NTV.tr@SD">
     <title>Piyasalar</title>
@@ -3189,9 +3219,29 @@
   <programme start="20261120154000 +0000" stop="20261120154500 +0000" channel="NTV.tr@SD">
     <title>Uzman Bakışı</title>
   </programme>
-  <programme start="20261118070000 +0000" stop="20261118104500 +0000" channel="StarTV.tr@SD">
-    <title>Songül ve Uğur ile Sana Değer</title>
-    <new />
+  <programme start="20261120154500 +0000" stop="20261120155500 +0000" channel="NTV.tr@SD">
+    <title>Spor</title>
+  </programme>
+  <programme start="20261120155500 +0000" stop="20261120160000 +0000" channel="NTV.tr@SD">
+    <title>Hava Durumu</title>
+  </programme>
+  <programme start="20261120160000 +0000" stop="20261120161000 +0000" channel="NTV.tr@SD">
+    <title>Akşam Haberleri</title>
+  </programme>
+  <programme start="20261120161000 +0000" stop="20261120161500 +0000" channel="NTV.tr@SD">
+    <title>Piyasalar</title>
+  </programme>
+  <programme start="20261120161500 +0000" stop="20261120165000 +0000" channel="NTV.tr@SD">
+    <title>Ceyda Düvenci İle Bambaşka Sohbetler</title>
+  </programme>
+  <programme start="20261120165000 +0000" stop="20261120165500 +0000" channel="NTV.tr@SD">
+    <title>Ana Haber Özet</title>
+  </programme>
+  <programme start="20261120165500 +0000" stop="20261120170000 +0000" channel="NTV.tr@SD">
+    <title>Hava Durumu</title>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120175000 +0000" channel="NTV.tr@SD">
+    <title>Ana Haber</title>
   </programme>
   <programme start="20261118104500 +0000" stop="20261118120000 +0000" channel="StarTV.tr@SD">
     <title>Fazilet Hanım ve Kızları</title>
@@ -3274,23 +3324,12 @@
   <programme start="20261120120000 +0000" stop="20261120160000 +0000" channel="StarTV.tr@SD">
     <title>Didem Arslan Yılmaz'la Vazgeçme</title>
   </programme>
-  <programme start="20261118094000 +0000" stop="20261118100000 +0000" channel="TVDen.tr@SD">
-    <title>ntv Wirtschaft</title>
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="StarTV.tr@SD">
+    <title>Star Haber</title>
+    <new />
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118101500 +0000" channel="TVDen.tr@SD">
-    <title>Nachrichten</title>
-  </programme>
-  <programme start="20261118101500 +0000" stop="20261118103000 +0000" channel="TVDen.tr@SD">
-    <title>ntv Wirtschaft</title>
-  </programme>
-  <programme start="20261118103000 +0000" stop="20261118104000 +0000" channel="TVDen.tr@SD">
-    <title>Nachrichten</title>
-  </programme>
-  <programme start="20261118104000 +0000" stop="20261118110000 +0000" channel="TVDen.tr@SD">
-    <title>ntv Wirtschaft</title>
-  </programme>
-  <programme start="20261118110000 +0000" stop="20261118111500 +0000" channel="TVDen.tr@SD">
-    <title>Nachrichten</title>
+  <programme start="20261120170000 +0000" stop="20261120213000 +0000" channel="StarTV.tr@SD">
+    <title>Dizi</title>
   </programme>
   <programme start="20261118111500 +0000" stop="20261118113000 +0000" channel="TVDen.tr@SD">
     <title>ntv Wirtschaft</title>
@@ -3649,11 +3688,17 @@
   <programme start="20261120153000 +0000" stop="20261120160000 +0000" channel="TVDen.tr@SD">
     <title>News Spezial</title>
   </programme>
-  <programme start="20261118090000 +0000" stop="20261118100000 +0000" channel="VavTV.tr@SD">
-    <title>Mürekkep Damlaları</title>
+  <programme start="20261120160000 +0000" stop="20261120161500 +0000" channel="TVDen.tr@SD">
+    <title>Nachrichten</title>
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118110000 +0000" channel="VavTV.tr@SD">
-    <title>Nefs Ülkesi</title>
+  <programme start="20261120161500 +0000" stop="20261120163000 +0000" channel="TVDen.tr@SD">
+    <title>ntv Wirtschaft</title>
+  </programme>
+  <programme start="20261120163000 +0000" stop="20261120170000 +0000" channel="TVDen.tr@SD">
+    <title>Auslandsreport</title>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120173000 +0000" channel="TVDen.tr@SD">
+    <title>Nachrichten</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118130000 +0000" channel="VavTV.tr@SD">
     <title>Açık Medeniyet</title>
@@ -3805,8 +3850,8 @@
   <programme start="20261120150000 +0000" stop="20261120170000 +0000" channel="VavTV.tr@SD">
     <title>Kur'an Yolu</title>
   </programme>
-  <programme start="20261118081000 +0000" stop="20261118095500 +0000" channel="ZarokTV.tr@SD">
-    <title>Now That We Are Married</title>
+  <programme start="20261120170000 +0000" stop="20261120190000 +0000" channel="VavTV.tr@SD">
+    <title>Düşünce Ve Hayat</title>
   </programme>
   <programme start="20261118095500 +0000" stop="20261118114500 +0000" channel="ZarokTV.tr@SD">
     <title>The One For Sarah</title>
@@ -3922,12 +3967,6 @@
   <programme start="20261120153500 +0000" stop="20261120174000 +0000" channel="ZarokTV.tr@SD">
     <title>Wear My Shoes</title>
   </programme>
-  <programme start="20261118074500 +0000" stop="20261118094500 +0000" channel="360.tr@SD">
-    <title>Seksenler</title>
-  </programme>
-  <programme start="20261118094500 +0000" stop="20261118110000 +0000" channel="360.tr@SD">
-    <title>Seren'le Buluşalım</title>
-  </programme>
   <programme start="20261118110000 +0000" stop="20261118124500 +0000" channel="360.tr@SD">
     <title>Güllü</title>
   </programme>
@@ -4039,19 +4078,8 @@
   <programme start="20261120143000 +0000" stop="20261120160000 +0000" channel="360.tr@SD">
     <title>Seksenler</title>
   </programme>
-  <programme start="20261118080000 +0000" stop="20261118100000 +0000" channel="AHaber.tr@SD">
-    <title>Memleket Meselesi</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118100000 +0000" stop="20261118110000 +0000" channel="AHaber.tr@SD">
-    <title>Ajans Yeni Gün</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261120160000 +0000" stop="20261120180000 +0000" channel="360.tr@SD">
+    <title>Ben Bilirim</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118115500 +0000" channel="AHaber.tr@SD">
     <title>Sabah Ajansı</title>
@@ -4422,29 +4450,26 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261118092500 +0000" stop="20261118095500 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Yeşil Hat</title>
+  <programme start="20261120160000 +0000" stop="20261120165500 +0000" channel="AHaber.tr@SD">
+    <title>Ajans Bugün</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118095500 +0000" stop="20261118100000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Kuş Bakışı</title>
+  <programme start="20261120165500 +0000" stop="20261120170000 +0000" channel="AHaber.tr@SD">
+    <title>Hava Durumu</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118101500 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Oto Flash</title>
-  </programme>
-  <programme start="20261118101500 +0000" stop="20261118103000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Kültür Sanat</title>
-  </programme>
-  <programme start="20261118103000 +0000" stop="20261118104500 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Bushcraft Baycan</title>
-  </programme>
-  <programme start="20261118104500 +0000" stop="20261118105500 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Memleket Sofrası</title>
-  </programme>
-  <programme start="20261118105500 +0000" stop="20261118110000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Kısa Bir Mola</title>
-  </programme>
-  <programme start="20261118110000 +0000" stop="20261118111000 +0000" channel="FlashHaberTV.tr@SD">
-    <title>Savunma Vizyonu</title>
+  <programme start="20261120170000 +0000" stop="20261120180000 +0000" channel="AHaber.tr@SD">
+    <title>Ajans Bugün</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261118111000 +0000" stop="20261118112500 +0000" channel="FlashHaberTV.tr@SD">
     <title>Tekno Flash</title>
@@ -5100,6 +5125,33 @@
   <programme start="20261120153000 +0000" stop="20261120154500 +0000" channel="FlashHaberTV.tr@SD">
     <title>Bushcraft Baycan</title>
   </programme>
+  <programme start="20261120154500 +0000" stop="20261120155500 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Memleket Sofrası</title>
+  </programme>
+  <programme start="20261120155500 +0000" stop="20261120160000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Kısa Bir Mola</title>
+  </programme>
+  <programme start="20261120160000 +0000" stop="20261120161000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Savunma Vizyonu</title>
+  </programme>
+  <programme start="20261120161000 +0000" stop="20261120162500 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Tekno Flash</title>
+  </programme>
+  <programme start="20261120162500 +0000" stop="20261120164000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Konsol</title>
+  </programme>
+  <programme start="20261120164000 +0000" stop="20261120165000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Kültür Hazineleri</title>
+  </programme>
+  <programme start="20261120165000 +0000" stop="20261120165500 +0000" channel="FlashHaberTV.tr@SD">
+    <title>İstanbul'un Selatin Camileri</title>
+  </programme>
+  <programme start="20261120165500 +0000" stop="20261120170000 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Kuş Bakışı</title>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120172500 +0000" channel="FlashHaberTV.tr@SD">
+    <title>Almanak</title>
+  </programme>
   <programme start="20261118090000 +0000" stop="20261118120000 +0000" channel="HaberGlobal.tr@SD">
     <title>Gündem</title>
   </programme>
@@ -5193,10 +5245,11 @@
   <programme start="20261120140000 +0000" stop="20261120160000 +0000" channel="HaberGlobal.tr@SD">
     <title>Günün Nabzı</title>
   </programme>
-  <programme start="20261118090000 +0000" stop="20261118110000 +0000" channel="HaberturkTV.tr@SD">
-    <title>Gün Ortası</title>
-    <category lang="sq">Program Informues</category>
-    <icon src="https://vimg.ipko.tv/mtcms/e6/2/b/e62b2a5c-69d1-4e27-b71e-66cc2747ba41.jpg" />
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="HaberGlobal.tr@SD">
+    <title>Ana Haber</title>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120210000 +0000" channel="HaberGlobal.tr@SD">
+    <title>Mesele</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118124500 +0000" channel="HaberturkTV.tr@SD">
     <title>Haber Hattı</title>
@@ -5401,10 +5454,10 @@
     <category lang="sq">Program Informues</category>
     <icon src="https://vimg.ipko.tv/mtcms/98/5/4/9854ca33-dbcd-4166-9680-e5b616583252.jpg" />
   </programme>
-  <programme start="20261118080000 +0000" stop="20261118100000 +0000" channel="HalkTV.tr@SD">
-    <title>Neden Sonuç</title>
+  <programme start="20261120160000 +0000" stop="20261120173000 +0000" channel="HaberturkTV.tr@SD">
+    <title>Ana Haber Bülteni</title>
     <category lang="sq">Program Informues</category>
-    <icon src="https://vimg.ipko.tv/mtcms/ff/e/e/ffee74dc-2664-43f1-a495-b045184a0d8c.jpg" />
+    <icon src="https://vimg.ipko.tv/mtcms/86/d/9/86d9e528-6bbc-41e0-9f76-6595fc7b9bb8.jpg" />
   </programme>
   <programme start="20261118100000 +0000" stop="20261118120000 +0000" channel="HalkTV.tr@SD">
     <title>Haber Masası</title>
@@ -5551,14 +5604,10 @@
     <category lang="sq">Program Informues</category>
     <icon src="https://vimg.ipko.tv/mtcms/c6/e/e/c6ee8094-dc8e-4c4f-90dd-9b0fea14ecf6.jpg" />
   </programme>
-  <programme start="20261118093000 +0000" stop="20261118100000 +0000" channel="TRTArabi.tr@SD">
-    <title>Tafaul</title>
-  </programme>
-  <programme start="20261118100000 +0000" stop="20261118105000 +0000" channel="TRTArabi.tr@SD">
-    <title>News</title>
-  </programme>
-  <programme start="20261118105000 +0000" stop="20261118110000 +0000" channel="TRTArabi.tr@SD">
-    <title>Doc - Melaffat</title>
+  <programme start="20261120170000 +0000" stop="20261120220000 +0000" channel="HalkTV.tr@SD">
+    <title>Rota</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/61/5/4/6154b600-8249-4e6d-9d08-e9398512d7a6.jpg" />
   </programme>
   <programme start="20261118110000 +0000" stop="20261118113000 +0000" channel="TRTArabi.tr@SD">
     <title>News</title>
@@ -5851,14 +5900,14 @@
   <programme start="20261120153000 +0000" stop="20261120160000 +0000" channel="TRTArabi.tr@SD">
     <title>Fil Iqtisad</title>
   </programme>
-  <programme start="20261118093000 +0000" stop="20261118100000 +0000" channel="TRTWorld.tr@SD">
-    <title>Strait Talk</title>
+  <programme start="20261120160000 +0000" stop="20261120163000 +0000" channel="TRTArabi.tr@SD">
+    <title>Al Malab</title>
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118103000 +0000" channel="TRTWorld.tr@SD">
-    <title>News</title>
+  <programme start="20261120163000 +0000" stop="20261120170000 +0000" channel="TRTArabi.tr@SD">
+    <title>Tafaul</title>
   </programme>
-  <programme start="20261118103000 +0000" stop="20261118110000 +0000" channel="TRTWorld.tr@SD">
-    <title>Business News</title>
+  <programme start="20261120170000 +0000" stop="20261120173000 +0000" channel="TRTArabi.tr@SD">
+    <title>Wa Lana Waqfa</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118113000 +0000" channel="TRTWorld.tr@SD">
     <title>News</title>
@@ -6172,11 +6221,11 @@
   <programme start="20261120153000 +0000" stop="20261120160000 +0000" channel="TRTWorld.tr@SD">
     <title>The Newsmakers</title>
   </programme>
-  <programme start="20261118090000 +0000" stop="20261118100000 +0000" channel="TurkHaberTV.tr@SD">
-    <title>Haber Bülteni</title>
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="TRTWorld.tr@SD">
+    <title>Newshour</title>
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118110000 +0000" channel="TurkHaberTV.tr@SD">
-    <title>Haber Bülteni</title>
+  <programme start="20261120170000 +0000" stop="20261120173000 +0000" channel="TRTWorld.tr@SD">
+    <title>News - London</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118113000 +0000" channel="TurkHaberTV.tr@SD">
     <title>Belgesel Spor</title>
@@ -6325,10 +6374,11 @@
   <programme start="20261120150000 +0000" stop="20261120160000 +0000" channel="TurkHaberTV.tr@SD">
     <title>Haber Bülteni</title>
   </programme>
-  <programme start="20261118091500 +0000" stop="20261118110000 +0000" channel="DreamTurk.tr@SD">
-    <title>Dream Türk En İyiler</title>
-    <category lang="sq">Të Tjera</category>
-    <icon src="https://vimg.ipko.tv/mtcms/ae/9/2/ae926fb8-b73e-4940-a05a-0ddef149bd9b.jpg" />
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="TurkHaberTV.tr@SD">
+    <title>Ana Haber Bülteni</title>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120190000 +0000" channel="TurkHaberTV.tr@SD">
+    <title>Yakın Gündem</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118120000 +0000" channel="DreamTurk.tr@SD">
     <title>Deşarj</title>
@@ -6462,17 +6512,22 @@
     <category lang="sq">Të Tjera</category>
     <icon src="https://vimg.ipko.tv/mtcms/ae/9/2/ae926fb8-b73e-4940-a05a-0ddef149bd9b.jpg" />
   </programme>
-  <programme start="20261118093000 +0000" stop="20261118100000 +0000" channel="TRTMuzik.tr@SD">
-    <title>Hey Gidi Günler</title>
+  <programme start="20261120160000 +0000" stop="20261120163000 +0000" channel="DreamTurk.tr@SD">
+    <title>DREAM 10</title>
     <category lang="sq">Muzikë</category>
     <category lang="sq">Muzike</category>
-    <icon src="https://vimg.ipko.tv/mtcms/e0/8/c/e08c2062-3e6d-466a-a351-72729321efe8.jpg" />
+    <icon src="https://vimg.ipko.tv/mtcms/66/3/7/6637ef50-6d83-4dfe-9d5c-33d812013cd4.jpg" />
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118110000 +0000" channel="TRTMuzik.tr@SD">
-    <title>Züleyha ile Sınırsız Ezgiler</title>
+  <programme start="20261120163000 +0000" stop="20261120170000 +0000" channel="DreamTurk.tr@SD">
+    <title>Stil-Hits</title>
     <category lang="sq">Muzikë</category>
     <category lang="sq">Muzike</category>
-    <icon src="https://vimg.ipko.tv/mtcms/ec/c/6/ecc6794b-c4cf-4041-9605-e361ff52d7f6.jpg" />
+    <icon src="https://vimg.ipko.tv/mtcms/18/0/e/180ecf26-24a0-4bd1-b95c-e76c9132f5b7.jpg" />
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120190000 +0000" channel="DreamTurk.tr@SD">
+    <title>Dream Türk En İyiler</title>
+    <category lang="sq">Të Tjera</category>
+    <icon src="https://vimg.ipko.tv/mtcms/ae/9/2/ae926fb8-b73e-4940-a05a-0ddef149bd9b.jpg" />
   </programme>
   <programme start="20261118110000 +0000" stop="20261118120000 +0000" channel="TRTMuzik.tr@SD">
     <title>Bitmeyen Beste</title>
@@ -6865,33 +6920,215 @@
     <category lang="sq">Muzike</category>
     <icon src="https://vimg.ipko.tv/mtcms/5a/3/a/5a3a0b75-dfb9-4800-948b-310728ee55eb.jpg" />
   </programme>
-  <programme start="20261118093000 +0000" stop="20261118095800 +0000" channel="TRT2.tr@SD">
-    <title>Tanışma Hikayesi</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261120161500 +0000" stop="20261120164500 +0000" channel="TRTMuzik.tr@SD">
+    <title>Muhammed Yıldırır İle Virtüozite</title>
+    <category lang="sq">Muzikë</category>
+    <category lang="sq">Muzike</category>
+    <icon src="https://vimg.ipko.tv/mtcms/84/4/3/84433e9a-9f1b-44a2-94dd-0bdc5bfbf64b.jpg" />
   </programme>
-  <programme start="20261118095800 +0000" stop="20261118100000 +0000" channel="TRT2.tr@SD">
+  <programme start="20261120164500 +0000" stop="20261120170000 +0000" channel="TRTMuzik.tr@SD">
+    <title>Sazlar Söylüyor</title>
+    <category lang="sq">Muzikë</category>
+    <category lang="sq">Serial</category>
+    <icon src="https://vimg.ipko.tv/mtcms/0d/1/a/0d1a9cb0-8764-4025-a8b3-c52a0633c1e7.jpg" />
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120180000 +0000" channel="TRTMuzik.tr@SD">
+    <title>Aşk Özünden</title>
+    <category lang="sq">Muzikë</category>
+    <category lang="sq">Muzike</category>
+    <icon src="https://vimg.ipko.tv/mtcms/4b/e/d/4bed7747-4a3f-41d7-891e-9f9bb9f5df82.jpg" />
+  </programme>
+  <programme start="20261118110500 +0000" stop="20261118143000 +0000" channel="TRT1.tr@SD">
+    <title>Apartamenti i pafajësisë</title>
+    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2020</date>
+    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
+  </programme>
+  <programme start="20261118160000 +0000" stop="20261118165500 +0000" channel="TRT1.tr@SD">
+    <title>Ana Haber</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/7d/7/a/7d7a8de4-1f86-4e96-8ff3-599ccebc41b7.jpg" />
+    <new />
+  </programme>
+  <programme start="20261118165500 +0000" stop="20261118170000 +0000" channel="TRT1.tr@SD">
+    <title>İddiaların Aksine</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/ef/6/5/ef652b95-a34d-4007-bc4e-d28002484fc4.jpg" />
+  </programme>
+  <programme start="20261118170000 +0000" stop="20261118191000 +0000" channel="TRT1.tr@SD">
+    <title>Gjahtari: Lufta e Dimrit</title>
+    <desc>Ndërkohë që lufta midis dy motrave mbretëresha Ravena dhe Freja arrin kulmin, gjahtari Erik dhe luftëtarja Sara, të rritur për të qenë mbrojtës të Frejës, bëjnë të pamundurën të fshehin dashurinë e tyre, ndërkohë që luftojnë të keqen.</desc>
+    <category lang="sq">Aksion</category>
+    <category lang="sq">Film</category>
+    <date>2016</date>
+    <icon src="https://vimg.ipko.tv/mtcms/b4/9/e/b49ef74a-9e83-46d3-a476-cd8f8a6629d8.jpg" />
+  </programme>
+  <programme start="20261118191000 +0000" stop="20261118211000 +0000" channel="TRT1.tr@SD">
+    <title>Mumja</title>
+    <desc>Një princeshë egjiptiane e lashtë, zgjohet nga varri i saj në shkretëtirë dhe lëshon mbi tokë ligësinë e mbledhur për mijëra vite e terrore që nuk mund të imagjinohen.</desc>
+    <category lang="sq">Fantazi</category>
+    <category lang="sq">Film</category>
+    <date>2017</date>
+    <icon src="https://vimg.ipko.tv/mtcms/9c/4/4/9c440661-4b45-40ab-b793-a63f96127d59.png" />
+  </programme>
+  <programme start="20261118211000 +0000" stop="20261118235500 +0000" channel="TRT1.tr@SD">
+    <title>The Shadow Team</title>
+    <category lang="sq">Aksion</category>
+    <category lang="sq">Serial</category>
+    <date>2021</date>
+    <icon src="https://vimg.ipko.tv/mtcms/e1/2/e/e12ece4f-43b0-4b01-91a9-2beff17a5f8e.jpg" />
+  </programme>
+  <programme start="20261118235500 +0000" stop="20261119024300 +0000" channel="TRT1.tr@SD">
+    <title>Apartamenti i pafajësisë</title>
+    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2020</date>
+    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
+  </programme>
+  <programme start="20261119024300 +0000" stop="20261119024500 +0000" channel="TRT1.tr@SD">
     <title>İstiklal Marşı</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+    <icon src="https://vimg.ipko.tv/mtcms/ca/a/3/caa39fba-af6f-409a-b2a6-9efab327bd99.jpg" />
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118104500 +0000" channel="TRT2.tr@SD">
-    <title>Edebiyat Dünyası</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261119043000 +0000" stop="20261119073000 +0000" channel="TRT1.tr@SD">
+    <title>Kalk gidelim</title>
+    <category lang="sq">Humoristik</category>
+    <category lang="sq">Serial</category>
+    <date>2017</date>
+    <icon src="https://vimg.ipko.tv/mtcms/91/6/6/91664f58-861a-41b1-aa81-8363ef8034eb.jpg" />
   </programme>
-  <programme start="20261118104500 +0000" stop="20261118110000 +0000" channel="TRT2.tr@SD">
-    <title>Fotoğraflar</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261119073000 +0000" stop="20261119101500 +0000" channel="TRT1.tr@SD">
+    <title>Alişan İle Hayata Gülümse</title>
+    <category lang="sq">Emision Debatues</category>
+    <category lang="sq">Të Tjera</category>
+    <icon src="https://vimg.ipko.tv/mtcms/2a/7/c/2a7cc41d-a848-4d49-b3a1-4496da10df36.jpg" />
+    <new />
+  </programme>
+  <programme start="20261119101500 +0000" stop="20261119111500 +0000" channel="TRT1.tr@SD">
+    <title>Seksenler</title>
+    <category lang="sq">Humoristik</category>
+    <category lang="sq">Serial</category>
+    <date>2012</date>
+    <icon src="https://vimg.ipko.tv/mtcms/13/0/9/1309d55e-f622-48c6-9dad-811db3f5b918.jpg" />
+  </programme>
+  <programme start="20261119111500 +0000" stop="20261119143000 +0000" channel="TRT1.tr@SD">
+    <title>Apartamenti i pafajësisë</title>
+    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2020</date>
+    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
+  </programme>
+  <programme start="20261119160000 +0000" stop="20261119165500 +0000" channel="TRT1.tr@SD">
+    <title>Ana Haber</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/7d/7/a/7d7a8de4-1f86-4e96-8ff3-599ccebc41b7.jpg" />
+    <new />
+  </programme>
+  <programme start="20261119165500 +0000" stop="20261119170000 +0000" channel="TRT1.tr@SD">
+    <title>İddiaların Aksine</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/ef/6/5/ef652b95-a34d-4007-bc4e-d28002484fc4.jpg" />
+  </programme>
+  <programme start="20261119170000 +0000" stop="20261119204000 +0000" channel="TRT1.tr@SD">
+    <title>Zoti i unazave: Dy kullat</title>
+    <desc>Në kapitullin e dytë të trilogjisë shoqëria është përçarë, por përpiqet të përballet me forcat e Sauronit, ndërkohë Frodo dhe Semi, vazhdojnë misionin për të shkatërruar ’Unazën’...</desc>
+    <category lang="sq">Fantazi</category>
+    <category lang="sq">Film</category>
+    <date>2002</date>
+    <icon src="https://vimg.ipko.tv/mtcms/94/e/1/94e15163-a1e8-42ce-8bf2-50ef903c42e4.jpg" />
+  </programme>
+  <programme start="20261119204000 +0000" stop="20261119224500 +0000" channel="TRT1.tr@SD">
+    <title>Kamzhiku: Në kërkim të përsosmërisë</title>
+    <desc>Një muzikant i ri me talent, regjistrohet në një konservator me shumë konkurencë ku udhëhiqet nga një instruktor i gatshëm të bëjë gjithçka për të arritur potencialin e studentit. Fitues i tre çmimeve Oskar.</desc>
+    <category lang="sq">Muzikë</category>
+    <category lang="sq">Film</category>
+    <date>2014</date>
+    <icon src="https://vimg.ipko.tv/mtcms/26/8/6/268653d8-5392-4565-96e4-3fc67b719f72.jpg" />
+  </programme>
+  <programme start="20261119224500 +0000" stop="20261120010000 +0000" channel="TRT1.tr@SD">
+    <title>Deep in Love</title>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2025</date>
+    <icon src="https://vimg.ipko.tv/mtcms/24/6/0/246019c5-5d1b-4b4c-b372-c6dcbcadb49c.jpg" />
+  </programme>
+  <programme start="20261120010000 +0000" stop="20261120014000 +0000" channel="TRT1.tr@SD">
+    <title>Seksenler</title>
+    <category lang="sq">Humoristik</category>
+    <category lang="sq">Serial</category>
+    <date>2012</date>
+    <icon src="https://vimg.ipko.tv/mtcms/13/0/9/1309d55e-f622-48c6-9dad-811db3f5b918.jpg" />
+  </programme>
+  <programme start="20261120014000 +0000" stop="20261120024300 +0000" channel="TRT1.tr@SD">
+    <title>Lingo Türkiye</title>
+    <category lang="sq">Game Show</category>
+    <category lang="sq">Serial</category>
+    <icon src="https://vimg.ipko.tv/mtcms/4a/5/8/4a58d5fa-0e5c-4b20-9395-ad144d68b1c4.jpg" />
+  </programme>
+  <programme start="20261120024300 +0000" stop="20261120024500 +0000" channel="TRT1.tr@SD">
+    <title>İstiklal Marşı</title>
+    <icon src="https://vimg.ipko.tv/mtcms/ca/a/3/caa39fba-af6f-409a-b2a6-9efab327bd99.jpg" />
+  </programme>
+  <programme start="20261120024500 +0000" stop="20261120033000 +0000" channel="TRT1.tr@SD">
+    <title>Hayallerinin Peşinde</title>
+    <category lang="sq">Program Dokumentar</category>
+    <icon src="https://vimg.ipko.tv/mtcms/20/4/7/2047a55b-1d31-4315-992c-b26343ac55d2.jpg" />
+  </programme>
+  <programme start="20261120033000 +0000" stop="20261120043000 +0000" channel="TRT1.tr@SD">
+    <title>Turgay Başyayla İle Lezzetli Tavsiye</title>
+    <category lang="sq">Emision Gatimi</category>
+    <category lang="sq">Program Dokumentar</category>
+    <icon src="https://vimg.ipko.tv/mtcms/d4/2/8/d42877db-74fe-466e-896c-514150e1d4c1.jpg" />
+  </programme>
+  <programme start="20261120043000 +0000" stop="20261120073000 +0000" channel="TRT1.tr@SD">
+    <title>Kalk gidelim</title>
+    <category lang="sq">Humoristik</category>
+    <category lang="sq">Serial</category>
+    <date>2017</date>
+    <icon src="https://vimg.ipko.tv/mtcms/91/6/6/91664f58-861a-41b1-aa81-8363ef8034eb.jpg" />
+  </programme>
+  <programme start="20261120073000 +0000" stop="20261120101500 +0000" channel="TRT1.tr@SD">
+    <title>Alişan İle Hayata Gülümse</title>
+    <category lang="sq">Emision Debatues</category>
+    <category lang="sq">Të Tjera</category>
+    <icon src="https://vimg.ipko.tv/mtcms/2a/7/c/2a7cc41d-a848-4d49-b3a1-4496da10df36.jpg" />
+    <new />
+  </programme>
+  <programme start="20261120101500 +0000" stop="20261120111500 +0000" channel="TRT1.tr@SD">
+    <title>Seksenler</title>
+    <category lang="sq">Humoristik</category>
+    <category lang="sq">Serial</category>
+    <date>2012</date>
+    <icon src="https://vimg.ipko.tv/mtcms/13/0/9/1309d55e-f622-48c6-9dad-811db3f5b918.jpg" />
+  </programme>
+  <programme start="20261120111500 +0000" stop="20261120143000 +0000" channel="TRT1.tr@SD">
+    <title>Apartamenti i pafajësisë</title>
+    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2020</date>
+    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
+  </programme>
+  <programme start="20261120160000 +0000" stop="20261120165500 +0000" channel="TRT1.tr@SD">
+    <title>Ana Haber</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/7d/7/a/7d7a8de4-1f86-4e96-8ff3-599ccebc41b7.jpg" />
+    <new />
+  </programme>
+  <programme start="20261120165500 +0000" stop="20261120170000 +0000" channel="TRT1.tr@SD">
+    <title>İddiaların Aksine</title>
+    <category lang="sq">Program Informues</category>
+    <icon src="https://vimg.ipko.tv/mtcms/ef/6/5/ef652b95-a34d-4007-bc4e-d28002484fc4.jpg" />
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120211500 +0000" channel="TRT1.tr@SD">
+    <title>Deep in Love</title>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2025</date>
+    <icon src="https://vimg.ipko.tv/mtcms/24/6/0/246019c5-5d1b-4b4c-b372-c6dcbcadb49c.jpg" />
   </programme>
   <programme start="20261118110000 +0000" stop="20261118113000 +0000" channel="TRT2.tr@SD">
     <title>Müzikli Portreler</title>
@@ -7516,16 +7753,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261118094000 +0000" stop="20261118101500 +0000" channel="TRTBelgesel.tr">
-    <title>Aventura e Ushqimit</title>
-    <category lang="sq">Emision Gatimi</category>
-    <category lang="sq">Program Dokumentar</category>
-    <icon src="https://vimg.ipko.tv/mtcms/77/4/8/7748cabd-9f4a-4e6c-87c9-c790ccdf3061.jpg" />
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="TRT2.tr@SD">
+    <title>Sinema +</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118101500 +0000" stop="20261118105500 +0000" channel="TRTBelgesel.tr">
-    <title>Macera Planı: 4X4 Yolculuklar</title>
-    <category lang="sq">Program Dokumentar</category>
-    <icon src="https://vimg.ipko.tv/mtcms/7d/8/5/7d859f4d-f35e-46b0-a045-5abe7b606954.jpg" />
+  <programme start="20261120170000 +0000" stop="20261120173000 +0000" channel="TRT2.tr@SD">
+    <title>İki Renk Yek Ahenk</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261118105500 +0000" stop="20261118115000 +0000" channel="TRTBelgesel.tr">
     <title>Secrets of the Enchanted Forests</title>
@@ -7950,19 +8190,17 @@
     <category lang="sq">Program Dokumentar</category>
     <icon src="https://vimg.ipko.tv/mtcms/10/5/9/1059df22-f3ac-4e60-b561-180993a324fb.jpg" />
   </programme>
-  <programme start="20261118070000 +0000" stop="20261118100000 +0000" channel="TRTHaber.tr@SD">
-    <title>Satır Başı</title>
-    <new />
+  <programme start="20261120161000 +0000" stop="20261120170000 +0000" channel="TRTBelgesel.tr">
+    <title>Ulak</title>
+    <category lang="sq">Dokumentar</category>
+    <category lang="sq">Program Dokumentar</category>
+    <date>2019</date>
+    <icon src="https://vimg.ipko.tv/mtcms/c7/2/0/c720e2e9-e22f-451b-afaa-d41954664527.jpg" />
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118105000 +0000" channel="TRTHaber.tr@SD">
-    <title>Öğle Ana Haber</title>
-    <new />
-  </programme>
-  <programme start="20261118105000 +0000" stop="20261118105500 +0000" channel="TRTHaber.tr@SD">
-    <title>Piyasa Raporu</title>
-  </programme>
-  <programme start="20261118105500 +0000" stop="20261118110000 +0000" channel="TRTHaber.tr@SD">
-    <title>Hava Durumu</title>
+  <programme start="20261120170000 +0000" stop="20261120173500 +0000" channel="TRTBelgesel.tr">
+    <title>Sıfır Atık</title>
+    <category lang="sq">Program Dokumentar</category>
+    <icon src="https://vimg.ipko.tv/mtcms/6d/c/c/6dcc108d-2087-452a-a157-9a44a60e7601.jpg" />
   </programme>
   <programme start="20261118110000 +0000" stop="20261118120000 +0000" channel="TRTHaber.tr@SD">
     <title>Öğle Ana Haber</title>
@@ -8145,14 +8383,16 @@
     <title>Günün İçinden</title>
     <new />
   </programme>
-  <programme start="20261118084500 +0000" stop="20261118094500 +0000" channel="TRTKurdi.tr@SD">
-    <title>Seyran (Seyran)</title>
+  <programme start="20261120155500 +0000" stop="20261120160000 +0000" channel="TRTHaber.tr@SD">
+    <title>Piyasa Raporu</title>
   </programme>
-  <programme start="20261118094500 +0000" stop="20261118102500 +0000" channel="TRTKurdi.tr@SD">
-    <title>Kadim Gelenekler (Çandıyar)</title>
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="TRTHaber.tr@SD">
+    <title>Sıcak Haber</title>
+    <new />
   </programme>
-  <programme start="20261118102500 +0000" stop="20261118110000 +0000" channel="TRTKurdi.tr@SD">
-    <title>Tarih ve Mekan (War Û Dîrok)</title>
+  <programme start="20261120170000 +0000" stop="20261120174500 +0000" channel="TRTHaber.tr@SD">
+    <title>Ana Haber 20</title>
+    <new />
   </programme>
   <programme start="20261118110000 +0000" stop="20261118120000 +0000" channel="TRTKurdi.tr@SD">
     <title>Sağlık Olsun (Derman)</title>
@@ -8322,17 +8562,11 @@
   <programme start="20261120150000 +0000" stop="20261120160000 +0000" channel="TRTKurdi.tr@SD">
     <title>Kadın Gözüyle Yaşam (Meclısa Jînan)</title>
   </programme>
-  <programme start="20261118091000 +0000" stop="20261118100000 +0000" channel="TRTTurk.tr@SD">
-    <title>Gönlümdeki Köln</title>
-    <category lang="sq">Humoristik</category>
-    <category lang="sq">Serial</category>
-    <icon src="https://vimg.ipko.tv/mtcms/e7/e/4/e7e418cf-d200-4db0-8896-9aeec2d4ecb7.jpg" />
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="TRTKurdi.tr@SD">
+    <title>Ana Haber (Nûçeyên Sereke)</title>
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118110000 +0000" channel="TRTTurk.tr@SD">
-    <title>İyi Bak Kendine</title>
-    <category lang="sq">Shëndeti</category>
-    <category lang="sq">Program Dokumentar</category>
-    <icon src="https://vimg.ipko.tv/mtcms/3e/c/e/3ece77cf-6e6c-4e2e-8a32-400e9626ceb4.jpg" />
+  <programme start="20261120170000 +0000" stop="20261120180000 +0000" channel="TRTKurdi.tr@SD">
+    <title>Hay Sultan (Hay Sultan)</title>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118115000 +0000" channel="TRTTurk.tr@SD">
     <title>Öğle Ana Haber</title>
@@ -8760,200 +8994,16 @@
     <category lang="sq">Program Informues</category>
     <icon src="https://vimg.ipko.tv/mtcms/57/e/2/57e2d68e-451f-49a7-a8bb-fcb0c5066b3e.jpg" />
   </programme>
-  <programme start="20261118082500 +0000" stop="20261118102000 +0000" channel="TRT1.tr@SD">
-    <title>Masumlar Apartmanı</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118102000 +0000" stop="20261118110500 +0000" channel="TRT1.tr@SD">
-    <title>Hayallerinin Peşinde</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118110500 +0000" stop="20261118143000 +0000" channel="TRT1.tr@SD">
-    <title>Apartamenti i pafajësisë</title>
-    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
-    <category lang="sq">Dramë</category>
+  <programme start="20261120154500 +0000" stop="20261120160000 +0000" channel="TRTTurk.tr@SD">
+    <title>Mikrofon Senin</title>
+    <category lang="sq">Reportazh</category>
     <category lang="sq">Serial</category>
-    <date>2020</date>
-    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
+    <icon src="https://vimg.ipko.tv/mtcms/10/d/f/10df6bb8-2df8-445f-befe-d0e0673ac16b.jpg" />
   </programme>
-  <programme start="20261118160000 +0000" stop="20261118165500 +0000" channel="TRT1.tr@SD">
-    <title>Ana Haber</title>
-    <category lang="sq">Program Informues</category>
-    <icon src="https://vimg.ipko.tv/mtcms/7d/7/a/7d7a8de4-1f86-4e96-8ff3-599ccebc41b7.jpg" />
-    <new />
-  </programme>
-  <programme start="20261118165500 +0000" stop="20261118170000 +0000" channel="TRT1.tr@SD">
-    <title>İddiaların Aksine</title>
-    <category lang="sq">Program Informues</category>
-    <icon src="https://vimg.ipko.tv/mtcms/ef/6/5/ef652b95-a34d-4007-bc4e-d28002484fc4.jpg" />
-  </programme>
-  <programme start="20261118170000 +0000" stop="20261118191000 +0000" channel="TRT1.tr@SD">
-    <title>Gjahtari: Lufta e Dimrit</title>
-    <desc>Ndërkohë që lufta midis dy motrave mbretëresha Ravena dhe Freja arrin kulmin, gjahtari Erik dhe luftëtarja Sara, të rritur për të qenë mbrojtës të Frejës, bëjnë të pamundurën të fshehin dashurinë e tyre, ndërkohë që luftojnë të keqen.</desc>
-    <category lang="sq">Aksion</category>
-    <category lang="sq">Film</category>
-    <date>2016</date>
-    <icon src="https://vimg.ipko.tv/mtcms/b4/9/e/b49ef74a-9e83-46d3-a476-cd8f8a6629d8.jpg" />
-  </programme>
-  <programme start="20261118191000 +0000" stop="20261118211000 +0000" channel="TRT1.tr@SD">
-    <title>Mumja</title>
-    <desc>Një princeshë egjiptiane e lashtë, zgjohet nga varri i saj në shkretëtirë dhe lëshon mbi tokë ligësinë e mbledhur për mijëra vite e terrore që nuk mund të imagjinohen.</desc>
-    <category lang="sq">Fantazi</category>
-    <category lang="sq">Film</category>
-    <date>2017</date>
-    <icon src="https://vimg.ipko.tv/mtcms/9c/4/4/9c440661-4b45-40ab-b793-a63f96127d59.png" />
-  </programme>
-  <programme start="20261118211000 +0000" stop="20261118235500 +0000" channel="TRT1.tr@SD">
-    <title>The Shadow Team</title>
-    <category lang="sq">Aksion</category>
-    <category lang="sq">Serial</category>
-    <date>2021</date>
-    <icon src="https://vimg.ipko.tv/mtcms/e1/2/e/e12ece4f-43b0-4b01-91a9-2beff17a5f8e.jpg" />
-  </programme>
-  <programme start="20261118235500 +0000" stop="20261119024300 +0000" channel="TRT1.tr@SD">
-    <title>Apartamenti i pafajësisë</title>
-    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Serial</category>
-    <date>2020</date>
-    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
-  </programme>
-  <programme start="20261119024300 +0000" stop="20261119024500 +0000" channel="TRT1.tr@SD">
-    <title>İstiklal Marşı</title>
-    <icon src="https://vimg.ipko.tv/mtcms/ca/a/3/caa39fba-af6f-409a-b2a6-9efab327bd99.jpg" />
-  </programme>
-  <programme start="20261119043000 +0000" stop="20261119073000 +0000" channel="TRT1.tr@SD">
-    <title>Kalk gidelim</title>
-    <category lang="sq">Humoristik</category>
-    <category lang="sq">Serial</category>
-    <date>2017</date>
-    <icon src="https://vimg.ipko.tv/mtcms/91/6/6/91664f58-861a-41b1-aa81-8363ef8034eb.jpg" />
-  </programme>
-  <programme start="20261119073000 +0000" stop="20261119101500 +0000" channel="TRT1.tr@SD">
-    <title>Alişan İle Hayata Gülümse</title>
-    <category lang="sq">Emision Debatues</category>
-    <category lang="sq">Të Tjera</category>
-    <icon src="https://vimg.ipko.tv/mtcms/2a/7/c/2a7cc41d-a848-4d49-b3a1-4496da10df36.jpg" />
-    <new />
-  </programme>
-  <programme start="20261119101500 +0000" stop="20261119111500 +0000" channel="TRT1.tr@SD">
-    <title>Seksenler</title>
-    <category lang="sq">Humoristik</category>
-    <category lang="sq">Serial</category>
-    <date>2012</date>
-    <icon src="https://vimg.ipko.tv/mtcms/13/0/9/1309d55e-f622-48c6-9dad-811db3f5b918.jpg" />
-  </programme>
-  <programme start="20261119111500 +0000" stop="20261119143000 +0000" channel="TRT1.tr@SD">
-    <title>Apartamenti i pafajësisë</title>
-    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Serial</category>
-    <date>2020</date>
-    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
-  </programme>
-  <programme start="20261119160000 +0000" stop="20261119165500 +0000" channel="TRT1.tr@SD">
-    <title>Ana Haber</title>
-    <category lang="sq">Program Informues</category>
-    <icon src="https://vimg.ipko.tv/mtcms/7d/7/a/7d7a8de4-1f86-4e96-8ff3-599ccebc41b7.jpg" />
-    <new />
-  </programme>
-  <programme start="20261119165500 +0000" stop="20261119170000 +0000" channel="TRT1.tr@SD">
-    <title>İddiaların Aksine</title>
-    <category lang="sq">Program Informues</category>
-    <icon src="https://vimg.ipko.tv/mtcms/ef/6/5/ef652b95-a34d-4007-bc4e-d28002484fc4.jpg" />
-  </programme>
-  <programme start="20261119170000 +0000" stop="20261119204000 +0000" channel="TRT1.tr@SD">
-    <title>Zoti i unazave: Dy kullat</title>
-    <desc>Në kapitullin e dytë të trilogjisë shoqëria është përçarë, por përpiqet të përballet me forcat e Sauronit, ndërkohë Frodo dhe Semi, vazhdojnë misionin për të shkatërruar ’Unazën’...</desc>
-    <category lang="sq">Fantazi</category>
-    <category lang="sq">Film</category>
-    <date>2002</date>
-    <icon src="https://vimg.ipko.tv/mtcms/94/e/1/94e15163-a1e8-42ce-8bf2-50ef903c42e4.jpg" />
-  </programme>
-  <programme start="20261119204000 +0000" stop="20261119224500 +0000" channel="TRT1.tr@SD">
-    <title>Kamzhiku: Në kërkim të përsosmërisë</title>
-    <desc>Një muzikant i ri me talent, regjistrohet në një konservator me shumë konkurencë ku udhëhiqet nga një instruktor i gatshëm të bëjë gjithçka për të arritur potencialin e studentit. Fitues i tre çmimeve Oskar.</desc>
-    <category lang="sq">Muzikë</category>
-    <category lang="sq">Film</category>
-    <date>2014</date>
-    <icon src="https://vimg.ipko.tv/mtcms/26/8/6/268653d8-5392-4565-96e4-3fc67b719f72.jpg" />
-  </programme>
-  <programme start="20261119224500 +0000" stop="20261120010000 +0000" channel="TRT1.tr@SD">
-    <title>Deep in Love</title>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Serial</category>
-    <date>2025</date>
-    <icon src="https://vimg.ipko.tv/mtcms/24/6/0/246019c5-5d1b-4b4c-b372-c6dcbcadb49c.jpg" />
-  </programme>
-  <programme start="20261120010000 +0000" stop="20261120014000 +0000" channel="TRT1.tr@SD">
-    <title>Seksenler</title>
-    <category lang="sq">Humoristik</category>
-    <category lang="sq">Serial</category>
-    <date>2012</date>
-    <icon src="https://vimg.ipko.tv/mtcms/13/0/9/1309d55e-f622-48c6-9dad-811db3f5b918.jpg" />
-  </programme>
-  <programme start="20261120014000 +0000" stop="20261120024300 +0000" channel="TRT1.tr@SD">
-    <title>Lingo Türkiye</title>
-    <category lang="sq">Game Show</category>
-    <category lang="sq">Serial</category>
-    <icon src="https://vimg.ipko.tv/mtcms/4a/5/8/4a58d5fa-0e5c-4b20-9395-ad144d68b1c4.jpg" />
-  </programme>
-  <programme start="20261120024300 +0000" stop="20261120024500 +0000" channel="TRT1.tr@SD">
-    <title>İstiklal Marşı</title>
-    <icon src="https://vimg.ipko.tv/mtcms/ca/a/3/caa39fba-af6f-409a-b2a6-9efab327bd99.jpg" />
-  </programme>
-  <programme start="20261120024500 +0000" stop="20261120033000 +0000" channel="TRT1.tr@SD">
-    <title>Hayallerinin Peşinde</title>
-    <category lang="sq">Program Dokumentar</category>
-    <icon src="https://vimg.ipko.tv/mtcms/20/4/7/2047a55b-1d31-4315-992c-b26343ac55d2.jpg" />
-  </programme>
-  <programme start="20261120033000 +0000" stop="20261120043000 +0000" channel="TRT1.tr@SD">
-    <title>Turgay Başyayla İle Lezzetli Tavsiye</title>
-    <category lang="sq">Emision Gatimi</category>
-    <category lang="sq">Program Dokumentar</category>
-    <icon src="https://vimg.ipko.tv/mtcms/d4/2/8/d42877db-74fe-466e-896c-514150e1d4c1.jpg" />
-  </programme>
-  <programme start="20261120043000 +0000" stop="20261120073000 +0000" channel="TRT1.tr@SD">
-    <title>Kalk gidelim</title>
-    <category lang="sq">Humoristik</category>
-    <category lang="sq">Serial</category>
-    <date>2017</date>
-    <icon src="https://vimg.ipko.tv/mtcms/91/6/6/91664f58-861a-41b1-aa81-8363ef8034eb.jpg" />
-  </programme>
-  <programme start="20261120073000 +0000" stop="20261120101500 +0000" channel="TRT1.tr@SD">
-    <title>Alişan İle Hayata Gülümse</title>
-    <category lang="sq">Emision Debatues</category>
-    <category lang="sq">Të Tjera</category>
-    <icon src="https://vimg.ipko.tv/mtcms/2a/7/c/2a7cc41d-a848-4d49-b3a1-4496da10df36.jpg" />
-    <new />
-  </programme>
-  <programme start="20261120101500 +0000" stop="20261120111500 +0000" channel="TRT1.tr@SD">
-    <title>Seksenler</title>
-    <category lang="sq">Humoristik</category>
-    <category lang="sq">Serial</category>
-    <date>2012</date>
-    <icon src="https://vimg.ipko.tv/mtcms/13/0/9/1309d55e-f622-48c6-9dad-811db3f5b918.jpg" />
-  </programme>
-  <programme start="20261120111500 +0000" stop="20261120143000 +0000" channel="TRT1.tr@SD">
-    <title>Apartamenti i pafajësisë</title>
-    <desc>Han një djalosh i pashëm dhe karizmatik është i mbushur me kujtime të dhimbshme dhe tragjedi brenda familjes. Pas kthimit nga SHBA, ai i kushton jetën babait dhe motrave të cilat vuajnë nga probleme fiziologjike, si pasojë tragjike e traumave të tyre të fëmijërisë dhe historisë familjare. I izoluar nga çdo aktivitet shoqëror rastesisht takon Incin dhe menjëherë bie në dashuri me të. Për herë të parë në jetën e tij, do të kërkojë lumturinë!</desc>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Serial</category>
-    <date>2020</date>
-    <icon src="https://vimg.ipko.tv/mtcms/a4/6/0/a46019f0-8706-4273-b2de-8d5ac6b8803b.jpg" />
-  </programme>
-  <programme start="20261120153000 +0000" stop="20261120183000 +0000" channel="TRT1.tr@SD">
-    <title>Alişan ile Hayata Gülümse</title>
-    <date>20261120</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261120160000 +0000" stop="20261120173000 +0000" channel="TRTTurk.tr@SD">
+    <title>Cleaning Club</title>
+    <category lang="sq">Fëmijë/të Rinj</category>
+    <icon src="https://vimg.ipko.tv/mtcms/da/a/9/daa9e019-cd93-45a3-afc0-53860b3d4fe7.jpg" />
   </programme>
   <programme start="20261118084500 +0000" stop="20261118120000 +0000" channel="Kanal7Avrupa.tr@SD">
     <title>Tekrar</title>
@@ -9122,14 +9172,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261118093500 +0000" stop="20261118102500 +0000" channel="KanalDDrama.tr@SD">
-    <title>S0E7 - Krenari dhe Respekt</title>
-    <desc>Sibeli fillon të largohet nga Emiri. Jiti afrohet me Gylin, për të marrë informata rreth Nihatit. Kybra fillon të bjerë në grackën e Jitit, duke menduar se ai e pëlqen. Jiti fillon ”biznesin” e tij, atë të grabitjes së mallrave nëpër kamionë. Sibeli heq dorë nga Emiri dhe vendos t’i japë një mundësi Borës.</desc>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Serial</category>
-    <date>2014</date>
-    <icon src="https://vimg.ipko.tv/mtcms/b9/5/d/b95da51d-e342-43b9-8aec-b4778ac8f1cd.jpg" />
   </programme>
   <programme start="20261118102500 +0000" stop="20261118112000 +0000" channel="KanalDDrama.tr@SD">
     <title>S0E41 - Dashuri Bardhezi</title>
@@ -9667,17 +9709,25 @@
     <date>2015</date>
     <icon src="https://vimg.ipko.tv/mtcms/73/5/d/735ddf5f-0e0d-4b42-be1d-6e84e46d701b.jpg" />
   </programme>
-  <programme start="20261118081500 +0000" stop="20261118103000 +0000" channel="NOW.tr@SD">
-    <title>大風殺</title>
-    <desc>挑戰1996全民禁槍話題, 引爆最癲最火最喪犯罪風暴!禁槍政策實施的前一年, 藏匿巨額寶藏的悍匪頭目越獄出逃, 帶領一眾匪徒武裝佔領了廢棄小鎮忙崖!趁巨型沙塵暴肆虐, 他們封鎖全鎮, 斷油斷訊, 救兵無門, 居民無路可逃!鎮內僅餘的3位民警, 面對兇徒屠殺平民, 誓死血戰守護家園。匪徒內鬨, 分贓不均, 上演狗咬狗的困獸之鬥。1支手槍3個兵, 如何將44個悍匪就地正法?</desc>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261120160500 +0000" stop="20261120165000 +0000" channel="KanalDDrama.tr@SD">
+    <title>S0E70 - Rënia e Gjetheve</title>
+    <desc>Fikreti takohet me Tahsinin dhe ia bën të qartë kushtin e saj për një martesë të mundshme. Nexhla dhe Oguzi vijojnë përgatitjet e largimit, por një rastësi i ngjall dyshime Xhemit. Ndërsa Jamani mbledh prova kundër Oguzit, Sedefi i kërkon Shevketit t’i qëndrojë pranë së motrës para se të jetë tepër vonë.</desc>
+    <category lang="sq">Dramë</category>
+    <category lang="sq">Serial</category>
+    <date>2006</date>
+    <icon src="https://vimg.ipko.tv/mtcms/b5/4/3/b543257f-583c-4d85-b13e-64324a487c5f.jpg" />
   </programme>
-  <programme start="20261118103000 +0000" stop="20261118120000 +0000" channel="NOW.tr@SD">
-    <title>惡行之外</title>
-    <desc>某個雨夜, 香港刑偵警察樂一言的獨生女樂嘉琪被發現伏屍郊外。 警方根據線索, 把犯罪嫌疑人鎖定在邱俊文身上。但在調查期間又接連發生幾起少女被殺案件, 受害人與樂嘉琪有着一樣的腿部特徵, 警方開始朝着連環殺人案的方向調查。 樂一言因與死者的關係,開始獨自調查一切。樂一言意外遇見弱智少女叮噹, 從其身上發現女兒死亡的線索。 與此同時, 呂議員的女兒呂希蓉險些遇害, 九死一生由嫌犯身邊逃脫, 結合呂希蓉提供的線索, 樂一言根據目前的線索順藤摸瓜, 把兇手鎖定為邱俊文的父親宋境南。而宋境南亦因某些原因找上叮噹, 並試圖殺害叮噹。 樂一言及時出現救下叮噹, 宋境南暫時逃脫。 樂一言闖入邱俊文家中, 不料再次遇上宋境南與其扭打在一起。 樂一言與警察相互配合, 把邱家一家三口堵到天台上, 宋境南才說出實情。原來樂一言的女兒目睹邱俊文與叮噹的違法交易, 被邱俊文殺害。 宋境南為了幫兒子脫罪, 把此案件偽裝</desc>
+  <programme start="20261120165000 +0000" stop="20261120174000 +0000" channel="KanalDDrama.tr@SD">
+    <title>S0E6 - Loja e Fatit</title>
+    <desc>Darka e biznesit merr një kthesë të pakëndshme dhe Bora e fajëson Adën për humbjen e marrëveshjes. Ai vendos ta largojë nga puna, ndërsa Tuçe përpiqet të shfrytëzojë vështirësitë financiare për t’iu afruar. Ndërkohë, një keqkuptim e bind Asllanin se Bora është i martuar dhe ka një fëmijë.</desc>
+    <category lang="sq">Humoristik</category>
+    <category lang="sq">Serial</category>
+    <date>2021</date>
+    <icon src="https://vimg.ipko.tv/mtcms/c8/c/5/c8c5e42e-e761-4209-9710-a016355aefcd.jpg" />
+  </programme>
+  <programme start="20261118093000 +0000" stop="20261118120000 +0000" channel="NOW.tr@SD">
+    <title>時事全方位</title>
+    <desc>主持與學者、官員、議員及不同立場人士就具爭議性的話題及政府政策, 深入討論, 剖析背景, 讓觀眾可以更加深入了解事件。</desc>
     <date>20261118</date>
     <audio>
       <stereo>stereo</stereo>
@@ -10331,14 +10381,45 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261118090000 +0000" stop="20261118102000 +0000" channel="DiyanetTV.tr@SD">
-    <title>Mavera</title>
+  <programme start="20261120160000 +0000" stop="20261120162000 +0000" channel="NOW.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118102000 +0000" stop="20261118103000 +0000" channel="DiyanetTV.tr@SD">
-    <title>Yeryüzü İncileri</title>
+  <programme start="20261120162000 +0000" stop="20261120163000 +0000" channel="NOW.tr@SD">
+    <title>國際兩岸評論</title>
+    <desc>世界局勢風雲變幻, 兩岸四地互動頻繁, 每個動作息息相關。「國際兩岸評論」, 有不同專家由淺入深, 助你掌握發展脈絡, 解構大趨勢, 洞察新領域。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118103000 +0000" stop="20261118110000 +0000" channel="DiyanetTV.tr@SD">
-    <title>Riyazüs Salihin Okumaları</title>
+  <programme start="20261120163000 +0000" stop="20261120165000 +0000" channel="NOW.tr@SD">
+    <title>Now新聞報道</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261120165000 +0000" stop="20261120170000 +0000" channel="NOW.tr@SD">
+    <title>國際兩岸評論</title>
+    <desc>世界局勢風雲變幻, 兩岸四地互動頻繁, 每個動作息息相關。「國際兩岸評論」, 有不同專家由淺入深, 助你掌握發展脈絡, 解構大趨勢, 洞察新領域。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120172500 +0000" channel="NOW.tr@SD">
+    <title>Now新聞報道[直播]</title>
+    <desc>即日頭條、突發新聞、政壇動態、國際時局, 本地社會民生新聞, 專業主播同前線記者為你詳盡報道。</desc>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261118110000 +0000" stop="20261118114500 +0000" channel="DiyanetTV.tr@SD">
     <title>Burhan İşliyen İle Hacı Bayram Kürsüsünden</title>
@@ -10499,55 +10580,6 @@
   </programme>
   <programme start="20261119200000 +0000" stop="20261119210000 +0000" channel="DiyanetTV.tr@SD">
     <title>Yunus Emre Aşkın Yolculuğu</title>
-  </programme>
-  <programme start="20261118094000 +0000" stop="20261118095000 +0000" channel="MinikaGo.tr@SD">
-    <title>Neşeli Dünyam</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118095000 +0000" stop="20261118100000 +0000" channel="MinikaGo.tr@SD">
-    <title>Neşeli Dünyam</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118100000 +0000" stop="20261118101000 +0000" channel="MinikaGo.tr@SD">
-    <title>Hızlı Ayaklar</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118101000 +0000" stop="20261118102000 +0000" channel="MinikaGo.tr@SD">
-    <title>Hızlı Ayaklar</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118102000 +0000" stop="20261118103000 +0000" channel="MinikaGo.tr@SD">
-    <title>Hızlı Ayaklar</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118103000 +0000" stop="20261118110000 +0000" channel="MinikaGo.tr@SD">
-    <title>Akıncı</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261118110000 +0000" stop="20261118111500 +0000" channel="MinikaGo.tr@SD">
-    <title>3 Musketeers</title>
-    <date>20261118</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261118111500 +0000" stop="20261118113000 +0000" channel="MinikaGo.tr@SD">
     <title>3 Musketeers</title>
@@ -12411,40 +12443,68 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261118092000 +0000" stop="20261118094500 +0000" channel="TRTCocuk.tr@SD">
-    <title>Heidi</title>
-    <category lang="sq">Dramë</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <date>2015</date>
-    <icon src="https://vimg.ipko.tv/mtcms/71/b/e/71befabc-ba17-4e24-8ed9-f6a643602aba.jpg" />
+  <programme start="20261120154500 +0000" stop="20261120160000 +0000" channel="MinikaGo.tr@SD">
+    <title>Minik Arrıetty</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118094500 +0000" stop="20261118101000 +0000" channel="TRTCocuk.tr@SD">
-    <title>Ibi</title>
-    <desc>Ibi një vogëlushe shumë kureshtare nis nje udhëtim plot aventura me ndihmën e shokut të saj Tosi. Ata i ndjekin nga pas pemët,dhe keshtu mësojnë gjëra të reja dhe zgjidhin problemet e të tjerëve duke përdorur matematikën kështu ata bëjnë gjithmonë miq përgjatë udhëtimeve.</desc>
-    <category lang="sq">Animacion</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <date>2015</date>
-    <icon src="https://vimg.ipko.tv/mtcms/5e/a/1/5ea1bc63-685c-4fb0-9849-60ae43b101eb.jpg" />
+  <programme start="20261120160000 +0000" stop="20261120161500 +0000" channel="MinikaGo.tr@SD">
+    <title>Boonıe Bears</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118101000 +0000" stop="20261118103000 +0000" channel="TRTCocuk.tr@SD">
-    <title>Ibi</title>
-    <desc>Ibi një vogëlushe shumë kureshtare nis nje udhëtim plot aventura me ndihmën e shokut të saj Tosi. Ata i ndjekin nga pas pemët,dhe keshtu mësojnë gjëra të reja dhe zgjidhin problemet e të tjerëve duke përdorur matematikën kështu ata bëjnë gjithmonë miq përgjatë udhëtimeve.</desc>
-    <category lang="sq">Animacion</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <date>2015</date>
-    <icon src="https://vimg.ipko.tv/mtcms/5e/a/1/5ea1bc63-685c-4fb0-9849-60ae43b101eb.jpg" />
+  <programme start="20261120161500 +0000" stop="20261120163000 +0000" channel="MinikaGo.tr@SD">
+    <title>Boonıe Bears</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118103000 +0000" stop="20261118105500 +0000" channel="TRTCocuk.tr@SD">
-    <title>Belle and Sebastian</title>
-    <category lang="sq">Animacion</category>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <date>2017</date>
-    <icon src="https://vimg.ipko.tv/mtcms/9b/3/3/9b33169f-a3fb-43d3-8b33-44d2d1efea89.jpg" />
+  <programme start="20261120163000 +0000" stop="20261120163700 +0000" channel="MinikaGo.tr@SD">
+    <title>Ana Pumpkin</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261118105500 +0000" stop="20261118111000 +0000" channel="TRTCocuk.tr@SD">
-    <title>Trafik Tayfa</title>
-    <category lang="sq">Fëmijë/të Rinj</category>
-    <icon src="https://vimg.ipko.tv/mtcms/d5/2/e/d52ebd4a-27a9-4378-9aae-2b9fb9eb5efc.jpg" />
+  <programme start="20261120163700 +0000" stop="20261120164500 +0000" channel="MinikaGo.tr@SD">
+    <title>Ana Pumpkin</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261120164500 +0000" stop="20261120165200 +0000" channel="MinikaGo.tr@SD">
+    <title>Ana Pumpkin</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261120165200 +0000" stop="20261120170000 +0000" channel="MinikaGo.tr@SD">
+    <title>Ana Pumpkin</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120171500 +0000" channel="MinikaGo.tr@SD">
+    <title>Küçük Prens Ve Arkadaşları</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261120171500 +0000" stop="20261120173000 +0000" channel="MinikaGo.tr@SD">
+    <title>Küçük Prens Ve Arkadaşları</title>
+    <date>20261120</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261118111000 +0000" stop="20261118113500 +0000" channel="TRTCocuk.tr@SD">
     <title>Nils Holgersson</title>
@@ -13432,15 +13492,31 @@
     <date>2015</date>
     <icon src="https://vimg.ipko.tv/mtcms/71/b/e/71befabc-ba17-4e24-8ed9-f6a643602aba.jpg" />
   </programme>
-  <programme start="20261118093000 +0000" stop="20261118100000 +0000" channel="BloombergHT.tr@SD">
-    <title>Tarım Analiz</title>
+  <programme start="20261120155500 +0000" stop="20261120162000 +0000" channel="TRTCocuk.tr@SD">
+    <title>Rüzgar Gülü</title>
+    <category lang="sq">Serial</category>
+    <icon src="https://vimg.ipko.tv/mtcms/fe/0/f/fe0f1fd9-beb8-4e27-b57c-06ed13a87a77.jpg" />
   </programme>
-  <programme start="20261118100000 +0000" stop="20261118103000 +0000" channel="BloombergHT.tr@SD">
-    <title>Seans Ortası</title>
-    <new />
+  <programme start="20261120162000 +0000" stop="20261120165000 +0000" channel="TRTCocuk.tr@SD">
+    <title>Rafadan Tayfa</title>
+    <category lang="sq">Animacion</category>
+    <category lang="sq">Fëmijë/të Rinj</category>
+    <date>2013</date>
+    <icon src="https://vimg.ipko.tv/mtcms/26/a/d/26ad9912-5511-4b3c-bcc8-5387809575cf.jpg" />
   </programme>
-  <programme start="20261118103000 +0000" stop="20261118110000 +0000" channel="BloombergHT.tr@SD">
-    <title>Finansal Teknoloji</title>
+  <programme start="20261120165000 +0000" stop="20261120170500 +0000" channel="TRTCocuk.tr@SD">
+    <title>Haberin Olsun!</title>
+    <category lang="sq">Familja</category>
+    <category lang="sq">Program Informues</category>
+    <date>2015</date>
+    <icon src="https://vimg.ipko.tv/mtcms/06/3/e/063ecf0e-b553-4a0f-8e6f-6207797db4d4.jpg" />
+  </programme>
+  <programme start="20261120170500 +0000" stop="20261120173000 +0000" channel="TRTCocuk.tr@SD">
+    <title>Belle and Sebastian</title>
+    <category lang="sq">Animacion</category>
+    <category lang="sq">Fëmijë/të Rinj</category>
+    <date>2017</date>
+    <icon src="https://vimg.ipko.tv/mtcms/9b/3/3/9b33169f-a3fb-43d3-8b33-44d2d1efea89.jpg" />
   </programme>
   <programme start="20261118110000 +0000" stop="20261118114500 +0000" channel="BloombergHT.tr@SD">
     <title>Piyasa Hattı</title>
@@ -13696,5 +13772,11 @@
   <programme start="20261120152000 +0000" stop="20261120160000 +0000" channel="BloombergHT.tr@SD">
     <title>Günden Kalanlar</title>
     <new />
+  </programme>
+  <programme start="20261120160000 +0000" stop="20261120170000 +0000" channel="BloombergHT.tr@SD">
+    <title>60 Dakika</title>
+  </programme>
+  <programme start="20261120170000 +0000" stop="20261120180000 +0000" channel="BloombergHT.tr@SD">
+    <title>Aslı Şafak'la İşin Aslı</title>
   </programme>
 </tv>
