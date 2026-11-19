@@ -34,13 +34,15 @@ deliberately narrow:
 2. **Per-session child allowlist.** Variant playlists, segments, `#EXT-X-KEY`
    keys and `#EXT-X-MAP` init sections are added only when they appear inside a
    playlist the relay has already served for that session.
-3. **No private address space.** `127.0.0.0/8`, `10/8`, `172.16/12`,
-   `192.168/16`, `169.254/16`, `localhost` and raw IPv6 literals are refused, so
-   a malicious playlist cannot turn the relay into an SSRF pivot to a metadata
-   endpoint.
+3. **Literal address restrictions, not complete SSRF protection.** Private and
+   loopback IPv4 literals, localhost and raw IPv6 literals are rejected for
+   both parent and child URLs; redirects are not followed. DNS names can still
+   resolve or rebind to private addresses. **Do not expose this relay without an
+   outbound firewall blocking private, loopback, link-local, and metadata
+   networks** (including IPv6). Redirect-dependent feeds will not work.
 4. **No credentials.** No cookies, no auth headers, no client IP forwarding.
-5. **Bounded.** 4 MB playlist cap, 12 s / 20 s upstream timeouts, 6 parallel
-   requests per session, 512 sessions, 12 h session TTL.
+5. **Bounded.** 4 MB playlist cap, 12 s playlist deadline and 20 s connection
+   deadline for media, 6 parallel requests per session, 512 sessions, 12 h TTL.
 6. **No logging of what you watch.** The relay keeps no access log of playback.
 
 ## Run it

@@ -94,6 +94,14 @@ test("extensionless feeds get native and HLS attempts, not a guessed CORS probe"
     player().plan("https://example.com/watch/123", false, true, true),
     ["native", "hls"],
   );
+  assert.deepEqual(
+    player().plan("https://example.com/watch/123", false, false, true),
+    ["native", "hls"],
+  );
+  assert.deepEqual(
+    player().plan("https://example.com/watch/123", false, true, false),
+    ["native"],
+  );
 });
 
 test("live HLS tracks the edge with a bounded buffer and faster network deadlines", () => {

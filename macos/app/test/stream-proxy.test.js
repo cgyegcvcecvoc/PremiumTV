@@ -197,3 +197,25 @@ test('an Origin header is reduced to the scheme, host and port a CDN expects', (
   const headers = headersFor({ origin: 'https://embed.example/watch/9' });
   assert.equal(headers.Origin, 'https://embed.example');
 });
+
+test('an upstream media failure does not crash the proxy', async (t) => {
+  const { StreamProxy } = require('../src/main/stream-proxy');
+  let source;
+  const proxy = new StreamProxy({
+    rendererDir: require('node:path').join(__dirname, '..', 'src', 'renderer'),
+    logoCacheDir: '/unused',
+    fetchImpl: async () => new Response(new ReadableStream({ start(controller) {
+      source = controller;
+      controller.enqueue(new Uint8Array([1]));
+    } }), { headers: { 'content-type': 'video/mp2t' } }),
+  });
+  await proxy.start();
+  t.after(() => proxy.stop());
+  const url = proxy.registerChannel({ url: 'https://cdn.example/live.ts' });
+  const response = await fetch(url);
+  const reader = response.body.getReader();
+  await reader.read();
+  source.error(new Error('upstream interrupted'));
+  await assert.rejects(reader.read());
+  assert.equal((await fetch(`${proxy.origin}/app.js`)).status, 200);
+});

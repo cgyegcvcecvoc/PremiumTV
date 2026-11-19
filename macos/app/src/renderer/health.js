@@ -55,6 +55,16 @@
     return load(storage, moment);
   }
 
+  /** Forget one recovered feed without resetting other failures. */
+  function forget(storage, url, now) {
+    if (!storage || !url) return load(storage, now);
+    const kept = entries(storage, now).filter((entry) => entry.url !== url);
+    try {
+      storage.setItem(KEY, JSON.stringify(kept));
+    } catch (error) { /* storage may be unavailable */ }
+    return new Set(kept.map((entry) => entry.url));
+  }
+
   function clear(storage) {
     try {
       storage.removeItem(KEY);
@@ -70,5 +80,5 @@
     return (channels || []).filter((channel) => !deadUrls.has(channel.url));
   }
 
-  root.PremiumHealth = { KEY, TTL_MS, prune, load, record, clear, filterChannels };
+  root.PremiumHealth = { KEY, TTL_MS, prune, load, record, forget, clear, filterChannels };
 })(typeof window !== 'undefined' ? window : globalThis);

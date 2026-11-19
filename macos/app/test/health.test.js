@@ -67,3 +67,13 @@ test('corrupt storage loads empty instead of breaking the browser', () => {
   assert.equal(health.load(storage).size, 0);
   assert.deepEqual(health.clear(storage).size, 0);
 });
+
+
+test('recovering one feed retains other failures', () => {
+  const health = loadHealth();
+  const storage = memoryStorage();
+  health.record(storage, 'a', 1000);
+  health.record(storage, 'b', 1000);
+  assert.deepEqual([...health.forget(storage, 'a', 1001)], ['b']);
+  assert.deepEqual([...health.load(storage, 1001)], ['b']);
+});

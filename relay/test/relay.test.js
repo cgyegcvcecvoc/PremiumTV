@@ -342,3 +342,68 @@ test('the /open route refuses an unpublished URL and accepts a published one', a
   const missing = await fetch(`${origin}/open`);
   assert.equal(missing.status, 400);
 });
+
+test('private playlist children are not added to a session', () => {
+  const state = { allowed: new Set() };
+  rewritePlaylist('#EXTM3U\nhttp://127.0.0.1/secret\n#EXT-X-KEY:METHOD=AES-128,URI="http://169.254.169.254/key"\n',
+    'https://cdn.example/list.m3u8', state, 'https://relay.example/s/id');
+  assert.equal(state.allowed.size, 0);
+  assert.equal(isRelayable('http://0.0.0.0/'), false);
+  assert.equal(isRelayable('http://user:pass@example.com/'), false);
+});
+
+test('upstream redirects are not followed', async (t) => {
+  let mode;
+  const relay = sessionRelay({ 'http://one.example/live.m3u8': (url, init) => {
+    mode = init.redirect;
+    return new Response(null, { status: 302, headers: { location: 'http://127.0.0.1/secret' } });
+  } });
+  const origin = await relay.start(0, '127.0.0.1');
+  t.after(() => relay.stop());
+  const session = relay.openSession('http://one.example/live.m3u8');
+  assert.equal((await fetch(`${origin}/s/${session.sessionId}`)).status, 502);
+  assert.equal(mode, 'manual');
+});
+
+test('active media streams hold concurrency slots until the client closes', async (t) => {
+  const target = 'https://cdn.example/live.ts';
+  const controllers = [];
+  const relay = new Relay({ allowlist: new Map([[target, {}]]), fetchImpl: async () =>
+    new Response(new ReadableStream({ start(controller) {
+      controllers.push(controller);
+      controller.enqueue(new Uint8Array([1]));
+    } }), { headers: { 'content-type': 'video/mp2t' } }) });
+  const origin = await relay.start(0, '127.0.0.1');
+  t.after(() => relay.stop());
+  const session = relay.openSession(target);
+  const url = `${origin}/s/${session.sessionId}`;
+  const responses = await Promise.all(Array.from({ length: 6 }, () => fetch(url)));
+  assert.equal(relay.sessions.get(session.sessionId).active, 6);
+  assert.equal((await fetch(url)).status, 429);
+  controllers.forEach((controller) => controller.close());
+  await Promise.all(responses.map((response) => response.arrayBuffer()));
+  // The pipeline completion callback can run a tick after the client sees EOF.
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(relay.sessions.get(session.sessionId).active, 0);
+});
+
+test('an upstream media error ends the response without crashing the relay', async (t) => {
+  const target = 'https://cdn.example/live.ts';
+  let source;
+  const relay = new Relay({ allowlist: new Map([[target, {}]]), fetchImpl: async () =>
+    new Response(new ReadableStream({ start(controller) {
+      source = controller;
+      controller.enqueue(new Uint8Array([1]));
+    } }), { headers: { 'content-type': 'video/mp2t' } }) });
+  const origin = await relay.start(0, '127.0.0.1');
+  t.after(() => relay.stop());
+  const session = relay.openSession(target);
+  const response = await fetch(`${origin}/s/${session.sessionId}`);
+  const reader = response.body.getReader();
+  await reader.read();
+  source.error(new Error('upstream interrupted'));
+  await assert.rejects(reader.read());
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal((await fetch(`${origin}/healthz`)).status, 200);
+  assert.equal(relay.sessions.get(session.sessionId).active, 0);
+});

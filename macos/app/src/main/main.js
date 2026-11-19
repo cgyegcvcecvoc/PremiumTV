@@ -94,11 +94,15 @@ function bootstrap() {
     // 1.1.7 Local channels: the renderer may ask for an approximate location
     // once, and only when the viewer presses "Use my location". Every other
     // permission request stays denied.
-    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
-      callback(permission === 'geolocation');
+    const appOrigin = (url) => {
+      try { return !!proxy && new URL(url).origin === proxy.origin; }
+      catch (error) { return false; }
+    };
+    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback, details) => {
+      callback(permission === 'geolocation' && appOrigin(details.requestingUrl));
     });
-    session.defaultSession.setPermissionCheckHandler((webContents, permission) =>
-      permission === 'geolocation');
+    session.defaultSession.setPermissionCheckHandler((webContents, permission, requestingOrigin) =>
+      permission === 'geolocation' && appOrigin(requestingOrigin));
 
     const options = paths();
 

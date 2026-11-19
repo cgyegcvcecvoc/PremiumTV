@@ -9,6 +9,7 @@ matches the tables and the playlist.
 
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -21,7 +22,21 @@ import build_local_channels  # noqa: E402
 class LocalChannelDirectoryTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.document = build_local_channels.build()
+        cls.published = build_local_channels.build()
+        # Behavioral expectations must not depend on today's scraped lineup.
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "fixture.m3u"
+            source.write_text("""#EXTM3U
+#EXTINF:-1 tvg-id="NBC.us@WGAL",NBC WGAL
+https://example.test/wgal
+#EXTINF:-1 tvg-id="ABC.us@KTNV",ABC KTNV
+https://example.test/ktnv
+#EXTINF:-1 tvg-id="FOX.us@WNYW",FOX WNYW
+https://example.test/wnyw
+#EXTINF:-1 tvg-id="FOX.us@WTXF",FOX WTXF
+https://example.test/wtxf
+""", encoding="utf-8")
+            cls.document = build_local_channels.build(source)
         cls.markets = {market["id"]: market for market in cls.document["markets"]}
         cls.stations = {
             station["callsign"]: (market, station)
@@ -117,7 +132,7 @@ class LocalChannelDirectoryTest(unittest.TestCase):
         committed = json.loads(path.read_text(encoding="utf-8"))
         self.assertEqual(
             {key: value for key, value in committed.items() if key != "generated_utc"},
-            {key: value for key, value in self.document.items() if key != "generated_utc"},
+            {key: value for key, value in self.published.items() if key != "generated_utc"},
             "run python scripts/build_local_channels.py after changing the playlist",
         )
 
