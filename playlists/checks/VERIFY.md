@@ -1,6 +1,6 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-19T15:42:23+00:00 UTC
+- **Generated:** 2026-11-19T19:14:39+00:00 UTC
 - **Playlists checked:** 180 (27330 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 82
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 12156 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, News, Movies, Music, Europe, Entertainment, International, Religious, Asia, South America, United States, Documentary, Series, Kids, North America, Education, Culture, Comedy, Legislative, A&E Networks, India, Classic TV, Africa, Business, Family, UK, Canada, Weather, Australia, Animals & Nature, DLTV, Tv Celebrities, Aria Web Channels, Global TV, Tv Paranormal, Oceania, Online TV, Tv Shows, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10210/10210 (100.0%) | 1991 (19.5%) |
+| `playlists/PremiumTV.m3u` | 12156 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, News, Movies, Music, Europe, Entertainment, International, Religious, Asia, South America, United States, Documentary, Series, Kids, North America, Education, Culture, Comedy, Legislative, A&E Networks, India, Classic TV, Africa, Business, Family, UK, Canada, Weather, Australia, Animals & Nature, DLTV, Tv Celebrities, Aria Web Channels, Global TV, Tv Paranormal, Oceania, Online TV, Tv Shows, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10210/10210 (100.0%) | 1984 (19.4%) |
 | `playlists/AE_Channels.m3u` | 113 | A&E Networks | 0 | 0 | 3 | 0 | 97/97 (100.0%) | 14 (14.4%) |
 | `playlists/Priority_Channels.m3u` | 13 | Sports, Cartoons, Kids, United States | 0 | 0 | 3 | 0 | 12/12 (100.0%) | 6 (50.0%) |
 | `playlists/countries/Afghanistan.m3u` | 11 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 11/11 (100.0%) | 0 (0.0%) |
@@ -87,7 +87,7 @@
 | `playlists/countries/Hong_Kong.m3u` | 9 | Entertainment, Asia, International | 0 | 0 | 1 | 0 | 7/7 (100.0%) | 3 (42.9%) |
 | `playlists/countries/Hungary.m3u` | 160 | Sports, Lifestyle, NBC, Cartoons, International, Europe, Documentary, Entertainment, Movies, Music, Kids, Culture, News, Religious, A&E Networks, Education | 0 | 0 | 1 | 0 | 150/150 (100.0%) | 64 (42.7%) |
 | `playlists/countries/Iceland.m3u` | 4 | International, Music, News | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 2 (50.0%) |
-| `playlists/countries/India.m3u` | 794 | Sports, Lifestyle, NBC, Cartoons, PBS, News, Religious, Entertainment, India, Movies, Music, Culture, Kids, Education, Documentary, Legislative, Business, Comedy, International, Weather | 0 | 0 | 1 | 0 | 716/716 (100.0%) | 244 (34.1%) |
+| `playlists/countries/India.m3u` | 794 | Sports, Lifestyle, NBC, Cartoons, PBS, News, Religious, Entertainment, India, Movies, Music, Culture, Kids, Education, Documentary, Legislative, Business, Comedy, International, Weather | 0 | 0 | 1 | 0 | 716/716 (100.0%) | 237 (33.1%) |
 | `playlists/countries/Indonesia.m3u` | 103 | Sports, Lifestyle, NBC, Asia, Religious, Kids, News, Entertainment, Music, Culture, Education | 0 | 0 | 1 | 0 | 100/100 (100.0%) | 37 (37.0%) |
 | `playlists/countries/International.m3u` | 1057 | Sports, Lifestyle, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Movies, Entertainment, News, Documentary, Music, Series, Kids, A&E Networks, Comedy, Animals & Nature, Tv Celebrities, International, Aria Web Channels, Tv Paranormal, Classic TV, Religious, Global TV, Africa, Business, Tv Shows, Other | 0 | 0 | 1 | 0 | 810/810 (100.0%) | 61 (7.5%) |
 | `playlists/countries/Iran.m3u` | 88 | NBC, Asia, International, Movies, Religious, News, Entertainment, Music, Kids, Family | 0 | 0 | 1 | 0 | 86/86 (100.0%) | 1 (1.2%) |
