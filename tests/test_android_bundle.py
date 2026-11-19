@@ -135,6 +135,14 @@ class ParsePlaylistTests(unittest.TestCase):
         self.assertEqual(needs["ua"], "Mozilla/5.0 (Test)")
         self.assertEqual(needs["origin"], "https://origin.example")
 
+    def test_extinf_headers_and_option_precedence(self):
+        playlist = write(Path(self.tmp.name) / "headers.m3u",
+            '#EXTM3U\n#EXTINF:-1 http-origin="https://origin.example" http-referrer="https://old.example",One\n'
+            '#EXTVLCOPT:http-referrer=https://new.example\nhttps://stream.example/one\n')
+        channels, _ = build_bundle.parse_m3u(playlist)
+        self.assertEqual(channels[0]["origin"], "https://origin.example")
+        self.assertEqual(channels[0]["referrer"], "https://new.example")
+
     def test_missing_tvg_id_falls_back_to_a_slug(self):
         noid = self.channels[2]
         self.assertEqual(noid["id"], "no.id.channel")

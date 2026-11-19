@@ -33,7 +33,8 @@
  *   4. Honest headers. `Referer`/`Origin` are sent only when the playlist
  *      publishes them, and `Origin` is normalised to the scheme+host+port tuple
  *      a CDN expects.
- *   5. No credentials, no cookies, and no redirect to a private address range.
+ *   5. No credentials, no cookies, and redirects are not followed. DNS can still
+ *      resolve to private networks: an outbound firewall is required.
  *
  * ## Self-hosting
  *
@@ -51,6 +52,7 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Readable } = require('node:stream');
+const { pipeline } = require('node:stream/promises');
 
 const MAX_PLAYLIST_BYTES = 4 * 1024 * 1024;
 const MAX_SESSIONS = 512;
@@ -156,7 +158,8 @@ function isRelayable(url) {
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return false;
     const host = parsed.hostname.toLowerCase();
     if (host === 'localhost' || host === '::1' || host.endsWith('.localhost')) return false;
-    if (/^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host)) return false;
+    if (parsed.username || parsed.password) return false;
+    if (/^0\./.test(host) || /^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host)) return false;
     if (/^169\.254\./.test(host)) return false;
     if (/^172\.(1[6-9]|2\d|3[01])\./.test(host)) return false;
     if (host.startsWith('[') || host.includes(':')) return false; // no raw IPv6 literal
@@ -231,7 +234,7 @@ function rewritePlaylist(text, baseUrl, session, proxyBase) {
         out.push(
           trimmed.replace(/URI="([^"]+)"/gi, (_match, uri) => {
             const absolute = absoluteUrl(uri, baseUrl);
-            if (session) session.allowed.add(absolute);
+            if (session && isRelayable(absolute)) session.allowed.add(absolute);
             return `URI="${proxyBase}?u=${encodeURIComponent(absolute)}"`;
           }),
         );
@@ -241,7 +244,7 @@ function rewritePlaylist(text, baseUrl, session, proxyBase) {
       continue;
     }
     const absolute = absoluteUrl(trimmed, baseUrl);
-    if (session) session.allowed.add(absolute);
+    if (session && isRelayable(absolute)) session.allowed.add(absolute);
     out.push(`${proxyBase}?u=${encodeURIComponent(absolute)}`);
   }
   return out.join('\n');
@@ -389,7 +392,7 @@ class Relay {
 
     const requested = url.searchParams.get('u');
     const target = requested || session.baseUrl;
-    if (!session.allowed.has(target)) {
+    if (!isRelayable(target) || !session.allowed.has(target)) {
       return sendText(response, 403, 'that URL was not part of this stream');
     }
     if (session.active >= MAX_CONCURRENT_PER_SESSION) {
@@ -403,13 +406,18 @@ class Relay {
     const isPlaylist = looksLikePlaylist(target);
     session.active += 1;
     let upstream;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), isPlaylist ? PLAYLIST_TIMEOUT_MS : SEGMENT_TIMEOUT_MS);
     try {
       upstream = await this.fetchImpl(target, {
         headers,
-        redirect: 'follow',
-        signal: AbortSignal.timeout(isPlaylist ? PLAYLIST_TIMEOUT_MS : SEGMENT_TIMEOUT_MS),
+        // Do not allow redirects to bypass the URL checks below. DNS-based
+        // private-address protection still requires an external egress policy.
+        redirect: 'manual',
+        signal: controller.signal,
       });
     } catch (error) {
+      clearTimeout(timer);
       session.active -= 1;
       return sendText(response, 502, `upstream unreachable: ${describe(error)}`);
     }
@@ -423,6 +431,7 @@ class Relay {
       const finalUrl = upstream.url || target;
       const playlistish = isPlaylist || looksLikePlaylist(finalUrl) || /mpegurl|m3u/i.test(contentType);
 
+      if (!playlistish) clearTimeout(timer); // connect deadline, not a live-stream lifetime
       if (playlistish) {
         const body = await readLimited(upstream, MAX_PLAYLIST_BYTES);
         const text = body.toString('utf8');
@@ -457,18 +466,14 @@ class Relay {
       response.writeHead(upstream.status, outHeaders);
       if (request.method === 'HEAD') return response.end();
 
-      Readable.fromWeb(upstream.body).pipe(response);
-      response.on('close', () => {
-        if (upstream.body && typeof upstream.body.cancel === 'function') {
-          upstream.body.cancel().catch(() => {});
-        }
-      });
+      await pipeline(Readable.fromWeb(upstream.body), response);
       return undefined;
     } catch (error) {
       if (!response.headersSent) return sendText(response, 502, describe(error));
       response.destroy();
       return undefined;
     } finally {
+      clearTimeout(timer);
       session.active = Math.max(0, session.active - 1);
     }
   }

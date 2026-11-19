@@ -69,9 +69,11 @@ jobs:
 
       - name: Resolve the version and its release notes
         id: release
+        env:
+          VERSION_INPUT: ${{ inputs.version }}
         run: |
           set -euo pipefail
-          version="${{ inputs.version }}"
+          version="$VERSION_INPUT"
           if [ -z "$version" ]; then
             version=$(python3 scripts/release_version.py --current)
           fi
@@ -124,6 +126,7 @@ jobs:
         if: ${{ !inputs.dry_run }}
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TITLE: ${{ steps.release.outputs.title }}
         run: |
           set -euo pipefail
           tag="${{ steps.release.outputs.tag }}"
@@ -131,7 +134,7 @@ jobs:
           # installers to the release for the exact source they built.
           gh release create "$tag" \
             --target "$GITHUB_SHA" \
-            --title "${{ steps.release.outputs.title }}" \
+            --title "$RELEASE_TITLE" \
             --notes-file "${{ steps.release.outputs.notes }}"
           echo "Published $tag. The Android and macOS builds will attach their installers,"
           echo "and the download site deploys once every installer exists."
@@ -183,13 +186,15 @@ jobs:
 
       - name: Dry run summary
         if: ${{ inputs.dry_run }}
+        env:
+          RELEASE_TITLE: ${{ steps.release.outputs.title }}
         run: |
           {
             echo "### Dry run - nothing was published"
             echo ""
             echo "* version: \`${{ steps.release.outputs.version }}\`"
             echo "* tag: \`${{ steps.release.outputs.tag }}\`"
-            echo "* title: ${{ steps.release.outputs.title }}"
+            echo "* title: $RELEASE_TITLE"
             echo "* notes: \`${{ steps.release.outputs.notes }}\`"
           } >> "$GITHUB_STEP_SUMMARY"
 

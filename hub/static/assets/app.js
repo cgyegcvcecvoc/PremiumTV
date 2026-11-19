@@ -74,10 +74,9 @@
   }
 
   fetch("data.json").then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(function (D) {
-    /* The 1.1.x preview is retired: never render it, even if an old export or a
-       stale data.json still carries it. Stable is the only download channel. */
+    /* Filter previews by channel, not by version: 1.1.x has stable releases. */
     function retired(entry) {
-      return entry && (/^v?1\.1\./.test(String(entry.version || "")) || entry.channel === "Preview");
+      return entry && entry.channel === "Preview";
     }
     D.android = (D.android || []).filter(function (a) { return !retired(a); });
     D.macos = (D.macos || []).filter(function (m) { return !retired(m); });

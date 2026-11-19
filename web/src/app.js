@@ -993,7 +993,7 @@
       },
       onState: (info) => {
         if (info.started && current && !current.vod && dead.has(current.url)) {
-          dead = health.clear(S.storage);
+          dead = health.forget(S.storage, current.url);
           renderChannels();
         }
         if (info.silent) {

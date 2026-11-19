@@ -65,7 +65,6 @@ self.addEventListener("fetch", (event) => {
   // Media and third-party-looking assets must reach the network untouched,
   // especially Range requests Safari uses for MP4 seeking.
   if (
-    request.cache === "no-store" ||
     request.headers.has("range") ||
     /\.(mp4|m4v|mp3|m4a|webm|ts|m2ts|m3u8?)$/.test(url.pathname)
   )
@@ -73,12 +72,20 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     (async () => {
       const cache = await caches.open(CACHE);
+      // Explicit refreshes bypass cached data but replace it for later offline use.
+      if (request.cache === "no-store") {
+        const response = await fetch(request);
+        if (response.ok && response.type === "basic" && /\/data\/[^/]+\.json$/.test(url.pathname))
+          await cache.put(request.url, response.clone());
+        return response;
+      }
       // Core files are precached without a query; versioned runtime URLs may
       // match those entries. Never let a new build ID reuse an old cached file.
       const unversioned = new URL(url.href);
       unversioned.search = "";
       const cached =
-        (await cache.match(request)) || (await cache.match(unversioned.href));
+        (await cache.match(request)) ||
+        ((!url.search || url.searchParams.get("v") === BUILD) && (await cache.match(unversioned.href)));
       if (cached) return cached;
       try {
         const response = await fetch(request);

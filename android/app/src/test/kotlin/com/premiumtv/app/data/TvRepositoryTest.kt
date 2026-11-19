@@ -97,6 +97,16 @@ class TvRepositoryTest {
         assertTrue(ready(repository).channels.isNotEmpty())
     }
 
+    @Test fun m3uParserPreservesOriginAndOptionsOverrideAttributes() {
+        val playlist = """#EXTM3U
+#EXTINF:-1 http-origin="https://origin.example" http-referrer="https://old.example",One
+#EXTVLCOPT:http-referrer=https://new.example
+https://example.org/one.m3u8"""
+        val (channels, _) = M3uParser.parse(playlist)
+        assertEquals("https://origin.example", channels.single().origin)
+        assertEquals("https://new.example", channels.single().referrer)
+    }
+
     @Test fun m3uParserKeepsCommasInChannelNamesAndQuotedAttributes() {
         val playlist = """#EXTM3U
 #EXTINF:-1 tvg-id="news.local" group-title="News, Local",News, Local

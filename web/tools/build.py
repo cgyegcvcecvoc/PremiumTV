@@ -124,6 +124,13 @@ def build(out: Path, scope: str = "usa") -> dict:
         for path in sorted((WEB / "src").rglob("*")):
             if path.is_file():
                 digest.update(path.read_bytes())
+        # Shared helpers and the local directory are copied from outside web/src.
+        # Changes to either must also invalidate the service-worker cache.
+        for name in SHARED:
+            digest.update((out / "shared" / name).read_bytes())
+        if local_source.is_file():
+            digest.update((out / "data" / "local-channels.json").read_bytes())
+        digest.update((out / "relay.json").read_bytes())
         meta["web_version"] = json.loads((WEB / "package.json").read_text())["version"]
         meta["build_id"] = digest.hexdigest()[:16]
         meta["platform"] = "web"

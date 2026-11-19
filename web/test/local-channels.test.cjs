@@ -12,6 +12,22 @@ const vm = require("node:vm");
 const directory = JSON.parse(
   fs.readFileSync(path.join(__dirname, "..", "..", "playlists", "local-channels.json"), "utf8"),
 );
+// Keep behavioral tests independent of whichever feeds survive the latest scrape.
+const lancaster = {
+  id: "USLNS", city: "Lancaster", state: "PA", latitude: 40.0379, longitude: -76.3055,
+  stations: [{ callsign: "WGAL", channel_id: "NBC.us@WGAL", url: "https://x/wgal",
+    backup_urls: ["https://aegis-cloudfront-1.tubi.video/5d314174-0110-42af-8811-feaae073ea1e/playlist.m3u8"] }],
+};
+directory.markets = directory.markets.filter((market) => market.id !== lancaster.id);
+directory.markets.push(lancaster);
+for (const row of directory.zip_prefixes) if (row.prefix === "176") row.market = lancaster.id;
+let philadelphia = directory.markets.find((market) => market.id === "USPHL");
+if (!philadelphia) {
+  philadelphia = { id: "USPHL", city: "Philadelphia", state: "PA", latitude: 39.95, longitude: -75.16, stations: [] };
+  directory.markets.push(philadelphia);
+}
+if (!philadelphia.stations.some((station) => station.channel_id === "Telemundo.us@WCAU"))
+  philadelphia.stations.push({ callsign: "WCAU", channel_id: "Telemundo.us@WCAU", url: "https://x/wcau", backup_urls: [] });
 const source = fs.readFileSync(
   path.join(__dirname, "..", "..", "macos", "app", "src", "renderer", "local-channels.js"),
   "utf8",

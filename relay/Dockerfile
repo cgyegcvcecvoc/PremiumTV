@@ -3,7 +3,7 @@
 #   docker build -f relay/Dockerfile -t premiumtv-relay .
 #   docker run -p 8099:8099 -e PUBLIC_ORIGIN=https://relay.example premiumtv-relay
 #
-# Or on Fly.io / Render / Railway: see relay/fly.toml and relay/README.md.
+# Or on Fly.io / Render / Railway: see fly.toml and relay/README.md.
 
 FROM node:22-alpine
 
@@ -24,4 +24,5 @@ EXPOSE 8099
 HEALTHCHECK --interval=30s --timeout=5s \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||8099)+'/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
-CMD ["node", "relay/relay.js", "--playlist", "playlists/live/USA.m3u", "--port", "8099"]
+USER node
+CMD ["node", "relay/relay.js", "--playlist", "playlists/live/USA.m3u"]

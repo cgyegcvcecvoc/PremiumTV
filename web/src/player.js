@@ -103,7 +103,7 @@
         Boolean,
       );
     if (/\.(mp4|m4v|webm|ogg|mov|m4a|mp3)$/.test(path)) return ["native"];
-    return ["native", native && !apple && "hls"].filter(Boolean);
+    return ["native", supported && !apple && "hls"].filter(Boolean);
   }
   function loadScript(name) {
     if (scripts.has(name)) return scripts.get(name);

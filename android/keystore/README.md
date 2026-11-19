@@ -12,9 +12,13 @@ through 1.0.3 each had a different certificate and had to be uninstalled
 before installing the next version.
 
 `premiumtv-updates.p12` is the long-lived identity used from 1.0.4 onward. It
-is deliberately checked in: this is an open-source, ad-hoc distributed app, and
-the key only protects the update chain, not a Play Store identity or any
-payment data. Anyone can reproduce an installable, self-updating build.
+is deliberately checked in: this is an open-source, ad-hoc distributed app.
+**This key does not protect the update chain from impersonation:** anyone with
+the repository can sign an APK accepted as an update to the existing debug
+package. Install APKs only from the official release page and verify its
+published checksums. A private signing identity requires a migration plan:
+existing users must uninstall and install a newly signed app unless Android's
+signing-key rotation is supported and the old key's compromise is addressed.
 
 - Keystore type: PKCS#12
 - Alias: `premiumtv-updates`

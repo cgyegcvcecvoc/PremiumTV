@@ -27,6 +27,7 @@ const fs = require('node:fs');
 const fsp = require('node:fs/promises');
 const path = require('node:path');
 const { Readable } = require('node:stream');
+const { pipeline } = require('node:stream/promises');
 
 const { USER_AGENT } = require('./repository');
 
@@ -223,17 +224,21 @@ class StreamProxy {
 
     const isPlaylistRequest = looksLikePlaylist(target);
     let upstream;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), isPlaylistRequest ? PLAYLIST_TIMEOUT_MS : CONNECT_TIMEOUT_MS);
     try {
       upstream = await this.fetchImpl(target, {
         headers,
         redirect: 'follow',
-        signal: AbortSignal.timeout(isPlaylistRequest ? PLAYLIST_TIMEOUT_MS : CONNECT_TIMEOUT_MS),
+        signal: controller.signal,
       });
     } catch (error) {
+      clearTimeout(timer);
       response.writeHead(502, { 'content-type': 'text/plain' });
       return response.end(`upstream unreachable: ${error.message}`);
     }
 
+    clearTimeout(timer);
     if (!upstream.ok) {
       response.writeHead(upstream.status, { 'content-type': 'text/plain' });
       return response.end(`upstream answered ${upstream.status}`);
@@ -350,10 +355,11 @@ class StreamProxy {
     response.writeHead(upstream.status, responseHeaders);
 
     if (request.method === 'HEAD') return response.end();
-    Readable.fromWeb(upstream.body).pipe(response);
-    response.on('close', () => {
-      if (upstream.body && typeof upstream.body.cancel === 'function') upstream.body.cancel().catch(() => {});
-    });
+    try {
+      await pipeline(Readable.fromWeb(upstream.body), response);
+    } catch (error) {
+      response.destroy();
+    }
     return undefined;
   }
 

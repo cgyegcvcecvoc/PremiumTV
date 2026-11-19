@@ -70,6 +70,7 @@ internal object M3uParser {
                 chno = attrs["tvg-chno"].orEmpty().trim()
                 ua = attrs["http-user-agent"].orEmpty().trim()
                 referrer = attrs["http-referrer"].orEmpty().trim()
+                origin = attrs["http-origin"].orEmpty().trim()
                 name = extinfName(line, attrs)
                 skipEntry = attrs[NOTICE_ATTR].orEmpty().trim()
                     .equals(NOTICE_VALUE, ignoreCase = true)
@@ -126,9 +127,9 @@ internal object M3uParser {
                     country = country,
                     chno = chno,
                     url = url,
-                    userAgent = ua.ifBlank { optUa },
-                    referrer = referrer.ifBlank { optReferrer },
-                    origin = origin.ifBlank { optOrigin },
+                    userAgent = optUa.ifBlank { ua },
+                    referrer = optReferrer.ifBlank { referrer },
+                    origin = optOrigin.ifBlank { origin },
                 )
             )
             pending = false

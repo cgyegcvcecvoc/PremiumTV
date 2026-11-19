@@ -18,8 +18,8 @@ test('Netlify cards recommend stable independently of input order and ignore the
     url: `https://github.com/example/releases/v${version}/mac-${i}.dmg`, name: `mac-${i}`,
   })) });
   dom.window.fetch = async () => ({ ok: true, json: async () => ({
-    stats: {}, android: [android('1.1.1', 'Preview'), android('1.0.3', 'Stable'), android('1.0.2', 'Archive')],
-    macos: [mac('1.1.1', 'Preview'), mac('1.0.3', 'Stable')], featured: [], bundles: [],
+    stats: {}, android: [android('1.1.1', 'Preview'), android('1.1.11', 'Stable'), android('1.0.2', 'Archive')],
+    macos: [mac('1.1.1', 'Preview'), mac('1.1.11', 'Stable')], featured: [], bundles: [],
     categories: {}, countries: [], epg: [],
   }) });
   dom.window.eval(fs.readFileSync(path.join(hub, 'assets/app.js'), 'utf8'));
@@ -27,11 +27,11 @@ test('Netlify cards recommend stable independently of input order and ignore the
   const doc = dom.window.document;
   const cards = [...doc.querySelectorAll('#app-grid .app-card')];
   assert.equal(cards.length, 2, 'one stable Android card and one stable macOS card');
-  assert.match(cards[0].textContent, /1\.0\.3/);
-  assert.match(cards[0].querySelector('a.dl').href, /v1\.0\.3/);
-  assert.match(cards[1].textContent, /1\.0\.3/);
+  assert.match(cards[0].textContent, /1\.1\.11/);
+  assert.match(cards[0].querySelector('a.dl').href, /v1\.1\.11/);
+  assert.match(cards[1].textContent, /1\.1\.11/);
   assert.doesNotMatch(doc.body.textContent, /Encore Preview/);
-  assert.doesNotMatch(doc.body.textContent, /1\.1\.1/);
+  assert.doesNotMatch(doc.body.textContent, /1\.1\.1(?!1)/);
   assert.equal(doc.querySelectorAll('#apk-table a[href$="SHA256SUMS-android.txt"]').length, 2,
     'the retired preview row is filtered from the table too');
   assert.equal(doc.querySelectorAll('#apk-table tbody tr').length, 2);

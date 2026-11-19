@@ -135,6 +135,7 @@ def parse_m3u(path: str) -> tuple[list[dict], str]:
                     "chno": (attrs.get("tvg-chno") or "").strip(),
                     "ua": (attrs.get("http-user-agent") or "").strip(),
                     "referrer": (attrs.get("http-referrer") or "").strip(),
+                    "origin": (attrs.get("http-origin") or "").strip(),
                 }
                 continue
 
