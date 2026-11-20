@@ -31,11 +31,12 @@ number and the notes all come from the rules below.
 
 ## The name this release uses
 
-`1.1.11` is **PremiumTV 1.1.11 — Local channels by location**: the location
-question, the ZIP/state/city fallback, the market directory and the one A&E
-category. The next release is the next patch and its own theme
+`1.1.12` is **PremiumTV 1.1.12 — Resilient playback**: bounded recovery on
+Android, macOS and web, a safer opt-in relay, and scheduled data jobs that
+repair themselves. The next release is the next patch and its own theme
 (`python scripts/new_version.py --next` prints both); the standard themes this
-tooling already knows are `local-channels`, `a-and-e` and `version-scheme`.
+tooling already knows are `local-channels`, `a-and-e`, `version-scheme` and
+`resilient-playback`.
 
 ## The naming system
 
@@ -43,8 +44,8 @@ Every release has two names, and they are derived — never invented:
 
 | Name | Shape | Example | Where it appears |
 |---|---|---|---|
-| **Number** | `MAJOR.MINOR.PATCH` | `1.1.11` | `VERSION`, tags, versionCode, every app surface |
-| **Release name** | `PremiumTV <number> — <feature name>` | `PremiumTV 1.1.11 — Local channels by location` | release title, release-notes heading, changelog entry |
+| **Number** | `MAJOR.MINOR.PATCH` | `1.1.12` | `VERSION`, tags, versionCode, every app surface |
+| **Release name** | `PremiumTV <number> — <feature name>` | `PremiumTV 1.1.12 — Resilient playback` | release title, release-notes heading, changelog entry |
 
 **The feature name is the release's theme, not a codename.** It is one to five
 words taken from what the release actually changes — the same phrase the
@@ -55,7 +56,7 @@ are no version codenames, no dates, no “V patches” and no fourth number.
 
 **The number rule:**
 
-- Default: the next patch — `1.1.11` → `1.1.12`.
+- Default: the next patch — `1.1.12` → `1.1.13`.
 - A release that changes how the app fundamentally works **and** needs a fresh
   line may bump the minor — `1.1.x` → `1.2.0`. That is a decision recorded in
   the pull request, not a default; the patch bump is the rule.
@@ -88,7 +89,7 @@ Any agent in this repository can finish a release from these three commands and
 one click:
 
 ```bash
-python scripts/new_version.py --next                 # 1.1.11 "Local channels by location" -> 1.1.12 …
+python scripts/new_version.py --next                 # 1.1.12 "Resilient playback" -> 1.1.13 …
 python scripts/new_version.py --name "…" --note "…"  # bump VERSION, notes, generated surfaces
 python scripts/build_local_channels.py               # only when playlists/live/USA.m3u changed
 ```

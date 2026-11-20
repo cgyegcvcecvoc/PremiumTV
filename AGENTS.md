@@ -8,14 +8,14 @@ name, bump `VERSION`, write short release notes and a short changelog entry,
 push, publish, and verify the installers attached. Do not ask what version
 number to use and do not invent a fourth part.
 
-The naming system (1.1.11+) is two derived names, never invented ones:
+The naming system (1.1.12+) is two derived names, never invented ones:
 
 ```bash
-python scripts/new_version.py --next        # 1.1.11 -> 1.1.12, versionCode, the known themes
+python scripts/new_version.py --next        # 1.1.12 -> 1.1.13, versionCode, the known themes
 python scripts/new_version.py --feature local-channels   # standard name + notes
 ```
 
-- **Number:** always the next patch (`1.1.11` → `1.1.12`); a minor bump is a
+- **Number:** always the next patch (`1.1.12` → `1.1.13`); a minor bump is a
   recorded decision, not a default.
 - **Release name:** `PremiumTV <version> — <feature name>`, where the feature
   name is the one-to-five-word theme of the change (the phrase the changelog
