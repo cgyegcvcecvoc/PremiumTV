@@ -2,9 +2,11 @@
 
 The 2026-11-19 Android unit-test run failed 21 of 92 tests, all with
 `MavenArtifactFetcher` / `HttpURLConnection` IOExceptions: Robolectric tried to
-download its SDK 28 runtime jar directly from Maven Central during the test
-run. Gradle now resolves the exact jars and copies them to a local dependency
-directory, which `robolectric.dependency.dir` reads without a network call.
+download its SDK jars directly from Maven Central during the test run. Gradle
+now resolves the SDK 28 runtime jar and the Android 15 compile-resource jar that
+Robolectric 4.14.1 also opens, gives them exact local filenames, and points
+`robolectric.dependency.dir` at that directory so the test JVM makes no network
+call.
 """
 
 from __future__ import annotations
@@ -19,20 +21,22 @@ README = ROOT / "android" / "README.md"
 
 
 class HermeticRobolectricTests(unittest.TestCase):
-    def test_the_sdk_28_runtime_is_resolved_by_gradle_and_used_offline(self):
+    def test_the_runtime_and_compile_jars_are_resolved_by_gradle_and_used_offline(self):
         text = GRADLE.read_text(encoding="utf-8")
         self.assertIn("robolectric.dependency.dir", text)
         self.assertIn('robolectric.offline", "true"', text)
+        self.assertIn('robolectric.usePreinstrumentedJars", "true"', text)
         self.assertIn(
             'add("robolectricInstrumentedSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")',
             text,
         )
         self.assertIn(
-            'add("robolectricLegacySdk28", "org.robolectric:android-all:9-robolectric-4913185-2")',
+            'add("robolectricInstrumentedSdk35", "org.robolectric:android-all-instrumented:15-robolectric-12650502-i7")',
             text,
         )
         self.assertIn("android-all-instrumented-9-robolectric-4913185-2-i7.jar", text)
-        self.assertIn("android-all-9-robolectric-4913185-2.jar", text)
+        self.assertIn("android-all-instrumented-15-robolectric-12650502-i7.jar", text)
+        self.assertIn("highest supported SDK", text)
         self.assertIn("rename(\".*\",", text)
         self.assertIn("isTransitive = false", text)
         self.assertIn("tasks.withType<Test>().configureEach", text)
@@ -48,7 +52,9 @@ class HermeticRobolectricTests(unittest.TestCase):
     def test_ci_runs_the_unit_tests_and_the_readme_explains_the_fix(self):
         self.assertIn("./gradlew --no-daemon testDebugUnitTest",
                       CI.read_text(encoding="utf-8"))
-        self.assertIn("robolectric.dependency.dir", README.read_text(encoding="utf-8"))
+        readme = README.read_text(encoding="utf-8")
+        self.assertIn("robolectric.dependency.dir", readme)
+        self.assertIn("Android 15", readme)
 
 
 if __name__ == "__main__":

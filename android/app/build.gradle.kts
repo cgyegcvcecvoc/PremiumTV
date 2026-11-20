@@ -123,32 +123,34 @@ android {
     }
 }
 
-// Robolectric 4.14.1 fetches its Android 9 (SDK 28) runtime jar with a direct
+// Robolectric 4.14.1 fetches its Android runtime jars with a direct
 // HttpURLConnection, outside Gradle's dependency cache. On 2026-11-19 that
 // fetch failed on GitHub-hosted CI and 21 repository/VOD tests aborted with
-// `MavenArtifactFetcher` IOExceptions. Resolve the exact jar through Gradle,
-// copy it to a local dependency directory, and tell Robolectric to read it
-// there instead of making an uncontrolled network call during the test run.
+// `MavenArtifactFetcher` IOExceptions. A test pinned to SDK 28 still needs two
+// preinstrumented jars: the SDK 28 runtime and Robolectric's highest supported
+// SDK (Android 15/V) for compile-time system resources. Resolve both through
+// Gradle, give them the exact Maven-style filenames LocalDependencyResolver
+// expects, and read them from `robolectric.dependency.dir` with no network call
+// during the test JVM.
 fun hermeticSdkConfiguration(name: String) = configurations.create(name) {
     isCanBeResolved = true
     isCanBeConsumed = false
     isTransitive = false
 }
 
-val robolectricInstrumentedSdk28 = hermeticSdkConfiguration("robolectricInstrumentedSdk28")
-val robolectricLegacySdk28 = hermeticSdkConfiguration("robolectricLegacySdk28")
+val robolectricSdkJars = listOf(
+    "robolectricInstrumentedSdk28" to "android-all-instrumented-9-robolectric-4913185-2-i7.jar",
+    "robolectricInstrumentedSdk35" to "android-all-instrumented-15-robolectric-12650502-i7.jar",
+)
+robolectricSdkJars.forEach { (name, _) -> hermeticSdkConfiguration(name) }
+
 val robolectricSdkDir = layout.buildDirectory.dir("robolectric")
 val copyRobolectricSdk = tasks.register<Copy>("copyRobolectricSdk") {
-    // LocalDependencyResolver builds the filename from the DependencyJar's
-    // artifactId/version, not from whatever name Gradle's cache happens to use.
-    // Give each resolved artifact exactly the name Robolectric will request.
-    from(robolectricInstrumentedSdk28) {
-        include("*.jar")
-        rename(".*", "android-all-instrumented-9-robolectric-4913185-2-i7.jar")
-    }
-    from(robolectricLegacySdk28) {
-        include("*.jar")
-        rename(".*", "android-all-9-robolectric-4913185-2.jar")
+    robolectricSdkJars.forEach { (name, fileName) ->
+        from(configurations.getByName(name)) {
+            include("*.jar")
+            rename(".*", fileName)
+        }
     }
     into(robolectricSdkDir)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -164,23 +166,16 @@ tasks.withType<Test>().configureEach {
     systemProperty("robolectric.dependency.dir", robolectricSdkDir.get().asFile.absolutePath)
     systemProperty("robolectric.offline", "true")
     systemProperty("robolectric.usePreinstrumentedJars", "true")
-    systemProperty("robolectric.logging.enabled", "true")
     testLogging {
-        showStandardStreams = true
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-    }
-    doFirst {
-        println("[robolectric] dependency.dir=${systemProperties["robolectric.dependency.dir"]}")
-        robolectricSdkDir.get().asFile.listFiles().orEmpty().sortedBy { it.name }.forEach {
-            println("[robolectric] ${it.absolutePath} (${it.length()} bytes)")
-        }
     }
 }
 
 dependencies {
     add("robolectricInstrumentedSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")
-    // Also cover a run configured with robolectric.usePreinstrumentedJars=false.
-    add("robolectricLegacySdk28", "org.robolectric:android-all:9-robolectric-4913185-2")
+    // Robolectric 4.14.1's highest supported SDK supplies compile-time resources
+    // even when the test itself is pinned to SDK 28.
+    add("robolectricInstrumentedSdk35", "org.robolectric:android-all-instrumented:15-robolectric-12650502-i7")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")
