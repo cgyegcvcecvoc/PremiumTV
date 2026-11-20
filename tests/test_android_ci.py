@@ -22,14 +22,18 @@ class HermeticRobolectricTests(unittest.TestCase):
     def test_the_sdk_28_runtime_is_resolved_by_gradle_and_used_offline(self):
         text = GRADLE.read_text(encoding="utf-8")
         self.assertIn("robolectric.dependency.dir", text)
+        self.assertIn('robolectric.offline", "true"', text)
         self.assertIn(
-            'add("robolectricSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")',
+            'add("robolectricInstrumentedSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")',
             text,
         )
         self.assertIn(
-            'add("robolectricSdk28", "org.robolectric:android-all:9-robolectric-4913185-2")',
+            'add("robolectricLegacySdk28", "org.robolectric:android-all:9-robolectric-4913185-2")',
             text,
         )
+        self.assertIn("android-all-instrumented-9-robolectric-4913185-2-i7.jar", text)
+        self.assertIn("android-all-9-robolectric-4913185-2.jar", text)
+        self.assertIn("rename(\".*\",", text)
         self.assertIn("isTransitive = false", text)
         self.assertIn("tasks.withType<Test>().configureEach", text)
         self.assertIn("dependsOn(copyRobolectricSdk)", text)

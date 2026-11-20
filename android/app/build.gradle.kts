@@ -129,27 +129,47 @@ android {
 // `MavenArtifactFetcher` IOExceptions. Resolve the exact jar through Gradle,
 // copy it to a local dependency directory, and tell Robolectric to read it
 // there instead of making an uncontrolled network call during the test run.
-val robolectricSdk28 by configurations.creating {
+fun hermeticSdkConfiguration(name: String) = configurations.create(name) {
     isCanBeResolved = true
     isCanBeConsumed = false
     isTransitive = false
 }
+
+val robolectricInstrumentedSdk28 = hermeticSdkConfiguration("robolectricInstrumentedSdk28")
+val robolectricLegacySdk28 = hermeticSdkConfiguration("robolectricLegacySdk28")
 val robolectricSdkDir = layout.buildDirectory.dir("robolectric")
 val copyRobolectricSdk = tasks.register<Copy>("copyRobolectricSdk") {
-    from(robolectricSdk28)
+    // LocalDependencyResolver builds the filename from the DependencyJar's
+    // artifactId/version, not from whatever name Gradle's cache happens to use.
+    // Give each resolved artifact exactly the name Robolectric will request.
+    from(robolectricInstrumentedSdk28) {
+        include("*.jar")
+        rename(".*", "android-all-instrumented-9-robolectric-4913185-2-i7.jar")
+    }
+    from(robolectricLegacySdk28) {
+        include("*.jar")
+        rename(".*", "android-all-9-robolectric-4913185-2.jar")
+    }
     into(robolectricSdkDir)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    doLast {
+        robolectricSdkDir.get().asFile.listFiles().orEmpty().sortedBy { it.name }.forEach {
+            println("[robolectric] ${it.name} (${it.length()} bytes)")
+        }
+    }
 }
 
 tasks.withType<Test>().configureEach {
     dependsOn(copyRobolectricSdk)
     systemProperty("robolectric.dependency.dir", robolectricSdkDir.get().asFile.absolutePath)
+    systemProperty("robolectric.offline", "true")
+    systemProperty("robolectric.usePreinstrumentedJars", "true")
 }
 
 dependencies {
-    add("robolectricSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")
+    add("robolectricInstrumentedSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")
     // Also cover a run configured with robolectric.usePreinstrumentedJars=false.
-    add("robolectricSdk28", "org.robolectric:android-all:9-robolectric-4913185-2")
+    add("robolectricLegacySdk28", "org.robolectric:android-all:9-robolectric-4913185-2")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")
