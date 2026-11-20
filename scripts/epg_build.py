@@ -428,7 +428,7 @@ def guide_streams(url: str, timeout: float, retries: int, max_bytes: int):
         try:
             request = urllib.request.Request(url, headers=headers)
             response = urllib.request.urlopen(request, timeout=timeout,
-                                              context=scraper.INSECURE_CTX)
+                                              context=scraper.SECURE_CTX)
             head = response.read(2)
             if head == b"":
                 response.close()

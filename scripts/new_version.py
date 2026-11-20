@@ -53,6 +53,7 @@ KNOWN_RELEASE_NAMES = {
     "a-and-e": "A&E Networks in one category",
     "version-scheme": "Named releases",
     "resilient-playback": "Resilient playback",
+    "hardened-sources": "Hardened sources",
 }
 
 # Standard one-line notes for the features whose wording must not drift.
@@ -70,6 +71,10 @@ STANDARD_NOTES = {
     "resilient-playback": (
         "Android, macOS and web retry recoverable playback faults before spending backup servers.",
         "A shared recovery policy keeps transient, media and permanent failures bounded.",
+    ),
+    "hardened-sources": (
+        "Source playlist and guide fetches verify TLS; only live stream probes allow broken certificates.",
+        "Configured source URLs must be http(s) without credentials; relative local files stay in-repo.",
     ),
 }
 

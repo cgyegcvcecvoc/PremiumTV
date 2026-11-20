@@ -242,7 +242,7 @@ def verify_guide(url: str, timeout: float, retries: int = 1) -> dict:
         request = urllib.request.Request(url, headers=headers)
         try:
             with urllib.request.urlopen(request, timeout=timeout,
-                                        context=scraper.INSECURE_CTX) as response:
+                                        context=scraper.SECURE_CTX) as response:
                 status = int(getattr(response, "status", 0) or response.getcode() or 0)
                 content_type = (response.headers.get("Content-Type") or "").lower()
                 try:
