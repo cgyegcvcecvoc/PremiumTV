@@ -2,6 +2,18 @@
  {
   "id": "2026-11-20",
   "date": "2026-11-20",
+  "title": "Version 1.1.13 prepared: hardened sources",
+  "body_md": "- **Control-plane fetches verify TLS.** Playlist sources, GitHub API fallbacks, W3U children, reference pages and XMLTV guides use a default certificate-verifying context. Only live stream probes still allow broken certificates, which is the case the insecure context was written for.\n- **Source URLs are locked down.** Configured sources must be `http`/`https` without embedded credentials; relative `local_path` values cannot leave the repository; GitHub fallbacks must be `owner/name` with a relative path. Discovery will not promote this repository as an upstream.\n- **Dependencies are pinned.** macOS `hls.js` / `mpegts.js` match the web client's exact versions; Electron, electron-builder and jsdom drop caret/tilde ranges. CI, Pages and the web workflow now use `actions/setup-node@v5`.\n- **Frozen legacy feed restored.** The morning scrape had rewritten `playlists/countries/USA.m3u` after support ended; `legacy_sunset.py apply` pinned it again, and the USA bundle completeness test now reads the live feed the apps actually ship.",
+  "bullets": [
+   "**Control-plane fetches verify TLS.** Playlist sources, GitHub API fallbacks, W3U children, reference pages and XMLTV guides use a default certificate-verifying context. Only live stream probes still allow broken certificates, which is the case the insecure context was written for.",
+   "**Source URLs are locked down.** Configured sources must be `http`/`https` without embedded credentials; relative `local_path` values cannot leave the repository; GitHub fallbacks must be `owner/name` with a relative path. Discovery will not promote this repository as an upstream.",
+   "**Dependencies are pinned.** macOS `hls.js` / `mpegts.js` match the web client's exact versions; Electron, electron-builder and jsdom drop caret/tilde ranges. CI, Pages and the web workflow now use `actions/setup-node@v5`.",
+   "**Frozen legacy feed restored.** The morning scrape had rewritten `playlists/countries/USA.m3u` after support ended; `legacy_sunset.py apply` pinned it again, and the USA bundle completeness test now reads the live feed the apps actually ship."
+  ]
+ },
+ {
+  "id": "2026-11-20",
+  "date": "2026-11-20",
   "title": "Version 1.1.12 published: resilient playback",
   "body_md": "- Published [`v1.1.12`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.12) as the Latest release (Android `versionCode 101120000`, macOS `1.1.12`) with the smoke-tested APK, all four Mac installers, both `SHA256SUMS` files and build provenance attached. The VERSION-triggered publish workflow created the release, dispatched both installer builds, waited for every asset, and asked Pages to redeploy.\n- The download-site copy now names 1.1.12: `docs/README.md`, `docs/blocked/index.html`, `hub/static/index.html`, the root README table and `docs/UPDATES.md`. `SITE_VERSION` and the deep-link tests follow the published installers, and the in-app update notice points builds through 1.1.11 at 1.1.12.",
   "bullets": [

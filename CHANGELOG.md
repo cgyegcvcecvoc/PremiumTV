@@ -10,6 +10,13 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-20 — Version 1.1.13 prepared: hardened sources
+
+- **Control-plane fetches verify TLS.** Playlist sources, GitHub API fallbacks, W3U children, reference pages and XMLTV guides use a default certificate-verifying context. Only live stream probes still allow broken certificates, which is the case the insecure context was written for.
+- **Source URLs are locked down.** Configured sources must be `http`/`https` without embedded credentials; relative `local_path` values cannot leave the repository; GitHub fallbacks must be `owner/name` with a relative path. Discovery will not promote this repository as an upstream.
+- **Dependencies are pinned.** macOS `hls.js` / `mpegts.js` match the web client's exact versions; Electron, electron-builder and jsdom drop caret/tilde ranges. CI, Pages and the web workflow now use `actions/setup-node@v5`.
+- **Frozen legacy feed restored.** The morning scrape had rewritten `playlists/countries/USA.m3u` after support ended; `legacy_sunset.py apply` pinned it again, and the USA bundle completeness test now reads the live feed the apps actually ship.
+
 ## 2026-11-20 — Version 1.1.12 published: resilient playback
 
 - Published [`v1.1.12`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.12) as the Latest release (Android `versionCode 101120000`, macOS `1.1.12`) with the smoke-tested APK, all four Mac installers, both `SHA256SUMS` files and build provenance attached. The VERSION-triggered publish workflow created the release, dispatched both installer builds, waited for every asset, and asked Pages to redeploy.

@@ -25,6 +25,7 @@ on:
     paths:
       - "scripts/**"
       - "tests/**"
+      - "sources.json"
       - "playlists/PremiumTV.m3u"
       - "playlists/countries/**"
       - "playlists/live/**"
@@ -99,7 +100,7 @@ jobs:
           python scripts/build_site_data.py --check
 
       - name: Set up Node 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
 

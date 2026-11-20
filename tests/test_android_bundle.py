@@ -341,7 +341,7 @@ class RepositoryBundleTests(unittest.TestCase):
         self.assertTrue(all(p["e"] > p["s"] for p in programmes))
 
     def test_usa_bundle_is_complete(self):
-        playlist = REPO_ROOT / "playlists" / "countries" / "USA.m3u"
+        playlist = REPO_ROOT / "playlists" / "live" / "USA.m3u"
         guide = REPO_ROOT / "EPG" / "USA.xml"
         channels, header_guide = build_bundle.parse_m3u(str(playlist))
         programmes = build_bundle.parse_xmltv(str(guide))
