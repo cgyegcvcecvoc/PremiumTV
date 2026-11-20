@@ -65,6 +65,41 @@
     return new Set(kept.map((entry) => entry.url));
   }
 
+  /**
+   * Remember every feed a channel exhausted. macOS used to record only the
+   * *last* server, so a channel whose primary feed was dead kept leading with
+   * it on the next open. Android and the web player record the whole walk; this
+   * shared helper makes all three agree.
+   */
+  function recordMany(storage, urls, now) {
+    if (!storage) return new Set();
+    const moment = Number(now) || Date.now();
+    const failed = new Set((Array.isArray(urls) ? urls : [])
+      .filter((url) => typeof url === 'string' && url));
+    if (!failed.size) return load(storage, moment);
+    const kept = entries(storage, moment).filter((entry) => !failed.has(entry.url));
+    const next = [...failed].map((url) => ({ url, at: moment })).concat(kept);
+    try {
+      storage.setItem(KEY, JSON.stringify(next));
+    } catch (error) {
+      /* a full or disabled storage must never break playback */
+    }
+    return load(storage, moment);
+  }
+
+  /**
+   * Try a channel's feeds with no remembered failure first, preserving the
+   * published order inside each group. Mirrors Android's healthyServersFirst():
+   * a feed that failed last night should be the backup, not the first try.
+   */
+  function healthyServersFirst(servers, deadUrls) {
+    const list = Array.isArray(servers) ? servers : [];
+    if (!deadUrls || !deadUrls.size) return list.slice();
+    const healthy = list.filter((server) => server && !deadUrls.has(server.url));
+    const known = list.filter((server) => server && deadUrls.has(server.url));
+    return healthy.concat(known);
+  }
+
   function clear(storage) {
     try {
       storage.removeItem(KEY);
@@ -80,5 +115,8 @@
     return (channels || []).filter((channel) => !deadUrls.has(channel.url));
   }
 
-  root.PremiumHealth = { KEY, TTL_MS, prune, load, record, forget, clear, filterChannels };
+  root.PremiumHealth = {
+    KEY, TTL_MS, prune, load, record, recordMany, forget, clear, filterChannels,
+    healthyServersFirst,
+  };
 })(typeof window !== 'undefined' ? window : globalThis);

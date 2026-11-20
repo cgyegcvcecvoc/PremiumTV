@@ -16,6 +16,9 @@ on:
       - "playlists/vod/**"
       - "playlists/team-logos.json"
       - "playlists/live-schedule.json"
+      - "playlists/local-channels.json"
+      - "data/local-markets/**"
+      - "scripts/build_local_channels.py"
       - "categories/index.json"
       - "EPG/USA.xml"
       - ".github/workflows/web-build.yml"
@@ -61,6 +64,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: npm ci --no-audit --no-fund
+      - name: Verify the published local-market directory
+        # A publisher must commit build_local_channels.py's output; a web-only
+        # check should flag stale WGAL/Lancaster data, not silently rebuild it.
+        run: python3 ../scripts/build_local_channels.py --check
       - run: npm test
       - run: npm run build
       - name: Install browser test engines

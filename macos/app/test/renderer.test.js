@@ -107,7 +107,8 @@ test('a dead feed hands over to the next server before the error card appears', 
   const player = fs.readFileSync(path.join(renderer, 'player.js'), 'utf8');
 
   assert.match(js, /window\.PremiumLive\.serversFor\(channel, snapshot\.library\.channels \|\| \[\]\)/);
-  assert.match(js, /window\.PremiumPlayer\.play\(resolved\.url, channel\.url, \{ onFatal: \(\) => advanceServer\(\) \}\)/);
+  assert.match(js, /window\.PremiumPlayer\.play\(resolved\.url, channel\.url, \{\s*onFatal: \(fault\) => \{/);
+  assert.match(js, /recovery\.decideRecovery\(recovery\.classifyFault\(fault\), used, playQueueIndex > 0\)/);
   assert.match(js, /switching to server \$\{playQueueIndex \+ 1\} of \$\{playQueue\.length\}/);
   assert.match(js, /window\.PremiumPlayer\.fail\(/);
   assert.match(player, /onFatal = typeof handlers\.onFatal === 'function' \? handlers\.onFatal : null;/);

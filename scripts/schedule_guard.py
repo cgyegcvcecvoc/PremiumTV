@@ -94,6 +94,9 @@ SLOT_LABELS = {
     # discover.yml asks for its label here too, so a monthly run is still
     # classified as monthly_discovery rather than falling back to a guess.
     "37 4 1 * *": "monthly new-channel discovery",
+    # One-shot end-of-support publication. GitHub may run it late, so its
+    # label is explicit rather than guessed as another scrape slot.
+    "5 0 20 11 *": "Nov 20 legacy support freeze",
 }
 
 

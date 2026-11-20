@@ -208,7 +208,10 @@
   // 1.1.0 dead-feed memory: a channel whose every server failed is hidden
   // from the browser for seven days (health.js), with a Settings restore.
   const health = window.PremiumHealth;
+  const recovery = window.PremiumRecovery || null;
   let deadFeeds = health ? health.load(window.localStorage) : new Set();
+  // Bounded in-place reconnects already spent on each feed (web shares this).
+  let feedRetries = new Map();
   // 1.1.7 local channels: the viewer's area (location, ZIP, state or country),
   // stored on this machine and matched against the bundled station directory.
   const local = window.PremiumLocalChannels;
@@ -2414,8 +2417,12 @@
     const list = Array.isArray(servers) && servers.length
       ? servers
       : window.PremiumLive.serversFor(channel, snapshot.library.channels || []);
-    playQueue = list;
-    playQueueIndex = Math.max(0, list.findIndex((item) => item.url === channel.url));
+    // Feeds the player already watched fail become the backups, not the lead.
+    playQueue = health && health.healthyServersFirst
+      ? health.healthyServersFirst(list, deadFeeds)
+      : list;
+    playQueueIndex = Math.max(0, playQueue.findIndex((item) => item.url === channel.url));
+    feedRetries = new Map();
     audioSilentHopUsed = false;
     vodResumeAppliedForId = '';
     if (els.playerAudioBadge) els.playerAudioBadge.hidden = true;
@@ -2513,6 +2520,9 @@
   async function playCurrentServer(displayName) {
     const channel = playQueue[playQueueIndex];
     if (!channel) return;
+    // A fresh play() of this feed (manual switch, reopen) starts with a fresh
+    // reconnect budget; player.retry() does not pass through here.
+    feedRetries.delete(channel.url);
     describeChannel(channel);
     if (displayName && channel.name !== displayName) {
       els.playerName.textContent = displayName;
@@ -2536,7 +2546,24 @@
     // The proxy URL is /p/<session>, without a file extension. Pass the
     // original stream URL as a format hint so HLS/MPEG-TS gets the right
     // player first instead of trying native playback of every feed.
-    window.PremiumPlayer.play(resolved.url, channel.url, { onFatal: () => advanceServer() });
+    window.PremiumPlayer.play(resolved.url, channel.url, {
+      onFatal: (fault) => {
+        // A dropped segment or slow CDN edge gets a bounded reconnect on the
+        // same feed before this channel's backup server is spent. Permanent
+        // faults (404, DRM, unsupported format) walk on immediately.
+        const used = feedRetries.get(channel.url) || 0;
+        const decision = recovery
+          ? recovery.decideRecovery(recovery.classifyFault(fault), used, playQueueIndex > 0)
+          : { retryInPlace: false, notice: '' };
+        if (decision.retryInPlace) {
+          feedRetries.set(channel.url, used + 1);
+          els.statusText.textContent = decision.notice || 'Reconnecting to this feed…';
+          window.PremiumPlayer.retry();
+          return;
+        }
+        advanceServer();
+      },
+    });
   }
 
   /** Switch to the next server for the open channel, or give up honestly. */
@@ -2550,9 +2577,14 @@
     }
     // Every feed failed: remember the feed so the browser stops offering this
     // dead channel, and redraw the list behind the player.
-    const dead = playQueue[playQueueIndex];
-    if (health && dead && dead.url) {
-      deadFeeds = health.record(window.localStorage, dead.url);
+    // Remember every feed this channel exhausted, not only the last one: the
+    // next open must not lead with a URL the player already walked away from.
+    if (health && health.recordMany) {
+      deadFeeds = health.recordMany(window.localStorage, playQueue.map((c) => c.url));
+    } else if (health && playQueue[playQueueIndex]) {
+      deadFeeds = health.record(window.localStorage, playQueue[playQueueIndex].url);
+    }
+    if (health && playQueue.length) {
       renderCategories();
       if (ui.tab === 'channels') renderChannels();
     }

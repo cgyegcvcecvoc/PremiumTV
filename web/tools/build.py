@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "android" / "tools"))
 import build_bundle  # noqa: E402
 
 SHARED = ("category-icons.js", "live-events.js", "personal.js", "health.js",
-          "local-channels.js")
+          "local-channels.js", "playback-recovery.js")
 VENDORS = {
     "hls.js/dist/hls.min.js": "hls.min.js",
     "mpegts.js/dist/mpegts.js": "mpegts.js",

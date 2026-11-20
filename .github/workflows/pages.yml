@@ -45,6 +45,9 @@ on:
       # The USA bundle, shelf and site all read the live feed now, so a
       # change there has to rebuild them too.
       - "playlists/live/**"
+      - "playlists/local-channels.json"
+      - "data/local-markets/**"
+      - "scripts/build_local_channels.py"
       - "playlists/report.json"
       - "playlists/STATUS.md"
       - "categories/**"
@@ -160,6 +163,16 @@ jobs:
 
       - name: Regenerate site data from the repository
         run: python scripts/build_site_data.py
+
+      # The 2026-11-19 Pages run failed four web local-channel tests because a
+      # data run had published a USA playlist without rebuilding the market
+      # directory from it (WGAL/Lancaster were missing). A deployment reads the
+      # committed document, so repair it from the checked feed before npm test
+      # and the web export; the publishing data workflows commit this output.
+      - name: Self-heal the local-market directory before the web build
+        run: |
+          python scripts/build_local_channels.py
+          python scripts/build_local_channels.py --check
 
       - name: Build the full download hub alongside the download page
         run: |

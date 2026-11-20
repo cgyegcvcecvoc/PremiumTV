@@ -4,11 +4,18 @@
 The playlist does not contain verified start times. Fixture order and generic
 competition time slots cannot establish a kickoff, so all times remain null.
 The clients may support verified times in future; never guess them here.
+
+A data-identical rebuild keeps the old `generated_utc`, so scheduled workflows
+can self-heal without committing a timestamp-only change on every run. `--check`
+is read-only, unlike the older help/check flags that used to rewrite the file.
+
 Run: python3 scripts/build_live_schedule.py
+     python3 scripts/build_live_schedule.py --check
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -183,8 +190,8 @@ def assign_kickoffs(events):
     )
 
 
-def main() -> int:
-    text = PLAYLIST.read_text(encoding="utf-8", errors="replace")
+def build_document(text: str, existing: dict | None = None) -> dict:
+    """Return the schedule document, preserving a data-identical timestamp."""
     events = parse_events(text)
     games = assign_kickoffs(events)
     document = {
@@ -193,11 +200,59 @@ def main() -> int:
         "source": "Fixture names from the published playlist; verified kickoff times are unavailable.",
         "games": games,
     }
-    OUT.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    scheduled = sum(1 for game in games if game.get("kickoff_utc"))
+    # `generated_utc` changes on every run; it must not make a data-identical
+    # document look stale, or --check (and CI) could never pass.
+    def without_timestamp(value: dict) -> dict:
+        return {key: item for key, item in value.items() if key != "generated_utc"}
+
+    if isinstance(existing, dict) and without_timestamp(existing) == without_timestamp(document):
+        document["generated_utc"] = existing.get("generated_utc", document["generated_utc"])
+    return document
+
+
+def render(document: dict) -> str:
+    return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--source", default=str(PLAYLIST),
+                        help="published M3U whose fixture names are indexed")
+    parser.add_argument("--out", default=str(OUT),
+                        help="schedule document to write or check")
+    parser.add_argument("--check", action="store_true",
+                        help="exit 1 when the published document is out of date; never write")
+    args = parser.parse_args(argv)
+
+    source = Path(args.source)
+    out = Path(args.out)
+    text = source.read_text(encoding="utf-8", errors="replace")
+    existing = None
+    if out.is_file():
+        try:
+            existing = json.loads(out.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            existing = None
+    document = build_document(text, existing)
+    wanted = render(document)
+    current = out.read_text(encoding="utf-8") if out.is_file() else None
+    unchanged = current == wanted
+
+    if args.check:
+        if not unchanged:
+            print(f"{out} is out of date - run scripts/build_live_schedule.py", file=sys.stderr)
+            return 1
+        print(f"{out} is current ({len(document['games'])} fixtures)")
+        return 0
+
+    if not unchanged:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(wanted, encoding="utf-8")
+
+    scheduled = sum(1 for game in document["games"] if game.get("kickoff_utc"))
     print(
-        f"{len(events)} event entries, {len(games)} fixtures, "
-        f"{scheduled} with a verified kickoff -> {OUT}"
+        f"{len(parse_events(text))} event entries, {len(document['games'])} fixtures, "
+        f"{scheduled} with a verified kickoff -> {out}"
     )
     return 0
 

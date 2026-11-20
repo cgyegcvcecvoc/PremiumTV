@@ -52,6 +52,18 @@ window.PremiumPlayer = (function () {
   // Set by play(): called instead of the error card when this URL has been
   // tried every way, so app.js can switch to the channel's next server.
   let onFatal = null;
+  // The fault that exhausted the strategy list, plus the original handlers so
+  // a bounded in-place retry can fail again and still reach the backup walk.
+  let lastFault = 'transient';
+  let lastHandlers = {};
+
+  /** The shared recovery policy classifies a fatal player error. */
+  function classifyFault(error) {
+    const policy = window.PremiumRecovery;
+    return policy && typeof policy.classifyFault === 'function'
+      ? policy.classifyFault(error)
+      : 'transient';
+  }
 
   function loadAudioPrefs() {
     try {
@@ -191,6 +203,7 @@ window.PremiumPlayer = (function () {
     playbackTimer = scheduleTimer(() => {
       playbackTimer = null;
       if (sessionId !== sessionCounter) return;
+      lastFault = 'transient'; // a dead extensionless feed is a stall, not a format error
       teardown();
       tryNext();
     }, 12000);
@@ -387,7 +400,7 @@ window.PremiumPlayer = (function () {
       if (onFatal) {
         const handler = onFatal;
         onFatal = null;
-        handler();
+        handler(lastFault);
         return;
       }
       showError(
@@ -441,6 +454,11 @@ window.PremiumPlayer = (function () {
     });
     hls.on(window.Hls.Events.ERROR, (_event, data) => {
       if (!data.fatal) return;
+      lastFault = classifyFault({
+        type: data.type,
+        details: data.details,
+        response: data.response,
+      });
       if (data.type === window.Hls.ErrorTypes.NETWORK_ERROR && index < attempts.length) {
         teardown();
         tryNext();
@@ -479,7 +497,8 @@ window.PremiumPlayer = (function () {
       { type: 'mpegts', isLive: true, url: currentUrl },
       { enableWorker: false, liveBufferLatencyChasing: true, autoCleanupSourceBuffer: true },
     );
-    mpegtsPlayer.on(window.mpegts.Events.ERROR, () => {
+    mpegtsPlayer.on(window.mpegts.Events.ERROR, (type, detail) => {
+      lastFault = classifyFault({ type, details: detail });
       teardown();
       tryNext();
     });
@@ -496,6 +515,7 @@ window.PremiumPlayer = (function () {
   video.addEventListener('volumechange', () => emitAudioState());
   video.addEventListener('error', () => {
     if (hls || mpegtsPlayer) return; // those players report their own errors
+    lastFault = classifyFault(video.error || { message: 'media element error' });
     teardown();
     tryNext();
   });
@@ -517,6 +537,8 @@ window.PremiumPlayer = (function () {
       attempts = strategiesFor(originalUrl || url);
       index = 0;
       activeStrategy = '';
+      lastHandlers = handlers || {};
+      lastFault = 'transient';
       onFatal = typeof handlers.onFatal === 'function' ? handlers.onFatal : null;
       applySavedAudioPrefs();
       clearError();
@@ -541,13 +563,17 @@ window.PremiumPlayer = (function () {
       triedAltLevel = false;
       silentReported = false;
       onFatal = null;
+      lastHandlers = {};
+      lastFault = 'transient';
       showSpinner(false);
       clearError();
       emitAudioState();
     },
 
     retry() {
-      if (currentUrl) this.play(currentUrl, sourceHint, { onFatal });
+      // Re-enter play() with the original handlers: a bounded reconnect must
+      // still be able to hand the channel to its next server if it fails again.
+      if (currentUrl) this.play(currentUrl, sourceHint, lastHandlers || {});
     },
 
     /** Show the final error card; the app calls this when its server list ran out. */

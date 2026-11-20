@@ -47,8 +47,12 @@ internal suspend fun feedAnswers(channel: Channel): Boolean = withContext(Dispat
             if (channel.referrer.isNotBlank()) {
                 connection.setRequestProperty("Referer", channel.referrer)
             }
-            if (channel.origin.isNotBlank()) {
-                connection.setRequestProperty("Origin", channel.origin)
+            // Provider gateways expect only a scheme and host, not the
+            // trailing slash or path some #EXTVLCOPT:http-origin rows carry.
+            // The player and both relays already normalize this.
+            val origin = originHeaderValue(channel.origin)
+            if (origin.isNotBlank()) {
+                connection.setRequestProperty("Origin", origin)
             }
             connection.responseCode > 0
         } finally {

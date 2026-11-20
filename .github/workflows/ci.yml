@@ -28,6 +28,8 @@ on:
       - "playlists/PremiumTV.m3u"
       - "playlists/countries/**"
       - "playlists/live/**"
+      - "playlists/local-channels.json"
+      - "data/local-markets/**"
       - "categories/**"
       - "EPG/**"
       - "VERSION"
@@ -48,6 +50,9 @@ on:
       - ".github/workflows/android-build.yml"
       - ".github/workflows/macos-build.yml"
       - ".github/workflows/ci.yml"
+      - ".github/workflows/pages.yml"
+      - ".github/workflows/web-build.yml"
+      - ".github/workflows/legacy-sunset.yml"
 
 permissions:
   contents: read
@@ -78,8 +83,20 @@ jobs:
         # Gradle, Mac package, site generator and workflows are verified here.
         run: python scripts/version_sync.py --check
 
+      - name: Check the legacy feed is in its published phase
+        # The support deadline can pass between scheduled jobs. This read-only
+        # guard makes a stale warning/frozen state fail the pre-merge suite
+        # instead of every playlist publication hours later.
+        run: python scripts/legacy_sunset.py check
+
       - name: Run the offline test suite
         run: python -m unittest discover -s tests -v
+
+      - name: Check generated data against its generators
+        run: |
+          python scripts/build_live_schedule.py --check
+          python scripts/build_local_channels.py --check
+          python scripts/build_site_data.py --check
 
       - name: Set up Node 22
         uses: actions/setup-node@v4

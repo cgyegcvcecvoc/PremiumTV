@@ -126,6 +126,22 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Self-heal generated data and end-of-support state before tests
+        # A previous publishing run may have committed a playlist without its
+        # generated schedule, local-market directory, site payload or the
+        # published legacy-feed phase. Repair from the committed tree first, so
+        # this run's tests see current data instead of failing for the last
+        # run's drift or the support deadline crossing between jobs.
+        run: |
+          python3 scripts/legacy_sunset.py apply
+          python3 scripts/legacy_sunset.py check
+          python3 scripts/build_live_schedule.py
+          python3 scripts/build_local_channels.py
+          python3 scripts/build_site_data.py
+          python3 scripts/build_live_schedule.py --check
+          python3 scripts/build_local_channels.py --check
+          python3 scripts/build_site_data.py --check
+
       - name: Run offline tests
         run: python -m unittest discover -s tests -v
 
@@ -266,6 +282,19 @@ jobs:
             fi
           done
 
+      - name: Rebuild the Live Events schedule and generated site data before publishing
+        if: always()
+        # The playlist may have changed during this run. Regenerate every data
+        # file the apps and download site bundle, then prove each one matches
+        # its generator before anything is committed.
+        run: |
+          python3 scripts/build_live_schedule.py
+          python3 scripts/build_local_channels.py
+          python3 scripts/build_site_data.py
+          python3 scripts/build_live_schedule.py --check
+          python3 scripts/build_local_channels.py --check
+          python3 scripts/build_site_data.py --check
+
       - name: Commit the cleanup
         if: always()
         run: |
@@ -275,7 +304,7 @@ jobs:
           # runs; an automatic gc mid-commit would spend minutes repacking objects
           # nobody asked to keep. The log trimming is exactly the moment it would fire.
           git config gc.auto 0
-          git add EPG playlists/ categories/
+          git add EPG playlists/ categories/ docs/data/site.json docs/data/site-data.js docs/data/changelog.json docs/data/feed.xml
           if git diff --cached --quiet; then
             echo "Nothing to clean up: every playlist, guide and report is current."
             exit 0

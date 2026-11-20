@@ -1,4 +1,7 @@
 import java.util.Properties
+import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.testing.Test
 
 plugins {
     id("com.android.application")
@@ -120,7 +123,33 @@ android {
     }
 }
 
+// Robolectric 4.14.1 fetches its Android 9 (SDK 28) runtime jar with a direct
+// HttpURLConnection, outside Gradle's dependency cache. On 2026-11-19 that
+// fetch failed on GitHub-hosted CI and 21 repository/VOD tests aborted with
+// `MavenArtifactFetcher` IOExceptions. Resolve the exact jar through Gradle,
+// copy it to a local dependency directory, and tell Robolectric to read it
+// there instead of making an uncontrolled network call during the test run.
+val robolectricSdk28 by configurations.creating {
+    isCanBeResolved = true
+    isCanBeConsumed = false
+    isTransitive = false
+}
+val robolectricSdkDir = layout.buildDirectory.dir("robolectric")
+val copyRobolectricSdk = tasks.register<Copy>("copyRobolectricSdk") {
+    from(robolectricSdk28)
+    into(robolectricSdkDir)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType<Test>().configureEach {
+    dependsOn(copyRobolectricSdk)
+    systemProperty("robolectric.dependency.dir", robolectricSdkDir.get().asFile.absolutePath)
+}
+
 dependencies {
+    add("robolectricSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")
+    // Also cover a run configured with robolectric.usePreinstrumentedJars=false.
+    add("robolectricSdk28", "org.robolectric:android-all:9-robolectric-4913185-2")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")

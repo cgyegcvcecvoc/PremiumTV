@@ -407,3 +407,48 @@ test('an upstream media error ends the response without crashing the relay', asy
   assert.equal((await fetch(`${origin}/healthz`)).status, 200);
   assert.equal(relay.sessions.get(session.sessionId).active, 0);
 });
+
+test('an extensionless octet-stream HLS playlist is sniffed and rewritten', async (t) => {
+  const target = 'https://cdn.example/watch/123';
+  const master = '#EXTM3U\n#EXT-X-STREAM-INF:BANDWIDTH=800000\nvariant.m3u8\n';
+  const relay = new Relay({
+    allowlist: new Map([[target, {}]]),
+    fetchImpl: async () => new Response(master, {
+      headers: { 'content-type': 'application/octet-stream' },
+    }),
+  });
+  const origin = await relay.start(0, '127.0.0.1');
+  t.after(() => relay.stop());
+
+  const session = relay.openSession(target);
+  const answer = await fetch(`${origin}${session.path}`);
+  assert.equal(answer.status, 200);
+  assert.match(answer.headers.get('content-type'), /mpegurl/);
+  const body = await answer.text();
+  // The relative variant resolves against /watch/123, not the site root.
+  assert.match(body, /u=https%3A%2F%2Fcdn\.example%2Fwatch%2Fvariant\.m3u8/);
+  assert.ok(
+    relay.sessions.get(session.sessionId).allowed.has('https://cdn.example/watch/variant.m3u8'),
+    'the child variant is whitelisted for this session only',
+  );
+});
+
+test('an extensionless media segment is streamed byte-for-byte, not sniffed as a playlist', async (t) => {
+  const target = 'https://cdn.example/media/chunk0';
+  const bytes = Buffer.from([0x47, 0x40, 0x00, 0x10, 0x00, 0x42, 0xf0, 0x11]);
+  const relay = new Relay({
+    allowlist: new Map([[target, {}]]),
+    fetchImpl: async () => new Response(bytes, {
+      headers: { 'content-type': 'application/octet-stream' },
+    }),
+  });
+  const origin = await relay.start(0, '127.0.0.1');
+  t.after(() => relay.stop());
+
+  const session = relay.openSession(target);
+  const answer = await fetch(`${origin}${session.path}`);
+  assert.equal(answer.status, 200);
+  // The declared octet-stream type is preserved instead of being guessed.
+  assert.equal(answer.headers.get('content-type'), 'application/octet-stream');
+  assert.ok(Buffer.from(await answer.arrayBuffer()).equals(bytes));
+});

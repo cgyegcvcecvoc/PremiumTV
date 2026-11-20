@@ -66,14 +66,21 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Refresh the Live Events schedule from the committed playlist
-        # The apps bundle playlists/live-schedule.json and the offline suite
-        # fails when it disagrees with playlists/PremiumTV.m3u. Regenerating it
-        # before the tests means a playlist change published by an earlier run
-        # can never wedge every following data run - which is exactly what
-        # happened between 2026-10-23 and 10-24, when three scrapes and four
-        # quick updates died in `Run offline tests` and no channel was re-checked.
-        run: python3 scripts/build_live_schedule.py
+      - name: Self-heal generated data and end-of-support state before tests
+        # A previous publishing run may have committed a playlist without its
+        # generated schedule, local-market directory, site payload or the
+        # published legacy-feed phase. Repair from the committed tree first, so
+        # this run's tests see current data instead of failing for the last
+        # run's drift or the support deadline crossing between jobs.
+        run: |
+          python3 scripts/legacy_sunset.py apply
+          python3 scripts/legacy_sunset.py check
+          python3 scripts/build_live_schedule.py
+          python3 scripts/build_local_channels.py
+          python3 scripts/build_site_data.py
+          python3 scripts/build_live_schedule.py --check
+          python3 scripts/build_local_channels.py --check
+          python3 scripts/build_site_data.py --check
 
       - name: Run offline tests
         run: python -m unittest discover -s tests -v
@@ -157,6 +164,19 @@ jobs:
             fi
           done
 
+      - name: Rebuild the Live Events schedule and generated site data before publishing
+        if: always()
+        # The playlist may have changed during this run. Regenerate every data
+        # file the apps and download site bundle, then prove each one matches
+        # its generator before anything is committed.
+        run: |
+          python3 scripts/build_live_schedule.py
+          python3 scripts/build_local_channels.py
+          python3 scripts/build_site_data.py
+          python3 scripts/build_live_schedule.py --check
+          python3 scripts/build_local_channels.py --check
+          python3 scripts/build_site_data.py --check
+
       - name: Commit the repaired playlists
         if: always() && inputs.write != false
         run: |
@@ -166,7 +186,7 @@ jobs:
           python scripts/build_local_channels.py
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add EPG playlists/ categories/
+          git add EPG playlists/ categories/ docs/data/site.json docs/data/site-data.js docs/data/changelog.json docs/data/feed.xml
           if git diff --cached --quiet; then
             echo "No playlist changes to commit."
             exit 0

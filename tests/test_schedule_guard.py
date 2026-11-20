@@ -170,7 +170,7 @@ class WorkflowParsingTest(unittest.TestCase):
     def test_every_configured_cron_has_a_known_label(self):
         # Guards against drift between the workflows and SLOT_LABELS: both
         # scrape.yml and discover.yml ask the guard for their run label.
-        for workflow in ("scrape.yml", "discover.yml"):
+        for workflow in ("scrape.yml", "discover.yml", "legacy-sunset.yml"):
             for slot in guard.load_schedule(REPO / ".github" / "workflows" / workflow):
                 with self.subTest(workflow=workflow, cron=slot.cron):
                     self.assertIn(slot.cron, guard.SLOT_LABELS)

@@ -12,11 +12,14 @@
   // Relay discovery (relay-client.js). Absent in an older deploy, in which case
   // the browser keeps its previous, relay-free behaviour.
   const relay = window.PremiumRelay || null;
+  const recovery = window.PremiumRecovery || null;
   let relayConfig = false;
   let relayRescues = 0;
   // Every attempt already spent on the current channel, so a feed that failed
   // direct and through the relay is not tried in a loop.
   let attempted = new Set();
+  // Bounded in-place reconnects spent on each feed (shared policy with macOS).
+  let feedRetries = new Map();
   // The same market-aware local-channel logic the native apps use, copied in
   // unchanged at build time (shared/local-channels.js).
   const local = window.PremiumLocalChannels;
@@ -836,11 +839,17 @@
   function openPlayer(channel, servers) {
     if (!channel) return;
     current = channel;
-    queue = (servers || serversFor(channel)).filter(
+    const unique = (servers || serversFor(channel)).filter(
       (c, i, list) => list.findIndex((x) => x.url === c.url) === i,
     );
+    // A feed the player already watched fail goes to the back of the walk,
+    // exactly as Android's healthyServersFirst() does.
+    queue = health.healthyServersFirst
+      ? health.healthyServersFirst(unique, dead)
+      : unique;
     serverIndex = 0;
     attempted = new Set();
+    feedRetries = new Map();
     relayRescues = 0;
     $("player").hidden = false;
     $("player-error").hidden = true;
@@ -919,7 +928,7 @@
     if (!queue.length) return;
     const source = queue[serverIndex];
     current = source;
-    playerSerial++;
+    const serial = ++playerSerial;
     lastProgressSave = 0;
     $("player-error").hidden = true;
     // An embed owns the stage until the player is closed or another server is
@@ -960,11 +969,15 @@
     if (wantsRelay && !attempted.has(relayKey)) {
       attempted.add(relayKey);
       const opened = await relay.open(source, relayConfig);
+      // The viewer may have chosen a different channel/server (or closed the
+      // player) while the relay was being opened. Never start that stale feed.
+      if (serial !== playerSerial) return;
       if (opened && opened.url) {
         playUrl = opened.url;
         via = "relay";
       }
     }
+    if (serial !== playerSerial) return;
     if (via === "direct") attempted.add(directKey);
     if (via === "relay") relayRescues += 1;
     // Say which of the three situations this is. The relay note must be visible
@@ -982,19 +995,39 @@
     $("player-browser-note").hidden = via !== "relay" && !restricted && !source.url.startsWith("http:");
     $("player-expand-picture").hidden = !expanded;
     player.play(playUrl, source.url, source, {
-      onFatal: () => {
+      onFatal: (fault) => {
+        if (serial !== playerSerial) return; // a callback from a replaced feed
         // A direct attempt that failed is exactly what a relay exists for.
         if (plan.available && via === "direct" && !attempted.has(relayKey)) {
           toast("Direct playback failed. Trying the PremiumTV relay…");
           playServer();
           return;
         }
+        // A dropped segment or slow CDN edge is not a dead feed. Reconnect the
+        // same feed a bounded number of times before spending a backup server;
+        // a permanent fault (404, DRM, unsupported format) walks on at once.
+        const used = feedRetries.get(source.url) || 0;
+        const decision = recovery
+          ? recovery.decideRecovery(recovery.classifyFault(fault), used, serverIndex > 0)
+          : { retryInPlace: false, notice: "" };
+        if (decision.retryInPlace) {
+          feedRetries.set(source.url, used + 1);
+          toast(decision.notice || "Reconnecting to this feed…");
+          player.retry();
+          return;
+        }
         advanceServer(true);
       },
       onState: (info) => {
-        if (info.started && current && !current.vod && dead.has(current.url)) {
-          dead = health.forget(S.storage, current.url);
-          renderChannels();
+        if (serial !== playerSerial) return; // a callback from a replaced feed
+        if (info.started) {
+          // A feed that reached the screen has recovered; give it a fresh
+          // budget for a later mid-show fault.
+          if (current) feedRetries.delete(current.url);
+          if (current && !current.vod && dead.has(current.url)) {
+            dead = health.forget(S.storage, current.url);
+            renderChannels();
+          }
         }
         if (info.silent) {
           toast("No decodable audio detected. Trying the next server…");
@@ -1008,6 +1041,7 @@
         syncTransport(info);
       },
       onProgress: (seconds, duration) => {
+        if (serial !== playerSerial) return; // a callback from a replaced feed
         if (current && current.vod && Date.now() - lastProgressSave > 4000) {
           S.savePosition(current.id, seconds, duration);
           lastProgressSave = Date.now();
@@ -1020,9 +1054,13 @@
     if (!queue.length) return;
     if (auto && serverIndex + 1 >= queue.length) {
       if (!current.vod) {
-        queue.forEach((c) => {
-          dead = health.record(S.storage, c.url);
-        });
+        // Remember the whole failed walk, not just the last feed, so the next
+        // open does not lead with a URL the player already exhausted.
+        if (health.recordMany) {
+          dead = health.recordMany(S.storage, queue.map((c) => c.url));
+        } else {
+          queue.forEach((c) => { dead = health.record(S.storage, c.url); });
+        }
         renderChannels();
       }
       player.fail(

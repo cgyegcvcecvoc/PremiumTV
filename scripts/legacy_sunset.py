@@ -299,8 +299,10 @@ def frozen_header(text: str, notice: dict) -> list[str]:
             guide = match.group(1).split(",")[0].strip()
             break
     head = ["#EXTM3U" + (f' x-tvg-url="{guide}"' if guide else "")]
-    stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    head.append(f"# {FROZEN_MARKER} {stamp}")
+    # The freeze date is published, not the wall-clock time of whichever
+    # workflow happens to re-run `apply`. A real timestamp made every data job
+    # rewrite the frozen feed and made `check` race the minute it rendered.
+    head.append(f"# {FROZEN_MARKER} {format_day(notice['support_ends'])} (UTC)")
     head.append(f"# Support for PremiumTV {notice['max_version'] or '1.0.4'} and older ended "
                 f"{format_day(notice['support_ends'])}. This feed is pinned: it no longer "
                 f"receives the GitHub channel scrape updates.")
