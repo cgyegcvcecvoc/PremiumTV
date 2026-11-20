@@ -2846,6 +2846,16 @@ window.SITE_DATA = {
   {
    "id": "2026-11-20",
    "date": "2026-11-20",
+   "title": "Version 1.1.12 published: resilient playback",
+   "body_md": "- Published [`v1.1.12`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.12) as the Latest release (Android `versionCode 101120000`, macOS `1.1.12`) with the smoke-tested APK, all four Mac installers, both `SHA256SUMS` files and build provenance attached. The VERSION-triggered publish workflow created the release, dispatched both installer builds, waited for every asset, and asked Pages to redeploy.\n- The download-site copy now names 1.1.12: `docs/README.md`, `docs/blocked/index.html`, `hub/static/index.html`, the root README table and `docs/UPDATES.md`. `SITE_VERSION` and the deep-link tests follow the published installers, and the in-app update notice points builds through 1.1.11 at 1.1.12.",
+   "bullets": [
+    "Published [`v1.1.12`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.12) as the Latest release (Android `versionCode 101120000`, macOS `1.1.12`) with the smoke-tested APK, all four Mac installers, both `SHA256SUMS` files and build provenance attached. The VERSION-triggered publish workflow created the release, dispatched both installer builds, waited for every asset, and asked Pages to redeploy.",
+    "The download-site copy now names 1.1.12: `docs/README.md`, `docs/blocked/index.html`, `hub/static/index.html`, the root README table and `docs/UPDATES.md`. `SITE_VERSION` and the deep-link tests follow the published installers, and the in-app update notice points builds through 1.1.11 at 1.1.12."
+   ]
+  },
+  {
+   "id": "2026-11-20",
+   "date": "2026-11-20",
    "title": "Version 1.1.12 prepared: resilient playback",
    "body_md": "- **Bounded recovery on every client.** A shared `PremiumRecovery` policy classifies transient, media and permanent faults; Android, macOS and web retry in place before spending a backup server or walking a failed channel list. Web's player serial ignores stale relay callbacks, and health helpers record whole-failed walks and prefer healthy servers.\n- **Safer relay and live probes.** The opt-in Node relay sniffs extensionless `application/octet-stream` HLS playlists, rewrites their relative URLs, and passes real media through byte-for-byte; Android's live probe sends a normalized `Origin` scheme+host+port instead of the embed page.\n- **Generated data and CI repair themselves.** `build_live_schedule.py` has a read-only, timestamp-stable `--check`; six data workflows rebuild generated schedules, local markets and site payloads before tests and before commits; Pages and Web checks verify local markets; the legacy support freeze has its own scheduled publication and a deterministic published-date stamp.\n- **Android unit tests are hermetic.** Gradle resolves Robolectric's SDK 28 runtime jar and Android 15 compile-resource jar, gives both exact local filenames, and points `robolectric.dependency.dir` at a copied directory, so `TvRepositoryTest` and `VodShelfTest` no longer fetch `android-all` over HTTP during CI.",
    "bullets": [

@@ -31,7 +31,9 @@ test('Netlify cards recommend stable independently of input order and ignore the
   assert.match(cards[0].querySelector('a.dl').href, /v1\.1\.11/);
   assert.match(cards[1].textContent, /1\.1\.11/);
   assert.doesNotMatch(doc.body.textContent, /Encore Preview/);
-  assert.doesNotMatch(doc.body.textContent, /1\.1\.1(?!1)/);
+  // The retired preview was exactly 1.1.1; 1.1.1x stable releases (1.1.11,
+  // 1.1.12, …) are ordinary published builds and may appear in the page copy.
+  assert.doesNotMatch(doc.body.textContent, /1\.1\.1(?!\d)/);
   assert.equal(doc.querySelectorAll('#apk-table a[href$="SHA256SUMS-android.txt"]').length, 2,
     'the retired preview row is filtered from the table too');
   assert.equal(doc.querySelectorAll('#apk-table tbody tr').length, 2);

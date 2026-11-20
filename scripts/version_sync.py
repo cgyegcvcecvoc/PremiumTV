@@ -9,8 +9,8 @@ Everything a machine reads is derived from it:
     macos/app/package-lock.json         the lockfile's root version
 
 App build targets are checked against VERSION. Published download pages and
-notices are checked against PUBLISHED_VERSION; legacy download-page copy is
-checked against SITE_VERSION so the web edition stays unchanged:
+notices are checked against PUBLISHED_VERSION; the static download-site copy is
+checked against SITE_VERSION so a stale page fails CI:
 the README release table, the two app READMEs, docs/UPDATES.md, the update
 notice, the release notes file, both build workflows and the published
 download pages (docs/README.md, docs/blocked/index.html, hub/static/index.html).
@@ -33,9 +33,9 @@ import re
 import sys
 from pathlib import Path
 
-# The app release and the untouched legacy website copy advance independently.
+# The app release and the static download-site copy are checked separately.
 PUBLISHED_VERSION = "1.1.12"
-SITE_VERSION = "1.1.5"
+SITE_VERSION = "1.1.12"
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))

@@ -10,6 +10,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-20 — Version 1.1.12 published: resilient playback
+
+- Published [`v1.1.12`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.12) as the Latest release (Android `versionCode 101120000`, macOS `1.1.12`) with the smoke-tested APK, all four Mac installers, both `SHA256SUMS` files and build provenance attached. The VERSION-triggered publish workflow created the release, dispatched both installer builds, waited for every asset, and asked Pages to redeploy.
+- The download-site copy now names 1.1.12: `docs/README.md`, `docs/blocked/index.html`, `hub/static/index.html`, the root README table and `docs/UPDATES.md`. `SITE_VERSION` and the deep-link tests follow the published installers, and the in-app update notice points builds through 1.1.11 at 1.1.12.
+
 ## 2026-11-20 — Version 1.1.12 prepared: resilient playback
 
 - **Bounded recovery on every client.** A shared `PremiumRecovery` policy classifies transient, media and permanent faults; Android, macOS and web retry in place before spending a backup server or walking a failed channel list. Web's player serial ignores stale relay callbacks, and health helpers record whole-failed walks and prefer healthy servers.
