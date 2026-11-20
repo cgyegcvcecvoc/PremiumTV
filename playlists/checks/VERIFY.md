@@ -1,9 +1,9 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-20T17:01:58+00:00 UTC
+- **Generated:** 2026-11-20T18:54:38+00:00 UTC
 - **Playlists checked:** 179 (24736 entries)
 - **Playlists with problems:** 0
-- **Playlists with guide-coverage notes:** 82
+- **Playlists with guide-coverage notes:** 83
 - **Links published that the deep check called dead:** 0
 - **Category shelf files:** 137 (0 problem(s))
 - **Curated categories (in the published order):** Sports, Sports Backups, Lifestyle, Lifestyle Backups, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, Cartoons Backups, PBS, PBS Backups, Game Shows, Music, Music Backups, News, News Backups, Religious, Religious Backups, Entertainment, Entertainment Backups, International, International Backups, Movies, Movies Backups, Kids, Kids Backups, Culture, Culture Backups, Asia, Asia Backups, Europe, Europe Backups, Documentary, Documentary Backups, Education, Education Backups, Africa, Africa Backups, North America, North America Backups, Series, Series Backups, Legislative, Legislative Backups, Business, Business Backups, South America, South America Backups, A&E Networks, A&E Networks Backups, Family, Classic TV, Classic TV Backups, Comedy, United States, United States Backups, Weather, Online TV, Online TV Backups, Australia, Canada, DLTV, Global TV, Global TV Backups, India, India Backups, Oceania, Oceania Backups, Relax, Tv Shows, UK, UK Backups, Other, Other Backups
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 12304 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, Movies, News, Europe, Entertainment, International, Religious, Asia, South America, United States, Documentary, Series, Kids, North America, Education, Culture, Comedy, Legislative, A&E Networks, India, Africa, Classic TV, Business, Family, UK, Canada, Weather, Australia, Animals & Nature, DLTV, Tv Celebrities, Aria Web Channels, Global TV, Online TV, Tv Paranormal, Tv Shows, Oceania, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10344/10344 (100.0%) | 2003 (19.4%) |
+| `playlists/PremiumTV.m3u` | 12304 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, Music, Movies, News, Europe, Entertainment, International, Religious, Asia, South America, United States, Documentary, Series, Kids, North America, Education, Culture, Comedy, Legislative, A&E Networks, India, Africa, Classic TV, Business, Family, UK, Canada, Weather, Australia, Animals & Nature, DLTV, Tv Celebrities, Aria Web Channels, Global TV, Online TV, Tv Paranormal, Tv Shows, Oceania, Relax, United Kingdom, Other | 0 | 0 | 3 | 0 | 10344/10344 (100.0%) | 2004 (19.4%) |
 | `playlists/AE_Channels.m3u` | 115 | A&E Networks | 0 | 0 | 3 | 0 | 98/98 (100.0%) | 15 (15.3%) |
 | `playlists/Priority_Channels.m3u` | 13 | Sports, Cartoons, Kids, United States | 0 | 0 | 3 | 0 | 12/12 (100.0%) | 6 (50.0%) |
 | `playlists/countries/Afghanistan.m3u` | 11 | Asia, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 11/11 (100.0%) | 0 (0.0%) |
@@ -163,7 +163,7 @@
 | `playlists/countries/Somalia.m3u` | 4 | International | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
 | `playlists/countries/South_Africa.m3u` | 15 | Lifestyle, Entertainment, Religious, Africa, News | 0 | 0 | 1 | 0 | 15/15 (100.0%) | 7 (46.7%) |
 | `playlists/countries/South_Korea.m3u` | 69 | Sports, Lifestyle, Cartoons, Asia, Education, International, News, Religious, Documentary, Entertainment, Global TV, Kids, Legislative, Music | 0 | 0 | 1 | 0 | 53/53 (100.0%) | 6 (11.3%) |
-| `playlists/countries/Spain.m3u` | 189 | Sports, Lifestyle, CBS, PBS, Europe, Music, International, Movies, News, Religious, Entertainment, Documentary, Series, Kids, Business, Classic TV, Culture, Education, Legislative | 0 | 0 | 1 | 0 | 170/170 (100.0%) | 21 (12.3%) |
+| `playlists/countries/Spain.m3u` | 189 | Sports, Lifestyle, CBS, PBS, Europe, Music, International, Movies, News, Religious, Entertainment, Documentary, Series, Kids, Business, Classic TV, Culture, Education, Legislative | 0 | 0 | 1 | 0 | 170/170 (100.0%) | 22 (12.9%) |
 | `playlists/countries/Sri_Lanka.m3u` | 6 | Sports, Asia, Culture, Entertainment | 0 | 0 | 1 | 0 | 6/6 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Sudan.m3u` | 2 | Africa, Education | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Suriname.m3u` | 2 | Culture, Religious | 0 | 0 | 1 | 0 | 2/2 (100.0%) | 0 (0.0%) |
@@ -191,7 +191,7 @@
 | `playlists/countries/Western_Sahara.m3u` | 3 | Other | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Yemen.m3u` | 4 | News, Asia, Religious | 0 | 0 | 1 | 0 | 4/4 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Zimbabwe.m3u` | 1 | Religious | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
-| `playlists/live/USA.m3u` | 2976 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Religious, Music, Documentary, Kids, Legislative, News, A&E Networks, Education, Comedy, Classic TV, Culture, Business, Family, Weather, International, Tv Shows, Animals & Nature, Global TV, Aria Web Channels, Australia, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 2144/2144 (100.0%) | 465 (21.7%) |
+| `playlists/live/USA.m3u` | 2976 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Religious, Music, Documentary, Kids, Legislative, News, A&E Networks, Education, Comedy, Classic TV, Culture, Business, Family, Weather, International, Tv Shows, Animals & Nature, Global TV, Aria Web Channels, Australia, Tv Paranormal, Other | 0 | 0 | 1 | 0 | 2030/2144 (94.7%) | 425 (19.8%) |
 
 ## Problems
 
@@ -427,6 +427,7 @@ Each file is a slice of an already published playlist, so its sorting is the pub
 - `playlists/countries/Western_Sahara.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Yemen.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
 - `playlists/countries/Zimbabwe.m3u`: the advertised local guide has no programme entries (upstream listings were unreachable); channel ids are still declared
+- `playlists/live/USA.m3u`: the advertised guide declares 2054 of 2144 playlist ids; the next EPG build adds the rest
 
 ## EPG sources (last deep guide check)
 
