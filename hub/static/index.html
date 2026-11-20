@@ -69,16 +69,15 @@
       </p>
 
       <div class="release-polish">
-        <h3>Stable 1.1.5 · faster remote, calmer start, sleep timer</h3>
+        <h3>Stable 1.1.12 · resilient playback</h3>
         <p>The app updates itself: <b>Settings → App updates</b> checks GitHub, downloads the
           new installer once, verifies its SHA-256 checksum and opens the platform installer.</p>
-        <p>1.1.5 is the remote-first update. Focused cards animate without recomposing every
-          frame, a channel card has one focus stop instead of two (hold OK to favourite),
-          the guide stops queueing scroll work while you hold a direction, and the rail,
-          grid and tab rows keep D-pad traversal inside the shelf you are browsing. The startup screen now
-          reports real progress, live playback stops polling a clock it never displays, and
-          Settings adds a 30/60/90-minute sleep timer that closes the player when it ends.</p>
-        <p class="meta">Android: 1.1.5 uses code 101050000, above every published release,
+        <p>1.1.12 is the resilient-playback release. Android, macOS and web retry
+          recoverable faults before spending backup servers, share a bounded
+          transient/media/permanent fault policy, and keep the opt-in relay safe
+          for extensionless HLS playlists. Scheduled jobs self-heal generated
+          data, local markets and the legacy freeze before tests.</p>
+        <p class="meta">Android: 1.1.12 uses code 101120000, above every published release,
           so every installed build finds it in its updater. Only published full releases
           above the installed version are offered.</p>
       </div>

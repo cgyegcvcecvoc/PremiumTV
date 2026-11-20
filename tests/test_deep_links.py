@@ -128,17 +128,17 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertEqual(build_site_data.PAGES_URL,
                          "https://cgyegcvcecvoc.github.io/PremiumTV/")
 
-    def test_blocked_page_links_to_the_1_1_5_installers(self):
+    def test_blocked_page_links_to_the_1_1_12_installers(self):
         page = text("docs/blocked/index.html")
         for asset in (
-            "PremiumTV-1.1.5-debug.apk",
-            "PremiumTV-1.1.5-mac-arm64.dmg",
-            "PremiumTV-1.1.5-mac-x64.dmg",
+            "PremiumTV-1.1.12-debug.apk",
+            "PremiumTV-1.1.12-mac-arm64.dmg",
+            "PremiumTV-1.1.12-mac-x64.dmg",
         ):
             self.assertIn(
-                f"{CANONICAL}/releases/download/v1.1.5/{asset}", page)
+                f"{CANONICAL}/releases/download/v1.1.12/{asset}", page)
         self.assertIn(f"{CANONICAL}/releases/latest", page)
-        self.assertIn("versionCode 101050000", page)
+        self.assertIn("versionCode 101120000", page)
 
     def test_download_page_and_docs_use_the_canonical_repository(self):
         for name in ("README.md", "docs/UPDATES.md", "hub/DEPLOY.md",

@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.5** — remote-first speed and focus on Android TV, a calmer real-progress startup screen, less work while a live channel plays, and a new 30/60/90-minute sleep timer in Settings. Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.12** — bounded playback recovery on Android, macOS and web, a safer opt-in relay, and self-healing generated data and CI). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.5
+## Current stable: 1.1.12
 
-1.1.5 is the remote-first release. D-pad focus on a channel or event card no longer recomposes the card on every frame (the 3% lift is applied in the graphics layer with a 110 ms tween), the favourite star is no longer a second focus stop on every card — hold OK to favourite, or use the side player's ★ — the rail, channel grid, tabs and Live Events rows are focus groups that keep D-pad traversal inside the shelf you are browsing, and the guide folds held-direction repeats into one cursor move at a time. The startup screen is one calm composition with a real-progress gold bar (no invented trickle, no rotating tips), live playback stops polling a clock it never displays, the Guide tab stops remapping every channel once a minute, and Coil's logo cache is capped at 10% of the heap. Settings adds a new **Sleep timer** (Off/30/60/90 minutes) whose wall-clock deadline closes the player when it arrives, and the browser now respects the phone's safe area while narrow Settings rows stack instead of squeezing their values. The full-screen player, docked side player, category rail, automatic server backup and checksum-verified updater are unchanged. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.5.md`](../release-notes-1.1.5.md).
+1.1.12 is the resilient-playback release. Android, macOS and web retry recoverable playback faults before spending backup servers, share a bounded recovery policy for transient, media and permanent failures, and keep the opt-in relay safe for extensionless HLS playlists. Scheduled jobs self-heal generated data, local markets and the legacy freeze before tests; Android unit tests resolve Robolectric SDK jars through Gradle. The docked side player, category rail, automatic server backup and checksum-verified updater are unchanged. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.12.md`](../release-notes-1.1.12.md).
 
-It installs in place over every earlier build: Android `101050000` is above
+It installs in place over every earlier build: Android `101120000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.5 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.12 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 
@@ -52,7 +52,7 @@ download links were removed; any old link goes to
 and explains how to replace the preview without uninstalling on Android. **The
 `1.1.0` and `1.1.1` names are ordinary stable releases** — the deleted preview
 shared those names, and the project promoted them back, so a device on either is
-on a supported build and simply updates to 1.1.5 in-app. The Netlify Drop hub
+on a supported build and simply updates to 1.1.12 in-app. The Netlify Drop hub
 under `hub/` uses the same complete-release gate and never renders a preview
 card. Rebuild and re-upload its export to refresh an existing Netlify
 deployment.
