@@ -27,27 +27,27 @@ Daemon will be stopped at the end of the build
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :app:mergeDebugAssets
+> Task :app:processDebugManifestForPackage
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :app:compressDebugAssets
 > Task :app:l8DexDesugarLibDebug FROM-CACHE
+> Task :app:processDebugResources
 > Task :app:desugarDebugFileDependencies FROM-CACHE
+> Task :app:packageDebugUnitTestForUnitTest
+> Task :app:generateDebugUnitTestConfig
 > Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
 > Task :app:checkDebugDuplicateClasses
 > Task :app:mergeDebugNativeLibs
 > Task :app:mergeExtDexDebug FROM-CACHE
-> Task :app:processDebugManifestForPackage
 > Task :app:mergeLibDexDebug FROM-CACHE
 > Task :app:validateSigningDebug
 > Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
 
 > Task :app:stripDebugDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libffmpegJNI.so.
 
-> Task :app:writeDebugSigningConfigVersions
-> Task :app:processDebugResources
-> Task :app:packageDebugUnitTestForUnitTest
-> Task :app:generateDebugUnitTestConfig
 > Task :app:compileDebugKotlin
 w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2180:27 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'org.json.JSONArray?'.
 
@@ -59,82 +59,805 @@ w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/
 > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
 > Task :app:mergeProjectDexDebug
 > Task :app:mergeDebugJavaResource
-> Task :app:packageDebug
-> Task :app:createDebugApkListingFileRedirect
-> Task :app:assembleDebug
 > Task :app:compileDebugUnitTestKotlin
 > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :app:processDebugUnitTestJavaRes
 
 > Task :app:testDebugUnitTest
+[robolectric] dependency.dir=/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric
+[robolectric] /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar (120933029 bytes)
+[robolectric] /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar (106130412 bytes)
+
+com.premiumtv.app.data.TvRepositoryTest STANDARD_OUT
+    DEBUG: Shadow provider: org.robolectric.Shadows
+    DEBUG: Using a LocalDependencyResolver, dependencyDir=/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric
+    DEBUG: Manifest file location: build/intermediates/packaged_manifests/debug/processDebugManifestForPackage/AndroidManifest.xml
+    DEBUG: Manifest doc location:
+    build/intermediates/packaged_manifests/debug/processDebugManifestForPackage/AndroidManifest.xml
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserDropsTheSanctionedUpdateNoticeEntry STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.m3uParserDropsTheSanctionedUpdateNoticeEntry: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserDropsTheSanctionedUpdateNoticeEntry STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > m3uParserDropsTheSanctionedUpdateNoticeEntry FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > previewFeaturesComeFromTheApkNotFromTheDownload STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.previewFeaturesComeFromTheApkNotFromTheDownload: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > previewFeaturesComeFromTheApkNotFromTheDownload STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > previewFeaturesComeFromTheApkNotFromTheDownload FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > malformedCacheFallsBackToTheApk STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.malformedCacheFallsBackToTheApk: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > malformedCacheFallsBackToTheApk STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > malformedCacheFallsBackToTheApk FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > coldLaunchLoadsTheActualBundledChannels STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.coldLaunchLoadsTheActualBundledChannels: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > coldLaunchLoadsTheActualBundledChannels STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > coldLaunchLoadsTheActualBundledChannels FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > damagedGuideKeepsChannelsAvailable STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.damagedGuideKeepsChannelsAvailable: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > damagedGuideKeepsChannelsAvailable STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > damagedGuideKeepsChannelsAvailable FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserKeepsAnEntryThatOnlyLooksLikeTheNotice STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.m3uParserKeepsAnEntryThatOnlyLooksLikeTheNotice: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserKeepsAnEntryThatOnlyLooksLikeTheNotice STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > m3uParserKeepsAnEntryThatOnlyLooksLikeTheNotice FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > xmltvParserRejectsInvalidDatesAndRepairsNonPositiveDurations STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.xmltvParserRejectsInvalidDatesAndRepairsNonPositiveDurations: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > xmltvParserRejectsInvalidDatesAndRepairsNonPositiveDurations STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > xmltvParserRejectsInvalidDatesAndRepairsNonPositiveDurations FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > streamingXmltvParserSkipsListingsTheAppWouldDrop STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.streamingXmltvParserSkipsListingsTheAppWouldDrop: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > streamingXmltvParserSkipsListingsTheAppWouldDrop STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > streamingXmltvParserSkipsListingsTheAppWouldDrop FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > cacheWrittenByThisBuildIsKept STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.cacheWrittenByThisBuildIsKept: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > cacheWrittenByThisBuildIsKept STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > cacheWrittenByThisBuildIsKept FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > cacheWrittenByAnotherBuildIsDiscardedForTheApksBundle STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.cacheWrittenByAnotherBuildIsDiscardedForTheApksBundle: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > cacheWrittenByAnotherBuildIsDiscardedForTheApksBundle STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > cacheWrittenByAnotherBuildIsDiscardedForTheApksBundle FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserKeepsCommasInChannelNamesAndQuotedAttributes STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.m3uParserKeepsCommasInChannelNamesAndQuotedAttributes: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserKeepsCommasInChannelNamesAndQuotedAttributes STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > m3uParserKeepsCommasInChannelNamesAndQuotedAttributes FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > interruptedSwapRestoresBackupAndResetUsesApk STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.interruptedSwapRestoresBackupAndResetUsesApk: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > interruptedSwapRestoresBackupAndResetUsesApk STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > interruptedSwapRestoresBackupAndResetUsesApk FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserPreservesOriginAndOptionsOverrideAttributes STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.m3uParserPreservesOriginAndOptionsOverrideAttributes: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > m3uParserPreservesOriginAndOptionsOverrideAttributes STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > m3uParserPreservesOriginAndOptionsOverrideAttributes FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.data.TvRepositoryTest > missingGroupsAreDerivedFromChannels STANDARD_OUT
+    com.premiumtv.app.data.TvRepositoryTest.missingGroupsAreDerivedFromChannels: sdk=28
+
+com.premiumtv.app.data.TvRepositoryTest > missingGroupsAreDerivedFromChannels STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.data.TvRepositoryTest > missingGroupsAreDerivedFromChannels FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.ui.VodShelfTest > multi-source VOD entries expose backup derivatives for automatic server fallback STANDARD_OUT
+    com.premiumtv.app.ui.VodShelfTest.multi-source VOD entries expose backup derivatives for automatic server fallback: sdk=28
+
+com.premiumtv.app.ui.VodShelfTest > multi-source VOD entries expose backup derivatives for automatic server fallback STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.ui.VodShelfTest > multi-source VOD entries expose backup derivatives for automatic server fallback FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.ui.VodShelfTest > blank or malformed catalogues are empty, never invented STANDARD_OUT
+    com.premiumtv.app.ui.VodShelfTest.blank or malformed catalogues are empty, never invented: sdk=28
+
+com.premiumtv.app.ui.VodShelfTest > blank or malformed catalogues are empty, never invented STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.ui.VodShelfTest > blank or malformed catalogues are empty, never invented FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.ui.VodShelfTest > a film becomes a Movies channel with the poster as its logo STANDARD_OUT
+    com.premiumtv.app.ui.VodShelfTest.a film becomes a Movies channel with the poster as its logo: sdk=28
+
+com.premiumtv.app.ui.VodShelfTest > a film becomes a Movies channel with the poster as its logo STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.ui.VodShelfTest > a film becomes a Movies channel with the poster as its logo FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.ui.VodShelfTest > a paused catalogue reports coming soon instead of inventing titles STANDARD_OUT
+    com.premiumtv.app.ui.VodShelfTest.a paused catalogue reports coming soon instead of inventing titles: sdk=28
+
+com.premiumtv.app.ui.VodShelfTest > a paused catalogue reports coming soon instead of inventing titles STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.ui.VodShelfTest > a paused catalogue reports coming soon instead of inventing titles FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.ui.VodShelfTest > an episode without numbering still labels itself STANDARD_OUT
+    com.premiumtv.app.ui.VodShelfTest.an episode without numbering still labels itself: sdk=28
+
+com.premiumtv.app.ui.VodShelfTest > an episode without numbering still labels itself STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.ui.VodShelfTest > an episode without numbering still labels itself FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.ui.VodShelfTest > parses entries and drops ones a player cannot open STANDARD_OUT
+    com.premiumtv.app.ui.VodShelfTest.parses entries and drops ones a player cannot open: sdk=28
+
+com.premiumtv.app.ui.VodShelfTest > parses entries and drops ones a player cannot open STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.ui.VodShelfTest > parses entries and drops ones a player cannot open FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+com.premiumtv.app.ui.VodShelfTest > an episode names its show and season and plays as one TV Shows entry STANDARD_OUT
+    com.premiumtv.app.ui.VodShelfTest.an episode names its show and season and plays as one TV Shows entry: sdk=28
+
+com.premiumtv.app.ui.VodShelfTest > an episode names its show and season and plays as one TV Shows entry STANDARD_ERROR
+    ERROR: Unable to locate dependency: '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar'
+    ERROR: Parent directory exists but is missing the dependency
+    ERROR: Contents of directory '/home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric':
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-9-robolectric-4913185-2-i7.jar
+    ERROR: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-9-robolectric-4913185-2.jar
 
 com.premiumtv.app.ui.VodShelfTest > an episode names its show and season and plays as one TV Shows entry FAILED
-    java.lang.IllegalArgumentException at LocalDependencyResolver.java:50
+    java.lang.IllegalArgumentException: Path is not a file: /home/runner/work/PremiumTV/PremiumTV/android/app/build/robolectric/android-all-instrumented-15-robolectric-12650502-i7.jar
+        at org.robolectric.internal.dependency.LocalDependencyResolver.validateFile(LocalDependencyResolver.java:50)
+        at org.robolectric.internal.dependency.LocalDependencyResolver.getLocalArtifactUrl(LocalDependencyResolver.java:27)
+        at org.robolectric.plugins.LegacyDependencyResolver.getLocalArtifactUrl(LegacyDependencyResolver.java:95)
+        at org.robolectric.plugins.DefaultSdkProvider$DefaultSdk.getJarPath(DefaultSdkProvider.java:143)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage_measured(AndroidTestEnvironment.java:400)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$loadAppPackage$3(AndroidTestEnvironment.java:393)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.loadAppPackage(AndroidTestEnvironment.java:393)
+        at org.robolectric.android.internal.AndroidTestEnvironment.installAndCreateApplication(AndroidTestEnvironment.java:286)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$0(AndroidTestEnvironment.java:262)
+        at org.robolectric.util.PerfStatsCollector.measure(PerfStatsCollector.java:51)
+        at org.robolectric.android.internal.AndroidTestEnvironment.lambda$createApplicationSupplier$1(AndroidTestEnvironment.java:259)
+        at com.google.common.base.Suppliers$NonSerializableMemoizingSupplier.get(Suppliers.java:200)
+        at org.robolectric.RuntimeEnvironment.lambda$getApplication$0(RuntimeEnvironment.java:71)
+        at org.robolectric.shadows.ShadowInstrumentation.runOnMainSyncNoIdle(ShadowInstrumentation.java:1190)
+        at org.robolectric.RuntimeEnvironment.getApplication(RuntimeEnvironment.java:71)
+        at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:230)
+        at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:284)
+        at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:279)
+        at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
 
 92 tests completed, 21 failed
 
 > Task :app:testDebugUnitTest FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795175614232.json
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795175983890.json
 
 FAILURE: Build failed with an exception.
 
@@ -315,5 +1038,5 @@ Caused by: org.gradle.api.internal.exceptions.MarkedVerificationException: There
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 
 
-BUILD FAILED in 1m 20s
+BUILD FAILED in 1m 21s
 48 actionable tasks: 35 executed, 13 from cache
