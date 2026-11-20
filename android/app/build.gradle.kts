@@ -164,6 +164,17 @@ tasks.withType<Test>().configureEach {
     systemProperty("robolectric.dependency.dir", robolectricSdkDir.get().asFile.absolutePath)
     systemProperty("robolectric.offline", "true")
     systemProperty("robolectric.usePreinstrumentedJars", "true")
+    systemProperty("robolectric.logging.enabled", "true")
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+    doFirst {
+        println("[robolectric] dependency.dir=${systemProperties["robolectric.dependency.dir"]}")
+        robolectricSdkDir.get().asFile.listFiles().orEmpty().sortedBy { it.name }.forEach {
+            println("[robolectric] ${it.absolutePath} (${it.length()} bytes)")
+        }
+    }
 }
 
 dependencies {
