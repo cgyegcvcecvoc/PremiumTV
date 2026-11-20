@@ -80,17 +80,17 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.11** (Android `versionCode 101110000`) | USA lineup + USA guide | Local stations by market from a location, ZIP, state or city; every A+E Networks channel in one category; named releases ([notes](release-notes-1.1.11.md)). |
-| Superseded | **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.11. |
+| **Stable release** | **1.1.12** (Android `versionCode 101120000`) | USA lineup + USA guide | Bounded playback recovery on Android, macOS and web; safer opt-in relay handling; self-healing generated data and CI ([notes](release-notes-1.1.12.md)). |
+| Superseded | **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.12. |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.11 ends Nov 19, 2026 |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.12 ended Nov 19, 2026 |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.11 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.12 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.11 over the preview (`101110000` > `100010001`) and
+newer. Android accepts 1.1.12 over the preview (`101120000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
 
@@ -304,9 +304,9 @@ still receives a real crash but the next bug report has something to go on. A
 published `http-origin` is normalised to the scheme+host+port tuple a CDN
 expects, matching the Mac app.
 
-**1.1.11 is the current stable release** (`versionCode 101110000`, USA scope).
+**1.1.12 is the current stable release** (`versionCode 101120000`, USA scope).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.1.11 installs over 1.0.8, 1.0.8.1
+upgrades from Settings → App updates, and 1.1.12 installs over 1.0.8, 1.0.8.1
 and the retired 1.1.x previews as well. (One exception: an installed 1.0.8.1
 still reads "1.0.9" as another name for itself, so its in-app check can miss
 this release — install the APK by hand; it upgrades in place.) A release is offered only when it is a

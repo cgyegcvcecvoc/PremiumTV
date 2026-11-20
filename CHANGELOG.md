@@ -10,6 +10,13 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-20 — Version 1.1.12 prepared: resilient playback
+
+- **Bounded recovery on every client.** A shared `PremiumRecovery` policy classifies transient, media and permanent faults; Android, macOS and web retry in place before spending a backup server or walking a failed channel list. Web's player serial ignores stale relay callbacks, and health helpers record whole-failed walks and prefer healthy servers.
+- **Safer relay and live probes.** The opt-in Node relay sniffs extensionless `application/octet-stream` HLS playlists, rewrites their relative URLs, and passes real media through byte-for-byte; Android's live probe sends a normalized `Origin` scheme+host+port instead of the embed page.
+- **Generated data and CI repair themselves.** `build_live_schedule.py` has a read-only, timestamp-stable `--check`; six data workflows rebuild generated schedules, local markets and site payloads before tests and before commits; Pages and Web checks verify local markets; the legacy support freeze has its own scheduled publication and a deterministic published-date stamp.
+- **Android unit tests are hermetic.** Gradle resolves Robolectric's SDK 28 runtime jar and Android 15 compile-resource jar, gives both exact local filenames, and points `robolectric.dependency.dir` at a copied directory, so `TvRepositoryTest` and `VodShelfTest` no longer fetch `android-all` over HTTP during CI.
+
 ## 2026-11-15 — Version 1.1.11 published: local channels by location
 
 - Published [`v1.1.11`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.11) as the Latest release (Android `versionCode 101110000`, macOS `1.1.11`) with the smoke-tested APK, all four Mac installers and both `SHA256SUMS` files attached. This is the first release that ships the real market-based local channels: 1.1.10's notes claimed them but the feature was not in the build.

@@ -1,0 +1,52 @@
+name: End legacy build support
+
+# `app-update-notice.json` publishes the end-of-support instant. The scraper
+# workflows already call `legacy_sunset.py apply`, but GitHub's cron slots can
+# run late or be dropped. This one-shot workflow makes the freeze itself a
+# scheduled publication five minutes after the published deadline instead of
+# relying on whichever data job happens to run next.
+
+on:
+  schedule:
+    - cron: "5 0 20 11 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: legacy-sunset
+  cancel-in-progress: false
+
+jobs:
+  freeze:
+    name: Pin the legacy feed after the grace period
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Freeze and verify the legacy feed
+        run: |
+          python scripts/legacy_sunset.py apply
+          python scripts/legacy_sunset.py check
+
+      - name: Publish the frozen feed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add playlists/countries/USA.m3u playlists/live/USA.m3u \
+                  playlists/legacy/USA.m3u app-update-notice.json
+          if git diff --cached --quiet; then
+            echo "Legacy support is already frozen; nothing to publish."
+            exit 0
+          fi
+          git commit -m "End support for legacy PremiumTV builds [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main

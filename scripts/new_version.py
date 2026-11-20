@@ -52,6 +52,7 @@ KNOWN_RELEASE_NAMES = {
     "local-channels": "Local channels by location",
     "a-and-e": "A&E Networks in one category",
     "version-scheme": "Named releases",
+    "resilient-playback": "Resilient playback",
 }
 
 # Standard one-line notes for the features whose wording must not drift.
@@ -65,6 +66,10 @@ STANDARD_NOTES = {
     ),
     "version-scheme": (
         "One phrase, \"new version\", now means bump, notes, publish and verify.",
+    ),
+    "resilient-playback": (
+        "Android, macOS and web retry recoverable playback faults before spending backup servers.",
+        "A shared recovery policy keeps transient, media and permanent failures bounded.",
     ),
 }
 

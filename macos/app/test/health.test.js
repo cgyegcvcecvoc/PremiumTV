@@ -77,3 +77,26 @@ test('recovering one feed retains other failures', () => {
   assert.deepEqual([...health.forget(storage, 'a', 1001)], ['b']);
   assert.deepEqual([...health.load(storage, 1001)], ['b']);
 });
+
+test('recordMany remembers every feed a channel exhausted', () => {
+  const health = loadHealth();
+  const storage = memoryStorage();
+  const dead = health.recordMany(storage, ['a', 'b', 'a', ''], 1_000);
+  assert.equal(dead.size, 2);
+  assert.deepEqual([...dead].sort(), ['a', 'b']);
+  assert.equal(JSON.parse(storage.getItem(health.KEY)).length, 2);
+});
+
+test('healthyServersFirst keeps published order but demotes remembered failures', () => {
+  const health = loadHealth();
+  const servers = [channel('a'), channel('b'), channel('c')];
+  const dead = new Set(['a', 'c']);
+  assert.deepEqual(
+    health.healthyServersFirst(servers, dead).map((c) => c.url),
+    ['b', 'a', 'c'],
+  );
+  assert.deepEqual(
+    health.healthyServersFirst(servers, new Set()).map((c) => c.url),
+    ['a', 'b', 'c'],
+  );
+});

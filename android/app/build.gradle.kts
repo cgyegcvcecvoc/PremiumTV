@@ -1,4 +1,7 @@
 import java.util.Properties
+import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.testing.Test
 
 plugins {
     id("com.android.application")
@@ -120,7 +123,59 @@ android {
     }
 }
 
+// Robolectric 4.14.1 fetches its Android runtime jars with a direct
+// HttpURLConnection, outside Gradle's dependency cache. On 2026-11-19 that
+// fetch failed on GitHub-hosted CI and 21 repository/VOD tests aborted with
+// `MavenArtifactFetcher` IOExceptions. A test pinned to SDK 28 still needs two
+// preinstrumented jars: the SDK 28 runtime and Robolectric's highest supported
+// SDK (Android 15/V) for compile-time system resources. Resolve both through
+// Gradle, give them the exact Maven-style filenames LocalDependencyResolver
+// expects, and read them from `robolectric.dependency.dir` with no network call
+// during the test JVM.
+fun hermeticSdkConfiguration(name: String) = configurations.create(name) {
+    isCanBeResolved = true
+    isCanBeConsumed = false
+    isTransitive = false
+}
+
+val robolectricSdkJars = listOf(
+    "robolectricInstrumentedSdk28" to "android-all-instrumented-9-robolectric-4913185-2-i7.jar",
+    "robolectricInstrumentedSdk35" to "android-all-instrumented-15-robolectric-12650502-i7.jar",
+)
+robolectricSdkJars.forEach { (name, _) -> hermeticSdkConfiguration(name) }
+
+val robolectricSdkDir = layout.buildDirectory.dir("robolectric")
+val copyRobolectricSdk = tasks.register<Copy>("copyRobolectricSdk") {
+    robolectricSdkJars.forEach { (name, fileName) ->
+        from(configurations.getByName(name)) {
+            include("*.jar")
+            rename(".*", fileName)
+        }
+    }
+    into(robolectricSdkDir)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    doLast {
+        robolectricSdkDir.get().asFile.listFiles().orEmpty().sortedBy { it.name }.forEach {
+            println("[robolectric] ${it.name} (${it.length()} bytes)")
+        }
+    }
+}
+
+tasks.withType<Test>().configureEach {
+    dependsOn(copyRobolectricSdk)
+    systemProperty("robolectric.dependency.dir", robolectricSdkDir.get().asFile.absolutePath)
+    systemProperty("robolectric.offline", "true")
+    systemProperty("robolectric.usePreinstrumentedJars", "true")
+    testLogging {
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+}
+
 dependencies {
+    add("robolectricInstrumentedSdk28", "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i7")
+    // Robolectric 4.14.1's highest supported SDK supplies compile-time resources
+    // even when the test itself is pinned to SDK 28.
+    add("robolectricInstrumentedSdk35", "org.robolectric:android-all-instrumented:15-robolectric-12650502-i7")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")

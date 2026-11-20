@@ -6,8 +6,9 @@ the only way to reach them is through that feed.  These checks guard the
 contract ``scripts/legacy_sunset.py`` implements:
 
   * while support lasts, the live feed the current builds use is kept in step;
-  * on the published end-of-support date the legacy feed is pinned, carries one
-    sanctioned notice entry, and stops receiving scrape updates;
+  * after support ends, the published repository may be in the frozen state:
+    the legacy feed is pinned, carries one sanctioned notice entry, and stops
+    receiving scrape updates;
   * the freeze is idempotent, survives a scrape run rewriting the file, and is
     reported by the CI guard when it does not;
   * every consumer that must not go stale resolves the live feed, not the pin;
@@ -248,6 +249,16 @@ class FreezeTests(unittest.TestCase):
         self.assertEqual(result["wrote"], [], "re-running must not churn the pinned feed")
         self.assertEqual(self.tree.legacy.read_text(encoding="utf-8"), frozen)
 
+    def test_the_frozen_header_uses_the_published_date_not_the_wall_clock(self):
+        self.tree.apply(day_after_support_ends())
+        frozen = self.tree.legacy.read_text(encoding="utf-8")
+        self.assertIn(
+            f"# {legacy_sunset.FROZEN_MARKER} Nov 19, 2026 (UTC)", frozen,
+            "the freeze stamp must come from the notice, not the runner clock")
+        self.assertNotRegex(
+            frozen, r"FROZEN \d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC",
+            "a wall-clock stamp makes every re-run rewrite the frozen feed")
+
     def test_a_scrape_run_overwriting_the_freeze_is_put_back(self):
         self.tree.apply(day_after_support_ends())
         pinned = self.tree.pinned.read_text(encoding="utf-8")
@@ -474,19 +485,33 @@ class ToolingToleranceTests(unittest.TestCase):
 class ConsumerWiringTests(unittest.TestCase):
     """Nothing that must stay current may be pointed at the pinned feed."""
 
-    def test_the_repository_is_in_the_warning_phase_with_a_live_feed(self):
+    def test_the_repository_has_a_live_feed_for_current_builds(self):
         self.assertTrue(LEGACY.is_file())
         self.assertTrue(LIVE.is_file(),
                         "playlists/live/USA.m3u must be committed for CI to build from it")
-        self.assertFalse(legacy_sunset.is_frozen(LEGACY),
-                         "the legacy feed must not be frozen before its published sunset")
         self.assertFalse(legacy_sunset.is_notice_entry_text(LIVE.read_text(encoding="utf-8")))
+        notice = legacy_sunset.read_notice(ROOT)
+        support_ended = (notice["support_ends"] is not None and
+                         legacy_sunset.now_seconds() >= notice["support_ends"])
+        self.assertEqual(legacy_sunset.is_frozen(LEGACY), support_ended,
+                         "the legacy feed may freeze only after its published sunset")
 
-    def test_the_live_feed_is_the_legacy_feed_without_the_notice(self):
+    def test_the_legacy_feed_shows_the_notice_without_poisoning_the_live_feed(self):
         live = LIVE.read_text(encoding="utf-8")
         legacy = LEGACY.read_text(encoding="utf-8")
-        self.assertEqual(live, legacy_sunset.strip_notice_entries(legacy),
-                         "while support lasts the two feeds carry the same channels")
+        legacy_channels = legacy_sunset.strip_notice_entries(legacy)
+        if legacy_sunset.is_frozen(LEGACY):
+            # After the freeze the live feed keeps receiving fresh channels;
+            # the pinned legacy feed keeps the last supported channel list.
+            self.assertTrue((ROOT / legacy_sunset.PINNED_USA).is_file(),
+                            "a frozen legacy feed must have a committed pin")
+            self.assertEqual(live, (ROOT / legacy_sunset.LIVE_USA).read_text(encoding="utf-8"))
+            self.assertNotEqual(live, legacy_channels)
+        else:
+            # During support the two feeds carry the same channels, with the
+            # notice only in the legacy copy.
+            self.assertEqual(live, legacy_channels,
+                             "while support lasts the two feeds carry the same channels")
         self.assertEqual(legacy_sunset.count_notice_entries(legacy), 1,
                          "an installed 1.0.0-1.0.4 must be told about the newer release")
         self.assertEqual(legacy_sunset.count_notice_entries(live), 0)

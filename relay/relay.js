@@ -431,6 +431,14 @@ class Relay {
       const finalUrl = upstream.url || target;
       const playlistish = isPlaylist || looksLikePlaylist(finalUrl) || /mpegurl|m3u/i.test(contentType);
 
+      // A CDN often serves an HLS master, an audio rendition or a variant from
+      // an extensionless URL as application/octet-stream. Streaming it raw
+      // leaves the child URLs pointing at a host the browser cannot read, so
+      // sniff the first chunk for #EXTM3U before deciding it is media. Never
+      // sniff a HEAD, a range request (VOD seeking) or a declared media type.
+      const canSniff = request.method !== 'HEAD' && Boolean(upstream.body)
+        && !range && !/^(video|audio|image|font)\//i.test(contentType);
+
       if (!playlistish) clearTimeout(timer); // connect deadline, not a live-stream lifetime
       if (playlistish) {
         const body = await readLimited(upstream, MAX_PLAYLIST_BYTES);
@@ -463,10 +471,93 @@ class Relay {
         if (value) outHeaders[name] = value;
       }
       if (!outHeaders['content-type']) outHeaders['content-type'] = inferContentType(finalUrl);
-      response.writeHead(upstream.status, outHeaders);
-      if (request.method === 'HEAD') return response.end();
+      if (!canSniff) {
+        response.writeHead(upstream.status, outHeaders);
+        if (request.method === 'HEAD') return response.end();
+        await pipeline(Readable.fromWeb(upstream.body), response);
+        return undefined;
+      }
 
-      await pipeline(Readable.fromWeb(upstream.body), response);
+      const reader = upstream.body.getReader();
+      let firstChunk = null;
+      try {
+        const first = await reader.read();
+        if (!first.done) firstChunk = Buffer.from(first.value);
+      } catch (error) {
+        await reader.cancel().catch(() => {});
+        if (!response.headersSent) return sendText(response, 502, describe(error));
+        response.destroy();
+        return undefined;
+      }
+
+      if (firstChunk && firstChunk.length > MAX_PLAYLIST_BYTES) {
+        await reader.cancel().catch(() => {});
+        return sendText(response, 502, 'playlist too large');
+      }
+      if (firstChunk && looksLikeExtM3uHead(firstChunk)) {
+        const chunks = [firstChunk];
+        let total = firstChunk.length;
+        try {
+          for (;;) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            const buf = Buffer.from(value);
+            total += buf.length;
+            if (total > MAX_PLAYLIST_BYTES) {
+              await reader.cancel().catch(() => {});
+              return sendText(response, 502, 'playlist too large');
+            }
+            chunks.push(buf);
+          }
+        } catch (error) {
+          response.destroy();
+          return undefined;
+        }
+        const rewritten = rewritePlaylist(
+          Buffer.concat(chunks).toString('utf8'),
+          finalUrl,
+          session,
+          `${this.origin}/s/${sessionId}`,
+        );
+        response.writeHead(200, {
+          'content-type': 'application/vnd.apple.mpegurl',
+          'cache-control': 'no-store',
+          'access-control-allow-origin': '*',
+          'content-length': Buffer.byteLength(rewritten),
+        });
+        return response.end(rewritten);
+      }
+
+      // Real media: the first chunk belongs to the client, not to a parser.
+      response.writeHead(upstream.status, outHeaders);
+      response.on('close', () => { reader.cancel().catch(() => {}); });
+      if (firstChunk && !response.destroyed) response.write(firstChunk);
+      try {
+        for (;;) {
+          if (response.destroyed) break;
+          const { done, value } = await reader.read();
+          if (done || response.destroyed) break;
+          if (!response.write(Buffer.from(value))) {
+            // A disconnected client fires 'close', not 'drain'; waiting only
+            // for 'drain' would keep the session slot occupied forever.
+            await new Promise((resolve) => {
+              if (response.destroyed) return resolve();
+              const done = () => {
+                response.off('drain', done);
+                response.off('close', done);
+                resolve();
+              };
+              response.once('drain', done);
+              response.once('close', done);
+            });
+          }
+        }
+        if (!response.destroyed) response.end();
+      } catch (error) {
+        await reader.cancel().catch(() => {});
+        if (!response.headersSent) return sendText(response, 502, describe(error));
+        response.destroy();
+      }
       return undefined;
     } catch (error) {
       if (!response.headersSent) return sendText(response, 502, describe(error));

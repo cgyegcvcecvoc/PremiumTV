@@ -29,7 +29,19 @@
     mediaRecoveries = 0,
     triedAudio = new Set();
   let currentStrategy = "",
-    pendingGesture = false;
+      pendingGesture = false;
+  // The fault that exhausted the current strategy list, and the handlers to
+  // re-attach when the app asks for a bounded in-place retry of this feed.
+  let lastFault = "transient",
+      lastHandlers = null;
+
+  /** The shared recovery policy classifies a fatal player error. */
+  function classifyFault(error) {
+    const policy = root.PremiumRecovery;
+    return policy && typeof policy.classifyFault === "function"
+      ? policy.classifyFault(error)
+      : "transient";
+  }
 
   function emit(extra) {
     if (stateHandler)
@@ -135,7 +147,7 @@
   function fatal() {
     const handler = fatalHandler;
     fatalHandler = null;
-    if (handler) handler();
+    if (handler) handler(lastFault);
     else showError();
   }
   function nextStrategy() {
@@ -177,8 +189,10 @@
         !manualPaused &&
         !pendingGesture &&
         (!started || (video.readyState < 3 && !video.paused))
-      )
+      ) {
+        lastFault = "transient"; // a stall is a dropped connection, not a dead feed
         nextStrategy();
+      }
     }, channel && !channel.vod ? 12000 : 20000);
   }
   function requestPlay(id) {
@@ -195,7 +209,10 @@
         if (id !== session) return;
         if (error.name === "NotAllowedError" || error.name === "SecurityError")
           showGesture();
-        else if (error.name !== "AbortError" && !hls && !mpegts) nextStrategy();
+        else if (error.name !== "AbortError" && !hls && !mpegts) {
+          lastFault = classifyFault(error);
+          nextStrategy();
+        }
       });
   }
   function showGesture() {
@@ -334,6 +351,11 @@
               return;
             } catch (_) {}
           }
+          lastFault = classifyFault({
+            type: data.type,
+            details: data.details,
+            response: data.response,
+          });
           nextStrategy();
         });
         hls.on(root.Hls.Events.MANIFEST_PARSED, () => {
@@ -369,15 +391,20 @@
             liveBufferLatencyChasing: true,
           },
         );
-        mpegts.on(root.mpegts.Events.ERROR, () => {
-          if (id === session) nextStrategy();
+        mpegts.on(root.mpegts.Events.ERROR, (type, detail) => {
+          if (id !== session) return;
+          lastFault = classifyFault({ type, details: detail });
+          nextStrategy();
         });
         mpegts.attachMediaElement(video);
         mpegts.load();
         requestPlay(id);
       }
     } catch (_) {
-      if (id === session) nextStrategy();
+      if (id === session) {
+        lastFault = "transient";
+        nextStrategy();
+      }
     }
   }
   function setAudio(index) {
@@ -415,6 +442,7 @@
       pendingGesture
     )
       return;
+    lastFault = classifyFault(video.error || { message: "media element error" });
     nextStrategy();
   });
   video.addEventListener("pause", () => {
@@ -460,9 +488,11 @@
       url = source;
       hint = original || source;
       channel = item || {};
-      fatalHandler = handlers.onFatal;
-      stateHandler = handlers.onState;
-      progressHandler = handlers.onProgress;
+      lastHandlers = handlers || {};
+      fatalHandler = lastHandlers.onFatal;
+      stateHandler = lastHandlers.onState;
+      progressHandler = lastHandlers.onProgress;
+      lastFault = "transient";
       started = false;
       manualPaused = false;
       pendingGesture = false;
@@ -492,21 +522,18 @@
       manualPaused = false;
       pendingGesture = false;
       fatalHandler = stateHandler = progressHandler = null;
+      lastHandlers = null;
+      lastFault = "transient";
       loading.hidden = gesture.hidden = true;
       errorBox.hidden = false;
       emit();
     },
     retry() {
-      if (!channel) return;
-      manualPaused = false;
-      pendingGesture = false;
-      started = false;
-      attempt = 0;
-      mediaRecoveries = 0;
-      strategies = plan(hint, appleDevice(), nativeHls(), mse());
-      teardown();
-      if (strategies.length) run(strategies[attempt++]);
-      else showError();
+      if (!channel || !url) return;
+      // Re-enter play() so the fatal handler, state handler and session id are
+      // all attached to the retry. A bounded reconnect must be able to fail
+      // again and still hand the channel to its next server.
+      this.play(url, hint, channel, lastHandlers || {});
     },
     fail(message) {
       fatalHandler = null;
