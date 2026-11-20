@@ -103,10 +103,14 @@ CHANNEL_ID_RE = re.compile(r"[?&](?:id|channel_id|channel|ch)\s*=\s*([A-Za-z0-9_
 PLAYLIST_HREF_RE = re.compile(r"(?:\.m3u8?(?:[?#]|$)|[?&/._-](?:playlist|m3u))", re.IGNORECASE)
 
 # Lenient TLS context: some public stream hosts have broken/expired certificates.
-# This is only for availability checks; it does not change how a player connects.
+# This is only for availability checks of media URLs; it does not change how a
+# player connects, and it is never used to fetch sources.json playlists, GitHub
+# API payloads, W3U children, reference pages or XMLTV guides.
 INSECURE_CTX = ssl.create_default_context()
 INSECURE_CTX.check_hostname = False
 INSECURE_CTX.verify_mode = ssl.CERT_NONE
+SECURE_CTX = ssl.create_default_context()
+GITHUB_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 
 
 def log(msg: str) -> None:
@@ -722,7 +726,67 @@ def is_ae_channel(channel: Channel) -> bool:
 # --------------------------------------------------------------------------- #
 # Fetching
 # --------------------------------------------------------------------------- #
+def source_url_problem(url: str) -> str | None:
+    """Return why a configured source URL must not be fetched, or None if it is ok.
+
+    Live stream URLs are a different class: those are probed by check_channel
+    and may be plain HTTP. Control-plane fetches (playlists, GitHub, W3U
+    children, reference pages) only accept http(s) without embedded credentials.
+    """
+    text = str(url or "").strip()
+    if not text or any(ch.isspace() for ch in text):
+        return "invalid URL"
+    try:
+        parsed = urllib.parse.urlsplit(text)
+    except ValueError:
+        return "invalid URL"
+    scheme = (parsed.scheme or "").lower()
+    if scheme not in ("http", "https"):
+        return f"unsupported scheme {scheme or '(none)'}"
+    if parsed.username is not None or parsed.password is not None:
+        return "URL credentials are not allowed"
+    if not parsed.hostname:
+        return "missing host"
+    return None
+
+
+def github_repo_problem(repo: str) -> str | None:
+    if not GITHUB_REPO_RE.fullmatch(str(repo or "").strip()):
+        return "github.repo must be owner/name"
+    return None
+
+
+def _is_within(path: Path, root: Path) -> bool:
+    try:
+        path.relative_to(root)
+        return True
+    except ValueError:
+        return False
+
+
+def configured_local_path(local_rel: str) -> Path:
+    """Resolve a sources.json local_path.
+
+    Relative paths are confined to the repository. Absolute paths are allowed
+    so offline tests and operators can point at a fixture outside the tree.
+    """
+    text = str(local_rel or "").strip()
+    if not text:
+        raise ValueError("empty local_path")
+    path = Path(text)
+    if path.is_absolute():
+        return path
+    root = ROOT.resolve()
+    resolved = (root / path).resolve()
+    if not _is_within(resolved, root):
+        raise ValueError(f"local_path {text!r} escapes the repository")
+    return resolved
+
+
 def http_get(url: str, headers: dict | None = None, timeout: float = 30, retries: int = 2) -> str:
+    problem = source_url_problem(url)
+    if problem:
+        raise RuntimeError(f"GET {safe_url(url) or 'source'} refused: {problem}")
     hdrs = {"User-Agent": DEFAULT_UA, "Accept": "*/*"}
     hdrs.update(headers or {})
     last: Exception | None = None
@@ -730,7 +794,7 @@ def http_get(url: str, headers: dict | None = None, timeout: float = 30, retries
     for attempt in range(attempts):
         try:
             req = urllib.request.Request(url, headers=hdrs)
-            with urllib.request.urlopen(req, timeout=timeout, context=INSECURE_CTX) as response:
+            with urllib.request.urlopen(req, timeout=timeout, context=SECURE_CTX) as response:
                 return response.read().decode("utf-8-sig", errors="replace")
         except urllib.error.HTTPError as exc:
             last = exc
@@ -759,25 +823,35 @@ def fetch_source_text(src: dict) -> str:
     """Fetch a source, reading a curated local_path first when configured, or falling back to GitHub API."""
     local_rel = str(src.get("local_path") or "").strip()
     if local_rel:
-        local_file = Path(local_rel) if Path(local_rel).is_absolute() else (ROOT / local_rel)
+        local_file = configured_local_path(local_rel)
         if local_file.exists():
             src["_fetch_method"] = "local_file"
             return local_file.read_text(encoding="utf-8")
+    url = str(src.get("url") or "").strip()
+    problem = source_url_problem(url)
+    if problem:
+        raise RuntimeError(f"refusing to fetch {safe_url(url) or 'source'}: {problem}")
     try:
-        text = http_get(src["url"])
+        text = http_get(url)
         src["_fetch_method"] = "direct"
         return text
     except Exception as exc:  # noqa: BLE001
         github = src.get("github")
         if not github or not github.get("repo") or not github.get("path"):
             raise
-        direct_error = error_text(exc, src["url"])
+        repo_problem = github_repo_problem(str(github.get("repo") or ""))
+        if repo_problem:
+            raise RuntimeError(repo_problem) from exc
+        path = str(github.get("path") or "")
+        if not path or path.startswith("/") or ".." in Path(path).parts:
+            raise RuntimeError("github.path must be a relative file inside the repository") from exc
+        direct_error = error_text(exc, url)
         src["_fetch_method"] = "github_api_fallback"
         src["_direct_fetch_error"] = direct_error
         log(f"  direct fetch failed ({direct_error}); trying GitHub API")
         api = (
             f"https://api.github.com/repos/{github['repo']}/contents/"
-            f"{urllib.parse.quote(github['path'])}?ref={urllib.parse.quote(github.get('ref', 'main'))}"
+            f"{urllib.parse.quote(path)}?ref={urllib.parse.quote(str(github.get('ref') or 'main'))}"
         )
         headers = {"Accept": "application/vnd.github.raw"}
         # Public playlist repositories work unauthenticated. Only use an
@@ -2839,6 +2913,21 @@ def main() -> int:
                 continue
 
             source_url = resolve_source_url(src)
+            if source_url:
+                url_problem = source_url_problem(source_url)
+                if url_problem:
+                    message = f"Refusing source URL: {url_problem}"
+                    if src.get("optional", False) and src.get("url_env"):
+                        stat["status"] = "not_configured"
+                        stat["note"] = message
+                        log(f"[{name}] not configured (optional): {message}")
+                    else:
+                        stat["status"] = "failed"
+                        stat["error"] = message
+                        stat["issues"].append(message)
+                        source_issues.append(f"[{name}] {message}")
+                        log(f"[{name}] ERROR: {message}")
+                    continue
             if not source_url:
                 env_name = src.get("url_env")
                 message = f"Set {env_name} to a playlist URL" if env_name else "No source URL configured"
@@ -2889,7 +2978,7 @@ def main() -> int:
                     raise RuntimeError("source returned 0 channels")
                 stat["bytes"] = len(text.encode("utf-8"))
                 stat["issues"].extend(parse_issues)
-                local_src_path = (ROOT / str(src["local_path"])).resolve() if src.get("local_path") else None
+                local_src_path = configured_local_path(str(src["local_path"])) if src.get("local_path") else None
                 if local_src_path is None or local_src_path != cache.resolve():
                     write_m3u(cache, fetched_channels, epg, f"cached copy of source '{name}'",
                               advertise_self=False)

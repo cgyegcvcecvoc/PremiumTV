@@ -182,7 +182,7 @@ jobs:
 
       # The web player is a separate static app under /web/. This publishes
       # web files only; it does not bump VERSION or create a native release.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: "22"
           cache: npm

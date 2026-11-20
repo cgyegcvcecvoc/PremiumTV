@@ -31,12 +31,12 @@ number and the notes all come from the rules below.
 
 ## The name this release uses
 
-`1.1.12` is **PremiumTV 1.1.12 — Resilient playback**: bounded recovery on
-Android, macOS and web, a safer opt-in relay, and scheduled data jobs that
-repair themselves. The next release is the next patch and its own theme
-(`python scripts/new_version.py --next` prints both); the standard themes this
-tooling already knows are `local-channels`, `a-and-e`, `version-scheme` and
-`resilient-playback`.
+`1.1.13` is **PremiumTV 1.1.13 — Hardened sources**: verified TLS for source
+and guide fetches, confined local files, pinned macOS player libraries, and
+discovery that will not promote this repository. The next release is the next
+patch and its own theme (`python scripts/new_version.py --next` prints both);
+the standard themes this tooling already knows are `local-channels`, `a-and-e`,
+`version-scheme`, `resilient-playback` and `hardened-sources`.
 
 ## The naming system
 
