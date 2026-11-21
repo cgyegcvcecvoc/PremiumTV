@@ -57,10 +57,16 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 80
     steps:
-      - name: Check out main
+      # Publish the commit this run was queued for, never "main as it is now".
+      # The concurrency group parks later pushes behind a running publish, and a
+      # queued run that re-read main would publish the newest VERSION against an
+      # older tag target: 1.1.14's run sat waiting for installers while main moved
+      # to 1.1.15, so it would have tagged v1.1.15 at the commit whose APK did not
+      # compile. VERSION, its notes and the tag target must all come from one tree.
+      - name: Check out the commit that changed VERSION
         uses: actions/checkout@v5
         with:
-          ref: main
+          ref: ${{ github.sha }}
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v6

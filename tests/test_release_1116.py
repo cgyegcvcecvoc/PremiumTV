@@ -2,8 +2,9 @@
 
 1.1.14 failed the Android bundle gate (guide drift), 1.1.15 failed in
 ``compileDebugKotlin`` (the crash card's ``@Composable`` annotation landed on the
-wrong function). The offline suite could not see either problem, so this pins
-what a release must satisfy to attach installers.
+wrong function), and the publish queue could tag a version at a commit that was
+not the one that version came from. The offline suite could not see any of the
+three, so this pins them.
 """
 
 from __future__ import annotations
@@ -48,6 +49,20 @@ class Version1116Tests(unittest.TestCase):
                 before.endswith("@Composable"),
                 f"{name} must be the declaration its @Composable annotation applies to",
             )
+
+
+class PublishQueueTests(unittest.TestCase):
+    def test_a_queued_publish_checks_out_its_own_commit(self):
+        """Concurrency parks runs, so a run must not re-read main's VERSION.
+
+        Tagging main's newest version at an older ``GITHUB_SHA`` publishes a
+        release whose APK was never built from that commit (the 1.1.14/1.1.15
+        asset-less chain).
+        """
+        workflow = text(".github/workflows/publish-release.yml")
+        self.assertIn("ref: ${{ github.sha }}", workflow)
+        self.assertNotIn("ref: main\n", workflow)
+        self.assertIn('--target "$GITHUB_SHA"', workflow)
 
 
 class GuideStillMatchesPlaylistTests(unittest.TestCase):
