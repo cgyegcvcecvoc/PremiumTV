@@ -8,6 +8,7 @@ import coil.memory.MemoryCache
 import coil.decode.SvgDecoder
 import com.premiumtv.app.data.TvRepository
 import com.premiumtv.app.update.AppUpdateManager
+import com.premiumtv.app.update.CrashLog
 import com.premiumtv.app.update.AutomaticRefreshScheduler
 import java.io.File
 
@@ -36,28 +37,20 @@ class PremiumTvApplication : Application(), ImageLoaderFactory {
      * Records why a build died instead of failing silently.
      *
      * 1.1.12: viewers reported rare crashes with nothing to send us. Android's
-     * default handler kills the process, so the app now writes the last error
-     * to its own files and rethrows - the OS still gets a real crash, and
-     * Settings -> Check for bugs can say "the last run ended unexpectedly"
-     * with the class and message. It never swallows the exception: hiding a
-     * crash would only move the damage somewhere harder to find.
+     * default handler kills the process, so the app writes the last error to
+     * its own files and rethrows - the OS still gets a real crash. It never
+     * swallows the exception: hiding a crash would only move the damage
+     * somewhere harder to find.
+     *
+     * 1.1.14: the record is now readable. 1.1.12 wrote the file but nothing
+     * displayed it, and app-private storage is not reachable by a viewer, so
+     * the report could still only say "it crashed". Settings now shows the
+     * recorded class, message and stack and can clear it (CrashLog).
      */
     private fun installCrashRecorder() {
         val previous = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-            try {
-                val file = java.io.File(filesDir, "last-crash.txt")
-                val detail = buildString {
-                    append("time=").append(java.util.Date().toString()).append('\n')
-                    append("thread=").append(thread.name).append('\n')
-                    append(throwable.javaClass.name).append(": ")
-                    append(throwable.message ?: "(no message)").append('\n')
-                    throwable.stackTrace.take(24).forEach { append("  at ").append(it).append('\n') }
-                }
-                file.writeText(detail)
-            } catch (ignored: Throwable) {
-                // Storage full or already dying: the real handler still runs.
-            }
+            CrashLog.write(filesDir, thread, throwable)
             previous?.uncaughtException(thread, throwable)
         }
     }

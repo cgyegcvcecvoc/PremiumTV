@@ -47,6 +47,7 @@ object Diagnostics {
         refresh: RefreshInfo,
         update: AppUpdateState,
         installedVersion: String,
+        lastCrash: RecordedCrash? = null,
     ): DiagnosticsReport {
         val checks = mutableListOf<DiagnosticCheck>()
         val meta = library.meta
@@ -265,6 +266,18 @@ object Diagnostics {
                 else -> "No empty categories; largest holds $hugeGroup channels."
             },
         )
+
+        // --------------------------------------------------------- last crash
+        // 1.1.14: the recorder writes to the app's own files, which a viewer
+        // cannot reach. Reporting it here is what turns "it crashed every now
+        // and then" into a class, a message and a stack worth quoting.
+        if (lastCrash != null) {
+            checks += DiagnosticCheck(
+                label = "Last crash",
+                status = DiagnosticStatus.Warning,
+                detail = CrashLog.describe(lastCrash),
+            )
+        }
 
         return DiagnosticsReport(checks)
     }

@@ -153,6 +153,10 @@ fun HomeScreen(
     onDownloadUpdate: () -> Unit,
     onInstallUpdate: () -> Unit,
     onCheckForBugs: () -> Unit,
+    // 1.1.14: the last fatal error recorded on this device, and the action that
+    // forgets it. Null means the last run ended normally.
+    lastCrash: com.premiumtv.app.update.RecordedCrash? = null,
+    onClearCrashLog: () -> Unit = {},
     // 1.1.0 dead-feed memory: how many channels are hidden, and the Settings
     // action that gives them another chance.
     hiddenChannelCount: Int = 0,
@@ -365,6 +369,8 @@ fun HomeScreen(
                 onDownloadUpdate = onDownloadUpdate,
                 onInstallUpdate = onInstallUpdate,
                 onCheckForBugs = onCheckForBugs,
+                lastCrash = lastCrash,
+                onClearCrashLog = onClearCrashLog,
                 hiddenChannelCount = hiddenChannelCount,
                 onRestoreHiddenChannels = onRestoreHiddenChannels,
                 localChannels = localChannels,
@@ -1714,6 +1720,8 @@ private fun SettingsScreen(
     onDownloadUpdate: () -> Unit,
     onInstallUpdate: () -> Unit,
     onCheckForBugs: () -> Unit,
+    lastCrash: com.premiumtv.app.update.RecordedCrash? = null,
+    onClearCrashLog: () -> Unit = {},
     hiddenChannelCount: Int = 0,
     onRestoreHiddenChannels: () -> Unit = {},
     localChannels: List<Channel> = emptyList(),
@@ -1858,6 +1866,12 @@ private fun SettingsScreen(
         if (diagnostics != null) {
             Spacer(modifier = Modifier.height(12.dp))
             DiagnosticsCard(diagnostics)
+        }
+
+        // ------------------------------------------------- last crash (1.1.14)
+        if (lastCrash != null) {
+            Spacer(modifier = Modifier.height(12.dp))
+            CrashLogCard(lastCrash, onClearCrashLog)
         }
 
         // -------------------------------------------------- local channels
@@ -2064,6 +2078,64 @@ private fun CompactRow(label: String, value: String) {
 }
 
 @Composable
+/**
+ * The last fatal error this device recorded (1.1.14).
+ *
+ * 1.1.12 wrote the record but showed it nowhere, so a crash could only be
+ * reported as "it crashed". This shows the class, message, time and first
+ * frames, which is what makes a fix possible, and clears it on request so an
+ * old crash does not keep appearing after it has been dealt with.
+ */
+private fun CrashLogCard(
+    crash: com.premiumtv.app.update.RecordedCrash,
+    onClear: () -> Unit,
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(14.dp),
+        color = CardBackground,
+        border = BorderStroke(1.dp, Color(0xFFFF8A80).copy(alpha = 0.55f)),
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp)) {
+            Text(
+                text = "Last crash",
+                style = MaterialTheme.typography.titleSmall,
+                color = Color(0xFFFF8A80),
+                fontWeight = FontWeight.Bold,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = crash.summary,
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.White,
+            )
+            val context = listOf(
+                crash.recordedAt,
+                if (crash.thread.isNotBlank()) "thread ${crash.thread}" else "",
+            ).filter { it.isNotBlank() }.joinToString(" · ")
+            if (context.isNotBlank()) {
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = context,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
+            }
+            crash.frames.take(6).forEach { frame ->
+                Text(
+                    text = frame,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            FocusButton("Clear crash log") { onClear() }
+        }
+    }
+}
+
 private fun DiagnosticsCard(report: DiagnosticsReport) {
     val accent = when {
         report.problemCount > 0 -> Color(0xFFFF8A80)

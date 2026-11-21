@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.premiumtv.app.data.LoadState
 import com.premiumtv.app.data.RefreshTrigger
 import com.premiumtv.app.update.AppUpdateManager
+import com.premiumtv.app.update.CrashLog
 import com.premiumtv.app.update.Diagnostics
 import com.premiumtv.app.update.DiagnosticsReport
+import com.premiumtv.app.update.RecordedCrash
 import com.premiumtv.app.BuildConfig
 import com.premiumtv.app.ui.LiveFeedStatus
 import com.premiumtv.app.ui.feedAnswers
@@ -46,6 +48,22 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _diagnosticsRunning = MutableStateFlow(false)
     val diagnosticsRunning = _diagnosticsRunning.asStateFlow()
+
+    /**
+     * The last fatal error the previous run recorded, or null when there is
+     * none. Read once at startup from the app's own files, so Settings can
+     * show what happened without asking the viewer to reproduce it.
+     */
+    private val _lastCrash = MutableStateFlow(
+        CrashLog.read(getApplication<Application>().filesDir),
+    )
+    val lastCrash = _lastCrash.asStateFlow()
+
+    /** Settings → Clear crash log: forget the recorded crash on this device. */
+    fun clearCrashLog() {
+        CrashLog.clear(getApplication<Application>().filesDir)
+        _lastCrash.value = null
+    }
 
     // ---------------------------------------------------------- live events
     //
@@ -165,12 +183,16 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
                     _diagnostics.value = null
                     return@launch
                 }
+                // A fresh reading, not the startup snapshot: the file may
+                // have been cleared (or written) since the app opened.
+                _lastCrash.value = CrashLog.read(getApplication<Application>().filesDir)
                 _diagnostics.value = withContext(Dispatchers.Default) {
                     Diagnostics.run(
                         library = library,
                         refresh = refreshInfo.value,
                         update = updateInfo.value,
                         installedVersion = BuildConfig.VERSION_NAME,
+                        lastCrash = _lastCrash.value,
                     )
                 }
             } finally {

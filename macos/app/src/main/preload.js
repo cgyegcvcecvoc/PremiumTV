@@ -42,6 +42,9 @@ contextBridge.exposeInMainWorld('premiumtv', {
   dismissUpdateNotice: () => ipcRenderer.invoke('ptv:dismiss-update-notice'),
   /** Settings → Check for bugs: read-only environment facts. */
   diagnostics: () => ipcRenderer.invoke('ptv:diagnostics'),
+  /** The last fatal error recorded on this Mac, or null (1.1.14). */
+  crashLog: () => ipcRenderer.invoke('ptv:crash-log'),
+  clearCrashLog: () => ipcRenderer.invoke('ptv:clear-crash-log'),
 
   onState: (callback) => subscribe('ptv:state', callback),
   onInfo: (callback) => subscribe('ptv:info', callback),

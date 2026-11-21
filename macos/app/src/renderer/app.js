@@ -1565,6 +1565,7 @@
       renderSettings();
     });
     bind('check-bugs', 'click', () => runBugCheck());
+    bind('clear-crash', 'click', () => clearCrashRecord());
     bind('local-save', 'click', () => {
       const form = readLocalForm();
       const source = form.zip ? 'zip' : form.city ? 'city' : form.state ? 'state' : 'country';
@@ -1645,6 +1646,8 @@
 
   let bugReport = null;
   let bugCheckRunning = false;
+  // 1.1.14: the last fatal error this Mac recorded, filled by a bug check.
+  let lastCrash = null;
 
   function diagnoseStatusLine(info, update, refreshing) {
     if (refreshing) return 'Refreshing the channel list and guide…';
@@ -1669,6 +1672,11 @@
       environment = typeof api.diagnostics === 'function' ? await api.diagnostics() : null;
     } catch (error) {
       environment = { error: error && error.message ? error.message : String(error) };
+    }
+    try {
+      lastCrash = typeof api.crashLog === 'function' ? await api.crashLog() : null;
+    } catch (_) {
+      lastCrash = null;
     }
     bugReport = buildBugReport(environment);
     bugCheckRunning = false;
@@ -1850,6 +1858,25 @@
         ? `No blocking bugs · ${report.warn} warning${report.warn === 1 ? '' : 's'}`
         : `All ${report.checks.length} checks passed`;
     const icon = { ok: '✓', warn: '!', fail: '×' };
+    // The crash record is the one thing a report cannot recreate, so it is
+    // shown with its stack and offered for clearing.
+    const crash = lastCrash
+      ? `
+        <div class="bug-crash">
+          <div class="bug-head">
+            <h2>Last crash</h2>
+            <span class="badge warn">recorded</span>
+          </div>
+          <p><strong>${escapeHtml(lastCrash.summary)}</strong></p>
+          <p class="muted">${escapeHtml(
+            [lastCrash.time, lastCrash.thread ? `thread ${lastCrash.thread}` : '']
+              .filter(Boolean)
+              .join(' · '),
+          )}</p>
+          <pre>${escapeHtml((lastCrash.frames || []).slice(0, 8).join('\n'))}</pre>
+          <button class="btn" id="clear-crash">Clear crash log</button>
+        </div>`
+      : '';
     return `
       <div class="panel bug-report">
         <div class="bug-head">
@@ -1864,9 +1891,18 @@
               <span>${escapeHtml(check.detail)}</span>
             </li>`).join('')}
         </ul>
+        ${crash}
         <p class="muted">Offline, read-only check of the loaded library, refresh state and update
           configuration. Press it again after a refresh to confirm a fix.</p>
       </div>`;
+  }
+
+  async function clearCrashRecord() {
+    try {
+      if (typeof api.clearCrashLog === 'function') await api.clearCrashLog();
+    } catch (_) {}
+    lastCrash = null;
+    if (ui.tab === 'settings') renderSettings();
   }
 
   let appInfo = {};

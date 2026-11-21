@@ -16,15 +16,12 @@ def text(path: Path) -> str:
 
 
 class Version1113Tests(unittest.TestCase):
-    def test_the_release_is_synced_across_every_surface(self):
-        import release_version  # noqa: E402
-        import version_sync  # noqa: E402
-
-        self.assertEqual(release_version.current_version(), "1.1.13")
-        self.assertEqual(release_version.android_version_code("1.1.13"), 101_130_000)
-        self.assertEqual(version_sync.check(), [])
-        self.assertEqual(version_sync.PUBLISHED_VERSION, "1.1.13")
-
+    def test_the_1_1_13_record_is_kept(self):
+        # 1.1.13 was prepared but never published or tagged; its hardened-sources
+        # code ships in 1.1.14. The notes and changelog entry stay as the record
+        # of what that work was, so this checks them without pinning VERSION.
+        # Every-surface syncing is checked by test_release_1114 and
+        # test_version_single_source against the current release.
         notes = text(ROOT / "release-notes-1.1.13.md")
         self.assertIn("# PremiumTV 1.1.13 — Hardened sources", notes)
         self.assertIn("versionCode `101130000`", notes)

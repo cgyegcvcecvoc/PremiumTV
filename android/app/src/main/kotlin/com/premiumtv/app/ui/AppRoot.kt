@@ -44,6 +44,8 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     val updateInfo by viewModel.updateInfo.collectAsState()
     val diagnostics by viewModel.diagnostics.collectAsState()
     val diagnosticsRunning by viewModel.diagnosticsRunning.collectAsState()
+    // 1.1.14: the previous run's fatal error, if it left one behind.
+    val lastCrash by viewModel.lastCrash.collectAsState()
     val liveFeedStatus by viewModel.liveFeedStatus.collectAsState()
     val liveProbeRunning by viewModel.liveProbeRunning.collectAsState()
     val loadProgress by viewModel.loadProgress.collectAsState()
@@ -279,6 +281,8 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 onDownloadUpdate = { viewModel.downloadUpdate() },
                                 onInstallUpdate = { viewModel.installUpdate() },
                                 onCheckForBugs = { viewModel.runDiagnostics() },
+                                lastCrash = lastCrash,
+                                onClearCrashLog = { viewModel.clearCrashLog() },
                                 liveFeedStatus = liveFeedStatus,
                                 liveProbeRunning = liveProbeRunning,
                                 onProbeLiveEvents = { viewModel.refreshLiveEvents() },

@@ -19,6 +19,7 @@ const { StreamProxy } = require('./stream-proxy');
 const { AutoRefresh } = require('./auto-refresh');
 const { AppUpdater } = require('./updater');
 const schedule = require('./refresh-schedule');
+const crashLog = require('./crash-log');
 
 const WINDOW_STATE_KEY = 'window-bounds';
 const smokeMode = process.argv.includes('--smoke-test');
@@ -35,6 +36,38 @@ if (smokeMode) {
     app.exit(1);
   }, 300000).unref();
 }
+
+/**
+ * The crash record.
+ *
+ * 1.1.14: a fatal error in the main process, or a renderer the system killed,
+ * left nothing behind, so "it crashed every now and then" could not be
+ * diagnosed. The record stays on this Mac (the app's own data folder) and is
+ * shown by Settings → Check for bugs; nothing is uploaded.
+ */
+function recordCrash(kind, error, thread) {
+  const detail = crashLog.formatCrash({
+    kind,
+    thread,
+    message: error && error.message ? error.message : String(error || '(no message)'),
+    stack: error && error.stack,
+  });
+  if (crashLog.writeCrash(app.getPath('userData'), detail)) console.error(detail);
+}
+
+// Keep the default outcome (the process still exits) while leaving a record.
+process.on('uncaughtException', (error, origin) => {
+  recordCrash('Uncaught exception', error, origin || 'main');
+  app.exit(1);
+});
+
+process.on('unhandledRejection', (reason) => {
+  recordCrash(
+    'Unhandled rejection',
+    reason instanceof Error ? reason : new Error(String(reason)),
+    'main',
+  );
+});
 
 let mainWindow = null;
 let repository = null;
@@ -191,6 +224,18 @@ function createWindow() {
     },
   });
 
+  // A renderer the OS or the GPU process kills is the other way this app can
+  // disappear with no message; it is worth a record too.
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    recordCrash(
+      'Renderer gone',
+      new Error(`${(details && details.reason) || 'unknown'}${
+        details && details.exitCode !== undefined ? ` (exit ${details.exitCode})` : ''
+      }`),
+      'renderer',
+    );
+  });
+
   mainWindow.webContents.setAudioMuted(false);
   mainWindow.once('ready-to-show', () => mainWindow.show());
   mainWindow.on('close', writeWindowState);
@@ -295,6 +340,14 @@ ipcMain.handle('ptv:diagnostics', async () => {
     userDataWritable,
     arch: process.arch,
   };
+});
+
+/** Settings → Check for bugs: the last crash this Mac recorded, if any. */
+ipcMain.handle('ptv:crash-log', () => crashLog.readCrash(app.getPath('userData')));
+
+ipcMain.handle('ptv:clear-crash-log', () => {
+  crashLog.clearCrash(app.getPath('userData'));
+  return true;
 });
 
 ipcMain.handle('ptv:check-update', async (_event, force) => {
