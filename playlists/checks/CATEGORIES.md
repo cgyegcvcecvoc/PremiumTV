@@ -1,18 +1,18 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-21 02:52 UTC (2026-11-20 09:52 PM EST)
-- **Channels in the main playlist:** 12247
-- **Channels in the category files:** 12234 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 2671 (21.8%)
+- **Rebuilt:** 2026-11-21 16:09 UTC (2026-11-21 11:09 AM EST)
+- **Channels in the main playlist:** 12281
+- **Channels in the category files:** 12268 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 2806 (22.9%)
 - **Categories:** 83 groups (36 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 603 | 214 |
+| 1 | Sports | 650 | 319 |
 | 2 | Sports Backups | 114 | 64 |
-| 3 | Lifestyle | 478 | 130 |
+| 3 | Lifestyle | 473 | 129 |
 | 4 | Lifestyle Backups | 123 | 42 |
 | 5 | Fox Channels | 46 | 11 |
 | 6 | CBS | 44 | 6 |
@@ -20,61 +20,61 @@
 | 8 | NBC | 72 | 19 |
 | 9 | NBC Backups | 11 | 5 |
 | 10 | NBC Sports Channels | 6 | 5 |
-| 11 | Cartoons | 175 | 30 |
+| 11 | Cartoons | 175 | 31 |
 | 12 | Cartoons Backups | 46 | 2 |
 | 13 | PBS | 39 | 11 |
 | 14 | PBS Backups | 7 | 3 |
 | 15 | Game Shows | 12 | 7 |
 | 16 | Game Shows Backups | 16 | 11 |
-| 17 | News | 849 | 246 |
+| 17 | News | 843 | 246 |
 | 18 | News Backups | 207 | 137 |
-| 19 | Movies | 843 | 168 |
-| 20 | Movies Backups | 146 | 26 |
-| 21 | Music | 842 | 157 |
-| 22 | Music Backups | 117 | 53 |
-| 23 | Europe | 752 | 147 |
+| 19 | Movies | 842 | 180 |
+| 20 | Movies Backups | 147 | 26 |
+| 21 | Music | 842 | 158 |
+| 22 | Music Backups | 117 | 56 |
+| 23 | Europe | 754 | 147 |
 | 24 | Europe Backups | 59 | 35 |
-| 25 | Entertainment | 690 | 151 |
-| 26 | Entertainment Backups | 121 | 36 |
-| 27 | International | 660 | 177 |
-| 28 | International Backups | 98 | 37 |
-| 29 | Religious | 597 | 63 |
+| 25 | Entertainment | 686 | 151 |
+| 26 | Entertainment Backups | 120 | 36 |
+| 27 | International | 671 | 177 |
+| 28 | International Backups | 99 | 38 |
+| 29 | Religious | 604 | 65 |
 | 30 | Religious Backups | 43 | 11 |
-| 31 | Asia | 479 | 86 |
+| 31 | Asia | 480 | 93 |
 | 32 | Asia Backups | 24 | 1 |
-| 33 | South America | 472 | 17 |
-| 34 | South America Backups | 21 | 0 |
-| 35 | United States | 352 | 40 |
+| 33 | South America | 464 | 17 |
+| 34 | South America Backups | 19 | 0 |
+| 35 | United States | 350 | 40 |
 | 36 | United States Backups | 47 | 9 |
-| 37 | Documentary | 323 | 94 |
+| 37 | Documentary | 324 | 94 |
 | 38 | Documentary Backups | 92 | 20 |
-| 39 | Series | 300 | 34 |
-| 40 | Series Backups | 159 | 38 |
-| 41 | Kids | 293 | 69 |
+| 39 | Series | 301 | 35 |
+| 40 | Series Backups | 159 | 39 |
+| 41 | Kids | 293 | 71 |
 | 42 | Kids Backups | 85 | 14 |
 | 43 | North America | 286 | 13 |
 | 44 | North America Backups | 5 | 0 |
-| 45 | Education | 134 | 11 |
+| 45 | Education | 133 | 12 |
 | 46 | Education Backups | 14 | 1 |
-| 47 | Culture | 122 | 11 |
+| 47 | Culture | 124 | 11 |
 | 48 | Culture Backups | 7 | 3 |
-| 49 | Legislative | 113 | 10 |
-| 50 | Comedy | 105 | 9 |
-| 51 | Comedy Backups | 34 | 4 |
+| 49 | Comedy | 105 | 9 |
+| 50 | Comedy Backups | 34 | 4 |
+| 51 | Legislative | 104 | 9 |
 | 52 | A&E Networks | 102 | 16 |
 | 53 | A&E Networks Backups | 13 | 2 |
-| 54 | India | 77 | 25 |
+| 54 | India | 76 | 25 |
 | 55 | India Backups | 9 | 5 |
-| 56 | Africa | 66 | 7 |
-| 57 | Business | 49 | 16 |
+| 56 | Africa | 64 | 7 |
+| 57 | Business | 48 | 16 |
 | 58 | Business Backups | 15 | 13 |
 | 59 | Classic TV | 47 | 4 |
 | 60 | Classic TV Backups | 12 | 2 |
 | 61 | Family | 28 | 15 |
 | 62 | Family Backups | 5 | 4 |
-| 63 | UK | 25 | 13 |
+| 63 | UK | 26 | 13 |
 | 64 | UK Backups | 4 | 3 |
-| 65 | Canada | 19 | 4 |
+| 65 | Canada | 20 | 4 |
 | 66 | Weather | 12 | 5 |
 | 67 | Weather Backups | 5 | 4 |
 | 68 | Australia | 11 | 0 |
@@ -91,23 +91,25 @@
 | 79 | Online TV Backups | 8 | 7 |
 | 80 | Oceania | 4 | 3 |
 | 81 | Tv Shows | 4 | 0 |
-| 82 | Other | 241 | 23 |
+| 82 | Other | 242 | 23 |
 | 83 | Other Backups | 125 | 6 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12247 | 92 | 1825 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 12281 | 92 | 1824 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 13 | 5 | 1 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 12129 (98.9%) |
-| matched on a looser spelling of the name | 4 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 127 (1.0%) |
+| already declared in the guide | 12225 (99.4%) |
+| matched on the base id (feed qualifier dropped) | 2 (0.0%) |
+| matched on the display name | 2 (0.0%) |
+| matched on a looser spelling of the name | 2 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 63 (0.5%) |
 
 ## Channels with no schedule yet
 
@@ -115,14 +117,10 @@ The guide only carries what the upstream sources publish. These are examples
 of channels still waiting for a listing - they stay in the playlist, they
 just have nothing to show until an upstream guide picks them up:
 
-- ספורט 1 HD (Sport 1) (`Sport1.il`)
-- ספורט 2 HD (Sport 2) (`Sport2.il`)
 - 30A Golf Kingdom (720p) (`30AGolfKingdom.us@SD`)
-- ספורט 4 FHD (Sport 4) (`Sport4.il`)
 - 5Live (`5Live.il@SD`)
 - 5Max (`5Max.il@SD`)
 - 5Plus (`5Plus.il@SD`)
-- ספורט 6 HD (Sport 6) (`Sport6.il`)
 - A Sports (`premiumtv.pakistan.a_sports`)
 - ACI Sport TV SD (1080p) (`ACISportTV.it@SD`)
 - ☆ ACL Cornhole TV 🇺🇸 (`plex.tv.ACL.Cornhole.TV.plex`)
@@ -130,6 +128,10 @@ just have nothing to show until an upstream guide picks them up:
 - Adventure Sports TV (1080p) (`AdventureSportsTV.us@SD`)
 - Africa 24 Sport (1080p) (`Africa24Sport.fr@SD`)
 - Al Iraqia Sport (720p) (`AlIraqiaSport.iq@SD`)
+- American Ninja Warrior (1080p) (`AmericanNinjaWarrior.us@SD`)
+- AntenaPlay Events (576p) [Not 24/7] (`AntenaPlayEvents.ro@SD`)
+- AntenaSport (`AntenaSport.ro@SD`)
+- Arena Sport 1 (`ArenaSport1.sk@SD`)
 
 Generated by `scripts/rebuild_playlists.py`. Run it after a scrape, or let the
 daily workflow do it - the scraper calls the same `categorize` module, so a
