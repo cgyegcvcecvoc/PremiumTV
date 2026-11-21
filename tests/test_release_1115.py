@@ -10,7 +10,6 @@ again. These tests pin the fix and the release surfaces.
 
 from __future__ import annotations
 
-import json
 import sys
 import unittest
 from pathlib import Path
@@ -27,26 +26,16 @@ def text(path: str | Path) -> str:
 
 
 class Version1115Tests(unittest.TestCase):
-    def test_the_release_is_synced_across_every_surface(self):
-        import release_version  # noqa: E402
-        import version_sync  # noqa: E402
-
-        self.assertEqual(release_version.current_version(), "1.1.15")
-        self.assertEqual(release_version.android_version_code("1.1.15"), 101_150_000)
-        self.assertEqual(version_sync.check(), [])
-        self.assertEqual(version_sync.PUBLISHED_VERSION, "1.1.15")
-
+    def test_the_1_1_15_record_is_kept(self):
+        # 1.1.15 was published without installers (the Android build failed on a
+        # misplaced @Composable). Its notes stay as the record; every-surface
+        # syncing is checked against the current release by test_release_1116.
         notes = text("release-notes-1.1.15.md")
         self.assertIn("# PremiumTV 1.1.15 — Crash diagnostics and hardened sources", notes)
         self.assertIn("versionCode `101150000`", notes)
         self.assertIn("Version 1.1.15 published: crash diagnostics, with installers",
                       text("CHANGELOG.md"))
 
-    def test_the_update_notice_moves_to_the_new_release(self):
-        notice = json.loads(text("app-update-notice.json"))
-        rule = next(r for r in notice["rules"] if r["id"] == "update-below-newest")
-        self.assertEqual(rule["max_version"], "1.1.14")
-        self.assertIn("1.1.15", rule["surprise"])
 
 
 class GuideMatchesPlaylistTests(unittest.TestCase):

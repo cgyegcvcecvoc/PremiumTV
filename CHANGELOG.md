@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-21 — Version 1.1.16 published: crash diagnostics, with installers
+
+- **The Android APK compiles.** `1.1.15`'s publish run failed in `compileDebugKotlin`: inserting the crash card between `DiagnosticsCard`'s `@Composable` annotation and its declaration moved the annotation onto the wrong function. Both cards are annotated properly now, and `tests/test_release_1116.py` pins it so the offline suite catches the mistake next time.
+- **Generated data is current.** The site payload (`docs/data/*`) and the legacy USA mirror are regenerated, which the repository-checks job compares against their generators.
+- **Two asset-less attempts, one installable release.** `1.1.14` (guide drift at the bundle gate) and `1.1.15` (Kotlin annotation) were published but never got installers, so the in-app updater never offered them. `1.1.16` carries the same crash-diagnostics code and is the first release in this series whose APK and Mac installers attach. Earlier tags are not reused.
+
 ## 2026-11-21 — Version 1.1.15 published: crash diagnostics, with installers
 
 - **The Android and Mac installers now build.** `v1.1.14` was published but both installer workflows failed before compiling: the Android gate's `test_usa_bundle` caught `EPG/USA.xml` listing 43 guide channels the live USA feed no longer carries. The guide was still scoped to the frozen legacy `playlists/countries/USA.m3u` after the live feed moved on, so every scheduled guide build could re-break the gate. `scripts/epg_build.py` now builds each country guide from `playlists/live/<country>.m3u` when that feed exists, and `EPG/USA.xml` is pruned to the live feed it describes. `1.1.15` carries the same crash-diagnostics code and is the release whose installers attach.

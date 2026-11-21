@@ -2077,7 +2077,6 @@ private fun CompactRow(label: String, value: String) {
     }
 }
 
-@Composable
 /**
  * The last fatal error this device recorded (1.1.14).
  *
@@ -2086,6 +2085,7 @@ private fun CompactRow(label: String, value: String) {
  * frames, which is what makes a fix possible, and clears it on request so an
  * old crash does not keep appearing after it has been dealt with.
  */
+@Composable
 private fun CrashLogCard(
     crash: com.premiumtv.app.update.RecordedCrash,
     onClear: () -> Unit,
@@ -2136,6 +2136,7 @@ private fun CrashLogCard(
     }
 }
 
+@Composable
 private fun DiagnosticsCard(report: DiagnosticsReport) {
     val accent = when {
         report.problemCount > 0 -> Color(0xFFFF8A80)
