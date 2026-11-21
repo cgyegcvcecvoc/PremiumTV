@@ -236,7 +236,11 @@ class TvRepository(private val app: Application) {
             ) { input -> input.bufferedReader(Charsets.UTF_8).readText() }
 
             val parsedPlaylist = playlistDownload.body?.let { M3uParser.parse(it) }
-            val channels = parsedPlaylist?.first ?: current.channels
+            // 1.1.17: a refreshed library is whatever upstream published. Two
+            // identical rows would reach the browser as two identical Lazy
+            // keys, which Compose rejects by throwing; the duplicate is dropped
+            // here, where it is one comparison instead of a crash.
+            val channels = dedupeChannels(parsedPlaylist?.first ?: current.channels)
             if (channels.isEmpty()) throw IOException("the playlist contained no channels")
 
             // Prefer a guide URL advertised by a newly downloaded playlist. If
@@ -489,13 +493,15 @@ class TvRepository(private val app: Application) {
         } else {
             readMeta
         }
-        val channels = readJsonLines(stream("channels.jsonl")) { parseChannel(it) }
+        val channels = dedupeChannels(readJsonLines(stream("channels.jsonl")) { parseChannel(it) })
         if (channels.isEmpty()) throw IOException("channels.jsonl holds no channels")
 
         val loadedGroups = try {
-            open("groups.jsonl")?.use { input ->
-                readJsonLines(input) { parseGroup(it) }
-            }.orEmpty()
+            dedupeGroups(
+                open("groups.jsonl")?.use { input ->
+                    readJsonLines(input) { parseGroup(it) }
+                }.orEmpty(),
+            )
         } catch (e: Exception) {
             Log.w(TAG, "Category metadata is unreadable; deriving categories from channels", e)
             emptyList()
@@ -568,12 +574,15 @@ class TvRepository(private val app: Application) {
         refreshed: Boolean,
     ): Library {
         val now = System.currentTimeMillis() / 1000L
-        val known = HashSet(channels.map { it.id })
+        // Guaranteed unique keys for every list the UI renders, whatever the
+        // caller passed in.
+        val uniqueChannels = dedupeChannels(channels)
+        val known = HashSet(uniqueChannels.map { it.id })
         val kept = programmes.filter { known.contains(it.channelId) && it.end > now - 6 * 3600L }
         val byChannel = groupProgrammes(kept, known)
-        val groups = groupsFrom(channels, base.publishedOrder)
+        val groups = groupsFrom(uniqueChannels, base.publishedOrder)
         val meta = base.copy(
-            channelCount = channels.size,
+            channelCount = uniqueChannels.size,
             groupCount = groups.size,
             programmeCount = kept.size,
             guideChannels = byChannel.size,
@@ -582,8 +591,8 @@ class TvRepository(private val app: Application) {
             generatedUtc = stamp(),
         )
         return Library(
-            channels = channels,
-            groups = groups,
+            channels = uniqueChannels,
+            groups = dedupeGroups(groups),
             programmes = byChannel,
             meta = meta,
             refreshed = refreshed,

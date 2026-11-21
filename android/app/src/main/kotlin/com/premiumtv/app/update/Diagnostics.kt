@@ -48,6 +48,8 @@ object Diagnostics {
         update: AppUpdateState,
         installedVersion: String,
         lastCrash: RecordedCrash? = null,
+        // 1.1.17: what the UI measured about its own main-thread work.
+        uiWork: UiWorkSnapshot = UiWorkSnapshot(),
     ): DiagnosticsReport {
         val checks = mutableListOf<DiagnosticCheck>()
         val meta = library.meta
@@ -264,6 +266,41 @@ object Diagnostics {
                 emptyGroups > 0 -> "$emptyGroups categories report 0 channels — shelf may be stale."
                 hugeGroup > 5000 -> "Largest category holds $hugeGroup channels — UI paging is active, but verify on low-memory devices."
                 else -> "No empty categories; largest holds $hugeGroup channels."
+            },
+        )
+
+        // ------------------------------------------------------- UI work (1.1.17)
+        // The report behind 1.1.17 was "it lags, then sometimes it stops". The
+        // app could record the stop (1.1.14) but nothing recorded the lag, so
+        // these numbers are the app's own answer: how long the library index
+        // took, whether it had to run on the UI thread, and how long the last
+        // channel open spent choosing its feeds.
+        val uiWorkStatus = when {
+            uiWork.indexFailure.isNotBlank() -> DiagnosticStatus.Warning
+            uiWork.indexChannelCount == 0 && library.channels.isNotEmpty() -> DiagnosticStatus.Warning
+            uiWork.indexOnUiThread -> DiagnosticStatus.Warning
+            !uiWork.lastChannelOpenUsedIndex -> DiagnosticStatus.Warning
+            uiWork.lastChannelOpenMs > 120L -> DiagnosticStatus.Warning
+            else -> DiagnosticStatus.Ok
+        }
+        checks += DiagnosticCheck(
+            label = "UI work",
+            status = uiWorkStatus,
+            detail = when {
+                uiWork.indexFailure.isNotBlank() ->
+                    "The channel index failed (${uiWork.indexFailure}); opening a channel scans the library."
+                uiWork.indexChannelCount == 0 && library.channels.isNotEmpty() ->
+                    "The library is not indexed yet; the browser scans it per channel open."
+                uiWork.indexOnUiThread ->
+                    "The index was built on the UI thread (${uiWork.indexBuildMs} ms); it belongs in the background."
+                !uiWork.lastChannelOpenUsedIndex ->
+                    "The last channel open scanned every channel on the UI thread (${uiWork.lastChannelOpenMs} ms)."
+                uiWork.lastChannelOpenMs > 120L ->
+                    "The last channel open took ${uiWork.lastChannelOpenMs} ms of UI work - a visible stutter."
+                uiWork.lastChannelOpenMs > 0L ->
+                    "Indexed ${uiWork.indexChannelCount} channels in ${uiWork.indexBuildMs} ms off the UI thread; last channel open ${uiWork.lastChannelOpenMs} ms."
+                else ->
+                    "Indexed ${uiWork.indexChannelCount} channels in ${uiWork.indexBuildMs} ms off the UI thread; no channel opened yet."
             },
         )
 

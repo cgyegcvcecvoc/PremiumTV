@@ -20,8 +20,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import android.os.SystemClock
 import androidx.compose.ui.unit.dp
 import com.premiumtv.app.TvViewModel
+import com.premiumtv.app.update.PerfLog
 import com.premiumtv.app.data.CategoryGroup
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.ChannelHealthStore
@@ -49,6 +51,10 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
     val liveFeedStatus by viewModel.liveFeedStatus.collectAsState()
     val liveProbeRunning by viewModel.liveProbeRunning.collectAsState()
     val loadProgress by viewModel.loadProgress.collectAsState()
+    // 1.1.17: the library's live-game and backup-feed lookups, built once per
+    // library off the UI thread. The browser and the channel-open path read it
+    // instead of re-parsing every channel name on the main thread.
+    val channelIndex by viewModel.channelIndex.collectAsState()
 
     // The guide's "now" has to move on its own; the listings are keyed to real
     // clock times, so a static value would leave yesterday's show on screen.
@@ -246,6 +252,7 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 onCategoryChange = { selectedCategory = it },
                                 onTabChange = { tab = it },
                                 guideState = guideState,
+                                channelIndex = channelIndex,
                                 recentChannels = recentShelf,
                                 favoriteChannels = favoriteShelf,
                                 localChannels = localChannels,
@@ -267,7 +274,22 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                     if (vodServers != null && vodServers.isNotEmpty()) {
                                         playing = vodServers.first() to vodServers
                                     } else {
-                                        playing = channel to serversFor(channel, current.library.channels)
+                                        // 1.1.17: two hash lookups from the
+                                        // prepared index instead of a full
+                                        // regex pass over the library. The
+                                        // scan remains only as a fallback for
+                                        // the millisecond before the first index
+                                        // is ready, and PerfLog records that it
+                                        // happened so Settings can say so.
+                                        val startedAt = SystemClock.elapsedRealtime()
+                                        val index = channelIndex
+                                        val servers = index?.serversFor(channel)
+                                            ?: serversFor(channel, current.library.channels)
+                                        PerfLog.recordChannelOpen(
+                                            durationMs = SystemClock.elapsedRealtime() - startedAt,
+                                            usedIndex = index != null,
+                                        )
+                                        playing = channel to servers
                                     }
                                     // 1.1.2: a channel opens in the docked side player first,
                                     // with the browser still usable beside it. One press on

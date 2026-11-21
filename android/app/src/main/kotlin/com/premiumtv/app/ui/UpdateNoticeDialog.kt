@@ -89,7 +89,10 @@ fun UpdateNoticeDialog(
     // dialog opens, so one press of the centre key starts the update.
     val actionFocus = remember { FocusRequester() }
     LaunchedEffect(notice.id) {
-        runCatching { actionFocus.requestFocus() }
+        // 1.1.17: one guard for every initial focus request in the app - a
+        // dialog window that is not attached yet answers false instead of
+        // throwing IllegalStateException out of the effect.
+        actionFocus.requestFocusSafely()
     }
 
     Dialog(

@@ -25,7 +25,11 @@ class SidePlayerFirstTests(unittest.TestCase):
 
     def test_opening_a_channel_starts_in_the_side_player(self):
         root = text(UI / "AppRoot.kt")
-        self.assertIn("playing = channel to serversFor(channel, current.library.channels)", root)
+        # 1.1.17: the feeds come from the prepared index, with the full scan
+        # kept only as the pre-index fallback.
+        self.assertIn("val servers = index?.serversFor(channel)", root)
+        self.assertIn("?: serversFor(channel, current.library.channels)", root)
+        self.assertIn("playing = channel to servers", root)
         self.assertIn("sidePlayer = true", root)
         # The dock is what the viewer sees first, not the full-screen player.
         self.assertIn("if (selection == null || sidePlayer)", root)

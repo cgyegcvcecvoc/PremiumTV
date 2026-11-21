@@ -90,6 +90,7 @@ import com.premiumtv.app.BuildConfig
 import com.premiumtv.app.data.CategoryGroup
 import com.premiumtv.app.data.Channel
 import com.premiumtv.app.data.Library
+import com.premiumtv.app.data.channelRowKey
 import com.premiumtv.app.data.Programme
 import com.premiumtv.app.data.RefreshInfo
 import com.premiumtv.app.data.RefreshTrigger
@@ -136,6 +137,10 @@ fun HomeScreen(
     onCategoryChange: (String?) -> Unit,
     onTabChange: (HomeTab) -> Unit,
     guideState: CableGuideState,
+    // 1.1.17: the library's live-game and backup-feed lookups, built once per
+    // library on a background dispatcher by TvViewModel. Null until the first
+    // index is ready, which is why the Live Events tab can say "preparing".
+    channelIndex: ChannelIndex? = null,
     recentChannels: List<Channel> = emptyList(),
     favoriteChannels: List<Channel> = emptyList(),
     // 1.1.7 local channels: the stations that match the viewer's ZIP/state/
@@ -226,10 +231,29 @@ fun HomeScreen(
         }
         // The scraper's live-game feeds, grouped by sport for the Live Events
         // tab and for the LIVE labels on the channel cards.
-        val liveSections = remember(library.channels, schedule) {
-            groupLiveEvents(library.channels, schedule)
+        //
+        // 1.1.17: the grouping and the feed index are derived once per library,
+        // off the UI thread, by TvViewModel (see ChannelIndex in LiveEvents.kt).
+        // This screen used to run both passes inside its first composition and
+        // the channel-open path ran them again; on a TV stick that was a
+        // visible stall the moment the browser drew. All that is left here is
+        // the cheap merge that adds the bundled kickoff times.
+        val index = channelIndex
+        val liveSections = remember(index, schedule) {
+            val sections = index?.sections.orEmpty()
+            if (schedule.isEmpty()) {
+                sections
+            } else {
+                sections.map { section ->
+                    section.copy(
+                        events = section.events.map { event ->
+                            event.copy(kickoffUtc = schedule[event.key] ?: event.kickoffUtc)
+                        },
+                    )
+                }
+            }
         }
-        val liveIndex = remember(library.channels) { liveEventIndex(library.channels) }
+        val liveIndex = remember(index) { index?.byUrl.orEmpty() }
         // Opening the Live Events tab asks each game's feed whether it still
         // answers (once); the tab's own refresh button re-asks on demand.
         LaunchedEffect(tab, liveSections) {
@@ -339,6 +363,7 @@ fun HomeScreen(
                 onRefresh = onProbeLiveEvents,
                 teamLogos = teamLogos,
                 schedule = schedule,
+                preparing = channelIndex == null,
             )
             HomeTab.Movies -> VodShelfScreen(
                 items = vodCatalog.items,
@@ -987,7 +1012,9 @@ private fun ChannelGrid(
     ) {
         gridItems(
             items = channels,
-            key = { "${it.id}|${it.url}" },
+            // One definition of a channel's row identity, shared with the
+            // de-duplication that guarantees it is unique (data/LibrarySanitize.kt).
+            key = { channelRowKey(it) },
         ) { channel ->
             val current = nowPlaying(programmes[channel.id].orEmpty(), now)
             val event = liveIndex[channel.url]
@@ -1033,8 +1060,10 @@ private fun ChannelSearchField(
     }
     LaunchedEffect(editing) {
         if (editing) {
-            editFocus.requestFocus()
-            keyboard?.show()
+            // 1.1.17: requestFocus() throws when the field is not attached
+            // (closing search or switching tabs in the same frame). Focus is a
+            // courtesy here, never a reason to stop the app.
+            if (editFocus.requestFocusSafely()) keyboard?.show()
         }
     }
     BackHandler(enabled = editing) {
@@ -1135,7 +1164,14 @@ private fun EventsScreen(
     schedule: Map<String, Long>,
     onSelect: (Channel) -> Unit,
     onRefresh: () -> Unit,
+    // The first index is still being built in the background (1.1.17): say so
+    // instead of claiming the playlist carries no games.
+    preparing: Boolean = false,
 ) {
+    if (sections.isEmpty() && preparing) {
+        CenteredMessage("Preparing the live games…\n\nThe playlist is being indexed in the background.")
+        return
+    }
     if (sections.isEmpty()) {
         CenteredMessage(
             "No live games are in the current playlist.\n\n" +

@@ -149,7 +149,9 @@ class AndroidCableGuideWiringTests(unittest.TestCase):
         for piece in ("GuideTimeHeader(", "GuideChannelCell(", "GuideProgrammeCell(", "GuideInfoPanel("):
             self.assertIn(piece, guide)
         self.assertIn("moveGuideCursor(model, cursorNow(), move)", guide)
-        self.assertIn("focusRequester.requestFocus()", guide)
+        # 1.1.17: the grid's initial focus goes through the shared safe helper -
+        # a bare requestFocus() throws when the node is not attached yet.
+        self.assertIn("focusRequester.requestFocusSafely()", guide)
         self.assertIn("internal const val GUIDE_SLOTS", model)
 
     def test_tab_and_guide_position_survive_the_player(self):

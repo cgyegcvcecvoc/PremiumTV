@@ -418,7 +418,9 @@ class UpdateNoticePopupTests(unittest.TestCase):
         self.assertIn("dismissOnBackPress = true", dialog)
         self.assertIn("dismissOnClickOutside = false", dialog)
         self.assertIn("FocusRequester()", dialog)
-        self.assertIn("requestFocus()", dialog)
+        # 1.1.17: the initial focus goes through the shared safe helper, so a
+        # dialog window that is not attached yet cannot throw out of the effect.
+        self.assertIn("requestFocusSafely()", dialog)
         self.assertIn("notice.surprise", dialog)
         self.assertIn("notice.releasesUrl", dialog)
         self.assertIn("FocusButton(", dialog)
