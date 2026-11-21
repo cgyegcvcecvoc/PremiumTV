@@ -2833,6 +2833,18 @@ window.SITE_DATA = {
  },
  "changelog": [
   {
+   "id": "2026-11-21",
+   "date": "2026-11-21",
+   "title": "Version 1.1.14 prepared: crash diagnostics",
+   "body_md": "- **A crash now leaves a record a viewer can send.** 1.1.12 installed a last-chance handler that wrote `last-crash.txt`, but nothing ever read it and app-private storage is unreachable from the UI, so an intermittent crash could still only be reported as \"it crashed\". `CrashLog` (Android) and `crash-log.js` (macOS) now write, parse, describe and clear the record; Settings shows the class, message, time, thread and the first frames, with one **Clear crash log** action. On macOS the main process records uncaught exceptions, unhandled rejections and `render-process-gone`.\n- **Nothing leaves the device.** The record is one local file: no upload, no identifier and no third-party crash service. Clearing it deletes the file, so an old crash stops being reported.\n- **The hardened-sources work ships here.** 1.1.13 was prepared but never published or tagged (its release-notes file remains as the record), so its TLS verification for playlist and guide fetches, credential-free source URLs, confined local files, pinned macOS player libraries and CI Node setup are part of this release. Its tag is not reused, the same way the unused 1.1.8/1.1.9 tags were not.\n- **Why this release exists, and what it is not.** No crash log, reproduction or filed report existed for the reported 1.1.12 crashes: the repository has no crash reporting, the issue tracker has none, and the Android smoke gate's `crash log` section was empty, so there was no signature to fix and no honest claim to make. This release makes the next occurrence diagnosable; the fix follows the trace, not a guess.",
+   "bullets": [
+    "**A crash now leaves a record a viewer can send.** 1.1.12 installed a last-chance handler that wrote `last-crash.txt`, but nothing ever read it and app-private storage is unreachable from the UI, so an intermittent crash could still only be reported as \"it crashed\". `CrashLog` (Android) and `crash-log.js` (macOS) now write, parse, describe and clear the record; Settings shows the class, message, time, thread and the first frames, with one **Clear crash log** action. On macOS the main process records uncaught exceptions, unhandled rejections and `render-process-gone`.",
+    "**Nothing leaves the device.** The record is one local file: no upload, no identifier and no third-party crash service. Clearing it deletes the file, so an old crash stops being reported.",
+    "**The hardened-sources work ships here.** 1.1.13 was prepared but never published or tagged (its release-notes file remains as the record), so its TLS verification for playlist and guide fetches, credential-free source URLs, confined local files, pinned macOS player libraries and CI Node setup are part of this release. Its tag is not reused, the same way the unused 1.1.8/1.1.9 tags were not.",
+    "**Why this release exists, and what it is not.** No crash log, reproduction or filed report existed for the reported 1.1.12 crashes: the repository has no crash reporting, the issue tracker has none, and the Android smoke gate's `crash log` section was empty, so there was no signature to fix and no honest claim to make. This release makes the next occurrence diagnosable; the fix follows the trace, not a guess."
+   ]
+  },
+  {
    "id": "2026-11-20",
    "date": "2026-11-20",
    "title": "Version 1.1.13 prepared: hardened sources",
