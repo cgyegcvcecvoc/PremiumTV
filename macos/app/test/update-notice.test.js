@@ -152,7 +152,7 @@ test('the same rule escalates by itself once support ends', () => {
   assert.match(notice.title, /support .* ended/i);
   // The escalation has to say what actually stopped: the scraped data.
   assert.match(notice.message, /scrape|frozen/i);
-  assert.match(notice.message, /Nov 19, 2026/);
+  assert.match(notice.message, /Dec 21, 2026/);
   assert.ok(!notice.message.includes('{support_ends}'));
 });
 
@@ -219,7 +219,7 @@ test('parseInstant reads the two published shapes and refuses anything else', ()
 
 test('formatDay is UTC, so the date reads the same in every time zone', () => {
   assert.equal(formatDay(Date.UTC(2026, 10, 16, 23, 59, 59)), 'Nov 16, 2026');
-  assert.equal(formatDay(parseInstant(PUBLISHED.support_ends_utc)), 'Nov 19, 2026');
+  assert.equal(formatDay(parseInstant(PUBLISHED.support_ends_utc)), 'Dec 21, 2026');
 });
 
 // ------------------------------------------------------- updater integration

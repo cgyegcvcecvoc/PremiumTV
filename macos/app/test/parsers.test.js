@@ -10,7 +10,9 @@ const { execFileSync } = require('node:child_process');
 const { parseM3u, parseXmltv, orderGroups } = require('../src/main/parsers');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
-const PLAYLIST = path.join(ROOT, 'playlists', 'countries', 'USA.m3u');
+// The live feed is what the apps ship (1.1.7 split it out of countries/USA.m3u,
+// which is now the frozen legacy copy the bundle builder no longer reads).
+const PLAYLIST = path.join(ROOT, 'playlists', 'live', 'USA.m3u');
 const GUIDE = path.join(ROOT, 'EPG', 'USA.xml');
 const BUILD_BUNDLE = path.join(ROOT, 'android', 'tools', 'build_bundle.py');
 

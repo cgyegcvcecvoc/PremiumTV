@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-21 — Version 1.1.15 published: crash diagnostics, with installers
+
+- **The Android and Mac installers now build.** `v1.1.14` was published but both installer workflows failed before compiling: the Android gate's `test_usa_bundle` caught `EPG/USA.xml` listing 43 guide channels the live USA feed no longer carries. The guide was still scoped to the frozen legacy `playlists/countries/USA.m3u` after the live feed moved on, so every scheduled guide build could re-break the gate. `scripts/epg_build.py` now builds each country guide from `playlists/live/<country>.m3u` when that feed exists, and `EPG/USA.xml` is pruned to the live feed it describes. `1.1.15` carries the same crash-diagnostics code and is the release whose installers attach.
+- **Why 1.1.15 and not a rebuilt 1.1.14.** The publish workflow tags the commit it publishes, and an installer attaches only to the tag it built; a fixed commit cannot supply assets to an earlier tag without retagging a published release. `1.1.14` stays on GitHub as an asset-less record, which the in-app updater never offers, and `1.1.15` is the next patch that installs.
+- **1.1.14's content ships here unchanged.** Settings shows the last recorded crash with its class, message, time, thread and stack and can clear it; Android and macOS record it on the device and never upload it. The TLS, source-URL and pinned-library work prepared for 1.1.13 is in this release too.
+
 ## 2026-11-21 — Version 1.1.14 prepared: crash diagnostics
 
 - **A crash now leaves a record a viewer can send.** 1.1.12 installed a last-chance handler that wrote `last-crash.txt`, but nothing ever read it and app-private storage is unreachable from the UI, so an intermittent crash could still only be reported as "it crashed". `CrashLog` (Android) and `crash-log.js` (macOS) now write, parse, describe and clear the record; Settings shows the class, message, time, thread and the first frames, with one **Clear crash log** action. On macOS the main process records uncaught exceptions, unhandled rejections and `render-process-gone`.

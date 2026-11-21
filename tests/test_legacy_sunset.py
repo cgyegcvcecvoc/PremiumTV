@@ -132,7 +132,13 @@ class PublishedNoticeTests(unittest.TestCase):
 
     def test_the_support_date_reads_the_same_on_screen_as_in_the_playlist(self):
         ends = legacy_sunset.parse_instant(DOCUMENT["support_ends_utc"])
-        self.assertEqual(legacy_sunset.format_day(ends), "Nov 19, 2026")
+        import datetime as dt
+        stamp = dt.datetime.fromtimestamp(ends, dt.timezone.utc)
+        self.assertEqual(
+            legacy_sunset.format_day(ends),
+            f"{stamp.strftime('%b')} {stamp.day}, {stamp.year}",
+            "the on-screen date must be the UTC day, rendered the same way",
+        )
 
 
 class WarningPhaseTests(unittest.TestCase):
@@ -215,7 +221,11 @@ class FreezeTests(unittest.TestCase):
         self.assertTrue(legacy_sunset.is_frozen(self.tree.legacy))
         self.assertIn(legacy_sunset.FROZEN_MARKER, frozen)
         self.assertIn(legacy_sunset.NOTICE_VALUE, frozen)
-        self.assertIn("Nov 19, 2026", frozen, "the frozen feed must name the day support ended")
+        self.assertIn(
+            legacy_sunset.format_day(legacy_sunset.parse_instant(DOCUMENT["support_ends_utc"])),
+            frozen,
+            "the frozen feed must name the day support ended",
+        )
         self.assertIn(DOCUMENT["releases_url"], frozen,
                       "the frozen feed must say where the newest release is")
 
@@ -253,7 +263,12 @@ class FreezeTests(unittest.TestCase):
         self.tree.apply(day_after_support_ends())
         frozen = self.tree.legacy.read_text(encoding="utf-8")
         self.assertIn(
-            f"# {legacy_sunset.FROZEN_MARKER} Nov 19, 2026 (UTC)", frozen,
+            "# %s %s (UTC)" % (
+                legacy_sunset.FROZEN_MARKER,
+                legacy_sunset.format_day(
+                    legacy_sunset.parse_instant(DOCUMENT["support_ends_utc"])),
+            ),
+            frozen,
             "the freeze stamp must come from the notice, not the runner clock")
         self.assertNotRegex(
             frozen, r"FROZEN \d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC",

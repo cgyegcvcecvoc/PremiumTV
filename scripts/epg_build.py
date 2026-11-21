@@ -1123,7 +1123,15 @@ def write_country_guides(epg_dir: Path, country_playlists: list[Path], channels:
         url = raw_url_for(repo, branch, epg_dir, country)
         target = epg_dir / f"{country}.xml"
         tmp = epg_dir / f".{country}.xml.tmp"
-        ids = country_playlist_ids(playlist_path)
+        # The apps ship ``playlists/live/<country>.m3u``; the countries/ feed is
+        # the legacy copy frozen for old builds. A guide scoped to the frozen
+        # copy advertises channels the current app does not have, which is how
+        # EPG/USA.xml drifted from the live USA feed and failed the bundle gate.
+        source = playlist_path
+        live = playlist_path.parent.parent / "live" / playlist_path.name
+        if live.is_file():
+            source = live
+        ids = country_playlist_ids(source)
         country_channels = {}
         country_programmes = {}
         for cid in ids:
@@ -1153,7 +1161,7 @@ def write_country_guides(epg_dir: Path, country_playlists: list[Path], channels:
             tmp.replace(target)
             result = {
                 "country": country,
-                "playlist": display_path(playlist_path),
+                "playlist": display_path(source),
                 "file": display_path(target),
                 "url": url,
                 "playlist_channels": len(ids),

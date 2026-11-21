@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.14** — crash diagnostics that show and clear the last recorded crash on Android and macOS, verified TLS for playlist and guide fetches, and pinned player libraries). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.15** — crash diagnostics that show and clear the last recorded crash on Android and macOS, verified TLS for playlist and guide fetches, and pinned player libraries). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.14
+## Current stable: 1.1.15
 
-1.1.14 is the crash-diagnostics release. Android and macOS now keep the last fatal error on the device and show it in Settings: the class, message, time, thread and stack, with one action that clears it once it has been read. Nothing is uploaded and no identifier is stored, so a crash that only happens now and then finally produces something a viewer can quote. The release also carries the hardened-sources work: playlist and guide fetches verify TLS, configured source URLs must be http(s) without credentials, and the macOS player libraries are pinned to the web client's exact versions. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.14.md`](../release-notes-1.1.14.md).
+1.1.15 is the crash-diagnostics release. Its predecessor, 1.1.14, was published without installers because the guide still listed channels the live USA feed no longer carries; the guide is now built from the live feed, so that gate passes. Android and macOS keep the last fatal error on the device and show it in Settings: the class, message, time, thread and stack, with one action that clears it once it has been read. Nothing is uploaded and no identifier is stored, so a crash that only happens now and then finally produces something a viewer can quote. The release also carries the hardened-sources work: playlist and guide fetches verify TLS, configured source URLs must be http(s) without credentials, and the macOS player libraries are pinned to the web client's exact versions. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.15.md`](../release-notes-1.1.15.md).
 
-It installs in place over every earlier build: Android `101140000` is above
+It installs in place over every earlier build: Android `101150000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.14 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.15 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 
@@ -52,7 +52,7 @@ download links were removed; any old link goes to
 and explains how to replace the preview without uninstalling on Android. **The
 `1.1.0` and `1.1.1` names are ordinary stable releases** — the deleted preview
 shared those names, and the project promoted them back, so a device on either is
-on a supported build and simply updates to 1.1.14 in-app. The Netlify Drop hub
+on a supported build and simply updates to 1.1.15 in-app. The Netlify Drop hub
 under `hub/` uses the same complete-release gate and never renders a preview
 card. Rebuild and re-upload its export to refresh an existing Netlify
 deployment.
