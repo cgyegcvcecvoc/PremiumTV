@@ -122,8 +122,10 @@ enum class HomeTab(val label: String) {
     Settings("Settings"),
 }
 
+// internal for the same reason as TvViewModel.channelIndex: the prepared index
+// (LiveEvents.kt) is a module detail, and a public composable cannot expose it.
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     library: Library,
     now: Long,
     status: String,

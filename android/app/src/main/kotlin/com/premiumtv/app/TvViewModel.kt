@@ -61,7 +61,9 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
      * ready.
      */
     private val _channelIndex = MutableStateFlow<ChannelIndex?>(null)
-    val channelIndex = _channelIndex.asStateFlow()
+    // internal: ChannelIndex is an implementation detail of this module (see
+    // LiveEvents.kt); the screens that read it live in the same module.
+    internal val channelIndex = _channelIndex.asStateFlow()
 
     /** App updates: newest stable release, download progress, installer state. */
     val updateInfo = updateManager.state
