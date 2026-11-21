@@ -27,14 +27,14 @@ Daemon will be stopped at the end of the build
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :app:mergeDebugAssets
-> Task :app:processDebugManifestForPackage
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:processDebugManifestForPackage
 > Task :app:compressDebugAssets
-> Task :app:processDebugResources
 > Task :app:l8DexDesugarLibDebug FROM-CACHE
+> Task :app:processDebugResources
+> Task :app:desugarDebugFileDependencies FROM-CACHE
 > Task :app:packageDebugUnitTestForUnitTest
 > Task :app:generateDebugUnitTestConfig
-> Task :app:desugarDebugFileDependencies FROM-CACHE
 > Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
 > Task :app:checkDebugDuplicateClasses
@@ -49,7 +49,7 @@ Daemon will be stopped at the end of the build
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libffmpegJNI.so.
 
 > Task :app:compileDebugKotlin
-w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2253:27 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'org.json.JSONArray?'.
+w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2291:27 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'org.json.JSONArray?'.
 
 > Task :app:compileDebugJavaWithJavac
 > Task :app:processDebugJavaRes
@@ -57,16 +57,16 @@ w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:dexBuilderDebug
 > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
-> Task :app:mergeProjectDexDebug
 > Task :app:mergeDebugJavaResource
+> Task :app:mergeProjectDexDebug
 > Task :app:compileDebugUnitTestKotlin
+> Task :app:packageDebug
 > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :app:processDebugUnitTestJavaRes
 > Task :app:testDebugUnitTest
-> Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795272342612.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795278023799.json
 
-BUILD SUCCESSFUL in 1m 8s
+BUILD SUCCESSFUL in 38s
 48 actionable tasks: 35 executed, 13 from cache

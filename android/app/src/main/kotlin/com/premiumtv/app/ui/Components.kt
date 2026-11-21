@@ -37,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -158,6 +159,28 @@ fun Modifier.tvClickable(
                 detectTapGestures(onTap = { currentOnClick.value() })
             }
         }
+}
+
+/**
+ * Asks for focus without risking the process (1.1.17).
+ *
+ * [FocusRequester.requestFocus] throws `IllegalStateException` when the node it
+ * belongs to is not attached yet - which is normal while a screen is being
+ * laid out, or when the field that owns it has just left the composition
+ * (closing search, switching tabs, a dialog opening over it). A crash recorder
+ * can only report that as "the app stopped"; the app should simply keep the
+ * focus it had and let the next press move it. The cable guide and the update
+ * popup already guarded this call while the search field did not, so the guard
+ * lives here now and every caller uses it.
+ *
+ * Returns true when focus was taken.
+ */
+fun FocusRequester.requestFocusSafely(): Boolean = try {
+    requestFocus()
+    true
+} catch (_: IllegalStateException) {
+    // Not attached (yet, or any more): the caller keeps its current focus.
+    false
 }
 
 /**

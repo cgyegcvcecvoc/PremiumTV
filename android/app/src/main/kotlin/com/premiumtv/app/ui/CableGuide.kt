@@ -155,9 +155,14 @@ internal fun CableGuideScreen(
     fun cursorNow(): GuideCursor {
         val saved = state.cursor
         val open = currentModel.windowStart
-        val fallback = GuideCursor(row = 0, time = currentNow.coerceIn(open, currentModel.windowEnd - 1))
+        val fallback = GuideCursor(row = 0, time = currentNow.coerceIn(open, (currentModel.windowEnd - 1).coerceAtLeast(open)))
         val cursor = saved ?: fallback
-        return cursor.copy(row = cursor.row.coerceIn(0, currentModel.rows.lastIndex))
+        // The saved row belongs to the guide that was open; a refresh (or a
+        // window that moved on) can leave it past the end. Clamping through
+        // `coerceIn(0, lastIndex)` would itself throw on an empty list, so the
+        // lower bound is computed with coerceAtLeast.
+        val lastRow = (currentModel.rows.size - 1).coerceAtLeast(0)
+        return cursor.copy(row = cursor.row.coerceIn(0, lastRow))
     }
     val cursor = cursorNow()
 
@@ -192,7 +197,10 @@ internal fun CableGuideScreen(
             revealJob?.cancel()
             revealJob = scope.launch {
                 val list = state.list
-                val itemIndex = model.itemIndexOfRow[target.row]
+                // 1.1.17: the cursor is state that outlives one library; an
+                // index that no longer exists must scroll nothing, never throw
+                // from inside a coroutine (which stops the app).
+                val itemIndex = model.itemIndexOfRow.getOrNull(target.row) ?: return@launch
                 val layout = list.layoutInfo
                 val visible = layout.visibleItemsInfo.firstOrNull { it.index == itemIndex }
                 val top = layout.viewportStartOffset
@@ -214,7 +222,7 @@ internal fun CableGuideScreen(
                 }
 
                 if (!target.onChannel) {
-                    val programmes = model.rows[target.row].programmes
+                    val programmes = model.rows.getOrNull(target.row)?.programmes.orEmpty()
                     val index = programmeIndexAt(programmes, target.time)
                     if (index >= 0) {
                         val programme = programmes[index]
@@ -241,7 +249,9 @@ internal fun CableGuideScreen(
             return when (native.keyCode) {
                 NativeKey.KEYCODE_DPAD_CENTER, NativeKey.KEYCODE_ENTER, NativeKey.KEYCODE_NUMPAD_ENTER -> {
                     if (native.action == NativeKey.ACTION_UP) {
-                        currentOnSelect(model.rows[cursorNow().row].channel)
+                        model.rows.getOrNull(cursorNow().row)?.let { row ->
+                            currentOnSelect(row.channel)
+                        }
                     }
                     true
                 }
@@ -320,15 +330,19 @@ internal fun CableGuideScreen(
             ) {
                 items(
                     count = model.items.size,
+                    // The key lambda runs against the provider that is measured;
+                    // a stale index (a model swapped between passes) answers a
+                    // stable placeholder instead of an IndexOutOfBounds.
                     key = { index ->
-                        when (val item = model.items[index]) {
+                        when (val item = model.items.getOrNull(index)) {
                             is GuideItem.Section -> "section|$index|${item.name}"
                             is GuideItem.Row -> "row|${item.row.channel.id}|${item.row.channel.url}"
+                            null -> "stale|$index"
                         }
                     },
-                    contentType = { index -> if (model.items[index] is GuideItem.Section) 0 else 1 },
+                    contentType = { index -> if (model.items.getOrNull(index) is GuideItem.Section) 0 else 1 },
                 ) { index ->
-                    when (val item = model.items[index]) {
+                    when (val item = model.items.getOrNull(index)) {
                         is GuideItem.Section -> GuideSectionHeading(item, labelWidth)
                         is GuideItem.Row -> {
                             val highlightedRow = gridFocused && cursor.row == item.index
@@ -350,6 +364,7 @@ internal fun CableGuideScreen(
                                 onSelect = { currentOnSelect(item.row.channel) },
                             )
                         }
+                        null -> Unit
                     }
                 }
             }
@@ -363,13 +378,7 @@ internal fun CableGuideScreen(
         // wait for a frame so its focus target is attached before asking.
         repeat(5) {
             withFrameNanos { }
-            val focused = try {
-                focusRequester.requestFocus()
-                true
-            } catch (notAttachedYet: IllegalStateException) {
-                false
-            }
-            if (focused) return@LaunchedEffect
+            if (focusRequester.requestFocusSafely()) return@LaunchedEffect
         }
         // Still not attached: the tabs keep focus and the grid is one press
         // of down away.
@@ -378,7 +387,7 @@ internal fun CableGuideScreen(
 
 @Composable
 private fun GuideInfoPanel(model: GuideModel, cursor: GuideCursor, focused: Boolean, now: Long) {
-    val row = model.rows[cursor.row]
+    val row = model.rows.getOrNull(cursor.row) ?: return
     val programme: Programme? = if (cursor.onChannel) {
         nowPlaying(row.programmes, now)
     } else {

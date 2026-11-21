@@ -80,10 +80,10 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.16** (Android `versionCode 101160000`) | USA lineup + USA guide | Crash diagnostics: Settings shows the last recorded crash, with its message and stack, and can clear it — plus verified TLS for playlist and guide fetches and pinned macOS player libraries ([notes](release-notes-1.1.16.md)). |
-| Superseded | **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.16. |
+| **Stable release** | **1.1.17** (Android `versionCode 101170000`) | USA lineup + USA guide | Indexed library: opening a channel no longer re-scans every channel name on the UI thread, and the focus, guide, feed-list and stream-setup paths that could stop the app are guarded ([notes](release-notes-1.1.17.md)). |
+| Superseded | **1.1.16** (`101160000`), **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.17. |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
-| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.16 ends Dec 21, 2026 |
+| Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.17 ends Dec 21, 2026 |
 
 The old **1.1.x Encore preview channel is retired**, and 1.1.13 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is

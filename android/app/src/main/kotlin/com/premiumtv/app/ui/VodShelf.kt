@@ -164,7 +164,16 @@ internal fun parseVodCatalogDocument(text: String?): VodCatalog {
                 )
             }
         }
-        VodCatalog(items, comingSoon)
+        // 1.1.17: the poster grid keys a card by its id, and Compose throws on
+        // a repeated key rather than skipping the row. A catalogue document
+        // that lists one title twice keeps its first entry only.
+        val unique = if (items.size < 2) {
+            items
+        } else {
+            val seen = HashSet<String>(items.size * 2)
+            items.filter { item -> seen.add(item.id) }
+        }
+        VodCatalog(unique, comingSoon)
     } catch (_: Exception) {
         VodCatalog(emptyList(), false)
     }

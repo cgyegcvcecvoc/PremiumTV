@@ -258,15 +258,8 @@ internal fun groupLiveEvents(
 }
 
 /** Maps every event feed's URL to its game, for the "LIVE" labels. */
-internal fun liveEventIndex(channels: List<Channel>): Map<String, LiveEvent> {
-    val out = HashMap<String, LiveEvent>()
-    for (section in groupLiveEvents(channels)) {
-        for (event in section.events) {
-            for (server in event.servers) out[server.url] = event
-        }
-    }
-    return out
-}
+internal fun liveEventIndex(channels: List<Channel>): Map<String, LiveEvent> =
+    buildChannelIndex(channels).byUrl
 
 /**
  * The playable server list for a channel: the game's other feeds when it is
@@ -281,20 +274,68 @@ internal fun liveEventIndex(channels: List<Channel>): Map<String, LiveEvent> {
  * Sharing only an id is not enough (an id can be reused by another show), and
  * two different known countries are different channels.
  */
-internal fun serversFor(channel: Channel, channels: List<Channel>): List<Channel> {
-    val event = liveEventIndex(channels)[channel.url]
-    val pool = if (event != null) {
-        event.servers
-    } else {
+internal fun serversFor(channel: Channel, channels: List<Channel>): List<Channel> =
+    buildChannelIndex(channels).serversFor(channel)
+
+/**
+ * One library's live-game and backup-feed lookups, derived once (1.1.17).
+ *
+ * Before 1.1.17 every channel open called [serversFor], which re-parsed every
+ * channel name in the library with six regular expressions ([groupLiveEvents])
+ * and then re-derived every base display name - all on the UI thread, inside
+ * the key press that opened the channel. With the 3,030-channel stable library
+ * that is tens of thousands of regex matches and a matching amount of garbage
+ * per open, which is exactly the stutter a viewer sees on a TV stick when they
+ * press OK on a card, and the extra GC churn that lands the next allocation on
+ * a device with a small heap. The same two passes also ran during the first
+ * composition of the Channels tab ([liveEventIndex], [groupLiveEvents]).
+ *
+ * The index is built once per library, on [kotlinx.coroutines.Dispatchers.Default],
+ * and every later open is two hash lookups. The lookups are pure, so
+ * [serversFor] keeps its old signature for tests and callers that have no
+ * index (the two are proven identical by `ChannelIndexTest`).
+ */
+internal class ChannelIndex internal constructor(
+    /** The Live Events tab's sport sections, in the published order. */
+    val sections: List<LiveEventSection>,
+    /** Every live-game feed URL to the game it carries. */
+    val byUrl: Map<String, LiveEvent>,
+    /** A channel's base display name to the rows that share it. */
+    private val byBaseName: Map<String, List<Channel>>,
+) {
+    /** The live game this feed carries, or null for an ordinary channel. */
+    fun eventFor(channel: Channel): LiveEvent? = byUrl[channel.url]
+
+    /** [serversFor], answered from the precomputed groups. */
+    fun serversFor(channel: Channel): List<Channel> {
+        val event = byUrl[channel.url]
+        if (event != null) return orderServers(channel, event.servers)
         val base = baseDisplayName(channel.name)
-        channels.filter {
-            baseDisplayName(it.name) == base && it.url != channel.url && (
-                it.id == channel.id && it.id.isNotBlank() ||
-                    it.country.isNotBlank() && it.country == channel.country
-                )
-        }.let { backups -> listOf(channel) + backups }
+        val backups = byBaseName[base].orEmpty().filter { candidate ->
+            candidate.url != channel.url && sameChannelAs(candidate, channel)
+        }
+        return orderServers(channel, backups)
     }
-    val ordered = ArrayList<Channel>(pool.size)
+
+    companion object {
+        /** An index over an empty library, so a caller never waits on a null. */
+        val EMPTY = ChannelIndex(emptyList(), emptyMap(), emptyMap())
+    }
+}
+
+/**
+ * Two feeds count as the same channel when they share the base display name
+ * and either the same EPG id or the same known country. Sharing only an id is
+ * not enough (an id can be reused by another show), and two different known
+ * countries are different channels.
+ */
+private fun sameChannelAs(candidate: Channel, channel: Channel): Boolean =
+    candidate.id == channel.id && candidate.id.isNotBlank() ||
+        candidate.country.isNotBlank() && candidate.country == channel.country
+
+/** The selected feed first, then the rest of the pool, each URL once. */
+private fun orderServers(channel: Channel, pool: List<Channel>): List<Channel> {
+    val ordered = ArrayList<Channel>(pool.size + 1)
     ordered.add(channel)
     for (candidate in pool) {
         if (candidate.url != channel.url && ordered.none { it.url == candidate.url }) {
@@ -302,6 +343,29 @@ internal fun serversFor(channel: Channel, channels: List<Channel>): List<Channel
         }
     }
     return ordered
+}
+
+/**
+ * Builds [ChannelIndex] for one library: one pass for the backup groups, one
+ * for the live games. Pure and thread-agnostic - call it off the UI thread.
+ */
+internal fun buildChannelIndex(
+    channels: List<Channel>,
+    schedule: Map<String, Long> = emptyMap(),
+): ChannelIndex {
+    val byBaseName = HashMap<String, MutableList<Channel>>(channels.size * 2)
+    for (channel in channels) {
+        byBaseName.getOrPut(baseDisplayName(channel.name)) { ArrayList() }.add(channel)
+    }
+    val sections = groupLiveEvents(channels, schedule)
+    val feedCount = sections.sumOf { section -> section.events.sumOf { it.servers.size } }
+    val byUrl = HashMap<String, LiveEvent>(feedCount * 2)
+    for (section in sections) {
+        for (event in section.events) {
+            for (server in event.servers) byUrl[server.url] = event
+        }
+    }
+    return ChannelIndex(sections, byUrl, byBaseName)
 }
 
 /** "Pluto TV Kids (Spain) (720p)" -> "Pluto TV Kids": the name backups share. */

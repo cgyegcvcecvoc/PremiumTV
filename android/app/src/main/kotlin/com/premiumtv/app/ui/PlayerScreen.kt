@@ -1,6 +1,7 @@
 package com.premiumtv.app.ui
 
 import android.content.Context
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.OptIn
 import androidx.compose.foundation.BorderStroke
@@ -122,6 +123,7 @@ internal fun formatPlaybackClock(ms: Long): String {
     }
 }
 
+private const val TAG = "PremiumTV"
 private const val VOD_RESUME_PREFS = "premiumtv_vod_positions"
 
 private fun loadSavedVodPositionMs(context: Context, id: String): Long {
@@ -191,7 +193,21 @@ fun PlayerScreen(
     var serverIndex by remember(channel.url) {
         mutableStateOf(playlist.indexOfFirst { it.url == channel.url }.coerceAtLeast(0))
     }
-    val current = playlist[serverIndex.coerceIn(0, playlist.lastIndex)]
+
+    /**
+     * The feed at [index], clamped into the playlist (1.1.17).
+     *
+     * Every read used to index the playlist with the server index clamped to
+     * `lastIndex`, which throws `IllegalArgumentException` the moment an empty
+     * list reaches it - clamping into `0..-1` is exactly that. A library
+     * refreshed while a channel was open, or a feed list that somehow arrived
+     * empty, would have stopped the app inside a listener instead of showing
+     * the error card.
+     */
+    fun feedAt(index: Int): Channel =
+        playlist.getOrNull(index.coerceIn(0, (playlist.size - 1).coerceAtLeast(0))) ?: channel
+
+    val current = feedAt(serverIndex)
 
     // Keyed by channel: opening another channel over the side player must not
     // inherit the last one's error card or its "switching servers" notice.
@@ -273,13 +289,39 @@ fun PlayerScreen(
             buffering = true
             audioNotice = null
             boundAudioTracks = emptyList()
-            player.trackSelectionParameters = player.trackSelectionParameters
-                .buildUpon()
-                .clearOverridesOfType(C.TRACK_TYPE_AUDIO)
-                .setTrackTypeDisabled(C.TRACK_TYPE_AUDIO, false)
-                .build()
-            player.setMediaSource(mediaSourceFor(context, source))
-            player.prepare()
+            // 1.1.17: building a media source is the one step in the player that
+            // can fail for a reason the viewer cannot act on - an empty URL, a
+            // scheme Media3 cannot open, a decoder extension that did not load
+            // on this box. None of those may take the process down: the panel
+            // shows its error card and the backup walk stays in charge, which
+            // is what a dead feed already did.
+            try {
+                player.trackSelectionParameters = player.trackSelectionParameters
+                    .buildUpon()
+                    .clearOverridesOfType(C.TRACK_TYPE_AUDIO)
+                    .setTrackTypeDisabled(C.TRACK_TYPE_AUDIO, false)
+                    .build()
+                val mediaSource = mediaSourceFor(context, source)
+                if (mediaSource == null) {
+                    buffering = false
+                    switchNotice = null
+                    errorMessage = "This feed has no usable stream URL. Try another server or channel."
+                } else {
+                    player.setMediaSource(mediaSource)
+                    player.prepare()
+                }
+            } catch (error: Exception) {
+                Log.w(TAG, "The feed's media source could not be built", error)
+                buffering = false
+                switchNotice = null
+                errorMessage = "This feed could not be opened (${error.javaClass.simpleName}). " +
+                    "Try another server or channel."
+            } catch (outOfMemory: OutOfMemoryError) {
+                Log.e(TAG, "Opening this feed needed more memory than this device allows", outOfMemory)
+                buffering = false
+                switchNotice = null
+                errorMessage = "This device ran out of memory opening this feed. Try another channel."
+            }
         }
     }
 
@@ -331,7 +373,7 @@ fun PlayerScreen(
         if (retriesForFeed < 1) {
             feedRetries[serverIndex] = retriesForFeed + 1
             switchNotice = "This feed is taking too long — reconnecting…"
-            startFeed(playlist[serverIndex.coerceIn(0, playlist.lastIndex)])
+            startFeed(feedAt(serverIndex))
             return@LaunchedEffect
         }
         val next = autoNextServerIndex(serverIndex, playlist.size)
@@ -363,9 +405,12 @@ fun PlayerScreen(
                         saveVodPositionMs(context, channel.id, player.currentPosition, durationMs)
                     }
                     resumeOnStart = player.playWhenReady
-                    player.pause()
+                    // A lifecycle event can arrive in the same frame the player
+                    // is released (leaving the screen while the app goes to the
+                    // background); a released player refuses both calls.
+                    runCatching { player.pause() }
                 }
-                Lifecycle.Event.ON_START -> if (resumeOnStart) player.play()
+                Lifecycle.Event.ON_START -> if (resumeOnStart) runCatching { player.play() }
                 else -> Unit
             }
         }
@@ -402,10 +447,10 @@ fun PlayerScreen(
                     // Re-prepare the same feed: that rebuilds the sample
                     // pipeline and re-opens the HTTP connection, which is what
                     // recovers a dropped segment or a stale CDN edge.
-                    startFeed(playlist[serverIndex.coerceIn(0, playlist.lastIndex)])
+                    startFeed(feedAt(serverIndex))
                     return
                 }
-                val failed = playlist[serverIndex.coerceIn(0, playlist.lastIndex)]
+                val failed = feedAt(serverIndex)
                 // Remember the dead feed so the next open (or the next
                 // channel's server list) does not lead with it.
                 reportFailed.value(failed)
@@ -449,64 +494,72 @@ fun PlayerScreen(
             }
 
             override fun onTracksChanged(tracks: Tracks) {
-                val audioGroups = tracks.groups.filter { it.type == C.TRACK_TYPE_AUDIO }
-                if (audioGroups.isEmpty()) {
-                    boundAudioTracks = emptyList()
-                    return
-                }
-                val collected = mutableListOf<BoundAudioTrack>()
-                var ordinal = 1
-                for (group in audioGroups) {
-                    for (tIdx in 0 until group.length) {
-                        val format = group.getTrackFormat(tIdx)
-                        val lang = format.language?.uppercase(Locale.ROOT).orEmpty()
-                        val rawLabel = format.label?.trim().orEmpty()
-                        val display = when {
-                            rawLabel.isNotBlank() && lang.isNotBlank() &&
-                                !rawLabel.uppercase(Locale.ROOT).contains(lang) -> "$rawLabel · $lang"
-                            rawLabel.isNotBlank() -> rawLabel
-                            lang.isNotBlank() -> lang
-                            else -> "Track $ordinal"
-                        }
-                        ordinal += 1
-                        collected += BoundAudioTrack(
-                            trackGroup = group.mediaTrackGroup,
-                            trackIndex = tIdx,
-                            candidate = AudioTrackCandidate(
-                                label = display,
-                                language = lang,
-                                supported = group.isTrackSupported(tIdx),
-                                selected = group.isTrackSelected(tIdx),
-                                isSecondary = isSecondaryAudioLabel(format.label, format.roleFlags),
-                            ),
-                        )
+                // 1.1.17: a track layout comes straight from the stream and a
+                // player callback must never be the place the app dies. A
+                // layout this build cannot read costs the audio menu, not the
+                // process.
+                try {
+                    val audioGroups = tracks.groups.filter { it.type == C.TRACK_TYPE_AUDIO }
+                    if (audioGroups.isEmpty()) {
+                        boundAudioTracks = emptyList()
+                        return
                     }
-                }
-                val supportedOnly = collected.filter { it.candidate.supported }
-                boundAudioTracks = supportedOnly
+                    val collected = mutableListOf<BoundAudioTrack>()
+                    var ordinal = 1
+                    for (group in audioGroups) {
+                        for (tIdx in 0 until group.length) {
+                            val format = group.getTrackFormat(tIdx)
+                            val lang = format.language?.uppercase(Locale.ROOT).orEmpty()
+                            val rawLabel = format.label?.trim().orEmpty()
+                            val display = when {
+                                rawLabel.isNotBlank() && lang.isNotBlank() &&
+                                    !rawLabel.uppercase(Locale.ROOT).contains(lang) -> "$rawLabel · $lang"
+                                rawLabel.isNotBlank() -> rawLabel
+                                lang.isNotBlank() -> lang
+                                else -> "Track $ordinal"
+                            }
+                            ordinal += 1
+                            collected += BoundAudioTrack(
+                                trackGroup = group.mediaTrackGroup,
+                                trackIndex = tIdx,
+                                candidate = AudioTrackCandidate(
+                                    label = display,
+                                    language = lang,
+                                    supported = group.isTrackSupported(tIdx),
+                                    selected = group.isTrackSelected(tIdx),
+                                    isSecondary = isSecondaryAudioLabel(format.label, format.roleFlags),
+                                ),
+                            )
+                        }
+                    }
+                    val supportedOnly = collected.filter { it.candidate.supported }
+                    boundAudioTracks = supportedOnly
 
-                if (supportedOnly.isNotEmpty()) {
-                    audioNotice = null
-                    val anySelectedSupported = supportedOnly.any { it.candidate.selected }
-                    if (!anySelectedSupported) {
-                        val bestIdx = selectPreferredAudioTrackIndex(collected.map { it.candidate })
-                        if (bestIdx >= 0) {
-                            val chosen = collected[bestIdx]
-                            player.trackSelectionParameters = player.trackSelectionParameters
-                                .buildUpon()
-                                .clearOverridesOfType(C.TRACK_TYPE_AUDIO)
-                                .setTrackTypeDisabled(C.TRACK_TYPE_AUDIO, false)
-                                .addOverride(TrackSelectionOverride(chosen.trackGroup, listOf(chosen.trackIndex)))
-                                .build()
+                    if (supportedOnly.isNotEmpty()) {
+                        audioNotice = null
+                        val anySelectedSupported = supportedOnly.any { it.candidate.selected }
+                        if (!anySelectedSupported) {
+                            val bestIdx = selectPreferredAudioTrackIndex(collected.map { it.candidate })
+                            if (bestIdx >= 0) {
+                                val chosen = collected[bestIdx]
+                                player.trackSelectionParameters = player.trackSelectionParameters
+                                    .buildUpon()
+                                    .clearOverridesOfType(C.TRACK_TYPE_AUDIO)
+                                    .setTrackTypeDisabled(C.TRACK_TYPE_AUDIO, false)
+                                    .addOverride(TrackSelectionOverride(chosen.trackGroup, listOf(chosen.trackIndex)))
+                                    .build()
+                            }
                         }
+                    } else if (!isVodItem && hasBackupServer(serverIndex, playlist.size) && !audioFallbackUsed) {
+                        audioFallbackUsed = true
+                        val next = nextServerIndex(serverIndex, playlist.size, 1)
+                        serverIndex = next
+                        switchNotice = "Unsupported audio codec on previous feed — trying Server ${next + 1} of ${playlist.size}…"
+                    } else {
+                        audioNotice = "Audio codec on this feed is not supported on this device"
                     }
-                } else if (!isVodItem && hasBackupServer(serverIndex, playlist.size) && !audioFallbackUsed) {
-                    audioFallbackUsed = true
-                    val next = nextServerIndex(serverIndex, playlist.size, 1)
-                    serverIndex = next
-                    switchNotice = "Unsupported audio codec on previous feed — trying Server ${next + 1} of ${playlist.size}…"
-                } else {
-                    audioNotice = "Audio codec on this feed is not supported on this device"
+                } catch (error: Exception) {
+                    Log.w(TAG, "The stream's audio track layout could not be read", error)
                 }
             }
         }
@@ -1133,7 +1186,13 @@ private fun BoxScope.BigScreenChrome(
  * and LATM/ADTS audio access units lock cleanly.
  */
 @OptIn(UnstableApi::class)
-private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
+private fun mediaSourceFor(context: Context, channel: Channel): MediaSource? {
+    // 1.1.17: a blank or schemeless URL used to reach Media3's factory, which
+    // answers with an exception from inside the player setup. The caller shows
+    // the error card for this instead of the app stopping.
+    val target = channel.url.trim()
+    if (target.isEmpty() || !target.contains("://")) return null
+
     val headers = HashMap<String, String>()
     if (channel.referrer.isNotBlank()) headers["Referer"] = channel.referrer
     // Playlists often publish the embed *page* as the origin. The Origin header
@@ -1156,7 +1215,7 @@ private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
                 DefaultTsPayloadReaderFactory.FLAG_DETECT_ACCESS_UNITS
         )
 
-    val item = MediaItem.fromUri(channel.url).buildUpon().apply {
+    val item = MediaItem.fromUri(target).buildUpon().apply {
         if (isLive) {
             setLiveConfiguration(
                 MediaItem.LiveConfiguration.Builder()
@@ -1167,8 +1226,13 @@ private fun mediaSourceFor(context: Context, channel: Channel): MediaSource {
             )
         }
     }.build()
-    return DefaultMediaSourceFactory(DefaultDataSource.Factory(context, http), extractors)
-        .createMediaSource(item)
+    return try {
+        DefaultMediaSourceFactory(DefaultDataSource.Factory(context, http), extractors)
+            .createMediaSource(item)
+    } catch (error: Exception) {
+        Log.w(TAG, "Media3 refused this feed's media item", error)
+        null
+    }
 }
 
 /**

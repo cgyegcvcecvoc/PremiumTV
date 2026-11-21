@@ -1,6 +1,8 @@
 package com.premiumtv.app
 
 import android.app.Application
+import android.os.SystemClock
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.premiumtv.app.data.LoadState
@@ -9,16 +11,23 @@ import com.premiumtv.app.update.AppUpdateManager
 import com.premiumtv.app.update.CrashLog
 import com.premiumtv.app.update.Diagnostics
 import com.premiumtv.app.update.DiagnosticsReport
+import com.premiumtv.app.update.PerfLog
 import com.premiumtv.app.update.RecordedCrash
 import com.premiumtv.app.BuildConfig
+import com.premiumtv.app.ui.ChannelIndex
 import com.premiumtv.app.ui.LiveFeedStatus
+import com.premiumtv.app.ui.buildChannelIndex
 import com.premiumtv.app.ui.feedAnswers
 import com.premiumtv.app.ui.groupLiveEvents
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,6 +47,23 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
 
     /** 0..1 load progress, so the loading screen's line bar is honest. */
     val loadProgress = repository.loadProgress
+
+    /**
+     * The library's live-game and backup-feed lookups (1.1.17), built once per
+     * library on [Dispatchers.Default].
+     *
+     * Opening a channel used to re-scan and re-parse every channel name on the
+     * UI thread to work out that channel's feeds, and the Channels tab did the
+     * same two passes inside its first composition. On the 3,030-channel stable
+     * library that is tens of thousands of regex matches at the exact moment a
+     * viewer presses OK - the stutter in the report. The index is the same
+     * answer, computed once, in the background; null until the first one is
+     * ready.
+     */
+    private val _channelIndex = MutableStateFlow<ChannelIndex?>(null)
+    // internal: ChannelIndex is an implementation detail of this module (see
+    // LiveEvents.kt); the screens that read it live in the same module.
+    internal val channelIndex = _channelIndex.asStateFlow()
 
     /** App updates: newest stable release, download progress, installer state. */
     val updateInfo = updateManager.state
@@ -124,6 +150,7 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private companion object {
+        const val TAG = "PremiumTV"
         const val PROBE_CONCURRENCY = 6
     }
 
@@ -131,6 +158,47 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
         load()
         // Once a day at most; the manager sends its ETag and does no download.
         updateJob = viewModelScope.launch { updateManager.checkIfDue() }
+        observeChannelIndex()
+    }
+
+    /**
+     * Rebuilds [channelIndex] whenever the repository publishes a new library.
+     *
+     * The build runs on [Dispatchers.Default], so neither the first frame of
+     * the browser nor a channel open ever waits for it. A build that fails (a
+     * library that is somehow not parseable, a device out of memory) leaves an
+     * empty index behind rather than a crash: the browser then falls back to
+     * the old scan for that one open, and PerfLog records why, so Settings →
+     * Check for bugs can report it.
+     */
+    private fun observeChannelIndex() {
+        viewModelScope.launch {
+            repository.state
+                .map { state -> (state as? LoadState.Ready)?.library }
+                .distinctUntilChanged { previous, next -> previous === next }
+                .collectLatest { library ->
+                    if (library == null) return@collectLatest
+                    val channels = library.channels
+                    val startedAt = SystemClock.elapsedRealtime()
+                    val index = try {
+                        withContext(Dispatchers.Default) { buildChannelIndex(channels) }
+                    } catch (cancel: CancellationException) {
+                        throw cancel
+                    } catch (error: Exception) {
+                        Log.w(TAG, "The channel index could not be built; the browser will scan", error)
+                        PerfLog.recordIndexFailure(
+                            "${error.javaClass.simpleName}: ${error.message ?: "no message"}",
+                        )
+                        ChannelIndex.EMPTY
+                    } catch (outOfMemory: OutOfMemoryError) {
+                        Log.e(TAG, "The channel index needed more memory than this device allows", outOfMemory)
+                        PerfLog.recordIndexFailure("out of memory")
+                        ChannelIndex.EMPTY
+                    }
+                    PerfLog.recordIndexBuild(SystemClock.elapsedRealtime() - startedAt, channels.size)
+                    _channelIndex.value = index
+                }
+        }
     }
 
     fun load() {
@@ -193,6 +261,9 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
                         update = updateInfo.value,
                         installedVersion = BuildConfig.VERSION_NAME,
                         lastCrash = _lastCrash.value,
+                        // 1.1.17: what the UI itself measured, so a slow open
+                        // is reported instead of guessed.
+                        uiWork = PerfLog.snapshot,
                     )
                 }
             } finally {

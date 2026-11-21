@@ -1,8 +1,8 @@
 # PremiumTV — Android TV app
 
 A leanback-first Android app that carries this repository's channel list and
-TV guide inside the APK. The default build target is **1.1.16**
-(`versionCode` `101160000`) with the USA lineup: a channel opens in the docked
+TV guide inside the APK. The default build target is **1.1.17**
+(`versionCode` `101170000`) with the USA lineup: a channel opens in the docked
 side player with built-in transport and audio-track controls and one press on
 the picture goes full screen, a **Movies & Shows** tab that shows a coming-soon
 page of 21 public-domain films and classic TV episodes, FFmpeg broadcast
@@ -10,9 +10,16 @@ audio decoding (`AC-3`, `E-AC-3`, `DTS`, `MP2`), a calmer real-progress startup
 screen, channel search, category placeholder logos, a **Live Events** tab grouped
 by sport with team crests and kickoff countdowns, automatic multi-server
 playback, a compact Settings screen with **Force refresh**, **Check for update**,
-an expanded **Check for bugs** (11 checks) and a **Sleep timer**, faster D-pad
+an expanded **Check for bugs** (12 checks, now including the measured UI
+work behind this release) and a **Sleep timer**, faster D-pad
 focus with a single focus stop per card, and a **long-press OK** favourite. 1.1.5
-installs over 1.1.4 and every earlier build, including the retired 1.1.x preview. 1.0.9 is the crash-on-watch fix: earlier, opening a channel could
+installs over 1.1.4 and every earlier build, including the retired 1.1.x preview.
+1.1.17 is the responsiveness fix: the live-game and backup-feed index is built
+once per library on a background dispatcher instead of re-parsing every channel
+name on the UI thread on each channel open (and twice more while the Channels
+tab drew its first frame), and the initial focus request, the guide cursor, the
+feed index and the stream setup are guarded so a detached node or a stale index
+shows the app's own error card instead of stopping it. 1.0.9 is the crash-on-watch fix: earlier, opening a channel could
 freeze on black after a server fallback because the video surface stayed
 attached to a released player; the player now lives for the whole watch
 screen. (1.0.9 briefly existed as the same-code alias of 1.0.8.1; that
@@ -176,9 +183,9 @@ bundled lineup and Guide show immediately.
 The bundle is generated from the repository, so build it first:
 
 ```bash
-# Build target (USA, 1.1.16, versionCode 101160000)
-python3 tools/build_bundle.py --scope usa --version 1.1.16
-./gradlew -PpremiumTvVersion=1.1.16 -PpremiumTvVersionCode=101160000 assembleDebug
+# Build target (USA, 1.1.17, versionCode 101170000)
+python3 tools/build_bundle.py --scope usa --version 1.1.17
+./gradlew -PpremiumTvVersion=1.1.17 -PpremiumTvVersionCode=101170000 assembleDebug
 ```
 
 `app/src/main/assets/bundle/` is gitignored: it is derived data and would go
@@ -293,8 +300,8 @@ Physical TV and upstream playback checks remain manual.
 
 ### Stable build publication
 
-Ordinary pushes and manual builds default to `1.1.16`
-(Android code 101160000). The V-patch/compatibility-alias scheme is retired:
+Ordinary pushes and manual builds default to `1.1.17`
+(Android code 101170000). The V-patch/compatibility-alias scheme is retired:
 publish one three-part release and no twin. (Historically, `1.0.7` was the
 alias of `1.0.6.1`, and `1.0.9` briefly of `1.0.8.1`; the alias mapping for
 1.0.7 remains in the policy so those tags still resolve.)

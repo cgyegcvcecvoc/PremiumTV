@@ -69,15 +69,17 @@
       </p>
 
       <div class="release-polish">
-        <h3>Stable 1.1.16 · crash diagnostics</h3>
+        <h3>Stable 1.1.17 · indexed library</h3>
         <p>The app updates itself: <b>Settings → App updates</b> checks GitHub, downloads the
           new installer once, verifies its SHA-256 checksum and opens the platform installer.</p>
-        <p>1.1.16 is the crash-diagnostics release. Android and macOS keep the last
-          fatal error on the device and show its class, message and stack in
-          Settings, with one action that clears it; nothing is uploaded. It also
-          carries verified TLS for playlist and guide fetches and pinned player
-          libraries.</p>
-        <p class="meta">Android: 1.1.16 uses code 101160000, above every published release,
+        <p>1.1.17 is the responsiveness release: opening a channel no longer re-scans
+          the whole playlist on the UI thread — one index per library, built in the
+          background, answers it in two lookups. The focus, guide, feed-list and
+          stream-setup paths that could stop the app are guarded, duplicate rows
+          cannot reach a lazy list, and the bug check now reports the measured UI
+          work. It keeps the 1.1.16 crash card on the device (class, message, stack,
+          nothing uploaded) and the verified TLS for playlist and guide fetches.</p>
+        <p class="meta">Android: 1.1.17 uses code 101170000, above every published release,
           so every installed build finds it in its updater. Only published full releases
           above the installed version are offered.</p>
       </div>
