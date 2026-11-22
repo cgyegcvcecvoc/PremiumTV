@@ -114,7 +114,8 @@
         <p>
           The channels and guide ship <em>inside</em> the app — nothing to configure.
           Android installs on Android&nbsp;TV, Google&nbsp;TV, Fire&nbsp;TV, tablets and phones;
-          the macOS build runs on Intel and Apple&nbsp;Silicon.
+          the macOS build runs on Intel and Apple&nbsp;Silicon; and from 1.1.18 the same app is
+          packaged for Linux desktops (x86-64 and arm64).
         </p>
       </div>
 
@@ -148,6 +149,17 @@
             <li>Download the <strong>.dmg</strong> (drag to Applications) or <strong>.pkg</strong> (installer).</li>
             <li>Builds are ad-hoc signed: first launch may need <em>right-click&nbsp;→&nbsp;Open</em>.</li>
             <li>Or run: <code>xattr -d com.apple.quarantine /Applications/PremiumTV.app</code></li>
+          </ol>
+        </div>
+        <div class="install-card">
+          <h3>Linux</h3>
+          <ol>
+            <li>Any distro: download the <strong>.AppImage</strong>, then
+              <code>chmod +x PremiumTV-*.AppImage</code> and run it.</li>
+            <li>Debian / Ubuntu / Mint:
+              <code>sudo apt install ./PremiumTV-<version>-linux-x64.deb</code>.</li>
+            <li>Arch / Fedora / SUSE / NixOS: unpack the <strong>.tar.xz</strong> and run
+              <code>premiumtv</code>.</li>
           </ol>
         </div>
         <div class="install-card">

@@ -217,6 +217,14 @@
   const local = window.PremiumLocalChannels;
   let localSelection = local ? local.load(window.localStorage) : null;
   let localMessage = '';
+  // 1.1.18: set when a location request failed for a reason the viewer can fix
+  // in the system settings, so the panel can offer that pane instead of the
+  // same button again. Cleared by a successful fix.
+  let locationBlocked = false;
+  let locationContext = null;
+  // A fix that lands nearer to a market than PremiumTV publishes: kept as an
+  // offer, never as the answer (1.1.18).
+  let locationFarMarket = null;
   let playingSession = null;
   let clockTimer = null;
 
@@ -1457,9 +1465,10 @@
 
       <div class="panel" id="local-panel">
         <h2>Local channels</h2>
-        <p class="muted">Local stations such as WGAL are published per market. Ask this Mac for an
+        <p class="muted">Local stations such as WGAL are published per market. Ask this computer for an
           approximate location once, or type a ZIP code, a state or a city — declining location is
-          fine. The answer stays on this machine and only filters the channel list.</p>
+          fine. The answer stays on this machine and only filters the channel list. A prompt you
+          already answered is kept by the system, not by PremiumTV.</p>
         <div class="local-form">
           <label>Country<input id="local-country" list="local-country-list" maxlength="2" autocomplete="country" value="${escapeHtml(localSelection ? localSelection.country : 'US')}"></label>
           <label>ZIP code<input id="local-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="${escapeHtml(localSelection ? localSelection.zip : '')}"></label>
@@ -1471,6 +1480,8 @@
         <datalist id="local-city-list">${cityChoices()}</datalist>
         <div class="actions">
           <button class="btn" id="local-locate">${localSelection && local && local.hasSelection(localSelection) ? 'Use my location again' : 'Use my location'}</button>
+          ${locationBlocked ? '<button class="btn" id="local-open-location" type="button">Open location settings</button>' : ''}
+          ${locationFarMarket ? `<button class="btn" id="local-far-accept" type="button">Use ${escapeHtml(locationFarMarket.city)}, ${escapeHtml(locationFarMarket.state)} anyway</button>` : ''}
           <button class="btn btn-primary" id="local-save">Save area</button>
           <button class="btn" id="local-clear">Clear</button>
         </div>
@@ -1528,8 +1539,10 @@
           <dt>App data</dt><dd>${escapeHtml(appInfo.userData || '')}</dd>
           <dt>Bundled data</dt><dd>${escapeHtml(appInfo.bundleDir || '')}</dd>
         </dl>
-        <p class="muted">This app is ad-hoc signed and not notarized by Apple. On first launch, right-click it
-          in Applications and choose Open. A channel that will not play is almost always a dead upstream link.</p>
+        <p class="muted">${appInfo.platform === 'darwin'
+          ? 'This app is ad-hoc signed and not notarized by Apple. On first launch, right-click it in Applications and choose Open.'
+          : 'The Linux build is unsigned and installs from your own download, so no Gatekeeper step is needed.'}
+          A channel that will not play is almost always a dead upstream link.</p>
       </details>
     `;
 
@@ -1567,6 +1580,7 @@
     bind('check-bugs', 'click', () => runBugCheck());
     bind('clear-crash', 'click', () => clearCrashRecord());
     bind('local-save', 'click', () => {
+      locationFarMarket = null;
       const form = readLocalForm();
       const source = form.zip ? 'zip' : form.city ? 'city' : form.state ? 'state' : 'country';
       localSelection = local.save(window.localStorage, { ...form, source });
@@ -1578,6 +1592,7 @@
       else renderChannels();
     });
     bind('local-clear', 'click', () => {
+      locationFarMarket = null;
       localSelection = local.save(window.localStorage, { country: 'US' });
       localMessage = '';
       renderCategories();
@@ -1585,33 +1600,42 @@
       renderSettings();
     });
     bind('local-locate', 'click', () => {
-      const summary = document.getElementById('local-summary');
-      if (!local) return;
-      if (!navigator.geolocation) {
-        if (summary) summary.textContent = 'This build cannot ask for a location. Enter a ZIP or state instead.';
-        return;
-      }
-      if (summary) summary.textContent = 'Asking for your approximate location…';
-      navigator.geolocation.getCurrentPosition((position) => {
-        const market = local.nearestMarket(
-          position.coords.latitude, position.coords.longitude, localDirectory(),
-        );
-        if (!market) {
-          if (summary) summary.textContent =
-            'No local station is published near you yet. Enter a ZIP code, state or city instead.';
-          return;
-        }
-        localSelection = local.save(window.localStorage, {
-          country: 'US', state: market.state, city: market.city, source: 'location',
-        });
-        localMessage = '';
-        renderCategories();
-        renderChannels();
-        renderSettings();
-      }, () => {
-        if (summary) summary.textContent =
-          'Location was declined — that is fine. Enter a ZIP code, a state or a city instead.';
-      }, { timeout: 10000, maximumAge: 600000 });
+      askForLocalMarket({
+        manualHint: 'Enter a ZIP code, a state or a city instead.',
+        setStatus: (message) => { localMessage = message; renderSettings(); },
+        onMarket: (market) => {
+          localSelection = local.save(window.localStorage, {
+            country: 'US', state: market.state, city: market.city, source: 'location',
+          });
+          localMessage = '';
+          renderCategories();
+          renderChannels();
+          renderSettings();
+        },
+      });
+    });
+    bind('local-far-accept', 'click', () => {
+      const market = locationFarMarket;
+      locationFarMarket = null;
+      if (!market) return;
+      localSelection = local.save(window.localStorage, {
+        country: 'US', state: market.state, city: market.city, source: 'location',
+      });
+      localMessage = `Saved ${market.city}, ${market.state} — the nearest market PremiumTV publishes. `
+        + 'Change it any time with a ZIP code or a state.';
+      renderCategories();
+      renderChannels();
+      renderSettings();
+    });
+    // Shown only after a refusal: the OS remembers "Don't Allow", so the way
+    // back is its own privacy pane, not another press of the same button.
+    bind('local-open-location', 'click', async () => {
+      const opened = await api.openLocationSettings();
+      localMessage = opened && opened.ok
+        ? 'Opened your system location settings. Allow PremiumTV there, then press \'Use my location\' again.'
+        : (opened && opened.hint)
+          || 'This system has no location pane PremiumTV can open — allow it in the system settings, then try again.';
+      renderSettings();
     });
   }
 
@@ -3187,6 +3211,85 @@
   }
 
   /**
+   * One approximate-location request, with the answer the platform owes.
+   *
+   * 1.1.18. Every failure used to print "Location was declined", which blamed
+   * the viewer for three different things: a prompt the OS never showed (a Mac
+   * bundle with no usage description, which is why PremiumTV "never asked"), a
+   * desktop with no location service at all, or a prompt nobody answered in
+   * time. The messages now name the failure, and where the answer can be
+   * changed, the panel offers the system's own location pane.
+   *
+   * `enableHighAccuracy: false` is a promise, not an optimisation: only the
+   * nearest published market is derived from a fix, never an address.
+   */
+  const LOCATION_OPTIONS = { timeout: 20000, maximumAge: 600000, enableHighAccuracy: false };
+
+  async function describeLocationFailure(error) {
+    if (api && api.locationContext) {
+      try { locationContext = await api.locationContext(); } catch (_) { locationContext = null; }
+    }
+    const code = error && error.code;
+    if (locationContext && locationContext.hasUsageDescription === false) {
+      // Only a bundle can be at fault here, and only the app can know it.
+      return 'This copy of PremiumTV is not allowed to ask macOS for a location, so no prompt appeared.';
+    }
+    if (code === 1) {
+      return locationContext && locationContext.platform === 'linux'
+        ? 'Your desktop refused the location request — it is usually allowed under Settings → Privacy → Location.'
+        : 'Location access is off for PremiumTV, so the system refused the request without asking again.';
+    }
+    if (code === 2) {
+      return 'No location service on this computer could answer — a fix needs one (a desktop needs GeoClue or a portal).';
+    }
+    if (code === 3) {
+      const asks = locationContext && locationContext.asks;
+      const waited = asks && asks.requested
+        ? ' The prompt was shown and left unanswered.'
+        : '';
+      return `The location request timed out.${waited}`;
+    }
+    return 'The location request did not come back.';
+  }
+
+  function askForLocalMarket({ manualHint, setStatus, onMarket }) {
+    if (!local) return;
+    if (!navigator.geolocation) {
+      setStatus(`This build cannot ask for a location. ${manualHint}`);
+      return;
+    }
+    setStatus('Asking for your approximate location…');
+    navigator.geolocation.getCurrentPosition((position) => {
+      const hit = local.nearestMarketWithDistance(
+        position.coords.latitude, position.coords.longitude, localDirectory(),
+      );
+      locationBlocked = false;
+      locationFarMarket = null;
+      if (!hit) {
+        setStatus(`No local station is published near you yet. ${manualHint}`);
+        return;
+      }
+      // 1.1.18: the nearest published market is not automatically the viewer's.
+      // Wilkes-Barre and Scranton have no published station, so the closest one
+      // may be 150 km off — saying "Location set to Philadelphia" to someone in
+      // Pennsylvania's fourth-corner is the bug this line refuses. The market is
+      // offered, and only the viewer can accept it.
+      if (!local.marketIsNear(hit.distanceKm)) {
+        locationFarMarket = hit.market;
+        const miles = Math.round(hit.distanceKm * 0.621371);
+        setStatus(`Nothing is published for your spot — the nearest local stations are `
+          + `${hit.market.city}, ${hit.market.state}, about ${miles} miles away. `
+          + `${manualHint}`);
+        return;
+      }
+      onMarket(hit.market);
+    }, async (error) => {
+      locationBlocked = true;
+      setStatus(`${await describeLocationFailure(error)} ${manualHint}`);
+    }, LOCATION_OPTIONS);
+  }
+
+  /**
    * The one-time "where do you watch from?" question (1.1.11).
    *
    * Every path out of it stores an answer - location, manual, or an explicit
@@ -3207,32 +3310,38 @@
       renderSettings();
     };
     overlay.hidden = false;
+    const settingsButton = document.getElementById('local-setup-settings');
+    if (settingsButton) settingsButton.hidden = true;
+    const showSettings = () => { if (settingsButton) settingsButton.hidden = false; };
     document.getElementById('local-setup-locate').onclick = () => {
-      if (!navigator.geolocation) {
-        if (status) status.textContent = 'This build cannot ask for a location. Use "Enter a ZIP or state".';
-        return;
-      }
-      if (status) status.textContent = 'Asking for your approximate location…';
-      navigator.geolocation.getCurrentPosition((position) => {
-        const market = local.nearestMarket(
-          position.coords.latitude, position.coords.longitude, localDirectory(),
-        );
-        if (!market) {
-          if (status) status.textContent = 'No local station is published near you yet. Use "Enter a ZIP or state".';
-          return;
-        }
-        localSelection = local.save(window.localStorage, {
-          country: 'US', state: market.state, city: market.city, source: 'location',
-        });
-        finish();
-        renderCategories();
-        renderSettings();
-        selectCategory(LOCAL_CATEGORY);
-      }, () => {
-        if (status) status.textContent =
-          'Location was declined — that is fine. Use "Enter a ZIP or state" instead.';
-      }, { timeout: 10000, maximumAge: 600000 });
+      askForLocalMarket({
+        manualHint: 'Use "Enter a ZIP or state" instead.',
+        setStatus: (message) => {
+          if (status) status.textContent = message;
+          if (locationBlocked) showSettings();
+          renderSettings();
+        },
+        onMarket: (market) => {
+          localSelection = local.save(window.localStorage, {
+            country: 'US', state: market.state, city: market.city, source: 'location',
+          });
+          finish();
+          renderCategories();
+          renderSettings();
+          selectCategory(LOCAL_CATEGORY);
+        },
+      });
     };
+    if (settingsButton) {
+      settingsButton.onclick = async () => {
+        const opened = await api.openLocationSettings();
+        if (status) {
+          status.textContent = opened && opened.ok
+            ? 'Opened your system location settings. Allow PremiumTV there, then press \'Use my location\' again.'
+            : (opened && opened.hint) || 'Allow location in the system settings, then try again.';
+        }
+      };
+    }
     document.getElementById('local-setup-manual').onclick = () => {
       finish();
       local.markAsked(window.localStorage);

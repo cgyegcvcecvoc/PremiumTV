@@ -63,23 +63,25 @@
     <div class="wrap">
       <h2>📱 The apps</h2>
       <p class="section-sub">
-        Native PremiumTV apps with the checked lineup and TV guide built in.
+        Native PremiumTV apps with the checked lineup and TV guide built in — Android TV,
+        macOS and, from 1.1.18, Linux desktops.
         The current stable installers download from the project's public
         GitHub release storage — one click. Retired preview builds are not offered.
       </p>
 
       <div class="release-polish">
-        <h3>Stable 1.1.17 · indexed library</h3>
+        <h3>Stable 1.1.18 · Linux desktops, real location prompts</h3>
         <p>The app updates itself: <b>Settings → App updates</b> checks GitHub, downloads the
           new installer once, verifies its SHA-256 checksum and opens the platform installer.</p>
-        <p>1.1.17 is the responsiveness release: opening a channel no longer re-scans
-          the whole playlist on the UI thread — one index per library, built in the
-          background, answers it in two lookups. The focus, guide, feed-list and
-          stream-setup paths that could stop the app are guarded, duplicate rows
-          cannot reach a lazy list, and the bug check now reports the measured UI
-          work. It keeps the 1.1.16 crash card on the device (class, message, stack,
-          nothing uploaded) and the verified TLS for playlist and guide fetches.</p>
-        <p class="meta">Android: 1.1.17 uses code 101170000, above every published release,
+        <p>1.1.18 adds the Linux edition — the same app as an AppImage, a .deb and a
+          portable tarball for x86-64 and arm64 — and fixes the two builds that never
+          asked where you watch from: macOS now ships the location usage string the
+          system requires before it shows the prompt, and Android asks the runtime
+          permission and waits for a real fix instead of an empty cache. A market that
+          turns out to be over 120 km away is offered with its distance instead of being
+          saved silently. It keeps the 1.1.17 index, the guarded playback paths, the
+          on-device crash card and the verified TLS for playlist and guide fetches.</p>
+        <p class="meta">Android: 1.1.18 uses code 101180000, above every published release,
           so every installed build finds it in its updater. Only published full releases
           above the installed version are offered.</p>
       </div>
@@ -98,6 +100,11 @@
       <details class="more">
         <summary>All macOS installers (Intel &amp; Apple Silicon, DMG &amp; PKG)</summary>
         <div id="mac-list"></div>
+      </details>
+
+      <details class="more">
+        <summary>All Linux installers (AppImage, .deb, tar.xz — x86-64 &amp; arm64)</summary>
+        <div id="linux-list"></div>
       </details>
     </div>
   </section>
@@ -196,6 +203,24 @@
             <li>DMG: open it and drag <strong>PremiumTV</strong> into <strong>Applications</strong>. PKG: double-click and follow the prompts.</li>
             <li>First launch: right-click the app → <strong>Open</strong> → <strong>Open</strong> (the build isn't notarized with Apple, so macOS asks once).</li>
             <li>That's it — channels and guide are bundled and refresh on their own.</li>
+          </ol>
+        </details>
+
+        <details class="howto">
+          <summary>🐧 Linux</summary>
+          <ol>
+            <li>From the <a href="#apps">Apps section</a> pick your format: the <strong>AppImage</strong> works on any
+              distro and needs no install, the <strong>.deb</strong> is for Debian, Ubuntu, Mint and Pop!_OS, and the
+              <strong>.tar.xz</strong> is the unpacked app for Arch, Fedora, SUSE or NixOS.</li>
+            <li>AppImage: <code>chmod +x PremiumTV-<em>version</em>-linux-x64.AppImage</code> then run it. If your
+              distro blocks FUSE, add <code>--appimage-extract-and-run</code>.</li>
+            <li>.deb: <code>sudo apt install ./PremiumTV-<em>version</em>-linux-x64.deb</code> — PremiumTV then appears
+              in your applications menu like any other program.</li>
+            <li>The build is unsigned (the same posture as the debug APK and the ad-hoc signed Mac app), so your
+              package manager may note that; the release carries a <code>SHA256SUMS-linux.txt</code> you can check
+              with <code>sha256sum -c</code>.</li>
+            <li>Local channels use your desktop's location service (GNOME: Settings → Privacy → Location). Declining
+              it is fine — a ZIP code, state or city finds the same stations.</li>
           </ol>
         </details>
 

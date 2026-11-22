@@ -126,7 +126,21 @@ window.PremiumLocalChannels = (function () {
   }
 
   /** The published market nearest to a coarse fix, optionally inside a state. */
-  function nearestMarket(latitude, longitude, directory, state) {
+  /**
+   * How far a location fix may be from a published market and still be called
+   * the viewer's area (1.1.18).
+   *
+   * The library publishes local stations for around a hundred markets, so a
+   * fix that falls nearest to a market 400 km away is not reporting the
+   * viewer's market — it is reporting the absence of one. 1.1.11-1.1.17 said
+   * "Location set to Philadelphia" to a viewer in Wilkes-Barre. The distance
+   * now travels with the market so every screen can say how far the answer is,
+   * and an answer beyond this line is offered instead of assumed.
+   */
+  const NEAREST_MARKET_MAX_KM = 120;
+
+  /** `{ market, distanceKm }`, or null when nothing is published with a position. */
+  function nearestMarketWithDistance(latitude, longitude, directory, state) {
     const wanted = String(state || '').toUpperCase();
     let best = null;
     let bestDistance = Infinity;
@@ -141,7 +155,17 @@ window.PremiumLocalChannels = (function () {
         best = market;
       }
     }
-    return best;
+    return best ? { market: best, distanceKm: bestDistance } : null;
+  }
+
+  function nearestMarket(latitude, longitude, directory, state) {
+    const hit = nearestMarketWithDistance(latitude, longitude, directory, state);
+    return hit ? hit.market : null;
+  }
+
+  /** True when a fix is close enough to be treated as the viewer's own market. */
+  function marketIsNear(distanceKm) {
+    return Number.isFinite(distanceKm) && distanceKm <= NEAREST_MARKET_MAX_KM;
   }
 
   /** The state a coarse fix falls in, for the "no station near you" case. */
@@ -260,7 +284,8 @@ window.PremiumLocalChannels = (function () {
   return {
     SELECTION_KEY, ASKED_KEY, EMPTY,
     normalizeSelection, hasSelection, label, load, save, asked, markAsked,
-    stateForZip, stateForLocation, nearestMarket, marketForZip,
+    stateForZip, stateForLocation, nearestMarket, nearestMarketWithDistance,
+    marketIsNear, NEAREST_MARKET_MAX_KM, marketForZip,
     marketsFor, stationsFor, channelsFor, summary, cityChoices,
   };
 })();

@@ -265,6 +265,10 @@ function noticeHarness(t, { currentVersion = '1.0.4', noticeBody = DOCUMENT, now
     stateFile: path.join(dir, 'update-state.json'),
     downloadDir: path.join(dir, 'updates'),
     arch: 'arm64',
+    // Pinned, not inherited: `node --test` runs on Linux in CI (ci.yml) and
+    // on macOS at a developer's desk, and since 1.1.18 the platform decides
+    // which installer a release must carry. These fixtures are Mac releases.
+    platform: 'darwin',
     fetchImpl,
     shell: { openPath: async () => '', openExternal: async () => {} },
     now: () => (clockNow == null ? (now == null ? Date.now() : now) : clockNow),

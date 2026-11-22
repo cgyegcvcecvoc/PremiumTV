@@ -1,0 +1,285 @@
+name: Build PremiumTV Linux AppImage + DEB
+
+# The Linux edition of the macOS app (1.1.18). The application is Electron, so
+# nothing in it is Mac-specific: the loopback stream proxy, the baked-in
+# playlist and guide, the vendored players and the renderer all run on a Linux
+# desktop unchanged, and the only macOS-only steps in the build (codesign in
+# afterPack, productbuild for the .pkg) are already guarded by
+# `process.platform`. This job builds the three formats a Linux desktop
+# actually installs — a portable .AppImage, a .deb for Debian/Ubuntu families,
+# and an unpacked .tar.xz for everything else — for x86-64 and arm64.
+#
+# It publishes the same version the Android and macOS jobs publish, and the
+# app's own updater only offers a release that carries a Linux AppImage
+# (src/main/update-policy.js), so a Mac-only release can never send a Linux
+# viewer a .dmg.
+#
+# A failure here deliberately does NOT hold a release back: publish-release.yml
+# waits for the APK and the four Mac installers, and treats these assets as an
+# extra. The version stays installable for everyone while the Linux job settles.
+
+on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - "macos/**"
+      - "playlists/countries/**"
+      - "playlists/live/**"
+      - "playlists/PremiumTV.m3u"
+      - "categories/index.json"
+      - "EPG/**"
+      - "android/tools/build_bundle.py"
+      - "scripts/release_version.py"
+      - "VERSION"
+      - ".github/workflows/linux-build.yml"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to build; leave blank for the version in VERSION (for example 1.2.0)"
+        type: string
+        default: ""
+        required: false
+      channel:
+        description: "Release channel: stable = USA lineup, preview = global lineup"
+        type: choice
+        options:
+          - stable
+          - preview
+        default: stable
+        required: true
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: linux-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build AppImage + DEB + tar.xz
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: macos/app/package-lock.json
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        working-directory: macos/app
+        run: npm ci
+
+      - name: Resolve version and bundle scope
+        id: release-config
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+          INPUT_CHANNEL: ${{ github.event.inputs.channel }}
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+            version=$(python3 scripts/release_version.py --normalize "$RELEASE_TAG") || {
+              echo "Unsupported release tag: $RELEASE_TAG"; exit 1; }
+            if [ "$RELEASE_PRERELEASE" = "true" ]; then channel=preview; else channel=stable; fi
+          else
+            version="${INPUT_VERSION:-$(python3 scripts/release_version.py --current)}"
+            channel="${INPUT_CHANNEL:-stable}"
+            version=$(python3 scripts/release_version.py --normalize "$version") || {
+              echo "Unsupported PremiumTV version: $version"; exit 1; }
+          fi
+          if [ "$channel" = "preview" ]; then scope=all; else scope=usa; fi
+          # The three-part rule is a semver rule, not a macOS rule: electron-builder
+          # rejects 1.0.6.1 the same way productbuild does. --macos resolves a
+          # historical four-part build to its three-part alias; every release from
+          # 1.0.9 on resolves to itself.
+          packaged=$(python3 scripts/release_version.py --macos "$version" || true)
+          if [ -z "$packaged" ]; then
+            if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              echo "::notice::$version has no three-part version to package; skipping the Linux build."
+            else
+              echo "::error::electron-builder cannot package $version: no three-part version exists."
+              exit 1
+            fi
+          fi
+          {
+            echo "VERSION=$version"
+            echo "LINUX_VERSION=$packaged"
+            echo "RELEASE_TAG=v$version"
+            echo "BUNDLE_SCOPE=$scope"
+            echo "CHANNEL=$channel"
+          } >> "$GITHUB_ENV"
+          echo "Building PremiumTV ${packaged:-'(skipped)'} for Linux ($channel, scope=$scope)."
+
+      - name: Set the packaged app version
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        run: |
+          node - "$LINUX_VERSION" <<'NODE'
+          const fs = require('node:fs');
+          const version = process.argv[2];
+          for (const file of ['package.json', 'package-lock.json']) {
+            const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+            data.version = version;
+            if (data.packages && data.packages['']) data.packages[''].version = version;
+            fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
+          }
+          NODE
+          node -p "'packaged app version: ' + require('./package.json').version"
+
+      - name: Bake the selected playlist and guide into the app
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        run: PREMIUMTV_SCOPE="$BUNDLE_SCOPE" PREMIUMTV_VERSION="$LINUX_VERSION" npm run bundle
+
+      - name: Vendor the player libraries
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        run: npm run assets
+
+      - name: Run the app's unit tests
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        run: npm test
+
+      # `-p never` keeps electron-builder from generating electron-updater
+      # metadata: PremiumTV's updater reads the GitHub release list directly
+      # (scripts/../../src/main/updater.js), and a latest-linux.yml on the
+      # release page would promise an update channel that does not exist.
+      - name: Build the AppImage, .deb and .tar.xz
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        run: |
+          set -o pipefail
+          mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
+          USE_HARD_LINKS=false npx electron-builder --linux --x64 --arm64 -p never 2>&1 \
+            | tee "$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+
+      - name: Verify the packaged app contains channels and the renderer
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        run: |
+          set -euo pipefail
+          test -s dist/linux-unpacked/resources/bundle/channels.jsonl
+          test -s dist/linux-unpacked/resources/bundle/meta.json
+          test -s dist/linux-unpacked/resources/app.asar
+          test -x dist/linux-unpacked/premiumtv
+          for file in \
+            "PremiumTV-${LINUX_VERSION}-linux-x64.AppImage" \
+            "PremiumTV-${LINUX_VERSION}-linux-arm64.AppImage" \
+            "PremiumTV-${LINUX_VERSION}-linux-x64.deb" \
+            "PremiumTV-${LINUX_VERSION}-linux-arm64.deb" \
+            "PremiumTV-${LINUX_VERSION}-linux-x64.tar.xz"; do
+            test -s "dist/$file" || { echo "::error::dist/$file was not produced"; exit 1; }
+          done
+          node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1]));
+            if (meta.channel_count < 1 || meta.version !== process.env.LINUX_VERSION) process.exit(1);' \
+            dist/linux-unpacked/resources/bundle/meta.json
+
+      # The same gate the macOS build runs, on Linux: the app really starts,
+      # finds its bundled channels and paints the renderer. --no-sandbox is
+      # needed because the runner owns chrome-sandbox as a normal user, which
+      # Chromium refuses; it affects only this throwaway smoke process.
+      - name: Smoke test the unpacked app
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        timeout-minutes: 12
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgbm1 libasound2t64 libnss3 libgtk-3-0 \
+            libnotify4 libxss1 libdrm2 xdg-utils fonts-liberation
+          log="$GITHUB_WORKSPACE/macos/build-out/smoke-linux.txt"
+          status=0
+          timeout 300 xvfb-run -a dist/linux-unpacked/premiumtv \
+            --no-sandbox --disable-gpu --disable-dev-shm-usage --smoke-test >"$log" 2>&1 || status=$?
+          cat "$log" >> "$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+          cat "$log"
+          [ "$status" -eq 0 ] || exit "$status"
+
+      - name: Checksum the installers
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app/dist
+        run: shasum -a 256 *.AppImage *.deb *.tar.xz > SHA256SUMS-linux.txt
+
+      - name: Upload installers as an Actions artifact
+        if: steps.release_config.outputs.skip != 'true'
+        uses: actions/upload-artifact@v6
+        with:
+          name: PremiumTV-Linux-installers-${{ env.LINUX_VERSION }}
+          path: |
+            macos/app/dist/*.AppImage
+            macos/app/dist/*.deb
+            macos/app/dist/*.tar.xz
+            macos/app/dist/SHA256SUMS-linux.txt
+          if-no-files-found: error
+
+      - name: Attach the installers to the release
+        if: steps.release_config.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="${{ github.event.release.tag_name }}"
+          tag="${tag:-v$(python3 scripts/release_version.py --current)}"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag does not exist; installers remain in the Actions artifact."
+            exit 0
+          fi
+          # Same exact-SHA rule as the other two build jobs: a later branch build
+          # must never overwrite the files a published tag points at.
+          tagged=$(git ls-remote origin "refs/tags/$tag" | cut -f1)
+          if [ -z "$tagged" ]; then
+            tagged=$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if .isDraft then .targetCommitish else "" end')
+          fi
+          if [ "$tagged" != "$GITHUB_SHA" ]; then
+            echo "Release $tag points to $tagged, not $GITHUB_SHA; keeping its assets."
+            exit 0
+          fi
+          printf 'PremiumTV %s (Linux)\nSource commit: %s\nBuild: https://github.com/%s/actions/runs/%s\n' \
+            "$LINUX_VERSION" "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" \
+            > macos/app/dist/BUILD-SOURCE-linux.txt
+          gh release upload "$tag" \
+            macos/app/dist/*.AppImage \
+            macos/app/dist/*.deb \
+            macos/app/dist/*.tar.xz \
+            macos/app/dist/SHA256SUMS-linux.txt macos/app/dist/BUILD-SOURCE-linux.txt --clobber
+          gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'
+
+      - name: Publish build log to the branch
+        if: always()
+        run: |
+          set -uo pipefail
+          mkdir -p macos/build-out
+          log=macos/build-out/build-log-linux.txt
+          if [ -f "$log" ]; then
+            tail -c 400000 "$log" > "$log.tail" && mv "$log.tail" "$log"
+          else
+            echo "no build log produced" > "$log"
+          fi
+          if [ "${GITHUB_REF_TYPE}" != "branch" ]; then
+            echo "Ref ${GITHUB_REF_NAME} is a ${GITHUB_REF_TYPE}, not a branch: nothing to push."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f macos/build-out/build-log-linux.txt macos/build-out/smoke-linux.txt 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Nothing new to publish."; exit 0; fi
+          git commit -m "ci: publish linux build log (run ${{ github.run_number }}) [skip ci]"
+          git pull --rebase --autostash -X theirs origin "$GITHUB_REF_NAME" || git rebase --abort || true
+          git push origin "HEAD:${GITHUB_REF_NAME}" || true

@@ -809,6 +809,23 @@ def base_category(category: str) -> str:
     return category[: -len(BACKUP_SUFFIX)] if is_backup_group(category) else category
 
 
+# Labels an upstream index uses as a scratch pile rather than a category.
+#
+# ``TEST``, ``IPTV`` and ``USA Channels`` all came in through discovered
+# playlists and stayed, because the last line of ``is_canonical_group`` accepts
+# any label ``normalize_group`` leaves alone - and an unrecognised word is left
+# alone by design, so that ``Italy 🇮🇹``-style regional groups keep their own
+# meaning. A channel published under one of these gets a group no player can
+# sort by, and three of them cost the published lineup three categories that
+# hold one channel each. Listed here instead, they are re-classified from the
+# channel name on the next run: METV TOONS lands on Cartoons, NFL Network HD on
+# Sports, and the group disappears with nothing left in it.
+DUMPING_GROUNDS = frozenset({
+    "test", "iptv", "iptv links", "iptv channel", "usa channels", "us channels",
+    "all iptv links", "channels", "other channels", "main channels",
+})
+
+
 def is_canonical_group(raw: str) -> bool:
     """True when ``raw`` is a label this module itself would write.
 
@@ -833,6 +850,8 @@ def is_canonical_group(raw: str) -> bool:
         return True
     if base in region_labels():
         return True
+    if base.casefold() in DUMPING_GROUNDS:
+        return False
     return normalize_group(base) == base
 
 

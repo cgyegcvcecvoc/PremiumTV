@@ -52,6 +52,18 @@
       }
     },
     {
+      "name": "aria-plus",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/aria-tv/aria/main/aria+.m3u",
+      "github": {
+        "repo": "aria-tv/aria",
+        "path": "aria+.m3u",
+        "ref": "main"
+      },
+      "note": "aria's extended list: the same verified feeds as aria.m3u plus every provider group the project mirrors. Measured against the published corpus on 2026-11-21: 1,980 links, 1,655 of them channels PremiumTV did not have at all (1,114 new names); aria.m3u alone added 5. The scraper verifies every link, so the ones that do not answer never reach a published playlist."
+    },
+    {
       "name": "doms9",
       "type": "m3u",
       "enabled": true,
@@ -125,6 +137,18 @@
       "enabled": true,
       "optional": true,
       "url_env": "DLIVE_M3U_URL"
+    },
+    {
+      "name": "pluto-us",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/OwnerPlugins/pluto-tv-m3u/main/pluto-live-US.m3u",
+      "github": {
+        "repo": "OwnerPlugins/pluto-tv-m3u",
+        "path": "pluto-live-US.m3u",
+        "ref": "main"
+      },
+      "note": "Pluto TV's US live lineup as one regenerated M3U. Measured on 2026-11-21: 458 links, all of them new to the published corpus, 126 of them channels no source here carries at all. The tvg-ids are Pluto's own, which is what the PlutoTV guide below lists, so these channels arrive with a programme guide attached."
     }
   ],
   "priority_channels": {
@@ -353,6 +377,18 @@
         "name": "epg.pw India",
         "url": "https://epg.pw/xmltv/epg_IN.xml.gz",
         "enabled": true
+      },
+      {
+        "name": "PlutoTV US (i.mjh.nz)",
+        "url": "https://raw.githubusercontent.com/matthuisman/i.mjh.nz/master/PlutoTV/us.xml.gz",
+        "enabled": true,
+        "note": "matthuisman's regenerated Pluto TV US guide: 458 channels, about 9,200 programmes. Its channel ids are Pluto's own, the same ids the pluto-us playlist carries, so the US FAST lineup gets listings instead of an empty guide row."
+      },
+      {
+        "name": "Samsung TV Plus US (i.mjh.nz)",
+        "url": "https://raw.githubusercontent.com/matthuisman/i.mjh.nz/master/SamsungTVPlus/us.xml.gz",
+        "enabled": true,
+        "note": "matthuisman's regenerated Samsung TV Plus US guide: 594 channels. It matches Samsung ids already inside the published lineup (88 of them on 2026-11-21), which no other curated guide covered."
       }
     ],
     "per_country": [

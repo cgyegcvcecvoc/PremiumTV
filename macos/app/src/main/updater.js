@@ -28,6 +28,8 @@ const {
   selectStableUpdate,
   describeState,
   macAssetName,
+  installerAssetName,
+  checksumAssetName,
 } = require('./update-policy');
 const {
   NOTICE_URL,
@@ -80,6 +82,13 @@ class AppUpdater extends EventEmitter {
     this.downloadDir = options.downloadDir ||
       path.join(path.dirname(this.stateFile), 'updates');
     this.arch = options.arch || process.arch;
+    // 1.1.18: the same code runs on the Linux build, where the installer to
+    // download and the way to "install" it are both different. Defaulting to
+    // darwin keeps every existing caller and test on the Mac path.
+    this.platform = options.platform || process.platform;
+    this.userAgent = `PremiumTV/${this.currentVersion} (${
+      this.platform === 'linux' ? 'Linux' : this.platform === 'win32' ? 'Windows' : 'macOS'
+    })`;
     this.fetchImpl = options.fetchImpl || globalThis.fetch;
     this.shell = options.shell || null;
     this.now = options.now || (() => Date.now());
@@ -152,7 +161,7 @@ class AppUpdater extends EventEmitter {
     const startedAt = this.now();
     try {
       const headers = {
-        'User-Agent': `PremiumTV/${this.currentVersion} (macOS)`,
+        'User-Agent': this.userAgent,
         Accept: 'application/vnd.github+json',
       };
       if (!force && this.state.etag) headers['If-None-Match'] = this.state.etag;
@@ -176,7 +185,9 @@ class AppUpdater extends EventEmitter {
         throw new Error('GitHub returned an unexpectedly large release list');
       }
       const releases = JSON.parse(body);
-      const { update, newestStable } = selectStableUpdate(releases, this.currentVersion, this.arch);
+      const { update, newestStable } = selectStableUpdate(
+        releases, this.currentVersion, this.arch, this.platform,
+      );
 
       // An installer already downloaded for this exact version stays valid;
       // re-checking must not make the user download it again.
@@ -228,7 +239,7 @@ class AppUpdater extends EventEmitter {
     try {
       const response = await this.fetchImpl(NOTICE_URL, {
         headers: {
-          'User-Agent': `PremiumTV/${this.currentVersion} (macOS)`,
+          'User-Agent': this.userAgent,
           Accept: 'application/json',
         },
         redirect: 'follow',
@@ -332,7 +343,7 @@ class AppUpdater extends EventEmitter {
     try {
       const response = await this.fetchImpl(state.installerUrl, {
         headers: {
-          'User-Agent': `PremiumTV/${this.currentVersion} (macOS)`,
+          'User-Agent': this.userAgent,
           Accept: 'application/octet-stream',
         },
         redirect: 'follow',
@@ -380,7 +391,9 @@ class AppUpdater extends EventEmitter {
         downloadedVersion: version,
         installerPath: target,
         message: `PremiumTV ${version} downloaded and verified. ` +
-          'Press Open installer to finish.',
+          (this.platform === 'linux'
+            ? 'Press Show update file to finish.'
+            : 'Press Open installer to finish.'),
         error: null,
       });
       return this.status();
@@ -398,7 +411,7 @@ class AppUpdater extends EventEmitter {
     if (!url) throw new Error('the release has no SHA-256 checksum file');
     const response = await this.fetchImpl(url, {
       headers: {
-        'User-Agent': `PremiumTV/${this.currentVersion} (macOS)`,
+        'User-Agent': this.userAgent,
         Accept: 'text/plain',
       },
       redirect: 'follow',
@@ -434,6 +447,23 @@ class AppUpdater extends EventEmitter {
     if (!this.shell || typeof this.shell.openPath !== 'function') {
       return { ok: false, message: 'Opening the installer is unavailable.', state: this.status() };
     }
+    if (this.platform === 'linux') {
+      // An AppImage is a file you run, not a volume to drag: mark it executable
+      // and show it in the file manager. Replacing a running app from inside
+      // itself is not something this app will attempt on the viewer's behalf.
+      const message = 'Marked executable. Run the AppImage from your file manager, or install the '
+        + '.deb from the release page, to finish updating.';
+      try {
+        await fsp.chmod(state.installerPath, 0o755);
+      } catch (error) {
+        const failed = `The update could not be prepared: ${error.message}`;
+        this.patch({ message: failed, error: failed });
+        return { ok: false, message: failed, state: this.status() };
+      }
+      if (typeof this.shell.showItemInFolder === 'function') this.shell.showItemInFolder(state.installerPath);
+      this.patch({ message, error: null });
+      return { ok: true, message, state: this.status() };
+    }
     const error = await this.shell.openPath(state.installerPath);
     if (error) {
       const message = `The installer could not be opened: ${error}`;
@@ -457,7 +487,7 @@ class AppUpdater extends EventEmitter {
   // ----------------------------------------------------------------- state
 
   installerPathFor(version) {
-    return path.join(this.downloadDir, macAssetName(version, this.arch));
+    return path.join(this.downloadDir, installerAssetName(version, this.arch, this.platform));
   }
 
   patch(patch, options = {}) {

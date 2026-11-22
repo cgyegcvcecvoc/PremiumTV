@@ -157,6 +157,16 @@
         }).join("");
     }).join("");
 
+    /* ---- apps: all linux installers (1.1.18) ---- */
+    $("#linux-list").innerHTML = (D.linux || []).map(function (m) {
+      return "<h4 style='margin:10px 0 8px'>PremiumTV " + esc(m.version) + " — " + esc(m.channel) + "</h4>" +
+        (m.desc ? "<p class='meta'>" + esc(m.desc) + "</p>" : "") +
+        m.assets.map(function (a) {
+          return '<div class="dl-row" style="margin-bottom:8px"><span class="fname">' + esc(a.label) +
+            ' <span class="meta">(' + esc(a.name) + ')</span></span><a class="dl" href="' + esc(a.url) + '">⬇ Download</a></div>';
+        }).join("");
+    }).join("");
+
     /* ---- featured playlists & bundles ---- */
     $("#featured-grid").innerHTML = D.featured.map(plCard).join("");
     var bundleCards = D.bundles.map(function (b) {

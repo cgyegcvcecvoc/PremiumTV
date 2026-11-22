@@ -163,8 +163,18 @@ class CanonicalDeepLinkTests(unittest.TestCase):
         self.assertIn("macos/app/dist/*.pkg", macos_workflow)
         self.assertIn("SHA256SUMS-macos.txt", macos_workflow)
         self.assertIn("PremiumTV-${version}-mac-${macArch(arch)}.dmg", policy)
-        self.assertIn("macAssetName(version, this.arch)",
-                      text("macos/app/src/main/updater.js"))
+        # 1.1.18: one app, two platforms, and the updater has to pick the
+        # installer the machine it is running on can actually execute - the
+        # Mac .dmg sits on the very same release, so a lookup that ignores the
+        # platform would happily send a Linux viewer a disk image.
+        self.assertIn("PremiumTV-${version}-linux-${macArch(arch)}.AppImage", policy)
+        self.assertIn("SHA256SUMS-linux.txt", policy)
+        updater = text("macos/app/src/main/updater.js")
+        self.assertIn("installerAssetName(version, this.arch, this.platform)", updater)
+        self.assertIn("PremiumTV-${LINUX_VERSION}-linux-x64.AppImage",
+                      text(".github/workflows/linux-build.yml"))
+        self.assertIn("macos/app/dist/*.AppImage", text(".github/workflows/linux-build.yml"))
+        self.assertIn("SHA256SUMS-linux.txt", text(".github/workflows/linux-build.yml"))
 
     def test_update_chain_verifier_covers_the_release_contract(self):
         script = text("scripts/verify_update_chain.py")

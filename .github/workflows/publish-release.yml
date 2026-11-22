@@ -10,7 +10,13 @@ name: Publish a release
 #   Release version guard   fails a version that is not above the newest stable
 #   Build PremiumTV Android APK   builds, smoke-tests and attaches the APK
 #   Build PremiumTV macOS DMG + PKG   builds and attaches both arch installers
+#   Build PremiumTV Linux AppImage + DEB   attaches the Linux installers too
 #   Deploy download site    waits for those files, then promotes the version
+#
+# The Linux job is started by this workflow but is not waited for: an install
+# that appeared late is still a complete release, and a Linux failure must not
+# hold the APK and the Mac disk images hostage. The download site and the
+# in-app updater both check for the files rather than assuming them.
 #
 # Until the installers exist the download site keeps the previous complete
 # release live and no app is offered the new version, so publishing early is
@@ -158,6 +164,7 @@ jobs:
           set -euo pipefail
           gh workflow run android-build.yml --ref "$TAG" -f channel=stable
           gh workflow run macos-build.yml --ref "$TAG" -f channel=stable
+          gh workflow run linux-build.yml --ref "$TAG" -f channel=stable
 
       - name: Wait for installers and refresh the download site
         if: ${{ !inputs.dry_run }}
@@ -187,8 +194,30 @@ jobs:
             echo "Waiting for: ${missing[*]}"
             sleep 60
           done
+          # Best-effort: report what the Linux job managed to attach. Missing
+          # files are a warning, never a failed publish, and the updater only
+          # offers a release to a Linux app once its AppImage is there.
+          linux=()
+          for arch in x64 arm64; do
+            for ext in AppImage deb; do
+              want="PremiumTV-$VERSION-linux-$arch.$ext"
+              grep -Fxq -- "$want" <<< "$assets" || linux+=("$want")
+            done
+          done
+          if [ "${#linux[@]}" -gt 0 ]; then
+            echo "::warning::Release $TAG has no Linux installers yet: ${linux[*]}"
+          fi
           gh workflow run pages.yml --ref main
-          echo "All installers attached; requested the main download site refresh." >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "All required installers attached; requested the main download site refresh."
+            if [ "${#linux[@]}" -gt 0 ]; then
+              echo ""
+              echo "Linux installers still pending: ${linux[*]}"
+            else
+              echo ""
+              echo "Linux installers attached."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Dry run summary
         if: ${{ inputs.dry_run }}

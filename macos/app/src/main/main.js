@@ -38,6 +38,27 @@ if (smokeMode) {
 }
 
 /**
+ * Whether this bundle is allowed to ask the system for a location (1.1.18).
+ *
+ * macOS refuses every geolocation request from a bundle whose Info.plist has no
+ * `NSLocationUsageDescription`, and it refuses silently: the renderer just gets
+ * "denied", which is exactly how 1.1.7-1.1.17 came to look like a feature that
+ * never asked. The packaged Info.plist is read as text (the key is a one-line
+ * string) so the app can tell "this build cannot ask" from "you declined".
+ * An unreadable plist reports true: no answer here may invent a problem.
+ */
+function hasLocationUsageDescription() {
+  if (process.platform !== 'darwin') return true;
+  if (!app.isPackaged) return true;
+  try {
+    const plist = path.join(process.resourcesPath, '..', 'Info.plist');
+    return /NSLocation(Usage|WhenInUseUsage)Description/.test(fs.readFileSync(plist, 'utf8'));
+  } catch (error) {
+    return true;
+  }
+}
+
+/**
  * The crash record.
  *
  * 1.1.14: a fatal error in the main process, or a renderer the system killed,
@@ -68,6 +89,17 @@ process.on('unhandledRejection', (reason) => {
     'main',
   );
 });
+
+/**
+ * What the app did with every geolocation request the renderer made (1.1.18).
+ *
+ * Settings → Local channels reads this so a failed lookup can say which of the
+ * three different failures it was: the viewer declined, the OS was never asked
+ * (a bundle without a usage description), or the OS asked and nothing answered
+ * in time. Module scope because the counting happens in whenReady and the
+ * handler that reports it sits with the other ipcMain handlers.
+ */
+const moduleLocationAsks = { requested: 0, allowed: 0, denied: 0, last: '' };
 
 let mainWindow = null;
 let repository = null;
@@ -115,6 +147,13 @@ function bootstrap() {
   // macOS AudioToolbox / VideoToolbox hardware codecs to MSE.
   app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
   app.commandLine.appendSwitch('enable-features', 'PlatformHEVCDecoderSupport');
+  // The Linux build runs on both X11 and Wayland desktops. `auto` lets Electron
+  // pick the native platform it is actually under (instead of always falling
+  // back to XWayland), and the flag is darwin/Win-unrelevant, so it is set only
+  // where it means something.
+  if (process.platform === 'linux') {
+    app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
+  }
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
   });
@@ -127,16 +166,32 @@ function bootstrap() {
     // 1.1.7 Local channels: the renderer may ask for an approximate location
     // once, and only when the viewer presses "Use my location". Every other
     // permission request stays denied.
+    //
+    // 1.1.18: granting here is only half of it. On macOS the *system* prompt
+    // (and therefore the answer the viewer gives) needs the
+    // NSLocationUsageDescription key in Info.plist — see electron-builder.yml —
+    // and on Linux it needs a location service (GeoClue) running. So the
+    // outcome of every request is counted, and Settings can say honestly
+    // whether the app ever got to ask instead of blaming the viewer.
     const appOrigin = (url) => {
       try { return !!proxy && new URL(url).origin === proxy.origin; }
       catch (error) { return false; }
     };
     session.defaultSession.setPermissionRequestHandler((webContents, permission, callback, details) => {
-      callback(permission === 'geolocation' && appOrigin(details.requestingUrl));
+      if (permission !== 'geolocation') {
+        callback(false);
+        return;
+      }
+      const fromApp = appOrigin(details.requestingUrl);
+      moduleLocationAsks.requested += 1;
+      if (fromApp) moduleLocationAsks.allowed += 1;
+      else moduleLocationAsks.denied += 1;
+      moduleLocationAsks.last = new Date().toISOString();
+      // Saying yes here is what lets the OS ask; the OS answer is the real one.
+      callback(fromApp);
     });
     session.defaultSession.setPermissionCheckHandler((webContents, permission, requestingOrigin) =>
       permission === 'geolocation' && appOrigin(requestingOrigin));
-
     const options = paths();
 
     proxy = new StreamProxy({ rendererDir: options.rendererDir, logoCacheDir: options.logoCacheDir });
@@ -161,6 +216,9 @@ function bootstrap() {
       stateFile: path.join(app.getPath('userData'), 'update-state.json'),
       downloadDir: path.join(app.getPath('userData'), 'updates'),
       arch: process.arch,
+      // 1.1.18: which installer this machine can use (the Linux build must
+      // never be offered the Mac .dmg the same release carries).
+      platform: process.platform,
       shell,
     });
     updater.on('state', (state) => send('ptv:update', state));
@@ -425,6 +483,54 @@ ipcMain.handle('ptv:probe-stream', async (_event, streamUrl) => {
 ipcMain.handle('ptv:open-external', (_event, url) => {
   if (/^https?:\/\//i.test(url)) shell.openExternal(url);
   return { ok: true };
+});
+
+/**
+ * Settings → what the app knows about location access (1.1.18).
+ *
+ * Whether this bundle may ask at all, and how many times it did.
+ */
+ipcMain.handle('ptv:location-context', () => ({
+  platform: process.platform,
+  // Whether this bundle is allowed to ask at all: macOS refuses every
+  // request from a bundle with no usage description.
+  hasUsageDescription: process.platform !== 'darwin' || hasLocationUsageDescription(),
+  asks: { ...moduleLocationAsks },
+}));
+
+/**
+ * Settings → "Open location settings" (1.1.18).
+ *
+ * A viewer who once clicked "Don't Allow" is not asked again by the OS, so the
+ * only way back is the system pane. Each platform has its own address, and
+ * Linux has none that works across desktops — there, the answer is the
+ * instructions instead of a dead button. Only these fixed URLs are opened; the
+ * renderer cannot route an arbitrary address through this handler.
+ */
+ipcMain.handle('ptv:open-location-settings', async () => {
+  if (process.platform === 'darwin') {
+    const url = 'x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices';
+    try {
+      await shell.openExternal(url);
+      return { ok: true, platform: 'darwin' };
+    } catch (error) {
+      return { ok: false, platform: 'darwin', error: error.message };
+    }
+  }
+  if (process.platform === 'win32') {
+    try {
+      await shell.openExternal('ms-settings:privacy-location');
+      return { ok: true, platform: 'win32' };
+    } catch (error) {
+      return { ok: false, platform: 'win32', error: error.message };
+    }
+  }
+  return {
+    ok: false,
+    platform: process.platform,
+    hint: 'Linux desktops get location from the GeoClue service: open your system settings and '
+      + 'turn location on (GNOME: Settings → Privacy → Location). PremiumTV then asks as usual.',
+  };
 });
 
 // -------------------------------------------------------------------- menu

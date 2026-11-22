@@ -1,9 +1,16 @@
 package com.premiumtv.app.ui
 
 import android.Manifest
-import android.content.pm.PackageManager
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,10 +37,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import com.premiumtv.app.data.LocalChannelSettings
 import com.premiumtv.app.data.LocalDirectory
+import com.premiumtv.app.data.LocalMarket
 import com.premiumtv.app.data.LocalSelection
-import com.premiumtv.app.data.lastKnownCoordinates
+import com.premiumtv.app.data.awaitCoordinates
+import com.premiumtv.app.data.enabledLocationProviders
+import com.premiumtv.app.data.hasLocationPermission
+import com.premiumtv.app.data.marketIsNear
 
 /**
  * Asks where the viewer watches from (1.1.7, refined in 1.1.11).
@@ -41,7 +53,13 @@ import com.premiumtv.app.data.lastKnownCoordinates
  * The order is deliberate, because each answer is more private than the last:
  *
  *  1. "Use my location" - an approximate fix, matched to the nearest *market*
- *     PremiumTV publishes (WGAL's Lancaster, not the whole state).
+ *     PremiumTV publishes (WGAL's Lancaster, not the whole state). 1.1.18 made
+ *     that ask real: both location permissions are requested in one dialog, a
+ *     fix is *requested* instead of read from a cache that is empty on a fresh
+ *     grant, a device with no location service says so, a refusal Android
+ *     remembers offers the app's permission screen, and a market farther than
+ *     [com.premiumtv.app.data.LOCAL_MARKET_NEAR_KM] is offered rather than
+ *     saved.
  *  2. Declined, unavailable, or no station near the fix: a **ZIP code**, which
  *     resolves to a market through the bundled ZIP prefix table.
  *  3. No ZIP at hand: a **state** or a **city** - either one lists the
@@ -62,6 +80,7 @@ internal fun LocalChannelsDialog(
     onDecline: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     var zip by rememberSaveable { mutableStateOf(initial.zip) }
     var state by rememberSaveable { mutableStateOf(initial.state) }
     var city by rememberSaveable { mutableStateOf(initial.city) }
@@ -70,6 +89,16 @@ internal fun LocalChannelsDialog(
     var message by remember { mutableStateOf("") }
     var locating by remember { mutableStateOf(false) }
     var showEverything by rememberSaveable { mutableStateOf(false) }
+    // 1.1.18: the two things the old dialog could not tell apart. `needsSettings`
+    // means Android will not ask again (a remembered refusal), so the only way
+    // back is the system's own screen; `noProvider` means there is no location
+    // service to ask at all, which is normal on a TV box. `saveable` because a
+    // permission prompt can take the activity with it, and the answer must
+    // still be read when the viewer comes back.
+    var needsSettings by rememberSaveable { mutableStateOf(false) }
+    var noProvider by rememberSaveable { mutableStateOf(false) }
+    var awaitingPermission by rememberSaveable { mutableStateOf(false) }
+    var farMarket by remember { mutableStateOf<LocalMarket?>(null) }
 
     fun selection(): LocalSelection = LocalSelection(
         country = country.trim().uppercase().ifBlank { "US" },
@@ -82,12 +111,28 @@ internal fun LocalChannelsDialog(
     fun applyFix(latitude: Double, longitude: Double) {
         locating = false
         val known = directory
-        val market = known?.nearestMarket(latitude, longitude)
-        if (known == null || market == null) {
+        val hit = known?.nearestMarketWithDistance(latitude, longitude)
+        if (known == null || hit == null) {
             message = "No local stations are published near that fix. Enter a ZIP code instead."
             source = ""
             return
         }
+        val market = hit.first
+        // 1.1.18: "nearest" is not "yours". Wilkes-Barre, Scranton and Lancaster
+        // all sit closer to a published market than to nothing, and until this
+        // line the app saved that far market as the viewer's area — the reason
+        // the feature looked broken to the people it was meant to help. The
+        // market is offered below and only the viewer accepts it.
+        val miles = (hit.second * 0.621371).toInt()
+        if (!marketIsNear(hit.second)) {
+            farMarket = market
+            source = ""
+            message = "Nothing is published for your spot yet — the nearest stations PremiumTV " +
+                "carries are in ${market.label}, about $miles miles away. Enter a ZIP code or a " +
+                "state, or use that market."
+            return
+        }
+        farMarket = null
         state = market.state
         city = if (known.marketsFor(LocalSelection(state = market.state)).size > 1 && showEverything) "" else market.city
         zip = ""
@@ -95,40 +140,146 @@ internal fun LocalChannelsDialog(
         message = "Location set to ${market.label}. Pick another ZIP or state any time."
     }
 
+    /**
+     * Read a fix now.
+     *
+     * The grant and this read are separate steps on purpose: the last-known
+     * cache that 1.1.17 answered from is empty right after a first grant, so
+     * the dialog asks the enabled providers for one update and waits for it.
+     */
+    fun requestFix() {
+        if (!context.hasLocationPermission()) return
+        locating = true
+        message = "Waiting for a fix from this device…"
+        scope.launch {
+            val fix = context.awaitCoordinates()
+            locating = false
+            if (fix == null) {
+                source = ""
+                message = "This device did not answer with a fix in time. A ZIP code, state or " +
+                    "city works just as well."
+            } else {
+                applyFix(fix.first, fix.second)
+            }
+        }
+    }
+
     val permission = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { result ->
+        awaitingPermission = false
+        val granted = result[Manifest.permission.ACCESS_COARSE_LOCATION] == true ||
+            result[Manifest.permission.ACCESS_FINE_LOCATION] == true
         if (!granted) {
             locating = false
             source = ""
-            message = "Location was declined - that is fine. Enter a ZIP code, state or city instead."
+            // Two different refusals, and only one of them is the viewer's
+            // answer. Android stops showing the prompt once "Don't ask again"
+            // is on (or after the second refusal on most builds), which is the
+            // state 1.1.17 reported as "declined" forever.
+            val activity = context as? android.app.Activity
+            val canAskAgain = activity != null &&
+                activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
+            needsSettings = !canAskAgain
+            message = if (canAskAgain) {
+                "Location was declined - that is fine. Enter a ZIP code, state or city instead."
+            } else {
+                "Location is switched off for PremiumTV in the system settings, so this app cannot be " +
+                    "asked again. Enter a ZIP code, state or city - or open the settings and allow it."
+            }
             return@rememberLauncherForActivityResult
         }
-        val fix = context.lastKnownCoordinates()
-        if (fix == null) {
-            locating = false
-            message = "No location fix is available on this device. Enter a ZIP code or state instead."
-        } else {
-            applyFix(fix.first, fix.second)
+        requestFix()
+    }
+
+    // A permission prompt can outlive this dialog: Android may recreate the
+    // activity behind it, and the launcher's callback is gone with the old
+    // composition. Resuming with a request still owed reads the answer from the
+    // system instead of leaving "Locating…" on screen forever.
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME && awaitingPermission) {
+                awaitingPermission = false
+                if (context.hasLocationPermission()) requestFix()
+            }
         }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
     fun useLocation() {
         locating = true
         message = ""
-        val granted = context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
-            PackageManager.PERMISSION_GRANTED
-        if (granted) {
-            val fix = context.lastKnownCoordinates()
-            if (fix == null) {
-                locating = false
-                message = "No location fix is available. Enter a ZIP code or state instead."
-            } else {
-                applyFix(fix.first, fix.second)
-            }
-        } else {
-            permission.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+        needsSettings = false
+        farMarket = null
+        noProvider = context.enabledLocationProviders().isEmpty()
+        if (noProvider) {
+            // Asking for a permission that no hardware can use would leave the
+            // viewer staring at a prompt and then at nothing, which is how this
+            // button came to look dead on TV boxes. Say what is missing instead.
+            locating = false
+            message = "This device has no location service to ask — usual for a TV box or a stick. " +
+                "A ZIP code, state or city finds the same stations."
+            return
         }
+        if (context.hasLocationPermission()) {
+            requestFix()
+        } else {
+            awaitingPermission = true
+            // Both rough and precise are in one request: a single-permission ask
+            // for the rough one is what Android 12+ answers with the
+            // "Precise/Approximate" sheet, and a request for a permission this
+            // manifest does not list is answered "denied" with no dialog at all.
+            permission.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                ),
+            )
+        }
+    }
+
+    fun openLocationSettings() {
+        val opened = runCatching {
+            context.startActivity(
+                Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+        }.isSuccess
+        if (!opened) {
+            message = "This device has no location settings screen. Enter a ZIP code, state or city instead."
+        }
+    }
+
+    fun openAppPermissionSettings() {
+        val opened = runCatching {
+            context.startActivity(
+                Intent(
+                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.fromParts("package", context.packageName, null),
+                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+        }.isSuccess
+        message = if (opened) {
+            "Opened PremiumTV's app settings. Choose Permissions → Location → Allow, then press " +
+                "\"Use my location\" again."
+        } else {
+            "Android would not open the settings screen. Allow location for PremiumTV in the system " +
+                "settings, then press the button again."
+        }
+    }
+
+    /** Accept the far market the fix found, when the viewer wants it anyway. */
+    fun useFarMarket() {
+        val market = farMarket ?: return
+        farMarket = null
+        state = market.state
+        city = market.city
+        zip = ""
+        source = LocalSelection.SOURCE_LOCATION
+        message = "Using ${market.label}, the nearest market PremiumTV publishes. A ZIP or state " +
+            "replaces it any time."
     }
 
     val current = selection()
@@ -151,9 +302,10 @@ internal fun LocalChannelsDialog(
         text = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Text(
-                    "PremiumTV asks your device for an approximate location once, to find the local " +
-                        "stations for your area - stations like WGAL in Lancaster. Declining is fine: a " +
-                        "ZIP code, a state or a city works just as well. Nothing leaves this device."
+                    "PremiumTV asks your device once whether it may use an approximate location, to " +
+                        "find the local stations for your area - stations like WGAL in Lancaster. Only " +
+                        "the rough position is used, never an address, and nothing leaves this device. " +
+                        "Declining is fine: a ZIP code, a state or a city works just as well."
                 )
                 Spacer(Modifier.height(14.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -169,6 +321,26 @@ internal fun LocalChannelsDialog(
                         enabled = !locating,
                     ) { Text("No thanks") }
                 }
+                if (locating || needsSettings || noProvider || farMarket != null) {
+                    Spacer(Modifier.height(4.dp))
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        if (needsSettings) {
+                            TextButton(onClick = { openAppPermissionSettings() }) {
+                                Text("Allow in app settings")
+                            }
+                        }
+                        if (noProvider) {
+                            TextButton(onClick = { openLocationSettings() }) {
+                                Text("Location settings")
+                            }
+                        }
+                        if (farMarket != null) {
+                            TextButton(onClick = { useFarMarket() }) {
+                                Text("Use ${farMarket?.city} anyway")
+                            }
+                        }
+                    }
+                }
                 Spacer(Modifier.height(6.dp))
                 OutlinedTextField(
                     value = zip,
@@ -176,6 +348,7 @@ internal fun LocalChannelsDialog(
                         zip = value.filter { it.isDigit() }.take(5)
                         source = if (zip.isNotBlank()) LocalSelection.SOURCE_ZIP else source
                         message = ""
+                        farMarket = null
                     },
                     label = { Text("ZIP code") },
                     placeholder = { Text("17603") },
