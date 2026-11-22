@@ -1,51 +1,91 @@
 # Live-event reliability audit
 
-- **Scrape snapshot:** 2026-11-22T08:06:32Z
-- **Scrape run:** `20261122T080211Z-2974` — health check completed
+- **Scrape snapshot:** 2026-11-22T16:17:05Z
+- **Scrape run:** `20261122T161230Z-2975` — health check completed
 - **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 0/16
-- **Fixtures with a redundancy deficit:** 16
+- **Fixtures meeting policy:** 2/37
+- **Fixtures with a redundancy deficit:** 35
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
-| San Diego State Aztecs vs. Boise State Broncos (College Football) | 1/1 | 1/2 | 0/1 | 1 | GSPORTS | doms9 | **DEFICIT** |
-| Utah Utes vs. TCU Horned Frogs (College Football) | 1/1 | 1/2 | 0/1 | 1 | GSPORTS | doms9 | **DEFICIT** |
-| Boston Bruins vs. Washington Capitals (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Calgary Flames vs. Chicago Blackhawks (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Detroit Red Wings vs. New York Islanders (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Florida Panthers vs. Buffalo Sabres (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Montreal Canadiens vs. Philadelphia Flyers (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Nashville Predators vs. Pittsburgh Penguins (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Ottawa Senators vs. Los Angeles Kings (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| San Jose Sharks vs. Seattle Kraken (NHL Hockey) | 2/2 | 2/2 | 0/1 | 2 | FAWA, MP66 | doms9 | **DEFICIT** |
-| St Louis Blues vs. New Jersey Devils (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Toronto Maple Leafs vs. Columbus Blue Jackets (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Utah Mammoth vs. Anaheim Ducks (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Vancouver Canucks vs. Minnesota Wild (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Winnipeg Jets vs. Vegas Golden Knights (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| UFC Fight Night: Jiri Prochazka vs. Navajo Stirling (UFC / MMA) | 1/1 | 1/2 | 0/1 | 1 | GSPORTS | doms9 | **DEFICIT** |
+| West Ham United vs. Arsenal (ENG W 1) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9 | **DEFICIT** |
+| Fortuna Sittard vs. Go Ahead Eagles (NED 1) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9 | **DEFICIT** |
+| Angers vs. Paris FC (Soccer) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9 | **DEFICIT** |
+| Arsenal W vs. West Ham W (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9 | **DEFICIT** |
+| Augsburg vs. Mainz (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9 | **DEFICIT** |
+| Beerschot VA vs. Genk U23 (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Bologna vs. Udinese (Soccer) | 2/2 | 2/2 | 0/1 | 2 | KINGDOME, STRMGATE | doms9 | **DEFICIT** |
+| Brommapojkarna vs. Halmstad (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| FC Augsburg vs. 1. FSV Mainz (Soccer) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
+| FC Basel vs. Luzern (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| GA Eagles vs. Fortuna Sittard (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Gijon vs. Las Palmas (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Hull City vs. Brighton & Hove Albion (Soccer) | 4/4 | 2/2 | 2/1 | 3 | KINGDOME, SPRTSBITE, STRMGATE | doms9 | **PASS** |
+| Kagera Sugar vs. TRA United (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Karmiotissa vs. AEL Limassol (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Kortrijk vs. Royale Union SG (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9 | **DEFICIT** |
+| Kosice vs. Skalica (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Lausanne vs. Vaduz (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Liverpool vs. Manchester United (Soccer) | 2/2 | 2/2 | 0/1 | 2 | KINGDOME, STRMGATE | doms9 | **DEFICIT** |
+| Lorient vs. Rennes (Soccer) | 2/2 | 2/2 | 0/1 | 2 | KINGDOME, STRMGATE | doms9 | **DEFICIT** |
+| Milan vs. Frosinone (Soccer) | 1/1 | 1/2 | 0/1 | 1 | KINGDOME | doms9 | **DEFICIT** |
+| Nyiregyhaza vs. Debrecen (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Panathinaikos vs. OFI Crete (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Panetolikos vs. Volos (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Paris vs. Angers SCO (Soccer) | 1/1 | 1/2 | 0/1 | 1 | KINGDOME | doms9 | **DEFICIT** |
+| Racing Santander vs. Real Sociedad (Soccer) | 4/4 | 2/2 | 2/1 | 4 | FAWA, KINGDOME, STRMGATE | doms9 | **PASS** |
+| RB Leipzig W vs. Wolfsburg W (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Real Racing Club vs. Real Sociedad (Soccer) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
+| Saarbrucken vs. Wehen (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Sassuolo vs. Genoa (Soccer) | 1/1 | 1/2 | 0/1 | 1 | KINGDOME | doms9 | **DEFICIT** |
+| Sonderjyske vs. Odense (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| UTA Arad vs. Univ Craiova (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Eyupspor vs. Trabzonspor (TUR 1) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9 | **DEFICIT** |
+| Argentina U17 vs. Mozambique U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Qatar U17 vs. Egypt U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| South Korea U17 vs. New Caledonia U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Uruguay U17 vs. Haiti U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 
 ## Deficits
 
-- **San Diego State Aztecs vs. Boise State Broncos** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Utah Utes vs. TCU Horned Frogs** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Boston Bruins vs. Washington Capitals** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Calgary Flames vs. Chicago Blackhawks** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Detroit Red Wings vs. New York Islanders** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Florida Panthers vs. Buffalo Sabres** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Montreal Canadiens vs. Philadelphia Flyers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Nashville Predators vs. Pittsburgh Penguins** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Ottawa Senators vs. Los Angeles Kings** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **San Jose Sharks vs. Seattle Kraken** — needs 1 more confirmed dedicated backup feed(s).
-- **St Louis Blues vs. New Jersey Devils** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Toronto Maple Leafs vs. Columbus Blue Jackets** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Utah Mammoth vs. Anaheim Ducks** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Vancouver Canucks vs. Minnesota Wild** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Winnipeg Jets vs. Vegas Golden Knights** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **UFC Fight Night: Jiri Prochazka vs. Navajo Stirling** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **West Ham United vs. Arsenal** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Fortuna Sittard vs. Go Ahead Eagles** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Angers vs. Paris FC** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Arsenal W vs. West Ham W** — needs 1 more confirmed dedicated backup feed(s).
+- **Augsburg vs. Mainz** — needs 1 more confirmed dedicated backup feed(s).
+- **Beerschot VA vs. Genk U23** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Bologna vs. Udinese** — needs 1 more confirmed dedicated backup feed(s).
+- **Brommapojkarna vs. Halmstad** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **FC Augsburg vs. 1. FSV Mainz** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **FC Basel vs. Luzern** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **GA Eagles vs. Fortuna Sittard** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Gijon vs. Las Palmas** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Kagera Sugar vs. TRA United** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Karmiotissa vs. AEL Limassol** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Kortrijk vs. Royale Union SG** — needs 1 more confirmed dedicated backup feed(s).
+- **Kosice vs. Skalica** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Lausanne vs. Vaduz** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Liverpool vs. Manchester United** — needs 1 more confirmed dedicated backup feed(s).
+- **Lorient vs. Rennes** — needs 1 more confirmed dedicated backup feed(s).
+- **Milan vs. Frosinone** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Nyiregyhaza vs. Debrecen** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Panathinaikos vs. OFI Crete** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Panetolikos vs. Volos** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Paris vs. Angers SCO** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **RB Leipzig W vs. Wolfsburg W** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Real Racing Club vs. Real Sociedad** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Saarbrucken vs. Wehen** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Sassuolo vs. Genoa** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Sonderjyske vs. Odense** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **UTA Arad vs. Univ Craiova** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Eyupspor vs. Trabzonspor** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Argentina U17 vs. Mozambique U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Qatar U17 vs. Egypt U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **South Korea U17 vs. New Caledonia U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Uruguay U17 vs. Haiti U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 
 ## Interpretation
 
