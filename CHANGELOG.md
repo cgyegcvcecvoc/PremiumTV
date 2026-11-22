@@ -10,6 +10,11 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-22 — Protect source caches from truncated fetches
+
+- The scraper detects a sudden large drop in a source's parsed entries before overwriting its last good cache. It reports the old and new counts, falls back to the cache and still checks its streams; a later healthy fetch updates the cache normally.
+- Operators can accept a verified intentional shrink per source, and can adjust the manual-run thresholds. The guard applies to checked and `--no-check` runs; sources without an independent, sufficiently large cache have no baseline.
+
 ## 2026-11-22 — Version 1.1.19 published: Local channels by location
 
 - **The area is every market in reach, not the single nearest one.** 1.1.18 stopped a far market being adopted silently; 1.1.19 finishes the idea. `nearbyMarketsWithDistance()` (Android `data/LocalChannels.kt`) and its mirror in the shared `local-channels.js` return every published market inside the 120 km radius, nearest first, each with its distance in kilometres. The nearest is the answer that gets saved; the others are offered as one-tap alternatives, because the directory publishes several metros as a cluster of markets a short drive apart — Dallas, Fort Worth and Garland are 19–49 km apart, Newark, Paterson and New York City 18–27 km, Oakland, San Francisco and San Jose 16–69 km — and a viewer on the far side of the cluster receives the other market's stations. A fix with nothing in reach is still a different sentence from a far one: the nearest is offered with its distance and never applied.

@@ -940,6 +940,28 @@ whose stream URLs are safe to publish.
 
 To add another feed, add a `sources` entry with `name`, `type` (`m3u` or `w3u`), and `url`. For an optional URL supplied by an environment variable, use `url_env` and `optional: true`; the workflow's optional secrets are wired in `.github/workflows/scrape.yml`. W3U sources also support `include_groups`, `exclude_groups`, and `max_depth`. Playlist files and caches are committed to this repository, so only configure feeds whose resulting stream URLs are safe to publish—an Actions secret protects the feed URL from logs, but does not make output links private. Review source quality and permissions before publishing.
 
+## Source shrink protection
+
+A successful fetch can still be incomplete. Before replacing an independent source
+cache, the scraper compares parsed entry counts: if the cache has at least 100
+entries and the new nonempty fetch has less than 50% of that count, the run uses
+the previous cache, reports both counts and the warning in `STATUS.md` and
+`report.json`, and checks its streams normally. This also protects the all-links
+output in `--no-check` runs; it does not publish unchecked player links. The next
+healthy fetch replaces the cache as usual. A missing, unreadable or small cache
+provides no reliable baseline. Curated local sources whose `local_path` is the
+cache file itself also cannot be compared with an independent previous copy.
+
+For a verified, intentional shrink, run once with `--accept-source-shrink NAME`
+(repeat for multiple source names). For scheduled runs, temporarily set
+`"allow_large_shrink": true` on that source in `sources.json` (or in the approved
+sources file for a discovered source), let a run refresh the cache, then remove
+it. Until an operator accepts a persistent large shrink, the cache remains in use;
+its streams are rechecked each run, so this is not a guarantee of playback. The
+default thresholds can be changed for a manual run with `--source-shrink-ratio`
+and `--source-shrink-min-entries`; ratio `0` disables the guard. An empty fetch
+still uses the existing failure fallback, even with an override.
+
 ## Run locally
 
 Python 3.9+ is required; there are no third-party dependencies.
