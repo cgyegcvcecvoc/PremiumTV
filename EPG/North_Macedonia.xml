@@ -42,9 +42,10 @@
     <display-name>TopEstrada TV (720p)</display-name>
     <icon src="https://i.imgur.com/0Dh1FJZ.png" />
   </channel>
-  <channel id="premiumtv.north_macedonia.international">
-    <display-name>Вистел</display-name>
-    <icon src="https://i.imgur.com/MbM0E6L.png" />
+  <channel id="TV Orbis">
+    <display-name>Орбис</display-name>
+    <display-name>Орбис (Backup 1)</display-name>
+    <icon src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Orbis-logo.png" />
   </channel>
   <channel id="Hugo2.mk">
     <display-name>Хуго 2</display-name>
@@ -220,6 +221,13 @@
     <category lang="sq">Muzike</category>
     <icon src="https://vimg.ipko.tv/mtcms/68/8/c/688cf69a-5263-4e07-9538-7695ebe7666b.jpg" />
   </programme>
+  <programme start="20261124200000 +0000" stop="20261124220000 +0000" channel="FolkTV.mk@SD">
+    <title>Folk +</title>
+    <desc>Folk + muzikë.</desc>
+    <category lang="sq">Muzikë</category>
+    <category lang="sq">Muzike</category>
+    <icon src="https://vimg.ipko.tv/mtcms/68/8/c/688cf69a-5263-4e07-9538-7695ebe7666b.jpg" />
+  </programme>
   <programme start="20261122100000 +0000" stop="20261122150000 +0000" channel="JazzTV.mk@SD">
     <title>SYOK JAZZ : Jazz for every mood</title>
     <desc>Countless hours of the best Jazz music.</desc>
@@ -316,22 +324,16 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261122100000 +0000" stop="20261122133000 +0000" channel="LoveTV.mk@SD">
+  <programme start="20261124200000 +0000" stop="20261125000000 +0000" channel="JazzTV.mk@SD">
+    <title>SYOK JAZZ : Jazz for every mood</title>
+    <desc>Jazz music , all day</desc>
+    <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261122120000 +0000" stop="20261122153000 +0000" channel="LoveTV.mk@SD">
     <title>м/ф Три кота</title>
-    <date>20261122</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261122133000 +0000" stop="20261122143000 +0000" channel="LoveTV.mk@SD">
-    <title>т/с Молодежка ┊ 11</title>
-    <date>20261122</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261122143000 +0000" stop="20261122153000 +0000" channel="LoveTV.mk@SD">
-    <title>т/с Молодежка ┊ 12</title>
     <date>20261122</date>
     <audio>
       <stereo>stereo</stereo>
@@ -638,12 +640,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261122121500 +0000" stop="20261122140000 +0000" channel="Kanal5.mk">
-    <title>Завист</title>
-  </programme>
-  <programme start="20261122140000 +0000" stop="20261122142000 +0000" channel="Kanal5.mk">
-    <title>Вести</title>
-  </programme>
   <programme start="20261122142000 +0000" stop="20261122160000 +0000" channel="Kanal5.mk">
     <title>Завист</title>
   </programme>
@@ -754,6 +750,15 @@
   </programme>
   <programme start="20261124173000 +0000" stop="20261124184500 +0000" channel="Kanal5.mk">
     <title>Само Вистина</title>
+  </programme>
+  <programme start="20261124184500 +0000" stop="20261124194500 +0000" channel="Kanal5.mk">
+    <title>Ружи</title>
+  </programme>
+  <programme start="20261124194500 +0000" stop="20261124195500 +0000" channel="Kanal5.mk">
+    <title>Вечерни вести</title>
+  </programme>
+  <programme start="20261124195500 +0000" stop="20261124213000 +0000" channel="Kanal5.mk">
+    <title>Ружи</title>
   </programme>
   <programme start="20261122123000 +0000" stop="20261122150000 +0000" channel="Sitel.mk">
     <title>Никогаш не е доцна</title>
@@ -971,12 +976,14 @@
   <programme start="20261124183500 +0000" stop="20261124184500 +0000" channel="Sitel.mk">
     <title>Временска прогноза</title>
   </programme>
-  <programme start="20261122110000 +0000" stop="20261122130000 +0000" channel="NasaTV.mk@SD">
-    <title>Beautiful Imagery from the Space Program, leveraging 4K UHD</title>
-    <date>20261122</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261124184500 +0000" stop="20261124200000 +0000" channel="Sitel.mk">
+    <title>Скриената судбина</title>
+  </programme>
+  <programme start="20261124200000 +0000" stop="20261124201500 +0000" channel="Sitel.mk">
+    <title>Вести</title>
+  </programme>
+  <programme start="20261124201500 +0000" stop="20261124213000 +0000" channel="Sitel.mk">
+    <title>Кога ноќта паѓа</title>
   </programme>
   <programme start="20261122130000 +0000" stop="20261122150000 +0000" channel="NasaTV.mk@SD">
     <title>Beautiful Imagery from the Space Program, leveraging 4K UHD</title>
@@ -1168,5 +1175,17 @@
   </programme>
   <programme start="20261124183000 +0000" stop="20261124193000 +0000" channel="NasaTV.mk@SD">
     <title>Културо форум - Лек за душа</title>
+  </programme>
+  <programme start="20261124193000 +0000" stop="20261124200000 +0000" channel="NasaTV.mk@SD">
+    <title>Помагачот - Документарно реално шоу</title>
+  </programme>
+  <programme start="20261124200000 +0000" stop="20261124203000 +0000" channel="NasaTV.mk@SD">
+    <title>Светски патник - Авантури низ култури</title>
+  </programme>
+  <programme start="20261124203000 +0000" stop="20261124204000 +0000" channel="NasaTV.mk@SD">
+    <title>Три бизнис вести - Секој ден бизнис вести</title>
+  </programme>
+  <programme start="20261124204000 +0000" stop="20261124210000 +0000" channel="NasaTV.mk@SD">
+    <title>CV Македонија - Истражувачки проект</title>
   </programme>
 </tv>
