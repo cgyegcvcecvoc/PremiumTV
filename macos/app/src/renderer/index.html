@@ -59,10 +59,14 @@
       <h1 id="local-setup-title">Where do you watch from?</h1>
       <p>PremiumTV can show the local stations for your area — stations like WGAL in Lancaster.
         It asks once for an approximate location; declining is fine, because a ZIP code, a state
-        or a city works just as well. Nothing leaves this Mac.</p>
+        or a city works just as well. Nothing leaves this computer.</p>
       <div class="setup-actions local-setup-actions">
         <button id="local-setup-locate" class="btn" type="button">Use my location</button>
         <button id="local-setup-manual" class="btn btn-quiet" type="button">Enter a ZIP or state</button>
+        <!-- 1.1.18: an OS that already answered "Don't Allow" does not ask a
+             second time, so a refusal is followed by the pane where the answer
+             lives instead of by the same button. Hidden until it is needed. -->
+        <button id="local-setup-settings" class="btn btn-quiet" type="button" hidden>Open location settings</button>
       </div>
       <p class="muted" id="local-setup-status">The answer stays on this device and only filters the channel list.</p>
       <div class="setup-actions">

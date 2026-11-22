@@ -63,7 +63,10 @@ class LocalChannelsAskTests(unittest.TestCase):
         self.assertIn("fun marketForZip(zip: String): LocalMarket?", data)
         self.assertIn("fun marketsFor(selection: LocalSelection): List<LocalMarket>", data)
         dialog = text(UI / "LocalChannelsDialog.kt")
-        self.assertIn("known?.nearestMarket(latitude, longitude)", dialog)
+        # 1.1.18 carries the distance with the market, so that a fix far from
+        # every published market is offered instead of saved; the resolution is
+        # still a market lookup on the bundled document (see test_release_1118).
+        self.assertIn("known?.nearestMarketWithDistance(latitude, longitude)", dialog)
 
     def test_the_mac_asks_once_and_names_the_market(self):
         app = text(MAC / "app.js")
@@ -152,15 +155,31 @@ class AAndEOneCategoryTests(unittest.TestCase):
         self.assertIn("by History / A&E", text(ROOT / "playlists" / "sources" / "ae-networks.m3u"))
 
     def test_the_published_usa_feeds_and_shelves_agree(self):
+        # Every A+E brand that is actually published in the US feeds has to sit
+        # on the A&E shelf. Phrased as a rule over the published lines rather
+        # than a fixed channel list: a curated feed whose upstream dies is
+        # dropped by the scraper, and the shelf rule is not what broke when
+        # Lifetime's own linear feed went quiet in November.
+        brands = ("Lifetime", "History Channel", "A&E", "Crime 360", "FYI", "Vice TV",
+                  "LMN", "Biography", "Crime & Investigation")
         for path in ("playlists/live/USA.m3u", "playlists/countries/USA.m3u"):
             feed = text(ROOT / path)
-            for name in ("History Channel\n", "Lifetime\n"):
-                with self.subTest(path=path, name=name.strip()):
-                    line = next(l for l in feed.splitlines()
-                                if l.startswith("#EXTINF") and l.endswith("," + name.strip()))
-                    self.assertIn('group-title="A&E Networks"', line)
+            extinf = [l for l in feed.splitlines() if l.startswith("#EXTINF")]
+            for brand in brands:
+                for line in extinf:
+                    name = line.rpartition(",")[2]
+                    if not (name == brand or name.startswith(brand + " (")
+                            or (" " + brand) in name):
+                        continue
+                    if re.search(r'group-title="A&E Networks( Backups)?"', line):
+                        continue
+                    # Only the exact A+E-owned brands are claimed; a channel
+                    # that merely mentions the word (Lifetime Asia is a separate
+                    # international feed) belongs to whatever its owner says.
+                    if brand in ("Lifetime", "History Channel", "Crime 360", "FYI"):
+                        self.fail(f"{path} leaves {name!r} off the A&E shelf: {line}")
         shelf = text(ROOT / "categories" / "USA" / "A_E_Networks.m3u")
-        for channel in ("History Channel", "Lifetime", "Crime 360 (720p)"):
+        for channel in ("History Channel", "Lifetime", "Crime 360"):
             self.assertIn(channel, shelf)
         documentary = text(ROOT / "categories" / "USA" / "Documentary.m3u")
         self.assertNotIn(",History Channel\n", documentary)

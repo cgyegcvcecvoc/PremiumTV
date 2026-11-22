@@ -429,13 +429,26 @@
     navigator.geolocation.getCurrentPosition(
       (position) => {
         localLocating = false;
-        const market = local.nearestMarket(
+        const hit = local.nearestMarketWithDistance(
           position.coords.latitude,
           position.coords.longitude,
           localDirectory,
         );
-        if (!market) {
+        if (!hit) {
           localNotice = "No published local market is near that location. Enter a ZIP code.";
+          renderLocal();
+          return;
+        }
+        const market = hit.market;
+        // 1.1.18 policy, shared with the native apps: the nearest published
+        // market is only "your area" while it is actually near. Farther than
+        // that, saving it would claim a viewer in Wilkes-Barre watches
+        // Philadelphia stations, so the answer is offered as a note instead.
+        if (!local.marketIsNear(hit.distanceKm)) {
+          const miles = Math.round(hit.distanceKm * 0.621371);
+          localNotice =
+            `Nothing is published for your spot — the nearest market is ${market.city}, ` +
+            `${market.state}, about ${miles} miles away. Enter a ZIP code or a state.`;
           renderLocal();
           return;
         }
@@ -446,10 +459,11 @@
       },
       () => {
         localLocating = false;
-        localNotice = "Location was not shared. Enter a ZIP code or a state instead.";
+        localNotice =
+          "The browser did not share a location — allow it for this site, or enter a ZIP code or a state.";
         renderLocal();
       },
-      { timeout: 10000, maximumAge: 600000 },
+      { timeout: 20000, maximumAge: 600000, enableHighAccuracy: false },
     );
   }
   function renderChannels() {

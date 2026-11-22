@@ -6,9 +6,19 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- WorkManager restores the automatic data-refresh schedule after reboot. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- Optional: "Use my location" in Local channels narrows the state to one
-         that has a published local station. Declining it leaves ZIP/state entry. -->
+    <!-- Optional: "Use my location" in Local channels narrows the answer to one
+         that has a published local station. Declining it leaves ZIP/state entry.
+
+         1.1.18: ACCESS_FINE_LOCATION is declared as well, and the dialog asks
+         for both at once. Two Android rules made the old single-permission ask
+         invisible: a request for a permission the manifest does not list is
+         answered "denied" with no dialog shown at all, and on Android 12+ the
+         "Precise / Approximate" choice only appears when FINE is part of the
+         request. PremiumTV still only uses the coarse answer - it matches a fix
+         to a market, never to an address - and the viewer choosing "precise"
+         buys nothing the app asks for. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- Settings can hand a downloaded release APK to Android's package installer. -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
@@ -22,6 +32,20 @@
         android:required="false" />
     <uses-feature
         android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <!--
+        Declared optional for the same reason leanback and touchscreen are: the
+        APK must install on a TV box or a stick, which have no GPS and often no
+        network provider either. The app checks the providers it can actually use
+        (Context.enabledLocationProviders) and says so when there are none,
+        rather than asking for a permission no hardware behind it can answer.
+    -->
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
         android:required="false" />
 
     <application

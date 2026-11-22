@@ -43,10 +43,16 @@ class Version1117Tests(unittest.TestCase):
         import release_version  # noqa: E402
         import version_sync  # noqa: E402
 
-        self.assertEqual(release_version.current_version(), "1.1.17")
+        # 1.1.17 is published and 1.1.18 is the build in progress, so the
+        # current-version pin lives in tests/test_release_1118.py; this keeps
+        # 1.1.17's own artifacts and version math in place.
         self.assertEqual(release_version.android_version_code("1.1.17"), 101_170_000)
+        self.assertEqual(release_version.compare_versions("1.1.17", "1.1.16"), 1)
         self.assertEqual(version_sync.check(), [])
-        self.assertEqual(version_sync.PUBLISHED_VERSION, "1.1.17")
+        self.assertTrue(
+            release_version.is_newer(version_sync.PUBLISHED_VERSION, "1.1.16"),
+            "the published version must be at least 1.1.17",
+        )
 
         notes = text("release-notes-1.1.17.md")
         self.assertIn("# PremiumTV 1.1.17 — ", notes)

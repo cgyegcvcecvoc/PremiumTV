@@ -3,8 +3,15 @@ package com.premiumtv.app.data
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Bundle
+import android.os.Looper
 import org.json.JSONObject
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withTimeoutOrNull
+import kotlin.coroutines.resume
 import kotlin.math.PI
 import kotlin.math.asin
 import kotlin.math.cos
@@ -192,7 +199,20 @@ class LocalDirectory internal constructor(val document: JSONObject) {
     }
 
     /** The nearest published market to a coarse fix, optionally inside a state. */
-    fun nearestMarket(latitude: Double, longitude: Double, state: String? = null): LocalMarket? {
+    fun nearestMarket(latitude: Double, longitude: Double, state: String? = null): LocalMarket? =
+        nearestMarketWithDistance(latitude, longitude, state)?.first
+
+    /**
+     * The nearest published market to a fix, with how far away it is in
+     * kilometres, or null when no market has a position.
+     *
+     * The distance is not decoration. [LOCAL_MARKET_NEAR_KM] explains why.
+     */
+    fun nearestMarketWithDistance(
+        latitude: Double,
+        longitude: Double,
+        state: String? = null,
+    ): Pair<LocalMarket, Double>? {
         val wanted = state?.uppercase().orEmpty()
         var best: LocalMarket? = null
         var bestDistance = Double.MAX_VALUE
@@ -205,7 +225,7 @@ class LocalDirectory internal constructor(val document: JSONObject) {
                 best = market
             }
         }
-        return best
+        return best?.let { it to bestDistance }
     }
 
     /**
@@ -313,30 +333,151 @@ fun Context.readLocalChannelDirectory(): LocalDirectory? = try {
 }
 
 /**
- * A coarse last-known fix, when the viewer allowed location.
+ * How far a fix may be from a published market and still be called the
+ * viewer's area (1.1.18).
  *
- * Returns null when the permission is missing or no provider has a cached fix,
- * so the dialog can fall back to asking for a ZIP instead of blocking.
+ * PremiumTV publishes local stations for around a hundred markets, so the
+ * nearest one to any point on the map always exists - and for a viewer in a
+ * market nobody has published (Wilkes-Barre, Scranton, Lancaster before its
+ * feed came back) "nearest" meant being told their area was Philadelphia,
+ * 150 km away. A fix inside this radius is treated as local; beyond it the
+ * market is offered as an option instead of saved as the answer. The same
+ * limit is in the macOS/Linux renderer (`NEAREST_MARKET_MAX_KM`) and the web
+ * edition, so one rule decides it on every screen.
  */
-fun Context.lastKnownCoordinates(): Pair<Double, Double>? {
-    if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-        checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-    ) {
-        return null
+const val LOCAL_MARKET_NEAR_KM = 120.0
+
+/** True when a published market is close enough to a fix to be called local. */
+fun marketIsNear(distanceKm: Double): Boolean =
+    distanceKm.isFinite() && distanceKm <= LOCAL_MARKET_NEAR_KM
+
+/** The permission "Use my location" needs; either precision is enough. */
+fun Context.hasLocationPermission(): Boolean =
+    checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+        checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+
+/**
+ * The location providers this device has *and* the viewer has switched on.
+ *
+ * Empty on most TV boxes and sticks, which is a fact the dialog must say out
+ * loud instead of hanging on a request no hardware will answer.
+ */
+fun Context.enabledLocationProviders(): List<String> {
+    val manager = getSystemService(Context.LOCATION_SERVICE) as? LocationManager ?: return emptyList()
+    return try {
+        manager.allProviders.filter { manager.isProviderEnabled(it) }
+    } catch (error: Exception) {
+        emptyList()
     }
+}
+
+/** A cached fix plus its age in milliseconds, or null when there is none. */
+fun Context.lastKnownCoordinatesWithAge(): Triple<Double, Double, Long>? {
+    if (!hasLocationPermission()) return null
     val manager = getSystemService(Context.LOCATION_SERVICE) as? LocationManager ?: return null
-    for (provider in listOf(LocationManager.NETWORK_PROVIDER, LocationManager.GPS_PROVIDER, LocationManager.PASSIVE_PROVIDER)) {
+    for (provider in listOf(
+        LocationManager.NETWORK_PROVIDER,
+        LocationManager.GPS_PROVIDER,
+        LocationManager.PASSIVE_PROVIDER,
+    )) {
         val location = try {
             manager.getLastKnownLocation(provider)
         } catch (error: SecurityException) {
             null
         } catch (error: IllegalArgumentException) {
             null
-        }
-        if (location != null) return location.latitude to location.longitude
+        } ?: continue
+        if (!location.latitude.isFinite() || !location.longitude.isFinite()) continue
+        // `Location.getTime()` is wall-clock, so it can read as the future on a
+        // device whose clock jumped. An unset (0) or future timestamp is treated
+        // as ancient, which costs one fresh request; believing it would reuse
+        // yesterday's city as if it were now.
+        val now = System.currentTimeMillis()
+        val age = if (location.time <= 0L || location.time > now) Long.MAX_VALUE else now - location.time
+        return Triple(location.latitude, location.longitude, age)
     }
     return null
 }
+
+/**
+ * A coarse last-known fix, when the viewer allowed location.
+ *
+ * Returns null when the permission is missing or no provider has a cached fix,
+ * so the dialog can fall back to asking for a ZIP instead of blocking.
+ */
+fun Context.lastKnownCoordinates(): Pair<Double, Double>? =
+    lastKnownCoordinatesWithAge()?.let { it.first to it.second }
+
+/**
+ * One fix, asked for rather than remembered (1.1.18).
+ *
+ * [lastKnownCoordinates] reads a cache, and a cache is empty on a device that
+ * has never located itself - which is every TV box and plenty of phones. Since
+ * 1.1.7 the dialog read it immediately after the grant, so a viewer who said
+ * yes was told "No location fix is available on this device" and the feature
+ * looked like it had never asked. This waits for a real update from the enabled
+ * providers, keeps any fix that is already recent (no second GPS wake for
+ * nothing), and falls back to the cache when the deadline passes.
+ *
+ * Coarse only, on purpose: [LOCAL_MARKET_NEAR_KM] is a market radius, so
+ * ACCESS_FINE_LOCATION buys nothing here and the dialog says so.
+ */
+suspend fun Context.awaitCoordinates(timeoutMs: Long = 8_000L): Pair<Double, Double>? {
+    if (!hasLocationPermission()) return null
+    val manager = getSystemService(Context.LOCATION_SERVICE) as? LocationManager ?: return null
+    val cached = lastKnownCoordinatesWithAge()
+    if (cached != null && cached.third <= FRESH_FIX_MS) return cached.first to cached.second
+    val providers = enabledLocationProviders()
+    if (providers.isEmpty()) return cached?.let { it.first to it.second }
+    val fix = try {
+        withTimeoutOrNull(timeoutMs) {
+            suspendCancellableCoroutine<Pair<Double, Double>?> { continuation ->
+                var listener: LocationListener? = null
+                fun stop() {
+                    val active = listener ?: return
+                    providers.forEach { runCatching { manager.removeUpdates(active) } }
+                }
+                listener = object : LocationListener {
+                    override fun onLocationChanged(location: Location) {
+                        if (!location.latitude.isFinite() || !location.longitude.isFinite()) return
+                        stop()
+                        if (continuation.isActive) {
+                            continuation.resume(location.latitude to location.longitude)
+                        }
+                    }
+
+                    override fun onProviderEnabled(provider: String) = Unit
+                    override fun onProviderDisabled(provider: String) = Unit
+                    @Suppress("DEPRECATION")
+                    override fun onStatusChanged(provider: String, status: Int, extras: Bundle?) = Unit
+                }
+                val watched = providers.filter { provider ->
+                    try {
+                        manager.requestLocationUpdates(provider, 1_000L, 0f, listener!!, Looper.getMainLooper())
+                        true
+                    } catch (error: SecurityException) {
+                        false
+                    } catch (error: IllegalArgumentException) {
+                        false
+                    }
+                }
+                if (watched.isEmpty()) {
+                    stop()
+                    if (continuation.isActive) {
+                        continuation.resume(cached?.let { it.first to it.second })
+                    }
+                }
+                continuation.invokeOnCancellation { stop() }
+            }
+        }
+    } catch (error: Exception) {
+        null
+    }
+    return fix ?: cached?.let { it.first to it.second }
+}
+
+/** A fix this old is worth reusing; [awaitCoordinates] does not re-ask. */
+private const val FRESH_FIX_MS = 10 * 60 * 1000L
 
 /** Remembers the viewer's local-channel answer on this device only. */
 class LocalChannelSettings(context: Context) {

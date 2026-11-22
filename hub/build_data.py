@@ -164,6 +164,45 @@ def main():
         }] if stable_version else []),
     ]
 
+    # ---------------- Linux apps (1.1.18, GitHub release direct downloads) --
+    # The Linux edition is the same Electron app packaged by
+    # .github/workflows/linux-build.yml. Nothing is mirrored here: an AppImage
+    # and a .deb are served straight from the release, and the file list is
+    # built from what the release actually carries so a half-finished build
+    # cannot advertise a download that is not there yet.
+    linux_local = os.path.join(DIST, "linux")
+
+    def linux_assets(tag, ver):
+        base = f"{REL}/{tag}"
+        wanted = [
+            ("x86-64 — AppImage (any distro, no install)", f"PremiumTV-{ver}-linux-x64.AppImage"),
+            ("arm64 — AppImage (Pi 4/5, newer ARM laptops)", f"PremiumTV-{ver}-linux-arm64.AppImage"),
+            ("x86-64 — .deb (Debian, Ubuntu, Mint, Pop!_OS)", f"PremiumTV-{ver}-linux-x64.deb"),
+            ("arm64 — .deb", f"PremiumTV-{ver}-linux-arm64.deb"),
+            ("x86-64 — .tar.xz (Arch, Fedora, SUSE, NixOS)", f"PremiumTV-{ver}-linux-x64.tar.xz"),
+            ("SHA-256 checksums", "SHA256SUMS-linux.txt"),
+        ]
+        out = []
+        for label, name in wanted:
+            local = os.path.join(linux_local, name)
+            if os.path.isfile(local) and os.path.getsize(local) > 0:
+                out.append({"label": label, "name": name, "url": f"/get/linux/{name}",
+                            "size": os.path.getsize(local)})
+            else:
+                out.append({"label": label, "name": name, "url": f"{base}/{name}"})
+        return out
+
+    linux = [
+        *([{
+            "version": stable_version,
+            "channel": "Stable",
+            "desc": "The same PremiumTV for a Linux desktop: the checked lineup, "
+                    "the guide and the player, packaged as an AppImage, a .deb and a "
+                    "portable tarball. Added in 1.1.18.",
+            "assets": linux_assets("v" + stable_version, stable_version),
+        }] if stable_version else []),
+    ]
+
     # ---------------- Playlists --------------------------------------------
     featured = [
         m3u_entry("playlists/PremiumTV.m3u", "PremiumTV — main playlist",
@@ -248,6 +287,7 @@ def main():
         },
         "android": android,
         "macos": macos,
+        "linux": linux,
         "featured": featured,
         "countries": countries,
         "categories": {

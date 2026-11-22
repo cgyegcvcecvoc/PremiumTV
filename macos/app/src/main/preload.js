@@ -31,6 +31,10 @@ contextBridge.exposeInMainWorld('premiumtv', {
   /** Live Events' live check: does this game's server still answer at all? */
   probeStream: (streamUrl) => ipcRenderer.invoke('ptv:probe-stream', streamUrl),
   openExternal: (url) => ipcRenderer.invoke('ptv:open-external', url),
+  /** Settings → what the app knows about the OS location prompt (1.1.18). */
+  locationContext: () => ipcRenderer.invoke('ptv:location-context'),
+  /** Settings → the platform's location privacy pane, where an answer can change. */
+  openLocationSettings: () => ipcRenderer.invoke('ptv:open-location-settings'),
 
   /** App updates: check GitHub, download once, then open the verified DMG. */
   updateStatus: () => ipcRenderer.invoke('ptv:update-status'),

@@ -157,7 +157,7 @@ CHANNELS = [
         "badge": "Recommended",
         "summary": "The current stable release. USA lineup + USA guide.",
         "notes_file": f"release-notes-{CURRENT_VERSION}.md",
-        "min_os": "macOS 12 (Monterey) or later · Android 6.0+ (TV, tablet, phone)",
+        "min_os": "macOS 12 (Monterey) or later · Linux (x86-64, arm64) · Android 6.0+ (TV, tablet, phone)",
     },
 ]
 
@@ -233,6 +233,17 @@ def classify_asset(name: str) -> tuple[str, str]:
         return ("macos-dmg" if lower.endswith(".dmg") else "macos-pkg"), "arm64"
     if "mac-x64" in lower:
         return ("macos-dmg" if lower.endswith(".dmg") else "macos-pkg"), "x64"
+    # 1.1.18: the Linux edition ships three formats per architecture, and a
+    # download page that files them all under "other" cannot tell a viewer
+    # which one to click. The kind is the format, the arch is the package.
+    if "linux-x64" in lower or "linux-arm64" in lower:
+        arch = "arm64" if "arm64" in lower else "x64"
+        if lower.endswith(".appimage"):
+            return "linux-appimage", arch
+        if lower.endswith(".deb"):
+            return "linux-deb", arch
+        if lower.endswith(".tar.xz"):
+            return "linux-tar", arch
     if "sha256" in lower:
         return "checksum", "—"
     return "other", "—"

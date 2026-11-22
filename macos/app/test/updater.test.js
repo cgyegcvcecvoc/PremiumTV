@@ -67,6 +67,10 @@ function harness(t, options = {}) {
     stateFile: path.join(dir, 'update-state.json'),
     downloadDir: path.join(dir, 'updates'),
     arch: 'arm64',
+    // Pinned, not inherited: `node --test` runs on Linux in CI (ci.yml) and
+    // on macOS at a developer's desk, and since 1.1.18 the platform decides
+    // which installer a release must carry. These fixtures are Mac releases.
+    platform: 'darwin',
     fetchImpl,
     shell: { openPath: async () => '', openExternal: async () => {} },
     now: () => Date.now(),
@@ -139,6 +143,10 @@ test('update memory resets when the app itself is updated', async (t) => {
     stateFile: path.join(dir, 'update-state.json'),
     downloadDir: path.join(dir, 'updates'),
     arch: 'arm64',
+    // Pinned, not inherited: `node --test` runs on Linux in CI (ci.yml) and
+    // on macOS at a developer's desk, and since 1.1.18 the platform decides
+    // which installer a release must carry. These fixtures are Mac releases.
+    platform: 'darwin',
     fetchImpl: async () => new Response('[]', { status: 200 }),
   });
   assert.equal(upgraded.status().availableVersion, null);

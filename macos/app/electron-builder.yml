@@ -25,6 +25,55 @@ artifactName: PremiumTV-${version}-mac-${arch}.${ext}
 # Ad-hoc sign the assembled .app on macOS runners (see tools/after-pack.cjs).
 afterPack: tools/after-pack.cjs
 
+# ---------------------------------------------------------------- linux
+#
+# The same application, packaged for Linux desktops. Everything PremiumTV does
+# runs in Electron: the loopback stream proxy (src/main/stream-proxy.js), the
+# baked-in playlist/guide bundle, the renderer and the vendored players are all
+# portable, and the only macOS-specific build steps — codesign in afterPack and
+# productbuild for the .pkg — are already guarded by `process.platform`.
+#
+# Three formats, because Linux desktops install differently:
+#   * .AppImage  — one executable file, works on any distro, no root needed;
+#   * .deb       — for Debian/Ubuntu-family `apt install ./…`;
+#   * .tar.xz    — the unpacked app for anything else (Arch/Fedora/SUSE/NixOS),
+#                  which is also the only target electron-builder can produce
+#                  with no extra tool download at all.
+# Nothing is signed: the AppImage/deb carry the app the way the debug APK does
+# on Android, and the package managers do not require a signature to install a
+# locally downloaded file. `desktop` is what puts PremiumTV in the applications
+# menu with its own icon and window class.
+linux:
+  # A fixed executable name, so the desktop file, the smoke test and the docs
+  # can all point at `premiumtv` instead of guessing how productName would be
+  # sanitised ("PremiumTV" would be a capitalised binary in /usr/bin).
+  executableName: premiumtv
+  target:
+    - target: AppImage
+      arch:
+        - x64
+        - arm64
+    - target: deb
+      arch:
+        - x64
+        - arm64
+    - target: tar.xz
+      arch:
+        - x64
+  artifactName: PremiumTV-${version}-linux-${arch}.${ext}
+  description: >-
+    PremiumTV reads the repository's checked channel list and merged TV guide,
+    bundled in the app, so it starts with no network at all and refreshes
+    itself on the same schedule as the Android and macOS editions.
+  maintainer: cgyegcvcecvoc <cgyegcvcecvoc@users.noreply.github.com>
+  vendor: cgyegcvcecvoc
+  category: AudioVideo
+  # `linux.desktop.entry` (the [Desktop Entry] overrides) only accepts a
+  # function, so it cannot be written in this file: electron-builder builds the
+  # .desktop from productName, this synopsis/description and `category`, and
+  # `syncDesktopName` keeps the menu label equal to the product name.
+  syncDesktopName: true
+
 mac:
   # macOS 12 Monterey is the supported floor. Electron 43 is the last major
   # that runs on Monterey - Electron 44 dropped macOS 12 when Chromium did - so
@@ -51,6 +100,23 @@ mac:
       NSAllowsArbitraryLoads: true
       NSAllowsArbitraryLoadsInWebContent: true
     NSHighResolutionCapable: true
+    # 1.1.18 — the reason the Mac never asked for location access.
+    #
+    # macOS will not show the "PremiumTV would like to use your location"
+    # prompt for an app that has not said why it wants it. The renderer's
+    # navigator.geolocation call reached Chromium's CoreLocation provider,
+    # which found no usage description in Info.plist and answered the request
+    # with an immediate denial — so pressing "Use my location" only ever
+    # landed on "Location was declined", and no dialog appeared. Declaring the
+    # purpose is what makes the system ask; the answer is then remembered in
+    # System Settings → Privacy & Security → Location Services.
+    #
+    # DefaultAccuracyReduced is deliberate: PremiumTV matches a fix to the
+    # nearest *market* (Lancaster, not a street), so it asks for the coarse
+    # answer and never needs a precise one.
+    NSLocationUsageDescription: "PremiumTV asks for an approximate location once, to find which local stations to show. The answer stays on this Mac."
+    NSLocationWhenInUseUsageDescription: "PremiumTV uses an approximate location while it is open, to show the local stations for your area. Nothing is uploaded."
+    NSLocationDefaultAccuracyReduced: true
   target:
     - target: dmg
       arch:

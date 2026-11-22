@@ -84,6 +84,31 @@ function macAssetName(version, arch) {
   return `PremiumTV-${version}-mac-${macArch(arch)}.dmg`;
 }
 
+/**
+ * The installer this platform can actually use (1.1.18).
+ *
+ * A release carries one installer per platform, and rule 4 of this file is
+ * that an update is only offered when *this* machine's installer is attached.
+ * The Linux build therefore looks for the AppImage the linux job uploads - never
+ * the .dmg, which a Mac-only release also carries and which would download a
+ * hundred-megabyte disk image onto a computer that cannot mount it. When the
+ * Linux installers are missing, the Linux app stays quiet about the release
+ * instead of offering an unusable file; the release page still has the .deb.
+ */
+function installerAssetName(version, arch, platform = 'darwin') {
+  // Both full names are spelled out, because they are the contract the build
+  // jobs upload against: `grep` for a file name has to find the rule that
+  // produces it.
+  return platform === 'linux'
+    ? `PremiumTV-${version}-linux-${macArch(arch)}.AppImage`
+    : `PremiumTV-${version}-mac-${macArch(arch)}.dmg`;
+}
+
+/** The checksum file that covers this platform's installers. */
+function checksumAssetName(platform = 'darwin') {
+  return platform === 'linux' ? 'SHA256SUMS-linux.txt' : 'SHA256SUMS-macos.txt';
+}
+
 function releaseTag(release) {
   return String((release && (release.tag_name || release.tag)) || '');
 }
@@ -94,7 +119,7 @@ function releaseTag(release) {
  * Returns `{ update, newestStable }`; `update` is null when the installed
  * build is already the newest stable release (or ahead of it as a preview).
  */
-function selectStableUpdate(releases, currentVersion, arch = 'arm64') {
+function selectStableUpdate(releases, currentVersion, arch = 'arm64', platform = 'darwin') {
   const current = normalizeVersion(currentVersion);
   if (!current) return { update: null, newestStable: null };
 
@@ -119,14 +144,14 @@ function selectStableUpdate(releases, currentVersion, arch = 'arm64') {
     if (!isNewer(version, current)) continue;
 
     const assets = Array.isArray(release.assets) ? release.assets : [];
-    const assetName = macAssetName(version, arch);
+    const assetName = installerAssetName(version, arch, platform);
     const asset = assets.find((candidate) => candidate && candidate.name === assetName);
     if (!asset || typeof asset.browser_download_url !== 'string' ||
         !asset.browser_download_url.startsWith('https://')) {
       continue;
     }
     const checksum = assets.find((candidate) =>
-      candidate && candidate.name === 'SHA256SUMS-macos.txt' &&
+      candidate && candidate.name === checksumAssetName(platform) &&
       typeof candidate.browser_download_url === 'string' &&
       candidate.browser_download_url.startsWith('https://'));
     const candidate = {
@@ -169,6 +194,8 @@ module.exports = {
   compareVersions,
   isNewer,
   macAssetName,
+  installerAssetName,
+  checksumAssetName,
   selectStableUpdate,
   describeState,
 };

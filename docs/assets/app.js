@@ -93,12 +93,18 @@
   /* ------------------------------------------------------------------ */
   var KIND_ICON = {
     "android": "🤖", "macos-dmg": "💽", "macos-pkg": "📦",
+    "linux-appimage": "🐧", "linux-deb": "💿", "linux-tar": "🗜️",
     "checksum": "🔐", "other": "📎"
   };
   var KIND_LABEL = {
     "android": "Android APK",
     "macos-dmg": "macOS disk image",
     "macos-pkg": "macOS installer",
+    // 1.1.18: the Linux edition is one app in three install formats, and a
+    // download page that calls all three "File" tells nobody which to click.
+    "linux-appimage": "Linux AppImage (any distro, no install)",
+    "linux-deb": "Linux .deb (Debian / Ubuntu family)",
+    "linux-tar": "Linux portable tarball",
     "checksum": "Checksums",
     "other": "File"
   };
@@ -106,7 +112,13 @@
   function assetRow(asset) {
     var sub = KIND_LABEL[asset.kind] || "File";
     if (asset.arch && asset.arch !== "—" && asset.arch !== "universal") {
-      sub += asset.arch === "arm64" ? " · Apple Silicon" : " · Intel";
+      if (String(asset.kind).indexOf("linux-") === 0) {
+        // "Intel"/"Apple Silicon" are Mac words; arm64 on Linux is a Pi or an
+        // ARM laptop, and x64 is x86-64.
+        sub += asset.arch === "arm64" ? " · ARM 64-bit" : " · x86-64";
+      } else {
+        sub += asset.arch === "arm64" ? " · Apple Silicon" : " · Intel";
+      }
     }
     if (asset.kind === "android") sub += " · Android TV / Fire TV / tablet";
     var sha = asset.sha256
@@ -137,6 +149,9 @@
       { title: "Android", kinds: ["android"] },
       { title: "macOS — drag to Applications (.dmg)", kinds: ["macos-dmg"] },
       { title: "macOS — installer (.pkg)", kinds: ["macos-pkg"] },
+      { title: "Linux — AppImage (.AppImage)", kinds: ["linux-appimage"] },
+      { title: "Linux — Debian package (.deb)", kinds: ["linux-deb"] },
+      { title: "Linux — portable (.tar.xz)", kinds: ["linux-tar"] },
       { title: "Verify", kinds: ["checksum"] }
     ];
     var html = "<div class=\"channel-card\">" +

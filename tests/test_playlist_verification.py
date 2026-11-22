@@ -48,6 +48,27 @@ class CanonicalGroupTest(unittest.TestCase):
         # "General Backups" is only canonical if "General" is, and it is not.
         self.assertFalse(categorize.is_canonical_group("General Backups"))
 
+    def test_a_scratch_pile_label_is_not_canonical_even_though_it_passes_through(self):
+        # Three published categories used to hold exactly one channel each, all
+        # of them inherited from an index's scratch label: "TEST", "IPTV" and
+        # "USA Channels". normalize_group leaves an unrecognised label alone, so
+        # they looked intentional and were never re-classified.
+        for group in ("TEST", "IPTV", "USA Channels", "US Channels", "IPTV LINKS"):
+            with self.subTest(group=group):
+                self.assertFalse(categorize.is_canonical_group(group))
+                self.assertTrue(categorize.needs_normalization(group))
+                self.assertIn(group.casefold(), categorize.DUMPING_GROUNDS)
+        # A category that merely ends in the word is still a real category.
+        for group in ("NBC Sports Channels", "Fox Channels", "Sports"):
+            with self.subTest(group=group):
+                self.assertTrue(categorize.is_canonical_group(group))
+
+    def test_a_scratch_pile_channel_is_classified_from_its_name(self):
+        # What the next scrape does with them: the name decides, and the group
+        # disappears instead of becoming a category of one.
+        self.assertEqual(categorize.classify("METV TOONS", "USA Channels"), "Cartoons")
+        self.assertEqual(categorize.classify("NFL Network HD alliptvlinks.com", "TEST"), "Sports")
+
 
 class OrderContractTest(unittest.TestCase):
     """order_channels and the key used by the offline tools must agree."""

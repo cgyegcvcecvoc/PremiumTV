@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.17** — an indexed library that opens channels without re-scanning the playlist on the UI thread, and focus, guide, feed-list and stream-setup paths that can no longer stop the app). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.18** — the Linux desktop edition, and the release that makes the Mac and Android apps really ask for location access before they use it). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.17
+## Current stable: 1.1.18
 
-1.1.17 is the responsiveness release, and the answer to "it lags when I open some screens and it has stopped on me on others". Opening a channel used to re-parse every channel name in the library with six regular expressions on the UI thread — and the Channels tab ran the same two passes again while drawing its first frame. Both now read one index that is built once per library, off the UI thread; an open is two hash lookups. The paths that could stop the app instead of showing its own error card are guarded: the initial focus request that threw when its node was not attached yet, a guide cursor pointing past the end of a refreshed guide, a feed list indexed by a stale server number, and a stream whose media source could not be built. Duplicate playlist or catalogue rows are dropped before they can hand a lazy list two identical keys, which Compose refuses by throwing. Settings → Check for bugs now also reports the measured UI work — index build time, any index failure, and the last channel open — so a slow report says where the time went. The notes are in [`release-notes-1.1.17.md`](../release-notes-1.1.17.md).
+1.1.18 is the platform release, and the answer to "you never ask me where I am" and "is there a Linux build?". Opening a channel used to re-parse every channel name in the library with six regular expressions on the UI thread — and the Channels tab ran the same two passes again while drawing its first frame. The desktop app now packages for Linux (AppImage, .deb and tar.xz for x86-64 and arm64), and its updater only offers the installer for the platform it is running on, so a Linux build is never sent a Mac disk image. On macOS the Local channels prompt finally works: the bundle carries the location usage string Chromium and Electron require before they will show the prompt at all, and a decline, a missing location service and an unanswered prompt now say which one happened. Android asks the runtime permission (coarse and fine together, so the approximate/precise sheet appears) and waits up to eight seconds for a real fix instead of reading only the cached last location, which is empty in the moment after a first grant. And a nearest market that is out of range is named with its distance and offered, never applied quietly. The notes are in [`release-notes-1.1.18.md`](../release-notes-1.1.18.md).
 
-It installs in place over every earlier build: Android `101170000` is above
+It installs in place over every earlier build: Android `101180000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.17 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.18 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 
@@ -52,7 +52,7 @@ download links were removed; any old link goes to
 and explains how to replace the preview without uninstalling on Android. **The
 `1.1.0` and `1.1.1` names are ordinary stable releases** — the deleted preview
 shared those names, and the project promoted them back, so a device on either is
-on a supported build and simply updates to 1.1.17 in-app. The Netlify Drop hub
+on a supported build and simply updates to 1.1.18 in-app. The Netlify Drop hub
 under `hub/` uses the same complete-release gate and never renders a preview
 card. Rebuild and re-upload its export to refresh an existing Netlify
 deployment.
