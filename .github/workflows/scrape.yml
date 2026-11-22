@@ -190,17 +190,8 @@ jobs:
         run: |
           python scripts/rebuild_playlists.py --label "$SCRAPER_LABEL"
 
-      - name: Refresh the merged and country-specific TV guides
-        # Keeps all published XMLTV files in step with the channels this scrape
-        # just published. The builder's freshness check also compares the
-        # guide-relevant M3U channel set, so a changed channel list rebuilds now;
-        # unchanged inputs keep the 12-hour throttle.
-        if: always() && steps.scraper.outcome != 'skipped'
-        id: guide
-        continue-on-error: true
-        run: |
-          python scripts/epg_build.py --patch --countries --max-age-hours 12 \
-            --label "guide refresh with the scrape"
+      # (The guide refresh moved to the end of this job, immediately before the
+      # commit: see "Refresh the merged and country-specific TV guides" below.)
 
       - name: Publish the live app feed and enforce the legacy sunset
         id: sunset
@@ -297,6 +288,26 @@ jobs:
           else
             rm -f playlists/PremiumTV.m3u
           fi
+
+      - name: Refresh the merged and country-specific TV guides
+        # Kept in step with the channels this scrape publishes. The position is
+        # the whole point: `legacy_sunset.py`, the category shelf and the live
+        # schedule all rewrite the playlists *after* the scraper does, so a guide
+        # built earlier in the job is scoped to a channel set that no longer
+        # exists. That gap is what failed the bundle gate for releases 1.1.14 and
+        # 1.1.18 - EPG/USA.xml declared 18 channels the published USA feed had
+        # dropped and omitted 34 it had added, and a release could not build an
+        # APK until the guide was rebuilt from the final files.
+        #
+        # The builder's freshness check also compares the guide-relevant M3U
+        # channel set, so a changed channel list rebuilds now; unchanged inputs
+        # keep the 12-hour throttle.
+        if: always() && steps.scraper.outcome != 'skipped'
+        id: guide
+        continue-on-error: true
+        run: |
+          python scripts/epg_build.py --patch --countries --max-age-hours 12 \
+            --label "guide refresh with the scrape"
 
       - name: Rebuild the Live Events schedule and generated site data before publishing
         if: always()

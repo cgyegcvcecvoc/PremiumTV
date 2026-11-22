@@ -261,6 +261,29 @@ jobs:
             macos/app/dist/SHA256SUMS-linux.txt macos/app/dist/BUILD-SOURCE-linux.txt --clobber
           gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'
 
+      - name: Report the failure where it can be read
+        # The Actions log lives on a blob host that many sandboxes and mirrors
+        # cannot reach, and the annotations API only keeps "::error::" lines -
+        # so a failed electron-builder run leaves no trace an agent or a
+        # contributor can act on. Echo the tail as a commit comment too: it is
+        # plain API (`GET /repos/{repo}/commits/{sha}/comments`) and the CI job
+        # that failed is then self-describing.
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          log=macos/build-out/build-log-linux.txt
+          tail_text="no build log produced"
+          if [ -s "$log" ]; then
+            tail_text=$(tail -c 5000 "$log")
+          fi
+          body="PremiumTV Linux build failed on ${GITHUB_REF_NAME} (run ${GITHUB_RUN_ID})."
+          body="$body\n\n\`\`\`\n$(printf '%s' "$tail_text" | sed 's/\r//')\n\`\`\`"
+          gh api -X POST "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments" \
+            -f "body=$(printf '%b' "$body")" >/dev/null \
+            || echo "::warning::could not post the failure comment"
+
       - name: Publish build log to the branch
         if: always()
         run: |
@@ -278,7 +301,13 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f macos/build-out/build-log-linux.txt macos/build-out/smoke-linux.txt 2>/dev/null || true
+          # Each file on its own line: `git add -f a b` fails as a command, so a
+          # missing smoke log (the build died before the smoke test) used to
+          # discard the build log with it - which is exactly the case someone
+          # needs to read.
+          for f in macos/build-out/build-log-linux.txt macos/build-out/smoke-linux.txt; do
+            [ -f "$f" ] && git add -f "$f"
+          done
           if git diff --cached --quiet; then echo "Nothing new to publish."; exit 0; fi
           git commit -m "ci: publish linux build log (run ${{ github.run_number }}) [skip ci]"
           git pull --rebase --autostash -X theirs origin "$GITHUB_REF_NAME" || git rebase --abort || true
