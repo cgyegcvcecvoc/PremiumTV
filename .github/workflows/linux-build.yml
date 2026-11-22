@@ -194,23 +194,58 @@ jobs:
       - name: Verify the packaged app contains channels and the renderer
         if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
+        # Every check names its own file and the whole block is appended to the
+        # build log, because a bare `test -s` under `set -e` fails the step with
+        # no clue which artifact was missing - and the log is the one copy of the
+        # diagnosis that reaches a branch (and a commit comment) for someone who
+        # cannot open the Actions output.
         run: |
-          set -euo pipefail
-          test -s dist/linux-unpacked/resources/bundle/channels.jsonl
-          test -s dist/linux-unpacked/resources/bundle/meta.json
-          test -s dist/linux-unpacked/resources/app.asar
-          test -x dist/linux-unpacked/premiumtv
-          for file in \
-            "PremiumTV-${LINUX_VERSION}-linux-x64.AppImage" \
-            "PremiumTV-${LINUX_VERSION}-linux-arm64.AppImage" \
-            "PremiumTV-${LINUX_VERSION}-linux-x64.deb" \
-            "PremiumTV-${LINUX_VERSION}-linux-arm64.deb" \
-            "PremiumTV-${LINUX_VERSION}-linux-x64.tar.xz"; do
-            test -s "dist/$file" || { echo "::error::dist/$file was not produced"; exit 1; }
-          done
-          node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1]));
-            if (meta.channel_count < 1 || meta.version !== process.env.LINUX_VERSION) process.exit(1);' \
-            dist/linux-unpacked/resources/bundle/meta.json
+          set -uo pipefail
+          log="$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+          {
+            echo "--- verify: dist/ ---"
+            ls -la dist || true
+            echo "--- verify: dist/linux-unpacked ---"
+            ls -la dist/linux-unpacked 2>/dev/null | head -40 || true
+            echo "--- verify: resources ---"
+            ls -la dist/linux-unpacked/resources 2>/dev/null | head -20 || true
+            status=0
+            for f in dist/linux-unpacked/resources/bundle/channels.jsonl \
+                     dist/linux-unpacked/resources/bundle/meta.json \
+                     dist/linux-unpacked/resources/app.asar; do
+              if [ -s "$f" ]; then echo "ok: $f"; else echo "MISSING: $f"; status=1; fi
+            done
+            if [ -x dist/linux-unpacked/premiumtv ]; then
+              echo "ok: executable dist/linux-unpacked/premiumtv"
+            else
+              echo "MISSING executable: dist/linux-unpacked/premiumtv"
+              status=1
+            fi
+            for file in \
+              "PremiumTV-${LINUX_VERSION}-linux-x64.AppImage" \
+              "PremiumTV-${LINUX_VERSION}-linux-arm64.AppImage" \
+              "PremiumTV-${LINUX_VERSION}-linux-x64.deb" \
+              "PremiumTV-${LINUX_VERSION}-linux-arm64.deb" \
+              "PremiumTV-${LINUX_VERSION}-linux-x64.tar.xz"; do
+              if [ -s "dist/$file" ]; then
+                echo "ok: $file ($(stat -c %s "dist/$file") bytes)"
+              else
+                echo "MISSING artifact: dist/$file"
+                status=1
+              fi
+            done
+            if node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1]));
+              if (meta.channel_count < 1) { console.log("bundle meta has no channels:", JSON.stringify(meta)); process.exit(1); }
+              if (meta.version !== process.env.LINUX_VERSION) { console.log("bundle meta version", meta.version, "!= build", process.env.LINUX_VERSION); process.exit(1); }
+              console.log("ok: bundle meta", meta.version, "with", meta.channel_count, "channels");' \
+              dist/linux-unpacked/resources/bundle/meta.json; then
+              :
+            else
+              status=1
+            fi
+            [ "$status" -eq 0 ] || echo "::error::the packaged Linux app is incomplete (see the lines above)"
+            exit "$status"
+          } 2>&1 | tee -a "$log"
 
       # The same gate the macOS build runs, on Linux: the app really starts,
       # finds its bundled channels and paints the renderer. --no-sandbox is
