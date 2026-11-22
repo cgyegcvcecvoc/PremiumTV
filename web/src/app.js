@@ -429,7 +429,16 @@
     navigator.geolocation.getCurrentPosition(
       (position) => {
         localLocating = false;
-        const hit = local.nearestMarketWithDistance(
+        // 1.1.19: the area is every market inside the radius, nearest first.
+        // Empty means nothing is published near the fix, and the nearest one is
+        // then offered as the far market below - the same two sentences the
+        // native apps use.
+        const area = local.nearbyMarketsWithDistance(
+          position.coords.latitude,
+          position.coords.longitude,
+          localDirectory,
+        );
+        const hit = area[0] || local.nearestMarketWithDistance(
           position.coords.latitude,
           position.coords.longitude,
           localDirectory,
@@ -452,9 +461,18 @@
           renderLocal();
           return;
         }
+        // A cluster such as Dallas / Fort Worth / Garland is several published
+        // markets a fix can be inside at once; the city picker below switches
+        // between them, so the notice names the others that are in reach.
+        const also = area.length > 1
+          ? ` Also nearby: ${area
+            .slice(1)
+            .map((option) => `${option.market.city}, ${option.market.state}`)
+            .join(", ")}.`
+          : "";
         saveLocal(
           { country: "US", state: market.state, city: market.city, source: "location" },
-          `Nearest published market: ${market.city}, ${market.state}.`,
+          `Nearest published market: ${market.city}, ${market.state}.${also}`,
         );
       },
       () => {

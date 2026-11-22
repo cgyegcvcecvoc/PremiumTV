@@ -72,6 +72,35 @@ const directory = {
       longitude: -118.2813,
       stations: [],
     },
+    {
+      // Dallas and Fort Worth are one metro published as two markets ~48 km
+      // apart, so a fix in either is inside both at once.
+      id: 'USDFW',
+      city: 'Dallas',
+      state: 'TX',
+      state_name: 'Texas',
+      latitude: 32.7767,
+      longitude: -96.7970,
+      stations: [],
+    },
+    {
+      id: 'USFTW',
+      city: 'Fort Worth',
+      state: 'TX',
+      state_name: 'Texas',
+      latitude: 32.7555,
+      longitude: -97.3308,
+      stations: [],
+    },
+    {
+      id: 'USGST',
+      city: 'Saint Paul',
+      state: 'MN',
+      state_name: 'Minnesota',
+      latitude: 44.9537,
+      longitude: -93.0900,
+      stations: [],
+    },
   ],
   states: [
     { code: 'CA', name: 'California', latitude: 37.2, longitude: -119.3, markets: ['USLAX'] },
@@ -120,6 +149,30 @@ test('a coarse location fix picks the nearest published market', () => {
   assert.equal(local.nearestMarket(40.5, -80.1, directory).id, 'USPIT');
   // 600 km away from both Pennsylvania markets: still the nearest, not null.
   assert.equal(local.stateForLocation(35.0, -80.0, directory), 'PA');
+});
+
+test('a fix inside a metro cluster reports every market in reach, nearest first', () => {
+  const local = loadLocal();
+  const area = local.nearbyMarketsWithDistance(32.7555, -97.3308, directory);
+  assert.deepEqual(area.map((hit) => hit.market.id), ['USFTW', 'USDFW']);
+  assert.ok(area[0].distanceKm < area[1].distanceKm);
+  assert.ok(local.marketIsNear(area[1].distanceKm), 'Dallas is inside the radius');
+  // Nothing published near the fix is an empty area, not the nearest thing.
+  assert.deepEqual(local.nearbyMarketsWithDistance(0, 0, directory), []);
+  assert.ok(local.nearbyMarketsWithDistance(0, 0, directory, null, 20000).length > 1);
+  // A state filter narrows the same area.
+  assert.deepEqual(local.nearbyMarketsWithDistance(32.7555, -97.3308, directory, 'MN'), []);
+});
+
+test('a typed city matches the place, not the spelling', () => {
+  const local = loadLocal();
+  const matches = (city) =>
+    [...local.marketsFor(directory, { state: 'MN', city })].map((market) => market.id);
+  assert.deepEqual(matches('St. Paul'), ['USGST']);
+  assert.deepEqual(matches('saint paul'), ['USGST']);
+  assert.equal(local.normalizePlace('Wilkes-Barre'), local.normalizePlace('Wilkes Barre'));
+  assert.equal(local.normalizePlace('München'), 'munchen');
+  assert.equal(local.normalizePlace('   '), '');
 });
 
 test('a state with no published station says so', () => {

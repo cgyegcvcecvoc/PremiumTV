@@ -99,6 +99,11 @@ internal fun LocalChannelsDialog(
     var noProvider by rememberSaveable { mutableStateOf(false) }
     var awaitingPermission by rememberSaveable { mutableStateOf(false) }
     var farMarket by remember { mutableStateOf<LocalMarket?>(null) }
+    // 1.1.19: the other markets a fix found inside the radius. Several metros
+    // are published as a cluster of markets a short drive apart (Dallas / Fort
+    // Worth / Garland), so a fix can be inside more than one; the nearest is
+    // saved and these are offered as the alternatives.
+    var nearby by remember { mutableStateOf<List<Pair<LocalMarket, Double>>>(emptyList()) }
 
     fun selection(): LocalSelection = LocalSelection(
         country = country.trim().uppercase().ifBlank { "US" },
@@ -111,33 +116,60 @@ internal fun LocalChannelsDialog(
     fun applyFix(latitude: Double, longitude: Double) {
         locating = false
         val known = directory
-        val hit = known?.nearestMarketWithDistance(latitude, longitude)
-        if (known == null || hit == null) {
+        if (known == null) {
             message = "No local stations are published near that fix. Enter a ZIP code instead."
             source = ""
             return
         }
-        val market = hit.first
+        // 1.1.19: the area is every market inside the radius, nearest first.
         // 1.1.18: "nearest" is not "yours". Wilkes-Barre, Scranton and Lancaster
-        // all sit closer to a published market than to nothing, and until this
-        // line the app saved that far market as the viewer's area — the reason
-        // the feature looked broken to the people it was meant to help. The
-        // market is offered below and only the viewer accepts it.
-        val miles = (hit.second * 0.621371).toInt()
-        if (!marketIsNear(hit.second)) {
-            farMarket = market
+        // all sit closer to a published market than to nothing, and until that
+        // release the app saved that far market as the viewer's area — the
+        // reason the feature looked broken to the people it was meant to help.
+        val area = known.nearbyMarketsWithDistance(latitude, longitude)
+        if (area.isEmpty()) {
+            val far = known.nearestMarketWithDistance(latitude, longitude)
+            if (far == null) {
+                message = "No local stations are published near that fix. Enter a ZIP code instead."
+                source = ""
+                return
+            }
+            val miles = (far.second * 0.621371).toInt()
+            farMarket = far.first
+            nearby = emptyList()
             source = ""
             message = "Nothing is published for your spot yet — the nearest stations PremiumTV " +
-                "carries are in ${market.label}, about $miles miles away. Enter a ZIP code or a " +
+                "carries are in ${far.first.label}, about $miles miles away. Enter a ZIP code or a " +
                 "state, or use that market."
             return
         }
+        val (market, km) = area.first()
+        val miles = (km * 0.621371).toInt()
         farMarket = null
+        nearby = area.drop(1)
         state = market.state
         city = if (known.marketsFor(LocalSelection(state = market.state)).size > 1 && showEverything) "" else market.city
         zip = ""
         source = LocalSelection.SOURCE_LOCATION
-        message = "Location set to ${market.label}. Pick another ZIP or state any time."
+        message = if (nearby.isNotEmpty()) {
+            "Location set to ${market.label}, about $miles miles away. Also nearby: " +
+                nearby.joinToString(", ") { (option, distance) ->
+                    "${option.label} (${(distance * 0.621371).toInt()} mi)"
+                } + " — pick one below if that is the area you receive."
+        } else {
+            "Location set to ${market.label}, about $miles miles away. Pick another ZIP or state any time."
+        }
+    }
+
+    /** Switch to another market the same fix found inside the radius. */
+    fun useNearbyMarket(option: LocalMarket, km: Double) {
+        farMarket = null
+        nearby = nearby.filterNot { (market, _) -> market.id == option.id }
+        state = option.state
+        city = option.city
+        zip = ""
+        source = LocalSelection.SOURCE_LOCATION
+        message = "Location set to ${option.label}, about ${(km * 0.621371).toInt()} miles away."
     }
 
     /**
@@ -338,6 +370,20 @@ internal fun LocalChannelsDialog(
                             TextButton(onClick = { useFarMarket() }) {
                                 Text("Use ${farMarket?.city} anyway")
                             }
+                        }
+                    }
+                }
+                // 1.1.19: a fix inside a published cluster (Dallas / Fort Worth /
+                // Garland) is inside several markets; the nearest is saved and the
+                // rest are one tap away, because the viewer may receive either.
+                // Hidden once the answer is edited by hand: the alternatives
+                // belong to the fix, not to a ZIP or a typed state.
+                if (nearby.isNotEmpty() && source == LocalSelection.SOURCE_LOCATION) {
+                    Spacer(Modifier.height(6.dp))
+                    Text("Also nearby:", style = MaterialTheme.typography.labelSmall)
+                    nearby.forEach { (option, km) ->
+                        TextButton(onClick = { useNearbyMarket(option, km) }) {
+                            Text("${option.label} · ${(km * 0.621371).toInt()} mi")
                         }
                     }
                 }

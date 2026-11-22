@@ -64,9 +64,10 @@ class LocalChannelsAskTests(unittest.TestCase):
         self.assertIn("fun marketsFor(selection: LocalSelection): List<LocalMarket>", data)
         dialog = text(UI / "LocalChannelsDialog.kt")
         # 1.1.18 carries the distance with the market, so that a fix far from
-        # every published market is offered instead of saved; the resolution is
-        # still a market lookup on the bundled document (see test_release_1118).
-        self.assertIn("known?.nearestMarketWithDistance(latitude, longitude)", dialog)
+        # every published market is offered instead of saved; 1.1.19 resolves
+        # the whole area (every market in reach, nearest first) through the
+        # same bundled document (see test_release_1118 and test_release_1119).
+        self.assertIn("known.nearbyMarketsWithDistance(latitude, longitude)", dialog)
 
     def test_the_mac_asks_once_and_names_the_market(self):
         app = text(MAC / "app.js")
