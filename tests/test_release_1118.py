@@ -87,10 +87,19 @@ class LinuxBuildTests(unittest.TestCase):
         workflow = text(".github/workflows/linux-build.yml")
         self.assertIn("name: Build PremiumTV Linux AppImage + DEB", workflow)
         self.assertIn("runs-on: ubuntu-24.04", workflow)
-        # Two invocations, and the .deb / tar.xz half runs first: a broken
-        # AppImage packer must not also cost the formats a viewer can install.
-        self.assertIn("npx electron-builder --linux deb tar.xz --x64 --arm64 -p never", workflow)
-        self.assertIn("npx electron-builder --linux AppImage --x64 --arm64 -p never", workflow)
+        # One invocation per format, so a broken AppImage packer cannot also
+        # cost the formats a viewer can install - and so the arch list on the
+        # command line cannot override the per-format arch list in the config.
+        self.assertIn('build() {', workflow)
+        self.assertIn("if ! build deb --x64 --arm64; then", workflow)
+        self.assertIn("if ! build tar.xz --x64; then", workflow)
+        self.assertIn("if ! build AppImage --x64 --arm64; then", workflow)
+        self.assertIn("-p never", workflow)
+        # electron-builder writes x86_64 / amd64 / x64 for the same architecture;
+        # the updater, this job's guard and the download page all use the
+        # canonical `-linux-x64` name, so the job has to produce it.
+        self.assertIn("Normalize the installer names", workflow)
+        self.assertIn('mv -f "$src" "PremiumTV-${LINUX_VERSION}-linux-x64.${ext}"', workflow)
         # squashfs-tools is not on the runner image, and its absence looks like a
         # config bug ("cannot execute mksquashfs").
         self.assertIn("squashfs-tools", workflow)

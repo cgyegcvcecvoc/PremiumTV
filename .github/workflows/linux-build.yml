@@ -176,20 +176,65 @@ jobs:
       - name: Build the .deb, the .tar.xz and the AppImage
         if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
+        # Three invocations, one per format, because the command line overrides
+        # the arch list in electron-builder.yml: `--linux deb tar.xz --x64
+        # --arm64` built an arm64 tarball nobody asked for, and one tooling
+        # problem in the AppImage packer must not also cost the formats a viewer
+        # can install. Every line is appended to the build log, which is the copy
+        # that reaches a branch (and a commit comment) when this fails.
         run: |
           set -o pipefail
           mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
           log="$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
           : > "$log"
           export USE_HARD_LINKS=false
-          if ! npx electron-builder --linux deb tar.xz --x64 --arm64 -p never 2>&1 | tee -a "$log"; then
-            echo "::error::the .deb / tar.xz build failed - see macos/build-out/build-log-linux.txt"
+          build() {
+            echo "--- electron-builder --linux $* ---"
+            npx electron-builder --linux "$@" -p never 2>&1 | tee -a "$log"
+            return "${PIPESTATUS[0]}"
+          }
+          if ! build deb --x64 --arm64; then
+            echo "::error::the .deb build failed - see macos/build-out/build-log-linux.txt"
             exit 1
           fi
-          if ! npx electron-builder --linux AppImage --x64 --arm64 -p never 2>&1 | tee -a "$log"; then
+          if ! build tar.xz --x64; then
+            echo "::error::the tar.xz build failed - see macos/build-out/build-log-linux.txt"
+            exit 1
+          fi
+          if ! build AppImage --x64 --arm64; then
             echo "::error::the AppImage build failed - see macos/build-out/build-log-linux.txt"
             exit 1
           fi
+
+      # One architecture, three spellings.
+      #
+      # electron-builder names an AppImage by the distro convention (x86_64), a
+      # .deb by Debian's (amd64) and a tarball by Node's (x64). The download
+      # page, this job's guard and the in-app updater all have to agree on one
+      # name per platform and architecture - the macOS assets already use
+      # `-mac-<arch>` - so the files are renamed before anything checksums or
+      # links to them. `update-policy.js` looks for exactly these names.
+      - name: Normalize the installer names
+        if: steps.release_config.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          cd macos/app/dist
+          for from in x86_64 amd64 arm64_86; do
+            for ext in AppImage deb tar.xz; do
+              src="PremiumTV-${LINUX_VERSION}-linux-${from}.${ext}"
+              if [ -f "$src" ]; then
+                mv -f "$src" "PremiumTV-${LINUX_VERSION}-linux-x64.${ext}"
+                echo "renamed $src -> PremiumTV-${LINUX_VERSION}-linux-x64.${ext}"
+              fi
+            done
+          done
+          ls -la
+          echo "--- expected five ---"
+          echo "PremiumTV-${LINUX_VERSION}-linux-x64.AppImage"
+          echo "PremiumTV-${LINUX_VERSION}-linux-arm64.AppImage"
+          echo "PremiumTV-${LINUX_VERSION}-linux-x64.deb"
+          echo "PremiumTV-${LINUX_VERSION}-linux-arm64.deb"
+          echo "PremiumTV-${LINUX_VERSION}-linux-x64.tar.xz"
 
       - name: Verify the packaged app contains channels and the renderer
         if: steps.release_config.outputs.skip != 'true'
