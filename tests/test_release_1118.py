@@ -87,7 +87,16 @@ class LinuxBuildTests(unittest.TestCase):
         workflow = text(".github/workflows/linux-build.yml")
         self.assertIn("name: Build PremiumTV Linux AppImage + DEB", workflow)
         self.assertIn("runs-on: ubuntu-24.04", workflow)
-        self.assertIn("npx electron-builder --linux --x64 --arm64 -p never", workflow)
+        # Two invocations, and the .deb / tar.xz half runs first: a broken
+        # AppImage packer must not also cost the formats a viewer can install.
+        self.assertIn("npx electron-builder --linux deb tar.xz --x64 --arm64 -p never", workflow)
+        self.assertIn("npx electron-builder --linux AppImage --x64 --arm64 -p never", workflow)
+        # squashfs-tools is not on the runner image, and its absence looks like a
+        # config bug ("cannot execute mksquashfs").
+        self.assertIn("squashfs-tools", workflow)
+        # The failure report is how a log got read at all from an environment
+        # that cannot reach the Actions log host.
+        self.assertIn("/comments\"", workflow)
         # -p never: no electron-updater metadata, because the app reads the
         # GitHub release list itself and a latest-linux.yml would promise a
         # channel that does not exist.
