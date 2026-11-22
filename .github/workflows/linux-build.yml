@@ -161,14 +161,35 @@ jobs:
       # metadata: PremiumTV's updater reads the GitHub release list directly
       # (scripts/../../src/main/updater.js), and a latest-linux.yml on the
       # release page would promise an update channel that does not exist.
-      - name: Build the AppImage, .deb and .tar.xz
+      # squashfs-tools packs an AppImage and is not on the runner image; without
+      # it the failure reads "cannot execute mksquashfs", which looks like a
+      # packaging bug in the config. deb and tar.xz need nothing extra.
+      - name: Install the AppImage packer
+        if: steps.release_config.outputs.skip != 'true'
+        run: |
+          sudo apt-get update -qq || true
+          sudo apt-get install -y -qq --no-install-recommends squashfs-tools || true
+          command -v mksquashfs >/dev/null || echo "::warning::mksquashfs is unavailable; the AppImage target may fail"
+
+      # Two invocations, .deb and tar.xz first: one tooling problem in the
+      # AppImage packer must not also cost the formats a viewer can install.
+      - name: Build the .deb, the .tar.xz and the AppImage
         if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
         run: |
           set -o pipefail
           mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
-          USE_HARD_LINKS=false npx electron-builder --linux --x64 --arm64 -p never 2>&1 \
-            | tee "$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+          log="$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+          : > "$log"
+          export USE_HARD_LINKS=false
+          if ! npx electron-builder --linux deb tar.xz --x64 --arm64 -p never 2>&1 | tee -a "$log"; then
+            echo "::error::the .deb / tar.xz build failed - see macos/build-out/build-log-linux.txt"
+            exit 1
+          fi
+          if ! npx electron-builder --linux AppImage --x64 --arm64 -p never 2>&1 | tee -a "$log"; then
+            echo "::error::the AppImage build failed - see macos/build-out/build-log-linux.txt"
+            exit 1
+          fi
 
       - name: Verify the packaged app contains channels and the renderer
         if: steps.release_config.outputs.skip != 'true'

@@ -42,6 +42,25 @@ test('electron-builder is configured for Linux installers', () => {
   assert.match(builder, /artifactName: PremiumTV-\$\{version\}-mac-\$\{arch\}\.\$\{ext\}/);
 });
 
+test('the packager carries the metadata a .deb control file requires', () => {
+  // The first real Linux build died in FpmTarget with "Please specify project
+  // homepage": electron-builder writes `Homepage:` into the Debian control file
+  // and refuses to invent one. package.json is where npm metadata lives, so
+  // that is where the fix belongs - and this is the check that keeps it there,
+  // because the failure only shows up when a Linux target is built.
+  const pkg = require('../package.json');
+  assert.equal(typeof pkg.homepage, 'string');
+  assert.match(pkg.homepage, /^https:\/\//);
+  assert.equal(typeof pkg.license, 'string');
+  assert.ok(pkg.author && pkg.author.email, 'the deb control file needs a maintainer address');
+  assert.ok(pkg.description && pkg.description.length > 10, 'deb needs a Description:');
+  const builder = fs.readFileSync(path.join(appRoot, 'electron-builder.yml'), 'utf8');
+  const linux = builder.slice(builder.indexOf('\nlinux:'));
+  assert.match(linux, /maintainer: .+<.+>/);
+  // A desktop entry with no Category: is rejected by desktop-file-validate.
+  assert.match(linux, /category: AudioVideo/);
+});
+
 test('the packager signs nothing on Linux and does not need codesign', () => {
   const hook = fs.readFileSync(path.join(appRoot, 'tools', 'after-pack.cjs'), 'utf8');
   assert.match(hook, /if \(process\.platform !== 'darwin'\) return;/);
