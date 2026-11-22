@@ -1,76 +1,76 @@
 # Playlists by category
 
 - **Source playlist:** [`playlists/PremiumTV.m3u`](../PremiumTV.m3u)
-- **Rebuilt:** 2026-11-22 16:17 UTC
+- **Rebuilt:** 2026-11-22 18:40 UTC
 - **Category order:** Sports -> Lifestyle -> Fox Channels -> CBS -> NBC -> NBC Sports Channels -> Cartoons -> PBS -> Game Shows (each followed by its own Backups group), then the rest by size.
 
 | # | Category | Channels | With guide data | Playlist |
 |---|---|---:|---:|---|
-| 1 | Sports | 570 | 219 | [`Sports.m3u`](Sports.m3u) |
+| 1 | Sports | 602 | 261 | [`Sports.m3u`](Sports.m3u) |
 | 2 | Sports Backups | 119 | 84 | [`Sports_Backups.m3u`](Sports_Backups.m3u) |
-| 3 | Lifestyle | 488 | 172 | [`Lifestyle.m3u`](Lifestyle.m3u) |
-| 4 | Lifestyle Backups | 129 | 86 | [`Lifestyle_Backups.m3u`](Lifestyle_Backups.m3u) |
+| 3 | Lifestyle | 487 | 173 | [`Lifestyle.m3u`](Lifestyle.m3u) |
+| 4 | Lifestyle Backups | 127 | 85 | [`Lifestyle_Backups.m3u`](Lifestyle_Backups.m3u) |
 | 5 | Fox Channels | 44 | 9 | [`Fox_Channels.m3u`](Fox_Channels.m3u) |
 | 6 | CBS | 45 | 19 | [`CBS.m3u`](CBS.m3u) |
 | 7 | CBS Backups | 14 | 14 | [`CBS_Backups.m3u`](CBS_Backups.m3u) |
-| 8 | NBC | 73 | 24 | [`NBC.m3u`](NBC.m3u) |
+| 8 | NBC | 74 | 24 | [`NBC.m3u`](NBC.m3u) |
 | 9 | NBC Backups | 12 | 11 | [`NBC_Backups.m3u`](NBC_Backups.m3u) |
-| 10 | NBC Sports Channels | 6 | 5 | [`NBC_Sports_Channels.m3u`](NBC_Sports_Channels.m3u) |
-| 11 | Cartoons | 178 | 42 | [`Cartoons.m3u`](Cartoons.m3u) |
+| 10 | NBC Sports Channels | 6 | 4 | [`NBC_Sports_Channels.m3u`](NBC_Sports_Channels.m3u) |
+| 11 | Cartoons | 179 | 42 | [`Cartoons.m3u`](Cartoons.m3u) |
 | 12 | Cartoons Backups | 47 | 19 | [`Cartoons_Backups.m3u`](Cartoons_Backups.m3u) |
 | 13 | PBS | 39 | 15 | [`PBS.m3u`](PBS.m3u) |
 | 14 | PBS Backups | 8 | 5 | [`PBS_Backups.m3u`](PBS_Backups.m3u) |
 | 15 | Game Shows | 16 | 13 | [`Game_Shows.m3u`](Game_Shows.m3u) |
 | 16 | Game Shows Backups | 19 | 19 | [`Game_Shows_Backups.m3u`](Game_Shows_Backups.m3u) |
-| 17 | International | 870 | 257 | [`International.m3u`](International.m3u) |
+| 17 | International | 849 | 253 | [`International.m3u`](International.m3u) |
 | 18 | International Backups | 129 | 57 | [`International_Backups.m3u`](International_Backups.m3u) |
-| 19 | Movies | 843 | 231 | [`Movies.m3u`](Movies.m3u) |
-| 20 | Movies Backups | 147 | 88 | [`Movies_Backups.m3u`](Movies_Backups.m3u) |
-| 21 | News | 830 | 247 | [`News.m3u`](News.m3u) |
+| 19 | Movies | 849 | 233 | [`Movies.m3u`](Movies.m3u) |
+| 20 | Movies Backups | 145 | 88 | [`Movies_Backups.m3u`](Movies_Backups.m3u) |
+| 21 | News | 828 | 246 | [`News.m3u`](News.m3u) |
 | 22 | News Backups | 205 | 136 | [`News_Backups.m3u`](News_Backups.m3u) |
-| 23 | Music | 829 | 177 | [`Music.m3u`](Music.m3u) |
+| 23 | Music | 825 | 177 | [`Music.m3u`](Music.m3u) |
 | 24 | Music Backups | 115 | 76 | [`Music_Backups.m3u`](Music_Backups.m3u) |
-| 25 | Europe | 715 | 116 | [`Europe.m3u`](Europe.m3u) |
+| 25 | Europe | 713 | 116 | [`Europe.m3u`](Europe.m3u) |
 | 26 | Europe Backups | 59 | 35 | [`Europe_Backups.m3u`](Europe_Backups.m3u) |
-| 27 | Entertainment | 681 | 175 | [`Entertainment.m3u`](Entertainment.m3u) |
+| 27 | Entertainment | 690 | 176 | [`Entertainment.m3u`](Entertainment.m3u) |
 | 28 | Entertainment Backups | 121 | 64 | [`Entertainment_Backups.m3u`](Entertainment_Backups.m3u) |
 | 29 | Religious | 605 | 66 | [`Religious.m3u`](Religious.m3u) |
 | 30 | Religious Backups | 44 | 12 | [`Religious_Backups.m3u`](Religious_Backups.m3u) |
-| 31 | Asia | 470 | 87 | [`Asia.m3u`](Asia.m3u) |
+| 31 | Asia | 465 | 87 | [`Asia.m3u`](Asia.m3u) |
 | 32 | Asia Backups | 22 | 1 | [`Asia_Backups.m3u`](Asia_Backups.m3u) |
-| 33 | South America | 455 | 14 | [`South_America.m3u`](South_America.m3u) |
+| 33 | South America | 457 | 13 | [`South_America.m3u`](South_America.m3u) |
 | 34 | South America Backups | 19 | 0 | [`South_America_Backups.m3u`](South_America_Backups.m3u) |
-| 35 | United States | 363 | 61 | [`United_States.m3u`](United_States.m3u) |
+| 35 | United States | 364 | 61 | [`United_States.m3u`](United_States.m3u) |
 | 36 | United States Backups | 54 | 26 | [`United_States_Backups.m3u`](United_States_Backups.m3u) |
-| 37 | Documentary | 328 | 116 | [`Documentary.m3u`](Documentary.m3u) |
+| 37 | Documentary | 327 | 115 | [`Documentary.m3u`](Documentary.m3u) |
 | 38 | Documentary Backups | 91 | 43 | [`Documentary_Backups.m3u`](Documentary_Backups.m3u) |
-| 39 | Kids | 301 | 97 | [`Kids.m3u`](Kids.m3u) |
-| 40 | Kids Backups | 84 | 43 | [`Kids_Backups.m3u`](Kids_Backups.m3u) |
-| 41 | Series | 294 | 86 | [`Series.m3u`](Series.m3u) |
+| 39 | Kids | 302 | 96 | [`Kids.m3u`](Kids.m3u) |
+| 40 | Kids Backups | 83 | 43 | [`Kids_Backups.m3u`](Kids_Backups.m3u) |
+| 41 | Series | 297 | 88 | [`Series.m3u`](Series.m3u) |
 | 42 | Series Backups | 150 | 108 | [`Series_Backups.m3u`](Series_Backups.m3u) |
 | 43 | North America | 276 | 10 | [`North_America.m3u`](North_America.m3u) |
 | 44 | North America Backups | 4 | 0 | [`North_America_Backups.m3u`](North_America_Backups.m3u) |
-| 45 | Education | 129 | 12 | [`Education.m3u`](Education.m3u) |
+| 45 | Education | 130 | 12 | [`Education.m3u`](Education.m3u) |
 | 46 | Education Backups | 14 | 1 | [`Education_Backups.m3u`](Education_Backups.m3u) |
-| 47 | Culture | 120 | 11 | [`Culture.m3u`](Culture.m3u) |
+| 47 | Culture | 121 | 11 | [`Culture.m3u`](Culture.m3u) |
 | 48 | Culture Backups | 7 | 3 | [`Culture_Backups.m3u`](Culture_Backups.m3u) |
 | 49 | Legislative | 109 | 10 | [`Legislative.m3u`](Legislative.m3u) |
 | 50 | Legislative Backups | 3 | 0 | [`Legislative_Backups.m3u`](Legislative_Backups.m3u) |
-| 51 | Comedy | 105 | 24 | [`Comedy.m3u`](Comedy.m3u) |
+| 51 | Comedy | 106 | 24 | [`Comedy.m3u`](Comedy.m3u) |
 | 52 | Comedy Backups | 33 | 19 | [`Comedy_Backups.m3u`](Comedy_Backups.m3u) |
 | 53 | A&E Networks | 102 | 45 | [`A_E_Networks.m3u`](A_E_Networks.m3u) |
-| 54 | A&E Networks Backups | 12 | 11 | [`A_E_Networks_Backups.m3u`](A_E_Networks_Backups.m3u) |
-| 55 | India | 75 | 25 | [`India.m3u`](India.m3u) |
+| 54 | A&E Networks Backups | 13 | 12 | [`A_E_Networks_Backups.m3u`](A_E_Networks_Backups.m3u) |
+| 55 | India | 73 | 25 | [`India.m3u`](India.m3u) |
 | 56 | India Backups | 9 | 5 | [`India_Backups.m3u`](India_Backups.m3u) |
 | 57 | Africa | 63 | 6 | [`Africa.m3u`](Africa.m3u) |
-| 58 | Canada | 55 | 25 | [`Canada.m3u`](Canada.m3u) |
-| 59 | Business | 48 | 16 | [`Business.m3u`](Business.m3u) |
-| 60 | Business Backups | 15 | 13 | [`Business_Backups.m3u`](Business_Backups.m3u) |
-| 61 | Classic TV | 47 | 12 | [`Classic_TV.m3u`](Classic_TV.m3u) |
+| 58 | Business | 48 | 16 | [`Business.m3u`](Business.m3u) |
+| 59 | Business Backups | 15 | 13 | [`Business_Backups.m3u`](Business_Backups.m3u) |
+| 60 | Canada | 48 | 21 | [`Canada.m3u`](Canada.m3u) |
+| 61 | Classic TV | 48 | 12 | [`Classic_TV.m3u`](Classic_TV.m3u) |
 | 62 | Classic TV Backups | 14 | 12 | [`Classic_TV_Backups.m3u`](Classic_TV_Backups.m3u) |
 | 63 | Family | 27 | 15 | [`Family.m3u`](Family.m3u) |
 | 64 | Family Backups | 5 | 4 | [`Family_Backups.m3u`](Family_Backups.m3u) |
-| 65 | UK | 23 | 10 | [`UK.m3u`](UK.m3u) |
+| 65 | UK | 21 | 9 | [`UK.m3u`](UK.m3u) |
 | 66 | Australia | 15 | 1 | [`Australia.m3u`](Australia.m3u) |
 | 67 | Aria Web Channels | 13 | 0 | [`Aria_Web_Channels.m3u`](Aria_Web_Channels.m3u) |
 | 68 | Weather | 12 | 4 | [`Weather.m3u`](Weather.m3u) |
@@ -78,8 +78,8 @@
 | 70 | Animals & Nature | 9 | 2 | [`Animals_Nature.m3u`](Animals_Nature.m3u) |
 | 71 | Animals & Nature Backups | 3 | 2 | [`Animals_Nature_Backups.m3u`](Animals_Nature_Backups.m3u) |
 | 72 | DLTV | 9 | 0 | [`DLTV.m3u`](DLTV.m3u) |
-| 73 | United Kingdom | 8 | 6 | [`United_Kingdom.m3u`](United_Kingdom.m3u) |
-| 74 | Tv Celebrities | 7 | 2 | [`Tv_Celebrities.m3u`](Tv_Celebrities.m3u) |
+| 73 | Tv Celebrities | 8 | 2 | [`Tv_Celebrities.m3u`](Tv_Celebrities.m3u) |
+| 74 | United Kingdom | 8 | 6 | [`United_Kingdom.m3u`](United_Kingdom.m3u) |
 | 75 | Online TV | 5 | 1 | [`Online_TV.m3u`](Online_TV.m3u) |
 | 76 | Online TV Backups | 8 | 7 | [`Online_TV_Backups.m3u`](Online_TV_Backups.m3u) |
 | 77 | Tv Paranormal | 5 | 1 | [`Tv_Paranormal.m3u`](Tv_Paranormal.m3u) |
