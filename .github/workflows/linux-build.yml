@@ -161,35 +161,136 @@ jobs:
       # metadata: PremiumTV's updater reads the GitHub release list directly
       # (scripts/../../src/main/updater.js), and a latest-linux.yml on the
       # release page would promise an update channel that does not exist.
-      - name: Build the AppImage, .deb and .tar.xz
+      # squashfs-tools packs an AppImage and is not on the runner image; without
+      # it the failure reads "cannot execute mksquashfs", which looks like a
+      # packaging bug in the config. deb and tar.xz need nothing extra.
+      - name: Install the AppImage packer
+        if: steps.release_config.outputs.skip != 'true'
+        run: |
+          sudo apt-get update -qq || true
+          sudo apt-get install -y -qq --no-install-recommends squashfs-tools || true
+          command -v mksquashfs >/dev/null || echo "::warning::mksquashfs is unavailable; the AppImage target may fail"
+
+      # Two invocations, .deb and tar.xz first: one tooling problem in the
+      # AppImage packer must not also cost the formats a viewer can install.
+      - name: Build the .deb, the .tar.xz and the AppImage
         if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
+        # Three invocations, one per format, because the command line overrides
+        # the arch list in electron-builder.yml: `--linux deb tar.xz --x64
+        # --arm64` built an arm64 tarball nobody asked for, and one tooling
+        # problem in the AppImage packer must not also cost the formats a viewer
+        # can install. Every line is appended to the build log, which is the copy
+        # that reaches a branch (and a commit comment) when this fails.
         run: |
           set -o pipefail
           mkdir -p "$GITHUB_WORKSPACE/macos/build-out"
-          USE_HARD_LINKS=false npx electron-builder --linux --x64 --arm64 -p never 2>&1 \
-            | tee "$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+          log="$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+          : > "$log"
+          export USE_HARD_LINKS=false
+          build() {
+            echo "--- electron-builder --linux $* ---"
+            npx electron-builder --linux "$@" -p never 2>&1 | tee -a "$log"
+            return "${PIPESTATUS[0]}"
+          }
+          if ! build deb --x64 --arm64; then
+            echo "::error::the .deb build failed - see macos/build-out/build-log-linux.txt"
+            exit 1
+          fi
+          if ! build tar.xz --x64; then
+            echo "::error::the tar.xz build failed - see macos/build-out/build-log-linux.txt"
+            exit 1
+          fi
+          if ! build AppImage --x64 --arm64; then
+            echo "::error::the AppImage build failed - see macos/build-out/build-log-linux.txt"
+            exit 1
+          fi
+
+      # One architecture, three spellings.
+      #
+      # electron-builder names an AppImage by the distro convention (x86_64), a
+      # .deb by Debian's (amd64) and a tarball by Node's (x64). The download
+      # page, this job's guard and the in-app updater all have to agree on one
+      # name per platform and architecture - the macOS assets already use
+      # `-mac-<arch>` - so the files are renamed before anything checksums or
+      # links to them. `update-policy.js` looks for exactly these names.
+      - name: Normalize the installer names
+        if: steps.release_config.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          cd macos/app/dist
+          for from in x86_64 amd64 arm64_86; do
+            for ext in AppImage deb tar.xz; do
+              src="PremiumTV-${LINUX_VERSION}-linux-${from}.${ext}"
+              if [ -f "$src" ]; then
+                mv -f "$src" "PremiumTV-${LINUX_VERSION}-linux-x64.${ext}"
+                echo "renamed $src -> PremiumTV-${LINUX_VERSION}-linux-x64.${ext}"
+              fi
+            done
+          done
+          ls -la
+          echo "--- expected five ---"
+          echo "PremiumTV-${LINUX_VERSION}-linux-x64.AppImage"
+          echo "PremiumTV-${LINUX_VERSION}-linux-arm64.AppImage"
+          echo "PremiumTV-${LINUX_VERSION}-linux-x64.deb"
+          echo "PremiumTV-${LINUX_VERSION}-linux-arm64.deb"
+          echo "PremiumTV-${LINUX_VERSION}-linux-x64.tar.xz"
 
       - name: Verify the packaged app contains channels and the renderer
         if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app
+        # Every check names its own file and the whole block is appended to the
+        # build log, because a bare `test -s` under `set -e` fails the step with
+        # no clue which artifact was missing - and the log is the one copy of the
+        # diagnosis that reaches a branch (and a commit comment) for someone who
+        # cannot open the Actions output.
         run: |
-          set -euo pipefail
-          test -s dist/linux-unpacked/resources/bundle/channels.jsonl
-          test -s dist/linux-unpacked/resources/bundle/meta.json
-          test -s dist/linux-unpacked/resources/app.asar
-          test -x dist/linux-unpacked/premiumtv
-          for file in \
-            "PremiumTV-${LINUX_VERSION}-linux-x64.AppImage" \
-            "PremiumTV-${LINUX_VERSION}-linux-arm64.AppImage" \
-            "PremiumTV-${LINUX_VERSION}-linux-x64.deb" \
-            "PremiumTV-${LINUX_VERSION}-linux-arm64.deb" \
-            "PremiumTV-${LINUX_VERSION}-linux-x64.tar.xz"; do
-            test -s "dist/$file" || { echo "::error::dist/$file was not produced"; exit 1; }
-          done
-          node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1]));
-            if (meta.channel_count < 1 || meta.version !== process.env.LINUX_VERSION) process.exit(1);' \
-            dist/linux-unpacked/resources/bundle/meta.json
+          set -uo pipefail
+          log="$GITHUB_WORKSPACE/macos/build-out/build-log-linux.txt"
+          {
+            echo "--- verify: dist/ ---"
+            ls -la dist || true
+            echo "--- verify: dist/linux-unpacked ---"
+            ls -la dist/linux-unpacked 2>/dev/null | head -40 || true
+            echo "--- verify: resources ---"
+            ls -la dist/linux-unpacked/resources 2>/dev/null | head -20 || true
+            status=0
+            for f in dist/linux-unpacked/resources/bundle/channels.jsonl \
+                     dist/linux-unpacked/resources/bundle/meta.json \
+                     dist/linux-unpacked/resources/app.asar; do
+              if [ -s "$f" ]; then echo "ok: $f"; else echo "MISSING: $f"; status=1; fi
+            done
+            if [ -x dist/linux-unpacked/premiumtv ]; then
+              echo "ok: executable dist/linux-unpacked/premiumtv"
+            else
+              echo "MISSING executable: dist/linux-unpacked/premiumtv"
+              status=1
+            fi
+            for file in \
+              "PremiumTV-${LINUX_VERSION}-linux-x64.AppImage" \
+              "PremiumTV-${LINUX_VERSION}-linux-arm64.AppImage" \
+              "PremiumTV-${LINUX_VERSION}-linux-x64.deb" \
+              "PremiumTV-${LINUX_VERSION}-linux-arm64.deb" \
+              "PremiumTV-${LINUX_VERSION}-linux-x64.tar.xz"; do
+              if [ -s "dist/$file" ]; then
+                echo "ok: $file ($(stat -c %s "dist/$file") bytes)"
+              else
+                echo "MISSING artifact: dist/$file"
+                status=1
+              fi
+            done
+            if node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1]));
+              if (meta.channel_count < 1) { console.log("bundle meta has no channels:", JSON.stringify(meta)); process.exit(1); }
+              if (meta.version !== process.env.LINUX_VERSION) { console.log("bundle meta version", meta.version, "!= build", process.env.LINUX_VERSION); process.exit(1); }
+              console.log("ok: bundle meta", meta.version, "with", meta.channel_count, "channels");' \
+              dist/linux-unpacked/resources/bundle/meta.json; then
+              :
+            else
+              status=1
+            fi
+            [ "$status" -eq 0 ] || echo "::error::the packaged Linux app is incomplete (see the lines above)"
+            exit "$status"
+          } 2>&1 | tee -a "$log"
 
       # The same gate the macOS build runs, on Linux: the app really starts,
       # finds its bundled channels and paints the renderer. --no-sandbox is
@@ -261,6 +362,29 @@ jobs:
             macos/app/dist/SHA256SUMS-linux.txt macos/app/dist/BUILD-SOURCE-linux.txt --clobber
           gh release view "$tag" --json assets --jq '"release now carries: " + ([.assets[].name] | join(", "))'
 
+      - name: Report the failure where it can be read
+        # The Actions log lives on a blob host that many sandboxes and mirrors
+        # cannot reach, and the annotations API only keeps "::error::" lines -
+        # so a failed electron-builder run leaves no trace an agent or a
+        # contributor can act on. Echo the tail as a commit comment too: it is
+        # plain API (`GET /repos/{repo}/commits/{sha}/comments`) and the CI job
+        # that failed is then self-describing.
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          log=macos/build-out/build-log-linux.txt
+          tail_text="no build log produced"
+          if [ -s "$log" ]; then
+            tail_text=$(tail -c 5000 "$log")
+          fi
+          body="PremiumTV Linux build failed on ${GITHUB_REF_NAME} (run ${GITHUB_RUN_ID})."
+          body="$body\n\n\`\`\`\n$(printf '%s' "$tail_text" | sed 's/\r//')\n\`\`\`"
+          gh api -X POST "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments" \
+            -f "body=$(printf '%b' "$body")" >/dev/null \
+            || echo "::warning::could not post the failure comment"
+
       - name: Publish build log to the branch
         if: always()
         run: |
@@ -278,7 +402,13 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f macos/build-out/build-log-linux.txt macos/build-out/smoke-linux.txt 2>/dev/null || true
+          # Each file on its own line: `git add -f a b` fails as a command, so a
+          # missing smoke log (the build died before the smoke test) used to
+          # discard the build log with it - which is exactly the case someone
+          # needs to read.
+          for f in macos/build-out/build-log-linux.txt macos/build-out/smoke-linux.txt; do
+            [ -f "$f" ] && git add -f "$f"
+          done
           if git diff --cached --quiet; then echo "Nothing new to publish."; exit 0; fi
           git commit -m "ci: publish linux build log (run ${{ github.run_number }}) [skip ci]"
           git pull --rebase --autostash -X theirs origin "$GITHUB_REF_NAME" || git rebase --abort || true
