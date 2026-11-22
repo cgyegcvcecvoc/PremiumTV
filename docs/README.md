@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.18** — the Linux desktop edition, and the release that makes the Mac and Android apps really ask for location access before they use it). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.19** — local channels by location, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,25 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.18
+## Current stable: 1.1.19
 
-1.1.18 is the platform release, and the answer to "you never ask me where I am" and "is there a Linux build?". Opening a channel used to re-parse every channel name in the library with six regular expressions on the UI thread — and the Channels tab ran the same two passes again while drawing its first frame. The desktop app now packages for Linux (AppImage, .deb and tar.xz for x86-64 and arm64), and its updater only offers the installer for the platform it is running on, so a Linux build is never sent a Mac disk image. On macOS the Local channels prompt finally works: the bundle carries the location usage string Chromium and Electron require before they will show the prompt at all, and a decline, a missing location service and an unanswered prompt now say which one happened. Android asks the runtime permission (coarse and fine together, so the approximate/precise sheet appears) and waits up to eight seconds for a real fix instead of reading only the cached last location, which is empty in the moment after a first grant. And a nearest market that is out of range is named with its distance and offered, never applied quietly. The notes are in [`release-notes-1.1.18.md`](../release-notes-1.1.18.md).
+1.1.19 is the location release: the local-channel answer now describes the
+viewer's whole area instead of the single nearest market. A fix reports every
+published market within reach, nearest first, each with its distance in miles;
+a metro that PremiumTV publishes as several markets a short drive apart (Dallas,
+Fort Worth and Garland; Newark, Paterson and New York City) offers the others as
+alternatives rather than silently saving the closest one, and a fix beyond the
+120 km radius is still offered with its distance, never applied. City entry
+matches the place rather than the spelling — "Wilkes Barre", "Wilkes-Barre",
+"Saint Paul" and "St. Paul" all resolve. Android, macOS, Linux and the web
+edition share the same rule. The Linux desktop edition (AppImage, .deb and
+tar.xz for x86-64 and arm64) ships in the same release, and its updater only
+offers the installer for the platform it is running on. The notes are in
+[`release-notes-1.1.19.md`](../release-notes-1.1.19.md).
 
-It installs in place over every earlier build: Android `101180000` is above
+It installs in place over every earlier build: Android `101190000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.18 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.19 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 

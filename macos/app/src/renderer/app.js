@@ -1603,11 +1603,11 @@
       askForLocalMarket({
         manualHint: 'Enter a ZIP code, a state or a city instead.',
         setStatus: (message) => { localMessage = message; renderSettings(); },
-        onMarket: (market) => {
+        onMarket: (market, nearby) => {
           localSelection = local.save(window.localStorage, {
             country: 'US', state: market.state, city: market.city, source: 'location',
           });
-          localMessage = '';
+          localMessage = nearbyMarketsMessage(nearby);
           renderCategories();
           renderChannels();
           renderSettings();
@@ -3252,6 +3252,22 @@
     return 'The location request did not come back.';
   }
 
+  /**
+   * The "also nearby" sentence (1.1.19).
+   *
+   * A fix inside a published cluster - Dallas, Fort Worth and Garland are
+   * three entries a short drive apart - is inside several markets at once. The
+   * nearest is saved; the rest are named here, because the Settings city list
+   * switches between them in one tap and the viewer may receive either.
+   */
+  function nearbyMarketsMessage(nearby) {
+    if (!nearby || !nearby.length) return '';
+    const names = nearby
+      .map((hit) => `${hit.market.city}, ${hit.market.state}`)
+      .join(', ');
+    return ` Also nearby: ${names} — pick one in the city list if that is the area you receive.`;
+  }
+
   function askForLocalMarket({ manualHint, setStatus, onMarket }) {
     if (!local) return;
     if (!navigator.geolocation) {
@@ -3260,7 +3276,14 @@
     }
     setStatus('Asking for your approximate location…');
     navigator.geolocation.getCurrentPosition((position) => {
-      const hit = local.nearestMarketWithDistance(
+      // 1.1.19: the area is every market inside the radius, nearest first.
+      // Empty means nothing is published near the fix, and the nearest one is
+      // then offered as the far market below - the same two sentences Android
+      // and the web edition use.
+      const area = local.nearbyMarketsWithDistance(
+        position.coords.latitude, position.coords.longitude, localDirectory(),
+      );
+      const hit = area[0] || local.nearestMarketWithDistance(
         position.coords.latitude, position.coords.longitude, localDirectory(),
       );
       locationBlocked = false;
@@ -3282,7 +3305,7 @@
           + `${manualHint}`);
         return;
       }
-      onMarket(hit.market);
+      onMarket(hit.market, area.slice(1));
     }, async (error) => {
       locationBlocked = true;
       setStatus(`${await describeLocationFailure(error)} ${manualHint}`);
@@ -3321,11 +3344,12 @@
           if (locationBlocked) showSettings();
           renderSettings();
         },
-        onMarket: (market) => {
+        onMarket: (market, nearby) => {
           localSelection = local.save(window.localStorage, {
             country: 'US', state: market.state, city: market.city, source: 'location',
           });
-          finish();
+          finish(`Location set to ${market.city}, ${market.state}.`
+            + nearbyMarketsMessage(nearby));
           renderCategories();
           renderSettings();
           selectCategory(LOCAL_CATEGORY);

@@ -83,6 +83,31 @@ test("a location fix picks the nearest published market, never a far one", () =>
   assert.equal(local.nearestMarket(0, 0, directory, "ZZ"), null);
 });
 
+test("a fix inside a metro cluster reports every market in reach, nearest first", () => {
+  // Lancaster and Philadelphia are both published and ~85 km apart, so a fix
+  // in Lancaster is inside two markets at once; the nearest is saved and the
+  // other is offered.
+  const area = local.nearbyMarketsWithDistance(40.0379, -76.3055, directory);
+  assert.equal(area[0].market.city, "Lancaster");
+  assert.ok(area.length >= 2, "Philadelphia is in reach too");
+  assert.ok(area[0].distanceKm <= area[1].distanceKm);
+  assert.deepEqual(local.nearbyMarketsWithDistance(0, 0, directory), []);
+  assert.ok(
+    local.nearbyMarketsWithDistance(0, 0, directory, null, 20000).length > 1,
+  );
+});
+
+test("a typed city matches the place, not the spelling", () => {
+  const matches = (city) =>
+    [...local.marketsFor(directory, { state: "MN", city })].map(
+      (market) => market.city,
+    );
+  assert.deepEqual(matches("St. Paul"), ["Saint Paul"]);
+  assert.deepEqual(matches("saint paul"), ["Saint Paul"]);
+  assert.equal(local.normalizePlace("Wilkes-Barre"), local.normalizePlace("Wilkes Barre"));
+  assert.equal(local.normalizePlace("München"), "munchen");
+});
+
 test("the fallback chain ends in a plain sentence for an unpublishable answer", () => {
   // No answer yet is the default `country: US` selection, so the first thing
   // the viewer sees is what the whole shelf holds, not an error.

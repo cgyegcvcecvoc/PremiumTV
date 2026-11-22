@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import org.json.JSONObject
+import java.text.Normalizer
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.coroutines.resume
@@ -229,6 +230,40 @@ class LocalDirectory internal constructor(val document: JSONObject) {
     }
 
     /**
+     * Every published market within [maxKm] of a fix, nearest first, each with
+     * its distance in kilometres (1.1.19).
+     *
+     * "Your area" is rarely one market. The published list splits several
+     * metros into entries a short drive apart - Dallas, Fort Worth and Garland;
+     * Newark, Paterson and New York City; Oakland, San Francisco and San Jose -
+     * so a fix inside one of those clusters is inside several markets at once.
+     * The nearest is the answer the apps save; the rest are handed to the dialog
+     * as alternatives, because a viewer on the far side of the cluster receives
+     * the other market's stations. Empty means nothing is published within the
+     * radius, which is a different sentence than "the nearest is 150 km away".
+     */
+    fun nearbyMarketsWithDistance(
+        latitude: Double,
+        longitude: Double,
+        state: String? = null,
+        maxKm: Double = LOCAL_MARKET_NEAR_KM,
+    ): List<Pair<LocalMarket, Double>> {
+        val wanted = state?.uppercase().orEmpty()
+        return markets
+            .filter { market ->
+                !market.latitude.isNaN() && !market.longitude.isNaN() &&
+                    (wanted.isBlank() || market.state == wanted)
+            }
+            .map { market -> market to distanceKm(latitude, longitude, market.latitude, market.longitude) }
+            .filter { (_, km) -> km <= maxKm }
+            .sortedBy { (_, km) -> km }
+    }
+
+    /** The state a fix falls in, for the "nothing published near you" sentence. */
+    fun stateForLocation(latitude: Double, longitude: Double): String? =
+        nearestMarket(latitude, longitude)?.state
+
+    /**
      * The markets a selection points at.
      *
      * Resolving a ZIP resolves a *market* when the prefix has one; a state
@@ -240,10 +275,10 @@ class LocalDirectory internal constructor(val document: JSONObject) {
         val wantedState = selection.state.ifBlank { stateForZip(selection.zip).orEmpty() }.uppercase()
         val zipMarket = selection.zip.takeIf { it.isNotBlank() }?.let { marketForZip(it) }
         if (zipMarket != null && selection.city.isBlank()) return listOf(zipMarket)
-        val wantedCity = selection.city.trim().lowercase()
+        val wantedCity = normalizePlace(selection.city)
         return markets.filter { market ->
             (wantedState.isBlank() || market.state == wantedState) &&
-                (wantedCity.isBlank() || market.city.lowercase() == wantedCity) &&
+                (wantedCity.isBlank() || normalizePlace(market.city) == wantedCity) &&
                 (zipMarket == null || market.id == zipMarket.id || wantedCity.isNotBlank())
         }.ifEmpty {
             if (wantedCity.isBlank() && zipMarket != null) listOf(zipMarket) else emptyList()
@@ -350,6 +385,24 @@ const val LOCAL_MARKET_NEAR_KM = 120.0
 /** True when a published market is close enough to a fix to be called local. */
 fun marketIsNear(distanceKm: Double): Boolean =
     distanceKm.isFinite() && distanceKm <= LOCAL_MARKET_NEAR_KM
+
+/**
+ * The one spelling a place is matched by (1.1.19).
+ *
+ * A viewer types the city they know - "Wilkes Barre", "Wilkes-Barre",
+ * "Saint Paul", "St. Paul" - and the directory holds exactly one of those
+ * spellings. Folding accents, punctuation and repeated spaces to a single
+ * canonical form, and reading "Saint" as "St", makes the city field match the
+ * place instead of the typist. Pure text, so it is unit-testable on the JVM.
+ */
+fun normalizePlace(name: String): String {
+    val folded = Normalizer.normalize(name.trim(), Normalizer.Form.NFD)
+        .replace(Regex("\\p{Mn}+"), "")
+        .lowercase()
+        .replace(Regex("[^a-z0-9]+"), " ")
+        .trim()
+    return folded.replace(Regex("^saint\\s+"), "st ")
+}
 
 /** The permission "Use my location" needs; either precision is enough. */
 fun Context.hasLocationPermission(): Boolean =

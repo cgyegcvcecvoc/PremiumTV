@@ -125,6 +125,26 @@ window.PremiumLocalChannels = (function () {
     return 2 * radius * Math.asin(Math.min(1, Math.sqrt(a)));
   }
 
+  /**
+   * The one spelling a place is matched by (1.1.19).
+   *
+   * The viewer types the city they know - "Wilkes Barre", "Wilkes-Barre",
+   * "Saint Paul", "St. Paul" - and the directory holds one of those spellings.
+   * Folding accents, punctuation and repeated spaces to one canonical form, and
+   * reading "Saint" as "St", makes the city field match the place instead of
+   * the typist. Mirrors `normalizePlace` in the Android data layer.
+   */
+  function normalizePlace(name) {
+    return String(name || '')
+      .trim()
+      .normalize('NFD')
+      .replace(/\p{Mn}+/gu, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim()
+      .replace(/^saint\s+/, 'st ');
+  }
+
   /** The published market nearest to a coarse fix, optionally inside a state. */
   /**
    * How far a location fix may be from a published market and still be called
@@ -168,6 +188,37 @@ window.PremiumLocalChannels = (function () {
     return Number.isFinite(distanceKm) && distanceKm <= NEAREST_MARKET_MAX_KM;
   }
 
+  /**
+   * Every published market within `maxKm` of a fix, nearest first, each with
+   * its distance (1.1.19).
+   *
+   * "Your area" is rarely one market: the directory splits several metros into
+   * entries a short drive apart (Dallas, Fort Worth and Garland; Newark,
+   * Paterson and New York City), so a fix inside one of those clusters is
+   * inside several markets at once. The nearest is the answer the apps save and
+   * the rest are offered as alternatives. Empty means nothing is published
+   * within the radius - a different sentence than "the nearest is far away".
+   * Mirrors `nearbyMarketsWithDistance` in the Android data layer.
+   */
+  function nearbyMarketsWithDistance(latitude, longitude, directory, state, maxKm) {
+    const limit = maxKm === undefined ? NEAREST_MARKET_MAX_KM : maxKm;
+    const wanted = String(state || '').toUpperCase();
+    return markets(directory)
+      .filter((market) => {
+        const lat = Number(market.latitude);
+        const lon = Number(market.longitude);
+        if (!Number.isFinite(lat) || !Number.isFinite(lon)) return false;
+        if (wanted && String(market.state || '').toUpperCase() !== wanted) return false;
+        return true;
+      })
+      .map((market) => ({
+        market,
+        distanceKm: distanceKm(latitude, longitude, Number(market.latitude), Number(market.longitude)),
+      }))
+      .filter((hit) => hit.distanceKm <= limit)
+      .sort((a, b) => a.distanceKm - b.distanceKm);
+  }
+
   /** The state a coarse fix falls in, for the "no station near you" case. */
   function stateForLocation(latitude, longitude, directory) {
     const market = nearestMarket(latitude, longitude, directory);
@@ -204,10 +255,10 @@ window.PremiumLocalChannels = (function () {
     const zipMarket = value.zip ? marketForZip(value.zip, directory) : null;
     if (zipMarket && !value.city) return [zipMarket];
     const wantedState = (value.state || stateForZip(value.zip, directory)).toUpperCase();
-    const wantedCity = value.city.toLowerCase();
+    const wantedCity = normalizePlace(value.city);
     const out = markets(directory).filter((market) => {
       const marketState = String(market.state || '').toUpperCase();
-      const marketCity = String(market.city || '').toLowerCase();
+      const marketCity = normalizePlace(market.city);
       if (wantedState && marketState !== wantedState) return false;
       if (wantedCity && marketCity !== wantedCity) return false;
       if (zipMarket && !wantedCity) return market.id === zipMarket.id;
@@ -285,6 +336,7 @@ window.PremiumLocalChannels = (function () {
     SELECTION_KEY, ASKED_KEY, EMPTY,
     normalizeSelection, hasSelection, label, load, save, asked, markAsked,
     stateForZip, stateForLocation, nearestMarket, nearestMarketWithDistance,
+    nearbyMarketsWithDistance, normalizePlace,
     marketIsNear, NEAREST_MARKET_MAX_KM, marketForZip,
     marketsFor, stationsFor, channelsFor, summary, cityChoices,
   };
