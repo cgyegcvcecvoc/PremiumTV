@@ -130,6 +130,34 @@ test("Movies & shows renders the shelf and opens a title in an HTML embed", asyn
   expect(errors).toEqual([]);
 });
 
+test("pasted VOD markup is reduced to a clean HTTPS iframe", async ({ page }) => {
+  await page.route("**/data/vod.json*", async (route) => {
+    const response = await route.fetch();
+    const catalog = await response.json();
+    const item = catalog.items.find((entry) => entry.slug === "night-of-the-living-dead");
+    if (!item) throw new Error("The published VOD fixture is missing");
+    item.embed = "";
+    item.embed_html = "";
+    item.embeds = [{
+      provider: "Test provider",
+      kind: "html",
+      html: '<div><iframe src="https://example.com/embed/safe" onload="window.__pwned = 1" srcdoc="&lt;script&gt;window.__pwned=2&lt;/script&gt;"></iframe></div><script>window.__pwned = 3;</script>',
+    }];
+    await route.fulfill({ response, body: JSON.stringify(catalog) });
+  });
+
+  await page.goto("/");
+  await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
+  await page.locator("#movie-search").fill("Night of the Living Dead");
+  await page.locator(".movie-poster").first().click();
+  const frame = page.locator("#player-embed iframe");
+  await expect(frame).toHaveAttribute("src", "https://example.com/embed/safe");
+  await expect(frame).not.toHaveAttribute("onload", /.+/);
+  await expect(frame).not.toHaveAttribute("srcdoc", /.+/);
+  await expect(page.locator("#player-embed script, #player-embed div")).toHaveCount(0);
+  expect(await page.evaluate(() => window.__pwned)).toBeUndefined();
+});
+
 test("settings diagnostics, sleep timer, touch layout and install help", async ({
   page,
 }) => {

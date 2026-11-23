@@ -15,7 +15,8 @@ the README release table, the two app READMEs, docs/UPDATES.md, the update
 notice, the release notes file, both build workflows and the published
 download pages (docs/README.md, docs/blocked/index.html, hub/static/index.html).
 When one of them disagrees the check names the file and the expected value, and
-CI fails.
+CI fails. README prose that labels an older version as the current stable is
+checked as well as its release table.
 
     python scripts/version_sync.py            # check (CI uses this)
     python scripts/version_sync.py --write    # update the generated surfaces
@@ -127,6 +128,20 @@ def _require_text(problems: list[str], path: Path, needles: list[str], label: st
             )
 
 
+def stable_release_claim_problems(text: str, expected: str) -> list[str]:
+    """Catch stale README prose that labels an older version as the stable one."""
+    claims = re.findall(
+        r"\b(\d+\.\d+\.\d+(?:\.\d+)?)\s+is\s+(?:the\s+)?(?:current\s+)?stable release\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+    return [
+        f"README.md: stable-release prose says {version}, expected {expected}"
+        for version in dict.fromkeys(claims)
+        if version != expected
+    ]
+
+
 def check() -> list[str]:
     """Every surface that must agree with VERSION.  An empty list means clean."""
     problems: list[str] = []
@@ -223,11 +238,13 @@ def check() -> list[str]:
     published_code = release_version.android_version_code(published)
     site = SITE_VERSION
     site_code = release_version.android_version_code(site)
+    readme_path = ROOT / "README.md"
     _require_text(
-        problems, ROOT / "README.md",
+        problems, readme_path,
         [f"**Stable release** | **{published}**", f"versionCode {published_code}"],
         "README release table",
     )
+    problems.extend(stable_release_claim_problems(_read(readme_path), published))
     _require_text(
         problems, ROOT / "android" / "README.md",
         [f"**{version}**", f"`{code}`"],

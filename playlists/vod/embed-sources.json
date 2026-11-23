@@ -13,9 +13,10 @@
     "  html       a verbatim embed snippet, for kind \"html\"",
     "  primary    optional; true puts this embed first, ahead of Internet Archive",
     "",
-    "The build reads this file on every run and validates each entry: a url must",
-    "be http(s) and a kind must be iframe or html. Anything unusable is skipped",
-    "with a warning and the rest of the catalogue is unaffected.",
+    "The build reads this file on every run and validates each entry: iframe URLs",
+    "and the single iframe src in an HTML snippet must be absolute HTTPS URLs.",
+    "Unusable entries are skipped with a warning; the rest of the catalogue is",
+    "unaffected. HTML snippets are reduced to a fresh iframe with only that src.",
     "",
     "Leave \"extra\" empty to publish only the curated Internet Archive embeds."
   ],

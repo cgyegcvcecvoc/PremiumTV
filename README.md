@@ -85,12 +85,12 @@ the same data scope and version policy:
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
 | Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.19 ends Dec 21, 2026 |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.13 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.19 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.13 over the preview (`101130000` > `100010001`) and
+newer. Android accepts 1.1.19 over the preview (`101190000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
 
@@ -304,15 +304,15 @@ still receives a real crash but the next bug report has something to go on. A
 published `http-origin` is normalised to the scheme+host+port tuple a CDN
 expects, matching the Mac app.
 
-**1.1.13 is the current stable release** (`versionCode 101130000`, USA scope).
+**1.1.19 is the current stable release** (`versionCode 101190000`, USA scope).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.1.13 installs over 1.0.8, 1.0.8.1
+upgrades from Settings → App updates, and 1.1.19 installs over 1.0.8, 1.0.8.1
 and the retired 1.1.x previews as well. (One exception: an installed 1.0.8.1
 still reads "1.0.9" as another name for itself, so its in-app check can miss
-this release — install the APK by hand; it upgrades in place.) A release is offered only when it is a
-published full release above the installed version with its platform installer
-already attached. The download site promotes only a complete published stable
-release and no longer publishes preview builds.
+this release — install the APK by hand; it upgrades in place.) A release is
+offered only when it is a published full release above the installed version
+with its platform installer already attached. The download site promotes only
+a complete published stable release and no longer publishes preview builds.
 
 **Builds below 1.0.8 V1 have an end-of-support date.** 1.0.5/1.0.6 show the
 popup directly and can finish the upgrade from Settings. 1.0.4 has the update
@@ -994,6 +994,19 @@ python -m unittest discover -s tests -v            # offline integration tests
 ```
 
 Inspect `playlists/STATUS.md` and `playlists/report.json` after a run. `--no-check` leaves `PremiumTV.m3u` untouched, and the workflow has a second restore safeguard before committing.
+
+### Cross-platform checks
+
+The command above runs the Python pipeline tests. To check the player and app
+surfaces too:
+
+```bash
+node --test relay/test/relay.test.js              # stdlib only
+(cd web && npm ci && npm run check)               # player unit tests + production build
+(cd web && npx playwright install chromium && npm run test:browser) # browser tests
+(cd macos/app && npm ci && npm test)              # Electron logic tests
+(cd android && ./gradlew testDebugUnitTest)         # requires Android SDK
+```
 
 ## Disclaimer
 

@@ -27,6 +27,20 @@ class SingleSourceTests(unittest.TestCase):
     def test_every_surface_agrees_with_the_version_file(self):
         self.assertEqual([], version_sync.check())
 
+    def test_stale_current_stable_claims_in_readme_are_reported(self):
+        problems = version_sync.stable_release_claim_problems(
+            "1.1.13 is the stable release; 1.1.13 is the current stable release.",
+            "1.1.19",
+        )
+        self.assertEqual(len(problems), 1)
+        self.assertIn("1.1.13", problems[0])
+        self.assertEqual(
+            version_sync.stable_release_claim_problems(
+                "1.1.19 is the current stable release.", "1.1.19"
+            ),
+            [],
+        )
+
     def test_publication_rejects_an_unannounced_app_target(self):
         if release_version.current_version() == version_sync.PUBLISHED_VERSION:
             self.skipTest("target is already the published version")

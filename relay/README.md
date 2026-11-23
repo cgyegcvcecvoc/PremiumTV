@@ -5,9 +5,9 @@ streams playable in a browser — without turning into an open proxy.
 
 - **Status:** opt-in. The shipped `relay/relay.json` is `enabled: false`, so
   GitHub Pages and the default web build behave exactly as before.
-- **Code:** `relay/relay.js` (~600 lines, Node 20+, no dependencies).
-- **Tests:** `node --test relay/test/relay.test.js` (16 tests, including an
-  end-to-end run against a real HTTP server).
+- **Code:** `relay/relay.js` (Node 20+, no dependencies).
+- **Tests:** `node --test relay/test/relay.test.js` (27 tests, including DNS
+  rebinding checks and an end-to-end run against a real HTTP server).
 
 ## Why it exists
 
@@ -34,12 +34,13 @@ deliberately narrow:
 2. **Per-session child allowlist.** Variant playlists, segments, `#EXT-X-KEY`
    keys and `#EXT-X-MAP` init sections are added only when they appear inside a
    playlist the relay has already served for that session.
-3. **Literal address restrictions, not complete SSRF protection.** Private and
-   loopback IPv4 literals, localhost and raw IPv6 literals are rejected for
-   both parent and child URLs; redirects are not followed. DNS names can still
-   resolve or rebind to private addresses. **Do not expose this relay without an
-   outbound firewall blocking private, loopback, link-local, and metadata
-   networks** (including IPv6). Redirect-dependent feeds will not work.
+3. **Public-address enforcement.** Private, loopback, link-local, shared,
+   reserved and documentation addresses are rejected. Every DNS A/AAAA answer
+   must be globally routable, and the accepted answers are pinned into the
+   actual socket lookup so rebinding cannot swap the destination between check
+   and connect. Redirects are never followed. Keep an outbound firewall blocking
+   private, loopback, link-local and metadata networks (including IPv6) as
+   defense in depth. Redirect-dependent feeds will not work.
 4. **No credentials.** No cookies, no auth headers, no client IP forwarding.
 5. **Bounded.** 4 MB playlist cap, 12 s playlist deadline and 20 s connection
    deadline for media, 6 parallel requests per session, 512 sessions, 12 h TTL.

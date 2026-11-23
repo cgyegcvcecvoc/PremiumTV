@@ -33,8 +33,9 @@
  *   4. Honest headers. `Referer`/`Origin` are sent only when the playlist
  *      publishes them, and `Origin` is normalised to the scheme+host+port tuple
  *      a CDN expects.
- *   5. No credentials, no cookies, and redirects are not followed. DNS can still
- *      resolve to private networks: an outbound firewall is required.
+ *   5. No credentials, no cookies, and redirects are not followed. Every DNS
+ *      answer is checked and pinned to the socket; an outbound firewall is still
+ *      recommended as defense in depth.
  *
  * ## Self-hosting
  *
@@ -48,7 +49,11 @@
  */
 
 const crypto = require('node:crypto');
+const dns = require('node:dns');
 const http = require('node:http');
+const https = require('node:https');
+const net = require('node:net');
+const zlib = require('node:zlib');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Readable } = require('node:stream');
@@ -151,7 +156,190 @@ function headersFor(entry) {
   return headers;
 }
 
-/** Reject anything that is not a public http(s) URL. */
+// Block special-use ranges rather than trying to maintain a short list of
+// familiar private networks. In particular, shared, documentation, benchmark,
+// multicast and reserved IPv4 space is not a valid relay destination either.
+const NON_PUBLIC_IPV4 = new net.BlockList();
+for (const [address, prefix] of [
+  ['0.0.0.0', 8],
+  ['10.0.0.0', 8],
+  ['100.64.0.0', 10],
+  ['127.0.0.0', 8],
+  ['169.254.0.0', 16],
+  ['172.16.0.0', 12],
+  ['192.0.0.0', 24],
+  ['192.0.2.0', 24],
+  ['192.88.99.0', 24],
+  ['192.168.0.0', 16],
+  ['198.18.0.0', 15],
+  ['198.51.100.0', 24],
+  ['203.0.113.0', 24],
+  ['224.0.0.0', 4],
+  ['240.0.0.0', 4],
+]) NON_PUBLIC_IPV4.addSubnet(address, prefix, 'ipv4');
+
+// IPv6 is public only in 2000::/3. Remove protocol-assignment, transition,
+// documentation and newer documentation ranges from that global-unicast block.
+const GLOBAL_IPV6 = new net.BlockList();
+GLOBAL_IPV6.addSubnet('2000::', 3, 'ipv6');
+const NON_PUBLIC_IPV6 = new net.BlockList();
+for (const [address, prefix] of [
+  ['2001::', 23],
+  ['2001:db8::', 32],
+  ['2002::', 16],
+  ['3fff::', 20],
+]) NON_PUBLIC_IPV6.addSubnet(address, prefix, 'ipv6');
+
+/** True only for globally routable IPv4 or IPv6 unicast addresses. */
+function isPublicAddress(address) {
+  const family = net.isIP(String(address || ''));
+  if (family === 4) return !NON_PUBLIC_IPV4.check(address, 'ipv4');
+  if (family === 6) {
+    return GLOBAL_IPV6.check(address, 'ipv6') && !NON_PUBLIC_IPV6.check(address, 'ipv6');
+  }
+  return false;
+}
+
+/**
+ * Resolve a hostname once, reject the whole answer set if any address is
+ * non-public, then make Node's socket use only those vetted addresses. Pinning
+ * the lookup result prevents a DNS change between validation and connect.
+ */
+function resolvePublicAddresses(hostname, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal && signal.aborted) {
+      reject(signal.reason || new Error('request aborted'));
+      return;
+    }
+
+    let settled = false;
+    const finish = (error, addresses) => {
+      if (settled) return;
+      settled = true;
+      if (signal) signal.removeEventListener('abort', onAbort);
+      if (error) {
+        reject(error);
+        return;
+      }
+      if (!Array.isArray(addresses) || addresses.length === 0) {
+        reject(new Error('upstream hostname returned no addresses'));
+        return;
+      }
+      const records = addresses.map(({ address, family }) => ({ address, family }));
+      if (records.some(({ address, family }) => net.isIP(address) !== family || !isPublicAddress(address))) {
+        reject(new Error('upstream hostname resolved to a non-public address'));
+        return;
+      }
+      resolve(records);
+    };
+    const onAbort = () => finish(signal.reason || new Error('request aborted'));
+    if (signal) signal.addEventListener('abort', onAbort, { once: true });
+    try {
+      dns.lookup(hostname, { all: true, verbatim: true }, finish);
+    } catch (error) {
+      finish(error);
+    }
+  });
+}
+
+/**
+ * Return the lookup callback that pins a socket to validated DNS answers.
+ * Node may request one family or all families; every returned address has
+ * already passed the public-address check.
+ */
+function pinnedLookup(addresses, expectedHostname = '') {
+  return (hostname, options, callback) => {
+    if (typeof options === 'function') {
+      callback = options;
+      options = {};
+    }
+    if (expectedHostname && hostname.toLowerCase() !== expectedHostname.toLowerCase()) {
+      callback(new Error('socket requested an unvalidated hostname'));
+      return;
+    }
+    const family = options && options.family;
+    const candidates = addresses.filter((record) => !family || record.family === family);
+    if (candidates.length === 0) {
+      callback(new Error('no vetted address for the requested family'));
+      return;
+    }
+    if (options && options.all) {
+      callback(null, candidates.map(({ address, family: recordFamily }) => ({
+        address,
+        family: recordFamily,
+      })));
+      return;
+    }
+    callback(null, candidates[0].address, candidates[0].family);
+  };
+}
+
+/**
+ * A fetch-compatible HTTP client for relay upstreams. Unlike global fetch, this
+ * resolves and pins DNS before connecting; it deliberately never follows
+ * redirects. The relay uses Node 20+, whose built-in Response and Web Streams
+ * let the rest of the streaming path remain unchanged.
+ */
+async function fetchPinned(url, init = {}) {
+  if (!isRelayable(url)) throw new Error('upstream URL is not relayable');
+  const parsed = new URL(url);
+  const addresses = await resolvePublicAddresses(parsed.hostname, init.signal);
+  if (init.signal && init.signal.aborted) {
+    throw init.signal.reason || new Error('request aborted');
+  }
+
+  const transport = parsed.protocol === 'https:' ? https : http;
+  const headers = init.headers instanceof Headers
+    ? Object.fromEntries(init.headers.entries())
+    : { ...(init.headers || {}) };
+  // Match fetch's common compression negotiation; responses are decoded below
+  // so media bytes and playlists retain the old fetch-compatible behavior.
+  headers['Accept-Encoding'] = 'gzip, deflate, br';
+  const lookup = pinnedLookup(addresses, parsed.hostname);
+
+  return new Promise((resolve, reject) => {
+    let request;
+    try {
+      request = transport.request(parsed, {
+        method: init.method || 'GET',
+        headers,
+        signal: init.signal,
+        lookup,
+      });
+    } catch (error) {
+      reject(error);
+      return;
+    }
+    request.once('error', reject);
+    request.once('response', (incoming) => {
+      try {
+        const status = incoming.statusCode || 502;
+        const responseHeaders = { ...incoming.headers };
+        const encoding = String(responseHeaders['content-encoding'] || '').toLowerCase().trim();
+        let stream = incoming;
+        if (encoding === 'gzip') stream = incoming.pipe(zlib.createGunzip());
+        else if (encoding === 'deflate') stream = incoming.pipe(zlib.createInflate());
+        else if (encoding === 'br') stream = incoming.pipe(zlib.createBrotliDecompress());
+        if (stream !== incoming) {
+          delete responseHeaders['content-encoding'];
+          delete responseHeaders['content-length'];
+        }
+        const body = [204, 205, 304].includes(status) ? null : Readable.toWeb(stream);
+        resolve(new Response(body, {
+          status,
+          statusText: incoming.statusMessage,
+          headers: responseHeaders,
+        }));
+      } catch (error) {
+        incoming.destroy(error);
+        reject(error);
+      }
+    });
+    request.end();
+  });
+}
+
+/** Reject non-http(s), credentialed and obvious private-literal URLs up front. */
 function isRelayable(url) {
   try {
     const parsed = new URL(url);
@@ -159,9 +347,7 @@ function isRelayable(url) {
     const host = parsed.hostname.toLowerCase();
     if (host === 'localhost' || host === '::1' || host.endsWith('.localhost')) return false;
     if (parsed.username || parsed.password) return false;
-    if (/^0\./.test(host) || /^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host)) return false;
-    if (/^169\.254\./.test(host)) return false;
-    if (/^172\.(1[6-9]|2\d|3[01])\./.test(host)) return false;
+    if (net.isIP(host) === 4 && !isPublicAddress(host)) return false;
     if (host.startsWith('[') || host.includes(':')) return false; // no raw IPv6 literal
     return true;
   } catch (error) {
@@ -275,7 +461,7 @@ class Relay {
    */
   constructor(options) {
     this.allowlist = options.allowlist || new Map();
-    this.fetchImpl = options.fetchImpl || ((url, init) => fetch(url, init));
+    this.fetchImpl = options.fetchImpl || fetchPinned;
     this.now = options.now || (() => Date.now());
     this.maxSessions = options.maxSessions || MAX_SESSIONS;
     this.sessionTtlMs = options.sessionTtlMs || SESSION_TTL_MS;
@@ -411,8 +597,8 @@ class Relay {
     try {
       upstream = await this.fetchImpl(target, {
         headers,
-        // Do not allow redirects to bypass the URL checks below. DNS-based
-        // private-address protection still requires an external egress policy.
+        // The production fetcher pins a vetted public DNS answer and never
+        // follows redirects. Injected test fetchers must preserve that contract.
         redirect: 'manual',
         signal: controller.signal,
       });
@@ -721,6 +907,10 @@ module.exports = {
   originHeader,
   headersFor,
   isRelayable,
+  isPublicAddress,
+  resolvePublicAddresses,
+  pinnedLookup,
+  fetchPinned,
   looksLikePlaylist,
   looksLikeExtM3uHead,
   absoluteUrl,

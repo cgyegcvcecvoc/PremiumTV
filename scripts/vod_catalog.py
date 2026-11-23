@@ -25,9 +25,10 @@ directly still plays. The direct MP4 stays on the item as the fallback server,
 which is what Android's ExoPlayer uses. Both are optional in the schema: an
 item needs a stream, an embed, or both.
 
-Extra embed providers (any site that publishes an iframe or a pasted embed
-snippet) are added by hand to playlists/vod/embed-sources.json - see
-playlists/vod/EMBEDS.md. Nothing in this script contacts a commercial
+Extra embed providers are added by hand to
+playlists/vod/embed-sources.json - see playlists/vod/EMBEDS.md. Pasted HTML is
+reduced to the src of one absolute HTTPS iframe; provider markup is never copied
+into the published catalogue. Nothing in this script contacts a commercial
 streaming site; only providers you list yourself are ever published.
 
     python scripts/vod_catalog.py                 # resolve, verify, write
@@ -52,6 +53,8 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+from html import escape as html_escape
+from html.parser import HTMLParser
 import json
 import os
 import sys
@@ -561,6 +564,59 @@ def build_test_card() -> dict:
     }
 
 
+class _IframeSourceParser(HTMLParser):
+    """Read iframe src attributes without ever treating markup as executable DOM."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.sources: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() == "iframe":
+            values = dict(attrs)
+            self.sources.append(str(values.get("src") or ""))
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.handle_starttag(tag, attrs)
+
+
+def safe_embed_url(raw: str) -> str:
+    """Return an absolute credential-free HTTPS URL, or an empty string."""
+    value = str(raw or "").strip()
+    if not value or any(char.isspace() for char in value):
+        return ""
+    try:
+        parsed = urllib.parse.urlsplit(value)
+        # Accessing .port also rejects malformed ports, which urlsplit itself
+        # deliberately leaves for callers to validate.
+        _ = parsed.port
+    except ValueError:
+        return ""
+    if (parsed.scheme.lower() != "https" or not parsed.hostname
+            or parsed.username is not None or parsed.password is not None):
+        return ""
+    return value
+
+
+def iframe_source_from_html(markup: str) -> str:
+    """Extract the sole HTTPS iframe URL from a snippet, rejecting ambiguity."""
+    parser = _IframeSourceParser()
+    try:
+        parser.feed(str(markup or ""))
+        parser.close()
+    except (ValueError, AssertionError):
+        return ""
+    if len(parser.sources) != 1:
+        return ""
+    return safe_embed_url(parser.sources[0])
+
+
+def sanitize_embed_html(markup: str) -> str:
+    """Discard all provider markup except one validated HTTPS iframe src."""
+    source = iframe_source_from_html(markup)
+    return '<iframe src="%s"></iframe>' % html_escape(source, quote=True) if source else ""
+
+
 def load_extra_embeds() -> dict[str, list[dict]]:
     """Hand-written embed providers, keyed by catalogue slug.
 
@@ -590,19 +646,24 @@ def load_extra_embeds() -> dict[str, list[dict]]:
         html = str(entry.get("html") or "").strip()
         if not slug or (not url and not html):
             continue
-        if url and not url.startswith(("http://", "https://")):
-            log("[vod] %s: embed url must be http(s); skipped" % slug)
-            continue
         provider = str(entry.get("provider") or "Embed").strip()
         kind = str(entry.get("kind") or ("iframe" if url else "html")).strip()
         if kind not in ("iframe", "html"):
             log("[vod] %s: embed kind must be iframe or html; skipped" % slug)
             continue
         row = {"provider": provider, "kind": kind}
-        if url:
-            row["url"] = url
-        if html:
-            row["html"] = html
+        if kind == "iframe":
+            safe_url = safe_embed_url(url)
+            if not safe_url:
+                log("[vod] %s: iframe embed needs an absolute HTTPS URL; skipped" % slug)
+                continue
+            row["url"] = safe_url
+        else:
+            safe_html = sanitize_embed_html(html)
+            if not safe_html:
+                log("[vod] %s: HTML embed needs exactly one iframe with an absolute HTTPS src; skipped" % slug)
+                continue
+            row["html"] = safe_html
         extras.setdefault(slug, []).append(row)
     return extras
 
@@ -1059,24 +1120,31 @@ def validate_document(catalog: dict) -> list[str]:
         # but an entry with neither is a card that can never be played.
         stream = str(item.get("stream") or "")
         embed = str(item.get("embed") or "")
-        if not stream and not embed and not str(item.get("embed_html") or ""):
+        embed_html = str(item.get("embed_html") or "")
+        if not stream and not embed and not embed_html:
             problems.append("%s: needs a stream, an embed or an embed_html" % label)
         if stream and not stream.startswith(("http://", "https://")):
             problems.append("%s: stream must be http(s)" % label)
-        if embed and not embed.startswith(("http://", "https://")):
-            problems.append("%s: embed must be http(s)" % label)
+        if embed and not safe_embed_url(embed):
+            problems.append("%s: embed must be an absolute HTTPS URL without credentials" % label)
+        if embed_html and not iframe_source_from_html(embed_html):
+            problems.append("%s: embed_html must contain exactly one iframe with an absolute HTTPS src" % label)
         if item.get("embed_kind") not in (None, "", "iframe", "html"):
             problems.append("%s: embed_kind must be iframe or html" % label)
+        if item.get("embed_kind") == "html" and not embed_html:
+            problems.append("%s: embed_kind html needs embed_html" % label)
         for extra in item.get("embeds") or []:
             if not isinstance(extra, dict):
                 problems.append("%s: embeds entries must be objects" % label)
                 continue
             url = str(extra.get("url") or "")
-            if not url and not str(extra.get("html") or ""):
-                problems.append("%s: every embed needs a url or html" % label)
-            if url and not url.startswith(("http://", "https://")):
-                problems.append("%s: embed url must be http(s)" % label)
-            if extra.get("kind") not in (None, "", "iframe", "html"):
+            html = str(extra.get("html") or "")
+            kind = str(extra.get("kind") or ("iframe" if url else "html"))
+            if kind == "iframe" and not safe_embed_url(url):
+                problems.append("%s: iframe embed needs an absolute HTTPS URL without credentials" % label)
+            elif kind == "html" and not iframe_source_from_html(html):
+                problems.append("%s: HTML embed needs exactly one iframe with an absolute HTTPS src" % label)
+            elif kind not in ("iframe", "html"):
                 problems.append("%s: embed kind must be iframe or html" % label)
         extra_streams = item.get("streams")
         if extra_streams is not None:

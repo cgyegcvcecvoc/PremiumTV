@@ -9,6 +9,9 @@ const {
   originHeader,
   headersFor,
   isRelayable,
+  isPublicAddress,
+  pinnedLookup,
+  fetchPinned,
   rewritePlaylist,
   relayDescriptor,
   inferContentType,
@@ -60,6 +63,7 @@ test('private and non-http targets are never relayable', () => {
     'http://localhost/x',
     'http://127.0.0.1/x',
     'http://10.1.2.3/x',
+    'http://100.64.0.1/x',
     'http://192.168.1.1/x',
     'http://172.16.0.1/x',
     'http://169.254.169.254/latest/meta-data',
@@ -69,6 +73,108 @@ test('private and non-http targets are never relayable', () => {
     assert.equal(isRelayable(bad), false, `${bad} must be refused`);
   }
   assert.equal(isRelayable('https://cdn.example/live.m3u8'), true);
+});
+
+test('the address policy accepts only globally routable unicast answers', () => {
+  for (const address of ['1.1.1.1', '8.8.8.8', '2001:4860:4860::8888']) {
+    assert.equal(isPublicAddress(address), true, `${address} should be public`);
+  }
+  for (const address of [
+    '0.1.2.3', '10.0.0.1', '100.64.0.1', '127.0.0.1', '169.254.169.254',
+    '172.16.0.1', '192.0.2.1', '198.18.0.1', '224.0.0.1', '255.255.255.255',
+    '::1', '::ffff:127.0.0.1', 'fc00::1', 'fe80::1', 'ff02::1', '2001:db8::1',
+    '2002::1', '3fff::1',
+  ]) {
+    assert.equal(isPublicAddress(address), false, `${address} must not be public`);
+  }
+});
+
+test('the pinned DNS lookup returns only vetted addresses for its hostname', () => {
+  const lookup = pinnedLookup([
+    { address: '93.184.216.34', family: 4 },
+    { address: '2606:2800:220:1:248:1893:25c8:1946', family: 6 },
+  ], 'media.example');
+  lookup('media.example', { family: 4 }, (error, address, family) => {
+    assert.ifError(error);
+    assert.equal(address, '93.184.216.34');
+    assert.equal(family, 4);
+  });
+  lookup('media.example', { all: true }, (error, addresses) => {
+    assert.ifError(error);
+    assert.deepEqual(addresses, [
+      { address: '93.184.216.34', family: 4 },
+      { address: '2606:2800:220:1:248:1893:25c8:1946', family: 6 },
+    ]);
+  });
+  lookup('other.example', { all: true }, (error) => {
+    assert.match(error.message, /unvalidated hostname/);
+  });
+});
+
+test('the upstream client rejects a mixed public/private DNS answer before connecting', async () => {
+  const dns = require('node:dns');
+  const http = require('node:http');
+  const originalLookup = dns.lookup;
+  const originalRequest = http.request;
+  let attemptedConnection = false;
+  dns.lookup = (_hostname, _options, callback) => process.nextTick(() => callback(null, [
+    { address: '93.184.216.34', family: 4 },
+    { address: '10.23.0.8', family: 4 },
+  ]));
+  http.request = () => {
+    attemptedConnection = true;
+    throw new Error('must not connect with a mixed DNS answer');
+  };
+  try {
+    await assert.rejects(fetchPinned('http://media.example/live.m3u8'), /non-public address/);
+  } finally {
+    dns.lookup = originalLookup;
+    http.request = originalRequest;
+  }
+  assert.equal(attemptedConnection, false);
+});
+
+test('the production fetcher pins its validated DNS answer into the socket lookup', async () => {
+  const { EventEmitter } = require('node:events');
+  const { PassThrough } = require('node:stream');
+  const dns = require('node:dns');
+  const http = require('node:http');
+  const originalLookup = dns.lookup;
+  const originalRequest = http.request;
+  let pinnedAddress;
+  dns.lookup = (_hostname, _options, callback) => process.nextTick(() => callback(null, [
+    { address: '93.184.216.34', family: 4 },
+  ]));
+  http.request = (url, options) => {
+    const request = new EventEmitter();
+    request.end = () => options.lookup(url.hostname, {}, (error, address, family) => {
+      if (error) return request.emit('error', error);
+      pinnedAddress = { address, family };
+      const response = new PassThrough();
+      const compressed = require('node:zlib').gzipSync('pinned response');
+      response.statusCode = 200;
+      response.statusMessage = 'OK';
+      response.headers = {
+        'content-type': 'text/plain',
+        'content-encoding': 'gzip',
+        'content-length': String(compressed.length),
+      };
+      request.emit('response', response);
+      response.end(compressed);
+    });
+    return request;
+  };
+  try {
+    const response = await fetchPinned('http://media.example/live.ts');
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('content-encoding'), null);
+    assert.equal(response.headers.get('content-length'), null);
+    assert.equal(await response.text(), 'pinned response');
+  } finally {
+    dns.lookup = originalLookup;
+    http.request = originalRequest;
+  }
+  assert.deepEqual(pinnedAddress, { address: '93.184.216.34', family: 4 });
 });
 
 // -------------------------------------------------------------------- sessions
@@ -256,16 +362,13 @@ test('segment content types follow the extension, with a video fallback', () => 
   assert.equal(inferContentType('https://x/no-extension'), 'video/mp2t');
 });
 
-// A tiny guard against the allowlist being bypassed by a redirect to loopback.
-test('a redirect to a private address is not followed into the allowlist', () => {
-  const relay = sessionRelay({});
-  const session = relay.openSession('http://one.example/live.m3u8');
-  assert.ok(session);
-  const state = relay.sessions.get(session.sessionId);
-  // rewritePlaylist whitelists whatever the *playlist* names, and the fetch of
-  // that name is re-checked by isRelayable before it is ever requested.
-  assert.equal(isRelayable('http://169.254.169.254/latest/meta-data'), false);
-  assert.equal(state.allowed.size, 1);
+// Literal private addresses must never be admitted as published session targets.
+test('a private literal is rejected before a session fetch', () => {
+  const target = 'http://169.254.169.254/latest/meta-data';
+  const relay = new Relay({ allowlist: new Map([[target, {}]]) });
+  assert.equal(isRelayable(target), false);
+  assert.equal(relay.openSession(target), null);
+  assert.equal(relay.sessionCount(), 0);
 });
 
 // The whole point of the relay, proven against a real HTTP server rather than a
@@ -273,15 +376,7 @@ test('a redirect to a private address is not followed into the allowlist', () =>
 // else becomes reachable.
 test('a referrer-gated feed becomes playable end to end', async (t) => {
   const http = require('node:http');
-  const dns = require('node:dns');
   const HOST = 'provider.example';
-  const lookup = dns.lookup;
-  dns.lookup = (host, opts, cb) =>
-    host === HOST ? lookup('127.0.0.1', opts, cb) : lookup(host, opts, cb);
-  t.after(() => {
-    dns.lookup = lookup;
-  });
-
   const SEGMENT = Buffer.from('FAKESEGMENT');
   const upstream = http.createServer((req, res) => {
     if (req.headers.referer !== 'https://ref.example/') {
@@ -303,8 +398,23 @@ test('a referrer-gated feed becomes playable end to end', async (t) => {
   t.after(() => upstream.close());
 
   const published = `http://${HOST}:${upstream.address().port}`;
+  // Test-only adapter for the fake provider hostname. Production uses
+  // fetchPinned, which intentionally refuses this loopback DNS answer.
+  const localFetch = async (url, init) => {
+    const local = new URL(url);
+    local.hostname = '127.0.0.1';
+    const response = await fetch(local, init);
+    // Preserve fetch's usual empty URL so the relay resolves relative HLS
+    // children against the published hostname, not this local test address.
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+    });
+  };
   const relay = new Relay({
     allowlist: new Map([[`${published}/live.m3u8`, { referrer: 'https://ref.example/', ua: '', origin: '' }]]),
+    fetchImpl: localFetch,
   });
   const origin = await relay.start(0, '127.0.0.1');
   t.after(() => relay.stop());
