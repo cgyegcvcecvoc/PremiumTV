@@ -1121,9 +1121,59 @@ details.panel > summary h2 { margin: 0; font-size: 12px; letter-spacing: 1px; co
 /* The Live Events header: title and the tab's own refresh button. */
 .live-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .live-head .view-head-text { flex: 1; min-width: 0; }
-.live-tools { flex: 0 0 auto; padding-bottom: 2px; }
+.live-tools {
+  flex: 0 0 auto; padding-bottom: 2px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  justify-content: flex-end;
+}
 .live-tools .btn { white-space: nowrap; }
 #live-refresh[disabled] { opacity: 0.5; cursor: default; }
+
+/* The kickoff clock: one ticking clock, in the zone every kickoff on the tab
+   is read in. The zone picker is the only control - the dot turns gold inside
+   the last hour before a kickoff, and the note states the rule in words. */
+.live-clock {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: baseline;
+  gap: 2px 8px;
+  padding: 7px 12px;
+  border: 1px solid #2b3746;
+  border-radius: 10px;
+  background: #10161f;
+  min-width: 250px;
+  max-width: 380px;
+}
+.live-clock-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #58677a; align-self: center;
+}
+.live-clock-dot.live { background: var(--gold); box-shadow: 0 0 0 3px rgba(240, 192, 64, 0.16); }
+.live-clock-time {
+  font-size: 15px; font-weight: 700; color: #f4f7fb;
+  font-variant-numeric: tabular-nums; letter-spacing: 0.2px;
+}
+.live-clock-zone { font-size: 11px; color: #aeb9c8; white-space: nowrap; }
+.live-clock-next {
+  grid-column: 1 / -1; font-size: 11px; color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.live-clock-next:empty { display: none; }
+.live-clock-zone-picker {
+  grid-column: 1 / -1;
+  margin-top: 5px;
+  background: #161d28; color: #dfe6ef;
+  border: 1px solid #2b3746; border-radius: 7px;
+  padding: 3px 6px; font-size: 11px; max-width: 100%;
+}
+.live-clock-note {
+  grid-column: 1 / -1; margin: 4px 0 0;
+  font-size: 10.5px; line-height: 1.45; color: #93a0b1;
+}
+@media (max-width: 900px) {
+  .live-clock { min-width: 0; max-width: none; }
+  .live-tools { justify-content: flex-start; }
+}
 
 /* Event cards: the matchup as two drawn team badges and names. */
 .event-card { gap: 7px; }

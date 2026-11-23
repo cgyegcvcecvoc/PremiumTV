@@ -1,6 +1,6 @@
 # Category shelf
 
-- **Shelf rebuilt:** 2026-11-23 22:50 UTC (2026-11-23 05:50 PM EST) — _6:23 AM recheck_
+- **Shelf rebuilt:** 2026-11-23 23:00 UTC (2026-11-23 06:00 PM EST) — _category shelf_
 - **Sources:** [`playlists/PremiumTV.m3u`](../playlists/PremiumTV.m3u) for `All/`, [`playlists/live/USA.m3u`](../playlists/live/USA.m3u) for `USA.m3u` and `USA/`
 - **Order:** Sports -> Lifestyle -> Fox Channels -> CBS -> NBC -> NBC Sports Channels -> Cartoons -> PBS -> Game Shows (each followed by its own Backups group), then the long tail by size, `Other` last — the published order from `scripts/categorize.py`.
 - **One entry per channel:** a channel's spare feeds sit right after it in its `<category> Backups` group, best quality first.
@@ -152,8 +152,8 @@ One file per category for the whole library (US channels first inside a category
 | 73 | Weather Backups | 5 | [`Weather_Backups.m3u`](All/Weather_Backups.m3u) |
 | 74 | Sci-Fi | 10 | [`Sci_Fi.m3u`](All/Sci_Fi.m3u) |
 | 75 | Sci-Fi Backups | 8 | [`Sci_Fi_Backups.m3u`](All/Sci_Fi_Backups.m3u) |
-| 76 | Animals & Nature | 9 | [`Animals_Nature.m3u`](All/Animals_Nature.m3u) |
-| 77 | Animals & Nature Backups | 3 | [`Animals_Nature_Backups.m3u`](All/Animals_Nature_Backups.m3u) |
+| 76 | Animals & Nature | 12 | [`Animals_Nature.m3u`](All/Animals_Nature.m3u) |
+| 77 | Animals & Nature Backups | 6 | [`Animals_Nature_Backups.m3u`](All/Animals_Nature_Backups.m3u) |
 | 78 | DLTV | 9 | [`DLTV.m3u`](All/DLTV.m3u) |
 | 79 | Drama | 8 | [`Drama.m3u`](All/Drama.m3u) |
 | 80 | Drama Backups | 4 | [`Drama_Backups.m3u`](All/Drama_Backups.m3u) |
@@ -166,12 +166,10 @@ One file per category for the whole library (US channels first inside a category
 | 87 | Tv Shows | 4 | [`Tv_Shows.m3u`](All/Tv_Shows.m3u) |
 | 88 | Westerns | 4 | [`Westerns.m3u`](All/Westerns.m3u) |
 | 89 | Westerns Backups | 6 | [`Westerns_Backups.m3u`](All/Westerns_Backups.m3u) |
-| 90 | Animals + Nature | 3 | [`Animals_Nature.m3u`](All/Animals_Nature.m3u) |
-| 91 | Animals + Nature Backups | 3 | [`Animals_Nature_Backups.m3u`](All/Animals_Nature_Backups.m3u) |
-| 92 | Relax | 3 | [`Relax.m3u`](All/Relax.m3u) |
-| 93 | True Crime | 3 | [`True_Crime.m3u`](All/True_Crime.m3u) |
-| 94 | Other | 203 | [`Other.m3u`](All/Other.m3u) |
-| 95 | Other Backups | 114 | [`Other_Backups.m3u`](All/Other_Backups.m3u) |
+| 90 | Relax | 3 | [`Relax.m3u`](All/Relax.m3u) |
+| 91 | True Crime | 3 | [`True_Crime.m3u`](All/True_Crime.m3u) |
+| 92 | Other | 203 | [`Other.m3u`](All/Other.m3u) |
+| 93 | Other Backups | 114 | [`Other_Backups.m3u`](All/Other_Backups.m3u) |
 
 Groups smaller than 3 channels keep no file of their own; they stay in `playlists/PremiumTV.m3u`.
 

@@ -94,6 +94,26 @@ class ShelfTest(unittest.TestCase):
         news = self.entries(self.shelf / "All" / "News.m3u")
         self.assertEqual([name for name, _, _ in news], ["CNN", "BBC News"])
 
+    def test_two_spellings_of_one_category_share_one_file_without_losing_a_channel(self):
+        # The library really holds both "Animals & Nature" and "Animals +
+        # Nature"; they are two group-titles but one slug, so planning them
+        # separately made the second write overwrite the first and six channels
+        # disappeared from the shelf (and the committed file disagreed with the
+        # plan, which failed verify_playlists.py --require-shelf).
+        self.main.write_text(
+            MAIN
+            + '#EXTINF:-1 tvg-id="Dinos.us" group-title="Animals & Nature",Dinos\n'
+            + "http://example.test/dinos.m3u8\n"
+            + '#EXTINF:-1 tvg-id="EarthDay.us" group-title="Animals + Nature",EarthDay\n'
+            + "http://example.test/earthday.m3u8\n",
+            encoding="utf-8",
+        )
+        self.build(min_size=1)
+        animals = self.entries(self.shelf / "All" / "Animals_Nature.m3u")
+        self.assertEqual([name for name, _, _ in animals], ["Dinos", "EarthDay"])
+        self.assertIn("Animals & Nature (2 channels)",
+                      (self.shelf / "All" / "Animals_Nature.m3u").read_text(encoding="utf-8"))
+
     def test_a_channel_in_a_tiny_group_stays_in_the_parent_file_only(self):
         self.build(min_size=3)
         for missing in ("Aria_Web_Channels.m3u", "Cartoons.m3u", "News.m3u"):

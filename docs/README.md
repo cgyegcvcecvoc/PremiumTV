@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.19** — local channels by location, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.20** — many sources, one clock, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,25 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.19
+## Current stable: 1.1.20
 
-1.1.19 is the location release: the local-channel answer now describes the
-viewer's whole area instead of the single nearest market. A fix reports every
-published market within reach, nearest first, each with its distance in miles;
-a metro that PremiumTV publishes as several markets a short drive apart (Dallas,
-Fort Worth and Garland; Newark, Paterson and New York City) offers the others as
-alternatives rather than silently saving the closest one, and a fix beyond the
-120 km radius is still offered with its distance, never applied. City entry
-matches the place rather than the spelling — "Wilkes Barre", "Wilkes-Barre",
-"Saint Paul" and "St. Paul" all resolve. Android, macOS, Linux and the web
-edition share the same rule. The Linux desktop edition (AppImage, .deb and
-tar.xz for x86-64 and arm64) ships in the same release, and its updater only
-offers the installer for the platform it is running on. The notes are in
-[`release-notes-1.1.19.md`](../release-notes-1.1.19.md).
+1.1.20 is the many-sources, one-clock release: **many sources** because a playlist now keeps backup addresses the way a channel keeps backup feeds — seventeen backup addresses cover eight GitHub-hosted sources through jsDelivr, raw.gitmirror.com and the raw file, two measured sources were added, and a run that answered from a backup says so in its report — and **one clock** because the Live Events tab heads with a ticking clock, and every kickoff, countdown and note on it is read in that clock's zone, starting from the location you already gave the local-channel shelf. The full notes are in [`release-notes-1.1.20.md`](../release-notes-1.1.20.md).
 
 It installs in place over every earlier build: Android `101190000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.19 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.20 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 

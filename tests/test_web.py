@@ -68,6 +68,25 @@ class WebIsolationTests(unittest.TestCase):
         self.assertRegex(source, r'request\.headers\.has\(["\']range["\']\)')
         self.assertIn("mp4|m4v", source)
 
+    def test_a_test_that_injects_a_library_file_blocks_the_service_worker(self):
+        # page.route() cannot see a request the service worker answers from its
+        # own cache, so a test that fulfils `data/*.json` with a synthetic body
+        # silently ran against the published file instead (the "pasted VOD
+        # markup" smoke test, red in CI for exactly that). Cross-origin provider
+        # routes are fine - the worker never caches those - but a test that
+        # injects a same-origin library file must disable the worker.
+        spec = (WEB / "test/browser/app.spec.cjs").read_text()
+        blocks = ["\ntest(\"" + block for block in spec.split('\ntest("')[1:]]
+        self.assertTrue(blocks, "the browser spec should contain tests")
+        for block in blocks:
+            if "route.fulfill(" not in block or "/data/" not in block:
+                continue
+            name = block.split('"')[1]
+            self.assertIn(
+                'serviceWorkers: "block"', block,
+                f"{name} fulfils a library file, so its context must block the worker",
+            )
+
     def test_icons_are_real_pngs_and_directory_escapes_source_names(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp)

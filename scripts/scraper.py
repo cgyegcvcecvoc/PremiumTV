@@ -819,6 +819,72 @@ def http_get(url: str, headers: dict | None = None, timeout: float = 30, retries
     raise RuntimeError(f"GET {safe_url(url)} failed: {error_text(last or RuntimeError('unknown error'), url)}")
 
 
+def source_mirror_urls(src: dict, url: str) -> list[tuple[str, str]]:
+    """The backup addresses to try after ``url`` itself failed, in order.
+
+    One channel already carries many feeds; a source carries many *addresses*
+    the same way. A source declares them in ``sources.json``:
+
+    ``mirrors``          full alternative URLs for the identical file.
+    ``mirror_templates`` the same file on another host, written as a template:
+                         ``{url}`` and ``{query}`` from the original address,
+                         ``{path}`` for the file's path inside its repository,
+                         plus ``{repo}``, ``{owner}``, ``{name}``, ``{ref}`` and
+                         ``{raw_path}`` from the source's ``github`` block. A jsDelivr address therefore keeps
+                         working when raw.githubusercontent.com does not, and
+                         the other way round.
+
+    Only addresses that still pass ``source_url_problem`` are returned, the
+    original is never repeated, and duplicates are dropped. Each entry is
+    ``(url, how)`` so the run report can say which backup answered instead of
+    showing the primary address and implying it did.
+    """
+    original = str(url or "").strip()
+    attempts: list[tuple[str, str]] = []
+    seen = {original}
+
+    for mirror in src.get("mirrors") or []:
+        candidate = str(mirror or "").strip()
+        if not candidate or candidate in seen or source_url_problem(candidate):
+            continue
+        seen.add(candidate)
+        attempts.append((candidate, "mirrors"))
+
+    github = src.get("github") or {}
+    repo = str(github.get("repo") or "")
+    owner, _, name = repo.partition("/")
+    parts = urllib.parse.urlsplit(original)
+    # {path} is the file's path inside its repository ("/tv/list.m3u"), not the
+    # whole raw-URL path: a template that also names {repo} and {ref} would
+    # otherwise repeat them. A source without a github block gets its URL path.
+    if str(github.get("path") or ""):
+        file_path = "/" + str(github["path"]).lstrip("/")
+    else:
+        file_path = parts.path
+    for template in (item for item in src.get("mirror_templates") or [] if str(item).strip()):
+        try:
+            candidate = str(template).format(
+                url=original,
+                path=file_path,
+                query=parts.query,
+                repo=repo,
+                owner=owner,
+                name=name,
+                ref=str(github.get("ref") or ""),
+                raw_path=str(github.get("path") or ""),
+            ).strip()
+        except (KeyError, IndexError, ValueError):
+            # A malformed template must not abort the run: the primary address
+            # and every other mirror are still tried, and the source either
+            # answers somewhere or falls back to its cache as usual.
+            continue
+        if not candidate or candidate in seen or source_url_problem(candidate):
+            continue
+        seen.add(candidate)
+        attempts.append((candidate, "mirror_templates"))
+    return attempts
+
+
 def fetch_source_text(src: dict) -> str:
     """Fetch a source, reading a curated local_path first when configured, or falling back to GitHub API."""
     local_rel = str(src.get("local_path") or "").strip()
@@ -836,6 +902,21 @@ def fetch_source_text(src: dict) -> str:
         src["_fetch_method"] = "direct"
         return text
     except Exception as exc:  # noqa: BLE001
+        # A mirrored source is retried at its backup addresses before anything
+        # falls back: one unreachable host costs a retry, not the source.
+        for mirror, how in source_mirror_urls(src, url):
+            try:
+                text = http_get(mirror)
+            except Exception as mirror_error:  # noqa: BLE001
+                log(f"  mirror failed ({how}: {safe_url(mirror)}): "
+                    f"{error_text(mirror_error, mirror)}")
+                continue
+            src["_fetch_method"] = how
+            src["_mirror_url"] = safe_url(mirror)
+            src["_primary_fetch_error"] = error_text(exc, url)
+            log(f"  primary address failed ({error_text(exc, url)}); "
+                f"mirror answered ({how}: {safe_url(mirror)})")
+            return text
         github = src.get("github")
         if not github or not github.get("repo") or not github.get("path"):
             raise
@@ -2972,6 +3053,18 @@ def main() -> int:
             try:
                 text = fetch_source_text(runtime_source)
                 stat["fetch_method"] = runtime_source.get("_fetch_method", "direct")
+                if runtime_source.get("_mirror_url"):
+                    # A backup address answered while the primary did not. That
+                    # is a warning, not a silent success: the primary host may
+                    # be down for every source, and the run report is where an
+                    # operator finds out before the cache gets too old.
+                    mirror_note = (
+                        f"Primary address failed; mirror answered ({stat['fetch_method']}): "
+                        f"{runtime_source['_mirror_url']}"
+                    )
+                    stat["mirror_url"] = runtime_source["_mirror_url"]
+                    stat["issues"].append(mirror_note)
+                    source_issues.append(f"[{name}] {mirror_note}")
                 if runtime_source.get("_direct_fetch_error"):
                     fallback_note = (
                         "Direct URL fetch failed; GitHub API fallback succeeded: "

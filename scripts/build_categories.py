@@ -131,6 +131,8 @@ class ShelfFile:
     channels: list
     header: str = "#EXTM3U"
     source: str = ""
+    # Other published spellings of this category that share its file name.
+    aliases: list[str] = dataclasses.field(default_factory=list)
 
     @property
     def name(self) -> str:
@@ -167,6 +169,31 @@ def slice_by_category(channels: list, min_size: int) -> list[tuple[str, list]]:
             if len(by_group.get(category, ())) >= max(1, min_size)]
 
 
+def merge_collisions(files: list[ShelfFile]) -> list[ShelfFile]:
+    """Fold categories that slug to the same file into one shelf file.
+
+    The published playlists can carry two spellings of one category - the
+    library holds both ``Animals & Nature`` and ``Animals + Nature``, which are
+    separate group-titles but one slug, ``Animals_Nature``. Planned naively that
+    is two shelf files with one name, so the second silently overwrote the
+    first and six channels vanished from the shelf (and the committed file then
+    disagreed with the plan, which is what ``verify_playlists.py
+    --require-shelf`` caught). Merging keeps every channel, in published order,
+    and the file keeps the first spelling as its label.
+    """
+    merged: dict[Path, ShelfFile] = {}
+    out: list[ShelfFile] = []
+    for item in files:
+        kept = merged.get(item.path)
+        if kept is None:
+            merged[item.path] = item
+            out.append(item)
+            continue
+        kept.channels.extend(item.channels)
+        kept.aliases.append(item.category)
+    return out
+
+
 def plan_shelf(main_path: Path, usa_path: Path, shelf_dir: Path,
                min_size: int = MIN_SHELF_SIZE, include_world: bool = True) -> list[ShelfFile]:
     """Everything the shelf should contain, in the order it should be listed."""
@@ -192,7 +219,7 @@ def plan_shelf(main_path: Path, usa_path: Path, shelf_dir: Path,
                     path=shelf_dir / "All" / f"{rebuild_playlists.slugify(category)}.m3u",
                     scope=WORLD_SCOPE, category=category, channels=members,
                     header=header, source=relative(main_path)))
-    return files
+    return merge_collisions(files)
 
 
 # --------------------------------------------------------------------------- #

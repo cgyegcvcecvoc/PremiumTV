@@ -1,5 +1,5 @@
 {
-  "_comment": "Playlist sources with direct M3U/W3U feeds are listed under sources. Optional url_env entries are skipped and explicitly reported until configured. reference_checks probe sites/repos that do not publish a static playlist; they are not imported as channels.",
+  "_comment": "Playlist sources with direct M3U/W3U feeds are listed under sources; a source may add \"mirrors\" and \"mirror_templates\" so the same file is reached from another address when its primary host is down. Optional url_env entries are skipped and explicitly reported until configured. reference_checks probe sites/repos that do not publish a static playlist; they are not imported as channels.",
   "sources": [
     {
       "name": "local-channels",
@@ -49,7 +49,12 @@
         "repo": "aria-tv/aria",
         "path": "aria.m3u",
         "ref": "main"
-      }
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aria-tv/aria@main/aria.m3u",
+        "https://raw.gitmirror.com/aria-tv/aria/main/aria.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
     },
     {
       "name": "aria-plus",
@@ -61,6 +66,11 @@
         "path": "aria+.m3u",
         "ref": "main"
       },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aria-tv/aria@main/aria+.m3u",
+        "https://raw.gitmirror.com/aria-tv/aria/main/aria+.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
       "note": "aria's extended list: the same verified feeds as aria.m3u plus every provider group the project mirrors. Measured against the published corpus on 2026-11-21: 1,980 links, 1,655 of them channels PremiumTV did not have at all (1,114 new names); aria.m3u alone added 5. The scraper verifies every link, so the ones that do not answer never reach a published playlist."
     },
     {
@@ -72,7 +82,12 @@
         "repo": "doms9/iptv",
         "path": "M3U8/TV.m3u8",
         "ref": "default"
-      }
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/doms9/iptv@default/M3U8/TV.m3u8",
+        "https://raw.gitmirror.com/doms9/iptv/default/M3U8/TV.m3u8"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
     },
     {
       "name": "xtemus",
@@ -104,7 +119,18 @@
       "type": "m3u",
       "enabled": true,
       "url": "https://iptv-org.github.io/iptv/index.m3u",
-      "note": "Public worldwide channel index from iptv-org/iptv."
+      "note": "Public worldwide channel index from iptv-org/iptv, with the raw file as a trusted fallback for the Pages address.",
+      "github": {
+        "repo": "iptv-org/iptv",
+        "path": "index.m3u",
+        "ref": "master"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/iptv-org/iptv@master/index.m3u",
+        "https://raw.gitmirror.com/iptv-org/iptv/master/index.m3u",
+        "https://raw.githubusercontent.com/iptv-org/iptv/master/index.m3u"
+      ],
+      "mirror_note": "The same index, reached through GitHub Pages first and then through jsDelivr, raw.gitmirror.com and the raw file itself. Pages is the primary because it is the address iptv-org publishes; the others are the backups the 1.1.20 mirror rule uses when it does not answer."
     },
     {
       "name": "free-tv",
@@ -115,7 +141,12 @@
         "repo": "Free-TV/IPTV",
         "path": "playlist.m3u8",
         "ref": "master"
-      }
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/Free-TV/IPTV@master/playlist.m3u8",
+        "https://raw.gitmirror.com/Free-TV/IPTV/master/playlist.m3u8"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
     },
     {
       "name": "eja-tv-feed",
@@ -148,7 +179,46 @@
         "path": "pluto-live-US.m3u",
         "ref": "main"
       },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/OwnerPlugins/pluto-tv-m3u@main/pluto-live-US.m3u",
+        "https://raw.gitmirror.com/OwnerPlugins/pluto-tv-m3u/main/pluto-live-US.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
       "note": "Pluto TV's US live lineup as one regenerated M3U. Measured on 2026-11-21: 458 links, all of them new to the published corpus, 126 of them channels no source here carries at all. The tvg-ids are Pluto's own, which is what the PlutoTV guide below lists, so these channels arrive with a programme guide attached."
+    },
+    {
+      "name": "aria-overseas",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/akiralereal/iptv/main/IPTV-overseas.m3u",
+      "github": {
+        "repo": "akiralereal/iptv",
+        "path": "IPTV-overseas.m3u",
+        "ref": "main"
+      },
+      "note": "The overseas half of the aria project's main list. aria.m3u (already a source) publishes the US-heavy list and aria+.m3u the extended one; this is the file that carries the non-US feeds, so a European or Asian channel that disappears from one aria file is still reached from here. Measured 2026-11-23: 42 links, all HTTPS.",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/akiralereal/iptv@main/IPTV-overseas.m3u",
+        "https://raw.gitmirror.com/akiralereal/iptv/main/IPTV-overseas.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
+    },
+    {
+      "name": "vbskycn-iptv",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/vbskycn/iptv/master/tv/iptv4.m3u",
+      "github": {
+        "repo": "vbskycn/iptv",
+        "path": "tv/iptv4.m3u",
+        "ref": "master"
+      },
+      "note": "Mainland-China channels (CCTV and the provincial networks) that no other configured source carries. This is deliberately a deep backstop, not a headline source: 344 links, 159 of them HTTPS, refreshed continuously upstream. Non-HTTPS links are kept out of the browser build and probed like every other stream.",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/vbskycn/iptv@master/tv/iptv4.m3u",
+        "https://raw.gitmirror.com/vbskycn/iptv/master/tv/iptv4.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
     }
   ],
   "priority_channels": {
@@ -270,6 +340,28 @@
       "player_url_template": "https://dlive.sx/stream/stream-{id}.php",
       "timeout": 25,
       "note": "DaddyLiveHD 24/7 channel index. The page lists channels as HTML player pages (/stream/stream-<id>.php) whose stream address is resolved by JavaScript at run time, and its channels/schedule API needs a key issued by the operator, so the site publishes no static playlist. The catalogue is counted for visibility only and no channel is imported. Set DLIVE_M3U_URL to an authorized direct playlist URL - for example one generated by a self-hosted proxy - to import it and have every link checked like any other source."
+    },
+    {
+      "name": "xyzstreams",
+      "type": "website",
+      "enabled": true,
+      "url": "https://xyzstreams.space/",
+      "note": "Live-event index (soccer, NFL, NBA and more) whose schedules the site renders in the viewer's own time zone and whose streams are resolved by JavaScript inside its player pages, so it publishes no static playlist. Checked for reachability only and never imported as channels; its backup index is https://xyzstreams.space/alt.html. Configure XYZSTREAMS_M3U_URL only if you have an authorized direct playlist."
+    },
+    {
+      "name": "ppv.st",
+      "type": "website",
+      "enabled": true,
+      "url": "https://ppv.st/",
+      "note": "Live-event directory (NFL, college football, basketball, soccer, PPV cards) that lists its fixtures and countdowns but serves no static M3U; the page itself now points readers to https://mirrors.st/ for its current address. Checked for reachability only, never imported. Configure PPVST_M3U_URL only if you have an authorized direct playlist."
+    },
+    {
+      "name": "Easy-Web-TV-M3u8",
+      "type": "github_repo",
+      "enabled": true,
+      "repo": "zhangboheng/Easy-Web-TV-M3u8",
+      "ref": "main",
+      "note": "zhangboheng's all-in-one web TV catalogue. Its country pages are generated in the browser from the iptv-org public API (which this repository already reads through the iptv-org source), and the repository tree publishes no .m3u file at all, so there is nothing to import. This check counts the playlists it carries so a future static export is noticed."
     }
   ],
   "discovery": {

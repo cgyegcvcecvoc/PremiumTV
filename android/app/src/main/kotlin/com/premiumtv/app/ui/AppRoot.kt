@@ -212,6 +212,12 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
             val localMarkets = remember(localDirectory, localSelection) {
                 localDirectory?.marketsFor(localSelection)?.map { it.label }.orEmpty()
             }
+            // The saved market itself, so the Live Events clock can offer that
+            // part of the world's zones. Only its longitude is read, on the
+            // device, and nothing about it leaves the app.
+            val localMarket = remember(localDirectory, localSelection) {
+                localDirectory?.marketsFor(localSelection)?.firstOrNull()
+            }
 
             BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
                 // The dock is a readable column on a TV and never more than
@@ -258,6 +264,7 @@ fun AppRoot(viewModel: TvViewModel = viewModel()) {
                                 localChannels = localChannels,
                                 localLabel = localSelection.label(),
                                 localMarkets = localMarkets,
+                                localMarket = localMarket,
                                 onEditLocalChannels = { showLocalSetup = true },
                                 favoriteUrls = favoriteUrlSet,
                                 onToggleFavorite = toggleFavorite,

@@ -139,6 +139,10 @@
             <p id="live-subtitle">Games the repository's scrapers have on air right now, grouped by sport.</p>
           </div>
           <div class="live-tools">
+            <!-- The kickoff clock: one ticking clock, in the zone every card's
+                 kickoff time on this tab is read in (live-clock.js). -->
+            <div id="live-clock" class="live-clock" role="group"
+                 aria-label="Clock for kickoff times"></div>
             <!-- The tab's own refresh: pulls the newest playlist and re-asks
                  every game's feed whether it still answers. -->
             <button id="live-refresh" class="btn btn-quiet" title="Re-check every game and pull the newest playlist">⟳ Refresh live games</button>
@@ -285,6 +289,7 @@
   <script src="vendor/mpegts.js"></script>
   <script src="category-icons.js"></script>
   <script src="live-events.js"></script>
+  <script src="live-clock.js"></script>
   <script src="personal.js"></script>
   <script src="health.js"></script>
   <script src="local-channels.js"></script>

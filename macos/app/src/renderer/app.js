@@ -32,6 +32,7 @@
     liveList: document.getElementById('live-list'),
     liveSubtitle: document.getElementById('live-subtitle'),
     liveRefresh: document.getElementById('live-refresh'),
+    liveClock: document.getElementById('live-clock'),
     settingsBody: document.getElementById('settings-body'),
     statusText: document.getElementById('status-text'),
     views: {
@@ -216,6 +217,12 @@
   // stored on this machine and matched against the bundled station directory.
   const local = window.PremiumLocalChannels;
   let localSelection = local ? local.load(window.localStorage) : null;
+  // The Live Events clock (live-clock.js). The viewer's pick is remembered;
+  // with no pick the device's own zone is used, and the saved local market's
+  // longitude decides which other zones are offered.
+  const liveClock = window.PremiumLiveClock;
+  let clockZone = liveClock ? liveClock.loadChoice(window.localStorage) : '';
+  let clockWidget = null;
   let localMessage = '';
   // 1.1.18: set when a location request failed for a reason the viewer can fix
   // in the system settings, so the panel can offer that pane instead of the
@@ -400,6 +407,49 @@
   function localSummary() {
     if (!local) return 'Local channels are unavailable in this build.';
     return localMessage || local.summary(localDirectory(), localSelection);
+  }
+
+  /**
+   * The longitude the clock's zone suggestions are measured from: the saved
+   * local market's own position, and nothing else. No network call, no IP
+   * lookup - the directory is already on the device.
+   */
+  function clockLongitude() {
+    if (!local) return null;
+    const markets = local.marketsFor(localDirectory(), localSelection) || [];
+    const latitude = Number(markets[0] && markets[0].latitude);
+    const longitude = Number(markets[0] && markets[0].longitude);
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+    return { latitude, longitude };
+  }
+
+  /**
+   * Mount (or repaint) the Live Events clock. Mounted lazily on the first
+   * visit to the tab and kept for the session, because the widget owns a
+   * one-second timer that would otherwise be created and destroyed on every
+   * tab switch.
+   */
+  function ensureLiveClock() {
+    if (!els.liveClock || !liveClock || !window.PremiumLive) return null;
+    if (!clockWidget) {
+      clockWidget = liveClock.mount(els.liveClock, {
+        deviceZone: window.PremiumLive.deviceTimeZone(),
+        storage: window.localStorage,
+        getZone: () => clockZone,
+        setZone: (zone) => {
+          clockZone = zone || '';
+          renderLive();
+        },
+        getLongitude: () => {
+          const position = clockLongitude();
+          return position ? position.longitude : null;
+        },
+        getEvents: () => liveSections.flatMap((section) => section.events),
+      });
+    } else {
+      clockWidget.refresh();
+    }
+    return clockWidget;
   }
 
   function localMarkets() {
@@ -813,9 +863,11 @@
       const kickoff = document.createElement('span');
       kickoff.className = 'event-kickoff';
       kickoff.dataset.kickoff = String(event.kickoffMs);
+      // Read in the same zone as the tab's clock, so the card and the header
+      // can never tell the viewer two different times for one kickoff.
       kickoff.textContent = `Starts in ${window.PremiumLive.countdownText(
         Math.max(0, ((event.kickoffMs || 0) - Date.now()) / 1000),
-      )} · ${window.PremiumLive.kickoffLabel(event.kickoffMs)}`;
+      )} · ${window.PremiumLive.kickoffStamp(event.kickoffMs, clockZone)}`;
       card.querySelector('.event-head').append(kickoff);
     }
 
@@ -898,6 +950,7 @@
   }
 
   function renderLive() {
+    ensureLiveClock();
     const query = ui.query.trim().toLowerCase();
     const sections = liveSections
       .map((section) => ({
@@ -3449,7 +3502,7 @@
         if (kickoff > now) {
           node.textContent = `Starts in ${window.PremiumLive.countdownText(
             Math.max(0, ((kickoff - now) / 1000) | 0),
-          )} · ${window.PremiumLive.kickoffLabel(kickoff)}`;
+          )} · ${window.PremiumLive.kickoffStamp(kickoff, clockZone)}`;
         } else if (node.dataset.flipped !== 'true') {
           node.dataset.flipped = 'true';
           node.textContent = 'Kickoff time';
