@@ -165,6 +165,10 @@
   <channel id="Record.br@SD">
     <display-name>RecordTV</display-name>
   </channel>
+  <channel id="RedeCNTRiodeJaneiro.br@SD">
+    <display-name>Rede CNT Rio de Janeiro (720p)</display-name>
+    <icon src="https://i.imgur.com/jcasAmw.png" />
+  </channel>
   <channel id="RedeFamilia.br@SD">
     <display-name>Rede Familia (720p)</display-name>
     <icon src="https://i.imgur.com/7KVFCrQ.png" />
@@ -357,10 +361,6 @@
     <display-name>TVE Bahia (1080p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/TVE_Bahia_logo.svg/960px-TVE_Bahia_logo.svg.png" />
   </channel>
-  <channel id="TVitape.br@SD">
-    <display-name>TVitape (720p)</display-name>
-    <icon src="https://i.imgur.com/XeqcwKe.png" />
-  </channel>
   <channel id="TVLatinaSat.br@HD">
     <display-name>TVLatinaSat (720p)</display-name>
     <icon src="https://latinasat.com.br/logo.png" />
@@ -495,16 +495,25 @@
     <display-name>J3NEWS TV</display-name>
     <icon src="https://i.imgur.com/lezIQyL.png" />
   </channel>
+  <channel id="JovemPanNews.br@SD">
+    <display-name>Jovem Pan News (720p)</display-name>
+    <display-name>Jovem Pan News</display-name>
+    <display-name>417187</display-name>
+    <display-name>BR - Jovem Pan News</display-name>
+    <display-name>JovemPanNews.br</display-name>
+    <icon src="https://iptv-epg.org/images/v4bwhmiP-BUI5JWSqroZL3YWVUwHyakv6q5z4B6ElOI_9H2XMQVJfsdIYiJGGkoU4wO5_m1EBH5HxeESqfr02w1BFZmDdgAgyVv53iCtuLNTq3BbgQ" />
+  </channel>
   <channel id="PlenaTV.br@SD">
     <display-name>Plena TV (720p)</display-name>
     <icon src="https://i.imgur.com/lH4RT7b.png" />
   </channel>
-  <channel id="RecordNews.br">
+  <channel id="Record.News.br">
     <display-name>Record News</display-name>
     <display-name>55922</display-name>
     <display-name>523352</display-name>
     <display-name>BR - Record News</display-name>
     <display-name>RecordNews.br</display-name>
+    <display-name>Record News (Backup 1)</display-name>
     <icon src="https://iptv-epg.org/images/OzF7kxJ7GDpi4gIS5jhY7rTNJ6XaXw8QqUxazuN_pboR6a3cWUD3DShshABx9-O3nDbygJZiI898whmS57M4ijfaTLpLlYbaehnMSBQWsi0wirU" />
   </channel>
   <channel id="SBTNews.br@SD">
@@ -797,20 +806,6 @@
     <display-name>TVCamara.br</display-name>
     <icon src="https://iptv-epg.org/images/lzuLmPHfYV9Lb1Jx3ZMYHJtxhUMTWxo2thwvb1u_cNXTdkaSDwuUoDuYdypdRjM3rgGst2WjjgfrVBEszM8mZTRGKkOyvlKqXMUcrSvPVWxy" />
   </channel>
-  <programme start="20261123113000 +0000" stop="20261123123000 +0000" channel="Band.Sports.br">
-    <title>AMG Cup: 12ª Etapa Chapecó-SC: Corrida 2 - VT</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123123000 +0000" stop="20261123140000 +0000" channel="Band.Sports.br">
-    <title>Sail GP: Etapa Dubai: Dia 2 - VT</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123140000 +0000" stop="20261123160000 +0000" channel="Band.Sports.br">
     <title>SFT Combat</title>
     <date>20261123</date>
@@ -1091,13 +1086,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123110000 +0000" stop="20261123130000 +0000" channel="ESPN4.br@SD">
-    <title>MotoGP: GP de Portugal</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123130000 +0000" stop="20261123150000 +0000" channel="ESPN4.br@SD">
     <title>VT - Atalanta x Internazionale</title>
     <date>20261123</date>
@@ -1332,14 +1320,6 @@
   <programme start="20261125090000 +0000" stop="20261126000000 +0000" channel="ESPN4.br@SD">
     <title>VT - Atlético-MG x Boca Juniors</title>
     <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123120000 +0000" stop="20261123140000 +0000" channel="ESPN.br@SD">
-    <title>VT - Liverpool x Manchester United</title>
-    <desc>Grandes craques, técnicos de renome, torcedores e muitos outros personagens reunidos: é impossível caminhar sozinho. Sinta a paixão e a emoção de cada jogo.</desc>
-    <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -1632,34 +1612,18 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120000 +0000" stop="20261123123000 +0000" channel="Sabor.&amp;amp;.Arte.br">
-    <title>Experimente</title>
-    <desc>Cecilia Padilha é administradora com MBA pela Swiss Business School, e depois de 15 anos no mercado financeiro foi trabalhar em sua paixão, a gastronomia! Participou da primeira edição do reality show MasterChef Brasi.</desc>
-    <date>20261123</date>
+  <programme start="20261125190000 +0000" stop="20261125200000 +0000" channel="ESPN.br@SD">
+    <title>Sportscenter</title>
+    <desc>O telejornal esportivo mais assistido no mundo! Os principais fatos, imagens que marcaram o dia, temas fundamentais e polêmicos. Informação apurada e opinião transparente, sem abrir mão do bom humor.</desc>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123123000 +0000" stop="20261123130000 +0000" channel="Sabor.&amp;amp;.Arte.br">
-    <title>Le Cordon Bleu</title>
-    <desc>Sejam bem vindos a Le Cordon Bleu, a mais tradicional escola de gastronomia do mundo, que pela primeira vez mostrará os segredos de suas aulas na televisão.</desc>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123130000 +0000" stop="20261123133000 +0000" channel="Sabor.&amp;amp;.Arte.br">
-    <title>Le Cordon Bleu</title>
-    <desc>Sejam bem vindos a Le Cordon Bleu, a mais tradicional escola de gastronomia do mundo, que pela primeira vez mostrará os segredos de suas aulas na televisão.</desc>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123133000 +0000" stop="20261123140000 +0000" channel="Sabor.&amp;amp;.Arte.br">
-    <title>Eletrizzante!</title>
-    <desc>O programa mostra como preparar pratos inesquecíveis com toda a sorte de ingredientes. A proposta é ir além das receitas: surpresas instigam o desejo de experimentá-las.</desc>
-    <date>20261123</date>
+  <programme start="20261125200000 +0000" stop="20261125220000 +0000" channel="ESPN.br@SD">
+    <title>VT - Atalanta x Internazionale</title>
+    <desc>Histórias de heróis, anjos caídos e semideuses. Partidas lendárias disputadas até o último minuto em busca do título de melhor clube do país.</desc>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -2448,58 +2412,34 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120500 +0000" stop="20261123121500 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Travel Shots</title>
-    <date>20261123</date>
+  <programme start="20261125183000 +0000" stop="20261125190000 +0000" channel="Sabor.&amp;amp;.Arte.br">
+    <title>Rolê de Chef</title>
+    <desc>O novo programa do chef vai rodar vários locais para mostrar ao assinante não somente a gastronomia, mas também uns rolês diferentes, com uma pegada de vlog de viagem.</desc>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123121500 +0000" stop="20261123123800 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Acontece No Travel</title>
-    <date>20261123</date>
+  <programme start="20261125190000 +0000" stop="20261125193000 +0000" channel="Sabor.&amp;amp;.Arte.br">
+    <title>Jantar O Quê?</title>
+    <desc>Quando chega a noite, bate aquela vontade de desfrutar um momento gostoso, nesta hora, uma mesma dúvida nasce em muitos corações e estômagos diferentes: jantar o quê?</desc>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123123800 +0000" stop="20261123125900 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Travel Shots</title>
-    <date>20261123</date>
+  <programme start="20261125193000 +0000" stop="20261125200000 +0000" channel="Sabor.&amp;amp;.Arte.br">
+    <title>Jantar O Quê?</title>
+    <desc>Quando chega a noite, bate aquela vontade de desfrutar um momento gostoso, nesta hora, uma mesma dúvida nasce em muitos corações e estômagos diferentes: jantar o quê?</desc>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123125900 +0000" stop="20261123131300 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Travel Shots</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123131300 +0000" stop="20261123132000 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Travel Shots</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123132000 +0000" stop="20261123132300 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Travel Shots</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123132300 +0000" stop="20261123135300 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Acontece No Travel</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123135300 +0000" stop="20261123140900 +0000" channel="TravelBoxBrazil.br@SD">
-    <title>Travel Shots</title>
-    <date>20261123</date>
+  <programme start="20261125200000 +0000" stop="20261125203000 +0000" channel="Sabor.&amp;amp;.Arte.br">
+    <title>Le Cordon Bleu</title>
+    <desc>Sejam bem vindos a Le Cordon Bleu, a mais tradicional escola de gastronomia do mundo, que pela primeira vez mostrará os segredos de suas aulas na televisão.</desc>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -3820,13 +3760,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120000 +0000" stop="20261123140000 +0000" channel="RedeTV.br@SD">
-    <title>Madrugada Animada</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123140000 +0000" stop="20261123160000 +0000" channel="RedeTV.br@SD">
     <title>Igreja da Graça No Seu Lar</title>
     <date>20261123</date>
@@ -4065,18 +3998,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120000 +0000" stop="20261123123000 +0000" channel="SonyChannel.br@SD">
-    <title>The Nanny</title>
-  </programme>
-  <programme start="20261123123000 +0000" stop="20261123130000 +0000" channel="SonyChannel.br@SD">
-    <title>The Nanny</title>
-  </programme>
-  <programme start="20261123130000 +0000" stop="20261123133000 +0000" channel="SonyChannel.br@SD">
-    <title>My Wife and Kids</title>
-  </programme>
-  <programme start="20261123133000 +0000" stop="20261123140000 +0000" channel="SonyChannel.br@SD">
-    <title>My Wife and Kids</title>
-  </programme>
   <programme start="20261123140000 +0000" stop="20261123143000 +0000" channel="SonyChannel.br@SD">
     <title>My Wife and Kids</title>
   </programme>
@@ -4260,11 +4181,14 @@
   <programme start="20261125175000 +0000" stop="20261125181500 +0000" channel="SonyChannel.br@SD">
     <title>My Wife and Kids</title>
   </programme>
-  <programme start="20261123100000 +0000" stop="20261123123000 +0000" channel="TVACritica.br@SD">
-    <title>Manhã no Ar</title>
+  <programme start="20261125181500 +0000" stop="20261125184000 +0000" channel="SonyChannel.br@SD">
+    <title>My Wife and Kids</title>
   </programme>
-  <programme start="20261123123000 +0000" stop="20261123140000 +0000" channel="TVACritica.br@SD">
-    <title>A Crítica Kids</title>
+  <programme start="20261125184000 +0000" stop="20261125190500 +0000" channel="SonyChannel.br@SD">
+    <title>My Wife and Kids</title>
+  </programme>
+  <programme start="20261125190500 +0000" stop="20261125205500 +0000" channel="SonyChannel.br@SD">
+    <title>Velozes e Furiosos - Desafio em Tóquio</title>
   </programme>
   <programme start="20261123140000 +0000" stop="20261123144500 +0000" channel="TVACritica.br@SD">
     <title>Aquecimento</title>
@@ -4356,12 +4280,8 @@
   <programme start="20261125144500 +0000" stop="20261125183000 +0000" channel="TVACritica.br@SD">
     <title>Alô Cidade</title>
   </programme>
-  <programme start="20261123110000 +0000" stop="20261123130000 +0000" channel="TVGazeta.br@SD">
-    <title>Mesa Redonda</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261125183000 +0000" stop="20261125210000 +0000" channel="TVACritica.br@SD">
+    <title>Magazine</title>
   </programme>
   <programme start="20261123130000 +0000" stop="20261123170000 +0000" channel="TVGazeta.br@SD">
     <title>Gazeta Shopping</title>
@@ -4524,9 +4444,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120000 +0000" stop="20261123131000 +0000" channel="TVJustica.br@SD">
-    <title>Revista Rádio Justiça</title>
-  </programme>
   <programme start="20261123131000 +0000" stop="20261123171000 +0000" channel="TVJustica.br@SD">
     <title>Justiça Agora</title>
   </programme>
@@ -4670,13 +4587,6 @@
   </programme>
   <programme start="20261125180000 +0000" stop="20261125210000 +0000" channel="TVJustica.br@SD">
     <title>Justiça na Tarde</title>
-  </programme>
-  <programme start="20261123115100 +0000" stop="20261123124500 +0000" channel="TVSenado.br@SD">
-    <title>Estúdio A</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
   </programme>
   <programme start="20261123124500 +0000" stop="20261123141700 +0000" channel="TVSenado.br@SD">
     <title>Senadoc: Crônica da Demolição</title>
@@ -4926,20 +4836,6 @@
   <programme start="20261125080000 +0000" stop="20261126000000 +0000" channel="TVSenado.br@SD">
     <title>Comissão</title>
     <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123100000 +0000" stop="20261123140000 +0000" channel="WooHoo.br@SD">
-    <title>1001 Noites</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123140000 +0000" stop="20261123141000 +0000" channel="WooHoo.br@SD">
-    <title>Do Alto</title>
-    <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -5973,34 +5869,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120000 +0000" stop="20261123123000 +0000" channel="Band.News.br">
-    <title>O Que É Ser Brasileiro?</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123123000 +0000" stop="20261123130000 +0000" channel="Band.News.br">
-    <title>Viver Melhor</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123130000 +0000" stop="20261123133000 +0000" channel="Band.News.br">
-    <title>Experimente</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123133000 +0000" stop="20261123140000 +0000" channel="Band.News.br">
-    <title>BandNews DOCs</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123140000 +0000" stop="20261123143000 +0000" channel="Band.News.br">
     <title>Jornal da Noite</title>
     <date>20261123</date>
@@ -6404,13 +6272,6 @@
   <programme start="20261125180000 +0000" stop="20261125205000 +0000" channel="CNNBrasil.br@SD">
     <title>CNN 360º</title>
   </programme>
-  <programme start="20261123103500 +0000" stop="20261123133500 +0000" channel="GloboNews.br@SD">
-    <title>Fantástico</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123133500 +0000" stop="20261123142000 +0000" channel="GloboNews.br@SD">
     <title>Jornal GloboNews (3h) - Ao Vivo</title>
     <date>20261123</date>
@@ -6614,373 +6475,528 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123080000 +0000" stop="20261123140000 +0000" channel="RecordNews.br">
-    <title>Informação para você crescer</title>
+  <programme start="20261123140000 +0000" stop="20261123150000 +0000" channel="JovemPanNews.br@SD">
+    <title>Isso Não É Um Talk Show - Melhores Momentos</title>
+    <desc>Entrevistas, humor, informação e conversas descontraídas com personalidades e convidados em um formato irreverente.</desc>
     <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123140000 +0000" stop="20261123170000 +0000" channel="RecordNews.br">
-    <title>Informação para você crescer</title>
+  <programme start="20261123150000 +0000" stop="20261123190000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
     <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123170000 +0000" stop="20261123200000 +0000" channel="RecordNews.br">
-    <title>Informação para você crescer</title>
+  <programme start="20261123190000 +0000" stop="20261123230000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
     <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123200000 +0000" stop="20261123210000 +0000" channel="RecordNews.br">
+  <programme start="20261123230000 +0000" stop="20261124030000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261124030000 +0000" stop="20261124070000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261124070000 +0000" stop="20261124110000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261124110000 +0000" stop="20261124150000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261124150000 +0000" stop="20261124190000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261124190000 +0000" stop="20261124230000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261124230000 +0000" stop="20261125030000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125030000 +0000" stop="20261125070000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125070000 +0000" stop="20261125110000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125110000 +0000" stop="20261125150000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125150000 +0000" stop="20261125190000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125190000 +0000" stop="20261125230000 +0000" channel="JovemPanNews.br@SD">
+    <title>Programação Jovem Pan News</title>
+    <desc>Sinopse Não Disponível.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123130000 +0000" stop="20261123141500 +0000" channel="Record.News.br">
+    <title>Esporte Record</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123141500 +0000" stop="20261123151500 +0000" channel="Record.News.br">
+    <title>Record News Séries</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123151500 +0000" stop="20261123160000 +0000" channel="Record.News.br">
+    <title>Doc Investigação</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123160000 +0000" stop="20261123163000 +0000" channel="Record.News.br">
+    <title>Record News Séries</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123163000 +0000" stop="20261123164500 +0000" channel="Record.News.br">
+    <title>Record News Séries</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123164500 +0000" stop="20261123173000 +0000" channel="Record.News.br">
+    <title>Record News Rural</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123173000 +0000" stop="20261123180000 +0000" channel="Record.News.br">
+    <title>Nosso Tempo</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123180000 +0000" stop="20261123181500 +0000" channel="Record.News.br">
+    <title>Zapping</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123181500 +0000" stop="20261123183500 +0000" channel="Record.News.br">
+    <title>Visão e Negócios</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123183500 +0000" stop="20261123191500 +0000" channel="Record.News.br">
+    <title>Record News Rural</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123191500 +0000" stop="20261123193500 +0000" channel="Record.News.br">
+    <title>Inovação e Negócios</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123193500 +0000" stop="20261123200000 +0000" channel="Record.News.br">
+    <title>Hora News</title>
+    <date>20261123</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261123200000 +0000" stop="20261123210000 +0000" channel="Record.News.br">
     <title>Fala Brasil</title>
     <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123223000 +0000" channel="RecordNews.br">
+  <programme start="20261123210000 +0000" stop="20261123223000 +0000" channel="Record.News.br">
     <title>Alerta Brasil</title>
     <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="RecordNews.br">
+  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="Record.News.br">
     <title>Hora News</title>
     <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123230000 +0000" stop="20261124003000 +0000" channel="RecordNews.br">
+  <programme start="20261123230000 +0000" stop="20261124003000 +0000" channel="Record.News.br">
     <title>Hora News</title>
     <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124003000 +0000" stop="20261124010000 +0000" channel="RecordNews.br">
+  <programme start="20261124003000 +0000" stop="20261124010000 +0000" channel="Record.News.br">
     <title>Conexão Record News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124010000 +0000" stop="20261124023000 +0000" channel="RecordNews.br">
+  <programme start="20261124010000 +0000" stop="20261124023000 +0000" channel="Record.News.br">
     <title>Conexão Record News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124023000 +0000" stop="20261124031000 +0000" channel="RecordNews.br">
+  <programme start="20261124023000 +0000" stop="20261124031000 +0000" channel="Record.News.br">
     <title>Zapping</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124031000 +0000" stop="20261124050000 +0000" channel="RecordNews.br">
+  <programme start="20261124031000 +0000" stop="20261124050000 +0000" channel="Record.News.br">
     <title>Link News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124050000 +0000" stop="20261124054500 +0000" channel="RecordNews.br">
+  <programme start="20261124050000 +0000" stop="20261124054500 +0000" channel="Record.News.br">
     <title>Link News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124054500 +0000" stop="20261124060000 +0000" channel="RecordNews.br">
+  <programme start="20261124054500 +0000" stop="20261124060000 +0000" channel="Record.News.br">
     <title>Esporte Record News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124060000 +0000" stop="20261124064500 +0000" channel="RecordNews.br">
+  <programme start="20261124060000 +0000" stop="20261124064500 +0000" channel="Record.News.br">
     <title>News 19 Horas</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124064500 +0000" stop="20261124071000 +0000" channel="RecordNews.br">
+  <programme start="20261124064500 +0000" stop="20261124071000 +0000" channel="Record.News.br">
     <title>Elas com a Bola</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124071000 +0000" stop="20261124080000 +0000" channel="RecordNews.br">
+  <programme start="20261124071000 +0000" stop="20261124080000 +0000" channel="Record.News.br">
     <title>Jornal da Record</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124080000 +0000" stop="20261124090000 +0000" channel="RecordNews.br">
+  <programme start="20261124080000 +0000" stop="20261124090000 +0000" channel="Record.News.br">
     <title>Jornal da Record News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124090000 +0000" stop="20261124093000 +0000" channel="RecordNews.br">
+  <programme start="20261124090000 +0000" stop="20261124093000 +0000" channel="Record.News.br">
     <title>News das 10</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124093000 +0000" stop="20261124110000 +0000" channel="RecordNews.br">
+  <programme start="20261124093000 +0000" stop="20261124110000 +0000" channel="Record.News.br">
     <title>Joga nas 11</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124110000 +0000" stop="20261124113000 +0000" channel="RecordNews.br">
+  <programme start="20261124110000 +0000" stop="20261124113000 +0000" channel="Record.News.br">
     <title>Giro do Apito</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124113000 +0000" stop="20261124120000 +0000" channel="RecordNews.br">
+  <programme start="20261124113000 +0000" stop="20261124120000 +0000" channel="Record.News.br">
     <title>Jornal da Record</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124120000 +0000" stop="20261124123000 +0000" channel="RecordNews.br">
+  <programme start="20261124120000 +0000" stop="20261124123000 +0000" channel="Record.News.br">
     <title>Nosso Tempo</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124123000 +0000" stop="20261124124000 +0000" channel="RecordNews.br">
+  <programme start="20261124123000 +0000" stop="20261124124000 +0000" channel="Record.News.br">
     <title>Jornal da Record 24h</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124124000 +0000" stop="20261124140000 +0000" channel="RecordNews.br">
+  <programme start="20261124124000 +0000" stop="20261124140000 +0000" channel="Record.News.br">
     <title>Conexão Record News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124140000 +0000" stop="20261124153000 +0000" channel="RecordNews.br">
+  <programme start="20261124140000 +0000" stop="20261124153000 +0000" channel="Record.News.br">
     <title>Link News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124153000 +0000" stop="20261124163000 +0000" channel="RecordNews.br">
+  <programme start="20261124153000 +0000" stop="20261124163000 +0000" channel="Record.News.br">
     <title>Jornal da Record News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124163000 +0000" stop="20261124164500 +0000" channel="RecordNews.br">
+  <programme start="20261124163000 +0000" stop="20261124164500 +0000" channel="Record.News.br">
     <title>Jornal da Record 24h</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124164500 +0000" stop="20261124173000 +0000" channel="RecordNews.br">
+  <programme start="20261124164500 +0000" stop="20261124173000 +0000" channel="Record.News.br">
     <title>Record News Rural</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124173000 +0000" stop="20261124180000 +0000" channel="RecordNews.br">
+  <programme start="20261124173000 +0000" stop="20261124180000 +0000" channel="Record.News.br">
     <title>Nosso Tempo</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124180000 +0000" stop="20261124181500 +0000" channel="RecordNews.br">
+  <programme start="20261124180000 +0000" stop="20261124181500 +0000" channel="Record.News.br">
     <title>Zapping</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124181500 +0000" stop="20261124183500 +0000" channel="RecordNews.br">
+  <programme start="20261124181500 +0000" stop="20261124183500 +0000" channel="Record.News.br">
     <title>Visão e Negócios</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124183500 +0000" stop="20261124191500 +0000" channel="RecordNews.br">
+  <programme start="20261124183500 +0000" stop="20261124191500 +0000" channel="Record.News.br">
     <title>Record News Rural</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124191500 +0000" stop="20261124193500 +0000" channel="RecordNews.br">
+  <programme start="20261124191500 +0000" stop="20261124193500 +0000" channel="Record.News.br">
     <title>Inovação e Negócios</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124193500 +0000" stop="20261124200000 +0000" channel="RecordNews.br">
+  <programme start="20261124193500 +0000" stop="20261124200000 +0000" channel="Record.News.br">
     <title>Hora News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124200000 +0000" stop="20261124210000 +0000" channel="RecordNews.br">
+  <programme start="20261124200000 +0000" stop="20261124210000 +0000" channel="Record.News.br">
     <title>Fala Brasil</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124210000 +0000" stop="20261124223000 +0000" channel="RecordNews.br">
+  <programme start="20261124210000 +0000" stop="20261124223000 +0000" channel="Record.News.br">
     <title>Alerta Brasil</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124223000 +0000" stop="20261125003000 +0000" channel="RecordNews.br">
+  <programme start="20261124223000 +0000" stop="20261125003000 +0000" channel="Record.News.br">
     <title>Hora News</title>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125003000 +0000" stop="20261125023000 +0000" channel="RecordNews.br">
+  <programme start="20261125003000 +0000" stop="20261125023000 +0000" channel="Record.News.br">
     <title>Conexão Record News</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125023000 +0000" stop="20261125031000 +0000" channel="RecordNews.br">
+  <programme start="20261125023000 +0000" stop="20261125031000 +0000" channel="Record.News.br">
     <title>Zapping</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125031000 +0000" stop="20261125054500 +0000" channel="RecordNews.br">
+  <programme start="20261125031000 +0000" stop="20261125054500 +0000" channel="Record.News.br">
     <title>Link News</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125054500 +0000" stop="20261125060000 +0000" channel="RecordNews.br">
+  <programme start="20261125054500 +0000" stop="20261125060000 +0000" channel="Record.News.br">
     <title>Esporte Record News</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125060000 +0000" stop="20261125064500 +0000" channel="RecordNews.br">
+  <programme start="20261125060000 +0000" stop="20261125064500 +0000" channel="Record.News.br">
     <title>News 19 Horas</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125064500 +0000" stop="20261125071000 +0000" channel="RecordNews.br">
+  <programme start="20261125064500 +0000" stop="20261125071000 +0000" channel="Record.News.br">
     <title>Elas com a Bola</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125071000 +0000" stop="20261125080000 +0000" channel="RecordNews.br">
+  <programme start="20261125071000 +0000" stop="20261125080000 +0000" channel="Record.News.br">
     <title>Jornal da Record</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125080000 +0000" stop="20261125090000 +0000" channel="RecordNews.br">
+  <programme start="20261125080000 +0000" stop="20261125090000 +0000" channel="Record.News.br">
     <title>Jornal da Record News</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125090000 +0000" stop="20261125091000 +0000" channel="RecordNews.br">
+  <programme start="20261125090000 +0000" stop="20261125091000 +0000" channel="Record.News.br">
     <title>News das 10</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125091000 +0000" stop="20261125093000 +0000" channel="RecordNews.br">
+  <programme start="20261125091000 +0000" stop="20261125093000 +0000" channel="Record.News.br">
     <title>Jornal da Record</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125093000 +0000" stop="20261125100000 +0000" channel="RecordNews.br">
+  <programme start="20261125093000 +0000" stop="20261125100000 +0000" channel="Record.News.br">
     <title>Mulheres Positivas</title>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125100000 +0000" stop="20261126000000 +0000" channel="RecordNews.br">
+  <programme start="20261125100000 +0000" stop="20261126000000 +0000" channel="Record.News.br">
     <title>Aldeia News</title>
     <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123120000 +0000" stop="20261123130000 +0000" channel="RedeVida.br@SD">
-    <title>Juntos com São Miguel</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123130000 +0000" stop="20261123135000 +0000" channel="RedeVida.br@SD">
-    <title>Missa do Santuário da Vida</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123135000 +0000" stop="20261123140000 +0000" channel="RedeVida.br@SD">
-    <title>Angelus</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123140000 +0000" stop="20261123141000 +0000" channel="RedeVida.br@SD">
-    <title>Terço da Misericórdia</title>
-    <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -7566,22 +7582,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120000 +0000" stop="20261123124500 +0000" channel="TVUniversal.br@SD">
-    <title>NCIS: Los Angeles</title>
-    <desc>'S13/E12 - Murmuration'. Drones mimic a deadly dance as NCIS faces an AI gone rogue. The team investigates a complex conspiracy, navigating secrets to unravel consequences.</desc>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123124500 +0000" stop="20261123133000 +0000" channel="TVUniversal.br@SD">
-    <title>NCIS: Los Angeles</title>
-    <desc>'S13/E13 - Bonafides'. Hetty's cryptic message ties it all together, but can NCIS unravel the secrets in time? The team confronts a shadowy adversary, exposing alliances.</desc>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123133000 +0000" stop="20261123141500 +0000" channel="TVUniversal.br@SD">
     <title>S.W.A.T.</title>
     <desc>'S8/E12 - Deep Cover'. Alfaro's murky past comes back to haunt him when his latest undercover assignment brings him into deadly contact with someone from a previous case.</desc>
@@ -7990,27 +7990,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123112000 +0000" stop="20261123121500 +0000" channel="AXN.br@SD">
-    <title>NCIS: Hawai'i</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123121500 +0000" stop="20261123131000 +0000" channel="AXN.br@SD">
-    <title>NCIS: Hawai'i</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123131000 +0000" stop="20261123140400 +0000" channel="AXN.br@SD">
-    <title>C.S.I</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123140400 +0000" stop="20261123150000 +0000" channel="AXN.br@SD">
     <title>C.S.I</title>
     <date>20261123</date>
@@ -8382,13 +8361,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123105000 +0000" stop="20261123130000 +0000" channel="TelecineAction.br@SD">
-    <title>A Múmia (1999)</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261123130000 +0000" stop="20261123144000 +0000" channel="TelecineAction.br@SD">
     <title>Mate ou Morra</title>
     <date>20261123</date>
@@ -8578,9 +8550,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123112000 +0000" stop="20261123133000 +0000" channel="TelecineCult.br@SD">
-    <title>Tubarão</title>
-  </programme>
   <programme start="20261123133000 +0000" stop="20261123152500 +0000" channel="TelecineCult.br@SD">
     <title>Júnior</title>
   </programme>
@@ -8659,11 +8628,8 @@
   <programme start="20261125170000 +0000" stop="20261125185000 +0000" channel="TelecineCult.br@SD">
     <title>Casablanca</title>
   </programme>
-  <programme start="20261123104000 +0000" stop="20261123121500 +0000" channel="TelecineFun.br@SD">
-    <title>Pets - A Vida Secreta dos Bichos</title>
-  </programme>
-  <programme start="20261123121500 +0000" stop="20261123135000 +0000" channel="TelecineFun.br@SD">
-    <title>Babe - O Porquinho Atrapalhado na Cidade</title>
+  <programme start="20261125185000 +0000" stop="20261125204500 +0000" channel="TelecineCult.br@SD">
+    <title>Sua Última Façanha</title>
   </programme>
   <programme start="20261123135000 +0000" stop="20261123153500 +0000" channel="TelecineFun.br@SD">
     <title>Uma Floresta Muito Louca</title>
@@ -8761,8 +8727,8 @@
   <programme start="20261125174500 +0000" stop="20261125192000 +0000" channel="TelecineFun.br@SD">
     <title>O Mentiroso</title>
   </programme>
-  <programme start="20261123103000 +0000" stop="20261123132500 +0000" channel="TelecinePremium.br@SD">
-    <title>A Semente do Fruto Sagrado</title>
+  <programme start="20261125192000 +0000" stop="20261125210500 +0000" channel="TelecineFun.br@SD">
+    <title>O Príncipe do Egito</title>
   </programme>
   <programme start="20261123132500 +0000" stop="20261123152000 +0000" channel="TelecinePremium.br@SD">
     <title>Nosso Segredo</title>
@@ -8854,8 +8820,8 @@
   <programme start="20261125175000 +0000" stop="20261125194000 +0000" channel="TelecinePremium.br@SD">
     <title>Fúria Assassina</title>
   </programme>
-  <programme start="20261123111000 +0000" stop="20261123130500 +0000" channel="TelecineTouch.br@SD">
-    <title>O Mensageiro</title>
+  <programme start="20261125194000 +0000" stop="20261125211500 +0000" channel="TelecinePremium.br@SD">
+    <title>Toc Toc Toc - Ecos do Além</title>
   </programme>
   <programme start="20261123130500 +0000" stop="20261123145000 +0000" channel="TelecineTouch.br@SD">
     <title>Três Verões</title>
@@ -8941,12 +8907,8 @@
   <programme start="20261125172500 +0000" stop="20261125191000 +0000" channel="TelecineTouch.br@SD">
     <title>Entrevista com Deus</title>
   </programme>
-  <programme start="20261123113000 +0000" stop="20261123121500 +0000" channel="Record.TV.br">
-    <title>Chicago Fire</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261125191000 +0000" stop="20261125205000 +0000" channel="TelecineTouch.br@SD">
+    <title>As Apimentadas - Desafio Mundial</title>
   </programme>
   <programme start="20261123121500 +0000" stop="20261123160000 +0000" channel="Record.TV.br">
     <title>IURD</title>
@@ -9238,38 +9200,6 @@
   <programme start="20261125093000 +0000" stop="20261126000000 +0000" channel="Record.TV.br">
     <title>A Fazenda</title>
     <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123114500 +0000" stop="20261123123500 +0000" channel="RedeBrasil.br@SD">
-    <title>MacGyver</title>
-    <desc>MacGyver é um agente secreto altamente inteligente que prefere resolver os conflitos sem violência. Ele nunca está armado e derrota o inimigo com seu vasto conhecimento científico.</desc>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123123500 +0000" stop="20261123133000 +0000" channel="RedeBrasil.br@SD">
-    <title>Séries Douradas</title>
-    <desc>Séries que trazem nostalgia ao telespectador.</desc>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123133000 +0000" stop="20261123134000 +0000" channel="RedeBrasil.br@SD">
-    <title>Infomercial</title>
-    <desc>Espaço publicitário destinado à comercialização de produtos e serviços.</desc>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123134000 +0000" stop="20261123140500 +0000" channel="RedeBrasil.br@SD">
-    <title>Lancelot Link - O Agente Secreto</title>
-    <desc>Em um mundo habitado por chimpanzés em vez de humanos, Lancelot Link, com a parceira Mata Hairi, é um dos principais agentes da Agência para Prevenir o Mal, organização secreta liderada pelo Comandante Darwin que protege o mundo de malfeitores.</desc>
-    <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -10146,9 +10076,50 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123120000 +0000" stop="20261123140000 +0000" channel="Rede.TV.br">
-    <title>Madrugada Animada</title>
-    <date>20261123</date>
+  <programme start="20261125183000 +0000" stop="20261125184500 +0000" channel="RedeBrasil.br@SD">
+    <title>Oração da Noite</title>
+    <desc>Momento reflexivo de oração.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125184500 +0000" stop="20261125185500 +0000" channel="RedeBrasil.br@SD">
+    <title>Infomercial</title>
+    <desc>Espaço publicitário destinado à comercialização de produtos e serviços.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125185500 +0000" stop="20261125192000 +0000" channel="RedeBrasil.br@SD">
+    <title>Punky, a Levada da Breca</title>
+    <desc>Penélope "Punky" Brewster é uma garota bem-humorada, abandonada pelos pais. Na companhia do seu cão Pinky, descobre um apartamento vago num prédio e passa a viver lá. O administrador do prédio a adota e com suas amigas passa por grandes aventuras.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125192000 +0000" stop="20261125194500 +0000" channel="RedeBrasil.br@SD">
+    <title>Sessão Cor de Rosa</title>
+    <desc>Transmissão das melhores séries.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125194500 +0000" stop="20261125200000 +0000" channel="RedeBrasil.br@SD">
+    <title>Findi Quiz</title>
+    <desc>Evê Sobral traz curiosidades sobre os clássicos que são sucesso e interage com os telespectadores em um jogo de perguntas.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125200000 +0000" stop="20261125204500 +0000" channel="RedeBrasil.br@SD">
+    <title>Stargate</title>
+    <desc>Uma equipe de exploradores composta de soldados e cientistas viaja através do Stargate, um portal que dá acesso a outros planetas. Eles usam a passagem para explorar novos mundos e proteger a Terra contra forças inimigas.</desc>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -10387,20 +10358,6 @@
   <programme start="20261125100000 +0000" stop="20261126000000 +0000" channel="Rede.TV.br">
     <title>O Grande Vencedor</title>
     <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123114500 +0000" stop="20261123131500 +0000" channel="TV.Brasil.br">
-    <title>Sessão de Cinema: Transversais</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123131500 +0000" stop="20261123140000 +0000" channel="TV.Brasil.br">
-    <title>Meu Pedaço do Brasil</title>
-    <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -11115,34 +11072,6 @@
   <programme start="20261125103000 +0000" stop="20261126000000 +0000" channel="TV.Brasil.br">
     <title>Sem Censura</title>
     <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123120000 +0000" stop="20261123121500 +0000" channel="Futura.br@SD">
-    <title>Caminho Das Águas</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123121500 +0000" stop="20261123124500 +0000" channel="Futura.br@SD">
-    <title>Àgbára Dúdú 2ª Temporada</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123124500 +0000" stop="20261123131500 +0000" channel="Futura.br@SD">
-    <title>Negros Em Foco</title>
-    <date>20261123</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261123131500 +0000" stop="20261123134000 +0000" channel="Futura.br@SD">
-    <title>Tem Clima Pra Isso?</title>
-    <date>20261123</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -12014,12 +11943,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261123120000 +0000" stop="20261123123000 +0000" channel="TVCamara.br@SD">
-    <title>Fatos e Opiniões</title>
-  </programme>
-  <programme start="20261123123000 +0000" stop="20261123130000 +0000" channel="TVCamara.br@SD">
-    <title>Qual a Questão?</title>
   </programme>
   <programme start="20261123130000 +0000" stop="20261123150000 +0000" channel="TVCamara.br@SD">
     <title>Câmara Agora</title>
