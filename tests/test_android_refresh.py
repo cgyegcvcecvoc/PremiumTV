@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import re
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -98,6 +99,40 @@ class AndroidRefreshWiringTests(unittest.TestCase):
         self.assertIn("android.permission.RECEIVE_BOOT_COMPLETED", manifest)
         self.assertIn("AutomaticRefreshScheduler.scheduleNext(this)", application)
         self.assertIn("val repository: TvRepository", application)
+
+    def test_local_location_preferences_are_excluded_from_cloud_and_device_backup(self):
+        android_attr = "{http://schemas.android.com/apk/res/android}"
+        manifest = ET.parse(ANDROID / "AndroidManifest.xml").getroot()
+        application = manifest.find("application")
+        self.assertIsNotNone(application)
+        self.assertEqual(application.get(android_attr + "allowBackup"), "true")
+        self.assertEqual(application.get(android_attr + "fullBackupContent"), "@xml/backup_rules")
+        self.assertEqual(
+            application.get(android_attr + "dataExtractionRules"),
+            "@xml/data_extraction_rules",
+        )
+
+        legacy_rules = ET.parse(ANDROID / "res" / "xml" / "backup_rules.xml").getroot()
+        self.assertEqual(legacy_rules.tag, "full-backup-content")
+        self.assertIn(
+            ("sharedpref", "premiumtv_local.xml"),
+            {(item.get("domain"), item.get("path")) for item in legacy_rules.findall("exclude")},
+        )
+
+        extraction = ET.parse(ANDROID / "res" / "xml" / "data_extraction_rules.xml").getroot()
+        self.assertEqual(extraction.tag, "data-extraction-rules")
+        for section_name in ("cloud-backup", "device-transfer"):
+            section = extraction.find(section_name)
+            self.assertIsNotNone(section, section_name)
+            self.assertIn(
+                ("sharedpref", "premiumtv_local.xml"),
+                {(item.get("domain"), item.get("path")) for item in section.findall("exclude")},
+            )
+
+        preferences = text(
+            ANDROID / "kotlin" / "com" / "premiumtv" / "app" / "data" / "LocalChannels.kt"
+        )
+        self.assertIn('getSharedPreferences("premiumtv_local"', preferences)
 
     def test_settings_force_refresh_bypasses_http_validators(self):
         view_model = text(

@@ -250,7 +250,7 @@ test('a pasted embed snippet is mounted without running its scripts', async (t) 
     film('vod-snippet', 'A Snippet Film', {
       embed: '',
       embed_kind: 'html',
-      embed_html: '<iframe src="https://example.com/embed/abc" allowfullscreen></iframe><script>window.__pwned = 1;</script>',
+      embed_html: '<div><iframe src="https://example.com/embed/abc" onload="window.__pwned = 1" srcdoc="&lt;script&gt;window.__pwned = 2&lt;/script&gt;" allowfullscreen></iframe></div><script>window.__pwned = 3;</script>',
       embeds: [],
       streams: ['https://archive.org/download/vod-snippet/vod-snippet.mp4'],
     }),
@@ -263,9 +263,13 @@ test('a pasted embed snippet is mounted without running its scripts', async (t) 
   await tick();
 
   const host = doc.getElementById('player-embed');
+  const frame = host.querySelector('iframe');
   assert.equal(host.hidden, false);
-  assert.equal(host.querySelector('iframe').getAttribute('src'), 'https://example.com/embed/abc');
+  assert.equal(frame.getAttribute('src'), 'https://example.com/embed/abc');
+  assert.equal(frame.getAttribute('onload'), null, 'provider event handlers are not copied');
+  assert.equal(frame.getAttribute('srcdoc'), null, 'provider srcdoc is not copied');
   assert.equal(host.querySelector('script'), null, 'scripts never survive the mount');
+  assert.equal(host.querySelector('div'), null, 'provider wrappers are not mounted');
   assert.equal(app.window.__pwned, undefined);
 });
 

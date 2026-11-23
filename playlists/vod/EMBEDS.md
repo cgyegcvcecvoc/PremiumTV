@@ -72,13 +72,16 @@ Edit `playlists/vod/embed-sources.json` — one object per extra embed:
 }
 ```
 
-- `kind: "iframe"` needs `url`; `kind: "html"` needs `html` (a verbatim
-  snippet pasted from the provider, exactly as providers publish them).
+- `kind: "iframe"` needs `url`; `kind: "html"` needs `html` containing an
+  HTTPS `<iframe src="…">`. The build and players extract that URL and build a
+  fresh iframe; provider scripts, wrapper elements, event handlers, `srcdoc` and
+  other supplied attributes are never mounted. The remote iframe page still
+  runs as provider content, so only add HTTPS providers you trust.
 - `primary: true` puts the embed first, ahead of the Internet Archive player.
   Leave it off to append the embed as an extra server.
-- The slug must match `items[].slug` in the catalogue. Unknown slugs, non-http
-  URLs and bad kinds are skipped with a warning on the build log; the rest of
-  the catalogue is unaffected.
+- The slug must match `items[].slug` in the catalogue. Unknown slugs, non-HTTPS
+  iframe sources and bad kinds are skipped with a warning on the build log; the
+  rest of the catalogue is unaffected.
 
 Then rebuild:
 

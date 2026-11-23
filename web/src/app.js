@@ -913,18 +913,26 @@
     host.hidden = true;
   }
   function embedNode(source) {
+    let rawUrl = source.embed || "";
     if (source.embed_html) {
       const template = document.createElement("template");
-      // Markup assigned to innerHTML never runs its scripts, so a pasted
-      // snippet can bring its player without bringing its code.
-      template.innerHTML = source.embed_html;
-      const node = template.content.firstElementChild;
-      if (node && node.tagName === "IFRAME") decorateFrame(node);
-      return node;
+      // Treat pasted markup as input data, not as DOM to mount. Read only an
+      // iframe's URL, then create a fresh iframe with no provider-supplied
+      // event handlers, srcdoc, scripts or wrapper elements.
+      template.innerHTML = String(source.embed_html);
+      const candidate = template.content.querySelector("iframe");
+      rawUrl = candidate ? candidate.getAttribute("src") || "" : "";
     }
-    if (!source.embed) return null;
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch (_error) {
+      return null;
+    }
+    if (url.protocol !== "https:" || url.username || url.password) return null;
+
     const frame = document.createElement("iframe");
-    frame.src = source.embed;
+    frame.src = url.href;
     frame.title = (source.provider || "On-demand") + " player";
     decorateFrame(frame);
     return frame;

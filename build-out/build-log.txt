@@ -3,16 +3,16 @@ Daemon will be stopped at the end of the build
 > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :app:preBuild UP-TO-DATE
 > Task :app:preDebugBuild UP-TO-DATE
-> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugBuildConfig FROM-CACHE
 > Task :app:generateDebugResValues FROM-CACHE
 > Task :app:checkDebugAarMetadata
 > Task :app:mapDebugSourceSetPaths
-> Task :app:generateDebugResources FROM-CACHE
-> Task :app:mergeDebugResources FROM-CACHE
-> Task :app:packageDebugResources FROM-CACHE
-> Task :app:parseDebugLocalResources FROM-CACHE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:mergeDebugResources
 > Task :app:createDebugCompatibleScreenManifests
 > Task :app:extractDeepLinksDebug FROM-CACHE
+> Task :app:parseDebugLocalResources
 > Task :app:processDebugMainManifest
 > Task :app:processDebugManifest
 > Task :app:javaPreCompileDebug FROM-CACHE
@@ -28,18 +28,18 @@ Daemon will be stopped at the end of the build
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :app:mergeDebugAssets
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:processDebugManifestForPackage
 > Task :app:compressDebugAssets
+> Task :app:processDebugResources
 > Task :app:l8DexDesugarLibDebug FROM-CACHE
+> Task :app:packageDebugUnitTestForUnitTest
+> Task :app:generateDebugUnitTestConfig
 > Task :app:desugarDebugFileDependencies FROM-CACHE
 > Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
 > Task :app:checkDebugDuplicateClasses
-> Task :app:processDebugManifestForPackage
 > Task :app:mergeDebugNativeLibs
-> Task :app:processDebugResources
 > Task :app:mergeExtDexDebug FROM-CACHE
-> Task :app:packageDebugUnitTestForUnitTest
-> Task :app:generateDebugUnitTestConfig
 > Task :app:mergeLibDexDebug FROM-CACHE
 > Task :app:validateSigningDebug
 > Task :app:writeDebugAppMetadata
@@ -53,8 +53,8 @@ w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/
 
 > Task :app:compileDebugJavaWithJavac
 > Task :app:processDebugJavaRes
-> Task :app:bundleDebugClassesToCompileJar
 > Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
 > Task :app:dexBuilderDebug
 > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
 > Task :app:mergeProjectDexDebug
@@ -66,7 +66,7 @@ w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/
 > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :app:processDebugUnitTestJavaRes
 > Task :app:testDebugUnitTest
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795372266602.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795466590068.json
 
-BUILD SUCCESSFUL in 1m 17s
-48 actionable tasks: 35 executed, 13 from cache
+BUILD SUCCESSFUL in 1m 25s
+48 actionable tasks: 38 executed, 10 from cache

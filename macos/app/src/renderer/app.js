@@ -2544,26 +2544,32 @@
 
   function mountEmbed(channel) {
     if (!els.playerEmbed) return false;
-    let node = null;
+    let rawUrl = channel.embed || '';
     if (channel.embed_html) {
       const template = document.createElement('template');
-      // Markup assigned to innerHTML never runs its scripts, so a pasted
-      // snippet can bring its player without bringing its code.
-      template.innerHTML = channel.embed_html;
-      node = template.content.firstElementChild;
-    } else if (channel.embed) {
-      node = document.createElement('iframe');
-      node.src = channel.embed;
-      node.title = `${channel.provider || 'On-demand'} player`;
+      // Parse pasted markup only to read an iframe URL. Never attach the source
+      // node: provider-supplied handlers, srcdoc, scripts and wrappers are not
+      // needed to render the player.
+      template.innerHTML = String(channel.embed_html);
+      const candidate = template.content.querySelector('iframe');
+      rawUrl = candidate ? candidate.getAttribute('src') || '' : '';
     }
-    if (!node) return false;
-    if (node.tagName === 'IFRAME') {
-      node.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media');
-      node.setAttribute('allowfullscreen', '');
-      node.setAttribute('referrerpolicy', 'no-referrer');
-      if (!node.getAttribute('width')) node.setAttribute('width', '100%');
-      if (!node.getAttribute('height')) node.setAttribute('height', '100%');
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch (_error) {
+      return false;
     }
+    if (url.protocol !== 'https:' || url.username || url.password) return false;
+
+    const node = document.createElement('iframe');
+    node.src = url.href;
+    node.title = `${channel.provider || 'On-demand'} player`;
+    node.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media');
+    node.setAttribute('allowfullscreen', '');
+    node.setAttribute('referrerpolicy', 'no-referrer');
+    node.setAttribute('width', '100%');
+    node.setAttribute('height', '100%');
     window.PremiumPlayer.stop();
     clearEmbed();
     if (playingSession) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keep local-channel location choices on the device where they were entered. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="premiumtv_local.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="premiumtv_local.xml" />
+    </device-transfer>
+</data-extraction-rules>
