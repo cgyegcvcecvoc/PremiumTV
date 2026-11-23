@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_utc": "2026-11-23T02:05:15Z",
+  "generated_utc": "2026-11-23T15:12:02Z",
   "source": "playlists/live/USA.m3u",
   "reference": [
     "data/local-markets/us-tv-markets.csv",
@@ -2415,6 +2415,27 @@
       ]
     },
     {
+      "id": "USMKL",
+      "city": "Jackson",
+      "state": "TN",
+      "state_name": "Tennessee",
+      "latitude": 35.6238,
+      "longitude": -88.8345,
+      "stations": [
+        {
+          "callsign": "WBBJ",
+          "city": "Jackson",
+          "network": "ABC",
+          "name": "ABC WBBJ-TV (432p)",
+          "channel_id": "ABC.us@WBBJTV",
+          "chno": "",
+          "logo": "https://i.imgur.com/pvXZ8DX.png",
+          "url": "https://dai.google.com/linear/hls/event/HZ3JdLVcQ463l3b1BLXmmQ/master.m3u8",
+          "backup_urls": []
+        }
+      ]
+    },
+    {
       "id": "USTYS",
       "city": "Knoxville",
       "state": "TN",
@@ -3336,6 +3357,7 @@
       "longitude": -86.4,
       "markets": [
         "USCHA",
+        "USMKL",
         "USTYS",
         "USMEM",
         "USBNA"
@@ -6169,14 +6191,14 @@
     {
       "prefix": "382",
       "state": "TN",
-      "market": "USMEM",
+      "market": "USMKL",
       "latitude": 36.283,
       "longitude": -88.736
     },
     {
       "prefix": "383",
       "state": "TN",
-      "market": "USMEM",
+      "market": "USMKL",
       "latitude": 35.608,
       "longitude": -88.562
     },
@@ -10891,6 +10913,15 @@
       "longitude": -85.2835
     },
     {
+      "city": "Jackson",
+      "state": "TN",
+      "state_name": "Tennessee",
+      "market": "USMKL",
+      "stations": 1,
+      "latitude": 35.6238,
+      "longitude": -88.8345
+    },
+    {
       "city": "Knoxville",
       "state": "TN",
       "state_name": "Tennessee",
@@ -11089,6 +11120,6 @@
       "longitude": -87.9529
     }
   ],
-  "market_count": 115,
-  "station_count": 154
+  "market_count": 116,
+  "station_count": 155
 }

@@ -1,31 +1,37 @@
 # Live-event reliability audit
 
-- **Scrape snapshot:** 2026-11-23T09:13:45Z
-- **Scrape run:** `20261123T090919Z-3036` — health check completed
+- **Scrape snapshot:** 2026-11-23T15:09:29Z
+- **Scrape run:** `20261123T150445Z-3105` — health check completed
 - **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 0/6
-- **Fixtures with a redundancy deficit:** 6
+- **Fixtures meeting policy:** 0/9
+- **Fixtures with a redundancy deficit:** 9
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
-| Dallas Stars vs. Pittsburgh Penguins (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| St Louis Blues vs. Edmonton Oilers (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Vancouver Canucks vs. Chicago Blackhawks (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Instituto vs. Huracan (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Queretaro vs. Necaxa (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Vancouver Whitecaps vs. Real Salt Lake (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Asteras Tripolis vs. Aris (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| El Gouna vs. Zamalek (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Neftchi Fargona vs. Al Hilal (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Steaua Bucuresti vs. Chindia Targoviste (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Wadi Degla vs. Al Ittihad (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Italy U17 vs. Ivory Coast U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Mali U17 vs. Belgium U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Morocco U17 vs. China U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Uzbekistan U17 vs. Jamaica U17 (World Cup U17) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 
 ## Deficits
 
-- **Dallas Stars vs. Pittsburgh Penguins** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **St Louis Blues vs. Edmonton Oilers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Vancouver Canucks vs. Chicago Blackhawks** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Instituto vs. Huracan** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Queretaro vs. Necaxa** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Vancouver Whitecaps vs. Real Salt Lake** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Asteras Tripolis vs. Aris** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **El Gouna vs. Zamalek** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Neftchi Fargona vs. Al Hilal** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Steaua Bucuresti vs. Chindia Targoviste** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Wadi Degla vs. Al Ittihad** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Italy U17 vs. Ivory Coast U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Mali U17 vs. Belgium U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Morocco U17 vs. China U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Uzbekistan U17 vs. Jamaica U17** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 
 ## Interpretation
 
