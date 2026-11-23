@@ -15,8 +15,8 @@
   • downloaded      label=fpm-1.17.0-ruby-3.4.3-linux-amd64.7z progress=100%
   • completed installing native dependencies
   • packaging       platform=linux arch=arm64 electron=43.8.7 appOutDir=dist/linux-arm64-unpacked
-  • downloaded      label=7zip-linux-x64.tar.gz progress=100%
   • downloaded      label=electron progress=100%
+  • downloaded      label=7zip-linux-x64.tar.gz progress=100%
   • downloaded electron zip extracted successfully  output=/home/runner/work/PremiumTV/PremiumTV/macos/app/dist/linux-arm64-unpacked
   • searching for node modules  pm=npm searchDir=/home/runner/work/PremiumTV/PremiumTV/macos/app
   • building        target=deb arch=arm64 file=dist/PremiumTV-1.1.20-linux-arm64.deb
@@ -49,73 +49,73 @@
   • completed installing native dependencies
   • packaging       platform=linux arch=arm64 electron=43.8.7 appOutDir=dist/linux-arm64-unpacked
   • downloaded      label=electron progress=100%
-  • building embedded block map  file=dist/PremiumTV-1.1.20-linux-x86_64.AppImage
   • downloaded electron zip extracted successfully  output=/home/runner/work/PremiumTV/PremiumTV/macos/app/dist/linux-arm64-unpacked
   • searching for node modules  pm=npm searchDir=/home/runner/work/PremiumTV/PremiumTV/macos/app
+  • building embedded block map  file=dist/PremiumTV-1.1.20-linux-x86_64.AppImage
   • building        target=AppImage arch=arm64 file=dist/PremiumTV-1.1.20-linux-arm64.AppImage
   • building embedded block map  file=dist/PremiumTV-1.1.20-linux-arm64.AppImage
 --- verify: dist/ ---
-total 570412
-drwxr-xr-x 4 runner runner      4096 Nov 23 22:42 .
-drwxr-xr-x 9 runner runner      4096 Nov 23 22:38 ..
--rwxr-xr-x 1 runner runner 141683289 Nov 23 22:42 PremiumTV-1.1.20-linux-arm64.AppImage
--rw-r--r-- 1 runner runner 102563880 Nov 23 22:40 PremiumTV-1.1.20-linux-arm64.deb
--rwxr-xr-x 1 runner runner 140563196 Nov 23 22:42 PremiumTV-1.1.20-linux-x64.AppImage
--rw-r--r-- 1 runner runner 107620852 Nov 23 22:40 PremiumTV-1.1.20-linux-x64.deb
--rw-r--r-- 1 runner runner  91631056 Nov 23 22:42 PremiumTV-1.1.20-linux-x64.tar.xz
--rw-r--r-- 1 runner runner      1676 Nov 23 22:42 builder-debug.yml
--rw-r--r-- 1 runner runner       397 Nov 23 22:42 latest-linux-arm64.yml
--rw-r--r-- 1 runner runner       399 Nov 23 22:42 latest-linux.yml
-drwxr-xr-x 4 runner runner      4096 Nov 23 22:42 linux-arm64-unpacked
-drwxr-xr-x 4 runner runner      4096 Nov 23 22:42 linux-unpacked
+total 570392
+drwxr-xr-x 4 runner runner      4096 Nov 23 23:04 .
+drwxr-xr-x 9 runner runner      4096 Nov 23 23:01 ..
+-rwxr-xr-x 1 runner runner 141683272 Nov 23 23:04 PremiumTV-1.1.20-linux-arm64.AppImage
+-rw-r--r-- 1 runner runner 102559420 Nov 23 23:02 PremiumTV-1.1.20-linux-arm64.deb
+-rwxr-xr-x 1 runner runner 140559080 Nov 23 23:04 PremiumTV-1.1.20-linux-x64.AppImage
+-rw-r--r-- 1 runner runner 107618120 Nov 23 23:02 PremiumTV-1.1.20-linux-x64.deb
+-rw-r--r-- 1 runner runner  91624940 Nov 23 23:04 PremiumTV-1.1.20-linux-x64.tar.xz
+-rw-r--r-- 1 runner runner      1676 Nov 23 23:04 builder-debug.yml
+-rw-r--r-- 1 runner runner       397 Nov 23 23:04 latest-linux-arm64.yml
+-rw-r--r-- 1 runner runner       399 Nov 23 23:04 latest-linux.yml
+drwxr-xr-x 4 runner runner      4096 Nov 23 23:04 linux-arm64-unpacked
+drwxr-xr-x 4 runner runner      4096 Nov 23 23:04 linux-unpacked
 --- verify: dist/linux-unpacked ---
 total 276320
-drwxr-xr-x 4 runner runner      4096 Nov 23 22:42 .
-drwxr-xr-x 4 runner runner      4096 Nov 23 22:42 ..
--rw-r--r-- 1 runner runner      1096 Nov 23 22:42 LICENSE.electron.txt
--rw-r--r-- 1 runner runner  19956022 Nov 23 22:42 LICENSES.chromium.html
--rwxr-xr-x 1 runner runner     15232 Nov 23 22:42 chrome-sandbox
--rw-r--r-- 1 runner runner    120323 Nov 23 22:42 chrome_100_percent.pak
--rw-r--r-- 1 runner runner    198640 Nov 23 22:42 chrome_200_percent.pak
--rwxr-xr-x 1 runner runner   1877584 Nov 23 22:42 chrome_crashpad_handler
--rw-r--r-- 1 runner runner  10824576 Nov 23 22:42 icudtl.dat
--rwxr-xr-x 1 runner runner    260072 Nov 23 22:42 libEGL.so
--rwxr-xr-x 1 runner runner   6482896 Nov 23 22:42 libGLESv2.so
--rwxr-xr-x 1 runner runner   2731736 Nov 23 22:42 libffmpeg.so
--rwxr-xr-x 1 runner runner   4652152 Nov 23 22:42 libvk_swiftshader.so
--rwxr-xr-x 1 runner runner   2485152 Nov 23 22:42 libvulkan.so.1
-drwxr-xr-x 2 runner runner      4096 Nov 23 22:42 locales
--rwxr-xr-x 1 runner runner 224767224 Nov 23 22:42 premiumtv
-drwxr-xr-x 3 runner runner      4096 Nov 23 22:42 resources
--rw-r--r-- 1 runner runner   7422300 Nov 23 22:42 resources.pak
--rw-r--r-- 1 runner runner    365744 Nov 23 22:42 snapshot_blob.bin
--rw-r--r-- 1 runner runner    740304 Nov 23 22:42 v8_context_snapshot.bin
--rw-r--r-- 1 runner runner       107 Nov 23 22:42 vk_swiftshader_icd.json
+drwxr-xr-x 4 runner runner      4096 Nov 23 23:04 .
+drwxr-xr-x 4 runner runner      4096 Nov 23 23:04 ..
+-rw-r--r-- 1 runner runner      1096 Nov 23 23:04 LICENSE.electron.txt
+-rw-r--r-- 1 runner runner  19956022 Nov 23 23:04 LICENSES.chromium.html
+-rwxr-xr-x 1 runner runner     15232 Nov 23 23:04 chrome-sandbox
+-rw-r--r-- 1 runner runner    120323 Nov 23 23:04 chrome_100_percent.pak
+-rw-r--r-- 1 runner runner    198640 Nov 23 23:04 chrome_200_percent.pak
+-rwxr-xr-x 1 runner runner   1877584 Nov 23 23:04 chrome_crashpad_handler
+-rw-r--r-- 1 runner runner  10824576 Nov 23 23:04 icudtl.dat
+-rwxr-xr-x 1 runner runner    260072 Nov 23 23:04 libEGL.so
+-rwxr-xr-x 1 runner runner   6482896 Nov 23 23:04 libGLESv2.so
+-rwxr-xr-x 1 runner runner   2731736 Nov 23 23:04 libffmpeg.so
+-rwxr-xr-x 1 runner runner   4652152 Nov 23 23:04 libvk_swiftshader.so
+-rwxr-xr-x 1 runner runner   2485152 Nov 23 23:04 libvulkan.so.1
+drwxr-xr-x 2 runner runner      4096 Nov 23 23:04 locales
+-rwxr-xr-x 1 runner runner 224767224 Nov 23 23:04 premiumtv
+drwxr-xr-x 3 runner runner      4096 Nov 23 23:04 resources
+-rw-r--r-- 1 runner runner   7422300 Nov 23 23:04 resources.pak
+-rw-r--r-- 1 runner runner    365744 Nov 23 23:04 snapshot_blob.bin
+-rw-r--r-- 1 runner runner    740304 Nov 23 23:04 v8_context_snapshot.bin
+-rw-r--r-- 1 runner runner       107 Nov 23 23:04 vk_swiftshader_icd.json
 --- verify: resources ---
 total 37036
-drwxr-xr-x 3 runner runner     4096 Nov 23 22:42 .
-drwxr-xr-x 4 runner runner     4096 Nov 23 22:42 ..
--rw-r--r-- 1 runner runner       93 Nov 23 22:42 app-update.yml
--rw-r--r-- 1 runner runner 37904924 Nov 23 22:42 app.asar
-drwxr-xr-x 2 runner runner     4096 Nov 23 22:42 bundle
+drwxr-xr-x 3 runner runner     4096 Nov 23 23:04 .
+drwxr-xr-x 4 runner runner     4096 Nov 23 23:04 ..
+-rw-r--r-- 1 runner runner       93 Nov 23 23:04 app-update.yml
+-rw-r--r-- 1 runner runner 37904924 Nov 23 23:04 app.asar
+drwxr-xr-x 2 runner runner     4096 Nov 23 23:04 bundle
 ok: dist/linux-unpacked/resources/bundle/channels.jsonl
 ok: dist/linux-unpacked/resources/bundle/meta.json
 ok: dist/linux-unpacked/resources/app.asar
 ok: executable dist/linux-unpacked/premiumtv
-ok: PremiumTV-1.1.20-linux-x64.AppImage (140563196 bytes)
-ok: PremiumTV-1.1.20-linux-arm64.AppImage (141683289 bytes)
-ok: PremiumTV-1.1.20-linux-x64.deb (107620852 bytes)
-ok: PremiumTV-1.1.20-linux-arm64.deb (102563880 bytes)
-ok: PremiumTV-1.1.20-linux-x64.tar.xz (91631056 bytes)
-ok: bundle meta 1.1.20 with 3242 channels
-[3872:1123/224259.163373:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[3872:1123/224259.194567:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[3872:1123/224259.211299:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[3872:1123/224259.218786:ERROR:dbus/object_proxy.cc:589] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
-[3872:1123/224259.219367:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[3872:1123/224259.226135:ERROR:dbus/object_proxy.cc:589] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+ok: PremiumTV-1.1.20-linux-x64.AppImage (140559080 bytes)
+ok: PremiumTV-1.1.20-linux-arm64.AppImage (141683272 bytes)
+ok: PremiumTV-1.1.20-linux-x64.deb (107618120 bytes)
+ok: PremiumTV-1.1.20-linux-arm64.deb (102559420 bytes)
+ok: PremiumTV-1.1.20-linux-x64.tar.xz (91624940 bytes)
+ok: bundle meta 1.1.20 with 3235 channels
+[3740:1123/230456.660158:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3740:1123/230456.731977:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3740:1123/230456.743369:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3740:1123/230456.804127:ERROR:dbus/object_proxy.cc:589] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[3740:1123/230456.839428:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3740:1123/230456.845023:ERROR:dbus/object_proxy.cc:589] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
 PLAYER SMOKE: clicking the first channel card
 PLAYER SMOKE: player open for '30A Golf Kingdom (720p)', letting the stream machinery run
 PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":0,"rendererAlive":true}; walking the side player
 PLAYER SMOKE PASS: opened '30A Golf Kingdom (720p)', stream machinery sane, side-player flip and close all survived
-PACKAGED SMOKE PASS: 3242 channels, bridge, players, refresh, reset and the guide list
+PACKAGED SMOKE PASS: 3235 channels, bridge, players, refresh, reset and the guide list
