@@ -130,7 +130,16 @@ test("Movies & shows renders the shelf and opens a title in an HTML embed", asyn
   expect(errors).toEqual([]);
 });
 
-test("pasted VOD markup is reduced to a clean HTTPS iframe", async ({ page }) => {
+test("pasted VOD markup is reduced to a clean HTTPS iframe", async ({
+  browser,
+}) => {
+  // The injected catalogue has to reach the app, so the worker is disabled for
+  // this context: a service-worker fetch answers from its own cache and never
+  // passes through page routing (the same reason the failed-refresh test blocks
+  // it). Without this the app loaded the published catalogue and the "pasted
+  // markup" under test was never the one on screen.
+  const context = await browser.newContext({ serviceWorkers: "block" });
+  const page = await context.newPage();
   await page.route("**/data/vod.json*", async (route) => {
     const response = await route.fetch();
     const catalog = await response.json();
@@ -147,6 +156,7 @@ test("pasted VOD markup is reduced to a clean HTTPS iframe", async ({ page }) =>
   });
 
   await page.goto("/");
+  await expect(page.locator(".category-card").first()).toBeVisible();
   await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
   await page.locator("#movie-search").fill("Night of the Living Dead");
   await page.locator(".movie-poster").first().click();
@@ -156,6 +166,7 @@ test("pasted VOD markup is reduced to a clean HTTPS iframe", async ({ page }) =>
   await expect(frame).not.toHaveAttribute("srcdoc", /.+/);
   await expect(page.locator("#player-embed script, #player-embed div")).toHaveCount(0);
   expect(await page.evaluate(() => window.__pwned)).toBeUndefined();
+  await context.close();
 });
 
 test("settings diagnostics, sleep timer, touch layout and install help", async ({
