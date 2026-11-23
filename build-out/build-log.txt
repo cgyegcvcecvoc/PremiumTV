@@ -52,21 +52,21 @@ Unable to strip the following libraries, packaging them as they are: libandroidx
 w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/HomeScreen.kt:2291:27 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'org.json.JSONArray?'.
 
 > Task :app:compileDebugJavaWithJavac
-> Task :app:processDebugJavaRes
 > Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:processDebugJavaRes
 > Task :app:bundleDebugClassesToCompileJar
 > Task :app:dexBuilderDebug
 > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
 > Task :app:mergeProjectDexDebug
 > Task :app:mergeDebugJavaResource
-> Task :app:packageDebug
-> Task :app:createDebugApkListingFileRedirect
-> Task :app:assembleDebug
 > Task :app:compileDebugUnitTestKotlin
 > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :app:processDebugUnitTestJavaRes
 > Task :app:testDebugUnitTest
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795466590068.json
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795468806007.json
 
-BUILD SUCCESSFUL in 1m 25s
+BUILD SUCCESSFUL in 1m 19s
 48 actionable tasks: 38 executed, 10 from cache
