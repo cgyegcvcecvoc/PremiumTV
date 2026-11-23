@@ -23,6 +23,8 @@
   // The same market-aware local-channel logic the native apps use, copied in
   // unchanged at build time (shared/local-channels.js).
   const local = window.PremiumLocalChannels;
+  // The Live Events clock, shared with the desktop apps (shared/live-clock.js).
+  const liveClock = window.PremiumLiveClock;
   const P = personal,
     S = store;
   const state = {
@@ -52,6 +54,8 @@
   };
   // Local stations are resolved from the bundled directory against an answer
   // this browser stored; nothing about the viewer is sent anywhere.
+  let clockZone = liveClock ? liveClock.loadChoice(S.storage) : "";
+  let clockWidget = null;
   let localDirectory = null,
     localSelection = local ? local.load(S.storage) : null,
     localNotice = "",
@@ -576,7 +580,42 @@
     setTab("channels");
     window.scrollTo(0, 0);
   }
+  // The saved local market's longitude, the only thing the clock's zone
+  // suggestions are measured from. No network call and no IP lookup.
+  function clockLongitude() {
+    if (!local || !localDirectory) return null;
+    const markets = local.marketsFor(localDirectory, localSelection) || [];
+    const latitude = Number(markets[0] && markets[0].latitude);
+    const longitude = Number(markets[0] && markets[0].longitude);
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+    return { latitude, longitude };
+  }
+
+  function ensureLiveClock() {
+    if (!liveClock || !window.PremiumLive || !$("live-clock")) return null;
+    if (!clockWidget) {
+      clockWidget = liveClock.mount($("live-clock"), {
+        deviceZone: window.PremiumLive.deviceTimeZone(),
+        storage: S.storage,
+        getZone: () => clockZone,
+        setZone: (zone) => {
+          clockZone = zone || "";
+          renderLive();
+        },
+        getLongitude: () => {
+          const position = clockLongitude();
+          return position ? position.longitude : null;
+        },
+        getEvents: () => events,
+      });
+    } else {
+      clockWidget.refresh();
+    }
+    return clockWidget;
+  }
+
   function renderLive() {
+    ensureLiveClock();
     const schedule = scheduleMap(library.meta.live_schedule);
     const sections = live.buildSections(available(), schedule);
     $("live-empty").hidden = sections.length > 0;
@@ -596,7 +635,7 @@
                 );
                 return `<span class="team-crest" style="background:linear-gradient(145deg,${colors[0]},${colors[1]})">${esc(live.initialsFor(name))}${logo && /^https:\/\//.test(logo) ? `<img class="team-crest-img" src="${esc(logo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}</span>`;
               };
-              return `<article class="event-card"><div class="event-status${upcoming ? " upcoming" : ""}">${upcoming ? "UPCOMING" : "LISTED FEED · NOT PRE-CHECKED"}</div><div class="event-teams"><div class="team">${crest(teams[0])}<strong>${esc(teams[0])}</strong></div><span class="versus">VS</span><div class="team">${crest(teams[1])}<strong>${esc(teams[1])}</strong></div></div><p class="event-kickoff" data-kickoff="${event.kickoffMs || ""}">${event.kickoffMs ? esc((upcoming ? "Starts in " + live.countdownText((event.kickoffMs - Date.now()) / 1000) + " · " : "Listed kickoff ") + new Date(event.kickoffMs).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })) : "Kickoff time not listed"} · ${event.servers.length} server${event.servers.length === 1 ? "" : "s"}</p><button class="button" data-event="${esc(event.key)}">▶ Try this matchup</button></article>`;
+              return `<article class="event-card"><div class="event-status${upcoming ? " upcoming" : ""}">${upcoming ? "UPCOMING" : "LISTED FEED · NOT PRE-CHECKED"}</div><div class="event-teams"><div class="team">${crest(teams[0])}<strong>${esc(teams[0])}</strong></div><span class="versus">VS</span><div class="team">${crest(teams[1])}<strong>${esc(teams[1])}</strong></div></div><p class="event-kickoff" data-kickoff="${event.kickoffMs || ""}">${event.kickoffMs ? esc((upcoming ? "Starts in " + live.countdownText((event.kickoffMs - Date.now()) / 1000) + " · " : "Listed kickoff ") + new Date(event.kickoffMs).toLocaleString([], { month: "short", day: "numeric", ...(clockZone ? { timeZone: clockZone } : {}), hour: "numeric", minute: "2-digit" })) : "Kickoff time not listed"} · ${event.servers.length} server${event.servers.length === 1 ? "" : "s"}</p><button class="button" data-event="${esc(event.key)}">▶ Try this matchup</button></article>`;
             })
             .join("")}</div></section>`,
       )
@@ -1689,6 +1728,7 @@
           new Date(at).toLocaleString([], {
             month: "short",
             day: "numeric",
+            ...(clockZone ? { timeZone: clockZone } : {}),
             hour: "numeric",
             minute: "2-digit",
           });

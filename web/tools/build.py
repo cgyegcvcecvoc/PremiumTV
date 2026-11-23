@@ -21,7 +21,7 @@ ROOT = WEB.parent
 sys.path.insert(0, str(ROOT / "android" / "tools"))
 import build_bundle  # noqa: E402
 
-SHARED = ("category-icons.js", "live-events.js", "personal.js", "health.js",
+SHARED = ("category-icons.js", "live-events.js", "live-clock.js", "personal.js", "health.js",
           "local-channels.js", "playback-recovery.js")
 VENDORS = {
     "hls.js/dist/hls.min.js": "hls.min.js",

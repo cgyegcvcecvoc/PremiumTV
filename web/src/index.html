@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="style.css" />
     <script defer src="shared/category-icons.js"></script>
     <script defer src="shared/live-events.js"></script>
+    <script defer src="shared/live-clock.js"></script>
     <script defer src="shared/personal.js"></script>
     <script defer src="shared/health.js"></script>
     <script defer src="shared/local-channels.js"></script>
@@ -279,9 +280,19 @@
                 Matchups published in the channel library, grouped by sport.
               </p>
             </div>
-            <button id="refresh-events" class="button quiet">
-              ↻ Refresh library
-            </button>
+            <div class="live-head-tools">
+              <!-- One ticking clock, in the zone every kickoff on this tab is
+                   read in (shared/live-clock.js, copied in at build time). -->
+              <div
+                id="live-clock"
+                class="live-clock"
+                role="group"
+                aria-label="Clock for kickoff times"
+              ></div>
+              <button id="refresh-events" class="button quiet">
+                ↻ Refresh library
+              </button>
+            </div>
           </div>
           <div class="info-strip">
             <span data-icon="info"></span>

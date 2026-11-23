@@ -333,12 +333,155 @@ window.PremiumLive = (function () {
       ':' + String(seconds % 60).padStart(2, '0');
   }
 
-  /** A scheduled kickoff in the viewer's local time, e.g. "5:45 PM". */
-  function kickoffLabel(kickoffMs) {
-    const df = new Intl.DateTimeFormat(undefined, {
-      hour: 'numeric', minute: '2-digit',
-    });
+  /**
+   * A scheduled kickoff as a time of day, e.g. "5:45 PM".
+   *
+   * Read in `timeZone` when one is given and in the device's own zone when it
+   * is not, so the Live Events clock and its cards can never disagree.
+   */
+  function kickoffLabel(kickoffMs, timeZone) {
+    const options = { hour: 'numeric', minute: '2-digit' };
+    const zone = String(timeZone || '');
+    if (zone) options.timeZone = zone;
+    let df;
+    try {
+      df = new Intl.DateTimeFormat(undefined, options);
+    } catch (_error) {
+      df = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
+    }
     return df.format(new Date(kickoffMs));
+  }
+
+  /**
+   * The clock zone every time on the Live Events tab is read in.
+   *
+   * The device's own zone is the answer unless the viewer picked another one;
+   * an unknown or blank choice falls back to the device rather than throwing,
+   * which is what a saved value written by a newer build can look like.
+   */
+  function resolveTimeZone(choice, deviceZone) {
+    const wanted = String(choice || '').trim();
+    if (wanted) {
+      try {
+        new Intl.DateTimeFormat(undefined, { timeZone: wanted }).format(0);
+        return wanted;
+      } catch (_error) {
+        // not a zone this runtime knows: use the device's own
+      }
+    }
+    const device = String(deviceZone || '').trim();
+    if (device) {
+      try {
+        new Intl.DateTimeFormat(undefined, { timeZone: device }).format(0);
+        return device;
+      } catch (_error) {
+        return '';
+      }
+    }
+    return '';
+  }
+
+  /** The zone the device is actually in, as an IANA name when it knows one. */
+  function deviceTimeZone() {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    } catch (_error) {
+      return '';
+    }
+  }
+
+  /**
+   * How one zone stands against the device right now: its offset label
+   * ("GMT-5"), whether it is ahead, behind or the same, and what its clock
+   * reads. `nowMs` is passed in so a ticker can repaint without re-reading
+   * the system clock for every zone.
+   */
+  function zoneOffset(nowMs, timeZone) {
+    const at = Number.isFinite(nowMs) ? nowMs : Date.now();
+    const zone = String(timeZone || '') || deviceTimeZone();
+    const options = zone ? { timeZone: zone } : {};
+    let label = '';
+    let minutes = 0;
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        ...options, timeZoneName: 'shortOffset', hour: 'numeric',
+      }).formatToParts(new Date(at));
+      label = (parts.find((part) => part.type === 'timeZoneName') || {}).value || '';
+      const match = /(?:GMT|UTC)([+-])(\d{1,2})(?::?(\d{2}))?/.exec(label);
+      if (match) {
+        minutes = (Number(match[2]) * 60 + Number(match[3] || 0)) * (match[1] === '-' ? -1 : 1);
+      }
+    } catch (_error) {
+      label = '';
+    }
+    let deviceMinutes = 0;
+    try {
+      const deviceLabel = new Intl.DateTimeFormat('en-US', {
+        timeZoneName: 'shortOffset', hour: 'numeric',
+      }).formatToParts(new Date(at)).find((part) => part.type === 'timeZoneName');
+      const match = /(?:GMT|UTC)([+-])(\d{1,2})(?::?(\d{2}))?/.exec((deviceLabel || {}).value || '');
+      if (match) deviceMinutes = (Number(match[2]) * 60 + Number(match[3] || 0)) * (match[1] === '-' ? -1 : 1);
+    } catch (_error) {
+      deviceMinutes = 0;
+    }
+    const delta = minutes - deviceMinutes;
+    return {
+      timeZone: zone,
+      label: label || 'GMT+0',
+      minutes,
+      /** Minutes ahead of the device's own clock; negative when it is behind. */
+      deltaMinutes: delta,
+      clock: clockText(at, zone),
+    };
+  }
+
+  /** The time of day in one zone, e.g. "7:42:05 PM", or "" if unknown. */
+  function clockText(nowMs, timeZone) {
+    const at = Number.isFinite(nowMs) ? nowMs : Date.now();
+    try {
+      return new Intl.DateTimeFormat(undefined, {
+        timeZone: String(timeZone || '') || undefined,
+        hour: 'numeric', minute: '2-digit', second: '2-digit',
+      }).format(new Date(at));
+    } catch (_error) {
+      return '';
+    }
+  }
+
+  /**
+   * Kickoff time plus the clock's offset, e.g. "5:45 PM · GMT-5". The short
+   * form the cards use, where the countdown is already on the same line.
+   */
+  function kickoffStamp(kickoffMs, timeZone) {
+    if (!kickoffMs) return '';
+    const zone = String(timeZone || '') || deviceTimeZone();
+    const label = kickoffLabel(kickoffMs, zone);
+    const offset = zoneOffset(Date.now(), zone).label;
+    return offset ? label + ' · ' + offset : label;
+  }
+
+  /**
+   * Kickoff time with the clock it is read in, e.g.
+   * "5:45 PM GMT-5 · in 01:12:30" - the same instant, said twice, so a
+   * viewer in another zone never has to convert it in their head.
+   */
+  function kickoffClockLabel(kickoffMs, nowMs, timeZone) {
+    if (!kickoffMs) return '';
+    const zone = String(timeZone || '') || deviceTimeZone();
+    const parts = [kickoffLabel(kickoffMs, zone)];
+    const offset = zoneOffset(nowMs, zone).label;
+    if (offset) parts.push(offset);
+    const remaining = (kickoffMs - (Number.isFinite(nowMs) ? nowMs : Date.now())) / 1000;
+    if (remaining >= 0) parts.push('in ' + countdownText(remaining));
+    return parts.join(' · ');
+  }
+
+  /**
+   * The device's UTC offset right now, in the "+05:30" shape used to render
+   * an extra grid column. Empty when the runtime cannot say.
+   */
+  function deviceOffsetLabel(nowMs) {
+    return zoneOffset(Number.isFinite(nowMs) ? nowMs : Date.now(), '').label;
   }
 
   /** Official crest URL for a team, from the bundled schedule metadata. */
@@ -363,6 +506,13 @@ window.PremiumLive = (function () {
     eventStatus,
     countdownText,
     kickoffLabel,
+    kickoffStamp,
+    kickoffClockLabel,
+    resolveTimeZone,
+    deviceTimeZone,
+    zoneOffset,
+    clockText,
+    deviceOffsetLabel,
     teamLogoUrl,
   };
 })();

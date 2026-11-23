@@ -792,6 +792,85 @@ main {
 .info-strip p {
   margin: 0;
 }
+/* The kickoff clock: one ticking clock, in the zone every kickoff on the tab
+   is read in (shared/live-clock.js). The zone picker is its only control. */
+.live-head-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.live-clock {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: baseline;
+  gap: 2px 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  min-width: 240px;
+  max-width: 340px;
+}
+.live-clock-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  align-self: center;
+}
+.live-clock-dot.live {
+  background: var(--gold);
+  box-shadow: 0 0 0 3px #edc66d29;
+}
+.live-clock-time {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.live-clock-zone {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.live-clock-next {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.live-clock-next:empty {
+  display: none;
+}
+.live-clock-zone-picker {
+  grid-column: 1 / -1;
+  margin-top: 5px;
+  background: var(--raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 4px 6px;
+  font-size: 11px;
+  max-width: 100%;
+}
+.live-clock-note {
+  grid-column: 1 / -1;
+  margin: 4px 0 0;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+@media (max-width: 900px) {
+  .live-clock {
+    min-width: 0;
+    max-width: none;
+  }
+  .live-head-tools {
+    justify-content: flex-start;
+  }
+}
 .event-section {
   margin-bottom: 32px;
 }

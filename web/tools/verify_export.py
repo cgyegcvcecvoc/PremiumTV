@@ -19,7 +19,7 @@ def verify(dist=DIST):
     assert len(json.loads((dist / "data/epg.json").read_text())) == meta["programme_count"]
     assert not list(dist.rglob("*.apk")) + list(dist.rglob("*.dmg")) + list(dist.rglob("*.pkg"))
     assert "BUILD_ID_PLACEHOLDER" not in (dist / "sw.js").read_text()
-    for name in ("category-icons.js", "live-events.js", "personal.js", "health.js"):
+    for name in ("category-icons.js", "live-events.js", "live-clock.js", "personal.js", "health.js"):
         assert (dist / "shared" / name).read_bytes() == (ROOT / "macos/app/src/renderer" / name).read_bytes()
     for path in (dist / "data").glob("*.json.gz"):
         assert gzip.decompress(path.read_bytes()) == path.with_suffix("").read_bytes()

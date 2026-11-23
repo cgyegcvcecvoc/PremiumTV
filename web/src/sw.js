@@ -14,6 +14,7 @@ const CORE = [
   "diagnostics.js",
   "shared/category-icons.js",
   "shared/live-events.js",
+  "shared/live-clock.js",
   "shared/personal.js",
   "shared/health.js",
   "shared/local-channels.js",

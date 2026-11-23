@@ -97,6 +97,8 @@ import com.premiumtv.app.data.RefreshTrigger
 import com.premiumtv.app.ui.LiveFeedStatus.Answering
 import com.premiumtv.app.ui.LiveFeedStatus.Checking
 import com.premiumtv.app.ui.LiveFeedStatus.Silent
+import com.premiumtv.app.data.LiveClock
+import com.premiumtv.app.data.LocalMarket
 import com.premiumtv.app.ui.parseKickoff
 import com.premiumtv.app.ui.teamKey
 import com.premiumtv.app.update.AppUpdateState
@@ -150,6 +152,10 @@ internal fun HomeScreen(
     localChannels: List<Channel> = emptyList(),
     localLabel: String = "",
     localMarkets: List<String> = emptyList(),
+    // The saved local market, for the Live Events clock's zone suggestions:
+    // its longitude is the only position the clock reads (nothing new leaves
+    // the device).
+    localMarket: LocalMarket? = null,
     onEditLocalChannels: () -> Unit = {},
     favoriteUrls: Set<String> = emptySet(),
     onToggleFavorite: (Channel) -> Unit = {},
@@ -366,6 +372,7 @@ internal fun HomeScreen(
                 teamLogos = teamLogos,
                 schedule = schedule,
                 preparing = channelIndex == null,
+                marketLongitude = localMarket?.longitude,
             )
             HomeTab.Movies -> VodShelfScreen(
                 items = vodCatalog.items,
@@ -1169,7 +1176,21 @@ private fun EventsScreen(
     // The first index is still being built in the background (1.1.17): say so
     // instead of claiming the playlist carries no games.
     preparing: Boolean = false,
+    // The saved local market's longitude, when the viewer set one: the clock
+    // offers that part of the world's zones next to the device's own.
+    marketLongitude: Double? = null,
 ) {
+    // Which clock this screen's kickoff times are read in (data/LiveClock.kt).
+    // The device's own zone unless the viewer picked another one; the pick is
+    // stored on the device only.
+    val clockContext = LocalContext.current
+    val clockPrefs = remember(clockContext) {
+        clockContext.getSharedPreferences("premiumtv_clock", Context.MODE_PRIVATE)
+    }
+    var clockChoice by remember(clockPrefs) {
+        mutableStateOf(LiveClock.loadChoice(clockPrefs.getString(LiveClock.STORAGE_KEY, "")))
+    }
+    val deviceZone = remember { LiveClock.deviceZone() }
     if (sections.isEmpty() && preparing) {
         CenteredMessage("Preparing the live games…\n\nThe playlist is being indexed in the background.")
         return
@@ -1271,6 +1292,19 @@ private fun EventsScreen(
                 ) { onRefresh() }
             }
         }
+        item(key = "events-clock") {
+            LiveClockRow(
+                now = now,
+                choice = clockChoice,
+                deviceZone = deviceZone,
+                marketLongitude = marketLongitude,
+                events = sections.flatMap { section -> section.events },
+                onChoose = { zone ->
+                    clockChoice = zone
+                    clockPrefs.edit().putString(LiveClock.STORAGE_KEY, zone).apply()
+                },
+            )
+        }
         items(items = ordered, key = { "section|${it.sport}" }) { section ->
             Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
                 Row(
@@ -1315,6 +1349,7 @@ private fun EventsScreen(
                             status = feedStatus[event.key],
                             now = now,
                             teamLogos = teamLogos,
+                            clockZone = LiveClock.resolveZone(clockChoice, deviceZone),
                             onClick = { onSelect(event.servers.first()) },
                         )
                     }
@@ -1330,6 +1365,9 @@ private fun EventCard(
     status: LiveFeedStatus?,
     now: Long,
     teamLogos: Map<String, String>,
+    // The zone the tab's clock is set to, so a card and the clock above it can
+    // never show two different times for one kickoff.
+    clockZone: String = "",
     onClick: () -> Unit,
 ) {
     val teams = remember(event.title) { teamsOf(event.title) }
@@ -1421,7 +1459,7 @@ private fun EventCard(
                     fontWeight = FontWeight.SemiBold,
                 )
                 Text(
-                    text = "Starts ${kickoffTime(event.kickoffUtc ?: 0L)}",
+                    text = "Starts ${kickoffTime(event.kickoffUtc ?: 0L, clockZone)}",
                     style = MaterialTheme.typography.labelSmall,
                     color = MutedText,
                 )
@@ -2261,10 +2299,118 @@ private fun countdownText(seconds: Long): String =
     }
 
 /** A scheduled kickoff in the device's local time, e.g. "5:45 PM". */
-private fun kickoffTime(kickoffUtcSeconds: Long): String {
-    val formatter = SimpleDateFormat("h:mm a", Locale.getDefault())
-    formatter.timeZone = TimeZone.getDefault()
-    return formatter.format(java.util.Date(kickoffUtcSeconds * 1000L))
+private fun kickoffTime(kickoffUtcSeconds: Long, zone: String = ""): String =
+    LiveClock.kickoffText(kickoffUtcSeconds * 1000L, zone)
+
+/**
+ * The Live Events clock: one ticking clock, in the zone every kickoff on the
+ * tab is read in, plus the zone picker and the next-kickoff line.
+ *
+ * A kickoff is one instant, and "5:45 PM" only means something next to the
+ * clock it is read on - so the clock and the cards are always the same zone
+ * (data/LiveClock.kt decides which one, and never leaves the device).
+ */
+@Composable
+private fun LiveClockRow(
+    now: Long,
+    choice: String,
+    deviceZone: String,
+    marketLongitude: Double?,
+    events: List<LiveEvent>,
+    onChoose: (String) -> Unit,
+) {
+    val nowMs = now * 1000L
+    val zone = remember(choice, deviceZone) { LiveClock.resolveZone(choice, deviceZone) }
+    val clock = remember(now, zone) { LiveClock.clockText(nowMs, zone) }
+    val offset = remember(now, zone) { LiveClock.offsetLabel(nowMs, zone) }
+    val delta = remember(now, zone, deviceZone) { LiveClock.deltaLabel(nowMs, zone, deviceZone) }
+    val upcoming = remember(events, now) {
+        LiveClock.nextKickoff(events.map { it.kickoffUtc to it.title }, now)
+    }
+    val summary = remember(now, zone, deviceZone, events) {
+        LiveClock.summary(
+            now, choice, deviceZone,
+            events.map { it.kickoffUtc to it.title },
+        )
+    }
+    // The picker is a plain cycling button rather than a dropdown: a remote
+    // has no pointer, and one press per zone beats a nested menu on a TV.
+    val zones = remember(deviceZone, marketLongitude) {
+        LiveClock.suggestZones(deviceZone, marketLongitude)
+    }
+    // The cycle starts at the device's own clock ("follow the device"), then
+    // walks the offered zones and returns to the top.
+    val cycle = remember(zones, deviceZone) {
+        listOf("") + zones.map { it.zone }.filter { it != deviceZone }
+    }
+    fun step(direction: Int) {
+        if (cycle.size <= 1) return
+        val index = cycle.indexOf(choice).takeIf { it >= 0 } ?: 0
+        onChoose(cycle[(index + direction + cycle.size) % cycle.size])
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = SCREEN_GUTTER, end = SCREEN_GUTTER, top = 2.dp, bottom = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(8.dp)
+                .background(
+                    if (upcoming != null && upcoming.first - now in 0..3600) PremiumGold else MutedText,
+                    RoundedCornerShape(50),
+                ),
+        )
+        Spacer(modifier = Modifier.width(9.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = clock,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = LiveClock.zoneLabel(zone) + " · " + offset +
+                        if (delta.isNotEmpty()) " · $delta" else "",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MutedText,
+                )
+            }
+            if (upcoming != null) {
+                Text(
+                    text = "Next kickoff in " +
+                        LiveClock.countdownText(upcoming.first - now) + " · " +
+                        LiveClock.kickoffStamp(upcoming.first * 1000L, choice, deviceZone),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = PremiumGold,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+            Text(
+                text = summary,
+                style = MaterialTheme.typography.labelSmall,
+                color = MutedText,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+        Spacer(modifier = Modifier.width(10.dp))
+        FocusButton("◀") { step(-1) }
+        Spacer(modifier = Modifier.width(6.dp))
+        Text(
+            text = if (choice.isEmpty()) "Device clock" else LiveClock.zoneLabel(zone),
+            style = MaterialTheme.typography.labelMedium,
+            color = Color.White,
+            maxLines = 1,
+        )
+        Spacer(modifier = Modifier.width(6.dp))
+        FocusButton("▶") { step(1) }
+    }
 }
 
 /** The on-demand test catalogue shipped beside the channel list. */
