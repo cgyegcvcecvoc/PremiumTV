@@ -2777,6 +2777,13 @@ def main() -> int:
                     help="vetted sources from monthly discovery "
                          "(default: <out>/discovery/approved-sources.json when it exists)")
     ap.add_argument("--no-check", action="store_true", help="skip link checking")
+    ap.add_argument("--source-shrink-ratio", type=float, default=0.5,
+                    help="use the cached source if a new nonempty fetch falls below this "
+                         "fraction of its previous entries (0 disables; default 0.5)")
+    ap.add_argument("--source-shrink-min-entries", type=int, default=100,
+                    help="minimum cached source size for shrink protection (default 100)")
+    ap.add_argument("--accept-source-shrink", action="append", default=[], metavar="NAME",
+                    help="accept an intentional shrink for this source on this run; repeatable")
     ap.add_argument("--workers", type=int, default=112, help="maximum concurrent link checks")
     ap.add_argument("--per-host-workers", type=int, default=8, help="maximum concurrent checks per host")
     ap.add_argument("--timeout", type=float, default=6.0, help="per-link timeout in seconds")
@@ -2810,6 +2817,9 @@ def main() -> int:
         ap.error("workers, per-host-workers and timeout must be positive; retries cannot be negative")
     if args.min_working_ratio < 0:
         ap.error("min-working-ratio cannot be negative")
+
+    if not 0 <= args.source_shrink_ratio <= 1 or args.source_shrink_min_entries < 1:
+        ap.error("source-shrink-ratio must be between 0 and 1 and source-shrink-min-entries must be positive")
 
     out_dir = Path(args.out)
     cache_dir = out_dir / "sources"
@@ -2979,7 +2989,27 @@ def main() -> int:
                 stat["bytes"] = len(text.encode("utf-8"))
                 stat["issues"].extend(parse_issues)
                 local_src_path = configured_local_path(str(src["local_path"])) if src.get("local_path") else None
-                if local_src_path is None or local_src_path != cache.resolve():
+                # A curated source may itself be the cache path. It has already
+                # changed on disk, so it cannot serve as an independent baseline.
+                independent_cache = local_src_path is None or local_src_path != cache.resolve()
+                if independent_cache and cache.exists() and args.source_shrink_ratio:
+                    try:
+                        cached_channels, _ = parse_m3u(cache.read_text(encoding="utf-8"), name)
+                    except (OSError, UnicodeError, ValueError) as exc:
+                        log(f"[{name}] cannot compare source cache: {error_text(exc)}")
+                        cached_channels = []
+                    old_count, new_count = len(cached_channels), len(fetched_channels)
+                    if (old_count >= args.source_shrink_min_entries
+                            and new_count < old_count * args.source_shrink_ratio):
+                        stat["shrink_previous_entries"] = old_count
+                        stat["shrink_fetched_entries"] = new_count
+                        if name not in args.accept_source_shrink and src.get("allow_large_shrink") is not True:
+                            raise RuntimeError(
+                                f"suspicious source shrink: {old_count} cached entries -> "
+                                f"{new_count} fetched; using previous cache (accept an intentional "
+                                "shrink with --accept-source-shrink or allow_large_shrink)")
+                        log(f"[{name}] accepting intentional shrink: {old_count} -> {new_count} entries")
+                if independent_cache:
                     write_m3u(cache, fetched_channels, epg, f"cached copy of source '{name}'",
                               advertise_self=False)
                 stat["fetched"] = True

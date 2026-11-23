@@ -409,3 +409,84 @@ class RetentionTest(unittest.TestCase):
         retained, _ = scraper.plan_retention(
             [rtmp], {"rtmp://x/live"}, {}, 7.0, now=self.NOW)
         self.assertEqual(retained, [])
+
+
+class SourceShrinkProtectionTest(unittest.TestCase):
+    @staticmethod
+    def playlist(count):
+        return '#EXTM3U\n' + ''.join(
+            f'#EXTINF:-1,Channel {i}\nhttps://example.test/{i}.m3u8\n'
+            for i in range(count))
+
+    def test_truncation_fallback_override_and_recovery(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            cfg = root / 'config.json'
+            cfg.write_text(json.dumps({'sources': [
+                {'name': 'fixture', 'url': 'https://example.test/source.m3u'}]}))
+            out = root / 'out'
+            args = ['scraper.py', '--sources', str(cfg), '--out', str(out), '--workers', '2']
+
+            def alive(channel, *args):
+                channel.status = 'alive'
+                return channel
+
+            def run(count, extra=(), checked=True):
+                argv = args + list(extra) + ([] if checked else ['--no-check'])
+                with patch.object(sys, 'argv', argv), \
+                     patch.object(scraper, 'fetch_source_text', return_value=self.playlist(count)), \
+                     patch.object(scraper, 'check_channel', side_effect=alive), \
+                     patch.object(scraper, 'audit_reference_sources', return_value={}), \
+                     redirect_stdout(StringIO()):
+                    self.assertEqual(scraper.main(), 0)
+                return json.loads((out / 'report.json').read_text())
+
+            run(100)  # no baseline: accept
+            cache = out / 'sources' / 'fixture.m3u'
+            baseline = cache.read_text()
+            report = run(10)
+            stat = report['sources']['fixture']
+            self.assertEqual(stat['status'], 'from_cache')
+            self.assertEqual((stat['shrink_previous_entries'], stat['shrink_fetched_entries']), (100, 10))
+            self.assertIn('suspicious source shrink', stat['error'])
+            self.assertEqual(cache.read_text(), baseline)
+            self.assertEqual(report['working'], 100)  # cached links were checked
+            self.assertIn('suspicious source shrink', (out / 'STATUS.md').read_text())
+            checked_playlist = (out / 'PremiumTV.m3u').read_text()
+            report = run(10, checked=False)
+            self.assertEqual(report['sources']['fixture']['status'], 'from_cache')
+            self.assertEqual((out / 'PremiumTV.m3u').read_text(), checked_playlist)
+            self.assertEqual(cache.read_text(), baseline)
+            report = run(90)  # a normal change and recovery update the baseline
+            self.assertEqual(report['sources']['fixture']['status'], 'ok')
+            self.assertEqual(cache.read_text().count('#EXTINF'), 90)
+            run(120)
+            report = run(10, ['--accept-source-shrink', 'fixture'])
+            self.assertEqual(report['sources']['fixture']['status'], 'ok')
+            self.assertEqual(cache.read_text().count('#EXTINF'), 10)
+            run(120)
+            cfg.write_text(json.dumps({'sources': [{'name': 'fixture',
+                'url': 'https://example.test/source.m3u', 'allow_large_shrink': True}]}))
+            self.assertEqual(run(10)['sources']['fixture']['status'], 'ok')
+            self.assertEqual(cache.read_text().count('#EXTINF'), 10)
+
+    def test_threshold_boundaries_and_unrelated_override(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            cfg = root / 'config.json'
+            cfg.write_text(json.dumps({'sources': [{'name': 'fixture', 'url': 'https://example.test/a'}]}))
+            out = root / 'out'
+            def run(count, extra=()):
+                argv = ['scraper.py', '--sources', str(cfg), '--out', str(out), '--no-check', *extra]
+                with patch.object(sys, 'argv', argv), \
+                     patch.object(scraper, 'fetch_source_text', return_value=self.playlist(count)), \
+                     patch.object(scraper, 'audit_reference_sources', return_value={}), redirect_stdout(StringIO()):
+                    self.assertEqual(scraper.main(), 0)
+                return json.loads((out / 'report.json').read_text())['sources']['fixture']
+            run(99)
+            self.assertEqual(run(1)['status'], 'ok')  # small sources are not guarded
+            run(100)
+            self.assertEqual(run(49, ['--accept-source-shrink', 'other'])['status'], 'from_cache')
+            self.assertEqual(run(50)['status'], 'ok')  # exactly 50% is accepted
+            run(100)
+            self.assertEqual(run(1, ['--source-shrink-ratio', '0'])['status'], 'ok')
