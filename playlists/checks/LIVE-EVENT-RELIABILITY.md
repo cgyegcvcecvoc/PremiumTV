@@ -1,63 +1,47 @@
 # Live-event reliability audit
 
-- **Scrape snapshot:** 2026-11-22T22:58:22Z
-- **Scrape run:** `20261122T225323Z-2955` — health check completed
+- **Scrape snapshot:** 2026-11-23T02:03:05Z
+- **Scrape run:** `20261123T015756Z-2958` — health check completed
 - **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 6/25
-- **Fixtures with a redundancy deficit:** 19
+- **Fixtures meeting policy:** 8/18
+- **Fixtures with a redundancy deficit:** 10
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
-| Denver Broncos vs. Las Vegas Raiders (American Football) | 3/3 | 2/2 | 1/1 | 3 | ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
-| Jacksonville Jaguars vs. New York Giants (American Football) | 3/3 | 2/2 | 1/1 | 3 | ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
-| Los Angeles Chargers vs. New York Jets (American Football) | 3/3 | 2/2 | 1/1 | 3 | ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
-| Boston College vs. NJIT (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
-| Richmond vs. Liberty (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
-| Samford vs. UNC Asheville (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
-| SFA Lumberjacks vs. Temple (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
-| Tennessee Lady Volunteers vs. UCLA Bruins (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
-| Texas State vs. McNeese St. (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
-| Washington Huskies vs. Cal Poly Mustangs (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
-| Atlanta Hawks vs. Detroit Pistons (NBA Basketball) | 5/5 | 2/2 | 3/1 | 5 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
-| Miami Heat vs. Oklahoma City Thunder (NBA Basketball) | 2/2 | 2/2 | 0/1 | 2 | FAWA, STRMGATE | doms9 | **DEFICIT** |
-| Buffalo Sabres vs. Tampa Bay Lightning (NHL Hockey) | 4/4 | 2/2 | 2/1 | 4 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
-| New York Rangers vs. Carolina Hurricanes (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Atletico GO vs. Vila Nova FC (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Atlético Madrid vs. Getafe (Soccer) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9 | **DEFICIT** |
-| Bragantino vs. Vasco (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Colo Colo vs. U Catolica (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Fluminense vs. Mirassol (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Nashville SC vs. FC Cincinnati (Soccer) | 3/3 | 2/2 | 1/1 | 3 | FAWA, ISTRMEAST | doms9 | **PASS** |
-| Olimpia Asuncion vs. Sportivo Trinidense (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| River Plate vs. Lanus (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Rubio Nu vs. Libertad Asuncion (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| The Strongest vs. Blooming (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Torreense vs. Benfica (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Minnesota Vikings vs. San Francisco 49ers (American Football) | 2/2 | 2/2 | 0/1 | 2 | ISTRMEAST, MP66 | doms9 | **DEFICIT** |
+| Rice Owls vs. Pepperdine Waves (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
+| UCLA vs. Delaware (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
+| Utah Valley St. vs. Tennessee-Martin (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9 | **DEFICIT** |
+| Chicago Bulls vs. Denver Nuggets (NBA Basketball) | 5/5 | 2/2 | 3/1 | 5 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
+| Golden State Warriors vs. Boston Celtics (NBA Basketball) | 4/4 | 2/2 | 2/1 | 4 | FAWA, MP66, STRMGATE | doms9 | **PASS** |
+| New York Knicks vs. Indiana Pacers (NBA Basketball) | 4/4 | 2/2 | 2/1 | 4 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
+| Oklahoma City Thunder vs. Miami Heat (NBA Basketball) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9 | **DEFICIT** |
+| Utah Jazz vs. Dallas Mavericks (NBA Basketball) | 5/5 | 2/2 | 3/1 | 5 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
+| Washington Wizards vs. Orlando Magic (NBA Basketball) | 5/5 | 2/2 | 3/1 | 5 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
+| Buffalo Sabres vs. Tampa Bay Lightning (NHL Hockey) | 2/2 | 2/2 | 0/1 | 2 | FAWA, STRMGATE | doms9 | **DEFICIT** |
+| Chicago Blackhawks vs. Vancouver Canucks (NHL Hockey) | 4/4 | 2/2 | 2/1 | 4 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
+| Dallas Stars vs. Pittsburgh Penguins (NHL Hockey) | 4/4 | 2/2 | 2/1 | 4 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
+| Edmonton Oilers vs. St. Louis Blues (NHL Hockey) | 4/4 | 2/2 | 2/1 | 4 | FAWA, ISTRMEAST, MP66, STRMGATE | doms9 | **PASS** |
+| Chicago Fire vs. Charlotte (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Instituto vs. Huracan (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9 | **DEFICIT** |
+| Queretaro vs. Necaxa (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9 | **DEFICIT** |
+| Vancouver Whitecaps vs. Real Salt Lake (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 
 ## Deficits
 
-- **Boston College vs. NJIT** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Richmond vs. Liberty** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Samford vs. UNC Asheville** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **SFA Lumberjacks vs. Temple** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Tennessee Lady Volunteers vs. UCLA Bruins** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Texas State vs. McNeese St.** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Washington Huskies vs. Cal Poly Mustangs** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Miami Heat vs. Oklahoma City Thunder** — needs 1 more confirmed dedicated backup feed(s).
-- **New York Rangers vs. Carolina Hurricanes** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Atletico GO vs. Vila Nova FC** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Atlético Madrid vs. Getafe** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Bragantino vs. Vasco** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Colo Colo vs. U Catolica** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Fluminense vs. Mirassol** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Olimpia Asuncion vs. Sportivo Trinidense** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **River Plate vs. Lanus** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Rubio Nu vs. Libertad Asuncion** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **The Strongest vs. Blooming** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Torreense vs. Benfica** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Minnesota Vikings vs. San Francisco 49ers** — needs 1 more confirmed dedicated backup feed(s).
+- **Rice Owls vs. Pepperdine Waves** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **UCLA vs. Delaware** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Utah Valley St. vs. Tennessee-Martin** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Oklahoma City Thunder vs. Miami Heat** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Buffalo Sabres vs. Tampa Bay Lightning** — needs 1 more confirmed dedicated backup feed(s).
+- **Chicago Fire vs. Charlotte** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Instituto vs. Huracan** — needs 1 more confirmed dedicated backup feed(s).
+- **Queretaro vs. Necaxa** — needs 1 more confirmed dedicated backup feed(s).
+- **Vancouver Whitecaps vs. Real Salt Lake** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 
 ## Interpretation
 

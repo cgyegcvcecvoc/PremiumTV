@@ -1,14 +1,18 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Azerbaijan.xml"
-# Azerbaijan working channels (6) - updated 2026-11-22 22:53 UTC (2026-11-22 05:53 PM EST) - 12:53 PM recheck
+# Azerbaijan working channels (7) - updated 2026-11-23 01:58 UTC (2026-11-22 08:58 PM EST) - 4:41 PM final check
 #EXTINF:-1 tvg-id="AzStarTV.ca@SD" tvg-logo="https://i.imgur.com/di3XX5L.png" group-title="International" tvg-name="AzStarTV" tvg-country="AZ",Az Star TV (1080p)
 http://live.azstartv.com/azstar/smil:azstar.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="AzTV.az@SD" tvg-logo="https://i.imgur.com/snBMMeH.png" group-title="International" tvg-country="AZ",Az TV
-https://operativmm.az/tvs/az/stream9/index.m3u8
+#EXTINF:-1 tvg-id="AzTV.az@SD" tvg-logo="https://i.imgur.com/snBMMeH.png" http-referrer="https://tvstream.az/" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" group-title="International" tvg-country="AZ",Az TV (720p)
+#EXTVLCOPT:http-referrer=https://tvstream.az/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+https://az.tvstream.az/hls/stream9/index.m3u8
 #EXTINF:-1 tvg-name="Baku TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Baku_TV_%282018%29.png/500px-Baku_TV_%282018%29.png" tvg-id="BakuTV.az" tvg-country="AZ" group-title="International",Baku TV
 https://rtmp.baku.tv/hls/bakutv.m3u8
 #EXTINF:-1 tvg-id="KanalS.az@SD" tvg-logo="https://raw.githubusercontent.com/songwenhui239/Songwenhui239/refs/heads/main/Kanal%20S.png" group-title="International" tvg-name="Kanal S" tvg-country="AZ",Kanal S
 https://lives.atv.az:5443/KANAL-S/streams/kanals.m3u8
+#EXTINF:-1 tvg-id="AyazTV.az@SD" tvg-logo="https://www.ayaztv.com/storage/assets/site_logo.png" group-title="Asia" tvg-country="AZ",Ayaz TV (1080p)
+https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/main.m3u8
 #EXTINF:-1 tvg-id="ELTV.az@SD" tvg-country="AZ" group-title="Asia",EL TV (260p) [Not 24/7]
 http://85.132.53.162:1935/live/eltv/playlist.m3u8
-#EXTINF:-1 tvg-id="ARB24.az@SD" tvg-logo="https://i.imgur.com/mtvIFyq.png" group-title="News" tvg-country="AZ",ARB 24
+#EXTINF:-1 tvg-id="ARB24.az@SD" tvg-logo="https://i.imgur.com/mtvIFyq.png" group-title="News" tvg-country="AZ",ARB 24 (720p)
 https://operativmm.az/tvs/arb24/stream/index.m3u8
