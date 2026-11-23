@@ -375,6 +375,13 @@ class BuildSiteDataTest(unittest.TestCase):
                      'Scrape playlists', 'Quick playlist update', 'Deep link and guide check'):
             self.assertIn(path, workflow)
         self.assertIn("repos/${GITHUB_REPOSITORY}/releases?per_page=100", workflow)
+        # actions/deploy-pages resolves the uploaded artifact through the
+        # Actions API, so the job needs actions: read. Without it every deploy
+        # failed with "No artifacts named github-pages were found for this
+        # workflow run" after the site itself had already been uploaded.
+        permissions = workflow.split("permissions:", 1)[1].split("concurrency:", 1)[0]
+        for scope in ("contents: read", "pages: write", "id-token: write", "actions: read"):
+            self.assertIn(scope, permissions)
 
     def test_the_published_site_address_is_the_one_github_serves(self):
         """A project Pages URL does not survive a repository rename.
