@@ -98,6 +98,20 @@ class MacPackagingTests(unittest.TestCase):
         self.assertIn("dmg", workflow)
         self.assertIn("pkg", workflow)
 
+    def test_every_mac_package_is_built_with_publish_never(self):
+        # electron-builder's default "onTagOrDraft" publish tries to upload to
+        # the GitHub release itself, needs GH_TOKEN, and exits 1 after the DMGs
+        # are built - which kept the "Attach the installers" step from running,
+        # so v1.1.18 and v1.1.19 shipped with no Mac installers. The workflow
+        # builds here and uploads in a later step, so nothing may publish.
+        workflow = text(WORKFLOW)
+        invocations = [line for line in workflow.splitlines()
+                       if "electron-builder --mac" in line]
+        self.assertEqual(len(invocations), 3, invocations)
+        for line in invocations:
+            self.assertIn("--publish never", line)
+        self.assertNotIn("--publish always", workflow)
+
     def test_android_only_bridge_release_skips_the_mac_build(self):
         # The v1.0.8.2 bridge is a four-part release with no three-part Mac
         # alias. macOS cannot package it, so the release run must skip the Mac
