@@ -24,17 +24,17 @@ Daemon will be stopped at the end of the build
 [robolectric] android-all-instrumented-9-robolectric-4913185-2-i7.jar (106130412 bytes)
 
 > Task :app:mergeDebugShaders
-> Task :app:processDebugManifestForPackage
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :app:mergeDebugAssets
+> Task :app:processDebugManifestForPackage
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :app:compressDebugAssets
-> Task :app:processDebugResources
 > Task :app:l8DexDesugarLibDebug FROM-CACHE
+> Task :app:processDebugResources
+> Task :app:desugarDebugFileDependencies FROM-CACHE
 > Task :app:packageDebugUnitTestForUnitTest
 > Task :app:generateDebugUnitTestConfig
-> Task :app:desugarDebugFileDependencies FROM-CACHE
 > Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
 > Task :app:checkDebugDuplicateClasses
@@ -53,8 +53,8 @@ w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/
 
 > Task :app:compileDebugJavaWithJavac
 > Task :app:processDebugJavaRes
-> Task :app:bundleDebugClassesToCompileJar
 > Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
 > Task :app:dexBuilderDebug
 > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
 > Task :app:mergeProjectDexDebug
@@ -66,7 +66,7 @@ w: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795471998760.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795472903857.json
 
-BUILD SUCCESSFUL in 1m 14s
+BUILD SUCCESSFUL in 55s
 48 actionable tasks: 35 executed, 13 from cache
