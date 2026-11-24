@@ -10,6 +10,7 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+<<<<<<< HEAD
 ## 2026-11-23 — Version 1.1.20 published: Many sources, one clock
 
 - **Published.** [`v1.1.20`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.20) is the Latest release (Android `versionCode 101200000`, macOS `1.1.20`) with the smoke-tested APK, **both Mac DMGs and both PKGs**, the Linux AppImage/.deb/tar.xz, every `SHA256SUMS` file and build provenance attached.
@@ -17,6 +18,8 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 - **The release now has every installer, so the in-app update centre can offer it on all four platforms.** Reaching this state also meant fixing three failures that had turned CI red on `main`: the category shelf silently dropped a category published under two spellings (`Animals & Nature` / `Animals + Nature`, one slug, six lost channels); the "pasted VOD markup" browser test injected a catalogue the service worker answered from cache instead of the network, so the test ran against the wrong file; and the Pages deploy needed `actions: read` to resolve its own uploaded artifact.
 - The download site promotes 1.1.20 as the stable card, and the update notice nudges builds through 1.1.19 at it.
 
+=======
+>>>>>>> origin/main
 ## 2026-11-23 — Many sources, one clock (1.1.20)
 
 - **A source now has backup addresses, not one address.** A channel already keeps many feeds so one dead host cannot take it off the shelf; a playlist is treated the same way. `sources.json` gained `mirrors` (other full URLs for the identical file) and `mirror_templates` (`{path}`, `{repo}`, `{ref}`, `{raw_path}` over the source's `github` block), and `fetch_source_text()` tries them in order before its GitHub API fallback and before the run falls back to the cached copy. Seventeen backup addresses now cover the eight GitHub-hosted sources (`aria`, `aria+`, `doms9`, `iptv-org`, `free-tv`, `pluto-us`, `aria-overseas`, `vbskycn-iptv`), most of them jsDelivr and raw.gitmirror.com, which are independent of raw.githubusercontent.com. A run that answered from a backup address records it in `report.json` (`fetch_method`, `mirror_url`) and in the run's issues, so a quiet primary outage is visible instead of silently absorbed; a malformed template is skipped, never fatal (`tests/test_source_redundancy.py`).
