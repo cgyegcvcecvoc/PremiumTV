@@ -100,7 +100,8 @@
         "https://cdn.jsdelivr.net/gh/doms9/iptv@default/M3U8/TV.m3u8",
         "https://raw.gitmirror.com/doms9/iptv/default/M3U8/TV.m3u8"
       ],
-      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "doms9's US cable lineup (TV.m3u8, 573 links). The smaller M3U8/base.m3u8 in the same repository (178 links) was measured against the published corpus on 2026-11-24: all 178 of its URLs are already in TV.m3u8 and in PremiumTV_all.m3u, so it is not configured as a separate source - it would add zero new links. See docs/SOURCE-HUNT-2026-11-24.md."
     },
     {
       "name": "xtemus",
@@ -375,6 +376,13 @@
       "repo": "zhangboheng/Easy-Web-TV-M3u8",
       "ref": "main",
       "note": "zhangboheng's all-in-one web TV catalogue. Its country pages are generated in the browser from the iptv-org public API (which this repository already reads through the iptv-org source), and the repository tree publishes no .m3u file at all, so there is nothing to import. This check counts the playlists it carries so a future static export is noticed."
+    },
+    {
+      "name": "iptvcat",
+      "type": "website",
+      "enabled": true,
+      "url": "https://iptvcat.net/united_states_of_america__1",
+      "note": "IPTV Cat's US catalogue (1,621 channels, 1,593 online on 2026-11-24; 14,018 worldwide). Each row offers only a single-channel wrapper playlist (list.iptvcat.net/my_list/s/<hash>.m3u8 around the real stream URL) and the bulk 'Download this list' action is built in the browser from a session list, so the site publishes no single static M3U the scraper can fetch and link-check as a source. Sampled wrapper URLs (e.g. the 30A TV feeds) are already in the published corpus, and the catalogue is smaller than the current lineup in both the US (1,621 vs ~2,900) and worldwide (14,018 vs 19,621). Checked for reachability only and never imported as channels; see docs/SOURCE-HUNT-2026-11-24.md. If IPTV Cat ever publishes a static bulk M3U, add it as a source and let the daily link check decide what survives."
     }
   ],
   "discovery": {
@@ -408,6 +416,22 @@
           "repo": "TianmuTNT/iptv"
         },
         "note": "Public IPTV playlist repository, refreshed frequently."
+      },
+      {
+        "name": "matthuisman-mjh",
+        "enabled": true,
+        "type": "m3u",
+        "url": "https://i.mjh.nz/all/raw-tv.m3u8",
+        "note": "matthuisman's generated NZ/AU playlist (Sky NZ, Three, Bravo, Whakaata Maori, Warner Bros FAST channels and more, served through the i.mjh.nz/.r/ redirector with an Apple TV user-agent). The published lineup is thin on Oceania (2 primary + 1 backup entry) and Australia (15 primary + 1 backup; the country playlist carries 32), and only 4 mjh- ids are in the corpus today, so this is the one new source from the 2026-11-24 hunt that could add genuinely new channels. The discovery engine sample-checks it before anything is promoted; the .r/ redirector may need the published user-agent, which the sample check will show. The PlutoTV/SamsungTVPlus/Plex folders on the same host are XMLTV guides only (no playlists) - see the epg_sources block."
+      },
+      {
+        "name": "YanG-Gather",
+        "enabled": true,
+        "type": "m3u",
+        "github": {
+          "repo": "YanG-1989/m3u"
+        },
+        "note": "The one importable upstream behind HerbertHe/iptv-sources (a generator, not a playlist - see docs/SOURCE-HUNT-2026-11-24.md). Gather.m3u (123 links) is China Mobile Migu sports, movie-rotation and esports livestream proxies (Bilibili/Huya/Douyu via cdn.ttvb.eu.org), not general TV; all 123 URLs are new to the corpus, so the monthly engine will sample-check them and promote only if they actually answer. HerbertHe's other upstreams were rejected with evidence: YueChan is rtp:// multicast, Beijing-IPTV is 192.168.x.x LAN addresses, joevess is an empty file, cymz6's repository is gone (404), and fanmingming/iptv-org are already covered."
       }
     ],
     "github_search": {
