@@ -52,6 +52,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# How far a ZIP's area may be from a published market and still belong to it.
+# Mirrors NEAREST_MARKET_MAX_KM in macos/app/src/renderer/local-channels.js and
+# LOCAL_MARKET_NEAR_KM in the Android LocalChannels.kt; a test pins all three.
+NEAREST_MARKET_MAX_KM = 120.0
 SOURCE = ROOT / "playlists" / "live" / "USA.m3u"
 OUTPUT = ROOT / "playlists" / "local-channels.json"
 DATA = ROOT / "data" / "local-markets"
@@ -532,8 +537,10 @@ def assemble(markets: dict[str, dict], zip_prefixes) -> dict:
     ]
     cities.sort(key=lambda row: (row["state"], row["city"].lower()))
 
-    # Every ZIP prefix points at the state's published market nearest to it,
-    # so a viewer who only knows a ZIP lands on a real market, not a state.
+    # A ZIP prefix points at the state's published market nearest to it, but
+    # only inside NEAREST_MARKET_MAX_KM (1.1.21). Beyond that the prefix has no
+    # market: Wilkes-Barre is ~150 km from the one Pennsylvania market nearest
+    # it, and "nearest in the state" would file it under Philadelphia.
     by_state: dict[str, list[dict]] = {}
     for market in out_markets:
         by_state.setdefault(market["state"], []).append(market)
@@ -544,11 +551,13 @@ def assemble(markets: dict[str, dict], zip_prefixes) -> dict:
         nearest = None
         best = float("inf")
         for market in candidates:
-            metres = distance(row["latitude"], row["longitude"],
-                              market["latitude"], market["longitude"])
-            if metres < best:
-                best = metres
+            kilometres = distance(row["latitude"], row["longitude"],
+                                  market["latitude"], market["longitude"])
+            if kilometres < best:
+                best = kilometres
                 nearest = market["id"]
+        if nearest is not None and best > NEAREST_MARKET_MAX_KM:
+            nearest = None
         zip_rows.append({
             "prefix": prefix,
             "state": row["state"],

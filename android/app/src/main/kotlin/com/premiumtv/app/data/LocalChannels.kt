@@ -185,7 +185,12 @@ class LocalDirectory internal constructor(val document: JSONObject) {
         return zipRanges.firstOrNull { range -> prefix >= range.first && prefix <= range.second }?.third
     }
 
-    /** The market a ZIP belongs to, or null when the prefix has none published. */
+    /**
+     * The market a ZIP belongs to, or null when no published market is inside
+     * [LOCAL_MARKET_NEAR_KM] of the ZIP's area (1.1.21). The distance rule the
+     * GPS path already applies applies here too: a Wilkes-Barre ZIP is not
+     * Philadelphia just because Philadelphia is the nearest market in the state.
+     */
     fun marketForZip(zip: String): LocalMarket? {
         val digits = zip.filter { it.isDigit() }
         if (digits.length < 3) return null
@@ -194,7 +199,8 @@ class LocalDirectory internal constructor(val document: JSONObject) {
         if (id.isNotBlank()) markets.firstOrNull { it.id == id }?.let { return it }
         val point = zipPrefixes[prefix]?.third
         if (point != null && !point.first.isNaN()) {
-            return nearestMarket(point.first, point.second, stateForZip(zip))
+            val hit = nearestMarketWithDistance(point.first, point.second, stateForZip(zip))
+            return hit?.takeIf { marketIsNear(it.second) }?.first
         }
         return null
     }
@@ -275,6 +281,9 @@ class LocalDirectory internal constructor(val document: JSONObject) {
         val wantedState = selection.state.ifBlank { stateForZip(selection.zip).orEmpty() }.uppercase()
         val zipMarket = selection.zip.takeIf { it.isNotBlank() }?.let { marketForZip(it) }
         if (zipMarket != null && selection.city.isBlank()) return listOf(zipMarket)
+        // A ZIP with no published market near it is an honest "none", not every
+        // market in its state (1.1.21).
+        if (selection.zip.isNotBlank() && zipMarket == null && selection.city.isBlank()) return emptyList()
         val wantedCity = normalizePlace(selection.city)
         return markets.filter { market ->
             (wantedState.isBlank() || market.state == wantedState) &&

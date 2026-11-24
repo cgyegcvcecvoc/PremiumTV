@@ -153,3 +153,19 @@ test('the limit is one number shared by the platforms', () => {
   assert.match(kotlin, /const val LOCAL_MARKET_NEAR_KM = 120\.0/);
   assert.match(kotlin, /fun marketIsNear\(distanceKm: Double\)/);
 });
+
+// ------------------------------------------- a ZIP is not a far state market (1.1.21)
+
+test('a ZIP with no published market near it resolves to none, not the state', () => {
+  const local = loadLocal();
+  // Wilkes-Barre 18701 sits ~150 km from Philadelphia, the only PA market here.
+  const zipRows = [
+    { prefix: '187', state: 'PA', market: '', latitude: 41.255, longitude: -75.885 },
+    { prefix: '176', state: 'PA', market: '', latitude: 40.041, longitude: -76.309 },
+  ];
+  const withZips = { ...directory, zip_prefixes: zipRows };
+  assert.equal(local.marketForZip('18701', withZips), null);
+  assert.equal(local.marketsFor(withZips, { state: 'PA', zip: '18701' }).length, 0);
+  assert.match(local.summary(withZips, { state: 'PA', zip: '18701' }),
+    /No local station is published within 75 miles of ZIP 18701\. The nearest is Philadelphia, PA, about 98 miles away - not your area/);
+});

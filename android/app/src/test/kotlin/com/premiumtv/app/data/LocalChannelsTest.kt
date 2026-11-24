@@ -157,4 +157,13 @@ class LocalChannelsTest {
         assertNull(local.marketForZip("00000"))
         assertEquals("PA", local.stateForZip("17603"))
     }
+
+    @Test
+    fun aZipWithNoMarketNearItIsNotTheStatesNearestMarket() {
+        val local = directory()
+        // 18701 is Wilkes-Barre: the only published Pennsylvania market in this
+        // fixture is ~150 km away, outside the radius, so it is not "your area" (1.1.21).
+        assertNull(local.marketForZip("18701"))
+        assertTrue(local.marketsFor(LocalSelection(state = "PA", zip = "18701")).isEmpty())
+    }
 }
