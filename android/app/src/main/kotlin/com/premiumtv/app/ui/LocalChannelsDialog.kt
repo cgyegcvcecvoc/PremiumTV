@@ -408,7 +408,8 @@ internal fun LocalChannelsDialog(
                 val zipHint = when {
                     current.zip.length in 1..2 -> "A ZIP code needs five digits."
                     current.zip.length >= 3 && zipState.isNotBlank() ->
-                        "ZIP $zip resolves to $zipState" + (directory?.marketForZip(current.zip)?.let { " · ${it.label}" } ?: "")
+                        directory?.marketForZip(current.zip)?.let { "ZIP $zip resolves to ${it.label}" }
+                            ?: "ZIP $zip is in $zipState, but no published station is within 120 km of it - not your area.",
                     current.zip.length >= 3 -> "That ZIP is not in the published table - check it, or use a state."
                     else -> null
                 }

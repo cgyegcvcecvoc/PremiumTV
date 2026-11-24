@@ -1,18 +1,22 @@
 #EXTM3U
 # Curated local channels for the Lancaster / Harrisburg / Lebanon / York market
-# (the Susquehanna Valley in south-central Pennsylvania), starting with WGAL 8,
-# the NBC affiliate licensed to Lancaster.
+# (the Susquehanna Valley in south-central Pennsylvania): WGAL 8 (NBC, Lancaster),
+# CBS 21 (WHP, Harrisburg), Fox 29 (WTXF, Philadelphia) and NBC 6 (WJAC, Johnstown).
 #
-# Every URL in this file is a publicly listed feed that is re-checked end to end by
-# scripts/scraper.py on every run, exactly like playlists/sources/ae-networks.m3u and
-# playlists/sources/priority-channels.m3u: a feed that stops answering is dropped from
-# the published playlists automatically, and one that answers without media is caught
-# by the nightly deep check (playlists/checks/LINK-CHECK.md).
+# Every URL in this file is re-checked end to end by scripts/scraper.py on every run,
+# exactly like playlists/sources/ae-networks.m3u and playlists/sources/priority-channels.m3u:
+# a feed that stops answering is dropped from the published playlists automatically.
+# Entries marked CANDIDATE were found on the open web but could not be played from
+# the repository's build sandbox; the scrape decides whether they stay.
 #
 # Adding a channel here also adds it to PremiumTV.m3u, PremiumTV_all.m3u and
 # playlists/countries/USA.m3u on the next scrape, and its tvg-id is what the merged
 # guide build (EPG/PremiumTV.xml) matches against the upstream guides.
 #EXTINF:-1 tvg-chno="29" tvg-country="US" tvg-id="Fox.us@WTXFTV" tvg-name="WTXF-TV" group-title="Fox Channels",Fox 29 (WTXF) - Philadelphia PA (1080p)
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00488-foxdigital-fox29philadelphiawtx-vizious/playlist.m3u8
+# CANDIDATE: Tubi live feed for WGAL found via Haystack (replaces the 404 Tubi aegis URL).
 #EXTINF:-1 tvg-chno="8" tvg-country="US" tvg-id="NBC.us@WGAL" tvg-name="WGAL" tvg-logo="https://i.imgur.com/nxY84W5.png" group-title="NBC",WGAL 8 (NBC) - Lancaster PA (720p)
-https://aegis-cloudfront-1.tubi.video/5d314174-0110-42af-8811-feaae073ea1e/playlist.m3u8
+https://apollo.production-public.tubi.io/live/ac-wgal.m3u8
+# CANDIDATE: Stirr-hosted CBS 21 feed listed on TingFM.
+#EXTINF:-1 tvg-chno="21" tvg-country="US" tvg-id="CBS.us@WHP" tvg-name="WHP" group-title="CBS",CBS 21 (WHP) - Harrisburg PA (720p)
+https://linear-697.frequency.stream/dist/stirr/697/hls/master/playlist.m3u8

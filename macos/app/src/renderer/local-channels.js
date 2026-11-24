@@ -225,6 +225,13 @@ window.PremiumLocalChannels = (function () {
     return market ? String(market.state || '') : '';
   }
 
+  /**
+   * The published market a ZIP's own area belongs to, or null (1.1.21).
+   *
+   * The 120 km rule applies here too. Before 1.1.21 an out-of-range ZIP fell
+   * back to the nearest market in its state with no distance check, so a
+   * Wilkes-Barre ZIP read as Philadelphia (~150 km away).
+   */
   function marketForZip(zip, directory) {
     const row = zipEntry(zip, directory);
     if (!row) return null;
@@ -232,12 +239,18 @@ window.PremiumLocalChannels = (function () {
       const market = markets(directory).find((entry) => entry.id === row.market);
       if (market) return market;
     }
+    const hit = nearestForZip(zip, directory);
+    return hit && marketIsNear(hit.distanceKm) ? hit.market : null;
+  }
+
+  /** `{ market, distanceKm }` for a ZIP's centroid, nearest market in its state. */
+  function nearestForZip(zip, directory) {
+    const row = zipEntry(zip, directory);
+    if (!row) return null;
     const latitude = Number(row.latitude);
     const longitude = Number(row.longitude);
-    if (Number.isFinite(latitude) && Number.isFinite(longitude)) {
-      return nearestMarket(latitude, longitude, directory, row.state);
-    }
-    return null;
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+    return nearestMarketWithDistance(latitude, longitude, directory, row.state);
   }
 
   /**
@@ -254,6 +267,9 @@ window.PremiumLocalChannels = (function () {
     }
     const zipMarket = value.zip ? marketForZip(value.zip, directory) : null;
     if (zipMarket && !value.city) return [zipMarket];
+    // A ZIP with no published market near it is an honest "none", not every
+    // market in its state (1.1.21): a state the viewer picks is its own answer.
+    if (value.zip.length >= 3 && !zipMarket && !value.city) return [];
     const wantedState = (value.state || stateForZip(value.zip, directory)).toUpperCase();
     const wantedCity = normalizePlace(value.city);
     const out = markets(directory).filter((market) => {
@@ -313,6 +329,15 @@ window.PremiumLocalChannels = (function () {
     if (value.zip.length >= 3 && !stateForZip(value.zip, directory)) {
       return 'That ZIP is not in the published US ZIP table. Check it, or enter a state instead.';
     }
+    if (value.zip.length >= 3 && !value.city && !marketForZip(value.zip, directory)) {
+      const hit = nearestForZip(value.zip, directory);
+      if (hit) {
+        const miles = Math.round(hit.distanceKm * 0.621371);
+        return `No local station is published within ${Math.round(NEAREST_MARKET_MAX_KM * 0.621371)} miles of ZIP ${value.zip}. ` +
+          `The nearest is ${hit.market.city}, ${hit.market.state}, about ${miles} miles away - not your area.`;
+      }
+      return `No local stations are published near ZIP ${value.zip} yet.`;
+    }
     const resolved = marketsFor(directory, value);
     if (!resolved.length) {
       const state = value.state || stateForZip(value.zip, directory);
@@ -335,7 +360,7 @@ window.PremiumLocalChannels = (function () {
   return {
     SELECTION_KEY, ASKED_KEY, EMPTY,
     normalizeSelection, hasSelection, label, load, save, asked, markAsked,
-    stateForZip, stateForLocation, nearestMarket, nearestMarketWithDistance,
+    stateForZip, stateForLocation, nearestMarket, nearestMarketWithDistance, nearestForZip,
     nearbyMarketsWithDistance, normalizePlace,
     marketIsNear, NEAREST_MARKET_MAX_KM, marketForZip,
     marketsFor, stationsFor, channelsFor, summary, cityChoices,

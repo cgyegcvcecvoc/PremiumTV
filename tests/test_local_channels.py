@@ -110,6 +110,22 @@ https://example.test/wtxf
             if row["market"]:
                 self.assertIn(row["market"], self.markets)
 
+    def test_a_zip_with_no_market_within_reach_has_none(self):
+        # Wilkes-Barre (187) is ~135 km from the fixture's Lancaster market and
+        # ~180 km from Philadelphia: outside the 120 km radius, so it is not
+        # filed under the state's nearest market (1.1.21).
+        by_prefix = {row["prefix"]: row for row in self.document["zip_prefixes"]}
+        self.assertEqual(by_prefix["187"]["state"], "PA")
+        self.assertEqual(by_prefix["187"]["market"], "")
+        self.assertEqual(by_prefix["176"]["market"], self.stations["WGAL"][0]["id"])
+
+    def test_the_radius_is_one_number_on_every_platform(self):
+        js = (ROOT / "macos" / "app" / "src" / "renderer" / "local-channels.js").read_text(encoding="utf-8")
+        kotlin = (ROOT / "android" / "app" / "src" / "main" / "kotlin" / "com" / "premiumtv" / "app"
+                  / "data" / "LocalChannels.kt").read_text(encoding="utf-8")
+        self.assertIn(f"const NEAREST_MARKET_MAX_KM = {build_local_channels.NEAREST_MARKET_MAX_KM:g};", js)
+        self.assertIn(f"const val LOCAL_MARKET_NEAR_KM = {build_local_channels.NEAREST_MARKET_MAX_KM:.1f}", kotlin)
+
     def test_military_and_territory_prefixes_are_not_a_state(self):
         prefixes = {row["prefix"] for row in self.document["zip_prefixes"]}
         for prefix in ("090", "091", "340", "962", "969"):
