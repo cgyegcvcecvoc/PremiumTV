@@ -448,6 +448,10 @@
     <display-name>Radio Romania 3Net (480p)</display-name>
     <icon src="https://www.radio3net.ro/img/logos/logo_3.png" />
   </channel>
+  <channel id="RadioRomaniaAntenaSatelor.ro@720p">
+    <display-name>Radio Romania Antena Satelor (720p) [Not 24/7]</display-name>
+    <icon src="https://www.antenasatelor.ro/templates/default/images/custom/logo-main.svg" />
+  </channel>
   <channel id="RadioRomaniaIasi.ro@SD">
     <display-name>Radio Romania Iasi (576i) [Not 24/7]</display-name>
     <icon src="https://www.radioiasi.ro/wp-content/themes/radioiasi/images/custom/logo-iasi.svg" />
@@ -742,22 +746,6 @@
     <display-name>Credo TV (Backup 1)</display-name>
     <icon src="https://iptv-epg.org/images/h128ZhY8oxchl3mt9UDRwp10STEq-ks15F1d3QUx4FApoEebMJyakA1ytKDK_liB2SqDNtaYyZTd58qOpqlemDdjkZi7Hn9uA0vUSHdPWoN-" />
   </channel>
-  <channel id="MISATV.ro@SD">
-    <display-name>MISA TV (720p)</display-name>
-    <icon src="https://i.imgur.com/2RxQNm6.png" />
-  </channel>
-  <channel id="MISATV.ro@Czech">
-    <display-name>MISA TV Czech (576i) [Not 24/7]</display-name>
-    <icon src="https://i.imgur.com/2RxQNm6.png" />
-  </channel>
-  <channel id="MISATV.ro@English">
-    <display-name>MISA TV English (576i)</display-name>
-    <icon src="https://i.imgur.com/2RxQNm6.png" />
-  </channel>
-  <channel id="MISATV.ro@Hungarian">
-    <display-name>MISA TV Hungarian (576i)</display-name>
-    <icon src="https://i.imgur.com/2RxQNm6.png" />
-  </channel>
   <channel id="SperantaTV.ro@SD">
     <display-name>SperantaTV (1080p)</display-name>
     <display-name>RO - Speranta TV</display-name>
@@ -826,15 +814,6 @@
     <display-name>Mireasa (Backup 1)</display-name>
     <icon src="https://i.imgur.com/k0VO0LH.png" />
   </channel>
-  <programme start="20261123213000 +0000" stop="20261123214500 +0000" channel="PrimaSport1.ro@HD">
-    <title>Ştirile Prima Sport</title>
-  </programme>
-  <programme start="20261123214500 +0000" stop="20261123231500 +0000" channel="PrimaSport1.ro@HD">
-    <title>Superliga Show</title>
-  </programme>
-  <programme start="20261123231500 +0000" stop="20261123233000 +0000" channel="PrimaSport1.ro@HD">
-    <title>Ştirile Prima Sport</title>
-  </programme>
   <programme start="20261124010000 +0000" stop="20261124020000 +0000" channel="PrimaSport1.ro@HD">
     <title>⋗ Fotbal Show</title>
     <date>20261124</date>
@@ -1276,15 +1255,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123194500 +0000" stop="20261123214500 +0000" channel="PrimaSport2.ro@HD">
-    <title>Monza – Fiorentina</title>
-    <live />
-  </programme>
-  <programme start="20261123214500 +0000" stop="20261123220000 +0000" channel="PrimaSport2.ro@HD">
-    <title>Ştirile Prima Sport</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="PrimaSport2.ro@HD">
-    <title>Rezumate La Liga</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="PrimaSport1.ro@HD">
+    <title>⋗ Inter Milano – Stuttgart. MECI FOTBAL UEFA CHAMPIONS LEAGUE</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124010000 +0000" channel="PrimaSport2.ro@HD">
     <title>Monza – Fiorentina</title>
@@ -1702,11 +1678,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123200000 +0000" stop="20261123220000 +0000" channel="PrimaSport3.ro@HD">
-    <title>Levante – Elche</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="PrimaSport3.ro@HD">
-    <title>Rezumate Motogp: Portugalia</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="PrimaSport2.ro@HD">
+    <title>⋗ PSG – Roma. MECI FOTBAL UEFA CHAMPIONS LEAGUE</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="PrimaSport3.ro@HD">
     <title>Rezumate Bundesliga</title>
@@ -2061,8 +2038,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123230000 +0000" channel="PrimaSport4.ro@HD">
-    <title>Tenis Atp</title>
+  <programme start="20261126034500 +0000" stop="20261126040000 +0000" channel="PrimaSport3.ro@HD">
+    <title>Știrile Prima Sport</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="PrimaSport3.ro@HD">
+    <title>Club Brugge – Liverpool. Meci Fotbal Uefa Champions League</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124010000 +0000" channel="PrimaSport4.ro@HD">
     <title>Tenis Atp</title>
@@ -2256,8 +2244,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123204500 +0000" stop="20261123221500 +0000" channel="PrimaSport5.ro@HD">
-    <title>Handbal Ehf: European League</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="PrimaSport4.ro@HD">
+    <title>Sporting Lisabona – Man Utd. Meci Fotbal Uefa Champions League</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123221500 +0000" stop="20261124001500 +0000" channel="PrimaSport5.ro@HD">
     <title>Getafe - Atletico Madrid</title>
@@ -2479,11 +2471,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="TVRSport.ro@SD">
-    <title>CAMPION LA MICROFON</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="TVRSport.ro@SD">
-    <title>In prelungiri</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="PrimaSport5.ro@HD">
+    <title>Lille – Bayern Munchen. Meci Fotbal Uefa Champions League</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124004000 +0000" channel="TVRSport.ro@SD">
     <title>Ora de sport</title>
@@ -2716,11 +2709,14 @@
   <programme start="20261126032500 +0000" stop="20261126035500 +0000" channel="TVRSport.ro@SD">
     <title>EROII TERENULUI</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="AgroTV.ro@SD">
-    <title>Știrile AGRO TV</title>
+  <programme start="20261126035500 +0000" stop="20261126040000 +0000" channel="TVRSport.ro@SD">
+    <title>Imnul României</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="AgroTV.ro@SD">
-    <title>Ştirile AGRO TV</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="TVRSport.ro@SD">
+    <title>CAMPION LA MICROFON</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126063500 +0000" channel="TVRSport.ro@SD">
+    <title>HANDBAL FEMINI</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="AgroTV.ro@SD">
     <title>Retrospectiva Stiri</title>
@@ -2896,17 +2892,11 @@
   <programme start="20261126033000 +0000" stop="20261126040000 +0000" channel="AgroTV.ro@SD">
     <title>Teleshopping</title>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123220000 +0000" channel="TravelMix.ro@SD">
-    <title>Travel experience</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="AgroTV.ro@SD">
+    <title>Ştirile AGRO TV</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123223000 +0000" channel="TravelMix.ro@SD">
-    <title>Unicool prin lumea mare</title>
-  </programme>
-  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="TravelMix.ro@SD">
-    <title>Unicool prin lumea mare</title>
-  </programme>
-  <programme start="20261123230000 +0000" stop="20261123233000 +0000" channel="TravelMix.ro@SD">
-    <title>Pe poteci</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="AgroTV.ro@SD">
+    <title>Ştirile AGRO TV</title>
   </programme>
   <programme start="20261123233000 +0000" stop="20261124000000 +0000" channel="TravelMix.ro@SD">
     <title>Pe poteci</title>
@@ -3211,11 +3201,17 @@
   <programme start="20261126033000 +0000" stop="20261126040000 +0000" channel="TravelMix.ro@SD">
     <title>Travel experience</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="A7TV.ro@SD">
-    <title>Spune-mi CUM!</title>
+  <programme start="20261126040000 +0000" stop="20261126043000 +0000" channel="TravelMix.ro@SD">
+    <title>Unicool prin lumea mare</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="A7TV.ro@SD">
-    <title>TREPTE</title>
+  <programme start="20261126043000 +0000" stop="20261126050000 +0000" channel="TravelMix.ro@SD">
+    <title>Unicool prin lumea mare</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126053000 +0000" channel="TravelMix.ro@SD">
+    <title>Doi viezuri</title>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126060000 +0000" channel="TravelMix.ro@SD">
+    <title>Muzee sub lupa</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="A7TV.ro@SD">
     <title>De vorbă cu Doctorul</title>
@@ -3382,11 +3378,11 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="A7TV.ro@SD">
     <title>Oameni și păreri</title>
   </programme>
-  <programme start="20261123183000 +0000" stop="20261123220000 +0000" channel="Antena1.ro@HD">
-    <title>Chefi la cuțite</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="A7TV.ro@SD">
+    <title>Ce bine că ești!</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123224500 +0000" channel="Antena1.ro@HD">
-    <title>Observator</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="A7TV.ro@SD">
+    <title>Andra's journey</title>
   </programme>
   <programme start="20261123224500 +0000" stop="20261124014500 +0000" channel="Antena1.ro@HD">
     <title>Temptation Island - Insula iubirii</title>
@@ -3480,11 +3476,9 @@
   <programme start="20261126021500 +0000" stop="20261126040000 +0000" channel="Antena1.ro@HD">
     <title>Furnicuțele</title>
   </programme>
-  <programme start="20261123200000 +0000" stop="20261123220000 +0000" channel="AntenaInternational.ro@SD">
-    <title>Mireasa - Capriciile Iubirii</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123233000 +0000" channel="AntenaInternational.ro@SD">
-    <title>Ştiri</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="Antena1.ro@HD">
+    <title>Observator</title>
+    <new />
   </programme>
   <programme start="20261123233000 +0000" stop="20261124000000 +0000" channel="AntenaInternational.ro@SD">
     <title>Happy Café</title>
@@ -3582,8 +3576,8 @@
   <programme start="20261126023000 +0000" stop="20261126040000 +0000" channel="AntenaInternational.ro@SD">
     <title>Ştiri</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="Digi4K.ro@UHD">
-    <title>Jocul foamei: Provocarea urșilor</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="AntenaInternational.ro@SD">
+    <title>Observator</title>
   </programme>
   <programme start="20261124000000 +0000" stop="20261124010000 +0000" channel="Digi4K.ro@UHD">
     <title>Misterele apelor fermecate ┊ 4</title>
@@ -3907,8 +3901,26 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123233000 +0000" channel="EtnoTV.ro@SD">
-    <title>Cântec din suflet de român</title>
+  <programme start="20261126040000 +0000" stop="20261126043000 +0000" channel="Digi4K.ro@UHD">
+    <title>Casă pe malul lacului 4 ┊ 10</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126043000 +0000" stop="20261126051500 +0000" channel="Digi4K.ro@UHD">
+    <title>În bucătărie ┊ 9</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126051500 +0000" stop="20261126060000 +0000" channel="Digi4K.ro@UHD">
+    <title>În bucătărie ┊ 10</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123233000 +0000" stop="20261124020000 +0000" channel="EtnoTV.ro@SD">
     <title>Seară Românească</title>
@@ -4036,8 +4048,11 @@
   <programme start="20261126020000 +0000" stop="20261126043000 +0000" channel="EtnoTV.ro@SD">
     <title>Matinali și populari</title>
   </programme>
-  <programme start="20261123200000 +0000" stop="20261123220000 +0000" channel="IneditTV.ro@SD">
-    <title>Film documentar/artistic</title>
+  <programme start="20261126043000 +0000" stop="20261126053000 +0000" channel="EtnoTV.ro@SD">
+    <title>Sănătate înainte de toate cu Lăcrămioara Pralea</title>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126061500 +0000" channel="EtnoTV.ro@SD">
+    <title>Cântece pentru cei dragi</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124040000 +0000" channel="IneditTV.ro@SD">
     <title>Hituri muzicale nocturne</title>
@@ -4132,8 +4147,8 @@
   <programme start="20261125220000 +0000" stop="20261126040000 +0000" channel="IneditTV.ro@SD">
     <title>Hituri muzicale nocturne</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123230000 +0000" channel="KanalD.ro@SD">
-    <title>The floor</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="IneditTV.ro@SD">
+    <title>Răsărit cu voie bună</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="KanalD.ro@SD">
     <title>Știrile Kanal D</title>
@@ -4228,8 +4243,11 @@
   <programme start="20261126031500 +0000" stop="20261126034500 +0000" channel="KanalD.ro@SD">
     <title>Știrile Kanal D</title>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123220000 +0000" channel="KapitalTV.ro@SD">
-    <title>Film documentar</title>
+  <programme start="20261126034500 +0000" stop="20261126050000 +0000" channel="KanalD.ro@SD">
+    <title>O dragoste</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="KanalD.ro@SD">
+    <title>O dragoste</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124020000 +0000" channel="KapitalTV.ro@SD">
     <title>Program muzical (diversificat)</title>
@@ -4357,11 +4375,8 @@
   <programme start="20261126020000 +0000" stop="20261126050000 +0000" channel="KapitalTV.ro@SD">
     <title>Ingeri de veghe</title>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123223000 +0000" channel="MetropolaTV.ro@SD">
-    <title>Pastila lui Cristoiu</title>
-  </programme>
-  <programme start="20261123223000 +0000" stop="20261123233000 +0000" channel="MetropolaTV.ro@SD">
-    <title>Știri</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="KapitalTV.ro@SD">
+    <title>Muzica neamului</title>
   </programme>
   <programme start="20261123233000 +0000" stop="20261124003000 +0000" channel="MetropolaTV.ro@SD">
     <title>În umbra știrilor</title>
@@ -4490,12 +4505,8 @@
   <programme start="20261126030000 +0000" stop="20261126050000 +0000" channel="MetropolaTV.ro@SD">
     <title>Povestile Metropolei</title>
   </programme>
-  <programme start="20261123180000 +0000" stop="20261123220000 +0000" channel="NasulTV.ro@SD">
-    <title>Sa vorbim despre tine</title>
-    <new />
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123223000 +0000" channel="NasulTV.ro@SD">
-    <title>Timpurile actuale</title>
+  <programme start="20261126050000 +0000" stop="20261126080000 +0000" channel="MetropolaTV.ro@SD">
+    <title>Executii matinale</title>
   </programme>
   <programme start="20261123223000 +0000" stop="20261124010000 +0000" channel="NasulTV.ro@SD">
     <title>Naşul CANADA</title>
@@ -4606,14 +4617,11 @@
   <programme start="20261126020000 +0000" stop="20261126043000 +0000" channel="NasulTV.ro@SD">
     <title>Să vorbim despre tine</title>
   </programme>
-  <programme start="20261123200000 +0000" stop="20261123220000 +0000" channel="National24Plus.ro@SD">
-    <title>Miezul problemei</title>
+  <programme start="20261126043000 +0000" stop="20261126050000 +0000" channel="NasulTV.ro@SD">
+    <title>Timpurile actuale</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123223000 +0000" channel="National24Plus.ro@SD">
-    <title>Vouă</title>
-  </programme>
-  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="National24Plus.ro@SD">
-    <title>Știri</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="NasulTV.ro@SD">
+    <title>Film documentar</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124010000 +0000" channel="National24Plus.ro@SD">
     <title>Albumul naţional</title>
@@ -4870,8 +4878,17 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="National24Plus.ro@SD">
     <title>Baronii</title>
   </programme>
-  <programme start="20261123190000 +0000" stop="20261123214500 +0000" channel="NationalTV.ro@SD">
-    <title>Asediul</title>
+  <programme start="20261126040000 +0000" stop="20261126043000 +0000" channel="National24Plus.ro@SD">
+    <title>Știri</title>
+  </programme>
+  <programme start="20261126043000 +0000" stop="20261126050000 +0000" channel="National24Plus.ro@SD">
+    <title>Baronii</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126053000 +0000" channel="National24Plus.ro@SD">
+    <title>Vouă</title>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126060000 +0000" channel="National24Plus.ro@SD">
+    <title>Biography of America</title>
   </programme>
   <programme start="20261123214500 +0000" stop="20261123234500 +0000" channel="NationalTV.ro@SD">
     <title>Fără egal</title>
@@ -5240,8 +5257,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123233000 +0000" channel="PrimaTV.ro@SD">
-    <title>Exclusiv VIP</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="NationalTV.ro@SD">
+    <title>Jaf în stil american</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123233000 +0000" stop="20261124003000 +0000" channel="PrimaTV.ro@SD">
     <title>Sclava Isaura</title>
@@ -5375,14 +5396,11 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="PrimaTV.ro@SD">
     <title>Elisa</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="ProArena.ro@SD">
-    <title>Singuri</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="PrimaTV.ro@SD">
+    <title>Focus</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123223000 +0000" channel="ProArena.ro@SD">
-    <title>Stiri Pro Arena</title>
-  </programme>
-  <programme start="20261123223000 +0000" stop="20261123233000 +0000" channel="ProArena.ro@SD">
-    <title>Scorpion</title>
+  <programme start="20261126050000 +0000" stop="20261126070000 +0000" channel="PrimaTV.ro@SD">
+    <title>Exclusiv VIP</title>
   </programme>
   <programme start="20261124000000 +0000" stop="20261124010000 +0000" channel="ProArena.ro@SD">
     <title>Prietenii tăi</title>
@@ -5762,6 +5780,20 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="ProArena.ro@SD">
+    <title>NCIS: Los Angeles</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="ProArena.ro@SD">
+    <title>Singuri</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261124000000 +0000" stop="20261124010000 +0000" channel="PROTV.ro@HD">
     <title>Batem palma?</title>
     <date>20261124</date>
@@ -5957,9 +5989,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261123213000 +0000" stop="20261123220000 +0000" channel="PROTVInternational.ro@SD">
-    <title>Teleshopping</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124000000 +0000" channel="PROTVInternational.ro@SD">
     <title>Vorbeşte lumea</title>
@@ -6293,8 +6322,33 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="RapsodiaTV.ro@SD">
-    <title>Daruri muzicale</title>
+  <programme start="20261126034500 +0000" stop="20261126043000 +0000" channel="PROTVInternational.ro@SD">
+    <title>Lecţii de viaţă</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126043000 +0000" stop="20261126050000 +0000" channel="PROTVInternational.ro@SD">
+    <title>La bloc</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126053000 +0000" channel="PROTVInternational.ro@SD">
+    <title>Teleshopping</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126060000 +0000" channel="PROTVInternational.ro@SD">
+    <title>⋗ Ştirile Pro Tv</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124050000 +0000" channel="RapsodiaTV.ro@SD">
     <title>Muzica populara</title>
@@ -6405,8 +6459,11 @@
   <programme start="20261125220000 +0000" stop="20261126050000 +0000" channel="RapsodiaTV.ro@SD">
     <title>Muzica populara</title>
   </programme>
-  <programme start="20261123185000 +0000" stop="20261123220000 +0000" channel="RealitateaPlus.ro@SD">
-    <title>România suverană</title>
+  <programme start="20261126050000 +0000" stop="20261126051500 +0000" channel="RapsodiaTV.ro@SD">
+    <title>Neam de crestini</title>
+  </programme>
+  <programme start="20261126051500 +0000" stop="20261126060000 +0000" channel="RapsodiaTV.ro@SD">
+    <title>Muzica populara</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124010000 +0000" channel="RealitateaPlus.ro@SD">
     <title>Culisele statului paralel</title>
@@ -6477,8 +6534,8 @@
   <programme start="20261126020000 +0000" stop="20261126050000 +0000" channel="RealitateaPlus.ro@SD">
     <title>România suverană</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="SensTV.ro@SD">
-    <title>Design cu Sens</title>
+  <programme start="20261126050000 +0000" stop="20261126080000 +0000" channel="RealitateaPlus.ro@SD">
+    <title>Plus Matinal</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124000000 +0000" channel="SensTV.ro@SD">
     <title>Sens Național</title>
@@ -6573,11 +6630,8 @@
   <programme start="20261125210000 +0000" stop="20261126050000 +0000" channel="SensTV.ro@SD">
     <title>Convorbirile Dalles</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="TarafTV.ro@SD">
-    <title>Videodedicaţii</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="TarafTV.ro@SD">
-    <title>Videodedicaţii</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="SensTV.ro@SD">
+    <title>Culturalia</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124063000 +0000" channel="TarafTV.ro@SD">
     <title>Videodedicaţii</title>
@@ -7110,14 +7164,26 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123224000 +0000" channel="TrinitasTV.ro@SD">
-    <title>Paraclisul Sfinților Martiri Brâncoveni</title>
+  <programme start="20261126034500 +0000" stop="20261126043000 +0000" channel="TimelessDiziChannel.ro@SD">
+    <title>т/с Мой чемпион ┊ 44</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261123224000 +0000" stop="20261123225500 +0000" channel="TrinitasTV.ro@SD">
-    <title>Psalmii</title>
+  <programme start="20261126043000 +0000" stop="20261126051500 +0000" channel="TimelessDiziChannel.ro@SD">
+    <title>т/с Мой чемпион ┊ 45</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261123225500 +0000" stop="20261123233000 +0000" channel="TrinitasTV.ro@SD">
-    <title>Sinaxar</title>
+  <programme start="20261126051500 +0000" stop="20261126060500 +0000" channel="TimelessDiziChannel.ro@SD">
+    <title>т/с Держи меня за руку ┊ 83</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123233000 +0000" stop="20261123235500 +0000" channel="TrinitasTV.ro@SD">
     <title>Cuvânt pentru suflet</title>
@@ -7441,8 +7507,29 @@
   <programme start="20261126033000 +0000" stop="20261126035500 +0000" channel="TrinitasTV.ro@SD">
     <title>Lumina din icoană</title>
   </programme>
-  <programme start="20261123160000 +0000" stop="20261123230000 +0000" channel="UTV.ro@HD">
-    <title>All about Music</title>
+  <programme start="20261126035500 +0000" stop="20261126040000 +0000" channel="TrinitasTV.ro@SD">
+    <title>100 de adevăruri istorice</title>
+  </programme>
+  <programme start="20261126040000 +0000" stop="20261126040500 +0000" channel="TrinitasTV.ro@SD">
+    <title>Imnul naţional</title>
+  </programme>
+  <programme start="20261126040500 +0000" stop="20261126040600 +0000" channel="TrinitasTV.ro@SD">
+    <title>Troparul Sfântului Apostol Andrei</title>
+  </programme>
+  <programme start="20261126040600 +0000" stop="20261126040800 +0000" channel="TrinitasTV.ro@SD">
+    <title>Troparul aducerii moaștelor Sfântului Apostol Andrei</title>
+  </programme>
+  <programme start="20261126040800 +0000" stop="20261126041000 +0000" channel="TrinitasTV.ro@SD">
+    <title>Troparul sfinților români</title>
+  </programme>
+  <programme start="20261126041000 +0000" stop="20261126043000 +0000" channel="TrinitasTV.ro@SD">
+    <title>Rugăciunile de dimineață</title>
+  </programme>
+  <programme start="20261126043000 +0000" stop="20261126053500 +0000" channel="TrinitasTV.ro@SD">
+    <title>Slujba acatistului</title>
+  </programme>
+  <programme start="20261126053500 +0000" stop="20261126060000 +0000" channel="TrinitasTV.ro@SD">
+    <title>Secvenţe Trinitas</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124050000 +0000" channel="UTV.ro@HD">
     <title>DND My Night</title>
@@ -7470,9 +7557,6 @@
   </programme>
   <programme start="20261124230000 +0000" stop="20261125050000 +0000" channel="UTV.ro@HD">
     <title>DND My Night</title>
-  </programme>
-  <programme start="20261123200000 +0000" stop="20261123230000 +0000" channel="EMITV.ro@SD">
-    <title>Direct pentru tine</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124060000 +0000" channel="EMITV.ro@SD">
     <title>Direct pentru tine</title>
@@ -7585,6 +7669,12 @@
   <programme start="20261126000000 +0000" stop="20261126040000 +0000" channel="KissTV.ro@SD">
     <title>Kiss By Night</title>
   </programme>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="KissTV.ro@SD">
+    <title>Rise &amp; Kiss</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126080000 +0000" channel="KissTV.ro@SD">
+    <title>Rise &amp; Kiss</title>
+  </programme>
   <programme start="20261123200000 +0000" stop="20261124040000 +0000" channel="MagicTV.ro@SD">
     <title>Magic Night Hits</title>
   </programme>
@@ -7630,12 +7720,11 @@
   <programme start="20261125200000 +0000" stop="20261126040000 +0000" channel="MagicTV.ro@SD">
     <title>Magic Night Hits</title>
   </programme>
-  <programme start="20261123190000 +0000" stop="20261123220000 +0000" channel="OrizontTV.ro@SD">
-    <title>Viaţa fără preaviz</title>
-    <new />
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="MagicTV.ro@SD">
+    <title>MAGIC START</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="OrizontTV.ro@SD">
-    <title>Paraclisul</title>
+  <programme start="20261126050000 +0000" stop="20261126080000 +0000" channel="MagicTV.ro@SD">
+    <title>MAGIC START</title>
   </programme>
   <programme start="20261124003000 +0000" stop="20261124030000 +0000" channel="OrizontTV.ro@SD">
     <title>⋗ Oameni de lângă noi</title>
@@ -7790,12 +7879,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="PartyMix.ro@HD">
-    <title>Ia mai toarnă un păhărel să ne veselim nițel</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="PartyMix.ro@HD">
-    <title>Să petrecem până-n zori</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="PartyMix.ro@HD">
     <title>Să petrecem până-n zori</title>
@@ -7956,8 +8039,11 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="PartyMix.ro@HD">
     <title>Dimineța pe răcoare, perecere în pijamale</title>
   </programme>
-  <programme start="20261123170000 +0000" stop="20261123220000 +0000" channel="RockTV.ro@SD">
-    <title>Rock This Way</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="PartyMix.ro@HD">
+    <title>Dimineța pe răcoare, perecere în pijamale</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="PartyMix.ro@HD">
+    <title>Dimineța pe răcoare, perecere în pijamale</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124040000 +0000" channel="RockTV.ro@SD">
     <title>Hard Nights</title>
@@ -7992,8 +8078,11 @@
   <programme start="20261125220000 +0000" stop="20261126040000 +0000" channel="RockTV.ro@SD">
     <title>Hard Nights</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="TVRFolclor.ro@SD">
-    <title>Cu lăutarii după mine</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="RockTV.ro@SD">
+    <title>We Will Rock You</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126080000 +0000" channel="RockTV.ro@SD">
+    <title>We Will Rock You</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124045500 +0000" channel="TVRFolclor.ro@SD">
     <title>Muzică tradiţională</title>
@@ -8094,11 +8183,11 @@
   <programme start="20261125220000 +0000" stop="20261126045500 +0000" channel="TVRFolclor.ro@SD">
     <title>Muzică tradiţională</title>
   </programme>
-  <programme start="20261123205500 +0000" stop="20261123215500 +0000" channel="AlephNews.ro@SD">
-    <title>Keep Cool And Trade On</title>
+  <programme start="20261126045500 +0000" stop="20261126050000 +0000" channel="TVRFolclor.ro@SD">
+    <title>Imnul României</title>
   </programme>
-  <programme start="20261123215500 +0000" stop="20261123225500 +0000" channel="AlephNews.ro@SD">
-    <title>Știrile</title>
+  <programme start="20261126050000 +0000" stop="20261126065000 +0000" channel="TVRFolclor.ro@SD">
+    <title>Zestrea muzicală</title>
   </programme>
   <programme start="20261123225500 +0000" stop="20261124005500 +0000" channel="AlephNews.ro@SD">
     <title>Știu</title>
@@ -8244,11 +8333,11 @@
   <programme start="20261126025500 +0000" stop="20261126035500 +0000" channel="AlephNews.ro@SD">
     <title>Știrile</title>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123223000 +0000" channel="Antena3CNN.ro@SD">
-    <title>În gura presei</title>
+  <programme start="20261126035500 +0000" stop="20261126045500 +0000" channel="AlephNews.ro@SD">
+    <title>Cinemaleph</title>
   </programme>
-  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="Antena3CNN.ro@SD">
-    <title>Ştiri</title>
+  <programme start="20261126045500 +0000" stop="20261126055500 +0000" channel="AlephNews.ro@SD">
+    <title>Next Day</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="Antena3CNN.ro@SD">
     <title>Ştiri</title>
@@ -8382,10 +8471,10 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="Antena3CNN.ro@SD">
     <title>News Hour with CNN</title>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123223000 +0000" channel="Antena3CNN.ro@HD">
-    <title>În gura presei</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="Antena3CNN.ro@SD">
+    <title>Ştiri</title>
   </programme>
-  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="Antena3CNN.ro@HD">
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="Antena3CNN.ro@SD">
     <title>Ştiri</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="Antena3CNN.ro@HD">
@@ -8520,11 +8609,11 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="Antena3CNN.ro@HD">
     <title>News Hour with CNN</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="Digi24.ro@SD">
-    <title>Știrile serii</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="Antena3CNN.ro@HD">
+    <title>Ştiri</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="Digi24.ro@SD">
-    <title>Știrile serii</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="Antena3CNN.ro@HD">
+    <title>Ştiri</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124020000 +0000" channel="Digi24.ro@SD">
     <title>Jurnalul de seară</title>
@@ -8664,26 +8753,11 @@
   <programme start="20261126030000 +0000" stop="20261126035000 +0000" channel="Digi24.ro@SD">
     <title>Ediție specială 19:00 (r)</title>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123214500 +0000" channel="EuronewsRomania.ro@SD">
-    <title>UPB</title>
+  <programme start="20261126035000 +0000" stop="20261126050000 +0000" channel="Digi24.ro@SD">
+    <title>Știrile dimineții</title>
   </programme>
-  <programme start="20261123214500 +0000" stop="20261123215000 +0000" channel="EuronewsRomania.ro@SD">
-    <title>Trăiești bine</title>
-  </programme>
-  <programme start="20261123215000 +0000" stop="20261123220000 +0000" channel="EuronewsRomania.ro@SD">
-    <title>Euronews Green</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123223000 +0000" channel="EuronewsRomania.ro@SD">
-    <title>Ediție specială</title>
-  </programme>
-  <programme start="20261123223000 +0000" stop="20261123225000 +0000" channel="EuronewsRomania.ro@SD">
-    <title>Euronews politic</title>
-  </programme>
-  <programme start="20261123225000 +0000" stop="20261123230000 +0000" channel="EuronewsRomania.ro@SD">
-    <title>Euronews My Europe</title>
-  </programme>
-  <programme start="20261123230000 +0000" stop="20261123233000 +0000" channel="EuronewsRomania.ro@SD">
-    <title>Euronews acum</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="Digi24.ro@SD">
+    <title>Știrile dimineții</title>
   </programme>
   <programme start="20261123233000 +0000" stop="20261123235000 +0000" channel="EuronewsRomania.ro@SD">
     <title>Taste România</title>
@@ -9000,8 +9074,14 @@
   <programme start="20261126033000 +0000" stop="20261126040000 +0000" channel="EuronewsRomania.ro@SD">
     <title>Euronews Culture</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="PrimaNews.ro@SD">
-    <title>Medika Antidrog</title>
+  <programme start="20261126040000 +0000" stop="20261126045000 +0000" channel="EuronewsRomania.ro@SD">
+    <title>Euronews prime-time</title>
+  </programme>
+  <programme start="20261126045000 +0000" stop="20261126050000 +0000" channel="EuronewsRomania.ro@SD">
+    <title>Euronews World</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126055000 +0000" channel="EuronewsRomania.ro@SD">
+    <title>Bună dimineața, România!</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124000000 +0000" channel="PrimaNews.ro@SD">
     <title>Proiect De Tara!</title>
@@ -9123,12 +9203,11 @@
   <programme start="20261126020000 +0000" stop="20261126040000 +0000" channel="PrimaNews.ro@SD">
     <title>Focus 18 Inregistrat</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="TVRInfo.ro@SD">
-    <title>Telejurnal</title>
-    <new />
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="PrimaNews.ro@SD">
+    <title>Povesti Sanatoase</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="TVRInfo.ro@SD">
-    <title>Mapamond</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="PrimaNews.ro@SD">
+    <title>Focus 18</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261123234500 +0000" channel="TVRInfo.ro@SD">
     <title>Telejurnal Moldova</title>
@@ -9337,8 +9416,15 @@
   <programme start="20261126030500 +0000" stop="20261126035500 +0000" channel="TVRInfo.ro@SD">
     <title>Ora de Stiri</title>
   </programme>
-  <programme start="20261123193000 +0000" stop="20261123220000 +0000" channel="ProTV.ro">
-    <title>Evadatul</title>
+  <programme start="20261126035500 +0000" stop="20261126040000 +0000" channel="TVRInfo.ro@SD">
+    <title>Imnul României</title>
+  </programme>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="TVRInfo.ro@SD">
+    <title>Frontul</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="TVRInfo.ro@SD">
+    <title>Telejurnal matinal</title>
+    <new />
   </programme>
   <programme start="20261123220000 +0000" stop="20261124000000 +0000" channel="ProTV.ro">
     <title>Fără urmă</title>
@@ -9538,16 +9624,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="TVR1.ro@SD">
-    <title>Telejurnal</title>
-    <new />
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="TVR1.ro@SD">
-    <title>Dialoguri libere</title>
-  </programme>
-  <programme start="20261123230000 +0000" stop="20261123233000 +0000" channel="TVR1.ro@SD">
-    <title>Alchimia banilor</title>
   </programme>
   <programme start="20261123233000 +0000" stop="20261124000000 +0000" channel="TVR1.ro@SD">
     <title>Casa viitoruluicu Emilian Grigore</title>
@@ -10009,11 +10085,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123223000 +0000" channel="TVR2.ro@SD">
-    <title>Poarta Pangrati</title>
+  <programme start="20261126045500 +0000" stop="20261126050000 +0000" channel="TVR1.ro@SD">
+    <title>Zi de zi cu părintele Constantin Necula</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261123223000 +0000" stop="20261123233000 +0000" channel="TVR2.ro@SD">
-    <title>Comisarul Rex: din nou la Viena</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="TVR1.ro@SD">
+    <title>⋗ Telejurnal</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261124000000 +0000" stop="20261124004500 +0000" channel="TVR2.ro@SD">
     <title>⋗ Ora de ştiri</title>
@@ -10533,8 +10617,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123230000 +0000" channel="TVR3.ro@SD">
-    <title>Program preluat de la Televiziunea Publică din Ucraina destinat refugiaţilor</title>
+  <programme start="20261126043000 +0000" stop="20261126053000 +0000" channel="TVR2.ro@SD">
+    <title>Ne-am prins</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126063000 +0000" channel="TVR2.ro@SD">
+    <title>Poarta Pangrati</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123230000 +0000" stop="20261123235500 +0000" channel="TVR3.ro@SD">
     <title>Telejurnal regional</title>
@@ -10804,14 +10899,18 @@
   <programme start="20261126020000 +0000" stop="20261126035500 +0000" channel="TVR3.ro@SD">
     <title>Toţi împreună</title>
   </programme>
-  <programme start="20261123200000 +0000" stop="20261123215000 +0000" channel="TVRCluj.ro@SD">
-    <title>Program Ucraina</title>
+  <programme start="20261126035500 +0000" stop="20261126040000 +0000" channel="TVR3.ro@SD">
+    <title>Maşina timpului</title>
   </programme>
-  <programme start="20261123215000 +0000" stop="20261123220000 +0000" channel="TVRCluj.ro@SD">
-    <title>Ştiri pe scurt</title>
+  <programme start="20261126040000 +0000" stop="20261126045500 +0000" channel="TVR3.ro@SD">
+    <title>Program preluat de la Televiziunea Publică din Ucraina destinat refugiaţilor</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="TVRCluj.ro@SD">
-    <title>Observator transilvan</title>
+  <programme start="20261126045500 +0000" stop="20261126050000 +0000" channel="TVR3.ro@SD">
+    <title>Imnul României</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126055500 +0000" channel="TVR3.ro@SD">
+    <title>Telematinal</title>
+    <new />
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="TVRCluj.ro@SD">
     <title>Forum</title>
@@ -11032,17 +11131,14 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="TVRCluj.ro@SD">
     <title>Prim plan obiectiv</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123215000 +0000" channel="TVRInternational.ro@SD">
-    <title>Jurnal Cultural</title>
+  <programme start="20261126040000 +0000" stop="20261126042000 +0000" channel="TVRCluj.ro@SD">
+    <title>Jurnal Regional</title>
   </programme>
-  <programme start="20261123215000 +0000" stop="20261123220000 +0000" channel="TVRInternational.ro@SD">
-    <title>Prezenţe româneşti</title>
+  <programme start="20261126042000 +0000" stop="20261126050000 +0000" channel="TVRCluj.ro@SD">
+    <title>Sport play</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123224500 +0000" channel="TVRInternational.ro@SD">
-    <title>Telejurnal Moldova</title>
-  </programme>
-  <programme start="20261123224500 +0000" stop="20261123230000 +0000" channel="TVRInternational.ro@SD">
-    <title>Reportajele/ Interviurile Telejurnalului</title>
+  <programme start="20261126050000 +0000" stop="20261126065000 +0000" channel="TVRCluj.ro@SD">
+    <title>Telejurnal matinal</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261123235000 +0000" channel="TVRInternational.ro@SD">
     <title>Poarta Pangrati</title>
@@ -11310,11 +11406,15 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="TVRInternational.ro@SD">
     <title>Dezacorduri de pace</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123223000 +0000" channel="Acasa.ro@SD">
-    <title>Burlacii: Foc în paradis</title>
+  <programme start="20261126040000 +0000" stop="20261126045500 +0000" channel="TVRInternational.ro@SD">
+    <title>Reţeaua de idoli</title>
   </programme>
-  <programme start="20261123223000 +0000" stop="20261123233000 +0000" channel="Acasa.ro@SD">
-    <title>Leylifer</title>
+  <programme start="20261126045500 +0000" stop="20261126050000 +0000" channel="TVRInternational.ro@SD">
+    <title>Imnul României</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126055000 +0000" channel="TVRInternational.ro@SD">
+    <title>Telejurnal matinal</title>
+    <new />
   </programme>
   <programme start="20261123233000 +0000" stop="20261124003000 +0000" channel="Acasa.ro@SD">
     <title>Sub semnul iubirii</title>
@@ -11439,11 +11539,11 @@
   <programme start="20261126021500 +0000" stop="20261126040000 +0000" channel="Acasa.ro@SD">
     <title>Drumul catre Soare</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="AcasaGold.ro@SD">
-    <title>Dragă mamă</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="Acasa.ro@SD">
+    <title>Zerhun</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="AcasaGold.ro@SD">
-    <title>Vârstele iubirii</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="Acasa.ro@SD">
+    <title>Zerhun</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="AcasaGold.ro@SD">
     <title>Ştirile Pro Tv</title>
@@ -11580,8 +11680,11 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="AcasaGold.ro@SD">
     <title>Dila</title>
   </programme>
-  <programme start="20261123193000 +0000" stop="20261123220000 +0000" channel="AntenaStars.ro@HD">
-    <title>Spynews Tv Live</title>
+  <programme start="20261126040000 +0000" stop="20261126050000 +0000" channel="AcasaGold.ro@SD">
+    <title>Pamantul, Soarele si tu</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126080000 +0000" channel="AcasaGold.ro@SD">
+    <title>Vorbeşte lumea</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124004500 +0000" channel="AntenaStars.ro@HD">
     <title>Acces direct</title>
@@ -11664,11 +11767,8 @@
   <programme start="20261126023000 +0000" stop="20261126040000 +0000" channel="AntenaStars.ro@HD">
     <title>Știrile Antena Stars</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="HappyChannel.ro@HD">
-    <title>Lacrimi la Marea Neagră</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="HappyChannel.ro@HD">
-    <title>Micuta raza de soare</title>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="AntenaStars.ro@HD">
+    <title>Viaţa Fără Filtru</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261123234500 +0000" channel="HappyChannel.ro@HD">
     <title>Velvet – Imperiul modei</title>
@@ -11829,8 +11929,14 @@
   <programme start="20261126031500 +0000" stop="20261126040000 +0000" channel="HappyChannel.ro@HD">
     <title>Lacrimi la Marea Neagră</title>
   </programme>
-  <programme start="20261123203000 +0000" stop="20261123223000 +0000" channel="ProCinema.ro@SD">
-    <title>Fără şansă</title>
+  <programme start="20261126040000 +0000" stop="20261126043000 +0000" channel="HappyChannel.ro@HD">
+    <title>Happy Café</title>
+  </programme>
+  <programme start="20261126043000 +0000" stop="20261126050000 +0000" channel="HappyChannel.ro@HD">
+    <title>Dragoste și ură</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126063000 +0000" channel="HappyChannel.ro@HD">
+    <title>Dragoste și ură</title>
   </programme>
   <programme start="20261123223000 +0000" stop="20261124003000 +0000" channel="ProCinema.ro@SD">
     <title>Spectacol mortal</title>
@@ -11912,6 +12018,9 @@
   </programme>
   <programme start="20261126031500 +0000" stop="20261126040000 +0000" channel="ProCinema.ro@SD">
     <title>La bloc</title>
+  </programme>
+  <programme start="20261126040000 +0000" stop="20261126060000 +0000" channel="ProCinema.ro@SD">
+    <title>Pe note de hip-hop</title>
   </programme>
   <programme start="20261124005000 +0000" stop="20261124011500 +0000" channel="SkyShowtime1.ro@HD">
     <title>Dobre miejsce ┊ 11</title>
@@ -12459,6 +12568,27 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261126040000 +0000" stop="20261126044500 +0000" channel="SkyShowtime1.ro@HD">
+    <title>Złotko ┊ 3</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126044500 +0000" stop="20261126053000 +0000" channel="SkyShowtime1.ro@HD">
+    <title>Złotko ┊ 4</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126072000 +0000" channel="SkyShowtime1.ro@HD">
+    <title>Americana</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261124000000 +0000" stop="20261124004500 +0000" channel="SkyShowtime2.ro@HD">
     <title>Surviving Earth ┊ 1</title>
     <date>20261124</date>
@@ -12809,14 +12939,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123220000 +0000" channel="AlfaOmegaTV.ro@SD">
-    <title>Astăzi cu Dumnezeu</title>
+  <programme start="20261126040000 +0000" stop="20261126050500 +0000" channel="SkyShowtime2.ro@HD">
+    <title>1923 ┊ 3</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123223000 +0000" channel="AlfaOmegaTV.ro@SD">
-    <title>Alfa Omega în obiectiv</title>
-  </programme>
-  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="AlfaOmegaTV.ro@SD">
-    <title>Vieţi în lumină</title>
+  <programme start="20261126050500 +0000" stop="20261126061000 +0000" channel="SkyShowtime2.ro@HD">
+    <title>1923 ┊ 4</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="AlfaOmegaTV.ro@SD">
     <title>Cuvântul Vieții</title>
@@ -13103,17 +13238,20 @@
   <programme start="20261126033000 +0000" stop="20261126040000 +0000" channel="AlfaOmegaTV.ro@SD">
     <title>Muzică</title>
   </programme>
-  <programme start="20261123203000 +0000" stop="20261123220000 +0000" channel="CredoTV.ro@SD">
-    <title>Conferință / Concert</title>
+  <programme start="20261126040000 +0000" stop="20261126041500 +0000" channel="AlfaOmegaTV.ro@SD">
+    <title>Adevărul despre adevăr</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123223000 +0000" channel="CredoTV.ro@SD">
-    <title>Ferestre Spre Cer (r)</title>
+  <programme start="20261126041500 +0000" stop="20261126042500 +0000" channel="AlfaOmegaTV.ro@SD">
+    <title>Semnele vremurilor</title>
   </programme>
-  <programme start="20261123223000 +0000" stop="20261123230000 +0000" channel="CredoTV.ro@SD">
-    <title>Isus Domnește (r)</title>
+  <programme start="20261126042500 +0000" stop="20261126043000 +0000" channel="AlfaOmegaTV.ro@SD">
+    <title>Promisiuni pentru fiecare zi</title>
   </programme>
-  <programme start="20261123230000 +0000" stop="20261123233000 +0000" channel="CredoTV.ro@SD">
-    <title>Să Gătim Cu Sebastian (r)</title>
+  <programme start="20261126043000 +0000" stop="20261126053000 +0000" channel="AlfaOmegaTV.ro@SD">
+    <title>Calea, Adevărul şi Viaţa</title>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126060000 +0000" channel="AlfaOmegaTV.ro@SD">
+    <title>Jerusalem Dateline</title>
   </programme>
   <programme start="20261123233000 +0000" stop="20261124000000 +0000" channel="CredoTV.ro@SD">
     <title>Lecția Biblică Virtuală (r)</title>
@@ -13400,8 +13538,11 @@
   <programme start="20261126030000 +0000" stop="20261126040000 +0000" channel="CredoTV.ro@SD">
     <title>De Vorbă (r)</title>
   </programme>
-  <programme start="20261123213000 +0000" stop="20261123220000 +0000" channel="SperantaTV.ro@SD">
-    <title>Rubrici</title>
+  <programme start="20261126040000 +0000" stop="20261126043000 +0000" channel="CredoTV.ro@SD">
+    <title>Iubește Israelul (r)</title>
+  </programme>
+  <programme start="20261126043000 +0000" stop="20261126060000 +0000" channel="CredoTV.ro@SD">
+    <title>Conferință / Concert (r)</title>
   </programme>
   <programme start="20261123220000 +0000" stop="20261124000000 +0000" channel="SperantaTV.ro@SD">
     <title>Zi de zi cu speranță (r)</title>
@@ -13586,35 +13727,11 @@
   <programme start="20261126023000 +0000" stop="20261126040000 +0000" channel="SperantaTV.ro@SD">
     <title>Oameni și povești (r)</title>
   </programme>
-  <programme start="20261123213700 +0000" stop="20261123214500 +0000" channel="JimJam.ro@SD">
-    <title>Tripeţii</title>
+  <programme start="20261126040000 +0000" stop="20261126043000 +0000" channel="SperantaTV.ro@SD">
+    <title>Lumea religioasă azi (r)</title>
   </programme>
-  <programme start="20261123214500 +0000" stop="20261123220000 +0000" channel="JimJam.ro@SD">
-    <title>Tripeţii</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123220700 +0000" channel="JimJam.ro@SD">
-    <title>Tripeţii</title>
-  </programme>
-  <programme start="20261123220700 +0000" stop="20261123221500 +0000" channel="JimJam.ro@SD">
-    <title>Tripeţii</title>
-  </programme>
-  <programme start="20261123221500 +0000" stop="20261123223000 +0000" channel="JimJam.ro@SD">
-    <title>Tripeţii</title>
-  </programme>
-  <programme start="20261123223000 +0000" stop="20261123223700 +0000" channel="JimJam.ro@SD">
-    <title>Bing</title>
-  </programme>
-  <programme start="20261123223700 +0000" stop="20261123224500 +0000" channel="JimJam.ro@SD">
-    <title>Bing</title>
-  </programme>
-  <programme start="20261123224500 +0000" stop="20261123230000 +0000" channel="JimJam.ro@SD">
-    <title>Bing</title>
-  </programme>
-  <programme start="20261123230000 +0000" stop="20261123231100 +0000" channel="JimJam.ro@SD">
-    <title>Thomas şi prietenii săi</title>
-  </programme>
-  <programme start="20261123231100 +0000" stop="20261123233000 +0000" channel="JimJam.ro@SD">
-    <title>Thomas şi prietenii săi</title>
+  <programme start="20261126043000 +0000" stop="20261126060000 +0000" channel="SperantaTV.ro@SD">
+    <title>În pas cu viața (r)</title>
   </programme>
   <programme start="20261123233000 +0000" stop="20261123233700 +0000" channel="JimJam.ro@SD">
     <title>Miffy şi prietenii ei</title>
@@ -15662,8 +15779,68 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="AlephBusiness.ro@SD">
-    <title>Viața ta e un business</title>
+  <programme start="20261126034400 +0000" stop="20261126035200 +0000" channel="JimJam.ro@SD">
+    <title>м/с Чарли идёт в школу 2 ┊ 27</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126035200 +0000" stop="20261126040100 +0000" channel="JimJam.ro@SD">
+    <title>м/с Чарли идёт в школу 2 ┊ 28</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126040100 +0000" stop="20261126041500 +0000" channel="JimJam.ro@SD">
+    <title>м/с Знаешь, как я тебя люблю? 2 ┊ 12</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126041500 +0000" stop="20261126042500 +0000" channel="JimJam.ro@SD">
+    <title>м/с Пожарный Сэм 9 ┊ 16</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126042500 +0000" stop="20261126043700 +0000" channel="JimJam.ro@SD">
+    <title>м/с Пожарный Сэм 9 ┊ 17</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126043700 +0000" stop="20261126050000 +0000" channel="JimJam.ro@SD">
+    <title>м/с Любопытный Джордж 5 ┊ 10</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126052400 +0000" channel="JimJam.ro@SD">
+    <title>м/с Любопытный Джордж 6 ┊ 1</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126052400 +0000" stop="20261126053000 +0000" channel="JimJam.ro@SD">
+    <title>м/с Новые приключения Каю ┊ 12</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126053000 +0000" stop="20261126053800 +0000" channel="JimJam.ro@SD">
+    <title>м/с Новые приключения Каю ┊ 13</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261123220000 +0000" stop="20261123235500 +0000" channel="AlephBusiness.ro@SD">
     <title>Ce Câștig Azi?</title>
@@ -15797,8 +15974,11 @@
   <programme start="20261126030000 +0000" stop="20261126035500 +0000" channel="AlephBusiness.ro@SD">
     <title>Keep Cool And Trade On</title>
   </programme>
-  <programme start="20261123203000 +0000" stop="20261123223000 +0000" channel="JOBTV.ro@SD">
-    <title>Preluare Party Mix Tv</title>
+  <programme start="20261126035500 +0000" stop="20261126045500 +0000" channel="AlephBusiness.ro@SD">
+    <title>Viața ta e un business</title>
+  </programme>
+  <programme start="20261126045500 +0000" stop="20261126055500 +0000" channel="AlephBusiness.ro@SD">
+    <title>Next Day</title>
   </programme>
   <programme start="20261123223000 +0000" stop="20261124003000 +0000" channel="JOBTV.ro@SD">
     <title>Preluare Party Mix Tv</title>
@@ -15968,11 +16148,8 @@
   <programme start="20261126003000 +0000" stop="20261126053000 +0000" channel="JOBTV.ro@SD">
     <title>Preluare Party Mix Tv</title>
   </programme>
-  <programme start="20261123200000 +0000" stop="20261123220000 +0000" channel="TVRCultural.ro@SD">
-    <title>Luptătorul</title>
-  </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="TVRCultural.ro@SD">
-    <title>Lectia de istorie</title>
+  <programme start="20261126053000 +0000" stop="20261126060000 +0000" channel="JOBTV.ro@SD">
+    <title>Jobul zilei</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="TVRCultural.ro@SD">
     <title>Jurnal Cultural</title>
@@ -16193,11 +16370,11 @@
   <programme start="20261126033000 +0000" stop="20261126045500 +0000" channel="TVRCultural.ro@SD">
     <title>Classy Jukebox</title>
   </programme>
-  <programme start="20261123210000 +0000" stop="20261123220000 +0000" channel="NationalGeographicWild.ro@SD">
-    <title>Doctor Pol</title>
+  <programme start="20261126045500 +0000" stop="20261126050000 +0000" channel="TVRCultural.ro@SD">
+    <title>Imnul României</title>
   </programme>
-  <programme start="20261123220000 +0000" stop="20261123230000 +0000" channel="NationalGeographicWild.ro@SD">
-    <title>Doctor Pol</title>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="TVRCultural.ro@SD">
+    <title>Gene Kelly - un american la... Hollywood</title>
   </programme>
   <programme start="20261123230000 +0000" stop="20261124000000 +0000" channel="NationalGeographicWild.ro@SD">
     <title>Sălbatic, inteligent și mortal</title>
@@ -16366,5 +16543,11 @@
   </programme>
   <programme start="20261126032000 +0000" stop="20261126041000 +0000" channel="NationalGeographicWild.ro@SD">
     <title>Japonia</title>
+  </programme>
+  <programme start="20261126041000 +0000" stop="20261126050000 +0000" channel="NationalGeographicWild.ro@SD">
+    <title>Taiwan</title>
+  </programme>
+  <programme start="20261126050000 +0000" stop="20261126060000 +0000" channel="NationalGeographicWild.ro@SD">
+    <title>Secretele albinelor</title>
   </programme>
 </tv>
