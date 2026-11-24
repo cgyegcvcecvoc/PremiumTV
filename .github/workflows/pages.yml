@@ -63,6 +63,12 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  # actions/deploy-pages lists the run's uploaded artifact through the Actions
+  # API; without this scope that lookup returns 404 and the deploy fails with
+  # "No artifacts named github-pages were found for this workflow run" even
+  # though the artifact was uploaded (which is what broke every deploy after
+  # 21:19 on 2026-11-23, and so left the 1.1.20 download page unpublished).
+  actions: read
 
 concurrency:
   group: pages-deploy
