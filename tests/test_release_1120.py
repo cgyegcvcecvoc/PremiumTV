@@ -70,6 +70,33 @@ class Version1120Tests(unittest.TestCase):
         self.assertIn("## 2026-11-23 — Many sources, one clock (1.1.20)", changelog)
         self.assertIn("mirror_templates", changelog)
 
+    def test_the_changelog_records_the_publication(self):
+        # docs/RELEASING.md, "After publication": the publication record lives
+        # in the changelog and names the tag, so a reader can tell a prepared
+        # release from a published one.
+        changelog = text("CHANGELOG.md")
+        heading = "## 2026-11-23 — Version 1.1.20 published: Many sources, one clock"
+        self.assertIn(heading, changelog)
+        record = changelog.split(heading, 1)[1].split("\n## ", 1)[0]
+        self.assertIn("releases/tag/v1.1.20", record)
+        self.assertIn("101200000", record)
+        # Every platform's installer is attached, which is what the updater
+        # needs before it offers the release.
+        for asset in ("APK", "DMG", "AppImage"):
+            self.assertIn(asset, record)
+
+    def test_the_site_promotes_the_published_release(self):
+        import json  # noqa: E402
+
+        site = json.loads(text("docs/data/site.json"))
+        stable = [c for c in site["apps"]["channels"] if c["id"] == "stable"]
+        self.assertEqual([channel["tag"] for channel in stable], ["v1.1.20"])
+        names = {asset["name"] for asset in stable[0]["assets"]}
+        # The Mac installers are the ones recent releases lost entirely.
+        for arch, ext in (("arm64", "dmg"), ("x64", "dmg"), ("arm64", "pkg"), ("x64", "pkg")):
+            self.assertIn(f"PremiumTV-1.1.20-mac-{arch}.{ext}", names)
+        self.assertIn("PremiumTV-1.1.20-debug.apk", names)
+
 
 class SourceRedundancyWiringTests(unittest.TestCase):
     """The mirror rule is reached by the scrape, and a mirror is never silent."""
