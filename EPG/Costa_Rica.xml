@@ -46,6 +46,10 @@
     <display-name>Guatuso TV (720p)</display-name>
     <icon src="https://www.grupodgrajal.com/images/logoguatusochannel.png" />
   </channel>
+  <channel id="LimonTV.cr@SD">
+    <display-name>Limon TV (1080p) [Not 24/7]</display-name>
+    <icon src="https://i.ibb.co/rdpcv7C/1689421727166.jpg" />
+  </channel>
   <channel id="LosSantosTV.cr@SD">
     <display-name>Los Santos TV (1080i)</display-name>
     <display-name>Los Santos TV (720p)</display-name>
@@ -76,10 +80,6 @@
   <channel id="TeleUno.cr@SD">
     <display-name>Tele Uno (720p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/eRwYxc2.png" />
-  </channel>
-  <channel id="TeleBrunca.cr@SD">
-    <display-name>TeleBrunca (720p) [Not 24/7]</display-name>
-    <icon src="https://i.imgur.com/m3xu6Ms.png" />
   </channel>
   <channel id="TeleredTelevision.cr@SD">
     <display-name>Telered Television (576p) [Geo-blocked]</display-name>
@@ -230,15 +230,6 @@
     <display-name>Norte Informativo TV (240p)</display-name>
     <icon src="https://i.ibb.co/2MNzXN7/Channels4-profile-9.jpg" />
   </channel>
-  <programme start="20261124100000 +0000" stop="20261124120000 +0000" channel="FUTV.cr@SD">
-    <title>FUTV</title>
-  </programme>
-  <programme start="20261124120000 +0000" stop="20261124130000 +0000" channel="FUTV.cr@SD">
-    <title>Fútbol en 60</title>
-  </programme>
-  <programme start="20261124130000 +0000" stop="20261124133000 +0000" channel="FUTV.cr@SD">
-    <title>La Jornada</title>
-  </programme>
   <programme start="20261124133000 +0000" stop="20261124140000 +0000" channel="FUTV.cr@SD">
     <title>360 futsal</title>
   </programme>
@@ -265,18 +256,6 @@
   </programme>
   <programme start="20261124230000 +0000" stop="20261125000000 +0000" channel="FUTV.cr@SD">
     <title>Los 11 titulares</title>
-  </programme>
-  <programme start="20261124113000 +0000" stop="20261124120000 +0000" channel="AgrotendenciaTV.cr@SD">
-    <title>Ranchos de Hoy</title>
-  </programme>
-  <programme start="20261124120000 +0000" stop="20261124123000 +0000" channel="AgrotendenciaTV.cr@SD">
-    <title>Una Mirada Al Campo</title>
-  </programme>
-  <programme start="20261124123000 +0000" stop="20261124130000 +0000" channel="AgrotendenciaTV.cr@SD">
-    <title>Guía Agropecuaria</title>
-  </programme>
-  <programme start="20261124130000 +0000" stop="20261124133000 +0000" channel="AgrotendenciaTV.cr@SD">
-    <title>Notas Destacadas</title>
   </programme>
   <programme start="20261124133000 +0000" stop="20261124140000 +0000" channel="AgrotendenciaTV.cr@SD">
     <title>Veracruz Agropecuario</title>
@@ -581,8 +560,17 @@
   <programme start="20261126173000 +0000" stop="20261126180000 +0000" channel="AgrotendenciaTV.cr@SD">
     <title>Tierra fertil</title>
   </programme>
-  <programme start="20261124110000 +0000" stop="20261124120000 +0000" channel="Canal11.cr@SD">
-    <title>Las historias</title>
+  <programme start="20261126180000 +0000" stop="20261126183000 +0000" channel="AgrotendenciaTV.cr@SD">
+    <title>Noticias del Agro (NDA)</title>
+  </programme>
+  <programme start="20261126183000 +0000" stop="20261126190000 +0000" channel="AgrotendenciaTV.cr@SD">
+    <title>Agrotendencia</title>
+  </programme>
+  <programme start="20261126190000 +0000" stop="20261126193000 +0000" channel="AgrotendenciaTV.cr@SD">
+    <title>Panorama Agropecuario MÉX</title>
+  </programme>
+  <programme start="20261126193000 +0000" stop="20261126200000 +0000" channel="AgrotendenciaTV.cr@SD">
+    <title>Notas Destacadas</title>
   </programme>
   <programme start="20261124120000 +0000" stop="20261124150000 +0000" channel="Canal11.cr@SD">
     <title>Despierta América</title>
@@ -613,18 +601,6 @@
   </programme>
   <programme start="20261124230000 +0000" stop="20261125000000 +0000" channel="Canal11.cr@SD">
     <title>La mujer biónica</title>
-  </programme>
-  <programme start="20261124113000 +0000" stop="20261124120000 +0000" channel="Enlace.cr@SD">
-    <title>En buena ora</title>
-  </programme>
-  <programme start="20261124120000 +0000" stop="20261124123000 +0000" channel="Enlace.cr@SD">
-    <title>Casa de dios</title>
-  </programme>
-  <programme start="20261124123000 +0000" stop="20261124130000 +0000" channel="Enlace.cr@SD">
-    <title>Joel</title>
-  </programme>
-  <programme start="20261124130000 +0000" stop="20261124133000 +0000" channel="Enlace.cr@SD">
-    <title>Enlace ora</title>
   </programme>
   <programme start="20261124133000 +0000" stop="20261124140000 +0000" channel="Enlace.cr@SD">
     <title>Camino a la victoria</title>
@@ -914,12 +890,14 @@
   <programme start="20261126173000 +0000" stop="20261126180000 +0000" channel="Enlace.cr@SD">
     <title>El puede hacerlo de nuevo</title>
   </programme>
-  <programme start="20261124070000 +0000" stop="20261124130000 +0000" channel="Canal4.cr@SD">
-    <title>Vivez en direct les évènements de CANAL+</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261126180000 +0000" stop="20261126183000 +0000" channel="Enlace.cr@SD">
+    <title>Es sobrenatural</title>
+  </programme>
+  <programme start="20261126183000 +0000" stop="20261126193000 +0000" channel="Enlace.cr@SD">
+    <title>Vida nueva para el mundo</title>
+  </programme>
+  <programme start="20261126193000 +0000" stop="20261126200000 +0000" channel="Enlace.cr@SD">
+    <title>Guía para padres</title>
   </programme>
   <programme start="20261124130000 +0000" stop="20261124190000 +0000" channel="Canal4.cr@SD">
     <title>Vivez en direct les évènements de CANAL+</title>
@@ -1013,15 +991,6 @@
     <audio>
       <stereo>stereo</stereo>
     </audio>
-  </programme>
-  <programme start="20261124110000 +0000" stop="20261124120000 +0000" channel="Canal8.cr@SD">
-    <title>Inaudito Revelaciones</title>
-  </programme>
-  <programme start="20261124120000 +0000" stop="20261124130000 +0000" channel="Canal8.cr@SD">
-    <title>Mi casa es su casa</title>
-  </programme>
-  <programme start="20261124130000 +0000" stop="20261124133000 +0000" channel="Canal8.cr@SD">
-    <title>Problemas y soluciones</title>
   </programme>
   <programme start="20261124133000 +0000" stop="20261124140000 +0000" channel="Canal8.cr@SD">
     <title>Testigo Directo</title>
