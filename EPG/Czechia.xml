@@ -121,6 +121,12 @@
     <display-name>NOVAACTION.cz</display-name>
     <icon src="https://iptv-epg.org/images/zHqQUbYu6U34I2IIJQpo46QTB4a0izkrqisGGsMbJr_2pJzrdKeEmVWZ2hFL-ZikyM93daD0nZG84ZghEP0NesBV7uLozho6TqR1xkKCG9B7oSPQYp0mbQ2KWQ" />
   </channel>
+  <channel id="NovaGold.cz">
+    <display-name>Nova Gold</display-name>
+    <display-name>CZ - NOVA GOLD</display-name>
+    <display-name>NOVAGOLD.cz</display-name>
+    <icon src="https://iptv-epg.org/images/I-5mSwkPUlVK8mPYB0MCvGPoBhbyVS8AsHQF_ay5tvCRlBKuQUHNYBxZ0gs3fKM-MwVGpcLKNJ174-ZhJe-V2aAbt9VukCqRNrUxeWrc88HqwlzLxW-ueV8" />
+  </channel>
   <channel id="NovaLady.cz">
     <display-name>Nova Lady</display-name>
     <display-name>CZ - NOVA LADY</display-name>
@@ -191,6 +197,7 @@
     <display-name>CZ - PRIMA SHOW</display-name>
     <display-name>PRIMASHOW.cz</display-name>
     <display-name>Prima Show (Backup 1)</display-name>
+    <display-name>Prima Show (Backup 2)</display-name>
     <icon src="https://iptv-epg.org/images/bhEPDNwASkItUUcYp0LlgxtPz0sNWmWl8yKXbzyidTUdS3bluMbKm-k93J3OgI_Zl6FLEDnZEJRh6ZsaqOQCIstxVpJLu11mKFA3XSKCTyafFAa5KaCxlbhc" />
   </channel>
   <channel id="PrimaStar.cz@SD">
@@ -218,10 +225,6 @@
   <channel id="tvnova.cz">
     <display-name>TV Nova Ⓢ</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-cz.png" />
-  </channel>
-  <channel id="utv.cz">
-    <display-name>UTV</display-name>
-    <icon src="https://i.imgur.com/ulfeIwM.png" />
   </channel>
   <channel id="V1.cz">
     <display-name>Východoceská TV</display-name>
@@ -353,11 +356,11 @@
   </channel>
   <channel id="Cinemax.cz@Czechia">
     <display-name>Cinemax (Czech Republic)</display-name>
+    <display-name>Cinemax</display-name>
+    <display-name>6842</display-name>
     <display-name>Cinemax HD</display-name>
     <display-name>464917</display-name>
     <display-name>Cinemax HD (Pacific)</display-name>
-    <display-name>465191</display-name>
-    <display-name>Cinemax (Pacific)</display-name>
     <icon src="https://epg.pw/media/images/epg/2024/06/08/20240608030633323271_63.png" />
   </channel>
   <channel id="FilmPlus.cz@SD">
@@ -378,10 +381,10 @@
   </channel>
   <channel id="HBO.cz@SD">
     <display-name>HBO (Czech Republic)</display-name>
-    <display-name>HBO (Pacific)</display-name>
-    <display-name>465249</display-name>
     <display-name>HBO HD</display-name>
     <display-name>6617</display-name>
+    <display-name>HBO (Pacific)</display-name>
+    <display-name>465249</display-name>
     <display-name>369809</display-name>
     <icon src="https://epg.pw/media/images/epg/2024/06/08/20240608025342982488_13.png" />
   </channel>
@@ -446,9 +449,8 @@
     <icon src="https://i.imgur.com/0YjeWcq.png" />
   </channel>
   <channel id="CTDecko.cz@SD">
-    <display-name>ČT :D</display-name>
     <display-name>CT Decko (1080p)</display-name>
-    <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/ct-d-cz.png" />
+    <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/%C4%8CT-D_logo.svg/960px-%C4%8CT-D_logo.svg.png" />
   </channel>
   <channel id="DisneyChannel.cz@SD">
     <display-name>Disney Channel (Czech Republic)</display-name>
@@ -496,12 +498,6 @@
     <display-name>like Gecko) Chrome/120.0.0.0 Safari/537.36" group-title="Canada" tvg-country="CZ",History2</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/History2_logo_%282022%29.svg/960px-History2_logo_%282022%29.svg.png" />
   </channel>
-  <programme start="20261124141500 +0000" stop="20261124161500 +0000" channel="Sport1.cz@SD">
-    <title>Fotbal</title>
-  </programme>
-  <programme start="20261124161500 +0000" stop="20261124164500 +0000" channel="Sport1.cz@SD">
-    <title>Tenis, WTA 250, Guangzhou, sestřih</title>
-  </programme>
   <programme start="20261124164500 +0000" stop="20261124174500 +0000" channel="Sport1.cz@SD">
     <title>Fotbal</title>
   </programme>
@@ -604,11 +600,14 @@
   <programme start="20261126200000 +0000" stop="20261126220000 +0000" channel="Sport1.cz@SD">
     <title>Fotbal</title>
   </programme>
-  <programme start="20261124141500 +0000" stop="20261124161500 +0000" channel="Sport1.cz@HD">
-    <title>Fotbal</title>
+  <programme start="20261126220000 +0000" stop="20261126221500 +0000" channel="Sport1.cz@SD">
+    <title>Fotbal, studio</title>
   </programme>
-  <programme start="20261124161500 +0000" stop="20261124164500 +0000" channel="Sport1.cz@HD">
-    <title>Tenis, WTA 250, Guangzhou, sestřih</title>
+  <programme start="20261126221500 +0000" stop="20261126230000 +0000" channel="Sport1.cz@SD">
+    <title>MVP</title>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261127011500 +0000" channel="Sport1.cz@SD">
+    <title>Fotbal</title>
   </programme>
   <programme start="20261124164500 +0000" stop="20261124174500 +0000" channel="Sport1.cz@HD">
     <title>Fotbal</title>
@@ -712,11 +711,14 @@
   <programme start="20261126200000 +0000" stop="20261126220000 +0000" channel="Sport1.cz@HD">
     <title>Fotbal</title>
   </programme>
-  <programme start="20261124134500 +0000" stop="20261124163000 +0000" channel="Sport2.cz@SD">
-    <title>Fotbal</title>
+  <programme start="20261126220000 +0000" stop="20261126221500 +0000" channel="Sport1.cz@HD">
+    <title>Fotbal, studio</title>
   </programme>
-  <programme start="20261124163000 +0000" stop="20261124173000 +0000" channel="Sport2.cz@SD">
-    <title>Poker</title>
+  <programme start="20261126221500 +0000" stop="20261126230000 +0000" channel="Sport1.cz@HD">
+    <title>MVP</title>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261127011500 +0000" channel="Sport1.cz@HD">
+    <title>Fotbal</title>
   </programme>
   <programme start="20261124173000 +0000" stop="20261124193000 +0000" channel="Sport2.cz@SD">
     <title>Házená</title>
@@ -811,11 +813,11 @@
   <programme start="20261126194500 +0000" stop="20261126220000 +0000" channel="Sport2.cz@SD">
     <title>Fotbal</title>
   </programme>
-  <programme start="20261124134500 +0000" stop="20261124163000 +0000" channel="Sport2.cz@HD">
-    <title>Fotbal</title>
+  <programme start="20261126220000 +0000" stop="20261126221500 +0000" channel="Sport2.cz@SD">
+    <title>Fotbal, Made in Italy, Ange-Yoan Bonny</title>
   </programme>
-  <programme start="20261124163000 +0000" stop="20261124173000 +0000" channel="Sport2.cz@HD">
-    <title>Poker</title>
+  <programme start="20261126221500 +0000" stop="20261126234500 +0000" channel="Sport2.cz@SD">
+    <title>Fotbal</title>
   </programme>
   <programme start="20261124173000 +0000" stop="20261124193000 +0000" channel="Sport2.cz@HD">
     <title>Házená</title>
@@ -910,14 +912,11 @@
   <programme start="20261126194500 +0000" stop="20261126220000 +0000" channel="Sport2.cz@HD">
     <title>Fotbal</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124153000 +0000" channel="FoodNetwork.cz@SD">
-    <title>Ranč na talíři</title>
+  <programme start="20261126220000 +0000" stop="20261126221500 +0000" channel="Sport2.cz@HD">
+    <title>Fotbal, Made in Italy, Ange-Yoan Bonny</title>
   </programme>
-  <programme start="20261124153000 +0000" stop="20261124160000 +0000" channel="FoodNetwork.cz@SD">
-    <title>Ranč na talíři</title>
-  </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="FoodNetwork.cz@SD">
-    <title>100 kuchařů</title>
+  <programme start="20261126221500 +0000" stop="20261126234500 +0000" channel="Sport2.cz@HD">
+    <title>Fotbal</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="FoodNetwork.cz@SD">
     <title>Šampionát ve svátečním pečení</title>
@@ -1120,14 +1119,17 @@
   <programme start="20261126210000 +0000" stop="20261126213000 +0000" channel="FoodNetwork.cz@SD">
     <title>Pojďte dál s Inou Garten</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="HGTV.cz@SD">
-    <title>Opravte můj dům pro další prodej</title>
+  <programme start="20261126213000 +0000" stop="20261126220000 +0000" channel="FoodNetwork.cz@SD">
+    <title>Delikatesy slečny Brownové</title>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="HGTV.cz@SD">
-    <title>Renovace na Havaji</title>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="FoodNetwork.cz@SD">
+    <title>Porazit Bobbyho Flaye (Vánoční souboj) I: Vánoční souboj</title>
   </programme>
-  <programme start="20261124170000 +0000" stop="20261124173000 +0000" channel="HGTV.cz@SD">
-    <title>Můj vysněný dům po výhře v loterii</title>
+  <programme start="20261126230000 +0000" stop="20261126233000 +0000" channel="FoodNetwork.cz@SD">
+    <title>Průkopnice</title>
+  </programme>
+  <programme start="20261126233000 +0000" stop="20261127000000 +0000" channel="FoodNetwork.cz@SD">
+    <title>Průkopnice</title>
   </programme>
   <programme start="20261124173000 +0000" stop="20261124180000 +0000" channel="HGTV.cz@SD">
     <title>Můj vysněný dům po výhře v loterii</title>
@@ -1360,11 +1362,17 @@
   <programme start="20261126210000 +0000" stop="20261126213000 +0000" channel="HGTV.cz@SD">
     <title>Smysl pro design I: Co je pravidlo 70</title>
   </programme>
-  <programme start="20261124150500 +0000" stop="20261124160500 +0000" channel="SpektrumHome.cz@SD">
-    <title>Máme vlastní zámek</title>
+  <programme start="20261126213000 +0000" stop="20261126220000 +0000" channel="HGTV.cz@SD">
+    <title>Smysl pro design</title>
   </programme>
-  <programme start="20261124160500 +0000" stop="20261124170000 +0000" channel="SpektrumHome.cz@SD">
-    <title>Z chaosu domov</title>
+  <programme start="20261126220000 +0000" stop="20261126223000 +0000" channel="HGTV.cz@SD">
+    <title>Divoké americké domy</title>
+  </programme>
+  <programme start="20261126223000 +0000" stop="20261126230000 +0000" channel="HGTV.cz@SD">
+    <title>Divoké americké domy</title>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261127000000 +0000" channel="HGTV.cz@SD">
+    <title>Pořádně strašidelná renovace</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="SpektrumHome.cz@SD">
     <title>Jít nebo zůstat?</title>
@@ -1549,17 +1557,14 @@
   <programme start="20261126205000 +0000" stop="20261126214500 +0000" channel="SpektrumHome.cz@SD">
     <title>Pomoc! Koupili jsme vesnici</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124153000 +0000" channel="TLC.cz@SD">
-    <title>Můj vysněný dům po výhře v loterii</title>
+  <programme start="20261126214500 +0000" stop="20261126224500 +0000" channel="SpektrumHome.cz@SD">
+    <title>Pomoc! Koupili jsme vesnici</title>
   </programme>
-  <programme start="20261124153000 +0000" stop="20261124160000 +0000" channel="TLC.cz@SD">
-    <title>Můj vysněný dům po výhře v loterii</title>
+  <programme start="20261126224500 +0000" stop="20261126233500 +0000" channel="SpektrumHome.cz@SD">
+    <title>Z chaosu domov</title>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124163000 +0000" channel="TLC.cz@SD">
-    <title>Můj vysněný dům po výhře v loterii</title>
-  </programme>
-  <programme start="20261124163000 +0000" stop="20261124170000 +0000" channel="TLC.cz@SD">
-    <title>Můj vysněný dům po výhře v loterii</title>
+  <programme start="20261126233500 +0000" stop="20261127002000 +0000" channel="SpektrumHome.cz@SD">
+    <title>Máme vlastní zámek</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124190000 +0000" channel="TLC.cz@SD">
     <title>Můj 270kg život</title>
@@ -1699,11 +1704,11 @@
   <programme start="20261126210000 +0000" stop="20261126220000 +0000" channel="TLC.cz@SD">
     <title>Nebezpečně obézní</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="TravelChannel.cz@SD">
-    <title>Pátrání po yettim</title>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="TLC.cz@SD">
+    <title>Můj velký tlustý a báječný život</title>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="TravelChannel.cz@SD">
-    <title>Pátrání po yettim</title>
+  <programme start="20261126230000 +0000" stop="20261127000000 +0000" channel="TLC.cz@SD">
+    <title>Ruby a Jodi: Kult hříchu a závislosti</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="TravelChannel.cz@SD">
     <title>Bizarní jídla s Andrewem Zimmernem</title>
@@ -1861,14 +1866,11 @@
   <programme start="20261126200000 +0000" stop="20261126220000 +0000" channel="TravelChannel.cz@SD">
     <title>Cestou ďábla: Pravdivý příběh Eda a Lorraine Warrenových</title>
   </programme>
-  <programme start="20261124144000 +0000" stop="20261124155000 +0000" channel="TVPaprika.cz@SD">
-    <title>Mistrovské pečení</title>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="TravelChannel.cz@SD">
+    <title>Horské příšery</title>
   </programme>
-  <programme start="20261124155000 +0000" stop="20261124162000 +0000" channel="TVPaprika.cz@SD">
-    <title>Vánoce na TV Paprika</title>
-  </programme>
-  <programme start="20261124162000 +0000" stop="20261124171500 +0000" channel="TVPaprika.cz@SD">
-    <title>Billovy chutné víkendy</title>
+  <programme start="20261126230000 +0000" stop="20261127000000 +0000" channel="TravelChannel.cz@SD">
+    <title>Za hranicí neznáma</title>
   </programme>
   <programme start="20261124171500 +0000" stop="20261124182000 +0000" channel="TVPaprika.cz@SD">
     <title>Gino a Fred: Emise nemožné</title>
@@ -2050,6 +2052,15 @@
   <programme start="20261126212500 +0000" stop="20261126222000 +0000" channel="TVPaprika.cz@SD">
     <title>Billovy chutné víkendy</title>
   </programme>
+  <programme start="20261126222000 +0000" stop="20261126225500 +0000" channel="TVPaprika.cz@SD">
+    <title>Mary Berry peče klasicky</title>
+  </programme>
+  <programme start="20261126225500 +0000" stop="20261126232500 +0000" channel="TVPaprika.cz@SD">
+    <title>Mary Berry peče klasicky</title>
+  </programme>
+  <programme start="20261126232500 +0000" stop="20261127001500 +0000" channel="TVPaprika.cz@SD">
+    <title>Francouzské dobrodružství Jamese Martina</title>
+  </programme>
   <programme start="20261124150000 +0000" stop="20261124193000 +0000" channel="GolfChannel.cz@SD">
     <title>DP World TOUR Championship</title>
   </programme>
@@ -2113,26 +2124,8 @@
   <programme start="20261126180000 +0000" stop="20261126230000 +0000" channel="GolfChannel.cz@SD">
     <title>BMW Australian PGA Championship</title>
   </programme>
-  <programme start="20261124152000 +0000" stop="20261124153000 +0000" channel="DisneyJunior.cz@SD">
-    <title>Bluey</title>
-  </programme>
-  <programme start="20261124153000 +0000" stop="20261124154000 +0000" channel="DisneyJunior.cz@SD">
-    <title>Bluey</title>
-  </programme>
-  <programme start="20261124154000 +0000" stop="20261124160500 +0000" channel="DisneyJunior.cz@SD">
-    <title>Mickey Mouse Clubhouse+: Season 2</title>
-  </programme>
-  <programme start="20261124160500 +0000" stop="20261124163000 +0000" channel="DisneyJunior.cz@SD">
-    <title>Mickey Mouse Clubhouse+: Season 2</title>
-  </programme>
-  <programme start="20261124163000 +0000" stop="20261124165500 +0000" channel="DisneyJunior.cz@SD">
-    <title>Sofia the First: Royal Magic</title>
-  </programme>
-  <programme start="20261124165500 +0000" stop="20261124172000 +0000" channel="DisneyJunior.cz@SD">
-    <title>Spidey and His Amazing Friends</title>
-  </programme>
-  <programme start="20261124172000 +0000" stop="20261124173500 +0000" channel="DisneyJunior.cz@SD">
-    <title>Spidey and His Amazing Friends</title>
+  <programme start="20261126230000 +0000" stop="20261127010000 +0000" channel="GolfChannel.cz@SD">
+    <title>DP World TOUR Championship</title>
   </programme>
   <programme start="20261124173500 +0000" stop="20261124180000 +0000" channel="DisneyJunior.cz@SD">
     <title>SuperKitties: Su-Purr Charged</title>
@@ -2773,11 +2766,38 @@
   <programme start="20261126210500 +0000" stop="20261126213000 +0000" channel="DisneyJunior.cz@SD">
     <title>Pupstruction</title>
   </programme>
-  <programme start="20261124151500 +0000" stop="20261124161500 +0000" channel="BarrandovKrimi.cz@SD">
-    <title>Soudkyně Barbara</title>
+  <programme start="20261126213000 +0000" stop="20261126214000 +0000" channel="DisneyJunior.cz@SD">
+    <title>Bluey</title>
   </programme>
-  <programme start="20261124161500 +0000" stop="20261124171000 +0000" channel="BarrandovKrimi.cz@SD">
-    <title>Soudce Alexandr</title>
+  <programme start="20261126214000 +0000" stop="20261126214500 +0000" channel="DisneyJunior.cz@SD">
+    <title>Bluey</title>
+  </programme>
+  <programme start="20261126214500 +0000" stop="20261126215500 +0000" channel="DisneyJunior.cz@SD">
+    <title>Bluey</title>
+  </programme>
+  <programme start="20261126215500 +0000" stop="20261126220000 +0000" channel="DisneyJunior.cz@SD">
+    <title>Bluey</title>
+  </programme>
+  <programme start="20261126220000 +0000" stop="20261126221000 +0000" channel="DisneyJunior.cz@SD">
+    <title>Bluey</title>
+  </programme>
+  <programme start="20261126221000 +0000" stop="20261126221500 +0000" channel="DisneyJunior.cz@SD">
+    <title>Bluey</title>
+  </programme>
+  <programme start="20261126221500 +0000" stop="20261126222500 +0000" channel="DisneyJunior.cz@SD">
+    <title>Bluey</title>
+  </programme>
+  <programme start="20261126222500 +0000" stop="20261126225000 +0000" channel="DisneyJunior.cz@SD">
+    <title>Mickey Mouse Clubhouse+</title>
+  </programme>
+  <programme start="20261126225000 +0000" stop="20261126231500 +0000" channel="DisneyJunior.cz@SD">
+    <title>Mickey Mouse Clubhouse+</title>
+  </programme>
+  <programme start="20261126231500 +0000" stop="20261126233500 +0000" channel="DisneyJunior.cz@SD">
+    <title>SuperKitties</title>
+  </programme>
+  <programme start="20261126233500 +0000" stop="20261126235500 +0000" channel="DisneyJunior.cz@SD">
+    <title>SuperKitties</title>
   </programme>
   <programme start="20261124171000 +0000" stop="20261124181000 +0000" channel="BarrandovKrimi.cz@SD">
     <title>Záchranáři</title>
@@ -2929,11 +2949,11 @@
   <programme start="20261126212500 +0000" stop="20261126222000 +0000" channel="BarrandovKrimi.cz@SD">
     <title>Aféry - neuvěřitelné životní příběhy</title>
   </programme>
-  <programme start="20261124152500 +0000" stop="20261124162000 +0000" channel="NovaAction.cz">
-    <title>Kobra 11</title>
+  <programme start="20261126222000 +0000" stop="20261126225000 +0000" channel="BarrandovKrimi.cz@SD">
+    <title>Badatelé</title>
   </programme>
-  <programme start="20261124162000 +0000" stop="20261124172500 +0000" channel="NovaAction.cz">
-    <title>Kobra 11</title>
+  <programme start="20261126225000 +0000" stop="20261127034500 +0000" channel="BarrandovKrimi.cz@SD">
+    <title>Ostříháno</title>
   </programme>
   <programme start="20261124172500 +0000" stop="20261124175500 +0000" channel="NovaAction.cz">
     <title>Válka skladů Kanada</title>
@@ -3178,11 +3198,11 @@
   <programme start="20261126212500 +0000" stop="20261126222500 +0000" channel="NovaAction.cz">
     <title>FBI</title>
   </programme>
-  <programme start="20261124151000 +0000" stop="20261124161500 +0000" channel="NovaLady.cz">
-    <title>Sľub</title>
+  <programme start="20261126222500 +0000" stop="20261126232500 +0000" channel="NovaAction.cz">
+    <title>Kobra 11</title>
   </programme>
-  <programme start="20261124161500 +0000" stop="20261124172000 +0000" channel="NovaLady.cz">
-    <title>Sľub</title>
+  <programme start="20261126232500 +0000" stop="20261127003000 +0000" channel="NovaAction.cz">
+    <title>Kobra 11</title>
   </programme>
   <programme start="20261124172000 +0000" stop="20261124181500 +0000" channel="NovaLady.cz">
     <title>Pobřežní hlídka</title>
@@ -3361,17 +3381,11 @@
   <programme start="20261126211000 +0000" stop="20261126222500 +0000" channel="NovaLady.cz">
     <title>Ordinace v růžové zahradě</title>
   </programme>
-  <programme start="20261124140000 +0000" stop="20261124155000 +0000" channel="Óčko.cz">
-    <title>RADIO TOP 25</title>
+  <programme start="20261126222500 +0000" stop="20261126233000 +0000" channel="NovaLady.cz">
+    <title>Ordinace v růžové zahradě</title>
   </programme>
-  <programme start="20261124155000 +0000" stop="20261124160000 +0000" channel="Óčko.cz">
-    <title>ÓČKO HITY</title>
-  </programme>
-  <programme start="20261124160000 +0000" stop="20261124161500 +0000" channel="Óčko.cz">
-    <title>MILEY CYRUS WEEK: TOP 3 COVERY</title>
-  </programme>
-  <programme start="20261124161500 +0000" stop="20261124170000 +0000" channel="Óčko.cz">
-    <title>ÓČKO HITY</title>
+  <programme start="20261126233000 +0000" stop="20261127002500 +0000" channel="NovaLady.cz">
+    <title>Druhá strana lásky</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="Óčko.cz">
     <title>CZ &amp; SK</title>
@@ -3547,6 +3561,15 @@
   <programme start="20261126210000 +0000" stop="20261126215000 +0000" channel="Óčko.cz">
     <title>NAKED ATTRACTION CZ&amp;SK</title>
   </programme>
+  <programme start="20261126215000 +0000" stop="20261126220000 +0000" channel="Óčko.cz">
+    <title>ONE BLADE NAKED: DRUHÁ ŠANCE</title>
+  </programme>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="Óčko.cz">
+    <title>BEST OF DIMITRI VEGAS</title>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261127050000 +0000" channel="Óčko.cz">
+    <title>ÓČKO FLIRT</title>
+  </programme>
   <programme start="20261124130000 +0000" stop="20261124180000 +0000" channel="OckoExpres.cz">
     <title>Expres AM</title>
     <date>20261124</date>
@@ -3645,12 +3668,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="Óčko.STAR.cz">
-    <title>FILMOVÉ HITY</title>
-  </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="Óčko.STAR.cz">
-    <title>TOP12 1987</title>
-  </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="Óčko.STAR.cz">
     <title>NEJVĚTŠÍ HITY</title>
   </programme>
@@ -3744,11 +3761,8 @@
   <programme start="20261126210000 +0000" stop="20261126230000 +0000" channel="Óčko.STAR.cz">
     <title>DEVADESÁTKY</title>
   </programme>
-  <programme start="20261124143000 +0000" stop="20261124154500 +0000" channel="Prima.cz">
-    <title>Inkognito</title>
-  </programme>
-  <programme start="20261124154500 +0000" stop="20261124165500 +0000" channel="Prima.cz">
-    <title>Ano, šéfe!</title>
+  <programme start="20261126230000 +0000" stop="20261127050000 +0000" channel="Óčko.STAR.cz">
+    <title>NOČNÍ FLIRT</title>
   </programme>
   <programme start="20261124165500 +0000" stop="20261124175500 +0000" channel="Prima.cz">
     <title>Prostřeno!</title>
@@ -3921,17 +3935,11 @@
   <programme start="20261126203500 +0000" stop="20261126214500 +0000" channel="Prima.cz">
     <title>Inkognito</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124161000 +0000" channel="PrimaCool.cz@SD">
-    <title>Hvězdná brána</title>
+  <programme start="20261126214500 +0000" stop="20261126225000 +0000" channel="Prima.cz">
+    <title>Ano, šéfe!</title>
   </programme>
-  <programme start="20261124161000 +0000" stop="20261124164000 +0000" channel="PrimaCool.cz@SD">
-    <title>Pán a jeho plán</title>
-  </programme>
-  <programme start="20261124164000 +0000" stop="20261124170000 +0000" channel="PrimaCool.cz@SD">
-    <title>Pán a jeho plán</title>
-  </programme>
-  <programme start="20261124170000 +0000" stop="20261124172500 +0000" channel="PrimaCool.cz@SD">
-    <title>Pán a jeho plán</title>
+  <programme start="20261126225000 +0000" stop="20261127000000 +0000" channel="Prima.cz">
+    <title>Ano, šéfe!</title>
   </programme>
   <programme start="20261124172500 +0000" stop="20261124175000 +0000" channel="PrimaCool.cz@SD">
     <title>Simpsonovi</title>
@@ -4188,8 +4196,11 @@
   <programme start="20261126210000 +0000" stop="20261126230500 +0000" channel="PrimaCool.cz@SD">
     <title>Univerzální voják</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124171000 +0000" channel="PrimaKrimi.cz@SD">
-    <title>Vraždy v Midsomeru</title>
+  <programme start="20261126230500 +0000" stop="20261126233500 +0000" channel="PrimaCool.cz@SD">
+    <title>Simpsonovi</title>
+  </programme>
+  <programme start="20261126233500 +0000" stop="20261127000500 +0000" channel="PrimaCool.cz@SD">
+    <title>Simpsonovi</title>
   </programme>
   <programme start="20261124171000 +0000" stop="20261124181000 +0000" channel="PrimaKrimi.cz@SD">
     <title>Vraždy v Kitzbühelu</title>
@@ -4314,11 +4325,11 @@
   <programme start="20261126211000 +0000" stop="20261126221000 +0000" channel="PrimaKrimi.cz@SD">
     <title>Sběratelé kostí</title>
   </programme>
-  <programme start="20261124141500 +0000" stop="20261124154500 +0000" channel="PrimaLove.cz@SD">
-    <title>Svatby v Benátkách</title>
+  <programme start="20261126221000 +0000" stop="20261126225500 +0000" channel="PrimaKrimi.cz@SD">
+    <title>Castle na zabití</title>
   </programme>
-  <programme start="20261124154500 +0000" stop="20261124170000 +0000" channel="PrimaLove.cz@SD">
-    <title>Svatby v Benátkách</title>
+  <programme start="20261126225500 +0000" stop="20261127011000 +0000" channel="PrimaKrimi.cz@SD">
+    <title>Stíny smrti</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="PrimaLove.cz@SD">
     <title>Doktor z hor: Nové příběhy</title>
@@ -4461,8 +4472,11 @@
   <programme start="20261126210000 +0000" stop="20261126221500 +0000" channel="PrimaLove.cz@SD">
     <title>Pod hladinou</title>
   </programme>
-  <programme start="20261124142000 +0000" stop="20261124164000 +0000" channel="PrimaMax.cz@SD">
-    <title>Na křídlech a modlitbách</title>
+  <programme start="20261126221500 +0000" stop="20261126232000 +0000" channel="PrimaLove.cz@SD">
+    <title>Krejzovi</title>
+  </programme>
+  <programme start="20261126232000 +0000" stop="20261127002000 +0000" channel="PrimaLove.cz@SD">
+    <title>Past na lásku</title>
   </programme>
   <programme start="20261124164000 +0000" stop="20261124190500 +0000" channel="PrimaMax.cz@SD">
     <title>Vlak do neznáma</title>
@@ -4544,12 +4558,6 @@
   </programme>
   <programme start="20261126210000 +0000" stop="20261126235000 +0000" channel="PrimaMax.cz@SD">
     <title>Tváří v tvář</title>
-  </programme>
-  <programme start="20261124144500 +0000" stop="20261124155000 +0000" channel="PrimaShow.cz@SD">
-    <title>Ano, šéfe s Gordonem Ramsaym USA</title>
-  </programme>
-  <programme start="20261124155000 +0000" stop="20261124165000 +0000" channel="PrimaShow.cz@SD">
-    <title>Ano, šéfe s Gordonem Ramsaym USA</title>
   </programme>
   <programme start="20261124165000 +0000" stop="20261124180500 +0000" channel="PrimaShow.cz@SD">
     <title>Drtivá porážka: Vánoční speciál</title>
@@ -4734,11 +4742,11 @@
   <programme start="20261126210500 +0000" stop="20261126221500 +0000" channel="PrimaShow.cz@SD">
     <title>Svatba na první pohled Austrálie XIII: Po večeři</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="PrimaStar.cz@SD">
-    <title>Prostřeno!</title>
+  <programme start="20261126221500 +0000" stop="20261126233500 +0000" channel="PrimaShow.cz@SD">
+    <title>Svatba na první pohled Austrálie</title>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124171000 +0000" channel="PrimaStar.cz@SD">
-    <title>Hádej, kdo jsem!</title>
+  <programme start="20261126233500 +0000" stop="20261127004000 +0000" channel="PrimaShow.cz@SD">
+    <title>Svatba na první pohled Austrálie XIII: Po večeři</title>
   </programme>
   <programme start="20261124171000 +0000" stop="20261124181500 +0000" channel="PrimaStar.cz@SD">
     <title>Hádej, kdo jsem!</title>
@@ -4887,11 +4895,11 @@
   <programme start="20261126211000 +0000" stop="20261126222500 +0000" channel="PrimaStar.cz@SD">
     <title>7 pádů Honzy Dědka</title>
   </programme>
-  <programme start="20261124145000 +0000" stop="20261124155500 +0000" channel="PrimaZoom.cz@SD">
-    <title>Tajemství odhalená z výšky</title>
+  <programme start="20261126222500 +0000" stop="20261126232500 +0000" channel="PrimaStar.cz@SD">
+    <title>Jak se staví sen - extra</title>
   </programme>
-  <programme start="20261124155500 +0000" stop="20261124170000 +0000" channel="PrimaZoom.cz@SD">
-    <title>Největší poklady Pompejí</title>
+  <programme start="20261126232500 +0000" stop="20261127002500 +0000" channel="PrimaStar.cz@SD">
+    <title>Vraždy, které šokovaly</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="PrimaZoom.cz@SD">
     <title>Vražedné počasí</title>
@@ -5052,11 +5060,11 @@
   <programme start="20261126211000 +0000" stop="20261126222500 +0000" channel="PrimaZoom.cz@SD">
     <title>Kanada: Síla přírody</title>
   </programme>
-  <programme start="20261124150500 +0000" stop="20261124155500 +0000" channel="TVBarrandov.cz@SD">
-    <title>Šťastná 7</title>
+  <programme start="20261126222500 +0000" stop="20261126231000 +0000" channel="PrimaZoom.cz@SD">
+    <title>Když žraloci útočí</title>
   </programme>
-  <programme start="20261124155500 +0000" stop="20261124164000 +0000" channel="TVBarrandov.cz@SD">
-    <title>Policie Delta</title>
+  <programme start="20261126231000 +0000" stop="20261127001000 +0000" channel="PrimaZoom.cz@SD">
+    <title>Vetřelci dávnověku</title>
   </programme>
   <programme start="20261124164000 +0000" stop="20261124174500 +0000" channel="TVBarrandov.cz@SD">
     <title>Poklad z půdy</title>
@@ -5226,65 +5234,14 @@
   <programme start="20261126210500 +0000" stop="20261126221000 +0000" channel="TVBarrandov.cz@SD">
     <title>Zločin</title>
   </programme>
-  <programme start="20261124151100 +0000" stop="20261124153000 +0000" channel="V1.cz">
-    <title>Týden v regionech</title>
+  <programme start="20261126221000 +0000" stop="20261126225500 +0000" channel="TVBarrandov.cz@SD">
+    <title>Policie Delta</title>
   </programme>
-  <programme start="20261124153000 +0000" stop="20261124153500 +0000" channel="V1.cz">
-    <title>Kam vyrazit v Královéhradeckém kraji</title>
+  <programme start="20261126225500 +0000" stop="20261126232500 +0000" channel="TVBarrandov.cz@SD">
+    <title>Intim s Heidi Janků</title>
   </programme>
-  <programme start="20261124153500 +0000" stop="20261124153800 +0000" channel="V1.cz">
-    <title>Kam vyrazit v Pardubickém kraji</title>
-  </programme>
-  <programme start="20261124153800 +0000" stop="20261124154500 +0000" channel="V1.cz">
-    <title>Na cestách Královéhradeckým krajem</title>
-  </programme>
-  <programme start="20261124154500 +0000" stop="20261124155000 +0000" channel="V1.cz">
-    <title>Dopravní info</title>
-  </programme>
-  <programme start="20261124155000 +0000" stop="20261124160000 +0000" channel="V1.cz">
-    <title>Jičínský miniexpres</title>
-  </programme>
-  <programme start="20261124160000 +0000" stop="20261124161000 +0000" channel="V1.cz">
-    <title>Východočeské zprávy</title>
-  </programme>
-  <programme start="20261124161000 +0000" stop="20261124161100 +0000" channel="V1.cz">
-    <title>Počasí</title>
-  </programme>
-  <programme start="20261124161100 +0000" stop="20261124163000 +0000" channel="V1.cz">
-    <title>Podcast TV V1</title>
-  </programme>
-  <programme start="20261124163000 +0000" stop="20261124163500 +0000" channel="V1.cz">
-    <title>Kam vyrazit v Královéhradeckém kraji</title>
-  </programme>
-  <programme start="20261124163500 +0000" stop="20261124163800 +0000" channel="V1.cz">
-    <title>Kam vyrazit v Pardubickém kraji</title>
-  </programme>
-  <programme start="20261124163800 +0000" stop="20261124164500 +0000" channel="V1.cz">
-    <title>Na cestách Pardubickým krajem</title>
-  </programme>
-  <programme start="20261124164500 +0000" stop="20261124165000 +0000" channel="V1.cz">
-    <title>Historické osobnosti</title>
-  </programme>
-  <programme start="20261124165000 +0000" stop="20261124170000 +0000" channel="V1.cz">
-    <title>U nás v kraji</title>
-  </programme>
-  <programme start="20261124170000 +0000" stop="20261124171000 +0000" channel="V1.cz">
-    <title>Východočeské zprávy</title>
-  </programme>
-  <programme start="20261124171000 +0000" stop="20261124171100 +0000" channel="V1.cz">
-    <title>Počasí</title>
-  </programme>
-  <programme start="20261124171100 +0000" stop="20261124171500 +0000" channel="V1.cz">
-    <title>Pardubický expres</title>
-  </programme>
-  <programme start="20261124171500 +0000" stop="20261124172000 +0000" channel="V1.cz">
-    <title>Pardubice z první ruky</title>
-  </programme>
-  <programme start="20261124172000 +0000" stop="20261124172500 +0000" channel="V1.cz">
-    <title>Kulturní servis</title>
-  </programme>
-  <programme start="20261124172500 +0000" stop="20261124172700 +0000" channel="V1.cz">
-    <title>Kultura v Hradci Králové</title>
+  <programme start="20261126232500 +0000" stop="20261127010000 +0000" channel="TVBarrandov.cz@SD">
+    <title>Exkluziv!</title>
   </programme>
   <programme start="20261124172700 +0000" stop="20261124175000 +0000" channel="V1.cz">
     <title>Podcast Salonky</title>
@@ -6573,26 +6530,53 @@
   <programme start="20261126212700 +0000" stop="20261126215000 +0000" channel="V1.cz">
     <title>Kraj z první ruky - Pardubický kraj</title>
   </programme>
-  <programme start="20261124150500 +0000" stop="20261124154500 +0000" channel="TVNoe.cz@SD">
-    <title>Náš pánko</title>
+  <programme start="20261126215000 +0000" stop="20261126220000 +0000" channel="V1.cz">
+    <title>Jičínský miniexpres</title>
   </programme>
-  <programme start="20261124154500 +0000" stop="20261124155500 +0000" channel="TVNoe.cz@SD">
-    <title>Chrámy naděje</title>
+  <programme start="20261126220000 +0000" stop="20261126221000 +0000" channel="V1.cz">
+    <title>Východočeské zprávy</title>
   </programme>
-  <programme start="20261124155500 +0000" stop="20261124162500 +0000" channel="TVNoe.cz@SD">
-    <title>Živé památníky</title>
+  <programme start="20261126221000 +0000" stop="20261126221100 +0000" channel="V1.cz">
+    <title>Počasí</title>
   </programme>
-  <programme start="20261124162500 +0000" stop="20261124170000 +0000" channel="TVNoe.cz@SD">
-    <title>Básník oravské přírody Zdeno Horecký</title>
+  <programme start="20261126221100 +0000" stop="20261126221500 +0000" channel="V1.cz">
+    <title>Expres Pardubického kraje</title>
   </programme>
-  <programme start="20261124170000 +0000" stop="20261124170500 +0000" channel="TVNoe.cz@SD">
-    <title>Sedmihlásky</title>
+  <programme start="20261126221500 +0000" stop="20261126222000 +0000" channel="V1.cz">
+    <title>U nás v kraji</title>
   </programme>
-  <programme start="20261124170500 +0000" stop="20261124171000 +0000" channel="TVNoe.cz@SD">
-    <title>Příběhy z Dobré Knihy</title>
+  <programme start="20261126222000 +0000" stop="20261126222500 +0000" channel="V1.cz">
+    <title>Kam vyrazit v Pardubickém kraji</title>
   </programme>
-  <programme start="20261124171000 +0000" stop="20261124173500 +0000" channel="TVNoe.cz@SD">
-    <title>Cirkus Noeland</title>
+  <programme start="20261126222500 +0000" stop="20261126222700 +0000" channel="V1.cz">
+    <title>Kam vyrazit v Královéhradeckém kraji</title>
+  </programme>
+  <programme start="20261126222700 +0000" stop="20261126225000 +0000" channel="V1.cz">
+    <title>Podcast TV V1</title>
+  </programme>
+  <programme start="20261126225000 +0000" stop="20261126230000 +0000" channel="V1.cz">
+    <title>Historické osobnosti</title>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261126231000 +0000" channel="V1.cz">
+    <title>Východočeské zprávy</title>
+  </programme>
+  <programme start="20261126231000 +0000" stop="20261126231100 +0000" channel="V1.cz">
+    <title>Počasí</title>
+  </programme>
+  <programme start="20261126231100 +0000" stop="20261126231500 +0000" channel="V1.cz">
+    <title>Expres Pardubického kraje</title>
+  </programme>
+  <programme start="20261126231500 +0000" stop="20261126232000 +0000" channel="V1.cz">
+    <title>U nás v kraji</title>
+  </programme>
+  <programme start="20261126232000 +0000" stop="20261126232500 +0000" channel="V1.cz">
+    <title>Kam vyrazit v Pardubickém kraji</title>
+  </programme>
+  <programme start="20261126232500 +0000" stop="20261126232700 +0000" channel="V1.cz">
+    <title>Kam vyrazit v Královéhradeckém kraji</title>
+  </programme>
+  <programme start="20261126232700 +0000" stop="20261126235000 +0000" channel="V1.cz">
+    <title>Kraj z první ruky - Pardubický kraj</title>
   </programme>
   <programme start="20261124173500 +0000" stop="20261124174500 +0000" channel="TVNoe.cz@SD">
     <title>Skleněná múza</title>
@@ -6831,11 +6815,8 @@
   <programme start="20261126210500 +0000" stop="20261126231000 +0000" channel="TVNoe.cz@SD">
     <title>Pod lampou</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="AnimalPlanet.cz@SD">
-    <title>Má pekelná kočka</title>
-  </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="AnimalPlanet.cz@SD">
-    <title>No nazdar! Irwinovi zasahují</title>
+  <programme start="20261126231000 +0000" stop="20261127000000 +0000" channel="TVNoe.cz@SD">
+    <title>Enrique Shaw - podnikatel Boží</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="AnimalPlanet.cz@SD">
     <title>Dr. Jeff: Veterinář ze Skalnatých hor</title>
@@ -7014,14 +6995,11 @@
   <programme start="20261126210000 +0000" stop="20261126220000 +0000" channel="AnimalPlanet.cz@SD">
     <title>Zákon v Texasu</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="DiscoveryChannel.cz@SD">
-    <title>Naftové bratrstvo</title>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="AnimalPlanet.cz@SD">
+    <title>Stal jsem se kořistí</title>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="DiscoveryChannel.cz@SD">
-    <title>Rychle a hlasitě</title>
-  </programme>
-  <programme start="20261124170000 +0000" stop="20261124173000 +0000" channel="DiscoveryChannel.cz@SD">
-    <title>Jak to dělají?</title>
+  <programme start="20261126230000 +0000" stop="20261126234500 +0000" channel="AnimalPlanet.cz@SD">
+    <title>ZOO v Bronxu</title>
   </programme>
   <programme start="20261124173000 +0000" stop="20261124180000 +0000" channel="DiscoveryChannel.cz@SD">
     <title>Jak se to dělá</title>
@@ -7212,11 +7190,17 @@
   <programme start="20261126200000 +0000" stop="20261126220000 +0000" channel="DiscoveryChannel.cz@SD">
     <title>Záchrana statku: Intervence</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="NationalGeographic.cz@SD">
-    <title>Vteřiny před katastrofou</title>
+  <programme start="20261126220000 +0000" stop="20261126223000 +0000" channel="DiscoveryChannel.cz@SD">
+    <title>Hraniční kontrola: Španělsko</title>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="NationalGeographic.cz@SD">
-    <title>Vyšetřování leteckých neštěstí</title>
+  <programme start="20261126223000 +0000" stop="20261126230000 +0000" channel="DiscoveryChannel.cz@SD">
+    <title>Hraniční kontrola: Španělsko</title>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261126233000 +0000" channel="DiscoveryChannel.cz@SD">
+    <title>Hraniční kontrola: Španělsko</title>
+  </programme>
+  <programme start="20261126233000 +0000" stop="20261127000000 +0000" channel="DiscoveryChannel.cz@SD">
+    <title>Hraniční kontrola: Španělsko</title>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124180000 +0000" channel="NationalGeographic.cz@SD">
     <title>Zákulisí letiště Toronto</title>
@@ -7389,14 +7373,11 @@
   <programme start="20261126210000 +0000" stop="20261126220000 +0000" channel="NationalGeographic.cz@SD">
     <title>Námořní megastroje</title>
   </programme>
-  <programme start="20261124151500 +0000" stop="20261124161000 +0000" channel="Spektrum.cz@SD">
-    <title>Lovci opálů</title>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="NationalGeographic.cz@SD">
+    <title>Záchrana na zledovatělé silnici</title>
   </programme>
-  <programme start="20261124161000 +0000" stop="20261124171000 +0000" channel="Spektrum.cz@SD">
-    <title>Záhady shora</title>
-  </programme>
-  <programme start="20261124171000 +0000" stop="20261124174000 +0000" channel="Spektrum.cz@SD">
-    <title>Ochrana hranic - Jižní Amerika</title>
+  <programme start="20261126230000 +0000" stop="20261126234500 +0000" channel="NationalGeographic.cz@SD">
+    <title>Nejpodivnější nálezy</title>
   </programme>
   <programme start="20261124174000 +0000" stop="20261124181000 +0000" channel="Spektrum.cz@SD">
     <title>Ochrana hranic - Jižní Amerika</title>
@@ -7587,11 +7568,11 @@
   <programme start="20261126210500 +0000" stop="20261126221000 +0000" channel="Spektrum.cz@SD">
     <title>Byl jednou jeden Sovětský svaz</title>
   </programme>
-  <programme start="20261124151000 +0000" stop="20261124161000 +0000" channel="ViasatExplore.cz@SD">
-    <title>Život v sevření mrazu</title>
+  <programme start="20261126221000 +0000" stop="20261126230000 +0000" channel="Spektrum.cz@SD">
+    <title>Obří přístav Sydney</title>
   </programme>
-  <programme start="20261124161000 +0000" stop="20261124171000 +0000" channel="ViasatExplore.cz@SD">
-    <title>Zlato Yukonu</title>
+  <programme start="20261126230000 +0000" stop="20261126235000 +0000" channel="Spektrum.cz@SD">
+    <title>Ve vazbě – 24 hodin na policii</title>
   </programme>
   <programme start="20261124171000 +0000" stop="20261124180500 +0000" channel="ViasatExplore.cz@SD">
     <title>Australští zlatokopové</title>
@@ -7758,11 +7739,11 @@
   <programme start="20261126210000 +0000" stop="20261126215500 +0000" channel="ViasatExplore.cz@SD">
     <title>Nejdrsnější věznice Ameriky</title>
   </programme>
-  <programme start="20261124144000 +0000" stop="20261124154000 +0000" channel="ViasatHistory.cz@SD">
-    <title>Anna Boleynová a Alžběta I : Ve stínu Toweru</title>
+  <programme start="20261126215500 +0000" stop="20261126225000 +0000" channel="ViasatExplore.cz@SD">
+    <title>Nezastavitelní kamioňáci</title>
   </programme>
-  <programme start="20261124154000 +0000" stop="20261124165000 +0000" channel="ViasatHistory.cz@SD">
-    <title>Druhá světová válka: Cena říše</title>
+  <programme start="20261126225000 +0000" stop="20261126235000 +0000" channel="ViasatExplore.cz@SD">
+    <title>Zamrzlé zlato</title>
   </programme>
   <programme start="20261124165000 +0000" stop="20261124175000 +0000" channel="ViasatHistory.cz@SD">
     <title>1945: Dny, které změnily svět</title>
@@ -7911,11 +7892,11 @@
   <programme start="20261126210500 +0000" stop="20261126220500 +0000" channel="ViasatHistory.cz@SD">
     <title>Ramses: Velký egyptský král</title>
   </programme>
-  <programme start="20261124144000 +0000" stop="20261124154500 +0000" channel="ViasatNature.cz@SD">
-    <title>Hlubinné potápění v Austrálii</title>
+  <programme start="20261126220500 +0000" stop="20261126231500 +0000" channel="ViasatHistory.cz@SD">
+    <title>Bombardéry: Postrach 2. světové války</title>
   </programme>
-  <programme start="20261124154500 +0000" stop="20261124165500 +0000" channel="ViasatNature.cz@SD">
-    <title>Gladiátoři zvířecí říše</title>
+  <programme start="20261126231500 +0000" stop="20261127001000 +0000" channel="ViasatHistory.cz@SD">
+    <title>Průkopníci egyptologie: První lovci pokladů</title>
   </programme>
   <programme start="20261124165500 +0000" stop="20261124175500 +0000" channel="ViasatNature.cz@SD">
     <title>Říční monstra</title>
@@ -8064,12 +8045,11 @@
   <programme start="20261126212000 +0000" stop="20261126222500 +0000" channel="ViasatNature.cz@SD">
     <title>Žralok bělavý - USA vs. Austrálie</title>
   </programme>
-  <programme start="20261124145000 +0000" stop="20261124171000 +0000" channel="Cinemax2.cz@Czechia">
-    <title>Kompletnie nieznany</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261126222500 +0000" stop="20261126233000 +0000" channel="ViasatNature.cz@SD">
+    <title>Vražedné počasí</title>
+  </programme>
+  <programme start="20261126233000 +0000" stop="20261127003500 +0000" channel="ViasatNature.cz@SD">
+    <title>Říční monstra</title>
   </programme>
   <programme start="20261124171000 +0000" stop="20261124183500 +0000" channel="Cinemax2.cz@Czechia">
     <title>Wielkie Nic</title>
@@ -8267,48 +8247,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124151800 +0000" stop="20261124165300 +0000" channel="Cinemax.cz@Czechia">
-    <title>Despicable Me</title>
-    <desc>Supervillain Gru, a man who delights in all things wicked, hatches a plan to steal the moon. Surrounded by an army of little yellow minions and his impenetrable arsenal of weapons and war machines, Gru prepares to vanquish all who stand in his way. However, nothing in his calculations and groundwork has prepared him for his greatest challenge: three adorable orphan girls who want to make him their dad.</desc>
-    <category lang="en">Movie</category>
-    <category lang="en">Animated</category>
-    <category lang="en">Children</category>
-    <category lang="en">Comedy</category>
-    <category lang="en">Adventure</category>
-    <credits>
-      <actor>Steve Carell</actor>
-      <actor>Jason Segel</actor>
-      <actor>Russell Brand</actor>
-      <director>Chris Renaud</director>
-      <director>Pierre Coffin</director>
-    </credits>
-    <date>2010</date>
-    <icon src="http://dtil.tmsimg.com/assets/p8000398_v_h8_af.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Motion Picture Association">
-      <value>PG</value>
-    </rating>
-    <rating system="Alberta's Film Classification Board">
-      <value>G</value>
-    </rating>
-    <rating system="B.C. Film Classification Office">
-      <value>G</value>
-    </rating>
-    <rating system="Saskatchewan Film and Video Classification Board">
-      <value>G</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-    <rating system="British Board of Film Classification">
-      <value>U</value>
-    </rating>
-    <rating system="Maritime Film Classification Board">
-      <value>G</value>
-    </rating>
-    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
-      <value>0</value>
-    </rating>
+  <programme start="20261126221500 +0000" stop="20261127000500 +0000" channel="Cinemax2.cz@Czechia">
+    <title>Wybuchowa para</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261124165300 +0000" stop="20261124184800 +0000" channel="Cinemax.cz@Czechia">
     <title>Godzilla x Kong: The New Empire</title>
@@ -9439,11 +9383,86 @@
     <icon src="http://dtil.tmsimg.com/assets/p29460870_v_h10_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261124140000 +0000" stop="20261124153500 +0000" channel="HBO2.cz@SD">
-    <title>V zemi Jane Austenové</title>
+  <programme start="20261126215300 +0000" stop="20261126233600 +0000" channel="Cinemax.cz@Czechia">
+    <title>The Rover</title>
+    <desc>In the near future, mankind's greed and excesses have pushed civilization to the breaking point. Society is in decline, and the rule of law has disintegrated. Hardened drifter Eric (Guy Pearce) wanders across this dangerous and desolate landscape. When thieves steal Eric's car -- and only remaining possession -- they leave behind Rey (Robert Pattinson), a wounded comrade. Eric forces Rey to help him hunt down the gang in an unrelenting quest to take back the one thing that matters to him.</desc>
+    <category lang="en">Movie</category>
+    <category lang="en">Drama</category>
+    <category lang="en">Thriller</category>
+    <credits>
+      <actor>Guy Pearce</actor>
+      <actor>Robert Pattinson</actor>
+      <actor>Scoot McNairy</actor>
+      <director>David Michôd</director>
+    </credits>
+    <date>2014</date>
+    <icon src="http://dtil.tmsimg.com/assets/p10620208_v_h8_af.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Motion Picture Association">
+      <value>R</value>
+    </rating>
+    <rating system="British Board of Film Classification">
+      <value>15</value>
+    </rating>
+    <rating system="B.C. Film Classification Office">
+      <value>14A</value>
+    </rating>
+    <rating system="Saskatchewan Film and Video Classification Board">
+      <value>14A</value>
+    </rating>
+    <rating system="Régie du cinéma">
+      <value>13+</value>
+    </rating>
+    <rating system="Alberta's Film Classification Board">
+      <value>14A</value>
+    </rating>
+    <rating system="Manitoba Film Classification Board">
+      <value>14A</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>16</value>
+    </rating>
   </programme>
-  <programme start="20261124153500 +0000" stop="20261124170000 +0000" channel="HBO2.cz@SD">
-    <title>Její portrét</title>
+  <programme start="20261126233600 +0000" stop="20261127012200 +0000" channel="Cinemax.cz@Czechia">
+    <title>Aniara</title>
+    <desc>When a spacecraft carrying settlers to Mars strays off course, the consumption-obsessed passengers are prompted to consider their place in the universe.</desc>
+    <category lang="en">Movie</category>
+    <category lang="en">Science fiction</category>
+    <category lang="en">Drama</category>
+    <credits>
+      <actor>Emelie Garbers</actor>
+      <actor>Arvin Kananian</actor>
+      <actor>Bianca Cruzeiro</actor>
+      <director>Pella Kågerman</director>
+      <director>Hugo Lilja</director>
+    </credits>
+    <date>2018</date>
+    <icon src="http://dtil.tmsimg.com/assets/p16639736_v_h8_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Motion Picture Association">
+      <value>R</value>
+    </rating>
+    <rating system="Arcom">
+      <value>-12</value>
+    </rating>
+    <rating system="Medietilsynet">
+      <value>15 år</value>
+    </rating>
+    <rating system="British Board of Film Classification">
+      <value>18</value>
+    </rating>
+    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
+      <value>12</value>
+    </rating>
+    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
+      <value>16</value>
+    </rating>
+    <rating system="Australian Classification Board">
+      <value>R 18+</value>
+    </rating>
+    <rating system="Statens medieråd">
+      <value>Från 15 år</value>
+    </rating>
   </programme>
   <programme start="20261124170000 +0000" stop="20261124183000 +0000" channel="HBO2.cz@SD">
     <title>Zpívám ze spaní</title>
@@ -9547,8 +9566,17 @@
   <programme start="20261126195500 +0000" stop="20261126213000 +0000" channel="HBO2.cz@SD">
     <title>Nightbitch</title>
   </programme>
-  <programme start="20261124143000 +0000" stop="20261124162500 +0000" channel="HBO3.cz@SD">
-    <title>Jumanji: Vítejte v džungli!</title>
+  <programme start="20261126213000 +0000" stop="20261126220500 +0000" channel="HBO2.cz@SD">
+    <title>Stále v kurzu</title>
+  </programme>
+  <programme start="20261126220500 +0000" stop="20261126224000 +0000" channel="HBO2.cz@SD">
+    <title>Stále v kurzu</title>
+  </programme>
+  <programme start="20261126224000 +0000" stop="20261126234000 +0000" channel="HBO2.cz@SD">
+    <title>Cizinka: Krev mé krve</title>
+  </programme>
+  <programme start="20261126234000 +0000" stop="20261127013500 +0000" channel="HBO2.cz@SD">
+    <title>Creed</title>
   </programme>
   <programme start="20261124162500 +0000" stop="20261124180500 +0000" channel="HBO3.cz@SD">
     <title>Pařba v Bangkoku</title>
@@ -9703,97 +9731,140 @@
   <programme start="20261126212000 +0000" stop="20261126231500 +0000" channel="HBO3.cz@SD">
     <title>28 let poté</title>
   </programme>
-  <programme start="20261124133500 +0000" stop="20261124154500 +0000" channel="HBO.cz@SD">
-    <title>印第安納瓊斯 聖戰奇兵</title>
-    <desc>故事背景設於1938年印第安納瓊斯與父親依據筆記上的記載，尋找傳說耶穌於最後晚餐所用的聖杯。由於傳說中的聖杯有治癒任何傷口的神奇功效，引起了德國納綷的覬覦，特別派出了美豔女間諜艾兒莎史奈德博士，利用美色與苦肉計迫使瓊斯交出筆記。?瓊斯父子發現艾兒莎的企圖後，費盡心思將筆記奪回，前往聖殿取聖杯，不料納綷尾隨在後，並槍傷瓊斯的父親，一番苦戰之後才逃離納綷的糾纏。原以為無事的瓊斯急忙以聖杯舀水治癒父親，卻沒想到艾兒莎出現面前要搶奪聖杯……</desc>
+  <programme start="20261126231500 +0000" stop="20261127010500 +0000" channel="HBO3.cz@SD">
+    <title>28 let poté: Chrám z kostí</title>
+  </programme>
+  <programme start="20261124170000 +0000" stop="20261124182000 +0000" channel="HBO.cz@SD">
+    <title>Chris Fleming ao Vivo no Cadillac Palace</title>
+    <desc>Chris Fleming apresenta seu primeiro especial da HBO, onde compartilha sua perspectiva sobre masculinidade e congas com sua energia contagiante.</desc>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124154500 +0000" stop="20261124173000 +0000" channel="HBO.cz@SD">
-    <title>LONDON FIELDS</title>
-    <desc>Nicola Six has a dark foreshadowing of her impending murder. But instead of trying to save herself, she seduces three different men - one of whom will be her killer.</desc>
+  <programme start="20261124182000 +0000" stop="20261124205500 +0000" channel="HBO.cz@SD">
+    <title>Tenet</title>
+    <desc>Christopher Nolan apresenta esta ficção científica não sobre viagem no tempo, mas sobre sua inversão, estrelado por John David Washington.</desc>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124173000 +0000" stop="20261124192000 +0000" channel="HBO.cz@SD">
-    <title>THE WAY BACK</title>
-    <desc>Oscar® winner Ben Affleck is Jack Cunningham, a man who faces his inner demons by agreeing to coach a high school basketball team.</desc>
+  <programme start="20261124205500 +0000" stop="20261124215500 +0000" channel="HBO.cz@SD">
+    <title>Guerra</title>
+    <desc>Após uma revelação impactante que leva o Cathcarts e a Taylor &amp; Byrne a culparem um ao outro pelo vazamento, Carla depõe que ela e seus amigos famosos foram fundamentais para o sucesso inicial da Zephyr.</desc>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124192000 +0000" stop="20261124210000 +0000" channel="HBO.cz@SD">
-    <title>HAPPY FEET TWO</title>
-    <desc>A little penguin struggles to find his fit in the penguin colony!</desc>
+  <programme start="20261124215500 +0000" stop="20261124233500 +0000" channel="HBO.cz@SD">
+    <title>O Assobiador</title>
+    <desc>Ainda abalados pela perda da filha, Nicole e Sebastian herdam uma fazenda isolada na Venezuela, sem imaginar as forças obscuras que estão prestes a enfrentar.</desc>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124210000 +0000" stop="20261124215000 +0000" channel="HBO.cz@SD">
-    <title>接招吧！製作人第1季:1</title>
-    <desc>突如其來的醜聞讓樂界大老身敗名裂，也讓新生代音樂製作人痛失大好機會，這對奇葩搭檔必須聯手征服華語樂壇。</desc>
+  <programme start="20261124233500 +0000" stop="20261125012000 +0000" channel="HBO.cz@SD">
+    <title>Sobrenatural - A Origem</title>
+    <desc>Anos antes dos eventos ocorridos com a família Lambert, a parapsicóloga Elise Rainier, aceita usar suas habilidades para entrar em contato com os mortos e ajudar uma jovem aterrorizada por uma entidade maligna do reino espiritual.</desc>
     <date>20261124</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124215000 +0000" stop="20261124225500 +0000" channel="HBO.cz@SD">
-    <title>繼承之戰第1季:10</title>
-    <desc>本片描繪羅伊家族的成員們在年老的大家長逐漸退出家族事業之際，處心積慮謀畫自己未來的生活軌跡</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124230000 +0000" stop="20261125010000 +0000" channel="HBO.cz@SD">
-    <title>海灘救護隊</title>
-    <desc>當海邊不斷發生危險罪案時，傳奇的米奇布坎南隊長率領其難纏的精英救難小隊展開任務，他們證明不一定得靠警方才能拯救海灣</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125010500 +0000" stop="20261125020000 +0000" channel="HBO.cz@SD">
-    <title>竊盜警長第3季:4</title>
-    <desc>路卡斯、布拉克和修凡為被光頭黨人殺害的艾密特報仇。如今在當地一家餐廳當服務生的凱莉，向戈登與黛娃坦承她的過去後，又面臨新的挑戰。路卡斯在艾歷克斯長影死後，除了波克特與蕾貝卡，又面臨一個更危險的新威脅：契頓利托史東，此人不顧一切要讓基納荷部落陷入與敵人的瘋狂戰鬥中。路卡斯在調查四名海軍陸戰隊隊員的兇案之時，注意到一個十分危險的偷竊機會，他打算請賈伯與舒葛再次協助犯案。</desc>
+  <programme start="20261125012800 +0000" stop="20261125014500 +0000" channel="HBO.cz@SD">
+    <title>BEN10再顯神威第1季:8</title>
+    <desc>時間回到小時候的小班和小玟兩人在暑假和爺爺一起全國旅行。在小班有Omnitrix的情況下，各種超自然力量或外星人事件發生在他週圍</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125020000 +0000" stop="20261125023000 +0000" channel="HBO.cz@SD">
-    <title>五號大道第1季:4</title>
-    <desc>這齣關於太空旅行的喜劇背景設定在40年後，人類可以任意遨遊太陽系的未來。由休羅利飾演主角艦長，在他的掌控下，一切沒有任何出錯的可能</desc>
+  <programme start="20261125014500 +0000" stop="20261125015700 +0000" channel="HBO.cz@SD">
+    <title>我的麻吉是猴子第1季:14</title>
+    <desc>入學文件出了差錯，12 歲的阿丹師仔意外轉入達爾文中學，那裡的老師和學生都是動物。</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125023000 +0000" stop="20261125030000 +0000" channel="HBO.cz@SD">
-    <title>魯蛇日記第2季:4</title>
-    <desc>喜劇新秀彼特在遭遇情感危機之後，發覺自己的人生來到重要關頭。他試圖在紐約的一家喜劇俱樂部尋求慰藉之時，和憤世嫉俗的喜劇泰斗亞帝朗格結為好友，亞帝勉為其難地給他一些明智的建議和臨時的住所</desc>
+  <programme start="20261125015700 +0000" stop="20261125020900 +0000" channel="HBO.cz@SD">
+    <title>我的麻吉是猴子第1季:15</title>
+    <desc>入學文件出了差錯，12 歲的阿丹師仔意外轉入達爾文中學，那裡的老師和學生都是動物。</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125030000 +0000" stop="20261125035000 +0000" channel="HBO.cz@SD">
-    <title>接招吧！製作人第1季:1</title>
-    <desc>突如其來的醜聞讓樂界大老身敗名裂，也讓新生代音樂製作人痛失大好機會，這對奇葩搭檔必須聯手征服華語樂壇。</desc>
+  <programme start="20261125020900 +0000" stop="20261125022100 +0000" channel="HBO.cz@SD">
+    <title>我的麻吉是猴子第1季:16</title>
+    <desc>入學文件出了差錯，12 歲的阿丹師仔意外轉入達爾文中學，那裡的老師和學生都是動物。</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125035000 +0000" stop="20261125050000 +0000" channel="HBO.cz@SD">
-    <title>繼承之戰第1季:10</title>
-    <desc>本片描繪羅伊家族的成員們在年老的大家長逐漸退出家族事業之際，處心積慮謀畫自己未來的生活軌跡</desc>
+  <programme start="20261125022100 +0000" stop="20261125024000 +0000" channel="HBO.cz@SD">
+    <title>我的麻吉是猴子第1季:17</title>
+    <desc>入學文件出了差錯，12 歲的阿丹師仔意外轉入達爾文中學，那裡的老師和學生都是動物。</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125024000 +0000" stop="20261125031400 +0000" channel="HBO.cz@SD">
+    <title>歌喉讚-邦普在柏林第1季:6</title>
+    <desc>《歌喉讚》的衍生喜劇影集，講述前兩部電影中的「痞子幫」團長邦普艾倫（Bumper Allen）放棄保全工作，遠赴德國柏林重振音樂事業。</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125031400 +0000" stop="20261125034500 +0000" channel="HBO.cz@SD">
+    <title>芝麻街第55季:34</title>
+    <desc>新一季內容包含兒童教育的字母、數字教學，並新增「心之呼吸」放鬆技巧、製作和平樹、慶祝文化節日等故事，艾蒙（Elmo）與朋友們探索如何以愛心與公平待人。</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125034500 +0000" stop="20261125041500 +0000" channel="HBO.cz@SD">
+    <title>芝麻街第55季:35</title>
+    <desc>新一季內容包含兒童教育的字母、數字教學，並新增「心之呼吸」放鬆技巧、製作和平樹、慶祝文化節日等故事，艾蒙（Elmo）與朋友們探索如何以愛心與公平待人。</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125041500 +0000" stop="20261125042700 +0000" channel="HBO.cz@SD">
+    <title>愛煩多王子冒險中第1季:1</title>
+    <desc>高貴的愛煩多王子帶著他的忠心侍從伯特、一起踏上了尋找黃金羽毛的史詩級冒險之旅，他們的目標是熊鷹之山，不過…他遇到了有翅膀的惡魔</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125042700 +0000" stop="20261125043900 +0000" channel="HBO.cz@SD">
+    <title>愛煩多王子冒險中第1季:2</title>
+    <desc>高貴的愛煩多王子帶著他的忠心侍從伯特、一起踏上了尋找黃金羽毛的史詩級冒險之旅，他們的目標是熊鷹之山，不過…他遇到了有翅膀的惡魔</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125043900 +0000" stop="20261125045100 +0000" channel="HBO.cz@SD">
+    <title>愛煩多王子冒險中第1季:3</title>
+    <desc>高貴的愛煩多王子帶著他的忠心侍從伯特、一起踏上了尋找黃金羽毛的史詩級冒險之旅，他們的目標是熊鷹之山，不過…他遇到了有翅膀的惡魔</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125045100 +0000" stop="20261125050300 +0000" channel="HBO.cz@SD">
+    <title>愛煩多王子冒險中第1季:4</title>
+    <desc>高貴的愛煩多王子帶著他的忠心侍從伯特、一起踏上了尋找黃金羽毛的史詩級冒險之旅，他們的目標是熊鷹之山，不過…他遇到了有翅膀的惡魔</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
@@ -10215,16 +10286,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="MusicBoxClassic.cz@SD">
-    <title>Timeless Hits</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="MusicBoxClassic.cz@SD">
-    <title>Timeless Hits</title>
-    <date>20261124</date>
+  <programme start="20261126214500 +0000" stop="20261126235500 +0000" channel="HBO.cz@SD">
+    <title>Adão Negro</title>
+    <desc>Quase 5.000 anos após ser agraciado com os poderes onipotentes dos deuses egípcios e preso com a mesma rapidez, Adão Negro alcança a liberdade de sua tumba terrena, pronto para liberar sua justiça no mundo moderno.</desc>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -10600,8 +10665,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124142500 +0000" stop="20261124165000 +0000" channel="NovaCinema.cz">
-    <title>Jurský svět</title>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="MusicBoxClassic.cz@SD">
+    <title>Timeless Hits</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261127000000 +0000" channel="MusicBoxClassic.cz@SD">
+    <title>Timeless Hits</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261124165000 +0000" stop="20261124190000 +0000" channel="NovaCinema.cz">
     <title>Krásná pokojská</title>
@@ -10681,37 +10757,8 @@
   <programme start="20261126190000 +0000" stop="20261126213000 +0000" channel="NovaCinema.cz">
     <title>Mumie</title>
   </programme>
-  <programme start="20261124151000 +0000" stop="20261124160000 +0000" channel="WarnerTV.cz@SD">
-    <title>心計第6季:15</title>
-    <desc>西蒙·貝克（Simon Baker）飾演派屈克·簡（Patrick Jane），一名受僱於加州調查局（California Bureau of Investigation，CBI）之獨立顧問。他利用出色的觀察技巧（如讀心術），成功偵破多宗大案。他過去經常使用所謂的心靈感應，曾假裝擁有通靈能力的靈媒而成名。派屈克·簡在一電視節目透露使用心靈感應協助警方調查連環殺手「紅約翰」（Red John），他的妻女因而被其殺害。在自責之下，他放棄作為騙人的靈媒，成為警方顧問。</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124160000 +0000" stop="20261124162500 +0000" channel="WarnerTV.cz@SD">
-    <title>宅男行不行第8季:3</title>
-    <desc>在上一季的結尾，萊納德和佩妮宣佈訂婚，他們和謝爾頓商量讓他搬出公寓，女友艾米建議謝爾頓與她同居，這把謝爾頓嚇壞了。與此同時，他們最愛的漫畫店慘遭火災。謝爾頓一時間難以接受生活中的種種變故，負氣出走。一個多月過去了，謝爾頓會在這場跨越美國大陸的旅程中遭遇什麼？在新的一季中，其他幾位主角的生活也有新變化。佩妮放棄了演藝事業，正式踏入了藥品推銷之路，她與伯納黛特將會成為同事。霍華德最煩惱的事是，自己的媽媽和漫畫店老闆斯圖爾特住在一起。單身漢拉傑什何時才能找到女朋友？</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124162500 +0000" stop="20261124165000 +0000" channel="WarnerTV.cz@SD">
-    <title>六人行第7季:6</title>
-    <desc>菲比（莉莎·庫卓 Lisa Kudrow 飾）和瑞秋（詹妮弗·安妮斯頓 Jennifer Aniston 飾）的公寓已經修復完畢，菲比搬回了公寓，瑞秋繼續和喬伊（馬特·理勃蘭 Matt LeBlanc 飾）住在一起。喬伊在《Days of Our Lives》劇組裡得到了一個角色。就在錢德勒（馬修·派瑞 Matthew Perry 飾）和摩妮卡（柯特妮·考克斯 Courteney Cox 飾）的婚禮前一夜，錢德勒突然臨陣畏縮，逃走躲了起來。他走了之後，菲比在衛生間找了一支顯示有孕的驗孕棒，從而斷定摩妮卡有了身孕。菲比和羅斯（大衛·史威默 David Schwimmer 飾）在辦公室找到了躲藏錢德勒並說服他回來，回來後他聽到了菲比與瑞秋的竊竊私語——摩妮卡懷孕了！最後錢德勒和摩妮卡順利完婚，但摩妮卡卻說自己並沒有懷孕時。那麼，懷孕的人難道是瑞秋嗎？</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124165500 +0000" stop="20261124172000 +0000" channel="WarnerTV.cz@SD">
-    <title>Mom</title>
-    <desc>Christy, jeune mère célibataire, sort de cure de désintoxication et tente de remettre sa vie en ordre. La situation lui échappe lorsque sa mère, une ancienne alcoolique dont elle n'a plus entendu parler depuis des années, revient au bercail avec la ferme intention de rattraper le temps perdu. L'immaturité et les leçons de morale déplacées de sa génitrice, les frasques de sa fille, une ado précoce,</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261126213000 +0000" stop="20261126235000 +0000" channel="NovaCinema.cz">
+    <title>Úkryt</title>
   </programme>
   <programme start="20261124172000 +0000" stop="20261124175000 +0000" channel="WarnerTV.cz@SD">
     <title>Mom</title>
@@ -11630,16 +11677,42 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="MusicBoxDance.cz@SD">
-    <title>Feel The Beat!</title>
-    <date>20261124</date>
+  <programme start="20261126214000 +0000" stop="20261126221000 +0000" channel="WarnerTV.cz@SD">
+    <title>Superstore</title>
+    <desc>Des débutants aux yeux qui brillent aux vétérans ayant déjà tout vécu, en passant par les employés d'été paumés et les managers déterminés, ils affrontent en famille les soucis du quotidien inhérents à la gestion d'une grande surface.</desc>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="MusicBoxDance.cz@SD">
-    <title>Feel The Beat!</title>
-    <date>20261124</date>
+  <programme start="20261126221000 +0000" stop="20261126223500 +0000" channel="WarnerTV.cz@SD">
+    <title>Superstore</title>
+    <desc>Des débutants aux yeux qui brillent aux vétérans ayant déjà tout vécu, en passant par les employés d'été paumés et les managers déterminés, ils affrontent en famille les soucis du quotidien inhérents à la gestion d'une grande surface.</desc>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126223500 +0000" stop="20261126230000 +0000" channel="WarnerTV.cz@SD">
+    <title>Superstore</title>
+    <desc>Le quotidien des employés d'un magasin d'un centre commercial, le Cloud 9 à Saint Louis aux Etats-Unis...</desc>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126230000 +0000" stop="20261126232500 +0000" channel="WarnerTV.cz@SD">
+    <title>Superstore</title>
+    <desc>Le quotidien des employés d'un magasin d'un centre commercial, le Cloud 9 à Saint Louis aux Etats-Unis...</desc>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126232500 +0000" stop="20261126235000 +0000" channel="WarnerTV.cz@SD">
+    <title>Superstore</title>
+    <desc>Le quotidien des employés d'un magasin d'un centre commercial, le Cloud 9 à Saint Louis aux Etats-Unis...</desc>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -12015,16 +12088,16 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="MusicBoxHits.cz@SD">
-    <title>Hot New Music</title>
-    <date>20261124</date>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="MusicBoxDance.cz@SD">
+    <title>Feel The Beat!</title>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="MusicBoxHits.cz@SD">
-    <title>Hot New Music</title>
-    <date>20261124</date>
+  <programme start="20261126230000 +0000" stop="20261127000000 +0000" channel="MusicBoxDance.cz@SD">
+    <title>Feel The Beat!</title>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -12400,16 +12473,16 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124160000 +0000" channel="MusicBoxSexy.cz@SD">
-    <title>Where Music Is Sexy</title>
-    <date>20261124</date>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="MusicBoxHits.cz@SD">
+    <title>Euro Top 20</title>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="MusicBoxSexy.cz@SD">
-    <title>Where Music Is Sexy</title>
-    <date>20261124</date>
+  <programme start="20261126230000 +0000" stop="20261127000000 +0000" channel="MusicBoxHits.cz@SD">
+    <title>Hot New Music</title>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -12785,16 +12858,16 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124145900 +0000" stop="20261124160000 +0000" channel="RetroMusicTV.cz@SD">
-    <title>Retrománie</title>
-    <date>20261124</date>
+  <programme start="20261126220000 +0000" stop="20261126230000 +0000" channel="MusicBoxSexy.cz@SD">
+    <title>Where Music Is Sexy</title>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124170000 +0000" channel="RetroMusicTV.cz@SD">
-    <title>Replay 90'</title>
-    <date>20261124</date>
+  <programme start="20261126230000 +0000" stop="20261127000000 +0000" channel="MusicBoxSexy.cz@SD">
+    <title>Where Music Is Sexy</title>
+    <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -13023,17 +13096,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261124152500 +0000" stop="20261124155000 +0000" channel="DisneyChannel.cz@SD">
-    <title>Phineas a Ferb</title>
+  <programme start="20261126213000 +0000" stop="20261126230000 +0000" channel="RetroMusicTV.cz@SD">
+    <title>Rekreace</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261124155000 +0000" stop="20261124162000 +0000" channel="DisneyChannel.cz@SD">
-    <title>Zkázáci</title>
-  </programme>
-  <programme start="20261124162000 +0000" stop="20261124165000 +0000" channel="DisneyChannel.cz@SD">
-    <title>Zkázáci</title>
-  </programme>
-  <programme start="20261124165000 +0000" stop="20261124172000 +0000" channel="DisneyChannel.cz@SD">
-    <title>Miraculous Tales of Ladybug &amp; Cat Noir: Season</title>
+  <programme start="20261126230000 +0000" stop="20261126235900 +0000" channel="RetroMusicTV.cz@SD">
+    <title>Repete</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261124172000 +0000" stop="20261124175000 +0000" channel="DisneyChannel.cz@SD">
     <title>Miraculous Tales of Ladybug &amp; Cat Noir: Season</title>
@@ -13497,23 +13572,26 @@
   <programme start="20261126211500 +0000" stop="20261126214500 +0000" channel="DisneyChannel.cz@SD">
     <title>Městečko záhad</title>
   </programme>
-  <programme start="20261124151500 +0000" stop="20261124153500 +0000" channel="Nickelodeon.cz@SD">
-    <title>Marsupilami</title>
+  <programme start="20261126214500 +0000" stop="20261126221500 +0000" channel="DisneyChannel.cz@SD">
+    <title>Zkázáci</title>
   </programme>
-  <programme start="20261124153500 +0000" stop="20261124160000 +0000" channel="Nickelodeon.cz@SD">
-    <title>Spongebob v kalhotách</title>
+  <programme start="20261126221500 +0000" stop="20261126224500 +0000" channel="DisneyChannel.cz@SD">
+    <title>Electric Bloom</title>
   </programme>
-  <programme start="20261124160000 +0000" stop="20261124162000 +0000" channel="Nickelodeon.cz@SD">
-    <title>Patrikova hvězdná show</title>
+  <programme start="20261126224500 +0000" stop="20261126225500 +0000" channel="DisneyChannel.cz@SD">
+    <title>Kluk Holka atd.</title>
   </programme>
-  <programme start="20261124162000 +0000" stop="20261124164500 +0000" channel="Nickelodeon.cz@SD">
-    <title>Spongebob v kalhotách</title>
+  <programme start="20261126225500 +0000" stop="20261126230500 +0000" channel="DisneyChannel.cz@SD">
+    <title>Kluk Holka atd.</title>
   </programme>
-  <programme start="20261124164500 +0000" stop="20261124165500 +0000" channel="Nickelodeon.cz@SD">
-    <title>Spongebob v kalhotách</title>
+  <programme start="20261126230500 +0000" stop="20261126231500 +0000" channel="DisneyChannel.cz@SD">
+    <title>Kluk Holka atd.</title>
   </programme>
-  <programme start="20261124165500 +0000" stop="20261124172500 +0000" channel="Nickelodeon.cz@SD">
-    <title>Hlasiťákovi</title>
+  <programme start="20261126231500 +0000" stop="20261126232000 +0000" channel="DisneyChannel.cz@SD">
+    <title>Taffy</title>
+  </programme>
+  <programme start="20261126232000 +0000" stop="20261126234500 +0000" channel="DisneyChannel.cz@SD">
+    <title>Ghostforce</title>
   </programme>
   <programme start="20261124172500 +0000" stop="20261124175000 +0000" channel="Nickelodeon.cz@SD">
     <title>Hlasiťákovi</title>
@@ -13944,23 +14022,23 @@
   <programme start="20261126211000 +0000" stop="20261126213500 +0000" channel="Nickelodeon.cz@SD">
     <title>Sam &amp; Cat</title>
   </programme>
-  <programme start="20261124150000 +0000" stop="20261124153000 +0000" channel="CNNPrimaNews.cz@SD">
-    <title>Zprávy</title>
+  <programme start="20261126213500 +0000" stop="20261126215500 +0000" channel="Nickelodeon.cz@SD">
+    <title>Příběy Želv ninja</title>
   </programme>
-  <programme start="20261124153000 +0000" stop="20261124155500 +0000" channel="CNNPrimaNews.cz@SD">
-    <title>Krimi zprávy</title>
+  <programme start="20261126215500 +0000" stop="20261126222000 +0000" channel="Nickelodeon.cz@SD">
+    <title>Příběy Želv ninja</title>
   </programme>
-  <programme start="20261124155500 +0000" stop="20261124163000 +0000" channel="CNNPrimaNews.cz@SD">
-    <title>Zprávy z regionů</title>
+  <programme start="20261126222000 +0000" stop="20261126224500 +0000" channel="Nickelodeon.cz@SD">
+    <title>Spongebob v kalhotách</title>
   </programme>
-  <programme start="20261124163000 +0000" stop="20261124171000 +0000" channel="CNNPrimaNews.cz@SD">
-    <title>Co na to vaše peněženka</title>
+  <programme start="20261126224500 +0000" stop="20261126231000 +0000" channel="Nickelodeon.cz@SD">
+    <title>Spongebob v kalhotách</title>
   </programme>
-  <programme start="20261124171000 +0000" stop="20261124173000 +0000" channel="CNNPrimaNews.cz@SD">
-    <title>Zprávy</title>
+  <programme start="20261126231000 +0000" stop="20261126233500 +0000" channel="Nickelodeon.cz@SD">
+    <title>Spongebob v kalhotách</title>
   </programme>
-  <programme start="20261124173000 +0000" stop="20261124173500 +0000" channel="CNNPrimaNews.cz@SD">
-    <title>Forbes Lepší Česko: Interview+</title>
+  <programme start="20261126233500 +0000" stop="20261126235500 +0000" channel="Nickelodeon.cz@SD">
+    <title>Marsupilami</title>
   </programme>
   <programme start="20261124173500 +0000" stop="20261124175500 +0000" channel="CNNPrimaNews.cz@SD">
     <title>Forbes Lepší Česko: Interview+</title>
@@ -14122,6 +14200,12 @@
     <title>Zpravodajské centrum</title>
   </programme>
   <programme start="20261126203000 +0000" stop="20261126220000 +0000" channel="CNNPrimaNews.cz@SD">
+    <title>360°</title>
+  </programme>
+  <programme start="20261126220000 +0000" stop="20261126234000 +0000" channel="CNNPrimaNews.cz@SD">
+    <title>Zpravodajské centrum</title>
+  </programme>
+  <programme start="20261126234000 +0000" stop="20261127012000 +0000" channel="CNNPrimaNews.cz@SD">
     <title>360°</title>
   </programme>
 </tv>

@@ -1,20 +1,20 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-24 21:28 UTC (2026-11-24 04:28 PM EST)
-- **Channels in the main playlist:** 13340
-- **Channels in the category files:** 13323 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 4003 (30.0%)
+- **Rebuilt:** 2026-11-24 23:43 UTC (2026-11-24 06:43 PM EST)
+- **Channels in the main playlist:** 13352
+- **Channels in the category files:** 13336 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 3972 (29.8%)
 - **Categories:** 95 groups (41 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 574 | 265 |
+| 1 | Sports | 536 | 235 |
 | 2 | Sports Backups | 142 | 106 |
-| 3 | Lifestyle | 507 | 192 |
+| 3 | Lifestyle | 510 | 192 |
 | 4 | Lifestyle Backups | 164 | 117 |
-| 5 | Fox Channels | 46 | 10 |
+| 5 | Fox Channels | 45 | 10 |
 | 6 | Fox Channels Backups | 3 | 3 |
 | 7 | CBS | 45 | 20 |
 | 8 | CBS Backups | 33 | 33 |
@@ -22,61 +22,61 @@
 | 10 | NBC Backups | 17 | 16 |
 | 11 | NBC Sports Channels | 6 | 4 |
 | 12 | NBC Sports Channels Backups | 3 | 2 |
-| 13 | Cartoons | 185 | 46 |
+| 13 | Cartoons | 184 | 46 |
 | 14 | Cartoons Backups | 56 | 28 |
 | 15 | PBS | 41 | 15 |
 | 16 | PBS Backups | 12 | 7 |
 | 17 | Game Shows | 21 | 18 |
 | 18 | Game Shows Backups | 31 | 31 |
-| 19 | International | 867 | 250 |
-| 20 | International Backups | 140 | 58 |
-| 21 | News | 860 | 251 |
+| 19 | International | 866 | 256 |
+| 20 | International Backups | 139 | 57 |
+| 21 | News | 861 | 253 |
 | 22 | News Backups | 242 | 163 |
-| 23 | Music | 858 | 181 |
+| 23 | Music | 852 | 182 |
 | 24 | Music Backups | 140 | 100 |
-| 25 | Movies | 822 | 209 |
-| 26 | Movies Backups | 188 | 128 |
-| 27 | Europe | 719 | 117 |
+| 25 | Movies | 824 | 207 |
+| 26 | Movies Backups | 187 | 127 |
+| 27 | Europe | 713 | 115 |
 | 28 | Europe Backups | 60 | 34 |
-| 29 | Entertainment | 703 | 179 |
+| 29 | Entertainment | 707 | 179 |
 | 30 | Entertainment Backups | 147 | 87 |
-| 31 | Religious | 620 | 68 |
+| 31 | Religious | 618 | 68 |
 | 32 | Religious Backups | 43 | 14 |
-| 33 | Asia | 496 | 94 |
-| 34 | Asia Backups | 23 | 1 |
-| 35 | South America | 478 | 14 |
-| 36 | South America Backups | 20 | 0 |
+| 33 | Asia | 499 | 94 |
+| 34 | Asia Backups | 25 | 1 |
+| 35 | South America | 473 | 14 |
+| 36 | South America Backups | 19 | 0 |
 | 37 | United States | 368 | 61 |
 | 38 | United States Backups | 59 | 28 |
-| 39 | Documentary | 328 | 120 |
+| 39 | Documentary | 333 | 121 |
 | 40 | Documentary Backups | 107 | 58 |
-| 41 | Kids | 308 | 97 |
-| 42 | Kids Backups | 103 | 61 |
+| 41 | Kids | 311 | 96 |
+| 42 | Kids Backups | 102 | 61 |
 | 43 | Series | 295 | 83 |
 | 44 | Series Backups | 197 | 155 |
-| 45 | North America | 294 | 11 |
+| 45 | North America | 292 | 11 |
 | 46 | North America Backups | 4 | 0 |
-| 47 | Education | 131 | 11 |
+| 47 | Education | 131 | 12 |
 | 48 | Education Backups | 15 | 2 |
-| 49 | Culture | 123 | 12 |
+| 49 | Culture | 122 | 12 |
 | 50 | Culture Backups | 7 | 3 |
-| 51 | Legislative | 113 | 9 |
+| 51 | Legislative | 114 | 9 |
 | 52 | Legislative Backups | 4 | 0 |
-| 53 | A&E Networks | 109 | 40 |
+| 53 | A&E Networks | 110 | 40 |
 | 54 | A&E Networks Backups | 25 | 21 |
 | 55 | Comedy | 109 | 29 |
 | 56 | Comedy Backups | 43 | 29 |
-| 57 | India | 69 | 24 |
+| 57 | India | 70 | 25 |
 | 58 | India Backups | 9 | 4 |
-| 59 | Africa | 67 | 6 |
-| 60 | Canada | 55 | 20 |
-| 61 | Business | 51 | 17 |
-| 62 | Business Backups | 18 | 15 |
+| 59 | Africa | 68 | 6 |
+| 60 | Business | 51 | 17 |
+| 61 | Business Backups | 18 | 15 |
+| 62 | Canada | 50 | 21 |
 | 63 | Classic TV | 49 | 13 |
 | 64 | Classic TV Backups | 22 | 20 |
 | 65 | Family | 30 | 15 |
 | 66 | Family Backups | 6 | 5 |
-| 67 | UK | 23 | 10 |
+| 67 | UK | 24 | 10 |
 | 68 | En Español | 19 | 18 |
 | 69 | En Español Backups | 11 | 9 |
 | 70 | Australia | 15 | 1 |
@@ -92,8 +92,8 @@
 | 80 | Drama Backups | 4 | 4 |
 | 81 | Tv Celebrities | 8 | 2 |
 | 82 | United Kingdom | 7 | 5 |
-| 83 | Online TV | 5 | 1 |
-| 84 | Online TV Backups | 8 | 7 |
+| 83 | Online TV | 5 | 0 |
+| 84 | Online TV Backups | 23 | 0 |
 | 85 | Tv Paranormal | 5 | 1 |
 | 86 | Season's Greetings | 4 | 4 |
 | 87 | Tv Shows | 4 | 1 |
@@ -103,25 +103,25 @@
 | 91 | Animals + Nature Backups | 3 | 3 |
 | 92 | Relax | 3 | 1 |
 | 93 | True Crime | 3 | 3 |
-| 94 | Other | 225 | 21 |
-| 95 | Other Backups | 381 | 3 |
+| 94 | Other | 254 | 22 |
+| 95 | Other Backups | 394 | 3 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 13340 | 108 | 2523 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 13352 | 107 | 2548 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 13 | 5 | 1 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 13291 (99.5%) |
-| matched on the base id (feed qualifier dropped) | 2 (0.0%) |
-| matched on the display name | 5 (0.0%) |
-| matched on a looser spelling of the name | 1 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 54 (0.4%) |
+| already declared in the guide | 13240 (99.1%) |
+| matched on the base id (feed qualifier dropped) | 4 (0.0%) |
+| matched on the display name | 7 (0.1%) |
+| matched on a looser spelling of the name | 4 (0.0%) |
+| no guide entry (upstream publishes no schedule for it) | 110 (0.8%) |
 
 ## Channels with no schedule yet
 
@@ -133,6 +133,7 @@ just have nothing to show until an upstream guide picks them up:
 - 5Live (1080p) (`5Live.il@SD`)
 - 5Max (1080p) (`5Max.il@SD`)
 - 5Plus (1080p) (`5Plus.il@SD`)
+- ספורט 6 HD (Sport 6) (`premiumtv.international.6_hd_sport_6`)
 - A Sports (`premiumtv.pakistan.a_sports`)
 - ACI Sport TV SD (1080p) (`ACISportTV.it@SD`)
 - ☆ ACL Cornhole TV 🇺🇸 (`plex.tv.ACL.Cornhole.TV.plex`)
@@ -140,7 +141,6 @@ just have nothing to show until an upstream guide picks them up:
 - Adventure Sports TV (1080p) (`AdventureSportsTV.us@SD`)
 - Africa 24 Sport (1080p) (`Africa24Sport.fr@SD`)
 - Al Iraqia Sport (720p) (`AlIraqiaSport.iq@SD`)
-- Altitude Sports (`Altitude.Sports.us2`)
 - AntenaPlay Events (576p) [Not 24/7] (`AntenaPlayEvents.ro@SD`)
 - AntenaSport (`AntenaSport.ro@SD`)
 - Arena Sport 1 (`ArenaSport1.sk@SD`)
