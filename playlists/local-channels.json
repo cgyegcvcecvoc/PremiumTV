@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_utc": "2026-11-24T01:59:04Z",
+  "generated_utc": "2026-11-24T03:40:16Z",
   "source": "playlists/live/USA.m3u",
   "reference": [
     "data/local-markets/us-tv-markets.csv",
@@ -413,17 +413,6 @@
           "logo": "https://i.imgur.com/pvXZ8DX.png",
           "url": "https://amg01438-amg01438c6-vizio-us-10897.playouts.now.amagi.tv/playlist.m3u8",
           "backup_urls": []
-        },
-        {
-          "callsign": "KNSD",
-          "city": "San Diego",
-          "network": "",
-          "name": "Telemundo KNSD (1080p) [Not 24/7]",
-          "channel_id": "Telemundo.us@KNSD",
-          "chno": "",
-          "logo": "https://imgx.fubo.tv/station_logos/telemundo_c.png",
-          "url": "https://nbculocallive.akamaized.net/hls/live/2037098/sandiego/stream1/master.m3u8",
-          "backup_urls": []
         }
       ]
     },
@@ -572,27 +561,6 @@
           "chno": "",
           "logo": "https://i.imgur.com/nxY84W5.png",
           "url": "https://d368vp0qqzvkid.cloudfront.net/11603/88889707/hls/master.m3u8?ads.xumo_channelId=88889707a&ads.xumo_ifaType=&ads.xumo_providerId=3832&ads.xumo_providerName=NBCNCT",
-          "backup_urls": []
-        }
-      ]
-    },
-    {
-      "id": "USHVN",
-      "city": "New Haven",
-      "state": "CT",
-      "state_name": "Connecticut",
-      "latitude": 41.3147,
-      "longitude": -72.9273,
-      "stations": [
-        {
-          "callsign": "WTNH",
-          "city": "New Haven",
-          "network": "ABC",
-          "name": "ABC WTNH (720p)",
-          "channel_id": "ABC.us@WTNH",
-          "chno": "",
-          "logo": "https://i.imgur.com/pvXZ8DX.png",
-          "url": "https://tkx.mp.lura.live/rest/v2/mcp/video/11135425.m3u8?anvack=pDKqMLyG9pVqMkSYRJHWu3XROjAlvR6z&eud=1iqQ+zazzEobWIhmmj6bA8STRJm4HceYQApO7QYBvy9BTps0KI7LuXGD4KK7RLtBTyO8KsbFw40vgX8hrw+xqw==",
           "backup_urls": []
         }
       ]
@@ -795,12 +763,14 @@
           "callsign": "WFTV",
           "city": "Orlando",
           "network": "ABC",
-          "name": "ABC WFTV (720p)",
-          "channel_id": "ABC.us@WFTV",
+          "name": "ABC 9 Orlando FL (WFTV) (720p)",
+          "channel_id": "WFTVDT1.us@SD",
           "chno": "",
-          "logo": "https://i.imgur.com/pvXZ8DX.png",
+          "logo": "",
           "url": "https://amg00327-coxmediagroup-wftvbreaking-ono-hec7b.amagi.tv/playlist/amg00327-coxmediagroup-wftvbreaking-ono/playlist.m3u8",
-          "backup_urls": []
+          "backup_urls": [
+            "https://amg00327-coxmediagroup-wftvbreakingnews-vizious-bfgi2.amagi.tv/ts-eu-w1-n2/playlist/amg00327-coxmediagroup-wftvbreakingnews-vizious/playlist.m3u8"
+          ]
         },
         {
           "callsign": "WOFL",
@@ -811,17 +781,6 @@
           "chno": "",
           "logo": "https://i.imgur.com/9zu00TZ.png",
           "url": "https://amg00488-foxdigital-fox35orlandowofl-vizious-i7zzw.amagi.tv/playlist/amg00488-foxdigital-fox35orlandowofl-vizious/playlist.m3u8",
-          "backup_urls": []
-        },
-        {
-          "callsign": "WTMO",
-          "city": "Orlando",
-          "network": "",
-          "name": "Telemundo WTMO-CD (720p)",
-          "channel_id": "Telemundo.us@WTMOCD",
-          "chno": "",
-          "logo": "https://imgx.fubo.tv/station_logos/telemundo_c.png",
-          "url": "https://d368vp0qqzvkid.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_nbc-direct/adcee832-5511-4ed1-bcef-58616c0f530f/4.m3u8",
           "backup_urls": []
         }
       ]
@@ -2260,17 +2219,6 @@
       "longitude": -75.1426,
       "stations": [
         {
-          "callsign": "WCAU",
-          "city": "Philadelphia",
-          "network": "",
-          "name": "Telemundo WCAU (1080p)",
-          "channel_id": "Telemundo.us@WCAU",
-          "chno": "",
-          "logo": "https://imgx.fubo.tv/station_logos/telemundo_c.png",
-          "url": "https://d368vp0qqzvkid.cloudfront.net/11603/88889705/hls/master.m3u8?ads.xumo_channelId=88889705a&ads.xumo_ifaType=&ads.xumo_providerId=3819&ads.xumo_providerName=NBCNPHI",
-          "backup_urls": []
-        },
-        {
           "callsign": "WTXF",
           "city": "Philadelphia",
           "network": "FOX",
@@ -2996,8 +2944,7 @@
       "longitude": -72.7,
       "markets": [
         "USHFD",
-        "USNWT",
-        "USHVN"
+        "USNWT"
       ]
     },
     {
@@ -4027,21 +3974,21 @@
     {
       "prefix": "064",
       "state": "CT",
-      "market": "USHVN",
+      "market": "USNWT",
       "latitude": 41.434,
       "longitude": -72.782
     },
     {
       "prefix": "065",
       "state": "CT",
-      "market": "USHVN",
+      "market": "USNWT",
       "latitude": 41.322,
       "longitude": -72.93
     },
     {
       "prefix": "066",
       "state": "CT",
-      "market": "USHVN",
+      "market": "USNWT",
       "latitude": 41.193,
       "longitude": -73.193
     },
@@ -4055,14 +4002,14 @@
     {
       "prefix": "068",
       "state": "CT",
-      "market": "USHVN",
+      "market": "USNWT",
       "latitude": 41.213,
       "longitude": -73.423
     },
     {
       "prefix": "069",
       "state": "CT",
-      "market": "USHVN",
+      "market": "USNWT",
       "latitude": 41.062,
       "longitude": -73.539
     },
@@ -10131,7 +10078,7 @@
       "state": "CA",
       "state_name": "California",
       "market": "USSAN",
-      "stations": 2,
+      "stations": 1,
       "latitude": 32.7551,
       "longitude": -117.1473
     },
@@ -10197,15 +10144,6 @@
       "stations": 1,
       "latitude": 41.6696,
       "longitude": -72.7851
-    },
-    {
-      "city": "New Haven",
-      "state": "CT",
-      "state_name": "Connecticut",
-      "market": "USHVN",
-      "stations": 1,
-      "latitude": 41.3147,
-      "longitude": -72.9273
     },
     {
       "city": "Washington",
@@ -10275,7 +10213,7 @@
       "state": "FL",
       "state_name": "Florida",
       "market": "USORL",
-      "stations": 3,
+      "stations": 2,
       "latitude": 28.5178,
       "longitude": -81.3075
     },
@@ -10806,7 +10744,7 @@
       "state": "PA",
       "state_name": "Pennsylvania",
       "market": "USPHL",
-      "stations": 2,
+      "stations": 1,
       "latitude": 39.9908,
       "longitude": -75.1426
     },
@@ -11045,6 +10983,6 @@
       "longitude": -87.9529
     }
   ],
-  "market_count": 114,
-  "station_count": 152
+  "market_count": 113,
+  "station_count": 148
 }
