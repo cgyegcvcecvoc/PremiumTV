@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-24T11:04:11Z",
+  "generated_utc": "2026-11-24T15:08:26Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261124T105912Z-2993",
+  "scrape_run_id": "20261124T150306Z-3026",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -13,67 +13,17 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 11,
+  "fixture_count": 13,
   "compliant_count": 0,
-  "deficit_count": 11,
+  "deficit_count": 13,
   "fixtures": [
     {
-      "sport": "Basketball",
-      "league": "basketball",
-      "home": "Sacramento Kings",
-      "away": "San Antonio Spurs",
-      "title": "Sacramento Kings vs. San Antonio Spurs",
-      "key": "basketball|sacramentokings|sanantoniospurs",
-      "feed_count": 2,
-      "confirmed_feed_count": 2,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 0,
-      "primary_ready": true,
-      "backup_ready": false,
-      "origin_families": [
-        "sportsbite.org"
-      ],
-      "providers": [
-        "SPRTSBITE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "2408b085f6db",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "SPRTSBITE",
-          "origin_family": "sportsbite.org",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "27fd159244b1",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "SPRTSBITE",
-          "origin_family": "sportsbite.org",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Hockey",
-      "league": "hockey",
-      "home": "Minnesota Wild",
-      "away": "San Jose Sharks",
-      "title": "Minnesota Wild vs. San Jose Sharks",
-      "key": "hockey|minnesotawild|sanjosesharks",
+      "sport": "Soccer",
+      "league": "Russia Cup",
+      "home": "Akron Togliatti",
+      "away": "CSKA Moscow",
+      "title": "Akron Togliatti vs. CSKA Moscow",
+      "key": "soccer|akrontogliatti|cskamoscow",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -81,122 +31,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "sportsbite.org"
-      ],
-      "providers": [
-        "SPRTSBITE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "834040a66263",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "SPRTSBITE",
-          "origin_family": "sportsbite.org",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "NBA Basketball",
-      "league": "NBA",
-      "home": "San Antonio Spurs",
-      "away": "Sacramento Kings",
-      "title": "San Antonio Spurs vs. Sacramento Kings",
-      "key": "nbabasketball|sacramentokings|sanantoniospurs",
-      "feed_count": 1,
-      "confirmed_feed_count": 0,
-      "confirmed_primary_count": 0,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [],
-      "providers": [],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 2 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 2 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "c3b628f5dbc9",
-          "role": "primary",
-          "status": "retained-unverified",
-          "provider": "MP66",
-          "origin_family": "mlb9.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "NBA Basketball",
-      "league": "NBA",
-      "home": "Utah Jazz",
-      "away": "Los Angeles Lakers",
-      "title": "Utah Jazz vs. Los Angeles Lakers",
-      "key": "nbabasketball|losangeleslakers|utahjazz",
-      "feed_count": 1,
-      "confirmed_feed_count": 0,
-      "confirmed_primary_count": 0,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [],
-      "providers": [],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 2 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 2 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "6c80972ae485",
-          "role": "primary",
-          "status": "retained-unverified",
-          "provider": "MP66",
-          "origin_family": "mlb9.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "Montreal Canadiens",
-      "away": "Los Angeles Kings",
-      "title": "Montreal Canadiens vs. Los Angeles Kings",
-      "key": "nhlhockey|losangeleskings|montrealcanadiens",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -212,11 +47,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "033b7f1f9a4b",
+          "fingerprint": "adbad4c54292",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "kinescopecdn.net",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
@@ -224,12 +59,12 @@
       ]
     },
     {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "New Jersey Devils",
-      "away": "Columbus Blue Jackets",
-      "title": "New Jersey Devils vs. Columbus Blue Jackets",
-      "key": "nhlhockey|columbusbluejackets|newjerseydevils",
+      "sport": "Soccer",
+      "league": "UEFA Youth League",
+      "home": "Arsenal U19",
+      "away": "Dortmund U19",
+      "title": "Arsenal U19 vs. Dortmund U19",
+      "key": "soccer|arsenalu19|dortmundu19",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -237,7 +72,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -253,11 +88,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "c795a795932c",
+          "fingerprint": "605214398b9a",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "kinescopecdn.net",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
@@ -265,12 +100,12 @@
       ]
     },
     {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "New York Islanders",
-      "away": "Toronto Maple Leafs",
-      "title": "New York Islanders vs. Toronto Maple Leafs",
-      "key": "nhlhockey|newyorkislanders|torontomapleleafs",
+      "sport": "Soccer",
+      "league": "AFC Champions League II",
+      "home": "East Bengal",
+      "away": "Al Hussein",
+      "title": "East Bengal vs. Al Hussein",
+      "key": "soccer|alhussein|eastbengal",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -278,7 +113,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -294,11 +129,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "1b5b181996b8",
+          "fingerprint": "ab10bae1b846",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "kinescopecdn.net",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
@@ -306,12 +141,12 @@
       ]
     },
     {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "Ottawa Senators",
-      "away": "Calgary Flames",
-      "title": "Ottawa Senators vs. Calgary Flames",
-      "key": "nhlhockey|calgaryflames|ottawasenators",
+      "sport": "Soccer",
+      "league": "UEFA Youth League",
+      "home": "Feyenoord U19",
+      "away": "FC Porto U19",
+      "title": "Feyenoord U19 vs. FC Porto U19",
+      "key": "soccer|fcportou19|feyenoordu19",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -319,7 +154,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -335,11 +170,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "6296388bbbfe",
+          "fingerprint": "c1fbb60a2782",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "kinescopecdn.net",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
@@ -347,12 +182,12 @@
       ]
     },
     {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "San Jose Sharks",
-      "away": "Minnesota Wild",
-      "title": "San Jose Sharks vs. Minnesota Wild",
-      "key": "nhlhockey|minnesotawild|sanjosesharks",
+      "sport": "Soccer",
+      "league": "India ISL League",
+      "home": "North East Utd",
+      "away": "SC Delhi",
+      "title": "North East Utd vs. SC Delhi",
+      "key": "soccer|northeastutd|scdelhi",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -360,7 +195,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -376,11 +211,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "d347c17daf9a",
+          "fingerprint": "0df968505a65",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "kinescopecdn.net",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
@@ -388,12 +223,12 @@
       ]
     },
     {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "Seattle Kraken",
-      "away": "Anaheim Ducks",
-      "title": "Seattle Kraken vs. Anaheim Ducks",
-      "key": "nhlhockey|anaheimducks|seattlekraken",
+      "sport": "Soccer",
+      "league": "UEFA Youth League",
+      "home": "Real Madrid U19",
+      "away": "PSV U19",
+      "title": "Real Madrid U19 vs. PSV U19",
+      "key": "soccer|psvu19|realmadridu19",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -401,7 +236,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -417,11 +252,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "a455feeca150",
+          "fingerprint": "9570e05e667e",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "kinescopecdn.net",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
@@ -429,12 +264,12 @@
       ]
     },
     {
-      "sport": "NHL Hockey",
-      "league": "NHL Hockey",
-      "home": "Winnipeg Jets",
-      "away": "Utah Mammoth",
-      "title": "Winnipeg Jets vs. Utah Mammoth",
-      "key": "nhlhockey|utahmammoth|winnipegjets",
+      "sport": "Soccer",
+      "league": "Egypt Premier League",
+      "home": "ZED",
+      "away": "Abu Qir Semad",
+      "title": "ZED vs. Abu Qir Semad",
+      "key": "soccer|abuqirsemad|zed",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -442,7 +277,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "kinescopecdn.net"
+        "193.47.62.41"
       ],
       "providers": [
         "FAWA"
@@ -458,11 +293,257 @@
       ],
       "feeds": [
         {
-          "fingerprint": "b709f0932499",
+          "fingerprint": "8fab7964ae07",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "kinescopecdn.net",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "World Cup U17",
+      "league": "World Cup U17",
+      "home": "Brazil U17",
+      "away": "Tanzania U17",
+      "title": "Brazil U17 vs. Tanzania U17",
+      "key": "worldcupu17|brazilu17|tanzaniau17",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "ceff0d64e992",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "World Cup U17",
+      "league": "World Cup U17",
+      "home": "Costa Rica U17",
+      "away": "Ireland U17",
+      "title": "Costa Rica U17 vs. Ireland U17",
+      "key": "worldcupu17|costaricau17|irelandu17",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "43f20bfc1dda",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "World Cup U17",
+      "league": "World Cup U17",
+      "home": "Dominican Republic U17",
+      "away": "Chile U17",
+      "title": "Dominican Republic U17 vs. Chile U17",
+      "key": "worldcupu17|chileu17|dominicanrepublicu17",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "c2ce48241669",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "World Cup U17",
+      "league": "World Cup U17",
+      "home": "Japan U17",
+      "away": "Serbia U17",
+      "title": "Japan U17 vs. Serbia U17",
+      "key": "worldcupu17|japanu17|serbiau17",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "a2145fa18397",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "World Cup U17",
+      "league": "World Cup U17",
+      "home": "Mexico U17",
+      "away": "Cameroon U17",
+      "title": "Mexico U17 vs. Cameroon U17",
+      "key": "worldcupu17|cameroonu17|mexicou17",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "57ed3518905b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "World Cup U17",
+      "league": "World Cup U17",
+      "home": "Venezuela U17",
+      "away": "Romania U17",
+      "title": "Venezuela U17 vs. Romania U17",
+      "key": "worldcupu17|romaniau17|venezuelau17",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "63b8c1f6d8bc",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
