@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-24T05:36:04Z",
+  "generated_utc": "2026-11-24T11:04:11Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261124T053018Z-2995",
+  "scrape_run_id": "20261124T105912Z-2993",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -13,8 +13,8 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 14,
-  "compliant_count": 3,
+  "fixture_count": 11,
+  "compliant_count": 0,
   "deficit_count": 11,
   "fixtures": [
     {
@@ -111,108 +111,32 @@
     {
       "sport": "NBA Basketball",
       "league": "NBA",
-      "home": "LA Clippers",
-      "away": "Houston Rockets",
-      "title": "LA Clippers vs. Houston Rockets",
-      "key": "nbabasketball|houstonrockets|laclippers",
+      "home": "San Antonio Spurs",
+      "away": "Sacramento Kings",
+      "title": "San Antonio Spurs vs. Sacramento Kings",
+      "key": "nbabasketball|sacramentokings|sanantoniospurs",
       "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "confirmed_feed_count": 0,
+      "confirmed_primary_count": 0,
       "confirmed_backup_count": 0,
       "primary_ready": false,
       "backup_ready": false,
-      "origin_families": [
-        "candyshop.st"
-      ],
-      "providers": [
-        "STRMGATE"
-      ],
+      "origin_families": [],
+      "providers": [],
       "ingest_sources": [
         "doms9"
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
+        "needs 2 more confirmed primary feed(s)",
         "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 2 more independent origin family/families"
       ],
       "feeds": [
         {
-          "fingerprint": "68103a036ed6",
+          "fingerprint": "c3b628f5dbc9",
           "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "NBA Basketball",
-      "league": "NBA Basketball",
-      "home": "Los Angeles Lakers",
-      "away": "Utah Jazz",
-      "title": "Los Angeles Lakers vs. Utah Jazz",
-      "key": "nbabasketball|losangeleslakers|utahjazz",
-      "feed_count": 4,
-      "confirmed_feed_count": 4,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 2,
-      "primary_ready": true,
-      "backup_ready": true,
-      "origin_families": [
-        "193.47.62.44",
-        "hereisman.net",
-        "mlb9.com",
-        "rtmpcdn.com"
-      ],
-      "providers": [
-        "FAWA",
-        "ISTRMEAST",
-        "MP66"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": true,
-      "deficits": [],
-      "feeds": [
-        {
-          "fingerprint": "dc556cf9022e",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.44",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "934cf1d62dc2",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "rtmpcdn.com",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "c77823cd72a1",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "6c80972ae485",
-          "role": "backup",
-          "status": "reachable",
+          "status": "retained-unverified",
           "provider": "MP66",
           "origin_family": "mlb9.com",
           "ingest_sources": [
@@ -223,57 +147,33 @@
     },
     {
       "sport": "NBA Basketball",
-      "league": "NBA Basketball",
-      "home": "Sacramento Kings",
-      "away": "San Antonio Spurs",
-      "title": "Sacramento Kings vs. San Antonio Spurs",
-      "key": "nbabasketball|sacramentokings|sanantoniospurs",
-      "feed_count": 3,
-      "confirmed_feed_count": 3,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 1,
-      "primary_ready": true,
-      "backup_ready": true,
-      "origin_families": [
-        "193.47.62.59",
-        "hereisman.net",
-        "mlb9.com"
-      ],
-      "providers": [
-        "FAWA",
-        "ISTRMEAST",
-        "MP66"
-      ],
+      "league": "NBA",
+      "home": "Utah Jazz",
+      "away": "Los Angeles Lakers",
+      "title": "Utah Jazz vs. Los Angeles Lakers",
+      "key": "nbabasketball|losangeleslakers|utahjazz",
+      "feed_count": 1,
+      "confirmed_feed_count": 0,
+      "confirmed_primary_count": 0,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [],
+      "providers": [],
       "ingest_sources": [
         "doms9"
       ],
-      "policy_met": true,
-      "deficits": [],
+      "policy_met": false,
+      "deficits": [
+        "needs 2 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 2 more independent origin family/families"
+      ],
       "feeds": [
         {
-          "fingerprint": "6707ba87f081",
+          "fingerprint": "6c80972ae485",
           "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.59",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "f9655c02f293",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "c3b628f5dbc9",
-          "role": "backup",
-          "status": "reachable",
+          "status": "retained-unverified",
           "provider": "MP66",
           "origin_family": "mlb9.com",
           "ingest_sources": [
@@ -453,27 +353,27 @@
       "away": "Minnesota Wild",
       "title": "San Jose Sharks vs. Minnesota Wild",
       "key": "nhlhockey|minnesotawild|sanjosesharks",
-      "feed_count": 3,
-      "confirmed_feed_count": 3,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 1,
-      "primary_ready": true,
-      "backup_ready": true,
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
       "origin_families": [
-        "4587.website",
-        "hereisman.net",
         "kinescopecdn.net"
       ],
       "providers": [
-        "FAWA",
-        "ISTRMEAST",
-        "MP66"
+        "FAWA"
       ],
       "ingest_sources": [
         "doms9"
       ],
-      "policy_met": true,
-      "deficits": [],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
       "feeds": [
         {
           "fingerprint": "d347c17daf9a",
@@ -481,26 +381,6 @@
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "kinescopecdn.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "5936c0cb49f2",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "MP66",
-          "origin_family": "4587.website",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "c6cafdb0d0e9",
-          "role": "backup",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -514,26 +394,26 @@
       "away": "Anaheim Ducks",
       "title": "Seattle Kraken vs. Anaheim Ducks",
       "key": "nhlhockey|anaheimducks|seattlekraken",
-      "feed_count": 2,
-      "confirmed_feed_count": 2,
-      "confirmed_primary_count": 2,
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
       "confirmed_backup_count": 0,
-      "primary_ready": true,
+      "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "hereisman.net",
         "kinescopecdn.net"
       ],
       "providers": [
-        "FAWA",
-        "ISTRMEAST"
+        "FAWA"
       ],
       "ingest_sources": [
         "doms9"
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed dedicated backup feed(s)"
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
       ],
       "feeds": [
         {
@@ -542,16 +422,6 @@
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "kinescopecdn.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "4fb2eab5ef51",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -593,88 +463,6 @@
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "kinescopecdn.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Uruguay Liga AUF",
-      "home": "Albion",
-      "away": "Danubio",
-      "title": "Albion vs. Danubio",
-      "key": "soccer|albion|danubio",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.44"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "8e3c6d11613f",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.44",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "MLS League",
-      "home": "St Louis City",
-      "away": "Los Angeles FCFC",
-      "title": "St Louis City vs. Los Angeles FCFC",
-      "key": "soccer|losangelesfcfc|stlouiscity",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "fa0046aae8ca",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
           "ingest_sources": [
             "doms9"
           ]
