@@ -53,10 +53,6 @@
     <display-name>ParaguayTV.py</display-name>
     <icon src="https://iptv-epg.org/images/dpUB5aDzaakVXcZ0uyqreZswZwdRhzYxP8wOJUHz8CqFSC5UHEQJ9qvn8z9SeGUdlObMIiNajQ_Or9Qk2hFwuBBEu5H28DyBIQin5Kj8WvauuXMREQ" />
   </channel>
-  <channel id="RBTV.py@SD">
-    <display-name>RB TV (1080p)</display-name>
-    <icon src="https://i.imgur.com/EMFAFX0.png" />
-  </channel>
   <channel id="RegionalTVYaguaron.py@SD">
     <display-name>Regional TV Yaguaron (1080p)</display-name>
     <icon src="https://i.imgur.com/iL5JnSy.jpeg" />
@@ -86,10 +82,6 @@
   <channel id="UnionTV.py@SD">
     <display-name>Union TV (1080p)</display-name>
     <icon src="https://i.imgur.com/No9YzNC.png" />
-  </channel>
-  <channel id="UniRadioTV.py@SD">
-    <display-name>UniRadio TV (1080p)</display-name>
-    <icon src="https://i.imgur.com/Co3YrU0.png" />
   </channel>
   <channel id="AlcanceFMPLAYTV.py@SD">
     <display-name>Alcance FM PLAY TV</display-name>
@@ -123,10 +115,6 @@
     <display-name>Radio San Cristobal 88.7 FM</display-name>
     <icon src="https://i.imgur.com/zaJhBdj.png" />
   </channel>
-  <channel id="RadioTVElArcadelPacto.py@SD">
-    <display-name>Radio TV El Arca del Pacto (1080p)</display-name>
-    <icon src="https://i.imgur.com/Oq0i3Rb.png" />
-  </channel>
   <channel id="Tropicalia939FM.py@SD">
     <display-name>Tropicalia 93.9 FM</display-name>
     <icon src="https://i.imgur.com/oMML5Ue.png" />
@@ -134,10 +122,6 @@
   <channel id="VenusMedia.py@SD">
     <display-name>Venus Media (1080p)</display-name>
     <icon src="https://i.imgur.com/XwmUbfp.png" />
-  </channel>
-  <channel id="VillaElisaRadioTV.py@SD">
-    <display-name>Villa Elisa Radio TV (1080p)</display-name>
-    <icon src="https://i.imgur.com/ryzCsvy.jpg" />
   </channel>
   <channel id="4DmasNoticiasTV.py@SD">
     <display-name>4Dmas Noticias TV (1080p) [Not 24/7]</display-name>
@@ -221,9 +205,6 @@
     <display-name>7137</display-name>
     <icon src="https://epg.pw/media/images/epg/2024/06/08/20240608032246065774_82.png" />
   </channel>
-  <programme start="20261124090000 +0000" stop="20261124110000 +0000" channel="ParaguayTV.py@SD">
-    <title>Duplex nacional</title>
-  </programme>
   <programme start="20261124110000 +0000" stop="20261124140000 +0000" channel="ParaguayTV.py@SD">
     <title>La mañana nacional</title>
   </programme>
@@ -350,6 +331,12 @@
   <programme start="20261126150000 +0000" stop="20261126160000 +0000" channel="ParaguayTV.py@SD">
     <title>Ovación deportiva</title>
   </programme>
+  <programme start="20261126160000 +0000" stop="20261126170000 +0000" channel="ParaguayTV.py@SD">
+    <title>Paraguay 920</title>
+  </programme>
+  <programme start="20261126170000 +0000" stop="20261126180000 +0000" channel="ParaguayTV.py@SD">
+    <title>Curiosidades</title>
+  </programme>
   <programme start="20261124082000 +0000" stop="20261124120000 +0000" channel="Telefuturo.py@SD">
     <title>Día a día</title>
   </programme>
@@ -431,8 +418,8 @@
   <programme start="20261126143000 +0000" stop="20261126163000 +0000" channel="Telefuturo.py@SD">
     <title>Meridiano informativo</title>
   </programme>
-  <programme start="20261124080000 +0000" stop="20261124110000 +0000" channel="Unicanal.py@SD">
-    <title>Amanece Paraguay</title>
+  <programme start="20261126163000 +0000" stop="20261126180000 +0000" channel="Telefuturo.py@SD">
+    <title>Todo por mi familia</title>
   </programme>
   <programme start="20261124110000 +0000" stop="20261124133000 +0000" channel="Unicanal.py@SD">
     <title>Será un gran día</title>
@@ -584,11 +571,17 @@
   <programme start="20261126143000 +0000" stop="20261126160000 +0000" channel="Unicanal.py@SD">
     <title>Noticiero unicanal</title>
   </programme>
-  <programme start="20261124090000 +0000" stop="20261124093000 +0000" channel="Latele.py@SD">
-    <title>Heidi</title>
+  <programme start="20261126160000 +0000" stop="20261126163000 +0000" channel="Unicanal.py@SD">
+    <title>Unitech</title>
   </programme>
-  <programme start="20261124093000 +0000" stop="20261124110000 +0000" channel="Latele.py@SD">
-    <title>La rosa de Guadalupe</title>
+  <programme start="20261126163000 +0000" stop="20261126170000 +0000" channel="Unicanal.py@SD">
+    <title>Vero Vega presenta</title>
+  </programme>
+  <programme start="20261126170000 +0000" stop="20261126173000 +0000" channel="Unicanal.py@SD">
+    <title>Compacto económico</title>
+  </programme>
+  <programme start="20261126173000 +0000" stop="20261126180000 +0000" channel="Unicanal.py@SD">
+    <title>Infomerciales</title>
   </programme>
   <programme start="20261124110000 +0000" stop="20261124120000 +0000" channel="Latele.py@SD">
     <title>Como dice el dicho</title>
@@ -743,75 +736,14 @@
   <programme start="20261126141500 +0000" stop="20261126151500 +0000" channel="Latele.py@SD">
     <title>El misterio de Rose</title>
   </programme>
-  <programme start="20261124090000 +0000" stop="20261124091000 +0000" channel="NextHD.py@SD">
-    <title>Ежедневник на русском языке</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261126151500 +0000" stop="20261126163000 +0000" channel="Latele.py@SD">
+    <title>Kuma, la otra esposa</title>
   </programme>
-  <programme start="20261124091000 +0000" stop="20261124091400 +0000" channel="NextHD.py@SD">
-    <title>Погода в Нефтекамске</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261126163000 +0000" stop="20261126173000 +0000" channel="Latele.py@SD">
+    <title>Teledía Noticias</title>
   </programme>
-  <programme start="20261124091400 +0000" stop="20261124092400 +0000" channel="NextHD.py@SD">
-    <title>Новости Краснокамского района</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124092400 +0000" stop="20261124100000 +0000" channel="NextHD.py@SD">
-    <title>Мультфильм</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124100000 +0000" stop="20261124101000 +0000" channel="NextHD.py@SD">
-    <title>Ежедневник на русском языке</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124101000 +0000" stop="20261124101400 +0000" channel="NextHD.py@SD">
-    <title>Погода в Нефтекамске</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124101400 +0000" stop="20261124102400 +0000" channel="NextHD.py@SD">
-    <title>Новости Краснокамского района</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124102400 +0000" stop="20261124110000 +0000" channel="NextHD.py@SD">
-    <title>Мультфильм</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124110000 +0000" stop="20261124110200 +0000" channel="NextHD.py@SD">
-    <title>Погода в Нефтекамске</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124110200 +0000" stop="20261124113300 +0000" channel="NextHD.py@SD">
-    <title>Мультфильм</title>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261126173000 +0000" stop="20261126183000 +0000" channel="Latele.py@SD">
+    <title>Lo que la vida me robó</title>
   </programme>
   <programme start="20261124113300 +0000" stop="20261124123300 +0000" channel="NextHD.py@SD">
     <title>Святыни России</title>
@@ -1641,6 +1573,48 @@
   </programme>
   <programme start="20261126150000 +0000" stop="20261126154500 +0000" channel="NextHD.py@SD">
     <title>Проклятие кремлевских жен</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126154500 +0000" stop="20261126160000 +0000" channel="NextHD.py@SD">
+    <title>Мультфильмы</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126160000 +0000" stop="20261126161000 +0000" channel="NextHD.py@SD">
+    <title>Ежедневник на русском языке</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126161000 +0000" stop="20261126161400 +0000" channel="NextHD.py@SD">
+    <title>Погода в Нефтекамске</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126161400 +0000" stop="20261126162400 +0000" channel="NextHD.py@SD">
+    <title>Новости Краснокамского района</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126162400 +0000" stop="20261126170000 +0000" channel="NextHD.py@SD">
+    <title>Мое дело</title>
+    <date>20261126</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261126170000 +0000" stop="20261126175000 +0000" channel="NextHD.py@SD">
+    <title>т/с Берега моей мечты ┊ 3</title>
     <date>20261126</date>
     <audio>
       <stereo>stereo</stereo>
