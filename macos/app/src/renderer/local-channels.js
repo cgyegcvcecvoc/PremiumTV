@@ -269,7 +269,7 @@ window.PremiumLocalChannels = (function () {
     if (zipMarket && !value.city) return [zipMarket];
     // A ZIP with no published market near it is an honest "none", not every
     // market in its state (1.1.21): a state the viewer picks is its own answer.
-    if (value.zip && !zipMarket && !value.city) return [];
+    if (value.zip.length >= 3 && !zipMarket && !value.city) return [];
     const wantedState = (value.state || stateForZip(value.zip, directory)).toUpperCase();
     const wantedCity = normalizePlace(value.city);
     const out = markets(directory).filter((market) => {

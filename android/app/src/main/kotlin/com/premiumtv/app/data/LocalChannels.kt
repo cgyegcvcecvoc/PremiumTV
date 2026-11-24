@@ -283,7 +283,7 @@ class LocalDirectory internal constructor(val document: JSONObject) {
         if (zipMarket != null && selection.city.isBlank()) return listOf(zipMarket)
         // A ZIP with no published market near it is an honest "none", not every
         // market in its state (1.1.21).
-        if (selection.zip.isNotBlank() && zipMarket == null && selection.city.isBlank()) return emptyList()
+        if (selection.zip.length >= 3 && zipMarket == null && selection.city.isBlank()) return emptyList()
         val wantedCity = normalizePlace(selection.city)
         return markets.filter { market ->
             (wantedState.isBlank() || market.state == wantedState) &&
