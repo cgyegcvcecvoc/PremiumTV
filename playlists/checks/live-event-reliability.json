@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-24T19:33:50Z",
+  "generated_utc": "2026-11-24T21:28:52Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261124T192918Z-2989",
+  "scrape_run_id": "20261124T212355Z-3039",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -13,25 +13,26 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 24,
-  "compliant_count": 0,
-  "deficit_count": 24,
+  "fixture_count": 39,
+  "compliant_count": 1,
+  "deficit_count": 38,
   "fixtures": [
     {
       "sport": "Basketball Euroleague",
       "league": "Basketball Euroleague",
-      "home": "Bayern Munchen",
-      "away": "Maccabi Tel Aviv",
-      "title": "Bayern Munchen vs. Maccabi Tel Aviv",
-      "key": "basketballeuroleague|bayernmunchen|maccabitelaviv",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "home": "Barcelona",
+      "away": "Fenerbahce",
+      "title": "Barcelona vs. Fenerbahce",
+      "key": "basketballeuroleague|barcelona|fenerbahce",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
       "confirmed_backup_count": 0,
-      "primary_ready": false,
+      "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "193.47.62.41",
+        "rtmpcdn.com"
       ],
       "providers": [
         "FAWA"
@@ -41,13 +42,21 @@
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 1 more confirmed dedicated backup feed(s)"
       ],
       "feeds": [
         {
-          "fingerprint": "3337048771a3",
+          "fingerprint": "3c78349beede",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "e0de8eba3d54",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -61,10 +70,10 @@
     {
       "sport": "Basketball Euroleague",
       "league": "Basketball Euroleague",
-      "home": "Crvena Zvezda",
-      "away": "Virtus Bologna",
-      "title": "Crvena Zvezda vs. Virtus Bologna",
-      "key": "basketballeuroleague|crvenazvezda|virtusbologna",
+      "home": "Lyon-Villeurbanne",
+      "away": "Olimpia Milano",
+      "title": "Lyon-Villeurbanne vs. Olimpia Milano",
+      "key": "basketballeuroleague|lyonvilleurbanne|olimpiamilano",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -72,7 +81,7 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "rtmpcdn.com"
       ],
       "providers": [
         "FAWA"
@@ -88,11 +97,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "585b45e7e3b1",
+          "fingerprint": "aa4e6bfc4da8",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "origin_family": "rtmpcdn.com",
           "ingest_sources": [
             "doms9"
           ]
@@ -106,14 +115,15 @@
       "away": "Panathinaikos",
       "title": "Valencia vs. Panathinaikos",
       "key": "basketballeuroleague|panathinaikos|valencia",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
       "confirmed_backup_count": 0,
-      "primary_ready": false,
+      "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "193.47.62.41",
+        "rtmpcdn.com"
       ],
       "providers": [
         "FAWA"
@@ -123,11 +133,19 @@
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 1 more confirmed dedicated backup feed(s)"
       ],
       "feeds": [
+        {
+          "fingerprint": "626b1b356ee4",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
         {
           "fingerprint": "f2d186db152e",
           "role": "primary",
@@ -143,10 +161,10 @@
     {
       "sport": "College Football",
       "league": "NCAA Men",
-      "home": "Akron",
-      "away": "Belmont",
-      "title": "Akron vs. Belmont",
-      "key": "collegefootball|akron|belmont",
+      "home": "Detroit",
+      "away": "North Dakota",
+      "title": "Detroit vs. North Dakota",
+      "key": "collegefootball|detroit|northdakota",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -170,7 +188,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "62def0fb7366",
+          "fingerprint": "7c6cd192fbf5",
           "role": "primary",
           "status": "reachable",
           "provider": "ISTRMEAST",
@@ -184,10 +202,10 @@
     {
       "sport": "College Football",
       "league": "NCAA Men",
-      "home": "Florida Int.",
-      "away": "Southern Utah",
-      "title": "Florida Int. vs. Southern Utah",
-      "key": "collegefootball|floridaint|southernutah",
+      "home": "Long Beach",
+      "away": "Arkansas St.",
+      "title": "Long Beach vs. Arkansas St.",
+      "key": "collegefootball|arkansasst|longbeach",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -211,7 +229,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "7081b5a94a48",
+          "fingerprint": "f0c5b958d71f",
           "role": "primary",
           "status": "reachable",
           "provider": "ISTRMEAST",
@@ -225,10 +243,10 @@
     {
       "sport": "College Football",
       "league": "NCAA Men",
-      "home": "Oklahoma",
-      "away": "Pittsburgh",
-      "title": "Oklahoma vs. Pittsburgh",
-      "key": "collegefootball|oklahoma|pittsburgh",
+      "home": "Miami",
+      "away": "TCU",
+      "title": "Miami vs. TCU",
+      "key": "collegefootball|miami|tcu",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -252,7 +270,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "a7fbdf62d3c4",
+          "fingerprint": "81a883005a27",
           "role": "primary",
           "status": "reachable",
           "provider": "ISTRMEAST",
@@ -264,268 +282,12 @@
       ]
     },
     {
-      "sport": "Soccer",
-      "league": "Egypt Premier League",
-      "home": "Al Masry",
-      "away": "Asyut Petroleum",
-      "title": "Al Masry vs. Asyut Petroleum",
-      "key": "soccer|almasry|asyutpetroleum",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "a0ca20cc189f",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "AFC Champions League",
-      "home": "Al Nassr",
-      "away": "Al Sadd",
-      "title": "Al Nassr vs. Al Sadd",
-      "key": "soccer|alnassr|alsadd",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "937039c71386",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Egypt Premier League",
-      "home": "Arab Contractors",
-      "away": "Al Qanah",
-      "title": "Arab Contractors vs. Al Qanah",
-      "key": "soccer|alqanah|arabcontractors",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "e0e4f75eba08",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Champions League",
-      "home": "Aston Villa",
-      "away": "Galatasaray",
-      "title": "Aston Villa vs. Galatasaray",
-      "key": "soccer|astonvilla|galatasaray",
-      "feed_count": 2,
-      "confirmed_feed_count": 2,
-      "confirmed_primary_count": 2,
-      "confirmed_backup_count": 0,
-      "primary_ready": true,
-      "backup_ready": false,
-      "origin_families": [
-        "candyshop.st",
-        "hereisman.net"
-      ],
-      "providers": [
-        "ISTRMEAST",
-        "STRMGATE"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed dedicated backup feed(s)"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "94b5fd442635",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "STRMGATE",
-          "origin_family": "candyshop.st",
-          "ingest_sources": [
-            "doms9"
-          ]
-        },
-        {
-          "fingerprint": "53627d02962c",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "ISTRMEAST",
-          "origin_family": "hereisman.net",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "Italy Serie B",
-      "home": "Benevento",
-      "away": "Empoli",
-      "title": "Benevento vs. Empoli",
-      "key": "soccer|benevento|empoli",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "df804fe7af6b",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Champions League",
-      "home": "Bodo Glimt",
-      "away": "LASK",
-      "title": "Bodo Glimt vs. LASK",
-      "key": "soccer|bodoglimt|lask",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "aarray.cn"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "47374fdd35ba",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "aarray.cn",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Champions League",
-      "home": "Bodø/Glimt",
-      "away": "LASK",
-      "title": "Bodø/Glimt vs. LASK",
-      "key": "soccer|bodglimt|lask",
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Ole Miss",
+      "away": "BYU",
+      "title": "Ole Miss vs. BYU",
+      "key": "collegefootball|byu|olemiss",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -549,7 +311,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "d4f9a914b29f",
+          "fingerprint": "f01aa3623ccd",
           "role": "primary",
           "status": "reachable",
           "provider": "ISTRMEAST",
@@ -561,12 +323,12 @@
       ]
     },
     {
-      "sport": "Soccer",
-      "league": "Italy Serie B",
-      "home": "Cesena",
-      "away": "Ascoli",
-      "title": "Cesena vs. Ascoli",
-      "key": "soccer|ascoli|cesena",
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Tennessee",
+      "away": "Maryland",
+      "title": "Tennessee vs. Maryland",
+      "key": "collegefootball|maryland|tennessee",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -574,10 +336,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "hereisman.net"
       ],
       "providers": [
-        "FAWA"
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
@@ -590,11 +352,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "613cb38e98ed",
+          "fingerprint": "09bc800b8780",
           "role": "primary",
           "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -602,12 +364,12 @@
       ]
     },
     {
-      "sport": "Soccer",
-      "league": "Italy Serie B",
-      "home": "Entella",
-      "away": "Verona",
-      "title": "Entella vs. Verona",
-      "key": "soccer|entella|verona",
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Yale",
+      "away": "Appalachian State",
+      "title": "Yale vs. Appalachian State",
+      "key": "collegefootball|appalachianstate|yale",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -615,10 +377,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "hereisman.net"
       ],
       "providers": [
-        "FAWA"
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
@@ -631,11 +393,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "b6c359971a80",
+          "fingerprint": "94700669c2d5",
           "role": "primary",
           "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -643,53 +405,12 @@
       ]
     },
     {
-      "sport": "Soccer",
-      "league": "Italy Serie B",
-      "home": "Juve Stabia",
-      "away": "Catanzaro",
-      "title": "Juve Stabia vs. Catanzaro",
-      "key": "soccer|catanzaro|juvestabia",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "b1b3dd032910",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Champions League",
-      "home": "LASK Linz",
-      "away": "Bodo/Glimt",
-      "title": "LASK Linz vs. Bodo/Glimt",
-      "key": "soccer|bodoglimt|lasklinz",
+      "sport": "ENG 2",
+      "league": "ENG 2",
+      "home": "Derby County",
+      "away": "Wolverhampton Wanderers",
+      "title": "Derby County vs. Wolverhampton Wanderers",
+      "key": "eng2|derbycounty|wolverhamptonwanderers",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -713,7 +434,130 @@
       ],
       "feeds": [
         {
-          "fingerprint": "244d702deba0",
+          "fingerprint": "20aa070fdf91",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "ENG 2",
+      "league": "ENG 2",
+      "home": "West Ham United",
+      "away": "Portsmouth",
+      "title": "West Ham United vs. Portsmouth",
+      "key": "eng2|portsmouth|westhamunited",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "84d962a19aa8",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "ENG 2",
+      "league": "ENG 2",
+      "home": "Wrexham",
+      "away": "Bristol City",
+      "title": "Wrexham vs. Bristol City",
+      "key": "eng2|bristolcity|wrexham",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "c1e9fcff7cb7",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "ENG 4",
+      "league": "ENG 4",
+      "home": "Barnet",
+      "away": "Crawley Town",
+      "title": "Barnet vs. Crawley Town",
+      "key": "eng4|barnet|crawleytown",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "c58862fccd78",
           "role": "primary",
           "status": "reachable",
           "provider": "STRMGATE",
@@ -726,11 +570,200 @@
     },
     {
       "sport": "Soccer",
-      "league": "Italy Serie B",
-      "home": "LR Vicenza",
-      "away": "Carrarese",
-      "title": "LR Vicenza vs. Carrarese",
-      "key": "soccer|carrarese|lrvicenza",
+      "league": "UEFA Champions League",
+      "home": "AEK Athens",
+      "away": "Como",
+      "title": "AEK Athens vs. Como",
+      "key": "soccer|aekathens|como",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st",
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "1f1937cdbbe2",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "13d2a3413a96",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "Arsenal",
+      "away": "Borussia Dortmund",
+      "title": "Arsenal vs. Borussia Dortmund",
+      "key": "soccer|arsenal|borussiadortmund",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st",
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "8dcc063807b4",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "0777f011884f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "Bodo Glimt",
+      "away": "LASK",
+      "title": "Bodo Glimt vs. LASK",
+      "key": "soccer|bodoglimt|lask",
+      "feed_count": 1,
+      "confirmed_feed_count": 0,
+      "confirmed_primary_count": 0,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [],
+      "providers": [],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 2 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 2 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "47374fdd35ba",
+          "role": "primary",
+          "status": "retained-unverified",
+          "provider": "FAWA",
+          "origin_family": "aarray.cn",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English Championship",
+      "home": "Bristol City",
+      "away": "Wrexham",
+      "title": "Bristol City vs. Wrexham",
+      "key": "soccer|bristolcity|wrexham",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "0a5d5d847977",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "b433c5949332",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English League One",
+      "home": "Bromley",
+      "away": "Wycombe",
+      "title": "Bromley vs. Wycombe",
+      "key": "soccer|bromley|wycombe",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -754,7 +787,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "68ceaaa19187",
+          "fingerprint": "2e5e1bebb2eb",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -767,11 +800,193 @@
     },
     {
       "sport": "Soccer",
-      "league": "English EFL Trophy",
-      "home": "Oxford Utd",
-      "away": "Tottenham U21",
-      "title": "Oxford Utd vs. Tottenham U21",
-      "key": "soccer|oxfordutd|tottenhamu21",
+      "league": "English Championship",
+      "home": "Cardiff City",
+      "away": "Preston",
+      "title": "Cardiff City vs. Preston",
+      "key": "soccer|cardiffcity|preston",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "dc9b223be233",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "77c9f9412c0f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English Championship",
+      "home": "Charlton",
+      "away": "Lincoln",
+      "title": "Charlton vs. Lincoln",
+      "key": "soccer|charlton|lincoln",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "1c0eb6bb3d35",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "d57a03bc63c1",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "FC Porto",
+      "away": "Feyenoord Rotterdam",
+      "title": "FC Porto vs. Feyenoord Rotterdam",
+      "key": "soccer|fcporto|feyenoordrotterdam",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "d0620dd4d28d",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "Feyenoord",
+      "away": "FC Porto",
+      "title": "Feyenoord vs. FC Porto",
+      "key": "soccer|fcporto|feyenoord",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "b7e4545f86f8",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Scottish Premiership",
+      "home": "Hibernian",
+      "away": "Dundee FC",
+      "title": "Hibernian vs. Dundee FC",
+      "key": "soccer|dundeefc|hibernian",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -795,7 +1010,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "294fbd475c99",
+          "fingerprint": "7549b145594d",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -808,11 +1023,568 @@
     },
     {
       "sport": "Soccer",
-      "league": "Italy Serie B",
-      "home": "Palermo",
-      "away": "Sudtirol",
-      "title": "Palermo vs. Sudtirol",
-      "key": "soccer|palermo|sudtirol",
+      "league": "UEFA Champions League",
+      "home": "Lens",
+      "away": "RB Leipzig",
+      "title": "Lens vs. RB Leipzig",
+      "key": "soccer|lens|rbleipzig",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "018f3aad296d",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "Manchester City",
+      "away": "SSC Napoli",
+      "title": "Manchester City vs. SSC Napoli",
+      "key": "soccer|manchestercity|sscnapoli",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "0114a500aa23",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English Championship",
+      "home": "Middlesbrough",
+      "away": "Swansea City",
+      "title": "Middlesbrough vs. Swansea City",
+      "key": "soccer|middlesbrough|swanseacity",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "7cb67203ab41",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "92e95962aebe",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "Napoli",
+      "away": "Manchester City",
+      "title": "Napoli vs. Manchester City",
+      "key": "soccer|manchestercity|napoli",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "039ae5b8a835",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English Championship",
+      "home": "Norwich City",
+      "away": "QPR",
+      "title": "Norwich City vs. QPR",
+      "key": "soccer|norwichcity|qpr",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "f07498041785",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "f08ee5281698",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English Championship",
+      "home": "Portsmouth",
+      "away": "West Ham",
+      "title": "Portsmouth vs. West Ham",
+      "key": "soccer|portsmouth|westham",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "42c59ce037f4",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "09c5604d2ada",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Championship",
+      "home": "Portsmouth",
+      "away": "West Ham United",
+      "title": "Portsmouth vs. West Ham United",
+      "key": "soccer|portsmouth|westhamunited",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "3345a7fdfc99",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "PSV Eindhoven",
+      "away": "Real Madrid",
+      "title": "PSV Eindhoven vs. Real Madrid",
+      "key": "soccer|psveindhoven|realmadrid",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st",
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "142f21cfc80f",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "7fbdb4d43955",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Scottish Premiership",
+      "home": "Rangers",
+      "away": "Aberdeen",
+      "title": "Rangers vs. Aberdeen",
+      "key": "soccer|aberdeen|rangers",
+      "feed_count": 3,
+      "confirmed_feed_count": 3,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 1,
+      "primary_ready": true,
+      "backup_ready": true,
+      "origin_families": [
+        "193.47.62.50",
+        "hereisman.net",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA",
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": true,
+      "deficits": [],
+      "feeds": [
+        {
+          "fingerprint": "a8dfcbd62f57",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "58d544c22bc7",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "98c66c73930b",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "RB Leipzig",
+      "away": "RC Lens",
+      "title": "RB Leipzig vs. RC Lens",
+      "key": "soccer|rbleipzig|rclens",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "e099b6221e32",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "Real Betis",
+      "away": "Slovan Bratislava",
+      "title": "Real Betis vs. Slovan Bratislava",
+      "key": "soccer|realbetis|slovanbratislava",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "candyshop.st"
+      ],
+      "providers": [
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "225de98d51f2",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English Championship",
+      "home": "Sheffield United",
+      "away": "Southampton",
+      "title": "Sheffield United vs. Southampton",
+      "key": "soccer|sheffieldunited|southampton",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 0,
+      "primary_ready": true,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.41",
+        "rtmpcdn.com"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed dedicated backup feed(s)"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "833eaf5baa74",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.41",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "09e1a72ab2b8",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "English League One",
+      "home": "Stevenage",
+      "away": "Sheffield Wednesday",
+      "title": "Stevenage vs. Sheffield Wednesday",
+      "key": "soccer|sheffieldwednesday|stevenage",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -836,7 +1608,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "26087c492a76",
+          "fingerprint": "15bb043d2fb7",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -849,11 +1621,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "English EFL Trophy",
-      "home": "Salford",
-      "away": "Sunderland U21",
-      "title": "Salford vs. Sunderland U21",
-      "key": "soccer|salford|sunderlandu21",
+      "league": "Championship",
+      "home": "Wolverhampton",
+      "away": "Derby County",
+      "title": "Wolverhampton vs. Derby County",
+      "key": "soccer|derbycounty|wolverhampton",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -861,10 +1633,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "hereisman.net"
       ],
       "providers": [
-        "FAWA"
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
@@ -877,11 +1649,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "c26166c7d3d0",
+          "fingerprint": "b738741cc5eb",
           "role": "primary",
           "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -890,19 +1662,20 @@
     },
     {
       "sport": "Soccer",
-      "league": "English EFL Trophy",
-      "home": "Tranmere",
-      "away": "Everton U21",
-      "title": "Tranmere vs. Everton U21",
-      "key": "soccer|evertonu21|tranmere",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "league": "English Championship",
+      "home": "Wolves",
+      "away": "Derby County",
+      "title": "Wolves vs. Derby County",
+      "key": "soccer|derbycounty|wolves",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
       "confirmed_backup_count": 0,
-      "primary_ready": false,
+      "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "193.47.62.41",
+        "rtmpcdn.com"
       ],
       "providers": [
         "FAWA"
@@ -912,13 +1685,11 @@
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 1 more confirmed dedicated backup feed(s)"
       ],
       "feeds": [
         {
-          "fingerprint": "2ca43ead7036",
+          "fingerprint": "636a5d625019",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -926,44 +1697,13 @@
           "ingest_sources": [
             "doms9"
           ]
-        }
-      ]
-    },
-    {
-      "sport": "Sweden Hockey SHL",
-      "league": "Sweden Hockey SHL",
-      "home": "Lulea",
-      "away": "Malmo",
-      "title": "Lulea vs. Malmo",
-      "key": "swedenhockeyshl|lulea|malmo",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
+        },
         {
-          "fingerprint": "dab54ea5b0a9",
+          "fingerprint": "b46318517746",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "origin_family": "rtmpcdn.com",
           "ingest_sources": [
             "doms9"
           ]
@@ -971,12 +1711,12 @@
       ]
     },
     {
-      "sport": "Sweden Hockey SHL",
-      "league": "Sweden Hockey SHL",
-      "home": "Orebro",
-      "away": "Frolunda",
-      "title": "Orebro vs. Frolunda",
-      "key": "swedenhockeyshl|frolunda|orebro",
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "ŠK Slovan Bratislava",
+      "away": "Real Betis",
+      "title": "ŠK Slovan Bratislava vs. Real Betis",
+      "key": "soccer|kslovanbratislava|realbetis",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -984,10 +1724,10 @@
       "primary_ready": false,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.41"
+        "hereisman.net"
       ],
       "providers": [
-        "FAWA"
+        "ISTRMEAST"
       ],
       "ingest_sources": [
         "doms9"
@@ -1000,11 +1740,11 @@
       ],
       "feeds": [
         {
-          "fingerprint": "c0fc20b061d2",
+          "fingerprint": "92c529e99e83",
           "role": "primary",
           "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
