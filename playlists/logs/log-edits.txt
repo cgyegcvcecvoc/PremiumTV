@@ -6069,3 +6069,20 @@ ISSUES / ERRORS:
   * 6324 links could not be confirmed after retries (see unverified details).
   * 2785 links returned a confirmed failure (see dead details).
 
+========================================================================================
+RUN ID:       20261125T144359Z-2999
+TIMESTAMP:    2026-11-25 09:52 AM EST (2026-11-25T14:43:59Z -> 2026-11-25T14:52:24Z)
+LABEL / TYPE: 11:29 PM overnight recheck [recheck]
+STATUS:       WARNING (checked=True, duration=504.41s)
+PLAYLISTS:    working=16941 / unique=26274 (dead=2913, unverified=6420)
+COUNTRIES:    176 country playlists updated in playlists/countries/
+A&E CHANNELS: 199 working / 275 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +0 channels added / -0 channels removed (baseline: PremiumTV_all.m3u)
+ISSUES / ERRORS:
+  * Reference check 'StepDaddyLiveHD' failed: GET https://api.github.com/repos/gookie-dev/StepDaddyLiveHD failed: HTTP Error 403: rate limit exceeded
+  * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error [Errno -2] Name or service not known>
+  * Reference check 'Easy-Web-TV-M3u8' failed: GET https://api.github.com/repos/zhangboheng/Easy-Web-TV-M3u8 failed: HTTP Error 403: rate limit exceeded
+  * 6420 links could not be confirmed after retries (see unverified details).
+  * 2913 links returned a confirmed failure (see dead details).
+  * This run started +10h 15m after its scheduled time (2026-11-25T04:29:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
+
