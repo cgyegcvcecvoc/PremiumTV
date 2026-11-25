@@ -22,9 +22,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Probe candidate endpoints
+        shell: bash
+        continue-on-error: true
         run: |
-          set -u
-          exec > >(tee /tmp/probe-results.txt) 2>&1
+          set +e
+          {
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
           probe() {
             local label="$1"; local url="$2"; shift 2
@@ -82,13 +84,14 @@ jobs:
             "https://live-manifest.production-public.tubi.io/live/520220a7-f8c9-488b-b311-0654a1d3c1b8/playlist.m3u8"
           echo "=================================================================="
           echo "probe complete"
+          } 2>&1 | tee /tmp/probe-results.txt
 
       - name: Publish the probe results on the working branch
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp /tmp/probe-results.txt probe-results.txt
+          { [ -f /tmp/probe-results.txt ] && cp /tmp/probe-results.txt probe-results.txt; } || echo "probe step produced no output" > probe-results.txt
           git config user.name "probe-bot"
           git config user.email "probe-bot@users.noreply.github.com"
           git add probe-results.txt
