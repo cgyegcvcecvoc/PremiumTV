@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-25 — Version 1.1.23 published: Local channels by location
+
+- **The three affiliates now travel together across the whole viewing area.** The Lancaster, Harrisburg and York markets each list WGAL 8 (NBC), CBS 21 (WHP) and FOX 43 (WPMT), so ZIP prefixes 170–176 return all three stations instead of only the market's home station. A curated `data/local-markets/us-market-affiliates.csv` adds the neighbouring affiliates without moving them out of their own markets, and the directory grows to 162 station entries in 117 markets.
+- **The bundled directory carries the new lineup into both apps.** `playlists/local-channels.json` and the site payload are regenerated, and the app picker returns all three stations for 17042, 17101, 17201, 17331, 17401, 17527 and 17603.
+- **Released as 1.1.23** (Android `versionCode 101230000`, macOS 1.1.23).
+
 ## 2026-11-25 — Version 1.1.21 published: Free provider directory
 
 - **Three sources were added from a measured audit, not a wish list.** The Providers category of the iptv-org `awesome-iptv` directory was read in full (149 discussions, 86 labelled `Free`) and every provider with a static playlist was diffed against this corpus. `m3upt` is the Portuguese playlist of public broadcasters (159 TV entries, 154 HTTPS, 71 URLs new here, 115 new tvg-ids). `tdtchannels` is Spain's TDT catalogue (574 entries, each station with several feeds and its own guide ids). `nexonic-iptv` is verified free-to-air television in 160 countries (4,458 entries, 487 URLs new, largest gaps India, the United States and Russia). The manual checked run that followed published **20,397 unique links and 14,056 entries** (from 19,473 and 13,347), with the three sources working at 88.7%, 76.8% and 91.4%. The audit, every rejection and its measurement are in [`docs/SOURCE-HUNT-2026-11-25.md`](docs/SOURCE-HUNT-2026-11-25.md).
