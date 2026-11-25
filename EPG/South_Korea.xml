@@ -266,6 +266,10 @@
     <display-name>JTBC 톡파원 25시</display-name>
     <icon src="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/KRBC50000218R_20260422T013622SQUARE.png" />
   </channel>
+  <channel id="JTV.kr">
+    <display-name>JTV TV</display-name>
+    <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Jtv_logo.svg/500px-Jtv_logo.svg.png" />
+  </channel>
   <channel id="KRBC41000021C">
     <display-name>K-ASMR</display-name>
     <icon src="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/KRBC41000021C_20260422T013632SQUARE.png" />
@@ -546,9 +550,9 @@
     <display-name>HLAO-DTV (720p) [Not 24/7]</display-name>
     <icon src="https://i.imgur.com/uR0gScb.png" />
   </channel>
-  <channel id="HLCGDTV.kr@SD">
-    <display-name>HLCG-DTV (360p) [Not 24/7]</display-name>
-    <icon src="https://i.imgur.com/ABdmZMc.png" />
+  <channel id="HLDQDTV.kr@SD">
+    <display-name>HLDQ-DTV (406p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/byss0Ld.png" />
   </channel>
   <channel id="HLDRDTV.kr@SD">
     <display-name>HLDR-DTV (540p) [Not 24/7]</display-name>
@@ -598,10 +602,6 @@
     <display-name>GCN (720p)</display-name>
     <icon src="https://i.imgur.com/yzwtMOC.png" />
   </channel>
-  <channel id="RUTCTV.kr@SD">
-    <display-name>RUTC TV (720p)</display-name>
-    <icon src="https://i.ibb.co/yPDhKBp/rutc-logo.jpg" />
-  </channel>
   <channel id="KRBB500044GP">
     <display-name>Bloomberg Originals</display-name>
     <icon src="https://tvpnlogopus.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/KRBB500044GP_20260422T012617SQUARE.png" />
@@ -645,14 +645,6 @@
     <display-name>KTV.kr</display-name>
     <icon src="https://iptv-epg.org/images/fbHN6QFn1l3lgcPQ_UGdvF1y-9gfTs5oSSXGzG9fkfLjBN0PEfjg0HJAARykI46gx396rF9M4El9Ta5fJgEp93WXm-7hRVLyCnGc" />
   </channel>
-  <programme start="20261125140000 +0000" stop="20261125143000 +0000" channel="ArirangTV.kr">
-    <title>Moo No Plan</title>
-    <desc>Moo No Plan is a real-life food and travel documentary series, hosted by Jun Hyun-moo and Kwak Joon-bin (KwakTube).</desc>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261125143000 +0000" stop="20261125145000 +0000" channel="ArirangTV.kr">
     <title>K-Arts Artists</title>
     <desc>This programme is part of Arirang TV's efforts to promote Korean culture and provide a window into the country's dynamic art scene for a global audience.</desc>
@@ -1677,14 +1669,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125140000 +0000" stop="20261125143500 +0000" channel="KR4600012CR">
-    <title>君を守りたい〜ONE MORE TIME〜 #2 [字][再]</title>
-    <desc>KBS Worldオリジナル韓流ドラマ。キム・ミョンス (エル)主演でお届けするファンタジーラブコメディ！2016年 全8話</desc>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261125143500 +0000" stop="20261125152000 +0000" channel="KR4600012CR">
     <title>愛のクァベギ（原題） #12 [字]</title>
     <desc>T-ARAのウンジョン、「ロマンスは命がけ！？」のキム・ジニョプ主演！嘘のせいで愛と人生がこじれてしまった家族たちの姿を描いたラブコメ ホームドラマ！20...</desc>
@@ -2093,14 +2077,6 @@
     <title>生放送 KBSニュース9 [生]</title>
     <desc>リアルタイムで最新韓国情報をいち早くお届け！</desc>
     <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125131000 +0000" stop="20261125142500 +0000" channel="KBSWorld.kr@SD">
-    <title>Love in the Moonlight</title>
-    <desc>Lee Yeong, the crown prince, knows that he can't confess his love for Hong Raon, a eunuch who disguises herself as a man and is afraid her secret will be revealed. So, are they friends or lovers?</desc>
-    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -2713,49 +2689,41 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125130000 +0000" stop="20261125143000 +0000" channel="KRBC8000144F">
-    <title>冷蔵庫をよろしく since 2014 #60</title>
-    <desc>ゲスト：ユジン(IVE)、ジニョン(GOT7) 冷蔵庫の中に隠れたプライベートと絶品レシピを公開するクッキングバラエティ！ 再：(水)14:00〜、(土)12:00〜</desc>
+  <programme start="20261127201500 +0000" stop="20261127205500 +0000" channel="KBSWorld.kr@SD">
+    <title>A Trap Called Desire Ep62</title>
+    <desc>A woman whose life was stolen by a false murder accusation fights to reclaim her destiny in a gripping revenge drama against insatiable greed.</desc>
+    <date>20261127</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125140000 +0000" stop="20261125145500 +0000" channel="KRBC8000144F">
+    <title>The Hunting Party</title>
+    <desc>'S2/E10 - Byron May'. Serial killer Byron May is back on the streets and secretly living inside someone else's home. With his new skills resembling the currently incarcerated Eastside Ripper, is the wrong man in prison?</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125143000 +0000" stop="20261125150000 +0000" channel="KRBC8000144F">
-    <title>Artist Clip【ENHYPEN】</title>
-    <desc>ビジュアルのよさだけでなく高いパフォーマンススキルを持ったENHYPEN！そんな彼らのMVをまとめてお届け！</desc>
+  <programme start="20261125145500 +0000" stop="20261125155500 +0000" channel="KRBC8000144F">
+    <title>Carte Blanche</title>
+    <desc>'S39/E34'. From police to mortuaries: is our system connecting the missing and the dead? A cold case becomes a story of justice delayed, but not denied. A conservation mission like no other.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125150000 +0000" stop="20261125160000 +0000" channel="KRBC8000144F">
-    <title>ウェルカム トゥ 不老村 #115</title>
-    <desc>健康な中年俳優たちによる愉快な農村ライフバラエティ！ 放送日：(土)8:00〜 再：(月)10:00〜、(水)16:00〜</desc>
+  <programme start="20261125155500 +0000" stop="20261125180000 +0000" channel="KRBC8000144F">
+    <title>Hamnet</title>
+    <desc>Inspired by a novel, this starry, touching drama from Chloé Zhao examines the emotional impact that William Shakespeare and his wife, Agnes, experienced after losing their child.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125160000 +0000" stop="20261125170000 +0000" channel="KRBC8000144F">
-    <title>JYP所属アーティスト MV特集</title>
-    <desc>JYP所属アーティストのMVをまとめてお届け！ ※再放送情報はMnet HPにてご確認ください</desc>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125170000 +0000" stop="20261125183000 +0000" channel="KRBC8000144F">
-    <title>驚きの土曜日 スホ&amp;チャンヨル(EXO) 出演回 (#402)</title>
-    <desc>ゲスト：スホ&amp;チャンヨル(EXO) 韓国の市場で売られている絶品グルメをかけて音楽クイズに挑戦！ ※放送情報はMnet HPにてご確認ください</desc>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125183000 +0000" stop="20261125193000 +0000" channel="KRBC8000144F">
-    <title>ユ・クイズ ON THE BLOCK 芸能人パート #110 V(BTS) 出演回 (#210)</title>
-    <desc>ゲスト：V(BTS) ヒューマントークショー「ユ・クイズ ON THE BLOCK」！ ※放送情報はMnet HPにてご確認ください</desc>
+  <programme start="20261125180000 +0000" stop="20261125193000 +0000" channel="KRBC8000144F">
+    <title>My Kitchen Rules Australia</title>
+    <desc>'S16/E10'. Round two heats up as Sydney Gatecrasher duo hipster mates throw open the doors to their Instant Restaurant Bloody Bellisimo, determined to prove they are genuine contenders.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
@@ -3049,47 +3017,33 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125130000 +0000" stop="20261125144000 +0000" channel="premiumtv.south_korea.sbs">
-    <title>The Fab Singles</title>
-    <desc>Celebrities who did not know each other during their stardom, gather and spend time together to become best friends.</desc>
+  <programme start="20261125143000 +0000" stop="20261125150000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Letters And Numbers</title>
+    <desc>Two contestants pit their linguistic and numerical skills against each other and the clock in this entertaining quiz show.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125144000 +0000" stop="20261125151000 +0000" channel="premiumtv.south_korea.sbs">
-    <title>Where Stars Land</title>
-    <desc>Two employees at the Incheon Airpot find themselves falling for one another.</desc>
+  <programme start="20261125150000 +0000" stop="20261125153000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Mastermind Australia</title>
+    <desc>In this round, the specialty subjects are The Career of Gina Riley, X-Files: Seasons 3-4, Early Films of Guy Ritchie, and Final Fantasy XIV: A Realm Reborn.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125151000 +0000" stop="20261125154000 +0000" channel="premiumtv.south_korea.sbs">
-    <title>Where Stars Land</title>
-    <desc>Two employees at the Incheon Airpot find themselves falling for one another.</desc>
+  <programme start="20261125153000 +0000" stop="20261125163500 +0000" channel="premiumtv.south_korea.sbs">
+    <title>SBS World News</title>
+    <desc>Latest reports and analysis of major national and international news of the day from Australia's only world news service.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125154000 +0000" stop="20261125160000 +0000" channel="premiumtv.south_korea.sbs">
-    <title>SBS Nightline</title>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125160000 +0000" stop="20261125162000 +0000" channel="premiumtv.south_korea.sbs">
-    <title>SBS Nightline</title>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125162000 +0000" stop="20261125172000 +0000" channel="premiumtv.south_korea.sbs">
-    <title>Act 2 of Your Life</title>
-    <desc>Stories of people who said goodbye to the ailing self of yesterday and started the second act of life.</desc>
+  <programme start="20261125163500 +0000" stop="20261125173000 +0000" channel="premiumtv.south_korea.sbs">
+    <title>Michael Palin In Venezuela</title>
+    <desc>Michael explores deadly Caracas, visits dangerous Petare slum, dines with elites, then flies to the Amazon. He walks behind waterfalls, meets indigenous Pemon people, and lands at Angel Falls aged 81.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
@@ -3703,14 +3657,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125130000 +0000" stop="20261125143000 +0000" channel="premiumtv.south_korea.sbs_plus">
-    <title>My Little Old Boy</title>
-    <desc>Mothers observe the daily lives of their adult sons and have the chance to understand their sons more deeply by learning their new aspects.</desc>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261125143000 +0000" stop="20261125160000 +0000" channel="premiumtv.south_korea.sbs_plus">
     <title>My Little Old Boy</title>
     <desc>Mothers observe the daily lives of their adult sons and have the chance to understand their sons more deeply by learning their new aspects.</desc>
@@ -3901,47 +3847,33 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125130000 +0000" stop="20261125144000 +0000" channel="KRBB420000769">
-    <title>The Fab Singles</title>
-    <desc>Celebrities who did not know each other during their stardom, gather and spend time together to become best friends.</desc>
+  <programme start="20261125143000 +0000" stop="20261125150000 +0000" channel="KRBB420000769">
+    <title>Letters And Numbers</title>
+    <desc>Two contestants pit their linguistic and numerical skills against each other and the clock in this entertaining quiz show.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125144000 +0000" stop="20261125151000 +0000" channel="KRBB420000769">
-    <title>Where Stars Land</title>
-    <desc>Two employees at the Incheon Airpot find themselves falling for one another.</desc>
+  <programme start="20261125150000 +0000" stop="20261125153000 +0000" channel="KRBB420000769">
+    <title>Mastermind Australia</title>
+    <desc>In this round, the specialty subjects are The Career of Gina Riley, X-Files: Seasons 3-4, Early Films of Guy Ritchie, and Final Fantasy XIV: A Realm Reborn.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125151000 +0000" stop="20261125154000 +0000" channel="KRBB420000769">
-    <title>Where Stars Land</title>
-    <desc>Two employees at the Incheon Airpot find themselves falling for one another.</desc>
+  <programme start="20261125153000 +0000" stop="20261125163500 +0000" channel="KRBB420000769">
+    <title>SBS World News</title>
+    <desc>Latest reports and analysis of major national and international news of the day from Australia's only world news service.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125154000 +0000" stop="20261125160000 +0000" channel="KRBB420000769">
-    <title>SBS Nightline</title>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125160000 +0000" stop="20261125162000 +0000" channel="KRBB420000769">
-    <title>SBS Nightline</title>
-    <date>20261125</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125162000 +0000" stop="20261125172000 +0000" channel="KRBB420000769">
-    <title>Act 2 of Your Life</title>
-    <desc>Stories of people who said goodbye to the ailing self of yesterday and started the second act of life.</desc>
+  <programme start="20261125163500 +0000" stop="20261125173000 +0000" channel="KRBB420000769">
+    <title>Michael Palin In Venezuela</title>
+    <desc>Michael explores deadly Caracas, visits dangerous Petare slum, dines with elites, then flies to the Amazon. He walks behind waterfalls, meets indigenous Pemon people, and lands at Angel Falls aged 81.</desc>
     <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
@@ -4551,14 +4483,6 @@
     <title>Helsinki Syndrome</title>
     <desc>Elias Karo races against time to restore his internet connection, while a hospitalised Harri Gustafsson suspects a hidden agenda. Hanna Raivio pushes her way back inside for the final showdown.</desc>
     <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125140000 +0000" stop="20261125143000 +0000" channel="ArirangTV.kr@SD">
-    <title>Moo No Plan</title>
-    <desc>Moo No Plan is a real-life food and travel documentary series, hosted by Jun Hyun-moo and Kwak Joon-bin (KwakTube).</desc>
-    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -5431,14 +5355,6 @@
     <title>The Living Sea Of Jeju</title>
     <desc>Pathways can be found even beneath the sea, where along Jeju's underwater routes one can behold brilliantly beautiful corals and the marine life that inhabits them.</desc>
     <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261125140000 +0000" stop="20261125143000 +0000" channel="ArirangTV.kr@HD">
-    <title>Moo No Plan</title>
-    <desc>Moo No Plan is a real-life food and travel documentary series, hosted by Jun Hyun-moo and Kwak Joon-bin (KwakTube).</desc>
-    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
