@@ -349,6 +349,57 @@ class ScraperIntegrationTest(unittest.TestCase):
         kept, removed, dropped = scraper.filter_source_groups(channels, {"name": "y"})
         self.assertEqual((len(kept), removed, dropped), (len(channels), 0, []))
 
+    def test_group_filter_is_reported_where_the_source_table_is_read(self):
+        # "found 159" next to a 944-entry file must not look like a source that
+        # shrank on its own, so the status report names the filter and the groups.
+        report = {
+            "status": "ok", "label": "test run", "published": 1, "total_unique": 1,
+            "total_input_entries": 1103, "working": 1, "dead_count": 0,
+            "unverified_count": 0, "retained": 0, "countries": {}, "ae_channels": {},
+            "checked": True, "changes": {"baseline": "previous", "added_count": 0, "removed_count": 0},
+            "updated_local": "2026-11-25 10:00 EST", "updated_utc": "2026-11-25T15:00:00Z",
+            "run_type": "manual", "run_id": "test-run",
+            "final_playlist_written": True, "all_playlist_written": True, "duration_seconds": 1,
+            "reference_checks": {}, "issues": [], "diagnostics": [], "countries_count": 0,
+            "sources": {
+                "m3upt": {"status": "ok", "found": 159, "unique": 159, "overlap": 0,
+                          "alive": 100, "dead": 10, "unverified": 49,
+                          "group_filter_removed": 944,
+                          "group_filter_groups": ["Beachcam (194)", "Rádios (85)"]},
+                "iptv-org": {"status": "ok", "found": 10, "unique": 10, "overlap": 0,
+                             "alive": 9, "dead": 1, "unverified": 0},
+            },
+        }
+        text = scraper.make_status_markdown(report)
+        self.assertIn("**Group filters**", text)
+        self.assertIn("`m3upt` kept 159 of 1103 entries", text)
+        self.assertIn("Beachcam (194)", text)
+        # A run with no filtered source says nothing about filters at all.
+        report["sources"]["m3upt"].pop("group_filter_removed")
+        self.assertNotIn("**Group filters**", scraper.make_status_markdown(report))
+
+    def test_unbuilt_country_guide_header_stays_under_the_published_maximum(self):
+        # Every source's own header contributes guides (free-tv alone advertises
+        # 101). A country whose XMLTV has not been built yet falls back to the
+        # merged guide plus source fallbacks, and that fallback used to carry
+        # all of them - Mauritania advertised 109 guides, Macau 112, and the
+        # strict verification failed the whole scrape for it.
+        with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory() as empty_epg:
+            out = Path(tmp)
+            channel = scraper.Channel("Alpha", "https://stream.example/alpha.m3u8", "test",
+                                      attrs={"tvg-country": "Nowhere"})
+            epg = [f"https://guide.example/{index}.xml" for index in range(120)]
+            # An empty EPG directory stands in for a country whose guide has not
+            # been built yet, which is the branch that advertises fallbacks.
+            with patch.object(scraper, "EPG_DIR", Path(empty_epg)):
+                scraper.write_country_playlists(out, [channel], epg, "now", "now", "test")
+            header = (out / "countries" / "International.m3u").read_text(
+                encoding="utf-8").splitlines()[0]
+        guides = header.split('x-tvg-url="', 1)[1].rstrip('"').split(",")
+        self.assertLessEqual(len(guides), 1 + scraper.MAX_HEADER_GUIDES)
+        self.assertEqual(guides[0], scraper.SELF_EPG_URL)
+        self.assertEqual(guides[1:], epg[:scraper.MAX_HEADER_GUIDES])
+
     def test_mixed_sources_declare_their_filter_and_mirrors(self):
         config = json.loads((Path(__file__).resolve().parents[1] / "sources.json").read_text())
         by_name = {source["name"]: source for source in config["sources"]}

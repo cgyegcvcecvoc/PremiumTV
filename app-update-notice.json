@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "enabled": true,
-  "updated_utc": "2026-11-23T00:00:00Z",
+  "updated_utc": "2026-11-25T00:00:00Z",
   "notice_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/app-update-notice.json",
   "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/latest",
   "repo_url": "https://github.com/cgyegcvcecvoc/PremiumTV",
@@ -17,9 +17,9 @@
       "min_version": "1.0.8",
       "max_version": "1.0.8.1",
       "level": "blocked",
-      "title": "\u26a0\ufe0f Update now \u2014 this version can freeze or crash when you open a channel",
-      "message": "You are on PremiumTV {version}. This build has a serious bug: opening a channel can leave the picture frozen on black or crash the app, especially when a channel switches to another server. The current release fixes it \u2014 please update right away. Tap \u201cGet the newest version\u201d and use Settings \u2192 App updates. If you are on 1.0.8.1 and it still says \u201cup to date\u201d, install the one-time 1.0.8.2 bridge it offers first: the newest release appears automatically after that. You can also tap \u201cOpen download page\u201d below to install directly \u2014 it installs over this build and keeps your settings and favorites.",
-      "surprise": "Why Settings may have said \u201cup to date\u201d: this build still thinks the later release is a copy of itself, so the in-app check can miss it \u2014 the 1.0.8.2 bridge fixes that lie. Install it once and the newest release appears. From 1.0.9 on there are no more \u201cV patches\u201d: every fix is simply the next version, and the app updates itself again. The popup now also has an \u201cOpen download page\u201d button for a one-tap manual install.",
+      "title": "⚠️ Update now — this version can freeze or crash when you open a channel",
+      "message": "You are on PremiumTV {version}. This build has a serious bug: opening a channel can leave the picture frozen on black or crash the app, especially when a channel switches to another server. The current release fixes it — please update right away. Tap “Get the newest version” and use Settings → App updates. If you are on 1.0.8.1 and it still says “up to date”, install the one-time 1.0.8.2 bridge it offers first: the newest release appears automatically after that. You can also tap “Open download page” below to install directly — it installs over this build and keeps your settings and favorites.",
+      "surprise": "Why Settings may have said “up to date”: this build still thinks the later release is a copy of itself, so the in-app check can miss it — the 1.0.8.2 bridge fixes that lie. Install it once and the newest release appears. From 1.0.9 on there are no more “V patches”: every fix is simply the next version, and the app updates itself again. The popup now also has an “Open download page” button for a one-tap manual install.",
       "action_label": "Get the newest version",
       "dismiss_label": "Not now",
       "releases_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/latest"
@@ -31,18 +31,18 @@
         "macos"
       ],
       "min_version": "1.0.4",
-      "max_version": "1.1.19",
+      "max_version": "1.1.20",
       "level": "warning",
-      "title": "PremiumTV {newest} is ready \u2014 you are on {version}",
-      "message": "You are on PremiumTV {version}, and PremiumTV {newest} is waiting. Open Settings \u2192 App updates and press Check for update, then Download update and Install update. It downloads once, verifies against the release SHA-256 file, and installs right over this build. Support for builds below {newest} ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
-      "surprise": "PremiumTV 1.1.20 is the many-sources, one-clock release: playlists now have backup addresses so a dead host does not cost you a channel, the three suggested sites are verified as reference checks because none of them publishes a static playlist, and Live Events heads with a ticking clock that every kickoff on the tab is read in. Open Settings \u2192 App updates to install it.",
+      "title": "PremiumTV {newest} is ready — you are on {version}",
+      "message": "You are on PremiumTV {version}, and PremiumTV {newest} is waiting. Open Settings → App updates and press Check for update, then Download update and Install update. It downloads once, verifies against the release SHA-256 file, and installs right over this build. Support for builds below {newest} ends {support_ends}, so update before then to keep receiving channel and guide refreshes.",
+      "surprise": "PremiumTV 1.1.21 is the free-provider-directory release: M3UPT, TDTChannels and Nexonic IPTV joined the scrape, a mixed playlist now contributes only its television half, and a country playlist no longer makes your player download a hundred guides. Open Settings → App updates to install it.",
       "action_label": "Update now",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {
         "level": "end_of_support",
         "title": "Support for PremiumTV {version} ended on {support_ends}",
         "message": "This build no longer receives channel or guide updates. Install {newest} to keep live channels and every future update in-app.",
-        "surprise": "Stable {newest} still updates itself: Settings \u2192 App updates verifies the installer's SHA-256 and installs it for you.",
+        "surprise": "Stable {newest} still updates itself: Settings → App updates verifies the installer's SHA-256 and installs it for you.",
         "action_label": "Get {newest}",
         "dismiss_label": "Not now"
       }
@@ -56,16 +56,16 @@
       "min_version": "0.0.0",
       "max_version": "1.0.3",
       "level": "warning",
-      "title": "A newer PremiumTV is waiting \u2014 and this is the last manual install",
+      "title": "A newer PremiumTV is waiting — and this is the last manual install",
       "message": "You are on PremiumTV {version}, and {newest} is waiting on GitHub. Update once and PremiumTV keeps itself current from then on. Support for this build ends {support_ends}.",
-      "surprise": "Here is the surprise: the newest build updates itself. Settings \u2192 App updates checks GitHub, downloads the installer once, verifies it against the release's SHA-256 file and hands it to the normal installer \u2014 so you never download an APK or a DMG by hand again. 1.1.0 adds the category rail, the docked side player, automatic server backup and dead-channel filtering.",
+      "surprise": "Here is the surprise: the newest build updates itself. Settings → App updates checks GitHub, downloads the installer once, verifies it against the release's SHA-256 file and hands it to the normal installer — so you never download an APK or a DMG by hand again. 1.1.0 adds the category rail, the docked side player, automatic server backup and dead-channel filtering.",
       "action_label": "Update now",
       "dismiss_label": "Remind me next time",
       "after_support_ends": {
         "level": "end_of_support",
         "title": "Support for PremiumTV {version} ended on {support_ends}",
         "message": "This build no longer receives the GitHub channel scrape updates, so its channel list is frozen at {support_ends}. Install the newest release from GitHub to keep getting live channels and every future update in-app.",
-        "surprise": "The newest build still updates itself: Settings \u2192 App updates checks GitHub, verifies the installer's SHA-256 and installs it for you.",
+        "surprise": "The newest build still updates itself: Settings → App updates checks GitHub, verifies the installer's SHA-256 and installs it for you.",
         "action_label": "Get the newest version",
         "dismiss_label": "Not now"
       }

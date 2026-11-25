@@ -2089,10 +2089,17 @@ def write_country_playlists(
         active_files.add(fname)
         # Use a country-scoped guide on its own. If this is a newly added
         # country whose XMLTV has not been built yet, retain the merged guide
-        # and source fallbacks until the immediately-following EPG build runs.
+        # and at most MAX_HEADER_GUIDES source fallbacks until the
+        # immediately-following EPG build runs. The fallbacks are capped here
+        # rather than passed whole: every source's own header contributes its
+        # guide list (free-tv alone advertises 101), and a small country
+        # playlist that advertised all of them made a player download a hundred
+        # guides before showing one channel - the exact problem the published
+        # maximum exists to prevent.
         country_guide = EPG_DIR / f"{Path(fname).stem}.xml"
         guides = ([country_epg_url(country)] if country_guide.is_file()
-                  else ([SELF_EPG_URL] if SELF_EPG_URL else []) + list(epg))
+                  else ([SELF_EPG_URL] if SELF_EPG_URL else [])
+                       + list(epg)[:MAX_HEADER_GUIDES])
         write_m3u(
             countries_dir / fname,
             country_channels,
@@ -2471,6 +2478,20 @@ def make_status_markdown(report: dict) -> str:
             f"{stat.get('unique', 0)} | {stat.get('overlap', 0)} | {stat.get('alive', 0)} | "
             f"{stat.get('dead', 0)} | {stat.get('unverified', 0)} |"
         )
+    # A source that declares group filters contributes fewer entries than its
+    # file carries. Say so where the table is read, so "found 159" next to a
+    # 944-entry file cannot look like a source that shrank on its own.
+    filtered = [(name, stat) for name, stat in report["sources"].items()
+                if stat.get("group_filter_removed")]
+    if filtered:
+        lines += ["", "**Group filters** (a source contributing only part of its file):", ""]
+        for name, stat in filtered:
+            groups = ", ".join(stat.get("group_filter_groups") or []) or "unnamed groups"
+            lines.append(
+                f"- `{name}` kept {stat.get('found', 0)} of "
+                f"{stat.get('found', 0) + int(stat.get('group_filter_removed') or 0)} entries; "
+                f"dropped: {groups}."
+            )
     promoted = [name for name, stat in report["sources"].items() if stat.get("promoted_by_discovery")]
     if promoted:
         lines += [

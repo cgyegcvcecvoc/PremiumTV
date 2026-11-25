@@ -126,6 +126,36 @@ expire between runs). Adding it would double the Pluto rows, add churn, and
 publish tokens that stop working - so it was **not** configured. The measurement
 is recorded here so the question does not have to be re-opened.
 
+## The manual run that followed (2026-11-25 13:20 UTC)
+
+The three sources were pushed and a full checked scrape was requested through
+`playlists/logs/run-scrape.txt`; the run published rather than refused, so these
+are measured numbers, not a projection:
+
+| Source | Entries imported | Working | Dead | Unverified | Share working |
+|---|---:|---:|---:|---:|---:|
+| `m3upt` | 159 (785 dropped by its group filter) | 141 | 14 | 4 | 88.7% |
+| `tdtchannels` | 574 | 441 | 55 | 78 | 76.8% |
+| `nexonic-iptv` | 4,458 | 4,076 | 216 | 166 | 91.4% |
+
+Corpus effect: **20,397 unique links** (was 19,473) and **14,056 published
+entries** (was 13,347) across 177 countries, with 13,228 links confirmed working
+in that run. Both new European sources clear the 30% working bar that the
+2026-11-24 audit used to call `xtemus` (9.8%) weak, and Nexonic is one of the
+strongest sources configured.
+
+The same run exposed one real defect, and it was pre-existing rather than
+introduced here: `playlists/countries/Macau.m3u` advertised **112 guides** in its
+header, and the previous run's failure had been
+`playlists/countries/Mauritania.m3u` with **109**. Both are countries whose own
+`EPG/<Country>.xml` had not been built yet at playlists-writing time, so they
+took the fallback that passed the merged guide plus **every** guide any source's
+header advertised - `free-tv` alone publishes 101. A player opening those files
+would download a hundred guides before showing one channel. The fallback now
+keeps the merged guide plus at most `MAX_HEADER_GUIDES` (2) upstream fallbacks,
+pinned by `tests/test_scraper.py::test_unbuilt_country_guide_header_stays_under_the_published_maximum`.
+The verifier therefore exits clean again instead of failing the whole scrape.
+
 ## What this says about the provider directory
 
 1. **The valuable entries are repositories, not websites.** All three additions
@@ -161,9 +191,13 @@ is recorded here so the question does not have to be re-opened.
   `group_filter_groups`, so a filtered source can never look like a source that
   shrank on its own.
 - `tests/test_scraper.py` — the filter's behaviour on a mixed file (television
-  kept, radio/camera/podcast/DRM dropped, no-group handling, substring exclude)
-  and the configuration of the three new sources (declared filter, HTTPS,
-  note, mirror).
+  kept, radio/camera/podcast/DRM dropped, no-group handling, substring exclude),
+  the configuration of the three new sources (declared filter, HTTPS, note,
+  mirror), and the capped fallback header for a country with no built guide.
+- `scripts/scraper.py` — the country-playlist guide fallback is capped at
+  `MAX_HEADER_GUIDES`; a header can no longer advertise every source's guides
+  (the defect that failed the 2026-11-25 manual run on Macau, and the
+  2026-11-25 05:00 run on Mauritania).
 - This document, and a link to it in `README.md`.
 
 ## Follow-ups this hunt did not do
