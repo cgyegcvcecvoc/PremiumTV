@@ -207,8 +207,8 @@ def load_market_affiliates(path: Path | None = None) -> dict[str, tuple[str, ...
 
     A station's table entry names its principal licence city, but a market can
     also be served by an affiliate licensed next door: WGAL, WHP and WPMT all
-    cover the Harrisburg-Lancaster-York area, so a Lancaster ZIP receives all
-    three.  The table is curated (not derived from upstream) and only adds a
+    cover the Harrisburg-Lancaster-York area, so every ZIP in the area receives
+    all three.  The table is curated (not derived from upstream) and only adds a
     station to a market that does not already list it.
     """
     path = path or DATA / "us-market-affiliates.csv"

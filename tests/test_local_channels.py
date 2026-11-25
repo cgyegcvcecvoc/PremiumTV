@@ -111,10 +111,10 @@ https://example.test/wtxf
                 self.assertIn(row["market"], self.markets)
 
     def test_a_market_can_carry_a_neighbouring_affiliate(self):
-        # The Harrisburg-Lancaster-York area is one viewing area: a Lancaster
-        # ZIP receives WGAL, WHP and WPMT even though WHP and WPMT are licensed
-        # in Harrisburg and York.  us-market-affiliates.csv carries the two
-        # into the Lancaster market without moving them out of their own.
+        # The Harrisburg-Lancaster-York area is one viewing area: every ZIP in
+        # it receives WGAL, WHP and WPMT even though each is licensed in a
+        # different city.  us-market-affiliates.csv carries the three into all
+        # three markets without moving them out of their home markets.
         with tempfile.TemporaryDirectory() as tmp:
             source = Path(tmp) / "affiliates.m3u"
             source.write_text("""#EXTM3U
@@ -129,8 +129,10 @@ https://example.test/wpmt
         markets = {market["id"]: market for market in document["markets"]}
         carried = {station["callsign"] for station in markets["USLNS"]["stations"]}
         self.assertEqual(carried, {"WGAL", "WHP", "WPMT"})
-        self.assertEqual({station["callsign"] for station in markets["USHAR"]["stations"]}, {"WHP"})
-        self.assertEqual({station["callsign"] for station in markets["USTHV"]["stations"]}, {"WPMT"})
+        self.assertEqual({station["callsign"] for station in markets["USHAR"]["stations"]},
+                         {"WGAL", "WHP", "WPMT"})
+        self.assertEqual({station["callsign"] for station in markets["USTHV"]["stations"]},
+                         {"WGAL", "WHP", "WPMT"})
 
     def test_a_zip_with_no_market_within_reach_has_none(self):
         # Wilkes-Barre (187) is ~135 km from the fixture's Lancaster market and
