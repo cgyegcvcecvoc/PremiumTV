@@ -34,7 +34,7 @@ The release workflow prepares one published channel:
   sees a blocked-build notice and is sent to
   [`docs/blocked/`](../docs/blocked/index.html).
 
-The current stable download is `v1.1.20`. (Historically, `v1.0.8.1` — shown as
+The current stable download is `v1.1.21`. (Historically, `v1.0.8.1` — shown as
 **1.0.8 V1 Patch** — was packaged as `1.0.9` on macOS and briefly published as a
 same-code alias release so the three-part updater in 1.0.4–1.0.6 could find it;
 the fixed 1.0.9 replaced that build, so a Mac already reporting 1.0.9 should
