@@ -14,7 +14,7 @@ on:
       - ".github/workflows/probe-wgal.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   probe:
@@ -24,6 +24,7 @@ jobs:
       - name: Probe candidate endpoints
         run: |
           set -u
+          exec > >(tee /tmp/probe-results.txt) 2>&1
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
           probe() {
             local label="$1"; local url="$2"; shift 2
@@ -81,3 +82,20 @@ jobs:
             "https://live-manifest.production-public.tubi.io/live/520220a7-f8c9-488b-b311-0654a1d3c1b8/playlist.m3u8"
           echo "=================================================================="
           echo "probe complete"
+
+      - name: Publish the probe results on the working branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp /tmp/probe-results.txt probe-results.txt
+          git config user.name "probe-bot"
+          git config user.email "probe-bot@users.noreply.github.com"
+          git add probe-results.txt
+          git diff --cached --quiet || git commit -m "temp: probe results"
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash -q origin arena/aa12d600-premiumtv && \
+              git push -q origin HEAD:arena/aa12d600-premiumtv && break
+            sleep 5
+          done
+          echo "results published"
