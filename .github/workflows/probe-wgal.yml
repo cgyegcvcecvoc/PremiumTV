@@ -14,7 +14,8 @@ on:
       - ".github/workflows/probe-wgal.yml"
 
 permissions:
-  contents: write
+  contents: read
+  issues: write
 
 jobs:
   probe:
@@ -86,19 +87,10 @@ jobs:
           echo "probe complete"
           } 2>&1 | tee /tmp/probe-results.txt
 
-      - name: Publish the probe results on the working branch
+      - name: Publish the probe results as an issue
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          { [ -f /tmp/probe-results.txt ] && cp /tmp/probe-results.txt probe-results.txt; } || echo "probe step produced no output" > probe-results.txt
-          git config user.name "probe-bot"
-          git config user.email "probe-bot@users.noreply.github.com"
-          git add probe-results.txt
-          git diff --cached --quiet || git commit -m "temp: probe results"
-          for attempt in 1 2 3; do
-            git pull --rebase --autostash -q origin arena/aa12d600-premiumtv && \
-              git push -q origin HEAD:arena/aa12d600-premiumtv && break
-            sleep 5
-          done
-          echo "results published"
+          if [ -s /tmp/probe-results.txt ]; then body=/tmp/probe-results.txt; else echo "probe produced no output" > /tmp/empty.txt; body=/tmp/empty.txt; fi
+          gh issue create --repo "$GITHUB_REPOSITORY"             --title "PROBE-RESULTS-${GITHUB_RUN_ID}"             --body-file "$body"             --assignee cgyegcvcecvoc || echo "issue create failed"
