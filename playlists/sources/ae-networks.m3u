@@ -1,18 +1,30 @@
 #EXTM3U
 # Curated A&E and A+E Networks live linear and FAST M3U8 streams
 # Every URL in this file is verified by scripts/scraper.py before publication to PremiumTV.m3u and AE_Channels.m3u.
+#
+# Crime 360 is one channel with several free-provider doors. The US doors all
+# carry the same guide id (Crime360.us@SD) so the scraper folds them into one
+# channel - the best feed as primary, the rest as "A&E Networks Backups" - and
+# the guide matches all of them. The Xumo door is the primary because it is the
+# only 1080p ladder with a closed-caption track; Vizio also carries 1080p, LG
+# tops out at 720p. Measured on a GitHub runner 2026-11-25: all five doors
+# answer, as do the Tubi and Plex copies other sources list.
 #EXTINF:-1 tvg-id="60DaysIn.us@SD" tvg-country="US" group-title="A&E Networks",60 Days In by A&E (720p)
 https://d2b8jic9gadlvy.cloudfront.net/v1/aenetworks_60daysin_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-#EXTINF:-1 tvg-id="Crime360.us@LG" tvg-country="US" group-title="A&E Networks",A&E Crime 360 (LG)
+#EXTINF:-1 tvg-id="Crime360.us@SD" tvg-country="US" group-title="A&E Networks",Crime 360 (1080p)
+https://dbrb49pjoymg4.cloudfront.net/10001/99951471/hls/playlist.m3u8?ads.xumo_channelId=99951471&ads.xumo_streamId=99951471&ads.channelId=99951471&ads.channelName=AECrime360byAE_us&ads.caid=AECrime360byAE&ads.csid=xumo_[PLATFORM]_AECrime360byAE_ssai&ads._fw_coppa=0&ads.xumo_contentId=4317&ads.xumo_contentName=AECrime360byAE&ads.xumo_providerId=4317&ads.xumo_providerName=AECrime360byAE&ads.appName=XumoPlay
+#EXTINF:-1 tvg-id="Crime360.us@SD" tvg-country="US" group-title="A&E Networks",A&E Crime 360 (Vizio)
+https://f82e592c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQ3JpbWUzNjBfSExT/playlist.m3u8
+#EXTINF:-1 tvg-id="Crime360.us@SD" tvg-country="US" group-title="A&E Networks",A&E Crime 360 (LG)
 https://aenetworks.global.transmit.live/hls/68b76f7c793640e982cd670c/v1/aenetworks_crime360_1/lg_us/latest/main/hls/playlist.m3u8
 #EXTINF:-1 tvg-id="Crime360.us@SD" tvg-country="US" group-title="A&E Networks",A&E Crime 360 (Pluto TV)
 https://jmp2.uk/plu-6000a5a9e767980007b497ca.m3u8
 #EXTINF:-1 tvg-id="Crime360.us@SD" tvg-country="US" group-title="A&E Networks",A&E Crime 360 (Pluto TV Alt)
 https://jmp2.uk/plu-657880c46e4f6a00087404d0.m3u8
-#EXTINF:-1 tvg-id="Crime360.us@Vizio" tvg-country="US" group-title="A&E Networks",A&E Crime 360 (Vizio)
-https://f82e592c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQ3JpbWUzNjBfSExT/playlist.m3u8
-#EXTINF:-1 tvg-id="Crime360.us@Xumo" tvg-country="US" group-title="A&E Networks",A&E Crime 360 (Xumo)
-https://dbrb49pjoymg4.cloudfront.net/10001/99951471/hls/playlist.m3u8?ads.xumo_channelId=99951471&ads.xumo_streamId=99951471&ads.channelId=99951471&ads.channelName=AECrime360byAE_us&ads.caid=AECrime360byAE&ads.csid=xumo_[PLATFORM]_AECrime360byAE_ssai&ads._fw_coppa=0&ads.xumo_contentId=4317&ads.xumo_contentName=AECrime360byAE&ads.xumo_providerId=4317&ads.xumo_providerName=AECrime360byAE&ads.appName=XumoPlay
+# The Canadian network feed is a different channel, not another door on the US
+# one: its name says so, so it keeps its own slot and its Samsung guide id.
+#EXTINF:-1 tvg-id="CA4700015P1" tvg-country="CA" group-title="A&E Networks",Crime 360 Canada
+https://jmp2.uk/stvp-CA4700015P1
 #EXTINF:-1 tvg-id="AELatinAmerica.us@Panregional" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/A%26E_Network_logo.svg/512px-A%26E_Network_logo.svg.png" group-title="A&E Networks",A&E Latin America (1080p)
 http://138.121.15.230:9002/A&E/index.m3u8
 #EXTINF:-1 tvg-id="AELatinAmerica.us@Panregional" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/A%26E_Network_logo.svg/512px-A%26E_Network_logo.svg.png" group-title="A&E Networks",A&E Latin America (Alt)

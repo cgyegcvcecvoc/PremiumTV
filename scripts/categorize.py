@@ -479,7 +479,7 @@ def build_group_votes(channels: list) -> dict[str, collections.Counter]:
         group = normalize_group(str(attrs.get("group-title", "") or ""))
         if not group:
             continue
-        key = norm_key(clean_display_name(_get(channel, "name")))
+        key = norm_key(identity_name(_get(channel, "name")))
         if key:
             votes[key][group] += 1
     return votes
@@ -487,7 +487,7 @@ def build_group_votes(channels: list) -> dict[str, collections.Counter]:
 
 def lookup_group_vote(name: str) -> str:
     """The most common non-generic label other indexes gave this channel."""
-    key = norm_key(clean_display_name(name))
+    key = norm_key(identity_name(name))
     counter = _GROUP_VOTES.get(key)
     if not counter:
         return ""
@@ -800,6 +800,23 @@ def clean_display_name(name: str) -> str:
     return text or (name or "").strip()
 
 
+def identity_name(name: str) -> str:
+    """The name two entries must share to be the same channel.
+
+    ``clean_display_name`` drops tags, but a title with no Latin letters
+    (Chinese, Korean, Cyrillic) can clean down to nothing. An empty key would
+    merge every such title into one "channel" - 341 published entries across
+    271 Chinese ones were being folded together that way - so an empty result
+    falls back to the raw name, which those entries still spell differently.
+    """
+    cleaned = clean_display_name(name)
+    if norm_key(cleaned):
+        return cleaned
+    # The raw name may be blank or nothing but emoji; return that and let the
+    # caller's empty-key guard keep the entry on its own.
+    return (name or "").strip()
+
+
 def quality_score(name: str) -> int:
     """Higher is better: used to pick which duplicate becomes the main link.
 
@@ -1015,13 +1032,16 @@ def identity_groups(channels: list) -> list[list]:
     """
     by_name: dict[str, list] = collections.defaultdict(list)
     for channel in channels:
-        name_key = norm_key(clean_display_name(_get(channel, "name")))
+        name_key = norm_key(identity_name(_get(channel, "name")))
+        if not name_key:
+            # Nothing to compare: the entry stays its own channel rather than
+            # joining every other nameless entry.
+            name_key = f"\0{id(channel)}"
         by_name[name_key].append(channel)
 
     groups: list[list] = []
     for name_key in sorted(by_name):
         named = by_name[name_key]
-
         # A published ``(Backup N)`` is stronger lineage evidence than inferred
         # country metadata.  On the next rebuild its source may omit
         # ``tvg-country`` and let a ``.us`` guide id infer United States while
