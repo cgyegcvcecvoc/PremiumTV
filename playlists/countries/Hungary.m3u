@@ -1,5 +1,5 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Hungary.xml"
-# Hungary working channels (147) - updated 2026-11-25 09:54 UTC (2026-11-25 04:54 AM EST) - 8:17 PM recheck
+# Hungary working channels (144) - updated 2026-11-25 13:13 UTC (2026-11-25 08:13 AM EST) - manual re-scrape (run-scrape.txt)
 #EXTINF:-1 tvg-id="Arena4.hu@SD" tvg-logo="https://i.imgur.com/uAaQDr6.png" group-title="Sports" tvg-country="HU",Arena4
 http://88.212.7.14/live/arena4/index.m3u8
 #EXTINF:-1 tvg-id="M4Sport.hu@SD" tvg-logo="https://i.imgur.com/TQ4uJZk.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" group-title="Sports" tvg-country="HU",M4 Sport (1080p)
@@ -43,6 +43,8 @@ https://oxygenmusic.hu:2443/hls/oxygenmusic.m3u8
 #EXTINF:-1 tvg-id="Nicktoons.hu@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d8/Nicktoons_UK_Logo_2014.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" group-title="Cartoons" tvg-country="HU",Nicktoons (Hungary)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
 http://88.212.7.14/live/nicktoons_hungary/index.m3u8
+#EXTINF:-1 tvg-id="7TV.hu@SD" tvg-logo="https://i.imgur.com/CnUhAlK.png" group-title="International" tvg-name="TV7 Békéscsaba" tvg-chno="49" tvg-country="HU" tvg-language="Hungarian" x-tier="community" x-status="verified" x-quality="sd",7.TV (360p)
+https://stream.y5.hu/stream/stream_bekescsaba/stream.m3u8
 #EXTINF:-1 tvg-name="90.9 Jazzy FM" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/14/Jazzy.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" tvg-chno="107" tvg-country="HU" group-title="International" tvg-id="premiumtv.hungary.90_9_jazzy_fm",90.9 Jazzy FM
 https://budapest-cache-1.antik.sk/live/jazzy/index.m3u8
 #EXTINF:-1 tvg-name="ATV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Atv_logo_2018.png/250px-Atv_logo_2018.png" tvg-id="ATV.hu" tvg-chno="9" tvg-country="HU" group-title="International",ATV
@@ -57,8 +59,8 @@ https://cloudfront44.lexanetwork.com:1344/relay44_1/livestream002.sdp/playlist.m
 https://cloudfront44.lexanetwork.com:1344/relay44_1/HDE040.sdp/playlist.m3u8
 #EXTINF:-1 tvg-id="FehervarTV.hu@SD" tvg-logo="https://www.fehervartv.hu/css/img/icon-1-2.png" group-title="International" tvg-country="HU",Fehervar TV (360p)
 https://cloudfront44.lexanetwork.com:1344/freerelay/fehervartv.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="Galaxy4" tvg-logo="https://www.tvmustra.hu/logok/csatikon/galaxy4.gif" tvg-id="Galaxy4.hu" tvg-chno="16" tvg-country="HU" group-title="International",Galaxy4 Ⓖ
-http://141.94.193.53:80/Galaxy4_HD/index.m3u8
+#EXTINF:-1 tvg-id="Galaxy4.hu@SD" tvg-logo="https://i.imgur.com/fTG99xh.png" group-title="International" tvg-country="HU",Galaxy4
+https://budapest-cache-1.antik.sk/live/test_galaxy_4_atk_1200/playlist.m3u8
 #EXTINF:-1 tvg-name="Gyöngyös TV" tvg-logo="https://i.imgur.com/RHgaPCk.png" tvg-id="GyongyosiTV.hu" tvg-chno="54" tvg-country="HU" group-title="International",Gyöngyös TV
 https://cloudfront44.lexanetwork.com:1344/relay44_1/HDE043.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Hegyvidék TV (Buda TV)" tvg-logo="https://hegyvidektv.hu/wp-content/uploads/2025/05/BUDATV_logo_picon.png" tvg-chno="73" tvg-country="HU" group-title="International" tvg-id="premiumtv.hungary.hegyvidek_tv_buda_tv",Hegyvidék TV (Buda TV)
@@ -77,8 +79,14 @@ https://cloudfront63.lexanetwork.com:1344/relay01/livestream004.sdp/playlist.m3u
 https://cloudfront44.lexanetwork.com:1344/relay01/HDE017.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="M2 / Petőfi TV" tvg-logo="https://i.imgur.com/CzaDhmA.png" tvg-id="M2.hu" tvg-chno="2" tvg-country="HU" group-title="International",M2 / Petőfi TV Ⓖ
 http://141.94.193.53:80/M2_HD/index.m3u8
+#EXTINF:-1 tvg-id="MakoiVarosiTelevizio.hu@SD" tvg-logo="https://i.imgur.com/PF3BP4X.png" group-title="International" tvg-name="Makoi Varosi Televizio" tvg-country="HU" tvg-language="Hungarian" x-tier="community" x-status="verified" x-quality="sd",Makoi Varosi Televizio (576p)
+http://makomedia.mikrohalo.hu/hls/makotv.m3u8
+#EXTINF:-1 tvg-id="MoraNetTV.hu@SD" tvg-logo="https://i.imgur.com/yT0RmKi.png" group-title="International" tvg-name="Mora-Net TV" tvg-country="HU" tvg-language="Hungarian",Mora-Net TV (576p)
+https://stream.moranettv.hu/live/index.m3u8
 #EXTINF:-1 tvg-id="OroszlanyiVarosiTelevizio.hu@SD" tvg-logo="https://i.imgur.com/P0fxUH5.png" group-title="International" tvg-name="Oroszlányi Városi Televízió" tvg-chno="64" tvg-country="HU",Oroszlanyi Varosi Televizio (720p)
 https://cloudfront44.lexanetwork.com:1344/relay01/broadcast002.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="OzdiVarosiTV.hu@SD" tvg-logo="https://i.imgur.com/t0Aq3UD.png" group-title="International" tvg-name="Ózdi Városi TV" tvg-chno="48" tvg-country="HU",Ozdi Varosi TV (720p) [Not 24/7]
+http://stream.nmih.hu:7980/live.m3u8
 #EXTINF:-1 tvg-name="Parlamenti közvetítés" tvg-logo="" tvg-chno="44" tvg-country="HU" group-title="International" tvg-id="OrszaggyulesOGYplenaris.hu@SD",Parlamenti közvetítés
 https://plenaris.parlament.hu:446/edgelive/smil:mkogyplen.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Rádió1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/52/Radio1.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" tvg-chno="105" tvg-country="HU" group-title="International" tvg-id="premiumtv.hungary.radio1",Rádió1
@@ -118,8 +126,6 @@ http://88.212.7.14/live/viasat6/index.m3u8
 http://88.212.7.14/live/viasat2/index.m3u8
 #EXTINF:-1 tvg-name="FehérvárTV" tvg-logo="https://www.fehervartv.hu/css/img/icon-1-2.png" tvg-chno="52" tvg-country="HU" group-title="International Backups" tvg-id="FehervarTV.hu@SD",Fehervar TV (Backup 1)
 https://cloudfront44.lexanetwork.com:1344/relay44_1/HDE046.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="Galaxy4.hu" tvg-logo="https://www.tvmustra.hu/logok/csatikon/galaxy4.gif" group-title="International Backups" tvg-country="HU",Galaxy4 Ⓖ (Backup 1)
-https://budapest-cache-1.antik.sk/live/test_galaxy_4_atk_1200/playlist.m3u8
 #EXTINF:-1 tvg-name="Kapos TV" tvg-logo="https://i.imgur.com/ZMrj2C5.png" tvg-id="KaposTV.hu@SD" tvg-chno="56" tvg-country="HU" group-title="International Backups",Kapos TV (Backup 1)
 https://cloudfront44.lexanetwork.com:1344/relay01/broadcast004.sdp/playlist.m3u8
 #EXTINF:-1 tvg-id="Story4.hu" tvg-logo="https://www.tvmustra.hu/logok/csatikon/story4.gif" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="International Backups" tvg-country="HU",Story4. (Backup 1)
@@ -127,15 +133,13 @@ https://cloudfront44.lexanetwork.com:1344/relay01/broadcast004.sdp/playlist.m3u8
 http://88.212.7.14/live/test_story_4_atk_1200/playlist.m3u8
 #EXTINF:-1 tvg-id="16tvBudapest.hu@SD" tvg-logo="https://i.imgur.com/04fCzHl.png" group-title="Europe" tvg-name="16TV" tvg-chno="50" tvg-country="HU",16tv Budapest (360p)
 https://cloudfront44.lexanetwork.com:1344/freerelay/16tv.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="7TV.hu@SD" tvg-logo="https://i.imgur.com/CnUhAlK.png" group-title="Europe" tvg-name="TV7 Békéscsaba" tvg-chno="49" tvg-country="HU",7.TV (360p)
-https://stream.y5.hu/stream/stream_bekescsaba/stream.m3u8
 #EXTINF:-1 tvg-id="BajaiTV.hu@SD" tvg-logo="https://i.imgur.com/cyReGWh.png" group-title="Europe" tvg-country="HU",Bajai TV (720p)
 https://cloudfront41.lexanetwork.com:1344/relay01/livestream002.sdp/playlist.m3u8
 #EXTINF:-1 tvg-id="BTV.hu@SD" tvg-logo="https://i.imgur.com/0PKqn3V.png" group-title="Europe" tvg-country="HU",BTV (Hungary) (360p)
 https://cloudfront44.lexanetwork.com:1344/freerelay/babolnatv.sdp/playlist.m3u8
 #EXTINF:-1 tvg-id="BudapestEuropaTelevizio.hu@SD" tvg-logo="https://i.imgur.com/CqqWtzo.png" group-title="Europe" tvg-name="Budapest Európa TV" tvg-chno="66" tvg-country="HU",Budapest Europa Televizio (576p)
 https://cloudfront44.lexanetwork.com:1344/freerelay/bpetv.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="CityTV.hu@SD" tvg-logo="https://i.imgur.com/u0AKhzj.png" group-title="Europe" tvg-name="CityTV (Belváros Lipótváros)" tvg-chno="51" tvg-country="HU",City TV (Hungary)
+#EXTINF:-1 tvg-id="CityTV.hu@SD" tvg-logo="https://i.imgur.com/u0AKhzj.png" group-title="Europe" tvg-name="CityTV (Belváros Lipótváros)" tvg-chno="51" tvg-country="HU" tvg-language="Hungarian",City TV (Hungary)
 https://citytv.hu/playlist.m3u8
 #EXTINF:-1 tvg-id="Duna.hu@SD" tvg-logo="https://i.imgur.com/oPbsSlp.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Europe" tvg-country="HU",Duna
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
@@ -151,12 +155,8 @@ https://cloudfront44.lexanetwork.com:1344/relay03/livestream003.sdp/playlist.m3u
 https://cloudfront41.lexanetwork.com:1344/relay03/livestream003.sdp/playlist.m3u8
 #EXTINF:-1 tvg-id="KecskemetiTV.hu@SD" tvg-logo="https://i.imgur.com/yxwrX2N.png" group-title="Europe" tvg-name="Kecskemét TV" tvg-chno="57" tvg-country="HU",Kecskemeti TV (416p) [Not 24/7]
 http://rtmp1.40e.hu:8000/live/ktv.m3u8
-#EXTINF:-1 tvg-id="MakoiVarosiTelevizio.hu@SD" tvg-logo="https://i.imgur.com/PF3BP4X.png" group-title="Europe" tvg-country="HU",Makoi Varosi Televizio (576p)
-http://makomedia.mikrohalo.hu/hls/makotv.m3u8
 #EXTINF:-1 tvg-id="MezokovesdiTelevizio.hu@SD" tvg-logo="https://i.imgur.com/2zCOXmH.png" group-title="Europe" tvg-country="HU",Mezokovesdi Televizio (360p)
 https://cloudfront44.lexanetwork.com:1344/freerelay/mezokovesdvtv.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="MoraNetTV.hu@SD" tvg-logo="https://i.imgur.com/yT0RmKi.png" group-title="Europe" tvg-country="HU",Mora-Net TV (576p)
-https://stream.moranettv.hu/live/index.m3u8
 #EXTINF:-1 tvg-id="Prime.hu@SD" tvg-logo="https://i.imgur.com/VvZEP4s.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Europe" tvg-country="HU",Prime (Hungary)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
 http://88.212.7.14/live/prime/index.m3u8
@@ -230,8 +230,6 @@ http://88.212.7.14/live/sorozatklub_atk/index.m3u8
 http://88.212.7.14/live/tv2_comedy/index.m3u8
 #EXTINF:-1 tvg-id="ZugloTV.hu@SD" tvg-logo="https://i.imgur.com/wPqCtwR.png" group-title="Entertainment" tvg-country="HU",Zuglo TV (360p)
 https://cloudfront44.lexanetwork.com:1344/freerelay/zuglotv.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="AMC" tvg-logo="https://www.tvmustra.hu/logok/csatikon/amc.gif" tvg-id="AMC.hu" tvg-chno="34" tvg-country="HU" group-title="Movies",AMC Ⓖ
-http://141.94.193.53:80/AMC_HD/index.m3u8
 #EXTINF:-1 tvg-id="AXNSpin.hu@SD" tvg-logo="https://i.imgur.com/uVFenKm.png" http-referrer="https://cool-tv.net/" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 VLC/3.0.18 LibVLC/3.0.18" group-title="Movies" tvg-country="HU",AXN Spin
 #EXTVLCOPT:http-referrer=https://cool-tv.net/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 VLC/3.0.18 LibVLC/3.0.18
@@ -262,8 +260,6 @@ http://88.212.7.14/live/mozi_plusz/index.m3u8
 #EXTINF:-1 tvg-id="Moziverzum.hu@SD" tvg-logo="https://i.imgur.com/NMifecQ.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Movies" tvg-country="HU",Moziverzum
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
 http://88.212.7.14/live/moziverzum/index.m3u8
-#EXTINF:-1 tvg-name="AMC音乐" tvg-id="AMC.hu" tvg-logo="https://www.tvmustra.hu/logok/csatikon/amc.gif" group-title="Movies Backups",AMC Ⓖ (Backup 1)
-https://AMChls.wns.live/hls/stream.m3u8
 #EXTINF:-1 tvg-name="Max4." tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Max4_logo.png/960px-Max4_logo.png" tvg-chno="30" tvg-country="HU" group-title="Movies Backups" tvg-id="MAX4.hu@SD",MAX4 (Backup 1)
 http://141.94.193.53:80/MAX4_HD/index.m3u8
 #EXTINF:-1 tvg-id="AnimalPlanet.hu@SD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/3/30/Animal_Planet_2018_II.svg/revision/latest?cb=20191206182106" group-title="Documentary" tvg-country="HU",Animal Planet (Hungary)
@@ -272,8 +268,6 @@ http://88.212.7.14/live/animal_hun/index.m3u8
 http://88.212.7.14/live/discovery_hungary/index.m3u8
 #EXTINF:-1 tvg-id="InvestigationDiscovery.hu@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/InvestigationDiscoveryLogo2020.svg/960px-InvestigationDiscoveryLogo2020.svg.png" group-title="Documentary" tvg-country="HU",Investigation Discovery (Hungary)
 http://88.212.7.14/live/id_hun/index.m3u8
-#EXTINF:-1 tvg-name="Nat Geo" tvg-logo="https://www.tvmustra.hu/logok/csatikon/nghd.gif" tvg-chno="31" tvg-country="HU" group-title="Documentary" tvg-id="premiumtv.hungary.nat_geo",Nat Geo
-http://141.94.193.53:80/Nat_Geo_HD/index.m3u8
 #EXTINF:-1 tvg-id="NationalGeographic.hu@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Natgeologo.svg/960px-Natgeologo.svg.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Documentary" tvg-country="HU",National Geographic (Hungary)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
 http://88.212.7.14/live/ngc_hun/index.m3u8
@@ -292,7 +286,7 @@ http://193.33.39.108:9007/play/a00p
 http://193.33.39.108:9000/play/a05r
 #EXTINF:-1 tvg-name="Bartók Rádió" tvg-logo="https://upload.wikimedia.org/wikipedia/hu/c/ce/MR3-BARTOK.png?utm_source=hu.wikipedia.org&utm_campaign=index&utm_content=original" tvg-id="BartokRadio.hu" tvg-chno="103" tvg-country="HU" group-title="Music",Bartók Rádió
 https://budapest-cache-1.antik.sk/live/bartok_radio/index.m3u8
-#EXTINF:-1 tvg-id="DanceTelevision.nl@SD" tvg-logo="https://pbs.twimg.com/profile_images/1268129322730127364/OJlQBZpS_400x400.jpg" group-title="Music" tvg-name="Dance TV" tvg-chno="41" tvg-country="HU",Dance Television (1080p)
+#EXTINF:-1 tvg-id="DanceTelevision.nl@SD" tvg-logo="https://pbs.twimg.com/profile_images/1268129322730127364/OJlQBZpS_400x400.jpg" group-title="Music" tvg-name="Dance TV" tvg-chno="41" tvg-country="HU" tvg-language="Dutch" x-tier="community" x-status="verified" x-quality="1080p",Dance Television (1080p)
 https://m1b2.worldcast.tv/dancetelevisionone/2/dancetelevisionone.m3u8
 #EXTINF:-1 tvg-name="Dankó Rádió" tvg-logo="https://upload.wikimedia.org/wikipedia/hu/c/c4/Danko-radio-logo.png?utm_source=hu.wikipedia.org&utm_campaign=index&utm_content=original" tvg-id="DankoRadio.hu" tvg-chno="104" tvg-country="HU" group-title="Music",Dankó Rádió
 https://icast.connectmedia.hu/4747/mr7.aac
@@ -342,7 +336,7 @@ https://hls.iptvservice.eu/hls/ewtn-hd.m3u8
 http://88.212.7.14/live/dikh/index.m3u8
 #EXTINF:-1 tvg-id="LiceumTV.hu@SD" tvg-logo="https://i.imgur.com/Hf122ZD.png" group-title="Culture" tvg-name="Líceum TV" tvg-chno="70" tvg-country="HU",Liceum TV (576p)
 http://193.225.32.62:8890/live.m3u8
-#EXTINF:-1 tvg-id="EuronewsHungarian.fr@SD" tvg-logo="https://i.imgur.com/8t9mdg9.png" group-title="News" tvg-name="Euronews Hungarian" tvg-chno="43" tvg-country="HU",Euronews Hungarian (720p)
+#EXTINF:-1 tvg-id="EuronewsHungarian.fr@SD" tvg-logo="https://i.imgur.com/8t9mdg9.png" group-title="News" tvg-name="Euronews Hungarian" tvg-chno="43" tvg-country="HU" tvg-language="Hungarian",Euronews Hungarian (720p)
 https://cdn-euronews.akamaized.net/live/eds/euronews-hu/25075/index.m3u8
 #EXTINF:-1 tvg-id="M1.hu@HD" tvg-logo="https://i.imgur.com/r4tgKZK.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="News" tvg-country="HU",M1 (Hungary) HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
