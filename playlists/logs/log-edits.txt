@@ -6054,3 +6054,18 @@ ISSUES / ERRORS:
   * 6499 links could not be confirmed after retries (see unverified details).
   * 2774 links returned a confirmed failure (see dead details).
 
+========================================================================================
+RUN ID:       20261125T141902Z-2970
+TIMESTAMP:    2026-11-25 09:27 AM EST (2026-11-25T14:19:02Z -> 2026-11-25T14:27:54Z)
+LABEL / TYPE: manual re-scrape (run-scrape.txt) [manual]
+STATUS:       WARNING (checked=True, duration=531.56s)
+PLAYLISTS:    working=17165 / unique=26274 (dead=2785, unverified=6324)
+COUNTRIES:    176 country playlists updated in playlists/countries/
+A&E CHANNELS: 205 working / 275 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +0 channels added / -0 channels removed (baseline: PremiumTV_all.m3u)
+ISSUES / ERRORS:
+  * Reference check 'StepDaddyLiveHD' failed: GET https://api.github.com/repos/gookie-dev/StepDaddyLiveHD failed: HTTP Error 404: Not Found
+  * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error [Errno -2] Name or service not known>
+  * 6324 links could not be confirmed after retries (see unverified details).
+  * 2785 links returned a confirmed failure (see dead details).
+
