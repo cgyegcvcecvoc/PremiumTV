@@ -122,9 +122,12 @@
     <icon src="https://epg.pw/media/images/epg/2026/11/23/20261123021242047133_12.png" />
   </channel>
   <channel id="RTP1.pt">
-    <display-name>RTP 1</display-name>
+    <display-name>RTP 1 (720p) [Not 24/7]</display-name>
     <display-name>PT - RTP 1</display-name>
     <display-name>RTP1.pt</display-name>
+    <display-name>RTP1.pt@HD</display-name>
+    <display-name>RTP 1 (Backup 1)</display-name>
+    <display-name>RTP 1 (Backup 2)</display-name>
     <icon src="https://iptv-epg.org/images/eKH3tRCHp7r7s7IslRryqtMttUa5UeSHUsXq33dL2Gra5xhj7q_sT8yQw52EMtJsPnVu6n_YWyotF_F8AJuSfRvGSVGVdz-5r_9bcx4jZA" />
   </channel>
   <channel id="RTP2.pt">
@@ -1205,6 +1208,9 @@
   <programme start="20261127200000 +0000" stop="20261127203000 +0000" channel="Nautical.Channel.pt">
     <title>Tiree Wave Classic</title>
   </programme>
+  <programme start="20261127203000 +0000" stop="20261127210000 +0000" channel="Nautical.Channel.pt">
+    <title>Tahitian Swell</title>
+  </programme>
   <programme start="20261125100000 +0000" stop="20261125180000 +0000" channel="TVIReality.pt">
     <title>Big Brother All stars - Direto</title>
   </programme>
@@ -1760,8 +1766,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261125125800 +0000" stop="20261125144100 +0000" channel="RTP1.pt">
-    <title>Jornal da Tarde</title>
+  <programme start="20261127202000 +0000" stop="20261127210000 +0000" channel="PortoCanal.pt@SD">
+    <title>Cara Ou Coroa</title>
+    <date>20261127</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261125144100 +0000" stop="20261125152300 +0000" channel="RTP1.pt">
     <title>A Escrava Isaura</title>
@@ -2951,6 +2961,9 @@
   <programme start="20261127193400 +0000" stop="20261127202000 +0000" channel="RTPMemoria.pt">
     <title>O País em Memória</title>
   </programme>
+  <programme start="20261127202000 +0000" stop="20261127210000 +0000" channel="RTPMemoria.pt">
+    <title>Bem-Vindos a Beirais</title>
+  </programme>
   <programme start="20261125143500 +0000" stop="20261125150000 +0000" channel="RTP3.pt">
     <title>Notícias País</title>
   </programme>
@@ -3205,6 +3218,9 @@
   </programme>
   <programme start="20261127195800 +0000" stop="20261127203000 +0000" channel="RTP3.pt">
     <title>Telejornal</title>
+  </programme>
+  <programme start="20261127203000 +0000" stop="20261127210000 +0000" channel="RTP3.pt">
+    <title>Notícias 20</title>
   </programme>
   <programme start="20261125143500 +0000" stop="20261125153500 +0000" channel="SIC.pt">
     <title>Júlia</title>
@@ -3627,6 +3643,10 @@
   </programme>
   <programme start="20261127190000 +0000" stop="20261127202500 +0000" channel="Canal11.pt">
     <title>11 Na Hora</title>
+  </programme>
+  <programme start="20261127202500 +0000" stop="20261127220000 +0000" channel="Canal11.pt">
+    <title>Liga Placard</title>
+    <live />
   </programme>
   <programme start="20261125142000 +0000" stop="20261125144500 +0000" channel="RTPAcores.pt@SD">
     <title>Entre o Mar e a Terra</title>
@@ -4445,6 +4465,9 @@
     <title>Danger Force</title>
   </programme>
   <programme start="20261127200000 +0000" stop="20261127202500 +0000" channel="Nickelodeon.pt@SD">
+    <title>iCarly</title>
+  </programme>
+  <programme start="20261127202500 +0000" stop="20261127205000 +0000" channel="Nickelodeon.pt@SD">
     <title>iCarly</title>
   </programme>
   <programme start="20261125125400 +0000" stop="20261125144500 +0000" channel="AXNMovies.pt@SD">
