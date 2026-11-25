@@ -156,6 +156,17 @@ keeps the merged guide plus at most `MAX_HEADER_GUIDES` (2) upstream fallbacks,
 pinned by `tests/test_scraper.py::test_unbuilt_country_guide_header_stays_under_the_published_maximum`.
 The verifier therefore exits clean again instead of failing the whole scrape.
 
+A second manual scrape was then requested on the fixed tree and finished green:
+**20,397 unique links, 14,083 published entries**, the strict verification
+reporting **0 playlists with problems** ("None: every playlist is canonical, in
+order, and free of links the deep check confirmed dead"). The same run's
+`STATUS.md` shows the filter where the source table is read:
+
+> **Group filters** (a source contributing only part of its file):
+> `m3upt` kept 159 of 944 entries; dropped: PCNELID (216), Eixo do Mal (214),
+> Beachcam (194), Rádios (85), IEGCQT (61), DRM test (6), O Planeta Vivo (6),
+> 100 ou Mais (3).
+
 ## What this says about the provider directory
 
 1. **The valuable entries are repositories, not websites.** All three additions
