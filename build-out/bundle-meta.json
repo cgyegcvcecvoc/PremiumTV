@@ -1,13 +1,13 @@
 {
-  "version": "1.1.22",
+  "version": "1.1.23",
   "library_scope": "usa",
   "preview_features": [],
-  "generated_utc": "2026-11-25 17:18 UTC",
+  "generated_utc": "2026-11-25 17:43 UTC",
   "playlist": "playlists/live/USA.m3u",
   "guide": "EPG/USA.xml",
   "channel_count": 4393,
   "group_count": 81,
-  "programme_count": 40434,
+  "programme_count": 40210,
   "guide_channels": 1042,
   "window_start": 1795580582,
   "window_end": 1795824000,
@@ -999,11 +999,12 @@
   },
   "local_channels": {
     "schema": 2,
-    "generated_utc": "2026-11-25T16:27:41Z",
+    "generated_utc": "2026-11-25T17:34:13Z",
     "source": "playlists/live/USA.m3u",
     "reference": [
       "data/local-markets/us-tv-markets.csv",
       "data/local-markets/us-markets.csv",
+      "data/local-markets/us-market-affiliates.csv",
       "data/local-markets/us-zip3.csv",
       "data/local-markets/us-places.csv"
     ],
@@ -3278,6 +3279,17 @@
         "longitude": -76.8632,
         "stations": [
           {
+            "callsign": "WGAL",
+            "city": "Lancaster",
+            "network": "NBC",
+            "name": "WGAL 8 (NBC) - Lancaster PA (720p)",
+            "channel_id": "NBC.us@WGAL",
+            "chno": "8",
+            "logo": "https://i.imgur.com/nxY84W5.png",
+            "url": "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive-v2/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8?Expires=4854278400&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zeW5kaWNhdGlvbi1hdXNlMS5jZi5jZG4udXBseW5rLmNvbS85MGYzYWJiZmIxN2E0YjZlYmE5NjAzOGIxZDRiZDA1MS8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjo0ODU0Mjc4NDAwfX19XX0=&Signature=GH3a3Iz~ObieDeswS-rblKhE7rb5kICPXlOXq4VdRYdZNFEx4s4LTEm9X0HzShHgs4nrmvjJyJiZWYWKlJ609XS931GHrlzoZLbCJD9mjpbHWAfO0VppXz-AzhKHYSh1Y-yEgI2V~4v01wZJWdCsNK5bPER2fI3ENLFL0FRh4m8enYHC4GGJdqZ8a~mymVRTugSf54NTxfS4vHSc4pZB0tANkYkUjkGB5jcMjbKthNNFtrKhM0Z8NN9uMCOrut28pAXMoGYG9K2qZAn6EFe-k~xZcyHVAnYFhDI1oBiLiMojRLyEa2j5V~tl7TPJOEtbjtQ9iuG0QTuPdAINu5FRjg__&Key-Pair-Id=K1BEGSWP8YSEGF&ads.D_ID=%5BD_ID%5D&ads.HS_URL=http%3A%2F%2Fhaystack.tv%2Fid%2FhZkluhXp&ads.HS_LIVE_AD_TOKEN=90e3c99084fd0d650c2da74b8449e7bf2d8bd59b22d5791cafd4166500c807a5c25cf22cd612ce83318ff31dbabcdc52&ads.us_privacy=1---&ads.D_MK=web&ads.D_ML=%5BSS_D_ML%5D&ads.D_OV=7.4&ads.D_DNT=%5BD_DNT%5D&ads.GIVN=%5BGIVN%5D",
+            "backup_urls": []
+          },
+          {
             "callsign": "WHP",
             "city": "Harrisburg",
             "network": "CBS",
@@ -3286,6 +3298,17 @@
             "chno": "21",
             "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/CBS_logo_%282020%29.svg/512px-CBS_logo_%282020%29.svg.png",
             "url": "https://d12pdj8927uba5.cloudfront.net/out/v1/31e82bf0b0de49508a0c62dabd6e40c5/index.m3u8",
+            "backup_urls": []
+          },
+          {
+            "callsign": "WPMT",
+            "city": "York",
+            "network": "FOX",
+            "name": "FOX 43 (WPMT) - York PA (1080p)",
+            "channel_id": "FOX.us@WPMT",
+            "chno": "43",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Fox_Networks_Group_US_logo.svg/512px-Fox_Networks_Group_US_logo.svg.png",
+            "url": "https://video.tegnaone.com/wpmt/live/v1/master/f9c1bf9ffd6ac86b6173a7c169ff6e3f4efbd693/WPMT-Production/live/index.m3u8",
             "backup_urls": []
           }
         ]
@@ -3307,6 +3330,28 @@
             "chno": "8",
             "logo": "https://i.imgur.com/nxY84W5.png",
             "url": "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive-v2/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8?Expires=4854278400&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zeW5kaWNhdGlvbi1hdXNlMS5jZi5jZG4udXBseW5rLmNvbS85MGYzYWJiZmIxN2E0YjZlYmE5NjAzOGIxZDRiZDA1MS8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjo0ODU0Mjc4NDAwfX19XX0=&Signature=GH3a3Iz~ObieDeswS-rblKhE7rb5kICPXlOXq4VdRYdZNFEx4s4LTEm9X0HzShHgs4nrmvjJyJiZWYWKlJ609XS931GHrlzoZLbCJD9mjpbHWAfO0VppXz-AzhKHYSh1Y-yEgI2V~4v01wZJWdCsNK5bPER2fI3ENLFL0FRh4m8enYHC4GGJdqZ8a~mymVRTugSf54NTxfS4vHSc4pZB0tANkYkUjkGB5jcMjbKthNNFtrKhM0Z8NN9uMCOrut28pAXMoGYG9K2qZAn6EFe-k~xZcyHVAnYFhDI1oBiLiMojRLyEa2j5V~tl7TPJOEtbjtQ9iuG0QTuPdAINu5FRjg__&Key-Pair-Id=K1BEGSWP8YSEGF&ads.D_ID=%5BD_ID%5D&ads.HS_URL=http%3A%2F%2Fhaystack.tv%2Fid%2FhZkluhXp&ads.HS_LIVE_AD_TOKEN=90e3c99084fd0d650c2da74b8449e7bf2d8bd59b22d5791cafd4166500c807a5c25cf22cd612ce83318ff31dbabcdc52&ads.us_privacy=1---&ads.D_MK=web&ads.D_ML=%5BSS_D_ML%5D&ads.D_OV=7.4&ads.D_DNT=%5BD_DNT%5D&ads.GIVN=%5BGIVN%5D",
+            "backup_urls": []
+          },
+          {
+            "callsign": "WHP",
+            "city": "Harrisburg",
+            "network": "CBS",
+            "name": "CBS 21 (WHP) - Harrisburg PA (720p)",
+            "channel_id": "CBS.us@WHP",
+            "chno": "21",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/CBS_logo_%282020%29.svg/512px-CBS_logo_%282020%29.svg.png",
+            "url": "https://d12pdj8927uba5.cloudfront.net/out/v1/31e82bf0b0de49508a0c62dabd6e40c5/index.m3u8",
+            "backup_urls": []
+          },
+          {
+            "callsign": "WPMT",
+            "city": "York",
+            "network": "FOX",
+            "name": "FOX 43 (WPMT) - York PA (1080p)",
+            "channel_id": "FOX.us@WPMT",
+            "chno": "43",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Fox_Networks_Group_US_logo.svg/512px-Fox_Networks_Group_US_logo.svg.png",
+            "url": "https://video.tegnaone.com/wpmt/live/v1/master/f9c1bf9ffd6ac86b6173a7c169ff6e3f4efbd693/WPMT-Production/live/index.m3u8",
             "backup_urls": []
           }
         ]
@@ -3363,6 +3408,28 @@
         "latitude": 39.965,
         "longitude": -76.697,
         "stations": [
+          {
+            "callsign": "WGAL",
+            "city": "Lancaster",
+            "network": "NBC",
+            "name": "WGAL 8 (NBC) - Lancaster PA (720p)",
+            "channel_id": "NBC.us@WGAL",
+            "chno": "8",
+            "logo": "https://i.imgur.com/nxY84W5.png",
+            "url": "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive-v2/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8?Expires=4854278400&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zeW5kaWNhdGlvbi1hdXNlMS5jZi5jZG4udXBseW5rLmNvbS85MGYzYWJiZmIxN2E0YjZlYmE5NjAzOGIxZDRiZDA1MS8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjo0ODU0Mjc4NDAwfX19XX0=&Signature=GH3a3Iz~ObieDeswS-rblKhE7rb5kICPXlOXq4VdRYdZNFEx4s4LTEm9X0HzShHgs4nrmvjJyJiZWYWKlJ609XS931GHrlzoZLbCJD9mjpbHWAfO0VppXz-AzhKHYSh1Y-yEgI2V~4v01wZJWdCsNK5bPER2fI3ENLFL0FRh4m8enYHC4GGJdqZ8a~mymVRTugSf54NTxfS4vHSc4pZB0tANkYkUjkGB5jcMjbKthNNFtrKhM0Z8NN9uMCOrut28pAXMoGYG9K2qZAn6EFe-k~xZcyHVAnYFhDI1oBiLiMojRLyEa2j5V~tl7TPJOEtbjtQ9iuG0QTuPdAINu5FRjg__&Key-Pair-Id=K1BEGSWP8YSEGF&ads.D_ID=%5BD_ID%5D&ads.HS_URL=http%3A%2F%2Fhaystack.tv%2Fid%2FhZkluhXp&ads.HS_LIVE_AD_TOKEN=90e3c99084fd0d650c2da74b8449e7bf2d8bd59b22d5791cafd4166500c807a5c25cf22cd612ce83318ff31dbabcdc52&ads.us_privacy=1---&ads.D_MK=web&ads.D_ML=%5BSS_D_ML%5D&ads.D_OV=7.4&ads.D_DNT=%5BD_DNT%5D&ads.GIVN=%5BGIVN%5D",
+            "backup_urls": []
+          },
+          {
+            "callsign": "WHP",
+            "city": "Harrisburg",
+            "network": "CBS",
+            "name": "CBS 21 (WHP) - Harrisburg PA (720p)",
+            "channel_id": "CBS.us@WHP",
+            "chno": "21",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/CBS_logo_%282020%29.svg/512px-CBS_logo_%282020%29.svg.png",
+            "url": "https://d12pdj8927uba5.cloudfront.net/out/v1/31e82bf0b0de49508a0c62dabd6e40c5/index.m3u8",
+            "backup_urls": []
+          },
           {
             "callsign": "WPMT",
             "city": "York",
@@ -11892,7 +11959,7 @@
         "state": "PA",
         "state_name": "Pennsylvania",
         "market": "USHAR",
-        "stations": 1,
+        "stations": 3,
         "latitude": 40.2781,
         "longitude": -76.8632
       },
@@ -11901,7 +11968,7 @@
         "state": "PA",
         "state_name": "Pennsylvania",
         "market": "USLNS",
-        "stations": 1,
+        "stations": 3,
         "latitude": 40.0407,
         "longitude": -76.3091
       },
@@ -11928,7 +11995,7 @@
         "state": "PA",
         "state_name": "Pennsylvania",
         "market": "USTHV",
-        "stations": 1,
+        "stations": 3,
         "latitude": 39.965,
         "longitude": -76.697
       },
@@ -12159,6 +12226,6 @@
       }
     ],
     "market_count": 117,
-    "station_count": 156
+    "station_count": 162
   }
 }
