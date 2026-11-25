@@ -1,159 +1,164 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-25 13:40 UTC (2026-11-25 08:40 AM EST)
-- **Channels in the main playlist:** 14083
-- **Channels in the category files:** 14046 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 4146 (29.5%)
-- **Categories:** 127 groups (51 backup groups)
+- **Rebuilt:** 2026-11-25 14:10 UTC (2026-11-25 09:10 AM EST)
+- **Channels in the main playlist:** 17838
+- **Channels in the category files:** 17790 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 5247 (29.5%)
+- **Categories:** 132 groups (54 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 534 | 231 |
-| 2 | Sports Backups | 161 | 112 |
-| 3 | Lifestyle | 515 | 192 |
-| 4 | Lifestyle Backups | 177 | 124 |
-| 5 | Fox Channels | 48 | 10 |
-| 6 | Fox Channels Backups | 3 | 3 |
+| 1 | Sports | 686 | 282 |
+| 2 | Sports Backups | 243 | 178 |
+| 3 | Lifestyle | 603 | 207 |
+| 4 | Lifestyle Backups | 217 | 158 |
+| 5 | Fox Channels | 51 | 10 |
+| 6 | Fox Channels Backups | 12 | 12 |
 | 7 | CBS | 45 | 20 |
-| 8 | CBS Backups | 33 | 33 |
-| 9 | NBC | 77 | 26 |
-| 10 | NBC Backups | 19 | 16 |
-| 11 | NBC Sports Channels | 6 | 4 |
-| 12 | NBC Sports Channels Backups | 3 | 3 |
-| 13 | Cartoons | 187 | 48 |
-| 14 | Cartoons Backups | 60 | 30 |
-| 15 | PBS | 41 | 15 |
-| 16 | PBS Backups | 17 | 10 |
-| 17 | Game Shows | 22 | 19 |
-| 18 | Game Shows Backups | 32 | 32 |
-| 19 | International | 1794 | 348 |
-| 20 | International Backups | 263 | 86 |
-| 21 | News | 877 | 258 |
-| 22 | News Backups | 338 | 197 |
-| 23 | Music | 860 | 185 |
-| 24 | Music Backups | 170 | 108 |
-| 25 | Movies | 832 | 214 |
-| 26 | Movies Backups | 201 | 129 |
-| 27 | Entertainment | 702 | 175 |
-| 28 | Entertainment Backups | 182 | 98 |
-| 29 | Religious | 617 | 70 |
-| 30 | Religious Backups | 72 | 22 |
-| 31 | Europe | 410 | 75 |
-| 32 | Europe Backups | 39 | 26 |
-| 33 | United States | 368 | 62 |
-| 34 | United States Backups | 67 | 34 |
-| 35 | Documentary | 333 | 122 |
-| 36 | Documentary Backups | 113 | 60 |
-| 37 | Kids | 313 | 98 |
-| 38 | Kids Backups | 108 | 65 |
-| 39 | Asia | 301 | 68 |
-| 40 | Asia Backups | 7 | 0 |
-| 41 | Series | 293 | 84 |
-| 42 | Series Backups | 203 | 157 |
-| 43 | South America | 247 | 12 |
+| 8 | CBS Backups | 34 | 34 |
+| 9 | NBC | 85 | 32 |
+| 10 | NBC Backups | 32 | 29 |
+| 11 | NBC Sports Channels | 7 | 4 |
+| 12 | NBC Sports Channels Backups | 5 | 5 |
+| 13 | Cartoons | 216 | 62 |
+| 14 | Cartoons Backups | 73 | 41 |
+| 15 | PBS | 43 | 15 |
+| 16 | PBS Backups | 23 | 15 |
+| 17 | Game Shows | 33 | 24 |
+| 18 | Game Shows Backups | 46 | 44 |
+| 19 | International | 2911 | 528 |
+| 20 | International Backups | 486 | 140 |
+| 21 | Music | 990 | 215 |
+| 22 | Music Backups | 214 | 140 |
+| 23 | News | 972 | 274 |
+| 24 | News Backups | 408 | 252 |
+| 25 | Movies | 966 | 242 |
+| 26 | Movies Backups | 277 | 170 |
+| 27 | Entertainment | 805 | 184 |
+| 28 | Entertainment Backups | 241 | 134 |
+| 29 | United States | 661 | 112 |
+| 30 | United States Backups | 177 | 86 |
+| 31 | Religious | 616 | 70 |
+| 32 | Religious Backups | 76 | 23 |
+| 33 | Europe | 409 | 73 |
+| 34 | Europe Backups | 36 | 23 |
+| 35 | Documentary | 378 | 124 |
+| 36 | Documentary Backups | 139 | 69 |
+| 37 | Kids | 324 | 98 |
+| 38 | Kids Backups | 125 | 78 |
+| 39 | Asia | 299 | 69 |
+| 40 | Asia Backups | 5 | 0 |
+| 41 | Series | 262 | 66 |
+| 42 | Series Backups | 227 | 178 |
+| 43 | South America | 244 | 11 |
 | 44 | South America Backups | 6 | 0 |
-| 45 | North America | 164 | 6 |
-| 46 | North America Backups | 3 | 0 |
-| 47 | Education | 127 | 12 |
-| 48 | Education Backups | 14 | 1 |
-| 49 | Culture | 124 | 12 |
-| 50 | Culture Backups | 8 | 4 |
-| 51 | Legislative | 113 | 8 |
-| 52 | Legislative Backups | 5 | 1 |
-| 53 | A&E Networks | 112 | 40 |
-| 54 | A&E Networks Backups | 27 | 19 |
-| 55 | Comedy | 109 | 29 |
-| 56 | Comedy Backups | 44 | 29 |
-| 57 | India | 91 | 32 |
-| 58 | India Backups | 26 | 12 |
-| 59 | Business | 55 | 16 |
-| 60 | Business Backups | 19 | 15 |
-| 61 | Canada | 52 | 21 |
-| 62 | Classic TV | 49 | 13 |
-| 63 | Classic TV Backups | 23 | 20 |
-| 64 | Andalucía | 47 | 0 |
-| 65 | Andalucía Backups | 4 | 0 |
-| 66 | Family | 28 | 14 |
-| 67 | Family Backups | 7 | 5 |
-| 68 | Africa | 27 | 1 |
-| 69 | En Español | 19 | 18 |
-| 70 | En Español Backups | 11 | 9 |
-| 71 | Australia | 16 | 2 |
-| 72 | Musicales | 16 | 1 |
-| 73 | Musicales Backups | 8 | 0 |
-| 74 | UK | 16 | 7 |
-| 75 | C. Valenciana | 15 | 1 |
-| 76 | Cataluña | 15 | 0 |
-| 77 | United Kingdom | 15 | 6 |
-| 78 | Aria Web Channels | 13 | 0 |
-| 79 | Canarias | 12 | 0 |
-| 80 | Canarias Backups | 4 | 0 |
-| 81 | Int. América | 12 | 1 |
-| 82 | Int. América Backups | 4 | 0 |
-| 83 | Weather | 12 | 4 |
-| 84 | Weather Backups | 6 | 5 |
-| 85 | Eventuales | 11 | 0 |
-| 86 | Eventuales Backups | 18 | 0 |
-| 87 | Int. Europa | 11 | 0 |
-| 88 | Int. Europa Backups | 4 | 0 |
-| 89 | Galicia | 10 | 1 |
-| 90 | Galicia Backups | 5 | 1 |
-| 91 | Sci-Fi | 10 | 10 |
-| 92 | Sci-Fi Backups | 8 | 8 |
-| 93 | Animals & Nature | 9 | 2 |
-| 94 | Animals & Nature Backups | 3 | 2 |
-| 95 | DLTV | 9 | 0 |
-| 96 | País Vasco | 9 | 0 |
-| 97 | Drama | 8 | 8 |
-| 98 | Drama Backups | 4 | 4 |
-| 99 | Infantiles | 7 | 0 |
-| 100 | Int. Otros | 7 | 0 |
-| 101 | Religiosos | 7 | 1 |
-| 102 | Tv Celebrities | 7 | 2 |
-| 103 | C. de Madrid | 6 | 0 |
-| 104 | C. de Madrid Backups | 3 | 0 |
-| 105 | Castilla-La Mancha | 6 | 0 |
-| 106 | Int. Asia | 5 | 0 |
-| 107 | Online TV | 5 | 0 |
-| 108 | Online TV Backups | 21 | 0 |
-| 109 | Tv Paranormal | 5 | 1 |
-| 110 | Cantabria | 4 | 0 |
-| 111 | Season's Greetings | 4 | 4 |
-| 112 | Tv Shows | 4 | 1 |
-| 113 | Westerns | 4 | 4 |
-| 114 | Westerns Backups | 6 | 6 |
-| 115 | Animals + Nature | 3 | 3 |
-| 116 | Animals + Nature Backups | 3 | 3 |
-| 117 | Extremadura | 3 | 0 |
-| 118 | Generalistas | 3 | 1 |
-| 119 | Global TV | 3 | 2 |
-| 120 | Int. África | 3 | 0 |
-| 121 | Int. África Backups | 4 | 0 |
-| 122 | R. de Murcia | 3 | 0 |
-| 123 | Relax | 3 | 1 |
-| 124 | True Crime | 3 | 3 |
-| 125 | Castilla y León Backups | 3 | 0 |
-| 126 | Other | 252 | 25 |
-| 127 | Other Backups | 372 | 8 |
+| 45 | United Kingdom | 244 | 51 |
+| 46 | United Kingdom Backups | 35 | 8 |
+| 47 | Canada | 232 | 84 |
+| 48 | Canada Backups | 51 | 32 |
+| 49 | North America | 166 | 6 |
+| 50 | North America Backups | 3 | 0 |
+| 51 | A&E Networks | 162 | 43 |
+| 52 | A&E Networks Backups | 59 | 39 |
+| 53 | India | 159 | 46 |
+| 54 | India Backups | 29 | 13 |
+| 55 | Australia | 139 | 32 |
+| 56 | Australia Backups | 4 | 0 |
+| 57 | Education | 127 | 12 |
+| 58 | Education Backups | 14 | 1 |
+| 59 | Culture | 124 | 12 |
+| 60 | Culture Backups | 8 | 4 |
+| 61 | Comedy | 113 | 28 |
+| 62 | Comedy Backups | 61 | 46 |
+| 63 | Legislative | 113 | 8 |
+| 64 | Legislative Backups | 5 | 1 |
+| 65 | Business | 74 | 29 |
+| 66 | Business Backups | 25 | 21 |
+| 67 | Classic TV | 49 | 13 |
+| 68 | Classic TV Backups | 26 | 22 |
+| 69 | Andalucía | 47 | 0 |
+| 70 | Andalucía Backups | 4 | 0 |
+| 71 | Family | 30 | 14 |
+| 72 | Family Backups | 10 | 8 |
+| 73 | Africa | 25 | 1 |
+| 74 | Fast Tubi | 21 | 2 |
+| 75 | En Español | 19 | 18 |
+| 76 | En Español Backups | 12 | 10 |
+| 77 | Musicales | 16 | 1 |
+| 78 | Musicales Backups | 8 | 0 |
+| 79 | C. Valenciana | 15 | 1 |
+| 80 | Cataluña | 15 | 0 |
+| 81 | UK | 15 | 7 |
+| 82 | Aria Web Channels | 13 | 0 |
+| 83 | Canarias | 12 | 0 |
+| 84 | Canarias Backups | 4 | 0 |
+| 85 | Int. América | 12 | 1 |
+| 86 | Int. América Backups | 4 | 0 |
+| 87 | Weather | 12 | 4 |
+| 88 | Weather Backups | 8 | 7 |
+| 89 | Eventuales | 11 | 0 |
+| 90 | Eventuales Backups | 19 | 0 |
+| 91 | Int. Europa | 11 | 0 |
+| 92 | Int. Europa Backups | 4 | 0 |
+| 93 | Galicia | 10 | 1 |
+| 94 | Galicia Backups | 5 | 1 |
+| 95 | Sci-Fi | 10 | 10 |
+| 96 | Sci-Fi Backups | 10 | 10 |
+| 97 | DLTV | 9 | 0 |
+| 98 | País Vasco | 9 | 0 |
+| 99 | Drama | 8 | 8 |
+| 100 | Drama Backups | 8 | 8 |
+| 101 | Infantiles | 7 | 0 |
+| 102 | Int. Otros | 7 | 0 |
+| 103 | Religiosos | 7 | 1 |
+| 104 | C. de Madrid | 6 | 0 |
+| 105 | C. de Madrid Backups | 3 | 0 |
+| 106 | Tv Celebrities | 6 | 2 |
+| 107 | Castilla-La Mancha | 5 | 0 |
+| 108 | Int. Asia | 5 | 0 |
+| 109 | Online TV | 5 | 1 |
+| 110 | Online TV Backups | 7 | 6 |
+| 111 | Cantabria | 4 | 0 |
+| 112 | Romance | 4 | 2 |
+| 113 | Season's Greetings | 4 | 4 |
+| 114 | Tv Paranormal | 4 | 0 |
+| 115 | Westerns | 4 | 4 |
+| 116 | Westerns Backups | 7 | 7 |
+| 117 | Animals | 3 | 1 |
+| 118 | Animals & Nature | 3 | 1 |
+| 119 | Animals + Nature | 3 | 3 |
+| 120 | Animals + Nature Backups | 5 | 5 |
+| 121 | Crime | 3 | 1 |
+| 122 | Extremadura | 3 | 0 |
+| 123 | Generalistas | 3 | 1 |
+| 124 | Int. África | 3 | 0 |
+| 125 | Int. África Backups | 4 | 0 |
+| 126 | R. de Murcia | 3 | 0 |
+| 127 | Relax | 3 | 1 |
+| 128 | True Crime | 3 | 2 |
+| 129 | True Crime Backups | 3 | 2 |
+| 130 | Castilla y León Backups | 3 | 0 |
+| 131 | Other | 176 | 9 |
+| 132 | Other Backups | 338 | 0 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 14083 | 152 | 2963 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 17838 | 167 | 3911 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 13 | 5 | 1 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 14055 (99.7%) |
-| matched on the base id (feed qualifier dropped) | 2 (0.0%) |
-| matched on the display name | 1 (0.0%) |
-| matched on a looser spelling of the name | 1 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 37 (0.3%) |
+| already declared in the guide | 14426 (80.8%) |
+| matched on the base id (feed qualifier dropped) | 8 (0.0%) |
+| matched on the display name | 1095 (6.1%) |
+| matched on a looser spelling of the name | 29 (0.2%) |
+| no guide entry (upstream publishes no schedule for it) | 2293 (12.8%) |
 
 ## Channels with no schedule yet
 
@@ -165,11 +170,11 @@ just have nothing to show until an upstream guide picks them up:
 - 5Live (1080p) (`5Live.il@SD`)
 - 5Max (1080p) (`5Max.il@SD`)
 - 5Plus (1080p) (`5Plus.il@SD`)
-- ספורט 6 HD (Sport 6) (`premiumtv.international.6_hd_sport_6`)
 - A Sports (`premiumtv.pakistan.a_sports`)
 - ACI Sport TV SD (1080p) (`ACISportTV.it@SD`)
 - ☆ ACL Cornhole TV 🇺🇸 (`plex.tv.ACL.Cornhole.TV.plex`)
 - ADO TV (720p) (`ADOTV.bj@SD`)
+- Adventure Sports TV (`ITBC400005TF`)
 - Adventure Sports TV (1080p) (`AdventureSportsTV.us@SD`)
 - Africa 24 Sport (1080p) (`Africa24Sport.fr@SD`)
 - AntenaPlay Events (576p) [Not 24/7] (`AntenaPlayEvents.ro@SD`)
