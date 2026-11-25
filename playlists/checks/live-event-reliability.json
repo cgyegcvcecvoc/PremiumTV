@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-25T14:52:24Z",
+  "generated_utc": "2026-11-25T18:45:14Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261125T144359Z-2999",
+  "scrape_run_id": "20261125T183725Z-3201",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -13,58 +13,17 @@
     "minimum_origin_families": 2,
     "duplicate_urls_count_once": true
   },
-  "fixture_count": 8,
-  "compliant_count": 0,
-  "deficit_count": 8,
+  "fixture_count": 22,
+  "compliant_count": 2,
+  "deficit_count": 20,
   "fixtures": [
     {
-      "sport": "Cricket",
-      "league": "Cricket",
-      "home": "South Africa",
-      "away": "Bangladesh",
-      "title": "South Africa vs. Bangladesh",
-      "key": "cricket|bangladesh|southafrica",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.59"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "655f3ee2b235",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.59",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
-      "sport": "Soccer",
-      "league": "UEFA Youth League",
-      "home": "Club Brugge U19",
-      "away": "Liverpool U19",
-      "title": "Club Brugge U19 vs. Liverpool U19",
-      "key": "soccer|clubbruggeu19|liverpoolu19",
+      "sport": "Basketball Euroleague",
+      "league": "Basketball Euroleague",
+      "home": "Dubai",
+      "away": "Partizan",
+      "title": "Dubai vs. Partizan",
+      "key": "basketballeuroleague|dubai|partizan",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -88,11 +47,257 @@
       ],
       "feeds": [
         {
-          "fingerprint": "f699501c841b",
+          "fingerprint": "6d822d57db4a",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
           "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Women",
+      "home": "Holy Cross Crusaders",
+      "away": "Rhode Island Rams",
+      "title": "Holy Cross Crusaders vs. Rhode Island Rams",
+      "key": "collegefootball|holycrosscrusaders|rhodeislandrams",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "32a5344b2855",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Miami Ohio",
+      "away": "Eastern Kentucky",
+      "title": "Miami Ohio vs. Eastern Kentucky",
+      "key": "collegefootball|easternkentucky|miamiohio",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "01160a35a8d9",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Women",
+      "home": "Purdue Boilermakers",
+      "away": "Murray State Racers",
+      "title": "Purdue Boilermakers vs. Murray State Racers",
+      "key": "collegefootball|murraystateracers|purdueboilermakers",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "4e5ce0be515a",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Southern Utah",
+      "away": "Long Beach",
+      "title": "Southern Utah vs. Long Beach",
+      "key": "collegefootball|longbeach|southernutah",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "ecfc011fa1c7",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Virginia",
+      "away": "Marquette",
+      "title": "Virginia vs. Marquette",
+      "key": "collegefootball|marquette|virginia",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "0af4d315b2b1",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "College Football",
+      "league": "NCAA Men",
+      "home": "Wright",
+      "away": "Yale",
+      "title": "Wright vs. Yale",
+      "key": "collegefootball|wright|yale",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "1e21c86f28f3",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
           "ingest_sources": [
             "doms9"
           ]
@@ -102,18 +307,19 @@
     {
       "sport": "Soccer",
       "league": "AFC Champions League II",
-      "home": "Nasaf Qarshi",
-      "away": "Al Khalidiyah",
-      "title": "Nasaf Qarshi vs. Al Khalidiyah",
-      "key": "soccer|alkhalidiyah|nasafqarshi",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
+      "home": "Al Taawon",
+      "away": "Al Nahda",
+      "title": "Al Taawon vs. Al Nahda",
+      "key": "soccer|alnahda|altaawon",
+      "feed_count": 2,
+      "confirmed_feed_count": 2,
+      "confirmed_primary_count": 2,
       "confirmed_backup_count": 0,
-      "primary_ready": false,
+      "primary_ready": true,
       "backup_ready": false,
       "origin_families": [
-        "193.47.62.55"
+        "193.47.62.55",
+        "rtmpcdn.com"
       ],
       "providers": [
         "FAWA"
@@ -123,13 +329,21 @@
       ],
       "policy_met": false,
       "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
+        "needs 1 more confirmed dedicated backup feed(s)"
       ],
       "feeds": [
         {
-          "fingerprint": "0973523c542a",
+          "fingerprint": "d5bb084c6ba5",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "rtmpcdn.com",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "1e2803fc538a",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -142,11 +356,11 @@
     },
     {
       "sport": "Soccer",
-      "league": "UEFA Youth League",
-      "home": "Sporting CP U19",
-      "away": "Manchester Utd U19",
-      "title": "Sporting CP U19 vs. Manchester Utd U19",
-      "key": "soccer|manchesterutdu19|sportingcpu19",
+      "league": "Italy Serie B",
+      "home": "Cremonese",
+      "away": "Avellino",
+      "title": "Cremonese vs. Avellino",
+      "key": "soccer|avellino|cremonese",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -170,7 +384,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "5881bb34a2fa",
+          "fingerprint": "237208175c96",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -182,12 +396,12 @@
       ]
     },
     {
-      "sport": "World Cup U17",
-      "league": "World Cup U17",
-      "home": "Greece U17",
-      "away": "Qatar U17",
-      "title": "Greece U17 vs. Qatar U17",
-      "key": "worldcupu17|greeceu17|qataru17",
+      "sport": "Soccer",
+      "league": "Egypt Premier League",
+      "home": "Enppi",
+      "away": "Ceramica Cleopatra",
+      "title": "Enppi vs. Ceramica Cleopatra",
+      "key": "soccer|ceramicacleopatra|enppi",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -211,7 +425,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "5a6966d8c216",
+          "fingerprint": "e798efce7569",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -223,12 +437,12 @@
       ]
     },
     {
-      "sport": "World Cup U17",
-      "league": "World Cup U17",
-      "home": "Haiti U17",
-      "away": "Saudi Arabia U17",
-      "title": "Haiti U17 vs. Saudi Arabia U17",
-      "key": "worldcupu17|haitiu17|saudiarabiau17",
+      "sport": "Soccer",
+      "league": "Egypt Premier League",
+      "home": "Ghazl El Mahallah",
+      "away": "Petrojet",
+      "title": "Ghazl El Mahallah vs. Petrojet",
+      "key": "soccer|ghazlelmahallah|petrojet",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -252,7 +466,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "1b40dd189e49",
+          "fingerprint": "23c1346bf362",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -264,12 +478,12 @@
       ]
     },
     {
-      "sport": "World Cup U17",
-      "league": "World Cup U17",
-      "home": "Panama U17",
-      "away": "Egypt U17",
-      "title": "Panama U17 vs. Egypt U17",
-      "key": "worldcupu17|egyptu17|panamau17",
+      "sport": "Soccer",
+      "league": "Russia Cup",
+      "home": "Rubin Kazan",
+      "away": "Rodina Moscow",
+      "title": "Rubin Kazan vs. Rodina Moscow",
+      "key": "soccer|rodinamoscow|rubinkazan",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -293,7 +507,7 @@
       ],
       "feeds": [
         {
-          "fingerprint": "76457b142124",
+          "fingerprint": "3c8328347525",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",
@@ -305,12 +519,222 @@
       ]
     },
     {
-      "sport": "World Cup U17",
-      "league": "World Cup U17",
-      "home": "Uruguay U17",
-      "away": "France U17",
-      "title": "Uruguay U17 vs. France U17",
-      "key": "worldcupu17|franceu17|uruguayu17",
+      "sport": "Soccer",
+      "league": "Football",
+      "home": "Sabah FK",
+      "away": "Barcelona",
+      "title": "Sabah FK vs. Barcelona",
+      "key": "soccer|barcelona|sabahfk",
+      "feed_count": 4,
+      "confirmed_feed_count": 4,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 2,
+      "primary_ready": true,
+      "backup_ready": true,
+      "origin_families": [
+        "candyshop.st",
+        "sportsbite.org"
+      ],
+      "providers": [
+        "SPRTSBITE",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": true,
+      "deficits": [],
+      "feeds": [
+        {
+          "fingerprint": "947def4e19c8",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "SPRTSBITE",
+          "origin_family": "sportsbite.org",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "23c3c203cdb9",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "SPRTSBITE",
+          "origin_family": "sportsbite.org",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "7dc1f73ec78b",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "SPRTSBITE",
+          "origin_family": "sportsbite.org",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "5b31977261fa",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "Sabah FK",
+      "away": "FC Barcelona",
+      "title": "Sabah FK vs. FC Barcelona",
+      "key": "soccer|fcbarcelona|sabahfk",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "0d63d583e9f5",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "UEFA Champions League",
+      "home": "SK Slavia Praha",
+      "away": "Villarreal",
+      "title": "SK Slavia Praha vs. Villarreal",
+      "key": "soccer|skslaviapraha|villarreal",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "hereisman.net"
+      ],
+      "providers": [
+        "ISTRMEAST"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "c5bb199b3b18",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "ISTRMEAST",
+          "origin_family": "hereisman.net",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "Football",
+      "home": "Slavia Prague",
+      "away": "Villarreal",
+      "title": "Slavia Prague vs. Villarreal",
+      "key": "soccer|slaviaprague|villarreal",
+      "feed_count": 3,
+      "confirmed_feed_count": 3,
+      "confirmed_primary_count": 2,
+      "confirmed_backup_count": 1,
+      "primary_ready": true,
+      "backup_ready": true,
+      "origin_families": [
+        "candyshop.st",
+        "sportsbite.org"
+      ],
+      "providers": [
+        "SPRTSBITE",
+        "STRMGATE"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": true,
+      "deficits": [],
+      "feeds": [
+        {
+          "fingerprint": "1f7f68e964a1",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "SPRTSBITE",
+          "origin_family": "sportsbite.org",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "003fa915e1c7",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "SPRTSBITE",
+          "origin_family": "sportsbite.org",
+          "ingest_sources": [
+            "doms9"
+          ]
+        },
+        {
+          "fingerprint": "3a2c3fd5754b",
+          "role": "backup",
+          "status": "reachable",
+          "provider": "STRMGATE",
+          "origin_family": "candyshop.st",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden HockeyAllsvenskan",
+      "league": "Sweden HockeyAllsvenskan",
+      "home": "Almtuna",
+      "away": "Visby Roma",
+      "title": "Almtuna vs. Visby Roma",
+      "key": "swedenhockeyallsvenskan|almtuna|visbyroma",
       "feed_count": 1,
       "confirmed_feed_count": 1,
       "confirmed_primary_count": 1,
@@ -334,7 +758,212 @@
       ],
       "feeds": [
         {
-          "fingerprint": "8b1966aa8d15",
+          "fingerprint": "203cf3662a8b",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden HockeyAllsvenskan",
+      "league": "Sweden HockeyAllsvenskan",
+      "home": "Kalmar",
+      "away": "AIK",
+      "title": "Kalmar vs. AIK",
+      "key": "swedenhockeyallsvenskan|aik|kalmar",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "f4f9411da7e9",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden HockeyAllsvenskan",
+      "league": "Sweden HockeyAllsvenskan",
+      "home": "Mora",
+      "away": "Ostersund",
+      "title": "Mora vs. Ostersund",
+      "key": "swedenhockeyallsvenskan|mora|ostersund",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "73181d7532ae",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden HockeyAllsvenskan",
+      "league": "Sweden HockeyAllsvenskan",
+      "home": "Nybro",
+      "away": "Vasteras",
+      "title": "Nybro vs. Vasteras",
+      "key": "swedenhockeyallsvenskan|nybro|vasteras",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "df022a938bc4",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden HockeyAllsvenskan",
+      "league": "Sweden HockeyAllsvenskan",
+      "home": "Sodertalje",
+      "away": "Modo",
+      "title": "Sodertalje vs. Modo",
+      "key": "swedenhockeyallsvenskan|modo|sodertalje",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "8fa66310e13a",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.55",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Sweden HockeyAllsvenskan",
+      "league": "Sweden HockeyAllsvenskan",
+      "home": "Vimmerby",
+      "away": "BIK Karlskoga",
+      "title": "Vimmerby vs. BIK Karlskoga",
+      "key": "swedenhockeyallsvenskan|bikkarlskoga|vimmerby",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.55"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "ae2e22907f5d",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",

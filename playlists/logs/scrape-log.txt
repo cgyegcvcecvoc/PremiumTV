@@ -1,23 +1,23 @@
 ========================================================================================
 PREMIUMTV1 SCRAPER RUN LOG (.TXT)
 ========================================================================================
-Run ID:                  20261125T164009Z-12181
-Run Label:               manual local-channels scrape (manual)
-Started (UTC):           2026-11-25T16:40:09Z
-Finished (UTC):          2026-11-25T17:09:32Z
-Local Time (New York):   2026-11-25 12:09 PM EST
-Duration:                1763.17 seconds
+Run ID:                  20261125T183725Z-3201
+Run Label:               3:07 AM daily scrape (regular_check)
+Started (UTC):           2026-11-25T18:37:25Z
+Finished (UTC):          2026-11-25T18:45:14Z
+Local Time (New York):   2026-11-25 01:45 PM EST
+Duration:                468.93 seconds
 Outcome Status:          WARNING
 Link Check Completed:    True
 Player Playlist Updated: YES
-Total Input Entries:     35746
-Total Unique URLs:       26325
-Confirmed Working:       13770
-Confirmed Dead:          2211
-Unverified:              10344
-Log Edits (vs PremiumTV_all.m3u): +152 added / -101 removed
+Total Input Entries:     35794
+Total Unique URLs:       26372
+Confirmed Working:       17069
+Confirmed Dead:          2947
+Unverified:              6356
+Log Edits (vs PremiumTV_all.m3u): +332 added / -285 removed
 Countries Separated:     177 country playlists in playlists/countries/
-A&E Working Channels:    177 / 275 unique links (playlists/AE_Channels.m3u)
+A&E Working Channels:    196 / 275 unique links (playlists/AE_Channels.m3u)
 
 ----------------------------------------------------------------------------------------
 1. PLAYLIST SOURCES
@@ -25,35 +25,35 @@ A&E Working Channels:    177 / 275 unique links (playlists/AE_Channels.m3u)
 Source                     Status           Entries   Unique  Overlap  Working     Dead  Unverif
 -----------------------------------------------------------------------------------------------
 local-channels             ok                     4        4        1        4        0        0
-priority-channels          ok                    13       13       11        8        0        5
-ae-networks                ok                    50       50       17       43        0        7
+priority-channels          ok                    13       13       11       13        0        0
+ae-networks                ok                    50       50       17       46        1        3
 curated-channels           ok                     1        1        0        1        0        0
-aria                       ok                   234      223      223      100       16      107
-aria-plus                  ok                  2039     1983      335      259      208     1516
-doms9                      ok                   550      549       91      157       26      366
-xtemus                     ok                   317      317        0       28      177      112
-iptv-org                   ok                 11497    11497     5600     6235      912     4350
-free-tv                    ok                  2203     2179      979      896      402      881
+aria                       ok                   234      223      223      153       16       54
+aria-plus                  ok                  2039     1983      335      458      285     1240
+doms9                      ok                   597      596       91      192       70      334
+xtemus                     ok                   317      317        0       31      234       52
+iptv-org                   ok                 11497    11497     5600     8211     1180     2106
+free-tv                    ok                  2203     2179      979     1251      450      478
 eja-tv-feed                not_configured         0        0        0        0        0        0
 stepdaddylivehd-instance   not_configured         0        0        0        0        0        0
 dlive-sx-feed              not_configured         0        0        0        0        0        0
 pluto-us                   ok                   458      458        0        0        0      458
-aria-overseas              ok                    42       42       24       39        1        2
-vbskycn-iptv               ok                   298      296        9      225        0       71
-m3upt                      ok                   159      159      113      134        9       16
-tdtchannels                ok                   574      574      246      370       43      161
-nexonic-iptv               ok                  4458     4458     3997     3570      181      707
-samsung-tv-plus            ok                  2669     2669       84     2325        5      339
-plex-live                  ok                  2889     2889        0      587      306     1996
-roku-channel               ok                   257      257       27      251        3        3
-tubi-live                  ok                   176      176       13      166        0       10
-VIP-m3u-playlist           ok                   224      219      158      174       11       34
-israel-tv-plus             ok                   353      350      151      210       25      115
-m3u                        ok                   853      848      277      627       74      146
-openstream                 ok                  5428     5428     3325     4072      364      992
+aria-overseas              ok                    42       42       24       40        1        1
+vbskycn-iptv               ok                   298      296        9      275        0       21
+m3upt                      ok                   159      159      113      141       13        5
+tdtchannels                ok                   574      574      246      449       49       76
+nexonic-iptv               ok                  4458     4458     3997     4103      198      157
+samsung-tv-plus            ok                  2669     2669       84     2494        2      173
+plex-live                  ok                  2889     2889        0     1073      458     1358
+roku-channel               ok                   257      257       27      254        3        0
+tubi-live                  ok                   176      176       13      173        0        3
+VIP-m3u-playlist           ok                   225      220      159      207       12        1
+israel-tv-plus             ok                   353      350      151      183       88       79
+m3u                        ok                   853      848      277      685       79       83
+openstream                 ok                  5428     5428     3326     4957      405       66
 
 ----------------------------------------------------------------------------------------
-2. A&E AND A+E NETWORKS CHANNELS (177 WORKING / 275 UNIQUE)
+2. A&E AND A+E NETWORKS CHANNELS (196 WORKING / 275 UNIQUE)
 ----------------------------------------------------------------------------------------
   [WORKING] [USA] 60 Days In by A&E (Backup 1) -> https://jmp2.uk/stvp-USBD42000073E
   [WORKING] [USA] A&E Alaska State Troopers (Backup 1) -> https://jmp2.uk/stvp-US1900023QQ
@@ -63,7 +63,9 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [USA] Ax Men -> https://jmp2.uk/stvp-USBB5200020Z0
   [WORKING] [USA] Ax Men by History -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63c1ec0e0aa23f984207af82/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [WORKING] [USA] ☆ Biography The Icons 🇺🇸 (Backup 1) -> https://jmp2.uk/stvp-US26000201N
+  [WORKING] [USA] Chaos on Cam by A&E -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-67be3cc41a98aab3729899ba/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [WORKING] [USA] Cold Case Files -> https://jmp2.uk/stvp-USBC390002256
+  [WORKING] [USA] Cold Case Files by A&E (Backup 2) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63f693a3fff2b53dc9ddc8f4/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [WORKING] [USA] Crime ThrillHer -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63c97b45187b3c9f3581fdfb/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [WORKING] [USA] Crime ThrillHer (Backup 1) -> https://jmp2.uk/stvp-USBB52000236D
   [WORKING] [USA] Crimes Cults Killers -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63c97410187b3c9f3581fdf4/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
@@ -71,6 +73,7 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [USA] Dance Moms -> https://jmp2.uk/stvp-USBC3900021HS
   [WORKING] [USA] Dance Moms by Lifetime -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63ec13cb290593c3fc279f48/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [WORKING] [USA] Deal Zone Presented By History -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63c9724c5feb7b9655cb1950/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [WORKING] [USA] Dog the Bounty Hunter (Backup 5) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-66428faa5116d565e63ae32a/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [WORKING] [USA] Dog the Bounty Hunter (Backup 6) -> https://jmp2.uk/stvp-US900002IH
   [WORKING] [USA] Dog the Bounty Hunter (UK) -> https://amg00276-amg00276c11-samsung-gb-3484.playouts.now.amagi.tv/playlist.m3u8
   [WORKING] [USA] Duck Dynasty (Backup 1) -> https://amg00276-amg00276c2-samsung-gb-3485.playouts.now.amagi.tv/playlist.m3u8
@@ -94,9 +97,15 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [USA] Perform -> https://jmp2.uk/stvp-USBB520002604
   [WORKING] [USA] Storage Wars: LA -> https://jmp2.uk/stvp-USBD1700006T2
   [WORKING] [USA] The First 48 -> https://jmp2.uk/stvp-US3300011V9
+  [WORKING] [USA] VICE (Backup 1) -> https://jmp2.uk/stvp-USBB1900006NY
   [WORKING] [USA] VICE TV (Backup 1) -> https://vicetv-vicefast1-firetv.amagi.tv/playlist.m3u8
   [WORKING] [USA] Witness to Justice -> https://jmp2.uk/stvp-US700010XK
+  [WORKING] [USA] Xtreme Outdoor Presented by HISTORY (Backup 1) -> https://jmp2.uk/stvp-USAK3508706A
+  [WORKING] [USA] A&E Latin America Brazil (720p) -> http://79.127.238.228:14551
   [WORKING] [Singapore] Crime + Investigation Asia (720p) [Geo-blocked] -> https://cdn09jtedge.indihometv.com/joss/133/crimeinvestigation/index.m3u8
+  [WORKING] [UK] Crime + Investigation CEE -> http://88.212.7.14/live/test_cai_hevc/playlist.m3u8
+  [WORKING] [Poland] Crime + Investigation Polsat (576i) -> http://92.114.85.87:8015/play/a00d/index.m3u8
+  [WORKING] [USA] Lifetime Latin America (1080p) -> http://138.121.15.230:9002/LIFETIME/index.m3u8
   [WORKING] [USA] Lifetime Latin America Brazil (720p) -> http://170.83.16.50/LIFETIME/index.m3u8
   [WORKING] [USA] Lifetime Latin America Mexico (1080p) -> https://streaming.onnethn.com/LIFETIME/index.m3u8
   [WORKING] [Canada] Ax Men -> https://jmp2.uk/stvp-CA900009VP
@@ -123,10 +132,14 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [UK] Live PD Presents -> https://jmp2.uk/stvp-GB4600004A9
   [WORKING] [UK] Mystery TV (Backup 2) -> https://jmp2.uk/stvp-GBBD50000320
   [WORKING] [UK] ☆ World War TV 🇺🇸 (Backup 1) -> https://jmp2.uk/stvp-GBBD1100001UI
+  [WORKING] [USA] History 2 Latin America (1080p) -> http://138.121.15.230:9002/HISTORY-2/index.m3u8
+  [WORKING] [USA] History Asia (720p) -> https://freem3u.xyz/api/live/play.m3u8?vid=9856
+  [WORKING] [Bulgaria] History (Bulgaria) -> http://213.91.179.28:8000/play/a0c1
   [WORKING] [Czechia] History (Czech Republic) -> http://88.212.15.50/live/test_history/playlist.m3u8
   [WORKING] [Hungary] History (Hungary) -> http://88.212.7.14/live/history_hun/index.m3u8
   [WORKING] [USA] History Latin America (1080p) -> http://15.204.246.24:8080/HistoryHD/index.m3u8
   [WORKING] [USA] History Latin America South -> http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/37.m3u8
+  [WORKING] [Poland] History (Poland) (576i) -> http://92.114.85.87:8015/play/a00c/index.m3u8
   [WORKING] [USA] Military History (720p) -> https://frndly.keralive.workers.dev/v1/master/840a24ccd7c75076211d060179b3ad0c64fdc6ca/militaryhistory_live_nr/ab44a8245afe413db1169317ee5cda08/index.m3u8?type=ae2
   [WORKING] [USA] Pluto TV History (Backup 5) -> https://jmp2.uk/plu-5a4d35dfa5c02e717a234f86.m3u8
   [WORKING] [USA] Dog the Bounty Hunter (1080p) -> https://aegis-cloudfront-1.tubi.video/ff0ad399-75ed-42ba-8c60-75bb6cb8c929/playlist.m3u8
@@ -148,7 +161,7 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [USA] A&E Crime 360 (Pluto TV Alt) -> https://jmp2.uk/plu-657880c46e4f6a00087404d0.m3u8
   [WORKING] [USA] A&E Crime 360 (Vizio) -> https://f82e592c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQ3JpbWUzNjBfSExT/playlist.m3u8
   [WORKING] [USA] A&E Crime 360 (Xumo) -> https://dbrb49pjoymg4.cloudfront.net/10001/99951471/hls/playlist.m3u8?ads.xumo_channelId=99951471&ads.xumo_streamId=99951471&ads.channelId=99951471&ads.channelName=AECrime360byAE_us&ads.caid=AECrime360byAE&ads.csid=xumo_%5BPLATFORM%5D_AECrime360byAE_ssai&ads._fw_coppa=0&ads.xumo_contentId=4317&ads.xumo_contentName=AECrime360byAE&ads.xumo_providerId=4317&ads.xumo_providerName=AECrime360byAE&ads.appName=XumoPlay
-  [WORKING] [USA] A&E Latin America (Backup 1) -> http://190.93.224.42/AYE/index.m3u8
+  [WORKING] [USA] A&E Latin America (1080p) -> http://138.121.15.230:9002/A&E/index.m3u8
   [WORKING] [Brazil] A&E Latin America Brazil (720p) -> http://170.83.16.50/AeE/index.m3u8
   [WORKING] [USA] Alone by History / A&E (720p) -> https://d3181anftsyl2u.cloudfront.net/v1/aenetworks_alone_1/samsungheadend_us/latest/main/hls/playlist.m3u8
   [WORKING] [International] Ax Men (Backup 1) -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6540fe4bbdf3cf0008aa2cdd/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c794331-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=334b8ad2-5361-4ae2-a1fd-41fb46bc4c2d
@@ -177,14 +190,15 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [USA] Dog the Bounty Hunter (Backup 4) -> https://dbrb49pjoymg4.cloudfront.net/10001/99951485/hls/playlist.m3u8?includeAssetTags=true&ads.xumo_channelId=99951485&ads.xumo_streamId=99951485&ads.channelId=99951485&ads.channelName=AEDogtheBountyHunter&ads.caid=AEDogtheBountyHunter&ads.csid=xumo_web_AEDogtheBountyHunter_ssai&ads.genre=Reality&ads._fw_content_genre=Reality&ads._fw_coppa=0&ads.xumo_contentId=4324&ads.xumo_contentName=AEDogtheBountyHunter&ads.xumo_providerId=4324&ads.xumo_providerName=AEDogtheBountyHunter&ads.asnw=&ads.xumo_channelName=AEDogtheBountyHunter&ads._fw_h_x_country=US&ads._fw_ifa_type=&ads._fw_did=49cc6c40-ea08-4506-98e5-4521fc9c5eae&ads.amznappId=&ads.lat=&ads.lon=&ads.os=&ads.osv=&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_content_category=&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=GitHubAction&ads._fw_device_model=PythonScript&ads.xumo_platform=web&ads.site_id=&ads.appVersion=1.0.0&ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads.appName=xumo
   [WORKING] [UK] Dog the Bounty Hunter by A&E (1080p) -> https://amg00276-amg00276c11-rakuten-uk-3446.playouts.now.amagi.tv/playlist/amg00276-aetelevisionnetworksfast-dogthebountyhunterall-rakutenuk/playlist.m3u8
   [WORKING] [USA] Duck Dynasty -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6540fe6fbfbaec0008a583ae/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7a2d90-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=b2414064-7363-4d88-b917-86f379a71ce9
-  [WORKING] [International] ערוץ ההיסטוריה ישראל FHD (History) -> http://osoyz0xv.ottclub.xyz/iptv/HSD8UEK6E2AENH/12265/index.m3u8
   [WORKING] [International] Flipping Nation (720p) -> https://a64543d5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX0ZsaXBwaW5nTmF0aW9uX0hMUw/playlist.m3u8
   [WORKING] [USA] Flipping Nation by A&E (720p) -> https://d21mkcgtx2frod.cloudfront.net/v1/aenetworks_flippingnation_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+  [WORKING] [International] ☆ History 🇺🇸 -> https://jmp2.uk/plu-5d4af1803e7983b391d73b13.m3u8
   [WORKING] [USA] History Channel -> http://212.5.144.156:8080/history/index.m3u8
   [WORKING] [USA] History Channel (Backup 1) -> https://cdnlivetv.tv/secure/api/v1/6add40af2d4a99e07363cfc6/playlist.m3u8?token=%5Bredacted%5D
   [WORKING] [International] Hoarders (720p) -> https://8f2546fe.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0hvYXJkZXJzX0hMUw/playlist.m3u8
   [WORKING] [USA] Hoarders by A&E (720p) -> https://d1klo92zvoj2of.cloudfront.net/v1/aenetworks_hoarders_1/samsungheadend_us/latest/main/hls/playlist.m3u8
   [WORKING] [USA] Home.Made.Nation (Backup 1) -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5dc1cb279c91420009db261d/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c293f93-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=5d04cbed-3ba0-4e3b-9baf-dc4eb838fa1c
+  [WORKING] [USA] Home.Made.Nation by A&E (Pluto TV) -> https://jmp2.uk/plu-5dc1cb279c91420009db261d.m3u8
   [WORKING] [USA] Home.Made.Nation by A&E (Samsung) -> https://d1kgo9l74vimu0.cloudfront.net/v1/aenetworks_ae_1/samsungheadend_us/latest/main/hls/playlist.m3u8
   [WORKING] [International] I Survived (Backup 1) -> https://d1ewp56x5c748d.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-h8q4vtuq45uml/v1/aenetworks_i_survived_1/samsungheadend_us/latest/main/hls/playlist.m3u8
   [WORKING] [International] I Survived (720p) -> https://8e979536.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX0lTdXJ2aXZlZF9ITFM/playlist.m3u8
@@ -201,8 +215,10 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [International] Live PD Presents (Backup 1) -> https://jmp2.uk/plu-6887a4e01067b66fa16966ec.m3u8
   [WORKING] [France] Love Crime & History -> https://jmp2.uk/stvp-FRBD43000016D
   [WORKING] [International] ☆ Love Crime & History (vᴘɴ 🇺🇸🇫🇷) -> https://amg01821-lovetv-amg01821c16-lg-fr-3211.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovecrimeandhistoryfrance-lgfr/playlist.m3u8
+  [WORKING] [International] Matched Married Meet by Lifetime (Backup 1) -> https://jmp2.uk/plu-6887a86be3703b7d42b3eca3.m3u8
   [WORKING] [USA] Military History (Backup 1) -> https://frndly.keralive.workers.dev/v1/manifest/840a24ccd7c75076211d060179b3ad0c64fdc6ca/militaryhistory_live_nr/b5743b11-8438-4785-9975-0ad41f09c0cd/1.m3u8
   [WORKING] [France] Mission Intervention -> https://jmp2.uk/stvp-FR700002UP
+  [WORKING] [International] Modern Marvels by HISTORY (Backup 2) -> https://jmp2.uk/plu-657883cab228b700084414b3.m3u8
   [WORKING] [International] Modern Marvels Presented by HISTORY -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65775d29dfed030008cb3db2/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c29dbd4-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=1ed6ccc7-6463-4bcb-ac69-b4dfa479016d
   [WORKING] [International] Movie Favorites By Lifetime -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/63335b193583440007c859fb/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2a02e2-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=c32f13eb-8395-4e23-87b8-0bd6e7d05f16
   [WORKING] [USA] Mysteries Xplored by A&E (720p) -> https://dwqz6akge0ila.cloudfront.net/v1/aenetworks_mysteriesxplored_1/samsungheadend_us/latest/main/hls/playlist.m3u8
@@ -216,9 +232,11 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [USA] Pluto TV History (Backup 2) -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5d767b1c126c65d0a307355f/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=84aea081-4b92-11ef-aece-533610f1ea34&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=8d66523d-c59b-4354-aedb-17d13edf0d26
   [WORKING] [USA] Pluto TV History (Backup 3) -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5d767b1c126c65d0a307355f/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc855317-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=4501eafa-6139-46c8-821f-a9a1465f54b4
   [WORKING] [International] ☆ Storage Wars by A&E 🇺🇸 -> https://94f5bf6a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfU3RvcmFnZVdhcnNfSExT/playlist.m3u8
+  [WORKING] [USA] Storage Wars by A&E (Pluto TV) -> https://jmp2.uk/plu-6887aaf4e3703b7d42b71a1e.m3u8
   [WORKING] [USA] Storage Wars by A&E (Roku) -> https://jmp2.uk/rok-091bf303c7fd2bc2ec6683b1dbbadae1.m3u8
   [WORKING] [USA] Storage Wars by A&E (Vizio) -> https://4f756c5c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fU3RvcmFnZVdhcnNfSExT/playlist.m3u8
   [WORKING] [USA] Storage Wars by A&E (Xumo) -> https://dbrb49pjoymg4.cloudfront.net/10001/99951475/hls/playlist.m3u8?ads.xumo_channelId=99951475&ads.xumo_streamId=99951475&ads.channelId=99951475&ads.channelName=AEStorageWars_us&ads.caid=AEStorageWars&ads.csid=xumo_%5BPLATFORM%5D_AEStorageWars_ssai&ads._fw_coppa=0&ads.xumo_contentId=4321&ads.xumo_contentName=AEStorageWars&ads.xumo_providerId=4321&ads.xumo_providerName=AEStorageWars&ads.appName=XumoPlay
+  [WORKING] [USA] The First 48 by A&E (Pluto TV) -> https://jmp2.uk/plu-6887aaade3703b7d42b64be8.m3u8
   [WORKING] [USA] The First 48 by A&E (Roku) -> https://jmp2.uk/rok-add7a09bd437e6598057a7c7fc55a81d.m3u8
   [WORKING] [USA] The First 48 by A&E (Vizio) -> https://9cf535ad.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fRmlyc3Q0OF9ITFM/playlist.m3u8
   [WORKING] [USA] The First 48 by A&E (Xumo) -> https://dbrb49pjoymg4.cloudfront.net/10001/99951490/hls/playlist.m3u8?ads.xumo_channelId=99951490&ads.xumo_streamId=99951490&ads.channelId=99951490&ads.channelName=AETheFirst48_us&ads.caid=AETheFirst48&ads.csid=xumo_%5BPLATFORM%5D_AETheFirst48_ssai&ads._fw_coppa=0&ads.xumo_contentId=4330&ads.xumo_contentName=AETheFirst48&ads.xumo_providerId=4330&ads.xumo_providerName=AETheFirst48&ads.appName=XumoPlay
@@ -228,32 +246,35 @@ openstream                 ok                  5428     5428     3325     4072  
   [WORKING] [International] ☆ World War TV 🇺🇸 -> https://jmp2.uk/plu-6319ee0cf78bb10007ee5e6b.m3u8
   [WORKING] [UK] World War TV by A+E Networks (Rakuten UK) -> https://aenetworks-worldwartv-rakuten.amagi.tv/playlist.m3u8
   [WORKING] [UK] World War TV by A+E Networks (Samsung UK) -> https://amg00841-aenetworksukane-worldwartv-samsunguk-fiod1.amagi.tv/playlist/amg00841-aenetworksukane-worldwartv-samsunguk/playlist.m3u8
+  [WORKING] [International] Xtreme Outdoor by HISTORY (Backup 2) -> https://jmp2.uk/plu-6000a6f4c3f8550008fc9b91.m3u8
   [WORKING] [USA] Xtreme Outdoor by History / A&E (720p) -> https://dxagbr7yc4m1d.cloudfront.net/v1/aenetworks_skills_thrills_1/samsungheadend_us/latest/main/hls/playlist.m3u8
   [WORKING] [USA] Xtreme Outdoor by History / A&E (LG) -> https://aenetworks.global.transmit.live/hls/68b77e2b2119c010f1166488/v1/aenetworks_skills_thrills_1/lg_us/latest/main/hls/playlist.m3u8
   [WORKING] [International] Xtreme Outdoor Presented by HISTORY -> http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6000a6f4c3f8550008fc9b91/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2d3736-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=d082e15e-9214-4119-8638-15c2c0edce25
   [WORKING] [International] Live PD Presents (Backup 2) -> https://jmp2.uk/rok-b3ad0323cd466f4bb0c04ef9bee54543.m3u8
+  [DEAD: HTTP 404] [Canada] Crime 360 -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-69b16eaf8d39e5cd6a10621b/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [DEAD: HTTP 404] [Canada] Dog the Bounty Hunter -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-6729199a7f55143b23b66c4d/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [DEAD: HTTP 404] [Canada] Duck Dynasty -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-67291bde7f55143b23b66c4f/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [DEAD: HTTP 404] [Canada] The First 48 -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-69b16d559ce2ee93be911d43/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [DEAD: HTTP 404] [UK] 60 Days In Jail -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-6a2ab3dce6a243c85608e4b2/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [DEAD: HTTP 404] [UK] Dog The Bounty Hunter -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-69ad89654f342aa128c21abc/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [DEAD: HTTP 404] [UK] Duck Dynasty -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-69ad87a9e657bab5f7a9b7e4/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [DEAD: HTTP 404] [UK] INSIDE CRIME -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-66c3d1abd263903b4c6d991e/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [DEAD: HTTP 404] [UK] Chaos on Cam -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-69dfefffb1533a88c65eac46/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [DEAD: HTTP 404] [Australia] After the First 48 -> https://epg.provider.plex.tv/library/parts/697140a85d851f5e69414688-6ad2667e5374a1e72d134626/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [DEAD: HTTP 404] [Australia] Crime 360 -> https://epg.provider.plex.tv/library/parts/697140a85d851f5e69414688-6a2ebc83e11aec3ec320becc/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [DEAD: HTTP 404] [Australia] Dog The Bounty Hunter -> https://epg.provider.plex.tv/library/parts/697140a85d851f5e69414688-69ad8b244f342aa128c21abe/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [DEAD: HTTP 404] [Australia] Duck Dynasty -> https://epg.provider.plex.tv/library/parts/697140a85d851f5e69414688-69ac3ea3e657bab5f7a9b7df/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [DEAD: HTTP 404] [International] Crime 360 -> https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-6a2ebde0768abcd6b78052a9/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [DEAD: HTTP 404] [International] Dog The Bounty Hunter -> https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-69ad8b244f342aa128c21abe/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [DEAD: HTTP 404] [International] Duck Dynasty -> https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-69ac3ea3e657bab5f7a9b7df/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [DEAD: HTTP 404] [USA] A&E Latin America (Alt) -> http://190.93.224.42/AYE/index.m3u8
   [DEAD: HTTP 404] [International] ☆ Crime Investigation 🇺🇸 -> https://jmp2.uk/plu-5ea18cd42ee5410007e349dc.m3u8
+  [DEAD: HTTP 404] [Czechia] CS History -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+History
+  [DEAD: HTTP 404] [International] ערוץ ההיסטוריה ישראל FHD (History) -> http://osoyz0xv.ottclub.xyz/iptv/HSD8UEK6E2AENH/12265/index.m3u8
   [DEAD: HTTP 404] [Canada] History 2 -> http://jabawalkies.club:8080/live/K1uWWBmaxJ/Xa1TFucw91/112783.ts
   [DEAD: HTTP 404] [USA] Lifetime -> http://41.205.93.154/LIFETIME/index.m3u8
   [DEAD: HTTP 404] [USA] Lifetime Movie Network -> http://23.237.104.106:8080/USA_LMN/index.m3u8
-  [DEAD: HTTP 404] [France] Love Crime & History -> https://epg.provider.plex.tv/library/parts/6430aa45fc3be5947780904e-671ff65b29bcfe7b69d4fef7/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] A&E Alaska State Troopers -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-6a024c8e981d28c38fb16f21/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] A&E Crime 360 (Backup 1) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-5f74cf7effbe690040689f41/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] A&E Live PD: Greatest Shifts (Backup 1) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-698a79b4c2d4abeac5f2ce1f/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] American Pickers Plus by History (Backup 1) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-6ae284312db2c23c6e881095/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: HTTP 429] [USA] Chaos on Cam by A&E -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-67be3cc41a98aab3729899ba/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: HTTP 429] [USA] Cold Case Files by A&E (Backup 2) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63f693a3fff2b53dc9ddc8f4/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: HTTP 429] [USA] Dog the Bounty Hunter (Backup 5) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-66428faa5116d565e63ae32a/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] History's Mysteries -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-6ae285042db2c23c6e881097/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] History & Warfare -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-635c5c6ac3585aefbd236576/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] Home.Made.Nation (Backup 3) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-5f74cf82ffbe690040689f47/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
@@ -269,53 +290,32 @@ openstream                 ok                  5428     5428     3325     4072  
   [UNVERIFIED: HTTP 429] [USA] The First 48 by A&E -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-681620c4a11533c312abacbe/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] Torque Presented By History -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-63c1e64df0f132afc3afbab4/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [USA] VICE -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-62c47062085f5c338b9c6360/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: TimeoutError] [USA] VICE (Backup 1) -> https://jmp2.uk/stvp-USBB1900006NY
   [UNVERIFIED: HTTP 429] [USA] Xtreme Outdoor by HISTORY (Backup 1) -> https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-5f74cf7effbe690040689f3e/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: TimeoutError] [USA] Xtreme Outdoor Presented by HISTORY (Backup 1) -> https://jmp2.uk/stvp-USAK3508706A
   [UNVERIFIED: TimeoutError] [USA] A&E (1080p) -> https://cache0.wonvt.st/live/0c4r73315dt0we0fitn3j/master.m3u8
-  [UNVERIFIED: TimeoutError] [USA] A&E Latin America Brazil (720p) -> http://79.127.238.228:14551
-  [UNVERIFIED: TimeoutError] [UK] Crime + Investigation CEE -> http://88.212.7.14/live/test_cai_hevc/playlist.m3u8
-  [UNVERIFIED: TimeoutError] [Poland] Crime + Investigation Polsat (576i) -> http://92.114.85.87:8015/play/a00d/index.m3u8
   [UNVERIFIED: HTTP 401] [International] ☆ Lifetime Holiday Movie Favorites 🇺🇸 (Backup 1) -> https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/v2/stitch/hls/channel/63335b193583440007c859fb/master.m3u8?jwt=eyJhbGciOiJIUzI1NiIsImtpZCI6IjY2MTUzYmEyLTM0NGEtNDVhZC04Zjg2LWE2YzU5ODFkYWYyYyIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSUQiOiIyNzM5ZjRmZC1lNmY2LTExZjEtODhjOC02YTRhMDQ3MWU2NTIiLCJjbGllbnRJUCI6IjE4NS4yMzYuMjAwLjE3MiIsImNpdHkiOiJMb3MgQW5nZWxlcyIsInBvc3RhbENvZGUiOiI5MDAxMSIsImNvdW50cnkiOiJVUyIsImRtYSI6ODAzLCJhY3RpdmVSZWdpb24iOiJVUyIsImRldmljZUxhdCI6MzQuMDA5OTk4MzIxNTMzMiwiZGV2aWNlTG9uIjotMTE4LjI2MDAwMjEzNjIzMDQ3LCJwcmVmZXJyZWRMYW5ndWFnZSI6Iml0IiwiZGV2aWNlVHlwZSI6IndlYiIsImRldmljZVZlcnNpb24iOiIxMjIuMC4wIiwiZGV2aWNlTWFrZSI6ImNocm9tZSIsImRldmljZU1vZGVsIjoid2ViIiwiYXBwTmFtZSI6IndlYiIsImFwcFZlcnNpb24iOiI4LjAuMC0xMTFiMmI5ZGMwMGJkMGJlYTkwMzBiMzA2NjIxNTllZDllN2M4YmM2IiwiY2xpZW50SUQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJjbUF1ZGllbmNlSUQiOiIiLCJpc0NsaWVudEROVCI6ZmFsc2UsInVzZXJJRCI6IiIsImxvZ0xldmVsIjoiREVGQVVMVCIsInRpbWVab25lIjoiQW1lcmljYS9Mb3NfQW5nZWxlcyIsInNlcnZlclNpZGVBZHMiOmZhbHNlLCJlMmVCZWFjb25zIjpmYWxzZSwiZmVhdHVyZXMiOnsiYWRMb2FkIjp7ImNvaG9ydCI6IiJ9LCJtdWx0aUF1ZGlvIjp7ImVuYWJsZWQiOnRydWV9LCJtdWx0aVBvZEFkcyI6eyJjb2hvcnQiOiIiLCJlbmFibGVkIjp0cnVlfSwic2VhcmNoQVBJIjp7InF1ZXJ5VmVyc2lvbiI6Imh5YnJpZCJ9LCJzdGl0Y2hlckFkU2Vzc2lvbkV2ZW50Ijp7ImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckRhc2hOZyI6eyJqaXRQYWNrIjoicmVwYWNrSml0LGRlY3J5cHQifSwic3RpdGNoZXJIbHNOZyI6eyJkZW11eGVkQXVkaW8iOiJqaXQifX0sImZtc1BhcmFtcyI6eyJmd1ZjSUQyIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiZndWY0lEMkNvcHBhIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiY3VzdG9tUGFyYW1zIjp7ImZtc19saXZlcmFtcF9pZGwiOiIiLCJmbXNfZW1haWxoYXNoIjoiIiwiZm1zX3N1YnNjcmliZXJpZCI6IiIsImZtc19pZmEiOiIiLCJmbXNfaWRmdiI6IiIsImZtc191c2VyaWQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJmbXNfdmNpZDJ0eXBlIjoidXNlcmlkIiwiZm1zX3JhbXBfaWQiOiIiLCJmbXNfaGhfcmFtcF9pZCI6IiIsImZtc19iaWRpZHR5cGUiOiIiLCJfZndfM1BfVUlEIjoiIiwiZm1zX3J1bGVpZCI6IjEwMDAwLDEwMDA5In19LCJkcm0iOnsibmFtZSI6IndpZGV2aW5lIiwibGV2ZWwiOiJMMyJ9LCJzZXNzaW9uU3RhcnRUaW1lIjoxNzk1NDA4MDMxOTY0LCJpc3MiOiJib290LnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6VVM6Wm1WalpqUTNaalV0WkRZd01DMDBNVFptTFRrNFlqa3RObVpoT1dVeU16UXpOV1F6IiwiYXVkIjoiKi5wbHV0by50diIsImV4cCI6MTc5NTQ5NDQzMiwiaWF0IjoxNzk1NDA4MDMyLCJqdGkiOiI1OWY5NzBiMS05YTNiLTQ3OTUtOGJkNi02YmJhYTJkYzc4ZDUifQ.Xa-_nDzWhWIuua8k0lFo8hHddKF78KtpOWqUvJid4n8&masterJWTPassthrough=true
-  [UNVERIFIED: TimeoutError] [USA] Lifetime Latin America (1080p) -> http://138.121.15.230:9002/LIFETIME/index.m3u8
-  [UNVERIFIED: HTTP 429] [Canada] Crime 360 -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-69b16eaf8d39e5cd6a10621b/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: HTTP 429] [Canada] Dog the Bounty Hunter -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-6729199a7f55143b23b66c4d/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: HTTP 429] [Canada] Duck Dynasty -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-67291bde7f55143b23b66c4f/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 403] [Canada] Duck Dynasty -> https://jmp2.uk/stvp-CA9000118M
-  [UNVERIFIED: HTTP 429] [Canada] The First 48 -> https://epg.provider.plex.tv/library/parts/647f8d22a2fc3fadb4721685-69b16d559ce2ee93be911d43/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: HTTP 429] [UK] Chaos on Cam -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-69dfefffb1533a88c65eac46/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [UNVERIFIED: HTTP 429] [UK] Dog The Bounty Hunter -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-69ad89654f342aa128c21abc/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [UNVERIFIED: HTTP 429] [UK] Duck Dynasty -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-69ad87a9e657bab5f7a9b7e4/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [UK] Hoarders -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-69b16dcb87340e48b7b7224b/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
+  [UNVERIFIED: HTTP 429] [UK] INSIDE CRIME -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-66c3d1abd263903b4c6d991e/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [UK] MYSTERY TV -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-66c3cd45d263903b4c6d991c/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 429] [UK] The First 48 & Beyond -> https://epg.provider.plex.tv/library/parts/64305451fc3be5947773c339-6abd525ba9d133322be5f943/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: TimeoutError] [USA] History 2 Latin America (1080p) -> http://138.121.15.230:9002/HISTORY-2/index.m3u8
-  [UNVERIFIED: TimeoutError] [USA] History Asia (720p) -> https://freem3u.xyz/api/live/play.m3u8?vid=9856
-  [UNVERIFIED: TimeoutError] [Bulgaria] History (Bulgaria) -> http://213.91.179.28:8000/play/a0c1
-  [UNVERIFIED: TimeoutError] [Poland] History (Poland) (576i) -> http://92.114.85.87:8015/play/a00c/index.m3u8
   [UNVERIFIED: gaierror] [USA] Duck Dynasty (1080p) -> https://amg00276-amg00276c2-rakuten-uk-3449.playouts.now.amagi.tv/playlist.m3u8
-  [UNVERIFIED: HTTP 429] [Australia] Crime 360 -> https://epg.provider.plex.tv/library/parts/697140a85d851f5e69414688-6a2ebc83e11aec3ec320becc/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
-  [UNVERIFIED: TimeoutError] [USA] A&E Latin America (1080p) -> http://138.121.15.230:9002/A&E/index.m3u8
   [UNVERIFIED: TimeoutError] [USA] A&E Latin America (Feed 2) -> http://209.61.12.77:9000/play/a08l/index.m3u8
   [UNVERIFIED: TimeoutError] [USA] A&E (US East) -> http://23.239.31.26:8989/aande/index.m3u8
   [UNVERIFIED: HTTP 403] [Germany] BBC History -> https://jmp2.uk/stvp-DE2900003ED
-  [UNVERIFIED: TimeoutError] [Canada] Crime and Investigation -> http://etvserv.xyz:55337/live/x27dCAFFz/bhV0eTo972/44268.ts
-  [UNVERIFIED: TimeoutError] [UK] Crime + Investigation CEE -> http://88.212.15.19/live/test_cai_hevc/playlist.m3u8
+  [UNVERIFIED: HTTP 401] [Canada] Crime and Investigation -> http://etvserv.xyz:55337/live/x27dCAFFz/bhV0eTo972/44268.ts
+  [UNVERIFIED: HTTP 503] [UK] Crime + Investigation CEE -> http://88.212.15.19/live/test_cai_hevc/playlist.m3u8
   [UNVERIFIED: TimeoutError] [Czechia] CS HISTORY -> http://185.236.230.212:9981/play/a0cm
-  [UNVERIFIED: TimeoutError] [Czechia] CS History -> https://sktv.mxnticek.eu/new/stream.php?ch=CS+History
   [UNVERIFIED: TimeoutError] [Latin America] History -> http://209.61.12.77:9000/play/a09h/index.m3u8
-  [UNVERIFIED: TimeoutError] [Canada] History -> http://etvserv.xyz:55337/live/x27dCAFFz/bhV0eTo972/44247.ts
-  [UNVERIFIED: TimeoutError] [International] ☆ History 🇺🇸 -> https://jmp2.uk/plu-5d4af1803e7983b391d73b13.m3u8
+  [UNVERIFIED: HTTP 401] [Canada] History -> http://etvserv.xyz:55337/live/x27dCAFFz/bhV0eTo972/44247.ts
   [UNVERIFIED: TimeoutError] [Hungary] History HD -> http://94.21.17.223:9981/stream/channelid/1920206436?profile=pass
-  [UNVERIFIED: TimeoutError] [USA] Home.Made.Nation by A&E (Pluto TV) -> https://jmp2.uk/plu-5dc1cb279c91420009db261d.m3u8
   [UNVERIFIED: TimeoutError] [Latin America] Lifetime -> http://181.78.4.250:8098/play/a091/index.m3u8
-  [UNVERIFIED: TimeoutError] [Canada] Lifetime -> http://etvserv.xyz:55337/live/x27dCAFFz/bhV0eTo972/21200.ts
-  [UNVERIFIED: TimeoutError] [International] Matched Married Meet by Lifetime (Backup 1) -> https://jmp2.uk/plu-6887a86be3703b7d42b3eca3.m3u8
+  [UNVERIFIED: HTTP 401] [Canada] Lifetime -> http://etvserv.xyz:55337/live/x27dCAFFz/bhV0eTo972/21200.ts
+  [UNVERIFIED: HTTP 429] [France] Love Crime & History -> https://epg.provider.plex.tv/library/parts/6430aa45fc3be5947780904e-671ff65b29bcfe7b69d4fef7/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh
   [UNVERIFIED: HTTP 401] [International] Modern Marvels by HISTORY -> https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/v2/stitch/hls/channel/65775d29dfed030008cb3db2/master.m3u8?jwt=eyJhbGciOiJIUzI1NiIsImtpZCI6IjY2MTUzYmEyLTM0NGEtNDVhZC04Zjg2LWE2YzU5ODFkYWYyYyIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSUQiOiIyNzM5ZjRmZC1lNmY2LTExZjEtODhjOC02YTRhMDQ3MWU2NTIiLCJjbGllbnRJUCI6IjE4NS4yMzYuMjAwLjE3MiIsImNpdHkiOiJMb3MgQW5nZWxlcyIsInBvc3RhbENvZGUiOiI5MDAxMSIsImNvdW50cnkiOiJVUyIsImRtYSI6ODAzLCJhY3RpdmVSZWdpb24iOiJVUyIsImRldmljZUxhdCI6MzQuMDA5OTk4MzIxNTMzMiwiZGV2aWNlTG9uIjotMTE4LjI2MDAwMjEzNjIzMDQ3LCJwcmVmZXJyZWRMYW5ndWFnZSI6Iml0IiwiZGV2aWNlVHlwZSI6IndlYiIsImRldmljZVZlcnNpb24iOiIxMjIuMC4wIiwiZGV2aWNlTWFrZSI6ImNocm9tZSIsImRldmljZU1vZGVsIjoid2ViIiwiYXBwTmFtZSI6IndlYiIsImFwcFZlcnNpb24iOiI4LjAuMC0xMTFiMmI5ZGMwMGJkMGJlYTkwMzBiMzA2NjIxNTllZDllN2M4YmM2IiwiY2xpZW50SUQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJjbUF1ZGllbmNlSUQiOiIiLCJpc0NsaWVudEROVCI6ZmFsc2UsInVzZXJJRCI6IiIsImxvZ0xldmVsIjoiREVGQVVMVCIsInRpbWVab25lIjoiQW1lcmljYS9Mb3NfQW5nZWxlcyIsInNlcnZlclNpZGVBZHMiOmZhbHNlLCJlMmVCZWFjb25zIjpmYWxzZSwiZmVhdHVyZXMiOnsiYWRMb2FkIjp7ImNvaG9ydCI6IiJ9LCJtdWx0aUF1ZGlvIjp7ImVuYWJsZWQiOnRydWV9LCJtdWx0aVBvZEFkcyI6eyJjb2hvcnQiOiIiLCJlbmFibGVkIjp0cnVlfSwic2VhcmNoQVBJIjp7InF1ZXJ5VmVyc2lvbiI6Imh5YnJpZCJ9LCJzdGl0Y2hlckFkU2Vzc2lvbkV2ZW50Ijp7ImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckRhc2hOZyI6eyJqaXRQYWNrIjoicmVwYWNrSml0LGRlY3J5cHQifSwic3RpdGNoZXJIbHNOZyI6eyJkZW11eGVkQXVkaW8iOiJqaXQifX0sImZtc1BhcmFtcyI6eyJmd1ZjSUQyIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiZndWY0lEMkNvcHBhIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiY3VzdG9tUGFyYW1zIjp7ImZtc19saXZlcmFtcF9pZGwiOiIiLCJmbXNfZW1haWxoYXNoIjoiIiwiZm1zX3N1YnNjcmliZXJpZCI6IiIsImZtc19pZmEiOiIiLCJmbXNfaWRmdiI6IiIsImZtc191c2VyaWQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJmbXNfdmNpZDJ0eXBlIjoidXNlcmlkIiwiZm1zX3JhbXBfaWQiOiIiLCJmbXNfaGhfcmFtcF9pZCI6IiIsImZtc19iaWRpZHR5cGUiOiIiLCJfZndfM1BfVUlEIjoiIiwiZm1zX3J1bGVpZCI6IjEwMDAwLDEwMDA5In19LCJkcm0iOnsibmFtZSI6IndpZGV2aW5lIiwibGV2ZWwiOiJMMyJ9LCJzZXNzaW9uU3RhcnRUaW1lIjoxNzk1NDA4MDMxOTY0LCJpc3MiOiJib290LnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6VVM6Wm1WalpqUTNaalV0WkRZd01DMDBNVFptTFRrNFlqa3RObVpoT1dVeU16UXpOV1F6IiwiYXVkIjoiKi5wbHV0by50diIsImV4cCI6MTc5NTQ5NDQzMiwiaWF0IjoxNzk1NDA4MDMyLCJqdGkiOiI1OWY5NzBiMS05YTNiLTQ3OTUtOGJkNi02YmJhYTJkYzc4ZDUifQ.Xa-_nDzWhWIuua8k0lFo8hHddKF78KtpOWqUvJid4n8&masterJWTPassthrough=true
-  [UNVERIFIED: TimeoutError] [International] Modern Marvels by HISTORY (Backup 2) -> https://jmp2.uk/plu-657883cab228b700084414b3.m3u8
   [UNVERIFIED: HTTP 401] [USA] Pluto TV History (Backup 4) -> https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/v2/stitch/hls/channel/5a4d35dfa5c02e717a234f86/master.m3u8?jwt=eyJhbGciOiJIUzI1NiIsImtpZCI6IjY2MTUzYmEyLTM0NGEtNDVhZC04Zjg2LWE2YzU5ODFkYWYyYyIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSUQiOiIyNzM5ZjRmZC1lNmY2LTExZjEtODhjOC02YTRhMDQ3MWU2NTIiLCJjbGllbnRJUCI6IjE4NS4yMzYuMjAwLjE3MiIsImNpdHkiOiJMb3MgQW5nZWxlcyIsInBvc3RhbENvZGUiOiI5MDAxMSIsImNvdW50cnkiOiJVUyIsImRtYSI6ODAzLCJhY3RpdmVSZWdpb24iOiJVUyIsImRldmljZUxhdCI6MzQuMDA5OTk4MzIxNTMzMiwiZGV2aWNlTG9uIjotMTE4LjI2MDAwMjEzNjIzMDQ3LCJwcmVmZXJyZWRMYW5ndWFnZSI6Iml0IiwiZGV2aWNlVHlwZSI6IndlYiIsImRldmljZVZlcnNpb24iOiIxMjIuMC4wIiwiZGV2aWNlTWFrZSI6ImNocm9tZSIsImRldmljZU1vZGVsIjoid2ViIiwiYXBwTmFtZSI6IndlYiIsImFwcFZlcnNpb24iOiI4LjAuMC0xMTFiMmI5ZGMwMGJkMGJlYTkwMzBiMzA2NjIxNTllZDllN2M4YmM2IiwiY2xpZW50SUQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJjbUF1ZGllbmNlSUQiOiIiLCJpc0NsaWVudEROVCI6ZmFsc2UsInVzZXJJRCI6IiIsImxvZ0xldmVsIjoiREVGQVVMVCIsInRpbWVab25lIjoiQW1lcmljYS9Mb3NfQW5nZWxlcyIsInNlcnZlclNpZGVBZHMiOmZhbHNlLCJlMmVCZWFjb25zIjpmYWxzZSwiZmVhdHVyZXMiOnsiYWRMb2FkIjp7ImNvaG9ydCI6IiJ9LCJtdWx0aUF1ZGlvIjp7ImVuYWJsZWQiOnRydWV9LCJtdWx0aVBvZEFkcyI6eyJjb2hvcnQiOiIiLCJlbmFibGVkIjp0cnVlfSwic2VhcmNoQVBJIjp7InF1ZXJ5VmVyc2lvbiI6Imh5YnJpZCJ9LCJzdGl0Y2hlckFkU2Vzc2lvbkV2ZW50Ijp7ImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckRhc2hOZyI6eyJqaXRQYWNrIjoicmVwYWNrSml0LGRlY3J5cHQifSwic3RpdGNoZXJIbHNOZyI6eyJkZW11eGVkQXVkaW8iOiJqaXQifX0sImZtc1BhcmFtcyI6eyJmd1ZjSUQyIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiZndWY0lEMkNvcHBhIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiY3VzdG9tUGFyYW1zIjp7ImZtc19saXZlcmFtcF9pZGwiOiIiLCJmbXNfZW1haWxoYXNoIjoiIiwiZm1zX3N1YnNjcmliZXJpZCI6IiIsImZtc19pZmEiOiIiLCJmbXNfaWRmdiI6IiIsImZtc191c2VyaWQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJmbXNfdmNpZDJ0eXBlIjoidXNlcmlkIiwiZm1zX3JhbXBfaWQiOiIiLCJmbXNfaGhfcmFtcF9pZCI6IiIsImZtc19iaWRpZHR5cGUiOiIiLCJfZndfM1BfVUlEIjoiIiwiZm1zX3J1bGVpZCI6IjEwMDAwLDEwMDA5In19LCJkcm0iOnsibmFtZSI6IndpZGV2aW5lIiwibGV2ZWwiOiJMMyJ9LCJzZXNzaW9uU3RhcnRUaW1lIjoxNzk1NDA4MDMxOTY0LCJpc3MiOiJib290LnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6VVM6Wm1WalpqUTNaalV0WkRZd01DMDBNVFptTFRrNFlqa3RObVpoT1dVeU16UXpOV1F6IiwiYXVkIjoiKi5wbHV0by50diIsImV4cCI6MTc5NTQ5NDQzMiwiaWF0IjoxNzk1NDA4MDMyLCJqdGkiOiI1OWY5NzBiMS05YTNiLTQ3OTUtOGJkNi02YmJhYTJkYzc4ZDUifQ.Xa-_nDzWhWIuua8k0lFo8hHddKF78KtpOWqUvJid4n8&masterJWTPassthrough=true
-  [UNVERIFIED: TimeoutError] [USA] Storage Wars by A&E (Pluto TV) -> https://jmp2.uk/plu-6887aaf4e3703b7d42b71a1e.m3u8
   [UNVERIFIED: gaierror] [International] ☆ The First 48 🇺🇸 -> https://d3ja4g4lkxnrni.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gxn5naeo1b698/v1/ae_networks_first48_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-  [UNVERIFIED: TimeoutError] [USA] The First 48 by A&E (Pluto TV) -> https://jmp2.uk/plu-6887aaade3703b7d42b64be8.m3u8
-  [UNVERIFIED: TimeoutError] [International] Xtreme Outdoor by HISTORY (Backup 2) -> https://jmp2.uk/plu-6000a6f4c3f8550008fc9b91.m3u8
   [UNVERIFIED: HTTP 401] [International] A&E’s Alaska State Troopers -> https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/v2/stitch/hls/channel/6aab1ea02cfd341eb5036c5a/master.m3u8?jwt=eyJhbGciOiJIUzI1NiIsImtpZCI6IjY2MTUzYmEyLTM0NGEtNDVhZC04Zjg2LWE2YzU5ODFkYWYyYyIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSUQiOiIyNzM5ZjRmZC1lNmY2LTExZjEtODhjOC02YTRhMDQ3MWU2NTIiLCJjbGllbnRJUCI6IjE4NS4yMzYuMjAwLjE3MiIsImNpdHkiOiJMb3MgQW5nZWxlcyIsInBvc3RhbENvZGUiOiI5MDAxMSIsImNvdW50cnkiOiJVUyIsImRtYSI6ODAzLCJhY3RpdmVSZWdpb24iOiJVUyIsImRldmljZUxhdCI6MzQuMDA5OTk4MzIxNTMzMiwiZGV2aWNlTG9uIjotMTE4LjI2MDAwMjEzNjIzMDQ3LCJwcmVmZXJyZWRMYW5ndWFnZSI6Iml0IiwiZGV2aWNlVHlwZSI6IndlYiIsImRldmljZVZlcnNpb24iOiIxMjIuMC4wIiwiZGV2aWNlTWFrZSI6ImNocm9tZSIsImRldmljZU1vZGVsIjoid2ViIiwiYXBwTmFtZSI6IndlYiIsImFwcFZlcnNpb24iOiI4LjAuMC0xMTFiMmI5ZGMwMGJkMGJlYTkwMzBiMzA2NjIxNTllZDllN2M4YmM2IiwiY2xpZW50SUQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJjbUF1ZGllbmNlSUQiOiIiLCJpc0NsaWVudEROVCI6ZmFsc2UsInVzZXJJRCI6IiIsImxvZ0xldmVsIjoiREVGQVVMVCIsInRpbWVab25lIjoiQW1lcmljYS9Mb3NfQW5nZWxlcyIsInNlcnZlclNpZGVBZHMiOmZhbHNlLCJlMmVCZWFjb25zIjpmYWxzZSwiZmVhdHVyZXMiOnsiYWRMb2FkIjp7ImNvaG9ydCI6IiJ9LCJtdWx0aUF1ZGlvIjp7ImVuYWJsZWQiOnRydWV9LCJtdWx0aVBvZEFkcyI6eyJjb2hvcnQiOiIiLCJlbmFibGVkIjp0cnVlfSwic2VhcmNoQVBJIjp7InF1ZXJ5VmVyc2lvbiI6Imh5YnJpZCJ9LCJzdGl0Y2hlckFkU2Vzc2lvbkV2ZW50Ijp7ImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckRhc2hOZyI6eyJqaXRQYWNrIjoicmVwYWNrSml0LGRlY3J5cHQifSwic3RpdGNoZXJIbHNOZyI6eyJkZW11eGVkQXVkaW8iOiJqaXQifX0sImZtc1BhcmFtcyI6eyJmd1ZjSUQyIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiZndWY0lEMkNvcHBhIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiY3VzdG9tUGFyYW1zIjp7ImZtc19saXZlcmFtcF9pZGwiOiIiLCJmbXNfZW1haWxoYXNoIjoiIiwiZm1zX3N1YnNjcmliZXJpZCI6IiIsImZtc19pZmEiOiIiLCJmbXNfaWRmdiI6IiIsImZtc191c2VyaWQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJmbXNfdmNpZDJ0eXBlIjoidXNlcmlkIiwiZm1zX3JhbXBfaWQiOiIiLCJmbXNfaGhfcmFtcF9pZCI6IiIsImZtc19iaWRpZHR5cGUiOiIiLCJfZndfM1BfVUlEIjoiIiwiZm1zX3J1bGVpZCI6IjEwMDAwLDEwMDA5In19LCJkcm0iOnsibmFtZSI6IndpZGV2aW5lIiwibGV2ZWwiOiJMMyJ9LCJzZXNzaW9uU3RhcnRUaW1lIjoxNzk1NDA4MDMxOTY0LCJpc3MiOiJib290LnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6VVM6Wm1WalpqUTNaalV0WkRZd01DMDBNVFptTFRrNFlqa3RObVpoT1dVeU16UXpOV1F6IiwiYXVkIjoiKi5wbHV0by50diIsImV4cCI6MTc5NTQ5NDQzMiwiaWF0IjoxNzk1NDA4MDMyLCJqdGkiOiI1OWY5NzBiMS05YTNiLTQ3OTUtOGJkNi02YmJhYTJkYzc4ZDUifQ.Xa-_nDzWhWIuua8k0lFo8hHddKF78KtpOWqUvJid4n8&masterJWTPassthrough=true
   [UNVERIFIED: HTTP 401] [International] American Pickers Plus by History -> https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/v2/stitch/hls/channel/6565413e4261ca0008215320/master.m3u8?jwt=eyJhbGciOiJIUzI1NiIsImtpZCI6IjY2MTUzYmEyLTM0NGEtNDVhZC04Zjg2LWE2YzU5ODFkYWYyYyIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSUQiOiIyNzM5ZjRmZC1lNmY2LTExZjEtODhjOC02YTRhMDQ3MWU2NTIiLCJjbGllbnRJUCI6IjE4NS4yMzYuMjAwLjE3MiIsImNpdHkiOiJMb3MgQW5nZWxlcyIsInBvc3RhbENvZGUiOiI5MDAxMSIsImNvdW50cnkiOiJVUyIsImRtYSI6ODAzLCJhY3RpdmVSZWdpb24iOiJVUyIsImRldmljZUxhdCI6MzQuMDA5OTk4MzIxNTMzMiwiZGV2aWNlTG9uIjotMTE4LjI2MDAwMjEzNjIzMDQ3LCJwcmVmZXJyZWRMYW5ndWFnZSI6Iml0IiwiZGV2aWNlVHlwZSI6IndlYiIsImRldmljZVZlcnNpb24iOiIxMjIuMC4wIiwiZGV2aWNlTWFrZSI6ImNocm9tZSIsImRldmljZU1vZGVsIjoid2ViIiwiYXBwTmFtZSI6IndlYiIsImFwcFZlcnNpb24iOiI4LjAuMC0xMTFiMmI5ZGMwMGJkMGJlYTkwMzBiMzA2NjIxNTllZDllN2M4YmM2IiwiY2xpZW50SUQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJjbUF1ZGllbmNlSUQiOiIiLCJpc0NsaWVudEROVCI6ZmFsc2UsInVzZXJJRCI6IiIsImxvZ0xldmVsIjoiREVGQVVMVCIsInRpbWVab25lIjoiQW1lcmljYS9Mb3NfQW5nZWxlcyIsInNlcnZlclNpZGVBZHMiOmZhbHNlLCJlMmVCZWFjb25zIjpmYWxzZSwiZmVhdHVyZXMiOnsiYWRMb2FkIjp7ImNvaG9ydCI6IiJ9LCJtdWx0aUF1ZGlvIjp7ImVuYWJsZWQiOnRydWV9LCJtdWx0aVBvZEFkcyI6eyJjb2hvcnQiOiIiLCJlbmFibGVkIjp0cnVlfSwic2VhcmNoQVBJIjp7InF1ZXJ5VmVyc2lvbiI6Imh5YnJpZCJ9LCJzdGl0Y2hlckFkU2Vzc2lvbkV2ZW50Ijp7ImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckRhc2hOZyI6eyJqaXRQYWNrIjoicmVwYWNrSml0LGRlY3J5cHQifSwic3RpdGNoZXJIbHNOZyI6eyJkZW11eGVkQXVkaW8iOiJqaXQifX0sImZtc1BhcmFtcyI6eyJmd1ZjSUQyIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiZndWY0lEMkNvcHBhIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiY3VzdG9tUGFyYW1zIjp7ImZtc19saXZlcmFtcF9pZGwiOiIiLCJmbXNfZW1haWxoYXNoIjoiIiwiZm1zX3N1YnNjcmliZXJpZCI6IiIsImZtc19pZmEiOiIiLCJmbXNfaWRmdiI6IiIsImZtc191c2VyaWQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJmbXNfdmNpZDJ0eXBlIjoidXNlcmlkIiwiZm1zX3JhbXBfaWQiOiIiLCJmbXNfaGhfcmFtcF9pZCI6IiIsImZtc19iaWRpZHR5cGUiOiIiLCJfZndfM1BfVUlEIjoiIiwiZm1zX3J1bGVpZCI6IjEwMDAwLDEwMDA5In19LCJkcm0iOnsibmFtZSI6IndpZGV2aW5lIiwibGV2ZWwiOiJMMyJ9LCJzZXNzaW9uU3RhcnRUaW1lIjoxNzk1NDA4MDMxOTY0LCJpc3MiOiJib290LnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6VVM6Wm1WalpqUTNaalV0WkRZd01DMDBNVFptTFRrNFlqa3RObVpoT1dVeU16UXpOV1F6IiwiYXVkIjoiKi5wbHV0by50diIsImV4cCI6MTc5NTQ5NDQzMiwiaWF0IjoxNzk1NDA4MDMyLCJqdGkiOiI1OWY5NzBiMS05YTNiLTQ3OTUtOGJkNi02YmJhYTJkYzc4ZDUifQ.Xa-_nDzWhWIuua8k0lFo8hHddKF78KtpOWqUvJid4n8&masterJWTPassthrough=true
   [UNVERIFIED: HTTP 401] [International] Dog the Bounty Hunter -> https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/v2/stitch/hls/channel/5bee1a7359ee03633e780238/master.m3u8?jwt=eyJhbGciOiJIUzI1NiIsImtpZCI6IjY2MTUzYmEyLTM0NGEtNDVhZC04Zjg2LWE2YzU5ODFkYWYyYyIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSUQiOiIyNzM5ZjRmZC1lNmY2LTExZjEtODhjOC02YTRhMDQ3MWU2NTIiLCJjbGllbnRJUCI6IjE4NS4yMzYuMjAwLjE3MiIsImNpdHkiOiJMb3MgQW5nZWxlcyIsInBvc3RhbENvZGUiOiI5MDAxMSIsImNvdW50cnkiOiJVUyIsImRtYSI6ODAzLCJhY3RpdmVSZWdpb24iOiJVUyIsImRldmljZUxhdCI6MzQuMDA5OTk4MzIxNTMzMiwiZGV2aWNlTG9uIjotMTE4LjI2MDAwMjEzNjIzMDQ3LCJwcmVmZXJyZWRMYW5ndWFnZSI6Iml0IiwiZGV2aWNlVHlwZSI6IndlYiIsImRldmljZVZlcnNpb24iOiIxMjIuMC4wIiwiZGV2aWNlTWFrZSI6ImNocm9tZSIsImRldmljZU1vZGVsIjoid2ViIiwiYXBwTmFtZSI6IndlYiIsImFwcFZlcnNpb24iOiI4LjAuMC0xMTFiMmI5ZGMwMGJkMGJlYTkwMzBiMzA2NjIxNTllZDllN2M4YmM2IiwiY2xpZW50SUQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJjbUF1ZGllbmNlSUQiOiIiLCJpc0NsaWVudEROVCI6ZmFsc2UsInVzZXJJRCI6IiIsImxvZ0xldmVsIjoiREVGQVVMVCIsInRpbWVab25lIjoiQW1lcmljYS9Mb3NfQW5nZWxlcyIsInNlcnZlclNpZGVBZHMiOmZhbHNlLCJlMmVCZWFjb25zIjpmYWxzZSwiZmVhdHVyZXMiOnsiYWRMb2FkIjp7ImNvaG9ydCI6IiJ9LCJtdWx0aUF1ZGlvIjp7ImVuYWJsZWQiOnRydWV9LCJtdWx0aVBvZEFkcyI6eyJjb2hvcnQiOiIiLCJlbmFibGVkIjp0cnVlfSwic2VhcmNoQVBJIjp7InF1ZXJ5VmVyc2lvbiI6Imh5YnJpZCJ9LCJzdGl0Y2hlckFkU2Vzc2lvbkV2ZW50Ijp7ImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckRhc2hOZyI6eyJqaXRQYWNrIjoicmVwYWNrSml0LGRlY3J5cHQifSwic3RpdGNoZXJIbHNOZyI6eyJkZW11eGVkQXVkaW8iOiJqaXQifX0sImZtc1BhcmFtcyI6eyJmd1ZjSUQyIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiZndWY0lEMkNvcHBhIjoiZmVjZjQ3ZjUtZDYwMC00MTZmLTk4YjktNmZhOWUyMzQzNWQzIiwiY3VzdG9tUGFyYW1zIjp7ImZtc19saXZlcmFtcF9pZGwiOiIiLCJmbXNfZW1haWxoYXNoIjoiIiwiZm1zX3N1YnNjcmliZXJpZCI6IiIsImZtc19pZmEiOiIiLCJmbXNfaWRmdiI6IiIsImZtc191c2VyaWQiOiJmZWNmNDdmNS1kNjAwLTQxNmYtOThiOS02ZmE5ZTIzNDM1ZDMiLCJmbXNfdmNpZDJ0eXBlIjoidXNlcmlkIiwiZm1zX3JhbXBfaWQiOiIiLCJmbXNfaGhfcmFtcF9pZCI6IiIsImZtc19iaWRpZHR5cGUiOiIiLCJfZndfM1BfVUlEIjoiIiwiZm1zX3J1bGVpZCI6IjEwMDAwLDEwMDA5In19LCJkcm0iOnsibmFtZSI6IndpZGV2aW5lIiwibGV2ZWwiOiJMMyJ9LCJzZXNzaW9uU3RhcnRUaW1lIjoxNzk1NDA4MDMxOTY0LCJpc3MiOiJib290LnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6VVM6Wm1WalpqUTNaalV0WkRZd01DMDBNVFptTFRrNFlqa3RObVpoT1dVeU16UXpOV1F6IiwiYXVkIjoiKi5wbHV0by50diIsImV4cCI6MTc5NTQ5NDQzMiwiaWF0IjoxNzk1NDA4MDMyLCJqdGkiOiI1OWY5NzBiMS05YTNiLTQ3OTUtOGJkNi02YmJhYTJkYzc4ZDUifQ.Xa-_nDzWhWIuua8k0lFo8hHddKF78KtpOWqUvJid4n8&masterJWTPassthrough=true
@@ -336,62 +336,62 @@ openstream                 ok                  5428     5428     3325     4072  
 ----------------------------------------------------------------------------------------
 Country                               Working   Playlist Path
 --------------------------------------------------------------------------------
-USA                                      4393   playlists/countries/USA.m3u
-International                            2218   playlists/countries/International.m3u
+USA                                      4426   playlists/countries/USA.m3u
+International                            2254   playlists/countries/International.m3u
 India                                    1234   playlists/countries/India.m3u
-UK                                        757   playlists/countries/UK.m3u
-Italy                                     732   playlists/countries/Italy.m3u
-Canada                                    658   playlists/countries/Canada.m3u
-France                                    624   playlists/countries/France.m3u
+UK                                        758   playlists/countries/UK.m3u
+Canada                                    750   playlists/countries/Canada.m3u
+Italy                                     733   playlists/countries/Italy.m3u
+France                                    625   playlists/countries/France.m3u
 Germany                                   575   playlists/countries/Germany.m3u
-Spain                                     558   playlists/countries/Spain.m3u
-Russia                                    486   playlists/countries/Russia.m3u
-Mexico                                    314   playlists/countries/Mexico.m3u
+Spain                                     557   playlists/countries/Spain.m3u
+Russia                                    491   playlists/countries/Russia.m3u
+Mexico                                    318   playlists/countries/Mexico.m3u
 Sweden                                    272   playlists/countries/Sweden.m3u
-South Korea                               254   playlists/countries/South_Korea.m3u
+South Korea                               252   playlists/countries/South_Korea.m3u
 Switzerland                               228   playlists/countries/Switzerland.m3u
 Australia                                 224   playlists/countries/Australia.m3u
-Dominican Republic                        220   playlists/countries/Dominican_Republic.m3u
+Dominican Republic                        221   playlists/countries/Dominican_Republic.m3u
 Austria                                   207   playlists/countries/Austria.m3u
-Poland                                    199   playlists/countries/Poland.m3u
+Poland                                    198   playlists/countries/Poland.m3u
 Chile                                     196   playlists/countries/Chile.m3u
-Brazil                                    191   playlists/countries/Brazil.m3u
-Romania                                   186   playlists/countries/Romania.m3u
-Ukraine                                   171   playlists/countries/Ukraine.m3u
-Peru                                      169   playlists/countries/Peru.m3u
-Argentina                                 164   playlists/countries/Argentina.m3u
-Turkey                                    164   playlists/countries/Turkey.m3u
+Brazil                                    192   playlists/countries/Brazil.m3u
+Romania                                   185   playlists/countries/Romania.m3u
+Ukraine                                   172   playlists/countries/Ukraine.m3u
+Peru                                      168   playlists/countries/Peru.m3u
+Turkey                                    163   playlists/countries/Turkey.m3u
+Argentina                                 162   playlists/countries/Argentina.m3u
 Netherlands                               160   playlists/countries/Netherlands.m3u
-Hungary                                   148   playlists/countries/Hungary.m3u
-Colombia                                  130   playlists/countries/Colombia.m3u
-Czechia                                   113   playlists/countries/Czechia.m3u
+Hungary                                   154   playlists/countries/Hungary.m3u
+Colombia                                  129   playlists/countries/Colombia.m3u
+Czechia                                   111   playlists/countries/Czechia.m3u
 China                                     109   playlists/countries/China.m3u
 Indonesia                                 108   playlists/countries/Indonesia.m3u
 Iran                                       97   playlists/countries/Iran.m3u
-Vietnam                                    97   playlists/countries/Vietnam.m3u
+Vietnam                                    92   playlists/countries/Vietnam.m3u
 Greece                                     91   playlists/countries/Greece.m3u
 Thailand                                   81   playlists/countries/Thailand.m3u
 Mongolia                                   78   playlists/countries/Mongolia.m3u
 Bolivia                                    70   playlists/countries/Bolivia.m3u
-Slovakia                                   66   playlists/countries/Slovakia.m3u
 Bulgaria                                   65   playlists/countries/Bulgaria.m3u
 Portugal                                   65   playlists/countries/Portugal.m3u
+Slovakia                                   65   playlists/countries/Slovakia.m3u
 Costa Rica                                 62   playlists/countries/Costa_Rica.m3u
 Iraq                                       62   playlists/countries/Iraq.m3u
 Israel                                     58   playlists/countries/Israel.m3u
 Saudi Arabia                               58   playlists/countries/Saudi_Arabia.m3u
-Venezuela                                  54   playlists/countries/Venezuela.m3u
+Venezuela                                  53   playlists/countries/Venezuela.m3u
 Pakistan                                   51   playlists/countries/Pakistan.m3u
 Ecuador                                    49   playlists/countries/Ecuador.m3u
+Paraguay                                   47   playlists/countries/Paraguay.m3u
 United Arab Emirates                       47   playlists/countries/United_Arab_Emirates.m3u
 Honduras                                   46   playlists/countries/Honduras.m3u
-Paraguay                                   46   playlists/countries/Paraguay.m3u
 Qatar                                      39   playlists/countries/Qatar.m3u
-Belgium                                    37   playlists/countries/Belgium.m3u
+Belgium                                    38   playlists/countries/Belgium.m3u
 Kazakhstan                                 37   playlists/countries/Kazakhstan.m3u
-Finland                                    34   playlists/countries/Finland.m3u
-Guatemala                                  34   playlists/countries/Guatemala.m3u
+Finland                                    35   playlists/countries/Finland.m3u
 Belarus                                    32   playlists/countries/Belarus.m3u
+Guatemala                                  32   playlists/countries/Guatemala.m3u
 Nigeria                                    32   playlists/countries/Nigeria.m3u
 Puerto Rico                                31   playlists/countries/Puerto_Rico.m3u
 Serbia                                     30   playlists/countries/Serbia.m3u
@@ -399,9 +399,9 @@ Uzbekistan                                 30   playlists/countries/Uzbekistan.m
 Singapore                                  29   playlists/countries/Singapore.m3u
 Estonia                                    28   playlists/countries/Estonia.m3u
 Lebanon                                    28   playlists/countries/Lebanon.m3u
-Ireland                                    26   playlists/countries/Ireland.m3u
+Ireland                                    25   playlists/countries/Ireland.m3u
 Japan                                      25   playlists/countries/Japan.m3u
-Bangladesh                                 23   playlists/countries/Bangladesh.m3u
+Bangladesh                                 22   playlists/countries/Bangladesh.m3u
 Palestine                                  22   playlists/countries/Palestine.m3u
 Albania                                    21   playlists/countries/Albania.m3u
 El Salvador                                20   playlists/countries/El_Salvador.m3u
@@ -416,36 +416,34 @@ South Africa                               17   playlists/countries/South_Africa
 Taiwan                                     17   playlists/countries/Taiwan.m3u
 Panama                                     16   playlists/countries/Panama.m3u
 Turkmenistan                               16   playlists/countries/Turkmenistan.m3u
-Norway                                     15   playlists/countries/Norway.m3u
 Arab World                                 14   playlists/countries/Arab_World.m3u
 Azerbaijan                                 14   playlists/countries/Azerbaijan.m3u
 Morocco                                    14   playlists/countries/Morocco.m3u
 Myanmar                                    14   playlists/countries/Myanmar.m3u
 Kuwait                                     13   playlists/countries/Kuwait.m3u
 Luxembourg                                 13   playlists/countries/Luxembourg.m3u
-Croatia                                    12   playlists/countries/Croatia.m3u
+Cameroon                                   12   playlists/countries/Cameroon.m3u
 Cyprus                                     12   playlists/countries/Cyprus.m3u
 Ivory Coast                                12   playlists/countries/Ivory_Coast.m3u
 Philippines                                12   playlists/countries/Philippines.m3u
-Uganda                                     12   playlists/countries/Uganda.m3u
 Armenia                                    11   playlists/countries/Armenia.m3u
 Bosnia and Herzegovina                     11   playlists/countries/Bosnia_and_Herzegovina.m3u
+Croatia                                    11   playlists/countries/Croatia.m3u
 Guyana                                     11   playlists/countries/Guyana.m3u
 Rwanda                                     11   playlists/countries/Rwanda.m3u
 Syria                                      11   playlists/countries/Syria.m3u
+Uganda                                     11   playlists/countries/Uganda.m3u
 Afghanistan                                10   playlists/countries/Afghanistan.m3u
-Cameroon                                   10   playlists/countries/Cameroon.m3u
-Montenegro                                 10   playlists/countries/Montenegro.m3u
+Norway                                     10   playlists/countries/Norway.m3u
 Kenya                                       9   playlists/countries/Kenya.m3u
 Latvia                                      9   playlists/countries/Latvia.m3u
 Nicaragua                                   9   playlists/countries/Nicaragua.m3u
 Oman                                        9   playlists/countries/Oman.m3u
+Sri Lanka                                   9   playlists/countries/Sri_Lanka.m3u
 Aruba                                       8   playlists/countries/Aruba.m3u
 Ghana                                       8   playlists/countries/Ghana.m3u
 Laos                                        8   playlists/countries/Laos.m3u
-Malta                                       8   playlists/countries/Malta.m3u
 New Zealand                                 8   playlists/countries/New_Zealand.m3u
-Sri Lanka                                   8   playlists/countries/Sri_Lanka.m3u
 Denmark                                     7   playlists/countries/Denmark.m3u
 Kosovo                                      7   playlists/countries/Kosovo.m3u
 Uruguay                                     7   playlists/countries/Uruguay.m3u
@@ -463,14 +461,15 @@ Libya                                       5   playlists/countries/Libya.m3u
 Malaysia                                    5   playlists/countries/Malaysia.m3u
 Maldives                                    5   playlists/countries/Maldives.m3u
 Martinique                                  5   playlists/countries/Martinique.m3u
+Nepal                                       5   playlists/countries/Nepal.m3u
 Sint Maarten                                5   playlists/countries/Sint_Maarten.m3u
 Slovenia                                    5   playlists/countries/Slovenia.m3u
 Benin                                       4   playlists/countries/Benin.m3u
 Caribbean Netherlands                       4   playlists/countries/Caribbean_Netherlands.m3u
 Cuba                                        4   playlists/countries/Cuba.m3u
 Iceland                                     4   playlists/countries/Iceland.m3u
+Montenegro                                  4   playlists/countries/Montenegro.m3u
 Mozambique                                  4   playlists/countries/Mozambique.m3u
-Nepal                                       4   playlists/countries/Nepal.m3u
 Somalia                                     4   playlists/countries/Somalia.m3u
 Tanzania                                    4   playlists/countries/Tanzania.m3u
 Tunisia                                     4   playlists/countries/Tunisia.m3u
@@ -481,8 +480,10 @@ Bahamas                                     3   playlists/countries/Bahamas.m3u
 Burkina Faso                                3   playlists/countries/Burkina_Faso.m3u
 Guinea                                      3   playlists/countries/Guinea.m3u
 Kyrgyzstan                                  3   playlists/countries/Kyrgyzstan.m3u
+Malta                                       3   playlists/countries/Malta.m3u
 Monaco                                      3   playlists/countries/Monaco.m3u
 North Korea                                 3   playlists/countries/North_Korea.m3u
+Republic of the Congo                       3   playlists/countries/Republic_of_the_Congo.m3u
 Saint Kitts and Nevis                       3   playlists/countries/Saint_Kitts_and_Nevis.m3u
 Tajikistan                                  3   playlists/countries/Tajikistan.m3u
 British Virgin Islands                      2   playlists/countries/British_Virgin_Islands.m3u
@@ -491,7 +492,6 @@ Curacao                                     2   playlists/countries/Curacao.m3u
 Faroe Islands                               2   playlists/countries/Faroe_Islands.m3u
 Macau                                       2   playlists/countries/Macau.m3u
 Niger                                       2   playlists/countries/Niger.m3u
-Republic of the Congo                       2   playlists/countries/Republic_of_the_Congo.m3u
 Saint Lucia                                 2   playlists/countries/Saint_Lucia.m3u
 Sudan                                       2   playlists/countries/Sudan.m3u
 Suriname                                    2   playlists/countries/Suriname.m3u
@@ -518,124 +518,126 @@ Zimbabwe                                    1   playlists/countries/Zimbabwe.m3u
 4. LOG EDITS IN THIS RUN (ADDED & REMOVED CHANNELS)
 ----------------------------------------------------------------------------------------
 Baseline: PremiumTV_all.m3u
-Added:    +152 channels
-Removed:  -101 channels
+Added:    +332 channels
+Removed:  -285 channels
 
 Added Channels (sample):
-  + [International] 西藏卫视 (source=vbskycn-iptv, group=Other) -> http://112.27.5.218:9901/tsfile/live/0111_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
-  + [International] 陕西新闻咨询 (source=vbskycn-iptv, group=Other) -> http://112.46.105.20:8009/hls/18/index.m3u8
-  + [International] 陕西都市青春 (source=vbskycn-iptv, group=Other) -> http://112.46.105.20:8009/hls/19/index.m3u8
-  + [International] 陕西秦腔 (source=vbskycn-iptv, group=Other) -> http://112.46.105.20:8009/hls/22/index.m3u8
-  + [USA] [Basketball Euroleague] Dubai vs Partizan (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/ZLLL.m3u8
-  + [USA] [AFC Champions League] Al Faisaly Amman vs Al Rayyan (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/ZLLLA.m3u8
-  + [USA] [AFC Champions League] Al Jazira vs Gol Gohar (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/ZLLLAA.m3u8
-  + [USA] [AFC Champions League] Al Kuwait vs Al Wahda (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/ZLLLAAA.m3u8
-  + [USA] [AFC Champions League] Al Muharraq vs Arkadag (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/ZLLLAAAA.m3u8
-  + [USA] [UEFA Youth League] Inter U19 vs Stuttgart U19 (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/frrraaaA.m3u8
-  + [USA] [Egypt Premier League] El Gaish vs Modern Sport (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/lololo.m3u8
-  + [USA] [Russia Cup] Akhmat Grozny vs Krasnodar (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/lololoa.m3u8
-  + [USA] [Russia Cup] Dynamo Makhachkala vs Baltika (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/lololoaa.m3u8
-  + [USA] [UEFA Youth League] Atletico Madrid U19 vs Viking U19 (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/lololoaaa.m3u8
-  + [USA] [UEFA Youth League] PSG U19 vs AS Roma U19 (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/lololoaaaa.m3u8
-  + [USA] [World Cup U17] Denmark U17 vs Argentina U17 (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/lololoaaaaqq.m3u8
-  + [International] 奎屯汉语 (source=vbskycn-iptv, group=Other) -> http://218.84.12.186:8001/hls/main/playlist.m3u8?zxinjd=
-  + [International] 新疆卫视 (source=vbskycn-iptv, group=Other) -> http://218.84.12.186:8001/hls/main/playlist.m3u8?zxinjd%3Bhttp%3A%2F%2F218.84.12.186%3A8001%2Fhls%2Fmain%2Fplaylist.m3u8zxinjd=
-  + [International] 玛纳斯 (source=vbskycn-iptv, group=Other) -> http://218.84.127.245:1026/hls/main1/playlist.m3u8?zxinjd=
-  + [International] 玛纳斯综合 (source=vbskycn-iptv, group=Other) -> http://218.84.127.245:1026/hls/main1/playlist.m3u8?zxinjd%2C=
-  + [International] CCTV3 (source=vbskycn-iptv, group=International) -> http://222.169.85.8:9901/tsfile/live/0003_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
-  + [International] 天津卫视 (source=vbskycn-iptv, group=Other) -> http://222.169.85.8:9901/tsfile/live/0135_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
-  + [International] 江津新闻 (source=vbskycn-iptv, group=Other) -> http://222.179.155.21:1935/ch1.m3u8?zzhongqd=
-  + [International] 璧山综合 (source=vbskycn-iptv, group=Other) -> http://222.179.42.129:8181/hls1.m3u8
-  + [International] 之江纪录 (source=vbskycn-iptv, group=Other) -> http://ali-m-l.cztv.com/channels/lantian/channel012/1080p.m3u8
-  + [International] 浙江民生 (source=vbskycn-iptv, group=Other) -> http://ali-m-l.cztv.com/channels/lantian/channel06/1080p.m3u8
-  + [International] 沐川综合 (source=vbskycn-iptv, group=Other) -> http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8?zsicd=
-  + [International] 营山电视台 (source=vbskycn-iptv, group=Other) -> http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8?zsicd=
-  + [International] 湖南卫视 (source=vbskycn-iptv, group=Other) -> http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/Y2RuZXhfaWQ9YWxfaGxzX2xkdnQmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8
-  + [International] 开化国家公园 (source=vbskycn-iptv, group=Other) -> http://l.cztvcloud.com/channels/lantian/SXkaihua2/720p.m3u8
+  + [USA] [Gulf Club Champions League] Qatar SC vs Al Nasr (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/G222.m3u8
+  + [USA] [Italy Serie B] Mantova vs Arezzo (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvv.m3u8
+  + [USA] [Italy Serie B] Padova vs Sampdoria (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvvA.m3u8
+  + [USA] [Italy Serie B] Pisa vs Modena (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvvAA.m3u8
+  + [USA] [English EFL Trophy] Fleetwood vs Leeds U21 (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvvAAA.m3u8
+  + [USA] [English National League] Boreham Wood vs Aldershot (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvvAAAA.m3u8
+  + [USA] [Basketball Euroleague] Olympiacos vs Hapoel Tel Aviv (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvvAAAAA.m3u8
+  + [USA] [Basketball Euroleague] Baskonia vs Anadolu Efes (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvvAAAAAQ.m3u8
+  + [USA] [Basketball Euroleague] Real Madrid vs Zalgiris Kaunas (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/avvvAAAAAQQ.m3u8
+  + [USA] [Russia Cup] Lokomotiv Moscow vs FK Rostov (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/frrr.m3u8
+  + [USA] [Russia Cup] Rubin Kazan vs Rodina Moscow (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/frrra.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] Almtuna vs Visby Roma (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrt.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] Kalmar vs AIK (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtA.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] Mora vs Ostersund (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAA.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] Nybro vs Vasteras (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAAA.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] Sodertalje vs Modo (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAAAA.m3u8
+  + [USA] [Sweden HockeyAllsvenskan] Vimmerby vs BIK Karlskoga (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAAAAA.m3u8
+  + [USA] [Egypt Premier League] Enppi vs Ceramica Cleopatra (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAAAAAQ.m3u8
+  + [USA] [Egypt Premier League] Ghazl El Mahallah vs Petrojet (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAAAAAQA.m3u8
+  + [USA] [Italy Serie B] Cremonese vs Avellino (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAAAAAQAA.m3u8
+  + [USA] [AFC Champions League II] Al Taawon vs Al Nahda (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/rtrtrtAAAAAQAAA.m3u8
+  + [USA] [English National League] Harrogate vs Kidderminster (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/sjjjj.m3u8
+  + [USA] [English National League] Hartlepool vs Solihull Moors (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/sjjjjA.m3u8
+  + [USA] [English Championship] Bolton vs West Bromwich (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/sjjjjAA.m3u8
+  + [USA] [English Championship] Burnley vs Birmingham City (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/sjjjjAAA.m3u8
+  + [USA] [English Championship] Watford vs Blackburn Rovers (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/sjjjjAAAA.m3u8
+  + [USA] [English Championship] Stoke City vs Millwall (FAWA) (source=doms9, group=Sports) -> http://193.47.62.55/hls/sjjjjAAAAA.m3u8
+  + [USA] [Copa Mundial Sub] 17: Ecuador vs Corea del Sur | Dsports 2 | HD (TVF90) (source=doms9, group=Sports) -> https://1.ftlly.com:443/dsports2/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [UEFA Champions League] Sabah vs Barcelona | ESPN AR┃OP3 (TVF90) (source=doms9, group=Sports) -> https://1.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
+  + [USA] [NBA] Oklahoma City Thunder vs. Minnesota Timberwolves | ESPN 2 | OP3 (TVF90) (source=doms9, group=Sports) -> https://1.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
 
 Removed Channels (sample):
-  - [International] 西安新闻 (source=previous, group=Other) -> http://112.46.105.20:8009/hls/28/index.m3u8
-  - [International] CCTV8 (source=previous, group=International) -> http://124.165.251.82:85/tsfile/live/0008_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
-  - [International] CCTV12 (source=previous, group=International) -> http://124.165.251.82:85/tsfile/live/0012_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
-  - [USA] [Cricket WBBL] Melbourne Renegades W vs Sydney Sixers W (FAWA) (source=previous, group=Sports) -> http://193.47.62.41/hls/AAAA.m3u8
-  - [USA] [AFC Champions League] Melbourne Victory vs Viettel 1 (FAWA) (source=previous, group=Sports) -> http://193.47.62.41/hls/FRFRFR.m3u8
-  - [USA] [AFC Champions League] Gamba Osaka vs Port FC (FAWA) (source=previous, group=Sports) -> http://193.47.62.50/hls/ZTTT.m3u8
-  - [USA] [AFC Champions League] Kashima Antlers vs Jeonbuk (FAWA) (source=previous, group=Sports) -> http://193.47.62.50/hls/ZTTTA.m3u8
-  - [USA] [Ukraine Premier League] Kryvbas vs FC Kharkiv (FAWA) (source=previous, group=Sports) -> http://193.47.62.50/hls/ZTTTAA.m3u8
-  - [USA] [AFC Champions League II] Persib Bandung vs Seoul (FAWA) (source=previous, group=Sports) -> http://193.47.62.50/hls/ZTTTAAA.m3u8
-  - [USA] [Japan J League] Avispa Fukuoka vs Yokohama F Marinos (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/DEDEDE.m3u8
-  - [USA] [Japan J League] Chiba vs Nagoya Grampus (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/DEDEDEA.m3u8
-  - [USA] [Japan J League] FC Tokyo vs Sanfrecce Hiroshima (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/DEDEDEAA.m3u8
-  - [USA] [Japan J League] Mito vs Tokyo Verdy (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/DEDEDEAAA.m3u8
-  - [USA] [Japan J League] Okayama vs Shimizu S-Pulse (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/DEDEDEAAAQ.m3u8
-  - [USA] [Japan J League] V-Varen Nagasaki vs Kawasaki Frontale (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/DEDEDEAAAQQ.m3u8
-  - [USA] [Japan J League] Urawa Reds vs Cerezo Osaka (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/DEDEDEAAAQQQ.m3u8
-  - [USA] [Cricket] South Africa vs Bangladesh (FAWA) (source=previous, group=Sports) -> http://193.47.62.59/hls/RREGEGEAA.m3u8
-  - [International] 人间卫视 (source=previous, group=Other) -> http://61.216.67.119:1935/bltvhd/bltv1/chunklist_w1266569526.m3u
-  - [International] 音乐欣赏 (source=previous, group=Other) -> http://61.221.215.25:8800/hls/49/index.m3u8
-  - [International] 浙江新闻 (source=previous, group=Other) -> http://ali-m-l.cztv.com/channels/lantian/channel007/720p.m3u8
-  - [International] 浙江少儿 (source=previous, group=Other) -> http://ali-m-l.cztv.com/channels/lantian/channel008/1080p.m3u8
-  - [International] 浙江民生 (source=previous, group=Other) -> http://ali-m-l.cztv.com/channels/lantian/channel06/720p.m3u8
-  - [International] 镇江新闻综合 (source=previous, group=Other) -> http://cm-wshls.homecdn.com/live/2aa50.m3u8
-  - [International] 韩国EBS少儿 (source=previous, group=International) -> http://ebsonairios.ebs.co.kr/ebsutablet500k/tablet500k/playlist.m3u8
-  - [International] CGTN (source=previous, group=News) -> http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
-  - [International] 开化国家公园 (source=previous, group=Other) -> http://l.cztvcloud.com/channels/lantian/SXkaihua2/720p.m3u8?zzhed=
-  - [International] 龙游生活娱乐 (source=previous, group=Other) -> http://l.cztvcloud.com/channels/lantian/SXlongyou2/720p.m3u8?zzhed=
-  - [International] 松阳综合 (source=previous, group=Other) -> http://l.cztvcloud.com/channels/lantian/SXsongyang1/720p.m3u8
-  - [International] 文成综合 (source=previous, group=Other) -> http://l.cztvcloud.com/channels/lantian/SXwencheng1/720p.m3u8?zzhed%3F=
-  - [International] 萧山生活 (source=previous, group=Other) -> http://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8?zzhed%3F=
+  - [USA] [Serbia Super Liga] Radnicki Nis vs Zeleznicar Pancevo (FAWA) (source=previous, group=Sports) -> http://193.47.62.50/hls/CDCDCD.m3u8
+  - [USA] [World Cup U17] Ecuador U17 vs South Korea U17 (FAWA) (source=previous, group=Sports) -> http://193.47.62.55/hls/IIII.m3u8
+  - [USA] [World Cup U17] Uganda U17 vs New Caledonia U17 (FAWA) (source=previous, group=Sports) -> http://193.47.62.55/hls/IIIIA.m3u8
+  - [USA] [Liga MX] Toluca vs Atlas | Azteca 7 | OP2 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/azteca7/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Slavia Praha vs Villarreal | ESPN 2 | OP3 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Slavia Praha vs Villarreal | ESPN 2 | HD (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NBA] Philadelphia 76ers vs. Miami Heat | ESPN 2 | HD (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NHL] Tampa Bay Lightning vs. Carolina Hurricanes | ESPN 4 | OP2 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn4/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NHL] Tampa Bay Lightning vs. Carolina Hurricanes | ESPN 4 | HD (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn4/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Internazionale vs Stuttgart | ESPN 4 | OP3 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn4/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Liga Profesional] Boca Juniors vs Independiente Rivadavia | ESPN 5 | OP2 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Shakhtar Donetsk vs Fenerbahçe | ESPN 6 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/espn6/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Sporting CP vs Manchester United | Fox Sports 2 USA (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/foxsports2_usa/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Copa Mundial Sub] 17: Ecuador vs Corea del Sur | TeleAmazonas (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/teleamazonas/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Copa Mundial Sub] 17: Dinamarca  vs Argentina | TyC Sports | OP2 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/tycsports/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Santa Fe vs Once Caldas | Win Sports + | OP2 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Santa Fe vs Once Caldas | Win Sports + | OP3 (TVF90) (source=previous, group=Sports) -> https://1.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Youth League] PSG vs AS Roma | Disney+ (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/disney3/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Copa Mundial Sub] 17: Ecuador vs Corea del Sur | Dsports 2 | OP3 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/dsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Lille vs Bayern München | ESPN AR┃OP3 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NBA] Philadelphia 76ers vs. Miami Heat | ESPN 2 | OP3 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [NBA] Oklahoma City Thunder vs. Minnesota Timberwolves | ESPN 2 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Club Brugge vs Liverpool | ESPN 2 | OP3 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] PSG vs Roma | ESPN 5 | OP3 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/espn5/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Sporting CP vs Manchester United | ESPN 7 | OP2 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/espn7/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Primera A] Atlético Nacional vs Medellín | Win Sports + | OP3 (TVF90) (source=previous, group=Sports) -> https://10.ftlly.com:443/winsports2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [Copa Mundial Sub] 17: Dinamarca  vs Argentina | DSports | OP3 (TVF90) (source=previous, group=Sports) -> https://11.ftlly.com:443/dsports/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Sabah vs Barcelona | ESPN (TVF90) (source=previous, group=Sports) -> https://11.ftlly.com:443/espn/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Club Brugge vs Liverpool | ESPN 2 | OP2 (TVF90) (source=previous, group=Sports) -> https://11.ftlly.com:443/espn2/mono.m3u8?token=%5Bredacted%5D
+  - [USA] [UEFA Champions League] Internazionale vs Stuttgart | ESPN 4 (TVF90) (source=previous, group=Sports) -> https://11.ftlly.com:443/espn4/mono.m3u8?token=%5Bredacted%5D
 
 ----------------------------------------------------------------------------------------
 5. DIAGNOSTICS & RUN/SOURCE ISSUES
 ----------------------------------------------------------------------------------------
 Reason                                     Dead   Unverified   Guidance
 ----------------------------------------------------------------------------------------------------
-TimeoutError                                  0         5578   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-HTTP 429                                      0         2047   The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff.
-HTTP 403                                      0         1442   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
-HTTP 404                                   1187            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
-HTTP 401                                      0          540   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
-gaierror                                      0          496   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-html page, not a stream                     329            0   The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect.
-quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-11-23T18:06:21Z)      146            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 404                                   1824            0   The upstream path is missing or expired; check the source playlist and replace the URL if the publisher has a current one.
+HTTP 403                                      0         1785   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
+TimeoutError                                  0         1432   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+HTTP 429                                      0         1382   The host rate-limited the check; this scraper now limits parallel requests per host and retries with Retry-After/backoff.
+HTTP 401                                      0          710   Access denied, authentication, referrer, or geo restrictions may be involved; verify the source headers and test from the intended region.
+gaierror                                      0          500   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+html page, not a stream                     389            0   The URL returned a web page rather than media; the source may need a direct stream URL or player-specific redirect.
+ConnectionRefusedError                        0          273   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-11-23T18:06:21Z)      147            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 400                                    111            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-11-23T18:06:21Z)      109            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 400                                     80            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 503                                      0           47   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-quarantined: HTTP 404 (failed the deep check 1x, last 2026-11-22T14:39:03Z)       42            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-ConnectionRefusedError                        0           41   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: HTTP 404 (failed the deep check 1x, last 2026-11-23T18:06:21Z)       38            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-SSLError                                      0           36   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
-quarantined: HTTP 404 (failed the deep check 1x, last 2026-11-24T17:46:53Z)       31            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-11-23T18:06:21Z)       31            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 502                                      0           24   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 504                                      0           21   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+SSLError                                      0           68   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+HTTP 503                                      0           56   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+HTTP 458                                     36            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 1x, last 2026-11-22T14:39:03Z)       35            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-11-23T18:06:21Z)       30            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+RemoteDisconnected                            0           29   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 1x, last 2026-11-23T18:06:21Z)       29            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+quarantined: HTTP 404 (failed the deep check 1x, last 2026-11-24T17:46:53Z)       29            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 504                                      0           23   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+OSError                                       0           19   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 400 (failed the deep check 1x, last 2026-11-23T18:06:21Z)       19            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 500                                      0           15   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+HTTP 502                                      0           15   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 empty response                               15            0   The server returned no stream data; check whether the source requires an active session or has expired.
 quarantined: variant HTTP 403 (failed the deep check 1x, last 2026-11-23T18:06:21Z)       14            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-RemoteDisconnected                            0           13   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 not probed: unsupported scheme rtmp           0           13   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
-ConnectionResetError                          0           12   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-11-22T14:39:03Z)       12            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-11-22T14:39:03Z)       11            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 451                                     10            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 530                                      0           10   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: variant HTTP dns lookup failed (failed the deep check 1x, last 2026-11-23T18:06:21Z)       10            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 451                                      9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 458                                      9            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-HTTP 500                                      0            9   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 460                                      8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: dns lookup failed (failed the deep check 1x, last 2026-11-22T14:39:03Z)        8            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 invalid URL                                   7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: HTTP 404 (failed the deep check 2x, last 2026-11-24T17:46:53Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-11-24T17:46:53Z)        7            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+ConnectionResetError                          0            6   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
+HTTP 444                                      6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 511                                      0            6   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
+quarantined: HTTP 404 (failed the deep check 2x, last 2026-11-24T17:46:53Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-11-22T14:39:03Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 1x, last 2026-11-24T17:46:53Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 404 (failed the deep check 1x, last 2026-11-24T17:46:53Z)        6            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 567                                      0            5   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
-HTTP 521                                      0            4   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: HTTP 404 (failed the deep check 2x, last 2026-11-23T18:06:21Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-11-24T17:46:53Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-11-23T18:06:21Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, dns lookup failed (failed the deep check 1x, last 2026-11-23T18:06:21Z)        4            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 521                                      0            3   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 quarantined: connection refused (failed the deep check 1x, last 2026-11-22T14:39:03Z)        3            0   Likely transient DNS, TLS, connection, or network trouble; compare the next run and test from another network.
 quarantined: playlist only, HTTP 403 (failed the deep check 1x, last 2026-11-22T14:39:03Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 400 (failed the deep check 1x, last 2026-11-23T18:06:21Z)        3            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
@@ -651,6 +653,8 @@ quarantined: playlist only, HTTP 401 (failed the deep check 1x, last 2026-11-23T
 quarantined: playlist only, HTTP 403 (failed the deep check 2x, last 2026-11-23T18:06:21Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-11-22T14:39:03Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, HTTP 404 (failed the deep check 2x, last 2026-11-24T17:46:53Z)        2            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 302                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
+HTTP 406                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 421                                      1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 HTTP 574                                      0            1   The upstream server or gateway returned a temporary error; review it on the next scheduled check before removing the source link.
 not probed: unsupported scheme srt            0            1   This scheme cannot be validated with HTTP; it is retained in the all-links playlist but is not advertised as confirmed working.
@@ -669,13 +673,12 @@ quarantined: playlist only, HTTP 416 (failed the deep check 1x, last 2026-11-23T
 quarantined: playlist only, empty segment (failed the deep check 1x, last 2026-11-23T18:06:21Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: playlist only, empty segment (failed the deep check 2x, last 2026-11-22T14:39:03Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 403 (failed the deep check 2x, last 2026-11-23T18:06:21Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
-quarantined: variant HTTP 404 (failed the deep check 2x, last 2026-11-22T14:39:03Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 410 (failed the deep check 1x, last 2026-11-23T18:06:21Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 quarantined: variant HTTP 422 (failed the deep check 2x, last 2026-11-24T17:46:53Z)        1            0   Inspect the channel URL and source entry in report.json; this result was not confirmed as playable.
 
 Run / Source Issues:
-  * Reference check 'StepDaddyLiveHD' failed: GET https://api.github.com/repos/gookie-dev/StepDaddyLiveHD failed: HTTP Error 403: rate limit exceeded
+  * Reference check 'StepDaddyLiveHD' failed: GET https://api.github.com/repos/gookie-dev/StepDaddyLiveHD failed: HTTP Error 404: Not Found
   * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error [Errno -2] Name or service not known>
-  * Reference check 'Easy-Web-TV-M3u8' failed: GET https://api.github.com/repos/zhangboheng/Easy-Web-TV-M3u8 failed: HTTP Error 403: rate limit exceeded
-  * 10344 links could not be confirmed after retries (see unverified details).
-  * 2211 links returned a confirmed failure (see dead details).
+  * 6356 links could not be confirmed after retries (see unverified details).
+  * 2947 links returned a confirmed failure (see dead details).
+  * This run started +10h 30m after its scheduled time (2026-11-25T08:07:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
