@@ -393,6 +393,20 @@ class BuildSiteDataTest(unittest.TestCase):
         permissions = workflow.split("permissions:", 1)[1].split("concurrency:", 1)[0]
         for scope in ("contents: read", "pages: write", "id-token: write", "actions: read"):
             self.assertIn(scope, permissions)
+        # The v4 deploy action has failed right after upload when its new
+        # artifact service returned an empty list. Keep one v4 retry and a REST
+        # fallback that creates the deployment from the artifact ID, bypassing
+        # that lookup. Both must follow the upload, in that order.
+        upload = workflow.index("uses: actions/upload-pages-artifact")
+        first = workflow.index("uses: actions/deploy-pages@v4", upload)
+        retry = workflow.index("uses: actions/deploy-pages@v4", first + 1)
+        fallback = workflow.index("Deploy to GitHub Pages through the REST API", retry)
+        self.assertLess(upload, first)
+        self.assertLess(first, retry)
+        self.assertLess(retry, fallback)
+        self.assertIn("Retry the GitHub Pages deployment", workflow)
+        self.assertIn("pages/deployments", workflow)
+        self.assertIn("artifact_id", workflow)
 
     def test_the_published_site_address_is_the_one_github_serves(self):
         """A project Pages URL does not survive a repository rename.
