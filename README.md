@@ -26,6 +26,7 @@ A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuse
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.
 - [Repository change log](CHANGELOG.md) — concise GitHub copy and links to the live health reports.
 - [Source reliability follow-up](docs/SOURCE-RELIABILITY-AUDIT-2026-11-12.md) — snapshot health, official viewing paths and verification gaps.
+- [Provider-directory hunt](docs/SOURCE-HUNT-2026-11-25.md) — the free providers in the iptv-org `awesome-iptv` directory, measured against this corpus: which ones became sources (M3UPT, TDTChannels, Nexonic IPTV), which were only iptv-org front-ends, and why a Pluto playlist with session tokens was left out.
 
 ## Load the playlist
 
@@ -80,17 +81,17 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.20** (Android `versionCode 101200000`) | USA lineup + USA guide | Many sources, one clock: playlists keep backup addresses the way channels keep backup feeds, and Live Events reads every kickoff in one ticking clock ([notes](release-notes-1.1.20.md)). |
-| Superseded | **1.1.19** (`101190000`), **1.1.18** (`101180000`), **1.1.17** (`101170000`), **1.1.16** (`101160000`), **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.20. |
+| **Stable release** | **1.1.21** (Android `versionCode 101210000`) | USA lineup + USA guide | Free provider directory: M3UPT, TDTChannels, Nexonic IPTV, Samsung TV Plus, Plex, The Roku Channel and Tubi join the sources, a mixed file contributes only its TV half, and a country header no longer lists every guide ([notes](release-notes-1.1.21.md)). |
+| Superseded | **1.1.20** (`101200000`), **1.1.19** (`101190000`), **1.1.18** (`101180000`), **1.1.17** (`101170000`), **1.1.16** (`101160000`), **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.21. |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
 | Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.19 ends Dec 21, 2026 |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.20 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.21 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.20 over the preview (`101200000` > `100010001`) and
+newer. Android accepts 1.1.21 over the preview (`101210000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
 
@@ -304,9 +305,9 @@ still receives a real crash but the next bug report has something to go on. A
 published `http-origin` is normalised to the scheme+host+port tuple a CDN
 expects, matching the Mac app.
 
-**1.1.20 is the current stable release** (`versionCode 101200000`, USA scope).
+**1.1.21 is the current stable release** (`versionCode 101210000`, USA scope).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.1.20 installs over 1.0.8, 1.0.8.1
+upgrades from Settings → App updates, and 1.1.21 installs over 1.0.8, 1.0.8.1
 and the retired 1.1.x previews as well. (One exception: an installed 1.0.8.1
 still reads "1.0.9" as another name for itself, so its in-app check can miss
 this release — install the APK by hand; it upgrades in place.) A release is
@@ -925,9 +926,26 @@ Playlist sources are configured in [`sources.json`](sources.json). Active M3U/W3
 | [xtemus](https://xtemus.com/) | W3U | Enabled; only the selected live-TV groups are followed. Movie, series, radio, and highlight folders are excluded. |
 | [iptv-org/iptv](https://github.com/iptv-org/iptv) | M3U | Added global playlist `https://iptv-org.github.io/iptv/index.m3u`. |
 | [Free-TV/IPTV](https://github.com/Free-TV/IPTV) | M3U8 | Added `playlist.m3u8`. |
+| [Samsung TV Plus](https://github.com/BuddyChewChew/app-m3u-generator) | M3U | `samsungtvplus_all.m3u`, all 11 regions; enabled. The tvg-ids are Samsung's own, so the Samsung guide already in `epg_sources.fixed` covers them. |
+| [Plex live TV](https://github.com/BuddyChewChew/app-m3u-generator) | M3U | `plex_all.m3u` (AU, CA, ES, FR, GB, MX, NZ, US); enabled. |
+| [The Roku Channel](https://github.com/BuddyChewChew/app-m3u-generator) | M3U | `roku_all.m3u`, the full Roku linear lineup; enabled. |
+| [Tubi live TV](https://github.com/BuddyChewChew/app-m3u-generator) | M3U | `tubi_all.m3u`, direct Tubi manifests; enabled, with `tubi_epg.xml` added to `epg_sources.fixed` for its listings. |
 | [eja.tv](https://eja.tv/) | Website audit | The site is probed for reachability, but it is not treated as a static playlist. No direct M3U export was verified. It is not counted as imported channels unless a direct playlist URL is configured. |
 | [StepDaddyLiveHD](https://github.com/gookie-dev/StepDaddyLiveHD) | Repository audit / optional instance playlist | The repository tree is checked for a static M3U. Its documented playlist is generated by a self-hosted app, so the repository itself is not a channel feed. |
 | [dlive.sx](https://dlive.sx/24-7-channels.php) | Channel-index audit / optional direct playlist | The DaddyLiveHD 24/7 index is fetched and its catalogue counted, but no channel is imported: see below. Set `DLIVE_M3U_URL` to an authorized direct playlist to import and link-check it. |
+
+**The free providers the awesome-iptv list highlights are gathered where they actually publish a lineup.** The
+[`Providers` discussions](https://github.com/iptv-org/awesome-iptv/discussions/categories/providers) label 86 of
+their entries `Free`; most are players or country directories that resolve their streams in the browser and have
+no static playlist to import. The four that do publish one are the ad-supported services — Samsung TV Plus, Plex,
+The Roku Channel and Tubi — and their lineups come from
+[`BuddyChewChew/app-m3u-generator`](https://github.com/BuddyChewChew/app-m3u-generator), which regenerates them
+daily. It is used rather than [i.mjh.nz](https://i.mjh.nz/)'s own playlists because those were removed under DMCA
+in 2024 ([i.mjh.nz#127](https://github.com/matthuisman/i.mjh.nz/issues/127)) and that project now points at this
+generator; its **guides** are still fetched, and they stay the EPG for the Pluto TV and Samsung channels. Each of
+the four carries jsDelivr and `raw.gitmirror.com` mirrors under the 1.1.20 rule, and each was measured against the
+published corpus before it was added: 2,669 Samsung, 2,889 Plex, 257 Roku and 176 Tubi entries, all HTTPS, of which
+2,585 / 2,889 / 230 / 163 were addresses the corpus did not already have.
 
 `aria` and `doms9` were already active sources; the scraper now also scans `iptv-org` and `Free-TV/IPTV`. The eja.tv, StepDaddyLiveHD and dlive.sx references are checked and reported separately rather than falsely counted as channel feeds. To ingest an authorized direct M3U URL for any of them, add repository Actions secrets named `EJA_M3U_URL`, `STEPDADDYLIVEHD_PLAYLIST_URL` or `DLIVE_M3U_URL`. The StepDaddy secret should point to a running instance's `/playlist.m3u8`; without it, the repository audit still runs and the instance source is shown as `not_configured`.
 

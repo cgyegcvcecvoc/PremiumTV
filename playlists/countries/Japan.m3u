@@ -1,10 +1,10 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Japan.xml"
-# Japan working channels (25) - updated 2026-11-25 09:54 UTC (2026-11-25 04:54 AM EST) - 8:17 PM recheck
-#EXTINF:-1 tvg-id="GSTV.jp@SD" tvg-logo="https://i.imgur.com/ECnVG5I.png" group-title="Lifestyle" tvg-country="JP",GSTV (720p)
+# Japan working channels (25) - updated 2026-11-25 14:03 UTC (2026-11-25 09:03 AM EST) - manual re-scrape (run-scrape.txt)
+#EXTINF:-1 tvg-id="GSTV.jp@SD" tvg-logo="https://i.imgur.com/ECnVG5I.png" group-title="Lifestyle" tvg-name="GSTV" tvg-country="JP" tvg-language="Japanese" x-tier="community" x-status="verified" x-quality="720p",GSTV (720p)
 https://japaneast.av.mk.io/mediakindcdn-mediakind/ca01a143-f823-4432-b670-c22ff9643ce4/index.qfm/manifest(format=m3u8-cmaf)
-#EXTINF:-1 tvg-id="QVC.jp@SD" tvg-logo="https://i.imgur.com/6TWUVrh.png" group-title="Lifestyle" tvg-country="JP",QVC (Japan) (1080p)
+#EXTINF:-1 tvg-id="QVC.jp@SD" tvg-logo="https://i.imgur.com/6TWUVrh.png" group-title="Lifestyle" tvg-name="QVC" tvg-country="JP" tvg-language="Japanese" x-tier="community" x-status="verified" x-quality="1080p",QVC (Japan) (1080p)
 https://d1flvb4iqlercm.cloudfront.net/live/live_1080p_2nd.m3u8
-#EXTINF:-1 tvg-id="ShopChannel.jp@SD" tvg-logo="https://www.shopch.jp/com/images/common/logo_2021.png" group-title="Lifestyle" tvg-name="ショップチャンネル" tvg-chno="CS055" tvg-country="JP",Shop Channel (1080p) [Not 24/7]
+#EXTINF:-1 tvg-id="ShopChannel.jp@SD" tvg-logo="https://www.shopch.jp/com/images/common/logo_2021.png" group-title="Lifestyle" tvg-name="ショップチャンネル" tvg-chno="CS055" tvg-country="JP" tvg-language="Japanese" x-tier="community" x-status="verified" x-quality="1080p",Shop Channel (1080p) [Not 24/7]
 https://stream3.shopch.jp/HLS/master.m3u8
 #EXTINF:-1 tvg-id="CartoonNetwork.jp@HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/960px-Cartoon_Network_2010_logo.svg.png" group-title="Cartoons" tvg-country="JP",Cartoon Network (Japan) HD
 http://103.255.250.188:5002/cs25.m3u8?channel=zhongying&gid=cs25&token=guoziyun
@@ -30,21 +30,21 @@ https://cdn-apne1.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-news1hlscmaf-raku
 https://cdn.pishow.tv/ott/live/455/master.m3u8
 #EXTINF:-1 tvg-id="NHKWorldJapan.jp@HD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png" group-title="News" tvg-country="JP",NHK World-Japan HD (1080p)
 https://freem3u.xyz/api/live/play.m3u8?vid=106
-#EXTINF:-1 tvg-id="NHKWorldPremium.jp@SD" tvg-logo="https://i.imgur.com/4ESi2La.png" group-title="News" tvg-name="NHK World יפן HD" tvg-chno="593" tvg-country="JP",NHK World Premium (720p)
+#EXTINF:-1 tvg-id="NHKWorldPremium.jp@SD" tvg-logo="https://i.imgur.com/4ESi2La.png" group-title="News" tvg-name="NHK World Premium" tvg-country="JP" tvg-language="English;Japanese;Spanish" x-tier="community" x-status="verified" x-quality="720p" tvg-chno="593",NHK World Premium (720p)
 https://media-tyo.hls.nhkworld.jp/hls/wp/live/master.m3u8
-#EXTINF:-1 tvg-id="NHKWorldJapan.jp@SD" tvg-country="JP" group-title="News Backups" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png",NHK World-Japan (Backup 1)
-https://media-tyo.hls.nhkworld.jp/hls/w/live/master.m3u8
-#EXTINF:-1 tvg-id="NHKWorldJapan.jp@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png" group-title="News Backups" tvg-status="stable" tvg-country="JP",NHK World-Japan (Backup 2)
+#EXTINF:-1 tvg-id="NHKWorldJapan.jp@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png" group-title="News Backups" tvg-status="stable" tvg-country="JP",NHK World-Japan (Backup 1)
 https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8
-#EXTINF:-1 tvg-name="NHK WORLD JAPAN" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png" tvg-id="NHKWorldJapan.jp@SD" tvg-chno="JCOM307" tvg-country="JP" group-title="News Backups",NHK World-Japan (Backup 3)
+#EXTINF:-1 tvg-name="NHK WORLD JAPAN" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png" tvg-id="NHKWorldJapan.jp@SD" tvg-chno="JCOM307" tvg-country="JP" group-title="News Backups",NHK World-Japan (Backup 2)
 https://media-osa.hls.nhkworld.jp/hls/w/live/master.m3u8
+#EXTINF:-1 group-title="News Backups" tvg-id="NHKWorldJapan.jp@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png" tvg-name="NHK World Japón" tvg-country="JP" tvg-language="English",NHK World-Japan (Backup 3)
+https://media-tyo.hls.nhkworld.jp/hls/w/live/master.m3u8
 #EXTINF:-1 tvg-id="NHKWorldJapan.jp@HD" tvg-country="JP" group-title="News Backups" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/NHK_World_Japan.png",NHK World-Japan HD (Backup 1)
 https://nhk.lls.pbs.org/index.m3u8
 #EXTINF:-1 tvg-id="NHKWorldPremium.jp@SD" tvg-logo="https://i.imgur.com/4ESi2La.png" group-title="News Backups" tvg-status="stable" tvg-country="JP",NHK World Premium (Backup 1)
 https://masterpl.hls.nhkworld.jp/hls/wp/live/smarttv.m3u8
-#EXTINF:-1 tvg-id="SakuranboTV.jp@JOCYDTV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a8/SAY_logo_1997.svg" group-title="Asia" tvg-country="JP",Sakuranbo TV (1080i)
+#EXTINF:-1 tvg-id="SakuranboTV.jp@JOCYDTV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a8/SAY_logo_1997.svg" group-title="Asia" tvg-name="Sakuranbo TV" tvg-country="JP" tvg-language="Japanese" x-tier="community" x-status="verified" x-quality="1080p",Sakuranbo TV (1080i)
 https://tv-stream-test.daydreamer-json.cc/stream/bd2dd29080c36c9b01338d329156febe/master.m3u8
-#EXTINF:-1 tvg-id="YTSYamagataTV.jp@JOYIDTV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/YTS2024.svg" group-title="Asia" tvg-country="JP",YTS Yamagata TV (1080i)
+#EXTINF:-1 tvg-id="YTSYamagataTV.jp@JOYIDTV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/ec/YTS2024.svg" group-title="Asia" tvg-name="YTS Yamagata TV" tvg-country="JP" tvg-language="Japanese" x-tier="community" x-status="verified" x-quality="1080p",YTS Yamagata TV (1080i)
 https://tv-stream-test.daydreamer-json.cc/stream/407fd00ebd2a059c9cd1ea3fa7156097/master.m3u8
 #EXTINF:-1 tvg-id="DisneyChannel.jp@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/ff/2024_Disney_Channel_text_logo.svg" group-title="Kids" tvg-country="JP",Disney Channel (Japan)
 http://103.255.250.188:5002/bs24.m3u8?channel=zhongying&gid=bs24&token=guoziyun
@@ -53,5 +53,5 @@ http://103.255.250.188:5002/cs18.m3u8?channel=zhongying&gid=cs18&token=guoziyun
 #EXTINF:-1 tvg-id="CGNTVJapan.jp@SD" tvg-logo="https://i.imgur.com/5LNZeVq.png" http-referrer="http://japan.cgntv.net/HD_player_jp.html" group-title="Religious" tvg-country="JP",CGNTV Japan (1080p)
 #EXTVLCOPT:http-referrer=http://japan.cgntv.net/HD_player_jp.html
 https://d2p4mrcwl6ly4.cloudfront.net/out/v1/8d50f69fdbbf411a8d302743e4263716/CGNWebLiveJP.m3u8
-#EXTINF:-1 tvg-id="Weathernews.jp@SD" tvg-logo="https://i.imgur.com/A8uRSTS.png" group-title="Weather" tvg-name="ウェザーニュースLiVE" tvg-chno="CH 106" tvg-country="JP",Weathernews (720p)
+#EXTINF:-1 tvg-id="Weathernews.jp@SD" tvg-logo="https://i.imgur.com/A8uRSTS.png" group-title="Weather" tvg-name="ウェザーニュースLiVE" tvg-chno="CH 106" tvg-country="JP" tvg-language="Japanese" x-tier="community" x-status="verified" x-quality="720p",Weathernews (720p)
 https://rch01e-alive-hls.akamaized.net/38fb45b25cdb05a1/out/v1/4e907bfabc684a1dae10df8431a84d21/index.m3u8

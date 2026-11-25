@@ -315,8 +315,19 @@ class BuildSiteDataTest(unittest.TestCase):
                 self.assertTrue((ROOT / group["file"]).is_file(), group["file"])
         # Featured channels are real playlist names, in the categories they
         # actually belong to, and never placeholder event titles.
-        published = {build_site_data.clean_channel_name(e["name"]).lower(): e
-                     for e in entries if not build_site_data.BACKUP_NAME_RE.match(e["name"])}
+        # A channel name can be published in more than one group once several
+        # providers carry it, so resolve it the way the page does: the group the
+        # featured brand belongs to wins, otherwise the first entry stands.
+        brand_categories = {name.lower(): category for name, category in build_site_data.FEATURED_BRANDS}
+        published = {}
+        for e in entries:
+            if build_site_data.BACKUP_NAME_RE.match(e["name"]):
+                continue
+            key = build_site_data.clean_channel_name(e["name"]).lower()
+            wanted = brand_categories.get(key)
+            if key not in published or (wanted and e["group"] == wanted
+                                        and published[key]["group"] != wanted):
+                published[key] = e
         self.assertGreaterEqual(len(lineup["featured"]), 10)
         for channel in lineup["featured"]:
             self.assertIn(channel["name"].lower(), published)

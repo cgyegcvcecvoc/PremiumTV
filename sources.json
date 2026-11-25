@@ -233,6 +233,122 @@
         "https://raw.gitmirror.com/vbskycn/iptv/master/tv/iptv4.m3u"
       ],
       "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
+    },
+    {
+      "name": "m3upt",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/LITUATUI/M3UPT/main/M3U/M3UPT.m3u",
+      "github": {
+        "repo": "LITUATUI/M3UPT",
+        "path": "M3U/M3UPT.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://m3upt.com/iptv",
+        "https://cdn.jsdelivr.net/gh/LITUATUI/M3UPT@main/M3U/M3UPT.m3u"
+      ],
+      "mirror_note": "The identical file is reached from its own site, jsDelivr and raw.githubusercontent.com: a run that used a backup address says so in its report.",
+      "include_groups": [
+        "TV"
+      ],
+      "note": "M3UPT (m3upt.com/iptv) - the free Portuguese playlist of public, official streams, found in the iptv-org awesome-iptv Providers discussions (hunt of 2026-11-25). The same file also carries radio, beach cameras, podcast episodes and six DRM test cards, so include_groups keeps only its TV group: measured that day, 159 entries, 154 HTTPS, 71 URLs new to this corpus and 115 tvg-ids it does not carry (.pt public broadcasters - RTP 1/2/Noticias/Memoria/Acores/Madeira/Africa/Mundo, SIC, SIC Noticias, TVI, CNN Portugal). Its header advertises two XMLTV guides and several streams need the Referer/Origin lines the file ships; the scraper already sends both."
+    },
+    {
+      "name": "tdtchannels",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://www.tdtchannels.com/lists/tv.m3u",
+      "mirrors": [
+        "https://www.tdtchannels.com/lists/tv.m3u8"
+      ],
+      "mirror_note": "The TV list is published twice - as .m3u and as .m3u8 - with identical channels; the second address is tried when the first does not answer, and the report names the address that did.",
+      "note": "TDTChannels (LaQuay/TDTChannels, 1.7k stars) - the long-running Spanish TDT catalogue of channels that broadcast openly on the internet, found in the iptv-org awesome-iptv Providers discussions (hunt of 2026-11-25). One stable list URL per format, national/regional/local channels, several feeds per channel (own CDN, GEO variants, OTTera ad-stitched) and #EXTVLCOPT Referer lines where a broadcaster needs them. Spain is already one of the better-covered countries (363 entries), so this is a quality source, not a volume one: the run report says how many of its feeds answer, and dead GEO variants are dropped by the same check as every other source."
+    },
+    {
+      "name": "nexonic-iptv",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/nexonic-technologies/nexonic-iptv/main/playlists/all.m3u",
+      "github": {
+        "repo": "nexonic-technologies/nexonic-iptv",
+        "path": "playlists/all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://nexonic-technologies.github.io/nexonic-iptv/playlists/all.m3u",
+        "https://cdn.jsdelivr.net/gh/nexonic-technologies/nexonic-iptv@main/playlists/all.m3u"
+      ],
+      "mirror_note": "The identical file is reached from its own site, jsDelivr and raw.githubusercontent.com: a run that used a backup address says so in its report.",
+      "note": "Nexonic IPTV - free-to-air playlists of streams broadcasters themselves publish, verified upstream three times a day, adult channels excluded, MIT code and CC0 data; found in the iptv-org awesome-iptv Providers discussions (hunt of 2026-11-25). Measured that day: 4,458 entries across 160 countries, 487 URLs new to this corpus - the largest gaps being India (169), the United States (58) and Russia (49). Its untested queue (playlists/community/untested.m3u) is deliberately not configured: only the verified file is imported, and every link is re-checked here like any other source."
+    },
+    {
+      "name": "samsung-tv-plus",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/samsungtvplus_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/samsungtvplus_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/samsungtvplus_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/samsungtvplus_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "Samsung TV Plus, a highlighted free provider on the iptv-org awesome-iptv list, as one regenerated global M3U covering 11 regions. Measured 2026-11-25: 2,669 entries, every URL HTTPS, 2,585 of them addresses the published corpus did not carry and 1,357 channel names no source here had. The tvg-ids are Samsung's own, which is what the Samsung TV Plus US guide in epg_sources.fixed lists, so its US channels arrive with listings attached. First checked run (2026-11-25): 2,491 of 2,669 links working, 4 dead."
+    },
+    {
+      "name": "plex-live",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/plex_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/plex_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/plex_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/plex_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "Plex free live TV (watch.plex.tv), a highlighted free provider with a published lineup. Measured 2026-11-25: 2,889 entries, all HTTPS, every one of them new to this corpus, because Plex geo-gates its own manifests and no source here reached them. The global file covers AU, CA, ES, FR, GB, MX, NZ and US. First checked run (2026-11-25): 1,030 working, 1,405 unverified and 454 dead — Plex geo-gates its manifests, so a run outside its region confirms only part of the lineup; the confirmed third is kept and the unverified links stay within the usual grace window."
+    },
+    {
+      "name": "roku-channel",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/roku_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/roku_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/roku_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/roku_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "The Roku Channel's linear lineup, the smallest highlighted free provider and the one this repository had no coverage of at all. Measured 2026-11-25: 257 entries, all HTTPS, 230 new to the corpus and 184 channel names no source here carried. Grouped by Roku's own categories. First checked run (2026-11-25): 254 of 257 working."
+    },
+    {
+      "name": "tubi-live",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/tubi_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/tubi_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/tubi_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/tubi_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "Tubi live TV, the highlighted free provider whose feeds are the most direct of the four. Measured 2026-11-25: 176 entries, every one an HTTPS manifest on live-manifest.production-public.tubi.io rather than a redirector, 163 of them new to the corpus. All 176 tvg-ids match the Tubi guide now listed in epg_sources.fixed, so the lineup gets programme data. First checked run (2026-11-25): 173 of 176 working, 3 unverified."
     }
   ],
   "priority_channels": {
@@ -383,6 +499,27 @@
       "enabled": true,
       "url": "https://iptvcat.net/united_states_of_america__1",
       "note": "IPTV Cat's US catalogue (1,621 channels, 1,593 online on 2026-11-24; 14,018 worldwide). Each row offers only a single-channel wrapper playlist (list.iptvcat.net/my_list/s/<hash>.m3u8 around the real stream URL) and the bulk 'Download this list' action is built in the browser from a session list, so the site publishes no single static M3U the scraper can fetch and link-check as a source. Sampled wrapper URLs (e.g. the 30A TV feeds) are already in the published corpus, and the catalogue is smaller than the current lineup in both the US (1,621 vs ~2,900) and worldwide (14,018 vs 19,621). Checked for reachability only and never imported as channels; see docs/SOURCE-HUNT-2026-11-24.md. If IPTV Cat ever publishes a static bulk M3U, add it as a source and let the daily link check decide what survives."
+    },
+    {
+      "name": "gradetv",
+      "type": "website",
+      "enabled": true,
+      "url": "https://gradetv.net/",
+      "note": "Grade TV (iptv-org Providers discussion #769) is a browser catalogue and M3U exporter over the iptv-org channel data - its ids are iptv-org ids such as 00sReplay.us and 3ABNEnglish.us - so it duplicates the iptv-org source already configured. Checked for reachability only and never imported."
+    },
+    {
+      "name": "broadcast-atlas",
+      "type": "website",
+      "enabled": true,
+      "url": "https://broadcastatlas.com/",
+      "note": "Broadcast Atlas (iptv-org Providers discussion #845) is a directory and player built on iptv-org's channel data, with each channel keeping its iptv-org identifier; it publishes no playlist of its own, so importing it would only re-fetch the iptv-org source. Checked for reachability only and never imported as channels."
+    },
+    {
+      "name": "open-tv-atlas",
+      "type": "website",
+      "enabled": true,
+      "url": "https://iman-py.github.io/open-tv-atlas/",
+      "note": "Open TV Atlas (iptv-org Providers discussion #968) generates M3U URLs by combining iptv-org language, category and quality slices, so every link it can produce already arrives through the configured iptv-org source. Checked for reachability only and never imported as channels."
     }
   ],
   "discovery": {
@@ -469,6 +606,12 @@
     "_comment": "Upstream XMLTV guides merged into the repository's own guides, one family per published country. scripts/epg_sources.py expands the per_country templates with every published country code ({cc} = lowercase, {CC} = uppercase) and always includes the fixed feeds first. These URLs are verified by scripts/epg_check.py and harvested by scripts/epg_build.py, but never advertised in playlist x-tvg-url headers: the merged guide already carries their listings. Disable one family with enabled=false; disable the whole block with enabled=false at the top.",
     "enabled": true,
     "fixed": [
+      {
+        "name": "Tubi (app-m3u-generator)",
+        "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/tubi_epg.xml",
+        "enabled": true,
+        "note": "Tubi's own live guide, regenerated daily by the same project that publishes the tubi-live playlist. Checked on 2026-11-25: 176 channels and 8,059 programmes, and all 176 channel ids match the tvg-ids in tubi_all.m3u, so the Tubi lineup arrives with listings instead of an empty guide row."
+      },
       {
         "name": "epg.pw all countries",
         "url": "https://epg.pw/xmltv/epg.xml.gz",

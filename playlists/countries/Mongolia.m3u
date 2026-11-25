@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Mongolia.xml"
-# Mongolia working channels (78) - updated 2026-11-25 09:54 UTC (2026-11-25 04:54 AM EST) - 8:17 PM recheck
-#EXTINF:-1 tvg-id="MNBSport.mn@SD" tvg-logo="https://i.imgur.com/z854PC3.png" group-title="Sports" tvg-name="MNB Sport" tvg-chno="3" tvg-country="MN",MNB Sport (1080p)
+# Mongolia working channels (78) - updated 2026-11-25 14:03 UTC (2026-11-25 09:03 AM EST) - manual re-scrape (run-scrape.txt)
+#EXTINF:-1 tvg-id="MNBSport.mn@SD" tvg-logo="https://i.imgur.com/z854PC3.png" group-title="Sports" tvg-name="MNB Sport" tvg-chno="3" tvg-country="MN" tvg-language="Mongolian",MNB Sport (1080p)
 https://live.mnb.mn/hls/mnb_sport.stream.m3u8
 #EXTINF:-1 tvg-name="N Sports" tvg-logo="" tvg-id="ONTV.mn" tvg-chno="21" tvg-country="MN" group-title="Sports",N Sports
 https://cdn4.skygo.mn/live/disk1/ONTV/HLSv3-FTA/ONTV.m3u8
@@ -33,6 +33,12 @@ https://cdn4.skygo.mn/live/disk1/MNB/DASH-FTA/MNB.mpd
 https://cdn4.skygo.mn/live/disk1/MNB/HLSv3-FTA/MNB.m3u8
 #EXTINF:-1 tvg-name="MNB International" tvg-logo="" tvg-id="MNBWorld.mn" tvg-chno="4" tvg-country="MN" group-title="International",MNB International
 https://cdn4.skygo.mn/live/disk1/MNB_World/HLSv3-FTA/MNB_World.m3u8
+#EXTINF:-1 tvg-id="MNBMongoliinMedee.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/21.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="International" tvg-country="MN",MNB Mongoliin Medee (1080p)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+https://cdn4.skygo.mn/live/disk1/MNB2/DASH-FTA/MNB2.mpd
+#EXTINF:-1 tvg-id="MNBWorld.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/22.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="International" tvg-country="MN",MNB World (1080p)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+https://cdn4.skygo.mn/live/disk1/MNB_World/DASH-FTA/MNB_World.mpd
 #EXTINF:-1 tvg-name="MNC" tvg-logo="" tvg-id="MongolianNewsChannel.mn" tvg-chno="34" tvg-country="MN" group-title="International",MNC
 https://cdn4.skygo.mn/live/disk1/MNCTV/HLSv3-FTA/MNCTV.m3u8
 #EXTINF:-1 tvg-name="Mongolian Plus1" tvg-logo="" tvg-id="Volplus.mn" tvg-chno="39" tvg-country="MN" group-title="International",Mongolian Plus1
@@ -70,16 +76,18 @@ https://cdn4.skygo.mn/live/disk1/UBSHD/DASH-FTA/UBSHD.mpd
 https://cdn4.skygo.mn/live/disk1/UlziiTV/HLSv3-FTA/UlziiTV.m3u8
 #EXTINF:-1 tvg-name="C1" tvg-logo="https://www.mongolsat.mn/assets/img/channel/11.png" tvg-id="C1.mn@SD" tvg-chno="14" tvg-country="MN" group-title="International Backups",C1 (Backup 1)
 https://cdn4.skygo.mn/live/disk1/C1/HLSv3-FTA/C1.m3u8
-#EXTINF:-1 tvg-id="MNB.mn@SD" tvg-country="MN" group-title="International Backups" tvg-logo="https://i.imgur.com/RdRd0to.png",MNB (Backup 1)
-https://live.mnb.mn/hls/mn2.stream.m3u8
-#EXTINF:-1 tvg-id="MNB.mn@SD" tvg-country="MN" group-title="International Backups" tvg-logo="https://i.imgur.com/RdRd0to.png",MNB (Backup 2)
-https://live.mnb.mn/hls/mnb.stream.m3u8
-#EXTINF:-1 tvg-id="MNB.mn@SD" group-title="International Backups" tvg-logo="https://i.imgur.com/RdRd0to.png",MNB (Backup 3)
+#EXTINF:-1 tvg-id="MNB.mn@SD" group-title="International Backups" tvg-logo="https://i.imgur.com/RdRd0to.png",MNB (Backup 1)
 https://live.mnb.mn/hls/mnb_family.stream.m3u8
-#EXTINF:-1 tvg-name="MNB Монголын Мэдээ" tvg-logo="https://i.imgur.com/RdRd0to.png" tvg-id="MNB.mn@SD" tvg-chno="2" tvg-country="MN" group-title="International Backups",MNB (Backup 4)
+#EXTINF:-1 tvg-name="MNB Монголын Мэдээ" tvg-logo="https://i.imgur.com/RdRd0to.png" tvg-id="MNB.mn@SD" tvg-chno="2" tvg-country="MN" group-title="International Backups",MNB (Backup 2)
 https://cdn4.skygo.mn/live/disk1/MNB2/HLSv3-FTA/MNB2.m3u8
-#EXTINF:-1 tvg-name="MNB Гэр бүл" tvg-logo="https://i.imgur.com/RdRd0to.png" tvg-chno="5" tvg-country="MN" group-title="International Backups" tvg-id="MNB.mn@SD",MNB (Backup 5)
+#EXTINF:-1 tvg-name="MNB Гэр бүл" tvg-logo="https://i.imgur.com/RdRd0to.png" tvg-chno="5" tvg-country="MN" group-title="International Backups" tvg-id="MNB.mn@SD",MNB (Backup 3)
 https://cdn4.skygo.mn/live/disk1/MNB_Family/HLSv3-FTA/MNB_Family.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@SD" tvg-name="MNB" tvg-country="MN" tvg-language="Mongolian" group-title="International Backups" tvg-logo="https://i.imgur.com/RdRd0to.png",MNB (Backup 4)
+https://live.mnb.mn/hls/mnb.stream.m3u8
+#EXTINF:-1 tvg-id="MNBMongoliinMedee.mn@SD" tvg-name="MNB Mongoliin Medee" tvg-country="MN" tvg-language="Mongolian" group-title="International Backups" tvg-logo="https://www.mongolsat.mn/assets/img/channel/21.png",MNB Mongoliin Medee (Backup 1)
+https://live.mnb.mn/hls/mn2.stream.m3u8
+#EXTINF:-1 tvg-id="MNBWorld.mn@SD" tvg-name="MNB World" tvg-country="MN" tvg-language="English" group-title="International Backups" tvg-logo="https://www.mongolsat.mn/assets/img/channel/22.png",MNB World (Backup 1)
+https://live.mnb.mn/hls/mnb_world.stream.m3u8
 #EXTINF:-1 tvg-name="SBN" tvg-logo="https://www.mongolsat.mn/assets/img/channel/14.png" tvg-id="SBN.mn@SD" tvg-chno="13" tvg-country="MN" group-title="International Backups",SBN (Backup 1)
 https://cdn4.skygo.mn/live/disk1/SBN/HLSv3-FTA/SBN.m3u8
 #EXTINF:-1 tvg-name="Suld TV" tvg-logo="https://www.mongolsat.mn/assets/img/channel/20.png" tvg-id="SuldTV.mn@SD" tvg-chno="31" tvg-country="MN" group-title="International Backups",Suld TV (Backup 1)
@@ -105,12 +113,6 @@ https://cdn4.skygo.mn/live/disk1/GTV/DASH-FTA/GTV.mpd
 #EXTINF:-1 tvg-id="LuxeTVMongolia.mn@SD" tvg-logo="https://i.postimg.cc/N0hvnVRk/Screenshot-2026-10-19-at-09-32-28.png" http-user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6.2 Safari/605.1.15" group-title="Asia" tvg-country="MN",Luxe TV Mongolia [Geo-blocked]
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6.2 Safari/605.1.15
 https://xykt-fix.github.io/channel/ottliv-038/index.m3u8
-#EXTINF:-1 tvg-id="MNBMongoliinMedee.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/21.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="Asia" tvg-country="MN",MNB Mongoliin Medee (1080p)
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
-https://cdn4.skygo.mn/live/disk1/MNB2/DASH-FTA/MNB2.mpd
-#EXTINF:-1 tvg-id="MNBWorld.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/22.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="Asia" tvg-country="MN",MNB World (1080p)
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
-https://cdn4.skygo.mn/live/disk1/MNB_World/DASH-FTA/MNB_World.mpd
 #EXTINF:-1 tvg-id="NTV.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/10.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="Asia" tvg-country="MN",NTV (Mongolia) (1080p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
 https://cdn4.skygo.mn/live/disk1/NTVHD/DASH-FTA/NTVHD.mpd
@@ -135,8 +137,6 @@ https://cdn4.skygo.mn/live/disk1/TV9HD/DASH-FTA/TV9HD.mpd
 #EXTINF:-1 tvg-id="UlziiTV.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/28.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="Asia" tvg-country="MN",Ulzii TV (1080p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
 https://cdn4.skygo.mn/live/disk1/UlziiTV/DASH-FTA/UlziiTV.mpd
-#EXTINF:-1 tvg-id="MNBWorld.mn@SD" tvg-country="MN" group-title="Asia Backups" tvg-logo="https://www.mongolsat.mn/assets/img/channel/22.png",MNB World (Backup 1)
-https://live.mnb.mn/hls/mnb_world.stream.m3u8
 #EXTINF:-1 tvg-name="Cinema" tvg-logo="" tvg-id="Cinema.mn" tvg-chno="38" tvg-country="MN" group-title="Movies",Cinema
 https://cdn4.skygo.mn/live/disk1/CinemaTV/HLSv3-FTA/CinemaTV.m3u8
 #EXTINF:-1 tvg-id="Cinema.mn@SD" tvg-logo="https://www.mongolsat.mn/assets/img/channel/914.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" group-title="Movies" tvg-country="MN",Cinema (Mongolia) (1080p)

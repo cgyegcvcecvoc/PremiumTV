@@ -596,9 +596,17 @@ def build_lineup() -> dict:
         if clean and clean.lower() not in names_by_group[group]:
             names_by_group[group].append(clean)
         key = clean.lower()
-        if key in brand_categories and key not in available:
-            available[key] = {"name": clean, "category": group,
-                              "logo": entry["logo"]}
+        if key in brand_categories:
+            # One name can now sit in several groups: once providers from other
+            # countries are carried, "DW" arrives as International, News and
+            # United Kingdom at once. The featured card names the category the
+            # brand belongs to (FEATURED_BRANDS), so prefer that group and keep
+            # the first entry otherwise, rather than making the answer depend on
+            # which provider happens to sort first.
+            wanted = brand_categories[key]
+            if key not in available or (group == wanted and available[key]["category"] != wanted):
+                available[key] = {"name": clean, "category": group,
+                                  "logo": entry["logo"]}
 
     # Featured channels in the order this file lists them, not playlist order.
     featured = [available[name.lower()] for name, _ in FEATURED_BRANDS

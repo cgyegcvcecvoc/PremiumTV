@@ -47,12 +47,17 @@ class Version1120Tests(unittest.TestCase):
         import release_version  # noqa: E402
         import version_sync  # noqa: E402
 
-        self.assertEqual(release_version.current_version(), "1.1.20")
+        # 1.1.20 still has to be the version the surfaces were built from, but a
+        # later release may already be current (1.1.21 and onward), so the check
+        # is "at or above 1.1.20", not "exactly 1.1.20".
+        current = release_version.current_version()
+        self.assertGreaterEqual(release_version.compare_versions(current, "1.1.20"), 0, current)
         self.assertEqual(release_version.android_version_code("1.1.20"), 101_200_000)
         self.assertEqual(version_sync.check(), [])
-        # 1.1.20 is the target and the version the published surfaces now
-        # describe, because the release ships through the publish workflow.
-        self.assertEqual(version_sync.PUBLISHED_VERSION, "1.1.20")
+        # The published surfaces always describe the current release; what this
+        # file pins is that 1.1.20 never disappears from them.
+        self.assertGreaterEqual(release_version.compare_versions(
+            version_sync.PUBLISHED_VERSION, "1.1.20"), 0)
 
         notes = text("release-notes-1.1.20.md")
         self.assertIn("# PremiumTV 1.1.20 — ", notes)
