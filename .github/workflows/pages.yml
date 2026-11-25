@@ -151,7 +151,7 @@ jobs:
     runs-on: ubuntu-24.04
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url || steps.deployment_rest.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_rest.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
 
@@ -239,55 +239,62 @@ jobs:
       # actions/deploy-pages@v4 resolves the uploaded artifact through the new
       # Actions artifact service. That lookup has intermittently returned an
       # empty list right after upload ("Fetching artifact metadata failed..."),
-      # even though the github-pages artifact is attached to the run. Retry the
-      # v4 action once, then fall back to the Pages REST deployment: it reads
-      # the artifact ID from the public Actions API and creates the deployment
-      # directly, so it never uses the failing artifact metadata lookup.
+      # even though the github-pages artifact is attached to the run. Try the
+      # official action once, then fall back to the Pages REST deployment: it
+      # reads the artifact ID from the public Actions API and creates the
+      # deployment directly, so it never uses the failing metadata lookup.
       - name: Deploy to GitHub Pages
         id: deployment
         if: steps.pages.outcome == 'success'
         continue-on-error: true
         uses: actions/deploy-pages@v4
 
-      - name: Wait before retrying the Pages deploy
-        if: steps.pages.outcome == 'success' && steps.deployment.outcome != 'success'
-        run: sleep 30
-
-      - name: Retry the GitHub Pages deployment
-        id: deployment_retry
-        if: steps.pages.outcome == 'success' && steps.deployment.outcome != 'success'
-        continue-on-error: true
-        uses: actions/deploy-pages@v4
-
-      - name: Deploy to GitHub Pages through the REST API
+      - name: Retry the GitHub Pages deployment through the REST API
         id: deployment_rest
-        if: steps.pages.outcome == 'success' && steps.deployment.outcome != 'success' && steps.deployment_retry.outcome != 'success'
+        if: steps.pages.outcome == 'success' && steps.deployment.outcome != 'success'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          artifact_id=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" \
-            --jq '.artifacts[] | select(.name == "github-pages") | .id' | head -n1)
+          artifact_id=""
+          for attempt in $(seq 1 10); do
+            artifact_id=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" \
+              --jq '.artifacts[] | select(.name == "github-pages" and (.expired | not)) | .id' \
+              2>/dev/null | head -n1 || true)
+            if [ -n "$artifact_id" ]; then
+              break
+            fi
+            echo "Waiting for the github-pages artifact to become visible (attempt ${attempt}/10)..."
+            sleep 6
+          done
           if [ -z "$artifact_id" ]; then
-            echo "::error::No github-pages artifact was visible through the Actions API"
+            echo "::error::No unexpired github-pages artifact was visible through the Actions API after 60 seconds"
             exit 1
           fi
           if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ] || [ -z "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]; then
             echo "::error::The OIDC token request is unavailable; id-token: write is required"
             exit 1
           fi
-          oidc=$(curl -fsS -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
-            "${ACTIONS_ID_TOKEN_REQUEST_URL}")
+          if ! oidc=$(curl -fsS --retry 3 --retry-delay 2 \
+            -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}"); then
+            echo "::error::Could not obtain an OIDC token from the Actions runtime"
+            exit 1
+          fi
           oidc_token=$(printf '%s' "$oidc" | jq -r '.value')
           if [ -z "$oidc_token" ] || [ "$oidc_token" = null ]; then
             echo "::error::The OIDC token response had no value"
             exit 1
           fi
+          echo "::add-mask::$oidc_token"
           payload=$(jq -n --argjson artifact_id "$artifact_id" \
             --arg version "$GITHUB_SHA" --arg token "$oidc_token" \
             '{artifact_id: $artifact_id, pages_build_version: $version, oidc_token: $token}')
-          response=$(printf '%s' "$payload" | \
-            gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/deployments" --input -)
+          if ! response=$(printf '%s' "$payload" | \
+            gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/deployments" --input -); then
+            echo "::error::Creating the Pages deployment failed"
+            exit 1
+          fi
           deployment_id=$(printf '%s' "$response" | \
             jq -r '.id // ((.status_url // "") | split("/") | last)')
           page_url=$(printf '%s' "$response" | jq -r '.page_url // ""')
@@ -296,11 +303,14 @@ jobs:
             exit 1
           fi
           echo "page_url=$page_url" >> "$GITHUB_OUTPUT"
-          echo "deployment_id=$deployment_id" >> "$GITHUB_OUTPUT"
-          for attempt in $(seq 1 60); do
-            status=$(gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${deployment_id}" \
-              --jq '.status' 2>/dev/null || true)
-            echo "Pages deployment status (attempt ${attempt}): ${status:-unknown}"
+          for attempt in $(seq 1 120); do
+            if ! status=$(gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${deployment_id}" \
+              --jq '.status' 2>/dev/null); then
+              echo "Pages deployment status check failed (attempt ${attempt}/120); retrying..."
+              sleep 5
+              continue
+            fi
+            echo "Pages deployment status (attempt ${attempt}/120): ${status:-unknown}"
             case "$status" in
               succeed)
                 echo "Pages deployment ${deployment_id} succeeded"
@@ -313,5 +323,5 @@ jobs:
             esac
             sleep 5
           done
-          echo "::error::Pages deployment ${deployment_id} did not finish within 5 minutes"
+          echo "::error::Pages deployment ${deployment_id} did not finish within 10 minutes"
           exit 1

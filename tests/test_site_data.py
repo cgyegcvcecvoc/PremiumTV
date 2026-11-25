@@ -394,19 +394,24 @@ class BuildSiteDataTest(unittest.TestCase):
         for scope in ("contents: read", "pages: write", "id-token: write", "actions: read"):
             self.assertIn(scope, permissions)
         # The v4 deploy action has failed right after upload when its new
-        # artifact service returned an empty list. Keep one v4 retry and a REST
-        # fallback that creates the deployment from the artifact ID, bypassing
-        # that lookup. Both must follow the upload, in that order.
+        # artifact service returned an empty list. Keep one official attempt,
+        # then a REST fallback that creates the deployment from the artifact
+        # ID, bypassing that lookup. The fallback is the retry path.
         upload = workflow.index("uses: actions/upload-pages-artifact")
         first = workflow.index("uses: actions/deploy-pages@v4", upload)
-        retry = workflow.index("uses: actions/deploy-pages@v4", first + 1)
-        fallback = workflow.index("Deploy to GitHub Pages through the REST API", retry)
+        fallback = workflow.index(
+            "Retry the GitHub Pages deployment through the REST API", first)
         self.assertLess(upload, first)
-        self.assertLess(first, retry)
-        self.assertLess(retry, fallback)
-        self.assertIn("Retry the GitHub Pages deployment", workflow)
+        self.assertLess(first, fallback)
+        self.assertEqual(workflow.count("uses: actions/deploy-pages@v4"), 1)
+        self.assertNotIn("steps.deployment_retry", workflow)
         self.assertIn("pages/deployments", workflow)
-        self.assertIn("artifact_id", workflow)
+        self.assertIn("ACTIONS_ID_TOKEN_REQUEST_URL", workflow)
+        self.assertIn("::add-mask::$oidc_token", workflow)
+        self.assertIn("--retry 3", workflow)
+        self.assertIn("Waiting for the github-pages artifact", workflow)
+        self.assertIn("seq 1 120", workflow)
+        self.assertIn("deployment_failed|deployment_perms_error", workflow)
 
     def test_the_published_site_address_is_the_one_github_serves(self):
         """A project Pages URL does not survive a repository rename.
