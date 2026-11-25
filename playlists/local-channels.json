@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_utc": "2026-11-25T14:12:40Z",
+  "generated_utc": "2026-11-25T14:29:41Z",
   "source": "playlists/live/USA.m3u",
   "reference": [
     "data/local-markets/us-tv-markets.csv",
@@ -1820,6 +1820,7 @@
           "logo": "https://i.imgur.com/pvXZ8DX.png",
           "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00327-coxmediagroup-wsocbreaking-ono/playlist.m3u8",
           "backup_urls": [
+            "https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-61f9a6aec68d91e31d4cc86e/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh",
             "https://jmp2.uk/stvp-USBC1000017D8",
             "https://amg00327-coxmediagroup-wsocbreaking-plex-t51et.amagi.tv/playlist/amg00327-coxmediagroup-wsocbreaking-plex/playlist.m3u8"
           ]
@@ -1843,6 +1844,27 @@
           "chno": "",
           "logo": "https://i.imgur.com/pvXZ8DX.png",
           "url": "https://townnews.g-mana.live/media/027a05c7-43b6-49eb-ad10-a0c0f10a0754/main.m3u8",
+          "backup_urls": []
+        }
+      ]
+    },
+    {
+      "id": "USINT",
+      "city": "Winston-Salem",
+      "state": "NC",
+      "state_name": "North Carolina",
+      "latitude": 36.0655,
+      "longitude": -80.241,
+      "stations": [
+        {
+          "callsign": "WXII",
+          "city": "Winston-Salem",
+          "network": "",
+          "name": "Very Carolina by WXII",
+          "channel_id": "6a1610bebdf296985fd95603-62441750cc4140a6505193e4",
+          "chno": "",
+          "logo": "https://provider-static.plex.tv/epg/cms/staging/30a138c8-b946-4763-8079-ffb2e3115b97/WXII_carolina_logo.png",
+          "url": "https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-62441750cc4140a6505193e4/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh",
           "backup_urls": []
         }
       ]
@@ -2343,6 +2365,17 @@
           "chno": "",
           "logo": "https://i.imgur.com/Fa7mQav.png",
           "url": "https://amg00312-amg00312c31-amgplt0022.playout.now3.amagi.tv/ts-us-e2-n2/playlist/amg00312-amg00312c31-amgplt0022/playlist.m3u8",
+          "backup_urls": []
+        },
+        {
+          "callsign": "WYFF",
+          "city": "Greenville",
+          "network": "",
+          "name": "Very Carolina by WYFF 4",
+          "channel_id": "6a1610bebdf296985fd95603-6243f13c02c2415bd217305a",
+          "chno": "",
+          "logo": "https://provider-static.plex.tv/epg/cms/production/28b53b83-039b-4abf-846b-5c7e5866783a/WYFF_carolina_logo.png",
+          "url": "https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-6243f13c02c2415bd217305a/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh",
           "backup_urls": []
         }
       ]
@@ -3169,7 +3202,8 @@
       "longitude": -79.4,
       "markets": [
         "USCLT",
-        "USILM"
+        "USILM",
+        "USINT"
       ]
     },
     {
@@ -5372,35 +5406,35 @@
     {
       "prefix": "270",
       "state": "NC",
-      "market": "",
+      "market": "USINT",
       "latitude": 36.254,
       "longitude": -80.397
     },
     {
       "prefix": "271",
       "state": "NC",
-      "market": "USCLT",
+      "market": "USINT",
       "latitude": 36.066,
       "longitude": -80.241
     },
     {
       "prefix": "272",
       "state": "NC",
-      "market": "",
+      "market": "USINT",
       "latitude": 35.891,
       "longitude": -79.695
     },
     {
       "prefix": "273",
       "state": "NC",
-      "market": "",
+      "market": "USINT",
       "latitude": 35.942,
       "longitude": -79.641
     },
     {
       "prefix": "274",
       "state": "NC",
-      "market": "",
+      "market": "USINT",
       "latitude": 36.079,
       "longitude": -79.804
     },
@@ -5484,7 +5518,7 @@
     {
       "prefix": "286",
       "state": "NC",
-      "market": "USCLT",
+      "market": "USINT",
       "latitude": 36.069,
       "longitude": -81.372
     },
@@ -10627,6 +10661,15 @@
       "longitude": -77.8864
     },
     {
+      "city": "Winston-Salem",
+      "state": "NC",
+      "state_name": "North Carolina",
+      "market": "USINT",
+      "stations": 1,
+      "latitude": 36.0655,
+      "longitude": -80.241
+    },
+    {
       "city": "Omaha",
       "state": "NE",
       "state_name": "Nebraska",
@@ -10811,7 +10854,7 @@
       "state": "SC",
       "state_name": "South Carolina",
       "market": "USGV9",
-      "stations": 2,
+      "stations": 3,
       "latitude": 34.8551,
       "longitude": -82.4125
     },
@@ -11023,6 +11066,6 @@
       "longitude": -87.9529
     }
   ],
-  "market_count": 113,
-  "station_count": 151
+  "market_count": 114,
+  "station_count": 153
 }

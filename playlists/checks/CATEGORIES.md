@@ -1,89 +1,89 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-25 14:10 UTC (2026-11-25 09:10 AM EST)
-- **Channels in the main playlist:** 17838
-- **Channels in the category files:** 17790 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 5247 (29.5%)
-- **Categories:** 132 groups (54 backup groups)
+- **Rebuilt:** 2026-11-25 14:27 UTC (2026-11-25 09:27 AM EST)
+- **Channels in the main playlist:** 18498
+- **Channels in the category files:** 18450 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 5001 (27.1%)
+- **Categories:** 133 groups (54 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 686 | 282 |
-| 2 | Sports Backups | 243 | 178 |
-| 3 | Lifestyle | 603 | 207 |
-| 4 | Lifestyle Backups | 217 | 158 |
-| 5 | Fox Channels | 51 | 10 |
-| 6 | Fox Channels Backups | 12 | 12 |
+| 1 | Sports | 722 | 262 |
+| 2 | Sports Backups | 235 | 149 |
+| 3 | Lifestyle | 637 | 206 |
+| 4 | Lifestyle Backups | 222 | 135 |
+| 5 | Fox Channels | 51 | 12 |
+| 6 | Fox Channels Backups | 13 | 13 |
 | 7 | CBS | 45 | 20 |
-| 8 | CBS Backups | 34 | 34 |
-| 9 | NBC | 85 | 32 |
-| 10 | NBC Backups | 32 | 29 |
-| 11 | NBC Sports Channels | 7 | 4 |
+| 8 | CBS Backups | 35 | 35 |
+| 9 | NBC | 89 | 36 |
+| 10 | NBC Backups | 31 | 23 |
+| 11 | NBC Sports Channels | 7 | 5 |
 | 12 | NBC Sports Channels Backups | 5 | 5 |
-| 13 | Cartoons | 216 | 62 |
-| 14 | Cartoons Backups | 73 | 41 |
-| 15 | PBS | 43 | 15 |
-| 16 | PBS Backups | 23 | 15 |
-| 17 | Game Shows | 33 | 24 |
-| 18 | Game Shows Backups | 46 | 44 |
-| 19 | International | 2911 | 528 |
-| 20 | International Backups | 486 | 140 |
-| 21 | Music | 990 | 215 |
-| 22 | Music Backups | 214 | 140 |
-| 23 | News | 972 | 274 |
-| 24 | News Backups | 408 | 252 |
-| 25 | Movies | 966 | 242 |
-| 26 | Movies Backups | 277 | 170 |
-| 27 | Entertainment | 805 | 184 |
-| 28 | Entertainment Backups | 241 | 134 |
-| 29 | United States | 661 | 112 |
-| 30 | United States Backups | 177 | 86 |
-| 31 | Religious | 616 | 70 |
-| 32 | Religious Backups | 76 | 23 |
-| 33 | Europe | 409 | 73 |
+| 13 | Cartoons | 220 | 44 |
+| 14 | Cartoons Backups | 70 | 16 |
+| 15 | PBS | 45 | 19 |
+| 16 | PBS Backups | 23 | 16 |
+| 17 | Game Shows | 40 | 25 |
+| 18 | Game Shows Backups | 48 | 46 |
+| 19 | International | 2992 | 388 |
+| 20 | International Backups | 500 | 130 |
+| 21 | Music | 1013 | 208 |
+| 22 | Music Backups | 213 | 122 |
+| 23 | Movies | 995 | 230 |
+| 24 | Movies Backups | 281 | 155 |
+| 25 | News | 978 | 273 |
+| 26 | News Backups | 417 | 258 |
+| 27 | Entertainment | 815 | 184 |
+| 28 | Entertainment Backups | 237 | 126 |
+| 29 | United States | 743 | 264 |
+| 30 | United States Backups | 225 | 128 |
+| 31 | Religious | 622 | 70 |
+| 32 | Religious Backups | 75 | 22 |
+| 33 | Europe | 413 | 73 |
 | 34 | Europe Backups | 36 | 23 |
-| 35 | Documentary | 378 | 124 |
-| 36 | Documentary Backups | 139 | 69 |
-| 37 | Kids | 324 | 98 |
-| 38 | Kids Backups | 125 | 78 |
-| 39 | Asia | 299 | 69 |
-| 40 | Asia Backups | 5 | 0 |
-| 41 | Series | 262 | 66 |
-| 42 | Series Backups | 227 | 178 |
-| 43 | South America | 244 | 11 |
-| 44 | South America Backups | 6 | 0 |
-| 45 | United Kingdom | 244 | 51 |
-| 46 | United Kingdom Backups | 35 | 8 |
-| 47 | Canada | 232 | 84 |
-| 48 | Canada Backups | 51 | 32 |
-| 49 | North America | 166 | 6 |
-| 50 | North America Backups | 3 | 0 |
-| 51 | A&E Networks | 162 | 43 |
-| 52 | A&E Networks Backups | 59 | 39 |
-| 53 | India | 159 | 46 |
+| 35 | Documentary | 406 | 131 |
+| 36 | Documentary Backups | 142 | 76 |
+| 37 | Kids | 337 | 95 |
+| 38 | Kids Backups | 123 | 62 |
+| 39 | Asia | 302 | 69 |
+| 40 | Asia Backups | 7 | 0 |
+| 41 | Canada | 298 | 44 |
+| 42 | Canada Backups | 50 | 12 |
+| 43 | United Kingdom | 296 | 27 |
+| 44 | United Kingdom Backups | 42 | 10 |
+| 45 | Series | 262 | 61 |
+| 46 | Series Backups | 213 | 151 |
+| 47 | South America | 247 | 11 |
+| 48 | South America Backups | 6 | 0 |
+| 49 | A&E Networks | 168 | 57 |
+| 50 | A&E Networks Backups | 67 | 43 |
+| 51 | North America | 164 | 6 |
+| 52 | North America Backups | 3 | 0 |
+| 53 | India | 160 | 37 |
 | 54 | India Backups | 29 | 13 |
-| 55 | Australia | 139 | 32 |
-| 56 | Australia Backups | 4 | 0 |
+| 55 | Australia | 156 | 8 |
+| 56 | Australia Backups | 3 | 0 |
 | 57 | Education | 127 | 12 |
 | 58 | Education Backups | 14 | 1 |
-| 59 | Culture | 124 | 12 |
+| 59 | Culture | 123 | 12 |
 | 60 | Culture Backups | 8 | 4 |
-| 61 | Comedy | 113 | 28 |
-| 62 | Comedy Backups | 61 | 46 |
+| 61 | Comedy | 113 | 26 |
+| 62 | Comedy Backups | 58 | 33 |
 | 63 | Legislative | 113 | 8 |
-| 64 | Legislative Backups | 5 | 1 |
-| 65 | Business | 74 | 29 |
-| 66 | Business Backups | 25 | 21 |
-| 67 | Classic TV | 49 | 13 |
-| 68 | Classic TV Backups | 26 | 22 |
+| 64 | Legislative Backups | 4 | 1 |
+| 65 | Business | 77 | 21 |
+| 66 | Business Backups | 26 | 15 |
+| 67 | Classic TV | 50 | 14 |
+| 68 | Classic TV Backups | 26 | 23 |
 | 69 | Andalucía | 47 | 0 |
 | 70 | Andalucía Backups | 4 | 0 |
-| 71 | Family | 30 | 14 |
-| 72 | Family Backups | 10 | 8 |
-| 73 | Africa | 25 | 1 |
-| 74 | Fast Tubi | 21 | 2 |
+| 71 | Family | 31 | 15 |
+| 72 | Family Backups | 7 | 5 |
+| 73 | Africa | 27 | 3 |
+| 74 | Fast Tubi | 25 | 25 |
 | 75 | En Español | 19 | 18 |
 | 76 | En Español Backups | 12 | 10 |
 | 77 | Musicales | 16 | 1 |
@@ -97,19 +97,19 @@
 | 85 | Int. América | 12 | 1 |
 | 86 | Int. América Backups | 4 | 0 |
 | 87 | Weather | 12 | 4 |
-| 88 | Weather Backups | 8 | 7 |
-| 89 | Eventuales | 11 | 0 |
-| 90 | Eventuales Backups | 19 | 0 |
-| 91 | Int. Europa | 11 | 0 |
-| 92 | Int. Europa Backups | 4 | 0 |
-| 93 | Galicia | 10 | 1 |
-| 94 | Galicia Backups | 5 | 1 |
-| 95 | Sci-Fi | 10 | 10 |
-| 96 | Sci-Fi Backups | 10 | 10 |
-| 97 | DLTV | 9 | 0 |
-| 98 | País Vasco | 9 | 0 |
-| 99 | Drama | 8 | 8 |
-| 100 | Drama Backups | 8 | 8 |
+| 88 | Weather Backups | 10 | 8 |
+| 89 | Drama | 11 | 11 |
+| 90 | Drama Backups | 13 | 13 |
+| 91 | Eventuales | 11 | 0 |
+| 92 | Eventuales Backups | 19 | 0 |
+| 93 | Int. Europa | 11 | 0 |
+| 94 | Int. Europa Backups | 4 | 0 |
+| 95 | Galicia | 10 | 1 |
+| 96 | Galicia Backups | 5 | 1 |
+| 97 | Sci-Fi | 10 | 10 |
+| 98 | Sci-Fi Backups | 10 | 10 |
+| 99 | DLTV | 9 | 0 |
+| 100 | País Vasco | 9 | 0 |
 | 101 | Infantiles | 7 | 0 |
 | 102 | Int. Otros | 7 | 0 |
 | 103 | Religiosos | 7 | 1 |
@@ -118,47 +118,48 @@
 | 106 | Tv Celebrities | 6 | 2 |
 | 107 | Castilla-La Mancha | 5 | 0 |
 | 108 | Int. Asia | 5 | 0 |
-| 109 | Online TV | 5 | 1 |
-| 110 | Online TV Backups | 7 | 6 |
-| 111 | Cantabria | 4 | 0 |
-| 112 | Romance | 4 | 2 |
-| 113 | Season's Greetings | 4 | 4 |
-| 114 | Tv Paranormal | 4 | 0 |
-| 115 | Westerns | 4 | 4 |
-| 116 | Westerns Backups | 7 | 7 |
-| 117 | Animals | 3 | 1 |
-| 118 | Animals & Nature | 3 | 1 |
-| 119 | Animals + Nature | 3 | 3 |
-| 120 | Animals + Nature Backups | 5 | 5 |
-| 121 | Crime | 3 | 1 |
-| 122 | Extremadura | 3 | 0 |
-| 123 | Generalistas | 3 | 1 |
-| 124 | Int. África | 3 | 0 |
-| 125 | Int. África Backups | 4 | 0 |
-| 126 | R. de Murcia | 3 | 0 |
-| 127 | Relax | 3 | 1 |
-| 128 | True Crime | 3 | 2 |
-| 129 | True Crime Backups | 3 | 2 |
-| 130 | Castilla y León Backups | 3 | 0 |
-| 131 | Other | 176 | 9 |
-| 132 | Other Backups | 338 | 0 |
+| 109 | Online TV | 5 | 0 |
+| 110 | Online TV Backups | 22 | 0 |
+| 111 | True Crime | 5 | 5 |
+| 112 | True Crime Backups | 4 | 4 |
+| 113 | Animals + Nature | 4 | 4 |
+| 114 | Animals + Nature Backups | 7 | 7 |
+| 115 | Cantabria | 4 | 0 |
+| 116 | Crime | 4 | 1 |
+| 117 | Romance | 4 | 0 |
+| 118 | Season's Greetings | 4 | 4 |
+| 119 | Tv Paranormal | 4 | 0 |
+| 120 | Westerns | 4 | 4 |
+| 121 | Westerns Backups | 7 | 7 |
+| 122 | Animals | 3 | 1 |
+| 123 | Animals & Nature | 3 | 1 |
+| 124 | Extremadura | 3 | 0 |
+| 125 | Generalistas | 3 | 1 |
+| 126 | Int. África | 3 | 0 |
+| 127 | Int. África Backups | 4 | 0 |
+| 128 | R. de Murcia | 3 | 0 |
+| 129 | Relax | 3 | 1 |
+| 130 | Tv Shows | 3 | 0 |
+| 131 | Castilla y León Backups | 3 | 0 |
+| 132 | Other | 201 | 10 |
+| 133 | Other Backups | 351 | 0 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 17838 | 167 | 3911 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 18498 | 168 | 4012 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 13 | 5 | 1 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 14426 (80.8%) |
-| matched on the base id (feed qualifier dropped) | 8 (0.0%) |
-| matched on the display name | 1095 (6.1%) |
-| matched on a looser spelling of the name | 29 (0.2%) |
-| no guide entry (upstream publishes no schedule for it) | 2293 (12.8%) |
+| already declared in the guide | 17785 (96.1%) |
+| matched on the base id (feed qualifier dropped) | 2 (0.0%) |
+| matched on the display name | 290 (1.6%) |
+| matched on a looser spelling of the name | 22 (0.1%) |
+| no guide entry (upstream publishes no schedule for it) | 412 (2.2%) |
 
 ## Channels with no schedule yet
 
