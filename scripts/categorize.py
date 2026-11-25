@@ -746,6 +746,11 @@ def classify(name: str, group: str = "", tvg_id: str = "", url: str = "",
         return "Fox Channels"
 
     # 2. Recognisable brands in the long tail.
+    # BBC America is an entertainment network, not a news channel; without
+    # this rule the "BBC" keyword in the long-tail News pattern put it on the
+    # News shelf. BBC News and the BBC's other news services still match News.
+    if re.search(r"\bbbc america\b", name_text):
+        return "Entertainment"
     for label, pattern in BRAND_GROUPS:
         if pattern.search(name_text):
             return label

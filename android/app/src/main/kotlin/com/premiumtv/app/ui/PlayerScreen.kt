@@ -1,6 +1,8 @@
 package com.premiumtv.app.ui
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.OptIn
@@ -73,7 +75,9 @@ import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
 import androidx.media3.extractor.DefaultExtractorsFactory
 import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory
 import androidx.media3.ui.PlayerView
+import com.premiumtv.app.BuildConfig
 import com.premiumtv.app.data.Channel
+import com.premiumtv.app.data.ChannelReport
 import com.premiumtv.app.data.Programme
 import com.premiumtv.app.data.healthyServersFirst
 import java.util.Locale
@@ -724,6 +728,35 @@ fun PlayerScreen(
     }
 }
 
+/**
+ * Opens a prefilled GitHub issue for the feed that would not play. Nothing is
+ * sent by the app: the viewer reviews the form and presses Submit on GitHub.
+ */
+@Composable
+private fun ReportProblemButton(
+    channel: Channel,
+    serverIndex: Int,
+    playlistSize: Int,
+    errorMessage: String?,
+) {
+    val context = LocalContext.current
+    FocusButton("Report problem") {
+        val url = ChannelReport.issueUrl(
+            channelName = channel.name,
+            group = channel.group,
+            streamUrl = channel.url,
+            serverIndex = serverIndex,
+            serverCount = playlistSize,
+            error = errorMessage.orEmpty(),
+            appVersion = "PremiumTV Android ${BuildConfig.VERSION_NAME}",
+            platform = "Android ${android.os.Build.VERSION.RELEASE}",
+        )
+        runCatching {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
+    }
+}
+
 /** The picture itself: click it (or press OK on it) to go full screen. */
 @Composable
 private fun SidePlayerPicture(
@@ -894,6 +927,10 @@ private fun SidePanelDetails(
                     .background(Color(0xFF141C26), RoundedCornerShape(8.dp))
                     .padding(horizontal = 8.dp, vertical = 6.dp),
             )
+            if (errorMessage != null) {
+                Spacer(modifier = Modifier.height(8.dp))
+                ReportProblemButton(channel, serverIndex, playlistSize, errorMessage)
+            }
         }
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -1125,6 +1162,8 @@ private fun BoxScope.BigScreenChrome(
                 Spacer(modifier = Modifier.height(18.dp))
                 Row {
                     FocusButton("Back to channels") { onClose() }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    ReportProblemButton(channel, serverIndex, playlistSize, errorMessage)
                     if (playlistSize > 1) {
                         Spacer(modifier = Modifier.width(16.dp))
                         FocusButton("Try the servers again") { onRetryAll() }

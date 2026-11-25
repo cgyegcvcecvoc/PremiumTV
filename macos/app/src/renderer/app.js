@@ -81,6 +81,8 @@
     playerFavorite: document.getElementById('player-favorite'),
     playerRetry: document.getElementById('player-retry'),
     playerError: document.getElementById('player-error'),
+    playerErrorText: document.getElementById('player-error-text'),
+    playerReport: document.getElementById('player-report'),
     playerSpinner: document.getElementById('player-spinner'),
     // The startup "go and update" popup.
     updateNotice: document.getElementById('update-notice'),
@@ -2851,6 +2853,25 @@
   if (els.playerNextServer) els.playerNextServer.addEventListener('click', () => switchServer(1));
   if (els.playerFavorite) els.playerFavorite.addEventListener('click', toggleFavorite);
   els.playerRetry.addEventListener('click', () => window.PremiumPlayer.retry());
+  // A report is a prefilled GitHub issue; nothing is sent until the viewer
+  // presses Submit on GitHub. The same builder serves the web player.
+  if (els.playerReport) {
+    els.playerReport.addEventListener('click', () => {
+      const channel = currentChannel();
+      if (!channel || !window.PremiumReport) return;
+      const url = window.PremiumReport.issueUrl({
+        channel: channel.name,
+        group: channel.group,
+        url: channel.embed || channel.url || '',
+        serverIndex: playQueueIndex,
+        serverCount: playQueue.length,
+        error: els.playerErrorText ? els.playerErrorText.textContent : '',
+        appVersion: `PremiumTV macOS ${(appInfo && appInfo.version) || 'unknown'}`,
+        platform: `${navigator.platform || 'macOS'} · ${navigator.userAgent || ''}`,
+      });
+      Promise.resolve(api.openExternal(url)).catch(() => {});
+    });
+  }
 
   if (els.playerControls) {
     els.playerControls.addEventListener('click', (event) => event.stopPropagation());

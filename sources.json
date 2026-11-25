@@ -198,7 +198,7 @@
         "https://raw.gitmirror.com/OwnerPlugins/pluto-tv-m3u/main/pluto-live-US.m3u"
       ],
       "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
-      "note": "Pluto TV's US live lineup as one regenerated M3U. Measured on 2026-11-21: 458 links, all of them new to the published corpus, 126 of them channels no source here carries at all. The tvg-ids are Pluto's own, which is what the PlutoTV guide below lists, so these channels arrive with a programme guide attached."
+      "note": "Pluto TV's US live lineup as one regenerated M3U. Measured on 2026-11-21: 458 links, all of them new to the published corpus, 126 of them channels no source here carries at all. The tvg-ids are Pluto's own, which is what the PlutoTV guide below lists, so these channels arrive with a programme guide attached. The other advertised addresses were re-checked on 2026-11-25: https://jmp2.uk/pluto.m3u, https://i.mjh.nz/PlutoTV/us.m3u8 and https://raw.githubusercontent.com/matthuisman/i.mjh.nz/master/PlutoTV/us.m3u8 all answer 404 (i.mjh.nz's playlists were removed in 2024), while this OwnerPlugins file answers 200 - so this remains the source."
     },
     {
       "name": "aria-overseas",
@@ -520,6 +520,13 @@
       "enabled": true,
       "url": "https://iman-py.github.io/open-tv-atlas/",
       "note": "Open TV Atlas (iptv-org Providers discussion #968) generates M3U URLs by combining iptv-org language, category and quality slices, so every link it can produce already arrives through the configured iptv-org source. Checked for reachability only and never imported as channels."
+    },
+    {
+      "name": "pflix",
+      "type": "website",
+      "enabled": true,
+      "url": "https://pflix.net/live",
+      "note": "PFlix live catalogue, checked 2026-11-25: 58 Sports, 61 News, 200 Entertainment, 110 Movies & Series, 38 Kids, 22 Music, 24 Documentary and 32 Lifestyle channels, all played by its own Cloudflare-protected web player. It publishes no static M3U and no public channel API, its cards resolve streams inside the page, and it carries no BBC America (BBC News and BBC Earth are present), so there is nothing this repository can import from it. Checked for reachability only and never imported as channels."
     }
   ],
   "discovery": {

@@ -15,11 +15,13 @@
 # (static.drm.pbs.org). A playlist cannot refresh either token, so adding them
 # would publish a link that is dead before the next scrape. Verified 2026-11-25.
 #
-# WGAL carries two doors because its syndication feed is not always up. Checked
-# from a GitHub runner on 2026-11-25: the Uplynk/CloudFront address answered
-# HTTP 504 ("Unable to obtain template playlist") on ten consecutive attempts
-# across five hours, while the Local Now (Amagi) address of the same Hearst
-# asset (90f3abbf...) answered 200 with a full 720p ladder on every attempt.
+# WGAL carries two doors because its syndication feed is not always up. The
+# Uplynk/CloudFront address only generates a manifest when its full signed
+# query travels with the request: the bare URL answered HTTP 504 ("Unable to
+# obtain template playlist") on ten consecutive probes on 2026-11-25, while the
+# signed address answered 200 with a full 720p ladder. The Local Now (Amagi)
+# address of the same Hearst asset (90f3abbf...) answered 200 on every probe
+# and is kept as the backup.
 # The scraper keeps one as the channel and the other as "NBC Backups", so a
 # player fails over to the door that answers; both feeds share the guide id, so
 # the schedule survives the hop. Local Now's stitcher returns HTTP 400 unless

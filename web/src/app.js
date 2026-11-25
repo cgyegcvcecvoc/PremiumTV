@@ -1594,6 +1594,29 @@
     $("player-error").hidden = true;
     playServer();
   };
+  // A report is a prefilled GitHub issue the viewer chooses to submit. The app
+  // has no report server and never posts anything by itself.
+  $("player-report").onclick = () => {
+    if (!current || !window.PremiumReport) return;
+    const target = current.embed || current.url || "";
+    const url = window.PremiumReport.issueUrl({
+      channel: current.name,
+      group: current.group,
+      url: target,
+      serverIndex,
+      serverCount: queue.length,
+      error: $("player-error-text").textContent,
+      appVersion:
+        "PremiumTV Web " +
+        (library.meta.web_version || "0.1.0") +
+        " (library " +
+        (library.meta.version || "unknown") +
+        ")",
+      platform: navigator.userAgent,
+    });
+    window.open(url, "_blank", "noopener,noreferrer");
+    toast("Opening a prefilled GitHub report…");
+  };
   $("player-favorite").onclick = () => toggleFavorite(P.keyFor(current));
   $("player-minimize").onclick = () =>
     expanded ? minimizePlayer() : expandPlayer();

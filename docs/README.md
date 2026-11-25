@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.23** — local channels by location, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.24** — broken-feed reports, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.23
+## Current stable: 1.1.24
 
-1.1.23 finishes the local-channel work: the Lancaster, Harrisburg and York markets each list WGAL 8 (NBC), CBS 21 (WHP) and FOX 43 (WPMT), so ZIP prefixes 170–176 return all three stations instead of only the market's home station. A curated `us-market-affiliates.csv` adds the neighbouring affiliates without moving them out of their own markets, taking the directory to 162 station entries in 117 markets. The app picker was checked against the built bundle for 17042, 17101, 17201, 17331, 17401, 17527 and 17603. Full notes: [`release-notes-1.1.23.md`](../release-notes-1.1.23.md).
+1.1.24 adds a report button to the player error card: it opens a prefilled GitHub issue with the channel, feed number, stream URL and the player's message, and nothing is sent until the viewer presses Submit. The scrape health report now names the servers with confirmed failures and the channels behind them, not just totals. BBC America is filed under Entertainment, and WGAL's signed feed and the other advertised Pluto addresses were re-checked. Full notes: [`release-notes-1.1.24.md`](../release-notes-1.1.24.md).
 
-It installs in place over every earlier build: Android `101230000` is above
+It installs in place over every earlier build: Android `101240000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.23 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.24 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 

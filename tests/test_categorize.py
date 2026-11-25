@@ -83,6 +83,11 @@ class ClassificationTest(unittest.TestCase):
         # The broad documentary vocabulary still owns history/nature channels.
         self.assertEqual(categorize.classify("History Hit (720p)"), "Documentary")
 
+    def test_bbc_america_is_entertainment_not_news(self):
+        self.assertEqual(categorize.classify("BBC America", "News", "BBC.America.HD.us2"),
+                         "Entertainment")
+        self.assertEqual(categorize.classify("BBC News", "News"), "News")
+
     def test_kids_brand_stays_kids(self):
         self.assertEqual(categorize.classify("Nickelodeon (United States) (720p)", "TV"), "Kids")
 

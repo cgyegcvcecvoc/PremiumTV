@@ -10,6 +10,14 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-25 — Version 1.1.24 published: Broken-feed reports
+
+- **Every app can report the feed that failed.** The player error card now has **Report problem**, which opens a prefilled GitHub issue with the channel, category, server position (for example "2 of 3"), stream URL, the player's own message, app version and platform. Nothing is sent until the viewer presses Submit; there is no report server and no account. Android builds the form in `data/ChannelReport.kt`, while macOS and the web player share `report.js`, so the three surfaces report the same fields.
+- **The scrape health report names servers and channels, not just totals.** `playlists/HEALTH.txt` now groups confirmed-dead and unverified links by host (port included) and lists the confirmed-dead channels behind them. `scripts/health_report.py` joins the small run-history record with the per-link details in `playlists/report.json`, and only when the `run_id` matches, so an old report can never describe a newer run. The first run names `epg.provider.plex.tv`, `playlist.xtemus.com` and `jmp2.uk` among the servers with the most failures.
+- **BBC America is filed under Entertainment.** The taxonomy's long-tail News pattern matches "BBC", so BBC America sat on the News shelf even though it is an entertainment network. An explicit rule now classifies it as Entertainment, so the next published playlist files it on the Entertainment shelf. BBC News and the BBC's other news services still match News.
+- **WGAL, Pluto and pflix were re-checked against the open probe reports.** WGAL's published Uplynk address answers 200 only when its full signed query travels with it; the bare URL returns 504, while the Local Now address of the same Hearst asset answers 200 and remains the backup. Pluto's other advertised addresses (`jmp2.uk/pluto.m3u`, `i.mjh.nz/PlutoTV/us.m3u8` and the raw matthuisman file) all answer 404, so the OwnerPlugins file stays the source. pflix's live catalogue is a Cloudflare-protected web player with no static M3U or public channel API and no BBC America at all, so it is recorded as a reference check, not imported.
+- **Released as 1.1.24** (Android `versionCode 101240000`, macOS `1.1.24`).
+
 ## 2026-11-25 — Release gate for the packaged local-channel directory
 
 - **The installer, not the repository, is now checked before a release ships.** Both build workflows run `scripts/verify_release_bundle.py` on the built APK and DMG: ZIP prefixes 170–176 must resolve to the Harrisburg, York and Lancaster markets carrying WGAL, CBS 21 and FOX 43, and those channel ids must be present in the packaged playlist. A stale directory fails the build before the installer is uploaded or attached.
