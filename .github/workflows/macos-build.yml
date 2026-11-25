@@ -212,6 +212,16 @@ jobs:
             node -e 'const fs=require("fs"); const meta=JSON.parse(fs.readFileSync(process.argv[1])); if(meta.channel_count < 1 || meta.version !== process.env.MACOS_VERSION) process.exit(1); if(process.env.BUNDLE_SCOPE === "all" && !meta.preview_features.includes("cable-guide")) process.exit(1); if(process.env.BUNDLE_SCOPE === "usa" && meta.preview_features.includes("cable-guide")) process.exit(1)' "$resources/bundle/meta.json"
           done
 
+      # Inspect the DMGs themselves: the installed app is packed from the same
+      # bundle, but this is the file users download, so a stale
+      # local-channels.json (or a meta.local_channels copy) must fail here,
+      # before the installers are uploaded or attached to the release.
+      - name: Verify the DMGs' bundled local-channel directory
+        if: steps.release_config.outputs.skip != 'true'
+        working-directory: macos/app
+        run: |
+          python3 "$GITHUB_WORKSPACE/scripts/verify_release_bundle.py" --dmg dist/*.dmg
+
       - name: Smoke test the packaged app on Apple Silicon and Intel (Rosetta)
         if: steps.release_config.outputs.skip != 'true'
         working-directory: macos/app

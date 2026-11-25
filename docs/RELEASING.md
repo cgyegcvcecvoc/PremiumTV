@@ -100,6 +100,11 @@ else has to be said.
 
 ## Publishing and the in-app update
 
+Both installer builds run `scripts/verify_release_bundle.py` on the packaged
+APK and DMG before uploading them: ZIP prefixes 170–176 must resolve to WGAL,
+CBS 21 and FOX 43, so a stale local-channel directory fails the build instead
+of shipping.
+
 `.github/workflows/publish-release.yml` creates the GitHub release from
 `VERSION` and `release-notes-<version>.md`. It refuses a tag that already
 exists, runs the version-drift check first, and the Android and macOS build

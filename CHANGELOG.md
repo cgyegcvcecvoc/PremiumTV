@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-25 — Release gate for the packaged local-channel directory
+
+- **The installer, not the repository, is now checked before a release ships.** Both build workflows run `scripts/verify_release_bundle.py` on the built APK and DMG: ZIP prefixes 170–176 must resolve to the Harrisburg, York and Lancaster markets carrying WGAL, CBS 21 and FOX 43, and those channel ids must be present in the packaged playlist. A stale directory fails the build before the installer is uploaded or attached.
+- **Both copies in the app are compared.** The check reads `local-channels.json` and `meta.json` from the artifact (APK zip, DMG through `hdiutil` or 7-Zip), requires `meta.local_channels` to match the file the Android app opens, and checks each station's published channel id and stream URL.
+- **The gate is tested against real installers and synthetic failures.** Ten new tests cover a stale market, a wrong ZIP prefix, a mismatched meta copy and a missing playlist id; the 1.1.23 APK and DMG pass, and the suite is at 856 tests.
+
 ## 2026-11-25 — Version 1.1.23 published: Local channels by location
 
 - **The three affiliates now travel together across the whole viewing area.** The Lancaster, Harrisburg and York markets each list WGAL 8 (NBC), CBS 21 (WHP) and FOX 43 (WPMT), so ZIP prefixes 170–176 return all three stations instead of only the market's home station. A curated `data/local-markets/us-market-affiliates.csv` adds the neighbouring affiliates without moving them out of their own markets, and the directory grows to 162 station entries in 117 markets.
