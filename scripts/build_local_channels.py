@@ -15,6 +15,7 @@ openly licensed data (see `data/local-markets/README.md`):
 
     us-tv-markets.csv   callsign -> market code
     us-markets.csv      market code -> market city and state
+    us-market-affiliates.csv  market code -> callsigns it also carries
     us-zip3.csv         ZIP prefix -> state + centroid
     us-places.csv       every US place name -> centroid (typed city / state)
 
@@ -43,6 +44,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import json
 import math
@@ -198,6 +200,46 @@ def load_callsign_markets(path: Path | None = None) -> dict[str, str]:
             if callsign and market:
                 out[callsign] = market
     return out
+
+
+def load_market_affiliates(path: Path | None = None) -> dict[str, tuple[str, ...]]:
+    """market code -> callsigns that also serve it from a neighbouring market.
+
+    A station's table entry names its principal licence city, but a market can
+    also be served by an affiliate licensed next door: WGAL, WHP and WPMT all
+    cover the Harrisburg-Lancaster-York area, so a Lancaster ZIP receives all
+    three.  The table is curated (not derived from upstream) and only adds a
+    station to a market that does not already list it.
+    """
+    path = path or DATA / "us-market-affiliates.csv"
+    out: dict[str, list[str]] = {}
+    if not path.is_file():
+        return {}
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            market = (row.get("market_code") or "").strip().upper()
+            callsign = (row.get("callsign") or "").strip().upper()
+            if market and callsign and callsign not in out.setdefault(market, []):
+                out[market].append(callsign)
+    return {market: tuple(callsigns) for market, callsigns in out.items()}
+
+
+def apply_affiliates(markets: dict[str, dict], affiliates: dict[str, tuple[str, ...]]) -> None:
+    """Copy each named station into the markets that also carry it."""
+    by_callsign: dict[str, dict] = {}
+    for market in markets.values():
+        for station in market["stations"].values():
+            callsign = station["callsign"]
+            if callsign and callsign not in by_callsign:
+                by_callsign[callsign] = station
+    for market_code, callsigns in affiliates.items():
+        target = markets.get(market_code)
+        if target is None:
+            continue
+        for callsign in callsigns:
+            station = by_callsign.get(callsign)
+            if station is not None:
+                target["stations"].setdefault(callsign, copy.deepcopy(station))
 
 
 def load_market_places(path: Path | None = None) -> dict[str, dict]:
@@ -441,7 +483,9 @@ def build(source: Path = SOURCE) -> dict:
         elif url != existing["url"] and url not in existing["backup_urls"]:
             existing["backup_urls"].append(url)
 
-    return assemble(merge_places(markets), zip_prefixes)
+    markets = merge_places(markets)
+    apply_affiliates(markets, load_market_affiliates())
+    return assemble(markets, zip_prefixes)
 
 
 def load_zip_prefixes(path: Path | None = None) -> dict[str, dict]:
@@ -575,6 +619,7 @@ def assemble(markets: dict[str, dict], zip_prefixes) -> dict:
         "reference": [
             "data/local-markets/us-tv-markets.csv",
             "data/local-markets/us-markets.csv",
+            "data/local-markets/us-market-affiliates.csv",
             "data/local-markets/us-zip3.csv",
             "data/local-markets/us-places.csv",
         ],

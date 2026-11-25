@@ -1951,7 +1951,7 @@ window.SITE_DATA = {
    "count": 1,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Equatorial_Guinea.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Equatorial_Guinea.xml",
-   "epg_present": false
+   "epg_present": true
   },
   {
    "slug": "Eritrea",

@@ -11,6 +11,7 @@ geocoder or a viewer's IP address.
 |---|---|---|---|
 | `us-tv-markets.csv` | 2,333 | `callsign,city,state,market_code` | WGAL → Lancaster PA / `USLNS` |
 | `us-markets.csv` | 856 | `market_code,city,state,latitude,longitude` | the market's own city and position |
+| `us-market-affiliates.csv` | 2 | `market_code,callsign` | a market that also carries a neighbouring affiliate (Lancaster → WHP/WPMT) |
 | `us-zip3.csv` | 912 | `prefix,state,latitude,longitude` | ZIP code → state + a point to measure from |
 | `us-places.csv` | 29,542 | `state,place,latitude,longitude` | a typed city name → a point |
 
@@ -30,6 +31,9 @@ copies rather than mirrors:
   `cities.csv` for the market city and state). That repository is released
   into the public domain (Unlicense). Only the derived three-column table is
   stored here; the upstream files are not vendored.
+- **Shared-market carriage** — `us-market-affiliates.csv` is curated from the
+  published lineup and the shared Harrisburg–Lancaster–York market, not derived
+  from an upstream table.
 - **ZIP codes and place positions** — derived from the geonames.org US postal
   code set as packaged by
   [`zauberware/postal-codes-json-xml-csv`](https://github.com/zauberware/postal-codes-json-xml-csv),
@@ -65,9 +69,11 @@ python -m unittest tests.test_local_channels
   of the prefix's area (`NEAREST_MARKET_MAX_KM`, shared with the apps). Beyond
   that the prefix has no market and the apps say so, instead of naming the
   state's nearest market (1.1.21: Wilkes-Barre was reading as Philadelphia).
-  Lancaster's ZIP 176 now resolves to Lancaster itself: WGAL has a working
-  feed in `playlists/sources/local-channels.m3u`, and WHP/WPMT publish as the
-  Harrisburg and York markets the apps offer as nearby alternatives.
+  Lancaster's ZIP 176 resolves to Lancaster itself: WGAL has a working feed in
+  `playlists/sources/local-channels.m3u`, and `us-market-affiliates.csv` also
+  carries WHP (CBS 21) and WPMT (FOX 43) there, because all three cover the
+  Harrisburg–Lancaster–York area. WHP and WPMT keep their own Harrisburg and
+  York markets, so ZIPs 171 and 174 resolve to them directly.
 - Only stations PremiumTV actually publishes get a market, so a state with no
   carried affiliate (for example Wyoming or Vermont today) answers honestly
   with "no local stations yet" instead of borrowing a neighbouring market.

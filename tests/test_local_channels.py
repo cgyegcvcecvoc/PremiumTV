@@ -110,6 +110,28 @@ https://example.test/wtxf
             if row["market"]:
                 self.assertIn(row["market"], self.markets)
 
+    def test_a_market_can_carry_a_neighbouring_affiliate(self):
+        # The Harrisburg-Lancaster-York area is one viewing area: a Lancaster
+        # ZIP receives WGAL, WHP and WPMT even though WHP and WPMT are licensed
+        # in Harrisburg and York.  us-market-affiliates.csv carries the two
+        # into the Lancaster market without moving them out of their own.
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "affiliates.m3u"
+            source.write_text("""#EXTM3U
+#EXTINF:-1 tvg-id="NBC.us@WGAL",NBC WGAL - Lancaster PA
+https://example.test/wgal
+#EXTINF:-1 tvg-id="CBS.us@WHP",CBS WHP - Harrisburg PA
+https://example.test/whp
+#EXTINF:-1 tvg-id="FOX.us@WPMT",FOX WPMT - York PA
+https://example.test/wpmt
+""", encoding="utf-8")
+            document = build_local_channels.build(source)
+        markets = {market["id"]: market for market in document["markets"]}
+        carried = {station["callsign"] for station in markets["USLNS"]["stations"]}
+        self.assertEqual(carried, {"WGAL", "WHP", "WPMT"})
+        self.assertEqual({station["callsign"] for station in markets["USHAR"]["stations"]}, {"WHP"})
+        self.assertEqual({station["callsign"] for station in markets["USTHV"]["stations"]}, {"WPMT"})
+
     def test_a_zip_with_no_market_within_reach_has_none(self):
         # Wilkes-Barre (187) is ~135 km from the fixture's Lancaster market and
         # ~180 km from Philadelphia: outside the 120 km radius, so it is not
