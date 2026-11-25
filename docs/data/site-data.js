@@ -12,7 +12,7 @@ window.SITE_DATA = {
   "changelog_doc": "https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk"
  },
  "stats": {
-  "confirmed_channels": 19070,
+  "confirmed_channels": 19071,
   "unique_links": 26412,
   "countries": 177,
   "last_run_utc": "2026-11-25 20:39 UTC",
@@ -23,7 +23,7 @@ window.SITE_DATA = {
    "name": "PremiumTV.m3u",
    "description": "Every confirmed-working channel, grouped by category.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/PremiumTV.m3u",
-   "count": 19070
+   "count": 19071
   },
   "priority": {
    "name": "Priority_Channels.m3u",
@@ -35,13 +35,13 @@ window.SITE_DATA = {
    "name": "categories/USA.m3u",
    "description": "Every US channel in category order.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/USA.m3u",
-   "count": 4592
+   "count": 4594
   },
   "ae": {
    "name": "AE_Channels.m3u",
    "description": "A&E and A+E Networks channels, linear and FAST.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/AE_Channels.m3u",
-   "count": 236
+   "count": 243
   },
   "guide": {
    "name": "EPG/PremiumTV.xml",
@@ -338,7 +338,7 @@ window.SITE_DATA = {
    "name": "United States",
    "iso2": "US",
    "region": false,
-   "count": 4592,
+   "count": 4594,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/live/USA.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml",
    "epg_present": true
@@ -368,7 +368,7 @@ window.SITE_DATA = {
    "name": "Canada",
    "iso2": "CA",
    "region": false,
-   "count": 753,
+   "count": 754,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Canada.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Canada.xml",
    "epg_present": true
@@ -618,7 +618,7 @@ window.SITE_DATA = {
    "name": "China",
    "iso2": "CN",
    "region": false,
-   "count": 112,
+   "count": 113,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/China.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/China.xml",
    "epg_present": true
@@ -2038,7 +2038,7 @@ window.SITE_DATA = {
    "name": "International",
    "iso2": null,
    "region": true,
-   "count": 2297,
+   "count": 2294,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/International.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/International.xml",
    "epg_present": true
@@ -2105,23 +2105,23 @@ window.SITE_DATA = {
   }
  ],
  "lineup": {
-  "entries": 19070,
-  "unique_channels": 14894,
-  "backup_feeds": 4176,
-  "channels_with_backups": 2154,
+  "entries": 19071,
+  "unique_channels": 14835,
+  "backup_feeds": 4236,
+  "channels_with_backups": 2171,
   "categories": 95,
   "countries": 177,
   "qualities": {
    "4k": 6,
-   "1080p": 3233,
-   "720p": 2551,
+   "1080p": 3234,
+   "720p": 2545,
    "576p": 709,
    "480p": 306,
-   "lower": 227,
+   "lower": 225,
    "generic_hd_sd": 0,
-   "unlabelled": 7862
+   "unlabelled": 7810
   },
-  "hd_channels": 5790,
+  "hd_channels": 5785,
   "featured": [
    {
     "name": "ESPN",
@@ -2232,8 +2232,8 @@ window.SITE_DATA = {
    },
    {
     "name": "Lifestyle",
-    "channels": 645,
-    "backups": 236,
+    "channels": 644,
+    "backups": 237,
     "samples": [
      "Food Network",
      "HGTV",
@@ -2278,7 +2278,7 @@ window.SITE_DATA = {
    {
     "name": "NBC",
     "channels": 90,
-    "backups": 34,
+    "backups": 35,
     "samples": [
      "CNBC",
      "USA Network",
@@ -2352,8 +2352,8 @@ window.SITE_DATA = {
    },
    {
     "name": "International",
-    "channels": 3025,
-    "backups": 500,
+    "channels": 3019,
+    "backups": 490,
     "samples": [
      "투니버스 짱구는 못말려",
      "Вистел",
@@ -2368,7 +2368,7 @@ window.SITE_DATA = {
    {
     "name": "Music",
     "channels": 1034,
-    "backups": 224,
+    "backups": 226,
     "samples": [
      "MTV",
      "הרדיו הטוב 106.4FM (The Best Radio)",
@@ -2412,8 +2412,8 @@ window.SITE_DATA = {
    },
    {
     "name": "Entertainment",
-    "channels": 815,
-    "backups": 244,
+    "channels": 813,
+    "backups": 246,
     "samples": [
      "Comedy Central",
      "100% Comedy",
@@ -2427,8 +2427,8 @@ window.SITE_DATA = {
    },
    {
     "name": "United States",
-    "channels": 810,
-    "backups": 252,
+    "channels": 807,
+    "backups": 249,
     "samples": [
      "123GO!",
      "21 Jump Street",
@@ -2457,8 +2457,8 @@ window.SITE_DATA = {
    },
    {
     "name": "Documentary",
-    "channels": 414,
-    "backups": 142,
+    "channels": 413,
+    "backups": 143,
     "samples": [
      "Animal Planet",
      "National Geographic",
@@ -2473,7 +2473,7 @@ window.SITE_DATA = {
    {
     "name": "Europe",
     "channels": 411,
-    "backups": 36,
+    "backups": 37,
     "samples": [
      "1+1 International HD",
      "1+1 Marafon",
@@ -2502,8 +2502,8 @@ window.SITE_DATA = {
    },
    {
     "name": "Kids",
-    "channels": 336,
-    "backups": 126,
+    "channels": 334,
+    "backups": 127,
     "samples": [
      "Nickelodeon",
      "Nick Jr",
@@ -2514,21 +2514,6 @@ window.SITE_DATA = {
     ],
     "file": "categories/All/Kids.m3u",
     "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/Kids.m3u"
-   },
-   {
-    "name": "United Kingdom",
-    "channels": 297,
-    "backups": 42,
-    "samples": [
-     "100% Christmas - Rakuten TV",
-     "123GO!",
-     "21 Jump Street",
-     "48 Hours",
-     "5 Cops",
-     "5 Exploring Britain"
-    ],
-    "file": "categories/All/United_Kingdom.m3u",
-    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/United_Kingdom.m3u"
    },
    {
     "name": "Asia",
@@ -2544,6 +2529,21 @@ window.SITE_DATA = {
     ],
     "file": "categories/All/Asia.m3u",
     "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/Asia.m3u"
+   },
+   {
+    "name": "United Kingdom",
+    "channels": 296,
+    "backups": 42,
+    "samples": [
+     "100% Christmas - Rakuten TV",
+     "123GO!",
+     "21 Jump Street",
+     "48 Hours",
+     "5 Cops",
+     "5 Exploring Britain"
+    ],
+    "file": "categories/All/United_Kingdom.m3u",
+    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/United_Kingdom.m3u"
    },
    {
     "name": "Series",
@@ -2576,24 +2576,9 @@ window.SITE_DATA = {
     "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/South_America.m3u"
    },
    {
-    "name": "A&E Networks",
-    "channels": 168,
-    "backups": 68,
-    "samples": [
-     "A&E",
-     "60 Days In by A&E",
-     "☆ 60 Days In Jail 🇺🇸",
-     "60 Days in Jail",
-     "A&E Alaska State Troopers",
-     "A&E Crime 360"
-    ],
-    "file": "categories/All/A_E_Networks.m3u",
-    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/A_E_Networks.m3u"
-   },
-   {
     "name": "North America",
     "channels": 162,
-    "backups": 3,
+    "backups": 5,
     "samples": [
      "360 RFTV",
      "Aguila TV",
@@ -2604,21 +2589,6 @@ window.SITE_DATA = {
     ],
     "file": "categories/All/North_America.m3u",
     "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/North_America.m3u"
-   },
-   {
-    "name": "India",
-    "channels": 158,
-    "backups": 29,
-    "samples": [
-     "Aagaaz Times",
-     "Aashirwad TV",
-     "Ace TV",
-     "Animax",
-     "Apna Punjab TV (India)",
-     "Astro Tak"
-    ],
-    "file": "categories/All/India.m3u",
-    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/India.m3u"
    },
    {
     "name": "Australia",
@@ -2636,9 +2606,24 @@ window.SITE_DATA = {
     "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/Australia.m3u"
    },
    {
+    "name": "India",
+    "channels": 157,
+    "backups": 30,
+    "samples": [
+     "Aagaaz Times",
+     "Aashirwad TV",
+     "Ace TV",
+     "Animax",
+     "Apna Punjab TV (India)",
+     "Astro Tak"
+    ],
+    "file": "categories/All/India.m3u",
+    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/India.m3u"
+   },
+   {
     "name": "Education",
     "channels": 129,
-    "backups": 14,
+    "backups": 15,
     "samples": [
      "Al Hiwar TV",
      "Animaux",
@@ -2649,6 +2634,21 @@ window.SITE_DATA = {
     ],
     "file": "categories/All/Education.m3u",
     "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/Education.m3u"
+   },
+   {
+    "name": "A&E Networks",
+    "channels": 127,
+    "backups": 116,
+    "samples": [
+     "A&E",
+     "60 Days In by A&E",
+     "☆ 60 Days In Jail 🇺🇸",
+     "60 Days in Jail",
+     "A&E Alaska State Troopers",
+     "A&E Latin America"
+    ],
+    "file": "categories/All/A_E_Networks.m3u",
+    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/All/A_E_Networks.m3u"
    },
    {
     "name": "Culture",
@@ -3302,10 +3302,10 @@ window.SITE_DATA = {
    {
     "name": "Int. África",
     "channels": 3,
-    "backups": 4,
+    "backups": 5,
     "samples": [
      "Medi1 TV Marruecos AR",
-     "RASD TV",
+     "RASD TV (1080i)",
      "TVGE 1 Guinea Ecuatorial"
     ],
     "file": "categories/All/Int_frica.m3u",
@@ -3516,7 +3516,7 @@ window.SITE_DATA = {
    },
    {
     "name": "Other",
-    "channels": 177,
+    "channels": 176,
     "backups": 359,
     "samples": [
      "רדיוס 100% רוסית 89.1 (Radios Russian)",

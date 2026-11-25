@@ -262,6 +262,55 @@ class BackupTest(unittest.TestCase):
                          ["World Poker Tour (Backup 1)", "World Poker Tour (Backup 2)"])
 
 
+class ProviderDedupTest(unittest.TestCase):
+    """TV-network copies of one channel become one channel plus backups."""
+
+    def test_crime_360_folds_every_provider_into_one_channel(self):
+        # The regression this rule exists for: the A&E shelf published six
+        # "A&E Crime 360 (LG)" / "(Vizio)" / "(Xumo)" / "(Pluto TV)" entries
+        # side by side, plus "Crime 360", "Crime 360 (720p)" and "Crime 360 by
+        # A&E" under three more names. They are one channel.
+        channels = [
+            channel("A&E Crime 360", "A&E Networks", "", "http://a/0.m3u8", "US"),
+            channel("A&E Crime 360 (LG)", "A&E Networks", "Crime360.us@LG", "http://a/1.m3u8", "US"),
+            channel("A&E Crime 360 (Pluto TV)", "A&E Networks", "Crime360.us@SD", "http://a/2.m3u8", "US"),
+            channel("A&E Crime 360 (Vizio)", "A&E Networks", "Crime360.us@Vizio", "http://a/3.m3u8", "US"),
+            channel("A&E Crime 360 (Xumo)", "A&E Networks", "Crime360.us@Xumo", "http://a/4.m3u8", "US"),
+            channel("Crime 360 by A&E", "A&E Networks", "", "http://a/5.m3u8", ""),
+            channel("Crime 360 (720p)", "A&E Networks", "Crime360.us@SD", "http://a/6.m3u8", "US"),
+            channel("Crime 360 (Canada)", "A&E Networks", "CA4700015P1", "http://ca/1.m3u8", "CA"),
+        ]
+        primary, backups = categorize.split_primary_backups(channels)
+        # The seven US feeds are one channel; the Canadian network copy is a
+        # second channel, not a backup.
+        self.assertEqual(sorted(item.url for item in primary),
+                         ["http://a/6.m3u8", "http://ca/1.m3u8"])
+        self.assertEqual(primary[0].attrs["group-title"], "A&E Networks")
+        self.assertEqual(len(backups), 6)
+        self.assertTrue(all(item.attrs["group-title"] == "A&E Networks Backups"
+                            for item in backups))
+        # The one feed that claims a resolution is the best of them.
+        self.assertEqual(primary[0].url, "http://a/6.m3u8")
+        names = [item.name for item in backups]
+        self.assertEqual(len(names), len(set(names)))
+        self.assertEqual(names, [f"Crime 360 (Backup {index})" for index in range(1, 7)])
+
+    def test_a_brand_suffix_is_not_a_quality_penalty(self):
+        # "Crime 360 by A&E" used to score below "Crime 360 (Xumo)" because the
+        # duplicate-marker penalty matched the "A&E" in the suffix.
+        self.assertEqual(categorize.quality_score("Crime 360 by A&E"), 0)
+        self.assertGreater(categorize.quality_score("Crime 360 (720p)"), 0)
+
+    def test_regional_variants_stay_separate_channels(self):
+        channels = [
+            channel("Crime 360 (720p)", "A&E Networks", "Crime360.us@SD", "http://a/1", "US"),
+            channel("Crime 360 (UK)", "A&E Networks", "Crime360.uk@SD", "http://b/1", "UK"),
+            channel("Crime 360 (Canada)", "A&E Networks", "Crime360.ca@SD", "http://c/1", "CA"),
+        ]
+        primary, _ = categorize.split_primary_backups(channels)
+        self.assertEqual(len(primary), 3)
+
+
 class OrderTest(unittest.TestCase):
     """The published order is the curated order, backups right behind."""
 
@@ -369,8 +418,46 @@ class NamingTest(unittest.TestCase):
         self.assertEqual(categorize.clean_display_name("NFL Network (1080p)"), "NFL Network")
         self.assertEqual(categorize.clean_display_name("A&E Latin America (Alt)"),
                          "A&E Latin America")
-        self.assertEqual(categorize.clean_display_name("Fox News (Xumo) (720p)"),
-                         "Fox News (Xumo)")
+        # The distribution platform is a tag, not part of the station's name.
+        self.assertEqual(categorize.clean_display_name("Fox News (Xumo) (720p)"), "Fox News")
+
+    def test_provider_tags_collapse_to_one_channel(self):
+        """One station seen through several free providers is one channel."""
+        for name in ("A&E Crime 360", "A&E Crime 360 (LG)", "A&E Crime 360 (Pluto TV)",
+                     "A&E Crime 360 (Vizio)", "A&E Crime 360 (Xumo)",
+                     "A&E Crime 360 (Pluto TV Alt)", "A&E Crime 360 (Roku)",
+                     "A&E Crime 360 (Samsung TV Plus)", "A&E Crime 360 (Tubi)",
+                     "A&E Crime 360 (Plex)", "A&E Crime 360 (720p)"):
+            with self.subTest(name=name):
+                self.assertEqual(categorize.clean_display_name(name), "Crime 360")
+        self.assertEqual(categorize.clean_display_name("Crime 360 by A&E"), "Crime 360")
+        self.assertEqual(categorize.clean_display_name("Cold Case Files by A&E (Tubi)"),
+                         "Cold Case Files")
+        self.assertEqual(categorize.clean_display_name("Modern Marvels Presented by HISTORY"),
+                         "Modern Marvels")
+        self.assertEqual(categorize.clean_display_name("Home.Made.Nation by A&E (Samsung)"),
+                         "Home.Made.Nation")
+
+    def test_words_that_identify_another_channel_are_not_tags(self):
+        """A country or region must keep two feeds apart; a resolution must not."""
+        for name, cleaned in (
+            ("Crime 360 (UK)", "Crime 360 (UK)"),
+            ("Crime + Investigation Asia (720p)", "Crime + Investigation Asia"),
+            ("History (Poland) (576i)", "History (Poland)"),
+            ("A&E Networks Brazil", "A&E Networks Brazil"),
+            ("A&E Latin America", "A&E Latin America"),
+            ("A&E", "A&E"),
+            ("A&E Latin America (1080p)", "A&E Latin America"),
+            ("Crime & Investigation Network (US)", "Crime & Investigation Network (US)"),
+            ("A&E Latin America Brazil (720p)", "A&E Latin America Brazil"),
+        ):
+            with self.subTest(name=name):
+                self.assertEqual(categorize.clean_display_name(name), cleaned)
+        # A brand word that starts the title is not a suffix.
+        self.assertEqual(categorize.clean_display_name("Love Crime & History"),
+                         "Love Crime & History")
+        self.assertEqual(categorize.clean_display_name("History 2 Latin America (1080p)"),
+                         "History 2 Latin America")
 
     def test_quality_score_prefers_higher_resolution(self):
         self.assertGreater(categorize.quality_score("NFL Network (1080p)"),

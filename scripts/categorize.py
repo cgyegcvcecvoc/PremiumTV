@@ -479,7 +479,7 @@ def build_group_votes(channels: list) -> dict[str, collections.Counter]:
         group = normalize_group(str(attrs.get("group-title", "") or ""))
         if not group:
             continue
-        key = norm_key(clean_display_name(_get(channel, "name")))
+        key = norm_key(identity_name(_get(channel, "name")))
         if key:
             votes[key][group] += 1
     return votes
@@ -487,7 +487,7 @@ def build_group_votes(channels: list) -> dict[str, collections.Counter]:
 
 def lookup_group_vote(name: str) -> str:
     """The most common non-generic label other indexes gave this channel."""
-    key = norm_key(clean_display_name(name))
+    key = norm_key(identity_name(name))
     counter = _GROUP_VOTES.get(key)
     if not counter:
         return ""
@@ -499,16 +499,82 @@ def lookup_group_vote(name: str) -> str:
 # are the same channel, and to give the entry one clean display name.
 _NOISE_PARENS = re.compile(
     r"\s*\((?:"
-    r"2160p|1440p|1080p|720p|576p|480p|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
+    r"2160[pi]|1440[pi]|1080[pi]|720p|576[pi]|480[pi]|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
     r"auto|mobile|high|low|mid|best|main|"
     r"(?:alt|alternate|backup|mirror|feed|link|stream|source|server|cdn)\s*\d*|"
     r"\d{3,4}p"
     r")\)\s*", re.IGNORECASE)
+# Distribution platforms that only ever carry another operator's channel.
+# "A&E Crime 360 (LG)", "Crime 360 by A&E" and "Crime 360 (720p)" are one
+# channel seen through four free providers - LG Channels, Vizio, Xumo, Roku,
+# Samsung TV Plus, Pluto TV, Tubi, Plex, Rakuten TV, Local Now - plus the brand
+# name the channel's owner writes. Those tags stay in the display name (the
+# LG/Xumo/Samsung feed really is a different stream, and a reader wants to know
+# which one they picked), but they are ignored when deciding identity, so every
+# provider copy folds into one channel with the best feed primary and the rest
+# in "<category> Backups".
+#
+# Only platform words belong here. A word that identifies the broadcaster -
+# "UK", "Latin America", "Poland", "Brasil" - must keep two feeds apart, which
+# is why "Crime 360 (UK)" stays a second channel while "Crime 360 (Xumo)" does
+# not. Tags are matched inside any bracket group, so "A&E Crime 360 (Pluto TV
+# Alt)" and "Crime 360 by A&E" both resolve to "Crime 360".
+_PROVIDER_TAGS = (
+    # Free ad-supported TV services.
+    r"pluto(?:\s*tv)?(?:\s*(?:alt|alternate|backup|mirror))?",
+    r"(?:samsung|camsung)(?:\s*tv\s*plus)?",
+    r"(?:vizio|lg|roku|xumo|plex|tubi|rakuten|stirr|fawesome|film\s*rise|haystack)",
+    r"(?:lg|samsung|xumo|vizio)\s*channels?",
+    r"local\s*now",
+    r"google\s*tv",
+    r"tcl(?:\s*tv\+?)?",
+    r"freevee|imdb(?:\s*tv)?|amazon\s*(?:freevee|fire\s*tv)",
+    r"\bfast\b",
+    # The operator's own brand written as a suffix ("by A&E", "by History",
+    # "Presented By History", "by A+E Networks (Samsung UK)").
+    r"(?:by|from|presented\s*by)\s*(?:a\s*(?:&|\+|and|e)?\s*e(?:\s*networks?)?|history(?:\s*channel)?|lifetime|fyi|vice)",
+    # Generic duplicate markers that are not a platform but mean "another copy".
+    r"alt|alternate|backup|mirror",
+)
+_NOISE_PARENS = re.compile(
+    r"\s*\(\s*(?:"
+    r"2160[pi]|1440[pi]|1080[pi]|720p|576[pi]|480[pi]|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
+    r"auto|mobile|high|low|mid|best|main|"
+    r"(?:(?:" + "|".join(_PROVIDER_TAGS) + r")\s*)+|"
+    r"(?:alt|alternate|backup|mirror|feed|link|stream|source|server|cdn)\s*\d*|"
+    r"\d{3,4}p"
+    r")\s*\)\s*", re.IGNORECASE)
 # Status markers the upstream indexes put in square brackets. They say nothing
 # about which channel this is, and they stop "NFL Network [Not 24/7]" from
 # matching "NFL Network" in the guide.
+# Brackets carry the same status markers and the same provider tags as
+# parentheses ("WGAL 8 (NBC) - Lancaster PA (720p) [Local Now]"), so a provider
+# copy is recognised whichever bracket the index used.
 _NOISE_BRACKETS = re.compile(
-    r"\s*\[(?:not\s*24/?7|geo[- ]?blocked|offline|down|dead|new|hd|sd)\]\s*",
+    r"\s*\[(?:(?:not\s*24/?7|geo[- ]?blocked|offline|down|dead|new|hd|sd)"
+    r"|(?:(?:" + "|".join(_PROVIDER_TAGS) + r")\s*)+)\]\s*",
+    re.IGNORECASE)
+
+# "by A&E" outside brackets is a brand suffix, not part of the channel's name:
+# unwrap it so "Crime 360 by A&E" and "Crime 360 (720p)" are one channel. The
+# brand word itself still ends the match early, so "Love Crime & History by
+# A&E" and every other A+E property keeps its full name.
+# The same brand written in front of a title ("A&E Crime 360", "A&E Live PD:
+# Greatest Shifts") is the operator's name, not a different channel. Measured
+# against the published library on 2026-11-25: the only names it changes are the
+# Crime 360 and Live PD feeds, each of which has an unbranded twin - and it
+# leaves a bare "A&E" and regional feeds ("A&E Latin America") alone.
+# "A&E Latin America", "A&E Networks Brazil" and the bare "A&E" stay as they are:
+# the brand plus a region is the channel's own name, not a prefix on a title.
+_BRAND_REGIONS = r"(?:latin\s*america|latam|networks?|brasil|brazil|mexico|caribbean|europe|asia|india)"
+_LEADING_BRAND = re.compile(
+    r"^(?:a\s*&\s*e'?s?|a\s*e|a\+e|ae(?:\s*networks?)?)\s+(?=\S)(?!" + _BRAND_REGIONS + r"\b)",
+    re.IGNORECASE)
+
+_NOISE_BRAND_SUFFIX = re.compile(
+    r"\s+(?:by|from|presented\s+by)\s+"
+    r"(?:a\s*(?:&|\+|and|e)\s*e(?:\s*networks?)?|history(?:\s*channel)?|fyi|vice|lifetime)"
+    r"(?=\s*$)",
     re.IGNORECASE)
 
 _RESOLUTION_SCORE = (
@@ -717,19 +783,54 @@ def classify(name: str, group: str = "", tvg_id: str = "", url: str = "",
 
 
 def clean_display_name(name: str) -> str:
-    """One stable display name for a channel: drop the quality/duplicate tags."""
+    """One stable display name for a channel: drop the quality/duplicate tags.
+
+    The quality tag and the distribution-platform tag are removed so the same
+    station seen through several free providers becomes one channel with
+    backups ("A&E Crime 360 (LG)", "A&E Crime 360 (Pluto TV)", "Crime 360
+    (720p)" -> "A&E Crime 360"), and a brand suffix goes too ("Crime 360 by
+    A&E" -> "Crime 360"). Words that identify a *different* channel - a
+    country, a region, a numbering - are never tags.
+    """
     text = (name or "").strip()
     previous = None
     while previous != text:
         previous = text
         text = _NOISE_PARENS.sub(" ", text)
         text = _NOISE_BRACKETS.sub(" ", text).strip()
+        text = _NOISE_BRAND_SUFFIX.sub("", text).strip()
+        text = _LEADING_BRAND.sub("", text).strip()
     text = re.sub(r"\s{2,}", " ", text)
     return text or (name or "").strip()
 
 
+def identity_name(name: str) -> str:
+    """The name two entries must share to be the same channel.
+
+    ``clean_display_name`` drops tags, but a title with no Latin letters
+    (Chinese, Korean, Cyrillic) can clean down to nothing. An empty key would
+    merge every such title into one "channel" - 341 published entries across
+    271 Chinese ones were being folded together that way - so an empty result
+    falls back to the raw name, which those entries still spell differently.
+    """
+    cleaned = clean_display_name(name)
+    if norm_key(cleaned):
+        return cleaned
+    # The raw name may be blank or nothing but emoji; return that and let the
+    # caller's empty-key guard keep the entry on its own.
+    return (name or "").strip()
+
+
 def quality_score(name: str) -> int:
-    """Higher is better: used to pick which duplicate becomes the main link."""
+    """Higher is better: used to pick which duplicate becomes the main link.
+
+    A tag in parentheses is only a *claim*: "(720p)" is a resolution, while
+    "(LG)", "(Xumo)" or "(Pluto TV)" is the free provider the feed comes from.
+    The claim is read from the raw name (so two feeds of one station still
+    order by what they promise); the penalty below is read from the cleaned
+    name, because "Alt"/"Backup" is dropped as a tag and an A+E brand suffix
+    such as "by A&E" is not a duplicate marker at all.
+    """
     lowered = (name or "").lower()
     score = 0
     for token, value in _RESOLUTION_SCORE:
@@ -737,7 +838,7 @@ def quality_score(name: str) -> int:
             score = max(score, value)
     if "hd" in lowered:
         score += 1
-    if re.search(r"\b(alt|backup|mirror|feed ?\d|link ?\d)\b", lowered):
+    if re.search(r"\b(alt|backup|mirror|feed ?\d|link ?\d)\b", clean_display_name(name).lower()):
         score -= 2
     return score
 
@@ -935,13 +1036,16 @@ def identity_groups(channels: list) -> list[list]:
     """
     by_name: dict[str, list] = collections.defaultdict(list)
     for channel in channels:
-        name_key = norm_key(clean_display_name(_get(channel, "name")))
+        name_key = norm_key(identity_name(_get(channel, "name")))
+        if not name_key:
+            # Nothing to compare: the entry stays its own channel rather than
+            # joining every other nameless entry.
+            name_key = f"\0{id(channel)}"
         by_name[name_key].append(channel)
 
     groups: list[list] = []
     for name_key in sorted(by_name):
         named = by_name[name_key]
-
         # A published ``(Backup N)`` is stronger lineage evidence than inferred
         # country metadata.  On the next rebuild its source may omit
         # ``tvg-country`` and let a ``.us`` guide id infer United States while

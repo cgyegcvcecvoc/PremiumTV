@@ -1,73 +1,73 @@
 # Category and guide audit
 
-- **Rebuilt:** 2026-11-25 20:40 UTC (2026-11-25 03:40 PM EST)
-- **Channels in the main playlist:** 19070
-- **Channels in the category files:** 19021 (groups smaller than 3 stay in the main playlist only)
-- **With guide data:** 4974 (26.2%)
+- **Rebuilt:** 2026-11-25 20:43 UTC (2026-11-25 03:43 PM EST)
+- **Channels in the main playlist:** 19071
+- **Channels in the category files:** 19011 (groups smaller than 3 stay in the main playlist only)
+- **With guide data:** 4953 (26.1%)
 - **Categories:** 133 groups (55 backup groups)
 
 ## Published category order
 
 | # | Category | Channels | With guide |
 |---|---|---:|---:|
-| 1 | Sports | 802 | 300 |
+| 1 | Sports | 802 | 302 |
 | 2 | Sports Backups | 261 | 162 |
-| 3 | Lifestyle | 645 | 201 |
-| 4 | Lifestyle Backups | 236 | 143 |
+| 3 | Lifestyle | 644 | 200 |
+| 4 | Lifestyle Backups | 237 | 144 |
 | 5 | Fox Channels | 52 | 12 |
 | 6 | Fox Channels Backups | 13 | 13 |
 | 7 | CBS | 46 | 20 |
 | 8 | CBS Backups | 35 | 35 |
 | 9 | NBC | 90 | 31 |
-| 10 | NBC Backups | 34 | 24 |
+| 10 | NBC Backups | 35 | 24 |
 | 11 | NBC Sports Channels | 7 | 5 |
 | 12 | NBC Sports Channels Backups | 5 | 5 |
 | 13 | Cartoons | 220 | 44 |
 | 14 | Cartoons Backups | 73 | 17 |
 | 15 | PBS | 46 | 16 |
 | 16 | PBS Backups | 27 | 14 |
-| 17 | Game Shows | 43 | 25 |
+| 17 | Game Shows | 43 | 24 |
 | 18 | Game Shows Backups | 51 | 47 |
-| 19 | International | 3025 | 385 |
-| 20 | International Backups | 500 | 129 |
-| 21 | Music | 1034 | 199 |
-| 22 | Music Backups | 224 | 121 |
-| 23 | News | 996 | 272 |
+| 19 | International | 3019 | 383 |
+| 20 | International Backups | 490 | 130 |
+| 21 | Music | 1034 | 197 |
+| 22 | Music Backups | 226 | 118 |
+| 23 | News | 996 | 274 |
 | 24 | News Backups | 420 | 254 |
 | 25 | Movies | 993 | 223 |
 | 26 | Movies Backups | 293 | 156 |
-| 27 | Entertainment | 815 | 184 |
-| 28 | Entertainment Backups | 244 | 130 |
-| 29 | United States | 810 | 253 |
-| 30 | United States Backups | 252 | 128 |
+| 27 | Entertainment | 813 | 184 |
+| 28 | Entertainment Backups | 246 | 131 |
+| 29 | United States | 807 | 251 |
+| 30 | United States Backups | 249 | 125 |
 | 31 | Religious | 630 | 69 |
 | 32 | Religious Backups | 76 | 21 |
-| 33 | Documentary | 414 | 127 |
-| 34 | Documentary Backups | 142 | 70 |
+| 33 | Documentary | 413 | 123 |
+| 34 | Documentary Backups | 143 | 69 |
 | 35 | Europe | 411 | 72 |
-| 36 | Europe Backups | 36 | 23 |
+| 36 | Europe Backups | 37 | 24 |
 | 37 | Canada | 369 | 28 |
 | 38 | Canada Backups | 67 | 9 |
-| 39 | Kids | 336 | 95 |
-| 40 | Kids Backups | 126 | 64 |
-| 41 | United Kingdom | 297 | 11 |
-| 42 | United Kingdom Backups | 42 | 7 |
-| 43 | Asia | 296 | 69 |
-| 44 | Asia Backups | 5 | 0 |
+| 39 | Kids | 334 | 95 |
+| 40 | Kids Backups | 127 | 65 |
+| 41 | Asia | 296 | 69 |
+| 42 | Asia Backups | 5 | 0 |
+| 43 | United Kingdom | 296 | 10 |
+| 44 | United Kingdom Backups | 42 | 7 |
 | 45 | Series | 261 | 57 |
 | 46 | Series Backups | 210 | 141 |
 | 47 | South America | 251 | 12 |
 | 48 | South America Backups | 6 | 0 |
-| 49 | A&E Networks | 168 | 68 |
-| 50 | A&E Networks Backups | 68 | 48 |
-| 51 | North America | 162 | 6 |
-| 52 | North America Backups | 3 | 0 |
-| 53 | India | 158 | 36 |
-| 54 | India Backups | 29 | 13 |
-| 55 | Australia | 157 | 3 |
-| 56 | Australia Backups | 3 | 0 |
-| 57 | Education | 129 | 12 |
-| 58 | Education Backups | 14 | 1 |
+| 49 | North America | 162 | 6 |
+| 50 | North America Backups | 5 | 0 |
+| 51 | Australia | 157 | 3 |
+| 52 | Australia Backups | 3 | 0 |
+| 53 | India | 157 | 35 |
+| 54 | India Backups | 30 | 14 |
+| 55 | Education | 129 | 12 |
+| 56 | Education Backups | 15 | 2 |
+| 57 | A&E Networks | 127 | 42 |
+| 58 | A&E Networks Backups | 116 | 62 |
 | 59 | Culture | 123 | 12 |
 | 60 | Culture Backups | 7 | 3 |
 | 61 | Legislative | 113 | 8 |
@@ -137,29 +137,25 @@
 | 125 | Extremadura | 3 | 0 |
 | 126 | Generalistas | 3 | 1 |
 | 127 | Int. África | 3 | 0 |
-| 128 | Int. África Backups | 4 | 0 |
+| 128 | Int. África Backups | 5 | 0 |
 | 129 | R. de Murcia | 3 | 0 |
 | 130 | Relax | 3 | 1 |
 | 131 | Castilla y León Backups | 3 | 0 |
-| 132 | Other | 177 | 9 |
+| 132 | Other | 176 | 10 |
 | 133 | Other Backups | 359 | 0 |
 
 ## Files rewritten
 
 | Playlist | Channels | Groups | Backups |
 |---|---:|---:|---:|
-| [`PremiumTV.m3u`](../PremiumTV.m3u) | 19070 | 168 | 4176 |
+| [`PremiumTV.m3u`](../PremiumTV.m3u) | 19071 | 169 | 4236 |
 | [`Priority_Channels.m3u`](../Priority_Channels.m3u) | 13 | 5 | 1 |
 
 ## Guide matching
 
 | Match | Channels |
 |---|---:|
-| already declared in the guide | 18898 (99.0%) |
-| matched on the base id (feed qualifier dropped) | 7 (0.0%) |
-| matched on the display name | 70 (0.4%) |
-| matched on a looser spelling of the name | 3 (0.0%) |
-| no guide entry (upstream publishes no schedule for it) | 105 (0.6%) |
+| already declared in the guide | 19084 (100.0%) |
 
 ## Channels with no schedule yet
 
