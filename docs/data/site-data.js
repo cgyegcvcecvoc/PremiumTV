@@ -53,146 +53,146 @@ window.SITE_DATA = {
   "channels": [
    {
     "id": "stable",
-    "tag": "v1.1.20",
-    "version": "1.1.20",
+    "tag": "v1.1.24",
+    "version": "1.1.24",
     "channel": "Stable",
     "badge": "Recommended",
     "summary": "The current stable release. USA lineup + USA guide.",
-    "notes_file": "release-notes-1.1.20.md",
+    "notes_file": "release-notes-1.1.24.md",
     "min_os": "macOS 12 (Monterey) or later · Linux (x86-64, arm64) · Android 6.0+ (TV, tablet, phone)",
-    "macos_version": "1.1.20",
-    "published_at": "2026-11-23T23:33:35Z",
-    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.20",
-    "notes_title": "PremiumTV 1.1.20 — Many sources, one clock",
-    "notes_summary": "Android `1.1.20` / versionCode `101200000` · macOS `1.1.20`. - Seventeen backup addresses across eight sources keep a channel playing when one host is down. - Live Events gains a ticking clock; every kickoff on the tab is read in its zone.",
+    "macos_version": "1.1.24",
+    "published_at": "2026-11-25T21:11:48Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.24",
+    "notes_title": "PremiumTV 1.1.24 — Broken-feed reports",
+    "notes_summary": "Android `1.1.24` / versionCode `101240000` · macOS `1.1.24`. - Report a channel or server that will not play; the app opens a prefilled GitHub issue. - Health reports now name the failing servers and channels, not just totals.",
     "assets": [
      {
       "name": "BUILD-SOURCE-android.txt",
       "kind": "other",
       "arch": "—",
       "size": 148,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/BUILD-SOURCE-android.txt",
-      "sha256": "b93118e3f1d69c0121c898225bb40d6d2fbb3e60d1380aecf03514aaca1f0c8e"
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/BUILD-SOURCE-android.txt",
+      "sha256": null
      },
      {
       "name": "BUILD-SOURCE-linux.txt",
       "kind": "other",
       "arch": "—",
       "size": 156,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/BUILD-SOURCE-linux.txt",
-      "sha256": "22af9935f65a658ae3ea9e225e7073f53a26969d69e237e54329eddcb08f881c"
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/BUILD-SOURCE-linux.txt",
+      "sha256": null
      },
      {
       "name": "BUILD-SOURCE-macos.txt",
       "kind": "other",
       "arch": "—",
       "size": 148,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/BUILD-SOURCE-macos.txt",
-      "sha256": "d0615c33e42fbf3ac7bc5b9b0d8cbbebf3c6faecf94fe44ea37b64ba0096e839"
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/BUILD-SOURCE-macos.txt",
+      "sha256": null
      },
      {
-      "name": "PremiumTV-1.1.20-debug.apk",
+      "name": "PremiumTV-1.1.24-debug.apk",
       "kind": "android",
       "arch": "universal",
-      "size": 24281107,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-debug.apk",
-      "sha256": "46d052ea48087fe432fede59c31394b814b51f5ebaa7248aa0ff63ce8611076d"
+      "size": 24823831,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-debug.apk",
+      "sha256": "687211a4a0f25a0eebdc489601e250cff54b7c416168946c496be2e3c6845f54"
      },
      {
-      "name": "PremiumTV-1.1.20-linux-arm64.AppImage",
+      "name": "PremiumTV-1.1.24-linux-arm64.AppImage",
       "kind": "linux-appimage",
       "arch": "arm64",
-      "size": 141683418,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-linux-arm64.AppImage",
-      "sha256": "51f13224f2d3fa204b3c78fee1d7677c0807d7f4da6528e0ccb84b9ec75f1cbe"
+      "size": 142158739,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-linux-arm64.AppImage",
+      "sha256": "1e278dda17ea43edb8128dff9c797ab8a45dade365ea8f1cd1eeeb400ca33511"
      },
      {
-      "name": "PremiumTV-1.1.20-linux-arm64.deb",
+      "name": "PremiumTV-1.1.24-linux-arm64.deb",
       "kind": "linux-deb",
       "arch": "arm64",
-      "size": 102570448,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-linux-arm64.deb",
-      "sha256": "7fe68b9d69c69ef96f909ca76e2bae7d38a7b2ebf3af5a585424a1c650200ba0"
+      "size": 102884812,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-linux-arm64.deb",
+      "sha256": "3c3436b6f4eb1423b7fac371d0473b44ccef1bbcb4741eb191b36b37d0d17bc7"
      },
      {
-      "name": "PremiumTV-1.1.20-linux-x64.AppImage",
+      "name": "PremiumTV-1.1.24-linux-x64.AppImage",
       "kind": "linux-appimage",
       "arch": "x64",
-      "size": 140559244,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-linux-x64.AppImage",
-      "sha256": "c743e84199e54038c62eaa761b99c10b6aacb424036c41a7b9d34f6e25faf0a8"
+      "size": 141034564,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-linux-x64.AppImage",
+      "sha256": "9c6a818c820d449c1803bfbee1108d6dd97dbc9dc7f202a25b6186c86f2bf749"
      },
      {
-      "name": "PremiumTV-1.1.20-linux-x64.deb",
+      "name": "PremiumTV-1.1.24-linux-x64.deb",
       "kind": "linux-deb",
       "arch": "x64",
-      "size": 107617008,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-linux-x64.deb",
-      "sha256": "ecc12718bc2ba134ceaa4dd7a21b4a83918c47cc7ba515ad2911baca7801ce20"
+      "size": 107937108,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-linux-x64.deb",
+      "sha256": "8c7a9fae5d561425d884304b4918eb604cd4228eb0b8623954f669d0a8435575"
      },
      {
-      "name": "PremiumTV-1.1.20-linux-x64.tar.xz",
+      "name": "PremiumTV-1.1.24-linux-x64.tar.xz",
       "kind": "linux-tar",
       "arch": "x64",
-      "size": 91638828,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-linux-x64.tar.xz",
-      "sha256": "0e1e5439c31ccbf3e595837c33f6fd6af3d8f109719188b1859e1c47df3be7b9"
+      "size": 91894188,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-linux-x64.tar.xz",
+      "sha256": "09a398264ce372c92529967e95b4651eb82757531ac1e73433c49e111532bb96"
      },
      {
-      "name": "PremiumTV-1.1.20-mac-arm64.dmg",
+      "name": "PremiumTV-1.1.24-mac-arm64.dmg",
       "kind": "macos-dmg",
       "arch": "arm64",
-      "size": 134345177,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-mac-arm64.dmg",
-      "sha256": "a0b8fe1f13e757b1b8604cd879565b4af3d6891bdca28c39fe2fd8d24d2c779d"
+      "size": 134860000,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-mac-arm64.dmg",
+      "sha256": "6e435cbce2947d93afc31b09e88c1b7aa85d9b8f59dbd8298856f73618e4e04a"
      },
      {
-      "name": "PremiumTV-1.1.20-mac-arm64.pkg",
+      "name": "PremiumTV-1.1.24-mac-arm64.pkg",
       "kind": "macos-pkg",
       "arch": "arm64",
-      "size": 134463224,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-mac-arm64.pkg",
-      "sha256": "53bea6bea2532b72bf70104dd5fa3019abd83c5703f0f37f3a1c14a47055e341"
+      "size": 134915401,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-mac-arm64.pkg",
+      "sha256": "cd8fcf9867aeae99cf8e25dbfb2a4ef0a5d60249fda44b1bee4cd15b15b5144b"
      },
      {
-      "name": "PremiumTV-1.1.20-mac-x64.dmg",
+      "name": "PremiumTV-1.1.24-mac-x64.dmg",
       "kind": "macos-dmg",
       "arch": "x64",
-      "size": 139918239,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-mac-x64.dmg",
-      "sha256": "a9fdb69ddd42a2c1b594d242faaafac9d29c0bcb4eed0cd82006278c0785ace6"
+      "size": 140403881,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-mac-x64.dmg",
+      "sha256": "dc8fdd000f2cbc318851dac406759b26c7612d24f98ea2a7ab441e6a9954171e"
      },
      {
-      "name": "PremiumTV-1.1.20-mac-x64.pkg",
+      "name": "PremiumTV-1.1.24-mac-x64.pkg",
       "kind": "macos-pkg",
       "arch": "x64",
-      "size": 140179345,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/PremiumTV-1.1.20-mac-x64.pkg",
-      "sha256": "38cf4691b84c26e56e51100a584948407b83528e003a65c32bdebb873ba03f37"
+      "size": 140644088,
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/PremiumTV-1.1.24-mac-x64.pkg",
+      "sha256": "6cf278f5d3d9da2e7eee04d1df7c267dfa3cddedd2ed4dc7b551a53365cdf920"
      },
      {
       "name": "SHA256SUMS-android.txt",
       "kind": "checksum",
       "arch": "—",
       "size": 93,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/SHA256SUMS-android.txt",
-      "sha256": "c8644ad4f27551db2d5a431c6395c6b91a4c2b47cac75ba30afd66d9c3d6ef2b"
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/SHA256SUMS-android.txt",
+      "sha256": null
      },
      {
       "name": "SHA256SUMS-linux.txt",
       "kind": "checksum",
       "arch": "—",
       "size": 502,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/SHA256SUMS-linux.txt",
-      "sha256": "a00194a60bf5489558ac54475f0a7d320ac41fe5391e16dce6079c1762cdc837"
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/SHA256SUMS-linux.txt",
+      "sha256": null
      },
      {
       "name": "SHA256SUMS-macos.txt",
       "kind": "checksum",
       "arch": "—",
       "size": 384,
-      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.20/SHA256SUMS-macos.txt",
-      "sha256": "1baff3c6e7a16b4ec1f13ab718885ff612059758dacba8077610606c17e24b01"
+      "url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/download/v1.1.24/SHA256SUMS-macos.txt",
+      "sha256": null
      }
     ]
    }
@@ -227,6 +227,12 @@ window.SITE_DATA = {
     "name": "PremiumTV 1.1.3 — moving loading bar, expanded Movies & Shows + transport player, and broadcast audio fixes (stable)",
     "published_at": "2026-10-31T12:44:44Z",
     "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.3"
+   },
+   {
+    "tag": "v1.1.20",
+    "name": "PremiumTV 1.1.20 — Many sources, one clock",
+    "published_at": "2026-11-23T23:33:35Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.20"
    },
    {
     "tag": "v1.1.2",
