@@ -22,8 +22,8 @@ Daemon will be stopped at the end of the build
 > Task :app:compileDebugJavaWithJavac FROM-CACHE
 > Task :app:preDebugUnitTestBuild UP-TO-DATE
 > Task :app:javaPreCompileDebugUnitTest FROM-CACHE
-> Task :app:bundleDebugClassesToCompileJar
 > Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
 
 > Task :app:copyRobolectricSdk
 [robolectric] android-all-instrumented-15-robolectric-12650502-i7.jar (199527464 bytes)
@@ -48,23 +48,23 @@ Daemon will be stopped at the end of the build
 > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
 > Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
-> Task :app:validateSigningDebug
-> Task :app:writeDebugAppMetadata
 > Task :app:checkDebugDuplicateClasses
-> Task :app:writeDebugSigningConfigVersions
 > Task :app:mergeDebugNativeLibs
 > Task :app:mergeExtDexDebug FROM-CACHE
 > Task :app:mergeLibDexDebug FROM-CACHE
 > Task :app:mergeProjectDexDebug FROM-CACHE
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
 
 > Task :app:stripDebugDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libffmpegJNI.so.
 
+> Task :app:writeDebugSigningConfigVersions
 > Task :app:mergeDebugJavaResource
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795624840946.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795627113926.json
 
-BUILD SUCCESSFUL in 17s
+BUILD SUCCESSFUL in 30s
 48 actionable tasks: 25 executed, 23 from cache
