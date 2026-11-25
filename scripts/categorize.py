@@ -547,8 +547,12 @@ _NOISE_PARENS = re.compile(
 # Status markers the upstream indexes put in square brackets. They say nothing
 # about which channel this is, and they stop "NFL Network [Not 24/7]" from
 # matching "NFL Network" in the guide.
+# Brackets carry the same status markers and the same provider tags as
+# parentheses ("WGAL 8 (NBC) - Lancaster PA (720p) [Local Now]"), so a provider
+# copy is recognised whichever bracket the index used.
 _NOISE_BRACKETS = re.compile(
-    r"\s*\[(?:not\s*24/?7|geo[- ]?blocked|offline|down|dead|new|hd|sd)\]\s*",
+    r"\s*\[(?:(?:not\s*24/?7|geo[- ]?blocked|offline|down|dead|new|hd|sd)"
+    r"|(?:(?:" + "|".join(_PROVIDER_TAGS) + r")\s*)+)\]\s*",
     re.IGNORECASE)
 
 # "by A&E" outside brackets is a brand suffix, not part of the channel's name:
