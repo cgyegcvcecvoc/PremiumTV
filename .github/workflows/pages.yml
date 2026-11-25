@@ -325,3 +325,48 @@ jobs:
           done
           echo "::error::Pages deployment ${deployment_id} did not finish within 10 minutes"
           exit 1
+
+      # A green deployment means GitHub accepted the build, not that the CDN is
+      # already serving it. Compare every generated data file with the exact
+      # file in this run's artifact; a dropped or stale deployment fails the
+      # job instead of quietly keeping the previous download page live.
+      - name: Verify the live site serves this build
+        if: success() && (steps.deployment.outcome == 'success' || steps.deployment_rest.outcome == 'success')
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url || steps.deployment_rest.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          base="${PAGE_URL:-}"
+          base="${base%/}"
+          if [ -z "$base" ]; then
+            base="https://cgyegcvcecvoc.github.io/PremiumTV"
+          fi
+          data_files=(site-data.js site.json changelog.json feed.xml)
+          for attempt in $(seq 1 18); do
+            stale=""
+            for file in "${data_files[@]}"; do
+              live=$(mktemp)
+              if ! curl -fsSL --compressed --retry 2 --retry-delay 2 \
+                -H 'Cache-Control: no-cache' \
+                "${base}/data/${file}?deploy=${GITHUB_RUN_ID:-local}-${GITHUB_RUN_ATTEMPT:-1}-${attempt}" \
+                -o "$live"; then
+                stale="$file (fetch failed)"
+                rm -f "$live"
+                break
+              fi
+              if ! cmp -s "$live" "docs/data/$file"; then
+                stale="$file"
+                rm -f "$live"
+                break
+              fi
+              rm -f "$live"
+            done
+            if [ -z "$stale" ]; then
+              echo "Live site data matches this build (${GITHUB_RUN_ID:-local})."
+              exit 0
+            fi
+            echo "Live data not current yet: ${stale} (attempt ${attempt}/18); retrying..."
+            sleep 10
+          done
+          echo "::error::Live site data at ${base}/data/ is not this build after 3 minutes (${stale})"
+          exit 1

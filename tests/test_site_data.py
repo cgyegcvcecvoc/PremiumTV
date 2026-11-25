@@ -412,6 +412,14 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertIn("Waiting for the github-pages artifact", workflow)
         self.assertIn("seq 1 120", workflow)
         self.assertIn("deployment_failed|deployment_perms_error", workflow)
+        # A successful Pages deployment still has to be visible at the live
+        # URL; compare every generated data file with this run's build.
+        smoke = workflow.index("Verify the live site serves this build", fallback)
+        self.assertLess(fallback, smoke)
+        self.assertIn("cmp -s", workflow)
+        self.assertIn("site-data.js", workflow)
+        self.assertIn("seq 1 18", workflow)
+        self.assertIn("Live site data matches this build", workflow)
 
     def test_the_published_site_address_is_the_one_github_serves(self):
         """A project Pages URL does not survive a repository rename.
