@@ -370,3 +370,92 @@ jobs:
           done
           echo "::error::Live site data at ${base}/data/ is not this build after 3 minutes (${stale})"
           exit 1
+
+      # The data smoke check proves the page is fresh; this proves its stable
+      # download links work and advertise the release's published sums. Avoid
+      # downloading ~575 MB of installers: a one-byte range request proves the
+      # URL serves the asset, and the release's SHA256SUMS files are the
+      # published checksums the page's sha256 values must agree with.
+      - name: Verify the stable installer downloads
+        if: success() && (steps.deployment.outcome == 'success' || steps.deployment_rest.outcome == 'success')
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > /tmp/stable-downloads.tsv
+          import json
+
+          with open("docs/data/site.json", encoding="utf-8") as handle:
+              site = json.load(handle)
+          stable = [c for c in site["apps"]["channels"] if c["id"] == "stable"]
+          if len(stable) != 1:
+              raise SystemExit(f"expected one stable channel, got {len(stable)}")
+
+          assets = stable[0]["assets"]
+          installers = [a for a in assets if a["kind"] == "android" or a["kind"] in ("macos-dmg", "macos-pkg")]
+          android = [a for a in installers if a["kind"] == "android"]
+          mac = [a for a in installers if a["kind"] in ("macos-dmg", "macos-pkg")]
+          expected_mac = {(kind, arch) for kind in ("macos-dmg", "macos-pkg") for arch in ("arm64", "x64")}
+          if len(android) != 1:
+              raise SystemExit("expected exactly one stable APK")
+          if {(a["kind"], a["arch"]) for a in mac} != expected_mac:
+              raise SystemExit("stable macOS installers are incomplete")
+
+          checksums = {a["name"]: a for a in assets if a["kind"] == "checksum"}
+          for name in ("SHA256SUMS-android.txt", "SHA256SUMS-macos.txt"):
+              if name not in checksums:
+                  raise SystemExit(f"missing published checksum {name}")
+          for asset in installers:
+              if not asset.get("sha256"):
+                  raise SystemExit(f"{asset['name']} has no published SHA-256")
+
+          for name in ("SHA256SUMS-android.txt", "SHA256SUMS-macos.txt"):
+              asset = checksums[name]
+              print(name, "checksum", asset["url"], "", sep="\t")
+          for asset in installers:
+              print(asset["name"], asset["kind"], asset["url"], asset["sha256"], sep="\t")
+          PY
+
+          checksum_dir=$(mktemp -d)
+          trap 'rm -rf "$checksum_dir"' EXIT
+          while IFS=$'\t' read -r name kind url sha; do
+            if [ "$kind" = "checksum" ]; then
+              if ! curl -fsSL --retry 3 --retry-delay 2 --max-time 60 "$url" -o "$checksum_dir/$name"; then
+                echo "::error::Could not fetch published checksum $name"
+                exit 1
+              fi
+              if [ ! -s "$checksum_dir/$name" ]; then
+                echo "::error::Published checksum $name is empty"
+                exit 1
+              fi
+              continue
+            fi
+
+            sums="SHA256SUMS-macos.txt"
+            if [ "$kind" = "android" ]; then
+              sums="SHA256SUMS-android.txt"
+            fi
+            expected=$(awk -v name="$name" '$2 == name {print tolower($1); exit}' "$checksum_dir/$sums")
+            actual=$(printf '%s' "$sha" | tr 'A-F' 'a-f')
+            if [ -z "$expected" ]; then
+              echo "::error::$name is not listed in $sums"
+              exit 1
+            fi
+            if [ "$actual" != "$expected" ]; then
+              echo "::error::$name SHA-256 does not match $sums"
+              exit 1
+            fi
+
+            headers="$checksum_dir/headers"
+            code=$(curl -fsSL --range 0-0 --max-filesize 1024 --max-time 90 \
+              --retry 3 --retry-delay 2 -D "$headers" -o /dev/null \
+              -w '%{http_code}' "$url" || true)
+            if [ "$code" != "206" ]; then
+              echo "::error::$name is not downloadable (HTTP ${code:-unknown})"
+              exit 1
+            fi
+            total=$(awk 'tolower($1) == "content-range:" {split($3, parts, "/"); total=parts[2]} END {gsub(/\r/, "", total); print total}' "$headers")
+            if ! printf '%s' "$total" | grep -qE '^[0-9]+$' || [ "$total" -lt 1000000 ]; then
+              echo "::error::$name returned an implausible size (Content-Range total: ${total:-missing})"
+              exit 1
+            fi
+            echo "$name is reachable and matches $sums (${actual:0:12}...)."
+          done < /tmp/stable-downloads.tsv

@@ -420,6 +420,14 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertIn("site-data.js", workflow)
         self.assertIn("seq 1 18", workflow)
         self.assertIn("Live site data matches this build", workflow)
+        # The fresh page must also link to live installers whose bytes match
+        # the release's published sums.
+        installers = workflow.index("Verify the stable installer downloads", smoke)
+        self.assertLess(smoke, installers)
+        self.assertIn("SHA256SUMS-android.txt", workflow)
+        self.assertIn("SHA256SUMS-macos.txt", workflow)
+        self.assertIn("--range 0-0", workflow)
+        self.assertIn("content-range:", workflow)
 
     def test_the_published_site_address_is_the_one_github_serves(self):
         """A project Pages URL does not survive a repository rename.
