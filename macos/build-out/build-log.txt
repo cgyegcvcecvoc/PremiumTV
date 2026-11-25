@@ -9,8 +9,8 @@
   • searching for node modules  pm=npm searchDir=/Users/runner/work/PremiumTV/PremiumTV/macos/app
   • downloaded      label=icons-bundle.tar.gz progress=100%
   • skipped macOS code signing  reason=identity explicitly is set to null
-  • building        target=macOS zip arch=x64 file=dist/PremiumTV-1.1.22-mac-x64.zip
-  • building        target=DMG arch=x64 file=dist/PremiumTV-1.1.22-mac-x64.dmg
+  • building        target=macOS zip arch=x64 file=dist/PremiumTV-1.1.23-mac-x64.zip
+  • building        target=DMG arch=x64 file=dist/PremiumTV-1.1.23-mac-x64.dmg
   • executing @electron/rebuild  electronVersion=43.8.7 arch=arm64 buildFromSource=false workspaceRoot=/Users/runner/work/PremiumTV/PremiumTV/macos/app projectDir=./ appDir=./
   • installing native dependencies  arch=arm64
   • downloaded      label=7zip-darwin-arm64.tar.gz progress=100%
@@ -22,39 +22,37 @@
   • searching for node modules  pm=npm searchDir=/Users/runner/work/PremiumTV/PremiumTV/macos/app
 /Users/runner/work/PremiumTV/PremiumTV/macos/app/dist/mac-arm64/PremiumTV.app: replacing existing signature
   • skipped macOS code signing  reason=identity explicitly is set to null
-  • building        target=macOS zip arch=arm64 file=dist/PremiumTV-1.1.22-mac-arm64.zip
-  • building        target=DMG arch=arm64 file=dist/PremiumTV-1.1.22-mac-arm64.dmg
-  • building block map  blockMapFile=dist/PremiumTV-1.1.22-mac-arm64.zip.blockmap
-  • building block map  blockMapFile=dist/PremiumTV-1.1.22-mac-x64.zip.blockmap
+  • building        target=macOS zip arch=arm64 file=dist/PremiumTV-1.1.23-mac-arm64.zip
+  • building        target=DMG arch=arm64 file=dist/PremiumTV-1.1.23-mac-arm64.dmg
+  • building block map  blockMapFile=dist/PremiumTV-1.1.23-mac-arm64.zip.blockmap
+  • building block map  blockMapFile=dist/PremiumTV-1.1.23-mac-x64.zip.blockmap
   • electron-builder  version=26.18.1 os=24.6.0
   • loaded configuration  file=/Users/runner/work/PremiumTV/PremiumTV/macos/app/electron-builder.yml
-  • building        target=pkg arch=x64 file=dist/PremiumTV-1.1.22-mac-x64.pkg
+  • building        target=pkg arch=x64 file=dist/PremiumTV-1.1.23-mac-x64.pkg
   • skipped macOS notarization  reason=`notarize` options were unable to be generated
   • electron-builder  version=26.18.1 os=24.6.0
   • loaded configuration  file=/Users/runner/work/PremiumTV/PremiumTV/macos/app/electron-builder.yml
-  • building        target=pkg arch=arm64 file=dist/PremiumTV-1.1.22-mac-arm64.pkg
+  • building        target=pkg arch=arm64 file=dist/PremiumTV-1.1.23-mac-arm64.pkg
   • skipped macOS notarization  reason=`notarize` options were unable to be generated
-2026-11-25 17:21:07.470 PremiumTV Helper[4050:14755] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:21:07.471 PremiumTV Helper[4050:14751] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:21:07.489 PremiumTV Helper[4050:14756] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:21:07.493 PremiumTV Helper[4050:14755] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:21:07.505 PremiumTV Helper[4050:14756] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:21:07.509 PremiumTV Helper[4050:14756] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:47:02.916 PremiumTV Helper[4120:15278] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:47:02.916 PremiumTV Helper[4120:15274] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:47:02.916 PremiumTV Helper[4120:15279] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:47:02.951 PremiumTV Helper[4120:15279] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:47:02.951 PremiumTV Helper[4120:15274] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:47:03.020 PremiumTV Helper[4120:15279] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
 PLAYER SMOKE: clicking the first channel card
 PLAYER SMOKE: player open for '30A Golf Kingdom (720p)', letting the stream machinery run
 PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":0,"rendererAlive":true}; walking the side player
 PLAYER SMOKE PASS: opened '30A Golf Kingdom (720p)', stream machinery sane, side-player flip and close all survived
 PACKAGED SMOKE PASS: 4393 channels, bridge, players, refresh, reset and the guide list
-2026-11-25 17:22:02.917 PremiumTV Helper[5029:17861] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:22:02.917 PremiumTV Helper[5029:17860] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:22:02.917 PremiumTV Helper[5029:17852] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:22:02.921 PremiumTV Helper[5029:17852] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:22:02.921 PremiumTV Helper[5029:17860] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
-2026-11-25 17:22:02.922 PremiumTV Helper[5029:17852] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:48:23.310 PremiumTV Helper[5435:19281] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:48:23.310 PremiumTV Helper[5435:19283] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:48:23.311 PremiumTV Helper[5435:19276] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:48:23.314 PremiumTV Helper[5435:19276] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:48:23.314 PremiumTV Helper[5435:19281] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
+2026-11-25 17:48:23.316 PremiumTV Helper[5435:19276] XPC error for connection com.apple.backupd.sandbox.xpc: Connection invalid
 PLAYER SMOKE: clicking the first channel card
 PLAYER SMOKE: player open for '30A Golf Kingdom (720p)', letting the stream machinery run
 PLAYER SMOKE: settled state {"hidden":false,"spinning":true,"errorShown":false,"errorText":"","readyState":0,"rendererAlive":true}; walking the side player
 PLAYER SMOKE PASS: opened '30A Golf Kingdom (720p)', stream machinery sane, side-player flip and close all survived
 PACKAGED SMOKE PASS: 4393 channels, bridge, players, refresh, reset and the guide list
-[5026:1125/172208.263484:ERROR:base/process/process_mac.cc:53] task_policy_set TASK_CATEGORY_POLICY: (os/kern) invalid argument (4)
-[5026:1125/172208.263542:ERROR:base/process/process_mac.cc:98] task_policy_set TASK_SUPPRESSION_POLICY: (os/kern) invalid argument (4)
