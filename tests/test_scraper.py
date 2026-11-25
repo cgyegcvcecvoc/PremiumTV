@@ -316,6 +316,106 @@ class ScraperIntegrationTest(unittest.TestCase):
         data = scraper._loads_w3u_json('{"name": "Youtube Music", "stations": [{"name": "A", "url": "https://x.test/a.m3u8"},]}')
         self.assertEqual(data["name"], "Youtube Music")
 
+    def test_group_filter_keeps_only_the_declared_half_of_a_mixed_source(self):
+        # M3UPT ships television, radio, beach cameras and podcast episodes in
+        # one file. Without a filter the whole thing would land in a TV playlist,
+        # so a source can declare which upstream groups it contributes.
+        channels, _ = scraper.parse_m3u(
+            '#EXTM3U\n'
+            '#EXTINF:-1 group-title="TV" tvg-id="RTP1.pt",RTP 1\nhttps://live.example/rtp1.m3u8\n'
+            '#EXTINF:-1 group-title="TV" tvg-id="SIC.pt",SIC\nhttps://live.example/sic.m3u8\n'
+            '#EXTINF:-1 radio="true" group-title="Rádios" tvg-id="Antena1.pt",Antena 1\nhttps://radio.example/a1.mp3\n'
+            '#EXTINF:-1 group-title="Beachcam",Afife\nhttps://cam.example/afife.m3u8\n'
+            '#EXTINF:-1 group-title="DRM test",DRM test 1\nhttps://drm.example/test.mpd\n'
+            '#EXTINF:-1,No group at all\nhttps://plain.example/one.m3u8\n', "m3upt")
+        kept, removed, dropped = scraper.filter_source_groups(
+            channels, {"name": "m3upt", "include_groups": ["TV"]})
+        self.assertEqual([ch.name for ch in kept], ["RTP 1", "SIC"])
+        self.assertEqual(removed, 4)
+        self.assertIn("Rádios (1)", dropped)
+        self.assertIn("DRM test (1)", dropped)
+        self.assertIn("(no group) (1)", dropped)
+        # Exclude is a substring match, like the W3U block: "Rádios" also drops
+        # a group called "Rádios e Podcasts" without listing both.
+        undecided, _ = scraper.parse_m3u(
+            '#EXTM3U\n'
+            '#EXTINF:-1 group-title="Rádios e Podcasts",Station\nhttps://radio.example/x.mp3\n'
+            '#EXTINF:-1 group-title="TV",RTP 1\nhttps://live.example/rtp1.m3u8\n', "x")
+        kept, removed, _ = scraper.filter_source_groups(
+            undecided, {"name": "x", "exclude_groups": ["Rádios"]})
+        self.assertEqual([ch.name for ch in kept], ["RTP 1"])
+        self.assertEqual(removed, 1)
+        # A source with no filter configured keeps every entry untouched.
+        kept, removed, dropped = scraper.filter_source_groups(channels, {"name": "y"})
+        self.assertEqual((len(kept), removed, dropped), (len(channels), 0, []))
+
+    def test_group_filter_is_reported_where_the_source_table_is_read(self):
+        # "found 159" next to a 944-entry file must not look like a source that
+        # shrank on its own, so the status report names the filter and the groups.
+        report = {
+            "status": "ok", "label": "test run", "published": 1, "total_unique": 1,
+            "total_input_entries": 1103, "working": 1, "dead_count": 0,
+            "unverified_count": 0, "retained": 0, "countries": {}, "ae_channels": {},
+            "checked": True, "changes": {"baseline": "previous", "added_count": 0, "removed_count": 0},
+            "updated_local": "2026-11-25 10:00 EST", "updated_utc": "2026-11-25T15:00:00Z",
+            "run_type": "manual", "run_id": "test-run",
+            "final_playlist_written": True, "all_playlist_written": True, "duration_seconds": 1,
+            "reference_checks": {}, "issues": [], "diagnostics": [], "countries_count": 0,
+            "sources": {
+                "m3upt": {"status": "ok", "found": 159, "unique": 159, "overlap": 0,
+                          "alive": 100, "dead": 10, "unverified": 49,
+                          "group_filter_removed": 944,
+                          "group_filter_groups": ["Beachcam (194)", "Rádios (85)"]},
+                "iptv-org": {"status": "ok", "found": 10, "unique": 10, "overlap": 0,
+                             "alive": 9, "dead": 1, "unverified": 0},
+            },
+        }
+        text = scraper.make_status_markdown(report)
+        self.assertIn("**Group filters**", text)
+        self.assertIn("`m3upt` kept 159 of 1103 entries", text)
+        self.assertIn("Beachcam (194)", text)
+        # A run with no filtered source says nothing about filters at all.
+        report["sources"]["m3upt"].pop("group_filter_removed")
+        self.assertNotIn("**Group filters**", scraper.make_status_markdown(report))
+
+    def test_unbuilt_country_guide_header_stays_under_the_published_maximum(self):
+        # Every source's own header contributes guides (free-tv alone advertises
+        # 101). A country whose XMLTV has not been built yet falls back to the
+        # merged guide plus source fallbacks, and that fallback used to carry
+        # all of them - Mauritania advertised 109 guides, Macau 112, and the
+        # strict verification failed the whole scrape for it.
+        with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory() as empty_epg:
+            out = Path(tmp)
+            channel = scraper.Channel("Alpha", "https://stream.example/alpha.m3u8", "test",
+                                      attrs={"tvg-country": "Nowhere"})
+            epg = [f"https://guide.example/{index}.xml" for index in range(120)]
+            # An empty EPG directory stands in for a country whose guide has not
+            # been built yet, which is the branch that advertises fallbacks.
+            with patch.object(scraper, "EPG_DIR", Path(empty_epg)):
+                scraper.write_country_playlists(out, [channel], epg, "now", "now", "test")
+            header = (out / "countries" / "International.m3u").read_text(
+                encoding="utf-8").splitlines()[0]
+        guides = header.split('x-tvg-url="', 1)[1].rstrip('"').split(",")
+        self.assertLessEqual(len(guides), 1 + scraper.MAX_HEADER_GUIDES)
+        self.assertEqual(guides[0], scraper.SELF_EPG_URL)
+        self.assertEqual(guides[1:], epg[:scraper.MAX_HEADER_GUIDES])
+
+    def test_mixed_sources_declare_their_filter_and_mirrors(self):
+        config = json.loads((Path(__file__).resolve().parents[1] / "sources.json").read_text())
+        by_name = {source["name"]: source for source in config["sources"]}
+        # M3UPT mixes TV with radio, cameras and podcast episodes; only its TV
+        # group belongs in a television playlist.
+        self.assertEqual(by_name["m3upt"]["include_groups"], ["TV"])
+        for name in ("m3upt", "tdtchannels", "nexonic-iptv"):
+            with self.subTest(name=name):
+                source = by_name[name]
+                self.assertTrue(source["enabled"])
+                self.assertTrue(source["url"].startswith("https://"))
+                self.assertTrue(source["note"].strip())
+                # A single-address source is a single point of failure for the
+                # channels it carries, so each one names a second address.
+                self.assertTrue(source.get("mirrors"), name)
+
 
 if __name__ == "__main__":
     unittest.main()

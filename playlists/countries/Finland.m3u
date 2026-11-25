@@ -1,22 +1,24 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Finland.xml"
-# Finland working channels (31) - updated 2026-11-25 09:54 UTC (2026-11-25 04:54 AM EST) - 8:17 PM recheck
+# Finland working channels (33) - updated 2026-11-25 13:35 UTC (2026-11-25 08:35 AM EST) - manual re-scrape (run-scrape.txt)
 #EXTINF:-1 tvg-name="TLC Finland" tvg-logo="https://i.imgur.com/0d5hP3A.png" tvg-id="TLCFinland.fi" tvg-chno="11" tvg-country="FI" group-title="Lifestyle",TLC Finland
 https://live-fi.tvkaista.net/tlc/live.m3u8?src=freetv
 #EXTINF:-1 tvg-name="Alfa" tvg-logo="https://upload.wikimedia.org/wikipedia/fi/9/93/IRR-TV-1.png" tvg-id="IRRTV.fi" tvg-chno="17" tvg-country="FI" group-title="International",Alfa Ⓢ
 https://irrtv2.digitacdn.net/live/ott/irrtv/playlist.m3u8?organizationId=229401409&suiteItemId=230439940
+#EXTINF:-1 tvg-id="Eveo.fi@SD" tvg-logo="https://i.imgur.com/fFIq7tY.png" group-title="International" tvg-name="Eveo" tvg-country="FI" tvg-language="Finnish" x-tier="community" x-status="verified" x-quality="720p",Eveo (720p) [Not 24/7]
+https://live-fi.tvkaista.net/eveo/live.m3u8?hd=true
 #EXTINF:-1 tvg-id="premiumtv.finland.kutonen" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/6%27eren_%26_Kutonen_Logo_2024.svg/1200px-6%27eren_%26_Kutonen_Logo_2024.svg.png" group-title="International" tvg-status="stable" tvg-country="FI",Kutonen
 https://live-fi.tvkaista.net/kutonen/live.m3u8?hd=true
-#EXTINF:-1 tvg-id="premiumtv.finland.mtv3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/MTV3_logo_2019.svg/1200px-MTV3_logo_2019.svg.png" group-title="International" tvg-status="stable" tvg-country="FI",MTV3
-https://live-fi.tvkaista.net/mtv3/live.m3u8?hd=true
-#EXTINF:-1 tvg-id="NarTV.fi@SD" tvg-logo="https://i.imgur.com/Ht5yePq.png" group-title="International" tvg-name="När-TV" tvg-country="FI",Nar-TV (360p)
+#EXTINF:-1 tvg-id="MTV3.fi@SD" tvg-name="MTV3" tvg-country="FI" tvg-language="Finnish;Swedish" tvg-logo="https://i.imgur.com/C5rQbBM.png" group-title="International" x-tier="community" x-status="verified" x-quality="720p",MTV3
+https://live-fi.tvkaista.net/mtv3/live.m3u8
+#EXTINF:-1 tvg-id="NarTV.fi@SD" tvg-logo="https://i.imgur.com/Ht5yePq.png" group-title="International" tvg-name="När-TV" tvg-country="FI" tvg-language="Swedish",Nar-TV (360p)
 https://streaming.nartv.fi/live/ngrp:NAR_TV.stream_all/playlist.m3u8
-#EXTINF:-1 tvg-id="NavahangTV.fi@SD" tvg-logo="https://i.imgur.com/YteKXJy.png" group-title="International" tvg-status="stable" tvg-country="FI",Navahang
+#EXTINF:-1 tvg-id="NavahangTV.fi@SD" tvg-logo="https://i.imgur.com/YteKXJy.png" group-title="International" tvg-status="stable" tvg-name="Navahang TV" tvg-country="FI" tvg-language="Persian",Navahang
 https://hls.navahang.live/hls/stream.m3u8
 #EXTINF:-1 tvg-id="Nelonen.fi@SD" tvg-logo="https://i.imgur.com/BFbCyfY.png" group-title="International" tvg-country="FI",Nelonen (720p)
 https://live-fi.tvkaista.net/nelonen/live.m3u8
-#EXTINF:-1 tvg-id="OnniTV.fi@SD" tvg-logo="https://i.imgur.com/Vba4jUk.png" group-title="International" tvg-country="FI",Onni TV (720p)
+#EXTINF:-1 tvg-id="OnniTV.fi@SD" tvg-logo="https://i.imgur.com/Vba4jUk.png" group-title="International" tvg-name="Onni TV" tvg-country="FI" tvg-language="Finnish" x-tier="community" x-status="verified" x-quality="720p",Onni TV (720p)
 https://onnitv.digitacdn.net/live/ott/onnitv/playlist.m3u8
-#EXTINF:-1 tvg-id="STARChannel.fi@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Star_Channel_2020.svg/960px-Star_Channel_2020.svg.png" group-title="International" tvg-country="FI",STAR Channel (Finland) (720p)
+#EXTINF:-1 tvg-id="STARChannel.fi@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Star_Channel_2020.svg/960px-Star_Channel_2020.svg.png" group-title="International" tvg-name="STAR Channel" tvg-country="FI" tvg-language="Finnish" x-tier="community" x-status="verified" x-quality="720p",STAR Channel (Finland) (720p)
 https://live-fi.tvkaista.net/star-channel/live.m3u8
 #EXTINF:-1 tvg-name="TapahtumaTV Eveo" tvg-logo="https://i.imgur.com/sR8nA8w.png" tvg-id="Eveo.fi" tvg-chno="18" tvg-country="FI" group-title="International",TapahtumaTV Eveo
 https://live-fi.tvkaista.net/tapahtumatv-eveo/live.m3u8?src=freetv
@@ -28,7 +30,9 @@ https://yletvworld.akamaized.net/hls/live/622540/yletv1w/index.m3u8
 https://yletvworld.akamaized.net/hls/live/622541/yletv2w/index.m3u8
 #EXTINF:-1 tvg-name="Kutonen" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/6%27eren_%26_Kutonen_Logo_2024.svg/1200px-6%27eren_%26_Kutonen_Logo_2024.svg.png" tvg-id="premiumtv.finland.kutonen" tvg-chno="10" tvg-country="FI" group-title="International Backups",Kutonen (Backup 1)
 https://live-fi.tvkaista.net/kutonen/live.m3u8?src=freetv
-#EXTINF:-1 tvg-name="MTV3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/MTV3_logo_2019.svg/1200px-MTV3_logo_2019.svg.png" tvg-id="premiumtv.finland.mtv3" tvg-chno="3" tvg-country="FI" group-title="International Backups",MTV3 (Backup 1)
+#EXTINF:-1 tvg-id="MTV3.fi@SD" tvg-logo="https://i.imgur.com/C5rQbBM.png" group-title="International Backups" tvg-status="stable" tvg-country="FI",MTV3 (Backup 1)
+https://live-fi.tvkaista.net/mtv3/live.m3u8?hd=true
+#EXTINF:-1 tvg-name="MTV3" tvg-logo="https://i.imgur.com/C5rQbBM.png" tvg-id="MTV3.fi@SD" tvg-chno="3" tvg-country="FI" group-title="International Backups",MTV3 (Backup 2)
 https://live-fi.tvkaista.net/mtv3/live.m3u8?src=freetv
 #EXTINF:-1 tvg-id="Nelonen.fi@SD" tvg-logo="https://i.imgur.com/BFbCyfY.png" group-title="International Backups" tvg-status="stable" tvg-country="FI",Nelonen (Backup 1)
 https://live-fi.tvkaista.net/nelonen/live.m3u8?hd=true
@@ -40,25 +44,25 @@ https://onnitv.digitacdn.net/live/ott/onnitv/playlist.m3u8?organizationId=834594
 https://live-fi.tvkaista.net/star-channel/live.m3u8?src=freetv
 #EXTINF:-1 tvg-id="YleTV1.fi@SD" tvg-logo="https://i.imgur.com/6yXZwUL.png" group-title="International Backups" tvg-status="stable" tvg-country="FI",Yle TV1 (Backup 1)
 https://live-fi.tvkaista.net/yle-tv1/live.m3u8?hd=true
-#EXTINF:-1 tvg-id="JRTVJarviradio.fi@SD" tvg-logo="https://jarviradio.fi/jrtv2/wp-content/uploads/2022/01/jrtv1.jpg" group-title="Music" tvg-name="Järviradio TV" tvg-country="FI",JRTV Jarviradio (720p)
+#EXTINF:-1 tvg-id="JRTVJarviradio.fi@SD" tvg-logo="https://jarviradio.fi/jrtv2/wp-content/uploads/2022/01/jrtv1.jpg" group-title="Music" tvg-name="Järviradio TV" tvg-country="FI" tvg-language="Finnish" x-tier="community" x-status="verified" x-quality="1080p",JRTV Jarviradio (720p)
 https://streamer.radiotaajuus.fi/memfs/47f113bf-04ea-493b-a9d4-52945fd9db31.m3u8
-#EXTINF:-1 tvg-id="premiumtv.finland.mtv_sub" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/MTV_Sub_Logo_2022.svg/1200px-MTV_Sub_Logo_2022.svg.png" group-title="Music" tvg-status="stable" tvg-country="FI",MTV Sub
-https://live-fi.tvkaista.net/sub/live.m3u8?hd=true
+#EXTINF:-1 tvg-id="MTVSub.fi@SD" tvg-name="MTV Sub" tvg-country="FI" tvg-language="Finnish" tvg-logo="https://i.imgur.com/rmV8LO1.png" group-title="Music" x-tier="community" x-status="verified" x-quality="720p",MTV Sub
+https://live-fi.tvkaista.net/sub/live.m3u8
 #EXTINF:-1 tvg-name="MTV Uutiset Live" tvg-logo="https://i.imgur.com/IyB6mIb.png" tvg-id="MTVUutiset.fi" tvg-chno="99" tvg-country="FI" group-title="Music",MTV Uutiset Live
 https://live.streaming.a2d.tv/content/channels/uutiset/cmaf.m3u8
-#EXTINF:-1 tvg-name="MTV Sub" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/MTV_Sub_Logo_2022.svg/1200px-MTV_Sub_Logo_2022.svg.png" tvg-id="premiumtv.finland.mtv_sub" tvg-chno="6" tvg-country="FI" group-title="Music Backups",MTV Sub (Backup 1)
+#EXTINF:-1 tvg-id="MTVSub.fi@SD" tvg-logo="https://i.imgur.com/rmV8LO1.png" group-title="Music Backups" tvg-status="stable" tvg-country="FI",MTV Sub (Backup 1)
+https://live-fi.tvkaista.net/sub/live.m3u8?hd=true
+#EXTINF:-1 tvg-name="MTV Sub" tvg-logo="https://i.imgur.com/rmV8LO1.png" tvg-id="MTVSub.fi@SD" tvg-chno="6" tvg-country="FI" group-title="Music Backups",MTV Sub (Backup 2)
 https://live-fi.tvkaista.net/sub/live.m3u8?src=freetv
-#EXTINF:-1 tvg-id="HimlenTV7.fi@SD" tvg-logo="https://i.imgur.com/k8a7KNn.png" group-title="Religious" tvg-country="FI",Himlen TV7 (720p)
+#EXTINF:-1 tvg-id="HimlenTV7.fi@SD" tvg-logo="https://i.imgur.com/k8a7KNn.png" group-title="Religious" tvg-name="Himlen TV7" tvg-country="FI" tvg-language="Swedish" x-tier="community" x-status="verified" x-quality="1080p",Himlen TV7 (720p)
 https://vod.tv7.fi/tv7-se/smil:tv7-se.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="TaevasTV7.fi@SD" tvg-logo="https://i.imgur.com/usXedIj.png" group-title="Religious" tvg-country="FI",Taevas TV7 (720p)
+#EXTINF:-1 tvg-id="TaevasTV7.fi@SD" tvg-logo="https://i.imgur.com/usXedIj.png" group-title="Religious" tvg-name="Taevas TV7" tvg-country="FI" tvg-language="Estonian" x-tier="community" x-status="verified" x-quality="1080p",Taevas TV7 (720p)
 https://vod.tv7.fi/tv7-ee/smil:tv7-ee.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="TaivasTV7.fi@SD" tvg-logo="https://i.imgur.com/JyJNiXy.png" group-title="Religious" tvg-country="FI",Taivas TV7 (720p)
+#EXTINF:-1 tvg-id="TaivasTV7.fi@SD" tvg-logo="https://i.imgur.com/JyJNiXy.png" group-title="Religious" tvg-name="Taivas TV7" tvg-country="FI" tvg-language="Finnish" x-tier="community" x-status="verified" x-quality="1080p",Taivas TV7 (720p)
 https://vod.tv7.fi/tv7-fi/smil:tv7-fi.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Himlen TV7" tvg-logo="https://i.imgur.com/k8a7KNn.png" tvg-id="HimlenTV7.fi@SD" tvg-chno="46" tvg-country="FI" group-title="Religious Backups",Himlen TV7 (Backup 1)
 https://vod.tv7.fi/tv7-se/_definst_/smil:tv7-se.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Taivas TV7" tvg-logo="https://i.imgur.com/JyJNiXy.png" tvg-id="TaivasTV7.fi@SD" tvg-chno="45" tvg-country="FI" group-title="Religious Backups",Taivas TV7 (Backup 1)
 https://vod.tv7.fi/tv7-fi/_definst_/smil:tv7-fi.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="Eveo.fi@SD" tvg-logo="https://i.imgur.com/fFIq7tY.png" group-title="Europe" tvg-country="FI",Eveo (720p) [Not 24/7]
-https://live-fi.tvkaista.net/eveo/live.m3u8?hd=true
-#EXTINF:-1 tvg-id="NopolaNews.fi@SD" tvg-logo="https://i.imgur.com/vDoQaGl.png" group-title="News" tvg-name="Nopola News" tvg-country="FI",Nopola News (1080p) [Not 24/7]
+#EXTINF:-1 tvg-id="NopolaNews.fi@SD" tvg-logo="https://i.imgur.com/vDoQaGl.png" group-title="News" tvg-name="Nopola News" tvg-country="FI" tvg-language="Finnish",Nopola News (1080p) [Not 24/7]
 https://virta2.nopolanews.fi:8443/live/smil:Stream1.smil/playlist.m3u8

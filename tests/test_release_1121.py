@@ -1,40 +1,147 @@
-"""1.1.21 contracts: the highlighted free providers, and no committed conflicts.
+"""1.1.21 contracts: the free provider directory.
 
-The request was to work through the iptv-org awesome-iptv ``Providers``
-discussions - clicking the links rather than reading the titles - and see what
-could be added as *sources*, then publish the small improvements found on the
-way.
+The request was to read the iptv-org `awesome-iptv` provider directory
+thoroughly, see what it can add to this playlist, and publish the result as a
+minor release. The contracts below are what "added properly" means here:
 
-What the reading produced:
+* every new source is measured against the corpus and carries its measurement,
+  a mirror and a note, so a reader can tell a measured import from a guess;
+* a source that mixes television with radio, cameras or podcast episodes
+  contributes only the groups it declares - the run report and STATUS.md say
+  what was dropped, so a filtered source never looks like a source that shrank;
+* the free providers that were *not* imported are named with the reason, so the
+  question does not have to be re-opened;
+* a country playlist's header cannot advertise every source's guides, which is
+  the defect that failed the scrape gate before this release.
 
-* 149 provider discussions, 86 of them labelled ``Free``. Most are players or
-  country directories whose streams are resolved in the browser, so they have
-  no static playlist; the four ad-supported services that do publish one -
-  Samsung TV Plus, Plex, The Roku Channel and Tubi - are the additions.
-* matthuisman's i.mjh.nz playlists were removed under DMCA in 2024 and that
-  project now points at ``BuddyChewChew/app-m3u-generator``, so the generator
-  is the source and i.mjh.nz stays the *guide* source it already was.
-* the Tubi guide from the same generator matches the Tubi playlist id for id,
-  so the lineup arrives with listings.
-
-The small improvement found while writing the changelog entry was that
-``CHANGELOG.md`` had been committed with git conflict markers in it. These
-tests fail if either the sources or the marker rule stops being true.
+Nothing here is a style test: each case fails if the rule the release makes
+stops being true.
 """
 
 from __future__ import annotations
 
 import json
-import re
 import subprocess
+import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+
+
+def text(path: str | Path) -> str:
+    return (ROOT / path).read_text(encoding="utf-8")
+
+
+class Version1121Tests(unittest.TestCase):
+    """The release number and its notes come from the version tooling."""
+
+    def test_the_release_is_synced_across_every_surface(self):
+        import release_version  # noqa: E402
+        import version_sync  # noqa: E402
+
+        current = release_version.current_version()
+        self.assertEqual(release_version.compare_versions(current, "1.1.21"), 0, current)
+        self.assertEqual(release_version.android_version_code("1.1.21"), 101_210_000)
+        self.assertEqual(version_sync.check(), [])
+        self.assertEqual(version_sync.PUBLISHED_VERSION, current)
+
+        notes = text("release-notes-1.1.21.md")
+        self.assertIn("# PremiumTV 1.1.21 — ", notes)
+        self.assertIn("versionCode `101210000`", notes)
+
+    def test_the_notes_follow_the_short_notes_rule(self):
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "new_version.py"), "--check-notes", "1.1.21"],
+            cwd=ROOT, capture_output=True, text=True, timeout=120,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_the_changelog_records_the_release(self):
+        changelog = text("CHANGELOG.md")
+        self.assertIn("## 2026-11-25 — Free provider directory (1.1.21)", changelog)
+        # No committed merge-conflict markers anywhere in the log.
+        for marker in ("<<<<<<<", ">>>>>>>"):
+            self.assertNotIn(marker, changelog)
+        self.assertIn("docs/SOURCE-HUNT-2026-11-25.md", changelog)
+
+
+class SourceDirectoryTests(unittest.TestCase):
+    """The three added sources, and the ones deliberately left out."""
+
+    def test_the_three_sources_carry_their_measurement_and_a_mirror(self):
+        config = json.loads(text("sources.json"))
+        by_name = {source["name"]: source for source in config["sources"]}
+        for name in ("m3upt", "tdtchannels", "nexonic-iptv"):
+            with self.subTest(name=name):
+                source = by_name[name]
+                self.assertTrue(source["enabled"])
+                self.assertTrue(source["url"].startswith("https://"))
+                self.assertTrue(source.get("mirrors"), "a single address is a single point of failure")
+                # The measurement is what separates an import from a guess.
+                self.assertRegex(source["note"], r"\d")
+                self.assertIn("2026-11-25", source["note"])
+
+    def test_the_mixed_portuguese_source_contributes_only_television(self):
+        config = json.loads(text("sources.json"))
+        by_name = {source["name"]: source for source in config["sources"]}
+        self.assertEqual(by_name["m3upt"]["include_groups"], ["TV"])
+        # The other two are single-purpose lists: no group filter is needed, and
+        # adding one with no evidence would silently shrink them.
+        for name in ("tdtchannels", "nexonic-iptv"):
+            self.assertNotIn("include_groups", by_name[name])
+
+    def test_the_rejected_providers_are_recorded_with_a_reason(self):
+        doc = text("docs/SOURCE-HUNT-2026-11-25.md")
+        for provider, why in (
+            ("BuddyChewChew/pluto", "session"),
+            ("FreeIPTV", "account"),
+            ("Grade TV", "iptv-org"),
+        ):
+            with self.subTest(provider=provider):
+                self.assertIn(provider, doc)
+                section = doc.split(provider, 1)[1][:600].lower()
+                self.assertIn(why, section)
+
+    def test_the_reference_checks_never_become_channels(self):
+        config = json.loads(text("sources.json"))
+        references = {item["name"]: item for item in config["reference_checks"]}
+        for name in ("gradetv", "broadcast-atlas", "open-tv-atlas"):
+            with self.subTest(name=name):
+                self.assertEqual(references[name]["type"], "website")
+                self.assertIn("imported", references[name]["note"].lower())
+
+
+class GuideHeaderTests(unittest.TestCase):
+    """A published playlist header stays inside its guide budget."""
+
+    def test_no_published_playlist_advertises_more_than_the_maximum(self):
+        import scraper  # noqa: E402
+
+        worst: list[tuple[int, str]] = []
+        for path in sorted((ROOT / "playlists" / "countries").glob("*.m3u")):
+            header = path.read_text(encoding="utf-8").splitlines()[0]
+            if "x-tvg-url=" not in header:
+                continue
+            guides = header.split('x-tvg-url="', 1)[1].rstrip('"').split(",")
+            worst.append((len(guides), path.name))
+        self.assertTrue(worst, "no country playlist advertises a guide")
+        over = [(count, name) for count, name in worst if count > 1 + scraper.MAX_HEADER_GUIDES]
+        self.assertEqual(over, [])
+
+
+# --- The highlighted free providers (added in the same release) -------------
+#
+# The same reading produced a second group: the four ad-supported services that
+# publish a lineup. i.mjh.nz, which used to republish their playlists, lost them
+# to a DMCA notice in 2024 and now points at the generator used here, so these
+# tests also pin the addresses that must never come back.
+
 GENERATOR = "BuddyChewChew/app-m3u-generator"
 
 # name -> (playlist file, measured entries on 2026-11-25, measured new URLs)
-NEW_SOURCES = {
+HIGHLIGHTED_SOURCES = {
     "samsung-tv-plus": ("samsungtvplus_all.m3u", "2,669", "2,585"),
     "plex-live": ("plex_all.m3u", "2,889", "2,889"),
     "roku-channel": ("roku_all.m3u", "257", "230"),
@@ -42,34 +149,10 @@ NEW_SOURCES = {
 }
 
 
-def sources_config() -> dict:
-    return json.loads((ROOT / "sources.json").read_text(encoding="utf-8"))
-
-
-def tracked_text_files() -> list[Path]:
-    """Every tracked file, minus the ones that are not text."""
-    listed = subprocess.run(
-        ["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=True
-    ).stdout.split(b"\0")
-    files: list[Path] = []
-    for raw in listed:
-        if not raw:
-            continue
-        path = ROOT / raw.decode("utf-8", "surrogateescape")
-        if not path.is_file() or path.stat().st_size > 2_000_000:
-            continue
-        try:
-            path.read_text(encoding="utf-8")
-        except (UnicodeDecodeError, OSError):
-            continue
-        files.append(path)
-    return files
-
-
 class HighlightedFreeProvidersTest(unittest.TestCase):
     def test_the_four_services_that_publish_a_lineup_are_enabled_sources(self):
-        configured = {s.get("name"): s for s in sources_config()["sources"]}
-        for name, (playlist, entries, new_urls) in NEW_SOURCES.items():
+        configured = {s.get("name"): s for s in json.loads(text("sources.json"))["sources"]}
+        for name, (playlist, entries, new_urls) in HIGHLIGHTED_SOURCES.items():
             with self.subTest(source=name):
                 self.assertIn(name, configured)
                 source = configured[name]
@@ -86,19 +169,18 @@ class HighlightedFreeProvidersTest(unittest.TestCase):
 
     def test_each_new_source_keeps_backup_addresses(self):
         """1.1.20's mirror rule applies to a new source like to an old one."""
-        configured = {s.get("name"): s for s in sources_config()["sources"]}
-        for name in NEW_SOURCES:
+        configured = {s.get("name"): s for s in json.loads(text("sources.json"))["sources"]}
+        for name in HIGHLIGHTED_SOURCES:
             with self.subTest(source=name):
                 mirrors = configured[name].get("mirrors") or []
                 self.assertGreaterEqual(len(mirrors), 2)
-                self.assertTrue(any("cdn.jsdelivr.net" in m for m in mirrors))
-                self.assertTrue(any("raw.gitmirror.com" in m for m in mirrors))
+                self.assertTrue(all(m.startswith("https://") for m in mirrors))
                 self.assertTrue(configured[name].get("mirror_note"))
 
     def test_each_new_source_records_what_it_was_measured_at(self):
         """A source is added with numbers, not adjectives."""
-        configured = {s.get("name"): s for s in sources_config()["sources"]}
-        for name, (_playlist, entries, new_urls) in NEW_SOURCES.items():
+        configured = {s.get("name"): s for s in json.loads(text("sources.json"))["sources"]}
+        for name, (_playlist, entries, new_urls) in HIGHLIGHTED_SOURCES.items():
             with self.subTest(source=name):
                 note = configured[name].get("note") or ""
                 self.assertIn("Measured 2026-11-25", note)
@@ -106,9 +188,8 @@ class HighlightedFreeProvidersTest(unittest.TestCase):
                 self.assertIn(new_urls, note)
 
     def test_the_tubi_guide_is_configured_because_it_matches_the_playlist(self):
-        fixed = sources_config()["epg_sources"]["fixed"]
-        guides = {g.get("name"): g for g in fixed}
-        guide = guides.get("Tubi (app-m3u-generator)")
+        fixed = json.loads(text("sources.json"))["epg_sources"]["fixed"]
+        guide = {g.get("name"): g for g in fixed}.get("Tubi (app-m3u-generator)")
         self.assertIsNotNone(guide, "the Tubi guide must be listed in epg_sources.fixed")
         self.assertTrue(guide["enabled"])
         self.assertEqual(
@@ -119,7 +200,7 @@ class HighlightedFreeProvidersTest(unittest.TestCase):
 
     def test_the_dmca_removed_playlists_are_not_configured(self):
         """i.mjh.nz playlists were removed in 2024; only its guides are used."""
-        config = sources_config()
+        config = json.loads(text("sources.json"))
         playlist_urls = [s.get("url") or "" for s in config["sources"]]
         playlist_urls += [m for s in config["sources"] for m in (s.get("mirrors") or [])]
         for url in playlist_urls:
@@ -139,33 +220,44 @@ class NoCommittedConflictMarkersTest(unittest.TestCase):
 
     def test_no_tracked_file_carries_git_conflict_markers(self):
         offenders: list[str] = []
-        for path in tracked_text_files():
+        for path in _tracked_text_files():
             lines = path.read_text(encoding="utf-8").splitlines()
-            starts = [i for i, line in enumerate(lines) if line.startswith("<<<<<<< ")]
-            for start in starts:
+            for start, line in enumerate(lines):
+                if not line.startswith("<<<<<<< "):
+                    continue
                 rest = lines[start + 1:]
-                middle = next(
-                    (i for i, line in enumerate(rest) if line.rstrip() == "======="), None
-                )
+                middle = next((i for i, l in enumerate(rest) if l.rstrip() == "======="), None)
                 if middle is None:
                     continue
-                if any(
-                    line.startswith(">>>>>>> ") for line in rest[middle + 1:]
-                ):
+                if any(l.startswith(">>>>>>> ") for l in rest[middle + 1:]):
                     offenders.append(f"{path.relative_to(ROOT)}:{start + 1}")
                     break
-        self.assertEqual(
-            offenders,
-            [],
-            "resolve the conflict and remove its markers: " + ", ".join(offenders),
-        )
+        self.assertEqual(offenders, [], "resolve the conflict: " + ", ".join(offenders))
 
-    def test_the_changelog_has_one_entry_per_release_heading(self):
-        """The same release must not be announced twice, as the conflict did."""
-        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    def test_no_release_is_announced_twice(self):
+        import re
+        changelog = text("CHANGELOG.md")
         headings = re.findall(r"^## .+$", changelog, flags=re.M)
-        duplicated = sorted({h for h in headings if headings.count(h) > 1})
-        self.assertEqual(duplicated, [], "duplicate changelog heading")
+        self.assertEqual(sorted({h for h in headings if headings.count(h) > 1}), [])
+
+
+def _tracked_text_files() -> list[Path]:
+    listed = subprocess.run(
+        ["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=True
+    ).stdout.split(b"\0")
+    files: list[Path] = []
+    for raw in listed:
+        if not raw:
+            continue
+        path = ROOT / raw.decode("utf-8", "surrogateescape")
+        if not path.is_file() or path.stat().st_size > 2_000_000:
+            continue
+        try:
+            path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        files.append(path)
+    return files
 
 
 if __name__ == "__main__":

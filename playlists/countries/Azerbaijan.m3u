@@ -1,22 +1,32 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Azerbaijan.xml"
-# Azerbaijan working channels (9) - updated 2026-11-25 09:54 UTC (2026-11-25 04:54 AM EST) - 8:17 PM recheck
-#EXTINF:-1 tvg-id="AzStarTV.ca@SD" tvg-logo="https://i.imgur.com/di3XX5L.png" group-title="International" tvg-name="AzStarTV" tvg-country="AZ",Az Star TV (1080p)
+# Azerbaijan working channels (14) - updated 2026-11-25 13:35 UTC (2026-11-25 08:35 AM EST) - manual re-scrape (run-scrape.txt)
+#EXTINF:-1 tvg-id="APATv.az@SD" tvg-name="APA Tv" tvg-country="AZ" tvg-language="Azerbaijani" group-title="International",APA Tv
+http://stream.apa.tv/apastream/index.m3u8
+#EXTINF:-1 tvg-id="AyazTV.az@HD" tvg-name="Ayaz TV" tvg-country="AZ" tvg-language="Azerbaijani" tvg-logo="https://www.ayaztv.com/storage/assets/site_logo.png" group-title="International" x-tier="community" x-status="verified" x-quality="sd",Ayaz TV
+https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/1080p/1080p.m3u8
+#EXTINF:-1 tvg-id="AzStarTV.ca@SD" tvg-logo="https://i.imgur.com/di3XX5L.png" group-title="International" tvg-name="AzStarTV" tvg-country="AZ" tvg-language="Azerbaijani",Az Star TV (1080p)
 http://live.azstartv.com/azstar/smil:azstar.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="AzTV.az@SD" tvg-logo="https://i.imgur.com/snBMMeH.png" http-referrer="https://tvstream.az/" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" group-title="International" tvg-country="AZ",Az TV
 #EXTVLCOPT:http-referrer=https://tvstream.az/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 https://az.tvstream.az/hls/stream9/index.m3u8
-#EXTINF:-1 tvg-name="Baku TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Baku_TV_%282018%29.png/500px-Baku_TV_%282018%29.png" tvg-id="BakuTV.az" tvg-country="AZ" group-title="International",Baku TV
+#EXTINF:-1 tvg-name="Baku TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Baku_TV_%282018%29.png/500px-Baku_TV_%282018%29.png" tvg-id="BakuTV.az" tvg-country="AZ" group-title="International" tvg-language="Azerbaijani",Baku TV
 https://rtmp.baku.tv/hls/bakutv.m3u8
+#EXTINF:-1 tvg-id="ELTV.az@SD" tvg-country="AZ" group-title="International",EL TV (260p) [Not 24/7]
+http://85.132.53.162:1935/live/eltv/playlist.m3u8
 #EXTINF:-1 tvg-id="KanalS.az@SD" tvg-logo="https://raw.githubusercontent.com/songwenhui239/Songwenhui239/refs/heads/main/Kanal%20S.png" group-title="International" tvg-name="Kanal S" tvg-country="AZ",Kanal S
 https://lives.atv.az:5443/KANAL-S/streams/kanals.m3u8
+#EXTINF:-1 tvg-id="VilayetTV.az@SD" tvg-name="Vilayet TV" tvg-country="AZ" tvg-language="Azerbaijani;Arabic" tvg-logo="https://vilayet.tv/wp-content/uploads/elementor/thumbs/logo-q3w2md1u47q39x7d0004wqzz74xdv1glw356ex6ph0.png" group-title="International" x-tier="community" x-status="verified" x-quality="sd",Vilayet TV
+https://nl.livekadeh.com/hls2/vilayet.m3u8
 #EXTINF:-1 tvg-id="XezerTV.az@SD" tvg-logo="" group-title="International" tvg-country="AZ",Xezer TV (1080p)
 https://xezer.tvstream.az/hls/stream/index.m3u8
-#EXTINF:-1 tvg-id="AyazTV.az@SD" tvg-logo="https://www.ayaztv.com/storage/assets/site_logo.png" group-title="Asia" tvg-country="AZ",Ayaz TV
+#EXTINF:-1 tvg-id="AyazTV.az@HD" tvg-logo="https://www.ayaztv.com/storage/assets/site_logo.png" group-title="International Backups" tvg-name="Ayaz TV" tvg-country="AZ" tvg-language="Azerbaijani" x-tier="community" x-status="verified" x-quality="sd",Ayaz TV (Backup 1)
 https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/720p/720p.m3u8
-#EXTINF:-1 tvg-id="ELTV.az@SD" tvg-country="AZ" group-title="Asia",EL TV (260p) [Not 24/7]
-http://85.132.53.162:1935/live/eltv/playlist.m3u8
-#EXTINF:-1 tvg-id="KNMusicTV.az@SD" tvg-logo="https://www.knmusictv.com/wp-content/uploads/2026/01/LOGO2112.png" group-title="Music" tvg-country="AZ",KN Music TV (1080p)
+#EXTINF:-1 tvg-id="AzTV.az@SD" tvg-name="Az TV" tvg-country="AZ" tvg-language="Azerbaijani" tvg-logo="https://i.imgur.com/snBMMeH.png" group-title="International Backups" x-tier="community" x-status="verified" x-quality="sd",Az TV (Backup 1)
+https://stream8.cinerama.uz/1455/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="ELTV.az@SD" tvg-name="EL TV" tvg-country="AZ" tvg-language="Azerbaijani" tvg-logo="https://i.imgur.com/tTlokZ2.png" group-title="International Backups" x-tier="community" x-status="verified" x-quality="sd",EL TV (Backup 1)
+https://live.eltv.az/live/eltv/playlist.m3u8
+#EXTINF:-1 tvg-id="KNMusicTV.az@SD" tvg-logo="https://www.knmusictv.com/wp-content/uploads/2026/01/LOGO2112.png" group-title="Music" tvg-name="KN Music TV" tvg-country="AZ" tvg-language="Azerbaijani" x-tier="community" x-status="verified" x-quality="sd",KN Music TV (1080p)
 https://cdn4.yayin.com.tr/kntv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="ARB24.az@SD" tvg-logo="https://i.imgur.com/mtvIFyq.png" http-referrer="https://tvstream.az/" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" group-title="News" tvg-country="AZ",ARB 24
 #EXTVLCOPT:http-referrer=https://tvstream.az/
