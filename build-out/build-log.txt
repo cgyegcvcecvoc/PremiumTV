@@ -25,16 +25,16 @@ Daemon will be stopped at the end of the build
 
 > Task :app:mergeDebugShaders
 > Task :app:compileDebugShaders NO-SOURCE
+> Task :app:processDebugManifestForPackage
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :app:mergeDebugAssets
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
-> Task :app:processDebugManifestForPackage
 > Task :app:compressDebugAssets
-> Task :app:l8DexDesugarLibDebug FROM-CACHE
 > Task :app:processDebugResources
-> Task :app:desugarDebugFileDependencies FROM-CACHE
+> Task :app:l8DexDesugarLibDebug FROM-CACHE
 > Task :app:packageDebugUnitTestForUnitTest
 > Task :app:generateDebugUnitTestConfig
+> Task :app:desugarDebugFileDependencies FROM-CACHE
 > Task :app:mergeDebugStartupProfile
 > Task :app:mergeDebugJniLibFolders
 > Task :app:checkDebugDuplicateClasses
@@ -50,7 +50,7 @@ Unable to strip the following libraries, packaging them as they are: libandroidx
 
 > Task :app:compileDebugKotlin FAILED
 e: file:///home/runner/work/PremiumTV/PremiumTV/android/app/src/main/kotlin/com/premiumtv/app/ui/LocalChannelsDialog.kt:412:124 Syntax error: Expecting a when-condition.
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795554194061.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/gradle-1795613681135.json
 
 FAILURE: Build failed with an exception.
 
@@ -264,5 +264,5 @@ Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Compilat
 	... 2 more
 
 
-BUILD FAILED in 19s
+BUILD FAILED in 35s
 35 actionable tasks: 23 executed, 12 from cache
