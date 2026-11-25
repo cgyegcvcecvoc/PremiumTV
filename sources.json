@@ -233,6 +233,74 @@
         "https://raw.gitmirror.com/vbskycn/iptv/master/tv/iptv4.m3u"
       ],
       "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
+    },
+    {
+      "name": "samsung-tv-plus",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/samsungtvplus_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/samsungtvplus_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/samsungtvplus_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/samsungtvplus_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "Samsung TV Plus, a highlighted free provider on the iptv-org awesome-iptv list, as one regenerated global M3U covering 11 regions. Measured 2026-11-25: 2,669 entries, every URL HTTPS, 2,585 of them addresses the published corpus did not carry and 1,357 channel names no source here had. The tvg-ids are Samsung's own, which is what the Samsung TV Plus US guide in epg_sources.fixed lists, so its US channels arrive with listings attached."
+    },
+    {
+      "name": "plex-live",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/plex_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/plex_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/plex_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/plex_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "Plex free live TV (watch.plex.tv), a highlighted free provider with a published lineup. Measured 2026-11-25: 2,889 entries, all HTTPS, every one of them new to this corpus, because Plex geo-gates its own manifests and no source here reached them. The global file covers AU, CA, ES, FR, GB, MX, NZ and US."
+    },
+    {
+      "name": "roku-channel",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/roku_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/roku_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/roku_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/roku_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "The Roku Channel's linear lineup, the smallest highlighted free provider and the one this repository had no coverage of at all. Measured 2026-11-25: 257 entries, all HTTPS, 230 new to the corpus and 184 channel names no source here carried. Grouped by Roku's own categories."
+    },
+    {
+      "name": "tubi-live",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/tubi_all.m3u",
+      "github": {
+        "repo": "BuddyChewChew/app-m3u-generator",
+        "path": "playlists/tubi_all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/BuddyChewChew/app-m3u-generator@main/playlists/tubi_all.m3u",
+        "https://raw.gitmirror.com/BuddyChewChew/app-m3u-generator/main/playlists/tubi_all.m3u"
+      ],
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "Tubi live TV, the highlighted free provider whose feeds are the most direct of the four. Measured 2026-11-25: 176 entries, every one an HTTPS manifest on live-manifest.production-public.tubi.io rather than a redirector, 163 of them new to the corpus. All 176 tvg-ids match the Tubi guide now listed in epg_sources.fixed, so the lineup gets programme data."
     }
   ],
   "priority_channels": {
@@ -469,6 +537,12 @@
     "_comment": "Upstream XMLTV guides merged into the repository's own guides, one family per published country. scripts/epg_sources.py expands the per_country templates with every published country code ({cc} = lowercase, {CC} = uppercase) and always includes the fixed feeds first. These URLs are verified by scripts/epg_check.py and harvested by scripts/epg_build.py, but never advertised in playlist x-tvg-url headers: the merged guide already carries their listings. Disable one family with enabled=false; disable the whole block with enabled=false at the top.",
     "enabled": true,
     "fixed": [
+      {
+        "name": "Tubi (app-m3u-generator)",
+        "url": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/main/playlists/tubi_epg.xml",
+        "enabled": true,
+        "note": "Tubi's own live guide, regenerated daily by the same project that publishes the tubi-live playlist. Checked on 2026-11-25: 176 channels and 8,059 programmes, and all 176 channel ids match the tvg-ids in tubi_all.m3u, so the Tubi lineup arrives with listings instead of an empty guide row."
+      },
       {
         "name": "epg.pw all countries",
         "url": "https://epg.pw/xmltv/epg.xml.gz",

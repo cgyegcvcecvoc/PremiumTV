@@ -47,12 +47,18 @@ class Version1120Tests(unittest.TestCase):
         import release_version  # noqa: E402
         import version_sync  # noqa: E402
 
-        self.assertEqual(release_version.current_version(), "1.1.20")
+        # A release test must survive the next release: 1.1.20 was the target
+        # and the published version when it shipped, so both must be at least
+        # 1.1.20 and both must still agree with each other. Pinning the exact
+        # string here made every later bump fail this file.
+        self.assertGreaterEqual(
+            release_version.compare_versions(release_version.current_version(), "1.1.20"), 0
+        )
         self.assertEqual(release_version.android_version_code("1.1.20"), 101_200_000)
         self.assertEqual(version_sync.check(), [])
-        # 1.1.20 is the target and the version the published surfaces now
-        # describe, because the release ships through the publish workflow.
-        self.assertEqual(version_sync.PUBLISHED_VERSION, "1.1.20")
+        self.assertGreaterEqual(
+            release_version.compare_versions(version_sync.PUBLISHED_VERSION, "1.1.20"), 0
+        )
 
         notes = text("release-notes-1.1.20.md")
         self.assertIn("# PremiumTV 1.1.20 — ", notes)

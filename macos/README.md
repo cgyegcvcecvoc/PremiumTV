@@ -8,7 +8,7 @@ and Apple Silicon.
 
 The release workflow prepares one published channel:
 
-- **1.1.20 stable build (default):** USA playlist + USA guide. It opens to categories, with optional local viewer setup and a TV-only app icon. It keeps the docked side player, built-in transport, mute, audio-track controls and the Movies & Shows tab, which now plays 21 public-domain films and classic TV episodes in an embedded HTML player. A channel opens
+- **1.1.21 stable build (default):** USA playlist + USA guide. It opens to categories, with optional local viewer setup and a TV-only app icon. It keeps the docked side player, built-in transport, mute, audio-track controls and the Movies & Shows tab, which now plays 21 public-domain films and classic TV episodes in an embedded HTML player. A channel opens
   in the docked side player with built-in transport, mute and audio-track
   controls and one click on the picture grows it to the full window, stream
   audio recovery handles separated HLS audio renditions and silent tracks, the
