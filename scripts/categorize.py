@@ -499,7 +499,7 @@ def lookup_group_vote(name: str) -> str:
 # are the same channel, and to give the entry one clean display name.
 _NOISE_PARENS = re.compile(
     r"\s*\((?:"
-    r"2160p|1440p|1080p|720p|576p|480p|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
+    r"2160[pi]|1440[pi]|1080[pi]|720p|576[pi]|480[pi]|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
     r"auto|mobile|high|low|mid|best|main|"
     r"(?:alt|alternate|backup|mirror|feed|link|stream|source|server|cdn)\s*\d*|"
     r"\d{3,4}p"
@@ -538,7 +538,7 @@ _PROVIDER_TAGS = (
 )
 _NOISE_PARENS = re.compile(
     r"\s*\(\s*(?:"
-    r"2160p|1440p|1080p|720p|576p|480p|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
+    r"2160[pi]|1440[pi]|1080[pi]|720p|576[pi]|480[pi]|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
     r"auto|mobile|high|low|mid|best|main|"
     r"(?:(?:" + "|".join(_PROVIDER_TAGS) + r")\s*)+|"
     r"(?:alt|alternate|backup|mirror|feed|link|stream|source|server|cdn)\s*\d*|"
@@ -555,6 +555,18 @@ _NOISE_BRACKETS = re.compile(
 # unwrap it so "Crime 360 by A&E" and "Crime 360 (720p)" are one channel. The
 # brand word itself still ends the match early, so "Love Crime & History by
 # A&E" and every other A+E property keeps its full name.
+# The same brand written in front of a title ("A&E Crime 360", "A&E Live PD:
+# Greatest Shifts") is the operator's name, not a different channel. Measured
+# against the published library on 2026-11-25: the only names it changes are the
+# Crime 360 and Live PD feeds, each of which has an unbranded twin - and it
+# leaves a bare "A&E" and regional feeds ("A&E Latin America") alone.
+# "A&E Latin America", "A&E Networks Brazil" and the bare "A&E" stay as they are:
+# the brand plus a region is the channel's own name, not a prefix on a title.
+_BRAND_REGIONS = r"(?:latin\s*america|latam|networks?|brasil|brazil|mexico|caribbean|europe|asia|india)"
+_LEADING_BRAND = re.compile(
+    r"^(?:a\s*&\s*e'?s?|a\s*e|a\+e|ae(?:\s*networks?)?)\s+(?=\S)(?!" + _BRAND_REGIONS + r"\b)",
+    re.IGNORECASE)
+
 _NOISE_BRAND_SUFFIX = re.compile(
     r"\s+(?:by|from|presented\s+by)\s+"
     r"(?:a\s*(?:&|\+|and|e)\s*e(?:\s*networks?)?|history(?:\s*channel)?|fyi|vice|lifetime)"
@@ -783,6 +795,7 @@ def clean_display_name(name: str) -> str:
         text = _NOISE_PARENS.sub(" ", text)
         text = _NOISE_BRACKETS.sub(" ", text).strip()
         text = _NOISE_BRAND_SUFFIX.sub("", text).strip()
+        text = _LEADING_BRAND.sub("", text).strip()
     text = re.sub(r"\s{2,}", " ", text)
     return text or (name or "").strip()
 

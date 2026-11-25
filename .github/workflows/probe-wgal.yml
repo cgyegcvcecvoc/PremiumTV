@@ -66,27 +66,21 @@ jobs:
             fi
           }
 
-          echo "########## WGAL: provider doorways ##########"
-          probe2 "Tubi live-news manifest (Cloudfront-WGAL)" \
-            "https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Cloudfront-WGAL.m3u8"
-          probe2 "Tubi live-news manifest (WGAL-TV variant)" \
-            "https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Cloudfront-WGAL-TV.m3u8"
-          probe2 "Amagi US naming (aenetworks_crime360_1 style)" \
-            "https://aenetworks.global.transmit.live/hls/68b76f7c793640e982cd670c/v1/aenetworks_crime360_1/us/latest/main/hls/playlist.m3u8"
-          probe2 "Amagi hd_720p naming" \
-            "https://aenetworks.global.transmit.live/hls/68b76f7c793640e982cd670c/v1/aenetworks_crime360_1/hd_720p/latest/main/hls/playlist.m3u8"
-          probe2 "LocalNow page (does it publish a player URL?)" \
-            "https://localnow.com/channels/wgal-harrisburg-pa"
-          probe2 "Very Local Susquehanna page" \
-            "https://www.verylocal.com/cities/susquehanna-valley/"
-          probe2 "WGAL site watch-live page" \
-            "https://www.wgal.com/watch-live"
-
-          echo "########## Corpus: do Tubi live-news manifests work for other stations? ##########"
-          probe2 "Tubi live-news WAPT (control)" \
-            "https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Cloudfront-WAPT.m3u8"
-          probe2 "Tubi live-news WCVB (control)" \
-            "https://live-news-manifest.tubi.video/live-news-manifest/csm/extlive/tubiprd01,Cloudfront-WCVB.m3u8"
+          echo "########## WGAL: same asset, other servers ##########"
+          for path in master index playlist manifest; do
+            probe2 "uplynk syndication CDN /$path.m3u8" \
+              "https://syndication-ause1.cf.cdn.uplynk.com/90f3abbfb17a4b6eba96038b1d4bd051/$path.m3u8"
+          done
+          probe2 "uplynk syndication CDN /master.m3u8 with policy params" \
+            "https://syndication-ause1.cf.cdn.uplynk.com/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8?Expires=4854278400&Key-Pair-Id=K1BEGSWP8YSEGF"
+          probe2 "Local Now config6 + vendor param" \
+            "https://s5host3.localnow.api.cms.amdvids.com/v1/master/c189661feba961c19bc5fb60b57879ee9b84548a/config6/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8?vendor=LocalNow"
+          for cfg in config1 config2 config3 config4 config5 config7 config8 config9 config10 config11 config12; do
+            probe2 "Local Now $cfg (asset 90f3abbf)" \
+              "https://s5host3.localnow.api.cms.amdvids.com/v1/master/c189661feba961c19bc5fb60b57879ee9b84548a/$cfg/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8"
+          done
+          probe2 "published WGAL primary (retry later in the day)" \
+            "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive-v2/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8"
           echo "=================================================================="
           echo "probe complete"
           } 2>&1 | tee /tmp/probe-results.txt
