@@ -504,11 +504,61 @@ _NOISE_PARENS = re.compile(
     r"(?:alt|alternate|backup|mirror|feed|link|stream|source|server|cdn)\s*\d*|"
     r"\d{3,4}p"
     r")\)\s*", re.IGNORECASE)
+# Distribution platforms that only ever carry another operator's channel.
+# "A&E Crime 360 (LG)", "Crime 360 by A&E" and "Crime 360 (720p)" are one
+# channel seen through four free providers - LG Channels, Vizio, Xumo, Roku,
+# Samsung TV Plus, Pluto TV, Tubi, Plex, Rakuten TV, Local Now - plus the brand
+# name the channel's owner writes. Those tags stay in the display name (the
+# LG/Xumo/Samsung feed really is a different stream, and a reader wants to know
+# which one they picked), but they are ignored when deciding identity, so every
+# provider copy folds into one channel with the best feed primary and the rest
+# in "<category> Backups".
+#
+# Only platform words belong here. A word that identifies the broadcaster -
+# "UK", "Latin America", "Poland", "Brasil" - must keep two feeds apart, which
+# is why "Crime 360 (UK)" stays a second channel while "Crime 360 (Xumo)" does
+# not. Tags are matched inside any bracket group, so "A&E Crime 360 (Pluto TV
+# Alt)" and "Crime 360 by A&E" both resolve to "Crime 360".
+_PROVIDER_TAGS = (
+    # Free ad-supported TV services.
+    r"pluto(?:\s*tv)?(?:\s*(?:alt|alternate|backup|mirror))?",
+    r"(?:samsung|camsung)(?:\s*tv\s*plus)?",
+    r"(?:vizio|lg|roku|xumo|plex|tubi|rakuten|stirr|fawesome|film\s*rise|haystack)",
+    r"(?:lg|samsung|xumo|vizio)\s*channels?",
+    r"local\s*now",
+    r"google\s*tv",
+    r"tcl(?:\s*tv\+?)?",
+    r"freevee|imdb(?:\s*tv)?|amazon\s*(?:freevee|fire\s*tv)",
+    r"\bfast\b",
+    # The operator's own brand written as a suffix ("by A&E", "by History",
+    # "Presented By History", "by A+E Networks (Samsung UK)").
+    r"(?:by|from|presented\s*by)\s*(?:a\s*(?:&|\+|and|e)?\s*e(?:\s*networks?)?|history(?:\s*channel)?|lifetime|fyi|vice)",
+    # Generic duplicate markers that are not a platform but mean "another copy".
+    r"alt|alternate|backup|mirror",
+)
+_NOISE_PARENS = re.compile(
+    r"\s*\(\s*(?:"
+    r"2160p|1440p|1080p|720p|576p|480p|360p|240p|4k|uhd|fhd|hd|sd|hdtv|hevc|h264|h265|"
+    r"auto|mobile|high|low|mid|best|main|"
+    r"(?:(?:" + "|".join(_PROVIDER_TAGS) + r")\s*)+|"
+    r"(?:alt|alternate|backup|mirror|feed|link|stream|source|server|cdn)\s*\d*|"
+    r"\d{3,4}p"
+    r")\s*\)\s*", re.IGNORECASE)
 # Status markers the upstream indexes put in square brackets. They say nothing
 # about which channel this is, and they stop "NFL Network [Not 24/7]" from
 # matching "NFL Network" in the guide.
 _NOISE_BRACKETS = re.compile(
     r"\s*\[(?:not\s*24/?7|geo[- ]?blocked|offline|down|dead|new|hd|sd)\]\s*",
+    re.IGNORECASE)
+
+# "by A&E" outside brackets is a brand suffix, not part of the channel's name:
+# unwrap it so "Crime 360 by A&E" and "Crime 360 (720p)" are one channel. The
+# brand word itself still ends the match early, so "Love Crime & History by
+# A&E" and every other A+E property keeps its full name.
+_NOISE_BRAND_SUFFIX = re.compile(
+    r"\s+(?:by|from|presented\s+by)\s+"
+    r"(?:a\s*(?:&|\+|and|e)\s*e(?:\s*networks?)?|history(?:\s*channel)?|fyi|vice|lifetime)"
+    r"(?=\s*$)",
     re.IGNORECASE)
 
 _RESOLUTION_SCORE = (
@@ -717,19 +767,36 @@ def classify(name: str, group: str = "", tvg_id: str = "", url: str = "",
 
 
 def clean_display_name(name: str) -> str:
-    """One stable display name for a channel: drop the quality/duplicate tags."""
+    """One stable display name for a channel: drop the quality/duplicate tags.
+
+    The quality tag and the distribution-platform tag are removed so the same
+    station seen through several free providers becomes one channel with
+    backups ("A&E Crime 360 (LG)", "A&E Crime 360 (Pluto TV)", "Crime 360
+    (720p)" -> "A&E Crime 360"), and a brand suffix goes too ("Crime 360 by
+    A&E" -> "Crime 360"). Words that identify a *different* channel - a
+    country, a region, a numbering - are never tags.
+    """
     text = (name or "").strip()
     previous = None
     while previous != text:
         previous = text
         text = _NOISE_PARENS.sub(" ", text)
         text = _NOISE_BRACKETS.sub(" ", text).strip()
+        text = _NOISE_BRAND_SUFFIX.sub("", text).strip()
     text = re.sub(r"\s{2,}", " ", text)
     return text or (name or "").strip()
 
 
 def quality_score(name: str) -> int:
-    """Higher is better: used to pick which duplicate becomes the main link."""
+    """Higher is better: used to pick which duplicate becomes the main link.
+
+    A tag in parentheses is only a *claim*: "(720p)" is a resolution, while
+    "(LG)", "(Xumo)" or "(Pluto TV)" is the free provider the feed comes from.
+    The claim is read from the raw name (so two feeds of one station still
+    order by what they promise); the penalty below is read from the cleaned
+    name, because "Alt"/"Backup" is dropped as a tag and an A+E brand suffix
+    such as "by A&E" is not a duplicate marker at all.
+    """
     lowered = (name or "").lower()
     score = 0
     for token, value in _RESOLUTION_SCORE:
@@ -737,7 +804,7 @@ def quality_score(name: str) -> int:
             score = max(score, value)
     if "hd" in lowered:
         score += 1
-    if re.search(r"\b(alt|backup|mirror|feed ?\d|link ?\d)\b", lowered):
+    if re.search(r"\b(alt|backup|mirror|feed ?\d|link ?\d)\b", clean_display_name(name).lower()):
         score -= 2
     return score
 
