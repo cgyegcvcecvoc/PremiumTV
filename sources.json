@@ -187,13 +187,18 @@
       "name": "pluto-us",
       "type": "m3u",
       "enabled": true,
-      "url": "https://jmp2.uk/pluto.m3u",
+      "url": "https://raw.githubusercontent.com/OwnerPlugins/pluto-tv-m3u/main/pluto-live-US.m3u",
+      "github": {
+        "repo": "OwnerPlugins/pluto-tv-m3u",
+        "path": "pluto-live-US.m3u",
+        "ref": "main"
+      },
       "mirrors": [
-        "https://i.mjh.nz/PlutoTV/us.m3u8",
-        "https://raw.githubusercontent.com/matthuisman/i.mjh.nz/master/PlutoTV/us.m3u8"
+        "https://cdn.jsdelivr.net/gh/OwnerPlugins/pluto-tv-m3u@main/pluto-live-US.m3u",
+        "https://raw.gitmirror.com/OwnerPlugins/pluto-tv-m3u/main/pluto-live-US.m3u"
       ],
-      "mirror_note": "Pluto's own ad-stitcher address (cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv) answers HTTP 401/403 to any request that does not come from a Pluto session: the source measured 0 working / 458 unverified on eight consecutive runs. The resolver form (jmp2.uk/pluto.m3u) and the i.mjh.nz address mint a session per request and answer HTTP 200; the run report names the address that did.",
-      "note": "Pluto TV's US live lineup. The old address published Pluto's raw stitcher manifests, which reject every request without a Pluto session - 458 links, zero confirmed on each of the eight runs before 2026-11-25. This address resolves each channel to a session-minted manifest (verified 200 from a GitHub runner), and the tvg-ids stay Pluto's own, so the PlutoTV guide in epg_sources.fixed still matches."
+      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "note": "Pluto TV's US live lineup as one regenerated M3U. Measured on 2026-11-21: 458 links, all of them new to the published corpus, 126 of them channels no source here carries at all. The tvg-ids are Pluto's own, which is what the PlutoTV guide below lists, so these channels arrive with a programme guide attached."
     },
     {
       "name": "aria-overseas",

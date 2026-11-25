@@ -211,9 +211,17 @@ def main(argv=None) -> int:
     else:
         rules = {str(rule.get("id")): rule for rule in notice.get("rules", [])}
         sunset = rules.get("update-below-newest", {})
-        if sunset.get("max_version") != "1.1.3":
+        max_ver = sunset.get("max_version")
+        parts = release_version.parse_version(version) or ()
+        expected_max = (f"{parts[0]}.{parts[1]}.{parts[2] - 1}"
+                        if len(parts) == 3 and parts[2] > 0 else None)
+        if expected_max is not None:
+            if max_ver != expected_max:
+                problems.append(
+                    f"the update notice targets {max_ver!r}, not {expected_max}")
+        elif not max_ver or (release_version.compare_versions(str(max_ver), version) or 0) >= 0:
             problems.append(
-                f"the update notice targets {sunset.get('max_version')!r}, not 1.1.3")
+                f"the update notice targets {max_ver!r}, which is not below {version}")
         if version not in str(sunset.get("surprise", "")):
             problems.append(f"the update notice does not mention {version}")
         for field in ("notice_url", "releases_url", "repo_url"):
@@ -221,7 +229,8 @@ def main(argv=None) -> int:
             if f"{OWNER}/{REPO}" not in value:
                 problems.append(f"notice {field} is not canonical: {value!r}")
         if not problems:
-            print("OK: the published notice targets 1.1.3 and below and names "
+            target_desc = expected_max or f"versions below {version}"
+            print(f"OK: the published notice targets {target_desc} and names "
                   f"{version} with canonical URLs")
 
     if problems:

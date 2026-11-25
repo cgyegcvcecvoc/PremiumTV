@@ -1,18 +1,18 @@
 # Country Playlists
 
-Updated: **2026-11-25 01:38 PM EST** (2026-11-25 18:38 UTC) — _3:07 AM daily scrape_
+Updated: **2026-11-25 03:30 PM EST** (2026-11-25 20:30 UTC) — _source audit 2026-11-25: WGAL second server + Crime 360 1080p primary_
 
-Total countries: **177**  |  Total confirmed working channels: **18844**
+Total countries: **177**  |  Total confirmed working channels: **18845**
 
 | Country | Working channels | Playlist file | Country EPG (`.xml`) | Raw M3U URL | Raw EPG URL |
 |---|---:|---|---|---|---|
-| USA | 4426 | [`USA.m3u`](USA.m3u) | [`USA.xml`](../../EPG/USA.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/USA.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml` |
-| International | 2254 | [`International.m3u`](International.m3u) | [`International.xml`](../../EPG/International.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/International.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/International.xml` |
+| USA | 4437 | [`USA.m3u`](USA.m3u) | [`USA.xml`](../../EPG/USA.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/USA.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml` |
+| International | 2241 | [`International.m3u`](International.m3u) | [`International.xml`](../../EPG/International.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/International.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/International.xml` |
 | India | 1234 | [`India.m3u`](India.m3u) | [`India.xml`](../../EPG/India.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/India.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/India.xml` |
 | UK | 758 | [`UK.m3u`](UK.m3u) | [`UK.xml`](../../EPG/UK.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/UK.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/UK.xml` |
 | Canada | 750 | [`Canada.m3u`](Canada.m3u) | [`Canada.xml`](../../EPG/Canada.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Canada.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Canada.xml` |
 | Italy | 733 | [`Italy.m3u`](Italy.m3u) | [`Italy.xml`](../../EPG/Italy.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Italy.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Italy.xml` |
-| France | 625 | [`France.m3u`](France.m3u) | [`France.xml`](../../EPG/France.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/France.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/France.xml` |
+| France | 628 | [`France.m3u`](France.m3u) | [`France.xml`](../../EPG/France.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/France.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/France.xml` |
 | Germany | 575 | [`Germany.m3u`](Germany.m3u) | [`Germany.xml`](../../EPG/Germany.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Germany.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Germany.xml` |
 | Spain | 557 | [`Spain.m3u`](Spain.m3u) | [`Spain.xml`](../../EPG/Spain.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Spain.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Spain.xml` |
 | Russia | 491 | [`Russia.m3u`](Russia.m3u) | [`Russia.xml`](../../EPG/Russia.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/Russia.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/Russia.xml` |
