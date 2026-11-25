@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-25T13:17:56Z",
+  "generated_utc": "2026-11-25T13:40:27Z",
   "playlist": "playlists/PremiumTV.m3u",
-  "scrape_run_id": "20261125T131254Z-2995",
+  "scrape_run_id": "20261125T133511Z-2992",
   "health_check_completed": true,
   "exact_url_evidence_available": true,
   "policy": {
@@ -59,47 +59,6 @@
       ]
     },
     {
-      "sport": "Cricket WBBL",
-      "league": "Cricket WBBL",
-      "home": "Melbourne Renegades W",
-      "away": "Sydney Sixers W",
-      "title": "Melbourne Renegades W vs. Sydney Sixers W",
-      "key": "cricketwbbl|melbournerenegadesw|sydneysixersw",
-      "feed_count": 1,
-      "confirmed_feed_count": 1,
-      "confirmed_primary_count": 1,
-      "confirmed_backup_count": 0,
-      "primary_ready": false,
-      "backup_ready": false,
-      "origin_families": [
-        "193.47.62.41"
-      ],
-      "providers": [
-        "FAWA"
-      ],
-      "ingest_sources": [
-        "doms9"
-      ],
-      "policy_met": false,
-      "deficits": [
-        "needs 1 more confirmed primary feed(s)",
-        "needs 1 more confirmed dedicated backup feed(s)",
-        "needs 1 more independent origin family/families"
-      ],
-      "feeds": [
-        {
-          "fingerprint": "a4fd86ace9d5",
-          "role": "primary",
-          "status": "reachable",
-          "provider": "FAWA",
-          "origin_family": "193.47.62.41",
-          "ingest_sources": [
-            "doms9"
-          ]
-        }
-      ]
-    },
-    {
       "sport": "Soccer",
       "league": "AFC Champions League",
       "home": "Kashima Antlers",
@@ -130,6 +89,47 @@
       "feeds": [
         {
           "fingerprint": "cecaabf42ae1",
+          "role": "primary",
+          "status": "reachable",
+          "provider": "FAWA",
+          "origin_family": "193.47.62.50",
+          "ingest_sources": [
+            "doms9"
+          ]
+        }
+      ]
+    },
+    {
+      "sport": "Soccer",
+      "league": "AFC Champions League II",
+      "home": "Persib Bandung",
+      "away": "Seoul",
+      "title": "Persib Bandung vs. Seoul",
+      "key": "soccer|persibbandung|seoul",
+      "feed_count": 1,
+      "confirmed_feed_count": 1,
+      "confirmed_primary_count": 1,
+      "confirmed_backup_count": 0,
+      "primary_ready": false,
+      "backup_ready": false,
+      "origin_families": [
+        "193.47.62.50"
+      ],
+      "providers": [
+        "FAWA"
+      ],
+      "ingest_sources": [
+        "doms9"
+      ],
+      "policy_met": false,
+      "deficits": [
+        "needs 1 more confirmed primary feed(s)",
+        "needs 1 more confirmed dedicated backup feed(s)",
+        "needs 1 more independent origin family/families"
+      ],
+      "feeds": [
+        {
+          "fingerprint": "d0dea510bfef",
           "role": "primary",
           "status": "reachable",
           "provider": "FAWA",

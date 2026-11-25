@@ -1,7 +1,7 @@
 # Live-event reliability audit
 
-- **Scrape snapshot:** 2026-11-25T13:17:56Z
-- **Scrape run:** `20261125T131254Z-2995` — health check completed
+- **Scrape snapshot:** 2026-11-25T13:40:27Z
+- **Scrape run:** `20261125T133511Z-2992` — health check completed
 - **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
 - **Fixtures meeting policy:** 0/3
@@ -12,14 +12,14 @@
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
 | South Africa vs. Bangladesh (Cricket) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
-| Melbourne Renegades W vs. Sydney Sixers W (Cricket WBBL) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 | Kashima Antlers vs. Jeonbuk (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
+| Persib Bandung vs. Seoul (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9 | **DEFICIT** |
 
 ## Deficits
 
 - **South Africa vs. Bangladesh** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Melbourne Renegades W vs. Sydney Sixers W** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Kashima Antlers vs. Jeonbuk** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Persib Bandung vs. Seoul** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 
 ## Interpretation
 
