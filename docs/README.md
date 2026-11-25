@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.21** — free provider directory, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.22** — free provider directory, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,13 +26,13 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.21
+## Current stable: 1.1.22
 
-1.1.21 is the free-provider-directory release: **seven measured sources** joined the scrape — M3UPT for Portugal's public broadcasters, TDTChannels for Spain's TDT, Nexonic IPTV for verified free-to-air channels in 160 countries, and the four ad-supported services the iptv-org free list highlights (Samsung TV Plus, Plex, The Roku Channel and Tubi) — taking the library to **26,274 unique links** and **17,838 published entries**, 17,001 of them confirmed working by the run that published this release. **A source can now declare which upstream groups it contributes**, so a mixed file like M3UPT's adds only its TV half instead of dragging radio, cameras and podcast episodes into a television playlist, and the release stops a country playlist header from advertising every source's guides, so small countries no longer make a player download a hundred guides. The full notes are in [`release-notes-1.1.21.md`](../release-notes-1.1.21.md).
+1.1.22 finishes the free-provider-directory release: **seven measured sources** joined the scrape — M3UPT for Portugal's public broadcasters, TDTChannels for Spain's TDT, Nexonic IPTV for verified free-to-air channels in 160 countries, and the four ad-supported services the iptv-org free list highlights (Samsung TV Plus, Plex, The Roku Channel and Tubi) — taking the library to **26,274 unique links** and **17,838 published entries**, 17,001 of them confirmed working by the run that published this release. **A source can now declare which upstream groups it contributes**, so a mixed file like M3UPT's adds only its TV half instead of dragging radio, cameras and podcast episodes into a television playlist, and the release stops a country playlist header from advertising every source's guides, so small countries no longer make a player download a hundred guides. 1.1.22 exists because 1.1.21 shipped those sources but could not ship an Android APK: a stray comma after a `when` branch failed every Kotlin compile, so Android had no installer to offer. Those are the release notes for both halves — [`release-notes-1.1.22.md`](../release-notes-1.1.22.md) for this build, [`release-notes-1.1.21.md`](../release-notes-1.1.21.md) for the sources.
 
 It installs in place over every earlier build: Android `101190000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.21 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.22 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 

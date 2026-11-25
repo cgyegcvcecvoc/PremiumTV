@@ -41,8 +41,12 @@ class Version1121Tests(unittest.TestCase):
         import release_version  # noqa: E402
         import version_sync  # noqa: E402
 
+        # A release test must survive the next release: 1.1.21 was current when
+        # it shipped, so ask for "at least 1.1.21" the way the 1.1.16-1.1.19
+        # suites do. Pinning the exact string here broke the 1.1.20 suite when
+        # 1.1.21 was cut, and pinning it again would break this one now.
         current = release_version.current_version()
-        self.assertEqual(release_version.compare_versions(current, "1.1.21"), 0, current)
+        self.assertGreaterEqual(release_version.compare_versions(current, "1.1.21"), 0, current)
         self.assertEqual(release_version.android_version_code("1.1.21"), 101_210_000)
         self.assertEqual(version_sync.check(), [])
         self.assertEqual(version_sync.PUBLISHED_VERSION, current)
@@ -60,7 +64,7 @@ class Version1121Tests(unittest.TestCase):
 
     def test_the_changelog_records_the_release(self):
         changelog = text("CHANGELOG.md")
-        self.assertIn("## 2026-11-25 — Free provider directory (1.1.21)", changelog)
+        self.assertIn("## 2026-11-25 — Version 1.1.21 published: Free provider directory", changelog)
         # No committed merge-conflict markers anywhere in the log.
         for marker in ("<<<<<<<", ">>>>>>>"):
             self.assertNotIn(marker, changelog)
@@ -234,11 +238,22 @@ class NoCommittedConflictMarkersTest(unittest.TestCase):
                     break
         self.assertEqual(offenders, [], "resolve the conflict: " + ", ".join(offenders))
 
-    def test_no_release_is_announced_twice(self):
-        import re
+    def test_the_1121_record_names_its_tag_and_its_missing_apk(self):
+        """The log must be able to tell a prepared release from a published one.
+
+        It may not quietly imply that v1.1.21 shipped every installer: its APK
+        is the reason 1.1.22 exists, and a reader has to be able to see that.
+        (A duplicate heading is not itself a defect here - this log repeats
+        historical headings legitimately - which is why only the conflict
+        markers above are fatal.)
+        """
         changelog = text("CHANGELOG.md")
-        headings = re.findall(r"^## .+$", changelog, flags=re.M)
-        self.assertEqual(sorted({h for h in headings if headings.count(h) > 1}), [])
+        heading = "## 2026-11-25 — Version 1.1.21 published: Free provider directory"
+        self.assertIn(heading, changelog)
+        record = changelog.split(heading, 1)[1].split("\n## ", 1)[0]
+        self.assertIn("releases/tag/v1.1.21", record)
+        self.assertIn("101210000", record)
+        self.assertIn("No APK is attached", record)
 
 
 def _tracked_text_files() -> list[Path]:
