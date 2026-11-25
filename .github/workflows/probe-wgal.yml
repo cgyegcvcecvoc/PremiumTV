@@ -47,42 +47,56 @@ jobs:
             rm -f /tmp/body
           }
 
-          echo "########## WGAL — what is published now ##########"
-          probe "WGAL primary (Uplynk CDN, currently published)" \
-            "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive-v2/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8?Expires=4854278400&Key-Pair-Id=K1BEGSWP8YSEGF"
-          probe "WGAL primary without ads/query params" \
-            "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive-v2/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8"
+          probe2() {
+            local label="$1"; local url="$2"
+            echo "=================================================================="
+            echo "## $label"
+            echo "   $url"
+            local code
+            code=$(curl -sS -L -m 20 --max-redirs 4 -A "$UA" -H "Accept: */*" -o /tmp/body -w "%{http_code}" "$url" 2>/dev/null)
+            echo "   status=$code"
+            if [ "$code" = "200" ]; then
+              echo "   variants (RESOLUTION/BANDWIDTH):"
+              grep -o 'RESOLUTION=[0-9x]*' /tmp/body | sort -u | sed 's/^/     /' | head -10
+              grep -o 'BANDWIDTH=[0-9]*' /tmp/body | sort -t= -k2 -n | tail -3 | sed 's/^/     /'
+              echo "   EXT-X-STREAM-INF count: $(grep -c 'EXT-X-STREAM-INF' /tmp/body)"
+            else
+              head -c 200 /tmp/body | sed 's/^/     /'
+              echo
+            fi
+          }
 
-          echo "########## WGAL — candidate second server ##########"
-          probe "Uplynk direct (content.uplynk.com, same asset id)" \
-            "https://content.uplynk.com/channel/90f3abbfb17a4b6eba96038b1d4bd051.m3u8"
-          probe "Local Now / Amagi CDN (same asset id, config6)" \
-            "https://s5host3.localnow.api.cms.amdvids.com/v1/master/c189661feba961c19bc5fb60b57879ee9b84548a/config6/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8"
-          probe "Local Now / Amagi CDN with LocalNow Referer" \
-            "https://s5host3.localnow.api.cms.amdvids.com/v1/master/c189661feba961c19bc5fb60b57879ee9b84548a/config6/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8" \
-            -H "Referer: https://localnow.com/" -H "Origin: https://localnow.com"
-          probe "Tubi public manifest (old iptv-org WGAL link)" \
-            "https://aegis-cloudfront-1.tubi.video/5d314174-0110-42af-8811-feaae073ea1e/playlist.m3u8"
+          echo "########## WGAL: is the primary flaky, and is there another door? ##########"
+          for i in 1 2 3; do
+            probe2 "published WGAL primary attempt $i" \
+              "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive-v2/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8"
+          done
+          probe2 "uplynk asset endpoint" \
+            "https://content.uplynk.com/asset/90f3abbfb17a4b6eba96038b1d4bd051.m3u8"
+          probe2 "uplynk preplay metadata (may list playback URLs)" \
+            "https://content.uplynk.com/preplay/asset/90f3abbfb17a4b6eba96038b1d4bd051.json"
+          probe2 "uplynk channel endpoint with p=web" \
+            "https://content.uplynk.com/channel/90f3abbfb17a4b6eba96038b1d4bd051.m3u8?p=web"
+          probe2 "cloudfront wgalLive (no -v2)" \
+            "https://d2b9k7mmyhvjw4.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/wgalLive/90f3abbfb17a4b6eba96038b1d4bd051/master.m3u8"
 
-          echo "########## Crime 360 — which TV-network feeds answer ##########"
-          probe "LG (aenetworks.global.transmit.live)" \
-            "https://aenetworks.global.transmit.live/hls/68b76f7c793640e982cd670c/v1/aenetworks_crime360_1/lg_us/latest/main/hls/playlist.m3u8"
-          probe "Vizio (wurl)" \
-            "https://f82e592c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQ3JpbWUzNjBfSExT/playlist.m3u8"
-          probe "Xumo (cloudfront)" \
-            "https://dbrb49pjoymg4.cloudfront.net/10001/99951471/hls/playlist.m3u8?ads.xumo_channelId=99951471&ads.xumo_contentId=4317&ads.appName=XumoPlay"
-          probe "Pluto via jmp2 shortener (primary)" \
-            "https://jmp2.uk/plu-6000a5a9e767980007b497ca.m3u8"
-          probe "Pluto via jmp2 shortener (Alt id)" \
-            "https://jmp2.uk/plu-657880c46e4f6a00087404d0.m3u8"
-          probe "Rakuten TV Europe (wurl, 'Crime 360 (720p)')" \
-            "https://94a3e237.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0NyaW1lMzYwX0hMUw/playlist.m3u8"
-          probe "Samsung TV Plus Canada CA4700015P1 (jmp2)" \
-            "https://jmp2.uk/stvp-CA4700015P1"
-          probe "Plex (A&E Crime 360)" \
-            "https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-5f74cf7effbe690040689f41/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh"
-          probe "Tubi public manifest (Crime 360 backup)" \
+          echo "########## Crime 360: quality of each provider feed ##########"
+          probe2 "US Tubi (720p measurement)" \
             "https://live-manifest.production-public.tubi.io/live/520220a7-f8c9-488b-b311-0654a1d3c1b8/playlist.m3u8"
+          probe2 "US LG" \
+            "https://aenetworks.global.transmit.live/hls/68b76f7c793640e982cd670c/v1/aenetworks_crime360_1/lg_us/latest/main/hls/playlist.m3u8"
+          probe2 "US Vizio" \
+            "https://f82e592c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/Vml6aW9fQ3JpbWUzNjBfSExT/playlist.m3u8"
+          probe2 "US Xumo" \
+            "https://dbrb49pjoymg4.cloudfront.net/10001/99951471/hls/playlist.m3u8?ads.xumo_channelId=99951471&ads.xumo_contentId=4317&ads.appName=XumoPlay"
+          probe2 "US Plex" \
+            "https://epg.provider.plex.tv/library/parts/6a1610bebdf296985fd95603-5f74cf7effbe690040689f41/?X-Plex-Token=_aGpmuMeFyqKxsSfQKZh"
+          probe2 "US Pluto (jmp2)" \
+            "https://jmp2.uk/plu-6000a5a9e767980007b497ca.m3u8"
+          probe2 "Europe Rakuten TV (wurl)" \
+            "https://94a3e237.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0NyaW1lMzYwX0hMUw/playlist.m3u8"
+          probe2 "Canada Samsung TV Plus" \
+            "https://jmp2.uk/stvp-CA4700015P1"
           echo "=================================================================="
           echo "probe complete"
           } 2>&1 | tee /tmp/probe-results.txt
