@@ -233,6 +233,54 @@
         "https://raw.gitmirror.com/vbskycn/iptv/master/tv/iptv4.m3u"
       ],
       "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report."
+    },
+    {
+      "name": "m3upt",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/LITUATUI/M3UPT/main/M3U/M3UPT.m3u",
+      "github": {
+        "repo": "LITUATUI/M3UPT",
+        "path": "M3U/M3UPT.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://m3upt.com/iptv",
+        "https://cdn.jsdelivr.net/gh/LITUATUI/M3UPT@main/M3U/M3UPT.m3u"
+      ],
+      "mirror_note": "The identical file is reached from its own site, jsDelivr and raw.githubusercontent.com: a run that used a backup address says so in its report.",
+      "include_groups": [
+        "TV"
+      ],
+      "note": "M3UPT (m3upt.com/iptv) - the free Portuguese playlist of public, official streams, found in the iptv-org awesome-iptv Providers discussions (hunt of 2026-11-25). The same file also carries radio, beach cameras, podcast episodes and six DRM test cards, so include_groups keeps only its TV group: measured that day, 159 entries, 154 HTTPS, 71 URLs new to this corpus and 115 tvg-ids it does not carry (.pt public broadcasters - RTP 1/2/Noticias/Memoria/Acores/Madeira/Africa/Mundo, SIC, SIC Noticias, TVI, CNN Portugal). Its header advertises two XMLTV guides and several streams need the Referer/Origin lines the file ships; the scraper already sends both."
+    },
+    {
+      "name": "tdtchannels",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://www.tdtchannels.com/lists/tv.m3u",
+      "mirrors": [
+        "https://www.tdtchannels.com/lists/tv.m3u8"
+      ],
+      "mirror_note": "The TV list is published twice - as .m3u and as .m3u8 - with identical channels; the second address is tried when the first does not answer, and the report names the address that did.",
+      "note": "TDTChannels (LaQuay/TDTChannels, 1.7k stars) - the long-running Spanish TDT catalogue of channels that broadcast openly on the internet, found in the iptv-org awesome-iptv Providers discussions (hunt of 2026-11-25). One stable list URL per format, national/regional/local channels, several feeds per channel (own CDN, GEO variants, OTTera ad-stitched) and #EXTVLCOPT Referer lines where a broadcaster needs them. Spain is already one of the better-covered countries (363 entries), so this is a quality source, not a volume one: the run report says how many of its feeds answer, and dead GEO variants are dropped by the same check as every other source."
+    },
+    {
+      "name": "nexonic-iptv",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/nexonic-technologies/nexonic-iptv/main/playlists/all.m3u",
+      "github": {
+        "repo": "nexonic-technologies/nexonic-iptv",
+        "path": "playlists/all.m3u",
+        "ref": "main"
+      },
+      "mirrors": [
+        "https://nexonic-technologies.github.io/nexonic-iptv/playlists/all.m3u",
+        "https://cdn.jsdelivr.net/gh/nexonic-technologies/nexonic-iptv@main/playlists/all.m3u"
+      ],
+      "mirror_note": "The identical file is reached from its own site, jsDelivr and raw.githubusercontent.com: a run that used a backup address says so in its report.",
+      "note": "Nexonic IPTV - free-to-air playlists of streams broadcasters themselves publish, verified upstream three times a day, adult channels excluded, MIT code and CC0 data; found in the iptv-org awesome-iptv Providers discussions (hunt of 2026-11-25). Measured that day: 4,458 entries across 160 countries, 487 URLs new to this corpus - the largest gaps being India (169), the United States (58) and Russia (49). Its untested queue (playlists/community/untested.m3u) is deliberately not configured: only the verified file is imported, and every link is re-checked here like any other source."
     }
   ],
   "priority_channels": {
@@ -383,6 +431,27 @@
       "enabled": true,
       "url": "https://iptvcat.net/united_states_of_america__1",
       "note": "IPTV Cat's US catalogue (1,621 channels, 1,593 online on 2026-11-24; 14,018 worldwide). Each row offers only a single-channel wrapper playlist (list.iptvcat.net/my_list/s/<hash>.m3u8 around the real stream URL) and the bulk 'Download this list' action is built in the browser from a session list, so the site publishes no single static M3U the scraper can fetch and link-check as a source. Sampled wrapper URLs (e.g. the 30A TV feeds) are already in the published corpus, and the catalogue is smaller than the current lineup in both the US (1,621 vs ~2,900) and worldwide (14,018 vs 19,621). Checked for reachability only and never imported as channels; see docs/SOURCE-HUNT-2026-11-24.md. If IPTV Cat ever publishes a static bulk M3U, add it as a source and let the daily link check decide what survives."
+    },
+    {
+      "name": "gradetv",
+      "type": "website",
+      "enabled": true,
+      "url": "https://gradetv.net/",
+      "note": "Grade TV (iptv-org Providers discussion #769) is a browser catalogue and M3U exporter over the iptv-org channel data - its ids are iptv-org ids such as 00sReplay.us and 3ABNEnglish.us - so it duplicates the iptv-org source already configured. Checked for reachability only and never imported."
+    },
+    {
+      "name": "broadcast-atlas",
+      "type": "website",
+      "enabled": true,
+      "url": "https://broadcastatlas.com/",
+      "note": "Broadcast Atlas (iptv-org Providers discussion #845) is a directory and player built on iptv-org's channel data, with each channel keeping its iptv-org identifier; it publishes no playlist of its own, so importing it would only re-fetch the iptv-org source. Checked for reachability only."
+    },
+    {
+      "name": "open-tv-atlas",
+      "type": "website",
+      "enabled": true,
+      "url": "https://iman-py.github.io/open-tv-atlas/",
+      "note": "Open TV Atlas (iptv-org Providers discussion #968) generates M3U URLs by combining iptv-org language, category and quality slices, so every link it can produce already arrives through the configured iptv-org source. Checked for reachability only."
     }
   ],
   "discovery": {

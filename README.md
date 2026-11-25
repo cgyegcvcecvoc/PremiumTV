@@ -26,6 +26,7 @@ A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuse
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.
 - [Repository change log](CHANGELOG.md) — concise GitHub copy and links to the live health reports.
 - [Source reliability follow-up](docs/SOURCE-RELIABILITY-AUDIT-2026-11-12.md) — snapshot health, official viewing paths and verification gaps.
+- [Provider-directory hunt](docs/SOURCE-HUNT-2026-11-25.md) — the free providers in the iptv-org `awesome-iptv` directory, measured against this corpus: which ones became sources (M3UPT, TDTChannels, Nexonic IPTV), which were only iptv-org front-ends, and why a Pluto playlist with session tokens was left out.
 
 ## Load the playlist
 

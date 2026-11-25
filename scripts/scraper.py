@@ -1033,6 +1033,42 @@ def _match_any(name: str, patterns: list[str], exact: bool) -> bool:
     return False
 
 
+def filter_source_groups(channels: list[Channel], src: dict) -> tuple[list[Channel], int, list[str]]:
+    """Apply a source's ``include_groups`` / ``exclude_groups`` to parsed channels.
+
+    A source that mixes television with radio, beach cameras, podcast episodes or
+    DRM test cards has no other way to contribute only its TV half: the scraper
+    imports whatever the file lists. Group filters are the smallest honest tool
+    for that, and they are the same two keys W3U sources already use, so one
+    declaration reads the same for every source type.
+
+    ``include_groups`` matches the upstream ``group-title`` exactly (case
+    insensitive) and drops everything else; ``exclude_groups`` is a substring
+    match, like the W3U block. A channel with no group is kept unless an include
+    list says otherwise, and the dropped group names are returned so the run
+    report can say what the filter removed instead of silently shrinking a
+    source.
+    """
+    include = [str(item).strip() for item in (src.get("include_groups") or []) if str(item).strip()]
+    exclude = [str(item).strip() for item in (src.get("exclude_groups") or []) if str(item).strip()]
+    if not include and not exclude:
+        return channels, 0, []
+    kept: list[Channel] = []
+    dropped: dict[str, int] = {}
+    for channel in channels:
+        group = str(channel.attrs.get("group-title", "") or "").strip()
+        if include and not _match_any(group, include, exact=True):
+            dropped[group or "(no group)"] = dropped.get(group or "(no group)", 0) + 1
+            continue
+        if exclude and group and _match_any(group, exclude, exact=False):
+            dropped[group] = dropped.get(group, 0) + 1
+            continue
+        kept.append(channel)
+    removed = len(channels) - len(kept)
+    groups = [f"{name} ({count})" for name, count in sorted(dropped.items(), key=lambda item: (-item[1], item[0]))]
+    return kept, removed, groups
+
+
 def _loads_w3u_json(raw_text: str) -> dict:
     """Parse W3U JSON, tolerating trailing commas before closing braces/brackets."""
     try:
@@ -3077,6 +3113,19 @@ def main() -> int:
                     epg = []
                 else:
                     fetched_channels, epg = parse_m3u(text, name)
+                    # A plain M3U source can carry more than linear TV - radio,
+                    # cameras, podcast episodes, DRM test cards. include_groups /
+                    # exclude_groups let it contribute only the part that belongs
+                    # in a TV playlist; the report says what was left out.
+                    fetched_channels, removed, dropped_groups = filter_source_groups(
+                        fetched_channels, runtime_source)
+                    if removed:
+                        stat["group_filter_removed"] = removed
+                        stat["group_filter_groups"] = dropped_groups
+                        note = (f"Group filter kept {len(fetched_channels)} of "
+                                f"{len(fetched_channels) + removed} entries; dropped: "
+                                + ", ".join(dropped_groups))
+                        log(f"[{name}] {note}")
                 if not fetched_channels:
                     raise RuntimeError("source returned 0 channels")
                 stat["bytes"] = len(text.encode("utf-8"))
