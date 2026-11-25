@@ -44,14 +44,6 @@
     <display-name>36 TV Huacho (720p)</display-name>
     <icon src="https://i.imgur.com/F4NZM3s.jpeg" />
   </channel>
-  <channel id="ABCTeleshow.pe@SD">
-    <display-name>ABC Teleshow (720p)</display-name>
-    <icon src="https://i.imgur.com/cF7gJ2Q.jpeg" />
-  </channel>
-  <channel id="ABTelevision.pe@SD">
-    <display-name>ABTelevision (720p)</display-name>
-    <icon src="https://i.imgur.com/tqMDscD.png" />
-  </channel>
   <channel id="AmazonicaTV.pe@SD">
     <display-name>Amazonica TV (720p)</display-name>
     <icon src="https://i.imgur.com/22ebHAX.jpeg" />
@@ -454,6 +446,10 @@
     <display-name>Radio Rumba TV (720p)</display-name>
     <icon src="https://i.imgur.com/BYcxI03.png" />
   </channel>
+  <channel id="RadioTropical.pe@SD">
+    <display-name>Radio Tropical (480p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/TBPVOBI.png" />
+  </channel>
   <channel id="RadioUnoTacna.pe@SD">
     <display-name>Radio Uno Tacna (720p)</display-name>
     <icon src="https://i.imgur.com/PswowQP.png" />
@@ -534,20 +530,6 @@
     <display-name>USMPTV (720p)</display-name>
     <icon src="https://i.imgur.com/9cmIv3q.png" />
   </channel>
-  <channel id="ImpactoTelevision.pe@SD">
-    <display-name>Impacto Television (360p) [Not 24/7]</display-name>
-    <icon src="https://i.imgur.com/bkpCGP6.png" />
-  </channel>
-  <channel id="KoraTV.pe@SD">
-    <display-name>Kora TV</display-name>
-    <icon src="https://i.imgur.com/ahBYv4x.png" />
-  </channel>
-  <channel id="LaTele.pe@SD">
-    <display-name>La Tele (1080p)</display-name>
-    <display-name>PE - La Tele</display-name>
-    <display-name>LaTele.pe</display-name>
-    <icon src="https://iptv-epg.org/images/aAdngOn4Mz1oGOWSPMGdbNBVwaL3DiSfD_KcWstuHq3FqEz4Jt8QD3cZkc-mITR7wiWmMHOA5DQ7TrHngFbN2Bt3juJ0Zln__e8tEMs" />
-  </channel>
   <channel id="AmericaTelevision.pe@SD">
     <display-name>America Television (1080p)</display-name>
     <display-name>PE - América Televisión</display-name>
@@ -566,6 +548,16 @@
     <display-name>PE - Panamericana TV</display-name>
     <display-name>PanamericanaTV.pe</display-name>
     <icon src="https://iptv-epg.org/images/fq2F8TfWJVuTSSw6cH0ReAs5ZECPE6mwXgHL3kUMHUropd7cs5rbuFDs3euZuTRO-89EBVZZDpAG0P9wp1K14hB7rcl1Nd91-VhS1gOT-ywOfB-0Ww" />
+  </channel>
+  <channel id="ImpactoTelevision.pe@SD">
+    <display-name>Impacto Television (360p) [Not 24/7]</display-name>
+    <icon src="https://i.imgur.com/bkpCGP6.png" />
+  </channel>
+  <channel id="LaTele.pe@SD">
+    <display-name>La Tele (1080p)</display-name>
+    <display-name>PE - La Tele</display-name>
+    <display-name>LaTele.pe</display-name>
+    <icon src="https://iptv-epg.org/images/aAdngOn4Mz1oGOWSPMGdbNBVwaL3DiSfD_KcWstuHq3FqEz4Jt8QD3cZkc-mITR7wiWmMHOA5DQ7TrHngFbN2Bt3juJ0Zln__e8tEMs" />
   </channel>
   <channel id="Chikitoonz.pe@SD">
     <display-name>Chikitoonz (1080p)</display-name>
@@ -596,30 +588,6 @@
     <display-name>Latina Clasicos (Backup 1)</display-name>
     <icon src="https://i.imgur.com/q0dAWyj.png" />
   </channel>
-  <programme start="20261124173000 +0000" stop="20261124180000 +0000" channel="ForoTV.pe@SD">
-    <title>Programa pagado</title>
-    <desc>Programa que muestra diversos productos para la venta.</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124180000 +0000" stop="20261124183000 +0000" channel="ForoTV.pe@SD">
-    <title>Programa pagado</title>
-    <desc>Programa que muestra diversos productos para la venta.</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261124183000 +0000" stop="20261124190000 +0000" channel="ForoTV.pe@SD">
-    <title>Programa pagado</title>
-    <desc>Programa que muestra diversos productos para la venta.</desc>
-    <date>20261124</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261124190000 +0000" stop="20261124210000 +0000" channel="ForoTV.pe@SD">
     <title>Live: Las noticias</title>
     <desc>Programa informativo donde se presentan los sucesos más importantes y recientes de las noticias mexicanas e internacionales.</desc>
@@ -970,9 +938,32 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
+  <programme start="20261127010000 +0000" stop="20261127020000 +0000" channel="ForoTV.pe@SD">
+    <title>Live: Las noticias con Karla Iberia Sánchez</title>
+    <desc>Espacio con información de actualidad y las noticias más relevantes.</desc>
+    <date>20261127</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
   <programme start="20261124013000 +0000" stop="20261125000000 +0000" channel="PBO.pe@SD">
     <title>Sex Drive</title>
     <date>20261124</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125000000 +0000" stop="20261125021500 +0000" channel="PBO.pe@SD">
+    <title>100 Tula Para Kay Stella</title>
+    <desc>Throughout his four years in college, Fidel, a stuttering student, tries to finish 100 poems dedicated to Stella, an aspiring but frustrated rock star, to win her heart.</desc>
+    <date>20261125</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261125021500 +0000" stop="20261126000000 +0000" channel="PBO.pe@SD">
+    <title>Bukas May Umaga</title>
+    <date>20261125</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
