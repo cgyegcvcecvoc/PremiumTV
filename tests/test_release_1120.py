@@ -92,15 +92,20 @@ class Version1120Tests(unittest.TestCase):
 
     def test_the_site_promotes_the_published_release(self):
         import json  # noqa: E402
+        import release_version  # noqa: E402
 
+        # The stable channel follows VERSION, not the release this file was
+        # written for; pinning 1.1.20 here made the test stale on every later
+        # release.
+        version = release_version.current_version()
         site = json.loads(text("docs/data/site.json"))
         stable = [c for c in site["apps"]["channels"] if c["id"] == "stable"]
-        self.assertEqual([channel["tag"] for channel in stable], ["v1.1.20"])
+        self.assertEqual([channel["tag"] for channel in stable], [f"v{version}"])
         names = {asset["name"] for asset in stable[0]["assets"]}
         # The Mac installers are the ones recent releases lost entirely.
         for arch, ext in (("arm64", "dmg"), ("x64", "dmg"), ("arm64", "pkg"), ("x64", "pkg")):
-            self.assertIn(f"PremiumTV-1.1.20-mac-{arch}.{ext}", names)
-        self.assertIn("PremiumTV-1.1.20-debug.apk", names)
+            self.assertIn(f"PremiumTV-{version}-mac-{arch}.{ext}", names)
+        self.assertIn(f"PremiumTV-{version}-debug.apk", names)
 
 
 class SourceRedundancyWiringTests(unittest.TestCase):
