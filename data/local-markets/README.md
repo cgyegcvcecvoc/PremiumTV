@@ -65,8 +65,9 @@ python -m unittest tests.test_local_channels
   of the prefix's area (`NEAREST_MARKET_MAX_KM`, shared with the apps). Beyond
   that the prefix has no market and the apps say so, instead of naming the
   state's nearest market (1.1.21: Wilkes-Barre was reading as Philadelphia).
-  A Lancaster ZIP still reads as Philadelphia (~95 km) until a Lancaster
-  station (WGAL) has a working feed in `playlists/sources/local-channels.m3u`.
+  Lancaster's ZIP 176 now resolves to Lancaster itself: WGAL has a working
+  feed in `playlists/sources/local-channels.m3u`, and WHP/WPMT publish as the
+  Harrisburg and York markets the apps offer as nearby alternatives.
 - Only stations PremiumTV actually publishes get a market, so a state with no
   carried affiliate (for example Wyoming or Vermont today) answers honestly
   with "no local stations yet" instead of borrowing a neighbouring market.
