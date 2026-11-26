@@ -10,6 +10,12 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-26 — Version 1.1.25 published as a pre-release
+
+- **The tag exists and carries every installer:** [`v1.1.25`](https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.25) — `PremiumTV-1.1.25-debug.apk` (Android `versionCode 101250000`, signed with the pinned update key), `PremiumTV-1.1.25-mac-arm64.dmg` / `-mac-x64.dmg` and both `.pkg` files, plus the Linux `AppImage`, `deb` and `tar.xz` for x64 and arm64, each with its `SHA256SUMS-*` file and `BUILD-SOURCE-*` provenance.
+- **It is a pre-release on purpose**, and an experiment the user asked for. Every in-app updater ignores pre-releases, so no installed 1.1.24 (or older) build is offered 1.1.25, and the download site keeps promoting the last complete stable while this one is tested. Promoting it later is one `gh release edit v1.1.25 --prerelease=false` away, and asks for nothing else.
+- **The first publication attempt was correctly refused by the exact-SHA gate.** The tag was created at the commit that still had three CI failures; the Android, macOS and Linux jobs each build the tag's commit, and each declines to attach an installer whose source is not the tag's target, so the release was recreated at the fixed commit. That gate is the reason a release can never carry bytes from a tree nobody tested.
+
 ## 2026-11-26 — Version 1.1.25 as a pre-release: Spotify on every screen
 
 - **There is a Spotify tab in all four apps.** The browser player, macOS, Linux and Android TV each get one, built from a single shared module in `macos/app/src/renderer/spotify.js`: the web build copies it to `shared/spotify.js`, the desktop renderer loads it directly, and the TV shell runs a byte-identical copy inside the APK that `scripts/sync_spotify_assets.py --check` (run by the Android workflow) and `SpotifyScreenTest` both refuse to let drift. Link parsing, the embed URLs and the sign-in flow therefore cannot disagree between hosts.
