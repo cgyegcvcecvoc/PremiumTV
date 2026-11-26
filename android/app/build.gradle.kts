@@ -183,6 +183,11 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.activity:activity-compose:1.9.1")
     implementation("androidx.core:core-ktx:1.13.1")
+    // 1.1.25: WebViewAssetLoader serves the Spotify tab's page from the APK over
+    // https://appassets.androidplatform.net, so the WebView has a secure origin
+    // (Web Crypto for PKCE, persistent localStorage for the sign-in token)
+    // without ever allowing file:// access.
+    implementation("androidx.webkit:webkit:1.11.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")

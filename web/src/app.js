@@ -25,6 +25,21 @@
   const local = window.PremiumLocalChannels;
   // The Live Events clock, shared with the desktop apps (shared/live-clock.js).
   const liveClock = window.PremiumLiveClock;
+  // Spotify (shared/spotify.js). The same module the desktop and TV builds use,
+  // so the tab, the embed rules and the sign-in flow cannot drift per platform.
+  const spotifyModule = window.PremiumSpotify || null;
+  // One session for the page: the access token is in memory, the refresh token
+  // in this browser's storage. Sign-in is only needed for in-app playback.
+  const spotify = spotifyModule
+    ? spotifyModule.Session({
+        storage: window.localStorage,
+        fetch: (...args) => fetch(...args),
+        crypto: window.crypto,
+        redirectUri: location.origin + location.pathname,
+      })
+    : null;
+  let spotifyStatus = "";
+  let spotifyTabOnce = false;
   const P = personal,
     S = store;
   const state = {
@@ -118,6 +133,8 @@
     const paths = {
       settings:
         '<path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM9 3h6l.7 3 2.8 1.5 2.5 2v5l-2.5 2-2.8 1.5-.7 3H9l-.7-3-2.8-1.5-2.5-2v-5l2.5-2L8.3 6z"/>',
+      music:
+        '<circle cx="7" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M10 18V7l11-2v11"/>',
       search: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
       clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
       info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/>',
@@ -315,7 +332,7 @@
     return health.filterChannels(library.channels, dead);
   }
   function setTab(tab, updateHash) {
-    if (!["channels", "live", "movies", "guide", "settings"].includes(tab))
+    if (!["channels", "live", "movies", "guide", "settings", "spotify"].includes(tab))
       tab = "channels";
     state.tab = tab;
     document.querySelectorAll(".view").forEach((el) => {
@@ -342,6 +359,7 @@
       renderGuide();
     }
     if (tab === "settings") renderSettings();
+    if (tab === "spotify") renderSpotify();
     if (updateHash !== false) {
       try {
         history.replaceState(null, "", "#" + tab);
@@ -791,6 +809,324 @@
           )}<div class="timeline-now" style="left:${180 + ((at - start) / (end - start)) * width}px;top:40px"></div></div>`;
     }
   }
+  // ------------------------------------------------------------ 1.1.25 Spotify
+  //
+  // What this tab is: a home for audio inside the TV app. Two ways to listen,
+  // both of them Spotify's own player.
+  //
+  //   * The embed. Spotify's official iframe for one playlist, album, show or
+  //     track. No account, no sign-in, works before anything is configured.
+  //   * In-app playback. Authorization Code + PKCE, then Spotify's Web
+  //     Playback SDK, which keeps playing while the viewer browses channels.
+  //
+  // What it deliberately is not: a way around Spotify's advertising or its
+  // Premium requirement. The iframe is Spotify's page and cannot be modified
+  // from here (a cross-origin frame is not readable or scriptable), and the SDK
+  // refuses non-Premium accounts itself. The tab says so once, plainly, instead
+  // of implying otherwise. All of that policy lives in shared/spotify.js; this
+  // function is only the layout.
+  function renderSpotify() {
+    const body = $("spotify-body");
+    if (!body) return;
+    if (!spotifyModule || !spotify) {
+      body.innerHTML = `<div class="panel"><h2>Spotify is unavailable in this build</h2><p>The shared Spotify module did not load, so the tab is disabled rather than showing an empty player.</p></div>`;
+      return;
+    }
+    const settings = spotify.settings();
+    const rows = spotifyModule.library(settings);
+    const signedIn = spotify.signedIn();
+    const chosen = rows.find((row) => row.id === settings.lastId) || rows[0];
+    const status = spotifyStatus
+      ? `<p class="notice" role="status">${esc(spotifyStatus)}</p>`
+      : "";
+    // The callback parameters have to be taken out of the address bar once
+    // they are read: a reload must not replay a single-use authorization code.
+    const callback = spotifyModule.parseRedirect(location.search + location.hash);
+    const callbackBanner = callback.code || callback.error
+      ? `<div class="notice" id="spotify-callback"><p>Finishing Spotify sign-in…</p></div>`
+      : "";
+
+    body.innerHTML = `
+      <div class="spotify-layout">
+        <div class="panel spotify-player-panel">
+          ${callbackBanner}
+          ${status}
+          <div class="spotify-now">
+            <div>
+              <p class="eyebrow">${signedIn ? "IN-APP PLAYER" : "SPOTIFY EMBED"}</p>
+              <h2>${esc(chosen ? chosen.name : "Choose something to play")}</h2>
+              <p class="subtitle">${
+                signedIn
+                  ? "Signed in. In-app playback keeps running while you browse, if this account can stream."
+                  : "Playing through Spotify's embed. Sign in below to keep audio running while you browse channels."
+              }</p>
+            </div>
+            <label class="spotify-pick">
+              <span>Playlist</span>
+              <select id="spotify-choose">
+                ${rows
+                  .map(
+                    (row) =>
+                      `<option value="${esc(row.id)}"${row.id === (chosen && chosen.id) ? " selected" : ""}>${esc(row.name)}${row.curated ? "" : " · yours"}</option>`,
+                  )
+                  .join("")}
+              </select>
+            </label>
+          </div>
+          <div class="spotify-stage" id="spotify-stage">
+            ${
+              chosen
+                ? `<iframe
+                    id="spotify-frame"
+                    title="${esc(chosen.name)} on Spotify"
+                    src="${esc(spotifyModule.embedUrl(chosen.type, chosen.id))}"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    loading="lazy"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+                  ></iframe>`
+                : ""
+            }
+          </div>
+          <div class="spotify-actions">
+            ${
+              chosen
+                ? `<button id="spotify-open" class="button quiet">Open in Spotify <span aria-hidden="true">↗</span></button>`
+                : ""
+            }
+            ${
+              signedIn
+                ? `<button id="spotify-device" class="button primary">Play in PremiumTV</button><button id="spotify-signout" class="button quiet">Sign out</button>`
+                : `<button id="spotify-signin" class="button primary">Sign in to Spotify</button>`
+            }
+          </div>
+          <p class="small muted spotify-notice">${esc(spotifyModule.NOTICE)}</p>
+        </div>
+
+        <div class="panel spotify-setup">
+          <h2>Your own links</h2>
+          <p>Paste a Spotify playlist, album, podcast or episode link. It is saved in this browser only.</p>
+          <form id="spotify-add" class="spotify-add">
+            <input id="spotify-link" type="url" placeholder="https://open.spotify.com/playlist/…" autocomplete="off" spellcheck="false" required />
+            <input id="spotify-name" type="text" placeholder="Name (optional)" maxlength="80" autocomplete="off" />
+            <button class="button small" type="submit">Add</button>
+          </form>
+          ${
+            settings.custom.length
+              ? `<ul class="spotify-list">${settings.custom
+                  .map(
+                    (entry, index) =>
+                      `<li><span>${esc(entry.name)}</span><button class="icon-button" data-spotify-remove="${index}" aria-label="Remove ${esc(entry.name)}">×</button></li>`,
+                  )
+                  .join("")}</ul>`
+              : `<p class="small muted">Nothing added yet. The playlists above are Spotify's own editor picks.</p>`
+          }
+          <h2>In-app playback</h2>
+          <p>PremiumTV can keep Spotify playing inside the app, past this tab. That uses Spotify's Web Playback SDK, which needs a Client ID from your own Spotify developer app and a Premium account.</p>
+          <details class="spotify-help">
+            <summary>How to get a Client ID <span aria-hidden="true">↗</span></summary>
+            <ol>
+              <li>Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Spotify developer dashboard</a> and create an app.</li>
+              <li>Add this exact Redirect URI: <code>${esc(location.origin + location.pathname)}</code></li>
+              <li>Copy the app's Client ID into the box below. There is no secret: the sign-in uses PKCE.</li>
+            </ol>
+          </details>
+          <form id="spotify-client" class="spotify-add">
+            <input id="spotify-client-id" type="text" placeholder="Client ID" value="${esc(settings.clientId)}" maxlength="64" autocomplete="off" spellcheck="false" />
+            <button class="button small" type="submit">Save</button>
+          </form>
+          <p class="small muted">The Client ID is public by design. Your sign-in token stays in this browser; nothing is sent to PremiumTV.</p>
+        </div>
+      </div>`;
+
+    wireSpotify(chosen, callback);
+  }
+
+  function wireSpotify(chosen, callback) {
+    const choose = $("spotify-choose");
+    if (choose)
+      choose.onchange = () => {
+        const next = spotify.settings();
+        next.lastId = choose.value;
+        spotify.saveSettings(next);
+        spotifyStatus = "";
+        renderSpotify();
+      };
+    const open = $("spotify-open");
+    if (open && chosen)
+      open.onclick = () =>
+        window.open(chosen.openUrl, "_blank", "noopener,noreferrer");
+
+    const signIn = $("spotify-signin");
+    if (signIn)
+      signIn.onclick = async () => {
+        try {
+          const url = await spotify.begin(location.origin + location.pathname);
+          location.assign(url);
+        } catch (error) {
+          spotifyStatus = spotifyModule.explain(error);
+          renderSpotify();
+        }
+      };
+    const signOut = $("spotify-signout");
+    if (signOut)
+      signOut.onclick = () => {
+        spotify.signOut();
+        spotifyStatus = "Signed out of Spotify on this browser.";
+        renderSpotify();
+      };
+    const device = $("spotify-device");
+    if (device && chosen)
+      device.onclick = async () => {
+        device.disabled = true;
+        try {
+          await startInApp(chosen);
+        } catch (error) {
+          spotifyStatus = spotifyModule.explain(error);
+        } finally {
+          renderSpotify();
+        }
+      };
+
+    const add = $("spotify-add");
+    if (add)
+      add.onsubmit = (event) => {
+        event.preventDefault();
+        const parsed = spotifyModule.parseLink($("spotify-link").value);
+        if (!parsed || !parsed.id) {
+          spotifyStatus = (parsed && parsed.error) || "That is not a Spotify link.";
+        } else {
+          const next = spotify.settings();
+          next.custom = next.custom.concat({
+            type: parsed.type,
+            id: parsed.id,
+            name: $("spotify-name").value.trim() || "My Spotify link",
+          });
+          next.lastId = parsed.id;
+          spotify.saveSettings(next);
+          spotifyStatus = "Added " + parsed.type + " to this browser's Spotify shelf.";
+        }
+        renderSpotify();
+      };
+    bodyRemoval();
+    const client = $("spotify-client");
+    if (client)
+      client.onsubmit = (event) => {
+        event.preventDefault();
+        spotify.saveSettings({ clientId: $("spotify-client-id").value.trim() });
+        spotifyStatus = $("spotify-client-id").value.trim()
+          ? "Client ID saved. Sign in when you are ready."
+          : "Client ID cleared.";
+        renderSpotify();
+      };
+
+    if (callback && (callback.code || callback.error)) finishSpotifySignIn(callback);
+  }
+
+  // The remove buttons are generated, so they are wired from the container.
+  function bodyRemoval() {
+    const body = $("spotify-body");
+    if (!body || body.dataset.removalWired) return;
+    body.dataset.removalWired = "1";
+    body.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-spotify-remove]");
+      if (!button) return;
+      const next = spotify.settings();
+      next.custom.splice(Number(button.dataset.spotifyRemove), 1);
+      spotify.saveSettings(next);
+      spotifyStatus = "Removed that link.";
+      renderSpotify();
+    });
+  }
+
+  async function finishSpotifySignIn(callback) {
+    try {
+      await spotify.complete(location.search + location.hash);
+      // The code is single-use: take it out of the address bar so a reload or a
+      // shared link cannot replay it.
+      history.replaceState(null, "", location.pathname + "#spotify");
+      spotifyStatus = "Signed in to Spotify.";
+      const account = await spotify.me();
+      if (account.product !== "premium") {
+        spotifyStatus +=
+          " This account is on Spotify Free, so playback stays in Spotify's embed - Spotify reserves in-app streaming for Premium.";
+      }
+    } catch (error) {
+      spotifyStatus = spotifyModule.explain(error);
+      history.replaceState(null, "", location.pathname + "#spotify");
+    }
+    renderSpotify();
+  }
+
+  /**
+   * Start Spotify's own Web Playback SDK and hand it the chosen item.
+   *
+   * Nothing here touches audio: the SDK creates a device on Spotify's side and
+   * Spotify streams to it. PremiumTV only asks Spotify to transfer playback, so
+   * a Free account is refused by Spotify rather than by a check we invented.
+   */
+  async function startInApp(chosen) {
+    if (!spotify.configured()) {
+      throw new Error("Add your Spotify Client ID above first.");
+    }
+    const account = await spotify.me();
+    if (account.product !== "premium") {
+      throw new Error(
+        "This Spotify account is on the Free tier. Spotify only allows in-app streaming for Premium accounts; use the embed above, which plays for Free accounts too.",
+      );
+    }
+    await loadSpotifySdk();
+    const deviceId = await connectSpotifyDevice();
+    await spotify.play(deviceId, { type: chosen.type, id: chosen.id });
+    spotifyStatus = "Playing in PremiumTV. Browse away - the audio keeps running.";
+  }
+
+  let spotifySdkPromise = null;
+  function loadSpotifySdk() {
+    if (window.Spotify && window.Spotify.Player) return Promise.resolve();
+    if (spotifySdkPromise) return spotifySdkPromise;
+    spotifySdkPromise = new Promise((resolve, reject) => {
+      const ready = () => (window.Spotify ? resolve() : reject(new Error("The Spotify player did not start.")));
+      window.onSpotifyWebPlaybackSDKReady = ready;
+      const script = document.createElement("script");
+      script.src = spotifyModule.PLAYER_SDK;
+      script.async = true;
+      script.onerror = () => reject(new Error("Spotify's player script could not be loaded."));
+      document.head.appendChild(script);
+      setTimeout(() => {
+        if (window.Spotify) resolve();
+      }, 10000);
+    });
+    return spotifySdkPromise;
+  }
+
+  let spotifyDevice = null;
+  async function connectSpotifyDevice() {
+    if (spotifyDevice) return spotifyDevice;
+    const access = await spotify.token();
+    spotifyDevice = await new Promise((resolve, reject) => {
+      const player = new window.Spotify.Player({
+        name: "PremiumTV",
+        getOAuthToken: (callback) => callback(access),
+        volume: 0.8,
+      });
+      player.addListener("ready", ({ device_id }) => resolve(device_id));
+      player.addListener("account_error", () =>
+        reject(new Error("Spotify refused this account for in-app playback (Premium is required).")),
+      );
+      player.addListener("authentication_error", () =>
+        reject(new Error("Spotify could not authenticate the player. Sign in again.")),
+      );
+      player.connect().then((ok) => {
+        if (!ok) reject(new Error("The Spotify player did not connect."));
+      });
+    });
+    return spotifyDevice;
+  }
+
   function renderSettings() {
     if (!document.getElementById("settings-body")) return;
     const meta = library.meta;

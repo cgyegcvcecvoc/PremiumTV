@@ -1438,3 +1438,83 @@ input:focus-visible,
   outline: 2px solid #ffb020;
   outline-offset: 1px;
 }
+
+/* --------------------------------------------------------- Spotify (1.1.25) */
+/* Player on the left, links and sign-in on the right; one column when the
+   window is narrow, so the fixed-height stage never gets squeezed. */
+.spotify-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+  gap: 14px;
+  align-items: start;
+}
+.spotify-stage-card { display: flex; flex-direction: column; gap: 12px; }
+.spotify-head { display: flex; gap: 14px; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; }
+.spotify-head h2 { margin: 2px 0 4px; font-size: 17px; }
+.spotify-head .muted { margin: 0; font-size: 12px; }
+.spotify-pick { display: flex; flex-direction: column; gap: 4px; min-width: 190px; }
+.spotify-pick span { font-size: 10px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+.spotify-pick select {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 9px;
+  font: inherit;
+}
+.spotify-stage {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #0f0f12;
+  border: 1px solid var(--border);
+}
+.spotify-stage iframe { display: block; width: 100%; height: 100%; border: 0; }
+.spotify-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.spotify-notice { border-left: 2px solid var(--gold); padding-left: 9px; font-size: 12px; margin: 0; }
+.spotify-status {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(240, 192, 64, 0.4);
+  border-radius: 8px;
+  background: rgba(240, 192, 64, 0.08);
+  font-size: 12px;
+}
+/* An empty status box would still show its border, so it is only rendered when
+   there is something to say. app.css's global [hidden] rule keeps this honest. */
+.spotify-status:empty { display: none; }
+.spotify-add { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 10px; }
+.spotify-add input {
+  flex: 1 1 130px;
+  min-width: 0;
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 9px;
+  font: inherit;
+}
+.spotify-list { list-style: none; margin: 0 0 14px; padding: 0; }
+.spotify-list li {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+}
+.spotify-remove {
+  background: none; border: 0; color: var(--muted); cursor: pointer;
+  font-size: 15px; line-height: 1; padding: 2px 6px; border-radius: 6px;
+}
+.spotify-remove:hover { color: var(--danger); background: rgba(255, 255, 255, 0.06); }
+.spotify-help { margin: 4px 0 10px; }
+.spotify-help ol { margin: 7px 0 0 16px; padding: 0; }
+.spotify-help code {
+  display: block; margin-top: 4px; padding: 5px 7px;
+  word-break: break-all; font-size: 11px;
+  background: var(--bg-elevated); border-radius: 6px;
+}
+.spotify-setup h2 { margin-top: 4px; }
+@media (max-width: 1080px) {
+  .spotify-grid { grid-template-columns: minmax(0, 1fr); }
+  .spotify-stage { height: 340px; }
+}

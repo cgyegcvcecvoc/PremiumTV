@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      The Android TV shell for the Spotify tab (1.1.25).
+
+      This page is only layout and wiring. Every rule it applies - what a
+      Spotify link is, which embed URL that produces, how sign-in works - comes
+      from spotify.js beside it, which is the very same file the browser build
+      and the desktop renderer load. One implementation, four apps.
+
+      scripts are 'self' plus sdk.scdn.co, which is Spotify's own playback SDK
+      and nothing else. frames are Spotify's embed. No other origin is allowed
+      to run here, and the Kotlin side refuses navigation away from Spotify.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://sdk.scdn.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self' https:; connect-src 'self' https://api.spotify.com https://accounts.spotify.com; frame-src https://open.spotify.com; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Spotify</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0f16;
+        --card: #121820;
+        --line: #2a3441;
+        --text: #f2f4f8;
+        --muted: #9fb0c4;
+        --gold: #f3c24b;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.5 system-ui, "Roboto", sans-serif;
+        /* The TV is ten feet away: nothing smaller than this is readable. */
+        font-size: 16px;
+      }
+      .wrap { padding: 18px 22px 26px; }
+      .top { display: flex; gap: 18px; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; }
+      h1 { margin: 0; font-size: 24px; letter-spacing: -0.3px; }
+      .hint { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+      label.pick { display: flex; flex-direction: column; gap: 5px; min-width: 240px; }
+      label.pick span { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+      select, input, button {
+        font: inherit;
+        color: var(--text);
+        background: #182130;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      /* TV focus is a remote pointer, not a cursor: it has to be impossible to
+         lose, so focus is a solid gold ring on a lighter fill. */
+      select:focus, input:focus, button:focus {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+        background: #223044;
+      }
+      button { cursor: pointer; background: #1d2836; }
+      button.primary { background: linear-gradient(180deg, var(--gold), #d9a11c); color: #12160b; font-weight: 650; border-color: transparent; }
+      button:disabled { opacity: 0.55; }
+      .stage {
+        position: relative;
+        margin-top: 14px;
+        width: 100%;
+        height: 62vh;
+        min-height: 380px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #101214;
+      }
+      .stage iframe { display: block; width: 100%; height: 100%; border: 0; }
+      .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+      .status:empty { display: none; }
+      .status {
+        margin: 12px 0 0;
+        padding: 10px 12px;
+        border: 1px solid rgba(243, 194, 75, 0.45);
+        border-radius: 10px;
+        background: rgba(243, 194, 75, 0.08);
+        font-size: 14px;
+      }
+      .notice {
+        margin: 14px 0 0;
+        padding-left: 12px;
+        border-left: 3px solid var(--gold);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .panel {
+        margin-top: 18px;
+        padding: 16px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+      .panel h2 { margin: 0 0 8px; font-size: 17px; }
+      .panel p { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+      .add { display: flex; gap: 8px; flex-wrap: wrap; }
+      .add input { flex: 1 1 220px; min-width: 0; }
+      ul.links { list-style: none; margin: 0 0 14px; padding: 0; }
+      ul.links li {
+        display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px;
+      }
+      code { display: block; margin-top: 6px; padding: 6px 8px; background: #0d131c; border-radius: 8px; font-size: 12px; word-break: break-all; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <h1 id="current">Choose something to play</h1>
+          <p class="hint" id="hint">
+            Spotify's own embed. Sign in below to keep audio playing inside
+            PremiumTV while you browse channels.
+          </p>
+        </div>
+        <label class="pick">
+          <span>Playlist</span>
+          <select id="choose"></select>
+        </label>
+      </div>
+
+      <div class="stage" id="stage"></div>
+
+      <div class="row">
+        <button id="open" class="quiet">Open in Spotify</button>
+        <button id="signin" class="primary">Sign in to Spotify</button>
+        <button id="signout" hidden>Sign out</button>
+        <button id="device" class="primary" hidden>Play in PremiumTV</button>
+      </div>
+      <p class="status" id="status" role="status"></p>
+      <p class="notice" id="notice"></p>
+
+      <div class="panel">
+        <h2>Your own links</h2>
+        <p>Paste a Spotify playlist, album, podcast or episode link. It stays on this device.</p>
+        <form class="add" id="add">
+          <input id="link" type="text" placeholder="https://open.spotify.com/playlist/…" spellcheck="false" />
+          <input id="name" type="text" placeholder="Name (optional)" maxlength="80" />
+          <button type="submit">Add</button>
+        </form>
+        <ul class="links" id="links"></ul>
+
+        <h2>In-app playback</h2>
+        <p>
+          Spotify's Web Playback SDK can keep audio in the app once you leave
+          this tab. It needs a Client ID from your own Spotify developer app and
+          a Premium account.
+        </p>
+        <p>
+          Register this exact Redirect URI in that app:
+          <code id="redirect"></code>
+        </p>
+        <form class="add" id="client">
+          <input id="client-id" type="text" placeholder="Client ID" spellcheck="false" maxlength="64" />
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="spotify.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        var S = window.PremiumSpotify;
+        var $ = function (id) { return document.getElementById(id); };
+        // Electron and the browser builds both register this address; the TV
+        // registers the same one, so one Spotify app covers all three hosts.
+        var REDIRECT = "https://cgyegcvcecvoc.github.io/PremiumTV/spotify-callback";
+        var status = "";
+        var deviceId = null;
+        var sdkPromise = null;
+
+        if (!S) {
+          $("status").textContent = "The Spotify module did not load, so this tab is disabled.";
+          return;
+        }
+        var session = S.Session({
+          storage: window.localStorage,
+          fetch: function (url, init) { return fetch(url, init); },
+          crypto: window.crypto,
+          redirectUri: REDIRECT,
+        });
+
+        function el(tag, text, attrs) {
+          var node = document.createElement(tag);
+          if (text != null) node.textContent = text;
+          if (attrs) Object.keys(attrs).forEach(function (key) { node.setAttribute(key, attrs[key]); });
+          return node;
+        }
+
+        function render() {
+          var settings = session.settings();
+          var rows = S.library(settings);
+          var signedIn = session.signedIn();
+          var chosen = null;
+          rows.forEach(function (row) { if (row.id === settings.lastId) chosen = row; });
+          chosen = chosen || rows[0];
+
+          var choose = $("choose");
+          choose.textContent = "";
+          var options = rows.length ? rows : [{ id: "", name: "No playlists yet" }];
+          options.forEach(function (row) {
+            var option = el("option", row.name + (row.curated ? "" : " · yours"));
+            option.value = row.id;
+            if (chosen && row.id === chosen.id) option.selected = true;
+            choose.appendChild(option);
+          });
+
+          $("current").textContent = chosen ? chosen.name : "Choose something to play";
+          $("hint").textContent = signedIn
+            ? "Signed in. In-app playback keeps running while you browse, if this account can stream."
+            : "Spotify's own embed. Sign in below to keep audio playing inside PremiumTV while you browse channels.";
+          $("notice").textContent = S.NOTICE;
+          $("status").textContent = status;
+          $("redirect").textContent = REDIRECT;
+          $("client-id").value = settings.clientId;
+
+          // One frame, replaced per choice: Spotify's embed is an opaque
+          // cross-origin document, which is why nothing here can alter what it
+          // shows and why the app does not try.
+          var stage = $("stage");
+          stage.textContent = "";
+          if (chosen) {
+            var frame = el("iframe", null, {
+              title: chosen.name + " on Spotify",
+              src: S.embedUrl(chosen.type, chosen.id),
+              allow: "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture",
+              sandbox: "allow-scripts allow-same-origin allow-presentation allow-popups",
+              referrerpolicy: "strict-origin-when-cross-origin",
+            });
+            stage.appendChild(frame);
+            $("open").hidden = false;
+          } else {
+            $("open").hidden = true;
+          }
+
+          $("signin").hidden = signedIn;
+          $("signout").hidden = !signedIn;
+          $("device").hidden = !signedIn || !chosen;
+
+          var links = $("links");
+          links.textContent = "";
+          settings.custom.forEach(function (entry, index) {
+            var li = el("li");
+            li.appendChild(el("span", entry.name));
+            var remove = el("button", "×", { "data-index": String(index), "aria-label": "Remove " + entry.name });
+            remove.type = "button";
+            remove.onclick = function () {
+              var next = session.settings();
+              next.custom.splice(index, 1);
+              session.saveSettings(next);
+              status = "Removed that link.";
+              render();
+            };
+            li.appendChild(remove);
+            links.appendChild(li);
+          });
+
+          choose.onchange = function () {
+            session.saveSettings({ lastId: choose.value });
+            status = "";
+            render();
+          };
+          $("open").onclick = function () {
+            if (chosen) window.open(chosen.openUrl, "_blank", "noopener,noreferrer");
+          };
+        }
+
+        $("add").onsubmit = function (event) {
+          event.preventDefault();
+          var parsed = S.parseLink($("link").value);
+          if (!parsed || !parsed.id) {
+            status = (parsed && parsed.error) || "That is not a Spotify link.";
+          } else {
+            var next = session.settings();
+            next.custom = next.custom.concat({
+              type: parsed.type,
+              id: parsed.id,
+              name: $("name").value.trim() || "My Spotify link",
+            });
+            next.lastId = parsed.id;
+            session.saveSettings(next);
+            status = "Added that " + parsed.type + " to this device's shelf.";
+          }
+          render();
+        };
+
+        $("client").onsubmit = function (event) {
+          event.preventDefault();
+          var value = $("client-id").value.trim();
+          session.saveSettings({ clientId: value });
+          status = value ? "Client ID saved. Sign in when ready." : "Client ID cleared.";
+          render();
+        };
+
+        $("signin").onclick = async function () {
+          try {
+            status = "Opening Spotify to sign in…";
+            $("status").textContent = status;
+            // A television cannot type a password comfortably and cannot show a
+            // browser tab beside the app, so the sign-in URL is offered as a QR
+            // fallback in text: the WebView navigates to Spotify's own pages,
+            // where its remote-friendly login works.
+            window.location.href = await session.begin(REDIRECT);
+          } catch (error) {
+            status = S.explain(error);
+            render();
+          }
+        };
+
+        $("signout").onclick = function () {
+          session.signOut();
+          status = "Signed out of Spotify on this device.";
+          render();
+        };
+
+        async function loadSdk() {
+          if (window.Spotify && window.Spotify.Player) return;
+          if (sdkPromise) return sdkPromise;
+          sdkPromise = new Promise(function (resolve, reject) {
+            window.onSpotifyWebPlaybackSDKReady = function () { resolve(); };
+            var script = document.createElement("script");
+            script.src = S.PLAYER_SDK;
+            script.onerror = function () { reject(new Error("Spotify's player script could not be loaded.")); };
+            document.head.appendChild(script);
+            setTimeout(function () { if (window.Spotify) resolve(); }, 10000);
+          });
+          return sdkPromise;
+        }
+
+        $("device").onclick = async function () {
+          var button = $("device");
+          button.disabled = true;
+          try {
+            if (!session.configured()) throw new Error("Add your Spotify Client ID first.");
+            var account = await session.me();
+            if (account.product !== "premium") {
+              throw new Error(
+                "This Spotify account is on the Free tier. Spotify reserves in-app streaming for Premium; " +
+                "the embed above plays for Free accounts too."
+              );
+            }
+            await loadSdk();
+            if (!deviceId) {
+              var access = await session.token();
+              deviceId = await new Promise(function (resolve, reject) {
+                var player = new window.Spotify.Player({
+                  name: "PremiumTV",
+                  getOAuthToken: function (callback) { callback(access); },
+                  volume: 0.8,
+                });
+                player.addListener("ready", function (event) { resolve(event.device_id); });
+                player.addListener("account_error", function () {
+                  reject(new Error("Spotify refused this account for in-app playback (Premium is required)."));
+                });
+                player.connect().then(function (ok) { if (!ok) reject(new Error("The Spotify player did not connect.")); });
+              });
+            }
+            var current = session.settings().lastId;
+            var rows = S.library(session.settings());
+            var chosen = null;
+            rows.forEach(function (row) { if (row.id === current) chosen = row; });
+            await session.play(deviceId, chosen || rows[0]);
+            status = "Playing in PremiumTV. Browse away — the audio keeps running.";
+          } catch (error) {
+            status = S.explain(error);
+          }
+          button.disabled = false;
+          render();
+        };
+
+        // A redirect can land here as well (the WebView follows it when the
+        // same window is used), so finish the flow if the address has a code.
+        var callback = S.parseRedirect(window.location.search + window.location.hash);
+        if (callback.code || callback.error) {
+          session.complete(window.location.search + window.location.hash)
+            .then(function () {
+              status = "Signed in to Spotify.";
+              history.replaceState(null, "", window.location.pathname);
+              return session.me();
+            })
+            .then(function (account) {
+              if (account && account.product !== "premium") {
+                status += " This account is on Spotify Free, so in-app streaming stays unavailable — " +
+                  "Spotify reserves it for Premium. The embed above still plays.";
+              }
+            })
+            .catch(function (error) { status = S.explain(error); })
+            .then(render);
+        } else {
+          render();
+        }
+      })();
+    </script>
+  </body>
+</html>

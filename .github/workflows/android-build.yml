@@ -169,6 +169,14 @@ jobs:
           fi
           echo "APK is signed with the pinned PremiumTV update key ($expected)."
 
+      # The Spotify tab runs the shared module (macos/app/src/renderer/spotify.js)
+      # from inside the APK. A television must never enforce an older policy than
+      # the desktop app, so the packaged copy is checked against the source here,
+      # before Gradle packs it. Fix a mismatch with
+      # `python scripts/sync_spotify_assets.py`.
+      - name: Verify the APK's Spotify module matches the shared one
+        run: python3 scripts/sync_spotify_assets.py --check
+
       # The local-channel directory is data baked into the APK. Check the
       # packaged copy, not the repository's, so a stale bundle cannot be
       # smoke-tested, uploaded, or attached to a release.

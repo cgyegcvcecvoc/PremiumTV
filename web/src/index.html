@@ -18,7 +18,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' blob: https: http:; connect-src 'self' https: http:; font-src 'self'; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'none'"
+      content="default-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' blob: https: http:; connect-src 'self' https: http:; font-src 'self'; script-src 'self' https://sdk.scdn.co; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'none'"
     />
     <title>PremiumTV — Your browser. Your television.</title>
     <link rel="icon" href="icon-192.png" type="image/png" />
@@ -33,6 +33,7 @@
     <script defer src="shared/report.js"></script>
     <script defer src="shared/local-channels.js"></script>
     <script defer src="shared/playback-recovery.js"></script>
+    <script defer src="shared/spotify.js"></script>
     <script defer src="store.js"></script>
     <script defer src="diagnostics.js"></script>
     <script defer src="player.js"></script>
@@ -113,6 +114,17 @@
             tabindex="-1"
           >
             <span data-icon="settings"></span><span>Settings</span>
+          </button>
+          <button
+            class="nav-item"
+            id="tab-spotify"
+            data-tab="spotify"
+            role="tab"
+            aria-selected="false"
+            aria-controls="view-spotify"
+            tabindex="-1"
+          >
+            <span data-icon="music"></span><span>Spotify</span>
           </button>
         </div>
         <div class="personal-nav">
@@ -459,6 +471,25 @@
             </div>
           </div>
           <div id="settings-body"></div>
+        </section>
+        <section
+          id="view-spotify"
+          class="view"
+          role="tabpanel"
+          aria-labelledby="tab-spotify"
+          hidden
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">MUSIC &amp; PODCASTS</p>
+              <h1>Something to listen to.</h1>
+              <p class="subtitle">
+                Spotify's own player, in this tab. Keep browsing channels while
+                it runs.
+              </p>
+            </div>
+          </div>
+          <div id="spotify-body"><p class="subtitle">Loading Spotify…</p></div>
         </section>
         <footer class="main-footer">
           <span>PremiumTV Web <span id="footer-version"></span></span

@@ -299,14 +299,52 @@ function createWindow() {
   mainWindow.on('close', writeWindowState);
 
   // Anything the renderer tries to open in a new window goes to the browser.
+  // Sign-in is one of those: Spotify's login page opens in the real browser,
+  // where the viewer's password manager and 2FA already work.
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (/^https?:\/\//i.test(url)) shell.openExternal(url);
     return { action: 'deny' };
   });
 
+  // A redirect to the Spotify callback must never load inside the app. It is
+  // read here and replayed to the renderer, which finishes the PKCE exchange.
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    const payload = spotifyCallbackPayload(url);
+    if (!payload) return;
+    event.preventDefault();
+    send('ptv:spotify-callback', payload);
+  });
+
   mainWindow.loadURL(proxy.origin);
   buildMenu();
   return mainWindow;
+}
+
+/**
+ * Spotify sign-in callback (1.1.25).
+ *
+ * The renderer starts Authorization Code + PKCE in the system browser, because
+ * Spotify refuses to let its own login page frame and because typing a Spotify
+ * password into an app window is worse than not offering it. Spotify then
+ * redirects to this address, which is registered in the viewer's Spotify app.
+ * Nothing serves it: `will-navigate` below recognises it, keeps the main window
+ * where it is, and hands the query to the renderer over ptv:spotify-callback.
+ * The second window Spotify's flow may open is closed.
+ */
+const SPOTIFY_CALLBACK = 'https://cgyegcvcecvoc.github.io/PremiumTV/spotify-callback';
+
+function spotifyCallbackPayload(url) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.origin + parsed.pathname !== SPOTIFY_CALLBACK) return null;
+    return {
+      code: parsed.searchParams.get('code') || '',
+      state: parsed.searchParams.get('state') || '',
+      error: parsed.searchParams.get('error') || '',
+    };
+  } catch {
+    return null;
+  }
 }
 
 function send(channel, payload) {

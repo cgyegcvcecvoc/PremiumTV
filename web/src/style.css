@@ -2297,3 +2297,85 @@ body.player-expanded {
 .provider-options li { flex: 1 1 230px; min-width: 0; }
 .provider-options a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .provider-options small { display: block; margin-top: 0.25rem; }
+
+/* ------------------------------------------------------- Spotify (1.1.25) */
+/* Two columns on a wide window, one on a phone. The player is a fixed-ratio
+   stage so Spotify's own iframe is never given a sliver of a height. */
+.spotify-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 16px;
+  align-items: start;
+}
+.spotify-player-panel { display: flex; flex-direction: column; gap: 14px; }
+.spotify-now {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.spotify-now h2 { margin: 2px 0 4px; font-size: 20px; }
+.spotify-pick { display: flex; flex-direction: column; gap: 5px; min-width: 190px; }
+.spotify-pick span { font-size: 11px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+.spotify-pick select {
+  background: var(--raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 9px 11px;
+}
+/* Spotify's embed sizes itself; the wrapper only decides how much room it gets.
+   min-height keeps the playlist list usable on a short laptop window. */
+.spotify-stage {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #101214;
+  border: 1px solid var(--line);
+}
+.spotify-stage iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: 0; }
+.spotify-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.spotify-notice {
+  border-left: 2px solid var(--gold);
+  padding-left: 10px;
+  margin: 0;
+}
+.spotify-add { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.spotify-add input {
+  flex: 1 1 150px;
+  min-width: 0;
+  background: var(--raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 9px 11px;
+}
+.spotify-list { list-style: none; margin: 0 0 16px; padding: 0; }
+.spotify-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+.spotify-help { margin: 4px 0 12px; }
+.spotify-help ol { margin: 8px 0 0 18px; padding: 0; }
+.spotify-help code {
+  display: block;
+  margin-top: 4px;
+  word-break: break-all;
+  background: var(--raised);
+  border-radius: 6px;
+  padding: 5px 7px;
+  font-size: 12px;
+}
+.spotify-setup h2 { margin-top: 6px; }
+.spotify-setup h2 + p { margin-top: 2px; }
+@media (max-width: 900px) {
+  .spotify-layout { grid-template-columns: minmax(0, 1fr); }
+  .spotify-stage, .spotify-stage iframe { min-height: 320px; }
+}

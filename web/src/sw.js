@@ -18,6 +18,7 @@ const CORE = [
   "shared/personal.js",
   "shared/health.js",
   "shared/local-channels.js",
+  "shared/spotify.js",
   "data/meta.json",
   "data/channels.json",
   "data/groups.json",

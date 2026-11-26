@@ -55,4 +55,6 @@ contextBridge.exposeInMainWorld('premiumtv', {
   onProgress: (callback) => subscribe('ptv:progress', callback),
   onSelectTab: (callback) => subscribe('ptv:select-tab', callback),
   onUpdate: (callback) => subscribe('ptv:update', callback),
+  /** Spotify sign-in: the redirect the main process intercepted (1.1.25). */
+  onSpotifyCallback: (callback) => subscribe('ptv:spotify-callback', callback),
 });

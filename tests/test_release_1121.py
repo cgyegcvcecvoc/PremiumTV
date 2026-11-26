@@ -49,7 +49,19 @@ class Version1121Tests(unittest.TestCase):
         self.assertGreaterEqual(release_version.compare_versions(current, "1.1.21"), 0, current)
         self.assertEqual(release_version.android_version_code("1.1.21"), 101_210_000)
         self.assertEqual(version_sync.check(), [])
-        self.assertEqual(version_sync.PUBLISHED_VERSION, current)
+        # PUBLISHED_VERSION is the newest *stable* release, and it is no longer
+        # pinned to whatever is current: 1.1.25 ships as a pre-release, whose
+        # whole point is that no installed app is offered it while the published
+        # surfaces still describe 1.1.24. What must never regress is that the
+        # published surfaces are at least this release's baseline.
+        self.assertGreaterEqual(
+            release_version.compare_versions(version_sync.PUBLISHED_VERSION, "1.1.21"), 0,
+            version_sync.PUBLISHED_VERSION,
+        )
+        self.assertLessEqual(
+            release_version.compare_versions(version_sync.PUBLISHED_VERSION, current), 0,
+            "the published release cannot be ahead of VERSION",
+        )
 
         notes = text("release-notes-1.1.21.md")
         self.assertIn("# PremiumTV 1.1.21 — ", notes)

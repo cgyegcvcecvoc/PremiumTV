@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://archive.org https://cdn.jsdelivr.net; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; frame-src 'self' https:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+        content="default-src 'self'; script-src 'self' https://sdk.scdn.co; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://archive.org https://cdn.jsdelivr.net; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; frame-src 'self' https:; object-src 'none'; base-uri 'none'; form-action 'none'" />
   <title>PremiumTV</title>
   <link rel="stylesheet" href="app.css" />
 </head>
@@ -90,6 +90,7 @@
         <button class="tab" role="tab" data-tab="movies" aria-selected="false">Movies &amp; Shows</button>
         <button class="tab" role="tab" data-tab="guide" aria-selected="false">Guide</button>
         <button class="tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
+        <button class="tab" role="tab" data-tab="spotify" aria-selected="false">Spotify</button>
       </nav>
 
       <div class="search-wrap">
@@ -194,6 +195,17 @@
         <div id="guide-list"></div>
       </section>
 
+      <!-- 1.1.25 Spotify. Spotify's own embed for browsing, and its Web
+           Playback SDK for listening in the app; the terms that come with both
+           are stated on the panel rather than implied. -->
+      <section id="view-spotify" class="view" role="tabpanel" hidden>
+        <header class="view-head">
+          <h1>Spotify</h1>
+          <p id="spotify-subtitle">Music and podcasts from Spotify's own player, next to your channels.</p>
+        </header>
+        <div id="spotify-body"></div>
+      </section>
+
       <section id="view-settings" class="view" role="tabpanel" hidden>
         <header class="view-head">
           <h1>Settings</h1>
@@ -296,6 +308,7 @@
   <script src="report.js"></script>
   <script src="local-channels.js"></script>
   <script src="playback-recovery.js"></script>
+  <script src="spotify.js"></script>
   <script src="player.js"></script>
   <script src="app.js"></script>
 </body>

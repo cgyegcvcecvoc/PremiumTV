@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.24** — broken-feed reports, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.25** — Spotify on every screen, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,9 +26,9 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.24
+## Current stable: 1.1.25
 
-1.1.24 adds a report button to the player error card: it opens a prefilled GitHub issue with the channel, feed number, stream URL and the player's message, and nothing is sent until the viewer presses Submit. The scrape health report now names the servers with confirmed failures and the channels behind them, not just totals. BBC America is filed under Entertainment, and WGAL's signed feed and the other advertised Pluto addresses were re-checked. Full notes: [`release-notes-1.1.24.md`](../release-notes-1.1.24.md).
+1.1.25 adds a Spotify tab to every app — the web player, macOS, Linux and Android TV. It holds your playlists, albums and podcasts in Spotify's own player: an embed that works with no account, plus sign-in (Authorization Code + PKCE, nothing sent to PremiumTV) for in-app playback that keeps running while you browse channels. In-app streaming uses Spotify's Web Playback SDK, which Spotify limits to Premium accounts; a Free account plays through the embed and hears Spotify's ads there, because PremiumTV does not block, mute or skip them. Your own links and the redirect URI sit one tap away. Full notes: [`release-notes-1.1.25.md`](../release-notes-1.1.25.md).
 
 It installs in place over every earlier build: Android `101240000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from

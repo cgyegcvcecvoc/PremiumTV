@@ -121,6 +121,7 @@ enum class HomeTab(val label: String) {
     Events("Live Events"),
     Movies("Movies & Shows"),
     Guide("Guide"),
+    Spotify("Spotify"),
     Settings("Settings"),
 }
 
@@ -327,6 +328,8 @@ internal fun HomeScreen(
                 Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Guide.label, tab == HomeTab.Guide) { onTabChange(HomeTab.Guide) }
                 Spacer(modifier = Modifier.width(12.dp))
+                TabChip(HomeTab.Spotify.label, tab == HomeTab.Spotify) { onTabChange(HomeTab.Spotify) }
+                Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Settings.label, tab == HomeTab.Settings) { onTabChange(HomeTab.Settings) }
             }
         }
@@ -386,6 +389,10 @@ internal fun HomeScreen(
             } else {
                 GuideScreen(library, now, liveIndex, onSelect)
             }
+            // 1.1.25: Spotify's own web player, in a WebView served from the
+            // APK. See SpotifyScreen.kt for why it is a WebView and what it
+            // deliberately does not do.
+            HomeTab.Spotify -> SpotifyScreen()
             HomeTab.Settings -> SettingsScreen(
                 library = library,
                 status = status,

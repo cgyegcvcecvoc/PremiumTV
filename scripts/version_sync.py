@@ -35,8 +35,8 @@ import sys
 from pathlib import Path
 
 # The app release and the static download-site copy are checked separately.
-PUBLISHED_VERSION = "1.1.24"
-SITE_VERSION = "1.1.24"
+PUBLISHED_VERSION = "1.1.25"
+SITE_VERSION = "1.1.25"
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
