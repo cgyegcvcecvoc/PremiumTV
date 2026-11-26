@@ -1,5 +1,18 @@
 [
  {
+  "id": "2026-11-26",
+  "date": "2026-11-26",
+  "title": "Version 1.1.25: Movies tab retired",
+  "body_md": "- **The Movies & Shows tab is gone from the web player, macOS and Android.** The navigation is now four sections everywhere — Channels, Live Events, TV guide and Settings — and nothing in any client offers an on-demand shelf.\n- **The tab was removed, not hidden.** The web player loses `#tab-movies`, its `#view-movies` section, the shelf renderer, the movie search and genre filters and the `data/vod.json` request; the macOS renderer loses the same section, `renderMovies`, `watchVod`, the shelf filter state and the `meta.vod_catalog` load; Android loses `HomeTab.Movies`, its chip, the `VodShelfScreen` branch and the catalogue load in `HomeScreen`, and keeps only the parser its channel lookup still uses.\n- **What stayed is the plumbing a live channel needs.** The player's embed mount, the resume-position store and the transport controls are untouched, so tuning, favorites, recents and live playback behave exactly as in 1.1.24.\n- **The catalogue itself is still bundled.** `scripts/vod_catalog.py`, `playlists/vod/` and the `vod-catalog.json` the builders ship are unchanged and unused by the UI, so surfacing it again later needs a view, not a data rebuild.\n- **The suite was updated with the feature.** The shelf's browser spec, its macOS renderer and catalogue suites, and the four release tests that asserted the tab existed were removed or rewritten; the checks are now `python -m unittest discover -s tests` (868 tests), `cd macos/app && node --test test/*.test.js` (171) and `cd web && npm test && npm run build` (48).",
+  "bullets": [
+   "**The Movies & Shows tab is gone from the web player, macOS and Android.** The navigation is now four sections everywhere — Channels, Live Events, TV guide and Settings — and nothing in any client offers an on-demand shelf.",
+   "**The tab was removed, not hidden.** The web player loses `#tab-movies`, its `#view-movies` section, the shelf renderer, the movie search and genre filters and the `data/vod.json` request; the macOS renderer loses the same section, `renderMovies`, `watchVod`, the shelf filter state and the `meta.vod_catalog` load; Android loses `HomeTab.Movies`, its chip, the `VodShelfScreen` branch and the catalogue load in `HomeScreen`, and keeps only the parser its channel lookup still uses.",
+   "**What stayed is the plumbing a live channel needs.** The player's embed mount, the resume-position store and the transport controls are untouched, so tuning, favorites, recents and live playback behave exactly as in 1.1.24.",
+   "**The catalogue itself is still bundled.** `scripts/vod_catalog.py`, `playlists/vod/` and the `vod-catalog.json` the builders ship are unchanged and unused by the UI, so surfacing it again later needs a view, not a data rebuild.",
+   "**The suite was updated with the feature.** The shelf's browser spec, its macOS renderer and catalogue suites, and the four release tests that asserted the tab existed were removed or rewritten; the checks are now `python -m unittest discover -s tests` (868 tests), `cd macos/app && node --test test/*.test.js` (171) and `cd web && npm test && npm run build` (48)."
+  ]
+ },
+ {
   "id": "2026-11-25",
   "date": "2026-11-25",
   "title": "Version 1.1.24 published: Broken-feed reports",

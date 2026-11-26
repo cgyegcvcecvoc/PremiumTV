@@ -226,12 +226,11 @@ class VersionTests(unittest.TestCase):
 
 
 class LiveEvents111Tests(unittest.TestCase):
-    """1.1.1: official team crests, "Not live yet" countdowns, Movies & Shows."""
+    """1.1.1: official team crests and "Not live yet" kickoff countdowns."""
 
     def test_live_events_carries_team_crests_and_kickoff_times(self):
         home = text(UI / "HomeScreen.kt")
         self.assertIn("private fun TeamLogo(", home)
-        self.assertIn("VodShelfScreen(", home)
         self.assertIn("countdownText(", home)
         self.assertIn("kickoffTime(", home)
         live = text(UI / "LiveEvents.kt")
@@ -245,12 +244,6 @@ class LiveEvents111Tests(unittest.TestCase):
         self.assertIn("val teams = listOf(teamKey(home), teamKey(away)).sorted()", live)
         self.assertIn('"${normKey(sport)}|${teams[0]}|${teams[1]}"', live)
         self.assertIn("event.copy(servers = servers.getValue(key).toList(), kickoffUtc = schedule[key])", live)
-
-    def test_home_screen_switches_to_the_movies_tab(self):
-        home = text(UI / "HomeScreen.kt")
-        self.assertIn('Movies("Movies & Shows")', home)
-        self.assertIn("HomeTab.Movies -> VodShelfScreen(", home)
-        self.assertIn("onWatch = { onSelect(it.asChannel()) }", home)
 
     def test_the_bundle_ships_team_crests_and_the_schedule(self):
         builder = text(ROOT / "android/tools/build_bundle.py")

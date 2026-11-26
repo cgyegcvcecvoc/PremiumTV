@@ -39,9 +39,6 @@
     guideLayout: "list",
     guideCategory: "",
     guideQuery: "",
-    movieQuery: "",
-    kind: "all",
-    genre: "All",
     refreshing: false,
   };
   let library = {
@@ -60,8 +57,7 @@
     localSelection = local ? local.load(S.storage) : null,
     localNotice = "",
     localLocating = false;
-  let movies = [],
-    events = [],
+  let events = [],
     eventIndex = new Map(),
     programmeIndex = new Map();
   let favorites = P.load(S.storage, P.FAVORITES_KEY),
@@ -192,22 +188,6 @@
       lastRefresh = Date.now();
       lastRefreshMessage = `Web library loaded: ${number(channels.length)} feeds, ${groups.length} categories.`;
       if (force) toast("Library refreshed. Your favorites are kept.");
-      // Noncritical shelves are independent: one unavailable extra must not
-      // strand the channel browser behind a loading screen.
-      const build = meta.build_id;
-      json("data/vod.json?v=" + build, force)
-        .then((doc) => {
-          if (library.meta.build_id !== build) return;
-          movies = Array.isArray(doc.items) ? doc.items : [];
-          renderMovieFilters();
-          if (state.tab === "movies") renderMovies();
-        })
-        .catch(() => {
-          if (library.meta.build_id === build) {
-            movies = [];
-            if (state.tab === "movies") renderMovies();
-          }
-        });
       ensureGuide().catch(() => {});
     } catch (error) {
       lastRefreshMessage =
@@ -315,7 +295,7 @@
     return health.filterChannels(library.channels, dead);
   }
   function setTab(tab, updateHash) {
-    if (!["channels", "live", "movies", "guide", "settings"].includes(tab))
+    if (!["channels", "live", "guide", "settings"].includes(tab))
       tab = "channels";
     state.tab = tab;
     document.querySelectorAll(".view").forEach((el) => {
@@ -336,7 +316,6 @@
       );
     if (tab === "channels") renderChannels();
     if (tab === "live") renderLive();
-    if (tab === "movies") renderMovies();
     if (tab === "guide") {
       ensureGuide();
       renderGuide();
@@ -641,81 +620,6 @@
       )
       .join("");
   }
-  function movieDetail(item) {
-    return [
-      item.year || "",
-      item.genre,
-      item.runtime_seconds
-        ? Math.round(item.runtime_seconds / 60) + " min"
-        : "",
-    ]
-      .filter(Boolean)
-      .join(" · ");
-  }
-  function movieLabel(item) {
-    return item.kind === "movie"
-      ? "FILM"
-      : item.season
-        ? `S${item.season}${item.episode ? " E" + item.episode : ""}`
-        : "EPISODE";
-  }
-  function renderMovieFilters() {
-    const genres = [
-      "All",
-      ...new Set(movies.map((m) => m.genre).filter(Boolean)),
-    ];
-    $("movie-genres").innerHTML = genres
-      .map(
-        (genre) =>
-          `<button data-genre="${esc(genre)}" aria-pressed="${genre === state.genre}">${esc(genre)}</button>`,
-      )
-      .join("");
-  }
-  function renderMovies() {
-    // Data-driven: a paused or empty catalogue shows the coming-soon page, and
-    // restoring the catalogue brings the grid back without another code change.
-    const comingSoon = movies.length === 0;
-    const toolbar = $("movies-toolbar");
-    if (toolbar) toolbar.hidden = comingSoon;
-    if ($("movies-coming-soon")) $("movies-coming-soon").hidden = !comingSoon;
-    if ($("movie-grid")) $("movie-grid").hidden = comingSoon;
-    if ($("movie-empty")) $("movie-empty").hidden = true;
-    if ($("movies-heading"))
-      $("movies-heading").textContent = comingSoon
-        ? "Movies & Shows is coming soon."
-        : "Classic films. Timeless stories.";
-    if ($("movies-subtitle"))
-      $("movies-subtitle").textContent = comingSoon
-        ? "The on-demand shelf is being rebuilt around a catalogue we can stand behind. Live channels, the guide and your favorites are unchanged."
-        : `${movies.length} on-demand titles · Public-domain classics · Resume on this browser`;
-    if (comingSoon) return;
-    const query = S.normalize(state.movieQuery);
-    const items = movies.filter(
-      (m) =>
-        (state.kind === "all" || m.kind === state.kind) &&
-        (state.genre === "All" || m.genre === state.genre) &&
-        S.normalize([m.title, m.show, m.genre, m.summary].join(" ")).includes(
-          query,
-        ),
-    );
-    $("movie-empty").hidden = items.length > 0;
-    $("movie-grid").innerHTML = items
-      .map((item) => {
-        const at = S.resumeAt(S.positions()[item.id], item.runtime_seconds);
-        return `<article class="movie-card"><button class="movie-poster" data-movie="${esc(item.id)}" aria-label="${at ? "Resume" : "Play"} ${esc(item.title)}">${icon("movie")}${/^https:\/\//.test(item.poster || "") || item.test_card ? `<img src="${esc(item.poster)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}<span class="movie-kind">${esc(movieLabel(item))}</span></button><h3>${esc(item.title)}</h3><p>${esc(movieDetail(item))}</p>${at ? `<div class="resume-track" aria-label="Resume at ${mediaClock(at)}"><span style="width:${Math.min(100, (at / item.runtime_seconds) * 100)}%"></span></div><p class="small muted">Resume at ${mediaClock(at)}</p>` : ""}</article>`;
-      })
-      .join("");
-    $("movie-kind")
-      .querySelectorAll("button")
-      .forEach((b) =>
-        b.setAttribute("aria-pressed", String(b.dataset.kind === state.kind)),
-      );
-    $("movie-genres")
-      .querySelectorAll("button")
-      .forEach((b) =>
-        b.setAttribute("aria-pressed", String(b.dataset.genre === state.genre)),
-      );
-  }
   function renderGuideControls() {
     $("guide-category").innerHTML =
       '<option value="">All categories</option>' +
@@ -795,7 +699,7 @@
     if (!document.getElementById("settings-body")) return;
     const meta = library.meta;
     $("settings-body").innerHTML =
-      `<div class="panel"><div class="settings-version"><div><p class="eyebrow">INDEPENDENT WEB EDITION</p><h2>PremiumTV Web ${esc(meta.web_version || "0.1.0")}</h2></div><span class="outline-badge" style="display:inline">${esc((meta.library_scope || "usa").toUpperCase())} LIBRARY</span></div><div class="settings-stats"><div><strong>${number(library.channels.length)}</strong><span>channel feeds</span></div><div><strong>${library.groups.length}</strong><span>categories</span></div><div><strong>${programmeIndex.size || meta.guide_channels || "—"}</strong><span>channels with guide</span></div><div><strong>${movies.length || (meta.vod_catalog && meta.vod_catalog.items.length) || "Soon"}</strong><span>films &amp; episodes</span></div></div><p>Library built ${esc(meta.generated_utc || "unknown")} · Library data ${esc(meta.version || "")}<br>${esc(lastRefreshMessage)}</p><div class="button-row"><button id="force-refresh" class="button primary" ${state.refreshing ? "disabled" : ""}>${state.refreshing ? "Refreshing…" : "Refresh library"}</button><button id="check-bugs" class="button">Check for bugs</button><button id="settings-install" class="button quiet">Add to home screen</button></div><p class="small muted" style="margin-top:15px;margin-bottom:0">The web edition updates when its site is deployed. It never downloads APKs, DMGs or native-app updates.</p></div>
+      `<div class="panel"><div class="settings-version"><div><p class="eyebrow">INDEPENDENT WEB EDITION</p><h2>PremiumTV Web ${esc(meta.web_version || "0.1.0")}</h2></div><span class="outline-badge" style="display:inline">${esc((meta.library_scope || "usa").toUpperCase())} LIBRARY</span></div><div class="settings-stats"><div><strong>${number(library.channels.length)}</strong><span>channel feeds</span></div><div><strong>${library.groups.length}</strong><span>categories</span></div><div><strong>${programmeIndex.size || meta.guide_channels || "—"}</strong><span>channels with guide</span></div></div><p>Library built ${esc(meta.generated_utc || "unknown")} · Library data ${esc(meta.version || "")}<br>${esc(lastRefreshMessage)}</p><div class="button-row"><button id="force-refresh" class="button primary" ${state.refreshing ? "disabled" : ""}>${state.refreshing ? "Refreshing…" : "Refresh library"}</button><button id="check-bugs" class="button">Check for bugs</button><button id="settings-install" class="button quiet">Add to home screen</button></div><p class="small muted" style="margin-top:15px;margin-bottom:0">The web edition updates when its site is deployed. It never downloads APKs, DMGs or native-app updates.</p></div>
       ${bugReport ? `<div class="panel"><h2>${bugReport.fail ? bugReport.fail + " blocking issues" : "No blocking issues"} · ${bugReport.warn} browser warnings</h2><ul class="bug-list">${bugReport.checks.map((c) => `<li><span class="${c.status}">${c.status === "ok" ? "✓" : c.status === "warn" ? "!" : "×"}</span><strong>${esc(c.label)}</strong><span>${esc(c.detail)}</span></li>`).join("")}</ul><p class="small muted">Read-only library and browser checks. Stream availability is verified only by opening a feed.</p></div>` : ""}
       <div class="panel"><h2>Blocked-feed relay</h2><p>${relayConfig
         ? `A relay is available at <code>${esc(relayConfig.base)}</code> (${esc(relayConfig.provider)}). Feeds this browser cannot reach directly — plain HTTP, a required Referer, or a missing CORS header — are played through it instead of being written off.`
@@ -851,7 +755,6 @@
         (k) => S.storage.removeItem(k),
       );
       renderChannels();
-      renderMovies();
       renderSettings();
       toast("Personal data cleared.");
     };
@@ -1298,7 +1201,6 @@
     document.body.classList.remove("player-expanded", "has-mini-player");
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     renderChannels();
-    if (state.tab === "movies") renderMovies();
   }
   async function fullscreen() {
     const video = player.element;
@@ -1328,69 +1230,6 @@
   function watchKey(key) {
     const channel = library.channels.find((c) => P.keyFor(c) === key);
     if (channel) openPlayer(channel);
-  }
-  function watchMovie(id) {
-    const item = movies.find((m) => m.id === id);
-    if (!item) return;
-    const urls = [
-      ...new Set(
-        (item.streams && item.streams.length
-          ? item.streams
-          : [item.stream]
-        ).filter(Boolean),
-      ),
-    ];
-    const resume = S.resumeAt(S.positions()[id], item.runtime_seconds);
-    const shape = {
-      id: item.id,
-      name:
-        item.kind === "episode"
-          ? `${item.show || item.title} · ${movieLabel(item)}`
-          : item.title,
-      group: item.kind === "movie" ? "Movies" : "TV Shows",
-      country: "US",
-      logo: item.poster,
-      vod: true,
-      vodDetail: movieDetail(item),
-      vodSummary: item.summary,
-      resume,
-    };
-    // Embeds lead the server list. An iframe player talks to the provider
-    // directly, so it needs no CORS, no range support and no codec the browser
-    // has to negotiate - it plays in places a direct MP4 cannot. The MP4s
-    // follow as the fallback servers, which is also all Android can use.
-    const embeds =
-      item.embeds && item.embeds.length
-        ? item.embeds
-        : item.embed || item.embed_html
-          ? [
-              {
-                provider: item.provider,
-                kind: item.embed_kind || "iframe",
-                url: item.embed,
-                html: item.embed_html,
-              },
-            ]
-          : [];
-    const servers = [];
-    embeds.forEach((entry) => {
-      const url = String((entry && entry.url) || "");
-      const html = String((entry && entry.html) || "");
-      if (!url && !html) return;
-      // A pasted snippet is opaque HTML; only a real URL is safe to treat as
-      // one, and anything that is not https is dropped rather than loaded.
-      if (url && !/^https:\/\//i.test(url)) return;
-      servers.push(
-        Object.assign({}, shape, {
-          url: url || html,
-          embed: entry.kind === "html" ? "" : url,
-          embed_html: entry.kind === "html" ? html : "",
-          provider: (entry && entry.provider) || item.provider || "",
-        }),
-      );
-    });
-    urls.forEach((url) => servers.push(Object.assign({ url }, shape)));
-    if (servers.length) openPlayer(servers[0], servers);
   }
   async function installApp() {
     if (installPrompt) {
@@ -1441,15 +1280,6 @@
     if (button.dataset.event) {
       const item = events.find((e) => e.key === button.dataset.event);
       if (item) openPlayer(item.servers[0], item.servers);
-    }
-    if (button.dataset.movie) watchMovie(button.dataset.movie);
-    if (button.dataset.kind) {
-      state.kind = button.dataset.kind;
-      renderMovies();
-    }
-    if (button.dataset.genre) {
-      state.genre = button.dataset.genre;
-      renderMovies();
     }
     if (button.dataset.guideLayout) {
       state.guideLayout = button.dataset.guideLayout;
@@ -1555,17 +1385,6 @@
     state.guideCategory = event.target.value;
     state.guideLimit = 40;
     renderGuide();
-  };
-  $("movie-search").oninput = (event) => {
-    state.movieQuery = event.target.value;
-    renderMovies();
-  };
-  $("clear-movies").onclick = () => {
-    state.movieQuery = "";
-    state.kind = "all";
-    state.genre = "All";
-    $("movie-search").value = "";
-    renderMovies();
   };
   $("refresh-events").onclick = () => loadLibrary(true);
   $("player-close").onclick = closePlayer;

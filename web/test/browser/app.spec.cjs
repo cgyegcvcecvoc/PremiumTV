@@ -85,90 +85,6 @@ test("guide, timeline and honest live-event listings render", async ({
   await expect(page.locator(".event-status").first()).not.toHaveText("LIVE");
 });
 
-test("Movies & shows renders the shelf and opens a title in an HTML embed", async ({
-  page,
-}) => {
-  const errors = [];
-  page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("/");
-  await expect(page.locator(".category-card").first()).toBeVisible();
-  await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  // The catalogue is published again, so the tab is a shelf, not a placeholder.
-  await expect(page.locator("#movies-coming-soon")).toBeHidden();
-  await expect(page.locator("#movies-toolbar")).toBeVisible();
-  const catalog = require("../../dist/data/vod.json");
-  expect(catalog.items.length).toBeGreaterThan(0);
-  expect(await page.locator(".movie-card").count()).toBe(catalog.items.length);
-
-  // A film's first server is its embed: an iframe player in the same stage.
-  // (The test card leads the shelf and has no embed, so pick a film by name.)
-  await page.locator("#movie-search").fill("Night of the Living Dead");
-  await expect(page.locator(".movie-card")).toHaveCount(1);
-  await page.locator(".movie-poster").first().click();
-  await expect(page.locator("#player")).toBeVisible();
-  await expect(page.locator("#player-embed")).toBeVisible();
-  await expect(page.locator("#player-embed iframe")).toHaveAttribute(
-    "src",
-    /^https:\/\/archive\.org\/embed\//,
-  );
-  await expect(page.locator("#video")).toBeHidden();
-  // The transport drives a <video> element that is not in use.
-  await expect(page.locator("#player-seek")).toBeHidden();
-  await expect(page.locator("#player-toggle")).toBeHidden();
-  await expect(page.locator("#player-mute")).toBeHidden();
-  await expect(page.locator("#player-browser-note")).toContainText(
-    "controls inside the picture",
-  );
-
-  // The next server is the direct MP4: the stage goes back to the video.
-  await page.locator("#player-next").click();
-  await expect(page.locator("#player-embed")).toBeHidden();
-  await expect(page.locator("#video")).toBeVisible();
-  await expect(page.locator("#player-seek")).toBeHidden();
-  await page.locator("#player-close").click();
-  await expect(page.locator("#player")).toBeHidden();
-  expect(errors).toEqual([]);
-});
-
-test("pasted VOD markup is reduced to a clean HTTPS iframe", async ({
-  browser,
-}) => {
-  // The injected catalogue has to reach the app, so the worker is disabled for
-  // this context: a service-worker fetch answers from its own cache and never
-  // passes through page routing (the same reason the failed-refresh test blocks
-  // it). Without this the app loaded the published catalogue and the "pasted
-  // markup" under test was never the one on screen.
-  const context = await browser.newContext({ serviceWorkers: "block" });
-  const page = await context.newPage();
-  await page.route("**/data/vod.json*", async (route) => {
-    const response = await route.fetch();
-    const catalog = await response.json();
-    const item = catalog.items.find((entry) => entry.slug === "night-of-the-living-dead");
-    if (!item) throw new Error("The published VOD fixture is missing");
-    item.embed = "";
-    item.embed_html = "";
-    item.embeds = [{
-      provider: "Test provider",
-      kind: "html",
-      html: '<div><iframe src="https://example.com/embed/safe" onload="window.__pwned = 1" srcdoc="&lt;script&gt;window.__pwned=2&lt;/script&gt;"></iframe></div><script>window.__pwned = 3;</script>',
-    }];
-    await route.fulfill({ response, body: JSON.stringify(catalog) });
-  });
-
-  await page.goto("/");
-  await expect(page.locator(".category-card").first()).toBeVisible();
-  await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  await page.locator("#movie-search").fill("Night of the Living Dead");
-  await page.locator(".movie-poster").first().click();
-  const frame = page.locator("#player-embed iframe");
-  await expect(frame).toHaveAttribute("src", "https://example.com/embed/safe");
-  await expect(frame).not.toHaveAttribute("onload", /.+/);
-  await expect(frame).not.toHaveAttribute("srcdoc", /.+/);
-  await expect(page.locator("#player-embed script, #player-embed div")).toHaveCount(0);
-  expect(await page.evaluate(() => window.__pwned)).toBeUndefined();
-  await context.close();
-});
-
 test("settings diagnostics, sleep timer, touch layout and install help", async ({
   page,
 }) => {
@@ -239,17 +155,8 @@ test("offline app shell and cached library reopen without a network", async ({
   await page.reload({ waitUntil: "domcontentloaded" });
   await expect(page.locator(".category-card")).toHaveCount(groupCount);
   await expect(page.locator("#offline-banner")).toBeVisible();
-  await page.getByRole("tab", { name: "Movies & shows", exact: true }).click();
-  // Two honest outcomes offline: the catalogue was cached by the worker and the
-  // shelf renders, or it was not and the tab shows its coming-soon panel. What
-  // must never happen is an empty grid pretending to be a library.
-  await expect
-    .poll(async () => {
-      const cards = await page.locator(".movie-card").count();
-      const soon = await page.locator("#movies-coming-soon").isVisible();
-      return (cards > 0) !== soon;
-    })
-    .toBe(true);
+  await page.getByRole("tab", { name: "TV guide", exact: true }).click();
+  await expect(page.locator(".guide-channel").first()).toBeVisible();
   await context.setOffline(false);
 });
 

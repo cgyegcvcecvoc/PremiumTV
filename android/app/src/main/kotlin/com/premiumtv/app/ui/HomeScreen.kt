@@ -119,7 +119,6 @@ import org.json.JSONObject
 enum class HomeTab(val label: String) {
     Channels("Channels"),
     Events("Live Events"),
-    Movies("Movies & Shows"),
     Guide("Guide"),
     Settings("Settings"),
 }
@@ -227,15 +226,9 @@ internal fun HomeScreen(
         val context = LocalContext.current.applicationContext
         var teamLogos by remember { mutableStateOf(emptyMap<String, String>()) }
         var schedule by remember { mutableStateOf(emptyMap<String, Long>()) }
-        // The on-demand shelf, bundled from playlists/vod/vod-catalog.json. A
-        // paused catalogue keeps its document and reports coming soon.
-        var vodCatalog by remember { mutableStateOf(VodCatalog(emptyList(), false)) }
-        var vodLoaded by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             teamLogos = withContext(Dispatchers.Default) { context.readTeamLogos() }
             schedule = withContext(Dispatchers.Default) { context.readSchedule() }
-            vodCatalog = withContext(Dispatchers.Default) { context.readVodCatalogDocument() }
-            vodLoaded = true
         }
         // The scraper's live-game feeds, grouped by sport for the Live Events
         // tab and for the LIVE labels on the channel cards.
@@ -323,8 +316,6 @@ internal fun HomeScreen(
                 Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Events.label, tab == HomeTab.Events) { onTabChange(HomeTab.Events) }
                 Spacer(modifier = Modifier.width(12.dp))
-                TabChip(HomeTab.Movies.label, tab == HomeTab.Movies) { onTabChange(HomeTab.Movies) }
-                Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Guide.label, tab == HomeTab.Guide) { onTabChange(HomeTab.Guide) }
                 Spacer(modifier = Modifier.width(12.dp))
                 TabChip(HomeTab.Settings.label, tab == HomeTab.Settings) { onTabChange(HomeTab.Settings) }
@@ -373,13 +364,6 @@ internal fun HomeScreen(
                 schedule = schedule,
                 preparing = channelIndex == null,
                 marketLongitude = localMarket?.longitude,
-            )
-            HomeTab.Movies -> VodShelfScreen(
-                items = vodCatalog.items,
-                comingSoon = vodCatalog.comingSoon,
-                loading = !vodLoaded,
-                onWatch = { onSelect(it.asChannel()) },
-                onBrowseChannels = { onTabChange(HomeTab.Channels) },
             )
             HomeTab.Guide -> if (cableGuide) {
                 CableGuideScreen(library = library, now = now, state = guideState, onSelect = onSelect)
@@ -2283,8 +2267,6 @@ private fun DiagnosticsCard(report: DiagnosticsReport) {
     }
 }
 
-// ----------------------------------------------- movies & shows tab
-
 /** Seconds remaining until kickoff, as "mm:ss", "h:mm:ss" or "dd hh:mm:ss". */
 private fun countdownText(seconds: Long): String =
     when {
@@ -2415,10 +2397,6 @@ private fun LiveClockRow(
 
 /** The on-demand test catalogue shipped beside the channel list. */
 internal fun Context.readVodCatalog(): List<VodItem> = parseVodCatalog(readAsset("vod-catalog.json"))
-
-/** The same asset with its paused/available state, for the Movies & Shows tab. */
-internal fun Context.readVodCatalogDocument(): VodCatalog =
-    parseVodCatalogDocument(readAsset("vod-catalog.json"))
 
 /** Reads one bundled JSON asset, or null when it is absent or unreadable. */
 private fun Context.readAsset(name: String): String? = try {

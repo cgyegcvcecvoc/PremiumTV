@@ -52,35 +52,31 @@ class SidePlayerFirstTests(unittest.TestCase):
 
 
 class OnDemandShelfTests(unittest.TestCase):
-    """The Movies & Shows tab is data-driven; its catalogue is currently paused."""
+    """The on-demand catalogue stays bundled; no client gives it a tab."""
 
-    def test_the_android_tab_renders_the_bundled_catalogue(self):
+    def test_no_client_ships_a_movies_tab(self):
         home = text(UI / "HomeScreen.kt")
-        self.assertIn("HomeTab.Movies -> VodShelfScreen(", home)
-        self.assertIn('context.readVodCatalogDocument()', home)
-        # AppRoot still resolves the list itself; only the shelf reads the
-        # document's live/paused state.
+        self.assertNotIn("HomeTab.Movies", home)
+        self.assertNotIn("VodShelfScreen(", home)
+        web = text(ROOT / "web" / "src" / "index.html") + text(ROOT / "web" / "src" / "app.js")
+        self.assertNotIn('id="tab-movies"', web)
+        self.assertNotIn("renderMovies", web)
+        mac = ROOT / "macos" / "app" / "src" / "renderer"
+        self.assertNotIn('data-tab="movies"', text(mac / "index.html"))
+        self.assertNotIn("renderMovies", text(mac / "app.js"))
+
+    def test_the_android_parser_still_reads_the_bundled_catalogue(self):
+        home = text(UI / "HomeScreen.kt")
         self.assertIn("internal fun Context.readVodCatalog(): List<VodItem>", home)
         self.assertIn('readAsset("vod-catalog.json")', home)
         shelf = text(UI / "VodShelf.kt")
         self.assertIn("internal fun parseVodCatalog(", shelf)
         self.assertIn("fun asChannel(): Channel", shelf)
-        self.assertIn("fun VodShelfScreen(", shelf)
-        self.assertNotIn("MoviesComingSoonScreen", home)
 
     def test_the_bundle_ships_the_on_demand_catalogue(self):
         builder = text(ROOT / "android" / "tools" / "build_bundle.py")
         self.assertIn('os.path.join(REPO_ROOT, "playlists", "vod", "vod-catalog.json")', builder)
         self.assertIn("meta.update(meta_extra)", builder)
-
-    def test_the_mac_tab_renders_the_same_catalogue(self):
-        app = text(ROOT / "macos" / "app" / "src" / "renderer" / "app.js")
-        self.assertIn("function renderMovies()", app)
-        self.assertIn("meta.vod_catalog", app)
-        self.assertIn("function watchVod(item)", app)
-        html = text(ROOT / "macos" / "app" / "src" / "renderer" / "index.html")
-        self.assertIn('id="movies-grid"', html)
-        self.assertIn("https://archive.org", html)  # CSP allows the poster host
 
     def test_the_catalogue_publishes_titles_every_client_can_play(self):
         document = json.loads(text(VOD))

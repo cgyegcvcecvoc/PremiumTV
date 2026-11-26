@@ -10,6 +10,14 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-26 — Version 1.1.25: Movies tab retired
+
+- **The Movies & Shows tab is gone from the web player, macOS and Android.** The navigation is now four sections everywhere — Channels, Live Events, TV guide and Settings — and nothing in any client offers an on-demand shelf.
+- **The tab was removed, not hidden.** The web player loses `#tab-movies`, its `#view-movies` section, the shelf renderer, the movie search and genre filters and the `data/vod.json` request; the macOS renderer loses the same section, `renderMovies`, `watchVod`, the shelf filter state and the `meta.vod_catalog` load; Android loses `HomeTab.Movies`, its chip, the `VodShelfScreen` branch and the catalogue load in `HomeScreen`, and keeps only the parser its channel lookup still uses.
+- **What stayed is the plumbing a live channel needs.** The player's embed mount, the resume-position store and the transport controls are untouched, so tuning, favorites, recents and live playback behave exactly as in 1.1.24.
+- **The catalogue itself is still bundled.** `scripts/vod_catalog.py`, `playlists/vod/` and the `vod-catalog.json` the builders ship are unchanged and unused by the UI, so surfacing it again later needs a view, not a data rebuild.
+- **The suite was updated with the feature.** The shelf's browser spec, its macOS renderer and catalogue suites, and the four release tests that asserted the tab existed were removed or rewritten; the checks are now `python -m unittest discover -s tests` (868 tests), `cd macos/app && node --test test/*.test.js` (171) and `cd web && npm test && npm run build` (48).
+
 ## 2026-11-25 — Version 1.1.24 published: Broken-feed reports
 
 - **Every app can report the feed that failed.** The player error card now has **Report problem**, which opens a prefilled GitHub issue with the channel, category, server position (for example "2 of 3"), stream URL, the player's own message, app version and platform. Nothing is sent until the viewer presses Submit; there is no report server and no account. Android builds the form in `data/ChannelReport.kt`, while macOS and the web player share `report.js`, so the three surfaces report the same fields.

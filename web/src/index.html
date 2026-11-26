@@ -83,17 +83,6 @@
           </button>
           <button
             class="nav-item"
-            id="tab-movies"
-            data-tab="movies"
-            role="tab"
-            aria-selected="false"
-            aria-controls="view-movies"
-            tabindex="-1"
-          >
-            <span data-icon="movie"></span><span>Movies &amp; shows</span>
-          </button>
-          <button
-            class="nav-item"
             id="tab-guide"
             data-tab="guide"
             role="tab"
@@ -325,70 +314,6 @@
           </div>
         </section>
         <section
-          id="view-movies"
-          class="view"
-          role="tabpanel"
-          aria-labelledby="tab-movies"
-          hidden
-        >
-          <div class="page-heading">
-            <div>
-              <p class="eyebrow">ON DEMAND</p>
-              <h1 id="movies-heading">Movies &amp; Shows is coming soon.</h1>
-              <p id="movies-subtitle" class="subtitle">
-                The on-demand shelf is being rebuilt around a catalogue we can
-                stand behind. Live channels, the guide and your favorites are
-                unchanged.
-              </p>
-            </div>
-          </div>
-          <div id="movies-coming-soon" class="coming-soon">
-            <p class="eyebrow">COMING SOON</p>
-            <h2>Films and classic TV, on their way</h2>
-            <p>
-              The curated films and episodes have been taken down for now while
-              the on-demand catalogue is reworked. Nothing you saved is lost,
-              and live TV is exactly where you left it.
-            </p>
-            <button class="button" data-go="channels">Browse live channels</button>
-          </div>
-          <div id="movies-toolbar" class="search-toolbar" hidden>
-            <label class="search-field"
-              ><span data-icon="search"></span
-              ><input
-                id="movie-search"
-                type="search"
-                placeholder="Search titles, shows or genres…"
-                aria-label="Search movies and shows"
-                autocomplete="off"
-            /></label>
-            <div
-              id="movie-kind"
-              class="segmented"
-              role="group"
-              aria-label="On-demand type"
-            >
-              <button data-kind="all" aria-pressed="true">All</button
-              ><button data-kind="movie" aria-pressed="false">Movies</button
-              ><button data-kind="episode" aria-pressed="false">
-                TV shows
-              </button>
-            </div>
-          </div>
-          <div
-            id="movie-genres"
-            class="filter-chips"
-            role="group"
-            aria-label="Filter by genre"
-          ></div>
-          <div id="movie-grid" class="movie-grid"></div>
-          <div id="movie-empty" class="empty-state" hidden>
-            <h2>No titles match</h2>
-            <p>Try a different title or clear the genre filter.</p>
-            <button id="clear-movies" class="button">Clear filters</button>
-          </div>
-        </section>
-        <section
           id="view-guide"
           class="view"
           role="tabpanel"
@@ -486,10 +411,10 @@
           preload="metadata"
           aria-label="Channel video"
         ></video
-        ><!-- Movies & Shows: an on-demand title may publish an HTML embed - an
-             iframe player - instead of a stream the browser can fetch. The
-             embed mounts inside the same stage, so the docked, expanded and
-             full-screen layouts are unchanged. --><div
+        ><!-- A feed may publish an HTML embed - an iframe player - instead of
+             a stream the browser can fetch. The embed mounts inside the same
+             stage, so the docked, expanded and full-screen layouts are
+             unchanged. --><div
           id="player-embed"
           class="player-frame"
           hidden

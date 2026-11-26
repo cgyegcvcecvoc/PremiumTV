@@ -142,14 +142,6 @@ class ShelfStateTests(unittest.TestCase):
         self.assertTrue((media / "premiumtv-test-card.jpg").is_file())
         self.assertIn("--resume", text(ROOT / "scripts" / "vod_shelf.py"))
 
-    def test_every_client_has_a_coming_soon_page(self):
-        web = text(ROOT / "web" / "src" / "index.html") + text(ROOT / "web" / "src" / "app.js")
-        self.assertIn("movies-coming-soon", web)
-        android = text(ROOT / "android" / "app" / "src" / "main" / "kotlin" / "com" / "premiumtv" / "app" / "ui" / "VodShelf.kt")
-        self.assertIn("comingSoon", android)
-        macos = text(ROOT / "macos" / "app" / "src" / "renderer" / "app.js")
-        self.assertIn("vodComingSoon", macos)
-
 
 if __name__ == "__main__":
     unittest.main()

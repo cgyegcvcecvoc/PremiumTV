@@ -8,14 +8,13 @@ and Apple Silicon.
 
 The release workflow prepares one published channel:
 
-- **1.1.24 stable build (default):** USA playlist + USA guide. It opens to categories, with optional local viewer setup and a TV-only app icon. It keeps the docked side player, built-in transport, mute, audio-track controls and the Movies & Shows tab, which now plays 21 public-domain films and classic TV episodes in an embedded HTML player. A channel opens
+- **1.1.25 stable build (default):** USA playlist + USA guide. It opens to categories, with optional local viewer setup and a TV-only app icon. It keeps the docked side player, built-in transport, mute and audio-track controls. A channel opens
   in the docked side player with built-in transport, mute and audio-track
   controls and one click on the picture grows it to the full window, stream
-  audio recovery handles separated HLS audio renditions and silent tracks, the
-  startup screen shows a moving gold loading bar and the motto “Good TV, quietly ready.”, and **Movies & Shows** shows a
-  embedded HTML player (the direct MP4 is the fallback server); the shelf
-  document, search, genre filters and local resume all ship (bundled from
-  `playlists/vod/vod-catalog.json`); see `playlists/vod/EMBEDS.md`.
+  audio recovery handles separated HLS audio renditions and silent tracks, and
+  the startup screen shows a moving gold loading bar and the motto “Good TV, quietly ready.” The **Movies & Shows** tab was removed in 1.1.25: the window
+  has four sections — Channels, Live Events, Guide and Settings — and the
+  on-demand catalogue stays bundled and unrendered.
 - **1.0.9 (superseded):** USA playlist + USA guide,
   with the animated launch splash (breathing gold halo, sweeping shimmer bar,
   pulsing dots), the compact Settings screen, the hardened bug check (11 checks:
@@ -34,7 +33,7 @@ The release workflow prepares one published channel:
   sees a blocked-build notice and is sent to
   [`docs/blocked/`](../docs/blocked/index.html).
 
-The current stable download is `v1.1.24`. (Historically, `v1.0.8.1` — shown as
+The current stable download is `v1.1.25`. (Historically, `v1.0.8.1` — shown as
 **1.0.8 V1 Patch** — was packaged as `1.0.9` on macOS and briefly published as a
 same-code alias release so the three-part updater in 1.0.4–1.0.6 could find it;
 the fixed 1.0.9 replaced that build, so a Mac already reporting 1.0.9 should

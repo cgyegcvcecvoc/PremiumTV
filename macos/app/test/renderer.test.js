@@ -223,26 +223,18 @@ test('1.0.8: the Live Events tab has its own refresh and a live check per game',
   assert.match(main, /ipcMain\.handle\('ptv:probe-stream'/);
 });
 
-test('1.1.2: Movies & Shows renders the on-demand catalogue in the side player', () => {
+test('the Movies & Shows tab is gone from every section of the window', () => {
   const html = fs.readFileSync(path.join(renderer, 'index.html'), 'utf8');
-  const js = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+  const app = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
 
-  assert.match(html, /data-tab="movies"[^>]*>Movies &amp; Shows</);
-  assert.match(html, /id="view-movies"/);
-  assert.match(html, /id="movies-grid"/);
-  assert.match(html, /data-vod-filter="movie"/);
-  assert.match(html, /data-vod-filter="episode"/);
-  assert.doesNotMatch(html, /movies-browse/);
-  assert.match(js, /movies: document\.getElementById\('view-movies'\)/);
-  assert.match(js, /else if \(ui\.tab === 'movies'\) renderMovies\(\)/);
-  assert.match(js, /function renderMovies\(\)/);
-  assert.match(js, /function watchVod\(item\)/);
-  assert.match(js, /meta\.vod_catalog/);
-  assert.match(js, /data-vod-id/);
-  // The image host must be reachable from the packaged renderer's CSP.
-  assert.match(html, /img-src 'self' data: blob: https:\/\/archive\.org/);
-  assert.match(css(), /\.vod-grid \{/);
-  assert.match(css(), /\.vod-card \{/);
+  assert.doesNotMatch(html, /data-tab="movies"/);
+  assert.doesNotMatch(html, /id="view-movies"/);
+  assert.doesNotMatch(html, /movies-grid/);
+  assert.doesNotMatch(app, /renderMovies/);
+  assert.doesNotMatch(app, /vod_catalog/);
+  // The four sections that remain are the whole navigation.
+  const tabs = [...html.matchAll(/data-tab="([a-z]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(tabs, ['channels', 'live', 'guide', 'settings']);
 });
 
 test('1.1.2: opening a channel starts in the side player, a click grows it', () => {

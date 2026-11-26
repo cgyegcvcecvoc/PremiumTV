@@ -79,20 +79,17 @@ class VodAndTransportPlayer113Tests(unittest.TestCase):
                 "%s is not playable" % item.get("title", item.get("id")),
             )
 
-    def test_both_apps_expose_vod_search_genres_and_player_transport(self):
+    def test_both_apps_keep_player_transport_and_resume_positions(self):
         app_js = text(MACOS_RENDERER / "app.js")
         index_html = text(MACOS_RENDERER / "index.html")
         self.assertIn('id="player-controls"', index_html)
         self.assertIn('id="player-seek"', index_html)
         self.assertIn('id="player-audio-track"', index_html)
-        self.assertIn("vodQuery", app_js)
-        self.assertIn("vodGenre", app_js)
         self.assertIn("premiumtv.vod.positions.v1", app_js)
 
         vod_kt = text(ANDROID_UI / "VodShelf.kt")
         player_kt = text(ANDROID_UI / "PlayerScreen.kt")
         self.assertIn("fun asChannels(): List<Channel>", vod_kt)
-        self.assertIn("Search Movies & Shows", vod_kt)
         self.assertIn("SideTransportBar(", player_kt)
         self.assertIn("saveVodPositionMs(", player_kt)
 

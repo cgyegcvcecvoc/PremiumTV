@@ -87,7 +87,6 @@
       <nav id="tabs" role="tablist" aria-label="Sections">
         <button class="tab" role="tab" data-tab="channels" aria-selected="true">Channels</button>
         <button class="tab" role="tab" data-tab="live" aria-selected="false">Live Events</button>
-        <button class="tab" role="tab" data-tab="movies" aria-selected="false">Movies &amp; Shows</button>
         <button class="tab" role="tab" data-tab="guide" aria-selected="false">Guide</button>
         <button class="tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
       </nav>
@@ -151,35 +150,6 @@
         <div id="live-list"></div>
       </section>
 
-      <!-- 1.1.2: the on-demand feasibility shelf. The catalogue is built and
-           verified by scripts/vod_catalog.py and bundled by build_bundle.py. -->
-      <section id="view-movies" class="view" role="tabpanel" hidden>
-        <header class="view-head">
-          <div class="view-head-text">
-            <h1>Movies &amp; Shows</h1>
-            <p id="movies-subtitle">The on-demand shelf is being rebuilt around a catalogue we can stand behind.</p>
-          </div>
-          <div id="movies-toolbar" class="vod-toolbar" hidden>
-            <input id="movies-search" class="vod-search" type="search"
-                   placeholder="Search films, shows or genres" autocomplete="off" spellcheck="false" />
-            <div id="movies-filters" class="vod-filters" role="group" aria-label="Filter the on-demand shelf">
-              <button class="vod-chip" data-vod-filter="all" aria-pressed="true">All</button>
-              <button class="vod-chip" data-vod-filter="movie" aria-pressed="false">Movies</button>
-              <button class="vod-chip" data-vod-filter="episode" aria-pressed="false">TV Shows</button>
-            </div>
-          </div>
-          <div id="movies-genres" class="vod-genres" role="group" aria-label="Filter by genre"></div>
-        </header>
-        <div id="movies-grid" class="vod-grid"></div>
-        <div id="movies-empty" class="empty-state vod-coming-soon" hidden>
-          <p class="vod-coming-eyebrow">COMING SOON</p>
-          <h2>Films and classic TV, on their way</h2>
-          <p>The curated films and episodes have been taken down for now while the
-          on-demand catalogue is reworked. Live channels, the guide and your
-          favorites are unchanged.</p>
-        </div>
-      </section>
-
       <section id="view-guide" class="view" role="tabpanel" hidden>
         <header class="view-head">
           <h1>Guide <span id="guide-tag" class="preview-tag" hidden></span></h1>
@@ -217,8 +187,8 @@
   <div id="player" hidden>
     <div class="player-stage">
       <video id="video" playsinline></video>
-      <!-- Movies & Shows: an HTML embed (iframe player) mounts here, taking
-           over the same stage the video element uses for streams. -->
+      <!-- A feed's HTML embed (iframe player) mounts here, taking over the
+           same stage the video element uses for streams. -->
       <div id="player-embed" class="player-frame" hidden></div>
       <div id="player-spinner" class="spinner" hidden></div>
       <div id="player-server" class="player-server" hidden></div>
