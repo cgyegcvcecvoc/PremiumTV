@@ -100,6 +100,26 @@ class Version1120Tests(unittest.TestCase):
         version = release_version.current_version()
         site = json.loads(text("docs/data/site.json"))
         stable = [c for c in site["apps"]["channels"] if c["id"] == "stable"]
+        # The site promotes a *complete* release: one whose APK and four Mac
+        # installers are attached. docs/data/releases.src.json is the GitHub
+        # release cache, and the Pages workflow refreshes it after the installer
+        # builds finish. A commit that bumps VERSION therefore cannot have the
+        # new tag in that cache yet, and build_site_data.py deliberately keeps
+        # the previous complete stable live rather than advertising empty
+        # download links. Once the release exists, the next refresh promotes it
+        # and this assertion is strict again. What must never happen is a site
+        # promoting a tag with no release behind it, or a release older than the
+        # cache says is complete.
+        import build_site_data  # noqa: E402
+        cached = {r["tag"] for r in build_site_data.load_releases()}
+        if f"v{version}" not in cached:
+            self.assertTrue(stable, "the site must always carry a stable channel")
+            for channel in stable:
+                self.assertIn(channel["tag"], cached,
+                              "a promoted tag must exist in the release cache")
+                names = {asset["name"] for asset in channel["assets"]}
+                self.assertIn(f"PremiumTV-{channel['tag'].lstrip('v')}-debug.apk", names)
+            return
         self.assertEqual([channel["tag"] for channel in stable], [f"v{version}"])
         names = {asset["name"] for asset in stable[0]["assets"]}
         # The Mac installers are the ones recent releases lost entirely.

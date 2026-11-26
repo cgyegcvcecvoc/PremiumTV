@@ -30,14 +30,27 @@
   const spotifyModule = window.PremiumSpotify || null;
   // One session for the page: the access token is in memory, the refresh token
   // in this browser's storage. Sign-in is only needed for in-app playback.
-  const spotify = spotifyModule
-    ? spotifyModule.Session({
-        storage: window.localStorage,
+  // This block must never throw. In a browser with storage blocked, touching
+  // window.localStorage at all raises a SecurityError, and because this runs at
+  // startup an unguarded read here took the channel list down with it - the
+  // Spotify tab must not be able to cost a viewer their television.
+  let spotify = null;
+  try {
+    spotify = spotifyModule
+      ? spotifyModule.Session({
+        // A getter, not the value: in a browser with storage blocked, reading
+        // window.localStorage throws, and that throw would otherwise abort the
+        // whole app before the channel list loaded.
+        storage: () => window.localStorage,
         fetch: (...args) => fetch(...args),
         crypto: window.crypto,
         redirectUri: location.origin + location.pathname,
       })
-    : null;
+      : null;
+  } catch (error) {
+    // The tab reports the failure itself instead of the app failing to boot.
+    spotify = null;
+  }
   let spotifyStatus = "";
   let spotifyTabOnce = false;
   const P = personal,

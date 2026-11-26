@@ -466,7 +466,22 @@ window.PremiumSpotify = (function () {
 
   function Session(options) {
     const opts = options || {};
-    const storage = safeStorage(opts.storage);
+    // `opts.storage` is usually the caller's `window.localStorage`, and merely
+    // *reading* that property throws in a browser with storage blocked. Reading
+    // it here, eagerly, took the whole app down before this tab existed - a
+    // Spotify failure must never cost the viewer their television. A session is
+    // therefore created even when there is no storage at all; safeStorage()
+    // keeps the answers in memory for the session and everything else works.
+    // Resolving the storage is itself part of the guard: the getter the web app
+    // passes throws in a browser with storage blocked, and a working tab
+    // matters more than persistence.
+    let candidate = null;
+    try {
+      candidate = typeof opts.storage === 'function' ? opts.storage() : opts.storage;
+    } catch (_) {
+      candidate = null;
+    }
+    const storage = safeStorage(candidate);
     const doFetch = opts.fetch;
     const cryptoObj = opts.crypto;
     const now = opts.now || (() => Date.now());

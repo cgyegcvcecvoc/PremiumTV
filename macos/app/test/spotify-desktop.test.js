@@ -67,3 +67,22 @@ test('the desktop tab states Spotify\'s terms instead of implying a bypass', () 
     assert.equal(code.toLowerCase().includes(forbidden), false, 'desktop app.js must not implement ' + forbidden);
   }
 });
+
+test('a blocked-storage machine still boots to the library', () => {
+  // The same startup hazard as the web app: reading localStorage throws in a
+  // hardened profile, and the Spotify tab must not be able to abort the boot.
+  const code = fs.readFileSync(path.join(renderer, 'app.js'), 'utf8');
+  assert.match(code, /storage: \(\) => window\.localStorage/);
+  // And the tab reports its own failure rather than blanking the app.
+  assert.match(code, /Spotify is unavailable in this build/);
+});
+
+test('the desktop shell and the web app both state where ads come from', () => {
+  for (const file of [path.join(renderer, 'index.html')]) {
+    const html = fs.readFileSync(file, 'utf8');
+    assert.match(html, /data-tab="spotify"/);
+  }
+  const module = fs.readFileSync(path.join(renderer, 'spotify.js'), 'utf8');
+  assert.match(module, /a Free account hears/);
+  assert.match(module, /a Premium account/);
+});

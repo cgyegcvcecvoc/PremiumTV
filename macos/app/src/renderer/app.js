@@ -439,7 +439,7 @@
     if (!clockWidget) {
       clockWidget = liveClock.mount(els.liveClock, {
         deviceZone: window.PremiumLive.deviceTimeZone(),
-        storage: window.localStorage,
+        storage: () => window.localStorage,
         getZone: () => clockZone,
         setZone: (zone) => {
           clockZone = zone || '';
@@ -1464,7 +1464,7 @@
   const spotifyModule = window.PremiumSpotify || null;
   const spotifySession = spotifyModule
     ? spotifyModule.Session({
-        storage: window.localStorage,
+        storage: () => window.localStorage,
         fetch: (url, init) => fetch(url, init),
         crypto: window.crypto,
         redirectUri: SPOTIFY_REDIRECT,

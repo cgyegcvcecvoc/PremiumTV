@@ -428,6 +428,21 @@ test("a window with no storage still signs in for the session, and says so", () 
   assert.equal(second.settings().clientId, "abc");
 });
 
+test("a blocked-storage browser still gets a working tab, not a dead app", () => {
+  const S = load();
+  // Regression: app.js read window.localStorage eagerly at startup, so a
+  // browser that throws on that property lost the channel list too. The
+  // session now resolves its storage defensively and keeps answers in memory.
+  const session = S.Session({
+    storage: () => { throw new Error("SecurityError"); },
+    fetch: async () => ({ ok: true, status: 200, text: async () => "{}" }),
+  });
+  session.saveSettings({ clientId: "id", lastId: "37i9dQZF1DXcBWIGoYBM5M" });
+  assert.equal(session.settings().clientId, "id");
+  assert.equal(S.library(session.settings()).length >= 6, true, "the curated shelf still renders");
+  assert.equal(session.signedIn(), false);
+});
+
 test("signing out removes the persisted refresh token", async () => {
   const S = load();
   const storage = memoryStorage({

@@ -137,7 +137,14 @@
         <button id="device" class="primary" hidden>Play in PremiumTV</button>
       </div>
       <p class="status" id="status" role="status"></p>
-      <p class="notice" id="notice"></p>
+      <!-- The boundary is static, not filled in by the script below: it has to
+           be on screen even if the module fails to load, and the Kotlin test
+           asserts it is in the packaged file. -->
+      <p class="notice" id="notice">
+        Playback is Spotify's own player, so Spotify's terms apply: a Free
+        account hears Spotify's ads here as it does in Spotify's apps, and a
+        Premium account hears none. PremiumTV does not block, mute or skip them.
+      </p>
 
       <div class="panel">
         <h2>Your own links</h2>
@@ -184,7 +191,7 @@
           return;
         }
         var session = S.Session({
-          storage: window.localStorage,
+          storage: function () { return window.localStorage; },
           fetch: function (url, init) { return fetch(url, init); },
           crypto: window.crypto,
           redirectUri: REDIRECT,
