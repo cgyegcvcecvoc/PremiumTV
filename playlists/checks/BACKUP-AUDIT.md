@@ -1,13 +1,13 @@
 # Backup and channel integrity audit
 
-- **Generated:** 2026-11-26T01:22:09Z
+- **Generated:** 2026-11-26T03:55:19Z
 - **Playlist:** `playlists/PremiumTV.m3u`
-- **Entries:** 19,255 — **15,337 unique channels**, **3,918 backup feeds**
-- **Channels with at least one backup:** 2,179
+- **Entries:** 19,136 — **15,253 unique channels**, **3,883 backup feeds**
+- **Channels with at least one backup:** 2,172
 - **Duplicate stream URLs:** 0
 - **Duplicate backup names:** 1
 - **Backup feeds without a primary channel:** 0
-- **Missing `tvg-id`:** 0 — **missing logo:** 1329
+- **Missing `tvg-id`:** 0 — **missing logo:** 1333
 - **Guides in the main header:** 3 (own guide + fallbacks)
 - **Category files checked:** 132
 
@@ -15,12 +15,12 @@
 
 | Label | Channels |
 |---|---:|
-| unlabelled | 8,307 |
-| 1080p | 3,211 |
-| 720p | 2,539 |
-| 576p | 689 |
-| 480p | 235 |
-| 360p | 117 |
+| unlabelled | 8,235 |
+| 1080p | 3,210 |
+| 720p | 2,527 |
+| 576p | 687 |
+| 480p | 238 |
+| 360p | 119 |
 | 540p | 53 |
 | 1440p | 20 |
 | 406p | 19 |
@@ -47,7 +47,6 @@
 | 144p | 1 |
 | 349p | 1 |
 | 260p | 1 |
-| 352p | 1 |
 | 440p | 1 |
 | 960p | 1 |
 | 450p | 1 |
@@ -63,7 +62,6 @@
 | 900p | 1 |
 | 392p | 1 |
 | 712p | 1 |
-| 568p | 1 |
 | 768p | 1 |
 | 384p | 1 |
 | 552p | 1 |
@@ -77,16 +75,16 @@
 
 | File | Group | Channels | Backups | Same order as main | Duplicate URLs | Unique backup names |
 |---|---|---:|---:|---|---|---|
-| `A_E_Networks.m3u` | A&E Networks | 137 | 0 | yes | 0 | yes |
+| `A_E_Networks.m3u` | A&E Networks | 136 | 0 | yes | 0 | yes |
 | `A_E_Networks_Backups.m3u` | A&E Networks Backups | 0 | 109 | yes | 0 | yes |
-| `Africa.m3u` | Africa | 29 | 0 | yes | 0 | yes |
-| `Andaluc_a.m3u` | Andalucía | 54 | 0 | yes | 0 | yes |
+| `Africa.m3u` | Africa | 30 | 0 | yes | 0 | yes |
+| `Andaluc_a.m3u` | Andalucía | 53 | 0 | yes | 0 | yes |
 | `Andaluc_a_Backups.m3u` | Andalucía Backups | 0 | 4 | yes | 0 | yes |
 | `Animals_Nature.m3u` | Animals & Nature | 3 | 0 | yes | 0 | yes |
 | `Animals_Nature_Backups.m3u` | Animals + Nature Backups | 0 | 8 | yes | 0 | yes |
 | `Aria_Web_Channels.m3u` | Aria Web Channels | 13 | 0 | yes | 0 | yes |
-| `Asia.m3u` | Asia | 297 | 0 | yes | 0 | yes |
-| `Asia_Backups.m3u` | Asia Backups | 0 | 8 | yes | 0 | yes |
+| `Asia.m3u` | Asia | 299 | 0 | yes | 0 | yes |
+| `Asia_Backups.m3u` | Asia Backups | 0 | 6 | yes | 0 | yes |
 | `Australia.m3u` | Australia | 157 | 0 | yes | 0 | yes |
 | `Australia_Backups.m3u` | Australia Backups | 0 | 3 | yes | 0 | yes |
 | `Business.m3u` | Business | 76 | 0 | yes | 0 | yes |
@@ -96,7 +94,7 @@
 | `C_Valenciana.m3u` | C. Valenciana | 15 | 0 | yes | 0 | yes |
 | `C_de_Madrid.m3u` | C. de Madrid | 6 | 0 | yes | 0 | yes |
 | `C_de_Madrid_Backups.m3u` | C. de Madrid Backups | 0 | 3 | yes | 0 | yes |
-| `Canada.m3u` | Canada | 385 | 0 | yes | 0 | yes |
+| `Canada.m3u` | Canada | 384 | 0 | yes | 0 | yes |
 | `Canada_Backups.m3u` | Canada Backups | 0 | 71 | yes | 0 | yes |
 | `Canarias.m3u` | Canarias | 12 | 0 | yes | 0 | yes |
 | `Canarias_Backups.m3u` | Canarias Backups | 0 | 4 | yes | 0 | yes |
@@ -107,27 +105,27 @@
 | `Castilla_y_Le_n_Backups.m3u` | Castilla y León Backups | 0 | 3 | yes | 0 | yes |
 | `Catalu_a.m3u` | Cataluña | 23 | 0 | yes | 0 | yes |
 | `Classic_TV.m3u` | Classic TV | 51 | 0 | yes | 0 | yes |
-| `Classic_TV_Backups.m3u` | Classic TV Backups | 0 | 28 | yes | 0 | yes |
+| `Classic_TV_Backups.m3u` | Classic TV Backups | 0 | 27 | yes | 0 | yes |
 | `Comedy.m3u` | Comedy | 110 | 0 | yes | 0 | yes |
 | `Comedy_Backups.m3u` | Comedy Backups | 0 | 57 | yes | 0 | yes |
 | `Crime.m3u` | Crime | 3 | 0 | yes | 0 | yes |
-| `Culture.m3u` | Culture | 123 | 0 | yes | 0 | yes |
+| `Culture.m3u` | Culture | 121 | 0 | yes | 0 | yes |
 | `Culture_Backups.m3u` | Culture Backups | 0 | 7 | yes | 0 | yes |
 | `DLTV.m3u` | DLTV | 9 | 0 | yes | 0 | yes |
-| `Documentary.m3u` | Documentary | 416 | 0 | yes | 0 | yes |
-| `Documentary_Backups.m3u` | Documentary Backups | 0 | 143 | yes | 0 | yes |
+| `Documentary.m3u` | Documentary | 412 | 0 | yes | 0 | yes |
+| `Documentary_Backups.m3u` | Documentary Backups | 0 | 142 | yes | 0 | yes |
 | `Drama.m3u` | Drama | 12 | 0 | yes | 0 | yes |
 | `Drama_Backups.m3u` | Drama Backups | 0 | 14 | yes | 0 | yes |
-| `Education.m3u` | Education | 129 | 0 | yes | 0 | yes |
+| `Education.m3u` | Education | 128 | 0 | yes | 0 | yes |
 | `Education_Backups.m3u` | Education Backups | 0 | 15 | yes | 0 | yes |
 | `En_Espa_ol.m3u` | En Español | 20 | 0 | yes | 0 | yes |
 | `En_Espa_ol_Backups.m3u` | En Español Backups | 0 | 13 | yes | 0 | yes |
-| `Entertainment.m3u` | Entertainment | 819 | 0 | yes | 0 | yes |
-| `Entertainment_Backups.m3u` | Entertainment Backups | 0 | 245 | yes | 0 | yes |
-| `Europe.m3u` | Europe | 422 | 0 | yes | 0 | yes |
+| `Entertainment.m3u` | Entertainment | 817 | 0 | yes | 0 | yes |
+| `Entertainment_Backups.m3u` | Entertainment Backups | 0 | 244 | yes | 0 | yes |
+| `Europe.m3u` | Europe | 421 | 0 | yes | 0 | yes |
 | `Europe_Backups.m3u` | Europe Backups | 0 | 7 | yes | 0 | yes |
 | `Eventuales.m3u` | Eventuales | 11 | 0 | yes | 0 | yes |
-| `Eventuales_Backups.m3u` | Eventuales Backups | 0 | 22 | yes | 0 | yes |
+| `Eventuales_Backups.m3u` | Eventuales Backups | 0 | 21 | yes | 0 | yes |
 | `Extremadura.m3u` | Extremadura | 3 | 0 | yes | 0 | yes |
 | `Family.m3u` | Family | 31 | 0 | yes | 0 | yes |
 | `Family_Backups.m3u` | Family Backups | 0 | 8 | yes | 0 | yes |
@@ -137,9 +135,9 @@
 | `Galicia.m3u` | Galicia | 10 | 0 | yes | 0 | yes |
 | `Galicia_Backups.m3u` | Galicia Backups | 0 | 5 | yes | 0 | yes |
 | `Game_Shows.m3u` | Game Shows | 43 | 0 | yes | 0 | yes |
-| `Game_Shows_Backups.m3u` | Game Shows Backups | 0 | 51 | yes | 0 | yes |
+| `Game_Shows_Backups.m3u` | Game Shows Backups | 0 | 52 | yes | 0 | yes |
 | `Generalistas.m3u` | Generalistas | 3 | 0 | yes | 0 | yes |
-| `India.m3u` | India | 157 | 0 | yes | 0 | yes |
+| `India.m3u` | India | 158 | 0 | yes | 0 | yes |
 | `India_Backups.m3u` | India Backups | 0 | 30 | yes | 0 | yes |
 | `Infantiles.m3u` | Infantiles | 7 | 0 | yes | 0 | yes |
 | `Int_Am_rica.m3u` | Int. América | 15 | 0 | yes | 0 | yes |
@@ -150,18 +148,18 @@
 | `Int_Otros.m3u` | Int. Otros | 7 | 0 | yes | 0 | yes |
 | `Int_frica.m3u` | Int. África | 3 | 0 | yes | 0 | yes |
 | `Int_frica_Backups.m3u` | Int. África Backups | 0 | 5 | yes | 0 | yes |
-| `International.m3u` | International | 3,097 | 0 | yes | 0 | yes |
-| `International_Backups.m3u` | International Backups | 0 | 478 | yes | 0 | yes |
-| `Kids.m3u` | Kids | 345 | 0 | yes | 0 | yes |
+| `International.m3u` | International | 3,088 | 0 | yes | 0 | yes |
+| `International_Backups.m3u` | International Backups | 0 | 477 | yes | 0 | yes |
+| `Kids.m3u` | Kids | 338 | 0 | yes | 0 | yes |
 | `Kids_Backups.m3u` | Kids Backups | 0 | 126 | yes | 0 | yes |
 | `Legislative.m3u` | Legislative | 113 | 0 | yes | 0 | yes |
 | `Legislative_Backups.m3u` | Legislative Backups | 0 | 5 | yes | 0 | yes |
-| `Lifestyle.m3u` | Lifestyle | 651 | 0 | yes | 0 | yes |
+| `Lifestyle.m3u` | Lifestyle | 648 | 0 | yes | 0 | yes |
 | `Lifestyle_Backups.m3u` | Lifestyle Backups | 0 | 237 | yes | 0 | yes |
-| `Movies.m3u` | Movies | 1,000 | 0 | yes | 0 | yes |
+| `Movies.m3u` | Movies | 996 | 0 | yes | 0 | yes |
 | `Movies_Backups.m3u` | Movies Backups | 0 | 292 | yes | 0 | yes |
-| `Music.m3u` | Music | 1,028 | 0 | yes | 0 | yes |
-| `Music_Backups.m3u` | Music Backups | 0 | 219 | yes | 0 | yes |
+| `Music.m3u` | Music | 1,022 | 0 | yes | 0 | yes |
+| `Music_Backups.m3u` | Music Backups | 0 | 217 | yes | 0 | yes |
 | `Musicales.m3u` | Musicales | 16 | 0 | yes | 0 | yes |
 | `Musicales_Backups.m3u` | Musicales Backups | 0 | 8 | yes | 0 | yes |
 | `NBC.m3u` | NBC | 89 | 0 | yes | 0 | yes |
@@ -170,21 +168,21 @@
 | `NBC_Sports_Channels_Backups.m3u` | NBC Sports Channels Backups | 0 | 5 | yes | 0 | yes |
 | `NZ.m3u` | NZ | 107 | 0 | yes | 0 | yes |
 | `NZ_Backups.m3u` | NZ Backups | 0 | 28 | yes | 0 | yes |
-| `News.m3u` | News | 1,005 | 0 | yes | 0 | yes |
-| `News_Backups.m3u` | News Backups | 0 | 418 | yes | 0 | yes |
-| `North_America.m3u` | North America | 160 | 0 | yes | 0 | yes |
+| `News.m3u` | News | 1,006 | 0 | yes | 0 | yes |
+| `News_Backups.m3u` | News Backups | 0 | 419 | yes | 0 | yes |
+| `North_America.m3u` | North America | 155 | 0 | yes | 0 | yes |
 | `North_America_Backups.m3u` | North America Backups | 0 | 3 | yes | 0 | yes |
 | `Online_TV.m3u` | Online TV | 5 | 0 | yes | 0 | yes |
-| `Online_TV_Backups.m3u` | Online TV Backups | 0 | 22 | yes | 0 | yes |
-| `Other.m3u` | Other | 483 | 0 | yes | 0 | yes |
-| `Other_Backups.m3u` | Other Backups | 0 | 86 | yes | 0 | yes |
+| `Online_TV_Backups.m3u` | Online TV Backups | 0 | 7 | yes | 0 | yes |
+| `Other.m3u` | Other | 452 | 0 | yes | 0 | yes |
+| `Other_Backups.m3u` | Other Backups | 0 | 73 | yes | 0 | yes |
 | `PBS.m3u` | PBS | 46 | 0 | yes | 0 | yes |
 | `PBS_Backups.m3u` | PBS Backups | 0 | 27 | yes | 0 | yes |
 | `Pa_s_Vasco.m3u` | País Vasco | 9 | 0 | yes | 0 | yes |
 | `R_de_Murcia.m3u` | R. de Murcia | 3 | 0 | yes | 0 | yes |
 | `Relax.m3u` | Relax | 3 | 0 | yes | 0 | yes |
 | `Religiosos.m3u` | Religiosos | 7 | 0 | yes | 0 | yes |
-| `Religious.m3u` | Religious | 628 | 0 | yes | 0 | yes |
+| `Religious.m3u` | Religious | 630 | 0 | yes | 0 | yes |
 | `Religious_Backups.m3u` | Religious Backups | 0 | 76 | yes | 0 | yes |
 | `Romance.m3u` | Romance | 4 | 0 | yes | 0 | yes |
 | `Sci_Fi.m3u` | Sci-Fi | 10 | 0 | yes | 0 | yes |
@@ -192,18 +190,18 @@
 | `Season_s_Greetings.m3u` | Season's Greetings | 4 | 0 | yes | 0 | yes |
 | `Series.m3u` | Series | 261 | 0 | yes | 0 | yes |
 | `Series_Backups.m3u` | Series Backups | 0 | 210 | yes | 0 | yes |
-| `South_America.m3u` | South America | 245 | 0 | yes | 0 | yes |
+| `South_America.m3u` | South America | 244 | 0 | yes | 0 | yes |
 | `South_America_Backups.m3u` | South America Backups | 0 | 7 | yes | 0 | yes |
-| `Sports.m3u` | Sports | 851 | 0 | yes | 0 | yes |
+| `Sports.m3u` | Sports | 835 | 0 | yes | 0 | yes |
 | `Sports_Backups.m3u` | Sports Backups | 0 | 259 | yes | 0 | yes |
 | `True_Crime.m3u` | True Crime | 7 | 0 | yes | 0 | yes |
 | `True_Crime_Backups.m3u` | True Crime Backups | 0 | 7 | yes | 0 | yes |
 | `Tv_Celebrities.m3u` | Tv Celebrities | 7 | 0 | yes | 0 | yes |
 | `Tv_Paranormal.m3u` | Tv Paranormal | 4 | 0 | yes | 0 | yes |
-| `UK.m3u` | UK | 14 | 0 | yes | 0 | yes |
-| `United_Kingdom.m3u` | United Kingdom | 295 | 0 | yes | 0 | yes |
+| `UK.m3u` | UK | 15 | 0 | yes | 0 | yes |
+| `United_Kingdom.m3u` | United Kingdom | 296 | 0 | yes | 0 | yes |
 | `United_Kingdom_Backups.m3u` | United Kingdom Backups | 0 | 42 | yes | 0 | yes |
-| `United_States.m3u` | United States | 810 | 0 | yes | 0 | yes |
+| `United_States.m3u` | United States | 812 | 0 | yes | 0 | yes |
 | `United_States_Backups.m3u` | United States Backups | 0 | 253 | yes | 0 | yes |
 | `Weather.m3u` | Weather | 12 | 0 | yes | 0 | yes |
 | `Weather_Backups.m3u` | Weather Backups | 0 | 10 | yes | 0 | yes |
@@ -217,4 +215,4 @@
 
 ## Notes
 
-- 1329 channel(s) have no logo
+- 1333 channel(s) have no logo
