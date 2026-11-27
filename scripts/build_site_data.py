@@ -416,8 +416,20 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
         parts = release_version.parse_version(tag.lstrip("v")) or ()
         return tuple(int(part) for part in parts)
 
+    stable_parts = release_version.parse_version(stable_version) if stable_version else None
     for tag, release in sorted(by_tag.items(), key=lambda item: semantic_tag_key(item[0]), reverse=True):
         if tag in active_tags or not tag or tag in RETIRED_TAGS:
+            continue
+        # "Older releases" means below the promoted card. A newer release that
+        # is still uploading its APK or Mac installers belongs in neither list
+        # yet - listing it here made v1.1.26 appear as an older release while
+        # the stable card was still 1.1.24.
+        parsed_tag = release_version.parse_version(tag.lstrip("v"))
+        if stable_parts and parsed_tag is not None and (
+            release_version.compare_versions(
+                ".".join(str(part) for part in parsed_tag), stable_version
+            ) or 0
+        ) >= 0:
             continue
         # A compatibility alias is not an "older release" while it stands for
         # the stable build the page is promoting.

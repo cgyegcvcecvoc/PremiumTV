@@ -228,12 +228,23 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertEqual([row["tag"] for row in older], ["v1.1.10", "v1.1.9", "v1.1.2"])
 
         import json  # noqa: E402
+        import json  # noqa: E402
+        import release_version  # noqa: E402
         payload = json.loads((ROOT / "docs/data/site.json").read_text(encoding="utf-8"))
         versions = [
             tuple(int(part) for part in row["tag"].lstrip("v").split("."))
             for row in payload["apps"]["older"]
         ]
         self.assertEqual(versions, sorted(versions, reverse=True))
+        # "Older" is strictly below the promoted card: a still-incomplete newer
+        # release must not be presented as an older one while its APK uploads.
+        stable = next(c for c in payload["apps"]["channels"] if c["id"] == "stable")
+        for row in payload["apps"]["older"]:
+            self.assertLess(
+                release_version.compare_versions(row["tag"].lstrip("v"), stable["version"]),
+                0,
+                f"{row['tag']} is not older than stable {stable['version']}",
+            )
 
     def test_a_four_part_stable_borrows_the_alias_mac_installers(self):
         # The canonical 1.0.6.1 publishes the APK; the Mac installers can only
