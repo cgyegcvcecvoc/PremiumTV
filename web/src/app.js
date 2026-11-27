@@ -322,9 +322,16 @@
     }
     if (tab === "settings") renderSettings();
     if (updateHash !== false) {
-      try {
-        history.replaceState(null, "", "#" + tab);
-      } catch (_) {}
+      // A tab is a real destination: Back and Forward move between them instead
+      // of leaving the browser on whichever page happened to be open first.
+      const hash = "#" + tab;
+      if (location.hash !== hash) {
+        try {
+          history.pushState(null, "", hash);
+        } catch (_) {}
+      }
+      // A new section starts at its own heading, not halfway down the last one.
+      window.scrollTo(0, 0);
     }
   }
   function renderCategories() {
@@ -1549,6 +1556,9 @@
     saveCurrentProgress();
     closePlayer();
   });
+  window.addEventListener("popstate", () =>
+    setTab(location.hash.slice(1), false),
+  );
   window.addEventListener("hashchange", () =>
     setTab(location.hash.slice(1), false),
   );

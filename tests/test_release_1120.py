@@ -90,17 +90,26 @@ class Version1120Tests(unittest.TestCase):
         for asset in ("APK", "DMG", "AppImage"):
             self.assertIn(asset, record)
 
-    def test_the_site_promotes_the_published_release(self):
+    def test_the_site_promotes_a_complete_published_release(self):
         import json  # noqa: E402
-        import release_version  # noqa: E402
+        import build_site_data  # noqa: E402
 
-        # The stable channel follows VERSION, not the release this file was
-        # written for; pinning 1.1.20 here made the test stale on every later
-        # release.
-        version = release_version.current_version()
+        # The site's promise is the newest *complete published stable* release,
+        # not "whatever VERSION says". 1.1.25 was published as a pre-release with
+        # a different feature set, so promoting it would hand visitors an
+        # installer the updater deliberately ignores. A newer complete stable in
+        # the cache must still win immediately.
+        releases = build_site_data.load_releases()
+        newest = build_site_data.latest_complete_stable_release(releases)
+        self.assertIsNotNone(newest, "the release cache has no complete stable release")
+        self.assertFalse(newest.get("prerelease"), "a pre-release must never be promoted")
+        self.assertFalse(newest.get("draft"), "a draft must never be promoted")
+        promoted = build_site_data.release_tag(newest)
+        version = promoted.lstrip("v")
+
         site = json.loads(text("docs/data/site.json"))
         stable = [c for c in site["apps"]["channels"] if c["id"] == "stable"]
-        self.assertEqual([channel["tag"] for channel in stable], [f"v{version}"])
+        self.assertEqual([channel["tag"] for channel in stable], [promoted])
         names = {asset["name"] for asset in stable[0]["assets"]}
         # The Mac installers are the ones recent releases lost entirely.
         for arch, ext in (("arm64", "dmg"), ("x64", "dmg"), ("arm64", "pkg"), ("x64", "pkg")):

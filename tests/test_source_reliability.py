@@ -23,6 +23,20 @@ class SourceReliabilityTests(unittest.TestCase):
                 self.assertIn("/cgyegcvcecvoc/PremiumTV/", source["url"])
                 self.assertEqual(source["github"]["path"], source["local_path"])
 
+    def test_the_live_event_source_has_a_real_mirror(self):
+        config = json.loads((ROOT / "sources.json").read_text())
+        by_name = {source["name"]: source for source in config["sources"]}
+        source = by_name["doms9-events"]
+        self.assertEqual(source["type"], "m3u")
+        self.assertEqual(source["github"]["path"], "M3U8/events.m3u8")
+        self.assertTrue(source["url"].startswith("https://raw.githubusercontent.com/doms9/iptv/"))
+        self.assertTrue(any("gitlab.com/doms9/iptv" in mirror for mirror in source["mirrors"]))
+        # Codeberg's copy held 205 of the GitHub file's 381 entries on
+        # 2026-11-27; treating it as an identical mirror would silently shorten
+        # the live-event set on any run that fell back to it.
+        self.assertFalse(any("codeberg.org" in mirror for mirror in source["mirrors"]))
+        self.assertIn("381 entries", source["note"])
+
     def test_committed_sources_are_https_without_credentials(self):
         config = json.loads((ROOT / "sources.json").read_text())
         for source in config["sources"]:

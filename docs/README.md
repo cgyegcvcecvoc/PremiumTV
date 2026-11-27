@@ -8,7 +8,7 @@ server, no build step — published with GitHub Pages.
 
 ## What the page does
 
-- **Download the apps.** The latest complete Stable release (currently **1.1.25** — movies tab retired, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
+- **Download the apps.** The latest complete Stable release (currently **1.1.26** — honest releases and steadier sources, on Android TV, macOS, Linux and web). Every asset (Android APK, macOS .dmg/.pkg for Intel and Apple Silicon, Linux AppImage/.deb/tarball), file sizes, SHA-256 checksums and install help — all linking at the GitHub release assets. The build is promoted only after its APK and all four Mac installers are published, so the page never replaces working downloads with empty links. Retired preview builds are never listed.
 - **The best working M3U for your country.** The page detects the visitor's
   country in their browser (ipwho.is / ipapi.co / country.is — nothing is sent
   to us), preselects it, and offers the country's confirmed-working playlist:
@@ -26,25 +26,28 @@ server, no build step — published with GitHub Pages.
   to. The page also re-fetches `docs/data/changelog.json` from the repository
   and picks up entries added after the page was deployed.
 
-## Current stable: 1.1.25
+## Current stable: 1.1.26
 
-1.1.25 removes the Movies & Shows tab: every app now carries four sections — Channels, Live Events, TV guide and Settings — and the shelf, its search and its genre filters were deleted rather than hidden. The on-demand catalogue stays bundled and unrendered, and live playback, resume positions and the transport controls are unchanged. Full notes: [`release-notes-1.1.25.md`](../release-notes-1.1.25.md).
+1.1.26 makes the release pages honest and the sources steadier. The download page promotes only the newest complete published stable release — never a pre-release — and the stale copy that still called 1.1.4 the previous release is gone. The web player's tabs now keep real history, so Back and Forward move between Channels, Live, TV guide and Settings. Live events gain doms9's dedicated hourly events playlist, mirrored on GitHub and GitLab. Full notes: [`release-notes-1.1.26.md`](../release-notes-1.1.26.md).
 
-It installs in place over every earlier build: Android `101250000` is above
+It installs in place over every earlier build: Android `101260000` is above
 every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.25 in
+1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.26 in
 **Settings → App updates**; the downloaded installer is checksum-verified before
 it is opened.
 
-### Previous release: 1.1.4
+**1.1.25 is a pre-release, not this stable line.** Its release page describes a
+Spotify preview while this tree's 1.1.25 retired the Movies & Shows tab, so the
+download page and the in-app updater both skip it. 1.1.26 supersedes it and
+installs over it in place.
 
-1.1.4 declutters the full-screen Android TV player: the bottom overlay buttons (Favorite, Side player, Close and server hop) no longer cover score bugs and other on-screen graphics while a game is on, so nothing unclickable sits in front of the stream — press Back to tuck the stream into the side player or close it back to the browser. The player's own controls — Mute/Unmute and the Audio track switcher — stay in the top corner and appear on interaction, fading away on their own. macOS is unchanged: its action bar already sits below the picture instead of over it, so it keeps its Favorite, side-player, Close and server buttons. It keeps the docked side player, category rail, automatic server backup, dead-channel filtering, amber pointer outlines, and compact Settings screen — a version card that shows **1.1.4**, plus **Force refresh**, **Check for update**, **Check for bugs**, the hidden-channel restore action and a collapsible details panel. The app checks GitHub for a newer published stable release, downloads the installer once, verifies its SHA-256 checksum and opens the platform installer. The policy is documented in [`UPDATES.md`](UPDATES.md) and the release notes in [`release-notes-1.1.4.md`](../release-notes-1.1.4.md).
+### Previous release: 1.1.24
 
-It installs in place over every earlier build: Android `101040000` is above
-every released versionCode, and the Mac DMG replaces the old copy. Builds from
-1.1.0 on (and every 1.0.4–1.0.9 build through their own updater) find 1.1.4 in
-**Settings → App updates**; the downloaded installer is checksum-verified before
-it is opened.
+1.1.24 adds broken-feed reports: the player error card opens a prefilled GitHub
+issue with the channel, server position, URL, app version and platform, and
+`playlists/HEALTH.txt` names the failing servers and channels rather than only
+totals. It also files BBC America under Entertainment. Full notes:
+[`release-notes-1.1.24.md`](../release-notes-1.1.24.md).
 
 The **1.1.x Encore preview is retired**. That preview's release, installers and
 download links were removed; any old link goes to
@@ -52,10 +55,14 @@ download links were removed; any old link goes to
 and explains how to replace the preview without uninstalling on Android. **The
 `1.1.0` and `1.1.1` names are ordinary stable releases** — the deleted preview
 shared those names, and the project promoted them back, so a device on either is
-on a supported build and simply updates to 1.1.18 in-app. The Netlify Drop hub
+on a supported build and simply updates to 1.1.26 in-app. The Netlify Drop hub
 under `hub/` uses the same complete-release gate and never renders a preview
 card. Rebuild and re-upload its export to refresh an existing Netlify
 deployment.
+
+### Earlier releases
+
+1.1.4 declutters the full-screen Android TV player only — macOS keeps its action bar below the picture — and is recorded in [`release-notes-1.1.4.md`](../release-notes-1.1.4.md).
 
 ## Files
 

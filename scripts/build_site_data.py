@@ -778,13 +778,25 @@ def write_feed(entries: list[dict]) -> str:
         "  <subtitle>Every change recorded in the PremiumTV repository: "
         "playlist fixes, app releases, and site updates.</subtitle>",
     ]
-    for index, entry in enumerate(entries):
+    # Entry ids describe the entry, not its position. An index-based id changed
+    # for every older entry whenever a new entry was prepended, so a feed reader
+    # saw the whole history as new on each release. Date + title slug is stable
+    # across rebuilds; a duplicate pair gets an ordinal suffix.
+    feed_ids: list[str] = []
+    seen_ids: dict[str, int] = {}
+    for entry in entries:
+        slug = re.sub(r"[^a-z0-9]+", "-", entry["title"].lower()).strip("-")[:64] or "entry"
+        base = f"{entry['date']}:{slug}"
+        count = seen_ids.get(base, 0) + 1
+        seen_ids[base] = count
+        feed_ids.append(base if count == 1 else f"{base}-{count}")
+    for entry, feed_id in zip(entries, feed_ids):
         when = f"{entry['date']}T12:00:00Z"
         body = "\n".join(entry["bullets"]) or entry["body_md"]
         lines += [
             "  <entry>",
             f"    <title>{esc(entry['title'])}</title>",
-            f"    <id>urn:premiumtv1:changelog:{entry['date']}:{index}</id>",
+            f"    <id>urn:premiumtv1:changelog:{feed_id}</id>",
             f"    <link href=\"https://github.com/{REPO_OWNER}/{REPO_NAME}"
             f"/blob/{REPO_BRANCH}/CHANGELOG.md\"/>",
             f"    <updated>{when}</updated>",

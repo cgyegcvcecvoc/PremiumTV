@@ -97,11 +97,28 @@
         "ref": "default"
       },
       "mirrors": [
+        "https://gitlab.com/doms9/iptv/-/raw/default/M3U8/TV.m3u8",
         "https://cdn.jsdelivr.net/gh/doms9/iptv@default/M3U8/TV.m3u8",
         "https://raw.gitmirror.com/doms9/iptv/default/M3U8/TV.m3u8"
       ],
-      "mirror_note": "The identical file is fetched from jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report.",
+      "mirror_note": "The identical file is fetched from GitLab, jsDelivr and raw.gitmirror.com when raw.githubusercontent.com does not answer; a run that used a backup address says so in its report. Codeberg's copy lags and is not configured.",
       "note": "doms9's US cable lineup (TV.m3u8, 573 links). The smaller M3U8/base.m3u8 in the same repository (178 links) was measured against the published corpus on 2026-11-24: all 178 of its URLs are already in TV.m3u8 and in PremiumTV_all.m3u, so it is not configured as a separate source - it would add zero new links. See docs/SOURCE-HUNT-2026-11-24.md."
+    },
+    {
+      "name": "doms9-events",
+      "type": "m3u",
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/doms9/iptv/default/M3U8/events.m3u8",
+      "github": {
+        "repo": "doms9/iptv",
+        "path": "M3U8/events.m3u8",
+        "ref": "default"
+      },
+      "mirrors": [
+        "https://gitlab.com/doms9/iptv/-/raw/default/M3U8/events.m3u8"
+      ],
+      "mirror_note": "GitLab publishes the byte-identical events file (verified 2026-11-27), so it is the backup address when raw.githubusercontent.com does not answer. Codeberg also mirrors this project, but on 2026-11-27 its copy held 205 of the 381 entries, so it is deliberately not configured.",
+      "note": "The dedicated live-events half of doms9/iptv, separated from its base channel list and refreshed hourly. Measured on 2026-11-27: 381 entries, 380 unique URLs, 378 not in the published playlist and 376 new to the whole corpus; 335 entries parse into 176 fixtures, and 48 of those fixtures carry more than one feed. This is the source that gives live events a second address per game instead of one feed per card; every link is re-checked here like any other source."
     },
     {
       "name": "xtemus",
@@ -576,6 +593,13 @@
           "repo": "YanG-1989/m3u"
         },
         "note": "The one importable upstream behind HerbertHe/iptv-sources (a generator, not a playlist - see docs/SOURCE-HUNT-2026-11-24.md). Gather.m3u (123 links) is China Mobile Migu sports, movie-rotation and esports livestream proxies (Bilibili/Huya/Douyu via cdn.ttvb.eu.org), not general TV; all 123 URLs are new to the corpus, so the monthly engine will sample-check them and promote only if they actually answer. HerbertHe's other upstreams were rejected with evidence: YueChan is rtp:// multicast, Beijing-IPTV is 192.168.x.x LAN addresses, joevess is an empty file, cymz6's repository is gone (404), and fanmingming/iptv-org are already covered."
+      },
+      {
+        "name": "ZeroStreams",
+        "enabled": true,
+        "type": "m3u",
+        "url": "https://raw.githubusercontent.com/felixiptv/streams/main/playlist.m3u",
+        "note": "felixiptv/streams (ZeroStreams) publishes validated live HLS feeds with clean event titles and alternate feeds. Measured on 2026-11-27: 51 entries and 51 URLs, all 51 new to this corpus, mostly motorsport, baseball and basketball events. Its status.json was last written 2026-10-19, so the repository's refresh claim is not proven by that file; the monthly discovery engine's sample check is what decides, and nothing is promoted unless it answers."
       }
     ],
     "github_search": {

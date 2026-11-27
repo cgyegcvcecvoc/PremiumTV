@@ -26,6 +26,7 @@ A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuse
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.
 - [Repository change log](CHANGELOG.md) — concise GitHub copy and links to the live health reports.
 - [Source reliability follow-up](docs/SOURCE-RELIABILITY-AUDIT-2026-11-12.md) — snapshot health, official viewing paths and verification gaps.
+- [Live-event source hunt](docs/SOURCE-HUNT-2026-11-27.md) — doms9's dedicated hourly events playlist (381 entries, 176 fixtures, 48 with more than one feed), its verified GitLab mirror, why Codeberg's lagging copy was rejected, and the ZeroStreams candidate.
 - [Provider-directory hunt](docs/SOURCE-HUNT-2026-11-25.md) — the free providers in the iptv-org `awesome-iptv` directory, measured against this corpus: which ones became sources (M3UPT, TDTChannels, Nexonic IPTV), which were only iptv-org front-ends, and why a Pluto playlist with session tokens was left out.
 
 ## Load the playlist
@@ -81,19 +82,26 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.25** (Android `versionCode 101250000`) | USA lineup + USA guide | Movies tab retired: Channels, Live Events, TV guide and Settings are the whole navigation in every app ([notes](release-notes-1.1.25.md)). |
-| Superseded | **1.1.24** (`101240000`), **1.1.23** (`101230000`), **1.1.22** (`101220000`), **1.1.21** (`101210000`), **1.1.20** (`101200000`), **1.1.19** (`101190000`), **1.1.18** (`101180000`), **1.1.17** (`101170000`), **1.1.16** (`101160000`), **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.25. |
+| **Stable release** | **1.1.26** (Android `versionCode 101260000`) | USA lineup + USA guide | Honest release pages and steadier sources: only a complete published stable build is promoted, web navigation keeps real history, and live events gain an hourly events playlist ([notes](release-notes-1.1.26.md)). |
+| Superseded | **1.1.25** (`101250000`, pre-release), **1.1.24** (`101240000`), **1.1.23** (`101230000`), **1.1.22** (`101220000`), **1.1.21** (`101210000`), **1.1.20** (`101200000`), **1.1.19** (`101190000`), **1.1.18** (`101180000`), **1.1.17** (`101170000`), **1.1.16** (`101160000`), **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.26. |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
 | Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.19 ends Dec 21, 2026 |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.25 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.26 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.25 over the preview (`101250000` > `100010001`) and
+newer. Android accepts 1.1.26 over the preview (`101260000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
+
+**1.1.25 was published as a pre-release with a different feature set.** Its
+release page describes a Spotify preview, while this tree's 1.1.25 build retired
+the Movies & Shows tab; the version number therefore cannot be offered by the
+download page or the in-app updater. **1.1.26 supersedes it** as the next full
+stable release, and a device that installed the 1.1.25 pre-release upgrades in
+place (`101260000` > `101250000`).
 
 ### What 1.1.3 adds
 
@@ -245,7 +253,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.0.9` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
+| Stable target | `1.1.26` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
 The macOS regression suite covers startup data delivery, the cable-style guide
@@ -264,7 +272,7 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.0.9` (`versionCode 100090000`) — USA library |
+| Stable build target | `1.1.26` (`versionCode 101260000`) — USA library |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 The stable build bundles the USA playlist and guide. Both are built from curated
@@ -305,9 +313,9 @@ still receives a real crash but the next bug report has something to go on. A
 published `http-origin` is normalised to the scheme+host+port tuple a CDN
 expects, matching the Mac app.
 
-**1.1.25 is the current stable release** (`versionCode 101250000`, USA scope).
+**1.1.26 is the current stable release** (`versionCode 101260000`, USA scope).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.1.25 installs over 1.0.8, 1.0.8.1
+upgrades from Settings → App updates, and 1.1.26 installs over 1.0.8, 1.0.8.1
 and the retired 1.1.x previews as well. (One exception: an installed 1.0.8.1
 still reads "1.0.9" as another name for itself, so its in-app check can miss
 this release — install the APK by hand; it upgrades in place.) A release is
