@@ -49,6 +49,12 @@ DEFAULT_WORKERS = 12
 DEFAULT_PER_HOST_WORKERS = 4
 DEFAULT_TIMEOUT = 12.0
 DEFAULT_RETRIES = 1
+RETIRED_URLS = ROOT / "playlists" / "checks" / "retired-event-urls.json"
+RETIREMENT_POLICY = (
+    "SHA-256 hashes of live-event URLs that a deep probe confirmed dead "
+    "(HTTP 403 or 404/410). A retired hash stays unpublished even if a later "
+    "scrape re-adds the URL and a later probe succeeds."
+)
 
 DROP_HTTP_CODES = frozenset({403, 404, 410})
 # Only an explicit HTTP status in the probe reason is conclusive. A reason such
@@ -166,10 +172,70 @@ def _url_hash(channel: Any) -> str:
     ).hexdigest()
 
 
+def load_retired_hashes(path: Path = RETIRED_URLS) -> set[str]:
+    """Load the permanent retired-event hash registry.
+
+    The registry is intentionally separate from the generated gate report: a
+    later scrape must not be able to make a previously dead URL publishable by
+    simply discovering it again and probing it while it happens to answer.
+    """
+    path = Path(path)
+    if not path.is_file():
+        return set()
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or payload.get("schema") != 1:
+        raise ValueError(f"{path}: retired-event registry must be schema 1")
+    hashes = payload.get("hashes")
+    if not isinstance(hashes, list) or not all(
+        isinstance(value, str) and re.fullmatch(r"[0-9a-f]{64}", value)
+        for value in hashes
+    ):
+        raise ValueError(f"{path}: hashes must be lowercase SHA-256 strings")
+    return set(hashes)
+
+
+def retirement_candidates(report: dict) -> set[str]:
+    """Hashes a report proved dead, excluding transient/unconfirmed failures."""
+    candidates: set[str] = set()
+    feeds = []
+    for fixture in report.get("fixtures_detail") or []:
+        feeds.extend(fixture.get("feeds") or [])
+    feeds.extend(report.get("singleton_feeds") or [])
+    for feed in feeds:
+        if feed.get("outcome") in {"dropped_403", "dropped_404"}:
+            digest = feed.get("sha256")
+            if isinstance(digest, str):
+                candidates.add(digest)
+    return candidates
+
+
+def record_retired_hashes(report: dict, path: Path = RETIRED_URLS) -> list[str]:
+    """Persist newly confirmed-dead event URLs. Returns the hashes added."""
+    candidates = retirement_candidates(report)
+    if not candidates:
+        return []
+    path = Path(path)
+    existing = load_retired_hashes(path)
+    added = sorted(candidates - existing)
+    if not added:
+        return []
+    document = {
+        "schema": 1,
+        "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(
+            timespec="seconds").replace("+00:00", "Z"),
+        "policy": RETIREMENT_POLICY,
+        "hashes": sorted(existing | set(added)),
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    return added
+
+
 def _feed_report(channel: Any, result: dict, outcome: str) -> dict:
     return {
         "name": getattr(channel, "name", ""),
         "url": _safe_url(getattr(channel, "url", "")),
+        "sha256": _url_hash(channel),
         "status": result.get("status", ""),
         "outcome": outcome,
         "http_status": result.get("http_status", 0),
@@ -188,6 +254,7 @@ def gate_channels(
     per_host_workers: int = DEFAULT_PER_HOST_WORKERS,
     host_limiter: Any = None,
     probe: Callable[..., dict] | None = None,
+    retired_hashes: set[str] | None = None,
 ) -> tuple[list, dict]:
     """Re-test live-event entries and return ``(publishable_channels, report)``.
 
@@ -197,8 +264,15 @@ def gate_channels(
     those working feeds, in their original order.  Non-matchup event feeds are
     gated individually (they have no fixture to refuse).  Non-event channels
     always pass through unchanged.
+
+    ``retired_hashes`` is the permanent retired-event URL registry. A retired
+    URL is withheld without probing, even if a later scrape re-added it and it
+    now answers successfully.
     """
     probe = probe or _default_probe
+    retired_hashes = (
+        load_retired_hashes() if retired_hashes is None else set(retired_hashes)
+    )
     event_items: list[tuple[int, Any, dict | None]] = []
     for index, channel in enumerate(channels):
         if not is_live_event(channel):
@@ -217,9 +291,12 @@ def gate_channels(
             "published_entries": 0, "published_fixtures": 0,
             "refused_fixtures": 0, "dropped_entries": 0,
             "dropped_403": 0, "dropped_404": 0, "dropped_other": 0,
+            "dropped_retired": 0,
             "status_counts": {}, "refused": [],
             "fixtures_detail": [], "singleton_feeds": [],
             "dropped_event_url_sha256": [],
+            "retired_event_url_sha256": sorted(retired_hashes),
+            "newly_retired_event_url_sha256": [],
         }
 
     grouped: dict[str, dict] = collections.OrderedDict()
@@ -241,10 +318,25 @@ def gate_channels(
             host_limiter = None
 
     results: dict[int, dict] = {}
+    retired_applied: set[str] = set()
+    for _, channel, _ in event_items:
+        digest = _url_hash(channel)
+        if digest in retired_hashes:
+            retired_applied.add(digest)
+            results[id(channel)] = {
+                "status": "dead",
+                "http_status": 0,
+                "reason": "retired after a previous dead probe",
+                "segment_ok": None,
+                "kind": "retired",
+                "retired": True,
+            }
+
     with cf.ThreadPoolExecutor(max_workers=max(1, int(workers))) as pool:
         futures = {
             pool.submit(_probe_one, channel, timeout, retries, host_limiter, probe): channel
             for _, channel, _ in event_items
+            if id(channel) not in results
         }
         for future in cf.as_completed(futures):
             channel = futures[future]
@@ -257,12 +349,17 @@ def gate_channels(
     singleton_feeds: list[dict] = []
     non_fixture_working = 0
     counts = collections.Counter()
-    dropped_403 = dropped_404 = dropped_other = 0
+    dropped_403 = dropped_404 = dropped_other = dropped_retired = 0
 
     def apply_outcome(channel: Any, result: dict) -> str:
-        nonlocal dropped_403, dropped_404, dropped_other
+        nonlocal dropped_403, dropped_404, dropped_other, dropped_retired
         status = str(result.get("status") or "unreachable")
         counts[status] += 1
+        if result.get("retired"):
+            dropped_retired += 1
+            channel.status = "dead"
+            channel.reason = "live-event gate: retired dead event URL"
+            return "dropped_retired"
         if status == "working":
             channel.status = "alive"
             channel.reason = f"live-event gate: {result.get('reason') or 'working'}"
@@ -354,11 +451,18 @@ def gate_channels(
         "dropped_403": dropped_403,
         "dropped_404": dropped_404,
         "dropped_other": dropped_other,
+        "dropped_retired": dropped_retired,
         "status_counts": dict(sorted(counts.items())),
         "refused": refused,
         "fixtures_detail": fixtures_detail,
         "singleton_feeds": singleton_feeds,
         "dropped_event_url_sha256": dropped_hashes,
+        "retired_event_url_sha256": sorted(retired_applied),
+        "newly_retired_event_url_sha256": sorted(
+            retirement_candidates({"fixtures_detail": fixtures_detail,
+                                   "singleton_feeds": singleton_feeds})
+            - retired_hashes
+        ),
     }
     return kept, report
 
@@ -408,6 +512,7 @@ def fail_closed(channels: list, reason: str) -> tuple[list, dict]:
         "dropped_403": 0,
         "dropped_404": 0,
         "dropped_other": dropped,
+        "dropped_retired": 0,
         "status_counts": {},
         "refused": [
             {"key": key, "title": row["event"].get("title") or key,
@@ -417,6 +522,8 @@ def fail_closed(channels: list, reason: str) -> tuple[list, dict]:
         "fixtures_detail": [],
         "singleton_feeds": singleton_feeds,
         "dropped_event_url_sha256": dropped_hashes,
+        "retired_event_url_sha256": [],
+        "newly_retired_event_url_sha256": [],
     }
     event_indices = {index for index, _, _ in event_items}
     return [channel for index, channel in enumerate(channels)
@@ -525,6 +632,7 @@ def apply_to_playlist_text(
     workers: int = DEFAULT_WORKERS,
     per_host_workers: int = DEFAULT_PER_HOST_WORKERS,
     probe: Callable[..., dict] | None = None,
+    retired_hashes: set[str] | None = None,
 ) -> tuple[str, dict]:
     """Return the filtered playlist text and the gate report.
 
@@ -539,6 +647,7 @@ def apply_to_playlist_text(
         kept, report = gate_channels(
             channels, timeout=timeout, retries=retries, workers=workers,
             per_host_workers=per_host_workers, probe=probe,
+            retired_hashes=retired_hashes,
         )
     except Exception as exc:  # noqa: BLE001 - fail closed for live events
         kept, report = fail_closed(channels, f"{type(exc).__name__}: {exc}")
@@ -566,7 +675,8 @@ def render_markdown(report: dict, playlist: str = "") -> str:
         f"- **Dropped:** {report.get('dropped_entries', 0)} "
         f"(403: {report.get('dropped_403', 0)}, "
         f"404/410: {report.get('dropped_404', 0)}, "
-        f"other: {report.get('dropped_other', 0)})",
+        f"other: {report.get('dropped_other', 0)}, "
+        f"retired: {report.get('dropped_retired', 0)})",
         f"- **Publishable fixtures:** {report.get('published_fixtures', 0)}",
         f"- **Refused fixtures (no working feed):** {report.get('refused_fixtures', 0)}",
         "",
@@ -634,6 +744,8 @@ def render_markdown(report: dict, playlist: str = "") -> str:
         "is refused entirely; no entry from it is published.",
         "- 403 and 404/410 are counted separately because they are conclusive; "
         "other probe failures are also withheld rather than published unverified.",
+        "- Confirmed 403/404/410 hashes are retired permanently and are withheld "
+        "without probing if a later scrape re-adds the URL.",
         "",
     ]
     return "\n".join(lines)
@@ -655,6 +767,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--per-host-workers", type=int, default=DEFAULT_PER_HOST_WORKERS)
     parser.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT)
     parser.add_argument("--retries", type=int, default=DEFAULT_RETRIES)
+    parser.add_argument("--retired-urls", type=Path, default=RETIRED_URLS,
+                        help="retired-event hash registry")
     parser.add_argument("--strict", action="store_true",
                         help="exit 1 when any fixture is refused")
     args = parser.parse_args(argv)
@@ -662,15 +776,21 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--sync-derived requires --apply")
 
     text = args.playlist.read_text(encoding="utf-8", errors="replace")
+    retired_hashes = load_retired_hashes(args.retired_urls)
     filtered, report = apply_to_playlist_text(
         text, timeout=args.timeout, retries=args.retries,
         workers=args.workers, per_host_workers=args.per_host_workers,
+        retired_hashes=retired_hashes,
     )
     report["playlist"] = str(args.playlist)
     report["applied"] = False
     if args.apply and filtered != text:
         args.playlist.write_text(filtered, encoding="utf-8")
         report["applied"] = True
+    if args.apply:
+        added = record_retired_hashes(report, args.retired_urls)
+        if added:
+            print(f"[live-event-gate] retired {len(added)} newly dead URL hash(es)")
     if args.sync_derived:
         report["derived"] = sync_derived_playlists(
             args.sync_derived,
