@@ -11,7 +11,7 @@
     <id>urn:premiumtv1:changelog:2026-11-27:version-1-1-26-honest-releases-steadier-sources</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV/blob/main/CHANGELOG.md"/>
     <updated>2026-11-27T12:00:00Z</updated>
-    <summary>**The release pages are honest again.** `docs/data/releases.src.json` was stuck at `v1.1.24` — it had no entry for 1.1.25 at all — so the download page and its stable card described an older release than the repository. It is refreshed from GitHub's release API, and the site test now asserts the invariant that matters: the promoted card is the newest **complete published stable** release, and is never a pre-release or a draft. The change-log Atom feed's entry ids are now derived from the date and title instead of the entry's position, so adding a release no longer rewrites every older id. **1.</summary>
+    <summary>**The release pages are honest again.** `docs/data/releases.src.json` was stuck at `v1.1.24` — it had no entry for 1.1.25 at all — so the download page and its stable card described an older release than the repository. It is refreshed from GitHub's release API, and the site test now asserts the invariant that matters: the promoted card is the newest **complete published stable** release, and is never a pre-release or a draft. The older-releases list is now sorted by semantic version instead of text, so `v1.1.23` sits above `v1.1.7` instead of below it. The change-log Atom feed's entry ids are</summary>
   </entry>
   <entry>
     <title>Version 1.1.25: Movies tab retired</title>

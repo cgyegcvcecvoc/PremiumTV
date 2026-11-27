@@ -198,36 +198,6 @@
   ],
   "older": [
    {
-    "tag": "v1.1.7",
-    "name": "PremiumTV 1.1.7 — Local channels",
-    "published_at": "2026-11-14T17:47:10Z",
-    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.7"
-   },
-   {
-    "tag": "v1.1.6",
-    "name": "PremiumTV 1.1.6 — easier app navigation",
-    "published_at": "2026-11-13T22:40:41Z",
-    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.6"
-   },
-   {
-    "tag": "v1.1.5",
-    "name": "PremiumTV 1.1.5 — remote-first speed, a calmer start, and a sleep timer (stable)",
-    "published_at": "2026-11-08T17:04:53Z",
-    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.5"
-   },
-   {
-    "tag": "v1.1.4",
-    "name": "PremiumTV 1.1.4 — full-screen player decluttered (stable patch)",
-    "published_at": "2026-11-03T20:35:08Z",
-    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.4"
-   },
-   {
-    "tag": "v1.1.3",
-    "name": "PremiumTV 1.1.3 — moving loading bar, expanded Movies & Shows + transport player, and broadcast audio fixes (stable)",
-    "published_at": "2026-10-31T12:44:44Z",
-    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.3"
-   },
-   {
     "tag": "v1.1.23",
     "name": "PremiumTV 1.1.23 — Local channels by location",
     "published_at": "2026-11-25T17:43:40Z",
@@ -250,12 +220,6 @@
     "name": "PremiumTV 1.1.20 — Many sources, one clock",
     "published_at": "2026-11-23T23:33:35Z",
     "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.20"
-   },
-   {
-    "tag": "v1.1.2",
-    "name": "PremiumTV 1.1.2 — channel opens in the side player, Movies & Shows test shelf (stable)",
-    "published_at": "2026-10-24T11:49:08Z",
-    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.2"
    },
    {
     "tag": "v1.1.19",
@@ -304,6 +268,42 @@
     "name": "PremiumTV 1.1.10 — Local channels",
     "published_at": "2026-11-14T18:52:54Z",
     "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.10"
+   },
+   {
+    "tag": "v1.1.7",
+    "name": "PremiumTV 1.1.7 — Local channels",
+    "published_at": "2026-11-14T17:47:10Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.7"
+   },
+   {
+    "tag": "v1.1.6",
+    "name": "PremiumTV 1.1.6 — easier app navigation",
+    "published_at": "2026-11-13T22:40:41Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.6"
+   },
+   {
+    "tag": "v1.1.5",
+    "name": "PremiumTV 1.1.5 — remote-first speed, a calmer start, and a sleep timer (stable)",
+    "published_at": "2026-11-08T17:04:53Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.5"
+   },
+   {
+    "tag": "v1.1.4",
+    "name": "PremiumTV 1.1.4 — full-screen player decluttered (stable patch)",
+    "published_at": "2026-11-03T20:35:08Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.4"
+   },
+   {
+    "tag": "v1.1.3",
+    "name": "PremiumTV 1.1.3 — moving loading bar, expanded Movies & Shows + transport player, and broadcast audio fixes (stable)",
+    "published_at": "2026-10-31T12:44:44Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.3"
+   },
+   {
+    "tag": "v1.1.2",
+    "name": "PremiumTV 1.1.2 — channel opens in the side player, Movies & Shows test shelf (stable)",
+    "published_at": "2026-10-24T11:49:08Z",
+    "html_url": "https://github.com/cgyegcvcecvoc/PremiumTV/releases/tag/v1.1.2"
    },
    {
     "tag": "v1.1.1",
@@ -3583,9 +3583,9 @@
    "id": "2026-11-27",
    "date": "2026-11-27",
    "title": "Version 1.1.26: Honest releases, steadier sources",
-   "body_md": "- **The release pages are honest again.** `docs/data/releases.src.json` was stuck at `v1.1.24` — it had no entry for 1.1.25 at all — so the download page and its stable card described an older release than the repository. It is refreshed from GitHub's release API, and the site test now asserts the invariant that matters: the promoted card is the newest **complete published stable** release, and is never a pre-release or a draft. The change-log Atom feed's entry ids are now derived from the date and title instead of the entry's position, so adding a release no longer rewrites every older id.\n- **1.1.25 is a pre-release, and the copy says so.** GitHub's `v1.1.25` release is titled *Spotify on every screen*; this tree's 1.1.25 notes describe the Movies & Shows tab retirement. They are different builds under one number, and the release is flagged pre-release, so the site and the in-app updater correctly skip it. 1.1.26 supersedes it, and the README, download-site README, blocked-build page, hub and update notice now say that instead of calling 1.1.25 stable.\n- **The stale release-page copy is gone.** `docs/README.md` called 1.1.4 the previous release and said 1.1.0/1.1.1 devices update to 1.1.18; the README still listed 1.0.9 as both apps' stable build target; the blocked-build page's footer named 1.1.20; and the download site's GitHub, raw-playlist, changelog and footer links still used the retired `PremiumTV1` slug. All now name 1.1.26 and the canonical repository.\n- **Navigation: a tab is a destination.** The web player used `history.replaceState`, so Back left the app instead of returning to the previous tab. A tab change now pushes a history entry, `popstate` restores the tab named by the hash, and the new section starts at its own heading. Deep links (`#channels`, `#live`, `#guide`, `#settings`) and the existing arrow-key/Home/End tab handling are unchanged.\n- **Live events get a dedicated, measured source.** `doms9-events` imports doms9/iptv's `M3U8/events.m3u8`, the live-events half of the same hourly project, separate from its base channel list. Measured on 2026-11-27: 381 entries, 380 unique URLs, 378 not in the published playlist and 376 new to the corpus; 335 entries parse into 176 fixtures, and 48 of those carry more than one feed. GitLab's byte-identical copy is the backup address; Codeberg's copy held 205 of the 381 entries that day and is deliberately not used.\n- **Two more reliability moves.** The existing `doms9` source gains its verified GitLab mirror alongside jsDelivr and raw.gitmirror.com, and `felixiptv/streams` (ZeroStreams) joins the monthly discovery candidates with its measurement: 51 entries, all 51 URLs new to the corpus, and a `status.json` last written 2026-10-19 — so the sample check, not the claim, decides. Nothing is published from a candidate until it answers.\n- **Released as 1.1.26** (Android `versionCode 101260000`, macOS `1.1.26`). The measurement and the rejected Codeberg copy are recorded in [`docs/SOURCE-HUNT-2026-11-27.md`](docs/SOURCE-HUNT-2026-11-27.md).",
+   "body_md": "- **The release pages are honest again.** `docs/data/releases.src.json` was stuck at `v1.1.24` — it had no entry for 1.1.25 at all — so the download page and its stable card described an older release than the repository. It is refreshed from GitHub's release API, and the site test now asserts the invariant that matters: the promoted card is the newest **complete published stable** release, and is never a pre-release or a draft. The older-releases list is now sorted by semantic version instead of text, so `v1.1.23` sits above `v1.1.7` instead of below it. The change-log Atom feed's entry ids are now derived from the date and title instead of the entry's position, so adding a release no longer rewrites every older id.\n- **1.1.25 is a pre-release, and the copy says so.** GitHub's `v1.1.25` release is titled *Spotify on every screen*; this tree's 1.1.25 notes describe the Movies & Shows tab retirement. They are different builds under one number, and the release is flagged pre-release, so the site and the in-app updater correctly skip it. 1.1.26 supersedes it, and the README, download-site README, blocked-build page, hub and update notice now say that instead of calling 1.1.25 stable.\n- **The stale release-page copy is gone.** `docs/README.md` called 1.1.4 the previous release and said 1.1.0/1.1.1 devices update to 1.1.18; the README still listed 1.0.9 as both apps' stable build target; the blocked-build page's footer named 1.1.20; and the download site's GitHub, raw-playlist, changelog and footer links still used the retired `PremiumTV1` slug. All now name 1.1.26 and the canonical repository.\n- **Navigation: a tab is a destination.** The web player used `history.replaceState`, so Back left the app instead of returning to the previous tab. A tab change now pushes a history entry, `popstate` restores the tab named by the hash, and the new section starts at its own heading. Deep links (`#channels`, `#live`, `#guide`, `#settings`) and the existing arrow-key/Home/End tab handling are unchanged.\n- **Live events get a dedicated, measured source.** `doms9-events` imports doms9/iptv's `M3U8/events.m3u8`, the live-events half of the same hourly project, separate from its base channel list. Measured on 2026-11-27: 381 entries, 380 unique URLs, 378 not in the published playlist and 376 new to the corpus; 335 entries parse into 176 fixtures, and 48 of those carry more than one feed. GitLab's byte-identical copy is the backup address; Codeberg's copy held 205 of the 381 entries that day and is deliberately not used.\n- **Two more reliability moves.** The existing `doms9` source gains its verified GitLab mirror alongside jsDelivr and raw.gitmirror.com, and `felixiptv/streams` (ZeroStreams) joins the monthly discovery candidates with its measurement: 51 entries, all 51 URLs new to the corpus, and a `status.json` last written 2026-10-19 — so the sample check, not the claim, decides. Nothing is published from a candidate until it answers.\n- **Released as 1.1.26** (Android `versionCode 101260000`, macOS `1.1.26`). The measurement and the rejected Codeberg copy are recorded in [`docs/SOURCE-HUNT-2026-11-27.md`](docs/SOURCE-HUNT-2026-11-27.md).",
    "bullets": [
-    "**The release pages are honest again.** `docs/data/releases.src.json` was stuck at `v1.1.24` — it had no entry for 1.1.25 at all — so the download page and its stable card described an older release than the repository. It is refreshed from GitHub's release API, and the site test now asserts the invariant that matters: the promoted card is the newest **complete published stable** release, and is never a pre-release or a draft. The change-log Atom feed's entry ids are now derived from the date and title instead of the entry's position, so adding a release no longer rewrites every older id.",
+    "**The release pages are honest again.** `docs/data/releases.src.json` was stuck at `v1.1.24` — it had no entry for 1.1.25 at all — so the download page and its stable card described an older release than the repository. It is refreshed from GitHub's release API, and the site test now asserts the invariant that matters: the promoted card is the newest **complete published stable** release, and is never a pre-release or a draft. The older-releases list is now sorted by semantic version instead of text, so `v1.1.23` sits above `v1.1.7` instead of below it. The change-log Atom feed's entry ids are now derived from the date and title instead of the entry's position, so adding a release no longer rewrites every older id.",
     "**1.1.25 is a pre-release, and the copy says so.** GitHub's `v1.1.25` release is titled *Spotify on every screen*; this tree's 1.1.25 notes describe the Movies & Shows tab retirement. They are different builds under one number, and the release is flagged pre-release, so the site and the in-app updater correctly skip it. 1.1.26 supersedes it, and the README, download-site README, blocked-build page, hub and update notice now say that instead of calling 1.1.25 stable.",
     "**The stale release-page copy is gone.** `docs/README.md` called 1.1.4 the previous release and said 1.1.0/1.1.1 devices update to 1.1.18; the README still listed 1.0.9 as both apps' stable build target; the blocked-build page's footer named 1.1.20; and the download site's GitHub, raw-playlist, changelog and footer links still used the retired `PremiumTV1` slug. All now name 1.1.26 and the canonical repository.",
     "**Navigation: a tab is a destination.** The web player used `history.replaceState`, so Back left the app instead of returning to the previous tab. A tab change now pushes a history entry, `popstate` restores the tab named by the hash, and the new section starts at its own heading. Deep links (`#channels`, `#live`, `#guide`, `#settings`) and the existing arrow-key/Home/End tab handling are unchanged.",

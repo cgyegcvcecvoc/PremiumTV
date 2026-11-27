@@ -406,7 +406,17 @@ def build_apps(checksums: dict[str, str], releases: list[dict]) -> tuple[list[di
         })
     older = []
     active_tags = {c["tag"] for c in channel_specs}
-    for tag, release in sorted(by_tag.items(), reverse=True):
+
+    def semantic_tag_key(tag: str) -> tuple[int, ...]:
+        """Sort release tags by version, not by their text.
+
+        Text order puts v1.1.7 above v1.1.25 and v1.1.9 above v1.1.10, which
+        made the download page's older-releases list read backwards.
+        """
+        parts = release_version.parse_version(tag.lstrip("v")) or ()
+        return tuple(int(part) for part in parts)
+
+    for tag, release in sorted(by_tag.items(), key=lambda item: semantic_tag_key(item[0]), reverse=True):
         if tag in active_tags or not tag or tag in RETIRED_TAGS:
             continue
         # A compatibility alias is not an "older release" while it stands for

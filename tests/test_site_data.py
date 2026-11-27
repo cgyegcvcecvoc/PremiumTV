@@ -211,6 +211,30 @@ class BuildSiteDataTest(unittest.TestCase):
         self.assertNotIn("v1.0.7", {row["tag"] for row in older},
                          "the alias is not an older release")
 
+    def test_older_releases_are_ordered_by_version_not_text(self):
+        # v1.1.7 must never sit above v1.1.25 just because "7" > "2" in text
+        # order. The page's older-releases list is semantic, like the stable
+        # card above it.
+        import build_site_data  # noqa: E402
+
+        releases = [
+            {"tag": "v1.1.2", "draft": False, "prerelease": False, "assets": []},
+            {"tag": "v1.1.10", "draft": False, "prerelease": False, "assets": []},
+            {"tag": "v1.1.9", "draft": False, "prerelease": False, "assets": []},
+            {"tag": "v1.1.25", "draft": False, "prerelease": True, "assets": []},
+        ]
+        _, older = build_site_data.build_apps({}, releases)
+        # 1.1.25 is a pre-release and must not be listed as an older stable one.
+        self.assertEqual([row["tag"] for row in older], ["v1.1.10", "v1.1.9", "v1.1.2"])
+
+        import json  # noqa: E402
+        payload = json.loads((ROOT / "docs/data/site.json").read_text(encoding="utf-8"))
+        versions = [
+            tuple(int(part) for part in row["tag"].lstrip("v").split("."))
+            for row in payload["apps"]["older"]
+        ]
+        self.assertEqual(versions, sorted(versions, reverse=True))
+
     def test_a_four_part_stable_borrows_the_alias_mac_installers(self):
         # The canonical 1.0.6.1 publishes the APK; the Mac installers can only
         # carry a three-part version, so they live on the 1.0.7 alias release.
