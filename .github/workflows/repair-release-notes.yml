@@ -1,0 +1,43 @@
+name: Repair 1.1.26 release notes
+
+# One-shot repair. The v1.1.26 release was published before its live-events
+# bullet was corrected to drop the lagging Codeberg mirror. This workflow
+# rewrites the published body from the corrected notes file and verifies the
+# result. Delete this file once the run has succeeded.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/repair-release-notes.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    name: Rewrite the published body
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out the corrected notes
+        uses: actions/checkout@v5
+
+      - name: Update v1.1.26 and verify it matches the repository copy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release edit v1.1.26 \
+            --repo "$GITHUB_REPOSITORY" \
+            --notes-file release-notes-1.1.26.md
+          gh release view v1.1.26 \
+            --repo "$GITHUB_REPOSITORY" \
+            --json body --jq .body > /tmp/published-body.md
+          if grep -qi 'codeberg' /tmp/published-body.md; then
+            echo "::error::The published body still mentions Codeberg."
+            exit 1
+          fi
+          diff -u release-notes-1.1.26.md /tmp/published-body.md
+          echo "Published body now matches release-notes-1.1.26.md."
