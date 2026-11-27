@@ -1,6 +1,7 @@
 """Offline tests for the pre-publish live-event health gate."""
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -31,6 +32,120 @@ def result(status: str, code: int = 0, reason: str = "") -> dict:
         "segment_ok": True if status == "working" else None,
         "kind": "hls",
     }
+
+
+class RetiredEventUrlTest(unittest.TestCase):
+    def test_historical_dead_hashes_are_seeded_in_the_registry(self):
+        registry = gate.load_retired_hashes()
+        self.assertGreaterEqual(len(registry), 34)
+        self.assertIn(
+            "0ba38de7e0646f1b9c981a105f11b0ade75f22d6a991fb3ce6653ebf6a3fd48b",
+            registry,
+        )
+
+    def test_gate_report_matches_the_current_policy_schedule(self):
+        report = json.loads((ROOT / "playlists/checks/live-event-gate.json").read_text())
+        schedule = json.loads((ROOT / "playlists/live-schedule.json").read_text())
+        fixtures = len(schedule.get("games") or [])
+        self.assertEqual(report["published_fixtures"], fixtures)
+        self.assertEqual(report["current_schedule_fixtures"], fixtures)
+        self.assertEqual(report["dropped_retired"], 2)
+        self.assertFalse(report["probe_rerun"])
+        self.assertEqual(
+            report["retired_event_url_sha256"],
+            [
+                "c9d4fa394a248b49c60c48b76e2d2d3978782841be4696b935c601e384eaf07f",
+                "ee0b97d2ece8c02dca43d69b37b1bc1026ede783e61f171929fc03c8fd39e807",
+            ],
+        )
+
+    def test_published_playlists_do_not_contain_retired_hashes(self):
+        retired = gate.load_retired_hashes()
+        published = [
+            "playlists/PremiumTV.m3u",
+            "playlists/live/USA.m3u",
+            "playlists/countries/USA.m3u",
+            "playlists/categories/Sports.m3u",
+            "categories/USA.m3u",
+            "categories/All/Sports.m3u",
+            "categories/USA/Sports.m3u",
+        ]
+        for name in published:
+            text = (ROOT / name).read_text(encoding="utf-8")
+            channels, _ = scraper.parse_m3u(text, name)
+            hits = {gate._url_hash(channel) for channel in channels} & retired
+            with self.subTest(playlist=name):
+                self.assertEqual(hits, set())
+
+    def test_retired_hash_is_withheld_without_probing(self):
+        event = channel("[NHL] Alpha vs Beta (FAWA)", "https://a.example/retired.m3u8")
+        probes = []
+
+        def probe(ch, *_):
+            probes.append(ch.url)
+            return result("working", reason="hls, segment ok")
+
+        kept, report = gate.gate_channels(
+            [event], probe=probe, workers=1,
+            retired_hashes={gate._url_hash(event)},
+        )
+        self.assertEqual(kept, [])
+        self.assertEqual(probes, [])
+        self.assertEqual(report["dropped_retired"], 1)
+        self.assertEqual(report["dropped_entries"], 1)
+        self.assertEqual(report["published_fixtures"], 0)
+        self.assertEqual(report["refused_fixtures"], 1)
+        self.assertEqual(event.status, "dead")
+        self.assertIn("retired", event.reason)
+
+    def test_dead_hash_is_recorded_and_survives_a_later_successful_probe(self):
+        gone = channel("[NHL] Alpha vs Beta (FAWA)", "https://a.example/gone.m3u8")
+        _, first = gate.gate_channels(
+            [gone], workers=1, retired_hashes=set(),
+            probe=lambda *_: result("offline", 404, "HTTP 404"),
+        )
+        digest = gate._url_hash(gone)
+        self.assertEqual(first["newly_retired_event_url_sha256"], [digest])
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "retired-event-urls.json"
+            self.assertEqual(gate.record_retired_hashes(first, path), [digest])
+            self.assertEqual(gate.load_retired_hashes(path), {digest})
+
+            recovered = channel("[NHL] Alpha vs Beta (FAWA)", gone.url)
+            probes = []
+            kept, later = gate.gate_channels(
+                [recovered], workers=1,
+                retired_hashes=gate.load_retired_hashes(path),
+                probe=lambda *_: probes.append("probed") or result("working", reason="hls, segment ok"),
+            )
+            self.assertEqual(kept, [])
+            self.assertEqual(probes, [])
+            self.assertEqual(later["dropped_retired"], 1)
+            self.assertEqual(later["newly_retired_event_url_sha256"], [])
+            self.assertEqual(gate.record_retired_hashes(later, path), [])
+            self.assertEqual(gate.load_retired_hashes(path), {digest})
+
+    def test_transient_unverified_feed_is_not_retired(self):
+        timeout = channel("[NHL] Alpha vs Beta (FAWA)", "https://a.example/slow.m3u8")
+        _, report = gate.gate_channels(
+            [timeout], workers=1, retired_hashes=set(),
+            probe=lambda *_: result("unreachable", 0, "timeout"),
+        )
+        self.assertEqual(report["dropped_other"], 1)
+        self.assertEqual(report["newly_retired_event_url_sha256"], [])
+
+    def test_retiring_one_feed_does_not_discard_a_working_backup(self):
+        retired = channel("[NHL] Alpha vs Beta (FAWA)", "https://a.example/gone.m3u8")
+        backup = channel("[NHL] Alpha vs Beta (STRMGATE)", "https://b.example/working.m3u8")
+        kept, report = gate.gate_channels(
+            [retired, backup], workers=2,
+            retired_hashes={gate._url_hash(retired)},
+            probe=lambda *_: result("working", reason="hls, segment ok"),
+        )
+        self.assertEqual(kept, [backup])
+        self.assertEqual(report["dropped_retired"], 1)
+        self.assertEqual(report["published_fixtures"], 1)
+        self.assertEqual(report["refused_fixtures"], 0)
 
 
 class LiveEventGateTest(unittest.TestCase):

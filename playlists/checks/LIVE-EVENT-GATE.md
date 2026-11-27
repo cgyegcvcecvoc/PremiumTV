@@ -1,13 +1,15 @@
 # Live-event pre-publish gate
 
-- **Playlist:** `/workspace/chats/68e1513c8cc010bb378725fd/playlists/PremiumTV.m3u`
+- **Playlist:** `playlists/PremiumTV.m3u`
 - **Run:** 2026-11-27T20:29:17Z
-- **Entries / fixtures:** 96 / 61
-- **Working:** 79
+- **Report refreshed:** 2026-11-27T21:17:06Z — policy-only application; no probes were rerun.
+- **Entries / fixtures tested:** 96 / 61
+- **Current schedule fixtures:** 53 (matches `playlists/live-schedule.json`)
+- **Working:** 77
 - **Non-matchup event feeds:** 11 (9 working)
-- **Dropped:** 17 (403: 0, 404/410: 9, other: 8)
-- **Publishable fixtures:** 55
-- **Refused fixtures (no working feed):** 6
+- **Dropped:** 19 (403: 0, 404/410: 9, other: 8, retired: 2)
+- **Publishable fixtures:** 53
+- **Refused fixtures (no working feed):** 8
 
 ## Refused fixtures
 
@@ -15,9 +17,11 @@
 |---|---|---:|
 | Grazer AK vs. Altach | Soccer | 1 |
 | Sweden vs. Hungary | Basketball World Cup | 1 |
+| Akron vs. Buffalo | College Football | 2 |
 | Al Ittihad vs. Neom SC | Soccer | 1 |
 | Modo vs. Almtuna | Sweden HockeyAllsvenskan | 1 |
 | Nybro vs. Mora | Sweden HockeyAllsvenskan | 1 |
+| Visby Roma vs. Vimmerby | Sweden HockeyAllsvenskan | 1 |
 | Kriens vs. Aarau | Soccer | 1 |
 
 ## Dropped fixture entries
@@ -27,6 +31,7 @@
 | Grazer AK vs. Altach | [Austria Bundesliga] Grazer AK vs Altach (FAWA) | dropped_404 | 404 | HTTP 404 |
 | Sweden vs. Hungary | [Basketball World Cup] Sweden vs Hungary (FAWA) | dropped_404 | 404 | HTTP 404 |
 | Akron vs. Buffalo | [CFB] Akron vs Buffalo (iSTRMEAST) | dropped_404 | 404 | HTTP 404 |
+| Akron vs. Buffalo | [NCAA American Football] Akron vs Buffalo (FAWA) | dropped_retired | 0 | retired after a previous dead probe |
 | Iowa vs. Nebraska | [CFB] Iowa vs Nebraska (iSTRMEAST) | dropped_404 | 404 | HTTP 404 |
 | Levante vs. Racing Santander | [football] Levante vs. Racing Santander 1 (SPRTSBITE) | dropped_other | 503 | HTTP 503 |
 | Nottingham Forest vs. Chelsea | [Football] Nottingham Forest vs. Chelsea 3 (SPRTSBITE) | dropped_other | 503 | HTTP 503 |
@@ -38,6 +43,7 @@
 | Al Ittihad vs. Neom SC | [Saudi Premier League] Al Ittihad vs Neom SC (FAWA) | dropped_404 | 404 | HTTP 404 |
 | Modo vs. Almtuna | [Sweden HockeyAllsvenskan] Modo vs Almtuna (FAWA) | dropped_404 | 404 | HTTP 404 |
 | Nybro vs. Mora | [Sweden HockeyAllsvenskan] Nybro vs Mora (FAWA) | dropped_404 | 404 | HTTP 404 |
+| Visby Roma vs. Vimmerby | [Sweden HockeyAllsvenskan] Visby Roma vs Vimmerby (FAWA) | dropped_retired | 0 | retired after a previous dead probe |
 | Kriens vs. Aarau | [Switzerland Challenge League] Kriens vs Aarau (FAWA) | dropped_404 | 404 | HTTP 404 |
 
 ## Non-matchup event feeds
@@ -60,15 +66,16 @@
 
 | Playlist | Removed | Entries left |
 |---|---:|---:|
-| playlists/live/USA.m3u | 17 | 3903 |
-| playlists/countries/USA.m3u | 17 | 3903 |
-| playlists/categories/Sports.m3u | 17 | 787 |
-| categories/USA.m3u | 17 | 3903 |
-| categories/USA/Sports.m3u | 17 | 197 |
-| categories/All/Sports.m3u | 17 | 787 |
+| playlists/live/USA.m3u | 2 | 3901 |
+| playlists/countries/USA.m3u | 2 | 3902 |
+| playlists/categories/Sports.m3u | 2 | 785 |
+| categories/USA.m3u | 2 | 3901 |
+| categories/USA/Sports.m3u | 2 | 195 |
+| categories/All/Sports.m3u | 2 | 785 |
 
 ## Interpretation
 
-- Every entry was re-tested with its own `#EXTVLCOPT` headers and a deep HLS variant/media-segment probe.
+- This report was refreshed from the last gate result by applying the retired-event registry; no network probes were rerun and no published playlist was changed.
 - Only `working` feeds are publishable. A fixture with zero working feeds is refused entirely; no entry from it is published.
 - 403 and 404/410 are counted separately because they are conclusive; other probe failures are also withheld rather than published unverified.
+- Confirmed 403/404/410 hashes are retired permanently and are withheld without probing if a later scrape re-adds the URL.

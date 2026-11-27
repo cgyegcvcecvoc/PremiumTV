@@ -3339,6 +3339,14 @@ def main() -> int:
                         workers=min(max(1, args.workers), 16),
                         per_host_workers=args.per_host_workers,
                     )
+                    added_retired = live_event_gate.record_retired_hashes(
+                        live_event_gate_report
+                    )
+                    if added_retired:
+                        log(
+                            f"[live-events] retired {len(added_retired)} newly dead "
+                            "event URL hash(es)"
+                        )
                     if live_event_gate_report.get("entries"):
                         log(
                             f"[live-events] gate: {live_event_gate_report['working_entries']}/"
