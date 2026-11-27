@@ -6717,3 +6717,81 @@ ISSUES / ERRORS:
   * 2785 links returned a confirmed failure (see dead details).
   * This run started +9h 38m after its scheduled time (2026-11-26T04:29:00Z); GitHub's scheduler delayed it. The schedule guard (.github/workflows/schedule-guard.yml) now catches up on delayed or dropped slots.
 
+========================================================================================
+RUN ID:       20261127T172353Z-2986
+TIMESTAMP:    2026-11-27 12:30 PM EST (2026-11-27T17:23:53Z -> 2026-11-27T17:30:01Z)
+LABEL / TYPE: manual re-scrape (run-scrape.txt) [manual]
+STATUS:       WARNING (checked=True, duration=368.34s)
+PLAYLISTS:    working=17093 / unique=25540 (dead=2697, unverified=5750)
+COUNTRIES:    178 country playlists updated in playlists/countries/
+A&E CHANNELS: 191 working / 250 unique (playlists/AE_Channels.m3u)
+LOG EDITS:    +2800 channels added / -3465 channels removed (baseline: PremiumTV_all.m3u)
+ADDED CHANNELS (SAMPLE):
+  + [Singapore] HBO Asia SD (576p) (iptv-org) -> http://103.148.210.190:8000/play/a0s8/index.m3u8
+  + [India] Nickelodeon (India) (iptv-org) -> http://103.148.210.190:8000/play/a0zu
+  + [India] Zee Bangla (1080p) (iptv-org) -> http://103.16.24.4:8083/10.m3u8
+  + [India] Colors Bangla (1080p) (iptv-org) -> http://103.16.24.4:8083/12.m3u8
+  + [India] Sony Sports Ten 2 (1080p) (iptv-org) -> http://103.16.24.4:8083/6.m3u8
+  + [Singapore] AXN Asia Indonesia (720p) (iptv-org) -> http://103.165.207.108:8000/play/a00n/index.m3u8
+  + [India] Big Magic (576p) (iptv-org) -> http://103.175.73.12:8080/live/13/13_0.m3u8
+  + [India] Star Sports Khel (1080p) (iptv-org) -> http://103.175.73.12:8080/live/151/151_0.m3u8
+  + [India] Public First (576p) (iptv-org) -> http://103.175.73.12:8080/live/237/237_0.m3u8
+  + [India] Anmol Cinema 2 (576p) (iptv-org) -> http://103.175.73.12:8080/live/257/257_0.m3u8
+  + [India] Zee Action (576p) (iptv-org) -> http://103.175.73.12:8080/live/270/270_0.m3u8
+  + [India] Anmol Cinema (576p) (iptv-org) -> http://103.175.73.12:8080/live/271/271_0.m3u8
+  + [India] STV Haryana News (576p) (iptv-org) -> http://103.175.73.12:8080/live/607/607_0.m3u8
+  + [International] 江西卫视 (vbskycn-iptv) -> http://112.27.5.218:9901/tsfile/live/faacts/0138_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
+  + [International] 陕西银龄 (vbskycn-iptv) -> http://112.46.105.20:8009/hls/20/index.m3u8
+  + [International] CHC电影 (vbskycn-iptv) -> http://183.237.95.108:9901/tsfile/live/1008_1.m3u8?key=%5Bredacted%5D&playlive=0&authid=0
+  + [USA] [Turkey Super Lig] Alanyaspor vs Konyaspor (FAWA) (doms9) -> http://193.47.62.41/hls/8KKK.m3u8
+  + [USA] [Turkey Super Lig] Rizespor vs Kasimpasa (FAWA) (doms9) -> http://193.47.62.41/hls/8KKKA.m3u8
+  + [USA] [Poland Ekstraklasa] Rakow vs Piast Gliwice (FAWA) (doms9) -> http://193.47.62.41/hls/8KKKAA.m3u8
+  + [USA] [Bosnia and Herzegovina Premier League] Celik Zenica vs BSK Banja Luka (FAWA) (doms9) -> http://193.47.62.41/hls/8KKKAAA.m3u8
+  + [USA] [Croatia 1 HNL] Istra 1961 vs Varazdin (FAWA) (doms9) -> http://193.47.62.41/hls/8KKKAAAQ.m3u8
+  + [USA] [MotoGP] MotoGP Grand Prix of Valencia (FAWA) (doms9) -> http://193.47.62.41/hls/FRFRFRV.m3u8
+  + [USA] [Poland Division 1] Warta Poznan vs Pogon Siedlce (FAWA) (doms9) -> http://193.47.62.41/hls/J777.m3u8
+  + [USA] [Slovenia Prva Liga] Radomlje vs Nafta (FAWA) (doms9) -> http://193.47.62.41/hls/J777A.m3u8
+  + [USA] [Basketball World Cup] Estonia vs France (FAWA) (doms9) -> http://193.47.62.41/hls/J777AA.m3u8
+  + [USA] [Turkey Lig 1] Sariyer vs Istanbulspor AS (FAWA) (doms9) -> http://193.47.62.41/hls/J777AAA.m3u8
+  + [USA] [Turkey Lig 1] Umraniyespor vs Manisa FK (FAWA) (doms9) -> http://193.47.62.41/hls/J777AAAA.m3u8
+  + [USA] [World Cup U17] Romania U17 vs Cameroon U17 (FAWA) (doms9) -> http://193.47.62.41/hls/JRRR.m3u8
+  + [USA] [World Cup U17] Venezuela U17 vs Mexico U17 (FAWA) (doms9) -> http://193.47.62.41/hls/JRRRA.m3u8
+  + [USA] [Bulgaria efbet League] Lokomotiv Sofia vs Slavia Sofia (FAWA) (doms9) -> http://193.47.62.41/hls/JRRRAA.m3u8
+REMOVED CHANNELS (SAMPLE):
+  - [Singapore] AXN Asia Thailand (previous) -> http://103.253.74.210:7070/stream/89/index.m3u8
+  - [International] 陕西都市青春 (previous) -> http://112.46.105.20:8009/hls/19/index.m3u8
+  - [International] CCTV12 (previous) -> http://124.165.251.82:85/tsfile/live/0012_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
+  - [Bolivia] Vos TV (Bolivia) (720p) (previous) -> http://15.204.246.24:8080/VOSTVHD/index.m3u8
+  - [Spain] La 1 UHD (2160p) (previous) -> http://185.47.212.25:8080/tdp_HD/index.m3u8
+  - [Bolivia] Siglo XXI TV (576p) (previous) -> http://190.181.61.93:8000/play/a00b/index.m3u8
+  - [USA] [World Cup U17] Vietnam U17 vs Mali U17 (FAWA) (previous) -> http://193.47.62.41/hls/DADADA.m3u8
+  - [USA] [World Cup U17] New Zealand U17 vs Belgium U17 (FAWA) (previous) -> http://193.47.62.41/hls/DADADAD.m3u8
+  - [USA] [Indonesia Liga 1] Borneo FC vs Persita Tangerang (FAWA) (previous) -> http://193.47.62.41/hls/GDDD.m3u8
+  - [USA] [Cricket WBBL] Melbourne Renegades W vs Sydney Sixers W (FAWA) (previous) -> http://193.47.62.41/hls/R444.m3u8
+  - [USA] [AFC Champions League II] Gangwon vs Kitchee (FAWA) (previous) -> http://193.47.62.41/hls/WAWAWA.m3u8
+  - [USA] [AFC Champions League II] Kuching City FC vs Phnom Penh Crown (FAWA) (previous) -> http://193.47.62.41/hls/WAWAWAA.m3u8
+  - [USA] [AFC Champions League II] Tampines vs Shanghai Shenhua (FAWA) (previous) -> http://193.47.62.41/hls/WAWAWAAA.m3u8
+  - [USA] [AFC Champions League II] Pathum United vs Lion City (FAWA) (previous) -> http://193.47.62.41/hls/WAWAWAAAA.m3u8
+  - [USA] [AFC Champions League II] Tai Po vs Adelaide United (FAWA) (previous) -> http://193.47.62.41/hls/WAWAWAAAAQQ.m3u8
+  - [Singapore] HBO Asia HD (1080p) (previous) -> http://202.150.165.66:8088/play/100-HBO/index.m3u8
+  - [Singapore] HBO Signature Asia HD (1080p) (previous) -> http://202.150.165.66:8088/play/101-HBOSignature/index.m3u8
+  - [Singapore] HBO Hits Asia HD (1080p) (previous) -> http://202.150.165.66:8088/play/102-HBOHits/index.m3u8
+  - [Singapore] HBO Family Asia HD (1080p) (previous) -> http://202.150.165.66:8088/play/103-HBOFamily/index.m3u8
+  - [Singapore] Cinemax Asia HD (1080p) (previous) -> http://202.150.165.66:8088/play/104-Cinemax/index.m3u8
+  - [Singapore] AXN Asia Indonesia (previous) -> http://202.150.165.66:8088/play/301-AXN/index.m3u8
+  - [International] CCTV5+ (previous) -> http://223.78.65.165:9901/tsfile/live/0006_1.m3u8?key=%5Bredacted%5D&playlive=1&authid=0
+  - [Russia] A1 (576p) (previous) -> http://31.148.48.15/A1/index.m3u8
+  - [Russia] A2 (576p) (previous) -> http://31.148.48.15/A2/index.m3u8
+  - [Russia] Carousel (1080p) (previous) -> http://31.148.48.15/Karusel_HD/index.m3u8
+  - [Russia] Kto est kto (576p) (previous) -> http://31.148.48.15/Kto_est_kto/index.m3u8
+  - [USA] CNBC (720p) [Geo-blocked] (previous) -> http://41.205.93.154/CNBC/index.m3u8
+  - [International] 音乐欣赏 (previous) -> http://61.221.215.25:8800/hls/49/index.m3u8
+  - [International] 南宁都市生活 (previous) -> http://615bbf179ba53515dccad7b1da5d1ad9.livehwc3.cn/hls.nntv.cn/nnlive/WLSH_24.m3u8?sub_m3u8=true&edge_slice=true&user_session_id=2598844eaee8a4265e706fc14b3fc11d
+  - [Poland] TVP1 (previous) -> http://92.114.85.87:8009/play/a009/index.m3u8
+ISSUES / ERRORS:
+  * Reference check 'StepDaddyLiveHD' failed: GET https://api.github.com/repos/gookie-dev/StepDaddyLiveHD failed: HTTP Error 404: Not Found
+  * Reference check 'dlive.sx' failed: GET https://dlive.sx/24-7-channels.php failed: <urlopen error [Errno -2] Name or service not known>
+  * Reference check 'pflix' failed: GET https://pflix.net/live failed: HTTP Error 403: Forbidden
+  * 5750 links could not be confirmed after retries (see unverified details).
+  * 2697 links returned a confirmed failure (see dead details).
+
