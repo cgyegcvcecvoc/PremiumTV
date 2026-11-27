@@ -216,7 +216,12 @@ class ScraperIntegrationTest(unittest.TestCase):
                                   "unverified" if channel.url == urls[1] else "dead")
                 return channel
             args = ["scraper.py", "--sources", str(cfg), "--out", str(out), "--workers", "1"]
+            def gate(channels, **kwargs):
+                # This test exercises the event-hash evidence, not the gate's
+                # network probe; leave its already-checked channels untouched.
+                return channels, {"entries": 0}
             with patch.object(sys, "argv", args), patch.object(scraper, "check_channel", side_effect=check), \
+                 patch.object(scraper.live_event_gate, "gate_channels", side_effect=gate), \
                  redirect_stdout(StringIO()):
                 self.assertEqual(scraper.main(), 0)
             report = json.loads((out / "report.json").read_text(encoding="utf-8"))

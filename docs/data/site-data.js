@@ -12,7 +12,7 @@ window.SITE_DATA = {
   "changelog_doc": "https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk"
  },
  "stats": {
-  "confirmed_channels": 17629,
+  "confirmed_channels": 17595,
   "unique_links": 25573,
   "countries": 178,
   "last_run_utc": "2026-11-27 18:14 UTC",
@@ -23,7 +23,7 @@ window.SITE_DATA = {
    "name": "PremiumTV.m3u",
    "description": "Every confirmed-working channel, grouped by category.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/PremiumTV.m3u",
-   "count": 17629
+   "count": 17595
   },
   "priority": {
    "name": "Priority_Channels.m3u",
@@ -35,7 +35,7 @@ window.SITE_DATA = {
    "name": "categories/USA.m3u",
    "description": "Every US channel in category order.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/USA.m3u",
-   "count": 3892
+   "count": 3858
   },
   "ae": {
    "name": "AE_Channels.m3u",
@@ -368,7 +368,7 @@ window.SITE_DATA = {
    "name": "United States",
    "iso2": "US",
    "region": false,
-   "count": 3892,
+   "count": 3858,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/live/USA.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml",
    "epg_present": true
@@ -2145,8 +2145,8 @@ window.SITE_DATA = {
   }
  ],
  "lineup": {
-  "entries": 17629,
-  "unique_channels": 14209,
+  "entries": 17595,
+  "unique_channels": 14175,
   "backup_feeds": 3420,
   "channels_with_backups": 2024,
   "categories": 97,
@@ -2159,7 +2159,7 @@ window.SITE_DATA = {
    "480p": 310,
    "lower": 226,
    "generic_hd_sd": 0,
-   "unlabelled": 7274
+   "unlabelled": 7240
   },
   "hd_channels": 5705,
   "featured": [
@@ -2257,7 +2257,7 @@ window.SITE_DATA = {
   "groups": [
    {
     "name": "Sports",
-    "channels": 761,
+    "channels": 727,
     "backups": 216,
     "samples": [
      "ESPN",

@@ -110,6 +110,26 @@ jobs:
           if [ "$WRITE" = "false" ]; then args+=(--dry-run); fi
           python scripts/rebuild_playlists.py "${args[@]}"
 
+      - name: Gate live-event feeds before publishing
+        # Re-tests every live-event entry with its #EXTVLCOPT headers, drops
+        # 403/404/410 and other non-working feeds, and removes a fixture that
+        # has no working feed left. On an unexpected gate failure the script
+        # withholds every live-event entry before returning an error.
+        if: always()
+        id: live-event-gate
+        env:
+          WRITE: ${{ inputs.write }}
+        run: |
+          args=(--playlist playlists/PremiumTV.m3u
+                --json playlists/checks/live-event-gate.json
+                --md playlists/checks/LIVE-EVENT-GATE.md
+                --workers 12 --per-host-workers 4 --timeout 12 --retries 1)
+          if [ "$WRITE" != "false" ]; then
+            args+=(--apply
+                   --sync-derived playlists/countries/*.m3u playlists/live/USA.m3u)
+          fi
+          python3 scripts/live_event_gate.py "${args[@]}"
+
       - name: Refresh the merged and country-specific TV guides
         # Keeps the guide in step with the ids the rebuild just corrected.
         if: always() && steps.rebuild.outcome == 'success' && inputs.write != false
@@ -157,7 +177,7 @@ jobs:
       - name: Add the reports to the Actions summary
         if: always()
         run: |
-          for file in playlists/checks/CATEGORIES.md playlists/checks/LIVE-EVENT-RELIABILITY.md; do
+          for file in playlists/checks/CATEGORIES.md playlists/checks/LIVE-EVENT-RELIABILITY.md playlists/checks/LIVE-EVENT-GATE.md; do
             if [ -f "$file" ]; then
               echo "-----" >> "$GITHUB_STEP_SUMMARY"
               cat "$file" >> "$GITHUB_STEP_SUMMARY"

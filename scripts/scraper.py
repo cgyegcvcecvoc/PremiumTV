@@ -56,7 +56,7 @@ except Exception:  # pragma: no cover - zoneinfo missing on very old Pythons
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import categorize  # noqa: E402  (the one category taxonomy every playlist is published with)
-import build_live_schedule  # noqa: E402  (shared event identification for health evidence)
+import live_event_gate  # noqa: E402  (pre-publish live-event health gate)
 
 DEFAULT_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -2353,15 +2353,14 @@ def reason_diagnostics(channels: list[Channel]) -> list[dict]:
 def reachable_event_url_hashes(channels: list[Channel]) -> list[str]:
     """Exact URL hashes for event feeds that passed this run, without URL tokens.
 
-    Only recognized event entries are recorded, to keep the report compact.
-    The hash proves which exact URL was checked, not ongoing playability.
+    Only recognized live-event entries are recorded, including non-matchup
+    feeds, to keep the report compact. The hash proves which exact URL was
+    checked, not ongoing playability.
     """
     return sorted({
         hashlib.sha256(channel.url.encode("utf-8", "replace")).hexdigest()
         for channel in channels
-        if channel.status == "alive" and build_live_schedule.parse_event(
-            channel.name, channel.attrs.get("tvg-id", "") or ""
-        ) is not None
+        if channel.status == "alive" and live_event_gate.is_live_event(channel)
     })
 
 
@@ -2443,6 +2442,17 @@ def make_status_markdown(report: dict) -> str:
 
     countries = report.get("countries") or {}
     ae_info = report.get("ae_channels") or {}
+    gate = report.get("live_event_gate") or {}
+    gate_line = ""
+    if gate.get("entries"):
+        gate_line = (
+            f"- **Live-event pre-publish gate:** {gate.get('working_entries', 0)}/"
+            f"{gate.get('entries', 0)} entries working; "
+            f"dropped 403={gate.get('dropped_403', 0)}, "
+            f"404/410={gate.get('dropped_404', 0)}, "
+            f"other={gate.get('dropped_other', 0)}; "
+            f"{gate.get('refused_fixtures', 0)} fixture(s) refused"
+        )
 
     lines = [
         "# Scraper status",
@@ -2451,6 +2461,7 @@ def make_status_markdown(report: dict) -> str:
         f"- **Run:** _{report['label']}_ (`{report['run_type']}`; ID `{report['run_id']}`)",
         f"- **Outcome:** **{report['status'].upper()}**",
         link_summary,
+        *([gate_line] if gate_line else []),
         f"- **Unique links found:** {report['total_unique']} from {report['total_input_entries']} source entries",
         f"- **Changes vs. {report['changes'].get('baseline', 'previous playlist')}:** "
         f"+{report['changes'].get('added_count', 0)} added / -{report['changes'].get('removed_count', 0)} removed",
@@ -2994,6 +3005,7 @@ def main() -> int:
     published_categories: dict[str, int] = {}
     retained_channels: list[Channel] = []  # unverified links kept within grace
     retention_state: dict = {"links": {}}
+    live_event_gate_report: dict = {}
     retention_path = Path(args.out) / "checks" / RETENTION_FILENAME
     checked = False
     check_completed = False
@@ -3315,6 +3327,51 @@ def main() -> int:
                         f"{RETENTION_FILENAME})")
                 working = [channel for channel in channels if channel.status == "alive"]
                 working = working + retained_channels
+                # Pre-publish live-event gate: re-test each event entry with the
+                # headers a player would send, drop 403/404/410 and any feed that
+                # cannot be confirmed working, and withhold a fixture entirely
+                # when none of its feeds survives. Non-event channels pass through.
+                try:
+                    working, live_event_gate_report = live_event_gate.gate_channels(
+                        working,
+                        timeout=args.timeout,
+                        retries=args.retries,
+                        workers=min(max(1, args.workers), 16),
+                        per_host_workers=args.per_host_workers,
+                    )
+                    if live_event_gate_report.get("entries"):
+                        log(
+                            f"[live-events] gate: {live_event_gate_report['working_entries']}/"
+                            f"{live_event_gate_report['entries']} entries working; "
+                            f"dropped 403={live_event_gate_report['dropped_403']} "
+                            f"404/410={live_event_gate_report['dropped_404']} "
+                            f"other={live_event_gate_report['dropped_other']}; "
+                            f"refused fixtures={live_event_gate_report['refused_fixtures']}"
+                        )
+                        if live_event_gate_report["refused_fixtures"]:
+                            source_issues.append(
+                                f"Live-event gate refused {live_event_gate_report['refused_fixtures']} "
+                                "fixture(s) with no working feed."
+                            )
+                except Exception as exc:  # noqa: BLE001 - fail closed for live events
+                    message = f"live-event gate failed: {error_text(exc)}"
+                    log(f"[live-events] {message}")
+                    working, live_event_gate_report = live_event_gate.fail_closed(working, message)
+                    source_issues.append(message)
+                # A retained event that the gate just rejected is no longer a
+                # retained link: do not report it as grace evidence or keep
+                # consuming its grace window.
+                kept_ids = {id(channel) for channel in working}
+                retained_channels = [
+                    channel for channel in retained_channels
+                    if id(channel) in kept_ids and channel.status != "alive"
+                ]
+                retained_urls = {channel.url for channel in retained_channels}
+                retention_state["links"] = {
+                    url: entry
+                    for url, entry in (retention_state.get("links") or {}).items()
+                    if url in retained_urls
+                }
                 published_categories = canonicalize_channels(
                     working, args.max_feeds_per_channel)
                 minimum_working = max(1, args.min_working_ratio * len(channels))
@@ -3420,6 +3477,7 @@ def main() -> int:
         "published": len(published) if final_playlist_written else None,
         "retained": len(retained_channels) if checked else 0,
         "retained_links": [report_channel(channel) for channel in retained_channels],
+        "live_event_gate": live_event_gate_report,
         # Exact checked event URLs are represented by hashes, not raw credentials.
         "reachable_event_url_sha256": reachable_event_url_hashes(channels) if checked and check_completed else [],
         "final_playlist_written": final_playlist_written,

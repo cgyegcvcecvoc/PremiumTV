@@ -134,11 +134,33 @@ jobs:
           if [ "$PATCH" != "false" ]; then args+=(--patch); fi
           python scripts/epg_check.py "${args[@]}"
 
+      - name: Gate live-event feeds before publishing
+        # The deep check treats 403 as blocked and keeps it; live events are
+        # stricter. Re-test each event entry with its player headers, drop
+        # 403/404/410 and other non-working feeds, and refuse a fixture with no
+        # working feed. Run before the guide build so a removed event cannot
+        # leave a stale channel declaration in the country guides. The derived
+        # country/live files are filtered with the same dropped-URL hashes.
+        if: always()
+        id: live-event-gate
+        env:
+          PATCH: ${{ inputs.patch }}
+        run: |
+          args=(--playlist playlists/PremiumTV.m3u
+                --json playlists/checks/live-event-gate.json
+                --md playlists/checks/LIVE-EVENT-GATE.md
+                --workers 12 --per-host-workers 4 --timeout 12 --retries 1)
+          if [ "$PATCH" != "false" ]; then
+            args+=(--apply
+                   --sync-derived playlists/countries/*.m3u playlists/live/USA.m3u)
+          fi
+          python3 scripts/live_event_gate.py "${args[@]}"
+
       - name: Rebuild the merged and country-specific TV guides
-        # Runs straight after the guide check so the merge uses the guide list
-        # this run just verified, and straight after the link check so every
-        # country file covers the channels that survived it. --force guarantees
-        # a fresh checked guide set on this nightly run.
+        # Runs after the guide check and the live-event gate, so the merge uses
+        # the guide list this run verified and every country file covers the
+        # channels that survived both checks. --force guarantees a fresh checked
+        # guide set on this nightly run.
         if: always()
         id: epgbuild
         continue-on-error: true
@@ -215,7 +237,7 @@ jobs:
         run: |
           for file in playlists/checks/LINK-CHECK.md playlists/checks/EPG-CHECK.md \
                       playlists/checks/EPG-BUILD.md playlists/checks/CHANNEL-HUNT.md \
-                      playlists/checks/VERIFY.md; do
+                      playlists/checks/LIVE-EVENT-GATE.md playlists/checks/VERIFY.md; do
             if [ -f "$file" ]; then
               echo "-----" >> "$GITHUB_STEP_SUMMARY"
               cat "$file" >> "$GITHUB_STEP_SUMMARY"
@@ -267,5 +289,5 @@ jobs:
       - name: Fail the workflow if a check crashed
         if: >-
           steps.repair.outcome == 'failure' || steps.links.outcome == 'failure' || steps.epg.outcome == 'failure' ||
-          steps.epgbuild.outcome == 'failure' || steps.verify.outcome == 'failure'
+          steps.epgbuild.outcome == 'failure' || steps.live-event-gate.outcome == 'failure' || steps.verify.outcome == 'failure'
         run: exit 1
