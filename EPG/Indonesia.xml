@@ -36,6 +36,10 @@
     <display-name>Caruban TV (1080p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/3/3a/CarubanTV%28Low-res%29.png" />
   </channel>
+  <channel id="DavikaTV.id@SD">
+    <display-name>Davika TV (480p)</display-name>
+    <icon src="https://upload.wikimedia.org/wikipedia/id/6/60/Logo_Davika_TV.png" />
+  </channel>
   <channel id="EfarinaTV.id@SD">
     <display-name>Efarina TV (720p)</display-name>
     <icon src="https://i.imgur.com/iYTimXh.png" />
@@ -106,19 +110,6 @@
     <display-name>Salam TV (720p)</display-name>
     <icon src="https://i.imgur.com/00Ifzgo.png" />
   </channel>
-  <channel id="SelaparangTV.id@SD">
-    <display-name>Selaparang TV (720p) [Not 24/7]</display-name>
-    <icon src="https://upload.wikimedia.org/wikipedia/id/c/ce/Logo_Selaparang_TV.png" />
-  </channel>
-  <channel id="SMTV.id@SD">
-    <display-name>SMTV (720p) [Not 24/7]</display-name>
-    <display-name>SMTV (Backup 1)</display-name>
-    <icon src="https://upload.wikimedia.org/wikipedia/id/6/6e/Logo_SMTV_Sumedang.png" />
-  </channel>
-  <channel id="SriwijayaTV.id@SD">
-    <display-name>Sriwijaya TV (720p) [Not 24/7]</display-name>
-    <icon src="https://upload.wikimedia.org/wikipedia/id/7/75/SriwijayaTV_2014.png" />
-  </channel>
   <channel id="StaraTV.id@SumedangMajalengka">
     <display-name>Stara TV (720p)</display-name>
     <icon src="https://upload.wikimedia.org/wikipedia/commons/9/91/Stara_TV_Sumedang_fix.png" />
@@ -160,10 +151,6 @@
     <display-name>ID - Trans 7</display-name>
     <display-name>Trans7.id</display-name>
     <icon src="https://iptv-epg.org/images/XuM3Z2_a6j0kIJ9_Zbz7v_EBfj9AOEbu_siTI4-sUaFn4gTfnqD58YcTMbNgS1egxNh51jyeYSDJ349kIp-QhApxRmUZilSB07b2XVze5PNw0Q" />
-  </channel>
-  <channel id="TVMu.id@SD">
-    <display-name>TV Mu (720p) [Not 24/7]</display-name>
-    <icon src="https://upload.wikimedia.org/wikipedia/id/d/d0/TvMu.png" />
   </channel>
   <channel id="tvOne.id@HD">
     <display-name>tvOne HD (720p)</display-name>
@@ -525,13 +512,6 @@
     <display-name>548544</display-name>
     <icon src="https://i.imgur.com/jAAPgpV.png" />
   </channel>
-  <programme start="20261127093000 +0000" stop="20261127113000 +0000" channel="TransTV.id@HD">
-    <title>Pagi-Pagi Ambyar</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261127113000 +0000" stop="20261127133000 +0000" channel="TransTV.id@HD">
     <title>Insert Siang</title>
     <date>20261127</date>
@@ -840,11 +820,19 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127100000 +0000" stop="20261127110000 +0000" channel="Trans7.id@HD">
-    <title>Selebrita Update</title>
+  <programme start="20261129170000 +0000" stop="20261129180000 +0000" channel="TransTV.id@HD">
+    <title>Sehari Jadi Ratu</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
-  <programme start="20261127110000 +0000" stop="20261127114500 +0000" channel="Trans7.id@HD">
-    <title>On The Spot</title>
+  <programme start="20261129180000 +0000" stop="20261129190000 +0000" channel="TransTV.id@HD">
+    <title>Bikin Laper</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261127114500 +0000" stop="20261127121500 +0000" channel="Trans7.id@HD">
     <title>Secret Story</title>
@@ -1029,19 +1017,8 @@
   <programme start="20261129163000 +0000" stop="20261129174500 +0000" channel="Trans7.id@HD">
     <title>Trans7</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127110000 +0000" channel="tvOne.id@HD">
-    <title>Kabar Arena Pagi 2</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127110000 +0000" stop="20261127120000 +0000" channel="tvOne.id@HD">
-    <title>Kabar Utama 2</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261129174500 +0000" stop="20261129184500 +0000" channel="Trans7.id@HD">
+    <title>Trans7</title>
   </programme>
   <programme start="20261127120000 +0000" stop="20261127133000 +0000" channel="tvOne.id@HD">
     <title>Kabar Siang</title>
@@ -1379,8 +1356,12 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Aceh">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="tvOne.id@HD">
+    <title>tvOne</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Aceh">
     <title>Indonesia Bicara</title>
@@ -1598,8 +1579,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Aceh">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Bali">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Aceh">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Bali">
     <title>Indonesia Bicara</title>
@@ -1817,8 +1798,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Bali">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@BangkaBelitung">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Bali">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@BangkaBelitung">
     <title>Indonesia Bicara</title>
@@ -2036,8 +2017,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@BangkaBelitung">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Bengkulu">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@BangkaBelitung">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Bengkulu">
     <title>Indonesia Bicara</title>
@@ -2255,8 +2236,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Bengkulu">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@CentralJava">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Bengkulu">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@CentralJava">
     <title>Indonesia Bicara</title>
@@ -2474,8 +2455,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@CentralJava">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@CentralKalimantan">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@CentralJava">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@CentralKalimantan">
     <title>Indonesia Bicara</title>
@@ -2693,8 +2674,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@CentralKalimantan">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@CentralSulawesi">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@CentralKalimantan">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@CentralSulawesi">
     <title>Indonesia Bicara</title>
@@ -2912,8 +2893,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@CentralSulawesi">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@EastJava">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@CentralSulawesi">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@EastJava">
     <title>Indonesia Bicara</title>
@@ -3131,8 +3112,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@EastJava">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@EastKalimantan">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@EastJava">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@EastKalimantan">
     <title>Indonesia Bicara</title>
@@ -3350,8 +3331,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@EastKalimantan">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@EastNusaTenggara">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@EastKalimantan">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@EastNusaTenggara">
     <title>Indonesia Bicara</title>
@@ -3569,8 +3550,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@EastNusaTenggara">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Gorontalo">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@EastNusaTenggara">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Gorontalo">
     <title>Indonesia Bicara</title>
@@ -3788,43 +3769,18 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Gorontalo">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127100000 +0000" stop="20261127110000 +0000" channel="TVRI.id@HD">
-    <title>România în lume</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Gorontalo">
+    <title>TVRI</title>
+  </programme>
+  <programme start="20261127120000 +0000" stop="20261127125500 +0000" channel="TVRI.id@HD">
+    <title>Remix</title>
     <date>20261127</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127110000 +0000" stop="20261127110300 +0000" channel="TVRI.id@HD">
-    <title>Info Terkini</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127110300 +0000" stop="20261127113000 +0000" channel="TVRI.id@HD">
-    <title>Jurnal World Cup U-17</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127113000 +0000" stop="20261127120000 +0000" channel="TVRI.id@HD">
-    <title>Inspirasi Indonesia</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127120000 +0000" stop="20261127120300 +0000" channel="TVRI.id@HD">
-    <title>Info Terkini</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127120300 +0000" stop="20261127130000 +0000" channel="TVRI.id@HD">
-    <title>Masjid Dunia</title>
+  <programme start="20261127125500 +0000" stop="20261127130000 +0000" channel="TVRI.id@HD">
+    <title>Imnul României</title>
     <date>20261127</date>
     <audio>
       <stereo>stereo</stereo>
@@ -4397,8 +4353,40 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Jakarta">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129170300 +0000" channel="TVRI.id@HD">
+    <title>Info Terkini</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261129170300 +0000" stop="20261129173000 +0000" channel="TVRI.id@HD">
+    <title>Spot Check</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261129173000 +0000" stop="20261129180000 +0000" channel="TVRI.id@HD">
+    <title>Extra Time Cinta Konsekuensi</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261129180000 +0000" stop="20261129180300 +0000" channel="TVRI.id@HD">
+    <title>Info Terkini</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261129180300 +0000" stop="20261129190000 +0000" channel="TVRI.id@HD">
+    <title>Buah Hatiku Sayang</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Jakarta">
     <title>Indonesia Bicara</title>
@@ -4616,8 +4604,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Jakarta">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Jambi">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Jakarta">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Jambi">
     <title>Indonesia Bicara</title>
@@ -4835,8 +4823,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Jambi">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Lampung">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Jambi">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Lampung">
     <title>Indonesia Bicara</title>
@@ -5054,8 +5042,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Lampung">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Maluku">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Lampung">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Maluku">
     <title>Indonesia Bicara</title>
@@ -5273,8 +5261,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Maluku">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@NorthSulawesi">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Maluku">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@NorthSulawesi">
     <title>Indonesia Bicara</title>
@@ -5492,8 +5480,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@NorthSulawesi">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@NorthSumatra">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@NorthSulawesi">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@NorthSumatra">
     <title>Indonesia Bicara</title>
@@ -5711,8 +5699,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@NorthSumatra">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Papua">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@NorthSumatra">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Papua">
     <title>Indonesia Bicara</title>
@@ -5930,8 +5918,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Papua">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Riau">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Papua">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Riau">
     <title>Indonesia Bicara</title>
@@ -6149,8 +6137,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Riau">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@SouthKalimantan">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Riau">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@SouthKalimantan">
     <title>Indonesia Bicara</title>
@@ -6368,8 +6356,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@SouthKalimantan">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@SouthSulawesi">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@SouthKalimantan">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@SouthSulawesi">
     <title>Indonesia Bicara</title>
@@ -6587,8 +6575,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@SouthSulawesi">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@SouthSumatra">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@SouthSulawesi">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@SouthSumatra">
     <title>Indonesia Bicara</title>
@@ -6806,8 +6794,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@SouthSumatra">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@SoutheastSulawesi">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@SouthSumatra">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@SoutheastSulawesi">
     <title>Indonesia Bicara</title>
@@ -7025,8 +7013,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@SoutheastSulawesi">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@WestJava">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@SoutheastSulawesi">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@WestJava">
     <title>Indonesia Bicara</title>
@@ -7244,8 +7232,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@WestJava">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@WestKalimantan">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@WestJava">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@WestKalimantan">
     <title>Indonesia Bicara</title>
@@ -7463,8 +7451,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@WestKalimantan">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@WestNusaTenggara">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@WestKalimantan">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@WestNusaTenggara">
     <title>Indonesia Bicara</title>
@@ -7682,8 +7670,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@WestNusaTenggara">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@WestPapua">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@WestNusaTenggara">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@WestPapua">
     <title>Indonesia Bicara</title>
@@ -7901,8 +7889,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@WestPapua">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@WestSulawesi">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@WestPapua">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@WestSulawesi">
     <title>Indonesia Bicara</title>
@@ -8120,8 +8108,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@WestSulawesi">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@WestSumatra">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@WestSulawesi">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@WestSumatra">
     <title>Indonesia Bicara</title>
@@ -8339,8 +8327,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@WestSumatra">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="TVRI.id@Yogyakarta">
-    <title>Berita Petang</title>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@WestSumatra">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127113000 +0000" stop="20261127123000 +0000" channel="TVRI.id@Yogyakarta">
     <title>Indonesia Bicara</title>
@@ -8558,13 +8546,8 @@
   <programme start="20261129163000 +0000" stop="20261129170000 +0000" channel="TVRI.id@Yogyakarta">
     <title>Berita Malam</title>
   </programme>
-  <programme start="20261127093000 +0000" stop="20261127120000 +0000" channel="Moji.id@SD">
-    <title>Kejurnas U19 2026 Putri (LIVE)</title>
-    <desc>KEJURNAS U19 2026 PUTRI (LIVE).</desc>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
+  <programme start="20261129170000 +0000" stop="20261129190000 +0000" channel="TVRI.id@Yogyakarta">
+    <title>TVRI</title>
   </programme>
   <programme start="20261127120000 +0000" stop="20261127143000 +0000" channel="Moji.id@SD">
     <title>Tercyduk</title>
@@ -8806,18 +8789,10 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127113000 +0000" channel="NusantaraTV.id@SD">
-    <title>Nusantara Economic Updates</title>
-    <desc>Program buletin harian yang khusus mengulas ragam isu ekonomi dan bisnis dengan mengedepankan updates, analisa mendalam, serta dampaknya pada sektor ekonomi nasional.</desc>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127113000 +0000" stop="20261127120000 +0000" channel="NusantaraTV.id@SD">
-    <title>Morning Spotlights</title>
-    <desc>Program pagi yang menyoroti current issue setiap harinya, dan dibawakan oleh dua host. Program ini menggabungkan: Hard news yang dikemas secara ringan, Live Report dengan penyajian lebih pop, Info event harian (konser, seminar, workshop, dll), Trending topic \u0026 viral content, Lifestyle, Interaksi dengan audiens dan komentar netizen.</desc>
-    <date>20261127</date>
+  <programme start="20261129170000 +0000" stop="20261129193000 +0000" channel="Moji.id@SD">
+    <title>Kejurnas U19 2026 Putri (LIVE)</title>
+    <desc>KEJURNAS U19 2026 PUTRI (LIVE).</desc>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -9246,23 +9221,18 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127100000 +0000" stop="20261127110000 +0000" channel="DAAITV.id@SD">
-    <title>Bincang Sehati</title>
-    <date>20261127</date>
+  <programme start="20261129170000 +0000" stop="20261129180000 +0000" channel="NusantaraTV.id@SD">
+    <title>NTV Highlight</title>
+    <desc>Highlights berita-berita utama selama sepekan. Baik berita peristiwa, isu politik maupun hukum, dan masalah sosial yang viral selama sepekan.</desc>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127110000 +0000" stop="20261127113000 +0000" channel="DAAITV.id@SD">
-    <title>Sehat Ala Timur</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127113000 +0000" stop="20261127120000 +0000" channel="DAAITV.id@SD">
-    <title>Vegetarian Kitchen</title>
-    <date>20261127</date>
+  <programme start="20261129180000 +0000" stop="20261129200000 +0000" channel="NusantaraTV.id@SD">
+    <title>NTV Prime</title>
+    <desc>Menghadirkan informasi bernilai tinggi dan relevan, hasil kurasi tim redaksi yang menekankan kedalaman konteks dan signifikansi publik. NTV Prime menjadi wadah informasi terpercaya yang mengulas isu penting di bidang ekonomi, politik, dan kehidupan masyarakat.</desc>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -9855,36 +9825,43 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127084500 +0000" stop="20261127113000 +0000" channel="KidsTV.id@SD">
-    <title>Sahabat Selamanya Upin &amp; Ipin</title>
-    <date>20261127</date>
+  <programme start="20261129170000 +0000" stop="20261129173000 +0000" channel="DAAITV.id@SD">
+    <title>Cerita Sahabat</title>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127113000 +0000" stop="20261127120000 +0000" channel="KidsTV.id@SD">
-    <title>The Sharksons</title>
-    <date>20261127</date>
+  <programme start="20261129173000 +0000" stop="20261129173800 +0000" channel="DAAITV.id@SD">
+    <title>Kisah Kebaikan</title>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127120000 +0000" stop="20261127123000 +0000" channel="KidsTV.id@SD">
-    <title>Morphle</title>
-    <date>20261127</date>
+  <programme start="20261129173800 +0000" stop="20261129174500 +0000" channel="DAAITV.id@SD">
+    <title>Bitan \u0026 Friends</title>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127123000 +0000" stop="20261127125500 +0000" channel="KidsTV.id@SD">
-    <title>Чёрный плащ</title>
-    <date>20261127</date>
+  <programme start="20261129174500 +0000" stop="20261129180000 +0000" channel="DAAITV.id@SD">
+    <title>Pinocchio \u0026 Friends</title>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127125500 +0000" stop="20261127132000 +0000" channel="KidsTV.id@SD">
-    <title>Мой маленький пони</title>
+  <programme start="20261129180000 +0000" stop="20261129183000 +0000" channel="DAAITV.id@SD">
+    <title>Clifford</title>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261127115000 +0000" stop="20261127132000 +0000" channel="KidsTV.id@SD">
+    <title>м/ф Три кота</title>
     <date>20261127</date>
     <audio>
       <stereo>stereo</stereo>
@@ -11976,27 +11953,6 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127103000 +0000" stop="20261127110000 +0000" channel="BTV.id@SD">
-    <title>Investor Market Today</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127110000 +0000" stop="20261127113000 +0000" channel="BTV.id@SD">
-    <title>Jendela Nusantara</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
-  <programme start="20261127113000 +0000" stop="20261127120000 +0000" channel="BTV.id@SD">
-    <title>Indonesia Update: Ekspos</title>
-    <date>20261127</date>
-    <audio>
-      <stereo>stereo</stereo>
-    </audio>
-  </programme>
   <programme start="20261127120000 +0000" stop="20261127130000 +0000" channel="BTV.id@SD">
     <title>Berita Satu Siang</title>
     <date>20261127</date>
@@ -12564,10 +12520,9 @@
       <stereo>stereo</stereo>
     </audio>
   </programme>
-  <programme start="20261127100300 +0000" stop="20261127110300 +0000" channel="TheIndonesiaChannel.id@SD">
-    <title>I-Pop Playlist</title>
-    <desc>an MTV-style video rundown of the countrys hottest music and artists, along with special concert and club performances hosted by VJ Ardina Glenda. (Original)</desc>
-    <date>20261127</date>
+  <programme start="20261129180000 +0000" stop="20261129184500 +0000" channel="BTV.id@SD">
+    <title>Dunia Binatang</title>
+    <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
     </audio>
@@ -13023,6 +12978,22 @@
   <programme start="20261129153000 +0000" stop="20261129170300 +0000" channel="TheIndonesiaChannel.id@SD">
     <title>The Home Team</title>
     <desc>golden moments in Indonesias sports history including Olympic matches and regional competition. (Acquired)</desc>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261129170300 +0000" stop="20261129180300 +0000" channel="TheIndonesiaChannel.id@SD">
+    <title>Replay of “Drive Time</title>
+    <desc>a camera placed on a motorcycle taxi delivers a live-streamed look at traffic, people and weather conditions during citys rush hour with real-time interactive comments. Delivered via TIC and social media platforms.</desc>
+    <date>20261129</date>
+    <audio>
+      <stereo>stereo</stereo>
+    </audio>
+  </programme>
+  <programme start="20261129180300 +0000" stop="20261129190300 +0000" channel="TheIndonesiaChannel.id@SD">
+    <title>I-Pop Playlist</title>
+    <desc>an MTV-style video rundown of the countrys hottest music and artists, along with special concert and club performances hosted by VJ Ardina Glenda. (Original)</desc>
     <date>20261129</date>
     <audio>
       <stereo>stereo</stereo>
