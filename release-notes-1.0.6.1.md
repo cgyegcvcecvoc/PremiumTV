@@ -75,7 +75,7 @@ The **1.1.0 and 1.1.1 preview channel has been removed completely**:
 - the repository no longer publishes preview-build switches or preview assets;
 - anyone still running 1.1.0/1.1.1 sees a **BUILD RETIRED** banner at startup.
   Its button and the page at
-  <https://cgyegcvcecvoc.github.io/PremiumTV1/blocked/> point at 1.0.6.1.
+  <https://cgyegcvcecvoc.github.io/PremiumTV/blocked/> point at 1.0.6.1.
 
 Android `100060001` is above the retired preview's `100010001` **and** it is
 signed with the same long-lived update key, so the 1.0.6.1 APK installs straight
