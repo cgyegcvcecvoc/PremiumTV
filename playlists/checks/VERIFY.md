@@ -1,7 +1,7 @@
 # Playlist and guide verification
 
-- **Generated:** 2026-11-27T20:35:02+00:00 UTC
-- **Playlists checked:** 182 (40208 entries)
+- **Generated:** 2026-11-27T21:07:55+00:00 UTC
+- **Playlists checked:** 182 (40202 entries)
 - **Playlists with problems:** 0
 - **Playlists with guide-coverage notes:** 81
 - **Links published that the deep check called dead:** 0
@@ -13,7 +13,7 @@
 
 | Playlist | Entries | Groups in use | Out of order | Groups to normalise | Header guides | Dead links | EPG ids declared | EPG ids with listings |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| `playlists/PremiumTV.m3u` | 18040 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, International, Music, News, Movies, Entertainment, Religious, United States, Europe, Documentary, Canada, Kids, United Kingdom, Asia, Series, South America, North America, Australia, India, A&E Networks, Education, Culture, Comedy, Legislative, Business, Andalucía, Classic TV, Fast Tubi, Africa, Family, Cataluña, En Español, Musicales, C. Valenciana, Int. América, UK, Aria Web Channels, Drama, Weather, Eventuales, Int. Europa, Canarias, Galicia, Sci-Fi, DLTV, País Vasco, Infantiles, Int. Otros, Religiosos, Tv Celebrities, C. de Madrid, Generalistas, NZ, Castilla-La Mancha, Crime, Int. Asia, Online TV, True Crime, Westerns, Animals + Nature, Cantabria, Romance, Season's Greetings, Tv Paranormal, Animals, Animals & Nature, Extremadura, Int. África, R. de Murcia, Relax, Bonaire, Castilla y León, Crime Drama, Educational, Global TV, Illes Balears, Paranormal, Tv Shows, Bowling, C. Foral de Navarra, Card Games, Democratic Republic of the Congo, Environment, Gaming & Tech, Informativos, La Rioja, Local TV, Oceania, Other, Other Backups, Europe Backups | 0 | 0 | 3 | 0 | 14165/14165 (100.0%) | 2978 (21.0%) |
+| `playlists/PremiumTV.m3u` | 18038 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, International, Music, News, Movies, Entertainment, Religious, United States, Europe, Documentary, Canada, Kids, United Kingdom, Asia, Series, South America, North America, Australia, India, A&E Networks, Education, Culture, Comedy, Legislative, Business, Andalucía, Classic TV, Fast Tubi, Africa, Family, Cataluña, En Español, Musicales, C. Valenciana, Int. América, UK, Aria Web Channels, Drama, Weather, Eventuales, Int. Europa, Canarias, Galicia, Sci-Fi, DLTV, País Vasco, Infantiles, Int. Otros, Religiosos, Tv Celebrities, C. de Madrid, Generalistas, NZ, Castilla-La Mancha, Crime, Int. Asia, Online TV, True Crime, Westerns, Animals + Nature, Cantabria, Romance, Season's Greetings, Tv Paranormal, Animals, Animals & Nature, Extremadura, Int. África, R. de Murcia, Relax, Bonaire, Castilla y León, Crime Drama, Educational, Global TV, Illes Balears, Paranormal, Tv Shows, Bowling, C. Foral de Navarra, Card Games, Democratic Republic of the Congo, Environment, Gaming & Tech, Informativos, La Rioja, Local TV, Oceania, Other, Other Backups, Europe Backups | 0 | 0 | 3 | 0 | 14165/14165 (100.0%) | 2978 (21.0%) |
 | `playlists/AE_Channels.m3u` | 212 | A&E Networks | 0 | 0 | 3 | 0 | 125/125 (100.0%) | 52 (41.6%) |
 | `playlists/Priority_Channels.m3u` | 13 | Sports, Cartoons, Kids, United States | 0 | 0 | 3 | 0 | 12/12 (100.0%) | 7 (58.3%) |
 | `playlists/countries/Afghanistan.m3u` | 10 | International, Education, Entertainment, Movies, Music, News, Religious | 0 | 0 | 1 | 0 | 10/10 (100.0%) | 0 (0.0%) |
@@ -182,7 +182,7 @@
 | `playlists/countries/Turkey.m3u` | 164 | Sports, Lifestyle, NBC, Cartoons, International, Asia, News, Music, Entertainment, Religious, Culture, Kids, Business, Education, Movies | 0 | 0 | 1 | 0 | 151/151 (100.0%) | 40 (26.5%) |
 | `playlists/countries/Turkmenistan.m3u` | 16 | Sports, International, Culture, Education, Music | 0 | 0 | 1 | 0 | 8/8 (100.0%) | 0 (0.0%) |
 | `playlists/countries/UK.m3u` | 760 | Sports, Lifestyle, NBC, Cartoons, PBS, Game Shows, United Kingdom, News, Movies, Music, Entertainment, A&E Networks, Religious, Documentary, UK, Kids, Aria Web Channels, International, Business, Comedy, Education, Series, Culture, Musicales, Romance | 0 | 0 | 1 | 0 | 628/628 (100.0%) | 83 (13.2%) |
-| `playlists/countries/USA.m3u` | 3903 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Music, Religious, Documentary, News, Kids, Legislative, A&E Networks, Education, Comedy, International, Classic TV, Business, Culture, Family, Canada, Aria Web Channels, Weather, United Kingdom, En Español, Animals, Australia, Global TV, Int. Otros, Paranormal, Relax, Religiosos, Tv Paranormal, Other, Sci-Fi, Westerns, Animals + Nature, Tv Celebrities, Drama | 0 | 0 | 1 | 0 | 2532/2532 (100.0%) | 1052 (41.5%) |
+| `playlists/countries/USA.m3u` | 3901 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Music, Religious, Documentary, News, Kids, Legislative, A&E Networks, Education, Comedy, International, Classic TV, Business, Culture, Family, Canada, Aria Web Channels, Weather, United Kingdom, En Español, Animals, Australia, Global TV, Int. Otros, Paranormal, Relax, Religiosos, Tv Paranormal, Other, Sci-Fi, Westerns, Animals + Nature, Tv Celebrities, Drama | 0 | 0 | 1 | 0 | 2532/2532 (100.0%) | 1052 (41.5%) |
 | `playlists/countries/Uganda.m3u` | 14 | International, Religious, Africa, Entertainment | 0 | 0 | 1 | 0 | 14/14 (100.0%) | 1 (7.1%) |
 | `playlists/countries/Ukraine.m3u` | 101 | Sports, Lifestyle, International, Europe, News, Movies, Music, Documentary, Entertainment, Religious, Kids, Legislative | 0 | 0 | 1 | 0 | 89/89 (100.0%) | 5 (5.6%) |
 | `playlists/countries/United_Arab_Emirates.m3u` | 47 | Sports, NBC, Cartoons, International, News, Religious, Music, Entertainment, Kids, Asia, Business, Documentary, Family, Movies | 0 | 0 | 1 | 0 | 43/43 (100.0%) | 3 (7.0%) |
@@ -194,7 +194,7 @@
 | `playlists/countries/Western_Sahara.m3u` | 4 | Int. África | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Yemen.m3u` | 3 | International, News, Religious | 0 | 0 | 1 | 0 | 3/3 (100.0%) | 0 (0.0%) |
 | `playlists/countries/Zimbabwe.m3u` | 1 | Religious | 0 | 0 | 1 | 0 | 1/1 (100.0%) | 0 (0.0%) |
-| `playlists/live/USA.m3u` | 3903 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Music, Religious, Documentary, News, Kids, Legislative, A&E Networks, Education, Comedy, International, Classic TV, Business, Culture, Family, Canada, Aria Web Channels, Weather, United Kingdom, En Español, Animals, Australia, Global TV, Int. Otros, Paranormal, Relax, Religiosos, Tv Paranormal, Other, Sci-Fi, Westerns, Animals + Nature, Tv Celebrities, Drama | 0 | 0 | 1 | 0 | 2532/2532 (100.0%) | 1052 (41.5%) |
+| `playlists/live/USA.m3u` | 3901 | Sports, Lifestyle, Fox Channels, CBS, NBC, NBC Sports Channels, Cartoons, PBS, Game Shows, United States, Movies, Series, Entertainment, Music, Religious, Documentary, News, Kids, Legislative, A&E Networks, Education, Comedy, International, Classic TV, Business, Culture, Family, Canada, Aria Web Channels, Weather, United Kingdom, En Español, Animals, Australia, Global TV, Int. Otros, Paranormal, Relax, Religiosos, Tv Paranormal, Other, Sci-Fi, Westerns, Animals + Nature, Tv Celebrities, Drama | 0 | 0 | 1 | 0 | 2532/2532 (100.0%) | 1052 (41.5%) |
 
 ## Problems
 
@@ -206,8 +206,8 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 
 | # | Shelf file | Scope | Category | Channels | Status |
 |---|---|---|---|---:|---|
-| 1 | `categories/USA.m3u` | USA | USA | 3903 | ok |
-| 2 | `categories/USA/Sports.m3u` | USA | Sports | 197 | ok |
+| 1 | `categories/USA.m3u` | USA | USA | 3901 | ok |
+| 2 | `categories/USA/Sports.m3u` | USA | Sports | 195 | ok |
 | 3 | `categories/USA/Sports_Backups.m3u` | USA | Sports Backups | 99 | ok |
 | 4 | `categories/USA/Lifestyle.m3u` | USA | Lifestyle | 164 | ok |
 | 5 | `categories/USA/Lifestyle_Backups.m3u` | USA | Lifestyle Backups | 118 | ok |
@@ -269,7 +269,7 @@ The `categories/` shelf is re-planned from the published playlists on every run:
 | 61 | `categories/USA/En_Espa_ol.m3u` | USA | En Español | 3 | ok |
 | 62 | `categories/USA/En_Espa_ol_Backups.m3u` | USA | En Español Backups | 10 | ok |
 | 63 | `categories/USA/Other.m3u` | USA | Other | 9 | ok |
-| 64 | `categories/All/Sports.m3u` | World | Sports | 787 | ok |
+| 64 | `categories/All/Sports.m3u` | World | Sports | 785 | ok |
 | 65 | `categories/All/Sports_Backups.m3u` | World | Sports Backups | 213 | ok |
 | 66 | `categories/All/Lifestyle.m3u` | World | Lifestyle | 619 | ok |
 | 67 | `categories/All/Lifestyle_Backups.m3u` | World | Lifestyle Backups | 211 | ok |

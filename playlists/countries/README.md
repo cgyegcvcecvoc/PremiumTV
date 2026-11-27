@@ -2,11 +2,11 @@
 
 Updated: **2026-11-27 03:04 PM EST** (2026-11-27 20:04 UTC) — _6:23 AM recheck_
 
-Total countries: **178**  |  Total confirmed working channels: **18040**
+Total countries: **178**  |  Total confirmed working channels: **18038**
 
 | Country | Working channels | Playlist file | Country EPG (`.xml`) | Raw M3U URL | Raw EPG URL |
 |---|---:|---|---|---|---|
-| USA | 3903 | [`USA.m3u`](USA.m3u) | [`USA.xml`](../../EPG/USA.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/USA.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml` |
+| USA | 3901 | [`USA.m3u`](USA.m3u) | [`USA.xml`](../../EPG/USA.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/USA.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml` |
 | International | 2131 | [`International.m3u`](International.m3u) | [`International.xml`](../../EPG/International.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/International.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/International.xml` |
 | India | 1259 | [`India.m3u`](India.m3u) | [`India.xml`](../../EPG/India.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/India.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/India.xml` |
 | UK | 760 | [`UK.m3u`](UK.m3u) | [`UK.xml`](../../EPG/UK.xml) | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/countries/UK.m3u` | `https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/UK.xml` |

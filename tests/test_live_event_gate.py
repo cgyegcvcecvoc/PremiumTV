@@ -42,6 +42,24 @@ class RetiredEventUrlTest(unittest.TestCase):
             registry,
         )
 
+    def test_published_playlists_do_not_contain_retired_hashes(self):
+        retired = gate.load_retired_hashes()
+        published = [
+            "playlists/PremiumTV.m3u",
+            "playlists/live/USA.m3u",
+            "playlists/countries/USA.m3u",
+            "playlists/categories/Sports.m3u",
+            "categories/USA.m3u",
+            "categories/All/Sports.m3u",
+            "categories/USA/Sports.m3u",
+        ]
+        for name in published:
+            text = (ROOT / name).read_text(encoding="utf-8")
+            channels, _ = scraper.parse_m3u(text, name)
+            hits = {gate._url_hash(channel) for channel in channels} & retired
+            with self.subTest(playlist=name):
+                self.assertEqual(hits, set())
+
     def test_retired_hash_is_withheld_without_probing(self):
         event = channel("[NHL] Alpha vs Beta (FAWA)", "https://a.example/retired.m3u8")
         probes = []
