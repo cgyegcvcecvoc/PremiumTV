@@ -1041,7 +1041,11 @@ def identity_groups(channels: list) -> list[list]:
     """
     by_name: dict[str, list] = collections.defaultdict(list)
     for channel in channels:
-        name_key = norm_key(identity_name(_get(channel, "name")))
+        # Identity must retain non-Latin letters. The ASCII-only norm_key can
+        # collapse unrelated Chinese titles to the same quality suffix, and a
+        # previously numbered backup can then become a new primary on rebuild.
+        cleaned = clean_display_name(_get(channel, "name"))
+        name_key = "".join(c for c in _strip_accents(cleaned).casefold() if c.isalnum())
         if not name_key:
             # Nothing to compare: the entry stays its own channel rather than
             # joining every other nameless entry.

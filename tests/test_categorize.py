@@ -177,6 +177,24 @@ class BackupTest(unittest.TestCase):
         second = {ch.url: ch.name for ch in primary2 + backups2}
         self.assertEqual(first, second)
 
+    def test_non_latin_backups_remain_grouped_and_distinct_on_rebuild(self):
+        channels = [
+            channel("江津经济生活 (480p)", "Other", "Jiangjin", "http://a/1", ""),
+            channel("江津经济生活 (720p)", "Other", "Jiangjin", "http://a/2", ""),
+            channel("另一频道 (480p)", "Other", "Other", "http://b/1", ""),
+            channel("КФУ ТВ (1080p) [Not 24/7]", "Europe", "KFU.ru", "http://c/1", "RU"),
+            channel("КФУ ТВ (720p)", "Europe", "KFU.ru", "http://c/2", "RU"),
+        ]
+        primary, backups = categorize.split_primary_backups(copy.deepcopy(channels))
+        self.assertEqual(len(primary), 3)
+        self.assertEqual(len(backups), 2)
+        before = {ch.url: (ch.name, ch.attrs["group-title"]) for ch in primary + backups}
+        again, again_backups = categorize.split_primary_backups(copy.deepcopy(primary + backups))
+        after = {ch.url: (ch.name, ch.attrs["group-title"]) for ch in again + again_backups}
+        self.assertEqual(before, after)
+        self.assertTrue(all(not ch.attrs["group-title"].endswith("Backups Backups")
+                            for ch in again_backups))
+
     def test_different_countries_stay_separate_channels(self):
         channels = [
             channel("Nickelodeon (720p)", "Kids", "Nickelodeon.us", "http://a/1.m3u8", "US"),
