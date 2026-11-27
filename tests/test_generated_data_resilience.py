@@ -169,6 +169,22 @@ class LiveScheduleGeneratorTests(unittest.TestCase):
             self.assertEqual(len(changed["games"]), 2)
             self.assertNotEqual(changed["generated_utc"], "2000-01-01T00:00:00Z")
 
+    def test_commas_inside_quoted_competition_names_do_not_hide_fixtures(self):
+        text = (
+            '#EXTM3U\n'
+            '#EXTINF:-1 tvg-id="Live.Event.us" '
+            'tvg-name="[FIBA World Cup Qualification, Europe] Poland vs Croatia '
+            '(iSTRMEAST)" group-title="Sports",'
+            '[FIBA World Cup Qualification, Europe] Poland vs Croatia (iSTRMEAST)\n'
+            'https://example.com/poland-croatia.m3u8\n'
+        )
+        events = build_live_schedule.parse_events(text)
+        self.assertEqual(
+            [event["key"] for event in events],
+            ["fibaworldcupqualificationeurope|croatia|poland"],
+        )
+        self.assertEqual(events[0]["title"], "Poland vs. Croatia")
+
 
 if __name__ == "__main__":
     unittest.main()

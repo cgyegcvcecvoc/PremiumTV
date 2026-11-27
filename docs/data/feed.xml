@@ -7,6 +7,13 @@
   <updated>2026-11-27T12:00:00Z</updated>
   <subtitle>Every change recorded in the PremiumTV repository: playlist fixes, app releases, and site updates.</subtitle>
   <entry>
+    <title>Version 1.1.27: Verified live events</title>
+    <id>urn:premiumtv1:changelog:2026-11-27:version-1-1-27-verified-live-events</id>
+    <link href="https://github.com/cgyegcvcecvoc/PremiumTV/blob/main/CHANGELOG.md"/>
+    <updated>2026-11-27T12:00:00Z</updated>
+    <summary>**The live-event gate is part of publication.** Every live-event entry is re-tested with its own `#EXTVLCOPT` headers and a deep HLS variant/media-segment probe before the scrape, quick update or link check can publish it. A fixture with no working feed is refused entirely. **The latest merged lineup was gated, not assumed.** 96 event entries across 61 fixtures produced 79 working entries, 17 drops (9 × 404/410, 8 other) and **55 publishable fixtures**; six fixtures were refused. The gate report records every feed and every dropped URL hash. **Every app surface got the same fixture set.** `pla</summary>
+  </entry>
+  <entry>
     <title>Version 1.1.26: Honest releases, steadier sources</title>
     <id>urn:premiumtv1:changelog:2026-11-27:version-1-1-26-honest-releases-steadier-sources</id>
     <link href="https://github.com/cgyegcvcecvoc/PremiumTV/blob/main/CHANGELOG.md"/>

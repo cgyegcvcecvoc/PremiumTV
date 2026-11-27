@@ -12,7 +12,7 @@ window.SITE_DATA = {
   "changelog_doc": "https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk"
  },
  "stats": {
-  "confirmed_channels": 18057,
+  "confirmed_channels": 18040,
   "unique_links": 25627,
   "countries": 178,
   "last_run_utc": "2026-11-27 20:12 UTC",
@@ -23,7 +23,7 @@ window.SITE_DATA = {
    "name": "PremiumTV.m3u",
    "description": "Every confirmed-working channel, grouped by category.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/PremiumTV.m3u",
-   "count": 18057
+   "count": 18040
   },
   "priority": {
    "name": "Priority_Channels.m3u",
@@ -35,7 +35,7 @@ window.SITE_DATA = {
    "name": "categories/USA.m3u",
    "description": "Every US channel in category order.",
    "url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/categories/USA.m3u",
-   "count": 3920
+   "count": 3903
   },
   "ae": {
    "name": "AE_Channels.m3u",
@@ -368,7 +368,7 @@ window.SITE_DATA = {
    "name": "United States",
    "iso2": "US",
    "region": false,
-   "count": 3920,
+   "count": 3903,
    "playlist_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/playlists/live/USA.m3u",
    "epg_url": "https://raw.githubusercontent.com/cgyegcvcecvoc/PremiumTV/main/EPG/USA.xml",
    "epg_present": true
@@ -2145,8 +2145,8 @@ window.SITE_DATA = {
   }
  ],
  "lineup": {
-  "entries": 18057,
-  "unique_channels": 14607,
+  "entries": 18040,
+  "unique_channels": 14590,
   "backup_feeds": 3450,
   "channels_with_backups": 2042,
   "categories": 97,
@@ -2159,7 +2159,7 @@ window.SITE_DATA = {
    "480p": 311,
    "lower": 229,
    "generic_hd_sd": 0,
-   "unlabelled": 7675
+   "unlabelled": 7658
   },
   "hd_channels": 5699,
   "featured": [
@@ -2257,7 +2257,7 @@ window.SITE_DATA = {
   "groups": [
    {
     "name": "Sports",
-    "channels": 804,
+    "channels": 787,
     "backups": 213,
     "samples": [
      "ESPN",
@@ -3596,6 +3596,20 @@ window.SITE_DATA = {
   ]
  },
  "changelog": [
+  {
+   "id": "2026-11-27",
+   "date": "2026-11-27",
+   "title": "Version 1.1.27: Verified live events",
+   "body_md": "- **The live-event gate is part of publication.** Every live-event entry is re-tested with its own `#EXTVLCOPT` headers and a deep HLS variant/media-segment probe before the scrape, quick update or link check can publish it. A fixture with no working feed is refused entirely.\n- **The latest merged lineup was gated, not assumed.** 96 event entries across 61 fixtures produced 79 working entries, 17 drops (9 × 404/410, 8 other) and **55 publishable fixtures**; six fixtures were refused. The gate report records every feed and every dropped URL hash.\n- **Every app surface got the same fixture set.** `playlists/live-schedule.json` now matches the gate's 55 surviving fixtures exactly, and the Android, macOS and web builders consume that regenerated schedule. The generated playlist, category shelf, local-market directory and download-site payload were rebuilt from the same gated lineup.\n- **The gate fails closed and keeps derived feeds in step.** A gate error withholds live events rather than publishing untested feeds; `--sync-derived` removed the same dropped URLs from the USA feed, country playlist, category playlists and shelf in one pass.\n- **A comma no longer hides a fixture.** The schedule parser now splits `#EXTINF` at the first comma outside quoted attributes, so competition names such as `[FIBA World Cup Qualification, Europe]` reach the app schedule instead of being silently omitted.\n- **Released as 1.1.27** (Android `versionCode 101270000`, macOS `1.1.27`).",
+   "bullets": [
+    "**The live-event gate is part of publication.** Every live-event entry is re-tested with its own `#EXTVLCOPT` headers and a deep HLS variant/media-segment probe before the scrape, quick update or link check can publish it. A fixture with no working feed is refused entirely.",
+    "**The latest merged lineup was gated, not assumed.** 96 event entries across 61 fixtures produced 79 working entries, 17 drops (9 × 404/410, 8 other) and **55 publishable fixtures**; six fixtures were refused. The gate report records every feed and every dropped URL hash.",
+    "**Every app surface got the same fixture set.** `playlists/live-schedule.json` now matches the gate's 55 surviving fixtures exactly, and the Android, macOS and web builders consume that regenerated schedule. The generated playlist, category shelf, local-market directory and download-site payload were rebuilt from the same gated lineup.",
+    "**The gate fails closed and keeps derived feeds in step.** A gate error withholds live events rather than publishing untested feeds; `--sync-derived` removed the same dropped URLs from the USA feed, country playlist, category playlists and shelf in one pass.",
+    "**A comma no longer hides a fixture.** The schedule parser now splits `#EXTINF` at the first comma outside quoted attributes, so competition names such as `[FIBA World Cup Qualification, Europe]` reach the app schedule instead of being silently omitted.",
+    "**Released as 1.1.27** (Android `versionCode 101270000`, macOS `1.1.27`)."
+   ]
+  },
   {
    "id": "2026-11-27",
    "date": "2026-11-27",

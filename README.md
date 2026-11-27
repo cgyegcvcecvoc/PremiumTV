@@ -21,6 +21,10 @@ A separate, touch-friendly web player lives in [`web/`](web/README.md). It reuse
 - **Browser limits:** provider CORS restrictions, custom headers, mixed HTTP content and unsupported codecs can prevent playback. The web player reports these honestly and tries backups; it does not bypass browser security. The native apps remain the broader-compatibility option.
 - **Optional blocked-feed relay:** a browser cannot send a `Referer`, cannot read a response without CORS, and cannot load `http://` media from an HTTPS page — 771 of the 2,978 USA feeds are plain HTTP and 135 publish a required header. [`relay/`](relay/README.md) is a self-hostable Node service that fixes exactly those three cases for streams **in this repository's own playlist** and nothing else. It ships **off** (`relay/relay.json` → `enabled: false`), so GitHub Pages is unchanged; an operator who deploys it flips one field and the player starts rescuing those feeds, saying so on screen. Playlists the relay serves are always the published ones; private address ranges and unpublished URLs are refused.
 
+## Brainstorming
+
+Have an idea for a future version? Add it to [BRAINSTORMING.md](BRAINSTORMING.md), where live-event coverage, playback reliability, data quality and platform ideas are collected with enough detail to build from.
+
 ## Change log
 
 - [Detailed, editable change log (Google Doc)](https://docs.google.com/document/d/1anjXfhv6qXz9ZsSldHBMqsfDt8d44W8N_ayqYAloeNM/edit?usp=drivesdk) — historical PR milestones, all 79 run-history records available in the current snapshot, stream-health policy, and known limitations.
@@ -82,17 +86,17 @@ the same data scope and version policy:
 
 | Channel | Version | Library | Release status |
 |---|---|---|---|
-| **Stable release** | **1.1.26** (Android `versionCode 101260000`) | USA lineup + USA guide | Honest release pages and steadier sources: only a complete published stable build is promoted, web navigation keeps real history, and live events gain an hourly events playlist ([notes](release-notes-1.1.26.md)). |
-| Superseded | **1.1.25** (`101250000`, pre-release), **1.1.24** (`101240000`), **1.1.23** (`101230000`), **1.1.22** (`101220000`), **1.1.21** (`101210000`), **1.1.20** (`101200000`), **1.1.19** (`101190000`), **1.1.18** (`101180000`), **1.1.17** (`101170000`), **1.1.16** (`101160000`), **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.26. |
+| **Stable release** | **1.1.27** (Android `versionCode 101270000`) | USA lineup + USA guide | Verified live events: every live-event feed is deep-probed, refused fixtures are withheld, and the app schedule matches the gated lineup ([notes](release-notes-1.1.27.md)). |
+| Superseded | **1.1.26** (`101260000`), **1.1.25** (`101250000`, pre-release), **1.1.24** (`101240000`), **1.1.23** (`101230000`), **1.1.22** (`101220000`), **1.1.21** (`101210000`), **1.1.20** (`101200000`), **1.1.19** (`101190000`), **1.1.18** (`101180000`), **1.1.17** (`101170000`), **1.1.16** (`101160000`), **1.1.15** (`101150000`), **1.1.14** (`101140000`), **1.1.12** (`101120000`), **1.1.11** (`101110000`), **1.1.10** (`101100000`), **1.1.7** (`101070000`), **1.1.6** (`101060000`), **1.1.5** (`101050000`), **1.1.4** (`101040000`), **1.1.3** (`101030000`), **1.1.2** (`101020000`), **1.1.1** (`101010000`), **1.1.0** (`101000000`), **1.0.9** (`100090000`) | USA lineup + USA guide | Settings → App updates finds 1.1.27. |
 | Superseded ⚠️ | **1.0.8 V1 Patch** `1.0.8.1` (`100080001`) and **1.0.8** (`100080000`) | USA lineup + USA guide | **Can freeze on black or crash when opening a channel — update now.** These builds show an extreme update popup on launch |
 | Archived stable | 1.0.4 / 1.0.5 / 1.0.6 / 1.0.6.1 / 1.0.7 | USA lineup + USA guide | Older builds warn to update; support for builds below 1.1.19 ends Dec 21, 2026 |
 
-The old **1.1.x Encore preview channel is retired**, and 1.1.26 is the stable
+The old **1.1.x Encore preview channel is retired**, and 1.1.27 is the stable
 release. The deleted preview still shows a **BUILD RETIRED** notice and is
 routed to the [blocked-build page](docs/blocked/index.html). A device still on
 the retired preview must install the current release **by hand once**: the
 preview's name equals a stable release, so the in-app updater cannot see it as
-newer. Android accepts 1.1.26 over the preview (`101260000` > `100010001`) and
+newer. Android accepts 1.1.27 over the preview (`101270000` > `100010001`) and
 the Mac DMG replaces the preview copy; every build from 1.1.0 on updates itself
 normally.
 
@@ -253,7 +257,7 @@ Intel and Apple Silicon.
 | Item | Where |
 |---|---|
 | Project and build docs | [`macos/`](macos/README.md) |
-| Stable target | `1.1.26` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
+| Stable target | `1.1.27` — USA lineup; every 1.0.4+ build installs it from Settings → App updates |
 | Build workflow | [`.github/workflows/macos-build.yml`](.github/workflows/macos-build.yml) |
 
 The macOS regression suite covers startup data delivery, the cable-style guide
@@ -272,7 +276,7 @@ Google TV, Fire TV stick, tablet and phone.
 | Item | Where |
 |---|---|
 | Project and build docs | [`android/`](android/README.md) |
-| Stable build target | `1.1.26` (`versionCode 101260000`) — USA library |
+| Stable build target | `1.1.27` (`versionCode 101270000`) — USA library |
 | Build workflow | [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml) |
 
 The stable build bundles the USA playlist and guide. Both are built from curated
@@ -313,9 +317,9 @@ still receives a real crash but the next bug report has something to go on. A
 published `http-origin` is normalised to the scheme+host+port tuple a CDN
 expects, matching the Mac app.
 
-**1.1.26 is the current stable release** (`versionCode 101260000`, USA scope).
+**1.1.27 is the current stable release** (`versionCode 101270000`, USA scope).
 1.0.4 was the last version that needed a manual download: every later build
-upgrades from Settings → App updates, and 1.1.26 installs over 1.0.8, 1.0.8.1
+upgrades from Settings → App updates, and 1.1.27 installs over 1.0.8, 1.0.8.1
 and the retired 1.1.x previews as well. (One exception: an installed 1.0.8.1
 still reads "1.0.9" as another name for itself, so its in-app check can miss
 this release — install the APK by hand; it upgrades in place.) A release is

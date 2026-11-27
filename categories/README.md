@@ -1,6 +1,6 @@
 # Category shelf
 
-- **Shelf rebuilt:** 2026-11-27 20:12 UTC (2026-11-27 03:12 PM EST) — _6:23 AM recheck_
+- **Shelf rebuilt:** 2026-11-27 20:29 UTC (2026-11-27 03:29 PM EST) — _category shelf_
 - **Sources:** [`playlists/PremiumTV.m3u`](../playlists/PremiumTV.m3u) for `All/`, [`playlists/live/USA.m3u`](../playlists/live/USA.m3u) for `USA.m3u` and `USA/`
 - **Order:** Sports -> Lifestyle -> Fox Channels -> CBS -> NBC -> NBC Sports Channels -> Cartoons -> PBS -> Game Shows (each followed by its own Backups group), then the long tail by size, `Other` last — the published order from `scripts/categorize.py`.
 - **One entry per channel:** a channel's spare feeds sit right after it in its `<category> Backups` group, best quality first.
@@ -9,11 +9,11 @@ Every file here is a slice of an already published playlist: same channels, same
 
 ## USA
 
-[`USA.m3u`](USA.m3u) — every one of the **3920** working US channels in one file, in category order. The per-category files below are the same list cut up.
+[`USA.m3u`](USA.m3u) — every one of the **3903** working US channels in one file, in category order. The per-category files below are the same list cut up.
 
 | # | Category | Channels | Playlist |
 |---|---|---:|---|
-| 1 | Sports | 214 | [`Sports.m3u`](USA/Sports.m3u) |
+| 1 | Sports | 197 | [`Sports.m3u`](USA/Sports.m3u) |
 | 2 | Sports Backups | 99 | [`Sports_Backups.m3u`](USA/Sports_Backups.m3u) |
 | 3 | Lifestyle | 164 | [`Lifestyle.m3u`](USA/Lifestyle.m3u) |
 | 4 | Lifestyle Backups | 118 | [`Lifestyle_Backups.m3u`](USA/Lifestyle_Backups.m3u) |
@@ -84,7 +84,7 @@ One file per category for the whole library (US channels first inside a category
 
 | # | Category | Channels | Playlist |
 |---|---|---:|---|
-| 1 | Sports | 804 | [`Sports.m3u`](All/Sports.m3u) |
+| 1 | Sports | 787 | [`Sports.m3u`](All/Sports.m3u) |
 | 2 | Sports Backups | 213 | [`Sports_Backups.m3u`](All/Sports_Backups.m3u) |
 | 3 | Lifestyle | 619 | [`Lifestyle.m3u`](All/Lifestyle.m3u) |
 | 4 | Lifestyle Backups | 211 | [`Lifestyle_Backups.m3u`](All/Lifestyle_Backups.m3u) |

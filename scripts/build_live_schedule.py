@@ -166,12 +166,34 @@ def parse_event(display: str, channel_id: str = "") -> dict | None:
     }
 
 
+def split_extinf(line: str) -> tuple[str, str] | None:
+    """Split an EXTINF line at the comma outside its quoted attributes.
+
+    Competition names may contain a comma (for example
+    ``[FIBA World Cup Qualification, Europe]``), so partitioning at the first
+    comma would leave the display name truncated and hide the fixture from the
+    apps' schedule.
+    """
+    in_quotes = False
+    escaped = False
+    for index, character in enumerate(line):
+        if character == '"' and not escaped:
+            in_quotes = not in_quotes
+        elif character == "," and not in_quotes:
+            return line[:index], line[index + 1:]
+        escaped = character == "\\" and not escaped
+    return None
+
+
 def parse_events(text: str):
     events = []
     for line in text.splitlines():
-        if "," not in line:
+        if not line.startswith("#EXTINF"):
             continue
-        attrs, _, display = line.partition(",")
+        parts = split_extinf(line)
+        if parts is None:
+            continue
+        attrs, display = parts
         id_match = TVG_ID.search(attrs)
         event = parse_event(display, id_match.group(1) if id_match else "")
         if event is not None:

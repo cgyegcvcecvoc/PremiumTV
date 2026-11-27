@@ -10,6 +10,15 @@ This GitHub file is the short index. The detailed Doc and the append-only [`play
 > [Atom feed](https://cgyegcvcecvoc.github.io/PremiumTV/data/feed.xml) show it.
 > If the site does not show a change, the generator was not re-run.
 
+## 2026-11-27 — Version 1.1.27: Verified live events
+
+- **The live-event gate is part of publication.** Every live-event entry is re-tested with its own `#EXTVLCOPT` headers and a deep HLS variant/media-segment probe before the scrape, quick update or link check can publish it. A fixture with no working feed is refused entirely.
+- **The latest merged lineup was gated, not assumed.** 96 event entries across 61 fixtures produced 79 working entries, 17 drops (9 × 404/410, 8 other) and **55 publishable fixtures**; six fixtures were refused. The gate report records every feed and every dropped URL hash.
+- **Every app surface got the same fixture set.** `playlists/live-schedule.json` now matches the gate's 55 surviving fixtures exactly, and the Android, macOS and web builders consume that regenerated schedule. The generated playlist, category shelf, local-market directory and download-site payload were rebuilt from the same gated lineup.
+- **The gate fails closed and keeps derived feeds in step.** A gate error withholds live events rather than publishing untested feeds; `--sync-derived` removed the same dropped URLs from the USA feed, country playlist, category playlists and shelf in one pass.
+- **A comma no longer hides a fixture.** The schedule parser now splits `#EXTINF` at the first comma outside quoted attributes, so competition names such as `[FIBA World Cup Qualification, Europe]` reach the app schedule instead of being silently omitted.
+- **Released as 1.1.27** (Android `versionCode 101270000`, macOS `1.1.27`).
+
 ## 2026-11-27 — Version 1.1.26: Honest releases, steadier sources
 
 - **The release pages are honest again.** `docs/data/releases.src.json` was stuck at `v1.1.24` — it had no entry for 1.1.25 at all — so the download page and its stable card described an older release than the repository. It is refreshed from GitHub's release API, and the site test now asserts the invariant that matters: the promoted card is the newest **complete published stable** release, and is never a pre-release or a draft. The older-releases list is now sorted by semantic version instead of text, so `v1.1.23` sits above `v1.1.7` instead of below it. The change-log Atom feed's entry ids are now derived from the date and title instead of the entry's position, so adding a release no longer rewrites every older id.
