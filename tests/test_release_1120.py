@@ -91,20 +91,26 @@ class Version1120Tests(unittest.TestCase):
             self.assertIn(asset, record)
 
     def test_the_site_promotes_the_published_release(self):
-        import json  # noqa: E402
+        import build_site_data  # noqa: E402
         import release_version  # noqa: E402
 
-        # The stable channel follows VERSION, not the release this file was
-        # written for; pinning 1.1.20 here made the test stale on every later
-        # release.
-        version = release_version.current_version()
+        # VERSION can refer to an unpublished, prerelease, or incomplete build.
+        # The site must instead promote the newest complete stable release in
+        # its checked-in release metadata. Selection has independent fixture
+        # coverage in test_site_data, including prereleases and missing assets.
+        releases = json.loads(text("docs/data/releases.src.json"))
+        chosen = build_site_data.latest_complete_stable_release(releases)
+        self.assertIsNotNone(chosen, "release metadata has no complete stable release")
+        tag = build_site_data.release_tag(chosen)
+        version = tag.removeprefix("v")
+        mac_version = release_version.macos_version(version)
         site = json.loads(text("docs/data/site.json"))
         stable = [c for c in site["apps"]["channels"] if c["id"] == "stable"]
-        self.assertEqual([channel["tag"] for channel in stable], [f"v{version}"])
+        self.assertEqual([channel["tag"] for channel in stable], [tag])
         names = {asset["name"] for asset in stable[0]["assets"]}
         # The Mac installers are the ones recent releases lost entirely.
         for arch, ext in (("arm64", "dmg"), ("x64", "dmg"), ("arm64", "pkg"), ("x64", "pkg")):
-            self.assertIn(f"PremiumTV-{version}-mac-{arch}.{ext}", names)
+            self.assertIn(f"PremiumTV-{mac_version}-mac-{arch}.{ext}", names)
         self.assertIn(f"PremiumTV-{version}-debug.apk", names)
 
 
