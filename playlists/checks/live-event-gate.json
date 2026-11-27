@@ -6,18 +6,19 @@
   "non_fixture_entries": 11,
   "non_fixture_working": 9,
   "non_fixture_dropped": 2,
-  "working_entries": 79,
-  "published_entries": 79,
-  "published_fixtures": 55,
-  "refused_fixtures": 6,
-  "dropped_entries": 17,
+  "working_entries": 77,
+  "published_entries": 77,
+  "published_fixtures": 53,
+  "refused_fixtures": 8,
+  "dropped_entries": 19,
   "dropped_403": 0,
   "dropped_404": 9,
   "dropped_other": 8,
   "status_counts": {
+    "dead": 2,
     "offline": 13,
     "unreachable": 4,
-    "working": 79
+    "working": 77
   },
   "refused": [
     {
@@ -31,6 +32,12 @@
       "title": "Sweden vs. Hungary",
       "sport": "Basketball World Cup",
       "entries": 1
+    },
+    {
+      "key": "collegefootball|akron|buffalo",
+      "title": "Akron vs. Buffalo",
+      "sport": "College Football",
+      "entries": 2
     },
     {
       "key": "soccer|alittihad|neomsc",
@@ -47,6 +54,12 @@
     {
       "key": "swedenhockeyallsvenskan|mora|nybro",
       "title": "Nybro vs. Mora",
+      "sport": "Sweden HockeyAllsvenskan",
+      "entries": 1
+    },
+    {
+      "key": "swedenhockeyallsvenskan|vimmerby|visbyroma",
+      "title": "Visby Roma vs. Vimmerby",
       "sport": "Sweden HockeyAllsvenskan",
       "entries": 1
     },
@@ -263,8 +276,8 @@
       "title": "Akron vs. Buffalo",
       "sport": "College Football",
       "entries": 2,
-      "working": 1,
-      "refused": false,
+      "working": 0,
+      "refused": true,
       "feeds": [
         {
           "name": "[CFB] Akron vs Buffalo (iSTRMEAST)",
@@ -279,12 +292,14 @@
         {
           "name": "[NCAA American Football] Akron vs Buffalo (FAWA)",
           "url": "http://193.47.62.50/hls/kikiki.m3u8",
-          "status": "working",
-          "outcome": "working",
-          "http_status": 200,
-          "reason": "hls, segment ok (65536 bytes)",
-          "segment_ok": true,
-          "kind": "hls-media"
+          "status": "dead",
+          "outcome": "dropped_retired",
+          "http_status": 0,
+          "reason": "retired after a previous dead probe",
+          "segment_ok": null,
+          "kind": "retired",
+          "retired": true,
+          "sha256": "c9d4fa394a248b49c60c48b76e2d2d3978782841be4696b935c601e384eaf07f"
         }
       ]
     },
@@ -1443,18 +1458,20 @@
       "title": "Visby Roma vs. Vimmerby",
       "sport": "Sweden HockeyAllsvenskan",
       "entries": 1,
-      "working": 1,
-      "refused": false,
+      "working": 0,
+      "refused": true,
       "feeds": [
         {
           "name": "[Sweden HockeyAllsvenskan] Visby Roma vs Vimmerby (FAWA)",
           "url": "http://193.47.62.41/hls/TATATASSSS.m3u8",
-          "status": "working",
-          "outcome": "working",
-          "http_status": 200,
-          "reason": "hls, segment ok (28952 bytes)",
-          "segment_ok": true,
-          "kind": "hls-media"
+          "status": "dead",
+          "outcome": "dropped_retired",
+          "http_status": 0,
+          "reason": "retired after a previous dead probe",
+          "segment_ok": null,
+          "kind": "retired",
+          "retired": true,
+          "sha256": "ee0b97d2ece8c02dca43d69b37b1bc1026ede783e61f171929fc03c8fd39e807"
         }
       ]
     },
@@ -1644,45 +1661,58 @@
     "8d47b3b58bad5fcc7025c7b5d6043f74d52832651f245502003a485a01bd5b33",
     "9e5d784439a70ccf89a046ad4cc6d415fa4a0193e5ee00d8a64482391aab18fa",
     "a79bf49a385d858aae2aff1071ce016f166be4b6255ec8fe6a0171f4e8965f0b",
+    "c9d4fa394a248b49c60c48b76e2d2d3978782841be4696b935c601e384eaf07f",
     "d561f58935bd7ca1e9e920dfe43c6fa3fb52c330cac03e17459fa26398014683",
     "d5835c9014db09e57971652fbde09c58806b46d80209a3ef9d7f104830e09c83",
     "e2d5beeb1062cfc1befb88a6e298c60c4bc06b3de38f62b37cc68e1a815e9f76",
     "ed2836e8bdab8def418b50cb273acd1f34df4c239aa6386b5decdf4450098476",
+    "ee0b97d2ece8c02dca43d69b37b1bc1026ede783e61f171929fc03c8fd39e807",
     "fbee2cfb518e4864d2ef293b3639304f1953d37b01b718c45bb2cd009b569b78"
   ],
-  "playlist_entries": 18040,
+  "playlist_entries": 18038,
   "playlist": "/workspace/chats/68e1513c8cc010bb378725fd/playlists/PremiumTV.m3u",
   "applied": true,
   "derived": [
     {
       "file": "playlists/live/USA.m3u",
-      "removed": 17,
-      "entries": 3903
+      "removed": 2,
+      "entries": 3901
     },
     {
       "file": "playlists/countries/USA.m3u",
-      "removed": 17,
-      "entries": 3903
+      "removed": 2,
+      "entries": 3901
     },
     {
       "file": "playlists/categories/Sports.m3u",
-      "removed": 17,
-      "entries": 787
+      "removed": 2,
+      "entries": 785
     },
     {
       "file": "categories/USA.m3u",
-      "removed": 17,
-      "entries": 3903
+      "removed": 2,
+      "entries": 3901
     },
     {
       "file": "categories/USA/Sports.m3u",
-      "removed": 17,
-      "entries": 197
+      "removed": 2,
+      "entries": 195
     },
     {
       "file": "categories/All/Sports.m3u",
-      "removed": 17,
-      "entries": 787
+      "removed": 2,
+      "entries": 785
     }
-  ]
+  ],
+  "dropped_retired": 2,
+  "retired_event_url_sha256": [
+    "c9d4fa394a248b49c60c48b76e2d2d3978782841be4696b935c601e384eaf07f",
+    "ee0b97d2ece8c02dca43d69b37b1bc1026ede783e61f171929fc03c8fd39e807"
+  ],
+  "newly_retired_event_url_sha256": [],
+  "current_schedule_fixtures": 53,
+  "current_event_entries": 77,
+  "probe_rerun": false,
+  "report_refreshed_utc": "2026-11-27T21:17:06Z",
+  "refresh_note": "Applied the retired-event registry to the last gate result; no network probes were rerun and no published playlist was changed."
 }

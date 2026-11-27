@@ -1,6 +1,7 @@
 """Offline tests for the pre-publish live-event health gate."""
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -40,6 +41,22 @@ class RetiredEventUrlTest(unittest.TestCase):
         self.assertIn(
             "0ba38de7e0646f1b9c981a105f11b0ade75f22d6a991fb3ce6653ebf6a3fd48b",
             registry,
+        )
+
+    def test_gate_report_matches_the_current_policy_schedule(self):
+        report = json.loads((ROOT / "playlists/checks/live-event-gate.json").read_text())
+        schedule = json.loads((ROOT / "playlists/live-schedule.json").read_text())
+        fixtures = len(schedule.get("games") or [])
+        self.assertEqual(report["published_fixtures"], fixtures)
+        self.assertEqual(report["current_schedule_fixtures"], fixtures)
+        self.assertEqual(report["dropped_retired"], 2)
+        self.assertFalse(report["probe_rerun"])
+        self.assertEqual(
+            report["retired_event_url_sha256"],
+            [
+                "c9d4fa394a248b49c60c48b76e2d2d3978782841be4696b935c601e384eaf07f",
+                "ee0b97d2ece8c02dca43d69b37b1bc1026ede783e61f171929fc03c8fd39e807",
+            ],
         )
 
     def test_published_playlists_do_not_contain_retired_hashes(self):
