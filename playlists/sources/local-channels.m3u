@@ -22,6 +22,13 @@
 # signed address answered 200 with a full 720p ladder. The Local Now (Amagi)
 # address of the same Hearst asset (90f3abbf...) answered 200 on every probe
 # and is kept as the backup.
+# Re-checked 2026-11-27 after seven probe reports (issues #149-#155) claimed
+# the primary was down: the exact URL written below, Signature and Policy
+# included, answers 200 with a three-rung 720p ladder, and so does the Local
+# Now backup. Those probes had dropped the Signature/Policy parameters, and
+# the 504 is the signature check rejecting an unsigned request - not an outage.
+# Do not "fix" a 504 here by deleting the primary; a probe must send the whole
+# query string, exactly as published.
 # The scraper keeps one as the channel and the other as "NBC Backups", so a
 # player fails over to the door that answers; both feeds share the guide id, so
 # the schedule survives the hop. Local Now's stitcher returns HTTP 400 unless
