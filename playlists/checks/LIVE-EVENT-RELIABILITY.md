@@ -1,91 +1,107 @@
 # Live-event reliability audit
 
-- **Scrape snapshot:** 2026-11-27T23:02:10Z
-- **Scrape run:** `20261127T225510Z-3046` — health check completed
+- **Scrape snapshot:** 2026-11-28T00:53:04Z
+- **Scrape run:** `20261128T004518Z-3125` — health check completed
 - **Exact-URL evidence:** available
 - **Policy:** 3 confirmed, distinct feeds per fixture (two primaries + one dedicated backup), across at least 2 origin families
-- **Fixtures meeting policy:** 3/38
-- **Fixtures with a redundancy deficit:** 35
+- **Fixtures meeting policy:** 1/45
+- **Fixtures with a redundancy deficit:** 44
 
 > Duplicate URLs count once. Provider labels, origin families, and ingest source files are reported separately; a mirror of the same feed is never padded into another backup.
 
 | Fixture | Confirmed feeds | Primaries | Dedicated backup | Origins | Providers | Ingest sources | Result |
 |---|---:|---|---|---:|---|---|---|
-| Denver Broncos vs. Pittsburgh Steelers (American Football) | 2/2 | 2/2 | 0/1 | 2 | ISTRMEAST, STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Atlanta Hawks vs. Boston Celtics (Basketball) | 2/2 | 2/2 | 0/1 | 1 | SPRTSBITE | doms9, doms9-events | **DEFICIT** |
+| Brooklyn Nets vs. Toronto Raptors (Basketball) | 3/3 | 2/2 | 1/1 | 1 | SPRTSBITE | doms9, doms9-events | **DEFICIT** |
+| Miami Heat vs. New York Knicks (Basketball) | 3/3 | 2/2 | 1/1 | 1 | SPRTSBITE | doms9, doms9-events | **DEFICIT** |
+| Milwaukee Bucks vs. Detroit Pistons (Basketball) | 3/3 | 2/2 | 1/1 | 1 | SPRTSBITE | doms9, doms9-events | **DEFICIT** |
+| Philadelphia 76ers vs. Indiana Pacers (Basketball) | 3/3 | 2/2 | 1/1 | 1 | SPRTSBITE | doms9, doms9-events | **DEFICIT** |
+| Brazil vs. USA (Basketball World Cup) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9, doms9-events | **DEFICIT** |
 | Akron vs. Buffalo (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| Boston College vs. Cincinnati (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Florida State vs. Florida (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| East Tennessee vs. Charleston Southern (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| Georgia Bulldogs vs. UCF (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| Illinois vs. W. Kentucky (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| Indiana vs. Bowling Green (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
 | Iowa vs. Nebraska (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| Kansas vs. Villanova (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| La Salle vs. Bucknell (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Lafayette vs. Niagara (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Marquette vs. Texas A&M (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Maryland vs. Oregon (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Memphis vs. Temple (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Michigan vs. Kansas St (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Missouri vs. Arkansas-Pine (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| Memphis vs. Temple (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
 | New Mexico vs. Air Force (College Football) | 2/2 | 2/2 | 0/1 | 2 | FAWA, ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| North Carolina vs. West Virginia (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
 | Ohio vs. Toledo (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| Ole Miss vs. Mississippi St (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| San Jose St. vs. North Dakota State Bison (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| South Alabama vs. Appalachian St. (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| Pennsylvania vs. Towson (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
 | St Mary's vs. Texas (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| UTSA vs. Tulsa (College Football) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| Villanova Wildcats vs. LSU Tigers (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Virginia Tech vs. Old Dominion (College Football) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
-| Jamaica W vs. Costa Rica W (CONCACAF Championship Women) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
 | New Zealand vs. India (Cricket) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| Anaheim Ducks vs. Los Angeles Kings (NHL Hockey) | 3/3 | 2/2 | 1/1 | 3 | FAWA, ISTRMEAST, STRMGATE | doms9, doms9-events | **PASS** |
+| Brazil vs. USA (FIBA World Cup Qualification, Americas) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| Atlanta Hawks vs. Boston Celtics (NBA Basketball) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Brooklyn Nets vs. Toronto Raptors (NBA Basketball) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Miami Heat vs. New York Knicks (NBA Basketball) | 2/2 | 2/2 | 0/1 | 2 | ISTRMEAST, STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Milwaukee Bucks vs. Detroit Pistons (NBA Basketball) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Philadelphia 76ers vs. Indiana Pacers (NBA Basketball) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Anaheim Ducks vs. Los Angeles Kings (NHL Hockey) | 2/2 | 2/2 | 0/1 | 2 | FAWA, STRMGATE | doms9, doms9-events | **DEFICIT** |
 | Boston Bruins vs. Toronto Maple Leafs (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| Chicago Blackhawks vs. New York Rangers (NHL Hockey) | 2/2 | 2/2 | 0/1 | 2 | FAWA, STRMGATE | doms9, doms9-events | **DEFICIT** |
-| Colorado Avalanche vs. Minnesota Wild (NHL Hockey) | 3/3 | 2/2 | 1/1 | 3 | FAWA, ISTRMEAST, STRMGATE | doms9, doms9-events | **PASS** |
-| Dallas Stars vs. St. Louis Blues (NHL Hockey) | 2/2 | 2/2 | 0/1 | 2 | FAWA, STRMGATE | doms9, doms9-events | **DEFICIT** |
-| Detroit Red Wings vs. Columbus Blue Jackets (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
-| Florida Panthers vs. Washington Capitals (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Chicago Blackhawks vs. New York Rangers (NHL Hockey) | 3/3 | 2/2 | 1/1 | 3 | FAWA, ISTRMEAST, STRMGATE | doms9, doms9-events | **PASS** |
+| Colorado Avalanche vs. Minnesota Wild (NHL Hockey) | 2/2 | 2/2 | 0/1 | 2 | FAWA, STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Columbus Blue Jackets vs. Detroit Red Wings (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
 | Nashville Predators vs. Utah Mammoth (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
 | New Jersey Devils vs. Calgary Flames (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
-| Ottawa Senators vs. Tampa Bay Lightning (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
-| San Jose Sharks vs. Vegas Golden Knights (NHL Hockey) | 3/3 | 2/2 | 1/1 | 3 | FAWA, ISTRMEAST, STRMGATE | doms9, doms9-events | **PASS** |
-| Vancouver Canucks vs. Philadelphia Flyers (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
-| Jamaica vs. Costa Rica (Soccer) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
+| Philadelphia Flyers vs. Vancouver Canucks (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
+| Pittsburgh Penguins vs. Buffalo Sabres (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| San Jose Sharks vs. Vegas Golden Knights (NHL Hockey) | 2/2 | 2/2 | 0/1 | 2 | FAWA, STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Seattle Kraken vs. Edmonton Oilers (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Tampa Bay Lightning vs. Ottawa Senators (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
+| Washington Capitals vs. Florida Panthers (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
+| Winnipeg Jets vs. New York Islanders (NHL Hockey) | 1/1 | 1/2 | 0/1 | 1 | STRMGATE | doms9, doms9-events | **DEFICIT** |
+| Sp Luqueno vs. Olimpia Asuncion (Paraguay Copa de Primera) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
+| Columbus Crew vs. Inter Miami CF (Soccer) | 1/1 | 1/2 | 0/1 | 1 | SPRTSBITE | doms9, doms9-events | **DEFICIT** |
+| Dep Cali vs. Bucaramanga (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
+| Fluminense vs. Cruzeiro (Soccer) | 2/2 | 2/2 | 0/1 | 2 | FAWA | doms9, doms9-events | **DEFICIT** |
+| Independiente vs. Real Oruro (Soccer) | 1/1 | 1/2 | 0/1 | 1 | FAWA | doms9, doms9-events | **DEFICIT** |
 | USA vs. El Salvador (Soccer) | 1/1 | 1/2 | 0/1 | 1 | ISTRMEAST | doms9, doms9-events | **DEFICIT** |
 
 ## Deficits
 
-- **Denver Broncos vs. Pittsburgh Steelers** — needs 1 more confirmed dedicated backup feed(s).
+- **Atlanta Hawks vs. Boston Celtics** — needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Brooklyn Nets vs. Toronto Raptors** — needs 1 more independent origin family/families.
+- **Miami Heat vs. New York Knicks** — needs 1 more independent origin family/families.
+- **Milwaukee Bucks vs. Detroit Pistons** — needs 1 more independent origin family/families.
+- **Philadelphia 76ers vs. Indiana Pacers** — needs 1 more independent origin family/families.
+- **Brazil vs. USA** — needs 1 more confirmed dedicated backup feed(s).
 - **Akron vs. Buffalo** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Boston College vs. Cincinnati** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Florida State vs. Florida** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **East Tennessee vs. Charleston Southern** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Georgia Bulldogs vs. UCF** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Illinois vs. W. Kentucky** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Indiana vs. Bowling Green** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Iowa vs. Nebraska** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Kansas vs. Villanova** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **La Salle vs. Bucknell** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Lafayette vs. Niagara** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Marquette vs. Texas A&M** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Maryland vs. Oregon** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Memphis vs. Temple** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Michigan vs. Kansas St** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Missouri vs. Arkansas-Pine** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **New Mexico vs. Air Force** — needs 1 more confirmed dedicated backup feed(s).
+- **North Carolina vs. West Virginia** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Ohio vs. Toledo** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Ole Miss vs. Mississippi St** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **San Jose St. vs. North Dakota State Bison** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **South Alabama vs. Appalachian St.** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Pennsylvania vs. Towson** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **St Mary's vs. Texas** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **UTSA vs. Tulsa** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Villanova Wildcats vs. LSU Tigers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Virginia Tech vs. Old Dominion** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Jamaica W vs. Costa Rica W** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **New Zealand vs. India** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Brazil vs. USA** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Atlanta Hawks vs. Boston Celtics** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Brooklyn Nets vs. Toronto Raptors** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Miami Heat vs. New York Knicks** — needs 1 more confirmed dedicated backup feed(s).
+- **Milwaukee Bucks vs. Detroit Pistons** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Philadelphia 76ers vs. Indiana Pacers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Anaheim Ducks vs. Los Angeles Kings** — needs 1 more confirmed dedicated backup feed(s).
 - **Boston Bruins vs. Toronto Maple Leafs** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Chicago Blackhawks vs. New York Rangers** — needs 1 more confirmed dedicated backup feed(s).
-- **Dallas Stars vs. St. Louis Blues** — needs 1 more confirmed dedicated backup feed(s).
-- **Detroit Red Wings vs. Columbus Blue Jackets** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Florida Panthers vs. Washington Capitals** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Colorado Avalanche vs. Minnesota Wild** — needs 1 more confirmed dedicated backup feed(s).
+- **Columbus Blue Jackets vs. Detroit Red Wings** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **Nashville Predators vs. Utah Mammoth** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **New Jersey Devils vs. Calgary Flames** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Ottawa Senators vs. Tampa Bay Lightning** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Vancouver Canucks vs. Philadelphia Flyers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
-- **Jamaica vs. Costa Rica** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Philadelphia Flyers vs. Vancouver Canucks** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Pittsburgh Penguins vs. Buffalo Sabres** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **San Jose Sharks vs. Vegas Golden Knights** — needs 1 more confirmed dedicated backup feed(s).
+- **Seattle Kraken vs. Edmonton Oilers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Tampa Bay Lightning vs. Ottawa Senators** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Washington Capitals vs. Florida Panthers** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Winnipeg Jets vs. New York Islanders** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Sp Luqueno vs. Olimpia Asuncion** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Columbus Crew vs. Inter Miami CF** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Dep Cali vs. Bucaramanga** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
+- **Fluminense vs. Cruzeiro** — needs 1 more confirmed dedicated backup feed(s).
+- **Independiente vs. Real Oruro** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 - **USA vs. El Salvador** — needs 1 more confirmed primary feed(s); needs 1 more confirmed dedicated backup feed(s); needs 1 more independent origin family/families.
 
 ## Interpretation
